@@ -1,0 +1,4 @@
+{
+  "presets": ["react-app", "@lingui/babel-preset-react"],
+  "plugins": ["macros"]
+}

@@ -1,0 +1,744 @@
+[
+  {
+    "name": "Abha",
+    "code": "AHB",
+    "country": "SA",
+    "longtitude": "0423900E",
+    "latitude": "181400N"
+  },
+  {
+    "name": "Abu Dhabi",
+    "code": "AUH",
+    "country": "AE",
+    "longtitude": "0543900E",
+    "latitude": "242600N"
+  },
+  {
+    "name": "Adana",
+    "code": "ADA",
+    "country": "TR",
+    "longtitude": "0351651E",
+    "latitude": "365901N"
+  },
+  {
+    "name": "Amman",
+    "code": "AMM",
+    "country": "JO",
+    "longtitude": "0360000E",
+    "latitude": "314300N"
+  },
+  {
+    "name": "Amsterdam",
+    "code": "AMS",
+    "country": "NL",
+    "longtitude": "0044605E",
+    "latitude": "521830N"
+  },
+  {
+    "name": "Brussels",
+    "code": "BRU",
+    "country": "BE",
+    "longtitude": "0042904E",
+    "latitude": "505405N"
+  },
+  {
+    "name": "Antakya",
+    "code": "HTY",
+    "country": "TR",
+    "longtitude": "0360935E",
+    "latitude": "363430N"
+  },
+  {
+    "name": "Antalya",
+    "code": "AYT",
+    "country": "TR",
+    "longtitude": "0304726E",
+    "latitude": "365420N"
+  },
+  {
+    "name": "Paris",
+    "code": "CDG",
+    "country": "FR",
+    "longtitude": "",
+    "latitude": ""
+  },
+  {
+    "name": "Bahrain",
+    "code": "BAH",
+    "country": "BH",
+    "longtitude": "0503815E",
+    "latitude": "261615N"
+  },
+  {
+    "name": "Cairo",
+    "code": "CAI",
+    "country": "EG",
+    "longtitude": "0312425E",
+    "latitude": "300815N"
+  },
+  {
+    "name": "Casablanca",
+    "code": "CMN",
+    "country": "MA",
+    "longtitude": "0073512W",
+    "latitude": "332200N"
+  },
+  {
+    "name": "Dammam",
+    "code": "DMM",
+    "country": "SA",
+    "longtitude": "0494800E",
+    "latitude": "262800N"
+  },
+  {
+    "name": "Dubai International  Airport",
+    "code": "DXB",
+    "country": "AE",
+    "longtitude": "0552128E",
+    "latitude": "251500N"
+  },
+  {
+    "name": "Ankara",
+    "code": "ESB",
+    "country": "TR",
+    "longtitude": "0330000E",
+    "latitude": "400800N"
+  },
+  {
+    "name": "Geneva",
+    "code": "GVA",
+    "country": "CH",
+    "longtitude": "0060632E",
+    "latitude": "461417N"
+  },
+  {
+    "name": "Gizan",
+    "code": "GIZ",
+    "country": "SA",
+    "longtitude": "0423500E",
+    "latitude": "165200N"
+  },
+  {
+    "name": "Hail",
+    "code": "HAS",
+    "country": "SA",
+    "longtitude": "0412300E",
+    "latitude": "273300N"
+  },
+  {
+    "name": "Islamabad",
+    "code": "ISB",
+    "country": "PK",
+    "longtitude": "0730615E",
+    "latitude": "333650N"
+  },
+  {
+    "name": "Istanbul Sabiha",
+    "code": "SAW",
+    "country": "TR",
+    "longtitude": "0291833E",
+    "latitude": "405358N"
+  },
+  {
+    "name": "Jeddah",
+    "code": "JED",
+    "country": "SA",
+    "longtitude": "0390900E",
+    "latitude": "214100N"
+  },
+  {
+    "name": "Jakarta",
+    "code": "CGK",
+    "country": "ID",
+    "longtitude": "1063900E",
+    "latitude": "060700S"
+  },
+  {
+    "name": "Karachi",
+    "code": "KHI",
+    "country": "PK",
+    "longtitude": "0670925E",
+    "latitude": "245420N"
+  },
+  {
+    "name": "Khartoum",
+    "code": "KRT",
+    "country": "SD",
+    "longtitude": "0323322E",
+    "latitude": "153558N"
+  },
+  {
+    "name": "Kuala Lumpur",
+    "code": "KUL",
+    "country": "MY",
+    "longtitude": "1014136E",
+    "latitude": "024436N"
+  },
+  {
+    "name": "Kuwait",
+    "code": "KWI",
+    "country": "KW",
+    "longtitude": "0475831E",
+    "latitude": "291349N"
+  },
+  {
+    "name": "Lahore",
+    "code": "LHE",
+    "country": "PK",
+    "longtitude": "0742410E",
+    "latitude": "313115N"
+  },
+  {
+    "name": "London Heathrow",
+    "code": "LHR",
+    "country": "GB",
+    "longtitude": "0002710W",
+    "latitude": "512817N"
+  },
+  {
+    "name": "Madinah",
+    "code": "MED",
+    "country": "SA",
+    "longtitude": "0394316E",
+    "latitude": "243242N"
+  },
+  {
+    "name": "Manchester",
+    "code": "MAN",
+    "country": "GB",
+    "longtitude": "0021636W",
+    "latitude": "532112N"
+  },
+  {
+    "name": "Qassim",
+    "code": "ELQ",
+    "country": "SA",
+    "longtitude": "0434615E",
+    "latitude": "261812N"
+  },
+  {
+    "name": "Riyadh",
+    "code": "RUH",
+    "country": "SA",
+    "longtitude": "0464200E",
+    "latitude": "245800N"
+  },
+  {
+    "name": "Sao Paulo",
+    "code": "GRU",
+    "country": "BR",
+    "longtitude": "0462900W",
+    "latitude": "232600S"
+  },
+  {
+    "name": "Seychelles",
+    "code": "SEZ",
+    "country": "SC",
+    "longtitude": "0553121E",
+    "latitude": "044020S"
+  },
+  {
+    "name": "Sharm el Sheikh",
+    "code": "SSH",
+    "country": "EG",
+    "longtitude": "0341600E",
+    "latitude": "275100N"
+  },
+  {
+    "name": "Singapore",
+    "code": "SIN",
+    "country": "SG",
+    "longtitude": "1035438E",
+    "latitude": "012129N"
+  },
+  {
+    "name": "Sohag",
+    "code": "HMB",
+    "country": "EG",
+    "longtitude": "0314434E",
+    "latitude": "262034N"
+  },
+  {
+    "name": "Tabuk",
+    "code": "TUU",
+    "country": "SA",
+    "longtitude": "0363731E",
+    "latitude": "282220N"
+  },
+  {
+    "name": "Taif",
+    "code": "TIF",
+    "country": "SA",
+    "longtitude": "0403236E",
+    "latitude": "212918N"
+  },
+  {
+    "name": "Trabzon",
+    "code": "TZX",
+    "country": "TR",
+    "longtitude": "0394635E",
+    "latitude": "405955N"
+  },
+  {
+    "name": "Yanbu",
+    "code": "YNB",
+    "country": "SA",
+    "longtitude": "0380400E",
+    "latitude": "240700N"
+  },
+  {
+    "name": "Zurich",
+    "code": "ZRH",
+    "country": "CH",
+    "longtitude": "0083306E",
+    "latitude": "472730N"
+  },
+  {
+    "name": "Al Baha",
+    "code": "ABT",
+    "country": "SA",
+    "longtitude": "0413800E",
+    "latitude": "201708N"
+  },
+  {
+    "name": "Izmir",
+    "code": "ADB",
+    "country": "TR",
+    "longtitude": "0270900E",
+    "latitude": "381700N"
+  },
+  {
+    "name": "Al Jouf",
+    "code": "AJF",
+    "country": "SA",
+    "longtitude": "0401200E",
+    "latitude": "295900N"
+  },
+  {
+    "name": "Algiers",
+    "code": "ALG",
+    "country": "DZ",
+    "longtitude": "0031302E",
+    "latitude": "364136N"
+  },
+  {
+    "name": "AlQaisumah",
+    "code": "AQI",
+    "country": "SA",
+    "longtitude": "0460750E",
+    "latitude": "281941N"
+  },
+  {
+    "name": "Asmara",
+    "code": "ASM",
+    "country": "ER",
+    "longtitude": "0385437E",
+    "latitude": "151728N"
+  },
+  {
+    "name": "Athens",
+    "code": "ATH",
+    "country": "GR",
+    "longtitude": "0235640E",
+    "latitude": "375611N"
+  },
+  {
+    "name": "Barcelona Airport",
+    "code": "BCN",
+    "country": "ES",
+    "longtitude": "0020442E",
+    "latitude": "411749N"
+  },
+  {
+    "name": "Beirut",
+    "code": "BEY",
+    "country": "LB",
+    "longtitude": "0352925E",
+    "latitude": "334846N"
+  },
+  {
+    "name": "Baghdad",
+    "code": "BGW",
+    "country": "IQ",
+    "longtitude": "0443000E",
+    "latitude": "331600N"
+  },
+  {
+    "name": "Bisha",
+    "code": "BHH",
+    "country": "SA",
+    "longtitude": "0423730E",
+    "latitude": "195910N"
+  },
+  {
+    "name": "Bhopal Airport",
+    "code": "BHO",
+    "country": "IN",
+    "longtitude": "0772019E",
+    "latitude": "231705N"
+  },
+  {
+    "name": "Milas Airport",
+    "code": "BJV",
+    "country": "TR",
+    "longtitude": "0274100E",
+    "latitude": "371500N"
+  },
+  {
+    "name": "Bengaluru",
+    "code": "BLR",
+    "country": "IN",
+    "longtitude": "0774005E",
+    "latitude": "125659N"
+  },
+  {
+    "name": "Mumbai",
+    "code": "BOM",
+    "country": "IN",
+    "longtitude": "0725106E",
+    "latitude": "190517N"
+  },
+  {
+    "name": "Ferihegy Airport",
+    "code": "BUD",
+    "country": "HU",
+    "longtitude": "0191400E",
+    "latitude": "472600N"
+  },
+  {
+    "name": "Batumi Airport",
+    "code": "BUS",
+    "country": "GE",
+    "longtitude": "0413602E",
+    "latitude": "413639N"
+  },
+  {
+    "name": "Calicut",
+    "code": "CCJ",
+    "country": "IN",
+    "longtitude": "0755700E",
+    "latitude": "110800N"
+  },
+  {
+    "name": "Cochin",
+    "code": "COK",
+    "country": "IN",
+    "longtitude": "0761619E",
+    "latitude": "095640N"
+  },
+  {
+    "name": "Ain El Bey Airport",
+    "code": "CZL",
+    "country": "DZ",
+    "longtitude": "0063748E",
+    "latitude": "361637N"
+  },
+  {
+    "name": "New Delhi",
+    "code": "DEL",
+    "country": "IN",
+    "longtitude": "0770603E",
+    "latitude": "283425N"
+  },
+  {
+    "name": "Dubai Al Maktoum International",
+    "code": "DWC",
+    "country": "AE",
+    "longtitude": "0551031E",
+    "latitude": "245505N"
+  },
+  {
+    "name": "Entebbe",
+    "code": "EBB",
+    "country": "UG",
+    "longtitude": "0322617E",
+    "latitude": "000233N"
+  },
+  {
+    "name": "Erbil",
+    "code": "EBL",
+    "country": "IQ",
+    "longtitude": "0435800E",
+    "latitude": "361400N"
+  },
+  {
+    "name": "Edinburgh",
+    "code": "EDI",
+    "country": "GB",
+    "longtitude": "0032101W",
+    "latitude": "555655N"
+  },
+  {
+    "name": "Rome",
+    "code": "FCO",
+    "country": "IT",
+    "longtitude": "0121420E",
+    "latitude": "414801N"
+  },
+  {
+    "name": "Frankfurt",
+    "code": "FRA",
+    "country": "DE",
+    "longtitude": "0083414E",
+    "latitude": "500220N"
+  },
+  {
+    "name": "Baku",
+    "code": "GYD",
+    "country": "AZ",
+    "longtitude": "0495900E",
+    "latitude": "403000N"
+  },
+  {
+    "name": "Gaziantep",
+    "code": "GZT",
+    "country": "TR",
+    "longtitude": "0372000E",
+    "latitude": "370400N"
+  },
+  {
+    "name": "Hong Kong",
+    "code": "HKG",
+    "country": "HK",
+    "longtitude": "1135500E",
+    "latitude": "221900N"
+  },
+  {
+    "name": "Alahsa ",
+    "code": "HOF",
+    "country": "SA",
+    "longtitude": "0495000E",
+    "latitude": "253000N"
+  },
+  {
+    "name": "Hyderabad",
+    "code": "HYD",
+    "country": "IN",
+    "longtitude": "0782349E",
+    "latitude": "171537N"
+  },
+  {
+    "name": "Seoul",
+    "code": "ICN",
+    "country": "KR",
+    "longtitude": "1262230E",
+    "latitude": "372530N"
+  },
+  {
+    "name": "Istanbul Ataturk",
+    "code": "IST",
+    "country": "TR",
+    "longtitude": "0284855E",
+    "latitude": "405836N"
+  },
+  {
+    "name": "Bajpe Airport",
+    "code": "IXE",
+    "country": "IN",
+    "longtitude": "0745338E",
+    "latitude": "125750N"
+  },
+  {
+    "name": "Ambouli Airport",
+    "code": "JIB",
+    "country": "DJ",
+    "longtitude": "0430932E",
+    "latitude": "113248N"
+  },
+  {
+    "name": "Kano",
+    "code": "KAN",
+    "country": "NG",
+    "longtitude": "0083126E",
+    "latitude": "120247N"
+  },
+  {
+    "name": "Larnaca",
+    "code": "LCA",
+    "country": "CY",
+    "longtitude": "0333729E",
+    "latitude": "345230N"
+  },
+  {
+    "name": "Lucknow",
+    "code": "LKO",
+    "country": "IN",
+    "longtitude": "0805249E",
+    "latitude": "264537N"
+  },
+  {
+    "name": "Chennai",
+    "code": "MAA",
+    "country": "IN",
+    "longtitude": "0801037E",
+    "latitude": "125936N"
+  },
+  {
+    "name": "Madrid",
+    "code": "MAD",
+    "country": "ES",
+    "longtitude": "0033348W",
+    "latitude": "402820N"
+  },
+  {
+    "name": "Muscat",
+    "code": "MCT",
+    "country": "OM",
+    "longtitude": "0581645E",
+    "latitude": "233530N"
+  },
+  {
+    "name": "Male",
+    "code": "MLE",
+    "country": "MV",
+    "longtitude": "0733128E",
+    "latitude": "041205N"
+  },
+  {
+    "name": "Manila",
+    "code": "MNL",
+    "country": "PH",
+    "longtitude": "1210106E",
+    "latitude": "143036N"
+  },
+  {
+    "name": "Munich",
+    "code": "MUC",
+    "country": "DE",
+    "longtitude": "0114710E",
+    "latitude": "482114N"
+  },
+  {
+    "name": "Milan",
+    "code": "MXP",
+    "country": "IT",
+    "longtitude": "0084300E",
+    "latitude": "453800N"
+  },
+  {
+    "name": "Jomo Kenyatta International Airport",
+    "code": "NBO",
+    "country": "KE",
+    "longtitude": "0365551E",
+    "latitude": "011900S"
+  },
+  {
+    "name": "Nukus Airport",
+    "code": "NCU",
+    "country": "UZ",
+    "longtitude": "0593800E",
+    "latitude": "422900N"
+  },
+  {
+    "name": "North Djamena",
+    "code": "NDJ",
+    "country": "TD",
+    "longtitude": "0150210E",
+    "latitude": "120806N"
+  },
+  {
+    "name": "Neom",
+    "code": "NUM",
+    "country": "SA",
+    "longtitude": "",
+    "latitude": ""
+  },
+  {
+    "name": "Ordu Giresun",
+    "code": "OGU",
+    "country": "TR",
+    "longtitude": "0380400E",
+    "latitude": "405800N"
+  },
+  {
+    "name": "Es Senia Airport",
+    "code": "ORN",
+    "country": "DZ",
+    "longtitude": "0003638W",
+    "latitude": "353740N"
+  },
+  {
+    "name": "Arar",
+    "code": "RAE",
+    "country": "SA",
+    "longtitude": "0410800E",
+    "latitude": "305400N"
+  },
+  {
+    "name": "Ra\u0027sal-Khaymah Airport",
+    "code": "RKT",
+    "country": "AE",
+    "longtitude": "0560000E",
+    "latitude": "254500N"
+  },
+  {
+    "name": "Ho Chi Minh City",
+    "code": "SGN",
+    "country": "VN",
+    "longtitude": "1063928E",
+    "latitude": "104902N"
+  },
+  {
+    "name": "Sharurah",
+    "code": "SHW",
+    "country": "SA",
+    "longtitude": "0470600E",
+    "latitude": "172500N"
+  },
+  {
+    "name": "Sarajevo",
+    "code": "SJJ",
+    "country": "BA",
+    "longtitude": "0182017E",
+    "latitude": "434908N"
+  },
+  {
+    "name": "Surabaya",
+    "code": "SUB",
+    "country": "ID",
+    "longtitude": "1124315E",
+    "latitude": "071305S"
+  },
+  {
+    "name": "W. A. Mozart Airport",
+    "code": "SZG",
+    "country": "AT",
+    "longtitude": "0130020E",
+    "latitude": "474735N"
+  },
+  {
+    "name": "Tbilisi",
+    "code": "TBS",
+    "country": "GE",
+    "longtitude": "0445700E",
+    "latitude": "414000N"
+  },
+  {
+    "name": "Tunis",
+    "code": "TUN",
+    "country": "TN",
+    "longtitude": "0101346E",
+    "latitude": "365109N"
+  },
+  {
+    "name": "Gurayat",
+    "code": "URY",
+    "country": "SA",
+    "longtitude": "0372000E",
+    "latitude": "312000N"
+  },
+  {
+    "name": "Vienna",
+    "code": "VIE",
+    "country": "AT",
+    "longtitude": "0163330E",
+    "latitude": "480640N"
+  },
+  {
+    "name": "Wadi Aldawasir",
+    "code": "WAE",
+    "country": "SA",
+    "longtitude": "0451000E",
+    "latitude": "203000N"
+  }
+]
