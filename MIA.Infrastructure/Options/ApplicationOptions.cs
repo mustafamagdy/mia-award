@@ -35,11 +35,7 @@ namespace MIA.Infrastructure.Options {
     public JwtOptions Jwt { get; set; }
 
     [Required]
-    public GDSOptions GDSOptions { get; set; }
-    [Required]
     public PaymentGatewayOptions PaymentGatewayOptions { get; set; }
-    [Required]
-    public NavitaireOptions NavitaireOptions { get; set; }
      [Required]
     public UploadLimits UploadLimits { get; set; }
     
