@@ -3,7 +3,6 @@ import "./style.scss";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import PaymentActions from "store/etc/actions";
 
 class PaymentForm extends React.Component {
   fetchJsFromCDN = src =>
@@ -298,7 +297,8 @@ class PaymentForm extends React.Component {
 
   onCardTokenized = event => {
     const { token } = event;
-    this.props.payAndComplete({ cardToken: token });
+    console.log("done => ", token);
+    // this.props.payAndComplete({ cardToken: token });
     // var el = document.querySelector(".success-payment-message");
     // el.innerHTML = "Card tokenization completed<br>" + 'Your card token is: <span className="token">' + token + "</span>";
   };
@@ -322,6 +322,12 @@ class PaymentForm extends React.Component {
 }
 
 const mapStateToProps = state => ({});
-const mapDispatchToProps = dispatch => bindActionCreators({ ...PaymentActions }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      // ...PaymentActions
+    },
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(PaymentForm);

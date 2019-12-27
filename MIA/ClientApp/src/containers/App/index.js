@@ -28,7 +28,8 @@ import CheckYourEmail from "containers/User/CheckYourEmail";
 import ResetPasswordByEmail from "containers/User/ResetPasswordByEmail";
 import ScrollToTop from "./ScrollToTop";
 
-import AboutUs from "../AboutUs";
+import AboutUs from "../Pages/AboutUs";
+import ContactUs from "../Pages/ContactUs";
 
 import SignIn from "../User/SignIn";
 import Signup from "../User/Signup";
@@ -36,6 +37,16 @@ import { UserContext } from "../Providers/UserProvider";
 import CookieGDPR from "./CookieGDPR";
 
 import LoadingScreen from "./Loading";
+import Awards from "../Pages/Awards";
+import Events from "../Pages/Events";
+import MediaBrowser from "../Media";
+import Booths from "../Booths";
+import BuyBooth from "../Booths/BuyBooth";
+import Members from "../Members";
+import CompleteProfile from "../Members/CompleteProfile";
+import PaymentForm from "../Payment/PaymentForm";
+import UploadMedia from "../Members/UploadMedia";
+import MyDashboard from "../Members/MyDashboard";
 
 history.listen((location, action) => {
   //todo: use this for query string sync
@@ -43,9 +54,7 @@ history.listen((location, action) => {
 });
 
 class App extends React.Component {
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   render = () => {
     return (
@@ -56,13 +65,33 @@ class App extends React.Component {
               <ConnectedRouter history={history}>
                 <Layout>
                   <Switch>
+                    {/* General website */}
                     <Route exact path="/" component={Home} />
                     <Route path="/aboutus" component={AboutUs} />
+                    <Route path="/events" component={Events} />
+                    <Route path="/awards" component={Awards} />
+                    <Route path="/contact-us" component={ContactUs} />
+
+                    {/* browse media */}
+                    <Route path="/media" component={MediaBrowser} />
+
+                    {/* Account management */}
+                    <Route exact path="/account" component={Profile} />
                     <Route path="/account/checkYourEmail" component={CheckYourEmail} />
                     <Route path="/account/profile" component={Profile} />
-                    <Route exact path="/account" component={Profile} />
                     <Route path="/account/confirm" component={ConfirmEmail} />
                     <Route path="/account/resetPassword" component={ResetPasswordByEmail} />
+
+                    {/* booths */}
+                    <Route path="/booth" component={Booths} />
+                    <Route path="/booth-buy" component={BuyBooth} />
+
+                    {/* Member section */}
+                    <Route path="/members" component={Members} />
+                    <Route path="/complete-profile" component={CompleteProfile} />
+                    <Route path="/pay" component={PaymentForm} />
+                    <Route path="/dashboard" component={MyDashboard} />
+                    <Route path="/upload-media" component={UploadMedia} />
 
                     <Redirect from="*" to="/" />
                   </Switch>
@@ -145,7 +174,6 @@ try {
   } else {
     store.dispatch(appActions.changeLocale(localStorage.culture));
   }
-
 } catch (error) {
   console.log("Startup error @App ", error);
 }
