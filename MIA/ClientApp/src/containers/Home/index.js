@@ -6,20 +6,19 @@ import globalActions from "store/app/actions";
 class Home extends React.Component {
   componentDidMount() {
     if (window.location.href == "/") {
-      debugger
+      debugger;
       this.props.clearIsLoading();
     }
   }
 
   render() {
     return (
-      <div className="section catalog">
-        <div className="catalog-top">
-          <div className="catalog-top__wrap">
-            <div className="container catalog-top__info">
-            </div>
-          </div>
-        </div>
+      <div>
+        <ul>
+          <li>
+            <a href="/aboutus"> about us</a>
+          </li>
+        </ul>
       </div>
     );
   }
