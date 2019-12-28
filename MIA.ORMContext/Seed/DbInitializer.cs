@@ -92,12 +92,14 @@ namespace MIA.ORMContext.Seed
 
         private static async Task LoadCategorires(IAppUnitOfWork db)
         {
+            List<Category> categorires = db.Categories.ToList();
+            if (categorires.Any())
+                return; 
             var filename = "categories_all.json";
             if (File.Exists("./" + filename))
             {
                 using (StreamReader r = new StreamReader(filename))
                 {
-                    List<Category> countries = db.Categories.ToList();
                     var newCategories = new List<Category>();
                     string json = r.ReadToEnd();
                     var listCountries = JsonConvert.DeserializeObject<List<Category>>(json);
@@ -105,7 +107,7 @@ namespace MIA.ORMContext.Seed
 
                     foreach (var c in listCountries)
                     {
-                        var country = countries.FirstOrDefault(a => a.Title == c.Title);
+                        var country = categorires.FirstOrDefault(a => a.Title == c.Title);
                         if (country != null) continue;
                         newCategories.Add(c);
                     }
