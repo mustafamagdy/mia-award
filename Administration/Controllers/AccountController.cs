@@ -26,17 +26,7 @@ namespace Administration.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([FromForm] LoginRequest loginData)
-        {
-            /*  AppUser user = await _userManager.FindByNameAsync("adminUser");
-              if (user == null)
-              {
-                  user = new AppUser();
-                  user.UserName = "adminUser";
-                  user.Email = "adminUser@gmail.com";
-                  user.FirstName = "Muhammad";
-                  user.LastName = "Abdo";
-              }
-               await _userManager.CreateAsync(user, "MIA_123456789"); */
+        { 
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(loginData.UserName, loginData.Password, false, false);
