@@ -28,7 +28,7 @@ namespace MIA.ORMContext.Seed
 
             await SeedAdminRoleAndPermissions(roleManager, db);
             await SeedAdminUserAsync(userManager);
-            await LoadCategorires(db);
+            await SeedCategoriesAsync(db);
             await db.CommitTransactionAsync();
         }
 
@@ -90,7 +90,7 @@ namespace MIA.ORMContext.Seed
             }
         }
 
-        private static async Task LoadCategorires(IAppUnitOfWork db)
+        private static async Task SeedCategoriesAsync(IAppUnitOfWork db)
         {
             List<Category> categorires = db.Categories.ToList();
             if (categorires.Any())

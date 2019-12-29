@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Administration.Models;
 using MIA.ORMContext.Uow;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Administration.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public IActionResult Index([FromServices] IAppUnitOfWork db)
-        {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Login", "Account");
-            }
+        { 
             return View();
         }
 
