@@ -48,6 +48,8 @@ import PaymentForm from "../Payment/PaymentForm";
 import UploadMedia from "../Members/UploadMedia";
 import MyDashboard from "../Members/MyDashboard";
 
+import TestUpload from "../Test/Upload";
+
 history.listen((location, action) => {
   //todo: use this for query string sync
   // console.log("route changed ", location, action);
@@ -66,6 +68,8 @@ class App extends React.Component {
                 <Layout>
                   <Switch>
                     {/* General website */}
+                    <Route path="test" component={TestUpload} />
+
                     <Route exact path="/" component={Home} />
                     <Route path="/aboutus" component={AboutUs} />
                     <Route path="/events" component={Events} />
