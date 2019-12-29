@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 namespace MIA.Models.Entities {
   public class AppUser : IdentityUser<string> {
     public string FirstName { get; set; }
@@ -14,6 +10,5 @@ namespace MIA.Models.Entities {
     public string FullName { get; private set; }
 
     public UserImage AvatarImage { get; set; }
-
   }
 }
