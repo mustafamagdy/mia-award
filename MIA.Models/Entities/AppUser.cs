@@ -15,5 +15,5 @@ namespace MIA.Models.Entities {
 
     public UserImage AvatarImage { get; set; }
 
-  }
+  } 
 }

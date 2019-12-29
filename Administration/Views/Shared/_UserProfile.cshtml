@@ -16,7 +16,12 @@
     <li>
         <a href="#"><span class="adminpro-icon adminpro-settings author-log-ic"></span>Settings</a>
     </li>
-    <li>
-        <a href="#"><span class="adminpro-icon adminpro-locked author-log-ic"></span>Log Out</a>
-    </li>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li>
+            <a asp-controller="Account" asp-action="Logout"> <span class="adminpro-icon adminpro-locked author-log-ic"></span> Logout</a>
+            @*<a href="#"><span class="adminpro-icon adminpro-locked author-log-ic"></span>Log Out</a>*@
+        </li>
+    }
+
 </ul>
