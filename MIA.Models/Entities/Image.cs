@@ -6,8 +6,7 @@ namespace MIA.Models.Entities
     /// Foreign key id for the referenced enityt, as this is a base class for all images
     /// </summary>
     public string RefId { get; set; }
-    public string Imageurl => $"/r/{Id}";//?s=full
-    public string ThumbnailUrl => $"/r/{Id}";//?s=thumb
+    public string Imageurl => $"/r/{Id}";//?w={100}&h={200}&mode=stretch
   }
 
 }
