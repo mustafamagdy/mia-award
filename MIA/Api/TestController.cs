@@ -52,6 +52,8 @@ namespace MIA.Api {
         .ProjectTo<UserDetailsDto>(_mapper.ConfigurationProvider)
         .ToPagedList(2, 5)
       );
+
+            
     }
 
     /// <summary>

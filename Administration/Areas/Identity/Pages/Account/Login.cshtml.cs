@@ -35,8 +35,8 @@ namespace Administration.Areas.Identity.Pages.Account {
 
     public class InputModel {
       [Required]
-      [EmailAddress]
-      public string Email { get; set; }
+      //[UserNameAddress]
+      public string UserName { get; set; }
 
       [Required]
       [DataType(DataType.Password)]
@@ -66,12 +66,12 @@ namespace Administration.Areas.Identity.Pages.Account {
 
       if (ModelState.IsValid) {
 
-        var user = await _userManager.FindByEmailAsync(Input.Email);
-        if (user == null) {
-          _logger.LogWarning("user is found.");
-          ModelState.AddModelError(string.Empty, "User is not found.");
-          return Page();
-        }
+        //var user = await _userManager.FindByUserNameAsync(Input.UserName);
+        //if (user == null) {
+        //  _logger.LogWarning("user is found.");
+        //  ModelState.AddModelError(string.Empty, "User is not found.");
+        //  return Page();
+        //}
 
         //if (!user.Enabled) {
         //  _logger.LogWarning("user is not allowed yet.");
@@ -81,7 +81,8 @@ namespace Administration.Areas.Identity.Pages.Account {
 
         // This doesn't count login failures towards account lockout
         // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-        var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+        var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password,
+            false, false);
         if (result.Succeeded) {
           _logger.LogInformation("User logged in.");
           return LocalRedirect(returnUrl);

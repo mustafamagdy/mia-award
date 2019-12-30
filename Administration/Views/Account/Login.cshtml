@@ -1,16 +1,16 @@
-﻿@page
-@model LoginModel
-
-@{
-    ViewData["Title"] = "Log in";
-}
+﻿@model Administration.Models.LoginRequest
 
 <!-- login Start-->
 <div class="login-form-area mg-t-30 mg-b-40">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4"></div>
-            <form id="account" method="post" class="adminpro-form">
+            @*<form id="adminpro-form" class="adminpro-form">*@
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @*@Html.ValidationSummary(true)*@
+
                 <div class="col-lg-4">
                     <div class="login-bg">
                         <div class="row">
@@ -29,21 +29,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div asp-validation-summary="All" class="text-danger"></div>
 
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="login-input-head">
-                                    <p>UserName</p>
+                                    <p>E-mail</p>
                                 </div>
                             </div>
                             <div class="col-lg-8">
                                 <div class="login-input-area">
+                                    @*<input type="email" name="email" />*@
+                                    @Html.TextBoxFor(a => a.UserName)
                                     <i class="fa fa-envelope login-user" aria-hidden="true"></i>
-                                    <input asp-for="Input.UserName" class="form-control" />
-                                    <span asp-validation-for="Input.UserName" class="text-danger"></span>
 
-                                    @*<input type="UserName" name="UserName" />*@
+                                    @Html.ValidationMessageFor(a => a.UserName)
                                 </div>
                             </div>
                         </div>
@@ -55,52 +54,52 @@
                             </div>
                             <div class="col-lg-8">
                                 <div class="login-input-area">
+                                    @*<input type="password" name="password" />*@
+                                    @Html.PasswordFor(a => a.Password)
+
                                     <i class="fa fa-lock login-user"></i>
-                                    <input asp-for="Input.Password" class="form-control" />
-                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    @Html.ValidationMessageFor(a => a.Password)
 
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="forgot-password">
-                                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                                            <a href="#">Forgot password?</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="login-keep-me">
-                                            <div class="checkbox">
-                                                <label asp-for="Input.RememberMe">
-                                                    <input asp-for="Input.RememberMe" />
-                                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                @*<div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="login-keep-me">
+                                                <label class="checkbox">
+                                                    <input type="checkbox" name="remember" checked><i></i>Keep me logged in
                                                 </label>
                                             </div>
-
                                         </div>
-                                    </div>
-                                </div>
+                                    </div>*@
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-4">
-
+                        @if (@ViewBag.Result != null)
+                        {
+                            <div>
+                                @ViewBag.Result
                             </div>
+                        }
+                        <div class="row">
                             <div class="col-lg-8">
                                 <div class="login-button-pro">
-                                    <button type="submit" class="btn btn-primary">Log in</button>
-
+                                    <button type="submit" class="login-button login-button-lg">Log in</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+
+            }
+
+            @*</form>*@
             <div class="col-lg-4"></div>
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+<!-- login End-->
