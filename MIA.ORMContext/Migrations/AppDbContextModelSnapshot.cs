@@ -140,6 +140,8 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("NomineeId");
 
+                    b.Property<string>("PaymentId");
+
                     b.Property<bool>("UploadComplete");
 
                     b.HasKey("Id");
@@ -160,15 +162,15 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("ArtWorkId");
 
-                    b.Property<string>("NomineeId");
-
                     b.Property<long>("PaymentDate");
 
                     b.Property<string>("TransactionNumber");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NomineeId");
+                    b.HasIndex("ArtWorkId")
+                        .IsUnique()
+                        .HasFilter("[ArtWorkId] IS NOT NULL");
 
                     b.ToTable("ArtWorkPayments");
                 });
@@ -180,8 +182,6 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("JudgeAwardId");
-
                     b.Property<string>("ManagerId");
 
                     b.Property<string>("Title");
@@ -189,8 +189,6 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("TrophyId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("JudgeAwardId");
 
                     b.HasIndex("ManagerId");
 
@@ -294,7 +292,15 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("AwardId");
+
+                    b.Property<string>("JudgeId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AwardId");
+
+                    b.HasIndex("JudgeId");
 
                     b.ToTable("JudgeAwards");
                 });
@@ -570,10 +576,6 @@ namespace MIA.ORMContext.Migrations
                 {
                     b.HasBaseType("MIA.Models.Entities.AppUser");
 
-                    b.Property<string>("JudgeAwardId");
-
-                    b.HasIndex("JudgeAwardId");
-
                     b.HasDiscriminator().HasValue("Judge");
                 });
 
@@ -616,20 +618,12 @@ namespace MIA.ORMContext.Migrations
             modelBuilder.Entity("MIA.Models.Entities.ArtWorkPayment", b =>
                 {
                     b.HasOne("MIA.Models.Entities.ArtWork", "ArtWork")
-                        .WithMany("Payments")
-                        .HasForeignKey("NomineeId");
-
-                    b.HasOne("MIA.Models.Entities.Nominee", "Nominee")
-                        .WithMany("Payments")
-                        .HasForeignKey("NomineeId");
+                        .WithOne("Payment")
+                        .HasForeignKey("MIA.Models.Entities.ArtWorkPayment", "ArtWorkId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Award", b =>
                 {
-                    b.HasOne("MIA.Models.Entities.JudgeAward", "JudgeAward")
-                        .WithMany("Awards")
-                        .HasForeignKey("JudgeAwardId");
-
                     b.HasOne("MIA.Models.Entities.Judge", "Manager")
                         .WithMany()
                         .HasForeignKey("ManagerId");
@@ -655,6 +649,17 @@ namespace MIA.ORMContext.Migrations
                     b.HasOne("MIA.Models.Entities.PhotoAlbum")
                         .WithMany("Images")
                         .HasForeignKey("PhotoAlbumId");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.JudgeAward", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.Award", "Award")
+                        .WithMany("JudgeAwards")
+                        .HasForeignKey("AwardId");
+
+                    b.HasOne("MIA.Models.Entities.Judge", "Judge")
+                        .WithMany("JudgeAwards")
+                        .HasForeignKey("JudgeId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.JudgeComment", b =>
@@ -748,13 +753,6 @@ namespace MIA.ORMContext.Migrations
                         .WithMany("Properties")
                         .HasForeignKey("AuditEntryID")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.Judge", b =>
-                {
-                    b.HasOne("MIA.Models.Entities.JudgeAward", "JudgeAward")
-                        .WithMany("Judges")
-                        .HasForeignKey("JudgeAwardId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.UserImage", b =>

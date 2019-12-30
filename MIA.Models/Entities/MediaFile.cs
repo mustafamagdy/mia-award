@@ -9,6 +9,6 @@ namespace MIA.Models.Entities {
     public ArtWork ArtWork { get; set; }
     public string ArtWorkId { get; set; }
 
-    public HashSet<JudgeComment> Comments{ get; set; }
+    public HashSet<JudgeComment> Comments { get; set; }
   }
 }

@@ -13,10 +13,9 @@ namespace MIA.ORMContext.Mappings {
         .ValueGeneratedOnAdd();
 
 
+      builder.HasOne(a => a.Payment).WithOne(a => a.ArtWork).HasForeignKey<ArtWork>(a => a.AwardId);
       builder.HasOne(a => a.Award).WithMany(a => a.ArtWorks).HasForeignKey(a => a.AwardId);
-
       builder.HasOne(a => a.Nominee).WithMany(a => a.ArtWorks).HasForeignKey(a => a.NomineeId);
-
       builder.HasMany(a => a.MediaFiles).WithOne(a => a.ArtWork).HasForeignKey(a => a.ArtWorkId);
     }
   }
