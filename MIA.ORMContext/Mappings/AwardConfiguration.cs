@@ -12,6 +12,13 @@ namespace MIA.ORMContext.Mappings {
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
 
+
+      builder.HasOne(a => a.Trophy);
+      builder.HasOne(a => a.JudgeAward).WithMany(a => a.Awards).HasForeignKey(a => a.JudgeAwardId);
+
+      builder.HasOne(a => a.Manager);
+
+      builder.HasMany(a => a.ArtWorks).WithOne(a => a.Award).HasForeignKey(a => a.AwardId);
     }
   }
 

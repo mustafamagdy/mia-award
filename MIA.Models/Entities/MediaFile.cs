@@ -1,4 +1,5 @@
 ﻿using MIA.Models.Entities;
+using System.Collections.Generic;
 
 namespace MIA.Models.Entities {
   public class MediaFile : BaseEntity<string> {
@@ -7,5 +8,7 @@ namespace MIA.Models.Entities {
 
     public ArtWork ArtWork { get; set; }
     public string ArtWorkId { get; set; }
+
+    public HashSet<JudgeComment> Comments{ get; set; }
   }
 }

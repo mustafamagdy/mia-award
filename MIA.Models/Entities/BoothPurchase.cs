@@ -9,6 +9,9 @@
     public string Email { get; set; }
     public string EmailVerified { get; set; }
     public PurchaseStatus Status { get; set; }
+
+    public BoothPayment Payment { get; set; }
+    public string PaymentId { get; set; }
   }
 
 }

@@ -12,6 +12,8 @@ namespace MIA.ORMContext.Mappings {
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
 
+
+      builder.HasMany(a => a.Purchases).WithOne(a => a.Booth).HasForeignKey(a => a.BoothId);
     }
   }
 

@@ -20,10 +20,10 @@ namespace MIA.Models.Entities {
   }
 
   public class Judge : AppUser {
-    public JudgeAward JudgeAwards { get; set; }
-    public string JudgeAwardsId { get; set; }
+    public JudgeAward JudgeAward { get; set; }
+    public string JudgeAwardId { get; set; }
 
-    public HashSet<JudgeVote> Votings { get; set; }
+    public HashSet<JudgeVote> Votes { get; set; }
     public HashSet<JudgeComment> Comments { get; set; }
   }
 }

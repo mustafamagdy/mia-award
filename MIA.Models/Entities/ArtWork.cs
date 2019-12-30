@@ -10,5 +10,7 @@ namespace MIA.Models.Entities {
     public Nominee Nominee { get; set; }
     public string NomineeId { get; set; }
     public HashSet<MediaFile> MediaFiles { get; set; }
+    public HashSet<ArtWorkPayment> Payments { get; set; }
+    public HashSet<JudgeVote> Votes { get; set; }
   }
 }

@@ -12,6 +12,7 @@ namespace MIA.ORMContext.Mappings {
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
 
+      builder.HasOne(a => a.Image);
     }
   }
 
