@@ -8,11 +8,10 @@ namespace MIA.Models.Entities {
 
     public TrophyImage Trophy { get; set; }
     public string TrophyId { get; set; }
-    public JudgeAward JudgeAward { get; set; }
-    public string JudgeAwardId { get; set; }
     public Judge Manager { get; set; }
     public string ManagerId { get; set; }
 
+    public HashSet<JudgeAward> JudgeAwards { get; set; }
     public HashSet<ArtWork> ArtWorks { get; set; }
 
   }

@@ -12,9 +12,7 @@ namespace MIA.ORMContext.Mappings {
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
 
-      builder.HasOne(a => a.Nominee).WithMany(a => a.Payments).HasForeignKey(a => a.NomineeId);
-
-      builder.HasOne(a => a.ArtWork).WithMany(a => a.Payments).HasForeignKey(a => a.NomineeId);
+      builder.HasOne(a => a.ArtWork).WithOne(a => a.Payment).HasForeignKey<ArtWorkPayment>(a => a.ArtWorkId);
 
     }
   }

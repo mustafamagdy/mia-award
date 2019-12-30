@@ -16,13 +16,10 @@ namespace MIA.Models.Entities {
   //dont login to backend
   public class Nominee : AppUser {
     public HashSet<ArtWork> ArtWorks { get; set; }
-    public HashSet<ArtWorkPayment> Payments { get; set; }
   }
 
   public class Judge : AppUser {
-    public JudgeAward JudgeAward { get; set; }
-    public string JudgeAwardId { get; set; }
-
+    public HashSet<JudgeAward> JudgeAwards { get; set; }
     public HashSet<JudgeVote> Votes { get; set; }
     public HashSet<JudgeComment> Comments { get; set; }
   }

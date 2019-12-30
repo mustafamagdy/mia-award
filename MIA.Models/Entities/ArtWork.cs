@@ -9,8 +9,10 @@ namespace MIA.Models.Entities {
     public string AwardId { get; set; }
     public Nominee Nominee { get; set; }
     public string NomineeId { get; set; }
+    public ArtWorkPayment Payment { get; set; }
+    public string PaymentId { get; set; }
+
     public HashSet<MediaFile> MediaFiles { get; set; }
-    public HashSet<ArtWorkPayment> Payments { get; set; }
     public HashSet<JudgeVote> Votes { get; set; }
   }
 }
