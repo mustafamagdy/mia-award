@@ -58,15 +58,32 @@ namespace MIA.ORMContext {
 
     #endregion
 
-
     #region Permissions
 
     public DbSet<UserModule> UserModules { get; set; }
 
     #endregion
 
-    public DbSet<Image> Images { get; set; }
     public DbSet<UserImage> UserImages { get; set; }
+    public DbSet<Image> Images { get; set; }
+    public DbSet<Judge> Judges { get; set; }
+    public DbSet<ContentReviewer> ContentReviewers { get; set; }
+    public DbSet<Nominee> Nominees { get; set; }
+    public DbSet<ArtWork> ArtWorks { get; set; }
+    public DbSet<ArtWorkPayment> ArtWorkPayments { get; set; }
+    public DbSet<Award> Awards { get; set; }
+    public DbSet<Booth> Booths { get; set; }
+    public DbSet<BoothPayment> BoothPayments { get; set; }
+    public DbSet<BoothPurchase> BoothPurchases { get; set; }
+    public DbSet<JudgeAward> JudgeAwards { get; set; }
+    public DbSet<JudgeComment> JudgeComments { get; set; }
+    public DbSet<JudgeVote> JudgeVotes { get; set; }
+    public DbSet<MediaFile> MediaFiles { get; set; }
+    public DbSet<News> News { get; set; }
+    public DbSet<PhotoAlbum> PhotoAlbums { get; set; }
+    public DbSet<TrophyImage> TrophyImages { get; set; }
+    public DbSet<VotingCriteria> VotingCriterias { get; set; }
+
   }
 
 }
