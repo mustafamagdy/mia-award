@@ -23,7 +23,7 @@ using MIA.Constants;
 using MIA.Extensions;
 using MIA.Middlewares;
 using MIA.Middlewares.Auth;
-using MIA.Administration.Api.Base;
+using MIA.Api.Base;
 using MIA.Administration.Extensions;
 using MIA.Administration.Middlewares;
 

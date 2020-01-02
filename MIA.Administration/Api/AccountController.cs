@@ -21,9 +21,9 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Annotations;
 using MIA.Providers;
 using X.PagedList;
-using MIA.Administration.Api.Base;
-using MIA.Administration.Dto.Auth;
 using MIA.Administration.Middlewares;
+using MIA.Api.Base;
+using MIA.Dto.Auth;
 
 namespace MIA.Administration.Api {
   /// <summary>

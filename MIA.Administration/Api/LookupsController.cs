@@ -1,7 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MIA.Administration.Api.Base;
+using MIA.Api.Base;
 
 namespace MIA.Administration.Api {
   /// <summary>

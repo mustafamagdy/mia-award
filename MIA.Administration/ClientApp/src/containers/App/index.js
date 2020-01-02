@@ -18,7 +18,7 @@ import { store, persistedStore, history } from "store";
 import appActions from "store/app/actions";
 import authActions from "store/auth/actions";
 
-import Layout from "components/Layout";
+import Layout from "./Layout";
 import Home from "containers/Home";
 import LanguageProvider from "containers/Providers/LanguageProvider";
 import DirectionProvider from "containers/Providers/DirectionProvider";
@@ -56,7 +56,29 @@ history.listen((location, action) => {
 });
 
 class App extends React.Component {
-  componentDidMount() {}
+  componentDidMount() {
+    let scripts = [
+      { src: "js/vendor/modernizr-2.8.3.min.js" },
+      { src: "js/vendor/jquery-1.11.3.min.js" },
+      { src: "js/bootstrap.min.js" },
+      { src: "js/jquery.meanmenu.js" },
+      { src: "js/jquery.mCustomScrollbar.concat.min.js" },
+      { src: "js/jquery.sticky.js" },
+      { src: "js/jquery.scrollUp.min.js" },
+      { src: "js/jquery.form.min.js" },
+      { src: "js/jquery.validate.min.js" },
+      { src: "js/form-active.js" },
+      { src: "js/main.js" }
+    ];
+    //Append the script element on each iteration
+    scripts.map(item => {
+      const script = document.createElement("script");
+      script.type = "text/babel";
+      script.src = item.src;
+      script.async = true;
+      document.body.appendChild(script);
+    });
+  }
 
   render = () => {
     return (

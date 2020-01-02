@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using MIA.Administration.Api.Base;
-using MIA.Administration.Dto.Admin;
+using MIA.Api.Base;
 using MIA.Authorization.Attributes;
 using MIA.Authorization.Entities;
+using MIA.Dto.Admin;
 using MIA.Models.Entities;
 using MIA.ORMContext.Uow;
 using Microsoft.AspNetCore.Identity;

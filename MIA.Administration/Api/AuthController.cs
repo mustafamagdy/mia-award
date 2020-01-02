@@ -14,8 +14,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MIA.Middlewares.Auth;
-using MIA.Administration.Api.Base;
-using MIA.Administration.Dto.Auth;
+using MIA.Api.Base;
+using MIA.Dto.Auth;
 
 namespace MIA.Administration.Api
 {

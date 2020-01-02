@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
-using System.Reflection;
 using MIA.MappingProfiles;
 
 namespace MIA.Extensions {
@@ -17,6 +15,7 @@ namespace MIA.Extensions {
     /// <returns></returns>
     public static IServiceCollection AddProjectMappers(this IServiceCollection services) {
       services.AddAutoMapper(
+        typeof(CommonProfile), 
         typeof(ApiProfile) /*, .... add more assemblies here*/
         );
       return services;

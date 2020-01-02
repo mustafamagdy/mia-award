@@ -21,8 +21,8 @@ using Amazon.S3.Transfer;
 using Amazon.S3;
 using System.IO;
 using Amazon;
-using MIA.Administration.Api.Base;
-using MIA.Administration.Dto.Auth;
+using MIA.Api.Base;
+using MIA.Dto.Auth;
 
 namespace MIA.Administration.Api {
   /// <summary>
