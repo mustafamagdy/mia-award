@@ -18,6 +18,11 @@ using MIA.Dto.Auth;
 using MIA.Exceptions;
 using MIA.Providers;
 using X.PagedList;
+using Microsoft.AspNetCore.Http;
+using Amazon.S3.Transfer;
+using Amazon.S3;
+using System.IO;
+using Amazon;
 
 namespace MIA.Api {
   /// <summary>
@@ -143,6 +148,28 @@ namespace MIA.Api {
         });
 
       return Ok(result);
+    }
+
+
+    [HttpPost("upload-s3")]
+    public async Task<IActionResult> UploadS3(IFormFile file) {
+      using (var client = new AmazonS3Client("AKIAWESSA665T54GZGW3", "eZnVaD8WoMFNcFOXu8uqUOcWewhjr7sNmegUjILx", RegionEndpoint.USEast1)) {
+        using (var newMemoryStream = new MemoryStream()) {
+          file.CopyTo(newMemoryStream);
+
+          var uploadRequest = new TransferUtilityUploadRequest {
+            InputStream = newMemoryStream,
+            Key = file.FileName,
+            BucketName = "mediauploads1",
+            CannedACL = S3CannedACL.NoACL
+          };
+
+          var fileTransferUtility = new TransferUtility(client);
+          await fileTransferUtility.UploadAsync(uploadRequest);
+        }
+      }
+
+      return Ok();
     }
   }
 
