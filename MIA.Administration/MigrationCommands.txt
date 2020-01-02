@@ -1,0 +1,17 @@
+﻿
+//Add migration
+
+Add-Migration FooMigration -Project "MIA.ORMContext" -StartupProject "MIA"
+
+dotnet ef migrations add TestMigration --project MIA.ORMContext --startup-project MIA
+
+
+//IMPORTANT
+// cd to context project
+cd MIA.ORMContext && dotnet ef migrations add InitialMigration -s ../MIA
+
+
+//Update database
+
+Update-Database  -StartupProject "MIA"
+

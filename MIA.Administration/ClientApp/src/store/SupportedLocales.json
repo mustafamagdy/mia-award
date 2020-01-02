@@ -1,0 +1,44 @@
+{
+  "ar": {
+    "code": "ar",
+    "name":"العربية",
+    "direction": "RTL",
+    "flag": "sa",
+    "culture":"ar-SA"
+  },
+  "en": {
+    "code": "en",
+    "name":"English",
+    "direction": "LTR",
+    "flag": "us",
+    "culture":"en-US"
+  },
+  "fr": {
+    "code": "fr",
+    "name":"Frensh",
+    "direction": "LTR",
+    "flag": "fr",
+    "culture":"fr-FR"
+  },
+  "de": {
+    "code": "de",
+    "name":"german",
+    "direction": "LTR",
+    "flag": "de",
+    "culture":"de-GR"
+  },
+  "es": {
+    "code": "es",
+    "name":"Portgegoos",
+    "direction": "LTR",
+    "flag": "pr",
+    "culture":"es-SP"
+  },
+  "cs": {
+    "code": "cs",
+    "name":"checqqq :)",
+    "direction": "LTR",
+    "flag": "ck",
+    "culture":"cs-SA"
+  }
+}
