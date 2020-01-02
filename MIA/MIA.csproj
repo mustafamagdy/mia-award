@@ -92,6 +92,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MIA.Infrastructure\MIA.Infrastructure.csproj" />
+    <ProjectReference Include="..\MIA.Mvc.Core\MIA.Mvc.Core.csproj" />
     <ProjectReference Include="..\MIA.ORMContext\MIA.ORMContext.csproj" />
     <ProjectReference Include="..\MIA.Payments\MIA.Payments.csproj" />
     <ProjectReference Include="..\MIA.TemplateParser\MIA.TemplateParser.csproj" />

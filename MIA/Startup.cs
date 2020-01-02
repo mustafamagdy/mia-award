@@ -80,7 +80,7 @@ namespace MIA
         .AddCustomHealthChecks()
 #endif
 #if (Swagger)
-        .AddCustomSwagger()
+        .AddCustomSwagger(this.GetType())
 #endif
         .AddHttpContextAccessor()
         // Add useful interface for accessing the ActionContext outside a controller.
@@ -194,7 +194,7 @@ namespace MIA
 #endif
 #if (Swagger)
         .UseSwagger()
-        .UseCustomSwaggerUI()
+        .UseCustomSwaggerUI(this.GetType())
 #endif
 
         .UseMiddleware<AuthTokenManagerMiddleware>()

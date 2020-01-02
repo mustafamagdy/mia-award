@@ -1,0 +1,630 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MIA.Administration</name>
+    </assembly>
+    <members>
+        <member name="T:MIA.Administration.Api.AccountController">
+            <summary>
+            User account operations controller
+            </summary>
+        </member>
+        <member name="M:MIA.Administration.Api.AccountController.#ctor(AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{MIA.Administration.Api.AccountController},Microsoft.Extensions.Localization.IStringLocalizer{MIA.Administration.Api.AccountController})">
+            <summary>
+            
+            </summary>
+            <param name="mapper"></param>
+            <param name="logger"></param>
+            <param name="_locale"></param>
+        </member>
+        <member name="M:MIA.Administration.Api.AccountController.CreateByEmail(System.String,MIA.Administration.Dto.Auth.SignUpByEmailRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider,MIA.Administration.Api.Base.IApiUrlHelper)">
+            <summary>
+            SignUp using email and password
+            </summary>
+            <param name="culture"></param>
+            <param name="signupData"></param>
+            <param name="userManager"></param>
+            <param name="emailSender"></param>
+            <param name="emailTemplateProvider"></param>
+            <param name="urlHelper"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Api.AccountController.CreateUserByMobile(MIA.Administration.Dto.Auth.SignUpByMobileRequest)">
+            <summary>
+            SignUp using email and password
+            </summary>
+            <param name="mobileRequestData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Api.AccountController.VerifyEmail(System.String,MIA.Administration.Dto.Auth.UserVerificationRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider)">
+            <summary>
+            Verify user email using the verification token sent by email
+            </summary>
+            <param name="culture"></param>
+            <param name="userRequest"></param>
+            <param name="userManager"></param>
+            <param name="emailSender"></param>
+            <param name="emailTemplateProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Api.AccountController.ForgotPassword(System.String,MIA.Administration.Dto.Auth.ForgotPasswordRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider,MIA.Administration.Api.Base.IApiUrlHelper)">
+            <summary>
+            Reset password reset email with token
+            </summary>
+            <param name="culture"></param>
+            <param name="forgotPass"></param>
+            <param name="userManager"></param>
+            <param name="emailSender"></param>
+            <param name="emailTemplateProvider"></param>
+            <param name="urlHelper"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Api.AccountController.ResetPassword(System.String,MIA.Administration.Dto.Auth.ResetPasswordRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider)">
+            <summary>
+            Reset password for user using token
+            </summary>
+            <param name="culture"></param>
+            <param name="resetPassword"></param>
+            <param name="userManager"></param>
+            <param name="emailSender"></param>
+            <param name="emailTemplateProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MIA.Administration.Api.AdminController">
+            <summary>
+            Admin tasks controller
+            </summary>
+        </member>
+        <member name="M:MIA.Administration.Api.AdminController.#ctor(AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{MIA.Administration.Api.AdminController},Microsoft.Extensions.Localization.IStringLocalizer{MIA.Administration.Api.AdminController})">
+            <summary>
+            
+            </summary>
+            <param name="mapper"></param>
+            <param name="logger"></param>
+            <param name="locale"></param>
+        </member>
+        <member name="T:MIA.Administration.Api.AuthController">
+            <summary>
+            Authentication controller for different identity operations
+            </summary>
+        </member>
+        <member name="M:MIA.Administration.Api.AuthController.#ctor(AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{MIA.Administration.Api.AuthController})">
+            <summary>
+            
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:MIA.Administration.Api.AuthController.Login(System.String,MIA.Administration.Dto.Auth.LoginRequest,Microsoft.AspNetCore.Identity.SignInManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.Extensions.Options.IOptions{MIA.Infrastructure.Options.JwtOptions},Microsoft.AspNetCore.Identity.IUserClaimsPrincipalFactory{MIA.Models.Entities.AppUser})">
+            <summary>
+            Login using username and password
+            </summary>
+            <param name="userIp"></param>
+            <param name="loginData">Login details</param>
+            <param name="signInManager"></param>
+            <param name="userManager"></param>
+            <param name="jwtOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Api.AuthController.Logout(System.String,Microsoft.AspNetCore.Identity.SignInManager{MIA.Models.Entities.AppUser},MIA.Middlewares.Auth.IAuthTokenManager)">
+            <summary>
+            Logout and deactivate user auth token
+            </summary>
+            <param name="authorization"></param>
+            <param name="signinManager"></param>
+            <param name="tokenManager"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Api.AuthController.RefreshToken(MIA.Administration.Dto.Auth.RefreshTokenRequest)">
+            <summary>
+            Refresh token, and discard the old one
+            </summary>
+            <param name="tokenData"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MIA.Administration.Api.Base.AuditUserResolver">
+            <summary>
+            Get the current User, Id, and name
+            </summary>
+        </member>
+        <member name="M:MIA.Administration.Api.Base.AuditUserResolver.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser})">
+            <summary>
+            Initialize with <see cref="T:Microsoft.AspNetCore.Http.IHttpContextAccessor"/> and <see cref="T:Microsoft.AspNetCore.Identity.UserManager`1"/>
+            </summary>
+            <param name="context"></param>
+            <param name="userManager"></param>
+        </member>
+        <member name="M:MIA.Administration.Api.Base.AuditUserResolver.CurrentUsername">
+            <summary>
+            Get current username if exist
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Api.Base.AuditUserResolver.CurrentUserAsync">
+            <summary>
+            Get current logged in user 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MIA.Administration.Api.Base.BaseApiController`1">
+            <summary>
+            base controller
+            </summary>
+        </member>
+        <member name="F:MIA.Administration.Api.Base.BaseApiController`1._mapper">
+            <summary>
+            logger to be used for logging 
+            </summary>
+        </member>
+        <member name="M:MIA.Administration.Api.Base.BaseApiController`1.#ctor(Microsoft.Extensions.Logging.ILogger{`0},AutoMapper.IMapper)">
+            <summary>
+            constructor for base class
+            </summary>
+            <param name="logger">Controller based logger</param>
+        </member>
+        <member name="M:MIA.Administration.Api.Base.BaseApiController`1.Ok``1(X.PagedList.IPagedList{``0})">
+            <summary>
+            includes metadata for pagedlist as JSON serializer will not
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="collection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Api.Base.BaseApiController`1.IfFound``1(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Checks if a collection has any element, if no return not found with no content
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="collection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Api.Base.BaseApiController`1.IfFound``1(X.PagedList.IPagedList{``0})">
+            <summary>
+            Checks if collection is empty will rturn 404, otherwise will ok with paged list data
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="collection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Api.Base.BaseApiController`1.IfFound``1(``0)">
+            <summary>
+            Checks if result is not null if null will return 404
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Api.Base.BaseApiController`1.ValidationError(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Identity.IdentityError})">
+            <summary>
+            Converts <see cref="T:Microsoft.AspNetCore.Identity.IdentityError"/> list into <see cref="T:Microsoft.AspNetCore.Mvc.ValidationProblemDetails"/>
+            </summary>
+            <param name="errors"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Api.Base.BaseApiController`1.ValidationError(System.Net.HttpStatusCode,System.String)">
+            <summary>
+            Converts simple string to error object
+            </summary>
+            <param name="statusCode"></param>
+            <param name="error"></param>
+        </member>
+        <member name="M:MIA.Administration.Api.Base.BaseApiController`1.NotFound404(System.String)">
+            <summary>
+            returns validation errors with 404 status code
+            </summary>
+            <param name="error"></param>
+        </member>
+        <member name="M:MIA.Administration.Api.Base.BaseApiController`1.Forbid403(System.String)">
+            <summary>
+            returns validation errors with 403 status code
+            </summary>
+            <param name="error"></param>
+        </member>
+        <member name="M:MIA.Administration.Api.Base.BaseApiController`1.Unauthorized401(System.String)">
+            <summary>
+            returns validation errors with 401 status code
+            </summary>
+            <param name="error"></param>
+        </member>
+        <member name="T:MIA.Administration.Api.LookupsController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Api.ReportsController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Api.SystemController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MIA.Administration.Api.SystemController.Ping">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MIA.Administration.Api.TestController">
+            <summary>
+            Test controller for checking internal features
+            </summary>
+        </member>
+        <member name="M:MIA.Administration.Api.TestController.#ctor(AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{MIA.Administration.Api.TestController})">
+            <summary>
+            
+            </summary>
+            <param name="mapper"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:MIA.Administration.Api.TestController.ProjectWithPagination(MIA.ORMContext.Uow.IAppUnitOfWork)">
+            <summary>
+            
+            </summary>
+            <param name="db"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Api.TestController.TestEmail(System.String,Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider)">
+            <summary>
+            
+            </summary>
+            <param name="cultureCode"></param>
+            <param name="emailSender"></param>
+            <param name="emailTemplateProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MIA.Administration.Dto.Auth.ForgotPasswordRequest">
+            <summary>
+            Request for password reset
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.ForgotPasswordRequest.Email">
+            <summary>
+            user email to send password link to
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Dto.Auth.ResetPasswordRequest">
+            <summary>
+            Request for reset password with token
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.ResetPasswordRequest.UserId">
+            <summary>
+            Email for the user to reset password
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.ResetPasswordRequest.Code">
+            <summary>
+            token send to user reset password for
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.ResetPasswordRequest.NewPassword">
+            <summary>
+            New password to reset the old password with
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.ResetPasswordRequest.ConfirmPassword">
+            <summary>
+            Confirm new password
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.ChangePasswordRequest.NewPassword">
+            <summary>
+            New password to reset the old password with
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.ChangePasswordRequest.ConfirmPassword">
+            <summary>
+            Confirm new password
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Dto.Auth.LoginRequest">
+            <summary>
+            Login request dto for authenticating users
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.LoginRequest.UserName">
+            <summary>
+            Username for login user
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.LoginRequest.Password">
+            <summary>
+            Password for login user
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Dto.Auth.RefreshTokenRequest">
+            <summary>
+            Refresh token request
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.RefreshTokenRequest.AuthToken">
+            <summary>
+            Old authentication token
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Dto.Auth.UserDataDto">
+            <summary>
+            abstract class for user data dto
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.UserDataDto.FirstName">
+            <summary>
+            First name
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.UserDataDto.LastName">
+            <summary>
+            Last name 
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Dto.Auth.SignUpByEmailRequest">
+            <summary>
+            Signup using email and password
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.SignUpByEmailRequest.Email">
+            <summary>
+            email for signup
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.SignUpByEmailRequest.Password">
+            <summary>
+            password for user signup
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Dto.Auth.UserVerificationRequest">
+            <summary>
+            Token verification request
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.UserVerificationRequest.UserId">
+            <summary>
+            UserId to get validate
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.UserVerificationRequest.Code">
+            <summary>
+            Token to use for verification
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Dto.Auth.SignUpByMobileRequest">
+            <summary>
+            Signup using mobile number
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.SignUpByMobileRequest.CountryCode">
+            <summary>
+            Country code for user mobile number
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.SignUpByMobileRequest.MobileNumber">
+            <summary>
+            User mobile number to validate
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Dto.Auth.SignUpByMobileVerifyRequest">
+            <summary>
+            Verify user mobile number by sending verification code t it
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.SignUpByMobileVerifyRequest.VerificationCode">
+            <summary>
+            Verification code sent to user to validate his mobile number
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Dto.Auth.SignUpByMobileCompleteRequest">
+            <summary>
+            Complete user verification to signup user
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Dto.Auth.UserDetailsDto">
+            <summary>
+            User details dto
+            </summary>
+        </member>
+        <member name="P:MIA.Administration.Dto.Auth.UserDetailsDto.UserName">
+            <summary>
+            
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:MIA.Administration.Extensions.BusinessExtensions">
+            <summary>
+            Business extension methods for startup class configuration
+            </summary>
+        </member>
+        <member name="M:MIA.Administration.Extensions.BusinessExtensions.AddProjectMappers(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds mapper profile
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Extensions.BusinessExtensions.AddProjectRepositories(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds data access repositories
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Extensions.BusinessExtensions.AddProjectApplicationServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds application services
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MIA.Administration.MappingProfiles.ApiProfile">
+            <summary>
+            Auto mapper profile that contain mapping used in Api project
+            </summary>
+        </member>
+        <member name="M:MIA.Administration.MappingProfiles.ApiProfile.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Middlewares.ApiExceptionHandlerMiddleware">
+            <summary>
+            Api exception handler middle ware to handle unhandeled exceptions and wrap them in ApiException class
+            </summary>
+        </member>
+        <member name="T:MIA.Administration.Middlewares.Auth.AuthTokenManager">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MIA.Administration.Middlewares.Auth.AuthTokenManager.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{MIA.Infrastructure.Options.JwtOptions})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="cache"></param>
+            <param name="httpContextAccessor"></param>
+            <param name="jwtOptions"></param>
+        </member>
+        <member name="M:MIA.Administration.Middlewares.Auth.AuthTokenManager.IsCurrentActiveToken">
+            <summary>
+            check if the current token is not deactivated
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Middlewares.Auth.AuthTokenManager.DeactivateCurrentAsync">
+            <summary>
+            deactivate current token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Middlewares.Auth.AuthTokenManager.IsActiveAsync(System.String)">
+            <summary>
+            check if token is active
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Middlewares.Auth.AuthTokenManager.DeactivateAsync(System.String)">
+            <summary>
+            deactivate token
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MIA.Administration.Middlewares.Auth.AuthTokenManagerMiddleware">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MIA.Administration.Middlewares.Auth.AuthTokenManagerMiddleware.#ctor(MIA.Administration.Middlewares.Auth.IAuthTokenManager)">
+            <summary>
+            constructor
+            </summary>
+            <param name="tokenManager"></param>
+        </member>
+        <member name="M:MIA.Administration.Middlewares.Auth.AuthTokenManagerMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            Validate user has access token
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MIA.Administration.Middlewares.Auth.IAuthTokenManager">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MIA.Administration.Middlewares.Auth.IAuthTokenManager.IsCurrentActiveToken">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Middlewares.Auth.IAuthTokenManager.DeactivateCurrentAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Middlewares.Auth.IAuthTokenManager.IsActiveAsync(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Administration.Middlewares.Auth.IAuthTokenManager.DeactivateAsync(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MIA.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MIA.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Program.LogAndRun(Microsoft.AspNetCore.Hosting.IWebHost)">
+            <summary>
+            
+            </summary>
+            <param name="webHost"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Program.GetAssemblyProductName">
+            <summary>
+            Helper function to get assembly product name
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Program.ConfigureKestrelServerLimits(Microsoft.AspNetCore.Hosting.WebHostBuilderContext,Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions)">
+            <summary>
+            Configure Kestrel server limits from appsettings.json is not supported. So we manually copy them from config.
+            See https://github.com/aspnet/KestrelHttpServer/issues/2216
+            </summary>
+        </member>
+        <member name="T:MIA.Startup">
+            <summary>
+            Startup class for asp.net core Api
+            </summary>
+        </member>
+        <member name="M:MIA.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Constructor for startup class, to inject required dependencies
+            </summary>
+            <param name="configuration">Used to read configuration from appsettings.json</param>
+            <param name="hostingEnvironment">Used to configure hosting environment</param>
+        </member>
+        <member name="M:MIA.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Register different services in asp.net core dependency container
+            </summary>
+            <param name="services">service collection to add to</param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.RoleManager{MIA.Authorization.Entities.AppRole},MIA.ORMContext.Uow.IAppUnitOfWork)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="userManager"></param>
+            <param name="roleManager"></param>
+            <param name="db"></param>
+        </member>
+    </members>
+</doc>
