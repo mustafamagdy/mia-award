@@ -1,11 +1,9 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Helmet } from "react-helmet";
-import NewsList from './newsList'
+import NewsList from './NewsList'
 
 const Pages = ({ match }) => {
-	console.log('=>>>>>>>');
-	
 	return (
     <div className="content-wrapper">
         <Helmet>
