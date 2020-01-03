@@ -121,6 +121,11 @@
             <param name="tokenData"></param>
             <returns></returns>
         </member>
+        <member name="T:MIA.Administration.Api.Base.BaseCrudController`4">
+            <summary>
+            User account operations controller
+            </summary>
+        </member>
         <member name="T:MIA.Administration.Api.LookupsController">
             <summary>
             

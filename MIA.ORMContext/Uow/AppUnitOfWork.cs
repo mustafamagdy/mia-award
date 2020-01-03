@@ -37,6 +37,10 @@ namespace MIA.ORMContext.Uow {
     public void RemoveRange<TEntity>(List<TEntity> entities) where TEntity : class => base.Context.RemoveRange(entities);
     public void Remove<TEntity>(TEntity entity) where TEntity : class => base.Context.Remove(entity);
 
+    public DbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity<string> {
+      return base.Context.Set<TEntity>();
+    }
+
     public DbSet<IdentityUserRole<string>> UserRoles {
       get => ((AppDbContext)Context).UserRoles;
       set => ((AppDbContext)Context).UserRoles = value;

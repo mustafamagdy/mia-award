@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using MIA.Administration.Api;
+using MIA.Models.Entities;
 
 namespace MIA.Administration.MappingProfiles {
 
@@ -12,6 +14,10 @@ namespace MIA.Administration.MappingProfiles {
     /// </summary>
     public ApiProfile() {
 
+
+      CreateMap<News, NewsDto>().ValidateMemberList(MemberList.None);
+      CreateMap<NewNewsDto, News>().ValidateMemberList(MemberList.None);
+      CreateMap<UpdateNewsDto, News>().ValidateMemberList(MemberList.None);
     }
   }
 
