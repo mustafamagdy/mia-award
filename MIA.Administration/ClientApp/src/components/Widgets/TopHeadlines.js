@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // card component
 import { RctCardFooter } from 'Components/RctCard';
@@ -94,7 +94,7 @@ export default class TopHeadlines extends Component {
                </ul>
             </Scrollbars>
             <RctCardFooter customClasses="d-flex justify-content-between align-items-center rounded-bottom">
-               <Button variant="contained" className="text-white bg-success px-3 btn-xs"><IntlMessages id="widgets.addNew" /></Button>
+               <Button variant="contained" className="text-white bg-success px-3 btn-xs"><Trans id="widgets.addNew" /></Button>
             </RctCardFooter >
          </Fragment>
       )

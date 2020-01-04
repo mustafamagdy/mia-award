@@ -1,0 +1,10 @@
+{
+  "widgets.tax": {
+    "origin": [
+      [
+        "src/components/Widgets/TaxStats.js",
+        23
+      ]
+    ]
+  }
+}

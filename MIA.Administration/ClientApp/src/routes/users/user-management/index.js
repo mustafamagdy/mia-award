@@ -37,7 +37,7 @@ import UpdateUserForm from './UpdateUserForm';
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
@@ -265,7 +265,7 @@ export default class UserProfile extends Component {
 					<meta name="description" content="Reactify Widgets" />
 				</Helmet>
 				<PageTitleBar
-					title={<IntlMessages id="sidebar.userManagement" />}
+					title={<Trans id="sidebar.userManagement" />}
 					match={this.props.match}
 				/>
 				<RctCollapsibleCard fullBlock>

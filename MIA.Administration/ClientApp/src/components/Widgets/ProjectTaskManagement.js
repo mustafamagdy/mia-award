@@ -23,7 +23,7 @@ import { RctCardFooter } from 'Components/RctCard';
 import { getTheDate, convertDateToTimeStamp } from 'Helpers/helpers';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 export default class ProjectTaskManagement extends Component {
    constructor(props) {
@@ -174,10 +174,10 @@ export default class ProjectTaskManagement extends Component {
                                  </div>
                                  <div className="align-self-end d-flex flex-column text-center">
                                     <Button variant="contained" color="primary" className="mb-30 text-white  btn-xs" onClick={() => this.addNewTask(project)}>
-                                       <span><IntlMessages id="button.add" /></span>
+                                       <span><Trans id="button.add" /></span>
                                     </Button>
                                     <Button variant="contained" onClick={() => this.closeForm(project)} className="btn-xs btn-danger text-white">
-                                       <span><IntlMessages id="button.cancel" /></span>
+                                       <span><Trans id="button.cancel" /></span>
                                     </Button>
                                  </div>
                               </div>
@@ -189,7 +189,7 @@ export default class ProjectTaskManagement extends Component {
             </Scrollbars>
             <RctCardFooter customClasses=" d-flex justify-content-between align-items-center">
                <div className="d-flex w-40 align-items-center justify-content-between">
-                  <span className="fs-12 w-50 text-base"><IntlMessages id="widgets.selectProject" /></span>
+                  <span className="fs-12 w-50 text-base"><Trans id="widgets.selectProject" /></span>
                   <div className="app-selectbox-sm">
                      <FormGroup className="mb-0">
                         <Input
@@ -209,7 +209,7 @@ export default class ProjectTaskManagement extends Component {
                </div>
                <span className="fs-12 text-base">
                   <i className="mr-15 zmdi zmdi-refresh"></i>
-                  <IntlMessages id="widgets.updated10Minago" />
+                  <Trans id="widgets.updated10Minago" />
                </span>
             </RctCardFooter>
          </div>

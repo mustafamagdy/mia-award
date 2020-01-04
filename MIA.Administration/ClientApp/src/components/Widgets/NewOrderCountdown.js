@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CountDown from 'Components/CountDown/CountDown';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 export default class NewOrderCountdown extends Component {
     render() {
@@ -23,7 +23,7 @@ export default class NewOrderCountdown extends Component {
                     </div>
                     <div>
                         <p className="fs-14 fw-bold mb-5">New order from John</p>
-                        <span className="fs-12 mb-20 d-block text-muted"><IntlMessages id="widgets.AcceptorrRejectWithin" /></span>
+                        <span className="fs-12 mb-20 d-block text-muted"><Trans id="widgets.AcceptorrRejectWithin" /></span>
                         <h1 className="border py-5 px-15 d-inline-block mr-20"> <CountDown time={500000} /> </h1>
                         <div className="d-inline-block">
                             <IconButton className="mr-10" aria-label="check">

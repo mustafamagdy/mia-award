@@ -5,7 +5,7 @@ import Cropper from 'react-cropper';
 import { FormGroup, FormText, Input } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
@@ -53,11 +53,11 @@ class ImageCropper extends Component {
    render() {
       return (
          <div className="image-cropper-wrap">
-            <PageTitleBar title={<IntlMessages id="sidebar.imageCropper" />} match={this.props.match} />
+            <PageTitleBar title={<Trans id="sidebar.imageCropper" />} match={this.props.match} />
             <div className="row">
                <RctCollapsibleCard
                   colClasses="col-sm-12 col-md-12 col-lg-6"
-                  heading={<IntlMessages id="button.cropImage" />}
+                  heading={<Trans id="button.cropImage" />}
                   contentCustomClasses="crop-wrapper"
                >
                   <div>
@@ -78,20 +78,20 @@ class ImageCropper extends Component {
                         <h3 className="w-40 text-center  mb-10 mb-md-0">OR</h3>
                         <div className="d-sm-flex justify-content-end align-items-center w-30">
                            <Button onClick={this.useDefaultImage.bind(this)} variant="contained" color="primary" className="text-white">
-                              <IntlMessages id="button.useDefaultImage" />
+                              <Trans id="button.useDefaultImage" />
                            </Button>
                         </div>
                      </FormGroup>
                      <div className="d-flex align-items-center justify-content-center mb-10">
                         <Button onClick={this.cropImage.bind(this)} variant="contained" className="bg-success text-white w-100">
-                           <IntlMessages id="button.cropImage" />
+                           <Trans id="button.cropImage" />
                         </Button>
                      </div>
                   </div>
                </RctCollapsibleCard>
                <RctCollapsibleCard
                   colClasses="col-sm-12 col-md-12 col-lg-6"
-                  heading={<IntlMessages id="widgets.preview" />}
+                  heading={<Trans id="widgets.preview" />}
                   contentCustomClasses="d-flex"
                >
                   <div className="img-preview" style={{ width: '100%', float: 'left', height: 300 }} />
@@ -99,7 +99,7 @@ class ImageCropper extends Component {
                {this.state.cropResult &&
                   <RctCollapsibleCard
                      colClasses="col-sm-12 col-md-12 col-lg-6"
-                     heading={<IntlMessages id="widgets.croppedImage" />}
+                     heading={<Trans id="widgets.croppedImage" />}
                   >
                      <img style={{ width: '100%' }} src={this.state.cropResult} alt="cropped_img" />
                   </RctCollapsibleCard>

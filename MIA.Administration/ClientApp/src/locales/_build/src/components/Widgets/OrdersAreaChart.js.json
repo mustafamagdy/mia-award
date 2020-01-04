@@ -1,0 +1,26 @@
+{
+  "widgets.orders": {
+    "origin": [
+      [
+        "src/components/Widgets/OrdersAreaChart.js",
+        27
+      ]
+    ]
+  },
+  "widgets.today": {
+    "origin": [
+      [
+        "src/components/Widgets/OrdersAreaChart.js",
+        30
+      ]
+    ]
+  },
+  "widgets.totalRevenue": {
+    "origin": [
+      [
+        "src/components/Widgets/OrdersAreaChart.js",
+        34
+      ]
+    ]
+  }
+}

@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import DropzoneComponent from 'react-dropzone-component';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
@@ -58,11 +58,11 @@ class Dropzone extends Component {
 
       return (
          <div className="dropzone-wrapper">
-            <PageTitleBar title={<IntlMessages id="sidebar.dropzone" />} match={this.props.match} />
+            <PageTitleBar title={<Trans id="sidebar.dropzone" />} match={this.props.match} />
             <div className="row">
                <RctCollapsibleCard
                   colClasses="col-sm-12 col-md-12 col-lg-12"
-                  heading={<IntlMessages id="sidebar.dropzone" />}
+                  heading={<Trans id="sidebar.dropzone" />}
                >
                   <DropzoneComponent
                      config={config}

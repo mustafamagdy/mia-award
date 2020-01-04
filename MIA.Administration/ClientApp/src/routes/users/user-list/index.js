@@ -12,7 +12,7 @@ import api from 'Api';
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // rct card box
 import { RctCard } from 'Components/RctCard';
@@ -46,7 +46,7 @@ export default class UserComponent extends Component {
                <title>Reactify | Users List</title>
                <meta name="description" content="Reactify Widgets" />
             </Helmet>
-            <PageTitleBar title={<IntlMessages id="sidebar.userList" />} match={this.props.match} />
+            <PageTitleBar title={<Trans id="sidebar.userList" />} match={this.props.match} />
             <div className="row">
                {users && users.map((user, key) => (
                   <RctCard customClasses="p-10" colClasses="col-sm-6 col-lg-4 col-xl-3" key={key}>

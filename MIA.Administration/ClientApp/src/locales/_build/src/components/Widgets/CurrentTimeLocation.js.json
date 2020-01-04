@@ -1,0 +1,10 @@
+{
+  "widgets.currentTime": {
+    "origin": [
+      [
+        "src/components/Widgets/CurrentTimeLocation.js",
+        62
+      ]
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "sidebar.general": {
+    "origin": [
+      [
+        "src/components/Sidebar/SidebarContent.js",
+        36
+      ]
+    ]
+  }
+}

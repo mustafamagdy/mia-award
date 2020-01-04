@@ -1,0 +1,16 @@
+{
+  "ar": {
+    "code": "ar",
+    "name": "العربية",
+    "direction": "RTL",
+    "flag": "sa",
+    "culture": "ar-SA"
+  },
+  "en": {
+    "code": "en",
+    "name": "English",
+    "direction": "LTR",
+    "flag": "us",
+    "culture": "en-US"
+  }
+}

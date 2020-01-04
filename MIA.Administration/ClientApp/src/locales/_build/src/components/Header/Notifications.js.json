@@ -1,0 +1,34 @@
+{
+  "widgets.recentNotifications": {
+    "origin": [
+      [
+        "src/components/Header/Notifications.js",
+        55
+      ]
+    ]
+  },
+  "button.reply": {
+    "origin": [
+      [
+        "src/components/Header/Notifications.js",
+        74
+      ]
+    ]
+  },
+  "button.like": {
+    "origin": [
+      [
+        "src/components/Header/Notifications.js",
+        77
+      ]
+    ]
+  },
+  "button.viewAll": {
+    "origin": [
+      [
+        "src/components/Header/Notifications.js",
+        92
+      ]
+    ]
+  }
+}

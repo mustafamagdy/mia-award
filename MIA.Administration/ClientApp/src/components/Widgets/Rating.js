@@ -7,10 +7,10 @@ import Button from '@material-ui/core/Button';
 import StarRatingComponent from 'react-star-rating-component';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // chart config
-import AppConfig from 'Constants/AppConfig';
+import AppConfig from 'Constants';
 
 export default class Rating extends Component {
 
@@ -26,7 +26,7 @@ export default class Rating extends Component {
       const { rating } = this.state;
       return (
          <div className="rating-wrap bg-warning rct-block py-20 px-30">
-            <h4 className="text-white mb-3"><IntlMessages id="widgets.howWouldYouRateUs" /></h4>
+            <h4 className="text-white mb-3"><Trans id="widgets.howWouldYouRateUs" /></h4>
             <div className="star-rating list-inline">
                <StarRatingComponent
                   name="rate1"
@@ -47,7 +47,7 @@ export default class Rating extends Component {
                className="mb-3 fs-14"
             />
             <Button variant="contained" size="small" className="btn-danger text-white btn-icon">
-               <i className="zmdi zmdi-mail-send"></i> <IntlMessages id="widgets.send" />
+               <i className="zmdi zmdi-mail-send"></i> <Trans id="widgets.send" />
             </Button>
          </div>
       )

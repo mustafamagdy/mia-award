@@ -16,16 +16,16 @@ import { Fab } from '@material-ui/core';
 import { SessionSlider } from 'Components/Widgets';
 
 // app config
-import AppConfig from 'Constants/AppConfig';
+import AppConfig from 'Constants';
 
 // redux action
-import {
-   signupUserInFirebase,
-   signinUserWithFacebook,
-   signinUserWithGoogle,
-   signinUserWithGithub,
-   signinUserWithTwitter
-} from 'Actions';
+// import {
+//    signupUserInFirebase,
+//    signinUserWithFacebook,
+//    signinUserWithGoogle,
+//    signinUserWithGithub,
+//    signinUserWithTwitter
+// } from 'Actions';
 
 class SignupFirebase extends Component {
 
@@ -102,7 +102,7 @@ class SignupFirebase extends Component {
                             </Button>
                                  </FormGroup>
                               </Form>
-                              <p className="mb-20">or sign in with</p>
+                              {/* <p className="mb-20">or sign in with</p>
                               <Fab size="small" variant="round" className="btn-facebook mr-15 mb-20 text-white"
                                  onClick={() => this.props.signinUserWithFacebook(this.props.history)}
                               >
@@ -122,7 +122,7 @@ class SignupFirebase extends Component {
                                  onClick={() => this.props.signinUserWithGithub(this.props.history)}
                               >
                                  <i className="zmdi zmdi-github-alt"></i>
-                              </Fab>
+                              </Fab> */}
                               <p className="text-muted">By signing up you agree to {AppConfig.brandName}</p>
                               <p><Link to="/terms-condition" className="text-muted">Terms of Service</Link></p>
                            </div>

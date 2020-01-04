@@ -1,0 +1,10 @@
+{
+  "sidebar.userManagement": {
+    "origin": [
+      [
+        "src/routes/users/user-management/index.js",
+        268
+      ]
+    ]
+  }
+}

@@ -2,7 +2,7 @@
  * App Info Theme
  */
 import { createMuiTheme } from '@material-ui/core/styles';
-import AppConfig from 'Constants/AppConfig';
+import AppConfig from 'Constants';
 
 const theme = createMuiTheme({
     palette: {

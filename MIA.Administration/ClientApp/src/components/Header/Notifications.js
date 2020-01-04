@@ -13,7 +13,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import api from 'Api';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 class Notifications extends Component {
 
@@ -52,7 +52,7 @@ class Notifications extends Component {
                <div className="dropdown-content">
                   <div className="dropdown-top d-flex justify-content-between rounded-top bg-primary">
                      <span className="text-white font-weight-bold">
-                        <IntlMessages id="widgets.recentNotifications" />
+                        <Trans id="widgets.recentNotifications" />
                      </span>
                      <Badge color="warning">1 NEW</Badge>
                   </div>
@@ -71,10 +71,10 @@ class Notifications extends Component {
                                     </div>
                                     <span className="text-muted fs-12 d-block">{notification.notification}</span>
                                     <Button className="btn-xs mr-10">
-                                       <i className="zmdi zmdi-mail-reply mr-2"></i> <IntlMessages id="button.reply" />
+                                       <i className="zmdi zmdi-mail-reply mr-2"></i> <Trans id="button.reply" />
                                     </Button>
                                     <Button className="btn-xs">
-                                       <i className="zmdi zmdi-thumb-up mr-2"></i> <IntlMessages id="button.like" />
+                                       <i className="zmdi zmdi-thumb-up mr-2"></i> <Trans id="button.like" />
                                     </Button>
                                  </div>
                               </div>
@@ -89,7 +89,7 @@ class Notifications extends Component {
                      color="primary"
                      className="mr-10 btn-xs bg-primary"
                   >
-                     <IntlMessages id="button.viewAll" />
+                     <Trans id="button.viewAll" />
                   </Button>
                </div>
             </DropdownMenu>

@@ -6,7 +6,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 export default class UserProfile extends Component {
    render() {
@@ -45,14 +45,14 @@ export default class UserProfile extends Component {
                      color="primary"
                      className="text-white mr-10 mb-10 btn-xs"
                   >
-                     <IntlMessages id="button.viewProfile" />
+                     <Trans id="button.viewProfile" />
                   </Button>
                   <Button
                      variant="contained"
                      color="secondary"
                      className="text-white btn-xs mb-10"
                   >
-                     <IntlMessages id="button.sendMessage" />
+                     <Trans id="button.sendMessage" />
                   </Button>
                </div>
             </div>

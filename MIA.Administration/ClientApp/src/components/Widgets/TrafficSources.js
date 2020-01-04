@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // chart config file
 import ChartConfig from 'Constants/chart-config';
@@ -84,8 +84,8 @@ class TrafficSourcesWidget extends Component {
         }
         return (
             <div className="card resource-mh">
-                <h4 className="card-title"><IntlMessages id="widgets.trafficSources" /></h4>
-                <span className="fs-14 mb-4">{this.props.data.totalActiveUsers} <IntlMessages id="widgets.totalActiveUsers" /></span>
+                <h4 className="card-title"><Trans id="widgets.trafficSources" /></h4>
+                <span className="fs-14 mb-4">{this.props.data.totalActiveUsers} <Trans id="widgets.totalActiveUsers" /></span>
                 <Line data={data} options={options} height={110} />
             </div>
         );

@@ -9,7 +9,7 @@ import { NotificationManager } from 'react-notifications';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 export default class EmailPrefrences extends Component {
 
@@ -45,12 +45,12 @@ export default class EmailPrefrences extends Component {
                <div className="col-sm-12 col-md-8">
                   <div className="search-filter p-0 mb-50">
                      <form>
-                        <h2 className="heading"><IntlMessages id="widgets.updateYourEmailAddress" /></h2>
+                        <h2 className="heading"><Trans id="widgets.updateYourEmailAddress" /></h2>
                         <FormGroup className="mb-0 w-40">
                            <Input type="search" className="input-lg" name="search" placeholder="info@example.com" />
                         </FormGroup>
                         <Button variant="contained" color="primary" className="text-white btn-lg">
-                           <IntlMessages id="button.save" />
+                           <Trans id="button.save" />
                         </Button>
                      </form>
                   </div>
@@ -118,7 +118,7 @@ export default class EmailPrefrences extends Component {
                   </ul>
                   {this.state.loading ?
                      <CircularProgress />
-                     : <Button variant="contained" color="primary" className="text-white btn-lg" onClick={() => this.onSaveChanges()}><IntlMessages id="button.saveChanges" /></Button>
+                     : <Button variant="contained" color="primary" className="text-white btn-lg" onClick={() => this.onSaveChanges()}><Trans id="button.saveChanges" /></Button>
                   }
                </div>
             </div>

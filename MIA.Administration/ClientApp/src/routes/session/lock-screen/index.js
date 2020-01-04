@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import QueueAnim from 'rc-queue-anim';
 
 // app config
-import AppConfig from 'Constants/AppConfig';
+import AppConfig from 'Constants';
 
 export default class LockScreen extends Component {
    render() {

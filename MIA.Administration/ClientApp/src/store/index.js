@@ -1,22 +1,9 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import Thunk from 'redux-thunk';
-import reducers from './reducers';
+import configureStore from "./configureStore";
 
-export function configureStore(initialState) {
+// Create redux store with history
+import { createBrowserHistory } from "history";
+const initialState = {};
+export const history = createBrowserHistory();
+export const { store, persistedStore } = configureStore(initialState, history);
 
-    const store = createStore(
-        reducers,
-        initialState,
-        compose(applyMiddleware(Thunk))
-    );
-
-    if (module.hot) {
-        // Enable Webpack hot module replacement for reducers
-        module.hot.accept('../reducers/index', () => {
-            const nextRootReducer = require('../reducers/index');
-            store.replaceReducer(nextRootReducer);
-        });
-    }
-
-    return store;
-}
+// console.log('state:', store.getState());

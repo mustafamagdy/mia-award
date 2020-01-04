@@ -10,7 +10,7 @@ import {
 import DownloadButton from './component/DownloadButton';
 import HLSComponent from './component/HLSComponent';
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
@@ -67,11 +67,11 @@ class VideoPlayer extends Component {
 	render() {
 		return (
 			<div className="video-player-wrapper">
-				<PageTitleBar title={<IntlMessages id="sidebar.videoPlayer" />} match={this.props.match} />
+				<PageTitleBar title={<Trans id="sidebar.videoPlayer" />} match={this.props.match} />
 				<div className="row">
 					<RctCollapsibleCard
 						colClasses="col-sm-12 col-md-12 col-lg-6"
-						heading={<IntlMessages id="widgets.baseConfig" />}
+						heading={<Trans id="widgets.baseConfig" />}
 					>
 						<Player
 							playsInline
@@ -81,7 +81,7 @@ class VideoPlayer extends Component {
 					</RctCollapsibleCard>
 					<RctCollapsibleCard
 						colClasses="col-sm-12 col-md-12 col-lg-6"
-						heading={<IntlMessages id="widgets.withDownloadButton" />}
+						heading={<Trans id="widgets.withDownloadButton" />}
 					>
 						<Player
 							poster="https://reactify.theironnetwork.org/data/images/bunny-poster.jpg"
@@ -95,7 +95,7 @@ class VideoPlayer extends Component {
 					</RctCollapsibleCard>
 					<RctCollapsibleCard
 						colClasses="col-sm-12 col-md-12 col-lg-6"
-						heading={<IntlMessages id="widgets.customControlBar" />}
+						heading={<Trans id="widgets.customControlBar" />}
 					>
 						<Player
 							poster="https://reactify.theironnetwork.org/data/images/nature-poster.jpg"
@@ -116,7 +116,7 @@ class VideoPlayer extends Component {
 					</RctCollapsibleCard>
 					<RctCollapsibleCard
 						colClasses="col-sm-12 col-md-12 col-lg-6"
-						heading={<IntlMessages id="widgets.httpLiveStreaming" />}
+						heading={<Trans id="widgets.httpLiveStreaming" />}
 					>
 						<Player>
 							<HLSComponent
@@ -127,7 +127,7 @@ class VideoPlayer extends Component {
 					</RctCollapsibleCard>
 					<RctCollapsibleCard
 						colClasses="col-sm-12 col-md-12 col-lg-12"
-						heading={<IntlMessages id="widgets.keyboardShortcuts" />}
+						heading={<Trans id="widgets.keyboardShortcuts" />}
 					>
 						<div className="table-responsive">
 							<table className="table table-hover mb-0">

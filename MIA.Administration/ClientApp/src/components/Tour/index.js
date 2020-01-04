@@ -7,7 +7,7 @@ import Joyride from 'react-joyride';
 import { connect } from 'react-redux';
 
 // redux action
-import { stopUserTour } from 'Actions';
+import { stopUserTour } from 'Store/app/actions';
 
 class TourComponent extends Component {
 

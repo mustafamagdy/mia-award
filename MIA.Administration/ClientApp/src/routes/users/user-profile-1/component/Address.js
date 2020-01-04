@@ -25,7 +25,7 @@ import { NotificationManager } from 'react-notifications';
 import EditAddressForm from './EditAddressForm';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 import DeleteConfirmationDialog from 'Components/DeleteConfirmationDialog/DeleteConfirmationDialog';
 
@@ -184,7 +184,7 @@ export default class Address extends Component {
 		const { addresses, addNewAddressDetail, loading, editAddressModal, selectedAddress } = this.state;
 		return (
 			<div className="address-wrapper">
-				<h2 className="heading"><IntlMessages id="widgets.selectADefaultAddress" /></h2>
+				<h2 className="heading"><Trans id="widgets.selectADefaultAddress" /></h2>
 				<div className="row row-eq-height">
 					{addresses.map((address, key) => (
 						<div className="col-sm-6 col-md-4 col-lg-3" key={key}>

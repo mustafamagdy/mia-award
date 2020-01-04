@@ -1,0 +1,10 @@
+{
+  "sidebar.userManagement": {
+    "origin": [
+      [
+        "src/routes/news/NewsList.js",
+        201
+      ]
+    ]
+  }
+}

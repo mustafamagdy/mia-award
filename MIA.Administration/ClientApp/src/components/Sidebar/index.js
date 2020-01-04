@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { Scrollbars } from "react-custom-scrollbars";
 
 // redux actions
-import { collapsedSidebarAction } from "Actions";
+import { collapsedSidebarAction } from "Store/app/actions";
 
 // components
 import UserBlock from "./UserBlock";
@@ -69,14 +69,14 @@ class Sidebar extends Component {
               "sidebar-overlay-light": !isDarkSidenav
             })}
           >
-            {/* <div className="site-logo">
+            <div className="site-logo">
               <Link to="/" className="logo-mini">
                 <img src={require("Assets/img/appLogo.png")} className="mr-15" alt="site logo" width="35" height="35" />
               </Link>
               <Link to="/" className="logo-normal">
                 <img src={require("Assets/img/appLogoText.png")} className="img-fluid" alt="site-logo" width="67" height="17" />
               </Link>
-            </div> */}
+            </div>
             <div className="rct-sidebar-wrap">
               <Scrollbars className="rct-scroll" autoHide autoHideDuration={100} style={{ height: "calc(100vh - 60px)" }}>
                 <UserBlock />

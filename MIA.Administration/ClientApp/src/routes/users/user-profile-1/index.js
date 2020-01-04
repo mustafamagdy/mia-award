@@ -21,7 +21,7 @@ import { RctCard } from 'Components/RctCard';
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // For Tab Content
 function TabContainer(props) {
@@ -50,7 +50,7 @@ export default class UserProfile extends Component {
                <title>User Profile</title>
                <meta name="description" content="User Profile" />
             </Helmet>
-            <PageTitleBar title={<IntlMessages id="sidebar.userProfile" />} match={this.props.match} />
+            <PageTitleBar title={<Trans id="sidebar.userProfile" />} match={this.props.match} />
             <RctCard>
                <UserBlock />
                <div className="rct-tabs">
@@ -64,19 +64,19 @@ export default class UserProfile extends Component {
                      >
                         <Tab
                            icon={<i className="ti-user"></i>}
-                           label={<IntlMessages id="components.myProfile" />}
+                           label={<Trans id="components.myProfile" />}
                         />
                         <Tab
                            icon={<i className="ti-email"></i>}
-                           label={<IntlMessages id="components.emailPrefrences" />}
+                           label={<Trans id="components.emailPrefrences" />}
                         />
                         <Tab
                            icon={<i className="ti-comment-alt"></i>}
-                           label={<IntlMessages id="widgets.messages" />}
+                           label={<Trans id="widgets.messages" />}
                         />
                         <Tab
                            icon={<i className="ti-home"></i>}
-                           label={<IntlMessages id="components.address" />}
+                           label={<Trans id="components.address" />}
                         />
                      </Tabs>
                   </AppBar>

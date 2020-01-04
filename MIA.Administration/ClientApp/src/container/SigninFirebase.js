@@ -19,16 +19,16 @@ import {
 } from 'Components/Widgets';
 
 // app config
-import AppConfig from 'Constants/AppConfig';
+import AppConfig from 'Constants';
 
 // redux action
-import {
-   signinUserInFirebase,
-   signinUserWithFacebook,
-   signinUserWithGoogle,
-   signinUserWithGithub,
-   signinUserWithTwitter
-} from 'Actions';
+// import {
+//    signinUserInFirebase,
+//    signinUserWithFacebook,
+//    signinUserWithGoogle,
+//    signinUserWithGithub,
+//    signinUserWithTwitter
+// } from 'Store/auth/actions';
 
 //Auth File
 import Auth from '../Auth/Auth';
@@ -47,7 +47,7 @@ class Signin extends Component {
 	 */
    onUserLogin() {
       if (this.state.email !== '' && this.state.password !== '') {
-         this.props.signinUserInFirebase(this.state, this.props.history);
+         // this.props.signinUserInFirebase(this.state, this.props.history);
       }
    }
 
@@ -145,7 +145,7 @@ class Signin extends Component {
                             			</Button>
                                  </FormGroup>
                               </Form>
-                              <p className="mb-20">or sign in with</p>
+                              {/* <p className="mb-20">or sign in with</p>
                               <Fab size="small" variant="round" className="btn-facebook mr-15 mb-20 text-white"
                                  onClick={() => this.props.signinUserWithFacebook(this.props.history)}
                               >
@@ -165,7 +165,7 @@ class Signin extends Component {
                                  onClick={() => this.props.signinUserWithGithub(this.props.history)}
                               >
                                  <i className="zmdi zmdi-github-alt"></i>
-                              </Fab>
+                              </Fab> */}
                               <p className="text-muted">By signing up you agree to {AppConfig.brandName}</p>
                               <p className="mb-0"><a target="_blank" href="#/terms-condition" className="text-muted">Terms of Service</a></p>
                            </div>

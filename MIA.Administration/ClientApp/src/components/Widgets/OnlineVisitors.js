@@ -5,7 +5,7 @@ import React from 'react';
 import { VectorMap } from 'react-jvectormap';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // chart config
 import ChartConfig from 'Constants/chart-config';
@@ -13,7 +13,7 @@ import ChartConfig from 'Constants/chart-config';
 const OnlineVisitorsWidget = ({ data }) => (
     <div className="card">
         <h4 className="card-title"><span className="text-info">{data.totalVisitors} </span>
-            <IntlMessages id="widgets.onlineVistors" />
+            <Trans id="widgets.onlineVistors" />
         </h4>
         <div style={{ width: '100%', height: 170 }}>
             <VectorMap map={'world_mill'}

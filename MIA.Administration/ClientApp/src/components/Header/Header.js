@@ -15,7 +15,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { withRouter } from "react-router-dom";
 
 // actions
-import { collapsedSidebarAction } from "Actions";
+import { collapsedSidebarAction } from "Store/app/actions";
 
 // helpers
 import { getAppLayout } from "Helpers/helpers";
@@ -27,8 +27,7 @@ import SearchForm from "./SearchForm";
 import QuickLinks from "./QuickLinks";
 import MobileSearchForm from "./MobileSearchForm";
 
-// intl messages
-import IntlMessages from "Util/IntlMessages";
+import { Trans } from "@lingui/macro";
 
 class Header extends Component {
   state = {

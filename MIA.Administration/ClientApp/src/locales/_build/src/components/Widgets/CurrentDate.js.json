@@ -1,0 +1,10 @@
+{
+  "widgets.currentDate": {
+    "origin": [
+      [
+        "src/components/Widgets/CurrentDate.js",
+        21
+      ]
+    ]
+  }
+}

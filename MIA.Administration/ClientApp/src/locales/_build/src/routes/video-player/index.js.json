@@ -1,0 +1,50 @@
+{
+  "sidebar.videoPlayer": {
+    "origin": [
+      [
+        "src/routes/video-player/index.js",
+        70
+      ]
+    ]
+  },
+  "widgets.baseConfig": {
+    "origin": [
+      [
+        "src/routes/video-player/index.js",
+        74
+      ]
+    ]
+  },
+  "widgets.withDownloadButton": {
+    "origin": [
+      [
+        "src/routes/video-player/index.js",
+        84
+      ]
+    ]
+  },
+  "widgets.customControlBar": {
+    "origin": [
+      [
+        "src/routes/video-player/index.js",
+        98
+      ]
+    ]
+  },
+  "widgets.httpLiveStreaming": {
+    "origin": [
+      [
+        "src/routes/video-player/index.js",
+        119
+      ]
+    ]
+  },
+  "widgets.keyboardShortcuts": {
+    "origin": [
+      [
+        "src/routes/video-player/index.js",
+        130
+      ]
+    ]
+  }
+}

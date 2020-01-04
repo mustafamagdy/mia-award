@@ -17,7 +17,7 @@ import {
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // rct card box
 
@@ -41,7 +41,7 @@ export default class FormElements extends Component {
 	render() {
 		return (
 			<div className="formelements-wrapper">
-				<PageTitleBar title={<IntlMessages id="sidebar.formElements" />} match={this.props.match} />
+				<PageTitleBar title={<Trans id="sidebar.formElements" />} match={this.props.match} />
 				<div className="row">
 					<div className="col-sm-12 col-md-12 col-xl-6">
 						<RctCollapsibleCard heading="Default React Form">

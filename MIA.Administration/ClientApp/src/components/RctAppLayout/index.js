@@ -21,10 +21,10 @@ import PreloadSidebar from 'Components/PreloadLayout/PreloadSidebar';
 
 
 // app config
-import AppConfig from 'Constants/AppConfig';
+import AppConfig from 'Constants';
 
 // actions
-import { collapsedSidebarAction, startUserTour } from 'Actions';
+import { collapsedSidebarAction, startUserTour } from 'Store/app/actions';
 
 class MainApp extends Component {
 

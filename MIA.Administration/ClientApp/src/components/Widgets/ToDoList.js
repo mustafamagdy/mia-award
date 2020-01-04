@@ -22,7 +22,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import api from 'Api';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // rct section loader
 import RctSectionLoader from 'Components/RctSectionLoader/RctSectionLoader';
@@ -171,14 +171,14 @@ export default class TodoListWidget extends Component {
                </List>
             </Scrollbars>
             <div className="d-flex p-3">
-               <Button variant="contained" color="primary" className="text-white" onClick={() => this.opnAddNewTodoDialog()}><IntlMessages id="widgets.addNew" /></Button>
+               <Button variant="contained" color="primary" className="text-white" onClick={() => this.opnAddNewTodoDialog()}><Trans id="widgets.addNew" /></Button>
             </div>
             <Dialog
                open={this.state.addNewTodoDialog}
                onClose={this.handleClose}
                aria-labelledby="form-dialog-title">
                <DialogTitle id="form-dialog-title">
-                  <IntlMessages id="components.addNewTasks" />
+                  <Trans id="components.addNewTasks" />
                </DialogTitle>
                <DialogContent>
                   <DialogContentText>
@@ -206,10 +206,10 @@ export default class TodoListWidget extends Component {
                </DialogContent>
                <DialogActions>
                   <Button variant="contained" onClick={this.handleClose} className="btn-danger text-white">
-                     <span><IntlMessages id="button.cancel" /></span>
+                     <span><Trans id="button.cancel" /></span>
                   </Button>
                   <Button variant="contained" onClick={this.addNewTodo} color="primary" className="text-white">
-                     <span><IntlMessages id="button.add" /></span>
+                     <span><Trans id="button.add" /></span>
                   </Button>
                </DialogActions>
             </Dialog>

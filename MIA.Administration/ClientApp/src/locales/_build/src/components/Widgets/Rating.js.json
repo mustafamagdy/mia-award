@@ -1,0 +1,18 @@
+{
+  "widgets.howWouldYouRateUs": {
+    "origin": [
+      [
+        "src/components/Widgets/Rating.js",
+        29
+      ]
+    ]
+  },
+  "widgets.send": {
+    "origin": [
+      [
+        "src/components/Widgets/Rating.js",
+        50
+      ]
+    ]
+  }
+}

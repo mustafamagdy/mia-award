@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import { NotificationManager } from 'react-notifications';
 
 // intlmessages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 export default class Profile extends Component {
 
@@ -22,28 +22,28 @@ export default class Profile extends Component {
    render() {
       return (
          <div className="profile-wrapper w-50">
-            <h2 className="heading"><IntlMessages id="widgets.personalDetails" /></h2>
+            <h2 className="heading"><Trans id="widgets.personalDetails" /></h2>
             <Form>
                <FormGroup row>
-                  <Label for="firstName" sm={3}><IntlMessages id="components.firstName" /></Label>
+                  <Label for="firstName" sm={3}><Trans id="components.firstName" /></Label>
                   <Col sm={9}>
                      <Input type="text" name="firstName" id="firstName" className="input-lg" />
                   </Col>
                </FormGroup>
                <FormGroup row>
-                  <Label for="lastName" sm={3}><IntlMessages id="components.lastName" /></Label>
+                  <Label for="lastName" sm={3}><Trans id="components.lastName" /></Label>
                   <Col sm={9}>
                      <Input type="text" name="lastName" id="lastName" className="input-lg" />
                   </Col>
                </FormGroup>
                <FormGroup row>
-                  <Label for="occupation" sm={3}><IntlMessages id="components.occupation" /></Label>
+                  <Label for="occupation" sm={3}><Trans id="components.occupation" /></Label>
                   <Col sm={9}>
                      <Input type="text" name="occupation" id="occupation" className="input-lg" />
                   </Col>
                </FormGroup>
                <FormGroup row>
-                  <Label for="company" sm={3}><IntlMessages id="components.companyName" /></Label>
+                  <Label for="company" sm={3}><Trans id="components.companyName" /></Label>
                   <Col sm={9}>
                      <Input type="text" name="company" id="company" className="input-lg mb-20" />
                      <div className="help-text d-flex p-10">
@@ -53,42 +53,42 @@ export default class Profile extends Component {
                   </Col>
                </FormGroup>
                <FormGroup row>
-                  <Label for="telephone" sm={3}><IntlMessages id="components.phoneNo" /></Label>
+                  <Label for="telephone" sm={3}><Trans id="components.phoneNo" /></Label>
                   <Col sm={9}>
                      <Input type="tel" name="telephone" id="telephone" className="input-lg" />
                   </Col>
                </FormGroup>
             </Form>
             <hr />
-            <h2 className="heading"><IntlMessages id="components.address" /></h2>
+            <h2 className="heading"><Trans id="components.address" /></h2>
             <Form>
                <FormGroup row>
-                  <Label for="address" sm={3}><IntlMessages id="components.address" /></Label>
+                  <Label for="address" sm={3}><Trans id="components.address" /></Label>
                   <Col sm={9}>
                      <Input type="text" name="address" id="address" className="input-lg" />
                   </Col>
                </FormGroup>
                <FormGroup row>
-                  <Label for="city" sm={3}><IntlMessages id="components.city" /></Label>
+                  <Label for="city" sm={3}><Trans id="components.city" /></Label>
                   <Col sm={9}>
                      <Input type="text" name="city" id="city" className="input-lg" />
                   </Col>
                </FormGroup>
                <FormGroup row>
-                  <Label for="state" sm={3}><IntlMessages id="components.state" /></Label>
+                  <Label for="state" sm={3}><Trans id="components.state" /></Label>
                   <Col sm={9}>
                      <Input type="text" name="state" id="state" className="input-lg" />
                   </Col>
                </FormGroup>
                <FormGroup row>
-                  <Label for="zip" sm={3}><IntlMessages id="components.zipCode" /></Label>
+                  <Label for="zip" sm={3}><Trans id="components.zipCode" /></Label>
                   <Col sm={9}>
                      <Input type="text" name="zip" id="zip" className="input-lg" />
                   </Col>
                </FormGroup>
             </Form>
             <hr />
-            <h2 className="heading"><IntlMessages id="components.social Connection" /></h2>
+            <h2 className="heading"><Trans id="components.social Connection" /></h2>
             <div>
                <InputGroup className="mb-20">
                   <InputGroupAddon addonType="prepend">
@@ -116,7 +116,7 @@ export default class Profile extends Component {
                </InputGroup>
             </div>
             <hr />
-            <Button variant="contained" color="primary" className="text-white" onClick={() => this.onUpdateProfile()}><IntlMessages id="widgets.updateProfile" /></Button>
+            <Button variant="contained" color="primary" className="text-white" onClick={() => this.onUpdateProfile()}><Trans id="widgets.updateProfile" /></Button>
          </div>
       );
    }

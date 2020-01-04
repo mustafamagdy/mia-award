@@ -8,7 +8,7 @@ import Slider from "react-slick";
 import api from 'Api';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 export default class TopSellingWidget extends Component {
 
@@ -54,7 +54,7 @@ export default class TopSellingWidget extends Component {
 						</div>
 						<div className="rct-block-footer clearfix">
 							<div className="float-left">
-								<h6><IntlMessages id="widgets.totalSales" /></h6>
+								<h6><Trans id="widgets.totalSales" /></h6>
 								<h3>{product.totalSales}</h3>
 							</div>
 							<div className="float-right">

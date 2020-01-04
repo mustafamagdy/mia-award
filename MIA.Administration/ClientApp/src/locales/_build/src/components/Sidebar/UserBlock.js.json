@@ -1,0 +1,18 @@
+{
+  "widgets.profile": {
+    "origin": [
+      [
+        "src/components/Sidebar/UserBlock.js",
+        97
+      ]
+    ]
+  },
+  "widgets.logOut": {
+    "origin": [
+      [
+        "src/components/Sidebar/UserBlock.js",
+        120
+      ]
+    ]
+  }
+}

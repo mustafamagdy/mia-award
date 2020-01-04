@@ -17,7 +17,7 @@ import DeleteConfirmationDialog from "Components/DeleteConfirmationDialog/Delete
 import AddNewRecordForm from "./AddNewRecordForm";
 import UpdateRecordForm from "./UpdateRecordForm";
 import PageTitleBar from "Components/PageTitleBar/PageTitleBar";
-import IntlMessages from "Util/IntlMessages";
+import { Trans } from "@lingui/macro";
 import RctCollapsibleCard from "Components/RctCollapsibleCard/RctCollapsibleCard";
 import RctSectionLoader from "Components/RctSectionLoader/RctSectionLoader";
 
@@ -198,7 +198,7 @@ export default class NewsList extends Component {
           <title>Reactify | Users Management</title>
           <meta name="description" content="Reactify Widgets" />
         </Helmet>
-        <PageTitleBar title={<IntlMessages id="sidebar.userManagement" />} match={this.props.match} />
+        <PageTitleBar title={<Trans id="sidebar.userManagement" />} match={this.props.match} />
         <RctCollapsibleCard fullBlock>
           <div className="table-responsive">
             <div className="d-flex justify-content-between py-20 px-10 border-bottom">

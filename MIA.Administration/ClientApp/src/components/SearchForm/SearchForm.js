@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // actions
-import { toggleSearchForm } from 'Actions';
+import { toggleSearchForm } from 'Store/app/actions';
 
 class SearchForm extends Component {
 

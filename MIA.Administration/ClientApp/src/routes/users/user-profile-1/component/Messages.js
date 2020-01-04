@@ -28,7 +28,7 @@ import {
 import api from 'Api';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // rct section loader
 import RctSectionLoader from 'Components/RctSectionLoader/RctSectionLoader';
@@ -190,7 +190,7 @@ export default class Messages extends Component {
          <div className="messages-wrapper">
             <div className="row mb-30">
                <div className="col-sm-5 col-md-4 col-lg-3">
-                  <Button onClick={() => this.openWriteNewMessageModal()} variant="contained" color="primary" className="text-white btn-lg btn-block mb-10"><IntlMessages id="button.writeNewMessage" /></Button>
+                  <Button onClick={() => this.openWriteNewMessageModal()} variant="contained" color="primary" className="text-white btn-lg btn-block mb-10"><Trans id="button.writeNewMessage" /></Button>
                </div>
                <div className="col-sm-7 col-md-8 col-lg-9">
                   <InputGroup>

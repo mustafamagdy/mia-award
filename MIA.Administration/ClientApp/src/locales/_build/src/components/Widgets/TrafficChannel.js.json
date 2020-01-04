@@ -1,0 +1,18 @@
+{
+  "button.goToCampaign": {
+    "origin": [
+      [
+        "src/components/Widgets/TrafficChannel.js",
+        27
+      ]
+    ]
+  },
+  "widgets.updated10Minago": {
+    "origin": [
+      [
+        "src/components/Widgets/TrafficChannel.js",
+        30
+      ]
+    ]
+  }
+}

@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import api from 'Api';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 function TabContainer({ children, dir }) {
    return (
@@ -111,8 +111,8 @@ class Notifications extends Component {
                   textColor="primary"
                   variant="fullWidth"
                >
-                  <Tab label={<IntlMessages id="widgets.recentNotifications" />} />
-                  <Tab label={<IntlMessages id="widgets.messages" />} />
+                  <Tab label={<Trans id="widgets.recentNotifications" />} />
+                  <Tab label={<Trans id="widgets.messages" />} />
                </Tabs>
             </AppBar>
             <Scrollbars className="rct-scroll" autoHeight autoHeightMin={100} autoHeightMax={375} autoHide>
@@ -149,7 +149,7 @@ class Notifications extends Component {
                                  <div className="align-items-start">
                                     <p className="mb-5 message-head">
                                        <span className="text-primary mr-5">
-                                          <i className="zmdi zmdi-comment-alt-text"></i> <IntlMessages id="widgets.messages" /></span> {message.date}
+                                          <i className="zmdi zmdi-comment-alt-text"></i> <Trans id="widgets.messages" /></span> {message.date}
                                     </p>
                                     <h5 className="mb-5">{message.from.userName}</h5>
                                     <p className="mb-0 text-muted">{message.message}</p>

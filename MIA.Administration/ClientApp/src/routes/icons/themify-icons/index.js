@@ -7,7 +7,7 @@ import React from 'react';
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
@@ -369,7 +369,7 @@ const icons = [
 const ThemifyIcons = ({ match }) => {
   return (
     <div className="icons-wrapper">
-      <PageTitleBar title={<IntlMessages id="sidebar.themifyIcons" />} match={match} />
+      <PageTitleBar title={<Trans id="sidebar.themifyIcons" />} match={match} />
       <div className="row">
         {icons.map((icon, key) => (
           <RctCollapsibleCard customClasses="icon-box mb-4" colClasses="col-sm-6 col-md-4 col-xl-3" key={key}

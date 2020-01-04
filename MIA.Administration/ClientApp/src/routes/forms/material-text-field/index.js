@@ -14,7 +14,7 @@ import FormattedInputs from './components/formated-input';
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
@@ -56,7 +56,7 @@ export default class TextFields extends React.Component {
   render() {
     return (
       <div className="textfields-wrapper">
-        <PageTitleBar title={<IntlMessages id="sidebar.textField" />} match={this.props.match} />
+        <PageTitleBar title={<Trans id="sidebar.textField" />} match={this.props.match} />
         <RctCollapsibleCard heading="Simple Text Field">
           <form noValidate autoComplete="off">
             <div className="row">

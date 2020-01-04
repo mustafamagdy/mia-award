@@ -1,0 +1,18 @@
+{
+  "widgets.send": {
+    "origin": [
+      [
+        "src/components/Widgets/ComposeEmail.js",
+        99
+      ]
+    ]
+  },
+  "widgets.saveAsDrafts": {
+    "origin": [
+      [
+        "src/components/Widgets/ComposeEmail.js",
+        102
+      ]
+    ]
+  }
+}

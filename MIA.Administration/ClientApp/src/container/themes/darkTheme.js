@@ -4,7 +4,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
 
-import AppConfig from 'Constants/AppConfig';
+import AppConfig from 'Constants';
 
 const { darkBgColor } = AppConfig.darkThemeColors;
 

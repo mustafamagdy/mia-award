@@ -1,0 +1,10 @@
+{
+  "button.viewAll": {
+    "origin": [
+      [
+        "src/components/Widgets/Comments.js",
+        78
+      ]
+    ]
+  }
+}

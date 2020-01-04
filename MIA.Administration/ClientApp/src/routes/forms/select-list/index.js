@@ -13,7 +13,7 @@ import NativeSelect from './components/native-select';
 import MultiSelect from './components/multiselect';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
@@ -35,7 +35,7 @@ export default class SimpleSelect extends React.Component {
   render() {
     return (
       <div className="select-wrapper">
-        <PageTitleBar title={<IntlMessages id="sidebar.selectList" />} match={this.props.match} />
+        <PageTitleBar title={<Trans id="sidebar.selectList" />} match={this.props.match} />
         <RctCollapsibleCard heading="Simple Select">
           <form autoComplete="off">
             <div className="row">

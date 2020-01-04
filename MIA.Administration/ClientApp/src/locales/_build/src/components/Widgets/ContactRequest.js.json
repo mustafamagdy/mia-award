@@ -1,0 +1,18 @@
+{
+  "button.accept": {
+    "origin": [
+      [
+        "src/components/Widgets/ContactRequest.js",
+        50
+      ]
+    ]
+  },
+  "button.reject": {
+    "origin": [
+      [
+        "src/components/Widgets/ContactRequest.js",
+        53
+      ]
+    ]
+  }
+}

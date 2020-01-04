@@ -1,0 +1,34 @@
+{
+  "button.add": {
+    "origin": [
+      [
+        "src/components/Widgets/ProjectTaskManagement.js",
+        177
+      ]
+    ]
+  },
+  "button.cancel": {
+    "origin": [
+      [
+        "src/components/Widgets/ProjectTaskManagement.js",
+        180
+      ]
+    ]
+  },
+  "widgets.selectProject": {
+    "origin": [
+      [
+        "src/components/Widgets/ProjectTaskManagement.js",
+        192
+      ]
+    ]
+  },
+  "widgets.updated10Minago": {
+    "origin": [
+      [
+        "src/components/Widgets/ProjectTaskManagement.js",
+        212
+      ]
+    ]
+  }
+}

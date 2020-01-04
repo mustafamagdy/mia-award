@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import SpacePieChart from 'Components/Charts/SpacePieChart';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 export default class Space extends Component {
 	render() {
@@ -26,9 +26,9 @@ export default class Space extends Component {
 						/>
 					</div>
 					<div>
-						<p className="mb-0"><IntlMessages id="components.spaceUsed" /></p>
+						<p className="mb-0"><Trans id="components.spaceUsed" /></p>
 						<p className="font-3x mb-0">30<sub className="text-dark font-lg">/50GB</sub></p>
-						<Button color="primary" className="btn-xs"><IntlMessages id="widgets.buyMore" /></Button>
+						<Button color="primary" className="btn-xs"><Trans id="widgets.buyMore" /></Button>
 					</div>
 				</CardBody>
 			</Card>

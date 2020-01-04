@@ -30,4 +30,15 @@ if (module.hot) {
   });
 }
 
-render();
+//Chunked polyfill for browsers without Intl support
+if (!window.Intl) {
+  new Promise(resolve => {
+    resolve(import("intl"));
+  }) // eslint-disable-line prettier/prettier
+    .then(() => render())
+    .catch(err => {
+      throw err;
+    });
+} else {
+  render();
+}

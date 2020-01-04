@@ -11,7 +11,7 @@ import TinyLineChart from 'Components/Charts/TinyLineChart';
 import ChartConfig from 'Constants/chart-config';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // rct card box
 import { RctCard, RctCardFooter, RctCardContent } from 'Components/RctCard';
@@ -20,7 +20,7 @@ const TotalSales = ({ label, chartdata, labels }) => (
     <RctCard>
         <div className="rct-block-title d-flex justify-content-between">
             <div className="d-flex align-items-start">
-                <h4><IntlMessages id="widgets.totalSales" /></h4>
+                <h4><Trans id="widgets.totalSales" /></h4>
             </div>
             <div className="align-items-end">
                 <span className="d-block text-muted counter-point">$<CountUp start={0} end={1435} duration={3} useEasing={true} /></span>

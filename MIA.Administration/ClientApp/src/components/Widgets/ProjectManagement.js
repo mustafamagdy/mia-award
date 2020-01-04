@@ -22,7 +22,7 @@ import RctSectionLoader from 'Components/RctSectionLoader/RctSectionLoader';
 import { getTheDate } from 'Helpers/helpers';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 class ProjectItem extends Component {
 	constructor(props) {
@@ -77,7 +77,7 @@ class ProjectItem extends Component {
 						<td colSpan="4">
 							<Collapse isOpen={collapse}>
 								<div className="p-10">
-									<h6><IntlMessages id="widgets.description" /></h6>
+									<h6><Trans id="widgets.description" /></h6>
 									<p>{data.description}</p>
 								</div>
 							</Collapse>
@@ -125,10 +125,10 @@ export default class ProjectManagement extends Component {
 					<Table hover className="mb-0" responsive>
 						<thead>
 							<tr>
-								<th><IntlMessages id="components.projectName" /></th>
-								<th><IntlMessages id="widgets.deadline" /></th>
-								<th><IntlMessages id="widgets.status" /></th>
-								<th><IntlMessages id="widgets.team" /></th>
+								<th><Trans id="components.projectName" /></th>
+								<th><Trans id="widgets.deadline" /></th>
+								<th><Trans id="widgets.status" /></th>
+								<th><Trans id="widgets.team" /></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -144,7 +144,7 @@ export default class ProjectManagement extends Component {
 				<RctCardFooter>
 					<span className="fs-12 text-base">
 						<i className="mr-15 zmdi zmdi-refresh"></i>
-						<IntlMessages id="widgets.updated10Minago" />
+						<Trans id="widgets.updated10Minago" />
 					</span>
 				</RctCardFooter>
 			</div>

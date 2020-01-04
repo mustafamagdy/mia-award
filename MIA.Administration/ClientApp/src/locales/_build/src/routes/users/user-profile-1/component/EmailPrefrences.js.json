@@ -1,0 +1,26 @@
+{
+  "widgets.updateYourEmailAddress": {
+    "origin": [
+      [
+        "src/routes/users/user-profile-1/component/EmailPrefrences.js",
+        48
+      ]
+    ]
+  },
+  "button.save": {
+    "origin": [
+      [
+        "src/routes/users/user-profile-1/component/EmailPrefrences.js",
+        53
+      ]
+    ]
+  },
+  "button.saveChanges": {
+    "origin": [
+      [
+        "src/routes/users/user-profile-1/component/EmailPrefrences.js",
+        121
+      ]
+    ]
+  }
+}

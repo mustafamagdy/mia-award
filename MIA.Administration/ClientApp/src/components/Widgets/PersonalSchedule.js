@@ -23,7 +23,7 @@ import { RctCardFooter } from "Components/RctCard";
 import RctSectionLoader from 'Components/RctSectionLoader/RctSectionLoader';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 export default class PersonalSchedule extends Component {
 
@@ -108,9 +108,9 @@ export default class PersonalSchedule extends Component {
             {sectionReload && <RctSectionLoader />}
             <div className="personal-schedule-wrap">
                <div className="rct-block-title border-0 d-flex justify-content-between align-items-center">
-                  <h4 className="mb-0"><IntlMessages id="widgets.personalSchedule" /></h4>
+                  <h4 className="mb-0"><Trans id="widgets.personalSchedule" /></h4>
                   <Button variant="contained" className="bg-warning text-white btn-xs" onClick={() => this.openModal()}>
-                     <IntlMessages id="widgets.addNew" />
+                     <Trans id="widgets.addNew" />
                   </Button>
                </div>
                <Scrollbars className="rct-scroll" autoHeight autoHeightMin={100} autoHeightMax={320} autoHide >
@@ -134,11 +134,11 @@ export default class PersonalSchedule extends Component {
                </Scrollbars>
                <RctCardFooter customClasses="d-flex border-0 justify-content-between bg-light-yellow rounded-bottom align-items-center">
                   <Button variant="contained" className="bg-warning text-white btn-xs">
-                     <IntlMessages id="button.viewAll" />
+                     <Trans id="button.viewAll" />
                   </Button>
                   <p className="fs-12 mb-0 text-base">
                      <span><i className="mr-5 zmdi zmdi-refresh"></i></span>
-                     <IntlMessages id="widgets.updated10Minago" />
+                     <Trans id="widgets.updated10Minago" />
                   </p>
                </RctCardFooter>
             </div>
@@ -186,7 +186,7 @@ export default class PersonalSchedule extends Component {
                      <span>Add</span>
                   </Button>
                   <Button variant="contained" onClick={() => this.handleClose()} className="btn-danger text-white">
-                     <span><IntlMessages id="button.cancel" /></span>
+                     <span><Trans id="button.cancel" /></span>
                   </Button>
                </ModalFooter>
             </Modal>

@@ -1,0 +1,18 @@
+{
+  "components.spaceUsed": {
+    "origin": [
+      [
+        "src/components/Widgets/Space.js",
+        29
+      ]
+    ]
+  },
+  "widgets.buyMore": {
+    "origin": [
+      [
+        "src/components/Widgets/Space.js",
+        31
+      ]
+    ]
+  }
+}

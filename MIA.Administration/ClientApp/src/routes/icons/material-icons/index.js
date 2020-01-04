@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
 // intl messages
-import IntlMessages from 'Util/IntlMessages';
+import {Trans} from '@lingui/macro';
 
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
@@ -814,7 +814,7 @@ class MaterialIcons extends Component {
 	render() {
 		return (
 			<div className="icons-wrapper">
-				<PageTitleBar title={<IntlMessages id="sidebar.materialIcons" />} match={this.props.match} />
+				<PageTitleBar title={<Trans id="sidebar.materialIcons" />} match={this.props.match} />
 				<div className="row">
 					{icons.map((value, index) => (
 						<RctCollapsibleCard customClasses="icon-box" colClasses="col-sm-6 col-md-4 col-xl-3" key={index}

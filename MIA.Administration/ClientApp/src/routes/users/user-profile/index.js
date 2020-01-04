@@ -10,7 +10,7 @@ import { Fab } from "@material-ui/core";
 import PageTitleBar from "Components/PageTitleBar/PageTitleBar";
 
 // intl messages
-import IntlMessages from "Util/IntlMessages";
+import { Trans } from "@lingui/macro";
 
 // rct card box
 import { RctCard } from "Components/RctCard";
@@ -26,7 +26,7 @@ class UserComponent extends Component {
           <title>User Profile</title>
           <meta name="description" content="User Profile" />
         </Helmet>
-        <PageTitleBar title={<IntlMessages id="sidebar.userProfile" />} match={this.props.match} />
+        <PageTitleBar title={<Trans id="sidebar.userProfile" />} match={this.props.match} />
         <RctCard customClasses="profile-head">
           <div className="profile-top">
             <img src={require("Assets/img/profile-banner.jpg")} alt="profile banner" width="1920" height="200" />
