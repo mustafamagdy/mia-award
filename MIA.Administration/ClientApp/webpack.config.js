@@ -51,12 +51,14 @@ module.exports = {
 		hotUpdateMainFilename: 'hot/hot-update.json'
 	},
 	devServer: {
-		contentBase: './src/index.js',
-		host: '0.0.0.0',
+		//contentBase: './src/index.js',
+    contentBase: __dirname + './public',
+    host: process.env.HOST || 'localhost',
 		compress: true,
-		port: 3000, // port number
+    port: parseInt(process.env.PORT, 10) || 3000, // port number
 		historyApiFallback: true,
-		quiet: true
+    quiet: true,
+    inline: true
 	},
 	// resolve alias (Absolute paths)
 	resolve: {

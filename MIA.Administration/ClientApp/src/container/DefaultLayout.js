@@ -7,16 +7,14 @@ import { connect } from 'react-redux';
 
 // app default layout
 import RctAppLayout from 'Components/RctAppLayout';
-
-// router service
-import routerService from "../services/_routerService";
+import routes from "../routes";
 
 class DefaultLayout extends Component {
 	render() {
 		const { match } = this.props;
 		return (
 			<RctAppLayout>
-				{routerService && routerService.map((route,key)=>
+				{routes && routes.map((route,key)=>
 					<Route key={key} path={`${match.url}/${route.path}`} component={route.component} />
 				)}
 			</RctAppLayout>

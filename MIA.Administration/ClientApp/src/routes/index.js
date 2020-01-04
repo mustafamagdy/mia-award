@@ -1,10 +1,10 @@
 // routes
-import FormElements from 'Routes/forms';
-import Users from 'Routes/users';
-import Icons from 'Routes/icons';
-import ImageCropper from 'Routes/image-cropper';
-import VideoPlayer from 'Routes/video-player';
-import News from 'Routes/news';
+import FormElements from './forms';
+import Users from './users';
+import Icons from './icons';
+import ImageCropper from './image-cropper';
+import VideoPlayer from './video-player';
+import News from './news';
 
 
 // // async component
