@@ -3,14 +3,14 @@
     "code": "ar",
     "name": "العربية",
     "direction": "RTL",
-    "flag": "sa",
+    "icon": "ar",
     "culture": "ar-SA"
   },
   "en": {
     "code": "en",
     "name": "English",
     "direction": "LTR",
-    "flag": "us",
+    "icon": "en",
     "culture": "en-US"
   }
 }

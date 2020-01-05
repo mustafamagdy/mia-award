@@ -1,50 +1,47 @@
 /**
  * Sidebar Content
  */
-import React, { Component } from 'react';
-import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import List from "@material-ui/core/List";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
-import {Trans} from '@lingui/macro';
+import { Trans } from "@lingui/macro";
 
-import NavMenuItem from './NavMenuItem';
+import NavMenuItem from "./NavMenuItem";
 
 // redux actions
-import { onToggleMenu } from 'Store/app/actions';
+import appActions from "Store/app/actions";
+import { bindActionCreators } from "redux";
 
 class SidebarContent extends Component {
+  toggleMenu(menu, stateCategory) {
+    let data = {
+      menu,
+      stateCategory
+    };
+    this.props.toggleMenu(data);
+  }
 
-	toggleMenu(menu, stateCategory) {
-		let data = {
-			menu,
-			stateCategory
-		}
-		this.props.onToggleMenu(data);
-	}
-
-	render() {
-		const { sidebarMenus } = this.props.sidebar;
-		return (
-			<div className="rct-sidebar-nav">
-					<nav className="navigation">
-					<List
-						className="rct-mainMenu p-0 m-0 list-unstyled"
-						subheader={
-							<ListSubheader className="side-title" component="li">
-								<Trans id="sidebar.general" />
-							</ListSubheader>}
-					>
-						{sidebarMenus.category1.map((menu, key) => (
-							<NavMenuItem
-								menu={menu}
-								key={key}
-								onToggleMenu={() => this.toggleMenu(menu, 'category1')}
-							/>
-						))}
-					</List>
-					{/* <List
+  render() {
+    const { sidebarMenus } = this.props;
+    return (
+      <div className="rct-sidebar-nav">
+        <nav className="navigation">
+          <List
+            className="rct-mainMenu p-0 m-0 list-unstyled"
+            subheader={
+              <ListSubheader className="side-title" component="li">
+                <Trans id="sidebar.general" />
+              </ListSubheader>
+            }
+          >
+            {sidebarMenus.category1.map((menu, key) => (
+              <NavMenuItem menu={menu} key={key} onToggleMenu={() => this.toggleMenu(menu, "category1")} />
+            ))}
+          </List>
+          {/* <List
 						className="rct-mainMenu p-0 m-0 list-unstyled"
 						subheader={<ListSubheader className="side-title" component="li"><Trans id="sidebar.modules" /></ListSubheader>}
 					>
@@ -104,17 +101,16 @@ class SidebarContent extends Component {
 							/>
 						))}
 					</List> */}
-				</nav>
-			</div>
-		);
-	}
+        </nav>
+      </div>
+    );
+  }
 }
 
 // map state to props
-const mapStateToProps = ({ sidebar, settings }) => {
-	return { sidebar, settings };
+const mapStateToProps = ({ global }) => {
+  return global;
 };
+const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
 
-export default withRouter(connect(mapStateToProps, {
-    onToggleMenu
-})(SidebarContent));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SidebarContent));

@@ -12,18 +12,10 @@ import Tooltip from "@material-ui/core/Tooltip";
 import AppConfig from "Constants";
 
 // redux actions
-import {
-  toggleSidebarImage,
-  setSidebarBgImageAction,
-  miniSidebarAction,
-  darkModeAction,
-  rtlLayoutAction,
-  changeThemeColor,
-  toggleDarkSidebar
-} from "Store/app/actions";
-
+import appActions from "Store/app/actions";
 // intl messages
 import { Trans } from "@lingui/macro";
+import { bindActionCreators } from "redux";
 
 class ThemeOptions extends Component {
   state = {
@@ -89,7 +81,6 @@ class ThemeOptions extends Component {
     this.props.darkModeAction(isTrue);
   }
 
-
   /**
    * Rtl Layout Event Hanlder
    * Use to Enable rtl Layout
@@ -104,7 +95,7 @@ class ThemeOptions extends Component {
       root.setAttribute("dir", "ltr");
       document.body.classList.remove("rtl");
     }
-    this.props.rtlLayoutAction(isTrue);
+    this.props.rtlLayout(isTrue);
   }
 
   /**
@@ -232,7 +223,7 @@ class ThemeOptions extends Component {
                       label={<Trans id="themeOptions.miniSidebar" />}
                       className="m-0"
                     />
-                  </li>                  
+                  </li>
                   <li className="header-title">
                     <FormControlLabel
                       control={
@@ -260,17 +251,9 @@ class ThemeOptions extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({ settings }) => {
-  return settings;
+const mapStateToProps = ({ global }) => {
+  return global;
 };
+const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
 
-export default connect(mapStateToProps, {
-  toggleSidebarImage,
-  setSidebarBgImageAction,
-  miniSidebarAction,
-  darkModeAction,
-  boxLayoutAction,
-  rtlLayoutAction,
-  changeThemeColor,
-  toggleDarkSidebar
-})(ThemeOptions);
+export default connect(mapStateToProps, mapDispatchToProps)(ThemeOptions);

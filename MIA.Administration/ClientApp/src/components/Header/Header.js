@@ -15,7 +15,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { withRouter } from "react-router-dom";
 
 // actions
-import { collapsedSidebarAction } from "Store/app/actions";
+import appActions from "Store/app/actions";
+import {bindActionCreators} from 'redux';
 
 // helpers
 import { getAppLayout } from "Helpers/helpers";
@@ -114,12 +115,12 @@ class Header extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({ settings }) => {
-  return settings;
+const mapStateToProps = ({ global }) => {
+  return global;
 };
 
+const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
+
 export default withRouter(
-  connect(mapStateToProps, {
-    collapsedSidebarAction
-  })(Header)
+  connect(mapStateToProps, mapDispatchToProps)(Header)
 );

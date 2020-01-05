@@ -67,8 +67,5 @@ class RctThemeProvider extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({ settings }) => {
-  return settings;
-};
-
+const mapStateToProps = ({ global: { activeTheme, rtlLayout } }) => ({ activeTheme, rtlLayout });
 export default connect(mapStateToProps)(RctThemeProvider);

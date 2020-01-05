@@ -1,78 +1,78 @@
 /**
  * Tour Component
  */
-import React, { Component } from 'react'
-import PropTypes from 'prop-types';
-import Joyride from 'react-joyride';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Joyride from "react-joyride";
+import { connect } from "react-redux";
 
 // redux action
-import { stopUserTour } from 'Store/app/actions';
+import appActions from "Store/app/actions";
+import { bindActionCreators } from "redux";
 
 class TourComponent extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       steps: [
         {
-          title: 'Quick Links',
-          text: 'Use this to quickly navigate to frequently used pages.',
-          textAlign: 'left',
-          selector: '.tour-step-1',
-          position: 'bottom',
+          title: "Quick Links",
+          text: "Use this to quickly navigate to frequently used pages.",
+          textAlign: "left",
+          selector: ".tour-step-1",
+          position: "bottom",
           isFixed: true
         },
-      //   {
-      //     title: 'Dynamic To do List',
-      //     text: 'Fully functional widget with working add, delete, refresh and cancel buttons.',
-      //     textAlign: 'left',
-      //     selector: '.tour-step-2',
-      //     position: 'left',
-      //     isFixed: true
-      //   },
+        //   {
+        //     title: 'Dynamic To do List',
+        //     text: 'Fully functional widget with working add, delete, refresh and cancel buttons.',
+        //     textAlign: 'left',
+        //     selector: '.tour-step-2',
+        //     position: 'left',
+        //     isFixed: true
+        //   },
         {
-          title: 'Summary',
-          text: 'Quickly become aquainted with your platform.',
-          textAlign: 'left',
-          selector: '.tour-step-3',
-          position: 'right',
-          isFixed: true
-        },
-        {
-          title: 'Upgrade Plan',
-          text: 'Upgrade to your preferred subscription plan.',
-          textAlign: 'left',
-          selector: '.tour-step-4',
-          position: 'bottom',
+          title: "Summary",
+          text: "Quickly become aquainted with your platform.",
+          textAlign: "left",
+          selector: ".tour-step-3",
+          position: "right",
           isFixed: true
         },
         {
-          title: 'Multi Languages',
-          text: 'Switch to your preferred language.',
-          textAlign: 'left',
-          selector: '.tour-step-5',
-          position: 'left',
+          title: "Upgrade Plan",
+          text: "Upgrade to your preferred subscription plan.",
+          textAlign: "left",
+          selector: ".tour-step-4",
+          position: "bottom",
           isFixed: true
         },
         {
-          title: 'Theme Options',
-          text: 'Customise your dashboard with theme settings.',
-          textAlign: 'left',
-          selector: '.tour-step-6',
-          position: 'left',
+          title: "Multi Languages",
+          text: "Switch to your preferred language.",
+          textAlign: "left",
+          selector: ".tour-step-5",
+          position: "left",
           isFixed: true
         },
         {
-          title: 'Dynamic Breadcrumbs',
-          text: 'Dynamic breadcrumbs to go back to your required page.',
-          textAlign: 'left',
-          selector: '.tour-step-7',
-          position: 'left',
+          title: "Theme Options",
+          text: "Customise your dashboard with theme settings.",
+          textAlign: "left",
+          selector: ".tour-step-6",
+          position: "left",
+          isFixed: true
+        },
+        {
+          title: "Dynamic Breadcrumbs",
+          text: "Dynamic breadcrumbs to go back to your required page.",
+          textAlign: "left",
+          selector: ".tour-step-7",
+          position: "left",
           isFixed: true
         }
       ],
-      step: 0,
+      step: 0
     };
     this.handleNextButtonClick = this.handleNextButtonClick.bind(this);
     this.handleJoyrideCallback = this.handleJoyrideCallback.bind(this);
@@ -83,8 +83,8 @@ class TourComponent extends Component {
     joyride: PropTypes.shape({
       autoStart: PropTypes.bool,
       callback: PropTypes.func,
-      run: PropTypes.bool,
-    }),
+      run: PropTypes.bool
+    })
   };
 
   // set defaultProps for joyride (tour)
@@ -92,8 +92,8 @@ class TourComponent extends Component {
     joyride: {
       autoStart: false,
       resizeDebounce: false,
-      run: false,
-    },
+      run: false
+    }
   };
 
   // component life cycle hook to set the state when component is mounted
@@ -102,36 +102,36 @@ class TourComponent extends Component {
 
     // setup tour first
     this.joyride.addTooltip({
-      title: 'The classic joyride',
-      text: 'Let\'s go on a magical tour! Just click the big orange button.',
-      selector: '.hero__tooltip',
-      position: 'absolute',
-      event: 'click',
+      title: "The classic joyride",
+      text: "Let's go on a magical tour! Just click the big orange button.",
+      selector: ".hero__tooltip",
+      position: "absolute",
+      event: "click",
       isFixed: true,
       style: {
-        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+        backgroundColor: "rgba(0, 0, 0, 0.9)",
         borderRadius: 0,
-        color: '#fff',
-        mainColor: '#5C6AC4',
-        textAlign: 'left',
-        width: '25rem'
+        color: "#fff",
+        mainColor: "#5C6AC4",
+        textAlign: "left",
+        width: "25rem"
       }
     });
 
     // setup tour second
     this.joyride.addTooltip({
-      title: 'A fixed tooltip',
-      text: 'For fixed elements, you know?',
-      selector: '.demo__footer img',
-      position: 'top',
+      title: "A fixed tooltip",
+      text: "For fixed elements, you know?",
+      selector: ".demo__footer img",
+      position: "top",
       isFixed: true,
-      event: 'hover',
+      event: "hover",
       style: {
-        backgroundColor: 'rgba(255, 255, 255, 1)',
+        backgroundColor: "rgba(255, 255, 255, 1)",
         borderRadius: 0,
-        color: '#333',
-        textAlign: 'left',
-        width: '25rem'
+        color: "#333",
+        textAlign: "left",
+        width: "25rem"
       }
     });
   }
@@ -147,24 +147,24 @@ class TourComponent extends Component {
   handleJoyrideCallback(result) {
     const { joyride } = this.props;
 
-    if (result.type === 'step:before') {
+    if (result.type === "step:before") {
       // Keep internal state in sync with joyride
       this.setState({ step: result.index });
     }
 
-    if (result.type === 'finished' && this.props.startUserTour) {
+    if (result.type === "finished" && this.props.startUserTour) {
       // Need to set our running state to false, so we can restart if we click start again.
       this.props.stopUserTour();
     }
 
-    if (result.type === 'error:target_not_found') {
+    if (result.type === "error:target_not_found") {
       this.setState({
-        step: result.action === 'back' ? result.index - 1 : result.index + 1,
-        autoStart: result.action !== 'close' && result.action !== 'esc',
+        step: result.action === "back" ? result.index - 1 : result.index + 1,
+        autoStart: result.action !== "close" && result.action !== "esc"
       });
     }
 
-    if (typeof joyride.callback === 'function') {
+    if (typeof joyride.callback === "function") {
       joyride.callback();
     }
   }
@@ -181,23 +181,18 @@ class TourComponent extends Component {
       scrollToFirstStep: joyride.scrollToFirstStep || true,
       stepIndex: joyride.stepIndex || this.state.step,
       steps: joyride.steps || this.state.steps,
-      type: joyride.type || 'continuous',
+      type: joyride.type || "continuous",
       showSkipButton: true,
       scrollToSteps: true
     };
-    return (
-      <Joyride
-        {...joyrideProps}
-        ref={c => (this.joyride = c)} />
-    )
+    return <Joyride {...joyrideProps} ref={c => (this.joyride = c)} />;
   }
 }
 
 // map state to props
-const mapStateToProps = ({ settings }) => {
-  return settings;
-}
+const mapStateToProps = ({ global }) => {
+  return global;
+};
+const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
 
-export default connect(mapStateToProps, {
-  stopUserTour
-})(TourComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(TourComponent);

@@ -12,7 +12,8 @@ import { NotificationManager } from "react-notifications";
 import SupportPage from "../Support/Support";
 
 // redux action
-// import { logoutUserFromFirebase } from "Store/auth/actions";
+import authActions from "Store/auth/actions";
+import { bindActionCreators } from "redux";
 
 // intl messages
 import { Trans } from "@lingui/macro";
@@ -135,10 +136,8 @@ class UserBlock extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({ settings }) => {
-  return settings;
+const mapStateToProps = ({ global }) => {
+  return global;
 };
-
-export default connect(mapStateToProps, {
-  // logoutUserFromFirebase
-})(UserBlock);
+const mapDispatchToProps = dispatch => bindActionCreators({ ...authActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(UserBlock);

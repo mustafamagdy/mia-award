@@ -80,7 +80,4 @@ LanguageProvider.propTypes = {
 
 const mapStateToProps = ({ global: { locale } }) => ({ locale });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LanguageProvider);
+export default connect(mapStateToProps, mapDispatchToProps)(LanguageProvider);

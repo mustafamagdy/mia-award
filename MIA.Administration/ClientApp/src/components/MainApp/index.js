@@ -12,7 +12,6 @@ import classnames from "classnames";
 import Header from "Components/Header/Header";
 import SidebarContent from "Components/Sidebar";
 import Footer from "Components/Footer/Footer";
-import Tour from "Components/Tour";
 import ThemeOptions from "Components/ThemeOptions/ThemeOptions";
 
 // preload Components
@@ -57,7 +56,7 @@ class MainApp extends Component {
     const { windowWidth } = this.state;
     if (nextProps.location !== this.props.location) {
       if (windowWidth <= 1199) {
-        this.props.collapsedSidebarAction(false);
+        this.props.collapseSidebar(false);
       }
     }
   }
@@ -118,14 +117,13 @@ class MainApp extends Component {
     const { windowWidth } = this.state;
     return (
       <div className="app">
-        <div className="app-main-container">
-          <Tour />
+        <div className="app-main-container crm-layout">
           <Sidebar
             sidebar={this.renderSidebar()}
             open={windowWidth <= 1199 ? navCollapsed : false}
             docked={windowWidth > 1199 ? !navCollapsed : false}
             pullRight={rtlLayout}
-            onSetOpen={() => this.props.collapsedSidebarAction(false)}
+            onSetOpen={() => this.props.collapseSidebar(false)}
             styles={{ content: { overflowY: "" } }}
             contentClassName={classnames({ "app-conrainer-wrapper": miniSidebar })}
           >
@@ -136,7 +134,7 @@ class MainApp extends Component {
               </div>
             </div>
           </Sidebar>
-          {/* <ThemeOptions /> */}
+          <ThemeOptions />
         </div>
       </div>
     );
@@ -147,5 +145,4 @@ class MainApp extends Component {
 const mapStateToProps = ({ global: { navCollapsed, rtlLayout, miniSidebar } }) => ({ navCollapsed, rtlLayout, miniSidebar });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
-
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainApp));

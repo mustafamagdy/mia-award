@@ -1,5 +1,6 @@
 import { createLogic } from "redux-logic";
 import { ActionTypes } from "./actions";
+import { push } from "connected-react-router";
 
 export const loginLogic = createLogic({
   type: ActionTypes.LOGIN,
@@ -16,6 +17,7 @@ export const loginLogic = createLogic({
         });
       } else {
         dispatch({ type: ActionTypes.LOGIN_SUCCESS, payload: res.data });
+        dispatch(push("/"));
       }
     } catch (err) {
       dispatch({ type: ActionTypes.LOGIN_FAIL, payload: err, error: true });

@@ -7,8 +7,8 @@ export const DEFAULT_LOCALE = "ar";
  * App Config File
  */
 const AppConfig = {
-  apiRoot: "/api",
-  devApiRoot: "/api",
+  apiRoot: "http://localhost:62912/api",
+  devApiRoot: "http://localhost:62912/api",
   appLogo: require("Assets/img/site-logo.png"), // App Logo
   brandName: "MIA", // Brand Name
   navCollapsed: false, // Sidebar collapse

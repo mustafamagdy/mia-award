@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 import { Scrollbars } from "react-custom-scrollbars";
 
 // redux actions
-import { collapsedSidebarAction } from "Store/app/actions";
+import appActions from "Store/app/actions";
+import { bindActionCreators } from "redux";
 
 // components
 import UserBlock from "./UserBlock";
@@ -91,13 +92,10 @@ class Sidebar extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({ settings }) => {
-  const { enableSidebarBackgroundImage, selectedSidebarImage, collapsedSidebar, isDarkSidenav, locale } = settings;
+const mapStateToProps = ({ global }) => {
+  const { enableSidebarBackgroundImage, selectedSidebarImage, collapsedSidebar, isDarkSidenav, locale } = global;
   return { enableSidebarBackgroundImage, selectedSidebarImage, collapsedSidebar, isDarkSidenav, locale };
 };
+const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
 
-export default withRouter(
-  connect(mapStateToProps, {
-    collapsedSidebarAction
-  })(Sidebar)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Sidebar));

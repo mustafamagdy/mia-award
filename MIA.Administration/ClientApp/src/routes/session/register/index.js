@@ -41,7 +41,7 @@ class SignupFirebase extends Component {
    onUserSignUp() {
       const { email, password } = this.state;
       if (email !== '' && password !== '') {
-         this.props.signupUserInFirebase({ email, password }, this.props.history);
+         // this.props.signupUserInFirebase({ email, password }, this.props.history);
       }
    }
 
@@ -140,15 +140,15 @@ class SignupFirebase extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({ authUser }) => {
-   const { loading } = authUser;
+const mapStateToProps = ({ auth }) => {
+   const { loading } = auth;
    return { loading };
 };
 
 export default connect(mapStateToProps, {
-   signupUserInFirebase,
-   signinUserWithFacebook,
-   signinUserWithGoogle,
-   signinUserWithGithub,
-   signinUserWithTwitter
+   // signupUserInFirebase,
+   // signinUserWithFacebook,
+   // signinUserWithGoogle,
+   // signinUserWithGithub,
+   // signinUserWithTwitter
 })(SignupFirebase);
