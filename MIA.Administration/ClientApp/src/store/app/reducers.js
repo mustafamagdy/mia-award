@@ -15,10 +15,10 @@ const initialState = {
   navCollapsed: AppConfig.navCollapsed,
   darkMode: AppConfig.darkMode,
   boxLayout: AppConfig.boxLayout,
-  rtlLayout: AppConfig.rtlLayout,
+  isRtlLayout: AppConfig.rtlLayout,
   miniSidebar: AppConfig.miniSidebar,
   searchFormOpen: false, // search form by default false
-  startUserTour: false,
+  isUserTourStarted: false,
   isDarkSidenav: AppConfig.isDarkSidenav,
   themes: [
     {
@@ -70,6 +70,7 @@ const changeLocale = (state, { locale }) => {
 
     draft.locale = _locale;
     draft.direction = _locale.direction.toLowerCase() === "rtl" ? DIRECTIONS.RTL : DIRECTIONS.LTR;
+    draft.isRtlLayout = _locale.direction.toLowerCase() === "rtl";
     sessionStorage.setItem("culture", _locale.code);
     sessionStorage.setItem("language", _locale.code);
     sessionStorage.setItem("cultureCode", _locale.culture);
@@ -108,47 +109,27 @@ const DarkMode = (state, action) => {
 
 const ToggleMenu = (state, action) => {
   return produce(state, draft => {
-    let index = state.sidebarMenus[action.payload.stateCategory].indexOf(action.payload.menu);
+    let index = state.sidebarMenus[action.selectedMenu.stateCategory].indexOf(action.selectedMenu.menu);
+    const open = action.selectedMenu.menu.open === undefined ? true : action.selectedMenu.menu.open;
+
     for (var key in state.sidebarMenus) {
       var obj = state.sidebarMenus[key];
       for (let i = 0; i < obj.length; i++) {
         const element = obj[i];
+        console.log("element ", element, element.open);
         if (element.open) {
-          if (key === action.payload.stateCategory) {
-            draft.sidebarMenus = {
-              [key]: {
-                [i]: {
-                  open: { $set: false }
-                },
-                [index]: {
-                  open: { $set: !action.payload.menu.open }
-                }
-              }
-            };
+          if (key === action.selectedMenu.stateCategory) {
+            draft.sidebarMenus[key][i].open = false;
+            draft.sidebarMenus[key][index].open = !open;
           } else {
-            draft.sidebarMenus = {
-              [key]: {
-                [i]: {
-                  open: { $set: false }
-                }
-              },
-              [action.payload.stateCategory]: {
-                [index]: {
-                  open: { $set: !action.payload.menu.open }
-                }
-              }
-            };
+            draft.sidebarMenus[key][i].open = false;
+            draft.sidebarMenus[action.selectedMenu.stateCategory][index].open = !open;
           }
         }
       }
     }
-    draft.sidebarMenus = {
-      [action.payload.stateCategory]: {
-        [index]: {
-          open: { $set: !action.payload.menu.open }
-        }
-      }
-    };
+    console.log("open this ", state.sidebarMenus[action.selectedMenu.stateCategory][index], open);
+    draft.sidebarMenus[action.selectedMenu.stateCategory][index].open = open;
   });
 };
 
@@ -169,12 +150,12 @@ const SetLanguage = (state, action) => {
 };
 const StartUserTour = (state, action) => {
   return produce(state, draft => {
-    //draft..
+    draft.isUserTourStarted = true;
   });
 };
 const StopUserTour = (state, action) => {
   return produce(state, draft => {
-    //draft..
+    draft.isUserTourStarted = false;
   });
 };
 const ToggleDarkSidenav = (state, action) => {

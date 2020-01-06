@@ -13,7 +13,7 @@ import Header from "Components/Header/Header";
 import SidebarContent from "Components/Sidebar";
 import Footer from "Components/Footer/Footer";
 import Tour from "Components/Tour";
-import ThemeOptions from "Components/ThemeOptions/ThemeOptions";
+// import ThemeOptions from "Components/ThemeOptions/ThemeOptions";
 
 // preload Components
 import PreloadHeader from "Components/PreloadLayout/PreloadHeader";
@@ -114,7 +114,7 @@ class MainApp extends Component {
   }
 
   render() {
-    const { navCollapsed, rtlLayout, miniSidebar } = this.props;
+    const { navCollapsed, isRtlLayout, miniSidebar } = this.props;
     const { windowWidth } = this.state;
     return (
       <div className="app">
@@ -124,7 +124,7 @@ class MainApp extends Component {
             sidebar={this.renderSidebar()}
             open={windowWidth <= 1199 ? navCollapsed : false}
             docked={windowWidth > 1199 ? !navCollapsed : false}
-            pullRight={rtlLayout}
+            pullRight={isRtlLayout}
             onSetOpen={() => this.props.collapsedSidebarAction(false)}
             styles={{ content: { overflowY: "" } }}
             contentClassName={classnames({ "app-conrainer-wrapper": miniSidebar })}
@@ -144,7 +144,7 @@ class MainApp extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({ global: { navCollapsed, rtlLayout, miniSidebar } }) => ({ navCollapsed, rtlLayout, miniSidebar });
+const mapStateToProps = ({ global: { navCollapsed, isRtlLayout, miniSidebar } }) => ({ navCollapsed, isRtlLayout, miniSidebar });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
 

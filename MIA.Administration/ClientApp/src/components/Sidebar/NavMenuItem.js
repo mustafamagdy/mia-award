@@ -35,12 +35,12 @@ class NavMenuItem extends Component {
   }
 
   render() {
-    const { menu, toggleMenu } = this.props;
+    const { menu, onToggleMenu } = this.props;
     const { subMenuOpen } = this.state;
     if (menu.child_routes != null) {
       return (
         <Fragment>
-          <ListItem button component="li" onClick={toggleMenu} className={`list-item ${classNames({ "item-active": menu.open })}`}>
+          <ListItem button component="li" onClick={onToggleMenu} className={`list-item ${classNames({ "item-active": menu.open })}`}>
             <ListItemIcon className="menu-icon">
               <i className={menu.menu_icon}></i>
             </ListItemIcon>

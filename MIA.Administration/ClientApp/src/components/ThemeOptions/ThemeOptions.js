@@ -24,11 +24,11 @@ class ThemeOptions extends Component {
   };
 
   componentDidMount() {
-    const { darkMode, boxLayout, rtlLayout, miniSidebar } = this.props;
+    const { darkMode, boxLayout, isRtlLayout, miniSidebar } = this.props;
     if (darkMode) {
       this.darkModeHanlder(true);
     }
-    if (rtlLayout) {
+    if (isRtlLayout) {
       this.rtlLayoutHanlder(true);
     }
     if (miniSidebar) {
@@ -124,7 +124,7 @@ class ThemeOptions extends Component {
       miniSidebar,
       darkMode,
       boxLayout,
-      rtlLayout,
+      isRtlLayout,
       navCollapsed,
       isDarkSidenav
     } = this.props;
@@ -227,7 +227,7 @@ class ThemeOptions extends Component {
                   <li className="header-title">
                     <FormControlLabel
                       control={
-                        <Switch checked={rtlLayout} onChange={e => this.rtlLayoutHanlder(e.target.checked)} className="switch-btn" />
+                        <Switch checked={isRtlLayout} onChange={e => this.rtlLayoutHanlder(e.target.checked)} className="switch-btn" />
                       }
                       label={<Trans id="themeOptions.rtlLayout" />}
                       className="m-0"

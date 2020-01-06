@@ -1,7 +1,7 @@
 import { DIRECTIONS } from "react-with-direction/dist/DirectionProvider";
 
-export const DEFAULT_DIRECTION = DIRECTIONS.RTL;
-export const DEFAULT_LOCALE = "ar";
+export const DEFAULT_DIRECTION = DIRECTIONS.LTR;
+export const DEFAULT_LOCALE = "en";
 
 /**
  * App Config File
@@ -26,7 +26,7 @@ const AppConfig = {
     name: "Arabic",
     icon: "ar"
   },
-  enableUserTour: process.env.NODE_ENV === "production" ? true : false, // Enable / Disable User Tour
+  enableUserTour: false, //process.env.NODE_ENV === "production" ? true : false, // Enable / Disable User Tour
   copyRightText: "MIA © 2019 All Rights Reserved.", // Copy Right Text
   // light theme colors
   themeColors: {

@@ -20,7 +20,7 @@ import successTheme from "./themes/successTheme";
 
 class RctThemeProvider extends Component {
   render() {
-    const { locale, darkMode, rtlLayout, activeTheme, children } = this.props;
+    const { locale, darkMode, isRtlLayout, activeTheme, children } = this.props;
     // const currentAppLocale = AppLocale[locale.locale];
     // theme changes
     let theme = "";
@@ -51,7 +51,7 @@ class RctThemeProvider extends Component {
       theme = darkTheme;
     }
 
-    if (rtlLayout) {
+    if (isRtlLayout) {
       theme.direction = "rtl";
     } else {
       theme.direction = "ltr";
@@ -67,5 +67,5 @@ class RctThemeProvider extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({ global: { activeTheme, rtlLayout } }) => ({ activeTheme, rtlLayout });
+const mapStateToProps = ({ global: { activeTheme, isRtlLayout } }) => ({ activeTheme, isRtlLayout });
 export default connect(mapStateToProps)(RctThemeProvider);

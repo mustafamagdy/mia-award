@@ -25,7 +25,6 @@ import {
 
 // callback component
 import Callback from "Components/Callback/Callback";
-import Dashboard from "./Dashboard";
 
 /**
  * Initial Path To Check Whether User Is Logged In Or Not
@@ -56,9 +55,11 @@ class App extends Component {
     if (location.pathname === "/") {
       if (!isLoggedIn || !currentUser) {
         return <Redirect to={"/signin"} />;
+      } else {
+        return <Redirect to={"/app/dashboard"} />;
       }
     } else if (location.pathname === "/signin" && !!isLoggedIn && !!currentUser) {
-      return <Redirect to={"/app/dashboard/news"} />;
+      return <Redirect to={"/app/dashboard"} />;
     }
 
     return (
@@ -68,7 +69,6 @@ class App extends Component {
         {/* <Route path="/horizontal" component={HorizontalLayout} />
             <Route path="/agency" component={AgencyLayout} />
             <Route path="/boxed" component={RctBoxedLayout} /> */}
-        <Route path="/dashboard" component={Dashboard} />
         <Route path="/signin" component={AppSignIn} />
         <Route path="/signup" component={AppSignUp} />
         <Route path="/session/login" component={AsyncSessionLoginComponent} />

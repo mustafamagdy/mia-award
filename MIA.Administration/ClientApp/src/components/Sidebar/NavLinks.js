@@ -208,7 +208,218 @@ export default {
     //       }
     //    ]
     // }
+  ],
+  category2: [
+    {
+      menu_title: "sidebar.other",
+      menu_icon: "zmdi zmdi-view-dashboard",
+      type_multi: null,
+      new_item: false,
+      child_routes: [
+        // {
+        //    "menu_title": "sidebar.ecommerce",
+        //    "new_item": false,
+        //    "path": "/app/dashboard/ecommerce"
+        // },
+        // {
+        //    "path": "/dashboard/crm/dashboard",
+        //    "new_item": true,
+        //    "menu_title": "sidebar.crm"
+        // },
+        // {
+        //    "path": "/horizontal/dashboard/saas",
+        //    "new_item": false,
+        //    "menu_title": "sidebar.saas"
+        // },
+        // {
+        //    "path": "/agency/dashboard/agency",
+        //    "new_item": false,
+        //    "menu_title": "sidebar.agency"
+        // },
+        {
+          path: "/app/news",
+          menu_title: "sidebar.news",
+          menu_icon: "zmdi zmdi-view-dashboard",
+          new_item: false
+        },
+        {
+          path: "/app/photo-album",
+          menu_icon: "zmdi zmdi-view-dashboard",
+          menu_title: "sidebar.photoAlbum",
+          new_item: false
+        }
+      ]
+    }
+    // {
+    //    "menu_title": "sidebar.crm",
+    //    "menu_icon": "zmdi zmdi-book",
+    //    "type_multi": null,
+    //    "new_item": true,
+    //    "child_routes": [
+    //       {
+    //          "path": "/dashboard/crm/projects",
+    //          "new_item": true,
+    //          "menu_title": "sidebar.projects"
+    //       },
+    //       {
+    //          "path": "/dashboard/crm/clients",
+    //          "new_item": true,
+    //          "menu_title": "sidebar.clients"
+    //       },
+    //       {
+    //          "path": "/dashboard/crm/reports",
+    //          "new_item": true,
+    //          "menu_title": "sidebar.reports"
+    //       }
+    //    ]
+    // },
+    // {
+    //    "menu_title": "sidebar.ecommerce",
+    //    "menu_icon": "zmdi zmdi-shopping-cart",
+    //    "type_multi": null,
+    //    "new_item": false,
+    //    "child_routes": [
+    //       {
+    //          "path": "/app/ecommerce/shop",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.shop"
+    //       },
+    //       {
+    //          "path": "/app/ecommerce/cart",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.cart"
+    //       },
+    //       {
+    //          "path": "/app/ecommerce/checkout",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.checkout"
+    //       },
+    //       {
+    //          "path": "/app/ecommerce/shop-list",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.shopList"
+    //       },
+    //       {
+    //          "path": "/app/ecommerce/shop-grid",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.shopGrid"
+    //       },
+    //       {
+    //          "path": "/app/ecommerce/invoice",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.invoice"
+    //       }
+    //    ]
+    // },
+    // {
+    //    "menu_title": "sidebar.widgets",
+    //    "menu_icon": "zmdi zmdi-widgets",
+    //    "path": "/app/widgets",
+    //    "type_multi": null,
+    //    "new_item": false,
+    //    "child_routes": [
+    //       {
+    //          "path": "/app/widgets/charts",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.charts"
+    //       },
+    //       {
+    //          "path": "/app/widgets/promo",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.promo"
+    //       },
+    //       {
+    //          "path": "/app/widgets/general",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.general"
+    //       },
+    //       {
+    //          "path": "/app/widgets/user",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.user"
+    //       },
+
+    //    ]
+    // },
+    // {
+    //    "menu_title": "sidebar.pages",
+    //    "menu_icon": "zmdi zmdi-file-plus",
+    //    "type_multi": null,
+    //    "new_item": false,
+    //    "child_routes": [
+    //       {
+    //          "path": "/app/pages/gallery",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.gallery"
+    //       },
+    //       {
+    //          "path": "/app/pages/pricing",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.pricing"
+    //       },
+    //       {
+    //          "path": "/app/pages/blank",
+    //          "menu_title": "sidebar.blank"
+    //       },
+    //       {
+    //          "path": "/terms-condition",
+    //          "menu_title": "sidebar.terms&Conditions"
+    //       },
+    //       {
+    //          "path": "/app/pages/feedback",
+    //          "menu_title": "sidebar.feedback"
+    //       },
+    //       {
+    //          "path": "/app/pages/report",
+    //          "menu_title": "sidebar.report"
+    //       },
+    //       {
+    //          "path": "/app/pages/faq",
+    //          "menu_title": "sidebar.faq(s)"
+    //       }
+    //    ]
+    // },
+    // {
+    //    "menu_title": "sidebar.session",
+    //    "menu_icon": "zmdi zmdi-time-interval",
+    //    "type_multi": null,
+    //    "new_item": false,
+    //    "child_routes": [
+    //       {
+    //          "path": "/session/login",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.login"
+    //       },
+    //       {
+    //          "path": "/session/register",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.register"
+    //       },
+    //       {
+    //          "path": "/session/lock-screen",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.lockScreen"
+    //       },
+    //       {
+    //          "path": "/session/forgot-password",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.forgotPassword"
+    //       },
+    //       {
+    //          "path": "/session/404",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.404"
+    //       },
+    //       {
+    //          "path": "/session/500",
+    //          "new_item": false,
+    //          "menu_title": "sidebar.500"
+    //       }
+    //    ]
+    // }
   ]
+
+
   // category2: [
   //    {
   //       "menu_title": "sidebar.inbox",

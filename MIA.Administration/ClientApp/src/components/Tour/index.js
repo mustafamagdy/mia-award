@@ -152,7 +152,7 @@ class TourComponent extends Component {
       this.setState({ step: result.index });
     }
 
-    if (result.type === "finished" && this.props.startUserTour) {
+    if (result.type === "finished" && this.props.isUserTourStarted) {
       // Need to set our running state to false, so we can restart if we click start again.
       this.props.stopUserTour();
     }
@@ -170,14 +170,14 @@ class TourComponent extends Component {
   }
 
   render() {
-    const { joyride, startUserTour } = this.props;
+    const { joyride, isUserTourStarted } = this.props;   
     const joyrideProps = {
       autoStart: true,
       callback: this.handleJoyrideCallback,
       debug: false,
       disableOverlay: this.state.step === 1,
       resizeDebounce: joyride.resizeDebounce,
-      run: joyride.run || startUserTour,
+      run: joyride.run || isUserTourStarted,
       scrollToFirstStep: joyride.scrollToFirstStep || true,
       stepIndex: joyride.stepIndex || this.state.step,
       steps: joyride.steps || this.state.steps,

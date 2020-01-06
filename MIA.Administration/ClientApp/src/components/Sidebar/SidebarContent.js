@@ -37,23 +37,23 @@ class SidebarContent extends Component {
               </ListSubheader>
             }
           >
-            {sidebarMenus.category1.map((menu, key) => (
-              <NavMenuItem menu={menu} key={key} onToggleMenu={() => this.toggleMenu(menu, "category1")} />
+            {sidebarMenus.category1.map((menu, key) => {
+              return <NavMenuItem menu={menu} key={key} onToggleMenu={() => this.toggleMenu(menu, "category1")} />;
+            })}
+          </List>
+          <List
+            className="rct-mainMenu p-0 m-0 list-unstyled"
+            subheader={
+              <ListSubheader className="side-title" component="li">
+                <Trans id="sidebar.modules" />
+              </ListSubheader>
+            }
+          >
+            {sidebarMenus.category2.map((menu, key) => (
+              <NavMenuItem menu={menu} key={key} onToggleMenu={() => this.toggleMenu(menu, "category2")} />
             ))}
           </List>
-          {/* <List
-						className="rct-mainMenu p-0 m-0 list-unstyled"
-						subheader={<ListSubheader className="side-title" component="li"><Trans id="sidebar.modules" /></ListSubheader>}
-					>
-						{sidebarMenus.category2.map((menu, key) => (
-							<NavMenuItem
-								menu={menu}
-								key={key}
-								onToggleMenu={() => this.toggleMenu(menu, 'category2')}
-							/>
-						))}
-					</List>
-					<List
+          {/*<List
 						className="rct-mainMenu p-0 m-0 list-unstyled"
 						subheader={<ListSubheader className="side-title" component="li"><Trans id="sidebar.component" /></ListSubheader>}
 					>
@@ -108,8 +108,8 @@ class SidebarContent extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({ global }) => {
-  return global;
+const mapStateToProps = ({ global: { sidebarMenus } }) => {
+  return { sidebarMenus };
 };
 const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
 

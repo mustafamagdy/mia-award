@@ -93,7 +93,7 @@ class Sidebar extends Component {
 
 // map state to props
 const mapStateToProps = ({ global }) => {
-  const { enableSidebarBackgroundImage, selectedSidebarImage, collapsedSidebar, isDarkSidenav, locale } = global;
+  const { enableSidebarBackgroundImage, selectedSidebarImage, collapsedSidebar, isDarkSidenav, locale, } = global;
   return { enableSidebarBackgroundImage, selectedSidebarImage, collapsedSidebar, isDarkSidenav, locale };
 };
 const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
