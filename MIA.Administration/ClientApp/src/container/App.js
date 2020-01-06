@@ -31,7 +31,6 @@ import Dashboard from "./Dashboard";
  * Initial Path To Check Whether User Is Logged In Or Not
  */
 const InitialPath = ({ component: Component, currentUser, ...rest }) => {
-  console.log("inital path ", currentUser, rest);
   return (
     <Route
       {...rest}
@@ -56,7 +55,6 @@ class App extends Component {
     const { location, match, currentUser, isLoggedIn } = this.props;
     if (location.pathname === "/") {
       if (!isLoggedIn || !currentUser) {
-        console.log("redirect to signin");
         return <Redirect to={"/signin"} />;
       }
     } else if (location.pathname === "/signin" && !!isLoggedIn && !!currentUser) {
