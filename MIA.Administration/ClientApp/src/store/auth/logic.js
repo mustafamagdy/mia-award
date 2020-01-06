@@ -17,7 +17,6 @@ export const loginLogic = createLogic({
         });
       } else {
         dispatch({ type: ActionTypes.LOGIN_SUCCESS, payload: res.data });
-        dispatch(push("/"));
       }
     } catch (err) {
       dispatch({ type: ActionTypes.LOGIN_FAIL, payload: err, error: true });

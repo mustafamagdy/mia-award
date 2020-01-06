@@ -18,3 +18,4 @@ const Pages = ({ match }) => {
 );}
 
 export default Pages;
+

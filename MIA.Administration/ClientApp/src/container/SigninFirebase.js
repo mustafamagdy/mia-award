@@ -23,8 +23,8 @@ import AppConfig from "Constants";
 
 class Signin extends Component {
   state = {
-    userName: "demo@example.com",
-    password: "test#123"
+    userName: "admin",
+    password: "admin@123456.com"
   };
 
   onUserLogin() {

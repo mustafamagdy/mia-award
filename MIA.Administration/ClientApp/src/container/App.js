@@ -55,13 +55,12 @@ class App extends Component {
   render() {
     const { location, match, currentUser, isLoggedIn } = this.props;
     if (location.pathname === "/") {
-      if (!!isLoggedIn && !!currentUser) {
-        console.log("redirect to dashboard");
-        return <Redirect to={"/app/dashboard/news"} />;
-      } else {
+      if (!isLoggedIn || !currentUser) {
         console.log("redirect to signin");
         return <Redirect to={"/signin"} />;
       }
+    } else if (location.pathname === "/signin" && !!isLoggedIn && !!currentUser) {
+      return <Redirect to={"/app/dashboard/news"} />;
     }
 
     return (
