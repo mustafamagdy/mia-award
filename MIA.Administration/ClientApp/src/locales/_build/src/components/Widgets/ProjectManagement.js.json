@@ -1,0 +1,50 @@
+{
+  "widgets.description": {
+    "origin": [
+      [
+        "src/components/Widgets/ProjectManagement.js",
+        80
+      ]
+    ]
+  },
+  "components.projectName": {
+    "origin": [
+      [
+        "src/components/Widgets/ProjectManagement.js",
+        128
+      ]
+    ]
+  },
+  "widgets.deadline": {
+    "origin": [
+      [
+        "src/components/Widgets/ProjectManagement.js",
+        129
+      ]
+    ]
+  },
+  "widgets.status": {
+    "origin": [
+      [
+        "src/components/Widgets/ProjectManagement.js",
+        130
+      ]
+    ]
+  },
+  "widgets.team": {
+    "origin": [
+      [
+        "src/components/Widgets/ProjectManagement.js",
+        131
+      ]
+    ]
+  },
+  "widgets.updated10Minago": {
+    "origin": [
+      [
+        "src/components/Widgets/ProjectManagement.js",
+        147
+      ]
+    ]
+  }
+}

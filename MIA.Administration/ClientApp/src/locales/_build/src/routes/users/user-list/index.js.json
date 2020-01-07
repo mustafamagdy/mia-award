@@ -1,0 +1,10 @@
+{
+  "sidebar.userList": {
+    "origin": [
+      [
+        "src/routes/users/user-list/index.js",
+        49
+      ]
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "widgets.onlineSources": {
+    "origin": [
+      [
+        "src/components/Widgets/OverallTrafficStatus.js",
+        24
+      ]
+    ]
+  },
+  "widgets.today": {
+    "origin": [
+      [
+        "src/components/Widgets/OverallTrafficStatus.js",
+        31
+      ]
+    ]
+  },
+  "widgets.lastMonth": {
+    "origin": [
+      [
+        "src/components/Widgets/OverallTrafficStatus.js",
+        38
+      ]
+    ]
+  }
+}

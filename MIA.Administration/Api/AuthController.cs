@@ -58,7 +58,7 @@ namespace MIA.Administration.Api
         throw new ArgumentException("jwt not configured correctly", nameof(jwtOptions));
       }
 
-      AppUser user = await userManager.FindByEmailAsync(loginData.UserName);
+      AppUser user = await userManager.FindByNameAsync(loginData.UserName);
       if (user == null) {
         return NotFound404("invalid credentials");
       }

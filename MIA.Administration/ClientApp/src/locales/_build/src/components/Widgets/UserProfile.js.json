@@ -1,0 +1,18 @@
+{
+  "button.viewProfile": {
+    "origin": [
+      [
+        "src/components/Widgets/UserProfile.js",
+        48
+      ]
+    ]
+  },
+  "button.sendMessage": {
+    "origin": [
+      [
+        "src/components/Widgets/UserProfile.js",
+        55
+      ]
+    ]
+  }
+}

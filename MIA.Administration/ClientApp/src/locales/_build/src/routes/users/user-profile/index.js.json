@@ -1,0 +1,10 @@
+{
+  "sidebar.userProfile": {
+    "origin": [
+      [
+        "src/routes/users/user-profile/index.js",
+        29
+      ]
+    ]
+  }
+}

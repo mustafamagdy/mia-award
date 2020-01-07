@@ -10,6 +10,7 @@ namespace MIA.ORMContext.Uow {
       IUnitOfWork<AppDbContext>,
       IPermissionsDbContext<string, IdentityUserRole<string>, AppRole> {
 
+    DbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity<string>;
     DbSet<AppUser> Users { get; }
     DbSet<Judge> Judges { get; }
     DbSet<ContentReviewer> ContentReviewers { get; }

@@ -1,0 +1,46 @@
+{
+  "widgets.addNew": {
+    "origin": [
+      [
+        "src/components/Widgets/LatestPost.js",
+        224
+      ]
+    ]
+  },
+  "widgets.updated10Minago": {
+    "origin": [
+      [
+        "src/components/Widgets/LatestPost.js",
+        228
+      ]
+    ]
+  },
+  "button.add": {
+    "origin": [
+      [
+        "src/components/Widgets/LatestPost.js",
+        290
+      ]
+    ]
+  },
+  "button.cancel": {
+    "origin": [
+      [
+        "src/components/Widgets/LatestPost.js",
+        291
+      ],
+      [
+        "src/components/Widgets/LatestPost.js",
+        294
+      ]
+    ]
+  },
+  "button.update": {
+    "origin": [
+      [
+        "src/components/Widgets/LatestPost.js",
+        293
+      ]
+    ]
+  }
+}

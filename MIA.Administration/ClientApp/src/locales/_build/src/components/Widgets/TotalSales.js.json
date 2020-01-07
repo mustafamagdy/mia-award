@@ -1,0 +1,10 @@
+{
+  "widgets.totalSales": {
+    "origin": [
+      [
+        "src/components/Widgets/TotalSales.js",
+        23
+      ]
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "sidebar.dropzone": {
+    "origin": [
+      [
+        "src/routes/dropzone/index.js",
+        61
+      ],
+      [
+        "src/routes/dropzone/index.js",
+        65
+      ]
+    ]
+  }
+}

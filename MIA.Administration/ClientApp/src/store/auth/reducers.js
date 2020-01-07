@@ -25,7 +25,7 @@ const login = (state, { payload: token }) => {
       draft.signinErrors = [];
       draft.signinFailed = false;
 
-      localStorage.setItem("jwtToken", token);
+      sessionStorage.setItem("jwtToken", token);
     } catch {
       console.error("failed to decode jwt");
       draft.isLoggedIn = false;
@@ -47,7 +47,7 @@ const logout = (state, action) => {
     draft.isLoggedIn = false;
     draft.token = null;
     draft.currentUser = null;
-    localStorage.removeItem("jwtToken");
+    sessionStorage.removeItem("jwtToken");
   });
 };
 

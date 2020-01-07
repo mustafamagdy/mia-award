@@ -11,11 +11,9 @@ namespace MIA.Administration.Api {
   [ApiVersion("1.0")]
 #endif
   [Route("api/lookups")]
-  public class LookupsController : BaseApiController<LookupsController>
-  {
+  public class LookupsController : BaseApiController<LookupsController> {
 
-    public LookupsController(IMapper mapper, [FromServices] ILogger<LookupsController> logger) : base(logger, mapper)
-    {
+    public LookupsController(IMapper mapper, [FromServices] ILogger<LookupsController> logger) : base(logger, mapper) {
     }
 
     //[HttpGet("airports")]
@@ -29,4 +27,5 @@ namespace MIA.Administration.Api {
     //}
 
   }
+
 }

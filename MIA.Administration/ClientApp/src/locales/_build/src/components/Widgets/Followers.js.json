@@ -1,0 +1,42 @@
+{
+  "components.followers": {
+    "origin": [
+      [
+        "src/components/Widgets/Followers.js",
+        18
+      ]
+    ]
+  },
+  "components.trending": {
+    "origin": [
+      [
+        "src/components/Widgets/Followers.js",
+        19
+      ]
+    ]
+  },
+  "widgets.lastWeek": {
+    "origin": [
+      [
+        "src/components/Widgets/Followers.js",
+        23
+      ]
+    ]
+  },
+  "widgets.thisWeek": {
+    "origin": [
+      [
+        "src/components/Widgets/Followers.js",
+        28
+      ]
+    ]
+  },
+  "button.seeInsights": {
+    "origin": [
+      [
+        "src/components/Widgets/Followers.js",
+        35
+      ]
+    ]
+  }
+}

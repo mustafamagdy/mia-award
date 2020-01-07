@@ -1,35 +1,32 @@
-import "core-js/stable";
-import "regenerator-runtime/runtime";
-import "sanitize.css/sanitize.css";
+/**
+ * Reactify - A Material Design Admin Template
+ * Copyright 2018 All Rights Reserved
+ * Made With Love
+ * Created By The Iron Network, LLC
+ */
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import React from "react";
-import ReactDOM from "react-dom";
+// Save a reference to the root element for reuse
+const rootEl = document.getElementById("root");
 
-import App from "containers/App";
-
-// Load the favicon and the .htaccess file
-// import "!file-loader?name=[name].[ext]!./images/favicon.ico";
-// import "file-loader?name=.htaccess!./.htaccess"; // eslint-disable-line import/extensions
-
-import "react-day-picker/lib/style.css";
-// import "./sass/noscript.scss";
-// import "./sass/vendors-and-helpers.scss";
-//import "./sass/style.scss";
-import "./index.css";
-
-const MOUNT_NODE = document.getElementById("app");
-
-const render = messages => {
-  ReactDOM.render(<App />, MOUNT_NODE);
+// Create a reusable render method that we can call more than once
+let render = () => {
+  // Dynamically import our main App component, and render it
+  const MainApp = require('./App').default;
+  ReactDOM.render(
+    <MainApp />,
+    rootEl
+  );
 };
 
 if (module.hot) {
-  // Hot reloadable React components and translation json files
-  // modules.hot.accept does not accept dynamic dependencies,
-  // have to be constants at compile-time
-  module.hot.accept(["containers/App"], () => {
-    ReactDOM.unmountComponentAtNode(MOUNT_NODE);
-    render();
+  module.hot.accept('./App', () => {
+    const NextApp = require('./App').default;
+    render(
+      <NextApp />,
+      rootEl
+    );
   });
 }
 
@@ -44,11 +41,4 @@ if (!window.Intl) {
     });
 } else {
   render();
-}
-
-// Install ServiceWorker and AppCache in the end since
-// it's not most important operation and if main code fails,
-// we do not want it installed
-if (process.env.NODE_ENV === "production") {
-  require("offline-plugin/runtime").install(); // eslint-disable-line global-require
 }

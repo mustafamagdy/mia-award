@@ -1,0 +1,10 @@
+{
+  "widgets.todayOrders": {
+    "origin": [
+      [
+        "src/components/Widgets/TodayOrdersStats.js",
+        18
+      ]
+    ]
+  }
+}

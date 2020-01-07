@@ -1,10 +1,9 @@
 import apisauce from "apisauce";
-import config from "../config";
+import config from "../constants";
 
 import appApi from "./app";
 import accountsApi from "./accounts";
 import authApi from "./auth";
-import homeApi from "./home";
 import lookupsApi from "./lookups";
 
 const apiURI = config.useLocalApi ? config.devApiRoot : config.apiRoot;
@@ -19,10 +18,10 @@ const create = (baseURL = apiURI) => {
 
   //add access token on each request
   api.addAsyncRequestTransform(request => async () => {
-    const token = localStorage.getItem("jwtToken");
-    const culture = localStorage.getItem("culture");
-    const cultureCode = localStorage.getItem("cultureCode");
-    const userIp = localStorage.getItem("userIp");
+    const token = sessionStorage.getItem("jwtToken");
+    const culture = sessionStorage.getItem("culture");
+    const cultureCode = sessionStorage.getItem("cultureCode");
+    const userIp = sessionStorage.getItem("userIp");
 
     request.headers["culture"] = culture || "en";
     request.headers["cultureCode"] = cultureCode || "en-US";
@@ -38,7 +37,6 @@ const create = (baseURL = apiURI) => {
   const app = appApi(api);
   const accounts = accountsApi(api);
   const auth = authApi(api);
-  const home = homeApi(api);
   const lookups = lookupsApi(api);
 
   return {
@@ -47,7 +45,6 @@ const create = (baseURL = apiURI) => {
     ...app,
     ...accounts,
     ...auth,
-    ...home,
     ...lookups,
   };
 };

@@ -1,5 +1,6 @@
 import { createLogic } from "redux-logic";
 import { ActionTypes } from "./actions";
+import { push } from "connected-react-router";
 
 export const loginLogic = createLogic({
   type: ActionTypes.LOGIN,
@@ -31,7 +32,7 @@ export const logoutLogic = createLogic({
 
   async process({ getState, action, api }, dispatch, done) {
     try {
-      const token = localStorage.jwtToken;
+      const token = sessionStorage.jwtToken;
       console.log(token);
       const res = await api.auth.logout(token);
       if (!res.ok) {

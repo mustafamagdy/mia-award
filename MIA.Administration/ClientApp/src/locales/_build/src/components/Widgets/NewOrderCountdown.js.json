@@ -1,0 +1,10 @@
+{
+  "widgets.AcceptorrRejectWithin": {
+    "origin": [
+      [
+        "src/components/Widgets/NewOrderCountdown.js",
+        26
+      ]
+    ]
+  }
+}
