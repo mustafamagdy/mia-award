@@ -2,7 +2,10 @@ import { createActions } from "Util/reduxsauce";
 
 const { Types, Creators } = createActions(
   {
-    fetchNews: { args: [], meta: { async: true } }
+    fetchNews: { args: ["payload"], meta: { async: true } },
+    saveNews: { args: ["payload"], meta: { async: true } },
+    updateNews: { args: ["payload"], meta: { async: true } },
+    deleteNews: { args: ["payload"], meta: { async: true } }
   },
   {
     prefix: "@app/lookups/"

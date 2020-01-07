@@ -9,8 +9,6 @@ const initialState = {
 };
 
 const fetchNews = (state, action) => {
-  console.log('fetch news reducer');
-  
   return produce(state, draft => {
     draft.loading = true;
   });
@@ -28,8 +26,71 @@ const fetchNewsFailed = (state, action) => {
   });
 };
 
+const saveNews = (state, action) => {
+  return produce(state, draft => {
+    draft.loading = true;
+  });
+};
+
+const saveNewsSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.news = action.payload;
+    draft.loading = false;
+  });
+};
+const saveNewsFailed = (state, action) => {
+  return produce(state, draft => {
+    draft.loading = false;
+  });
+};
+
+const updateNews = (state, action) => {
+  return produce(state, draft => {
+    draft.loading = true;
+  });
+};
+
+const updateNewsSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.news = action.payload;
+    draft.loading = false;
+  });
+};
+const updateNewsFailed = (state, action) => {
+  return produce(state, draft => {
+    draft.loading = false;
+  });
+};
+
+const deleteNews = (state, action) => {
+  return produce(state, draft => {
+    draft.loading = true;
+  });
+};
+
+const deleteNewsSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.news = action.payload;
+    draft.loading = false;
+  });
+};
+const deleteNewsFailed = (state, action) => {
+  return produce(state, draft => {
+    draft.loading = false;
+  });
+};
+
 export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_NEWS]: fetchNews,
   [ActionTypes.FETCH_NEWS_SUCCESS]: fetchNewsSuccess,
-  [ActionTypes.FETCH_NEWS_FAIL]: fetchNewsFailed
+  [ActionTypes.FETCH_NEWS_FAIL]: fetchNewsFailed,
+  [ActionTypes.SAVE_NEWS]: saveNews,
+  [ActionTypes.SAVE_NEWS_SUCCESS]: saveNewsSuccess,
+  [ActionTypes.SAVE_NEWS_FAIL]: saveNewsFailed,
+  [ActionTypes.UPDATE_NEWS]: updateNews,
+  [ActionTypes.UPDATE_NEWS_SUCCESS]: updateNewsSuccess,
+  [ActionTypes.UPDATE_NEWS_FAIL]: updateNewsFailed,
+  [ActionTypes.DELETE_NEWS]: deleteNews,
+  [ActionTypes.DELETE_NEWS_SUCCESS]: deleteNewsSuccess,
+  [ActionTypes.DELETE_NEWS_FAIL]: deleteNewsFailed,
 });
