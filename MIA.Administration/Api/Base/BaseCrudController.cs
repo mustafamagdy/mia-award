@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
+using MIA.Constants;
 
 namespace MIA.Administration.Api.Base {
   /// <summary>
@@ -22,7 +24,7 @@ namespace MIA.Administration.Api.Base {
   [ApiVersion("1.0")]
 #endif
   [Route("api/[controller]")]
-  //[Authorize]
+ 
   public class BaseCrudController<TEntity, TDataDto, TNewDto, TUpdateDto>
              : BaseApiController<BaseCrudController<TEntity, TDataDto, TNewDto, TUpdateDto>>
                   where TEntity : BaseEntity<string>

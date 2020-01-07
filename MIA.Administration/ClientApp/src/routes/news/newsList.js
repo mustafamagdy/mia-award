@@ -10,9 +10,7 @@ import { Pagination, PaginationItem, PaginationLink, Modal, ModalHeader, ModalBo
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import { NotificationManager } from "react-notifications";
-import Avatar from "@material-ui/core/Avatar";
 
-import api from "Api";
 import DeleteConfirmationDialog from "Components/DeleteConfirmationDialog/DeleteConfirmationDialog";
 import AddNewRecordForm from "./AddNewRecordForm";
 import UpdateRecordForm from "./UpdateRecordForm";
@@ -20,13 +18,14 @@ import PageTitleBar from "Components/PageTitleBar/PageTitleBar";
 import { Trans } from "@lingui/macro";
 import RctCollapsibleCard from "Components/RctCollapsibleCard/RctCollapsibleCard";
 import RctSectionLoader from "Components/RctSectionLoader/RctSectionLoader";
+import { connect } from "react-redux";
+import lookupActions from "Store/lookups/actions";
+import { bindActionCreators } from "redux";
 
-export default class NewsList extends Component {
+class NewsList extends Component {
   state = {
     all: false,
-    data: null, // initial  data
     selectedItem: null, // selected data to perform operations
-    loading: false, // loading activity
     addNewRecordModal: false, // add new data form modal
     addNewRecordDetail: {
       id: "",
@@ -39,31 +38,26 @@ export default class NewsList extends Component {
   };
 
   componentDidMount() {
-    api
-      .get("userManagement.js")
-      .then(response => {
-        this.setState({ data: response.data });
-      })
-      .catch(error => {
-        // error hanlding
-      });
+    console.log("component did mount");
+
+    this.props.fetchNews();
   }
 
-  onDelete(data) {
+  onDelete(record) {
     this.refs.deleteConfirmationDialog.open();
-    this.setState({ selectedItem: data });
+    this.setState({ selectedItem: record });
   }
 
   deleteRecordPermanently() {
-    const { selectedItem } = this.state;
-    let data = this.state.data;
-    let indexOfDeleteRecord = data.indexOf(selectedItem);
-    data.splice(indexOfDeleteRecord, 1);
-    this.refs.deleteConfirmationDialog.close();
-    this.setState({ loading: true });
-    let self = this;
+    // const { selectedItem } = this.state;
+    // let data = this.state.data;
+    // let indexOfDeleteRecord = data.indexOf(selectedItem);
+    // data.splice(indexOfDeleteRecord, 1);
+    // this.refs.deleteConfirmationDialog.close();
+    // this.setState({ loading: true });
+    // let self = this;
     setTimeout(() => {
-      self.setState({ loading: false, data, selectedItem: null });
+      // self.setState({ loading: false, data, selectedItem: null });
       NotificationManager.success("Record Deleted!");
     }, 2000);
   }
@@ -73,16 +67,9 @@ export default class NewsList extends Component {
     this.setState({ addNewRecordModal: true });
   }
 
-  /**
-   * On Reload
-   */
   onReload(e) {
     e.preventDefault();
-    this.setState({ loading: true });
-    let self = this;
-    setTimeout(() => {
-      self.setState({ loading: false });
-    }, 2000);
+    this.props.fetchNews();
   }
 
   onSelectRecord(record) {
@@ -191,11 +178,12 @@ export default class NewsList extends Component {
   }
 
   render() {
-    const { data, loading, selectedItem, editData, allSelected, selectedRecords } = this.state;
+    const { news, loading } = this.props;
+    const { selectedItem, editData, allSelected, selectedRecords } = this.state;
     return (
       <div className="user-management">
         <Helmet>
-          <title>Reactify | Users Management</title>
+          <title>MIA | News</title>
           <meta name="description" content="Reactify Widgets" />
         </Helmet>
         <PageTitleBar title={<Trans id="sidebar.userManagement" />} match={this.props.match} />
@@ -206,14 +194,8 @@ export default class NewsList extends Component {
                 <a href="#" onClick={e => this.onReload(e)} className="btn-outline-default mr-10">
                   <i className="ti-reload"></i>
                 </a>
-                <a href="#" onClick={e => e.preventDefault()} className="btn-outline-default mr-10">
-                  More
-                </a>
               </div>
               <div>
-                <a href="#" onClick={e => e.preventDefault()} className="btn-sm btn-outline-default mr-10">
-                  Export to Excel
-                </a>
                 <a href="#" onClick={e => this.opnAddNewRecordModal(e)} color="primary" className="caret btn-sm mr-10">
                   Add New User <i className="zmdi zmdi-plus"></i>
                 </a>
@@ -226,7 +208,7 @@ export default class NewsList extends Component {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          indeterminate={selectedRecords > 0 && selectedRecords < data.length}
+                          indeterminate={selectedRecords > 0 && selectedRecords < news.length}
                           checked={selectedRecords > 0}
                           onChange={e => this.onSelectAllRecord(e)}
                           value="all"
@@ -236,52 +218,25 @@ export default class NewsList extends Component {
                       label="All"
                     />
                   </th>
-                  <th>User</th>
-                  <th>Email Address</th>
-                  <th>Status</th>
-                  <th>Plans Type</th>
+                  <th>Title</th>
                   <th>Date Created</th>
+                  <th>Outdated</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {data &&
-                  data.map((record, key) => (
+                {news &&
+                  news.map((record, key) => (
                     <tr key={key}>
                       <td>
                         <FormControlLabel
                           control={<Checkbox checked={record.checked} onChange={() => this.onSelectRecord(record)} color="primary" />}
                         />
                       </td>
-                      <td>
-                        <div className="media">
-                          {record.avatar !== "" ? (
-                            <img src={record.avatar} alt="user prof" className="rounded-circle mr-15" width="50" height="50" />
-                          ) : (
-                            <Avatar className="mr-15">{record.name.charAt(0)}</Avatar>
-                          )}
-                          <div className="media-body">
-                            <h5 className="mb-5 fw-bold">{record.name}</h5>
-                            <Badge color="warning">{record.type}</Badge>
-                          </div>
-                        </div>
-                      </td>
-                      <td>{record.emailAddress}</td>
-                      <td className="d-flex justify-content-start">
-                        <span className={`badge badge-xs ${record.badgeClass} mr-10 mt-10 position-relative`}>&nbsp;</span>
-                        <div className="status">
-                          <span className="d-block">{record.status}</span>
-                          <span className="small">{record.lastSeen}</span>
-                        </div>
-                      </td>
-                      <td>
-                        <span className={`badge ${record.badgeClass} badge-pill`}>{record.accountType}</span>
-                      </td>
+                      <td>{record.title}</td>
                       <td>{record.dateCreated}</td>
+                      <td>{record.outDated ? "Yes" : "No"}</td>
                       <td className="list-action">
-                        {/* <a href="javascript:void(0)" onClick={() => this.viewRecordDetail(user)}><i className="ti-eye"></i></a>
-											<a href="javascript:void(0)" onClick={() => this.onEditRecord(user)}><i className="ti-pencil"></i></a>
-											<a href="javascript:void(0)" onClick={() => this.onDelete(user)}><i className="ti-close"></i></a> */}
                         <button type="button" className="rct-link-btn" onClick={() => this.viewRecordDetail(record)}>
                           <i className="ti-eye"></i>
                         </button>
@@ -394,3 +349,11 @@ export default class NewsList extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ lookups: { news, loading } }) => ({ news, loading });
+// const mapDispatchToProps = dispatch => {
+//   const { fetchNews } = lookupActions;
+//   return bindActionCreators({ fetchNews }, dispatch);
+// };
+const mapDispatchToProps = dispatch => bindActionCreators({ ...lookupActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(NewsList);

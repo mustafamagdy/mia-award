@@ -116,7 +116,6 @@ const ToggleMenu = (state, action) => {
       var obj = state.sidebarMenus[key];
       for (let i = 0; i < obj.length; i++) {
         const element = obj[i];
-        console.log("element ", element, element.open);
         if (element.open) {
           if (key === action.selectedMenu.stateCategory) {
             draft.sidebarMenus[key][i].open = false;
@@ -128,7 +127,6 @@ const ToggleMenu = (state, action) => {
         }
       }
     }
-    console.log("open this ", state.sidebarMenus[action.selectedMenu.stateCategory][index], open);
     draft.sidebarMenus[action.selectedMenu.stateCategory][index].open = open;
   });
 };

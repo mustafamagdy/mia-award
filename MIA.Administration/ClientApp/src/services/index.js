@@ -4,6 +4,7 @@ import config from "../constants";
 import appApi from "./app";
 import accountsApi from "./accounts";
 import authApi from "./auth";
+import lookupsApi from "./lookups";
 
 const apiURI = config.useLocalApi ? config.devApiRoot : config.apiRoot;
 const create = (baseURL = apiURI) => {
@@ -36,6 +37,7 @@ const create = (baseURL = apiURI) => {
   const app = appApi(api);
   const accounts = accountsApi(api);
   const auth = authApi(api);
+  const lookups = lookupsApi(api);
 
   return {
     setHeader: api.setHeader,
@@ -43,6 +45,7 @@ const create = (baseURL = apiURI) => {
     ...app,
     ...accounts,
     ...auth,
+    ...lookups,
   };
 };
 

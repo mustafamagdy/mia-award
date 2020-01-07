@@ -12,7 +12,6 @@ import routes from "../routes";
 class DefaultLayout extends Component {
 	render() {
 		const { match } = this.props;
-		console.log('default layout ', this.props);
 		return (
 			<RctAppLayout>
 				{routes && routes.map((route,key)=>

@@ -31,7 +31,8 @@
             x => x
             .AllowAnyOrigin()
             .AllowAnyMethod()
-            .AllowAnyHeader());
+            .AllowAnyHeader()
+            );
         });
     }
 
