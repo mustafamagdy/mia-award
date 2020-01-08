@@ -126,6 +126,13 @@
             User account operations controller
             </summary>
         </member>
+        <member name="M:MIA.Administration.Api.LargeFileUploadController.#ctor(AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{MIA.Administration.Api.LargeFileUploadController})">
+            <summary>
+            
+            </summary>
+            <param name="mapper"></param>
+            <param name="logger"></param>
+        </member>
         <member name="T:MIA.Administration.Api.LookupsController">
             <summary>
             
