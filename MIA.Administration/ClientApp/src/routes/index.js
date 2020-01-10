@@ -5,6 +5,8 @@ import Icons from "./icons";
 import ImageCropper from "./image-cropper";
 import VideoPlayer from "./video-player";
 import News from "./news";
+import Video2 from "./video2";
+import Uploader from "./uploader";
 
 // // async component
 // import {
@@ -38,5 +40,13 @@ export default [
   {
     path: "news",
     component: News
+  },
+  {
+    path: "uploader",
+    component: Uploader
+  },
+  {
+    path: "video",
+    component: Video2
   }
 ];

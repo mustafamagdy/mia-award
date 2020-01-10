@@ -237,9 +237,27 @@ export default {
         //    "menu_title": "sidebar.agency"
         // },
         {
+          path: "/app/icons",
+          menu_title: "sidebar.icons",
+          menu_icon: "zmdi zmdi-icons",
+          new_item: false
+        },
+        {
           path: "/app/news",
           menu_title: "sidebar.news",
           menu_icon: "zmdi zmdi-view-dashboard",
+          new_item: false
+        },
+        {
+          path: "/app/video",
+          menu_title: "sidebar.video",
+          menu_icon: "zmdi zmdi-view-video",
+          new_item: false
+        },
+        {
+          path: "/app/uploader",
+          menu_title: "sidebar.upload",
+          menu_icon: "zmdi zmdi-view-upload",
           new_item: false
         },
         {
