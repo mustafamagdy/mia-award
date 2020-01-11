@@ -74,6 +74,49 @@ namespace MIA.Administration.Api {
 
       return IfFound(_mapper.Map<NewsDto>(newsItem));
     }
+
+    public override async Task<IActionResult> UpdateAsync([FromForm] UpdateNewsDto dto, [FromServices] IAppUnitOfWork db) {
+      var result = await base.UpdateAsync(dto, db);
+      var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
+      var newsItem = await db.News.FindAsync(resultDto.Id);
+      NewsImage poster = db.NewsImages.FirstOrDefault(a => a.NewsId == resultDto.Id);
+      if (dto.Poster != null && dto.Poster.Length > 0) {
+        using (var memorySteam = new MemoryStream()) {
+          dto.Poster.CopyTo(memorySteam);
+
+          string validationError = "";
+          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
+            return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+          }
+
+          bool isNew = false;
+          if (poster == null) {
+            poster = new NewsImage { NewsId = resultDto.Id };
+            isNew = true;
+          }
+
+          poster.Data = memorySteam.ToArray();
+          //delete all images in disk with that Id if exists
+          try {
+            var imageDir = Path.Combine(env.WebRootPath, ImageProxyMiddleware.CACHED_IMAGE_DIR);
+            var files = Directory.GetFiles(imageDir, $"{poster.Id}*");
+            foreach (var file in files) {
+              System.IO.File.Delete(file);
+            }
+          } catch (Exception ex) {
+            _logger.LogError(ex, "Failed to delete news images ");
+          }
+
+          if (isNew)
+            await db.Images.AddAsync(poster);
+          else
+            db.Images.Update(poster);
+        }
+      }
+
+      return IfFound(_mapper.Map<NewsDto>(newsItem));
+    }
+
   }
 
 }
