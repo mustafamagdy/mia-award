@@ -164,3 +164,4 @@ const NewsList = ({ news, loading, news_metadata, fetchNews, deleteNews, saveNew
 const mapStateToProps = ({ lookups: { news, loading, news_metadata } }) => ({ news, loading, news_metadata });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...lookupActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(NewsList);
+

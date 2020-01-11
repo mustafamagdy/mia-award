@@ -9,7 +9,7 @@ const UpdateForm = ({ isOpen, toggleModalOpen, title, record, onSave, resetRecor
   });
 
   const onSubmit = data => {
-    onSave({ ...record, ...data });
+    onSave({ ...record, ...data, poster: data.poster[0] });
     toggleModalOpen();
   };
 
@@ -27,6 +27,11 @@ const UpdateForm = ({ isOpen, toggleModalOpen, title, record, onSave, resetRecor
             <Label for="body">Body</Label>
             <Input innerRef={register({ required: true })} type="textarea" name="body" placeholder="News bbody" invalid={!!errors.body} />
             <FormFeedback>Please enter valid data</FormFeedback>
+          </FormGroup>
+          <FormGroup>
+            <Label for="poster">Poster</Label>
+            <Input innerRef={register({ required: true })} type="file" name="poster" invalid={!!errors.body} />
+            <FormFeedback>Please choose poster image</FormFeedback>
           </FormGroup>
         </ModalBody>
         <ModalFooter>
