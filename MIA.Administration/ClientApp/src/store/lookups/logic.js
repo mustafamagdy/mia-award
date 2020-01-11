@@ -1,5 +1,6 @@
 import { createLogic } from "redux-logic";
 import { ActionTypes } from "./actions";
+import { NotificationManager } from "react-notifications";
 
 export const fetchNewsLogic = createLogic({
   type: ActionTypes.FETCH_NEWS,
@@ -40,6 +41,7 @@ export const saveNewsLogic = createLogic({
         });
       } else {
         dispatch({ type: ActionTypes.SAVE_NEWS_SUCCESS, payload: res.data });
+        NotificationManager.success("Record saved!");
       }
     } catch (err) {
       dispatch({ type: ActionTypes.SAVE_NEWS_FAIL, payload: err, error: true });
@@ -64,6 +66,7 @@ export const updateNewsLogic = createLogic({
         });
       } else {
         dispatch({ type: ActionTypes.UPDATE_NEWS_SUCCESS, payload: res.data });
+        NotificationManager.success("Record saved!");
       }
     } catch (err) {
       dispatch({ type: ActionTypes.UPDATE_NEWS_FAIL, payload: err, error: true });
@@ -87,7 +90,8 @@ export const deleteNewsLogic = createLogic({
           error: true
         });
       } else {
-        dispatch({ type: ActionTypes.DELETE_NEWS_SUCCESS, payload: res.data });
+        dispatch({ type: ActionTypes.DELETE_NEWS_SUCCESS, payload: action.payload });
+        NotificationManager.success("Record deleted!");
       }
     } catch (err) {
       dispatch({ type: ActionTypes.DELETE_NEWS_FAIL, payload: err, error: true });

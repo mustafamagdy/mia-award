@@ -47,12 +47,22 @@ namespace MIA.Administration.Api.Base {
       ) {
       var result = db.Set<TEntity>()
                      .ProjectTo<TDataDto>(_mapper.ConfigurationProvider)
-                     .ToPagedList(dto)
-                     .ToList();
+                     .ToPagedList(dto);
 
       return IfFound(result);
     }
 
+    [HttpPost("list-all")]
+    public virtual async Task<IActionResult> ListAllNoPagination(
+      [FromBody] BaseSearchDto dto,
+      [FromServices] IAppUnitOfWork db
+      ) {
+      var result = db.Set<TEntity>()
+                     .ProjectTo<TDataDto>(_mapper.ConfigurationProvider)
+                     .ToList();
+
+      return IfFound(result);
+    }
 
     [HttpPost("save")]
     public virtual async Task<IActionResult> SaveNewAsync(
@@ -66,7 +76,7 @@ namespace MIA.Administration.Api.Base {
       return IfFound(_mapper.Map<TDataDto>(savedEntity.Entity));
     }
 
-    [HttpPost("update")]
+    [HttpPut("/")]
     public virtual async Task<IActionResult> UpdateAsync(
       [FromBody] TUpdateDto dto,
       [FromServices] IAppUnitOfWork db
@@ -86,7 +96,7 @@ namespace MIA.Administration.Api.Base {
     }
 
 
-    [HttpPost("delete")]
+    [HttpDelete("/")]
     public virtual async Task<IActionResult> DeleteAsync(
         [FromBody] string id,
         [FromServices] IAppUnitOfWork db

@@ -5,6 +5,10 @@ import { ActionTypes } from "./actions";
 
 const initialState = {
   news: [],
+  news_metadata: {
+    pageNumber: 1,
+    pageSize: 10
+  },
   loading: false
 };
 
@@ -16,10 +20,12 @@ const fetchNews = (state, action) => {
 
 const fetchNewsSuccess = (state, action) => {
   return produce(state, draft => {
-    draft.news = action.payload;
+    draft.news = action.payload.items;
+    draft.news_metadata = action.payload.metadata;
     draft.loading = false;
   });
 };
+
 const fetchNewsFailed = (state, action) => {
   return produce(state, draft => {
     draft.loading = false;
@@ -34,7 +40,7 @@ const saveNews = (state, action) => {
 
 const saveNewsSuccess = (state, action) => {
   return produce(state, draft => {
-    draft.news = action.payload;
+    draft.news.push(action.payload);
     draft.loading = false;
   });
 };
@@ -52,7 +58,8 @@ const updateNews = (state, action) => {
 
 const updateNewsSuccess = (state, action) => {
   return produce(state, draft => {
-    draft.news = action.payload;
+    const index = draft.news.findIndex(a => a.id == action.payload.id);
+    draft.news[index] = action.payload;
     draft.loading = false;
   });
 };
@@ -70,7 +77,7 @@ const deleteNews = (state, action) => {
 
 const deleteNewsSuccess = (state, action) => {
   return produce(state, draft => {
-    draft.news = action.payload;
+    draft.news = draft.news.filter(a => a.id != action.payload);
     draft.loading = false;
   });
 };
@@ -92,5 +99,5 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.UPDATE_NEWS_FAIL]: updateNewsFailed,
   [ActionTypes.DELETE_NEWS]: deleteNews,
   [ActionTypes.DELETE_NEWS_SUCCESS]: deleteNewsSuccess,
-  [ActionTypes.DELETE_NEWS_FAIL]: deleteNewsFailed,
+  [ActionTypes.DELETE_NEWS_FAIL]: deleteNewsFailed
 });
