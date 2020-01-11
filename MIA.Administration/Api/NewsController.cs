@@ -6,11 +6,13 @@ using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Cors;
 using MIA.Constants;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MIA.Administration.Api {
 
   [Authorize]
   [EnableCors(CorsPolicyName.AllowAll)]
+  [Route("api/news")]
   public class NewsController : BaseCrudController<News, NewsDto, NewNewsDto, UpdateNewsDto> {
     public NewsController(
           IMapper mapper,

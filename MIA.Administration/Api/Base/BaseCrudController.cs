@@ -24,7 +24,7 @@ namespace MIA.Administration.Api.Base {
   [ApiVersion("1.0")]
 #endif
   [Route("api/[controller]")]
- 
+
   public class BaseCrudController<TEntity, TDataDto, TNewDto, TUpdateDto>
              : BaseApiController<BaseCrudController<TEntity, TDataDto, TNewDto, TUpdateDto>>
                   where TEntity : BaseEntity<string>
@@ -47,14 +47,24 @@ namespace MIA.Administration.Api.Base {
       ) {
       var result = db.Set<TEntity>()
                      .ProjectTo<TDataDto>(_mapper.ConfigurationProvider)
-                     .ToPagedList(dto)
+                     .ToPagedList(dto);
+
+      return IfFound(result);
+    }
+
+    [HttpPost("list-all")]
+    public virtual async Task<IActionResult> ListAllNoPagination(
+      [FromBody] BaseSearchDto dto,
+      [FromServices] IAppUnitOfWork db
+      ) {
+      var result = db.Set<TEntity>()
+                     .ProjectTo<TDataDto>(_mapper.ConfigurationProvider)
                      .ToList();
 
       return IfFound(result);
     }
 
-
-    [HttpPost("save")]
+    [HttpPost()]
     public virtual async Task<IActionResult> SaveNewAsync(
       [FromBody] TNewDto dto,
       [FromServices] IAppUnitOfWork db
@@ -66,7 +76,7 @@ namespace MIA.Administration.Api.Base {
       return IfFound(_mapper.Map<TDataDto>(savedEntity.Entity));
     }
 
-    [HttpPost("update")]
+    [HttpPut()]
     public virtual async Task<IActionResult> UpdateAsync(
       [FromBody] TUpdateDto dto,
       [FromServices] IAppUnitOfWork db
@@ -86,9 +96,9 @@ namespace MIA.Administration.Api.Base {
     }
 
 
-    [HttpPost("delete")]
+    [HttpDelete("{id}")]
     public virtual async Task<IActionResult> DeleteAsync(
-        [FromBody] string id,
+        [FromRoute] string id,
         [FromServices] IAppUnitOfWork db
         ) {
       var entity = db.Set<TEntity>().FirstOrDefault(a => a.Id == id);

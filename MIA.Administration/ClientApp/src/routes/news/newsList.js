@@ -1,54 +1,45 @@
-/**
- * User Management Page
- */
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import { Pagination, PaginationItem, PaginationLink, Modal, ModalHeader, ModalBody, ModalFooter, Badge } from "reactstrap";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import { NotificationManager } from "react-notifications";
-
-import DeleteConfirmationDialog from "Components/DeleteConfirmationDialog/DeleteConfirmationDialog";
-import AddNewRecordForm from "./AddNewRecordForm";
-import UpdateRecordForm from "./UpdateRecordForm";
-import PageTitleBar from "Components/PageTitleBar/PageTitleBar";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import Paginator from "react-paginate";
 import { Trans } from "@lingui/macro";
+
+import lookupActions from "Store/lookups/actions";
+import DeleteConfirmationDialog from "Components/DeleteConfirmationDialog/DeleteConfirmationDialog";
+import PageTitleBar from "Components/PageTitleBar/PageTitleBar";
 import RctCollapsibleCard from "Components/RctCollapsibleCard/RctCollapsibleCard";
 import RctSectionLoader from "Components/RctSectionLoader/RctSectionLoader";
-import { connect } from "react-redux";
-import lookupActions from "Store/lookups/actions";
-import { bindActionCreators } from "redux";
+import { AddNewForm, UpdateRecordForm } from "./Modals";
+import ViewDialog from "./ViewDialog";
 
+// import FormControlLabel from "@material-ui/core/FormControlLabel";
+// import Button from "@material-ui/core/Button";
+// import Checkbox from "@material-ui/core/Checkbox";
 
-const NewsList = ({ news, loading, fetchNews, deleteNews, match }) => {
+const NewsList = ({ news, loading, news_metadata, fetchNews, deleteNews, saveNews, updateNews, match }) => {
   const title = "news";
-  const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageNumber, setPageNumber] = useState(news_metadata.pageNumber);
+  const [pageSize, setPageSize] = useState(news_metadata.pageSize);
   const [selectedItem, setSelectedItem] = useState(undefined);
-  const [addNewRecordModal, setAddNewRecordModal] = useState(false);
-  const [openViewDataDialog, setOpenViewDataDialog] = useState(false);
+  const [editDlgOpen, setEditDlgOpen] = useState(false);
+  const [newDlgOpen, setNewDlgOpen] = useState(false);
+  const [viewDlgIsOpen, setViewDlgIsOpen] = useState(false);
+  const deleteConfirmationDialog = useRef(null);
 
   useEffect(() => {
     fetchNews({ pageNumber, pageSize });
   }, [pageNumber, pageSize]);
 
-  const componentDidMount = () => {};
-
-  const onDelete = record => {
-    refs.deleteConfirmationDialog.open();
+  const confirmDelete = record => {
+    deleteConfirmationDialog.current.open();
     setSelectedItem(record);
   };
 
-  const deleteRecordPermanently = () => {
+  const deleteRecord = () => {
     deleteNews(selectedItem.id);
-  };
-
-  const opnAddNewRecordModal = e => {
-    e.preventDefault();
-    setAddNewRecordModal(true);
+    deleteConfirmationDialog.current.close();
+    setSelectedItem(null);
   };
 
   const onReload = e => {
@@ -56,135 +47,19 @@ const NewsList = ({ news, loading, fetchNews, deleteNews, match }) => {
     fetchNews({ pageNumber, pageSize });
   };
 
-  const onChangeAddNewRecordDetails = (key, value) => {
-    // setState({
-    //   addNewRecordDetail: {
-    //     ...state.addNewRecordDetail,
-    //     [key]: value
-    //   }
-    // });
-  };
-
-  const addNewRecord = () => {
-    // const { name, emailAddress } = state.addNewRecordDetail;
-    // if (name !== "" && emailAddress !== "") {
-    //   let data = state.data;
-    //   let newRecord = {
-    //     ...state.addNewRecordDetail,
-    //     id: new Date().getTime()
-    //   };
-    //   data.push(newRecord);
-    //   setState({ addNewRecordModal: false, loading: true });
-    //   let self = this;
-    //   setTimeout(() => {
-    //     self.setState({ loading: false, data });
-    //     NotificationManager.success("Record Created!");
-    //   }, 2000);
-    // }
-  };
-
   const viewRecordDetail = data => {
-    setSelectedItem(record);
-    setOpenViewDataDialog(true);
+    setSelectedItem(data);
+    setViewDlgIsOpen(true);
   };
 
   const onEditRecord = record => {
     setSelectedItem(record);
-    setAddNewRecordModal(true);
+    setEditDlgOpen(true);
   };
 
-  const onAddUpdateRecordModalClose = () => {
-    setAddNewRecordModal(false);
+  const resetSelectedRecord = () => {
     setSelectedItem(null);
   };
-
-  const onUpdateRecordDetails = (key, value) => {
-    // setState({
-    //   editData: {
-    //     ...state.editData,
-    //     [key]: value
-    //   }
-    // });
-  };
-
-  const updateRecord = () => {
-    // const { editData } = state;
-    // let indexOfUpdateRecord = "";
-    // let data = state.data;
-    // for (let i = 0; i < data.length; i++) {
-    //   const record = data[i];
-    //   if (record.id === editData.id) {
-    //     indexOfUpdateRecord = i;
-    //   }
-    // }
-    // data[indexOfUpdateRecord] = editData;
-    // setState({ loading: true, editData: null, addNewRecordModal: false });
-    // let self = this;
-    // setTimeout(() => {
-    //   self.setState({ data, loading: false });
-    //   NotificationManager.success("Record Updated!");
-    // }, 2000);
-  };
-
-  const renderPager = () => {
-    return (
-      <Pagination className="mb-0 py-10 px-10">
-        <PaginationItem>
-          <PaginationLink previous href="#" onClick={e => e.preventDefault()} />
-        </PaginationItem>
-        <PaginationItem active>
-          <PaginationLink href="#" onClick={e => e.preventDefault()}>
-            1
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" onClick={e => e.preventDefault()}>
-            2
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" onClick={e => e.preventDefault()}>
-            3
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink next href="#" onClick={e => e.preventDefault()} />
-        </PaginationItem>
-      </Pagination>
-    );
-  };
-
-  const renderViewDialog = record => {
-    return (
-      <Dialog onClose={() => setState({ openViewDataDialog: false })} open={state.openViewDataDialog}>
-        <DialogContent>
-          {record !== null && (
-            <div>
-              <div className="clearfix d-flex">
-                <div className="media pull-left">
-                  <img src={record.avatar} alt="user prof" className="rounded-circle mr-15" width="50" height="50" />
-                  <div className="media-body">
-                    <p>
-                      Title: <span className="fw-bold">{record.title}</span>
-                    </p>
-                    <p>
-                      Body: <span className="fw-bold">{record.body}</span>
-                    </p>
-                    <p>{record.imageUrl}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
-    );
-  };
-
-  // if (deleted) {
-  //   refs.deleteConfirmationDialog.close();
-  //   NotificationManager.success("Record Deleted!");
-  // }
 
   return (
     <div className="user-management">
@@ -202,18 +77,26 @@ const NewsList = ({ news, loading, fetchNews, deleteNews, match }) => {
               </a>
             </div>
             <div>
-              <a href="#" onClick={e => opnAddNewRecordModal(e)} color="primary" className="caret btn-sm mr-10">
-                Add New {title} <i className="zmdi zmdi-plus"></i>
+              <a href="#" onClick={() => setNewDlgOpen(true)} color="primary" className="caret btn-sm mr-10">
+                <Trans id="add_new">Add New</Trans> {title} <i className="zmdi zmdi-plus"></i>
               </a>
             </div>
           </div>
           <table className="table table-middle table-hover mb-0">
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Date Created</th>
-                <th>Outdated</th>
-                <th>Action</th>
+                <th>
+                  <Trans id="title"> Title</Trans>
+                </th>
+                <th>
+                  <Trans id="date"> Date Created</Trans>
+                </th>
+                <th>
+                  <Trans id="outdated"> Outdated</Trans>
+                </th>
+                <th>
+                  <Trans id="action"> Action</Trans>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -230,7 +113,7 @@ const NewsList = ({ news, loading, fetchNews, deleteNews, match }) => {
                       <button type="button" className="rct-link-btn" onClick={() => onEditRecord(record)}>
                         <i className="ti-pencil"></i>
                       </button>
-                      <button type="button" className="rct-link-btn" onClick={() => onDelete(record)}>
+                      <button type="button" className="rct-link-btn" onClick={() => confirmDelete(record)}>
                         <i className="ti-close"></i>
                       </button>
                     </td>
@@ -239,7 +122,9 @@ const NewsList = ({ news, loading, fetchNews, deleteNews, match }) => {
             </tbody>
             <tfoot className="border-top">
               <tr>
-                <td colSpan="100%">{renderPager()}</td>
+                <td colSpan="100%">
+                  <Paginator pageRangeDisplayed={4} pageCount={news_metadata.pageCount} onPageChange={p => setPageNumber(p.selected + 1)} />
+                </td>
               </tr>
             </tfoot>
           </table>
@@ -247,43 +132,35 @@ const NewsList = ({ news, loading, fetchNews, deleteNews, match }) => {
         {loading && <RctSectionLoader />}
       </RctCollapsibleCard>
       <DeleteConfirmationDialog
-        ref="deleteConfirmationDialog"
+        ref={deleteConfirmationDialog}
         title="Are You Sure Want To Delete?"
         message={`This will delete ${title} permanently.`}
-        onConfirm={() => deleteRecordPermanently()}
+        onConfirm={() => deleteRecord()}
+        onClose={resetSelectedRecord}
       />
-      <Modal isOpen={state.addNewRecordModal} toggle={() => onAddUpdateRecordModalClose()}>
-        <ModalHeader toggle={() => onAddUpdateRecordModalClose()}>{editData === null ? `Add New ${title}` : `Update ${title}`}</ModalHeader>
-        <ModalBody>
-          {editData === null ? (
-            <AddNewRecordForm
-              addNewRecordDetails={state.addNewRecordDetail}
-              onChangeAddNewRecordDetails={onChangeAddNewRecordDetails.bind(this)}
-            />
-          ) : (
-            <UpdateRecordForm record={editData} onUpdateRecordDetail={onUpdateRecordDetails.bind(this)} />
-          )}
-        </ModalBody>
-        <ModalFooter>
-          {editData === null ? (
-            <Button variant="contained" className="text-white btn-success" onClick={() => addNewRecord()}>
-              Add
-            </Button>
-          ) : (
-            <Button variant="contained" color="primary" className="text-white" onClick={() => updateRecord()}>
-              Update
-            </Button>
-          )}{" "}
-          <Button variant="contained" className="text-white btn-danger" onClick={() => onAddUpdatRecordrModalClose()}>
-            Cancel
-          </Button>
-        </ModalFooter>
-      </Modal>
-      {renderViewDialog()}
+      {selectedItem && (
+        <UpdateRecordForm
+          isOpen={editDlgOpen}
+          onSave={updateNews}
+          toggleModalOpen={() => setEditDlgOpen(false)}
+          title={title}
+          record={selectedItem}
+          resetRecord={resetSelectedRecord}
+        />
+      )}
+      <AddNewForm isOpen={newDlgOpen} onSave={saveNews} toggleModalOpen={() => setNewDlgOpen(false)} title={title} />
+      <ViewDialog
+        record={selectedItem}
+        isOpen={viewDlgIsOpen}
+        onClose={() => {
+          setViewDlgIsOpen(false);
+          resetSelectedRecord();
+        }}
+      />
     </div>
   );
 };
 
-const mapStateToProps = ({ lookups: { news, loading, deleted, updated } }) => ({ news, loading });
+const mapStateToProps = ({ lookups: { news, loading, news_metadata } }) => ({ news, loading, news_metadata });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...lookupActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(NewsList);
