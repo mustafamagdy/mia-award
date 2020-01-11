@@ -295,7 +295,7 @@ namespace MIA.Api {
       var user = await userManager.FindByNameAsync(username);
       _mapper.Map(dto, user, typeof(UpdateUserProfileDto), typeof(AppUser));
 
-      UserImage avatar = db.UserImages.FirstOrDefault(a => a.RefId == user.Id);
+      UserImage avatar = db.UserImages.FirstOrDefault(a => a.UserId == user.Id);
       if (dto.Avatar != null && dto.Avatar.Length > 0) {
         using (var memorySteam = new MemoryStream()) {
           dto.Avatar.CopyTo(memorySteam);
@@ -306,7 +306,7 @@ namespace MIA.Api {
           }
 
           if (avatar == null) {
-            avatar = new UserImage { RefId = user.Id };
+            avatar = new UserImage { UserId = user.Id };
             await db.UserImages.AddAsync(avatar);
           }
           avatar.Data = memorySteam.ToArray();

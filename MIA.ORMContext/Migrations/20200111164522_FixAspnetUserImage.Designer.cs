@@ -4,14 +4,16 @@ using MIA.ORMContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MIA.ORMContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200111164522_FixAspnetUserImage")]
+    partial class FixAspnetUserImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,6 +277,8 @@ namespace MIA.ORMContext.Migrations
                         .IsRequired();
 
                     b.Property<string>("PhotoAlbumId");
+
+                    b.Property<string>("RefId");
 
                     b.HasKey("Id");
 
@@ -582,15 +586,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasBaseType("MIA.Models.Entities.AppUser");
 
                     b.HasDiscriminator().HasValue("Nominee");
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.NewsImage", b =>
-                {
-                    b.HasBaseType("MIA.Models.Entities.Image");
-
-                    b.Property<string>("NewsId");
-
-                    b.HasDiscriminator().HasValue("NewsImage");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.TrophyImage", b =>

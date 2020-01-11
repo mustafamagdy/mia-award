@@ -295,18 +295,18 @@ namespace MIA.Administration.Api {
       var user = await userManager.FindByNameAsync(username);
       _mapper.Map(dto, user, typeof(UpdateUserProfileDto), typeof(AppUser));
 
-      UserImage avatar = db.UserImages.FirstOrDefault(a => a.RefId == user.Id);
+      UserImage avatar = db.UserImages.FirstOrDefault(a => a.UserId == user.Id);
       if (dto.Avatar != null && dto.Avatar.Length > 0) {
         using (var memorySteam = new MemoryStream()) {
           dto.Avatar.CopyTo(memorySteam);
 
           string validationError = "";
-          if (ValidateImage(limitOptions.Value, memorySteam, out validationError) == false) {
+          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
             return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
           }
 
           if (avatar == null) {
-            avatar = new UserImage { RefId = user.Id };
+            avatar = new UserImage { UserId = user.Id };
             await db.UserImages.AddAsync(avatar);
           }
           avatar.Data = memorySteam.ToArray();
@@ -334,36 +334,6 @@ namespace MIA.Administration.Api {
       }
 
       return Ok(result);
-    }
-
-    private bool ValidateImage(UploadLimits limis, MemoryStream content, out string validationError) {
-      validationError = "";
-      if (content == null) return true;
-
-      if (content.Length / 1024 > limis.AllowedSizeInKB) {
-        validationError = "File is too large";
-        return false;
-      }
-      var i = System.Drawing.Image.FromStream(content);
-      content.Seek(0, SeekOrigin.Begin);
-
-      var validExt = limis.AllowedExt.Split(",");
-      var validImage = false;
-      validImage = validImage || validExt.Any(ext => {
-        switch (ext) {
-          case "png": return ImageFormat.Png.Equals(i.RawFormat);
-          case "jpg": case "jpeg": return ImageFormat.Jpeg.Equals(i.RawFormat);
-          case "gif": return ImageFormat.Gif.Equals(i.RawFormat);
-          default:
-
-            return false;
-        }
-      });
-
-      if (!validImage)
-        validationError = "Invlid file format";
-
-      return validImage;
     }
   }
 }

@@ -15,7 +15,9 @@ namespace MIA.Administration.MappingProfiles {
     public ApiProfile() {
 
 
-      CreateMap<News, NewsDto>().ValidateMemberList(MemberList.None);
+      CreateMap<News, NewsDto>()
+        .ForMember(a => a.ImageUrl, cfg => cfg.MapFrom(a => a.Image != null ? a.Image.Imageurl : ""))
+        .ValidateMemberList(MemberList.None);
       CreateMap<NewNewsDto, News>().ValidateMemberList(MemberList.None);
       CreateMap<UpdateNewsDto, News>().ValidateMemberList(MemberList.None);
     }
