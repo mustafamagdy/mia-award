@@ -1,14 +1,26 @@
 import { createLogic } from "redux-logic";
 import { NotificationManager } from "react-notifications";
+const normalizeActionName = actionName =>
+  actionName
+    .toLowerCase()
+    .split("/")
+    .pop()
+    .split("_")
+    .map((a, i) => (i > 0 ? a.charAt(0).toUpperCase() + a.substring(1) : a))
+    .join("");
+export const generateCrudLogics = (apiNamespace, fetchAction, saveAction, updateAction, deleteAction) => {
+  const api_fetch = normalizeActionName(fetchAction);
+  const api_save = normalizeActionName(saveAction);
+  const api_update = normalizeActionName(updateAction);
+  const api_delete = normalizeActionName(deleteAction);
 
-export const generateCrudLogics = (fetchAction, saveAction, updateAction, deleteAction) => {
   const fetchLogic = createLogic({
     type: fetchAction,
     latest: true,
 
     async process({ getState, action, api }, dispatch, done) {
       try {
-        const res = await api.lookups.fetchNews(action.payload);
+        const res = await api[apiNamespace][api_fetch](action.payload);
         if (!res.ok) {
           dispatch({
             type: `${fetchAction}_FAIL`,
@@ -32,7 +44,7 @@ export const generateCrudLogics = (fetchAction, saveAction, updateAction, delete
 
     async process({ getState, action, api }, dispatch, done) {
       try {
-        const res = await api.lookups.saveNews(action.payload);
+        const res = await api[apiNamespace][api_save](action.payload);
         if (!res.ok) {
           dispatch({
             type: `${saveAction}_FAIL`,
@@ -57,7 +69,7 @@ export const generateCrudLogics = (fetchAction, saveAction, updateAction, delete
 
     async process({ getState, action, api }, dispatch, done) {
       try {
-        const res = await api.lookups.updateNews(action.payload);
+        const res = await api[apiNamespace][api_update](action.payload);
         if (!res.ok) {
           dispatch({
             type: `${updateAction}_FAIL`,
@@ -82,7 +94,7 @@ export const generateCrudLogics = (fetchAction, saveAction, updateAction, delete
 
     async process({ getState, action, api }, dispatch, done) {
       try {
-        const res = await api.lookups.deleteNews(action.payload);
+        const res = await api[apiNamespace][api_delete](action.payload);
         if (!res.ok) {
           dispatch({
             type: `${deleteAction}_FAIL`,
