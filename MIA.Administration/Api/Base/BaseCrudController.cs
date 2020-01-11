@@ -24,7 +24,7 @@ namespace MIA.Administration.Api.Base {
   [ApiVersion("1.0")]
 #endif
   [Route("api/[controller]")]
- 
+
   public class BaseCrudController<TEntity, TDataDto, TNewDto, TUpdateDto>
              : BaseApiController<BaseCrudController<TEntity, TDataDto, TNewDto, TUpdateDto>>
                   where TEntity : BaseEntity<string>
@@ -64,7 +64,7 @@ namespace MIA.Administration.Api.Base {
       return IfFound(result);
     }
 
-    [HttpPost("save")]
+    [HttpPost()]
     public virtual async Task<IActionResult> SaveNewAsync(
       [FromBody] TNewDto dto,
       [FromServices] IAppUnitOfWork db
@@ -76,7 +76,7 @@ namespace MIA.Administration.Api.Base {
       return IfFound(_mapper.Map<TDataDto>(savedEntity.Entity));
     }
 
-    [HttpPut("/")]
+    [HttpPut()]
     public virtual async Task<IActionResult> UpdateAsync(
       [FromBody] TUpdateDto dto,
       [FromServices] IAppUnitOfWork db
@@ -96,9 +96,9 @@ namespace MIA.Administration.Api.Base {
     }
 
 
-    [HttpDelete("/")]
+    [HttpDelete("{id}")]
     public virtual async Task<IActionResult> DeleteAsync(
-        [FromBody] string id,
+        [FromRoute] string id,
         [FromServices] IAppUnitOfWork db
         ) {
       var entity = db.Set<TEntity>().FirstOrDefault(a => a.Id == id);
