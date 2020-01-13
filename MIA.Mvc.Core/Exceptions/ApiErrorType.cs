@@ -35,6 +35,10 @@ namespace MIA.Exceptions {
     PaymentNotApproved,
     //////////////////////////////////////////////////////
 
+    [Error("4000", HttpStatusCode.BadRequest, Message = "File name is too long")]
+    FileNameIsTooLong,
+    
+
   }
 
 }

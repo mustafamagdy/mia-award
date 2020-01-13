@@ -7,25 +7,33 @@ const Uploader = props => {
   let chunkIndex = 0;
   let totalChunks = 0;
   let file = undefined;
+  let start = 0;
 
   const processFile = files => {
     file = files[0];
     size = file.size;
-    let start = 0;
     totalChunks = Math.ceil(size / sliceSize);
-    send(start, sliceSize);
+    window.api.members.getStartIndex("sample").then(a => {
+      if (a.ok) {
+        chunkIndex = a.data || 0;
+        let end = 0;
+        start = chunkIndex * sliceSize;
+        end = start + sliceSize;
+        send(start, end);
+      }
+    });
   };
 
   const send = (start, end) => {
+    debugger;
     if (chunkIndex >= totalChunks) {
       return;
     }
     if (end < size) {
       xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
-          console.log("Done Sending Chunk ->", chunkIndex, "status", xhr.status, "response", xhr.responseText);
+          console.log("progress %", (chunkIndex / totalChunks) * 100);
           chunkIndex = chunkIndex + 1;
-
           end = start + sliceSize * 2;
           start = start + sliceSize;
           send(start, end);
@@ -45,7 +53,7 @@ const Uploader = props => {
         .slice(0, -1)
         .join(".")
     );
-    formdata.append("chunkIndex", chunkIndex);
+    // formdata.append("chunkIndex", chunkIndex);
     formdata.append("totalChunks", totalChunks);
     formdata.append("chunk", slicedPart);
     formdata.append("ext", file.name.split(".").pop());
