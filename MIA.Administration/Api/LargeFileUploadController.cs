@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Cors;
 using MIA.Constants;
 using MIA.Exceptions;
 using System.Linq;
+using Amazon.S3;
+using Amazon;
+using Amazon.S3.Transfer;
 
 namespace MIA.Administration.Api {
   public class ChunkDto {
@@ -137,6 +140,24 @@ namespace MIA.Administration.Api {
       var allParts = Directory.GetFiles(fullPath, "*.part");
       foreach (var part in allParts) {
         System.IO.File.Delete(part);
+      }
+    }
+
+    private async Task UploadFileToS3(string fullFilePath) {
+      using (var client = new AmazonS3Client(
+       awsAccessKeyId: "AKIAWESSA665T54GZGW3",
+       awsSecretAccessKey: "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",
+       region: RegionEndpoint.USEast1)) {
+        using (var file = new FileStream(fullFilePath, FileMode.Open, FileAccess.Read)) {
+          var uploadRequest = new TransferUtilityUploadRequest {
+            InputStream = file,
+            Key = file.Name,
+            BucketName = "mediauploads1",
+            CannedACL = S3CannedACL.NoACL
+          };
+          var fileTransferUtility = new TransferUtility(client);
+          await fileTransferUtility.UploadAsync(uploadRequest);
+        }
       }
     }
   }
