@@ -361,6 +361,10 @@ module.exports = function(webpackEnv) {
                 compact: isEnvProduction
               }
             },
+            {
+              test: /\.(woff|woff2|eot|ttf|svg)$/,
+              loader: 'url-loader?limit=100000'
+            },
             // Process any JS outside of the app with Babel.
             // Unlike the application JS, we only compile the standard ES features.
             {

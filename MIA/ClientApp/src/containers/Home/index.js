@@ -4,7 +4,6 @@ import { bindActionCreators } from "redux";
 import globalActions from "store/app/actions";
 
 class Home extends React.Component {
-  
   render() {
     return (
       <React.Fragment>
@@ -13,7 +12,7 @@ class Home extends React.Component {
             <div className="view_award">
               <div className="big_image">
                 <a href="#" title="#">
-                  <img src={require("./big_image.png")} alt="#" />
+                  <img src="assets/images/big_image.png" alt="#" />
                 </a>
               </div>
               <div className="desc">
