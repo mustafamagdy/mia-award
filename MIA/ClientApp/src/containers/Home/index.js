@@ -13,7 +13,7 @@ class Home extends React.Component {
             <div className="view_award">
               <div className="big_image">
                 <a href="#" title="#">
-                  <img src="/assets/images/big_image.png" alt="#" />
+                  <img src={require("./big_image.png")} alt="#" />
                 </a>
               </div>
               <div className="desc">

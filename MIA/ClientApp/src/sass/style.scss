@@ -5,20 +5,20 @@ $secondcolor : #d1a457;
 
 /** Main Style **/
 @charset "utf-8";
-@import url("/fonts/icofont.min.css");
+@import url("/assets/fonts/icofont.min.css");
 @font-face {  
   font-family: "Montserrat_Bold";  
-  src: url("/fonts/Montserrat-Bold.ttf") format("opentype");  
+  src: url("/assets/fonts/Montserrat-Bold.ttf") format("opentype");  
   unicode-range:"U+0-10FFFF";
 }
 @font-face {  
   font-family: "Montserrat_Medium";  
-  src: url("/fonts/Montserrat-Medium.ttf") format("opentype");  
+  src: url("/assets/fonts/Montserrat-Medium.ttf") format("opentype");  
   unicode-range:"U+0-10FFFF";
 }
 @font-face {  
   font-family: "Montserrat_Regular";  
-  src: url("/fonts/Montserrat-Regular.ttf") format("opentype");  
+  src: url("/assets/fonts/Montserrat-Regular.ttf") format("opentype");  
   unicode-range:"U+0-10FFFF";
 }
 html {
@@ -412,7 +412,7 @@ body {
 		z-index: 3;
 		padding: 0 0 0 126px;
 		#intro {
-			background: transparent url("/images/intro_bg.png") scroll no-repeat top center / cover;
+			background: transparent url("/assets/images/intro_bg.png") scroll no-repeat top center / cover;
 			float: left;
 			width: 100%;
 			height: 100%;
