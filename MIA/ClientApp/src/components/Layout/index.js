@@ -2,34 +2,27 @@ import React, { Fragment } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import UserProvider from "containers/Providers/UserProvider";
-import BurgetMenu from "./BurgerMenu";
+import Sidebar from "./Sidebar";
 
 class Layout extends React.PureComponent {
-  state = {
-    mobileMenuOpened: false
-  };
-
-  toggleMobileMenu = () => this.setState({ mobileMenuOpened: !this.state.mobileMenuOpened });
-
   render() {
-    const {
-      state: { mobileMenuOpened },
-      props: { hideFooter },
-      toggleMobileMenu
-    } = this;
-
     return (
       <UserProvider>
-        <React.Fragment>
-          <BurgetMenu menuOpened={mobileMenuOpened} toggleMenu={toggleMobileMenu} />
-          <div className="wrapper">
-            <Header toggleMobileMenu={toggleMobileMenu} />
-            <div className="section _flex-grow main">
-              {this.props.children}
-            </div>
-            <Footer />
+        <section id="main_site">
+          <aside>sdsdsd</aside>
+          <div className="search_modal">
+            <form action="#">
+              <input type="text" placeholder="Search ..." />
+              <button type="submit">
+                <i className="icofont-ui-search"></i>
+              </button>
+            </form>
           </div>
-        </React.Fragment>
+          <Sidebar />
+          <Header />
+          <section id="wrapper">{this.props.children}</section>
+          <Footer />
+        </section>
       </UserProvider>
     );
   }
