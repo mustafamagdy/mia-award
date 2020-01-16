@@ -50,6 +50,8 @@ import MyDashboard from "../Members/MyDashboard";
 
 import TestUpload from "../Test/Upload";
 
+import "sass/style.scss";
+
 history.listen((location, action) => {
   //todo: use this for query string sync
   // console.log("route changed ", location, action);
@@ -99,8 +101,6 @@ class App extends React.Component {
 
                     <Redirect from="*" to="/" />
                   </Switch>
-                  <CookieGDPR />
-                  <ScrollToTop />
                   {/*
                    <UserContext.Consumer>
                     {({

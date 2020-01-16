@@ -12,9 +12,6 @@ import App from "containers/App";
 // import "file-loader?name=.htaccess!./.htaccess"; // eslint-disable-line import/extensions
 
 import "react-day-picker/lib/style.css";
-// import "./sass/noscript.scss";
-// import "./sass/vendors-and-helpers.scss";
-//import "./sass/style.scss";
 import "./index.css";
 
 const MOUNT_NODE = document.getElementById("app");
