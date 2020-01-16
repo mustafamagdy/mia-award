@@ -11,7 +11,26 @@ const initialState = {
   locale: SupportedLocales[DEFAULT_LOCALE],
   direction: DEFAULT_DIRECTION,
   lastPing: "",
-  isLoadingHotels: false
+  sidebarOpen: false,
+  searchFormOpen: false
+};
+
+const toggleSidebar = (state, { locale }) => {
+  return produce(state, draft => {
+    draft.sidebarOpen = !state.sidebarOpen;
+
+    if (draft.sidebarOpen) document.body.classList.add("open_aside");
+    else document.body.classList.remove("open_aside");
+  });
+};
+
+const toggleSearchForm = (state, { locale }) => {
+  return produce(state, draft => {
+    draft.searchFormOpen = !state.searchFormOpen;
+
+    if (draft.searchFormOpen) document.body.classList.add("open_search_area");
+    else document.body.classList.remove("open_search_area");
+  });
 };
 
 const changeLocale = (state, { locale }) => {
@@ -50,4 +69,6 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.SET_IS_LOADING]: setIsLoading,
   [ActionTypes.CLEAR_IS_LOADING]: clearIsLoading,
   [ActionTypes.CHANGE_LOCALE]: changeLocale,
+  [ActionTypes.TOGGLE_SIDEBAR]: toggleSidebar,
+  [ActionTypes.TOGGLE_SEARCH_FORM]: toggleSearchForm
 });
