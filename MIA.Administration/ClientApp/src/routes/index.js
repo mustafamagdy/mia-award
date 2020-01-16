@@ -7,6 +7,7 @@ import VideoPlayer from "./video-player";
 import News from "./news";
 import Video2 from "./video2";
 import Uploader from "./uploader";
+import Booth from "./booth";
 
 // // async component
 // import {
@@ -48,5 +49,10 @@ export default [
   {
     path: "video",
     component: Video2
-  }
+  },
+  
+  {
+    path: "booth",
+    component: Booth
+  },
 ];

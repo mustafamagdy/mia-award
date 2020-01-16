@@ -2,26 +2,45 @@
 using MIA.Administration.Api;
 using MIA.Models.Entities;
 
-namespace MIA.Administration.MappingProfiles {
-
-  /// <summary>
-  /// Auto mapper profile that contain mapping used in Api project
-  /// </summary>
-  public class ApiProfile : Profile {
+namespace MIA.Administration.MappingProfiles
+{
 
     /// <summary>
-    /// Constructor
+    /// Auto mapper profile that contain mapping used in Api project
     /// </summary>
-    public ApiProfile() {
+    public class ApiProfile : Profile
+    {
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public ApiProfile()
+        {
 
-      CreateMap<News, NewsDto>()
-        .ForMember(a => a.ImageUrl, cfg => cfg.MapFrom(a => a.Image != null ? a.Image.Imageurl : ""))
-        .ValidateMemberList(MemberList.None);
-      CreateMap<NewNewsDto, News>().ValidateMemberList(MemberList.None);
-      CreateMap<UpdateNewsDto, News>().ValidateMemberList(MemberList.None);
+            #region News
+
+            CreateMap<News, NewsDto>()
+              .ForMember(a => a.ImageUrl, cfg => cfg.MapFrom(a => a.Image != null ? a.Image.Imageurl : ""))
+              .ValidateMemberList(MemberList.None);
+            CreateMap<NewNewsDto, News>().ValidateMemberList(MemberList.None);
+            CreateMap<UpdateNewsDto, News>().ValidateMemberList(MemberList.None);
+            #endregion
+
+            #region Booth
+            CreateMap<Booth, BoothsDto>().ValidateMemberList(MemberList.None);
+            CreateMap<NewBoothsDto, Booth>().ValidateMemberList(MemberList.None);
+            CreateMap<UpdateBoothsDto, Booth>().ValidateMemberList(MemberList.None);
+
+            #endregion
+
+            #region VotingCriteria
+            CreateMap<VotingCriteria, VotingCriteriasDto>().ValidateMemberList(MemberList.None);
+            CreateMap<NewVotingCriteriasDto, VotingCriteria>().ValidateMemberList(MemberList.None);
+            CreateMap<UpdateVotingCriteriasDto, VotingCriteria>().ValidateMemberList(MemberList.None);
+
+            #endregion
+        }
     }
-  }
 
 
 }

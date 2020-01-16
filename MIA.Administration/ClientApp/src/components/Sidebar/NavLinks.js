@@ -33,6 +33,13 @@ export default {
           menu_icon: "zmdi zmdi-view-dashboard",
           new_item: false
         },
+
+        {
+          path: "/app/booth",
+          menu_title: "sidebar.booths",
+          menu_icon: "zmdi zmdi-view-dashboard",
+          new_item: false
+        },
         {
           path: "/app/photo-album",
           menu_icon: "zmdi zmdi-view-dashboard",
