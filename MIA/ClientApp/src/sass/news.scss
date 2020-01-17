@@ -1,0 +1,279 @@
+@import "./variables.scss";
+
+//**** Footer ****//
+#news_features {
+  background: #171717 url("/assets/images/news_features_bg.png") scroll no-repeat bottom center/cover;
+  .continer {
+    width: 1442px;
+    margin: 0 auto;
+    min-height: 700px;
+    padding: 50px 49px;
+    .title {
+      text-transform: uppercase;
+      font-family: Montserrat_Bold;
+      font-size: 18px;
+      color: #ccbc93;
+      position: relative;
+      padding: 0 0 0 33px;
+      margin: 0 auto 20px;
+      &::before {
+        content: "";
+        height: 3px;
+        width: 23px;
+        background: #ccbc93;
+        position: absolute;
+        left: 0;
+        top: 11px;
+      }
+    }
+    .features_sliders {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      overflow: hidden;
+      margin: 0 -15px;
+      padding: 40px 0;
+      .feature_item {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 25%;
+        padding: 0 15px;
+        .feature_block {
+          time {
+            display: block;
+            font-size: 18px;
+            font-family: Montserrat_Bold;
+            position: relative;
+            color: #484848;
+            margin: 0 auto 40px;
+            padding: 0 0 0 33px;
+            &::before {
+              position: absolute;
+              height: 9px;
+              width: 9px;
+              background: #ccbc93;
+              content: "";
+              border-radius: 100%;
+              top: 7px;
+              left: 10px;
+            }
+          }
+          .item {
+            position: relative;
+            padding: 0 0 0 33px;
+            .category {
+              position: absolute;
+              left: -52px;
+              top: 50px;
+              p {
+                transform: rotate(-90deg);
+                margin: 0;
+                display: block;
+                line-height: 23px;
+                color: #fff;
+                text-transform: uppercase;
+                font-family: Montserrat_Bold;
+                font-size: 25px;
+                letter-spacing: 3px;
+              }
+            } /* category */
+            .imgthumb {
+              position: relative;
+              border-radius: 4px;
+              overflow: hidden;
+              height: 550px;
+              -webkit-transition: all 0.4s ease-in-out;
+              -moz-transition: all 0.4s ease-in-out;
+              -o-transition: all 0.4s ease-in-out;
+              transition: all 0.4s ease-in-out;
+              img {
+                width: 100%;
+                height: 100%;
+                -webkit-transition: all 0.4s ease-in-out;
+                -moz-transition: all 0.4s ease-in-out;
+                -o-transition: all 0.4s ease-in-out;
+                transition: all 0.4s ease-in-out;
+                -webkit-filter: grayscale(100%);
+                -moz-filter: grayscale(100%);
+                -o-filter: grayscale(100%);
+                filter: grayscale(100%);
+              } /* img */
+              .mask {
+                background: transparent url("/assets/images/mask_bg.png") scroll no-repeat center top;
+                position: absolute;
+                bottom: -100%;
+                padding: 10px;
+                left: 0;
+                width: 100%;
+                display: flex;
+                min-height: 80%;
+                align-items: flex-end;
+                opacity: 0;
+                -webkit-transition: all 0.4s ease-in-out;
+                -moz-transition: all 0.4s ease-in-out;
+                -o-transition: all 0.4s ease-in-out;
+                transition: all 0.4s ease-in-out;
+                p {
+                  color: #fff;
+                  font-size: 13px;
+                  margin: 0 auto 10px;
+                  text-transform: capitalize;
+                  line-height: 21px;
+                } /* p */
+                .more {
+                  display: flex;
+                  justify-content: flex-end;
+                  a {
+                    text-transform: uppercase;
+                    font-size: 12px;
+                    color: #baac87;
+                    font-family: Montserrat_Bold;
+                    &:hover {
+                      color: #cec09b;
+                    }
+                  }
+                } /* more */
+              }
+              &:hover {
+                -webkit-transform: scale(1.1);
+                -moz-transform: scale(1.1);
+                -o-transform: scale(1.1);
+                transform: scale(1.1);
+                box-shadow: 0 0 0 1px #ccbc93;
+                img {
+                  -webkit-filter: grayscale(0%);
+                  -moz-filter: grayscale(0%);
+                  -o-filter: grayscale(0%);
+                  filter: grayscale(0%);
+                } /* img */
+                .mask {
+                  bottom: 0;
+                  opacity: 1;
+                }
+              } /* hover */
+            } /* imgthumb */
+          } /* item */
+        } /* feature_block */
+      } /* slide_item */
+    } /* features_sliders */
+    .features_nav {
+      margin: 30px auto;
+      display: flex;
+      justify-content: space-between;
+      a {
+        align-self: center;
+        text-transform: uppercase;
+        font-family: Montserrat_Bold;
+        font-size: 17px;
+        letter-spacing: 1px;
+        line-height: 20px;
+        height: 20px;
+        color: #ccbc93;
+        position: relative;
+        &::after {
+          height: 20px;
+          width: 2px;
+          background: #ccbc93;
+          content: "";
+          position: absolute;
+          left: -20px;
+          display: block;
+          top: 0;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+        } /* after */
+        &::before {
+          height: 20px;
+          width: 2px;
+          background: #ccbc93;
+          content: "";
+          position: absolute;
+          right: -20px;
+          display: block;
+          top: 0;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+        } /* before */
+        &:hover {
+          color: #eadab1;
+          &::after {
+            background: #eadab1;
+          }
+          &::before {
+            background: #eadab1;
+          }
+        } /* hover */
+      } /* a */
+      button.arrow_next {
+        font-size: 17px;
+        font-family: Montserrat_Bold;
+        height: 20px;
+        line-height: 20px;
+        background: transparent;
+        border: none;
+        text-transform: uppercase;
+        padding: 0;
+        position: relative;
+        color: #5c5c5c;
+        cursor: pointer;
+        &::after {
+          height: 2px;
+          content: "";
+          width: 0;
+          left: -10px;
+          background: #ccbc93;
+          display: block;
+          bottom: -9px;
+          position: absolute;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+        }
+        &:hover {
+          color: #ccbc93;
+          &::after {
+            width: 50px;
+          }
+        } /* hover */
+      } /* button */
+      button.arrow_prev {
+        font-size: 17px;
+        font-family: Montserrat_Bold;
+        height: 20px;
+        line-height: 20px;
+        background: transparent;
+        border: none;
+        text-transform: uppercase;
+        padding: 0;
+        position: relative;
+        color: #5c5c5c;
+        cursor: pointer;
+        &::after {
+          height: 2px;
+          content: "";
+          width: 0;
+          right: -10px;
+          background: #ccbc93;
+          display: block;
+          bottom: -9px;
+          position: absolute;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+        }
+        &:hover {
+          color: #ccbc93;
+          &::after {
+            width: 50px;
+          }
+        } /* hover */
+      } /* button */
+    } /* features_nav */
+  } /* continer */
+} /* news_features */

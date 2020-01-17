@@ -1,0 +1,58 @@
+@import "./variables.scss";
+
+//**** Partners Slider ****//
+#partners {
+  background: #fff;
+  .continer {
+    width: 1442px;
+    margin: 0 auto;
+    padding: 50px 49px;
+    overflow: hidden;
+    .partners_slider {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      .slide_item {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 25%;
+        padding: 0 15px;
+        a {
+          display: block;
+          height: 150px;
+          line-height: 150px;
+          text-align: center;
+          img {
+            max-width: 100%;
+            max-height: 100px;
+            display: inline-block;
+            width: auto;
+            height: auto;
+            vertical-align: middle;
+          } /* img */
+        } /* a */
+      } /* slide_item */
+    } /* partners_slider */
+    .slider_dots {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      margin: 30px auto 0;
+      span {
+        width: 14px;
+        height: 14px;
+        display: block;
+        background: #fff;
+        border-radius: 100%;
+        border: 3px solid #808080;
+        margin: 0 5px;
+        cursor: pointer;
+        &.current {
+          background: $maincolor;
+          border-color: $maincolor;
+          cursor: inherit;
+        } /* current */
+      } /* span */
+    } /* slider_dots */
+  } /* continer */
+} /* partners */

@@ -86,7 +86,7 @@ class App extends React.Component {
                     <Route path="/account/checkYourEmail" component={CheckYourEmail} />
                     <Route path="/account/profile" component={Profile} />
                     <Route path="/account/confirm" component={ConfirmEmail} />
-                    <Route path="/account/resetPassword" component={ResetPasswordByEmail} />
+                    {/* <Route path="/account/resetPassword" component={ResetPasswordByEmail} /> */}
 
                     {/* booths */}
                     <Route path="/booth" component={Booths} />

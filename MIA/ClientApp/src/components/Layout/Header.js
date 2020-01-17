@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import { Trans } from "@lingui/macro";
+import "sass/header.scss";
 
 class Header extends React.Component {
   state = {
@@ -35,45 +36,47 @@ class Header extends React.Component {
     return (
       <React.Fragment>
         <header className={classNames({ fixed: this.state.headerFixed })}>
-          <div className="logo">
-            <a href="#" title="#">
-              <img src="assets/images/logo.png" alt="#" />
-            </a>
-          </div>
-          {/* <!-- end logo --> */}
-          <div className="mainmenu">
-            <ul>
-              <li>
-                <a href="#" title="#">
-                  <Trans id="awards">Awards</Trans>
-                </a>
-              </li>
-              <li>
-                <a href="#" title="#">
-                  <Trans id="about_us">About Us</Trans>
-                </a>
-              </li>
-              <li>
-                <a href="#" title="#">
-                  <Trans id="news">News</Trans>
-                </a>
-              </li>
-              <li>
-                <a href="#" title="#">
-                  <Trans id="programs">Program</Trans>
-                </a>
-              </li>
-              <li>
-                <a href="#" title="#">
-                  <Trans id="gallery">Gallery</Trans>
-                </a>
-              </li>
-              <li>
-                <a href="#" title="#">
-                  <Trans id="contact_us">Contact US</Trans>
-                </a>
-              </li>
-            </ul>
+          <div class="continer">
+            <div className="logo">
+              <a href="#" title="#">
+                <img src="assets/images/logo.png" alt="#" />
+              </a>
+            </div>
+            {/* <!-- end logo --> */}
+            <div className="mainmenu">
+              <ul>
+                <li>
+                  <a href="#" title="#">
+                    <Trans id="awards">Awards</Trans>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" title="#">
+                    <Trans id="about_us">About Us</Trans>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" title="#">
+                    <Trans id="news">News</Trans>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" title="#">
+                    <Trans id="programs">Program</Trans>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" title="#">
+                    <Trans id="gallery">Gallery</Trans>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" title="#">
+                    <Trans id="contact_us">Contact US</Trans>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </header>
       </React.Fragment>

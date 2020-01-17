@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Trans } from "@lingui/macro";
 
+import "sass/footer.scss";
+
 const Footer = props => {
   const { register, handleSubmit } = useForm();
   const onSubmit = data => {
@@ -11,7 +13,7 @@ const Footer = props => {
   return (
     <React.Fragment>
       <footer>
-        <div className="container">
+        <div class="continer">
           <div className="row">
             <div className="about_mia">
               <div className="logo">
