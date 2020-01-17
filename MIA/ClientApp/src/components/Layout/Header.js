@@ -16,16 +16,14 @@ class Header extends React.Component {
   }
 
   handleScroll = () => {
-    //calculate the percentage where we should accept the gdpr if we scroll to without clicking accept explicitly
-    // (top / height) - height * 100
     let rootNode = document.documentElement,
       body = document.body,
       top = "scrollTop",
       height = "scrollHeight";
 
-    let percentage = ((rootNode[top] || body[top]) / ((rootNode[height] || body[height]) - rootNode.clientHeight)) * 100;
+    // let percentage = ((rootNode[top] || body[top]) / ((rootNode[height] || body[height]) - rootNode.clientHeight)) * 100;
 
-    if (percentage > 4) {
+    if ((rootNode[top] || body[top]) > 2) {
       this.setState({ headerFixed: true });
     } else {
       this.setState({ headerFixed: false });
@@ -36,7 +34,7 @@ class Header extends React.Component {
     return (
       <React.Fragment>
         <header className={classNames({ fixed: this.state.headerFixed })}>
-          <div class="continer">
+          <div className="continer">
             <div className="logo">
               <a href="#" title="#">
                 <img src="assets/images/logo.png" alt="#" />

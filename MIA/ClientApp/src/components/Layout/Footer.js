@@ -13,7 +13,7 @@ const Footer = props => {
   return (
     <React.Fragment>
       <footer>
-        <div class="continer">
+        <div className="continer">
           <div className="row">
             <div className="about_mia">
               <div className="logo">

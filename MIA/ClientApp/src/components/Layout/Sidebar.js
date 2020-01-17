@@ -5,6 +5,8 @@ import { bindActionCreators } from "redux";
 import appActions from "store/app/actions";
 
 import "sass/main_sidebar.scss";
+import "sass/modals/aside.scss";
+import "sass/modals/search.scss";
 
 const Sidebar = ({ toggleSidebar, toggleSearchForm, ...props }) => {
   return (

@@ -1,0 +1,16 @@
+aside {
+  position: fixed;
+  top: 0;
+  left: -600px;
+  bottom: 0;
+  z-index: 99;
+  width: 600px;
+  background: #121212;
+  overflow: auto;
+  padding: 35px 30px 35px 160px;
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+} /* aside */

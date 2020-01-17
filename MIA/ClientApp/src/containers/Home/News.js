@@ -13,25 +13,25 @@ const News = props => {
   ];
   return (
     <div id="news_features">
-      <div class="continer">
-        <div class="title">news & features</div>
-        <div class="features_sliders">
+      <div className="continer">
+        <div className="title">news & features</div>
+        <div className="features_sliders">
           {news.map((item, index) => (
-            <div class="feature_item">
-              <div class="feature_block">
+            <div className="feature_item" key={index}>
+              <div className="feature_block">
                 <time>{item.date}</time>
-                <div class="item">
-                  <div class="category">
+                <div className="item">
+                  <div className="category">
                     <p>
                       <Trans id={item.category}>{item.category}</Trans>
                     </p>
                   </div>
-                  <div class="imgthumb">
+                  <div className="imgthumb">
                     <img src={`assets/images/${item.img}`} alt="#" />
-                    <div class="mask">
-                      <div class="content">
+                    <div className="mask">
+                      <div className="content">
                         <p>{item.title}</p>
-                        <div class="more">
+                        <div className="more">
                           <a href="#" title="#">
                             <Trans id="read_more">read more</Trans>
                           </a>
@@ -44,14 +44,14 @@ const News = props => {
             </div>
           ))}
         </div>
-        <div class="features_nav">
-          <button type="button" class="arrow_prev">
+        <div className="features_nav">
+          <button type="button" className="arrow_prev">
             <Trans id="prev">prev</Trans>
           </button>
           <a href="#" title="#">
             <Trans id="show_all">show all</Trans>
           </a>
-          <button type="button" class="arrow_next">
+          <button type="button" className="arrow_next">
             <Trans id="next">next</Trans>
           </button>
         </div>
