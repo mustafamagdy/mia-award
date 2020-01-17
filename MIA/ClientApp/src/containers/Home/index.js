@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import globalActions from "store/app/actions";
+import Partners from "./Partners";
+import AwardsSlider from "./Awards";
 
 class Home extends React.Component {
   render() {
@@ -30,6 +32,14 @@ class Home extends React.Component {
               </div>
             </div>
           </div>
+          <div class="slider_thumb">
+            <div class="thmb">
+              <img src="assets/images/small_image.png" alt="#" />
+            </div>
+            <button type="button" class="arrow_next">
+              <i class="icofont-simple-right"></i>
+            </button>
+          </div>
           <div className="slider_dots">
             <span className="current">01</span>
             <span>02</span>
@@ -38,110 +48,8 @@ class Home extends React.Component {
           </div>
         </section>
         <section id="another_content">
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+          <AwardsSlider />
+          <Partners />
         </section>
       </React.Fragment>
     );
