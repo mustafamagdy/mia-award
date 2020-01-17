@@ -2,135 +2,129 @@
 
 //**** Intro ****//
 #intro {
-  height: 100%;
-  .continer {
-    background: transparent url("/asseets/images/intro_bg.png") scroll no-repeat top center / cover;
-    width: 1442px;
-    margin: 0 auto;
-    padding: 161px 49px 0;
-    overflow: hidden;
-    position: relative;
-    z-index: 4;
-    height: 100%;
-    .slide_item {
-      .view_award {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-content: center;
-        .big_image {
-          width: 50%;
-          img {
-            width: 100%;
-            height: auto;
-          } /* img */
-        } /* big_image */
-        .desc {
-          width: 50%;
-          padding: 0 40px;
-          span {
-            display: block;
-            font-size: 30px;
-            text-transform: capitalize;
-            font-family: Montserrat_Bold;
-            color: $maincolor;
-          } /* span */
-          p {
-            display: block;
-            margin: 15px auto 30px;
-            color: #808080;
-            font-size: 16px;
-            line-height: 24px;
-            font-family: Montserrat_Regular;
-          } /* p */
-          a {
-            display: inline-block;
-            background: $maincolor;
-            font-size: 17px;
-            padding: 10px 40px;
-            border-radius: 100px;
-            color: #141414;
-            &:hover {
-              background: $secondcolor;
-            }
-          } /* a */
-        } /* desc */
-      } /* view_award */
-    } /* slide_item */
-    .slider_thumb {
-      position: absolute;
-      right: 50px;
-      bottom: 120px;
-      display: flex;
-      align-items: center;
-      .thmb {
-        height: 157px;
-        width: 220px;
-        cursor: pointer;
-        -webkit-transition: all 0.2s ease-in-out;
-        -moz-transition: all 0.2s ease-in-out;
-        -o-transition: all 0.2s ease-in-out;
-        transition: all 0.2s ease-in-out;
-        &:hover {
-          -webkit-opacity: 0.6;
-          -moz-opacity: 0.6;
-          -o-opacity: 0.6;
-          opacity: 0.6;
-        } /* hover */
-        img {
-          height: 100%;
-          width: 100%;
-        } /* img */
-      } /* thmb */
-      .arrow_next {
-        background: transparent;
-        font-size: 40px;
-        border: none;
-        padding: 0;
-        margin: 0 0 0 10px;
-        color: #c0a176;
-        cursor: pointer;
-        display: inline-block;
-        height: 45px;
-        line-height: 45px;
-        width: 45px;
-        i {
-          display: block;
-        }
-      } /* arrow_next */
-    } /* slider_thumb */
-    .slider_dots {
-      position: absolute;
-      bottom: 0;
-      right: 20px;
-      display: flex;
-      flex-wrap: nowrap;
-      span {
-        margin: 0 20px;
-        height: 80px;
-        color: #1b1b1b;
-        position: relative;
-        font-size: 20px;
-        cursor: pointer;
-        &:after {
-          position: absolute;
-          content: "";
-          width: 2px;
-          height: 50px;
-          background: #1b1b1b;
-          left: 0;
-          right: 0;
-          margin: 0 auto;
-          bottom: 0;
-        } /* after */
-        &.current {
-          color: $maincolor;
-          cursor: inherit;
-          &:after {
-            background: $maincolor;
-          }
-        } /* current */
-      } /* span */
-    } /* slider_dots */
-  } /* continer */
+	height: 100%;
+	.container {
+		background: transparent url("/assets/images/intro_bg.png") scroll no-repeat top center / cover;
+		width: 1442px;
+		margin: 0 auto;
+		padding: 161px 49px 0;
+		overflow: hidden;
+		position: relative;
+		z-index: 4;
+		height: 100%;
+		.slide_item {
+			.view_award {
+				display: flex;
+				flex-wrap: nowrap;
+				justify-content: center;
+				align-content: center;
+				.big_image {
+					width: 50%;
+					img {
+						width: 100%;
+						height: auto;
+					} /* img */
+				} /* big_image */
+				.desc {
+					width: 50%;
+					padding: 0 40px;
+					span {
+						display: block;
+						font-size: 30px;
+						text-transform: capitalize;
+						font-family: Montserrat_Bold;
+						color: $maincolor;
+					} /* span */
+					p {
+						display: block;
+						margin: 15px auto 30px;
+						color: #808080;
+						font-size: 16px;
+						line-height: 24px;
+						font-family: Montserrat_Regular;
+					} /* p */
+					a {
+						display: inline-block;
+						background:  $maincolor;
+						font-size: 17px;
+						padding: 10px 40px;
+						border-radius: 100px;
+						color: #141414;
+						&:hover{background:  $secondcolor;}
+					} /* a */
+				} /* desc */
+			} /* view_award */
+		} /* slide_item */
+		.slider_thumb {
+			position: absolute;
+			right: 50px;
+			bottom: 120px;
+			display: flex;
+			align-items: center;
+			.thmb {
+				height: 157px;
+				width: 220px;
+				cursor: pointer;
+			  -webkit-transition: all 0.2s ease-in-out;
+			  -moz-transition: all 0.2s ease-in-out;
+			  -o-transition: all 0.2s ease-in-out;
+			  transition: all 0.2s ease-in-out;
+				&:hover{
+				  -webkit-opacity: 0.6;
+				  -moz-opacity: 0.6;
+				  -o-opacity: 0.6;
+				  opacity: 0.6;
+				} /* hover */
+				img {
+					height: 100%;
+					width: 100%;
+				} /* img */
+			} /* thmb */
+			.arrow_next {
+				background: transparent;
+				font-size: 40px;
+				border: none;
+				padding: 0;
+				margin: 0 0 0 10px;
+				color: #c0a176;
+				cursor: pointer;
+				display: inline-block;
+				height: 45px;
+				line-height: 45px;
+				width: 45px;
+				i {display: block;}
+			} /* arrow_next */
+		} /* slider_thumb */
+		.slider_dots {
+			position: absolute;
+			bottom: 0;
+			right: 20px;
+			display: flex;
+			flex-wrap: nowrap;
+			span {
+				margin: 0 20px;
+				height: 80px;
+				color: #1b1b1b;
+				position: relative;
+				font-size: 20px;
+				cursor: pointer;
+				&:after {
+					position: absolute;
+					content: "";
+					width: 2px;
+					height: 50px;
+					background: #1b1b1b;
+					left: 0;
+					right: 0;
+					margin: 0 auto;
+					bottom: 0;
+				} /* after */
+				&.current {
+					color: $maincolor;
+					cursor: inherit;
+					&:after {background: $maincolor;}
+				} /* current */
+			} /* span */
+		} /* slider_dots */
+	} /* container */
 } /* intro */

@@ -8,6 +8,8 @@ import { bindActionCreators } from "redux";
 import appActions from "store/app/actions";
 import { useForm } from "react-hook-form";
 
+import "sass/layout.scss";
+
 const Layout = props => {
   const dismissDlgs = event => {
     if (event.keyCode === 27) {

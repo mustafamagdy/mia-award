@@ -4,6 +4,8 @@ import { bindActionCreators } from "redux";
 
 import appActions from "store/app/actions";
 
+import "sass/main_sidebar.scss";
+
 const Sidebar = ({ toggleSidebar, toggleSearchForm, ...props }) => {
   return (
     <section id="main_sidebar">
