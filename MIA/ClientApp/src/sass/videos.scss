@@ -1,0 +1,98 @@
+@import "./variables.scss";
+
+#videos_photo {
+  background: #141414;
+  .container {
+    width: 1442px;
+    margin: 0 auto;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    .big_show {
+			width: 55%;
+			margin: 30px 0;
+			order: 2;
+			.imgthumb {
+				overflow: hidden;
+				border-radius: 10px;
+				width: 100%;
+				height: 510px;
+				position: relative;
+				img {
+					width: 100%;
+					height: 100%;
+				} /* img */
+			} /* imgthumb */
+		} /* big_show */
+		.videos_slider {
+			width: 40%;
+			margin: 30px 0;
+			order: 1;
+			.title {
+				display: block;
+				font-size: 35px;
+				text-transform: uppercase;
+				font-family: Montserrat_Bold;
+				color: #c0a176;
+				margin: 0 auto 20px;
+			} /* title */
+			.desc {
+				font-size: 15px;
+				line-height: 22px;
+				font-family: Montserrat_Regular;
+				color: #808080;
+				margin: 0 auto 100px;
+			} /* desc */
+			.slider_media {
+				display: flex;
+				flex-wrap: nowrap;
+				position: relative;
+				.item {
+					margin-top: -80px;
+					span {
+						display: none;
+						margin: 0 10% 10px 0;
+						text-align: right;
+						color: #fff;
+						text-transform: uppercase;
+						font-size: 14px;
+						font-family: Montserrat_Bold;
+					} /* span */
+					.imgthumb {
+						width: 308px;
+						height: 204px;
+						overflow: hidden;
+						border-radius: 10px;
+						img {
+							width: 100%;
+							height: 100%;
+						} /* img */
+					} /* imgthumb */
+				} /* item */
+				.current {
+					margin-top: 0;
+					margin-left: -80px;
+					span {display: block;}
+				} /* current */
+				.slide_nav {
+					position: absolute;
+					right: 0;
+					top: -60px;
+					display: flex;
+					button {
+						height: 40px;
+						width: 30px;
+						line-height: 40px;
+						background: transparent;
+						border: none;
+						padding: 0;
+						font-size: 30px;
+						color: #fff;
+						&:hover {color: #c0a176;}
+					} /* button */
+				} /* slide_nav */
+			} /* slider_media */
+		} /* videos_slider */
+  } /* container */
+} /* videos_photo */

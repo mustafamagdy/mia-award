@@ -1,12 +1,14 @@
 import React from "react";
+
+import "sass/google_map.scss";
 import "sass/tickets.scss";
 
 const Tickets = props => {
   return (
     <React.Fragment>
       <div id="tickets_area">
-        <div class="container">
-          <div class="ticket_txt">
+        <div className="container">
+          <div className="ticket_txt">
             <p>
               brief about the DRAMA award and how to apply for it text Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
@@ -25,26 +27,26 @@ const Tickets = props => {
                 date 1 <i>20-05-2020</i>
               </li>
             </ul>
-            <div class="buy_now">
+            <div className="buy_now">
               <a href="#" title="#">
                 buy your ticket
               </a>
             </div>
           </div>
-          <div class="ticket_imgthumb">
+          <div className="ticket_imgthumb">
             <img src="assets/images/tickets_img.png" alt="#" />
           </div>
         </div>
       </div>
 
       <div id="googlemap">
-        <div class="map_nav">
-          <button type="button" class="arrow_prev">
-            <i class="icofont-simple-left"></i>
+        <div className="map_nav">
+          <button type="button" className="arrow_prev">
+            <i className="icofont-simple-left"></i>
           </button>
           <span>Dubai opera</span>
-          <button type="button" class="arrow_next">
-            <i class="icofont-simple-right"></i>
+          <button type="button" className="arrow_next">
+            <i className="icofont-simple-right"></i>
           </button>
         </div>
         <iframe

@@ -10,31 +10,49 @@ using Microsoft.Extensions.Logging;
 using MIA.Api.Base;
 using Z.EntityFramework.Plus;
 
-namespace MIA.Api
-{
-  /// <summary>
-  /// 
-  /// </summary>
+namespace MIA.Api {
 #if Versioning
   [ApiVersion("1.0")]
 #endif
-  [Route("api/lookups")]
-  public class LookupsController : BaseApiController<LookupsController>
-  {
+  [Route("api/home")]
+  public class HomeController : BaseApiController<HomeController> {
 
-    public LookupsController(IMapper mapper, [FromServices] ILogger<LookupsController> logger) : base(logger, mapper)
-    {
+    public HomeController(IMapper mapper, [FromServices] ILogger<HomeController> logger) : base(logger, mapper) {
     }
 
-    //[HttpGet("airports")]
-    //public IActionResult Airports([FromServices] IAppUnitOfWork db)
-    //{
-    //  var result = db.Airports
-    //    .ProjectTo<AirportDto>(_mapper.ConfigurationProvider)
-    //    .ToList();
+    [HttpGet("awards")]
+    public IActionResult Awards([FromServices] IAppUnitOfWork db) {
+      var result = db.Awards
+        .ProjectTo<AwardDto>(_mapper.ConfigurationProvider)
+        .ToList();
+      return IfFound(result);
+    }
 
-    //  return IfFound(result);
-    //}
+    [HttpGet("main-alum")]
+    public IActionResult MainAlbum([FromServices] IAppUnitOfWork db) {
+      var result = db.PhotoAlbums
+        //.FirstOrDefault(a => a.IsMain)
+        .ProjectTo<MainAlbumDto>(_mapper.ConfigurationProvider)
+        .ToList();
+      return IfFound(result);
+    }
 
+  }
+
+  public enum AlbumItemType { Photo, Video }
+  public class AlbumItemDto : BaseDto {
+    public string Url { get; set; }
+    public int Order { get; set; }
+    public AlbumItemType Type { get; set; }
+  }
+  public class MainAlbumDto : BaseDto {
+    public string Description { get; set; }
+    public AlbumItemDto[] Items { get; set; }
+  }
+  public class AwardDto : BaseDto {
+    public string Id { get; set; }
+    public string Title { get; set; }
+    public string TrophyUrl { get; set; }
+    public int Order { get; set; }
   }
 }
