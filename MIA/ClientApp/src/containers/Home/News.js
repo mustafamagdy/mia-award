@@ -1,160 +1,58 @@
 import React from "react";
 import "sass/news.scss";
+import { Trans } from "@lingui/macro";
 
 const News = props => {
+  const news = [
+    { date: "15-01-2020", category: "sports", img: "news_image_1.png", title: "And Mo Salah Makes football history for real" },
+    { date: "15-01-2020", category: "media", img: "news_image_2.jpg", title: "And Mo Salah Makes football history for real" },
+    { date: "15-01-2020", category: "sports", img: "news_image_1.png", title: "And Mo Salah Makes football history for real" },
+    { date: "15-01-2020", category: "media", img: "news_image_2.jpg", title: "And Mo Salah Makes football history for real" },
+    { date: "15-01-2020", category: "sports", img: "news_image_1.png", title: "And Mo Salah Makes football history for real" },
+    { date: "15-01-2020", category: "media", img: "news_image_2.jpg", title: "And Mo Salah Makes football history for real" }
+  ];
   return (
     <div id="news_features">
       <div class="continer">
         <div class="title">news & features</div>
         <div class="features_sliders">
-          <div class="feature_item">
-            <div class="feature_block">
-              <time>15-01-2020</time>
-              <div class="item">
-                <div class="category">
-                  <p>sports</p>
-                </div>
-                <div class="imgthumb">
-                  <img src="assets/images/news_image_1.png" alt="#" />
-                  <div class="mask">
-                    <div class="content">
-                      <p>And Mo Salah Makes football history for real</p>
-                      <div class="more">
-                        <a href="#" title="#">
-                          read more
-                        </a>
+          {news.map((item, index) => (
+            <div class="feature_item">
+              <div class="feature_block">
+                <time>{item.date}</time>
+                <div class="item">
+                  <div class="category">
+                    <p>
+                      <Trans id={item.category}>{item.category}</Trans>
+                    </p>
+                  </div>
+                  <div class="imgthumb">
+                    <img src={`assets/images/${item.img}`} alt="#" />
+                    <div class="mask">
+                      <div class="content">
+                        <p>{item.title}</p>
+                        <div class="more">
+                          <a href="#" title="#">
+                            <Trans id="read_more">read more</Trans>
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="feature_item">
-            <div class="feature_block">
-              <time>15-01-2020</time>
-              <div class="item">
-                <div class="category">
-                  <p>media</p>
-                </div>
-                <div class="imgthumb">
-                  <img src="assets/images/news_image_2.jpg" alt="#" />
-                  <div class="mask">
-                    <div class="content">
-                      <p>And Mo Salah Makes football history for real</p>
-                      <div class="more">
-                        <a href="#" title="#">
-                          read more
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="feature_item">
-            <div class="feature_block">
-              <time>15-01-2020</time>
-              <div class="item">
-                <div class="category">
-                  <p>sports</p>
-                </div>
-                <div class="imgthumb">
-                  <img src="assets/images/news_image_1.png" alt="#" />
-                  <div class="mask">
-                    <div class="content">
-                      <p>And Mo Salah Makes football history for real</p>
-                      <div class="more">
-                        <a href="#" title="#">
-                          read more
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="feature_item">
-            <div class="feature_block">
-              <time>15-01-2020</time>
-              <div class="item">
-                <div class="category">
-                  <p>media</p>
-                </div>
-                <div class="imgthumb">
-                  <img src="assets/images/news_image_2.jpg" alt="#" />
-                  <div class="mask">
-                    <div class="content">
-                      <p>And Mo Salah Makes football history for real</p>
-                      <div class="more">
-                        <a href="#" title="#">
-                          read more
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="feature_item">
-            <div class="feature_block">
-              <time>15-01-2020</time>
-              <div class="item">
-                <div class="category">
-                  <p>sports</p>
-                </div>
-                <div class="imgthumb">
-                  <img src="assets/images/news_image_1.png" alt="#" />
-                  <div class="mask">
-                    <div class="content">
-                      <p>And Mo Salah Makes football history for real</p>
-                      <div class="more">
-                        <a href="#" title="#">
-                          read more
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="feature_item">
-            <div class="feature_block">
-              <time>15-01-2020</time>
-              <div class="item">
-                <div class="category">
-                  <p>media</p>
-                </div>
-                <div class="imgthumb">
-                  <img src="assets/images/news_image_2.jpg" alt="#" />
-                  <div class="mask">
-                    <div class="content">
-                      <p>And Mo Salah Makes football history for real</p>
-                      <div class="more">
-                        <a href="#" title="#">
-                          read more
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
         <div class="features_nav">
           <button type="button" class="arrow_prev">
-            prev
+            <Trans id="prev">prev</Trans>
           </button>
           <a href="#" title="#">
-            show all
+            <Trans id="show_all">show all</Trans>
           </a>
           <button type="button" class="arrow_next">
-            next
+            <Trans id="next">next</Trans>
           </button>
         </div>
       </div>

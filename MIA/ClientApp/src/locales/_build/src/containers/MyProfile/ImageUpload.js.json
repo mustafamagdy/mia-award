@@ -1,0 +1,47 @@
+{
+  "mia": {
+    "defaults": "MIA",
+    "origin": [
+      [
+        "src/containers/MyProfile/ImageUpload.js",
+        54
+      ]
+    ]
+  },
+  "upload_avatar": {
+    "defaults": "Upload Avatar",
+    "origin": [
+      [
+        "src/containers/MyProfile/ImageUpload.js",
+        56
+      ]
+    ]
+  },
+  "select_your_image": {
+    "defaults": "Select Your Image",
+    "origin": [
+      [
+        "src/containers/MyProfile/ImageUpload.js",
+        63
+      ]
+    ]
+  },
+  "upload_image": {
+    "defaults": "Upload Image",
+    "origin": [
+      [
+        "src/containers/MyProfile/ImageUpload.js",
+        66
+      ]
+    ]
+  },
+  "loading": {
+    "defaults": "Loading....",
+    "origin": [
+      [
+        "src/containers/MyProfile/ImageUpload.js",
+        78
+      ]
+    ]
+  }
+}

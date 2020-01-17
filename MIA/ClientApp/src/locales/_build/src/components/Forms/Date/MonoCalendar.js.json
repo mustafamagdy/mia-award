@@ -1,0 +1,20 @@
+{
+  "today": {
+    "defaults": "Today",
+    "origin": [
+      [
+        "src/components/Forms/Date/MonoCalendar.js",
+        25
+      ]
+    ]
+  },
+  "hijri": {
+    "defaults": "Hijri",
+    "origin": [
+      [
+        "src/components/Forms/Date/MonoCalendar.js",
+        39
+      ]
+    ]
+  }
+}

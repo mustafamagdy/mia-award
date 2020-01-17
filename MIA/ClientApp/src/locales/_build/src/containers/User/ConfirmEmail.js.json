@@ -1,0 +1,20 @@
+{
+  "loading": {
+    "defaults": "Loading....",
+    "origin": [
+      [
+        "src/containers/User/ConfirmEmail.js",
+        18
+      ]
+    ]
+  },
+  "failed": {
+    "defaults": "Failed",
+    "origin": [
+      [
+        "src/containers/User/ConfirmEmail.js",
+        18
+      ]
+    ]
+  }
+}

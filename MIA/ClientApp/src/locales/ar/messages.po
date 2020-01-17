@@ -6,3 +6,270 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: ar\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/components/Layout/Footer.js:41
+#: src/components/Layout/Header.js:55
+msgid "about_us"
+msgstr ""
+
+#: src/containers/MyProfile/ChangePassword.js:101
+msgid "accept_changes"
+msgstr ""
+
+#: src/components/Layout/LanguageSelect.js:65
+msgid "all_languages"
+msgstr ""
+
+#: src/containers/Home/Awards.js:11
+msgid "apply_for_your_award"
+msgstr ""
+
+#: src/containers/Home/Awards.js:40
+#: src/containers/Home/Awards.js:58
+#: src/containers/Home/Awards.js:76
+#: src/containers/Home/Awards.js:107
+#: src/containers/Home/Awards.js:125
+msgid "apply_now"
+msgstr ""
+
+#: src/components/Layout/Header.js:50
+msgid "awards"
+msgstr ""
+
+#: src/containers/App/CookieGDPR.js:113
+msgid "by_clicking_you_accept"
+msgstr ""
+
+#: src/containers/MyProfile/index.js:250
+msgid "cancel"
+msgstr ""
+
+#: src/containers/MyProfile/ChangePassword.js:17
+#: src/containers/MyProfile/index.js:228
+#: src/containers/MyProfile/index.js:230
+msgid "change_password"
+msgstr ""
+
+#: src/containers/MyProfile/index.js:115
+#: src/containers/MyProfile/index.js:117
+msgid "change_photo"
+msgstr ""
+
+#: src/containers/MyProfile/ChangePassword.js:83
+msgid "confirm_password"
+msgstr ""
+
+#: src/containers/User/CheckYourEmail.js:6
+msgid "confirm_your_email_first"
+msgstr ""
+
+#: src/components/Layout/Header.js:75
+msgid "contact_us"
+msgstr ""
+
+#: src/containers/App/CookieGDPR.js:111
+msgid "cookie_policy"
+msgstr ""
+
+#: src/components/Layout/Footer.js:79
+msgid "copyright_media_industry"
+msgstr ""
+
+#: src/components/Layout/LoginStatus.js:34
+msgid "create_account"
+msgstr ""
+
+#: src/containers/MyProfile/index.js:159
+msgid "email"
+msgstr ""
+
+#: src/containers/MyProfile/index.js:244
+msgid "enable_edit"
+msgstr ""
+
+#: src/containers/User/ConfirmEmail.js:18
+msgid "failed"
+msgstr ""
+
+#: src/components/Layout/Header.js:70
+msgid "gallery"
+msgstr ""
+
+#: src/components/Forms/Date/DualCalendar.js:49
+#: src/components/Forms/Date/MonoCalendar.js:39
+msgid "hijri"
+msgstr ""
+
+#: src/containers/App/CookieGDPR.js:122
+msgid "i_accept"
+msgstr ""
+
+#: src/components/Layout/Footer.js:66
+msgid "if_you_want_to_keep_updated"
+msgstr ""
+
+#: src/components/Layout/LanguageSelect.js:44
+msgid "language"
+msgstr ""
+
+#: src/containers/MyProfile/ChangePassword.js:116
+#: src/containers/MyProfile/ImageUpload.js:78
+#: src/containers/User/ConfirmEmail.js:18
+msgid "loading"
+msgstr ""
+
+#: src/components/Layout/LoginStatus.js:14
+msgid "logout"
+msgstr ""
+
+#: src/components/Layout/Footer.js:46
+msgid "members"
+msgstr ""
+
+#: src/containers/MyProfile/ChangePassword.js:15
+#: src/containers/MyProfile/ImageUpload.js:54
+msgid "mia"
+msgstr ""
+
+#: src/components/Layout/Footer.js:36
+msgid "mia_awards"
+msgstr ""
+
+#: src/containers/Home/Awards.js:44
+#: src/containers/Home/Awards.js:80
+#: src/containers/Home/Awards.js:111
+msgid "movies"
+msgstr ""
+
+#: src/containers/MyProfile/index.js:126
+msgid "name"
+msgstr ""
+
+#: src/containers/MyProfile/ChangePassword.js:65
+msgid "new_password"
+msgstr ""
+
+#: src/components/Layout/Header.js:60
+msgid "news"
+msgstr ""
+
+#: src/components/Layout/Footer.js:63
+msgid "newsletter"
+msgstr ""
+
+#: src/containers/Home/News.js:55
+msgid "next"
+msgstr ""
+
+#: src/containers/MyProfile/ChangePassword.js:47
+msgid "old_password"
+msgstr ""
+
+#: src/containers/MyProfile/index.js:192
+msgid "phone"
+msgstr ""
+
+#: src/components/Forms/Date/DualCalendar.js:22
+msgid "please_select_checkin_date"
+msgstr ""
+
+#: src/components/Forms/Date/DualCalendar.js:23
+msgid "please_select_checkout_date"
+msgstr ""
+
+#: src/containers/Home/News.js:49
+msgid "prev"
+msgstr ""
+
+#: src/components/Layout/Footer.js:56
+msgid "privacy_policy"
+msgstr ""
+
+#: src/components/Layout/Header.js:65
+msgid "programs"
+msgstr ""
+
+#: src/containers/Home/News.js:36
+msgid "read_more"
+msgstr ""
+
+#: src/containers/App/CookieGDPR.js:99
+msgid "review_our_cookie_policy"
+msgstr ""
+
+#: src/containers/MyProfile/ImageUpload.js:63
+msgid "select_your_image"
+msgstr ""
+
+#: src/containers/Home/News.js:52
+msgid "show_all"
+msgstr ""
+
+#: src/components/Layout/LoginStatus.js:31
+msgid "sign_in"
+msgstr ""
+
+#: src/containers/Home/Awards.js:62
+#: src/containers/Home/Awards.js:93
+#: src/containers/Home/Awards.js:129
+msgid "sports"
+msgstr ""
+
+#: src/containers/Home/Awards.js:21
+msgid "start_from"
+msgstr ""
+
+#: src/containers/PreloaderPage/LoaderTestSample.js:38
+msgid "submit"
+msgstr ""
+
+#: src/components/Layout/LanguageSelect.js:50
+msgid "suggested_languages"
+msgstr ""
+
+#: src/components/Layout/Footer.js:51
+msgid "terms_conditions"
+msgstr ""
+
+#: src/containers/Home/Awards.js:23
+msgid "to"
+msgstr ""
+
+#: src/components/Forms/Date/DualCalendar.js:35
+#: src/components/Forms/Date/MonoCalendar.js:25
+msgid "today"
+msgstr ""
+
+#: src/containers/MyProfile/index.js:253
+msgid "update"
+msgstr ""
+
+#: src/containers/MyProfile/ImageUpload.js:56
+msgid "upload_avatar"
+msgstr ""
+
+#: src/containers/MyProfile/ImageUpload.js:66
+msgid "upload_image"
+msgstr ""
+
+#: src/containers/Home/Awards.js:29
+msgid "view_all"
+msgstr ""
+
+#: src/containers/Home/index.js:38
+msgid "view_awards"
+msgstr ""
+
+#: src/containers/App/CookieGDPR.js:106
+msgid "we_use_cookies_and_similar_technology"
+msgstr ""
+
+#: src/containers/App/CookieGDPR.js:103
+msgid "what_do_we_use_cookies_for"
+msgstr ""

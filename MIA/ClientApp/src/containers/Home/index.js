@@ -1,14 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { Trans } from "@lingui/macro";
 import globalActions from "store/app/actions";
+
 import Partners from "./Partners";
 import AwardsSlider from "./Awards";
+import News from "./News";
+import Tickets from "./Tickets";
 
 import "sass/main_slider.scss";
 import "sass/intro.scss";
-import News from "./News";
-import Tickets from "./Tickets";
 
 class Home extends React.Component {
   render() {
@@ -33,7 +35,7 @@ class Home extends React.Component {
                     recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
                   </p>
                   <a href="#" title="#">
-                    view awards
+                    <Trans id="view_awards">view awards</Trans>
                   </a>
                 </div>
               </div>
