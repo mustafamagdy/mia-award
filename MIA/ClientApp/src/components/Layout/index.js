@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import UserProvider from "containers/Providers/UserProvider";
@@ -6,43 +6,55 @@ import Sidebar from "./Sidebar";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import appActions from "store/app/actions";
+import { useForm } from "react-hook-form";
 
-class Layout extends React.PureComponent {
-  dismissDlgs = event => {
+const Layout = props => {
+  const dismissDlgs = event => {
     if (event.keyCode === 27) {
-      const { toggleSearchForm } = this.props;
+      reset();
+      const { toggleSearchForm } = props;
       toggleSearchForm();
     }
   };
 
-  componentDidMount() {
-    document.addEventListener("keydown", this.dismissDlgs, false);
-  }
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.dismissDlgs, false);
-  }
-  render() {
-    return (
-      <UserProvider>
-        <section id="main_site">
-          <aside>sdsdsd</aside>
-          <div id="search_modal" className="search_modal">
-            <form action="#">
-              <input type="text" placeholder="Search ..." />
-              <button type="submit">
-                <i className="icofont-ui-search"></i>
-              </button>
-            </form>
-          </div>
-          <Sidebar />
+  useEffect(() => {
+    document.addEventListener("keydown", dismissDlgs, false);
+    return () => {
+      document.removeEventListener("keydown", dismissDlgs, false);
+    };
+  }, []);
+
+  const onSearch = search => {
+    console.log("search with ", search);
+  };
+
+  const { register, handleSubmit, reset } = useForm();
+  return (
+    <UserProvider>
+      <section id="main_site">
+        <aside>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+          ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
+          not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+        </aside>
+        <div id="search_modal" className="search_modal">
+          <form onSubmit={handleSubmit(onSearch)}>
+            <input type="text" name="search" ref={register} placeholder="Search ..." />
+            <button type="submit">
+              <i className="icofont-ui-search"></i>
+            </button>
+          </form>
+        </div>
+        <Sidebar />
+        <section id="wrapper">
           <Header />
-          <section id="wrapper">{this.props.children}</section>
+          {props.children}
           <Footer />
         </section>
-      </UserProvider>
-    );
-  }
-}
+      </section>
+    </UserProvider>
+  );
+};
 
 const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
 export default connect(null, mapDispatchToProps)(Layout);

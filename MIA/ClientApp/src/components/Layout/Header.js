@@ -1,5 +1,6 @@
 import React from "react";
 import classNames from "classnames";
+import { Trans } from "@lingui/macro";
 
 class Header extends React.Component {
   state = {
@@ -23,9 +24,7 @@ class Header extends React.Component {
 
     let percentage = ((rootNode[top] || body[top]) / ((rootNode[height] || body[height]) - rootNode.clientHeight)) * 100;
 
-    console.log(percentage);
-
-    if (percentage > 0) {
+    if (percentage > 4) {
       this.setState({ headerFixed: true });
     } else {
       this.setState({ headerFixed: false });
@@ -46,32 +45,32 @@ class Header extends React.Component {
             <ul>
               <li>
                 <a href="#" title="#">
-                  Awards
+                  <Trans id="awards">Awards</Trans>
                 </a>
               </li>
               <li>
                 <a href="#" title="#">
-                  About Us
+                  <Trans id="about_us">About Us</Trans>
                 </a>
               </li>
               <li>
                 <a href="#" title="#">
-                  News
+                  <Trans id="news">News</Trans>
                 </a>
               </li>
               <li>
                 <a href="#" title="#">
-                  Program
+                  <Trans id="programs">Program</Trans>
                 </a>
               </li>
               <li>
                 <a href="#" title="#">
-                  Gallery
+                  <Trans id="gallery">Gallery</Trans>
                 </a>
               </li>
               <li>
                 <a href="#" title="#">
-                  Contact US
+                  <Trans id="contact_us">Contact US</Trans>
                 </a>
               </li>
             </ul>
