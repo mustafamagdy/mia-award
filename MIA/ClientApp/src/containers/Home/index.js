@@ -8,7 +8,8 @@ import AwardsSlider from "./Awards";
 import News from "./News";
 import Tickets from "./Tickets";
 import Intro from "./IntroSlider";
-
+import PhotoAlbum from "./PhotoAlbum";
+import RecentShows from "./RecentShows";
 
 class Home extends React.Component {
   render() {
@@ -17,6 +18,8 @@ class Home extends React.Component {
         <Intro />
         <section id="another_content">
           <AwardsSlider />
+          <PhotoAlbum />
+          <RecentShows />
           <Tickets />
           <News />
           <Partners />

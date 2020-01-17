@@ -3,8 +3,8 @@
     "defaults": "view awards",
     "origin": [
       [
-        "src/containers/Home/index.js",
-        38
+        "src/containers/Home/IntroSlider.js",
+        27
       ]
     ]
   }

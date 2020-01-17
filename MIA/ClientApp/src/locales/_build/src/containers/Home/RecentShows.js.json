@@ -1,0 +1,38 @@
+{
+  "recent_shows": {
+    "defaults": "recent shows",
+    "origin": [
+      [
+        "src/containers/Home/RecentShows.js",
+        23
+      ]
+    ]
+  },
+  "award_category": {
+    "defaults": "award category",
+    "origin": [
+      [
+        "src/containers/Home/RecentShows.js",
+        43
+      ]
+    ]
+  },
+  "genre": {
+    "defaults": "Genre",
+    "origin": [
+      [
+        "src/containers/Home/RecentShows.js",
+        56
+      ]
+    ]
+  },
+  "country": {
+    "defaults": "Country",
+    "origin": [
+      [
+        "src/containers/Home/RecentShows.js",
+        69
+      ]
+    ]
+  }
+}

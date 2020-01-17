@@ -38,6 +38,10 @@ msgstr ""
 msgid "apply_now"
 msgstr ""
 
+#: src/containers/Home/RecentShows.js:43
+msgid "award_category"
+msgstr ""
+
 #: src/components/Layout/Header.js:50
 msgid "awards"
 msgstr ""
@@ -81,6 +85,10 @@ msgstr ""
 msgid "copyright_media_industry"
 msgstr ""
 
+#: src/containers/Home/RecentShows.js:69
+msgid "country"
+msgstr ""
+
 #: src/components/Layout/LoginStatus.js:34
 msgid "create_account"
 msgstr ""
@@ -99,6 +107,10 @@ msgstr ""
 
 #: src/components/Layout/Header.js:70
 msgid "gallery"
+msgstr ""
+
+#: src/containers/Home/RecentShows.js:56
+msgid "genre"
 msgstr ""
 
 #: src/components/Forms/Date/DualCalendar.js:49
@@ -199,6 +211,10 @@ msgstr ""
 msgid "read_more"
 msgstr ""
 
+#: src/containers/Home/RecentShows.js:23
+msgid "recent_shows"
+msgstr ""
+
 #: src/containers/App/CookieGDPR.js:99
 msgid "review_our_cookie_policy"
 msgstr ""
@@ -262,7 +278,7 @@ msgstr ""
 msgid "view_all"
 msgstr ""
 
-#: src/containers/Home/index.js:38
+#: src/containers/Home/IntroSlider.js:27
 msgid "view_awards"
 msgstr ""
 
