@@ -20,10 +20,13 @@ namespace MIA.Administration.MappingProfiles
             #region News
 
             CreateMap<News, NewsDto>()
-              .ForMember(a => a.ImageUrl, cfg => cfg.MapFrom(a => a.Image != null ? a.Image.Imageurl : ""))
+              //.ForMember(a => a.ImageUrl, cfg => cfg.MapFrom(a => a.Image != null ? a.Image.Imageurl : ""))
               .ValidateMemberList(MemberList.None);
             CreateMap<NewNewsDto, News>().ValidateMemberList(MemberList.None);
-            CreateMap<UpdateNewsDto, News>().ValidateMemberList(MemberList.None);
+            CreateMap<UpdateNewsDto, News>()
+                  .ForMember(a => a.PosterId, cfg => cfg.Ignore())
+                  .ForMember(a => a.PosterUrl, cfg => cfg.Ignore())
+                  .ValidateMemberList(MemberList.None);
             #endregion
 
             #region Booth

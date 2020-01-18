@@ -36,8 +36,9 @@ namespace MIA.Infrastructure.Options {
 
     [Required]
     public PaymentGatewayOptions PaymentGatewayOptions { get; set; }
-     [Required]
+    [Required]
     public UploadLimits UploadLimits { get; set; }
-    
+    [Required]
+    public AwsOptions AwsOptions { get; set; }
   }
 }

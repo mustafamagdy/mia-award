@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MIA.ORMContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200117171837_addfieldsphotoalbum")]
-    partial class addfieldsphotoalbum
+    [Migration("20200118161147_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -376,17 +376,19 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Body");
 
+                    b.Property<string>("Category");
+
                     b.Property<long>("Date");
 
-                    b.Property<string>("ImageId");
-
                     b.Property<bool>("Outdated");
+
+                    b.Property<string>("PosterId");
+
+                    b.Property<string>("PosterUrl");
 
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
 
                     b.ToTable("News");
                 });
@@ -395,6 +397,8 @@ namespace MIA.ORMContext.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Title");
 
                     b.HasKey("Id");
 
@@ -580,15 +584,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasDiscriminator().HasValue("Nominee");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.NewsImage", b =>
-                {
-                    b.HasBaseType("MIA.Models.Entities.Image");
-
-                    b.Property<string>("NewsId");
-
-                    b.HasDiscriminator().HasValue("NewsImage");
-                });
-
             modelBuilder.Entity("MIA.Models.Entities.PhotoAlbumImage", b =>
                 {
                     b.HasBaseType("MIA.Models.Entities.Image");
@@ -706,13 +701,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasOne("MIA.Models.Entities.ArtWork", "ArtWork")
                         .WithMany("MediaFiles")
                         .HasForeignKey("ArtWorkId");
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.News", b =>
-                {
-                    b.HasOne("MIA.Models.Entities.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

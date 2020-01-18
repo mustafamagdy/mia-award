@@ -88,7 +88,8 @@ namespace MIA.Administration.Api.Base {
       if (entity == null)
         return NotFound404("record not found");
 
-      entity = _mapper.Map<TEntity>(dto);
+      entity = (TEntity)_mapper.Map(dto, entity, typeof(TUpdateDto), typeof(TEntity));
+      //_mapper.Map<TEntity>(dto);
       var entry = db.Set<TEntity>().Attach(entity);
       entry.State = EntityState.Modified;
 

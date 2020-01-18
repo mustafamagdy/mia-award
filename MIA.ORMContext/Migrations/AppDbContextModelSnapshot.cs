@@ -378,15 +378,17 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<long>("Date");
 
-                    b.Property<string>("ImageId");
-
                     b.Property<bool>("Outdated");
+
+                    b.Property<string>("PosterId")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("PosterUrl")
+                        .HasMaxLength(1000);
 
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
 
                     b.ToTable("News");
                 });
@@ -582,15 +584,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasDiscriminator().HasValue("Nominee");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.NewsImage", b =>
-                {
-                    b.HasBaseType("MIA.Models.Entities.Image");
-
-                    b.Property<string>("NewsId");
-
-                    b.HasDiscriminator().HasValue("NewsImage");
-                });
-
             modelBuilder.Entity("MIA.Models.Entities.PhotoAlbumImage", b =>
                 {
                     b.HasBaseType("MIA.Models.Entities.Image");
@@ -708,13 +701,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasOne("MIA.Models.Entities.ArtWork", "ArtWork")
                         .WithMany("MediaFiles")
                         .HasForeignKey("ArtWorkId");
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.News", b =>
-                {
-                    b.HasOne("MIA.Models.Entities.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

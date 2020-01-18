@@ -65,7 +65,7 @@ namespace MIA.Api {
       [FromBody] NewsSearchDto query,
       [FromServices] IAppUnitOfWork db) {
       var _result = db.News
-        .Include(a => a.Image)
+        //.Include(a => a.Image)
         .AsQueryable();
 
       var result = _result

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MIA.ORMContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191230213951_InitialModels")]
-    partial class InitialModels
+    [Migration("20200118161635_NewsFields")]
+    partial class NewsFields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -140,6 +140,8 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("AwardId");
 
+                    b.Property<int>("FileCount");
+
                     b.Property<string>("NomineeId");
 
                     b.Property<string>("PaymentId");
@@ -165,6 +167,8 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("ArtWorkId");
 
                     b.Property<long>("PaymentDate");
+
+                    b.Property<int>("PaymentStatus");
 
                     b.Property<string>("TransactionNumber");
 
@@ -276,13 +280,7 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
-                    b.Property<string>("PhotoAlbumId");
-
-                    b.Property<string>("RefId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PhotoAlbumId");
 
                     b.ToTable("Images");
 
@@ -378,17 +376,21 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Body");
 
+                    b.Property<string>("Category");
+
                     b.Property<long>("Date");
 
-                    b.Property<string>("ImageId");
-
                     b.Property<bool>("Outdated");
+
+                    b.Property<string>("PosterId")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("PosterUrl")
+                        .HasMaxLength(1000);
 
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
 
                     b.ToTable("News");
                 });
@@ -397,10 +399,6 @@ namespace MIA.ORMContext.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Body");
-
-                    b.Property<int>("Order");
 
                     b.Property<string>("Title");
 
@@ -588,6 +586,21 @@ namespace MIA.ORMContext.Migrations
                     b.HasDiscriminator().HasValue("Nominee");
                 });
 
+            modelBuilder.Entity("MIA.Models.Entities.PhotoAlbumImage", b =>
+                {
+                    b.HasBaseType("MIA.Models.Entities.Image");
+
+                    b.Property<int>("MediaType");
+
+                    b.Property<int>("Order");
+
+                    b.Property<string>("PhotoAlbumId");
+
+                    b.HasIndex("PhotoAlbumId");
+
+                    b.HasDiscriminator().HasValue("PhotoAlbumImage");
+                });
+
             modelBuilder.Entity("MIA.Models.Entities.TrophyImage", b =>
                 {
                     b.HasBaseType("MIA.Models.Entities.Image");
@@ -599,9 +612,11 @@ namespace MIA.ORMContext.Migrations
                 {
                     b.HasBaseType("MIA.Models.Entities.Image");
 
-                    b.HasIndex("RefId")
+                    b.Property<string>("UserId");
+
+                    b.HasIndex("UserId")
                         .IsUnique()
-                        .HasFilter("[RefId] IS NOT NULL");
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.HasDiscriminator().HasValue("UserImage");
                 });
@@ -646,13 +661,6 @@ namespace MIA.ORMContext.Migrations
                         .HasForeignKey("MIA.Models.Entities.BoothPurchase", "PaymentId");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.Image", b =>
-                {
-                    b.HasOne("MIA.Models.Entities.PhotoAlbum")
-                        .WithMany("Images")
-                        .HasForeignKey("PhotoAlbumId");
-                });
-
             modelBuilder.Entity("MIA.Models.Entities.JudgeAward", b =>
                 {
                     b.HasOne("MIA.Models.Entities.Award", "Award")
@@ -695,13 +703,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasOne("MIA.Models.Entities.ArtWork", "ArtWork")
                         .WithMany("MediaFiles")
                         .HasForeignKey("ArtWorkId");
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.News", b =>
-                {
-                    b.HasOne("MIA.Models.Entities.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -757,11 +758,18 @@ namespace MIA.ORMContext.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("MIA.Models.Entities.PhotoAlbumImage", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.PhotoAlbum", "PhotoAlbum")
+                        .WithMany("Images")
+                        .HasForeignKey("PhotoAlbumId");
+                });
+
             modelBuilder.Entity("MIA.Models.Entities.UserImage", b =>
                 {
                     b.HasOne("MIA.Models.Entities.AppUser")
                         .WithOne("AvatarImage")
-                        .HasForeignKey("MIA.Models.Entities.UserImage", "RefId");
+                        .HasForeignKey("MIA.Models.Entities.UserImage", "UserId");
                 });
 #pragma warning restore 612, 618
         }

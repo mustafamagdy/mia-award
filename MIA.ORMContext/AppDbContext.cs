@@ -81,7 +81,7 @@ namespace MIA.ORMContext {
     public DbSet<JudgeVote> JudgeVotes { get; set; }
     public DbSet<MediaFile> MediaFiles { get; set; }
     public DbSet<News> News { get; set; }
-    public DbSet<NewsImage> NewsImages { get; set; }
+    //public DbSet<NewsImage> NewsImages { get; set; }
     public DbSet<PhotoAlbum> PhotoAlbums { get; set; }
     public DbSet<TrophyImage> TrophyImages { get; set; }
     public DbSet<VotingCriteria> VotingCriterias { get; set; }
