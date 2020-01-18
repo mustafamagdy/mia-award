@@ -121,11 +121,6 @@
             <param name="tokenData"></param>
             <returns></returns>
         </member>
-        <member name="T:MIA.Api.LookupsController">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="T:MIA.Api.ReportsController">
             <summary>
             
