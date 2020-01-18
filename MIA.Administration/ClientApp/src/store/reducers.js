@@ -2,7 +2,6 @@ import { connectRouter } from "connected-react-router";
 import { combineReducers } from "redux";
 
 export default function createReducer(asyncReducers, history) {
- debugger;
   return combineReducers({
     router: connectRouter(history),
     global: require("./app/reducers").reducer,

@@ -1,8 +1,6 @@
 export default function (/**@type {ApisauceInstance} */ api) {
-  const fetchVotingCriterias = query => {
-    debugger;
-    return api.post("/votingCriterias/search", query);
-  }
+  const fetchVotingCriterias = query => api.post("/votingCriterias/search", query);
+
   const saveVotingCriteria = data => api.post("votingCriterias", data);
 
   const updateVotingCriteria = data => api.put("votingCriterias", data);

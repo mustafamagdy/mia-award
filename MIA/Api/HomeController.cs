@@ -32,8 +32,8 @@ namespace MIA.Api {
 
     [HttpGet("main-album")]
     public IActionResult MainAlbum([FromServices] IAppUnitOfWork db) {
-      var result = db.PhotoAlbums
-        .Include(a => a.Images)
+      var result = db.Albums
+        .Include(a => a.MediaItems)
         //.FirstOrDefault(a => a.IsMain)
         .ProjectTo<MainAlbumDto>(_mapper.ConfigurationProvider)
         .ToList();

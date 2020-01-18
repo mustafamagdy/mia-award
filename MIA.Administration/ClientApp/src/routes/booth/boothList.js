@@ -28,7 +28,6 @@ const BoothList = ({ boothList, loading, booth_metadata, fetchBooth, deleteBooth
   const deleteConfirmationDialog = useRef(null);
 
   useEffect(() => {
-    debugger;
     fetchBooth({ pageNumber, pageSize });
   }, [pageNumber, pageSize]);
 

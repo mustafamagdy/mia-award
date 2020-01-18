@@ -17,7 +17,14 @@ const renderViewDialog = ({ record, isOpen, onClose }) => {
                 <p>
                   Body: <span className="fw-bold">{record.body}</span>
                 </p>
-                <p>{record.imageUrl}</p>
+                {record.files &&
+                  record.files.map((f, i) => {
+                    return (
+                      <div key={i}>
+                        <img src={f.fileUrl} />
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>

@@ -1,20 +1,36 @@
 export default function(/**@type {ApisauceInstance} */ api) {
-  const fetchPhotoAlbums = query => api.post("/photoAlbums/search", query);
+  const fetchPhotoAlbums = query => api.post("/albums/search", query);
   const savePhotoAlbum = data => {
-    const headers = { "Content-Type": "application/form-data" };
+    const headers = { "Content-Type": "multipart/form-data" };
     const form = new FormData();
-    Object.keys(data).map(key => {
-      return form.append(key, data[key]);
+    Object.keys(data).forEach(key => {
+      if (key == "files") {
+        Object.keys(data[key])
+          .map(f => data[key][f])
+          .forEach(f => {
+            form.append(key, f);
+          });
+      } else {
+        form.append(key, data[key]);
+      }
     });
-    return api.post("photoAlbums", form, { headers });
+    return api.post("albums", form, { headers });
   };
   const updatePhotoAlbum = data => {
-    const headers = { "Content-Type": "application/form-data" };
+    const headers = { "Content-Type": "multipart/form-data" };
     const form = new FormData();
-    Object.keys(data).map(key => {
-      return form.append(key, data[key]);
+    Object.keys(data).forEach(key => {
+      if (key == "newFiles") {
+        Object.keys(data[key])
+          .map(f => data[key][f])
+          .forEach(f => {
+            form.append(key, f);
+          });
+      } else {
+        form.append(key, data[key]);
+      }
     });
-    return api.put("photoAlbums", form, { headers });
+    return api.put("albums", form, { headers });
   };
   const deletePhotoAlbum = id => api.delete(`/photoAlbums/${id}`);
 

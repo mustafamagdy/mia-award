@@ -25,7 +25,6 @@ const Uploader = props => {
   };
 
   const send = (start, end) => {
-    debugger;
     if (chunkIndex >= totalChunks) {
       return;
     }

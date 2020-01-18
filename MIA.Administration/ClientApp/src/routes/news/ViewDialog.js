@@ -17,7 +17,7 @@ const renderViewDialog = ({ record, isOpen, onClose }) => {
                 <p>
                   Body: <span className="fw-bold">{record.body}</span>
                 </p>
-                <p>{record.imageUrl}</p>
+                <img src={record.posterUrl} />
               </div>
             </div>
           </div>

@@ -13,7 +13,6 @@ const initialState = {
 };
 
 const fetchVotingCriterias = (state, action) => {
-  debugger;
   return produce(state, draft => {
     draft.loading = true;
   });

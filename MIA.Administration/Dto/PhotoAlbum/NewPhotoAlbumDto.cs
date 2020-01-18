@@ -1,13 +1,11 @@
 ﻿using MIA.Models.Entities.Enums;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
-namespace MIA.Administration.Api
-{
-    public class NewPhotoAlbumDto
-    {
-        public IFormFile Poster { get; set; }
-        public MediaType MediaType { get; set; }
-        public int Order { get; set; }
-    }
+namespace MIA.Administration.Api {
+  public class NewPhotoAlbumDto {
+    public IEnumerable<IFormFile> Files { get; set; }
+    public string TItle { get; set; }
+  }
 
 }

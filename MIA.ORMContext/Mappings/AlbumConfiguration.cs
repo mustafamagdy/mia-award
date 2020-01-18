@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MIA.ORMContext.Mappings {
-  internal class PhotoAlbumConfiguration : IEntityTypeConfiguration<PhotoAlbum> {
-    public void Configure(EntityTypeBuilder<PhotoAlbum> builder) {
+  internal class AlbumConfiguration : IEntityTypeConfiguration<Album> {
+    public void Configure(EntityTypeBuilder<Album> builder) {
 
       builder.HasKey(x => x.Id);
       builder.Property(x => x.Id)
@@ -13,8 +13,7 @@ namespace MIA.ORMContext.Mappings {
         .ValueGeneratedOnAdd();
 
 
-      builder.HasMany(a => a.Images);
+      builder.HasMany(a => a.MediaItems).WithOne(a => a.Album).HasForeignKey(a => a.AlbumId);
     }
   }
-
 }

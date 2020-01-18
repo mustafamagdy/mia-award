@@ -28,7 +28,6 @@ const VotingCriteriaList = ({ votingcriteriaList, loading, votingcriteria_metada
   const deleteConfirmationDialog = useRef(null);
 
   useEffect(() => {
-    debugger;
     fetchVotingCriterias({ pageNumber, pageSize });
   }, [pageNumber, pageSize]);
 
