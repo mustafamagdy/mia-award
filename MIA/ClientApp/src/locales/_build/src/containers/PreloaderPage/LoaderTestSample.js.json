@@ -1,0 +1,11 @@
+{
+  "submit": {
+    "defaults": "Submit",
+    "origin": [
+      [
+        "src/containers/PreloaderPage/LoaderTestSample.js",
+        38
+      ]
+    ]
+  }
+}

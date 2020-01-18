@@ -1,0 +1,29 @@
+{
+  "logout": {
+    "defaults": "Logout",
+    "origin": [
+      [
+        "src/components/Layout/LoginStatus.js",
+        14
+      ]
+    ]
+  },
+  "sign_in": {
+    "defaults": "sign in",
+    "origin": [
+      [
+        "src/components/Layout/LoginStatus.js",
+        31
+      ]
+    ]
+  },
+  "create_account": {
+    "defaults": "Create account",
+    "origin": [
+      [
+        "src/components/Layout/LoginStatus.js",
+        34
+      ]
+    ]
+  }
+}

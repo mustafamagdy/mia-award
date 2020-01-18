@@ -1,0 +1,94 @@
+{
+  "apply_for_your_award": {
+    "defaults": "apply for your award",
+    "origin": [
+      [
+        "src/containers/Home/Awards.js",
+        11
+      ]
+    ]
+  },
+  "start_from": {
+    "defaults": "starts from",
+    "origin": [
+      [
+        "src/containers/Home/Awards.js",
+        21
+      ]
+    ]
+  },
+  "to": {
+    "origin": [
+      [
+        "src/containers/Home/Awards.js",
+        23
+      ]
+    ]
+  },
+  "view_all": {
+    "defaults": "view all",
+    "origin": [
+      [
+        "src/containers/Home/Awards.js",
+        29
+      ]
+    ]
+  },
+  "apply_now": {
+    "defaults": "apply now",
+    "origin": [
+      [
+        "src/containers/Home/Awards.js",
+        40
+      ],
+      [
+        "src/containers/Home/Awards.js",
+        58
+      ],
+      [
+        "src/containers/Home/Awards.js",
+        76
+      ],
+      [
+        "src/containers/Home/Awards.js",
+        107
+      ],
+      [
+        "src/containers/Home/Awards.js",
+        125
+      ]
+    ]
+  },
+  "movies": {
+    "origin": [
+      [
+        "src/containers/Home/Awards.js",
+        44
+      ],
+      [
+        "src/containers/Home/Awards.js",
+        80
+      ],
+      [
+        "src/containers/Home/Awards.js",
+        111
+      ]
+    ]
+  },
+  "sports": {
+    "origin": [
+      [
+        "src/containers/Home/Awards.js",
+        62
+      ],
+      [
+        "src/containers/Home/Awards.js",
+        93
+      ],
+      [
+        "src/containers/Home/Awards.js",
+        129
+      ]
+    ]
+  }
+}

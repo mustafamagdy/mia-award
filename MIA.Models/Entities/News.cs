@@ -6,8 +6,9 @@ namespace MIA.Models.Entities {
     public string Body { get; set; }
     public long Date { get; set; }
     public bool Outdated { get; set; }
+    public string Category { get; set; }
 
-    public Image Image { get; set; }
-    public string ImageId { get; set; }
+    public string PosterId { get; set; }
+    public string PosterUrl { get; set; }
   }
 }

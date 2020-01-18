@@ -34,7 +34,8 @@ namespace MIA.Extensions {
        .ConfigureAndValidateSingleton<CacheProfileOptions>(configuration.GetSection(nameof(ApplicationOptions.CacheProfiles)))
        .ConfigureAndValidateSingleton<JwtOptions>(configuration.GetSection(nameof(ApplicationOptions.Jwt)))
        .ConfigureAndValidateSingleton<PaymentGatewayOptions>(configuration.GetSection(nameof(ApplicationOptions.PaymentGatewayOptions)))
-       .ConfigureAndValidateSingleton<UploadLimits>(configuration.GetSection(nameof(ApplicationOptions.UploadLimits)));
+       .ConfigureAndValidateSingleton<UploadLimits>(configuration.GetSection(nameof(ApplicationOptions.UploadLimits)))
+       .ConfigureAndValidateSingleton<AwsOptions>(configuration.GetSection(nameof(ApplicationOptions.AwsOptions)));
 
 
     }

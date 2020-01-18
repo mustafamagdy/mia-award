@@ -32,7 +32,7 @@ namespace MIA.ORMContext.Uow
         public DbSet<JudgeVote> JudgeVotes => base.Context.Set<JudgeVote>();
         public DbSet<MediaFile> MediaFiles => base.Context.Set<MediaFile>();
         public DbSet<News> News => base.Context.Set<News>();
-        public DbSet<NewsImage> NewsImages => base.Context.Set<NewsImage>();
+        //public DbSet<NewsImage> NewsImages => base.Context.Set<NewsImage>();
         public DbSet<PhotoAlbum> PhotoAlbums => base.Context.Set<PhotoAlbum>();
         public DbSet<TrophyImage> TrophyImages => base.Context.Set<TrophyImage>();
         public DbSet<VotingCriteria> VotingCriterias => base.Context.Set<VotingCriteria>();

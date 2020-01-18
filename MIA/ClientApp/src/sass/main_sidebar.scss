@@ -1,0 +1,166 @@
+@import "./variables.scss";
+
+//**** Main Sidebar ****//
+#main_sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 77px;
+  height: 100%;
+  z-index: 100;
+  background: #121212;
+  box-shadow: 0 0 25px 10px rgba(0, 0, 0, 0.35);
+  padding: 30px 0 0 0;
+  .logo {
+    margin: 0 auto 20px;
+    display: none;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    } /* img */
+  } /* logo */
+  .sidebar_area {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 15px;
+    .aside_button {
+      position: relative;
+      cursor: pointer;
+      text-align: center;
+      width: 40px;
+      height: 40px;
+      div.x {
+        position: absolute;
+        margin: auto;
+        top: 11px;
+        background: $maincolor;
+        border-radius: 2px;
+        -webkit-transition: all 200ms ease-out;
+        -moz-transition: all 200ms ease-out;
+        -ms-transition: all 200ms ease-out;
+        -o-transition: all 200ms ease-out;
+        transition: all 200ms ease-out;
+        height: 3px;
+        width: 26px;
+        left: 0;
+        right: 0;
+        -webkit-transition: all 100ms ease-out;
+        -moz-transition: all 100ms ease-out;
+        -ms-transition: all 100ms ease-out;
+        -o-transition: all 100ms ease-out;
+        transition: all 100ms ease-out;
+      } /* div.x */
+      div.y {
+        position: absolute;
+        margin: auto;
+        background: $maincolor;
+        border-radius: 2px;
+        -webkit-transition: all 200ms ease-out;
+        -moz-transition: all 200ms ease-out;
+        -ms-transition: all 200ms ease-out;
+        -o-transition: all 200ms ease-out;
+        transition: all 200ms ease-out;
+        height: 3px;
+        width: 26px;
+        -webkit-transition: all 100ms ease-out;
+        -moz-transition: all 100ms ease-out;
+        -ms-transition: all 100ms ease-out;
+        -o-transition: all 100ms ease-out;
+        transition: all 100ms ease-out;
+        top: 19px;
+        left: 0;
+        right: 0;
+      } /* div.y */
+      div.z {
+        position: absolute;
+        margin: auto;
+        background: $maincolor;
+        border-radius: 2px;
+        -webkit-transition: all 200ms ease-out;
+        -moz-transition: all 200ms ease-out;
+        -ms-transition: all 200ms ease-out;
+        -o-transition: all 200ms ease-out;
+        transition: all 200ms ease-out;
+        height: 3px;
+        width: 26px;
+        -webkit-transition: all 100ms ease-out;
+        -moz-transition: all 100ms ease-out;
+        -ms-transition: all 100ms ease-out;
+        -o-transition: all 100ms ease-out;
+        transition: all 100ms ease-out;
+        top: 27px;
+        left: 0;
+        right: 0;
+      } /* div.z */
+      &:hover {
+        div.x,
+        div.y,
+        div.z {
+          background: $secondcolor;
+        }
+      }
+    } /* aside_button */
+  } /* sidebar_area */
+  .search_area {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 20px;
+    button[type="button"] {
+      font-size: 30px;
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: $maincolor;
+      cursor: pointer;
+      &:hover {
+        color: $secondcolor;
+      } /* button hover */
+    } /* button */
+  } /* search_area */
+  .language_switcher {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 20px;
+    a {
+      font-size: 20px;
+      color: $maincolor;
+      &:hover {
+        color: $secondcolor;
+      } /* a hover */
+    } /* a */
+  } /* language_switcher */
+  .share_site {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    a {
+      display: block;
+      width: 77px;
+      height: 77px;
+      line-height: 77px;
+      background: #070707;
+      text-align: center;
+      font-size: 35px;
+      color: #353535;
+      &:hover {
+        color: $maincolor;
+      } /* a hover */
+    } /* a */
+  } /* share_site */
+  .social_media {
+    position: absolute;
+    left: 0;
+    bottom: 77px;
+    text-align: center;
+    width: 100%;
+    a {
+      display: block;
+      font-size: 25px;
+      color: $maincolor;
+      margin: 0 auto 15px;
+      &:hover {
+        color: $secondcolor;
+      } /* a hover */
+    } /* a */
+  } /* social_media */
+} /* main_sidebar */

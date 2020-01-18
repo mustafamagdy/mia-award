@@ -1,0 +1,82 @@
+{
+  "change_photo": {
+    "defaults": "Change photo",
+    "origin": [
+      [
+        "src/containers/MyProfile/index.js",
+        115
+      ],
+      [
+        "src/containers/MyProfile/index.js",
+        117
+      ]
+    ]
+  },
+  "name": {
+    "defaults": "Name",
+    "origin": [
+      [
+        "src/containers/MyProfile/index.js",
+        126
+      ]
+    ]
+  },
+  "email": {
+    "defaults": "Email",
+    "origin": [
+      [
+        "src/containers/MyProfile/index.js",
+        159
+      ]
+    ]
+  },
+  "phone": {
+    "defaults": "Phone",
+    "origin": [
+      [
+        "src/containers/MyProfile/index.js",
+        192
+      ]
+    ]
+  },
+  "change_password": {
+    "defaults": "Change Password",
+    "origin": [
+      [
+        "src/containers/MyProfile/index.js",
+        228
+      ],
+      [
+        "src/containers/MyProfile/index.js",
+        230
+      ]
+    ]
+  },
+  "enable_edit": {
+    "defaults": "Enable Edit",
+    "origin": [
+      [
+        "src/containers/MyProfile/index.js",
+        244
+      ]
+    ]
+  },
+  "cancel": {
+    "defaults": "Cancel",
+    "origin": [
+      [
+        "src/containers/MyProfile/index.js",
+        250
+      ]
+    ]
+  },
+  "update": {
+    "defaults": "Update",
+    "origin": [
+      [
+        "src/containers/MyProfile/index.js",
+        253
+      ]
+    ]
+  }
+}

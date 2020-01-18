@@ -1,0 +1,56 @@
+{
+  "awards": {
+    "defaults": "Awards",
+    "origin": [
+      [
+        "src/components/Layout/Header.js",
+        50
+      ]
+    ]
+  },
+  "about_us": {
+    "defaults": "About Us",
+    "origin": [
+      [
+        "src/components/Layout/Header.js",
+        55
+      ]
+    ]
+  },
+  "news": {
+    "defaults": "News",
+    "origin": [
+      [
+        "src/components/Layout/Header.js",
+        60
+      ]
+    ]
+  },
+  "programs": {
+    "defaults": "Program",
+    "origin": [
+      [
+        "src/components/Layout/Header.js",
+        65
+      ]
+    ]
+  },
+  "gallery": {
+    "defaults": "Gallery",
+    "origin": [
+      [
+        "src/components/Layout/Header.js",
+        70
+      ]
+    ]
+  },
+  "contact_us": {
+    "defaults": "Contact US",
+    "origin": [
+      [
+        "src/components/Layout/Header.js",
+        75
+      ]
+    ]
+  }
+}

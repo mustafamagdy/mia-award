@@ -142,6 +142,7 @@ namespace MIA
         .AddRedis(this.configuration)
         .AddProjectMappers()
         .AddProjectRepositories()
+        .AddAws()
         .AddProjectApplicationServices()
         .BuildServiceProvider();
 

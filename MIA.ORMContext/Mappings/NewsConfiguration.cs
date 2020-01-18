@@ -12,7 +12,9 @@ namespace MIA.ORMContext.Mappings {
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
 
-      builder.HasOne(a => a.Image);
+      builder.Property(a => a.PosterUrl).HasMaxLength(1000);
+      builder.Property(a => a.PosterId).HasMaxLength(1000);
+      builder.Property(a => a.Date).IsRequired();
     }
   }
 

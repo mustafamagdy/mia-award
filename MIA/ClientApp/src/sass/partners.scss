@@ -1,0 +1,81 @@
+@import "./variables.scss";
+
+//**** Partners Slider ****//
+#partners {
+  background: #fff;
+  .container {
+    width: 1442px;
+    margin: 0 auto;
+    padding: 50px 25px;
+    overflow: hidden;
+    .partners_slider {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      margin: 0 -15px;
+      .slide_item {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 25%;
+        padding: 0 15px;
+        a {
+          display: block;
+          height: 150px;
+          line-height: 150px;
+          text-align: center;
+          img {
+            max-width: 100%;
+            max-height: 100%;
+            display: inline-block;
+            width: auto;
+            height: auto;
+            vertical-align: middle;
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+            -webkit-transition: all 0.4s ease-in-out;
+            -moz-transition: all 0.4s ease-in-out;
+            -o-transition: all 0.4s ease-in-out;
+            transition: all 0.4s ease-in-out;
+          } /* img */
+          &:hover {
+            img {
+              max-width: 100%;
+              max-height: 100%;
+              display: inline-block;
+              width: auto;
+              height: auto;
+              vertical-align: middle;
+              -webkit-filter: grayscale(0%);
+              -moz-filter: grayscale(0%);
+              -o-filter: grayscale(0%);
+              filter: grayscale(0%);
+            } /* img */
+          } /* hover */
+        } /* a */
+      } /* slide_item */
+    } /* partners_slider */
+    .slider_dots {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      margin: 30px auto 0;
+      span {
+        width: 14px;
+        height: 14px;
+        display: block;
+        background: #fff;
+        border-radius: 100%;
+        border: 3px solid #808080;
+        margin: 0 5px;
+        cursor: pointer;
+        &.current {
+          background: $maincolor;
+          border-color: $maincolor;
+          cursor: inherit;
+        } /* current */
+      } /* span */
+    } /* slider_dots */
+  } /* container */
+} /* partners */

@@ -1,0 +1,38 @@
+{
+  "please_select_checkin_date": {
+    "defaults": "Please select checkin day.",
+    "origin": [
+      [
+        "src/components/Forms/Date/DualCalendar.js",
+        22
+      ]
+    ]
+  },
+  "please_select_checkout_date": {
+    "defaults": "Please select checkout day.",
+    "origin": [
+      [
+        "src/components/Forms/Date/DualCalendar.js",
+        23
+      ]
+    ]
+  },
+  "today": {
+    "defaults": "Today",
+    "origin": [
+      [
+        "src/components/Forms/Date/DualCalendar.js",
+        35
+      ]
+    ]
+  },
+  "hijri": {
+    "defaults": "Hijri",
+    "origin": [
+      [
+        "src/components/Forms/Date/DualCalendar.js",
+        49
+      ]
+    ]
+  }
+}

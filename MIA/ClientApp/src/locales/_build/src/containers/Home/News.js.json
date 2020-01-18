@@ -1,0 +1,36 @@
+{
+  "read_more": {
+    "defaults": "read more",
+    "origin": [
+      [
+        "src/containers/Home/News.js",
+        36
+      ]
+    ]
+  },
+  "prev": {
+    "origin": [
+      [
+        "src/containers/Home/News.js",
+        49
+      ]
+    ]
+  },
+  "show_all": {
+    "defaults": "show all",
+    "origin": [
+      [
+        "src/containers/Home/News.js",
+        52
+      ]
+    ]
+  },
+  "next": {
+    "origin": [
+      [
+        "src/containers/Home/News.js",
+        55
+      ]
+    ]
+  }
+}

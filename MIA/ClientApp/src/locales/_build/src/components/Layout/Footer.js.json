@@ -1,0 +1,74 @@
+{
+  "mia_awards": {
+    "defaults": "MIA Awards",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        36
+      ]
+    ]
+  },
+  "about_us": {
+    "defaults": "About Us",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        41
+      ]
+    ]
+  },
+  "members": {
+    "defaults": "Members",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        46
+      ]
+    ]
+  },
+  "terms_conditions": {
+    "defaults": "Terms & Conditions",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        51
+      ]
+    ]
+  },
+  "privacy_policy": {
+    "defaults": "Privacy & Policy",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        56
+      ]
+    ]
+  },
+  "newsletter": {
+    "defaults": "NEWSLETTER",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        63
+      ]
+    ]
+  },
+  "if_you_want_to_keep_updated": {
+    "defaults": "if you want to keep updated with all new properties enter your mail and we will send you latest updates",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        66
+      ]
+    ]
+  },
+  "copyright_media_industry": {
+    "defaults": "Copyright 2020 Media Industry Awards. All rights reserved.",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        79
+      ]
+    ]
+  }
+}

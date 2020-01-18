@@ -1,0 +1,11 @@
+{
+  "view_awards": {
+    "defaults": "view awards",
+    "origin": [
+      [
+        "src/containers/Home/IntroSlider.js",
+        27
+      ]
+    ]
+  }
+}

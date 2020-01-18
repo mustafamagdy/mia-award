@@ -1,0 +1,45 @@
+@import "./variables.scss";
+
+//**** Header ****//
+header {
+  position: fixed;
+  top: 0;
+  left: 77px;
+  z-index: 9;
+  right: 0;
+  &.fixed {
+    background: #141414;
+    .container {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      img {
+        height: 50px;
+      }
+    } /* container */
+  } /* fixed */
+  .container {
+    width: 1442px;
+    margin: 0 auto;
+    padding: 18px 25px 18px 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    .mainmenu {
+      ul {
+        display: flex;
+        li {
+          font-size: 17px;
+          margin: 0 20px;
+          a {
+            color: #808080;
+            &:hover {
+              color: $maincolor;
+            } /* a hover */
+          } /* li */
+        } /* li */
+      } /* ul */
+    } /* mainmenu */
+  } /* container */
+} /* header */

@@ -1,0 +1,158 @@
+@import "./variables.scss";
+
+//**** Recent Shows ****//
+#recent_shows {
+  background: #141414 url("/assets/images/recent_shows_bg.png") scroll no-repeat 0 10%;
+  .container {
+    width: 1442px;
+    margin: 0 auto;
+    padding: 50px 25px;
+    .title {
+      text-align: center;
+      font-size: 25px;
+      text-transform: uppercase;
+      font-family: Montserrat_Bold;
+      color: #ccbc93;
+      margin: 0 auto 30px;
+    } /* title */
+    .search_filter {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto 50px;
+      input {
+        width: 300px;
+        height: 45px;
+        border-radius: 100px;
+        padding: 0 15px;
+        font-size: 15px;
+        border: 1px solid #808080;
+        background: #141414;
+        color: #fff;
+        text-transform: capitalize;
+        margin: 0 10px 0 0;
+        font-family: Montserrat_Bold;
+      } /* input */
+      select {
+        background: #141414 url("/assets/images/arrow.png") scroll no-repeat 100% center;
+        color: #fff;
+        border: 1px solid #808080;
+        border-radius: 100px;
+        padding: 0 59px 0 15px;
+        font-size: 15px;
+        height: 45px;
+        min-width: 245px;
+        margin: 0 10px 0 0;
+        font-family: Montserrat_Bold;
+        text-transform: capitalize;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -o-appearance: none;
+        appearance: none;
+      } /* select */
+      button {
+        height: 45px;
+        width: 45px;
+        line-height: 45px;
+        padding: 0;
+        border-radius: 100%;
+        background: #ccbc93;
+        border: none;
+        font-size: 20px;
+        float: right;
+        color: #000;
+        cursor: pointer;
+        &:hover {
+          background: #eadab1;
+        }
+      }
+    } /* search_filter */
+    .shows_items {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -15px;
+      .item {
+        width: 20%;
+        padding: 0 15px;
+        margin: 30px auto;
+        .imgthumb {
+          overflow: hidden;
+          height: 378px;
+          width: 100%;
+          border-radius: 10px;
+          position: relative;
+          box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 10px 2px;
+          img {
+            width: 100%;
+            height: 100%;
+          } /* img */
+          .mask {
+            background: transparent url("/assets/images/mask_bg.png") scroll no-repeat center 50%;
+            position: absolute;
+            bottom: 0;
+            padding: 10px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            min-height: 100%;
+            align-items: flex-end;
+            -webkit-transition: all 0.4s ease-in-out;
+            -moz-transition: all 0.4s ease-in-out;
+            -o-transition: all 0.4s ease-in-out;
+            transition: all 0.4s ease-in-out;
+            .content {
+              width: 100%;
+              p {
+                display: block;
+                margin: 0 auto 10px;
+                text-align: center;
+                color: #fff;
+                text-transform: uppercase;
+                font-size: 14px;
+                font-family: Montserrat_Bold;
+              } /* p */
+              .stars {
+                display: flex;
+                justify-content: center;
+                i {
+                  font-size: 17px;
+                  margin: 0 5px;
+                  color: #c0a176;
+                }
+              } /* stars */
+            } /* content */
+          } /* mask */
+        } /* imgthumb */
+      } /* item */
+    } /* shows_items */
+    .paginations {
+      margin: 30px auto;
+      ul {
+        display: flex;
+        justify-content: center;
+        flex-wrap: nowrap;
+        li {
+          margin: 0 5px;
+          a {
+            border: 2px solid #808080;
+            background: #141414;
+            color: #fff;
+            border-radius: 100%;
+            width: 40px;
+            font-size: 16px;
+            display: block;
+            height: 40px;
+            line-height: 36px;
+            text-align: center;
+          } /* a */
+          &.current {
+            a {
+              background: #c0a176;
+              border-color: #c0a176;
+              color: #000;
+            }
+          }
+        } /* li */
+      } /* ul */
+    } /* paginations */
+  } /* container */
+} /* recent_shows */

@@ -1,0 +1,71 @@
+#share_sidebar {
+  position: fixed;
+  top: 0;
+  left: -600px;
+  bottom: 0;
+  z-index: 99;
+  width: 600px;
+  background: #121212;
+  overflow: auto;
+  padding: 150px 30px 50px 160px;
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  .close_search {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 50px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  li {
+    margin: 0 auto 10px;
+    text-transform: capitalize;
+    font-size: 16px;
+    a {
+      display: block;
+      color: #ffff;
+      position: relative;
+      height: 35px;
+      line-height: 35px;
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -10px;
+        width: 0;
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.071);
+      }
+    }
+    &:hover {
+      a {
+        color: #b88b3e;
+        &::after {
+          width: 100%;
+        }
+      }
+    } /* hover */
+  } /* li */
+  &::after {
+    content: "SHARE";
+    position: absolute;
+    bottom: 10px;
+    left: 77px;
+    right: 0;
+    font-size: 100px;
+    font-family: Montserrat_Bold;
+    width: auto;
+    display: table;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.2);
+    letter-spacing: 21px;
+  }
+} /* aside */
