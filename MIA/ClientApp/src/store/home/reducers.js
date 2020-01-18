@@ -4,6 +4,10 @@ import { ActionTypes } from "./actions";
 
 const initialState = {
   news: [],
+  news_pagination: {
+    hasNextPage: false,
+    hasPreviousPage: false
+  },
   awards: [],
   sponsers: [],
   albumContents: [],
@@ -11,7 +15,22 @@ const initialState = {
 };
 
 const fetchNewsSuccess = (state, action) => {
-  return produce(state, draft => {});
+  return produce(state, draft => {
+    const news = [
+      { date: "15-01-2020", category: "sports", img: "news_image_1.png", title: "And Mo Salah Makes football history for real" },
+      { date: "15-01-2020", category: "media", img: "news_image_2.jpg", title: "And Mo Salah Makes football history for real" },
+      { date: "15-01-2020", category: "sports", img: "news_image_1.png", title: "And Mo Salah Makes football history for real" },
+      { date: "15-01-2020", category: "media", img: "news_image_2.jpg", title: "And Mo Salah Makes football history for real" },
+      { date: "15-01-2020", category: "sports", img: "news_image_1.png", title: "And Mo Salah Makes football history for real" },
+      { date: "15-01-2020", category: "media", img: "news_image_2.jpg", title: "And Mo Salah Makes football history for real" }
+    ];
+
+    draft.news = [...action.payload.items];
+    draft.news_pagination = {
+      hasNextPage: action.payload.metadata.hasNextPage,
+      hasPreviousPage: action.payload.metadata.hasPreviousPage
+    };
+  });
 };
 
 const fetchNewsFailed = (state, action) => {

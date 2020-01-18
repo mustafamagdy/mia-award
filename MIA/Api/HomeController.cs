@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using MIA.Api.Base;
 using Z.EntityFramework.Plus;
 using Microsoft.EntityFrameworkCore;
+using MIA.Models.Entities;
 
 namespace MIA.Api {
 #if Versioning
@@ -39,7 +40,7 @@ namespace MIA.Api {
       return IfFound(result);
     }
 
-    [HttpGet("recent-shows")]
+    [HttpPost("recent-shows")]
     public IActionResult RecentShows(
       [FromBody]RecentShowsSearchDto query,
       [FromServices] IAppUnitOfWork db) {
@@ -59,7 +60,7 @@ namespace MIA.Api {
       return IfFound(result);
     }
 
-    [HttpGet("latest-news")]
+    [HttpPost("latest-news")]
     public IActionResult LatestNews(
       [FromBody]NewsSearchDto query,
       [FromServices] IAppUnitOfWork db) {
@@ -117,15 +118,11 @@ namespace MIA.Api {
     public int PageSize { get; set; }
   }
 
-  public enum NewsCategory {
-    Sport,
-    Drama,
-  }
-
   
   public class NewsDto : BaseDto {
     public string Id { get; set; }
     public string Title { get; set; }
+    public string Date { get; set; }
     public string PosterUrl { get; set; }
     public NewsCategory Category { get; set; }
   }

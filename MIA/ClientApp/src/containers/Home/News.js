@@ -1,16 +1,22 @@
-import React from "react";
-import "sass/news.scss";
+import React, { useEffect, useState } from "react";
 import { Trans } from "@lingui/macro";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import homeActions from "store/home/actions";
 
-const News = props => {
-  const news = [
-    { date: "15-01-2020", category: "sports", img: "news_image_1.png", title: "And Mo Salah Makes football history for real" },
-    { date: "15-01-2020", category: "media", img: "news_image_2.jpg", title: "And Mo Salah Makes football history for real" },
-    { date: "15-01-2020", category: "sports", img: "news_image_1.png", title: "And Mo Salah Makes football history for real" },
-    { date: "15-01-2020", category: "media", img: "news_image_2.jpg", title: "And Mo Salah Makes football history for real" },
-    { date: "15-01-2020", category: "sports", img: "news_image_1.png", title: "And Mo Salah Makes football history for real" },
-    { date: "15-01-2020", category: "media", img: "news_image_2.jpg", title: "And Mo Salah Makes football history for real" }
-  ];
+import "sass/news.scss";
+
+const initState = {
+  pageNumber: 1,
+  pageSize: 4
+};
+
+const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage }, ...props }) => {
+  const [state, setState] = useState(initState);
+  useEffect(() => {
+    fetchNews({ pageNumber: state.pageNumber, pageSize: state.pageSize });
+  }, [state.pageNumber, state.pageSize]);
+
   return (
     <div id="news_features">
       <div className="container">
@@ -27,7 +33,7 @@ const News = props => {
                     </p>
                   </div>
                   <div className="imgthumb">
-                    <img src={`assets/images/${item.img}`} alt="#" />
+                    <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} alt="#" />
                     <div className="mask">
                       <div className="content">
                         <p>{item.title}</p>
@@ -45,19 +51,41 @@ const News = props => {
           ))}
         </div>
         <div className="features_nav">
-          <button type="button" className="arrow_prev">
-            <Trans id="prev">prev</Trans>
-          </button>
+          {hasPreviousPage ? (
+            <button
+              type="button"
+              className="arrow_prev"
+              onClick={() => {
+                setState({ ...state, pageNumber: state.pageNumber - 1 });
+              }}
+            >
+              <Trans id="prev">prev</Trans>
+            </button>
+          ) : (
+            <span />
+          )}
           <a href="#" title="#">
             <Trans id="show_all">show all</Trans>
           </a>
-          <button type="button" className="arrow_next">
-            <Trans id="next">next</Trans>
-          </button>
+          {hasNextPage ? (
+            <button
+              type="button"
+              className="arrow_next"
+              onClick={() => {
+                setState({ ...state, pageNumber: state.pageNumber + 1 });
+              }}
+            >
+              <Trans id="next">next</Trans>
+            </button>
+          ) : (
+            <span />
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default News;
+const mapStateToProps = ({ home: { news, news_pagination } }) => ({ news, news_pagination });
+const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(News);

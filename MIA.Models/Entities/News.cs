@@ -1,6 +1,11 @@
 ﻿using MIA.Models.Entities;
 
 namespace MIA.Models.Entities {
+  public enum NewsCategory {
+    Sport,
+    Drama,
+  }
+
   public class News : BaseEntity<string> {
     public string Title { get; set; }
     public string Body { get; set; }

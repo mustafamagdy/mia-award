@@ -1,7 +1,7 @@
-import { createLogic } from "redux-logic";
 import { ActionTypes } from "./actions";
-import config from "config";
-import { persistedStore } from "store";
+import generateLogic from "utils/genLogic";
 
+const apiNamespace = "home";
+const fetchNewsLogic = generateLogic(apiNamespace, ActionTypes.FETCH_NEWS);
 
-export default [];
+export default [fetchNewsLogic];
