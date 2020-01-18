@@ -10,9 +10,9 @@ import { useForm } from "react-hook-form";
 
 import "sass/layout.scss";
 
-const Layout = props => {
+const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
   const dismissDlgs = event => {
-    if (event.keyCode === 27) {
+    if (event.keyCode === 27 && searchFormOpen === true) {
       reset();
       const { toggleSearchForm } = props;
       toggleSearchForm();
@@ -24,7 +24,7 @@ const Layout = props => {
     return () => {
       document.removeEventListener("keydown", dismissDlgs, false);
     };
-  }, []);
+  }, [searchFormOpen]);
 
   const onSearch = search => {
     console.log("search with ", search);
@@ -47,6 +47,11 @@ const Layout = props => {
             </button>
           </form>
         </div>
+        <div id="share_sidebar">
+          <div className="close_search" onClick={toggleShareSidebar}>
+            <i className="icofont-close-line"></i>
+          </div>
+        </div>
         <Sidebar />
         <section id="wrapper">
           <Header />
@@ -58,5 +63,6 @@ const Layout = props => {
   );
 };
 
+const mapStateToProps = ({ global: { searchFormOpen } }) => ({ searchFormOpen });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
-export default connect(null, mapDispatchToProps)(Layout);
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

@@ -189,4 +189,16 @@ body {
       } /* search_modal */
     } /* main_site */
   } /* open_search_area */
+  &.open_share_side {
+    #main_site {
+      #share_sidebar {
+        left: 0;
+        opacity: 1;
+      } /* share_sidebar */
+      #wrapper::after {
+        display: block;
+        opacity: 0.8;
+      }
+    } /* main_site */
+  } /* open_search_area */
 } /* body */

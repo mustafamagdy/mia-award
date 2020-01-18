@@ -9,7 +9,8 @@ export const UserContext = React.createContext();
 
 class UserProvider extends React.PureComponent {
   dismissDlgs = event => {
-    if (event.keyCode === 27) {
+    const { signinModalOpened, createAccountModalOpened } = this.props.auth;
+    if (event.keyCode === 27 && (signinModalOpened || createAccountModalOpened)) {
       this.props.closeSigninModal();
       this.props.closeCreateAccountModal();
       //todo: add any other dialogs you want to dismiss when Esc character is pressed
@@ -48,7 +49,4 @@ class UserProvider extends React.PureComponent {
 
 const mapStateToProps = ({ auth, account }) => ({ auth, account });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...authActions, ...accountActions }, dispatch);
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserProvider);
+export default connect(mapStateToProps, mapDispatchToProps)(UserProvider);

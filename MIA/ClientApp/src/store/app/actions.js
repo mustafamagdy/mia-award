@@ -7,7 +7,8 @@ const { Types, Creators } = createActions(
     setIsLoading: { args: [] },
     clearIsLoading: { args: [] },
     toggleSearchForm: { args: [] },
-    toggleSidebar: { args: [] }
+    toggleSidebar: { args: [] },
+    toggleShareSidebar: { args: [] }
   },
   {
     prefix: "@app/app/"

@@ -7,8 +7,9 @@ import appActions from "store/app/actions";
 import "sass/main_sidebar.scss";
 import "sass/modals/aside.scss";
 import "sass/modals/search.scss";
+import "sass/modals/share_sidebar.scss";
 
-const Sidebar = ({ toggleSidebar, toggleSearchForm, ...props }) => {
+const Sidebar = ({ toggleSidebar, toggleSearchForm, toggleShareSidebar, ...props }) => {
   return (
     <section id="main_sidebar">
       {/* <!-- to show sidebar menu please add class "open_aside" to "body" element --> */}
@@ -50,7 +51,7 @@ const Sidebar = ({ toggleSidebar, toggleSearchForm, ...props }) => {
         </a>
       </div>
       {/* <!-- end social_media --> */}
-      <div className="share_site">
+      <div className="share_site" onClick={toggleShareSidebar}>
         <a href="#" title="#">
           <i className="icofont-share"></i>
         </a>

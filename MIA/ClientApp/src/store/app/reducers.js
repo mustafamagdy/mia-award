@@ -12,7 +12,8 @@ const initialState = {
   direction: DEFAULT_DIRECTION,
   lastPing: "",
   sidebarOpen: false,
-  searchFormOpen: false
+  searchFormOpen: false,
+  shareSidebarOpen: false,
 };
 
 const toggleSidebar = (state, { locale }) => {
@@ -30,6 +31,15 @@ const toggleSearchForm = (state, { locale }) => {
 
     if (draft.searchFormOpen) document.body.classList.add("open_search_area");
     else document.body.classList.remove("open_search_area");
+  });
+};
+
+const toggleShareSidebar = (state, { locale }) => {
+  return produce(state, draft => {
+    draft.shareSidebarOpen = !state.shareSidebarOpen;
+
+    if (draft.shareSidebarOpen) document.body.classList.add("open_share_side");
+    else document.body.classList.remove("open_share_side");
   });
 };
 
@@ -70,5 +80,6 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.CLEAR_IS_LOADING]: clearIsLoading,
   [ActionTypes.CHANGE_LOCALE]: changeLocale,
   [ActionTypes.TOGGLE_SIDEBAR]: toggleSidebar,
-  [ActionTypes.TOGGLE_SEARCH_FORM]: toggleSearchForm
+  [ActionTypes.TOGGLE_SEARCH_FORM]: toggleSearchForm,
+  [ActionTypes.TOGGLE_SHARE_SIDEBAR]: toggleShareSidebar,
 });
