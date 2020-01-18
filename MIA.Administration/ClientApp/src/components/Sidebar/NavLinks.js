@@ -33,10 +33,29 @@ export default {
           menu_icon: "zmdi zmdi-view-dashboard",
           new_item: false
         },
+
         {
-          path: "/app/photo-album",
+          path: "/app/booth",
+          menu_title: "sidebar.booth",
+          menu_icon: "zmdi zmdi-view-dashboard",
+          new_item: false
+        },
+        {
+          path: "/app/votingcriteria",
+          menu_title: "sidebar.votingcriteria",
+          menu_icon: "zmdi zmdi-view-dashboard",
+          new_item: false
+        },
+        {
+          path: "/app/photoalbum",
           menu_icon: "zmdi zmdi-view-dashboard",
           menu_title: "sidebar.photoAlbum",
+          new_item: false
+        },
+        {
+          path: "/app/artwork",
+          menu_title: "sidebar.artwork",
+          menu_icon: "zmdi zmdi-view-dashboard",
           new_item: false
         }
       ]
