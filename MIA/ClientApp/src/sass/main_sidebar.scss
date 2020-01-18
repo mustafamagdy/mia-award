@@ -11,6 +11,14 @@
   background: #121212;
   box-shadow: 0 0 25px 10px rgba(0, 0, 0, 0.35);
   padding: 30px 0 0 0;
+  .logo {
+    margin: 0 auto 20px;
+    display: none;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    } /* img */
+  } /* logo */
   .sidebar_area {
     display: flex;
     justify-content: center;

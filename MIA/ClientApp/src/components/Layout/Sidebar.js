@@ -12,6 +12,11 @@ import "sass/modals/share_sidebar.scss";
 const Sidebar = ({ toggleSidebar, toggleSearchForm, toggleShareSidebar, ...props }) => {
   return (
     <section id="main_sidebar">
+      <div class="logo">
+        <a href="#" title="#">
+          <img src="/assets/images/small_logo.png" alt="#" />
+        </a>
+      </div>
       {/* <!-- to show sidebar menu please add class "open_aside" to "body" element --> */}
       <div className="sidebar_area open">
         <div className="aside_button" onClick={toggleSidebar}>
