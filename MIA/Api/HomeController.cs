@@ -62,10 +62,10 @@ namespace MIA.Api {
 
     [HttpPost("latest-news")]
     public IActionResult LatestNews(
-      [FromBody]NewsSearchDto query,
+      [FromBody] NewsSearchDto query,
       [FromServices] IAppUnitOfWork db) {
       var _result = db.News
-        .Include(a=>a.Image)
+        .Include(a => a.Image)
         .AsQueryable();
 
       var result = _result
@@ -118,13 +118,13 @@ namespace MIA.Api {
     public int PageSize { get; set; }
   }
 
-  
+
   public class NewsDto : BaseDto {
     public string Id { get; set; }
     public string Title { get; set; }
     public string Date { get; set; }
     public string PosterUrl { get; set; }
-    public NewsCategory Category { get; set; }
+    public string Category { get; set; }
   }
 
 
