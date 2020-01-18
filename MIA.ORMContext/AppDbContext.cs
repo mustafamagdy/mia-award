@@ -21,8 +21,9 @@ namespace MIA.ORMContext {
     }
 
     private void ConfigureAuditing() {
-      AuditManager.DefaultConfiguration.AutoSavePreAction = (context, audit) =>
-        (context as AppDbContext)?.AuditEntries.AddRange(audit.Entries);
+      //turn on if you want to use audit entries, i think this should be optimized first
+      //AuditManager.DefaultConfiguration.AutoSavePreAction = (context, audit) =>
+      //  (context as AppDbContext)?.AuditEntries.AddRange(audit.Entries);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {

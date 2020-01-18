@@ -5,6 +5,7 @@ import appApi from "./app";
 import accountsApi from "./accounts";
 import authApi from "./auth";
 import lookupsApi from "./lookups";
+import membersApi from "./members";
 import boothApi from "./booth";
 
 const apiURI = config.useLocalApi ? config.devApiRoot : config.apiRoot;
@@ -39,6 +40,7 @@ const create = (baseURL = apiURI) => {
   const accounts = accountsApi(api);
   const auth = authApi(api);
   const lookups = lookupsApi(api);
+  const members = membersApi(api);
   const booth = boothApi(api);
 
   return {
@@ -48,6 +50,7 @@ const create = (baseURL = apiURI) => {
     ...accounts,
     ...auth,
     ...lookups,
+    ...members,
     ...booth
   };
 };
