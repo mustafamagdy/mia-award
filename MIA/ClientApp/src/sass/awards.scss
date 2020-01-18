@@ -3,7 +3,7 @@
 //**** Apply Award ****//
 #apply_award {
   background: #171717 url("/assets/images/apply_award_bg.png") scroll no-repeat bottom center/cover;
-  .continer {
+  .container {
     width: 1442px;
     margin: 0 auto;
     padding: 60px 0 60px 25px;
@@ -23,8 +23,7 @@
       } /* span */
       p {
         font-size: 15px;
-        line-height: 22px;
-        font-family: Montserrat_Regular;
+        line-height: 22px;        
         color: #808080;
         margin: 0 auto 20px;
       } /* p */
@@ -118,11 +117,9 @@
               text-transform: uppercase;
               font-family: Montserrat_Bold;
               color: #fff;
-              min-width: 50%;
-              box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 15px 0px inset;
-              &:hover {
-                background: #c79a4d;
-              }
+              min-width: 90%;
+              box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 15px 0px inset, 0 0 10px 5px rgba(0, 0, 0, 0.35);
+              &:hover {background: #c79a4d;}
             } /* a */
           } /* apply */
           &.active {
@@ -133,6 +130,7 @@
             box-shadow: none;
             .imgthumb {
               padding-bottom: 80px;
+              box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.35);
               img {
                 -webkit-transform: scale(1.5);
                 -moz-transform: scale(1.5);
@@ -147,6 +145,7 @@
             .title {
               padding: 40px 10px;
               border-radius: 0 0 10px 10px;
+              box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.35);
             } /* title */
             .desc {
               font-size: 0;

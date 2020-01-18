@@ -4,7 +4,7 @@ import "sass/partners.scss";
 const Partners = props => {
   return (
     <div id="partners">
-      <div className="continer">
+      <div className="container">
         <div className="container">
           <div className="partners_slider">
             <div className="slide_item">

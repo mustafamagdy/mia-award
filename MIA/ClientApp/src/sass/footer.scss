@@ -4,14 +4,14 @@
 footer {
   padding: 25px 49px;
   background: #141414;
-  .continer {
+  .container {
     width: 1442px;
     margin: 0 auto;
-    padding: 25px 49px;
+    padding: 25px;
     .copyrights {
       text-align: center;
       color: #6e6f6f;
-      font-size: 16px;
+      font-size: 15px;
       border-top: 2px solid #9e9f9f;
       padding: 20px 0 10px 0;
     } /* copyrights */
@@ -29,8 +29,7 @@ footer {
         }
         p {
           color: #9e9f9f;
-          font-size: 16px;
-          font-family: Montserrat_Regular;
+          font-size: 15px;
           margin: 0 auto;
           padding: 105px 0 0 0;
           text-indent: -55px;

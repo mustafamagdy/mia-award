@@ -3,7 +3,7 @@
 //**** Footer ****//
 #news_features {
   background: #171717 url("/assets/images/news_features_bg.png") scroll no-repeat bottom center/cover;
-  .continer {
+  .container {
     width: 1442px;
     margin: 0 auto;
     min-height: 700px;
@@ -135,10 +135,10 @@
                 } /* more */
               }
               &:hover {
-                -webkit-transform: scale(1.1);
-                -moz-transform: scale(1.1);
-                -o-transform: scale(1.1);
-                transform: scale(1.1);
+                -webkit-transform: scale(1.04);
+                -moz-transform: scale(1.04);
+                -o-transform: scale(1.04);
+                transform: scale(1.04);
                 box-shadow: 0 0 0 1px #ccbc93;
                 img {
                   -webkit-filter: grayscale(0%);

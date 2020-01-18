@@ -34,7 +34,7 @@ class Header extends React.Component {
     return (
       <React.Fragment>
         <header className={classNames({ fixed: this.state.headerFixed })}>
-          <div className="continer">
+          <div className="container">
             <div className="logo">
               <a href="#" title="#">
                 <img src="assets/images/logo.png" alt="#" />

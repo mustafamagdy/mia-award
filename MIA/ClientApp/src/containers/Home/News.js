@@ -13,7 +13,7 @@ const News = props => {
   ];
   return (
     <div id="news_features">
-      <div className="continer">
+      <div className="container">
         <div className="title">news & features</div>
         <div className="features_sliders">
           {news.map((item, index) => (

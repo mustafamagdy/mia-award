@@ -5,7 +5,7 @@ import "sass/awards.scss";
 const AwardsSlider = props => {
   return (
     <div id="apply_award">
-      <div className="continer">
+      <div className="container">
         <div className="award_txt">
           <span>
             <Trans id="apply_for_your_award">apply for your award</Trans>

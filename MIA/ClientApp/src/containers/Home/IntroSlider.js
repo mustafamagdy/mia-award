@@ -13,6 +13,7 @@ const Intro = props => {
               <a href="#" title="#">
                 <img src="assets/images/big_image.png" alt="#" />
               </a>
+              <div class="progress_bar" style={{ width: 460 }}></div>
             </div>
             <div className="desc">
               <span>slider Title</span>

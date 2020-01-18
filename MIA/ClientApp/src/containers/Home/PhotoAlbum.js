@@ -22,13 +22,17 @@ const PhotoAlbum = props => (
         </div>
         <div className="slider_media">
           <div className="item">
-            <span>Dubai Opera</span>
+            <span>
+              <i>Dubai</i> Opera
+            </span>
             <div className="imgthumb">
               <img src="assets/images/video_image.png" alt="#" />
             </div>
           </div>
           <div className="item current">
-            <span>Dubai Opera</span>
+            <span>
+              <i>Dubai</i> Opera
+            </span>
             <div className="imgthumb">
               <img src="assets/images/video_image2.png" alt="#" />
             </div>
