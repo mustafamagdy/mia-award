@@ -39,6 +39,13 @@ namespace MIA.Administration.MappingProfiles
             CreateMap<UpdateVotingCriteriasDto, VotingCriteria>().ValidateMemberList(MemberList.None);
 
             #endregion
+
+            #region PhotoAlbum
+            CreateMap<PhotoAlbum, PhotoAlbumDto>().ValidateMemberList(MemberList.None);
+            CreateMap<NewPhotoAlbumDto, PhotoAlbum>().ValidateMemberList(MemberList.None);
+            CreateMap<UpdatePhotoAlbumDto, PhotoAlbum>().ValidateMemberList(MemberList.None);
+
+            #endregion
         }
     }
 

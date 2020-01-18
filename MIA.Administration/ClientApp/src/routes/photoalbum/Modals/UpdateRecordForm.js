@@ -9,7 +9,7 @@ const UpdateForm = ({ isOpen, toggleModalOpen, title, record, onSave, resetRecor
   });
 
   const onSubmit = data => {
-    onSave({ ...record, ...data });
+    onSave({ ...record, ...data, poster: data.poster[0] });
     toggleModalOpen();
   };
 
@@ -19,27 +19,19 @@ const UpdateForm = ({ isOpen, toggleModalOpen, title, record, onSave, resetRecor
         <ModalHeader toggle={toggleModalOpen}>{`Update ${title}`}</ModalHeader>
         <ModalBody>
           <FormGroup>
-            <Label for="title">Code</Label>
-            <Input innerRef={register({ required: true })} type="text" name="code" placeholder="Booth code" invalid={!!errors.code} />
+            <Label for="title">Title</Label>
+            <Input innerRef={register({ required: true })} type="text" name="title" placeholder="PhotoAlbum title" invalid={!!errors.title} />
             <FormFeedback>Please enter valid data</FormFeedback>
           </FormGroup>
           <FormGroup>
-            <Label for="description">Description</Label>
-            <Input innerRef={register({ required: true })} type="textarea" name="description" placeholder="Booth description" invalid={!!errors.description} />
+            <Label for="body">Body</Label>
+            <Input innerRef={register({ required: true })} type="textarea" name="body" placeholder="PhotoAlbum bbody" invalid={!!errors.body} />
             <FormFeedback>Please enter valid data</FormFeedback>
           </FormGroup>
           <FormGroup>
-            <Label for="price">Price</Label>
-            {/* <Input innerRef={register({ required: true })} type="text" name="price"
-              placeholder="Booth price" invalid={!!errors.price} /> */}
-
-            <Input type="number" inputmode="numeric"
-              innerRef={register({ required: true }, { pattern: '\d+((\.|,)\d+)?' })}
-              onKeyDown={e => /[\+\-\,]$/.test(e.key) && e.preventDefault()}
-              name="price" placeholder="Booth price" invalid={!!errors.price} />
-
-
-            <FormFeedback>Please enter valid data</FormFeedback>
+            <Label for="poster">Poster</Label>
+            <Input innerRef={register({ required: true })} type="file" name="poster" invalid={!!errors.body} />
+            <FormFeedback>Please choose poster image</FormFeedback>
           </FormGroup>
         </ModalBody>
         <ModalFooter>

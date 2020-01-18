@@ -9,7 +9,7 @@ const AddNewRecordForm = ({ isOpen, toggleModalOpen, title, onSave, ...props }) 
   });
 
   const onSubmit = data => {
-    onSave({ ...data });
+    onSave({ ...data, poster: data.poster[0] });
     toggleModalOpen();
   };
 
@@ -19,22 +19,15 @@ const AddNewRecordForm = ({ isOpen, toggleModalOpen, title, onSave, ...props }) 
         <ModalHeader toggle={toggleModalOpen}>{`Add new ${title}`}</ModalHeader>
         <ModalBody>
           <FormGroup>
-            <Label for="title">Code</Label>
-            <Input innerRef={register({ required: true })} type="text" name="code" placeholder="Booth code" invalid={!!errors.code} />
+            <Label for="title">Title</Label>
+            <Input innerRef={register({ required: true })} type="text" name="title" placeholder="PhotoAlbum title" invalid={!!errors.title} />
             <FormFeedback>Please enter valid data</FormFeedback>
           </FormGroup>
+         
           <FormGroup>
-            <Label for="description">Description</Label>
-            <Input innerRef={register({ required: true })} type="textarea" name="description" placeholder="Booth bbody" invalid={!!errors.description} />
-            <FormFeedback>Please enter valid data</FormFeedback>
-          </FormGroup>
-          <FormGroup>
-            <Label for="title">Price</Label>
-            <Input type="number" inputmode="numeric"
-              innerRef={register({ required: true }, { pattern: '\d+((\.|,)\d+)?' })}
-              onKeyDown={e => /[\+\-\,]$/.test(e.key) && e.preventDefault()}
-              name="price" placeholder="Booth price" invalid={!!errors.price} />
-            <FormFeedback>Please enter valid data</FormFeedback>
+            <Label for="poster">Poster</Label>
+            <Input innerRef={register({ required: true })} type="file" name="poster" invalid={!!errors.poster} />
+            <FormFeedback>Please choose poster image</FormFeedback>
           </FormGroup>
         </ModalBody>
         <ModalFooter>

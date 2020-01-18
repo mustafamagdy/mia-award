@@ -8,6 +8,8 @@ import News from "./news";
 import Video2 from "./video2";
 import Uploader from "./uploader";
 import Booth from "./booth";
+import VotingCriteria from "./votingcriteria";
+import PhotoAlbum from "./photoalbum";
 
 // // async component
 // import {
@@ -50,9 +52,17 @@ export default [
     path: "video",
     component: Video2
   },
-  
+
   {
     path: "booth",
     component: Booth
+  },
+  {
+    path: "votingcriteria",
+    component: VotingCriteria
+  },
+  {
+    path: "photoalbum",
+    component: PhotoAlbum
   },
 ];

@@ -5,7 +5,6 @@ using MIA.Models.Entities;
 using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Cors;
 using MIA.Constants;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MIA.ORMContext.Uow;
 using System.Threading.Tasks;
@@ -16,23 +15,22 @@ using MIA.Infrastructure.Options;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Hosting;
 using MIA.Administration.Middlewares;
-using Microsoft.EntityFrameworkCore;
 
 namespace MIA.Administration.Api
 {
 
     //[Authorize]
     [EnableCors(CorsPolicyName.AllowAll)]
-    [Route("api/news")]
-    public class NewsController : BaseCrudController<News, NewsDto, NewNewsDto, UpdateNewsDto>
+    [Route("api/photoAlbums")]
+    public class PhotoAlbumController : BaseCrudController<PhotoAlbum, PhotoAlbumDto, NewPhotoAlbumDto, UpdatePhotoAlbumDto>
     {
         private readonly IHostingEnvironment env;
         private readonly IOptions<UploadLimits> limitOptions;
 
-        public NewsController(
+        public PhotoAlbumController(
               IMapper mapper,
-              ILogger<NewsController> logger,
-              IStringLocalizer<NewsController> localize,
+              ILogger<PhotoAlbumController> logger,
+              IStringLocalizer<PhotoAlbumController> localize,
               IHostingEnvironment env,
               IOptions<UploadLimits> limitOptions
             ) : base(mapper, logger, localize)
@@ -41,12 +39,12 @@ namespace MIA.Administration.Api
             this.limitOptions = limitOptions;
         }
 
-        public override async Task<IActionResult> SaveNewAsync([FromForm] NewNewsDto dto, [FromServices] IAppUnitOfWork db)
+        public override async Task<IActionResult> SaveNewAsync([FromForm] NewPhotoAlbumDto dto, [FromServices] IAppUnitOfWork db)
         {
             var result = await base.SaveNewAsync(dto, db);
-            var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
-            var newsItem = await db.News.FindAsync(resultDto.Id);
-            NewsImage poster = db.NewsImages.FirstOrDefault(a => a.NewsId == resultDto.Id);
+            var resultDto = ((PhotoAlbumDto)(result as OkObjectResult)?.Value);
+            var PhotoAlbumItem = await db.PhotoAlbums.FindAsync(resultDto.Id);
+            PhotoAlbumImage poster = new PhotoAlbumImage();// db.PhotoAlbumImages.FirstOrDefault(a => a.PhotoAlbumId == resultDto.Id);
             if (dto.Poster != null && dto.Poster.Length > 0)
             {
                 using (var memorySteam = new MemoryStream())
@@ -61,7 +59,7 @@ namespace MIA.Administration.Api
 
                     if (poster == null)
                     {
-                        poster = new NewsImage { NewsId = resultDto.Id };
+                        poster = new PhotoAlbumImage { PhotoAlbumId = resultDto.Id };
                     }
 
                     poster.Data = memorySteam.ToArray();
@@ -77,22 +75,22 @@ namespace MIA.Administration.Api
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(ex, "Failed to delete news images ");
+                        _logger.LogError(ex, "Failed to delete PhotoAlbum images ");
                     }
 
                     await db.Images.AddAsync(poster);
                 }
             }
 
-            return IfFound(_mapper.Map<NewsDto>(newsItem));
+            return IfFound(_mapper.Map<PhotoAlbumDto>(PhotoAlbumItem));
         }
 
-        public override async Task<IActionResult> UpdateAsync([FromForm] UpdateNewsDto dto, [FromServices] IAppUnitOfWork db)
+        public override async Task<IActionResult> UpdateAsync([FromForm] UpdatePhotoAlbumDto dto, [FromServices] IAppUnitOfWork db)
         {
             var result = await base.UpdateAsync(dto, db);
-            var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
-            var newsItem = await db.News.FindAsync(resultDto.Id);
-            NewsImage poster = db.NewsImages.FirstOrDefault(a => a.NewsId == resultDto.Id);
+            var resultDto = ((PhotoAlbumDto)(result as OkObjectResult)?.Value);
+            var PhotoAlbumItem = await db.PhotoAlbums.FindAsync(resultDto.Id);
+            PhotoAlbumImage poster = db.PhotoAlbumImages.FirstOrDefault(a => a.PhotoAlbumId == resultDto.Id);
             if (dto.Poster != null && dto.Poster.Length > 0)
             {
                 using (var memorySteam = new MemoryStream())
@@ -108,7 +106,7 @@ namespace MIA.Administration.Api
                     bool isNew = false;
                     if (poster == null)
                     {
-                        poster = new NewsImage { NewsId = resultDto.Id };
+                        poster = new PhotoAlbumImage { PhotoAlbumId = resultDto.Id };
                         isNew = true;
                     }
 
@@ -125,7 +123,7 @@ namespace MIA.Administration.Api
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(ex, "Failed to delete news images ");
+                        _logger.LogError(ex, "Failed to delete PhotoAlbum images ");
                     }
 
                     if (isNew)
@@ -135,7 +133,7 @@ namespace MIA.Administration.Api
                 }
             }
 
-            return IfFound(_mapper.Map<NewsDto>(newsItem));
+            return IfFound(_mapper.Map<PhotoAlbumDto>(PhotoAlbumItem));
         }
 
     }

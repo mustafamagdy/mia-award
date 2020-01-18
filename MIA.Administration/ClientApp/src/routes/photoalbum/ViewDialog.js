@@ -12,16 +12,12 @@ const renderViewDialog = ({ record, isOpen, onClose }) => {
               {/* <img src={record.avatar} alt="user prof" className="rounded-circle mr-15" width="50" height="50" /> */}
               <div className="media-body">
                 <p>
-                  Title: <span className="fw-bold">{record.description}</span>
+                  Title: <span className="fw-bold">{record.title}</span>
                 </p>
                 <p>
-                  Body: <span className="fw-bold">{record.code}</span>
+                  Body: <span className="fw-bold">{record.body}</span>
                 </p>
-               
-                <p>
-                  Ptice: <span className="fw-bold">{record.price}</span>
-                </p>
-                 
+                <p>{record.imageUrl}</p>
               </div>
             </div>
           </div>

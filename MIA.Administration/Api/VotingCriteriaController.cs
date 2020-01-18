@@ -17,7 +17,7 @@ namespace MIA.Administration.Api
 
     //[Authorize]
     [EnableCors(CorsPolicyName.AllowAll)]
-    [Route("api/VotingCriterias")]
+    [Route("api/votingCriterias")]
     public class VotingCriteriasController : BaseCrudController<VotingCriteria, VotingCriteriasDto, NewVotingCriteriasDto, UpdateVotingCriteriasDto>
     {
         private readonly IHostingEnvironment env;
@@ -35,7 +35,7 @@ namespace MIA.Administration.Api
             this.limitOptions = limitOptions;
         }
 
-        public override async Task<IActionResult> SaveNewAsync([FromForm] NewVotingCriteriasDto dto, [FromServices] IAppUnitOfWork db)
+        public override async Task<IActionResult> SaveNewAsync([FromBody] NewVotingCriteriasDto dto, [FromServices] IAppUnitOfWork db)
         {
             var result = await base.SaveNewAsync(dto, db);
             var resultDto = ((VotingCriteriasDto)(result as OkObjectResult)?.Value);
@@ -43,7 +43,7 @@ namespace MIA.Administration.Api
             return IfFound(_mapper.Map<VotingCriteriasDto>(VotingCriteriasItem));
         }
 
-        public override async Task<IActionResult> UpdateAsync([FromForm] UpdateVotingCriteriasDto dto, [FromServices] IAppUnitOfWork db)
+        public override async Task<IActionResult> UpdateAsync([FromBody] UpdateVotingCriteriasDto dto, [FromServices] IAppUnitOfWork db)
         {
             var result = await base.UpdateAsync(dto, db);
             var resultDto = ((VotingCriteriasDto)(result as OkObjectResult)?.Value);

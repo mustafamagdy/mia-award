@@ -7,6 +7,8 @@ import authApi from "./auth";
 import lookupsApi from "./lookups";
 import membersApi from "./members";
 import boothApi from "./booth";
+import votingcriteriaApi from "./votingcriteria";
+import photoAlbumApi from "./photoalbum";
 
 const apiURI = config.useLocalApi ? config.devApiRoot : config.apiRoot;
 const create = (baseURL = apiURI) => {
@@ -42,6 +44,8 @@ const create = (baseURL = apiURI) => {
   const lookups = lookupsApi(api);
   const members = membersApi(api);
   const booth = boothApi(api);
+  const votingcriteria = votingcriteriaApi(api);
+  const photoAlbum = photoAlbumApi(api);
 
   return {
     setHeader: api.setHeader,
@@ -51,7 +55,9 @@ const create = (baseURL = apiURI) => {
     ...auth,
     ...lookups,
     ...members,
-    ...booth
+    ...booth,
+    ...votingcriteria,
+    ...photoAlbum
   };
 };
 

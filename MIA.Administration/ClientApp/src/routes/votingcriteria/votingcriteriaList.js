@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import Paginator from "react-paginate";
 import { Trans } from "@lingui/macro";
 
-import boothActions from "Store/booth/actions";
+import votingcriteriaActions from "Store/votingcriteria/actions";
 import DeleteConfirmationDialog from "Components/DeleteConfirmationDialog/DeleteConfirmationDialog";
 import PageTitleBar from "Components/PageTitleBar/PageTitleBar";
 import RctCollapsibleCard from "Components/RctCollapsibleCard/RctCollapsibleCard";
@@ -17,10 +17,10 @@ import ViewDialog from "./ViewDialog";
 // import Button from "@material-ui/core/Button";
 // import Checkbox from "@material-ui/core/Checkbox";
 
-const BoothList = ({ boothList, loading, booth_metadata, fetchBooth, deleteBooth, saveBooth, updateBooth, match }) => {
-  const title = "booth";
-  const [pageNumber, setPageNumber] = useState(booth_metadata.pageNumber);
-  const [pageSize, setPageSize] = useState(booth_metadata.pageSize);
+const VotingCriteriaList = ({ votingcriteriaList, loading, votingcriteria_metadata, fetchVotingCriterias, deleteVotingCriteria, saveVotingCriteria, updateVotingCriteria, match }) => {
+  const title = "votingcriteria";
+  const [pageNumber, setPageNumber] = useState(votingcriteria_metadata.pageNumber);
+  const [pageSize, setPageSize] = useState(votingcriteria_metadata.pageSize);
   const [selectedItem, setSelectedItem] = useState(undefined);
   const [editDlgOpen, setEditDlgOpen] = useState(false);
   const [newDlgOpen, setNewDlgOpen] = useState(false);
@@ -29,7 +29,7 @@ const BoothList = ({ boothList, loading, booth_metadata, fetchBooth, deleteBooth
 
   useEffect(() => {
     debugger;
-    fetchBooth({ pageNumber, pageSize });
+    fetchVotingCriterias({ pageNumber, pageSize });
   }, [pageNumber, pageSize]);
 
   const confirmDelete = record => {
@@ -38,14 +38,14 @@ const BoothList = ({ boothList, loading, booth_metadata, fetchBooth, deleteBooth
   };
 
   const deleteRecord = () => {
-    deleteBooth(selectedItem.id);
+    deleteVotingCriteria(selectedItem.id);
     deleteConfirmationDialog.current.close();
     setSelectedItem(null);
   };
 
   const onReload = e => {
     e.preventDefault();
-    fetchBooth({ pageNumber, pageSize });
+    fetchVotingCriterias({ pageNumber, pageSize });
   };
 
   const viewRecordDetail = data => {
@@ -68,7 +68,7 @@ const BoothList = ({ boothList, loading, booth_metadata, fetchBooth, deleteBooth
         <title>MIA | {title}</title>
         <meta name="description" content="Reactify Widgets" />
       </Helmet>
-      <PageTitleBar title={<Trans id="sidebar.booth" />} match={match} />
+      <PageTitleBar title={<Trans id="sidebar.votingcriteria" />} match={match} />
       <RctCollapsibleCard fullBlock>
         <div className="table-responsive">
           <div className="d-flex justify-content-between py-20 px-10 border-bottom">
@@ -90,10 +90,10 @@ const BoothList = ({ boothList, loading, booth_metadata, fetchBooth, deleteBooth
                   <Trans id="title"> Code</Trans>
                 </th>
                 <th>
-                  <Trans id="date"> Description</Trans>
+                  <Trans id="date"> Name</Trans>
                 </th>
                 <th>
-                  <Trans id="outdated"> Price</Trans>
+                  <Trans id="outdated"> Weight</Trans>
                 </th>
                 <th>
                   <Trans id="action"> Action</Trans>
@@ -101,13 +101,13 @@ const BoothList = ({ boothList, loading, booth_metadata, fetchBooth, deleteBooth
               </tr>
             </thead>
             <tbody>
-              {boothList &&
-                boothList.map((record, key) => (
+              {votingcriteriaList &&
+                votingcriteriaList.map((record, key) => (
 
                   <tr key={key}>
                     <td>{record.code}</td>
-                    <td>{record.description}</td>
-                    <td>{record.price}</td>
+                    <td>{record.name}</td>
+                    <td>{record.weight}</td>
                     <td className="list-action">
                       <button type="button" className="rct-link-btn" onClick={() => viewRecordDetail(record)}>
                         <i className="ti-eye"></i>
@@ -125,7 +125,7 @@ const BoothList = ({ boothList, loading, booth_metadata, fetchBooth, deleteBooth
             <tfoot className="border-top">
               <tr>
                 <td colSpan="100%">
-                  <Paginator pageRangeDisplayed={4} pageCount={booth_metadata.pageCount} onPageChange={p => setPageNumber(p.selected + 1)} />
+                  <Paginator pageRangeDisplayed={4} pageCount={votingcriteria_metadata.pageCount} onPageChange={p => setPageNumber(p.selected + 1)} />
                 </td>
               </tr>
             </tfoot>
@@ -143,14 +143,14 @@ const BoothList = ({ boothList, loading, booth_metadata, fetchBooth, deleteBooth
       {selectedItem && (
         <UpdateRecordForm
           isOpen={editDlgOpen}
-          onSave={updateBooth}
+          onSave={updateVotingCriteria}
           toggleModalOpen={() => setEditDlgOpen(false)}
           title={title}
           record={selectedItem}
           resetRecord={resetSelectedRecord}
         />
       )}
-      <AddRecordForm isOpen={newDlgOpen} onSave={saveBooth} toggleModalOpen={() => setNewDlgOpen(false)} title={title} />
+      <AddRecordForm isOpen={newDlgOpen} onSave={saveVotingCriteria} toggleModalOpen={() => setNewDlgOpen(false)} title={title} />
       <ViewDialog
         record={selectedItem}
         isOpen={viewDlgIsOpen}
@@ -163,7 +163,7 @@ const BoothList = ({ boothList, loading, booth_metadata, fetchBooth, deleteBooth
   );
 };
 
-const mapStateToProps = ({ booths: { boothList, loading, booth_metadata } }) => ({ boothList, loading, booth_metadata });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...boothActions }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(BoothList);
+const mapStateToProps = ({ votingcriterias: { votingcriteriaList, loading, votingcriteria_metadata } }) => ({ votingcriteriaList, loading, votingcriteria_metadata });
+const mapDispatchToProps = dispatch => bindActionCreators({ ...votingcriteriaActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(VotingCriteriaList);
 
