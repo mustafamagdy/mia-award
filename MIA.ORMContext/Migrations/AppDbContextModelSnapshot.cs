@@ -138,6 +138,8 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("AwardId");
 
+                    b.Property<int>("FileCount");
+
                     b.Property<string>("NomineeId");
 
                     b.Property<string>("PaymentId");
@@ -163,6 +165,8 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("ArtWorkId");
 
                     b.Property<long>("PaymentDate");
+
+                    b.Property<int>("PaymentStatus");
 
                     b.Property<string>("TransactionNumber");
 
@@ -274,11 +278,7 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
-                    b.Property<string>("PhotoAlbumId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PhotoAlbumId");
 
                     b.ToTable("Images");
 
@@ -393,10 +393,6 @@ namespace MIA.ORMContext.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Body");
-
-                    b.Property<int>("Order");
 
                     b.Property<string>("Title");
 
@@ -593,6 +589,21 @@ namespace MIA.ORMContext.Migrations
                     b.HasDiscriminator().HasValue("NewsImage");
                 });
 
+            modelBuilder.Entity("MIA.Models.Entities.PhotoAlbumImage", b =>
+                {
+                    b.HasBaseType("MIA.Models.Entities.Image");
+
+                    b.Property<int>("MediaType");
+
+                    b.Property<int>("Order");
+
+                    b.Property<string>("PhotoAlbumId");
+
+                    b.HasIndex("PhotoAlbumId");
+
+                    b.HasDiscriminator().HasValue("PhotoAlbumImage");
+                });
+
             modelBuilder.Entity("MIA.Models.Entities.TrophyImage", b =>
                 {
                     b.HasBaseType("MIA.Models.Entities.Image");
@@ -651,13 +662,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasOne("MIA.Models.Entities.BoothPayment", "Payment")
                         .WithOne("BoothPurchase")
                         .HasForeignKey("MIA.Models.Entities.BoothPurchase", "PaymentId");
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.Image", b =>
-                {
-                    b.HasOne("MIA.Models.Entities.PhotoAlbum")
-                        .WithMany("Images")
-                        .HasForeignKey("PhotoAlbumId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.JudgeAward", b =>
@@ -762,6 +766,13 @@ namespace MIA.ORMContext.Migrations
                         .WithMany("Properties")
                         .HasForeignKey("AuditEntryID")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.PhotoAlbumImage", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.PhotoAlbum", "PhotoAlbum")
+                        .WithMany("Images")
+                        .HasForeignKey("PhotoAlbumId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.UserImage", b =>

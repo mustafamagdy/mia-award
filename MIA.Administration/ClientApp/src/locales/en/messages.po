@@ -573,3 +573,30 @@ msgstr ""
 #: src/routes/video-player/index.js:84
 msgid "widgets.withDownloadButton"
 msgstr ""
+
+
+#: src/routes/booth/boothList.js:71
+msgid "sidebar.booth"
+msgstr "Booths"
+
+#: src/components/Sidebar/NavLinks.js:39
+msgid "sidebar.booth"
+msgstr "Booths"
+ 
+
+#: src/routes/booth/boothList.js:71
+msgid "sidebar.votingcriteria"
+msgstr "voting criteria"
+
+#: src/components/Sidebar/NavLinks.js:45
+msgid "sidebar.votingcriteria"
+msgstr "voting criteria"
+
+#: src/routes/booth/boothList.js:71
+msgid "sidebar.photoAlbum"
+msgstr "photo Album"
+
+#: src/components/Sidebar/NavLinks.js:52
+msgid "sidebar.photoAlbum"
+msgstr "photo Album"
+ 
