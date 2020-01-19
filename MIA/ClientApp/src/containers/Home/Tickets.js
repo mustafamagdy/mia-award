@@ -1,4 +1,5 @@
 import React from "react";
+import Tilt from "react-parallax-tilt";
 
 import "sass/google_map.scss";
 import "sass/tickets.scss";
@@ -34,7 +35,9 @@ const Tickets = props => {
             </div>
           </div>
           <div className="ticket_imgthumb">
-            <img src="assets/images/tickets_img.png" alt="#" />
+            <Tilt reset={true}>
+              <img src="assets/images/tickets_img.png" alt="#" />
+            </Tilt>
           </div>
         </div>
       </div>
