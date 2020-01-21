@@ -73,7 +73,7 @@ class App extends React.Component {
                     <Route path="test" component={TestUpload} />
 
                     <Route exact path="/" component={Home} />
-                    <Route path="/aboutus" component={AboutUs} />
+                    <Route path="/about-us" component={AboutUs} />
                     <Route path="/events" component={Events} />
                     <Route path="/awards" component={Awards} />
                     <Route path="/contact-us" component={ContactUs} />
