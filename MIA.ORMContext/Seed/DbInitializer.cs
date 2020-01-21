@@ -27,7 +27,7 @@ namespace MIA.ORMContext.Seed {
       await SeedAdminUserAsync(userManager);
       await SeedCategoriesAsync(db);
 
-      await SeedDemoUserAndRoleAsync(roleManager, userManager);
+      await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
 
 
       await db.CommitTransactionAsync();
@@ -35,7 +35,8 @@ namespace MIA.ORMContext.Seed {
 
     private static async Task SeedDemoUserAndRoleAsync(
       RoleManager<AppRole> roleManager,
-      UserManager<AppUser> userManager) {
+      UserManager<AppUser> userManager,
+      IAppUnitOfWork db) {
 
       if (await roleManager.FindByNameAsync(Constants.DEMO_ROLE) == null) {
         await roleManager.CreateAsync(
@@ -49,11 +50,15 @@ namespace MIA.ORMContext.Seed {
           demoRole.Permissions = "";
         }
 
+        //(this is an example only)
         Permissions[] demoPermissions = new Permissions[] {
-          Permissions.EmployeesRead,
-          Permissions.EmployeesAddNew,
-          Permissions.EmployeesRemove,
-          Permissions.Module1Access,
+          Permissions.NewsRead,
+          Permissions.NewsAddNew,
+          Permissions.NewsRemove,
+          Permissions.AddUserToRole,
+          Permissions.ReadRolePermissions,
+          Permissions.RemoveUserFromRole,
+          Permissions.RemoveUserFromRole,
         };
 
         demoPermissions.ForEach(m => {
@@ -77,6 +82,16 @@ namespace MIA.ORMContext.Seed {
         IdentityResult result = await userManager.CreateAsync(demoUser, Constants.DEMO_PASSWORD);
         if (result.Succeeded) {
           await userManager.AddToRoleAsync(demoUser, Constants.DEMO_ROLE);
+
+          //add allowed modules (this is an example only)
+          var allowedModules = new SystemModules[] { SystemModules.News, SystemModules.Adminstration };
+          var modules = allowedModules[0];
+          for (int i = 1; i < allowedModules.Length; i++) {
+            modules |= allowedModules[i];
+          }
+
+          //adds allowed modules for user
+          await db.UserModules.AddAsync(new UserModule(demoUser.Id, modules));
         }
       }
 

@@ -5451,7 +5451,6 @@
       infoWindow = new google.maps.InfoWindow();
     }
 
-
     function showArrays(event) {
       var vertices = this.getPath();
 

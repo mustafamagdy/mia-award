@@ -214,7 +214,7 @@ namespace MIA {
 
           if (env.IsDevelopment()) {
             spa.Options.StartupTimeout = TimeSpan.FromSeconds(120);
-            spa.UseAngularCliServer(npmScript: "start");
+            //spa.UseAngularCliServer(npmScript: "start");
             //spa.UseReactDevelopmentServer(npmScript: "start");
           }
         });

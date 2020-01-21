@@ -84,17 +84,27 @@ namespace MIA.Administration.Api {
       }
 
       var roles = await userManager.GetRolesAsync(user);
-      var userPermissions = roles.SelectMany(r => {
-        var rolePermissions = db.Roles
-                                .Where(x => x.Name.ToLower() == r.ToLower())
-                                .SelectMany(x => x.PermissionsInRole)
-                                .AsEnumerable()
-                                .MapTo<PermissionDto>()
-                                .Select(a => string.Join('_', a.Name.ToLower().Split(' ')))
-                                .ToArray();
 
-        return rolePermissions;
-      }).ToArray();
+      var modulePermissions = new Dictionary<string, string>();
+      var userModules = string.Join(";",
+        ((db.UserModules.FirstOrDefault(a => a.UserId == user.Id)
+        ?? new UserModule(user.Id, SystemModules.None))
+        .AllowedModules.ToString()).Split(","));
+
+
+      var allRolePermissions = db.Roles
+                              .Where(x => roles.Contains(x.Name))
+                              .SelectMany(x => x.PermissionsInRole)
+                              .AsEnumerable()
+                              .MapTo<PermissionDto>();
+
+      var rolePermissions = allRolePermissions
+                              .GroupBy(a => a.SystemModule)
+                              .ToDictionary(
+                                  a => a.Key,
+                                  b => string.Join(";", b.Select(a => string.Join('_', a.Name.ToLower().Split(' ')))))
+                              .ToArray();
+
 
       ClaimsPrincipal res = await claimFactory.CreateAsync(user);
       var allClaims = new List<Claim>(res.Claims);
@@ -105,7 +115,8 @@ namespace MIA.Administration.Api {
       allClaims.Add(new Claim("firstName", user.FirstName));
       allClaims.Add(new Claim("lastName", user.LastName));
       allClaims.Add(new Claim("roles", string.Join(",", roles)));
-      allClaims.Add(new Claim("PermissionId", string.Join(",", userPermissions)));
+      allClaims.Add(new Claim("PermissionId", string.Join(",", userModules)));
+      allClaims.Add(new Claim("PermessionModules", string.Join(",", rolePermissions)));
 
       SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecretKey));
       SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
