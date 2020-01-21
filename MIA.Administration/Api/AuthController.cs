@@ -106,9 +106,6 @@ namespace MIA.Administration.Api {
       allClaims.Add(new Claim("lastName", user.LastName));
       allClaims.Add(new Claim("roles", string.Join(",", roles)));
       allClaims.Add(new Claim("PermissionId", string.Join(",", userPermissions)));
-      /*
-permessionModules
-       */
 
       SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecretKey));
       SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
