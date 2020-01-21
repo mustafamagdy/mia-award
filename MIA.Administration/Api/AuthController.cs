@@ -16,9 +16,13 @@ using System.Threading.Tasks;
 using MIA.Middlewares.Auth;
 using MIA.Api.Base;
 using MIA.Dto.Auth;
+using System.Collections.Generic;
+using System.Security.Claims;
+using MIA.Authorization.Entities;
+using MIA.ORMContext.Uow;
+using MIA.Dto.Admin;
 
-namespace MIA.Administration.Api
-{
+namespace MIA.Administration.Api {
   /// <summary>
   /// Authentication controller for different identity operations
   /// </summary>
@@ -26,13 +30,12 @@ namespace MIA.Administration.Api
   [ApiVersion("1.0")]
 #endif
   [Route("api/auth")]
-  public class AuthController : BaseApiController<AuthController>
-  {
+  public class AuthController : BaseApiController<AuthController> {
     /// <summary>
     /// 
     /// </summary>
     /// <param name="logger"></param>
-    public AuthController(IMapper mapper, [FromServices] ILogger<AuthController> logger) : base(logger, mapper) {}
+    public AuthController(IMapper mapper, [FromServices] ILogger<AuthController> logger) : base(logger, mapper) { }
 
     /// <summary>
     /// Login using username and password
@@ -50,6 +53,7 @@ namespace MIA.Administration.Api
       [FromBody] LoginRequest loginData,
       [FromServices] SignInManager<AppUser> signInManager,
       [FromServices] UserManager<AppUser> userManager,
+      [FromServices] IAppUnitOfWork db,
       [FromServices] IOptions<JwtOptions> jwtOptions,
       [FromServices] IUserClaimsPrincipalFactory<AppUser> claimFactory) {
 
@@ -79,7 +83,32 @@ namespace MIA.Administration.Api
         return Forbid403("User is not allowed");
       }
 
-      System.Security.Claims.ClaimsPrincipal res = await claimFactory.CreateAsync(user);
+      var roles = await userManager.GetRolesAsync(user);
+      var userPermissions = roles.SelectMany(r => {
+        var rolePermissions = db.Roles
+                                .Where(x => x.Name.ToLower() == r.ToLower())
+                                .SelectMany(x => x.PermissionsInRole)
+                                .AsEnumerable()
+                                .MapTo<PermissionDto>()
+                                .Select(a => string.Join('_', a.Name.ToLower().Split(' ')))
+                                .ToArray();
+
+        return rolePermissions;
+      }).ToArray();
+
+      ClaimsPrincipal res = await claimFactory.CreateAsync(user);
+      var allClaims = new List<Claim>(res.Claims);
+
+      allClaims.Add(new Claim("id", user.Id));
+      allClaims.Add(new Claim("name", user.UserName));
+      allClaims.Add(new Claim("username", user.UserName));
+      allClaims.Add(new Claim("firstName", user.FirstName));
+      allClaims.Add(new Claim("lastName", user.LastName));
+      allClaims.Add(new Claim("roles", string.Join(",", roles)));
+      allClaims.Add(new Claim("PermissionId", string.Join(",", userPermissions)));
+      /*
+permessionModules
+       */
 
       SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecretKey));
       SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -87,7 +116,7 @@ namespace MIA.Administration.Api
       JwtSecurityToken jwtToken = new JwtSecurityToken(
         jwtConfig.Issuer,
         jwtConfig.Audience,
-        res.Claims.ToArray(),
+        allClaims.ToArray(),
         expires: DateTime.Now.AddHours(Math.Abs(jwtConfig.ExpireInHours)),
         signingCredentials: credentials
       );

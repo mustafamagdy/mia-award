@@ -26,7 +26,60 @@ namespace MIA.ORMContext.Seed {
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
       await SeedCategoriesAsync(db);
+
+      await SeedDemoUserAndRoleAsync(roleManager, userManager);
+
+
       await db.CommitTransactionAsync();
+    }
+
+    private static async Task SeedDemoUserAndRoleAsync(
+      RoleManager<AppRole> roleManager,
+      UserManager<AppUser> userManager) {
+
+      if (await roleManager.FindByNameAsync(Constants.DEMO_ROLE) == null) {
+        await roleManager.CreateAsync(
+          new AppRole {
+            Name = Constants.DEMO_ROLE,
+            NormalizedName = Constants.DEMO_ROLE.ToUpper()
+          });
+
+        var demoRole = await roleManager.FindByNameAsync(Constants.DEMO_ROLE);
+        if (demoRole.Permissions == null) {
+          demoRole.Permissions = "";
+        }
+
+        Permissions[] demoPermissions = new Permissions[] {
+          Permissions.EmployeesRead,
+          Permissions.EmployeesAddNew,
+          Permissions.EmployeesRemove,
+          Permissions.Module1Access,
+        };
+
+        demoPermissions.ForEach(m => {
+          if (!demoRole.Permissions.Contains((char)m)) {
+            demoRole.Permissions += (char)m;
+          }
+        });
+      }
+
+
+      if (await userManager.FindByNameAsync(Constants.DEMO_USERNAME) == null) {
+        AppUser demoUser = new AppUser {
+          FirstName = "Demo",
+          LastName = "User",
+          Email = Constants.DEMO_EMAIL,
+          UserName = Constants.DEMO_USERNAME,
+          NormalizedEmail = Constants.DEMO_EMAIL.ToUpper(),
+          NormalizedUserName = Constants.DEMO_USERNAME.ToUpper(),
+        };
+
+        IdentityResult result = await userManager.CreateAsync(demoUser, Constants.DEMO_PASSWORD);
+        if (result.Succeeded) {
+          await userManager.AddToRoleAsync(demoUser, Constants.DEMO_ROLE);
+        }
+      }
+
     }
 
 
