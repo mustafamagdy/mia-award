@@ -1,0 +1,66 @@
+<style>
+    .open {
+        background-color: #3d3de875;
+    }
+
+    .new {
+        background-color: white;
+    }
+</style>
+<div id="bold">
+    {{'Order' | translate}}
+</div>
+<div ng-if="OrderMCtrl.Orders.length == 0">
+    <span>{{'NoOrderAvailable' | translate}}</span>
+</div>
+<div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="OrderMCtrl.Orders.length > 0">
+    <div class="table-responsive">
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'OrderNo' | translate}}</th>
+                    <th>{{'Retailer' | translate}}</th>
+                    <th>{{'Date' | translate}}</th>
+                    <th>{{'price' | translate}}</th>
+                    <th>{{'DetailsBtn' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-class="{new: Order.m_IsOpen == true, open: Order.m_IsOpen != true}"
+                    ng-repeat="Order in OrderMCtrl.Orders">
+                    <td style="width: 10px">{{Order.orderNo}} </td>
+                    <td style="width: 10px">{{Order.retailer.name}}-{{Order.retailer.code}}</td>
+                    <td style="width: 10px">{{Order.createDate  }}</td>
+                    <td style="width: 10px">{{Order.totalPrice}}<sub> {{'EGP' | translate}}</sub></td>
+                    <td style="width: 15%">
+                        <a style="cursor: pointer;" class="pmd-ripple-effect " ng-click="openOrder(Order.orderId);">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect id="bound" x="0" y="0" width="24" height="24" />
+                                    <path
+                                        d="M3,12 C3,12 5.45454545,6 12,6 C16.9090909,6 21,12 21,12 C21,12 16.9090909,18 12,18 C5.45454545,18 3,12 3,12 Z"
+                                        id="Shape" fill="#494b74" fill-rule="nonzero" opacity="0.3" />
+                                    <path
+                                        d="M12,15 C10.3431458,15 9,13.6568542 9,12 C9,10.3431458 10.3431458,9 12,9 C13.6568542,9 15,10.3431458 15,12 C15,13.6568542 13.6568542,15 12,15 Z"
+                                        id="Path" fill="#494b74" opacity="0.3" />
+                                </g>
+                            </svg>
+                        </a>
+                        <!--                                 
+                                <i class="fa fa-eye" title="Click Here to view Order Details"
+                            class="material-icons md-dark pmd-md cursorPointer font25"
+                            ng-click="$state.go('OrderDetailsByTenant',{orderId: Order.orderId});"></i> -->
+                    </td>
+
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="OrderMCtrl.totalCount"
+    paging-action="OrderMCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+    hide-if-empty="true" disabled-class="hide">
+</div>

@@ -1,0 +1,44 @@
+<div>
+        <div>
+                {{'Regions' | translate}}
+        </div> 
+    <div style="margin-bottom:10px">
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go('newRegion',{ countryId: $stateParams.countryId });" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+            type="button">{{'AddNew' | translate}}</button>
+
+    </div>
+    <div ng-if="Regions.results.length == 0">
+        <span>{{'NoRegionsAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="Regions.results.length > 0">
+        <div class="table-responsive">
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'Name' | translate}}</th> 
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="region in Regions.results">
+                    <td data-title="Name">{{region.titleDictionary[selectedLanguage]}}</td>
+ 
+                    <td>
+                        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go('Cities',{countryId: $stateParams.countryId,regionId: region.regionId});"
+                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'viewCities' |
+                            translate}}</button>
+                      </td>
+
+                    <td width="30%">
+                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editRegion',{countryId: $stateParams.countryId ,regionId: region.regionId});"title="Edit">mode_edit</i>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
+        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

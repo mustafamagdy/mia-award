@@ -1,0 +1,119 @@
+<div ncy-breadcrumb></div>
+
+<!-- <div>
+        {{'viewGovernrates' | translate}}
+</div> -->
+
+<div>
+    <div style="margin-bottom:10px">
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go('newGovernrate',{ countryId: $stateParams.countryId});"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew' | translate}}</button>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view">
+        <div class="table-responsive">
+                <form class="RetailerForm" name="RetailerForm">
+                        <div class=" md-card pmd-z-depth pmd-card-custom-view">
+                <div>
+                        <div class="col-xs-6  form-group pmd-textfield pmd-textfield-floating-label-completed"
+                            id="pmd-textfield">
+                            <input required type="text" class="mat-input form-control" name="searchInput"
+                                placeholder="  {{'searchbyGovernrateName' | translate}}    "
+                                ng-model="GovernrateCtrl.name" ng-minlength="3" ng-maxlength="255"
+                                id="searchInput">
+                        </div>
+                        <!-- <div ng-messages="RetailerForm.searchInput.$error">
+                            <div class="error"
+                                ng-show="(RetailerForm.searchInput.$error.minlength || RetailerForm.searchInput.$error.maxlength) && !RetailerForm.searchInput.$error.required">
+                                {{'NameLengthError3' | translate}}</div>
+                        </div> -->
+                        <div class="col-xs-3  form-group pmd-textfield pmd-textfield-floating-label-completed"
+                            id="pmd-textfield-verse">
+                            <button id="searchBtb" ng-disabled="RetailerForm.$invalid"
+                                class="btn pmd-ripple-effect btn-primary" type="button"
+                                ng-click="GovernrateCtrl.filterGovernrate(GovernrateCtrl.name)">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="15px" height="14px" viewBox="0 0 24 24" version="1.1"
+                                    class="kt-svg-icon">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect id="bound" x="0" y="0" width="15px" height="15px" />
+                                        <path
+                                            d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
+                                            id="Path-2" fill="#383a53" fill-rule="nonzero" opacity="0.3" />
+                                        <path
+                                            d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
+                                            id="Path" fill="#383a53" fill-rule="nonzero" />
+                                    </g>
+                                </svg>
+                                {{'search' | translate}}
+                            </button>
+                        </div>
+                        <div class="col-sm-3 form-group pmd-textfield pmd-textfield-floating-label-completed">
+                            <button class="btn pmd-ripple-effect btn-primary " type="button" id="searchBtb"
+                                ng-click="GovernrateCtrl.filterGovernrate()">{{'All' | translate}}</button>
+                        </div>
+                    </div>
+                    </div>
+                    </form>
+            </div>
+    </div>
+    <div ng-if="Governrates.length == 0">
+        <span>{{'NoGovernratesAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="Governrates.length > 0">
+
+        <div class="table-responsive">
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'Name' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="Governrate in Governrates">
+                    <td data-title="Name">{{Governrate.titles[selectedLanguage]}}</td>
+                    <td>
+                        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+                            ng-click="$state.go('Cities',{governrateId: Governrate.governrateId});"
+                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+                            {{'viewCities' | translate}}
+                        </button>
+                    </td>
+                    <td>
+                        <div class="btn-switch" ng-class="{'btn-switch--on':Governrate.isActive}"
+                            ng-model="Governrate.isActive" ng-click="GovernrateCtrl.ChangeGovernrateStatus(Governrate)">
+
+                            <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':Governrate.isActive}"
+                                ng-model="Governrate.isActive"
+                                ng-click="GovernrateCtrl.ChangeGovernrateStatus(Governrate)">
+                            </div>
+
+                    </td>
+                    <td width="30%">
+                        <i class="material-icons md-dark pmd-md cursorPointer font25"
+                            ng-click="$state.go('editGovernrate',{countryId: $stateParams.countryId ,governrateId: Governrate.governrateId});"
+                            title="Edit"> mode_edit</i>
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        disabled-class="hide">
+    </div>
+</div>
+<div>
+        <a onclick="goBack()">
+            <div class="col-xs-12">
+                <button type="button"
+                class="btn btn-primary" 
+                style="height: 36px;border: #494b74 solid 1px;border-radius: 6px;">
+                {{'goBack' | translate}}
+                </button>
+            </div>
+            </a>
+    </div>

@@ -1,0 +1,46 @@
+<div>
+        {{'EditRoleLbl' | translate}}
+</div>
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <button class="close" type="button" ng-click="editBranchFeesCtrl.close()">×</button>
+        <h2 class="pmd-card-title-text">{{'DeliveryPrice' | translate}}</h2>
+    </div>
+
+    <div class="modal-body">
+        <form class="form-horizontal" name="editFeesForm" autocomplete="off">
+
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'DeliveryCost' | translate}}</label>
+                <input required type="number" class="mat-input form-control" name="minDays"
+                    ng-pattern="/^[1-9]+[0-9]*$/" ng-model="branch.deliveryCost" ng-minlength="1" ng-maxlength="2">
+                <div ng-messages="editFeesForm.minDays.$error" class="error">
+                    <div ng-if="editFeesForm.minDays.$error.required && !editFeesForm.minDays.$pristine">
+                        {{'minDaysReqError' | translate}}</div>
+                    <div ng-if="(editFeesForm.minDays.$error.minlength || editFeesForm.minDays.$error.maxlength)">
+                        {{'minDaysLengthError' | translate}}</div>
+                    <div ng-if="editFeesForm.minDays.$error.pattern && !editFeesForm.minDays.$pristine">
+                        {{'wrongpattern' | translate}}</div>
+                </div>
+            </div>
+
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'DeliveryPrice' | translate}}</label>
+                <input required type="number" class="mat-input form-control" name="price"
+                    ng-model="branch.deliveryPrice" min="{{branch.deliveryCost}}" ng-minlength="1" ng-maxlength="2">
+                <div ng-messages="editFeesForm.price.$error" class="error">
+                    <div ng-if="editFeesForm.price.$error.required && !editFeesForm.price.$pristine">
+                        {{'priceReqError' | translate}}</div>
+                    <div ng-if="(editFeesForm.price.$error.minlength || editFeesForm.price.$error.maxlength)">
+                        {{'priceLengthError' | translate}}</div>
+                    <div ng-if="editFeesForm.price.$error.min">{{'PriceShouldbeMoreThanCost' | translate}}</div>
+                </div>
+            </div>
+        </form>
+        <div class="pmd-modal-action text-right">
+            <button ng-disabled="editFeesForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
+            style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"   ng-click="editBranchFeesCtrl.UpdateFees()">{{'Edit' | translate}}</button>
+        </div>
+
+    </div>
+</div>

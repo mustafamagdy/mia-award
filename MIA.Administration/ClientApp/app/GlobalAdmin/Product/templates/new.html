@@ -1,0 +1,98 @@
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-title-text">{{'NewProduct' | translate}}</h2>
+    </div>
+
+    <div class="modal-body">
+        <form class="form-horizontal" name="newProductForm">
+
+
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" ng-class="{'active':$index == 0}"
+                        ng-repeat="lang in newProductCtrl.language">
+                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
+                            data-toggle="tab">
+                            <span style="color:red">*</span> {{lang.value | translate}}
+                        </a>
+                    </li>
+                </ul>
+                <div class="pmd-card">
+                    <div class="pmd-card-body">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
+                                ng-repeat="lang in newProductCtrl.language" id="{{lang.value}}-form">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label for="first-name">
+                                        {{ lang.value+'Name' | translate}} </label>
+                                    <textarea required Area="text" class="mat-input form-control"
+                                        name="description{{lang.value+'Name'}}"
+                                        ng-model="newProductCtrl.description[lang.key]" ng-minlength="3"
+                                        ng-maxlength="255">
+                                        </textarea>
+                                        
+                                    <div ng-messages="newProductForm.description{{lang.value+'Name'}}.$error">
+
+                                        <div class="error"
+                                            ng-show="newProductForm.description{{lang.value+'Name'}}.$error.required && !newProductForm.description{{lang.value+'Name'}}.$pristine">
+                                            {{'requiredErr' | translate}}</div>
+                                        <div class="error"
+                                            ng-show="(newProductForm.description{{lang.value+'Name'}}.$error.minlength || newProductForm.description{{lang.value+'Name'}}.$error.maxlength) && !newProductForm.description{{lang.value+'Name'}}.$error.required">
+                                            {{'NameLengthError3' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- <div class="col-md-3  form-group pmd-textfield pmd-textfield-floating-label-completed">
+                                <label for="readonly"><span style="color:red">*</span> {{'codeLbl' | translate}}
+                                </label>
+                                <input type="text" name="code" ng-readonly="true" ng-model="newProductCtrl.code"
+                                    aria-label="readonly" class="mat-input form-control">
+
+                            </div> -->
+                            <div
+                                class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                <label for="first-name"><span style="color:red">*</span>
+                                    {{'SelectCategory' | translate}}</label>
+                                <select style="width:100% !important"
+                                    class="form-control select-with-search pmd-select2-tags"
+                                    ng-model="newProductCtrl.selectedCategoryId">
+                                    <option ng-repeat="category in newProductCtrl.categories"
+                                        ng-value="{{category.id}}">
+                                        {{category.titles[selectedLanguage]}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group pmd-textfield-floating-label-completed">
+                            <span style="color:red">*</span>
+                            <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
+                                Photo</label>
+                            <input id="image" class="hidden" type="file" img-upload ng-model="imageName"
+                                name="imageName">
+                            <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
+
+                            <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                                {{'RecommendedProductImage' | translate}}</span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="pmd-modal-action text-right">
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-disabled="newProductForm.$invalid || newProductCtrl.selectedCategoryId <= 0 || image == null"
+            class="btn pmd-ripple-effect btn-primary" type="button"
+            ng-click="newProductCtrl.AddNewProduct()">{{'saveChangesBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" type="button"
+            ng-click="$state.go('Products');">{{'DiscardBtn' | translate}}</button>
+    </div>
+</div>

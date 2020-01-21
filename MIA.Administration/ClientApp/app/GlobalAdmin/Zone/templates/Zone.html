@@ -1,0 +1,116 @@
+<div>
+    <div id="bold">
+        {{'Zone' | translate}}
+    </div>
+    <h1 class="text-center">
+        <kbd style="background-color: #494b74c4;">
+            {{selectedManufacture.name}} :
+            {{selectedManufacture.code}}
+        </kbd>
+    </h1>
+    <div style="margin-bottom:10px" ng-show="user.permessionModules['Zone'].includes(63)">
+            <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+                ng-disabled="selectedManufacture.manufactureId==0" ng-click="$state.go('newZone');"
+                class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew' | translate}}</button>
+                <div class="error"
+                ng-show="selectedManufacture.manufactureId==0">
+                {{'selectedManufacture' | translate}}</div>
+        </div>
+    <div ng-if="Zones.results.length == 0">
+        <span>{{'NoZoneAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="Zones.results.length > 0">
+        <div class="table-responsive">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'codeLbl' | translate}}</th>
+                        <!-- <th>{{'ManufactureLbl' | translate}}</th> -->
+                        <th>{{'Name' | translate}}</th>
+
+                        <th>{{'CreateZoneRelation' | translate}}</th>
+                        <th>{{'EditZoneRelation' | translate}}</th>
+                        <th>{{'ZoneDetails' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Zone in Zones.results">
+
+                        <td>{{Zone.zoneCode}}</td>
+                        <!-- <td>{{Zone.manufactureCode}}</td> -->
+                        <td>{{Zone.titles[selectedLanguage]}}</td>
+                        <!-- <td ng-show="!Zone.isActive">
+                        <div ng-if="user.permessionModules['zone'].includes(12)==true">
+                            <div class="btn-switch" ng-class="{'btn-switch--on':Zone.isActive}" ng-model="Zone.isActive"
+                                ng-click="ZoneCtrl.ChangeStatus(Zone)">
+
+                                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':Zone.isActive}"
+                                    ng-model="Zone.isActive" ng-click="ZoneCtrl.ChangeStatus(Zone)">
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="user.permessionModules['zone'].includes(12)==false"
+                            title="You don't have permssion">
+                            <div class="btn-switch" ng-class="{'btn-switch--on':Zone.isActive}"
+                                ng-model="Zone.isActive">
+
+                                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':Zone.isActive}"
+                                    ng-model="Zone.isActive">
+                                </div>
+                            </div>
+
+                    </td>
+                    <td ng-show="Zone.isActive">
+                        <div class="btn-switch" ng-class="{'btn-switch--on':Zone.isActive}" ng-model="Zone.isActive">
+
+                            <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':Zone.isActive}"
+                                ng-model="Zone.isActive">
+                            </div>
+                    </td> -->
+
+                        <td>
+                            <button ng-disabled="Zone.hasRetailer && Zone.hasDistribuitor"
+                                ng-show="user.permessionModules['Zone'].includes(85)"
+                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+                                ng-click="$state.go('CreateMap',{zoneId : Zone.zoneId});"
+                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                                type="button">{{'CreateMap' | translate}}</button>
+                        </td>
+                        <td>
+                            <button ng-disabled="Zone.hasRetailer && Zone.hasDistribuitor"
+                                ng-show="user.permessionModules['Zone'].includes(64)"
+                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+                                ng-click="$state.go('newZoneRelation',{zoneId : Zone.zoneId});"
+                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                                type="button">{{'CreateZoneRelation' | translate}}</button>
+                        </td>
+                        <td>
+                            <button ng-disabled="!Zone.hasRetailer || !Zone.hasDistribuitor"
+                                ng-show="user.permessionModules['Zone'].includes(66)"
+                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+                                ng-click="$state.go('editZoneRelation',{zoneId : Zone.zoneId});"
+                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                                type="button">{{'EditZoneRelation' | translate}}</button>
+                        </td>
+                        <td>
+                            <button ng-disabled="!Zone.hasRetailer || !Zone.hasDistribuitor"
+                                ng-show="user.permessionModules['Zone'].includes(65)"
+                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+                                ng-click="$state.go('zoneRelationDetails',{zoneId : Zone.zoneId});"
+                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                                type="button">{{'ZoneDetails' | translate}}</button>
+                        </td>
+
+
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        disabled-class="hide">
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="modal-content container">
+  <div class="modal-body">
+    <form class="newZoneRelationForm" name="newZoneRelationForm">
+      <div>
+        <div class="tab-content table-responsive">
+          <h2> <label for="readonly">{{'DistributorLbl' | translate}} </label></h2>
+
+          <div class="form-group col-lg-6">
+            <div>
+              <label for="first-name"><span style="color:red">*</span> {{'DistributorLbl' | translate}}</label>
+              <select class="form-control select-with-search pmd-select2-tags" name="distributerId"
+                ng-model="newZoneRelationCtrl.selectedDistributerId"
+                ng-options="group.distributorId  as group.name for group in newZoneRelationCtrl.distributers">
+              </select>
+              <div>
+                <!-- required validation -->
+                <span class="error"
+                  ng-show="newZoneRelationForm.results[distributerId].$error.required && !newZoneRelationForm.results[distributerId].$pristine">
+                  {{'RequiredLbl' | translate}} </span>
+                <span class="error" ng-show="newZoneRelationForm.results[distributerId].$error.results[distributerId]">
+                  {{' NotvalidLbl' | translate}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- save button  -->
+        <button ng-disabled="newZoneRelationCtrl.selectedDistributerId <= 0" class="btn btn-success"
+          name="next" type="button" ng-click="newZoneRelationCtrl.addNewZoneRelation()">
+          <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>
+      </div>
+    </form>
+  </div>

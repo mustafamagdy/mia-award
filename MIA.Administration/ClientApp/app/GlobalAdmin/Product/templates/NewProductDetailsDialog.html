@@ -1,0 +1,112 @@
+<div id="bold">
+	{{'NewProductDetails' | translate}}
+</div>
+<div class="modal-content">
+	<div class="modal-header bordered">
+		<h2 class="pmd-card-title-text">{{'ProductDetails' | translate}}</h2>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal" name="addProductDetailsForm">
+
+			<div class="row">
+				<!-- <div class="col-md-3  form-group pmd-textfield pmd-textfield-floating-label-completed">
+					<label for="readonly"> {{'barCode' | translate}}
+					</label>
+					<input type="text" name="code" ng-model="createProductDetailsDialoglCtrl.barCode"
+						aria-label="readonly" class="mat-input form-control">
+
+				</div> -->
+
+				<div class="col-md-3  form-group pmd-textfield pmd-textfield-floating-label-completed">
+					<label for="readonly"><span style="color:red">*</span> {{'SKU' | translate}}
+					</label>
+
+					<select style="width:100% !important" class="form-control select-with-search pmd-select2-tags"
+						ng-model="createProductDetailsDialoglCtrl.selectedskuId">
+						<option ng-repeat="sku in createProductDetailsDialoglCtrl.SKUConversion"
+							ng-value="{{sku.skuId}}">
+							{{sku.titles[selectedLanguage]}}</option>
+					</select>
+
+				</div>
+				<div class="col-md-3  form-group pmd-textfield pmd-textfield-floating-label-completed">
+					<label for="readonly"><span style="color:red">*</span> {{'Pricelbl' | translate}}
+					</label>
+					<input type="number" name="price" ng-model="createProductDetailsDialoglCtrl.price" required
+						ng-minlength="1" ng-maxlength="7" class="mat-input form-control">
+					<div ng-messages="addProductDetailsForm.price.$error">
+						<div class="error"
+							ng-show="addProductDetailsForm.price.$error.required && !addProductDetailsForm.price.$pristine">
+							{{'requiredErr' | translate}}</div>
+
+
+						<div class="error" ng-if="(addProductDetailsForm.price.$error.minlength ||
+							addProductDetailsForm.price.$error.maxlength) 
+							 && !addProductDetailsForm.price.$error.required">
+							price length must be 1-7 char.
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3  form-group pmd-textfield pmd-textfield-floating-label-completed">
+					<label> {{'minQty' | translate}}
+					</label>
+					<input type="number" name="minQty" ng-model="createProductDetailsDialoglCtrl.minQty"
+						ng-minlength="0" ng-maxlength="5" class="mat-input form-control">
+					<div ng-messages="addProductDetailsForm.minQty.$error">
+						<div class="error" ng-if="(addProductDetailsForm.minQty.$error.minlength ||
+							addProductDetailsForm.minQty.$error.maxlength) 
+							 && !addProductDetailsForm.minQty.$error.required">
+							minQty length must be 0-5 char.
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4  form-group pmd-textfield pmd-textfield-floating-label-completed">
+					<label for="readonly"> {{'IsPromoteProduct' | translate}}
+					</label>
+					<input type="checkbox" ng-model="createProductDetailsDialoglCtrl.isPormotedAllow">
+				</div>
+				<div class="col-md-3  form-group pmd-textfield pmd-textfield-floating-label-completed">
+					<label for="readonly"> {{'status' | translate}}
+					</label>
+					<input type="checkbox" ng-model="createProductDetailsDialoglCtrl.status">
+				</div>
+				<div class="col-md-4  form-group pmd-textfield pmd-textfield-floating-label-completed">
+					<label for="readonly"> {{'blockOnDate' | translate}}
+					</label>
+					<input name="itemDatetime" ng-model="createProductDetailsDialoglCtrl.blockOnDate" type="text"
+						id="startdate" class="form-control" ng-change="dateChange();" />
+				</div>
+			</div>
+		</form>
+
+	</div>
+	<div class="pmd-modal-action text-right">
+		<button ng-disabled="addProductDetailsForm.$invalid  || 
+		createProductDetailsDialoglCtrl.selectedskuId <= 0 "
+			style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+			class="btn pmd-ripple-effect btn-primary" type="button"
+			ng-click="createProductDetailsDialoglCtrl.AddSKUConversion()">{{'saveChangesBtn' | translate}}</button>
+		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button"
+			ng-click="createProductDetailsDialoglCtrl.close()">{{'cancelBtn' | translate}}</button>
+	</div>
+</div>
+
+<script>
+	$(function () {
+		var today = new Date();
+		today.setDate(today.getDate() + 1)
+
+		$('#startdate').datetimepicker({
+			widgetPositioning: { vertical: "bottom" },
+			minDate: today,
+
+		})
+			.on('dp.change', function (e) {
+				
+				angular.element(document.getElementById('startdate')).scope().dateChange();
+			});
+	});
+</script>
