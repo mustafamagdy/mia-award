@@ -1,34 +1,29 @@
-(function () {
-  'use strict';
+(function() {
+  "use strict";
 
-  angular
-    .module('core', [
-      'ngResource',
-      'ui.router',
-      'ngStorage',
-      'permission',
-      'bw.paging',
-      'ui.event',
-      'ngProgressLite',
-      'ui.bootstrap',
-      'pascalprecht.translate',
-      'blockUI',
-      'ui.carousel',
-      'angular.filter',
-      'ncy-angular-breadcrumb',
-      // 'base64',
- 
-    ]);
-}());
-;(function() {
-  'use strict';
-
-  angular
-  .module('home', [
-  'core'
+  angular.module("core", [
+    "ngResource",
+    "ui.router",
+    "ngStorage",
+    "permission",
+    "bw.paging",
+    "ui.event",
+    "ngProgressLite",
+    "ui.bootstrap",
+    "pascalprecht.translate",
+    "blockUI",
+    "ui.carousel",
+    "angular.filter",
+    "ncy-angular-breadcrumb",
+    "angular-jwt"
+    // "jwt-decode"
+    // 'base64',
   ]);
- 
-}());
+})();
+;(function() {
+  "use strict";
+  angular.module("home", ["core"]);
+})();
 ;(function() {
   'use strict';
 
@@ -1055,8 +1050,7 @@ angular.module('core')
         .controller('loginController', ['$rootScope', '$scope', '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', loginController]);
 
     function loginController($rootScope, $scope, $state, $localStorage, authorizationService, appCONSTANTS) {
-
-        if ($localStorage.authInfo) {
+        if (!!$localStorage.authInfo) {
             var user = authorizationService.getUser();
             // if (user.PermissionId[0] == 1)
             //     $state.go('users'); 
@@ -1147,9 +1141,14 @@ angular.module('core')
       }
     ];
     $scope.init = function() {
-      $scope.user = authorizationService.getUser();
-      $scope.selectedManufacture = $localStorage.tenant;
+      if (!!$localStorage.authInfo) {
+        $scope.user = authorizationService.getUser();
+      } else {
+        $state.go("login");
+        return;
+      }
 
+      $scope.selectedManufacture = $localStorage.tenant;
       if ($scope.user.userTypeId == 4 || $scope.user.userTypeId == 5) getManufactures();
       if ($scope.user.userTypeId == 2 || $scope.user.userTypeId == 7) {
         refreshOrders();
@@ -1205,7 +1204,6 @@ angular.module('core')
       updateObj.$changeStatusOpen({ orderId: orderId }).then(
         function(data, status) {
           vm.connection.invoke("getConnectionId").then(function(connectionId) {
-            
             vm.connectionId = connectionId;
             vm.connection.invoke("refresh"); // Send the connectionId to controller
           });
@@ -1728,17 +1726,12 @@ angular.module('core')
   }
 
 }());
-;(function () {
-  'use strict';
+;(function() {
+  "use strict";
 
-
-  angular
-    .module('core')
-    .factory('authorizationService', authorizationService);
-
-  authorizationService.$inject = ['$rootScope', '$localStorage', 'AUTH_EVENTS'];
-
-  function authorizationService($rootScope, $localStorage, AUTH_EVENTS) {
+  angular.module("core").factory("authorizationService", authorizationService);
+  authorizationService.$inject = ["$rootScope", "$localStorage", "AUTH_EVENTS", "jwtHelper"];
+  function authorizationService($rootScope, $localStorage, AUTH_EVENTS, jwtHelper) {
     var factory = {
       getAuthInfo: getAuthInfo,
       setAuthInfoAfterChangeTenant: setAuthInfoAfterChangeTenant,
@@ -1753,30 +1746,31 @@ angular.module('core')
 
     return factory;
 
-
     function isLoggedIn() {
       return !!$localStorage.authInfo;
     }
-
 
     function getAuthInfo() {
       return $localStorage.authInfo;
     }
 
-
     function getUser() {
-      var info = getAuthInfo();
-      return {
-        tenantId: info ? info.tenantId : "",
-        name: info ? info.username : "",
-        role: info ? info.Role : "",
-        id: info ? info.userId : "",
-        permessionModules: info ? info.permessionModules : 0, 
-        PermissionId: info ? info.PermissionId : [],
-        userTypeId: info && info.userType ? info.userType : 0
-      };
+      var token = getAuthInfo();
+      if(token == undefined) return undefined;
+      const userDetails = jwtHelper.decodeToken(token);
+      debugger;
+      
+      return userDetails;
+      // return {
+      //   tenantId: info ? info.tenantId : "",
+      //   name: info ? info.username : "",
+      //   role: info ? info.Role : "",
+      //   id: info ? info.userId : "",
+      //   permessionModules: info ? info.permessionModules : 0,
+      //   PermissionId: info ? info.PermissionId : [],
+      //   userTypeId: info && info.userType ? info.userType : 0
+      // };
     }
-
 
     function hasRole(role) {
       if (!isLoggedIn()) {
@@ -1793,23 +1787,21 @@ angular.module('core')
     }
 
     function setAuthInfo(info) {
-      
       // info.data.PermissionId = info.data.permissionId;
-      // info.data.permessionModules = info.data.permessionModules; 
+      // info.data.permessionModules = info.data.permessionModules;
       // info.data.expires_in = "172799";
       // info.data.token_type = "bearer";
 
       // $localStorage.authInfo = info.data;
       // var currentDate = new Date();
       // $localStorage.authInfo['expires_in'] = currentDate.setSeconds(currentDate.getSeconds() + $localStorage.authInfo['expires_in']);
-      
+
       $localStorage.authInfo = info.data;
     }
 
     function setAuthInfoAfterChangeTenant(info) {
-      
-      info.PermissionId = info.PermissionId; 
-      info.permessionModules = info.permessionModules; 
+      info.PermissionId = info.PermissionId;
+      info.permessionModules = info.permessionModules;
       info.expires_in = "172799";
       info.token = info.token;
       info.token_type = "bearer";
@@ -1817,8 +1809,7 @@ angular.module('core')
 
       $localStorage.authInfo = info;
       var currentDate = new Date();
-      $localStorage.authInfo['expires_in'] = currentDate.setSeconds(currentDate.getSeconds() + $localStorage.authInfo['expires_in']);
+      $localStorage.authInfo["expires_in"] = currentDate.setSeconds(currentDate.getSeconds() + $localStorage.authInfo["expires_in"]);
     }
   }
-
-}());
+})();

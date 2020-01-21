@@ -6,8 +6,7 @@
         .controller('loginController', ['$rootScope', '$scope', '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', loginController]);
 
     function loginController($rootScope, $scope, $state, $localStorage, authorizationService, appCONSTANTS) {
-
-        if ($localStorage.authInfo) {
+        if (!!$localStorage.authInfo) {
             var user = authorizationService.getUser();
             // if (user.PermissionId[0] == 1)
             //     $state.go('users'); 

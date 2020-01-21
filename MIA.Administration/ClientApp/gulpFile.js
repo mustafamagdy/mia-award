@@ -84,6 +84,8 @@ var paths = {
     './node_modules/angular-breadcrumb/dist/angular-breadcrumb.min.js',
     './node_modules/html2canvas/dist/html2canvas.min.js',
     './node_modules/pdfmake/build/pdfmake.min.js',
+    './node_modules/angular-jwt/dist/angular-jwt.min.js',
+    // './node_modules/jwt-decode/build/jwt-decode.min.js',
     './assets/js/angular-block-ui.min.js',
     './assets/js/signalr.js',
 

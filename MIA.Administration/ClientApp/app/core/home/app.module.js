@@ -1,9 +1,4 @@
 (function() {
-  'use strict';
-
-  angular
-  .module('home', [
-  'core'
-  ]);
- 
-}());
+  "use strict";
+  angular.module("home", ["core"]);
+})();

@@ -72,9 +72,14 @@
       }
     ];
     $scope.init = function() {
-      $scope.user = authorizationService.getUser();
-      $scope.selectedManufacture = $localStorage.tenant;
+      if (!!$localStorage.authInfo) {
+        $scope.user = authorizationService.getUser();
+      } else {
+        $state.go("login");
+        return;
+      }
 
+      $scope.selectedManufacture = $localStorage.tenant;
       if ($scope.user.userTypeId == 4 || $scope.user.userTypeId == 5) getManufactures();
       if ($scope.user.userTypeId == 2 || $scope.user.userTypeId == 7) {
         refreshOrders();
@@ -130,7 +135,6 @@
       updateObj.$changeStatusOpen({ orderId: orderId }).then(
         function(data, status) {
           vm.connection.invoke("getConnectionId").then(function(connectionId) {
-            
             vm.connectionId = connectionId;
             vm.connection.invoke("refresh"); // Send the connectionId to controller
           });

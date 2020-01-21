@@ -810,6 +810,147 @@
 
     angular
         .module('home')
+        .controller('BranchController', ['$rootScope', '$scope', '$filter', '$translate',
+            '$state', 'BranchResource',   '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', BranchController]);
+
+
+    function BranchController($rootScope, $scope, $filter, $translate,
+        $state, BranchResource,  $localStorage, authorizationService,
+        appCONSTANTS, ToastService) {
+
+        blockUI.start("Loading..."); 
+
+                    refreshBranchs();
+
+        function refreshBranchs() {
+           blockUI.start("Loading..."); 
+
+                        var k = BranchResource.getAllBranchs().$promise.then(function (results) {
+                $scope.BranchList = results;
+                blockUI.stop();
+
+                            },
+            function (data, status) {
+                blockUI.stop();
+
+                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        }
+
+    }
+
+})();
+(function () {
+    angular
+      .module('home')
+        .factory('BranchResource', ['$resource', 'appCONSTANTS', BranchResource]) 
+
+    function BranchResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Branchs/', {}, {
+            getAllBranchs: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetAllBranchs', useToken: true,  params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Branchs/EditBranch', useToken: true },
+            getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: true }
+        })
+    } 
+
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('createBranchDialogController', ['$scope', 'blockUI','$http', '$state', 'appCONSTANTS', '$translate',
+            'BranchResource', 'ToastService', '$stateParams', 'AreaByIdPrepService','CityByIdPrepService', 'GovernrateByIdPrepService', createBranchDialogController])
+
+    function createBranchDialogController($scope, blockUI,$http, $state, appCONSTANTS, $translate, BranchResource,
+        ToastService, $stateParams, AreaByIdPrepService,CityByIdPrepService, GovernrateByIdPrepService) {
+		var Manufacture = this;
+		Manufacture.Area = AreaByIdPrepService;
+        Manufacture.language = appCONSTANTS.supportedLanguage;
+        $scope.countryName = GovernrateByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
+        $scope.GovernrateName = GovernrateByIdPrepService.titleDictionary[$scope.selectedLanguage];
+        $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];
+        $scope.areaName = AreaByIdPrepService.titleDictionary[$scope.selectedLanguage];
+		Manufacture.close = function(){
+		    $state.go('Area',{ countryId: $stateParams.countryId, GovernrateId: $stateParams.GovernrateId, cityId: $stateParams.cityId });
+		} 
+
+		 		Manufacture.AddNewBranch = function () {
+            blockUI.start("Loading...");
+            var newObj = new BranchResource();
+		    newObj.AreaId = Manufacture.Area.areaId;
+            newObj.titleDictionary = Manufacture.titleDictionary;
+            newObj.IsDeleted = false; 
+            newObj.IsStatic =false;
+            newObj.$create().then(
+                function (data, status) {
+                blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
+                    $state.go('Area',{ countryId: $stateParams.countryId, GovernrateId: $stateParams.GovernrateId, cityId: $stateParams.cityId },{ reload: true });
+
+                },
+                function (data, status) {
+                blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+  	}	
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editBranchDialogController', ['$scope', 'blockUI','$http', '$state', 'appCONSTANTS', '$translate', 'BranchResource', 'ToastService',
+            'BranchByIdPrepService','$stateParams','AreaByIdPrepService','CityByIdPrepService', 'GovernrateByIdPrepService', editBranchDialogController])
+
+    function editBranchDialogController($scope,blockUI, $http, $state, appCONSTANTS, $translate, BranchResource, ToastService,
+         BranchByIdPrepService,$stateParams,AreaByIdPrepService,CityByIdPrepService, GovernrateByIdPrepService) {
+        var Manufacture = this;
+        Manufacture.language = appCONSTANTS.supportedLanguage;
+        Manufacture.Branch = BranchByIdPrepService;
+
+                $scope.countryName = GovernrateByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
+        $scope.GovernrateName = GovernrateByIdPrepService.titleDictionary[$scope.selectedLanguage];
+        $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];
+        $scope.areaName = AreaByIdPrepService.titleDictionary[$scope.selectedLanguage];
+
+                    Manufacture.close = function () {
+            $state.go('Area', { countryId: $stateParams.countryId, GovernrateId: $stateParams.GovernrateId, cityId: $stateParams.cityId });
+        }
+        Manufacture.UpdateBranch = function () {
+            blockUI.start("Loading...");
+            var updateObj = new BranchResource();
+            updateObj.BranchId = Manufacture.Branch.branchId;
+            updateObj.titleDictionary = Manufacture.Branch.titleDictionary;
+            updateObj.IsDeleted = false;
+            updateObj.IsStatic = false;
+            updateObj.$update().then(
+                function (data, status) {
+                blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                    $state.go('Area', { countryId: $stateParams.countryId, GovernrateId: $stateParams.GovernrateId, cityId: $stateParams.cityId },{ reload: true });
+
+                },
+                function (data, status) {
+                blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", data.title, "error");
+                }
+            );
+        }
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
         .controller('CategoryController', ['appCONSTANTS','$scope', '$translate', 'CategoryResource', 'blockUI', '$uibModal', 'CategoryPrepService',
             'ToastService', CategoryController]);
 
@@ -1024,379 +1165,6 @@
             );
         }
     }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('BranchController', ['$rootScope', '$scope', '$filter', '$translate',
-            '$state', 'BranchResource',   '$localStorage',
-            'authorizationService', 'appCONSTANTS',
-            'ToastService', BranchController]);
-
-
-    function BranchController($rootScope, $scope, $filter, $translate,
-        $state, BranchResource,  $localStorage, authorizationService,
-        appCONSTANTS, ToastService) {
-
-        blockUI.start("Loading..."); 
-
-                    refreshBranchs();
-
-        function refreshBranchs() {
-           blockUI.start("Loading..."); 
-
-                        var k = BranchResource.getAllBranchs().$promise.then(function (results) {
-                $scope.BranchList = results;
-                blockUI.stop();
-
-                            },
-            function (data, status) {
-                blockUI.stop();
-
-                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
-        }
-
-    }
-
-})();
-(function () {
-    angular
-      .module('home')
-        .factory('BranchResource', ['$resource', 'appCONSTANTS', BranchResource]) 
-
-    function BranchResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Branchs/', {}, {
-            getAllBranchs: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetAllBranchs', useToken: true,  params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Branchs/EditBranch', useToken: true },
-            getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: true }
-        })
-    } 
-
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('createBranchDialogController', ['$scope', 'blockUI','$http', '$state', 'appCONSTANTS', '$translate',
-            'BranchResource', 'ToastService', '$stateParams', 'AreaByIdPrepService','CityByIdPrepService', 'GovernrateByIdPrepService', createBranchDialogController])
-
-    function createBranchDialogController($scope, blockUI,$http, $state, appCONSTANTS, $translate, BranchResource,
-        ToastService, $stateParams, AreaByIdPrepService,CityByIdPrepService, GovernrateByIdPrepService) {
-		var Manufacture = this;
-		Manufacture.Area = AreaByIdPrepService;
-        Manufacture.language = appCONSTANTS.supportedLanguage;
-        $scope.countryName = GovernrateByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
-        $scope.GovernrateName = GovernrateByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        $scope.areaName = AreaByIdPrepService.titleDictionary[$scope.selectedLanguage];
-		Manufacture.close = function(){
-		    $state.go('Area',{ countryId: $stateParams.countryId, GovernrateId: $stateParams.GovernrateId, cityId: $stateParams.cityId });
-		} 
-
-		 		Manufacture.AddNewBranch = function () {
-            blockUI.start("Loading...");
-            var newObj = new BranchResource();
-		    newObj.AreaId = Manufacture.Area.areaId;
-            newObj.titleDictionary = Manufacture.titleDictionary;
-            newObj.IsDeleted = false; 
-            newObj.IsStatic =false;
-            newObj.$create().then(
-                function (data, status) {
-                blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
-                    $state.go('Area',{ countryId: $stateParams.countryId, GovernrateId: $stateParams.GovernrateId, cityId: $stateParams.cityId },{ reload: true });
-
-                },
-                function (data, status) {
-                blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-  	}	
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editBranchDialogController', ['$scope', 'blockUI','$http', '$state', 'appCONSTANTS', '$translate', 'BranchResource', 'ToastService',
-            'BranchByIdPrepService','$stateParams','AreaByIdPrepService','CityByIdPrepService', 'GovernrateByIdPrepService', editBranchDialogController])
-
-    function editBranchDialogController($scope,blockUI, $http, $state, appCONSTANTS, $translate, BranchResource, ToastService,
-         BranchByIdPrepService,$stateParams,AreaByIdPrepService,CityByIdPrepService, GovernrateByIdPrepService) {
-        var Manufacture = this;
-        Manufacture.language = appCONSTANTS.supportedLanguage;
-        Manufacture.Branch = BranchByIdPrepService;
-
-                $scope.countryName = GovernrateByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
-        $scope.GovernrateName = GovernrateByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        $scope.areaName = AreaByIdPrepService.titleDictionary[$scope.selectedLanguage];
-
-                    Manufacture.close = function () {
-            $state.go('Area', { countryId: $stateParams.countryId, GovernrateId: $stateParams.GovernrateId, cityId: $stateParams.cityId });
-        }
-        Manufacture.UpdateBranch = function () {
-            blockUI.start("Loading...");
-            var updateObj = new BranchResource();
-            updateObj.BranchId = Manufacture.Branch.branchId;
-            updateObj.titleDictionary = Manufacture.Branch.titleDictionary;
-            updateObj.IsDeleted = false;
-            updateObj.IsStatic = false;
-            updateObj.$update().then(
-                function (data, status) {
-                blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                    $state.go('Area', { countryId: $stateParams.countryId, GovernrateId: $stateParams.GovernrateId, cityId: $stateParams.cityId },{ reload: true });
-
-                },
-                function (data, status) {
-                blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", data.title, "error");
-                }
-            );
-        }
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('ContactTypeController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
-            '$state', 'ContactTypeResource', 'ContactTypePrepService', '$localStorage', 'appCONSTANTS',
-            'ToastService', ContactTypeController]);
-
-
-    function ContactTypeController($rootScope, blockUI, $scope, $filter, $translate,
-        $state, ContactTypeResource, ContactTypePrepService, $localStorage, appCONSTANTS, ToastService) {
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
-
-        blockUI.start("Loading...");
-
-        var vm = this;
-        $scope.totalCount = ContactTypePrepService.totalCount;
-        vm.ContactTypes = ContactTypePrepService.results;
-        console.log(vm.ContactTypes);
-        function refreshContactType() {
-
-                        blockUI.start("Loading...");
-
-            var k = ContactTypeResource.getAllContactType({ page: vm.currentPage }).$promise.then(function (results) {
-                vm.ContactTypes = results.results;
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-        vm.ChangeContactTypeStatus = function (model) {
-
-
-                        var updateObj = new ContactTypeResource();
-            updateObj.$ChangeStatus({ contactTypeId: model.contactTypeId, status: (model.status == true ? false : true) }).then(
-                function (data, status) {
-
-                                        refreshContactType();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    updateObj.status = model.status;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-        vm.currentPage = 1;
-        $scope.changePage = function (page) {
-            vm.currentPage = page;
-            refreshContactType();
-        }
-        blockUI.stop();
-
-    }
-
-})();
-(function () {
-    angular
-        .module('home')
-        .factory('ContactTypeResource', ['$resource', 'appCONSTANTS', ContactTypeResource])
-
-    function ContactTypeResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'ContactType/CreateContactType', {}, {
-            getAllContactType: { method: 'GET', url: appCONSTANTS.API_URL + 'ContactType/GetAllContactType',useToken: true, params: { lang: '@lang' } },
-            GetAllActiveContactType: { method: 'GET', url: appCONSTANTS.API_URL + 'ContactType/GetAllActiveContactType',useToken: true,isArray:true },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'ContactType/UpdateContactType', useToken: true ,},
-            getContactType: { method: 'GET', url: appCONSTANTS.API_URL + 'ContactType/GetContactTypeById/:contactTypeId', useToken: true },
-            ChangeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'ContactType/ChangeContactTypeStatus/:contactTypeId/:status', useToken: true},
-            getAllActiveContactType: { method: 'GET', url: appCONSTANTS.API_URL + 'ContactType/GetAllActiveContactType',useToken: true,isArray:true}
-
-        })
-    }
-
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .config(function ($stateProvider, $urlRouterProvider) {
-
-            $stateProvider
-                .state('ContactType', {
-                    url: '/ContactType',
-                    templateUrl: './app/GlobalAdmin/ContactType/templates/ContactType.html',
-                    controller: 'ContactTypeController',
-                    'controllerAs': 'ContactTypeCtrl',
-                    resolve: {
-                        ContactTypePrepService: ContactTypePrepService
-                    },
-                    data: {
-                        permissions: {
-                            only: ['4'],
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('newContactType', {
-                    url: '/newContactType',
-                    templateUrl: './app/GlobalAdmin/ContactType/templates/new.html',
-                    controller: 'createContactTypeDialogController',
-                    'controllerAs': 'newContactTypeCtrl',
-                    data: {
-                        permissions: {
-                            only: ['4'],
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('editContactType', {
-                    url: '/editContactType/:contactTypeId',
-                    templateUrl: './app/GlobalAdmin/ContactType/templates/edit.html',
-                    controller: 'editContactTypeDialogController',
-                    'controllerAs': 'editContactTypeCtrl',
-                    resolve: {
-                        ContactTypeByIdPrepService: ContactTypeByIdPrepService
-                    },
-                    data: {
-                        permissions: {
-                            only: ['4'],
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-        });
-
-    ContactTypePrepService.$inject = ['ContactTypeResource']
-    function ContactTypePrepService(ContactTypeResource) {
-        return ContactTypeResource.getAllContactType().$promise;
-    }
-
-    ContactTypeByIdPrepService.$inject = ['ContactTypeResource', '$stateParams']
-    function ContactTypeByIdPrepService(ContactTypeResource, $stateParams) {
-        return ContactTypeResource.getContactType({ contactTypeId: $stateParams.contactTypeId }).$promise;
-    }
-
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('createContactTypeDialogController', ['blockUI', '$state', 'appCONSTANTS', '$translate',
-            'ContactTypeResource', 'ToastService', createContactTypeDialogController])
-
-    function createContactTypeDialogController(blockUI, $state, appCONSTANTS, $translate, ContactTypeResource,
-        ToastService) {
-
-        blockUI.start("Loading...");
-
-        var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.close = function () {
-            $state.go('ContactType');
-        }
-
-        vm.AddNewContactType = function () {
-            blockUI.start("Loading...");
-
-                        var newObj = new ContactTypeResource();
-            newObj.titles = vm.titles;
-            newObj.$create().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    $state.go('ContactType');
-                    blockUI.stop();
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
-                }
-            );
-        }
-        blockUI.stop();
-
-    }
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('editContactTypeDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'ContactTypeResource', 'ToastService',
-            'ContactTypeByIdPrepService', editContactTypeDialogController])
-
-    function editContactTypeDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ContactTypeResource, ToastService, ContactTypeByIdPrepService) {
-        blockUI.start("Loading..."); 
-
-                var vm = this; 
-		vm.language = appCONSTANTS.supportedLanguage;
-        vm.ContactType = ContactTypeByIdPrepService; 
-        console.log(ContactTypeByIdPrepService);
-        vm.Close = function () {
-            $state.go('ContactType');
-        }
-        vm.UpdateContactType  = function () { 
-
-                        blockUI.start("Loading..."); 
-
-                        var updateObj = new ContactTypeResource();
-            updateObj.contactTypeId = vm.ContactType.contactTypeId;
-            updateObj.titles = vm.ContactType.titles; 
-		    updateObj.$update().then(
-                function (data, status) {
-                    blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                     $state.go('ContactType');
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        blockUI.stop();
-
-        	}	
 }());
 (function () {
     'use strict';
@@ -1674,6 +1442,1184 @@
         blockUI.stop();
 
     }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('ContactTypeController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', 'ContactTypeResource', 'ContactTypePrepService', '$localStorage', 'appCONSTANTS',
+            'ToastService', ContactTypeController]);
+
+
+    function ContactTypeController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, ContactTypeResource, ContactTypePrepService, $localStorage, appCONSTANTS, ToastService) {
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+
+        blockUI.start("Loading...");
+
+        var vm = this;
+        $scope.totalCount = ContactTypePrepService.totalCount;
+        vm.ContactTypes = ContactTypePrepService.results;
+        console.log(vm.ContactTypes);
+        function refreshContactType() {
+
+                        blockUI.start("Loading...");
+
+            var k = ContactTypeResource.getAllContactType({ page: vm.currentPage }).$promise.then(function (results) {
+                vm.ContactTypes = results.results;
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+        vm.ChangeContactTypeStatus = function (model) {
+
+
+                        var updateObj = new ContactTypeResource();
+            updateObj.$ChangeStatus({ contactTypeId: model.contactTypeId, status: (model.status == true ? false : true) }).then(
+                function (data, status) {
+
+                                        refreshContactType();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    updateObj.status = model.status;
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+            return;
+        }
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshContactType();
+        }
+        blockUI.stop();
+
+    }
+
+})();
+(function () {
+    angular
+        .module('home')
+        .factory('ContactTypeResource', ['$resource', 'appCONSTANTS', ContactTypeResource])
+
+    function ContactTypeResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'ContactType/CreateContactType', {}, {
+            getAllContactType: { method: 'GET', url: appCONSTANTS.API_URL + 'ContactType/GetAllContactType',useToken: true, params: { lang: '@lang' } },
+            GetAllActiveContactType: { method: 'GET', url: appCONSTANTS.API_URL + 'ContactType/GetAllActiveContactType',useToken: true,isArray:true },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'ContactType/UpdateContactType', useToken: true ,},
+            getContactType: { method: 'GET', url: appCONSTANTS.API_URL + 'ContactType/GetContactTypeById/:contactTypeId', useToken: true },
+            ChangeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'ContactType/ChangeContactTypeStatus/:contactTypeId/:status', useToken: true},
+            getAllActiveContactType: { method: 'GET', url: appCONSTANTS.API_URL + 'ContactType/GetAllActiveContactType',useToken: true,isArray:true}
+
+        })
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .config(function ($stateProvider, $urlRouterProvider) {
+
+            $stateProvider
+                .state('ContactType', {
+                    url: '/ContactType',
+                    templateUrl: './app/GlobalAdmin/ContactType/templates/ContactType.html',
+                    controller: 'ContactTypeController',
+                    'controllerAs': 'ContactTypeCtrl',
+                    resolve: {
+                        ContactTypePrepService: ContactTypePrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['4'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('newContactType', {
+                    url: '/newContactType',
+                    templateUrl: './app/GlobalAdmin/ContactType/templates/new.html',
+                    controller: 'createContactTypeDialogController',
+                    'controllerAs': 'newContactTypeCtrl',
+                    data: {
+                        permissions: {
+                            only: ['4'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('editContactType', {
+                    url: '/editContactType/:contactTypeId',
+                    templateUrl: './app/GlobalAdmin/ContactType/templates/edit.html',
+                    controller: 'editContactTypeDialogController',
+                    'controllerAs': 'editContactTypeCtrl',
+                    resolve: {
+                        ContactTypeByIdPrepService: ContactTypeByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['4'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+        });
+
+    ContactTypePrepService.$inject = ['ContactTypeResource']
+    function ContactTypePrepService(ContactTypeResource) {
+        return ContactTypeResource.getAllContactType().$promise;
+    }
+
+    ContactTypeByIdPrepService.$inject = ['ContactTypeResource', '$stateParams']
+    function ContactTypeByIdPrepService(ContactTypeResource, $stateParams) {
+        return ContactTypeResource.getContactType({ contactTypeId: $stateParams.contactTypeId }).$promise;
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('createContactTypeDialogController', ['blockUI', '$state', 'appCONSTANTS', '$translate',
+            'ContactTypeResource', 'ToastService', createContactTypeDialogController])
+
+    function createContactTypeDialogController(blockUI, $state, appCONSTANTS, $translate, ContactTypeResource,
+        ToastService) {
+
+        blockUI.start("Loading...");
+
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.close = function () {
+            $state.go('ContactType');
+        }
+
+        vm.AddNewContactType = function () {
+            blockUI.start("Loading...");
+
+                        var newObj = new ContactTypeResource();
+            newObj.titles = vm.titles;
+            newObj.$create().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('ContactType');
+                    blockUI.stop();
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+                }
+            );
+        }
+        blockUI.stop();
+
+    }
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('editContactTypeDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'ContactTypeResource', 'ToastService',
+            'ContactTypeByIdPrepService', editContactTypeDialogController])
+
+    function editContactTypeDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ContactTypeResource, ToastService, ContactTypeByIdPrepService) {
+        blockUI.start("Loading..."); 
+
+                var vm = this; 
+		vm.language = appCONSTANTS.supportedLanguage;
+        vm.ContactType = ContactTypeByIdPrepService; 
+        console.log(ContactTypeByIdPrepService);
+        vm.Close = function () {
+            $state.go('ContactType');
+        }
+        vm.UpdateContactType  = function () { 
+
+                        blockUI.start("Loading..."); 
+
+                        var updateObj = new ContactTypeResource();
+            updateObj.contactTypeId = vm.ContactType.contactTypeId;
+            updateObj.titles = vm.ContactType.titles; 
+		    updateObj.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                     $state.go('ContactType');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        blockUI.stop();
+
+        	}	
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('CountryController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', 'CountryResource', 'CountryPrepService',  '$localStorage', 'appCONSTANTS',
+            'ToastService', CountryController]);
+
+
+    function CountryController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, CountryResource, CountryPrepService, $localStorage, appCONSTANTS, ToastService) { 
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
+
+        blockUI.start("Loading..."); 
+
+                    var Manufacture = this;
+        $scope.totalCount = CountryPrepService.totalCount;
+        $scope.Countries  = CountryPrepService.results;
+        console.log($scope.Countries);
+        function refreshCountries() {
+
+            blockUI.start("Loading..."); 
+
+                     var k = CountryResource.getAllCountries({page:Manufacture.currentPage}).$promise.then(function (results) { 
+                $scope.Countries = results  
+                blockUI.stop();
+
+                            },
+
+                        function (data, status) {
+                blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        }
+
+                Manufacture.currentPage = 1;
+        $scope.changePage = function (page) {
+            Manufacture.currentPage = page;
+            refreshCountries();
+        }
+        blockUI.stop();
+
+            }
+
+})();
+(function () {
+    angular
+        .module('home')
+        .factory('CountryResource', ['$resource', 'appCONSTANTS', CountryResource])
+
+    function CountryResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Country/CreateCountry', {}, {
+            getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Country/GetAllCountry',useToken: true, params: { lang: '@lang' } },
+            GetAllActiveCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Country/GetAllActiveCountries',useToken: true, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Country/UpdateCountry', useToken: true },
+            getCountry: { method: 'GET', url: appCONSTANTS.API_URL + 'Country/GetCountryById/:countryId', useToken: true }
+
+        })
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .config(function ($stateProvider, $urlRouterProvider) {
+
+            $stateProvider
+                .state('Countries', {
+                    url: '/Country',
+                    templateUrl: './app/GlobalAdmin/Country/templates/Countries.html',
+                    controller: 'CountryController',
+                    'controllerAs': 'CountryCtrl',
+                    resolve: {
+                        CountryPrepService: CountryPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['9'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('newCountry', {
+                    url: '/newCountry',
+                    templateUrl: './app/GlobalAdmin/Country/templates/new.html',
+                    controller: 'createCountryDialogController',
+                    'controllerAs': 'newCountryCtrl',
+                    data: {
+                        permissions: {
+                            only: ['9'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+
+                })
+                .state('editCountry', {
+                    url: '/editCountry/:countryId',
+                    templateUrl: './app/GlobalAdmin/Country/templates/edit.html',
+                    controller: 'editCountryDialogController',
+                    'controllerAs': 'editCountryCtrl',
+                    resolve: {
+                        CountryByIdPrepService: CountryByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['9'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+        });
+
+    CountryPrepService.$inject = ['CountryResource']
+    function CountryPrepService(CountryResource) {
+        return CountryResource.getAllCountries().$promise;
+    }
+
+    CountryByIdPrepService.$inject = ['CountryResource', '$stateParams']
+    function CountryByIdPrepService(CountryResource, $stateParams) {
+        return CountryResource.getCountry({ countryId: $stateParams.countryId }).$promise;
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('createCountryDialogController', ['blockUI', '$state', 'appCONSTANTS', '$translate',
+            'CountryResource', 'ToastService', createCountryDialogController])
+
+    function createCountryDialogController(blockUI, $state, appCONSTANTS, $translate, CountryResource,
+        ToastService) {
+
+        blockUI.start("Loading...");
+
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.close = function () {
+            $state.go('Countries');
+        }
+
+        vm.AddNewCountry = function () {
+            blockUI.start("Loading...");
+
+                        var newObj = new CountryResource();
+            newObj.titles = vm.titles;
+            newObj.$create().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('Countries');
+                    blockUI.stop();
+
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+                }
+            );
+        }
+        blockUI.stop();
+
+    }
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('editCountryDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'CountryResource', 'ToastService',
+            'CountryByIdPrepService', editCountryDialogController])
+
+    function editCountryDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, CountryResource, ToastService, CountryByIdPrepService) {
+        blockUI.start("Loading..."); 
+
+                var vm = this; 
+		vm.language = appCONSTANTS.supportedLanguage;
+        vm.Country = CountryByIdPrepService; 
+        vm.Close = function () {
+            $state.go('Countries');
+        }
+        vm.UpdateCountry  = function () { 
+            blockUI.start("Loading..."); 
+
+                        var updateObj = new CountryResource();
+            updateObj.countryId = vm.Country.countryId;
+            updateObj.titles = vm.Country.titles; 
+		    updateObj.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+
+
+                                                            ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                     $state.go('Countries');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        blockUI.stop();
+
+        	}	
+}());
+(function () {
+    angular
+        .module('home')
+        .factory('DistributorsResource', ['$resource', 'appCONSTANTS', DistributorsResource])
+
+    function DistributorsResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL, {}, {
+            create: { method: 'POST', url: appCONSTANTS.API_URL + 'Distributor/CreateDistributor', useToken: true, params: { lang: '@lang' } },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Distributor/UpdateDistributor', useToken: true},
+            GenerateNewDistributorId: { method: 'GET', url: appCONSTANTS.API_URL + 'Distributor/GenerateDistributorCode', useToken: true },
+            getAllDistributors: { method: 'GET', url: appCONSTANTS.API_URL + 'Distributor/GetAllDistributors', useToken: true, params: { lang: '@lang' } },
+            delete: { method: 'DELETE', url: appCONSTANTS.API_URL + 'Distributor/DeleteDistributor/:distributorId', useToken: true },
+            getDistributors: { method: 'GET', url: appCONSTANTS.API_URL + 'Distributor/GetDistributorById/:distributorId', useToken: true },
+            ChangeDistributors: { method: 'POST', url: appCONSTANTS.API_URL + 'Distributor/ChangeDistributorStatus/:distributorId/:status', useToken: true },
+            GetAllActiveDistributers: { method: 'GET', url: appCONSTANTS.API_URL + 'Distributor/GetAllActiveDistributor', useToken: true, isArray: true },
+            search: { method: 'GET', url: appCONSTANTS.API_URL + 'Distributor/Search', useToken: true},
+
+        })
+    }
+
+}());
+(function () {
+    'use strict';
+    angular
+        .module('home')
+        .controller('DistributorsController', ["DistributorPrepService",'appCONSTANTS','$translate', 'DistributorsResource',
+            'blockUI', '$uibModal', 'DistributorsPrepService',
+            'ToastService', DistributorsController]);
+
+    function DistributorsController(DistributorPrepService,appCONSTANTS,$translate, DistributorsResource,
+        blockUI, $uibModal, DistributorsPrepService, ToastService) {
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[11].children[0]).addClass("active")
+        var vm = this;
+        vm.currentPage =2;
+        vm.appCONSTANTS = appCONSTANTS;
+        vm.totalCount = DistributorsPrepService.totalCount;
+        vm.DistributorsList = DistributorsPrepService.results;
+
+        console.log(DistributorsPrepService);
+
+                function refreshDistributors() {
+            blockUI.start("Loading...");
+
+            var k = DistributorsResource.getAllDistributors({ page: vm.currentPage }).$promise.then(function (results) {
+                vm.DistributorsList = results.results;
+                vm.totalCount = results.totalCount;
+                 console.log(vm.DistributorsList);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+        function change(Distributors, isDeleted) {
+            var updateObj = new DistributorsResource();
+            updateObj.distributorId = Distributors.distributorId;
+            updateObj.name =Distributors.name;
+            updateObj.address = Distributors.address;
+            updateObj.code = Distributors.code;
+            if (!isDeleted)
+            updateObj.isActive = (Distributors.isActive == true ? false : true);
+            updateObj.isDeleted = Distributors.isDeleted;
+
+            updateObj.$update().then(
+                function (data, status) {
+                    if (isDeleted)
+                        refreshDistributors();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    Distributors.isActive = updateObj.isActive;
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+
+        }
+        vm.ChangeDistributorsStatus = function (model) {
+
+
+                        var updateObj = new DistributorsResource();
+            updateObj.distributorId = model.distributorId;
+            updateObj.status =   (model.isActive == true ? false : true);
+            updateObj.$ChangeDistributors({distributorId:model.distributorId,status:updateObj.status}).then(
+                function (data, status) {
+                    refreshDistributors();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    updateObj.status = model.isActive;
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+            return;
+        }
+        function confirmationDelete(model) {
+
+                        var updateObj = new DistributorsResource();
+            updateObj.distributorId = model.distributorId;
+            updateObj.$delete({ distributorId: model.distributorId }).then(
+                function (data, status) {
+                    refreshDistributors();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.openDeleteDialog = function (model, name, distributorId) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+                controller: 'confirmDeleteDialogController',
+                controllerAs: 'deleteDlCtrl',
+                resolve: {
+                    model: function () { return model },
+                    itemName: function () { return name },
+                    itemId: function () { return distributorId },
+                    message: function () { return null },
+                    callBackFunction: function () { return confirmationDelete }
+                }
+
+            });
+        }
+        vm.filterDistributor = function (name, page) {
+
+                        refreshDistributor(name, page);
+            vm.name = "";
+          }
+        function refreshDistributor(name, page) {
+            blockUI.start("Loading...");
+            var k = DistributorsResource.search({ name: name, page: page }).$promise.then(function (results) {
+              vm.DistributorsList= results.results;
+              vm.totalCount = results.totalCount;
+              blockUI.stop();
+            },
+              function (data, status) {
+                blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+              });
+          }
+
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshDistributors();
+        }
+    }
+
+})();
+(function () {
+  angular.module('home')
+    .controller("createDistributorDialogController", ['ContactTypePrepService', 'getDistributorsPrepService', '$rootScope', '$scope', 'DistributorsResource',
+      'CountryResource', 'GovernrateResource', 'CityResource',
+      'appCONSTANTS', 'ToastService',
+      '$translate', 'blockUI', '$http', '$state', 'CountriesPrepService',
+      createDistributorDialogController]);
+
+  function createDistributorDialogController(ContactTypePrepService, getDistributorsPrepService, $rootScope, $scope, DistributorsResource,
+    CountryResource, GovernrateResource,
+    CityResource, appCONSTANTS, ToastService, $translate, blockUI, $http,
+    $state, CountriesPrepService) {
+    var vm = this;
+    vm.code = getDistributorsPrepService.id;
+    vm.language = appCONSTANTS.supportedLanguage;
+    vm.currentStep = 1;
+    vm.DistributorLogo;
+    vm.nameStepOne;
+    vm.address;
+    vm.taxId;
+    vm.commercialReg;
+    vm.emailStepOne;
+    vm.url;
+    vm.countryId;
+    vm.ContactList = [];
+    vm.cityId;
+    vm.governrateId;
+    vm.contactType;
+    vm.ContactTypeList = ContactTypePrepService;
+    vm.user = {};
+    vm.companyLogo;
+    vm.imageData;
+    $rootScope.image = null;
+
+
+
+    vm.steps = [
+      {
+        step: 1,
+        name: "First step",
+        template: "./app/GlobalAdmin/Distributors/templates/step1.html"
+      },
+      {
+        step: 2,
+        name: "Second step",
+        template: "./app/GlobalAdmin/Distributors/templates/step2.html"
+      },
+      {
+        step: 3,
+        name: "Third step",
+        template: "./app/GlobalAdmin/Distributors/templates/step3.html"
+      },
+    ];
+
+    vm.LoadUploadLogo = function () {
+      $("#DistributorLogo ").click();
+    }
+    vm.LoadUploadLogo = function () {
+      $("#companyLogo").click();
+    }
+    var companyLogo;
+    $scope.AddcompanyLogo = function (element) {
+      var logoFile = element[0];
+      var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+      if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+        if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+          $scope.newDistributorsForm = true;
+          $scope.$apply(function () {
+
+            companyLogo = logoFile;
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+              vm.companyLogo = reader.result;
+
+              $scope.$apply();
+            };
+            if (logoFile) {
+              reader.readAsDataURL(logoFile);
+            }
+          })
+        } else {
+          $("#logoImage").val('');
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+        }
+
+      } else {
+        if (logoFile) {
+          $("#logoImage").val('');
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+        }
+
+
+      }
+
+
+    }
+    vm.openDeleteContactTypeDialog = function(e){
+      vm.ContactList.splice(e, 1);
+   };
+    vm.AddContact = function () {
+      vm.conactObject =
+        {
+          name: vm.name,
+          title: vm.title,
+          mobileNumber: vm.mobileNumber,
+          email: vm.email,
+          checkbox: false,
+          contactTypeId: vm.selectedContactType
+        }
+      if (vm.ContactList.length != 0) {
+        var checkContact = vm.ContactList.find(v => v.mobileNumber == vm.conactObject.mobileNumber);
+        if (checkContact != null) {
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('must insert uniqe contact'), "error");
+          return;
+        }
+      }
+      if (vm.name == null) {
+        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put name'), "error"); return;
+      }
+      if (vm.mobileNumber == null) {
+        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put correct mobileNumber'), "error"); return;
+      }
+
+
+      vm.ContactList.push(vm.conactObject);
+    }
+    vm.setContactMain = function (index) {
+      var checkIfContactHasMain = vm.ContactList.find(v => v.checkbox == true && v.mobileNumber != index.mobileNumber);
+      if (checkIfContactHasMain) {
+        index.checkbox = false;
+        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('just one contact must be main '), "error"); return;
+      }
+    }
+    var checkboxValue=[];
+    vm.gotoStep = function (newStep) {
+
+      if (vm.currentStep == 1) {
+        if (vm.nameStepOne == null) {
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put Name'), "error");
+          return;
+        }
+        if (vm.address == null) {
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put Address'), "error");
+          return;
+        }
+        if (vm.selectedCityId == 0 || vm.selectedCountryId == 0 || vm.selectedGovernrateId == 0) {
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put location'), "error");
+          return;
+        }
+      }
+      if (vm.currentStep == 2) {
+        if (vm.ContactList.length == 0) 
+        {
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put contact list'), "error");
+          return;
+        }
+        else
+        {
+          for (i = 0; i < vm.ContactList.length; i++) 
+          { 
+            var value =vm.ContactList[i].checkbox;
+            checkboxValue.push(value);
+          }
+         if (!checkboxValue.includes(true))
+         {
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should Check at least one Contact'), "error");
+          return;
+         }
+        }
+      }
+      vm.currentStep = newStep;
+
+
+    }
+    vm.getStepTemplate = function () {
+      for (var i = 0; i < vm.steps.length; i++) {
+        if (vm.currentStep == vm.steps[i].step) {
+          return vm.steps[i].template;
+        }
+      }
+    }
+
+    vm.addNewDistributors = function () {
+      blockUI.start("Loading...");
+
+      var splitImage = $rootScope.image.split(',');
+      var newDistributors = new DistributorsResource();
+      newDistributors.name = vm.nameStepOne;
+      newDistributors.address = vm.address;
+      newDistributors.email = vm.emailStepOne;
+      newDistributors.url = vm.url;
+      newDistributors.code = vm.code;
+      newDistributors.cityId = vm.selectedCityId;
+      newDistributors.countryId = vm.selectedCountryId;
+      newDistributors.governrateId = vm.selectedGovernrateId;
+      newDistributors.distributorContactInformation = vm.ContactList;
+      newDistributors.taxId = vm.taxId;
+      newDistributors.commercialReg = vm.commercialReg;
+      newDistributors.companyLogo = splitImage[1];
+      newDistributors.logoContentType = $rootScope.imageType;
+
+      newDistributors.$create().then
+        (
+          function (data, status) {
+            blockUI.stop();
+            if (data.isSuccsess) {
+              ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+              $state.go('Distributor');
+            }
+            else {
+              ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            }
+          },
+          function (data, status) {
+            blockUI.stop();
+            console.log(data.data);
+            ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+          }
+        );
+
+
+    }
+
+
+    vm.countries = [];
+    vm.countries.push({ countryId: 0, titles: { "en-uk": "Select Country", "ar-eg": "اختار بلد" } });
+    vm.selectedCountryId = 0;
+    console.log(vm.countries);
+    CountryResource.getAllCountries().$promise.then(function (results) {
+
+      vm.countries = vm.countries.concat(results.results);
+      console.log(vm.countries);
+    },
+      function (data, status) {
+        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+      });
+    vm.resetDLL = function () {
+      vm.countries = [];
+      vm.countries.push({ id: 0, titles: { "en-uk": "Select Country", "ar-eg": "اختار بلد" } });
+      vm.selectedCountryId = 0;
+      vm.countries = vm.countries.concat(CountriesPrepService.results)
+      vm.Governrates = [];
+      vm.cities = [];
+      vm.categoryList = [];
+    }
+    vm.countryChange = function () {
+
+      vm.Governrates = [];
+      vm.cities = [];
+
+      if (vm.selectedCountryId == null)
+        return;
+      vm.Governrates.push({ governrateId: 0, titles: { "en-uk": "Select Governrate", "ar-eg": "اختار اقليم" } });
+      GovernrateResource.GetAllActiveGovernrates({ countryId: vm.selectedCountryId }).$promise.then(function (results) {
+        vm.selectedGovernrateId = 0;
+        vm.Governrates = vm.Governrates.concat(results);
+        console.log(vm.Governrates);
+      },
+        function (data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", data.message, "You should put city");
+        });
+      blockUI.stop();
+    }
+    vm.GovernrateChange = function () {
+      if (vm.selectedGovernrateId != undefined) {
+        for (var i = vm.Governrates.length - 1; i >= 0; i--) {
+          if (vm.Governrates[i].id == 0) {
+            vm.Governrates.splice(i, 1);
+          }
+        }
+        vm.cities = [];
+
+        if (vm.selectedGovernrateId == null)
+          return;
+        vm.cities.push({ cityId: 0, titles: { "en-uk": "Select City", "ar-eg": "اختار مدينة" } });
+        CityResource.getAllActiveCities({ governrateId: vm.selectedGovernrateId }).$promise.then(function (results) {
+          vm.selectedCityId = 0;
+          vm.cities = vm.cities.concat(results);
+        },
+          function (data, status) {
+            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+          });
+      }
+    }
+    vm.cityChange = function () {
+      if (vm.selectedCityId != undefined) {
+        for (var i = vm.cities.length - 1; i >= 0; i--) {
+          if (vm.cities[i].id == 0) {
+            vm.cities.splice(i, 1);
+          }
+        }
+      }
+    }
+
+  }
+
+
+})();(function () {
+  'use strict';
+
+  angular
+    .module('home')
+    .controller('editDistributorDialogController', ['$rootScope', 'ContactTypePrepService', 'CityResource', 'GovernrateResource', 'CountriesPrepService', 'CountryResource', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+      'DistributorsResource', 'ToastService', 'DistributorEditByIdPrepService', editDistributorDialogController])
+
+  function editDistributorDialogController($rootScope, ContactTypePrepService, CityResource, GovernrateResource, CountriesPrepService, CountryResource, blockUI, $filter, $http, $state, appCONSTANTS, $translate, DistributorsResource,
+    ToastService, DistributorEditByIdPrepService) {
+    var vm = this;
+    vm.language = appCONSTANTS.supportedLanguage;
+    vm.Distributor = DistributorEditByIdPrepService;
+    console.log("m", vm.Distributor);
+    $rootScope.image = appCONSTANTS.Image_URL_ACTOR + vm.Distributor.companyLogo;
+    vm.currentStep = 1;
+    vm.DistributorLogo;
+    vm.nameStepOne;
+    vm.address;
+    vm.taxId;
+    vm.commercialReg;
+    vm.emailStepOne;
+    vm.url;
+    vm.countryId;
+    vm.ContactList = [];
+    vm.cityId;
+    vm.governrateId;
+    vm.ContactList = [];
+    vm.contactType;
+    vm.ContactTypeList = ContactTypePrepService;
+    vm.Contacts = [];
+    vm.user = {};
+    vm.companyLogo;
+    vm.imageData;
+
+
+    vm.openDeleteContactTypeDialog = function(e){
+      vm.Distributor.distributorContactInformation.splice(e, 1);
+   };
+   vm.openDeleteContactTypeDialogContactList = function(e){
+    vm.ContactList.splice(e, 1);
+ };
+    vm.AddContact = function () {
+
+      vm.conactObject =
+        {
+          name: vm.name,
+          title: vm.title,
+          mobileNumber: vm.mobileNumber,
+          email: vm.email,
+          checkbox: false,
+          contactTypeId: vm.selectedContactType
+        }
+      if (vm.Distributor.distributorContactInformation.length != 0) {
+        var checkContact = vm.Distributor.distributorContactInformation.find(v => v.mobileNumber == vm.conactObject.mobileNumber);
+        if (checkContact != null) {
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('must insert uniqe contact'), "error");
+          return;
+        }
+      }
+      if (vm.name == null) {
+        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put name'), "error"); return;
+      }
+      if (vm.mobileNumber == null) {
+        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put correct mobileNumber'), "error"); return;
+      }
+
+
+      vm.Distributor.distributorContactInformation.push(vm.conactObject);
+    }
+    vm.setContactMain = function (index) {
+      var checkIfContactHasMain = vm.Distributor.distributorContactInformation.find(v => v.main == true && v.mobileNumber != index.mobileNumber);
+      if (checkIfContactHasMain) {
+        index.main = false;
+        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('just one contact must be main '), "error"); return;
+      }
+    }
+
+
+    vm.steps = [
+      {
+        step: 1,
+        name: "First step",
+        template: "./app/GlobalAdmin/Distributors/templates/editstep1.html"
+      },
+      {
+        step: 2,
+        name: "Second step",
+        template: "./app/GlobalAdmin/Distributors/templates/editstep2.html"
+      },
+      {
+        step: 3,
+        name: "Third step",
+        template: "./app/GlobalAdmin/Distributors/templates/editstep3.html"
+      },
+    ];
+    vm.gotoStep = function (newStep) {
+
+      if (vm.currentStep == 1) {
+        if (vm.Distributor.name == null) {
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should edit Name'), "error");
+          return;
+        }
+        if (vm.Distributor.address == null) {
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should edit Address'), "error");
+          return;
+        }
+        if (vm.selectedCityId == 0 || vm.selectedCountryId == 0 || vm.selectedGovernrateId == 0) {
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should edit location'), "error");
+          return;
+        }
+      }
+      if (vm.Distributor.currentStep == 2) 
+      {
+        if (vm.Distributor.distributorContactInformation != 0) 
+        {
+
+          for (let i = 0; i < vm.Distributor.distributorContactInformation.length; i++) {
+            var value = vm.Distributor.distributorContactInformation[i].main;
+            checkboxValue.push(value);
+          }
+          if (!checkboxValue.includes(true)) {
+            ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should Check at least one Contact'), "error");
+            return;
+          }
+        }
+      }
+      vm.currentStep = newStep;
+
+
+    }
+    vm.getStepTemplate = function () {
+      for (var i = 0; i < vm.steps.length; i++) {
+        if (vm.currentStep == vm.steps[i].step) {
+          return vm.steps[i].template;
+        }
+      }
+    }
+    vm.Close = function () {
+      $state.go('Distributor');
+    }
+    vm.UpdateDistributor = function () {
+
+            blockUI.start("Loading...");
+      var updateObj = new DistributorsResource();
+      var splitImage = $rootScope.image.split(',');
+      updateObj.code = vm.Distributor.code;
+      updateObj.name = vm.Distributor.name;
+      updateObj.distributorId = vm.Distributor.distributorId;
+      updateObj.address = vm.Distributor.address;
+      updateObj.email = vm.Distributor.email;
+      updateObj.url = vm.Distributor.webSite;
+      updateObj.code = vm.Distributor.code;
+      updateObj.cityId = vm.selectedCityId;
+      updateObj.countryId = vm.selectedCountryId;
+      updateObj.governrateId = vm.selectedGovernrateId;
+      updateObj.distributorContactInformation = vm.Distributor.distributorContactInformation;
+      updateObj.taxId = vm.Distributor.taxId;
+      updateObj.commercialReg = vm.Distributor.commercialReg;
+      if ($rootScope.imageType != null) {
+        updateObj.companyLogo = splitImage[1];
+        updateObj.logoContentType = $rootScope.imageType;
+      }
+
+      updateObj.$update().then
+        (
+          function (data, status) {
+            blockUI.stop();
+            if (data.isSuccsess) {
+              ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
+              $state.go('Distributor');
+            }
+            else {
+              ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            }
+          },
+          function (data, status) {
+            blockUI.stop();
+            console.log(data.data);
+            ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+          }
+        );
+
+    }
+
+    vm.countries = [];
+    vm.countries.push({ id: 0, titles: { "en-uk": "Select Country", "ar-eg": "اختار بلد" } });
+    vm.selectedCountryId = 0;
+    CountryResource.getAllCountries().$promise.then(function (results) {
+
+      vm.countries = vm.countries.concat(results.results)
+
+      var indexRate = vm.countries.indexOf($filter('filter')(vm.countries, { 'countryId': vm.Distributor.country.countryId }, true)[0]);
+      vm.selectedCountryId = vm.countries[indexRate].countryId;
+      console.log(vm.cities);
+      vm.Governrates = [];
+      vm.cities = [];
+      vm.Governrates.push({ id: 0, titles: { "en-uk": "Select Governrate", "ar-eg": "اختار اقليم" } });
+      GovernrateResource.GetAllActiveGovernrates({ countryId: vm.selectedCountryId }).$promise.then(function (results) {
+        vm.selectedGovernrateId = 0;
+
+                vm.Governrates = vm.Governrates.concat(results);
+        var indexRate = vm.Governrates.indexOf($filter('filter')(vm.Governrates, { 'governrateId': vm.Distributor.governrate.governrateId }, true)[0]);
+        vm.selectedGovernrateId = vm.Governrates[indexRate].governrateId;
+        if (vm.selectedGovernrateId != undefined) {
+          for (var i = vm.Governrates.length - 1; i >= 0; i--) {
+            if (vm.Governrates[i].id == 0) {
+              vm.Governrates.splice(i, 1);
+            }
+          }
+          vm.GovernrateChange = function () {
+            if (vm.selectedGovernrateId != undefined) {
+              for (var i = vm.Governrates.length - 1; i >= 0; i--) {
+                if (vm.Governrates[i].id == 0) {
+                  vm.Governrates.splice(i, 1);
+                }
+              }
+
+                    vm.cities = [];
+
+                    if (vm.selectedGovernrateId == null)
+                return;
+              vm.cities.push({ cityId: 0, titles: { "en-uk": "Select City", "ar-eg": "اختار مدينة" } });
+              CityResource.getAllActiveCities({ governrateId: vm.selectedGovernrateId }).$promise.then(function (results) {
+                vm.selectedCityId = 0;
+                vm.cities = vm.cities.concat(results);
+              },
+                function (data, status) {
+                  ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+            }
+          }
+          vm.cities = [];
+          vm.area = [];
+          vm.cities.push({ id: 0, titles: { "en-uk": "Select City", "ar-eg": "اختار مدينة" } });
+          CityResource.getAllActiveCities({ governrateId: vm.selectedGovernrateId }).$promise.then(function (results) {
+            vm.selectedCityId = 0;
+            vm.cities = vm.cities.concat(results);
+            var indexRate = vm.cities.indexOf($filter('filter')(vm.cities,
+              { 'cityId': vm.Distributor.city.cityId }, true)[0]);
+            vm.selectedCityId = vm.cities[indexRate].cityId;
+          },
+            function (data, status) {
+              ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        }
+      },
+        function (data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", data.message, "You should put city");
+        });
+    },
+      function (data, status) {
+        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+      });
+    vm.resetDLL = function () {
+      vm.countries = [];
+      vm.countries.push({ id: 0, titles: { "en-uk": "Select Country", "ar-eg": "اختار بلد" } });
+      vm.selectedCountryId = 0;
+      vm.countries = vm.countries.concat(CountriesPrepService.results)
+      vm.Governrates = [];
+      vm.cities = [];
+      vm.categoryList = [];
+    }
+    vm.cityChange = function () {
+      if (vm.selectedCityId != undefined) {
+        for (var i = vm.cities.length - 1; i >= 0; i--) {
+          if (vm.cities[i].id == 0) {
+            vm.cities.splice(i, 1);
+          }
+        }
+      }
+    }
+    vm.LoadUploadLogo = function () {
+			$("#imageName").click();
+		}
+  }
 }());
 (function () {
     'use strict';
@@ -2681,62 +3627,126 @@
 
     angular
         .module('home')
-        .controller('RegionController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
-            '$state', 'RegionResource', 'RegionsPrepService',  '$stateParams', 'appCONSTANTS',
-            'ToastService','CountryByIdPrepService', RegionController]);
+        .controller('OrderIooController', ['blockUI', '$translate', '$uibModal', 'appCONSTANTS', '$scope', 'OrderResource',
+            'ToastService', OrderIooController]);
 
+    function OrderIooController(blockUI, $translate, $uibModal, appCONSTANTS, $scope, OrderResource, ToastService) {
 
-    function RegionController($rootScope, blockUI, $scope, $filter, $translate,
-        $state, RegionResource, RegionsPrepService, $stateParams, appCONSTANTS, ToastService,CountryByIdPrepService) { 
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
 
+        blockUI.start("Loading...");
 
-        blockUI.start("Loading..."); 
+        var vm = this;
+        refreshOrders();
+        vm.filterOrder = function (all) {
 
-                    var Manufacture = this;
-        $scope.totalCount = RegionsPrepService.totalCount;
-        $scope.Regions  = RegionsPrepService;
-        $scope.countryName = CountryByIdPrepService.titles[$scope.selectedLanguage];
-        function refreshRegions() {
-
-            blockUI.start("Loading..."); 
-
-                        var k = RegionResource.getAllRegions({countryId: $stateParams.countryId ,page:Manufacture.currentPage}).$promise.then(function (results) { 
-                $scope.Regions = results  
-                blockUI.stop();
-
-                            },
-            function (data, status) {
-                blockUI.stop();
-
-                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
+            if (all) { 
+                vm.searchBasket = "";
+                vm.searchRetailer = "";
+                vm.searchOrder = "";
+                vm.from = "";
+                vm.to = "";
+            }
+            filterBasket();
         }
 
-                Manufacture.currentPage = 1;
-        $scope.changePage = function (page) {
-            Manufacture.currentPage = page;
-            refreshRegions();
+        function filterBasket() {
+            blockUI.start("Loading...");
+            var k = OrderResource.getFilterBaskets({ retailerTitle: vm.searchRetailer, orderNo: vm.searchOrder, basketNo: vm.searchBasket, from: vm.from, to: vm.to, page: vm.currentPage }).$promise.then(function (results) {
+                vm.Orders = results.results;
+                vm.totalCount = results.totalCount;
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+        function refreshOrders() {
+            blockUI.start("Loading...");
+            var k = OrderResource.getAllBasketsBy({ page: vm.currentPage }).$promise.then(function (results) {
+                vm.Orders = results.results;
+                vm.totalCount = results.totalCount;
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+        vm.ChangeStatus = function (model) {
+
+                        var updateObj = new OrderResource();
+            updateObj.OrderId = model.OrderId;
+            updateObj.status = (model.isActive == true ? false : true);
+            updateObj.$changeStatus({ OrderId: model.OrderId, status: updateObj.status }).then(
+                function (data, status) {
+                    refreshOrders();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    updateObj.status = model.isActive;
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                }
+            );
+            return;
+        }
+        vm.currentPage = 1;
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshOrders();
         }
         blockUI.stop();
 
+        vm.dateIsValid = false;
+        $scope.dateFromChange = function () {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                vm.dateIsValid = false;
             }
+            else {
+
+                                vm.from = $('#startdate').data('date');
+                $scope.$apply();
+            }
+        }
+
+        $scope.dateToChange = function () {
+            if ($('#enddate').data('date') == null || $('#enddate').data('date') == "") {
+                vm.dateIsValid = false;
+            }
+            else {
+
+                                vm.to = $('#enddate').data('date');
+                $scope.$apply();
+            }
+        }
+        vm.showMore = function (element) {
+            $(element.currentTarget).toggleClass("child-table-collapse");
+        }
+    }
 
 })();
 (function () {
     angular
-      .module('home')
-        .factory('RegionResource', ['$resource', 'appCONSTANTS', RegionResource]) 
+        .module('home')
+        .factory('OrderResource', ['$resource', 'appCONSTANTS', OrderResource])
 
-    function RegionResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Regions/', {}, {
-            getAllRegions: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId/Regions', useToken: true,  params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Regions/EditRegion', useToken: true },
-            getRegion: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId', useToken: true },
-            getAllRegionsForUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/:userId/Regions', useToken: true, isArray:true }
-
-                    })
-    } 
+    function OrderResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Order/CreateOrder', {}, {
+            getAllOrdersBy: { method: 'GET', url: appCONSTANTS.API_URL + 'Order/GetOrders', useToken: true },
+            getAllBasketsBy: { method: 'GET', url: appCONSTANTS.API_URL + 'Order/GetBaskets', useToken: true },
+            getFilterBaskets: { method: 'GET', url: appCONSTANTS.API_URL + 'Order/GetBasketsOperation', useToken: true },
+            getOrder: { method: 'GET', url: appCONSTANTS.API_URL + 'Order/GetOrderById/:id', useToken: true },
+            getOrderDetails: { method: 'GET', url: appCONSTANTS.API_URL + 'Order/GetOrderDetails/:orderId ', useToken: true },
+            getOrderById: { method: 'GET', url: appCONSTANTS.API_URL + 'Order/GetOrderById/:orderId ', useToken: true },
+            changeStatusOpen: { method: 'POST', url: appCONSTANTS.API_URL + 'Order/Open/:orderId', useToken: true },
+            forwordFor: { method: 'POST', url: appCONSTANTS.API_URL + 'Order/ForwordFor/:orderItemIds', useToken: true },
+            cancelFor: { method: 'POST', url: appCONSTANTS.API_URL + 'Order/CancelFor/:orderItemIds', useToken: true },
+        })
+    }
 
 }());
 (function () {
@@ -2747,178 +3757,405 @@
         .config(function ($stateProvider, $urlRouterProvider) {
 
             $stateProvider
-                .state('Regions', {
-                    url: '/Country/:countryId/Region',
-                    templateUrl: './app/GlobalAdmin/Region/templates/Regions.html',
-                    controller: 'RegionController',
-                    'controllerAs': 'RegionCtrl',
+                .state('OrdersIoo', {
+                    url: '/Order',
+                    templateUrl: './app/GlobalAdmin/Order/templates/IooOrder.html',
+                    controller: 'OrderIooController',
+                    'controllerAs': 'OrderIooCtrl',
                     resolve: {
-                        RegionsPrepService: RegionsPrepService,
-                        CountryByIdPrepService: CountryByIdPrepService                        
                     },
                     data: {
                         permissions: {
-                            only: ['4'],
+                            only: ['23'],
                             redirectTo: 'root'
                         }
-                    },
-                    ncyBreadcrumb: {
-                        label: '{{countryName}}'
                     }
+
                 })
-                .state('newRegion', {
-                    url: '/Country/:countryId/newRegion',
-                    templateUrl: './app/GlobalAdmin/Region/templates/new.html',
-                    controller: 'createRegionDialogController',
-                    'controllerAs': 'newRegionCtrl',
+
+                .state('OrdersM', {
+                    url: '/OrderM',
+                    templateUrl: './app/GlobalAdmin/Order/templates/mOrder.html',
+                    controller: 'OrderMController',
+                    'controllerAs': 'OrderMCtrl', 
+                    data: {
+                        permissions: {
+                            only: ['24'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('OrderDetails', {
+                    url: '/OrderDetails/:orderId',
+                    templateUrl: './app/GlobalAdmin/Order/templates/OrderDetails.html',
+                    controller: 'OrderDetailsController',
+                    'controllerAs': 'OrderDetailsCtrl',
                     resolve: {
-                        CountryByIdPrepService: CountryByIdPrepService                        
+                        OrderDetaqilsByOrderIdPrepService: OrderDetaqilsByOrderIdPrepService
                     },
                     data: {
                         permissions: {
-                            only: ['4'],
+                            only: ['23'],
                             redirectTo: 'root'
                         }
-                    },
-                    ncyBreadcrumb: {
-                        label: '{{countryName}}'
                     }
 
                 })
-                .state('editRegion', {
-                    url: '/Country/:countryId/editRegion/:regionId',
-                    templateUrl: './app/GlobalAdmin/Region/templates/edit.html',
-                    controller: 'editRegionDialogController',
-                    'controllerAs': 'editRegionCtrl',
+                .state('OrderDetailsByTenant', {
+                    url: '/OrderMDetails/:orderId',
+                    templateUrl: './app/GlobalAdmin/Order/templates/OrderDetailsByTenant.html',
+                    controller: 'OrderDetailsByTenantController',
+                    'controllerAs': 'OrderDetailsByTenantCtrl',
                     resolve: {
-                        RegionByIdPrepService: RegionByIdPrepService,
-                        CountryByIdPrepService: CountryByIdPrepService                        
+                        OrderDetaqilsByOrderIdPrepService: OrderDetaqilsByOrderIdPrepService
                     },
                     data: {
                         permissions: {
-                            only: ['4'],
+                            only: ['24'],
                             redirectTo: 'root'
                         }
-                    },
-                    ncyBreadcrumb: {
-                        label: '{{countryName}}'
                     }
 
                 })
-        });
 
-    RegionsPrepService.$inject = ['RegionResource', '$stateParams']
-    function RegionsPrepService(RegionResource, $stateParams) {
-        return RegionResource.getAllRegions({ countryId: $stateParams.countryId }).$promise;
+         });
+
+
+     OrderDetaqilsByOrderIdPrepService.$inject = ['OrderResource', '$stateParams']
+    function OrderDetaqilsByOrderIdPrepService(OrderResource, $stateParams) {
+        return OrderResource.getOrderDetails({ orderId: $stateParams.orderId }).$promise;
     }
 
-    RegionByIdPrepService.$inject = ['RegionResource', '$stateParams']
-    function RegionByIdPrepService(RegionResource, $stateParams) {
-        return RegionResource.getRegion({ regionId: $stateParams.regionId }).$promise;
-    }
-    CountryByIdPrepService.$inject = ['CountryResource', '$stateParams']
-    function CountryByIdPrepService(CountryResource, $stateParams) {
-        return CountryResource.getCountry({ countryId: $stateParams.countryId }).$promise;
-    }
+ }());
 
-}());
 (function () {
     'use strict';
 
     angular
         .module('home')
-        .controller('createRegionDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'RegionResource', 'ToastService', '$stateParams', 'CountryByIdPrepService', createRegionDialogController])
+        .controller('OrderDetailsController', ['blockUI', '$stateParams', 'appCONSTANTS', '$scope', 'OrderResource', 'OrderDetaqilsByOrderIdPrepService',
+            'ToastService', OrderDetailsController]);
 
-    function createRegionDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RegionResource,
-        ToastService, $stateParams, CountryByIdPrepService) {
+
+    function OrderDetailsController(blockUI, $stateParams, appCONSTANTS, $scope, OrderResource, OrderDetaqilsByOrderIdPrepService, ToastService) {
+
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
 
         blockUI.start("Loading...");
 
-        var Manufacture = this;
-        Manufacture.language = appCONSTANTS.supportedLanguage;
-        $scope.countryName = CountryByIdPrepService.titles[$scope.selectedLanguage];
-
-        Manufacture.close = function () {
-            $state.go('Regions', { countryId: $stateParams.countryId });
-        }
-
-        Manufacture.AddNewRegion = function () {
+        var vm = this;
+        vm.appCONSTANTS = appCONSTANTS;
+        vm.totalCount = OrderDetaqilsByOrderIdPrepService.totalCount;
+        vm.OrderDetails = OrderDetaqilsByOrderIdPrepService;
+        vm.listSelected = [];
+        console.log(vm.OrderDetails);
+        getOrderById();
+        function getOrderById() {
             blockUI.start("Loading...");
+            var k = OrderResource.getOrderById({ orderId: $stateParams.orderId }).$promise.then(function (results) {
 
-            var newObj = new RegionResource();
-            newObj.countryId = $stateParams.countryId;
-            newObj.titles = Manufacture.titles;
-            newObj.IsDeleted = false;
-            newObj.IsStatic = false;
-            newObj.$create().then(
+                vm.order = results;
+                blockUI.stop();
+            },
                 function (data, status) {
                     blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    $state.go('Regions', { countryId: $stateParams.countryId }, { reload: true });
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+        function getOrderDetailsById() {
+            blockUI.start("Loading...");
+            var k = OrderResource.getOrderDetails({ orderId: $stateParams.orderId }).$promise.then(function (results) {
 
+                vm.totalCount = results.totalCount;
+                vm.OrderDetails = results.results;
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+        blockUI.stop();
+        vm.forwardSelected = function () {
+            blockUI.start("Loading...");
+            var updateObj = new OrderResource();
+            updateObj.orderItemIds = vm.listSelected;
+            updateObj.$forwordFor().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                                        if (data.isSuccsess) {
+                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                        vm.listSelected = [];
+                        getOrderDetailsById();
+                    }
+                    else {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    }
+                    blockUI.stop();
 
                 },
                 function (data, status) {
                     blockUI.stop();
 
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                }
+            ); 
+        }
+        vm.refreshOrder = function () {
+
+                        getOrderById();
+        }
+        vm.cancelSelected = function () {
+            blockUI.start("Loading...");
+            var updateObj = new OrderResource();
+            updateObj.orderItemIds = vm.listSelected;
+            updateObj.$cancelFor().then(
+                function (data, status) {
+
+                                        if (data.isSuccsess) {
+                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                        vm.listSelected = [];
+                        getOrderDetailsById();
+                    }
+                    else {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    }
+                    blockUI.stop();
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 }
             );
         }
-        blockUI.stop();
+
+        vm.toggleSelection = function toggleSelection(order) {
+            var idx = vm.listSelected.indexOf(order);
+            if (idx > -1) {
+                vm.listSelected.splice(idx, 1);
+            }
+            else {
+                vm.listSelected.push(order);
+            }
+        };
+
 
     }
-}());
+
+})();
+
 (function () {
     'use strict';
 
-	    angular
+    angular
         .module('home')
-        .controller('editRegionDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'RegionResource', 'ToastService',
-            'RegionByIdPrepService','$stateParams','CountryByIdPrepService', editRegionDialogController])
+        .controller('OrderDetailsByTenantController', ['blockUI', '$translate', '$uibModal', 'appCONSTANTS', '$stateParams', 'OrderResource', 'OrderDetaqilsByOrderIdPrepService',
+            'ToastService', OrderDetailsByTenantController]);
 
-    function editRegionDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RegionResource, ToastService, 
-        RegionByIdPrepService,$stateParams,CountryByIdPrepService) {
-        blockUI.start("Loading..."); 
 
-                var Manufacture = this; 
-		Manufacture.language = appCONSTANTS.supportedLanguage;
-        Manufacture.Region = RegionByIdPrepService; 
-        $scope.countryName = CountryByIdPrepService.titles[$scope.selectedLanguage];
+    function OrderDetailsByTenantController(blockUI, $translate, $uibModal, appCONSTANTS, $stateParams, OrderResource, OrderDetaqilsByOrderIdPrepService, ToastService) {
 
-                Manufacture.Close = function () {
-            $state.go('Regions',{countryId: $stateParams.countryId });
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
+
+        blockUI.start("Loading...");
+
+        var vm = this;
+        vm.appCONSTANTS = appCONSTANTS;
+        vm.totalCount = OrderDetaqilsByOrderIdPrepService.totalCount;
+        vm.OrderDetails = OrderDetaqilsByOrderIdPrepService.results;
+        vm.listSelected = [];
+        getOrderById();
+        function getOrderById() {
+            blockUI.start("Loading...");
+            var k = OrderResource.getOrderById({ orderId: $stateParams.orderId }).$promise.then(function (results) {
+
+                vm.order = results;
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
         }
-        Manufacture.UpdateRegion  = function () { 
-            blockUI.start("Loading..."); 
+        function getOrderDetailsById() {
+            blockUI.start("Loading...");
+            var k = OrderResource.getOrderDetails({ orderId: $stateParams.orderId }).$promise.then(function (results) {
 
-                        var updateObj = new RegionResource();
-            updateObj.regionId = Manufacture.Region.regionId;
-            updateObj.countryId= $stateParams.countryId;
-            updateObj.titles = Manufacture.Region.titles;
-		    updateObj.IsDeleted = false;
-		    updateObj.IsStatic = false;
-		    updateObj.$update().then(
+                vm.totalCount = results.totalCount;
+                vm.OrderDetails = results.results;
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+        blockUI.stop();
+        vm.forwardSelected = function () {
+            blockUI.start("Loading...");
+            var updateObj = new OrderResource();
+            updateObj.orderItemIds = vm.listSelected;
+            updateObj.$forwordFor().then(
                 function (data, status) {
                     blockUI.stop();
 
-                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                     $state.go('Regions',{countryId: $stateParams.countryId },{ reload: true });
+                                        if (data.isSuccsess) {
+                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                        vm.listSelected = [];
+                        getOrderDetailsById();
+                    }
+                    else {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    }
+                    blockUI.stop();
 
                 },
                 function (data, status) {
                     blockUI.stop();
 
-                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                }
+            );
+
+
+        }
+        vm.cancelSelected = function () {
+            blockUI.start("Loading...");
+            var updateObj = new OrderResource();
+            updateObj.orderItemIds = vm.listSelected;
+            updateObj.$cancelFor().then(
+                function (data, status) {
+
+                                        if (data.isSuccsess) {
+                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                        vm.listSelected = [];
+                        getOrderDetailsById();
+                    }
+                    else {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    }
+                    blockUI.stop();
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 }
             );
         }
-        blockUI.stop();
 
-        	}	
-}());
+        vm.toggleSelection = function toggleSelection(order) {
+            var idx = vm.listSelected.indexOf(order);
+            if (idx > -1) {
+                vm.listSelected.splice(idx, 1);
+            }
+            else {
+                vm.listSelected.push(order);
+            }
+        };
+        vm.refreshDetails = function () {
+            getOrderDetailsById();
+        }
+    }
+
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('OrderMController', ['blockUI', 'appCONSTANTS', '$scope', '$interval', 'OrderResource', '$state', 'ToastService', OrderMController]);
+
+    function OrderMController(blockUI, appCONSTANTS, $scope, $interval, OrderResource, $state, ToastService) {
+
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
+
+        blockUI.start("Loading...");
+        var vm = this;
+        vm.connectionId = 0;
+        vm.connection = new signalR.HubConnectionBuilder().withUrl(appCONSTANTS.SIGNAL_URL + "newOrder").build();
+
+        vm.connection.on("NewOrder", function () {
+            refreshOrders();
+            return console.log(vm.connection);
+        });
+
+        vm.connection.on("RefreshOrder", function () {
+            refreshOrders();
+            return console.log(vm.connection);
+        });
+
+        vm.connection.start().then(function () {
+
+            console.log(vm.connection);
+
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        vm.appCONSTANTS = appCONSTANTS;
+        refreshOrders();
+        $scope.openOrder = function (orderId) {
+            blockUI.start("Loading...");
+
+
+                        vm.connection.invoke('getConnectionId')
+                .then(function (connectionId) {
+
+                                        vm.connectionId = connectionId;
+                    vm.connection.invoke('refresh'); 
+                });
+
+
+            var updateObj = new OrderResource();
+            updateObj.orderId = orderId;
+            updateObj.$changeStatusOpen({ orderId: orderId }).then(
+                function (data, status) {
+                    blockUI.stop();
+                    $state.go('OrderDetailsByTenant', { orderId: orderId });
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                }
+            );
+        }
+        function refreshOrders() {
+            blockUI.start("Loading...");
+            var k = OrderResource.getAllOrdersBy({ page: vm.currentPage }).$promise.then(function (results) {
+                vm.Orders = results.results;
+                vm.totalCount = results.totalCount;
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+        vm.currentPage = 1;
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshOrders();
+        }
+        blockUI.stop();
+        $scope.checkAll = function () {
+            if (!$scope.selectedAll) {
+                $scope.selectedAll = true;
+            } else {
+                $scope.selectedAll = false;
+            }
+        }
+    }
+
+})();
 (function () {
     'use strict';
 
@@ -3585,6 +4822,249 @@
             $state.go('Products');
         }
     }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('RegionController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', 'RegionResource', 'RegionsPrepService',  '$stateParams', 'appCONSTANTS',
+            'ToastService','CountryByIdPrepService', RegionController]);
+
+
+    function RegionController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, RegionResource, RegionsPrepService, $stateParams, appCONSTANTS, ToastService,CountryByIdPrepService) { 
+
+
+        blockUI.start("Loading..."); 
+
+                    var Manufacture = this;
+        $scope.totalCount = RegionsPrepService.totalCount;
+        $scope.Regions  = RegionsPrepService;
+        $scope.countryName = CountryByIdPrepService.titles[$scope.selectedLanguage];
+        function refreshRegions() {
+
+            blockUI.start("Loading..."); 
+
+                        var k = RegionResource.getAllRegions({countryId: $stateParams.countryId ,page:Manufacture.currentPage}).$promise.then(function (results) { 
+                $scope.Regions = results  
+                blockUI.stop();
+
+                            },
+            function (data, status) {
+                blockUI.stop();
+
+                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        }
+
+                Manufacture.currentPage = 1;
+        $scope.changePage = function (page) {
+            Manufacture.currentPage = page;
+            refreshRegions();
+        }
+        blockUI.stop();
+
+            }
+
+})();
+(function () {
+    angular
+      .module('home')
+        .factory('RegionResource', ['$resource', 'appCONSTANTS', RegionResource]) 
+
+    function RegionResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Regions/', {}, {
+            getAllRegions: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId/Regions', useToken: true,  params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Regions/EditRegion', useToken: true },
+            getRegion: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId', useToken: true },
+            getAllRegionsForUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/:userId/Regions', useToken: true, isArray:true }
+
+                    })
+    } 
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .config(function ($stateProvider, $urlRouterProvider) {
+
+            $stateProvider
+                .state('Regions', {
+                    url: '/Country/:countryId/Region',
+                    templateUrl: './app/GlobalAdmin/Region/templates/Regions.html',
+                    controller: 'RegionController',
+                    'controllerAs': 'RegionCtrl',
+                    resolve: {
+                        RegionsPrepService: RegionsPrepService,
+                        CountryByIdPrepService: CountryByIdPrepService                        
+                    },
+                    data: {
+                        permissions: {
+                            only: ['4'],
+                            redirectTo: 'root'
+                        }
+                    },
+                    ncyBreadcrumb: {
+                        label: '{{countryName}}'
+                    }
+                })
+                .state('newRegion', {
+                    url: '/Country/:countryId/newRegion',
+                    templateUrl: './app/GlobalAdmin/Region/templates/new.html',
+                    controller: 'createRegionDialogController',
+                    'controllerAs': 'newRegionCtrl',
+                    resolve: {
+                        CountryByIdPrepService: CountryByIdPrepService                        
+                    },
+                    data: {
+                        permissions: {
+                            only: ['4'],
+                            redirectTo: 'root'
+                        }
+                    },
+                    ncyBreadcrumb: {
+                        label: '{{countryName}}'
+                    }
+
+                })
+                .state('editRegion', {
+                    url: '/Country/:countryId/editRegion/:regionId',
+                    templateUrl: './app/GlobalAdmin/Region/templates/edit.html',
+                    controller: 'editRegionDialogController',
+                    'controllerAs': 'editRegionCtrl',
+                    resolve: {
+                        RegionByIdPrepService: RegionByIdPrepService,
+                        CountryByIdPrepService: CountryByIdPrepService                        
+                    },
+                    data: {
+                        permissions: {
+                            only: ['4'],
+                            redirectTo: 'root'
+                        }
+                    },
+                    ncyBreadcrumb: {
+                        label: '{{countryName}}'
+                    }
+
+                })
+        });
+
+    RegionsPrepService.$inject = ['RegionResource', '$stateParams']
+    function RegionsPrepService(RegionResource, $stateParams) {
+        return RegionResource.getAllRegions({ countryId: $stateParams.countryId }).$promise;
+    }
+
+    RegionByIdPrepService.$inject = ['RegionResource', '$stateParams']
+    function RegionByIdPrepService(RegionResource, $stateParams) {
+        return RegionResource.getRegion({ regionId: $stateParams.regionId }).$promise;
+    }
+    CountryByIdPrepService.$inject = ['CountryResource', '$stateParams']
+    function CountryByIdPrepService(CountryResource, $stateParams) {
+        return CountryResource.getCountry({ countryId: $stateParams.countryId }).$promise;
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('createRegionDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'RegionResource', 'ToastService', '$stateParams', 'CountryByIdPrepService', createRegionDialogController])
+
+    function createRegionDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RegionResource,
+        ToastService, $stateParams, CountryByIdPrepService) {
+
+        blockUI.start("Loading...");
+
+        var Manufacture = this;
+        Manufacture.language = appCONSTANTS.supportedLanguage;
+        $scope.countryName = CountryByIdPrepService.titles[$scope.selectedLanguage];
+
+        Manufacture.close = function () {
+            $state.go('Regions', { countryId: $stateParams.countryId });
+        }
+
+        Manufacture.AddNewRegion = function () {
+            blockUI.start("Loading...");
+
+            var newObj = new RegionResource();
+            newObj.countryId = $stateParams.countryId;
+            newObj.titles = Manufacture.titles;
+            newObj.IsDeleted = false;
+            newObj.IsStatic = false;
+            newObj.$create().then(
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('Regions', { countryId: $stateParams.countryId }, { reload: true });
+
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        blockUI.stop();
+
+    }
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('editRegionDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'RegionResource', 'ToastService',
+            'RegionByIdPrepService','$stateParams','CountryByIdPrepService', editRegionDialogController])
+
+    function editRegionDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RegionResource, ToastService, 
+        RegionByIdPrepService,$stateParams,CountryByIdPrepService) {
+        blockUI.start("Loading..."); 
+
+                var Manufacture = this; 
+		Manufacture.language = appCONSTANTS.supportedLanguage;
+        Manufacture.Region = RegionByIdPrepService; 
+        $scope.countryName = CountryByIdPrepService.titles[$scope.selectedLanguage];
+
+                Manufacture.Close = function () {
+            $state.go('Regions',{countryId: $stateParams.countryId });
+        }
+        Manufacture.UpdateRegion  = function () { 
+            blockUI.start("Loading..."); 
+
+                        var updateObj = new RegionResource();
+            updateObj.regionId = Manufacture.Region.regionId;
+            updateObj.countryId= $stateParams.countryId;
+            updateObj.titles = Manufacture.Region.titles;
+		    updateObj.IsDeleted = false;
+		    updateObj.IsStatic = false;
+		    updateObj.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                     $state.go('Regions',{countryId: $stateParams.countryId },{ reload: true });
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        blockUI.stop();
+
+        	}	
 }());
 (function () {
     'use strict';
@@ -4597,6 +6077,265 @@
 
     angular
         .module('home')
+        .controller('createRoleDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'RoleResource', 'ToastService', '$rootScope', 'PermissionPrepService', createRoleDialogController])
+
+    function createRoleDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RoleResource,
+        ToastService, $rootScope, PermissionPrepService) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        $scope.permissionList = PermissionPrepService 
+        vm.selectedModuleList = [];
+        vm.selectedModule = "";
+        vm.selectedPermissions = [];
+        vm.ChangeSelectedModule = function () {
+            angular.forEach(vm.selectedModule, function (value, key) {
+                angular.forEach(value.permessions, function (valuePermission, key1) {
+                    if (vm.selectedModuleList != 0) {
+                        if (!vm.selectedModuleList.includes(valuePermission)) {
+                            vm.selectedModuleList.push(valuePermission);
+                        }
+
+                    }
+                    else
+                        vm.selectedModuleList.push(valuePermission);
+
+                });
+            });
+
+         }
+
+         vm.close = function () {
+            $state.go('Role');
+        }
+
+        vm.AddNewRole = function () {
+            blockUI.start("Loading...");
+
+            var newObj = new RoleResource();
+            newObj.titles = vm.titles;
+            newObj.roles = vm.selectedPermissions;
+            newObj.$create().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('Role');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editRoleDialogController', ['blockUI', '$filter', '$state',
+            'appCONSTANTS', '$translate', 'RoleResource', 'PermissionPrepService', 'ToastService',
+            'RoleByIdPrepService', editRoleDialogController])
+
+    function editRoleDialogController(blockUI, $filter, $state, appCONSTANTS, $translate, RoleResource,
+        PermissionPrepService, ToastService, RoleByIdPrepService) {
+        var vm = this;
+
+        vm.selectedModuleList = [];
+        vm.selectedModule = ""; 
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.permissionList = PermissionPrepService;
+        vm.Role = RoleByIdPrepService;
+        console.log(RoleByIdPrepService);
+        vm.selectedPermissions = [];
+
+        var i;
+        for (i = 0; i < vm.Role.permessionTree.length; i++) {
+
+                        angular.forEach(vm.Role.permessionTree[i].permessions, function (valueModule, keyModule) {
+                if (valueModule.seclected)
+                    vm.selectedPermissions.push(valueModule.permessionId);
+            });
+
+        }
+        vm.UpdateRole = function () {
+
+                        blockUI.start("Loading...");
+            console.log(vm.Role);
+            var updateObj = new RoleResource();
+            updateObj.roleId = vm.Role.userGroupId;
+            updateObj.roles = vm.selectedPermissions;
+            updateObj.titles = vm.Role.titles;
+            updateObj.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    $state.go('Role');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.checkPermission = function (obj) {
+            var checkIfPermissionExist = vm.selectedPermissions.indexOf(obj.permessionId);
+            if (checkIfPermissionExist == -1) {
+                vm.selectedPermissions.push(obj.permessionId);
+            }
+            else {
+                var index = vm.selectedPermissions.indexOf(obj.permessionId);
+                vm.selectedPermissions.splice(index, 1);
+            }
+        }
+        vm.ChangeSelectedModule = function () {
+            angular.forEach(vm.selectedModule, function (value, key) {
+                angular.forEach(value.permessions, function (valuePermission, key1) {
+                    if (vm.selectedModuleList != 0) {
+                        if (!vm.selectedModuleList.includes(valuePermission)) {
+                            vm.selectedModuleList.push(valuePermission);
+                        }
+
+                    }
+                    else
+                        vm.selectedModuleList.push(valuePermission);
+
+                });
+            });
+
+        }
+        vm.Close = function () {
+            $state.go('Role');
+        }
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('RoleController', ['blockUI', '$scope', '$translate', 'RoleResource', 'RolePrepService',
+            'ToastService', '$uibModal', RoleController]);
+
+
+    function RoleController(blockUI, $scope, $translate, RoleResource, RolePrepService, ToastService, $uibModal) {
+
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
+
+        blockUI.start("Loading...");
+
+        var vm = this;
+
+        $scope.totalCount = RolePrepService.totalCount;
+        $scope.RoleList = RolePrepService;
+        console.log($scope.RoleList)
+        function refreshRoles() {
+            blockUI.start("Loading...");
+
+            var k = RoleResource.getAllRoles({ page: vm.currentPage }).$promise.then(function (results) {
+                $scope.RoleList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+        vm.ChangeStatus = function (model) {
+
+                          var updateObj = new RoleResource();
+              updateObj.roleId = model.userGroupId;
+              updateObj.status = (model.isActive == true ? false : true);
+              updateObj.$changeStatus({ roleId: model.userGroupId, status: updateObj.status }).then(
+                  function (data, status) {
+                      refreshRoles();
+                      ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                      updateObj.status = model.isActive;
+                  },
+                  function (data, status) {
+                      ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                  }
+              );
+              return;
+          }
+
+        function confirmationDelete(model) {
+
+                        var deleteObj = new RoleResource();
+            deleteObj.roleId = model.userGroupId;
+            deleteObj.$delete({ roleId : model.userGroupId }).then(
+                function (data, status) {
+                    refreshRoles();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeleteSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+                }
+            );
+        }
+        vm.openDeleteDialog = function (model, name, id) {
+
+                        var modalContent = $uibModal.open({
+                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+                controller: 'confirmDeleteDialogController',
+                controllerAs: 'deleteDlCtrl',
+                resolve: {
+                    model: function () { return model },
+                    itemName: function () { return name },
+                    itemId: function () { return id },
+                    message: function () { return null },
+                    callBackFunction: function () { return confirmationDelete }
+                }
+
+            });
+        }
+
+
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshRoles();
+        }
+        blockUI.stop();
+
+    }
+
+})();(function () {
+    angular
+        .module('home')
+        .factory('RoleResource', ['$resource', 'appCONSTANTS', RoleResource])
+
+    function RoleResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Role/CreateRole', {}, {
+            getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/GetAllRoles', useToken: true },
+            getAllActivateRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Roles/GetAllActivateRoles', useToken: true, params: { lang: '@lang' } },
+            getAllPermissions: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/PermessionTree', isArray: true, useToken: true, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/UpdateRole', useToken: true },
+            delete: { method: 'DELETE', url: appCONSTANTS.API_URL + 'Role/Delete/:roleId', useToken: true },
+            getRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/GetRoleById/:roleId', useToken: true },
+            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/ChangeStatus/:roleId/:status', useToken: true },
+
+        })
+    } 
+}());
+
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
         .controller('SKUController', ['$uibModal', '$rootScope', 'blockUI', '$scope', '$filter', '$translate',
             '$state', 'SKUResource', 'SKUPrepService', '$localStorage', 'appCONSTANTS',
             'ToastService', SKUController]);
@@ -4909,265 +6648,6 @@
 
     }
 }());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('createRoleDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'RoleResource', 'ToastService', '$rootScope', 'PermissionPrepService', createRoleDialogController])
-
-    function createRoleDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RoleResource,
-        ToastService, $rootScope, PermissionPrepService) {
-        var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage;
-        $scope.permissionList = PermissionPrepService 
-        vm.selectedModuleList = [];
-        vm.selectedModule = "";
-        vm.selectedPermissions = [];
-        vm.ChangeSelectedModule = function () {
-            angular.forEach(vm.selectedModule, function (value, key) {
-                angular.forEach(value.permessions, function (valuePermission, key1) {
-                    if (vm.selectedModuleList != 0) {
-                        if (!vm.selectedModuleList.includes(valuePermission)) {
-                            vm.selectedModuleList.push(valuePermission);
-                        }
-
-                    }
-                    else
-                        vm.selectedModuleList.push(valuePermission);
-
-                });
-            });
-
-         }
-
-         vm.close = function () {
-            $state.go('Role');
-        }
-
-        vm.AddNewRole = function () {
-            blockUI.start("Loading...");
-
-            var newObj = new RoleResource();
-            newObj.titles = vm.titles;
-            newObj.roles = vm.selectedPermissions;
-            newObj.$create().then(
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    $state.go('Role');
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editRoleDialogController', ['blockUI', '$filter', '$state',
-            'appCONSTANTS', '$translate', 'RoleResource', 'PermissionPrepService', 'ToastService',
-            'RoleByIdPrepService', editRoleDialogController])
-
-    function editRoleDialogController(blockUI, $filter, $state, appCONSTANTS, $translate, RoleResource,
-        PermissionPrepService, ToastService, RoleByIdPrepService) {
-        var vm = this;
-
-        vm.selectedModuleList = [];
-        vm.selectedModule = ""; 
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.permissionList = PermissionPrepService;
-        vm.Role = RoleByIdPrepService;
-        console.log(RoleByIdPrepService);
-        vm.selectedPermissions = [];
-
-        var i;
-        for (i = 0; i < vm.Role.permessionTree.length; i++) {
-
-                        angular.forEach(vm.Role.permessionTree[i].permessions, function (valueModule, keyModule) {
-                if (valueModule.seclected)
-                    vm.selectedPermissions.push(valueModule.permessionId);
-            });
-
-        }
-        vm.UpdateRole = function () {
-
-                        blockUI.start("Loading...");
-            console.log(vm.Role);
-            var updateObj = new RoleResource();
-            updateObj.roleId = vm.Role.userGroupId;
-            updateObj.roles = vm.selectedPermissions;
-            updateObj.titles = vm.Role.titles;
-            updateObj.$update().then(
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    $state.go('Role');
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.checkPermission = function (obj) {
-            var checkIfPermissionExist = vm.selectedPermissions.indexOf(obj.permessionId);
-            if (checkIfPermissionExist == -1) {
-                vm.selectedPermissions.push(obj.permessionId);
-            }
-            else {
-                var index = vm.selectedPermissions.indexOf(obj.permessionId);
-                vm.selectedPermissions.splice(index, 1);
-            }
-        }
-        vm.ChangeSelectedModule = function () {
-            angular.forEach(vm.selectedModule, function (value, key) {
-                angular.forEach(value.permessions, function (valuePermission, key1) {
-                    if (vm.selectedModuleList != 0) {
-                        if (!vm.selectedModuleList.includes(valuePermission)) {
-                            vm.selectedModuleList.push(valuePermission);
-                        }
-
-                    }
-                    else
-                        vm.selectedModuleList.push(valuePermission);
-
-                });
-            });
-
-        }
-        vm.Close = function () {
-            $state.go('Role');
-        }
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('RoleController', ['blockUI', '$scope', '$translate', 'RoleResource', 'RolePrepService',
-            'ToastService', '$uibModal', RoleController]);
-
-
-    function RoleController(blockUI, $scope, $translate, RoleResource, RolePrepService, ToastService, $uibModal) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
-
-        blockUI.start("Loading...");
-
-        var vm = this;
-
-        $scope.totalCount = RolePrepService.totalCount;
-        $scope.RoleList = RolePrepService;
-        console.log($scope.RoleList)
-        function refreshRoles() {
-            blockUI.start("Loading...");
-
-            var k = RoleResource.getAllRoles({ page: vm.currentPage }).$promise.then(function (results) {
-                $scope.RoleList = results;
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-        vm.ChangeStatus = function (model) {
-
-                          var updateObj = new RoleResource();
-              updateObj.roleId = model.userGroupId;
-              updateObj.status = (model.isActive == true ? false : true);
-              updateObj.$changeStatus({ roleId: model.userGroupId, status: updateObj.status }).then(
-                  function (data, status) {
-                      refreshRoles();
-                      ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                      updateObj.status = model.isActive;
-                  },
-                  function (data, status) {
-                      ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                  }
-              );
-              return;
-          }
-
-        function confirmationDelete(model) {
-
-                        var deleteObj = new RoleResource();
-            deleteObj.roleId = model.userGroupId;
-            deleteObj.$delete({ roleId : model.userGroupId }).then(
-                function (data, status) {
-                    refreshRoles();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeleteSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
-                }
-            );
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-
-                        var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        }
-
-
-        vm.currentPage = 1;
-        $scope.changePage = function (page) {
-            vm.currentPage = page;
-            refreshRoles();
-        }
-        blockUI.stop();
-
-    }
-
-})();(function () {
-    angular
-        .module('home')
-        .factory('RoleResource', ['$resource', 'appCONSTANTS', RoleResource])
-
-    function RoleResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Role/CreateRole', {}, {
-            getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/GetAllRoles', useToken: true },
-            getAllActivateRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Roles/GetAllActivateRoles', useToken: true, params: { lang: '@lang' } },
-            getAllPermissions: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/PermessionTree', isArray: true, useToken: true, params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/UpdateRole', useToken: true },
-            delete: { method: 'DELETE', url: appCONSTANTS.API_URL + 'Role/Delete/:roleId', useToken: true },
-            getRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/GetRoleById/:roleId', useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/ChangeStatus/:roleId/:status', useToken: true },
-
-        })
-    } 
-}());
-
 (function () {
     'use strict';
 
@@ -6058,6 +7538,800 @@
     }
 }());
 (function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .config(function ($stateProvider, $urlRouterProvider) {
+
+            $stateProvider
+                .state('newZoneRelation', {
+                    url: '/newZoneRelation/:zoneId',
+                    templateUrl: './app/GlobalAdmin/ZoneRelation/templates/new.html',
+                    controller: 'createZoneRelationDialogController',
+                    'controllerAs': 'newZoneRelationCtrl',
+                    resolve: {
+                        ActiveDistributersPrepService: ActiveDistributersPrepService,
+                        ActiveRetailersPrepService: ActiveRetailersPrepService,
+                        ActiveProductsPrepService: ActiveProductsPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['13'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('editZoneRelation', {
+                    url: '/editZoneRelation/:zoneId',
+                    templateUrl: './app/GlobalAdmin/ZoneRelation/templates/editZone.html',
+                    controller: 'editZoneRelationController',
+                    'controllerAs': 'editZoneRelationCtrl',
+                    resolve: {
+                        ActiveDistributersPrepService: ActiveDistributersPrepService,
+                        ZoneDistributerPrepService: ZoneDistributerPrepService,
+                        ActiveRetailersPrepService: ActiveRetailersPrepService,
+                        ActiveProductsPrepService: ActiveProductsPrepService,
+                        ZoneByIdPrepService: ZoneByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['13'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('zoneRelationDetails', {
+                    url: '/zoneRelationDetails/:zoneId',
+                    templateUrl: './app/GlobalAdmin/ZoneRelation/templates/ZoneDetails.html',
+                    controller: 'zoneRelationDetailsController',
+                    'controllerAs': 'zoneRelationDetailsCtrl',
+                    resolve: {
+                        ActiveDistributersPrepService: ActiveDistributersPrepService,
+                        ZoneDistributerPrepService: ZoneDistributerPrepService,
+                        SelectedRetailersPrepService: SelectedRetailersPrepService,
+                        SelectedProductsPrepService: SelectedProductsPrepService,
+                        ZoneByIdPrepService: ZoneByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['13'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+        });
+
+
+
+    ZoneByIdPrepService.$inject = ['ZoneResource', '$stateParams']
+    function ZoneByIdPrepService(ZoneResource, $stateParams) {
+        return ZoneResource.getZone({ zoneId: $stateParams.zoneId }).$promise;
+    }
+    ZoneRelationByIdPrepService.$inject = ['ZoneRelationResource', '$stateParams']
+    function ZoneRelationByIdPrepService(ZoneRelationResource, $stateParams) {
+        return ZoneRelationResource.getZoneRelation({ zoneId: $stateParams.zoneId }).$promise;
+    }
+
+
+    ActiveRetailersPrepService.$inject = ['ZoneRelationResource', '$stateParams']
+    function ActiveRetailersPrepService(ZoneRelationResource, $stateParams) {
+        return ZoneRelationResource.getZoneRetailer({ zoneId: $stateParams.zoneId }).$promise;
+    }
+    SelectedRetailersPrepService.$inject = ['ZoneRelationResource', '$stateParams']
+    function SelectedRetailersPrepService(ZoneRelationResource, $stateParams) {
+        return ZoneRelationResource.getZoneRetailer({ zoneId: $stateParams.zoneId, isChecked: true }).$promise;
+    }
+
+    SelectedProductsPrepService.$inject = ['ZoneRelationResource', '$stateParams']
+    function SelectedProductsPrepService(ZoneRelationResource, $stateParams) {
+        return ZoneRelationResource.getZoneProduct({ zoneId: $stateParams.zoneId , isChecked: true}).$promise;
+    }
+    ActiveProductsPrepService.$inject = ['ZoneRelationResource', '$stateParams']
+    function ActiveProductsPrepService(ZoneRelationResource, $stateParams) {
+        return ZoneRelationResource.getZoneProduct({ zoneId: $stateParams.zoneId }).$promise;
+    }
+
+    ZoneDistributerPrepService.$inject = ['ZoneRelationResource', '$stateParams']
+    function ZoneDistributerPrepService(ZoneRelationResource, $stateParams) {
+        return ZoneRelationResource.getDistributor({ zoneId: $stateParams.zoneId }).$promise;
+    }
+    ActiveDistributersPrepService.$inject = ['DistributorsResource']
+    function ActiveDistributersPrepService(DistributorsResource) {
+        return DistributorsResource.GetAllActiveDistributers().$promise;
+    }
+}());
+(function () {
+    angular
+        .module('home')
+        .factory('ZoneRelationResource', ['$resource', 'appCONSTANTS', ZoneRelationResource])
+
+    function ZoneRelationResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL, {}, {
+            getDistributor: { method: 'GET', url: appCONSTANTS.API_URL + 'Relation/GetDistributorZone/:zoneId', useToken: true },
+            setDistributor: { method: 'POST', url: appCONSTANTS.API_URL + 'Relation/SetDistributor/:zoneId/:distributorId', useToken: true, params: { lang: '@lang' } },
+
+            getZoneRetailer: { method: 'GET', url: appCONSTANTS.API_URL + 'Relation/GetZoneRetailer/:zoneId', useToken: true },
+            zoneRetailerStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Relation/ZoneRetailerStatus/:zoneId/:zoneRetailerId/:status', useToken: true },
+
+            getZoneProduct: { method: 'GET', url: appCONSTANTS.API_URL + 'Relation/GetZoneProduct/:zoneId', useToken: true },
+            zoneProductStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Relation/ZoneProductStatus/:zoneId/:zoneProductId/:status', useToken: true },
+
+        })
+    }
+
+}());
+(function () {
+  angular.module('home')
+    .controller("createZoneRelationDialogController", ['ActiveProductsPrepService', 'ActiveDistributersPrepService', 'ActiveRetailersPrepService', '$stateParams', '$scope', 'ZoneRelationResource',
+      'appCONSTANTS', 'ToastService', '$translate', 'blockUI', '$state', createZoneRelationDialogController]);
+
+  function createZoneRelationDialogController(ActiveProductsPrepService, ActiveDistributersPrepService, ActiveRetailersPrepService, $stateParams, $scope, ZoneRelationResource,
+    appCONSTANTS, ToastService, $translate, blockUI, $state) {
+    var vm = this;
+
+        vm.appCONSTANTS = appCONSTANTS;
+    vm.language = appCONSTANTS.supportedLanguage;
+    vm.currentStep = 1;
+    vm.distributers = ActiveDistributersPrepService;
+    vm.selectedProduct = [];
+    vm.currentProductPage = 1;
+    vm.products = {};
+    vm.selectedRetailer = [];
+    vm.retailers = {};
+    vm.currentRetailerPage = 1;
+    vm.selectedDistributerId = 0;
+
+
+    vm.products.allProductSelected = true;
+    vm.products.entities = ActiveProductsPrepService.results;
+    vm.productTotalCount = ActiveProductsPrepService.totalCount;
+    initSelectAllProduct();
+
+    vm.selectProduct = function (product) {
+
+            ChangeProductStatus(product)
+
+    };
+
+    vm.selectAllProduct = function () {
+      initSelectAllProduct();
+    };
+    vm.filterProduct = function (searchText, page, isChecked) { 
+      refreshProduct(searchText, page, isChecked);
+      vm.searchText = "";
+    }
+    function initSelectAllProduct() {
+      for (var i = 0; i < vm.products.entities.length; i++) {
+        if (!vm.selectedProduct.includes(vm.products.entities[i].productId))
+          vm.selectedProduct.push(vm.products.entities[i].productId);
+        else {
+          var index = vm.selectedProduct.indexOf(vm.products.entities[i].productId);
+          vm.selectedProduct.splice(index, 1);
+        }
+      }
+    }
+
+    function refreshProduct(searchTitle, page,isChecked) {
+      blockUI.start("Loading...");
+      var k = ZoneRelationResource.getZoneProduct({ zoneId: $stateParams.zoneId, description: searchTitle,isChecked: isChecked,  page: page }).$promise.then(function (results) {
+        vm.products.entities = results.results;
+        vm.productTotalCount = results.totalCount;
+        blockUI.stop();
+      },
+        function (data, status) {
+          blockUI.stop();
+          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+        });
+    }
+
+    vm.changeProductPage = function (page, isChecked) {
+      vm.currentProductPage = page;
+      refreshProduct("", page, isChecked);
+    }
+    function ChangeProductStatus(model) {
+      var updateObj = new ZoneRelationResource();
+      updateObj.$zoneProductStatus({ zoneId: $stateParams.zoneId, zoneProductId: model.zoneProductRelationId, status: model.isChecked }).then(
+        function (data, status) {
+          blockUI.stop();
+          if (!data.isSuccsess)
+            ToastService.show("right", "bottom", "fadeInUp", data.message, "error"); 
+        },
+        function (data, status) {
+
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+        }
+      );
+      return;
+    }
+
+
+    vm.retailers.allRetailerSelected = true;
+
+    vm.retailers.entities = ActiveRetailersPrepService.results;
+    vm.retailerTotalCount = ActiveRetailersPrepService.totalCount;
+    iniSelectAllRetailers();
+
+    vm.selectRetailer = function (retailer) {
+
+      ChangeRetailerStatus(retailer)
+      for (var i = 0; i < vm.retailers.entities.length; i++) {
+        if (!vm.retailers.entities[i].isChecked) {
+          vm.retailers.allRetailerSelected = false;
+          return;
+        }
+      }
+
+      vm.retailers.allRetailerSelected = true;
+    };
+
+    vm.selectAllRetailer = function () {
+      iniSelectAllRetailers();
+    };
+    vm.filterRetailer = function (searchText, page, isChecked) {
+
+            refreshRetailer(searchText, page, isChecked);
+      vm.searchText = "";
+    }
+    function iniSelectAllRetailers() {
+      for (var i = 0; i < vm.retailers.entities.length; i++) {
+        if (!vm.selectedRetailer.includes(vm.retailers.entities[i].retailerId)) {
+          vm.selectedRetailer.push(vm.retailers.entities[i].retailerId);
+        } else {
+          var index = vm.selectedRetailer.indexOf(vm.retailers.entities[i].retailerId);
+          vm.selectedRetailer.splice(index, 1);
+        }
+      }
+    }
+
+    function refreshRetailer(searchTitle, page, isChecked) {
+      blockUI.start("Loading...");
+      var k = ZoneRelationResource.getZoneRetailer({ zoneId: $stateParams.zoneId, title: searchTitle,isChecked:isChecked, page: page }).$promise.then(function (results) {
+        vm.retailers.entities = results.results;
+        vm.retailerTotalCount = results.totalCount;
+        blockUI.stop();
+      },
+        function (data, status) {
+          blockUI.stop();
+          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+        });
+    }
+
+    vm.changeRetailerPage = function (page, isChecked) {
+      vm.currentRetailerPage = page;
+      refreshRetailer("", page, isChecked);
+    }
+    function ChangeRetailerStatus(model) {
+
+            var updateObj = new ZoneRelationResource();
+      updateObj.$zoneRetailerStatus({ zoneId: $stateParams.zoneId, zoneRetailerId: model.zoneRetailerRelationId, status: model.isChecked }).then(
+        function (data, status) {
+          blockUI.stop();
+          if (data.isSuccsess) {
+          } else {
+
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+          }
+        },
+        function (data, status) {
+
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+        }
+      );
+      return;
+    }
+
+    vm.steps = [
+      {
+        step: 1,
+        name:  $translate.instant('ChooseDistributer'),
+        template: "./app/GlobalAdmin/ZoneRelation/templates/step1.html"
+      },
+      {
+        step: 2,
+        name:  $translate.instant('ChooseRetailer'),
+         template: "./app/GlobalAdmin/ZoneRelation/templates/step2.html"
+      },
+      {
+        step: 3,
+        name:  $translate.instant('ChooseProduct'),
+        template: "./app/GlobalAdmin/ZoneRelation/templates/step3.html"
+      },
+    ];
+
+    vm.gotoStep = function (newStep) {
+
+      vm.currentStep = newStep;
+
+
+    }
+    vm.getStepTemplate = function () {
+      for (var i = 0; i < vm.steps.length; i++) {
+        if (vm.currentStep == vm.steps[i].step) {
+          return vm.steps[i].template;
+        }
+      }
+    }
+
+    vm.addNewZoneRelation = function () {
+
+      var newZoneRelation = new ZoneRelationResource();
+      newZoneRelation.zoneId = $stateParams.zoneId;
+
+      newZoneRelation.$setDistributor({ zoneId: $stateParams.zoneId, distributorId: vm.selectedDistributerId }).then
+        (
+          function (data, status) {
+
+            ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+            $state.go('ZoneRelation');
+
+            blockUI.stop();
+
+          },
+          function (data, status) {
+            blockUI.stop();
+            console.log(data.data);
+            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+          }
+        );
+
+
+    }
+
+
+  }
+
+
+})();(function () {
+  angular.module('home')
+    .controller("editZoneRelationController", ['ActiveProductsPrepService', 'ActiveDistributersPrepService', 'ZoneDistributerPrepService', 'ActiveRetailersPrepService', '$stateParams', '$scope', 'ZoneRelationResource',
+      'appCONSTANTS', 'ToastService', '$translate', 'blockUI', '$state', 'ZoneByIdPrepService', editZoneRelationController]);
+
+   function editZoneRelationController(ActiveProductsPrepService, ActiveDistributersPrepService, ZoneDistributerPrepService, ActiveRetailersPrepService, $stateParams, $scope, ZoneRelationResource,
+    appCONSTANTS, ToastService, $translate, blockUI, $state, ZoneByIdPrepService) {
+    var vm = this;
+    vm.appCONSTANTS = appCONSTANTS;
+    vm.language = appCONSTANTS.supportedLanguage;
+    vm.currentStep = 1;
+    vm.distributers = ActiveDistributersPrepService;
+    vm.selectedProduct = [];
+    vm.currentProductPage = 1;
+    vm.products = {};
+    vm.selectedRetailer = [];
+    vm.retailers = {};
+    vm.currentRetailerPage = 1;
+    vm.zone = ZoneByIdPrepService;
+    vm.manufacture = ZoneByIdPrepService.manufacture;
+    vm.selectedDistributerId = ZoneDistributerPrepService.results[0].distributorId;
+
+
+    vm.products.allProductSelected = true;
+    vm.products.entities = ActiveProductsPrepService.results;
+    vm.productTotalCount = ActiveProductsPrepService.totalCount;
+    initSelectAllProduct();
+
+    vm.selectProduct = function (product) {
+
+            ChangeProductStatus(product)
+
+    };
+
+    vm.selectAllProduct = function () {
+      initSelectAllProduct();
+    };
+    vm.filterProduct = function (searchText, page, isChecked) {
+      refreshProduct(searchText, page, isChecked);
+      vm.searchText = "";
+    }
+    function initSelectAllProduct() {
+      for (var i = 0; i < vm.products.entities.length; i++) {
+        if (!vm.selectedProduct.includes(vm.products.entities[i].productId))
+          vm.selectedProduct.push(vm.products.entities[i].productId);
+        else {
+          var index = vm.selectedProduct.indexOf(vm.products.entities[i].productId);
+          vm.selectedProduct.splice(index, 1);
+        }
+      }
+    }
+
+    function refreshProduct(searchTitle, page, isChecked) {
+      blockUI.start("Loading...");
+      var k = ZoneRelationResource.getZoneProduct({ zoneId: $stateParams.zoneId, description: searchTitle, isChecked: isChecked, page: page }).$promise.then(function (results) {
+        vm.products.entities = results.results;
+        vm.productTotalCount = results.totalCount;
+        blockUI.stop();
+      },
+        function (data, status) {
+          blockUI.stop();
+          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+        });
+    }
+
+    vm.changeProductPage = function (page) {
+      vm.currentProductPage = page;
+      refreshProduct("", page,"");
+    }
+    function ChangeProductStatus(model) {
+      var updateObj = new ZoneRelationResource();
+      updateObj.$zoneProductStatus({ zoneId: $stateParams.zoneId, zoneProductId: model.zoneProductRelationId, status: model.isChecked }).then(
+        function (data, status) {
+          blockUI.stop();
+          if (!data.isSuccsess)
+            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+        },
+        function (data, status) {
+
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+        }
+      );
+      return;
+    }
+
+
+    vm.retailers.allRetailerSelected = true;
+
+    vm.retailers.entities = ActiveRetailersPrepService.results;
+    vm.retailerTotalCount = ActiveRetailersPrepService.totalCount;
+    iniSelectAllRetailers();
+
+    vm.selectRetailer = function (retailer) {
+
+      ChangeRetailerStatus(retailer)
+      for (var i = 0; i < vm.retailers.entities.length; i++) {
+        if (!vm.retailers.entities[i].isChecked) {
+          vm.retailers.allRetailerSelected = false;
+          return;
+        }
+      }
+
+      vm.retailers.allRetailerSelected = true;
+    };
+
+    vm.selectAllRetailer = function () {
+      iniSelectAllRetailers();
+    };
+    vm.filterRetailer = function (searchText, page, isChecked) {
+
+            refreshRetailer(searchText, page, isChecked);
+      vm.searchText = "";
+    }
+    function iniSelectAllRetailers() {
+      for (var i = 0; i < vm.retailers.entities.length; i++) {
+        if (!vm.selectedRetailer.includes(vm.retailers.entities[i].retailerId)) {
+          vm.selectedRetailer.push(vm.retailers.entities[i].retailerId);
+        } else {
+          var index = vm.selectedRetailer.indexOf(vm.retailers.entities[i].retailerId);
+          vm.selectedRetailer.splice(index, 1);
+        }
+      }
+    }
+
+    function refreshRetailer(searchTitle, page, isChecked) {
+      blockUI.start("Loading...");
+      var k = ZoneRelationResource.getZoneRetailer({ zoneId: $stateParams.zoneId, title: searchTitle, isChecked: isChecked, page: page }).$promise.then(function (results) {
+        vm.retailers.entities = results.results;
+        vm.retailerTotalCount = results.totalCount;
+        blockUI.stop();
+      },
+        function (data, status) {
+          blockUI.stop();
+          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+        });
+    }
+
+    vm.changeRetailerPage = function (page) {
+      vm.currentRetailerPage = page;
+      refreshRetailer("", page, "");
+    }
+    function ChangeRetailerStatus(model) {
+
+            var updateObj = new ZoneRelationResource();
+      updateObj.$zoneRetailerStatus({ zoneId: $stateParams.zoneId, zoneRetailerId: model.zoneRetailerRelationId, status: model.isChecked }).then(
+        function (data, status) {
+          blockUI.stop();
+          if (data.isSuccsess) {
+          } else {
+
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+          }
+        },
+        function (data, status) {
+
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+        }
+      );
+      return;
+    }
+
+    vm.steps = [
+      {
+        step: 1,
+        name: "First step",
+        template: "./app/GlobalAdmin/ZoneRelation/templates/step1.html"
+      },
+      {
+        step: 2,
+        name: "Second step",
+        template: "./app/GlobalAdmin/ZoneRelation/templates/step2.html"
+      },
+      {
+        step: 3,
+        name: "Third step",
+        template: "./app/GlobalAdmin/ZoneRelation/templates/step3.html"
+      },
+    ];
+
+    vm.gotoStep = function (newStep) {
+
+      vm.currentStep = newStep;
+
+
+    }
+    vm.getStepTemplate = function () {
+      for (var i = 0; i < vm.steps.length; i++) {
+        if (vm.currentStep == vm.steps[i].step) {
+          return vm.steps[i].template;
+        }
+      }
+    }
+
+    vm.addNewZoneRelation = function () {
+
+      var newZoneRelation = new ZoneRelationResource();
+      newZoneRelation.zoneId = $stateParams.zoneId;
+
+      newZoneRelation.$setDistributor({ zoneId: $stateParams.zoneId, distributorId: vm.selectedDistributerId }).then
+        (
+          function (data, status) {
+
+            ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+            $state.go('ZoneRelation');
+
+            blockUI.stop();
+
+          },
+          function (data, status) {
+            blockUI.stop();
+            console.log(data.data);
+            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+          }
+        );
+
+
+    }
+
+
+  }
+
+
+})();(function () {
+  angular.module('home')
+    .controller("zoneRelationDetailsController", ['SelectedProductsPrepService', 'ActiveDistributersPrepService', 'ZoneDistributerPrepService', 'SelectedRetailersPrepService', '$stateParams', '$scope', 'ZoneRelationResource',
+      'appCONSTANTS', 'ToastService', '$translate', 'blockUI', '$state', 'ZoneByIdPrepService', zoneRelationDetailsController]);
+
+  function zoneRelationDetailsController(SelectedProductsPrepService, ActiveDistributersPrepService, ZoneDistributerPrepService, SelectedRetailersPrepService, $stateParams, $scope, ZoneRelationResource,
+    appCONSTANTS, ToastService, $translate, blockUI, $state, ZoneByIdPrepService) {
+    var vm = this;
+    vm.appCONSTANTS = appCONSTANTS;
+    vm.language = appCONSTANTS.supportedLanguage;
+    vm.currentStep = 1;
+    vm.distributers = ActiveDistributersPrepService;
+    vm.selectedProduct = [];
+    vm.currentProductPage = 1;
+    vm.products = {};
+    vm.selectedRetailer = [];
+    vm.retailers = {};
+    vm.currentRetailerPage = 1;
+
+        vm.zone = ZoneByIdPrepService;
+    vm.manufacture = ZoneByIdPrepService.manufacture;
+    vm.selectedDistributerId = ZoneDistributerPrepService.results[0].distributorId;
+
+
+    vm.products.allProductSelected = true;
+    vm.products.entities = SelectedProductsPrepService.results;
+    vm.productTotalCount = SelectedProductsPrepService.totalCount;
+    initSelectAllProduct();
+
+    vm.selectProduct = function (product) {
+
+            ChangeProductStatus(product)
+
+    };
+
+    vm.selectAllProduct = function () {
+      initSelectAllProduct();
+    };
+    vm.filterProduct = function (searchText, page) {
+      refreshProduct(searchText, page);
+      vm.searchText = "";
+    }
+    function initSelectAllProduct() {
+      for (var i = 0; i < vm.products.entities.length; i++) {
+        if (!vm.selectedProduct.includes(vm.products.entities[i].productId))
+          vm.selectedProduct.push(vm.products.entities[i].productId);
+        else {
+          var index = vm.selectedProduct.indexOf(vm.products.entities[i].productId);
+          vm.selectedProduct.splice(index, 1);
+        }
+      }
+    }
+
+    function refreshProduct(searchTitle, page) {
+      blockUI.start("Loading...");
+      var k = ZoneRelationResource.getZoneProduct({ zoneId: $stateParams.zoneId, description: searchTitle, page: page }).$promise.then(function (results) {
+        vm.products.entities = results.results;
+        vm.productTotalCount = results.totalCount;
+        blockUI.stop();
+      },
+        function (data, status) {
+          blockUI.stop();
+          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+        });
+    }
+
+    vm.changeProductPage = function (page) {
+      vm.currentProductPage = page;
+      refreshProduct("", page);
+    }
+    function ChangeProductStatus(model) {
+      var updateObj = new ZoneRelationResource();
+      updateObj.$zoneProductStatus({ zoneId: $stateParams.zoneId, zoneProductId: model.zoneProductRelationId, status: model.isChecked }).then(
+        function (data, status) {
+          blockUI.stop();
+          if (!data.isSuccsess)
+            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+        },
+        function (data, status) {
+
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+        }
+      );
+      return;
+    }
+
+
+    vm.retailers.allRetailerSelected = true;
+
+    vm.retailers.entities = SelectedRetailersPrepService.results;
+    vm.retailerTotalCount = SelectedRetailersPrepService.totalCount;
+    iniSelectAllRetailers();
+
+    vm.selectRetailer = function (retailer) {
+
+      ChangeRetailerStatus(retailer)
+      for (var i = 0; i < vm.retailers.entities.length; i++) {
+        if (!vm.retailers.entities[i].isChecked) {
+          vm.retailers.allRetailerSelected = false;
+          return;
+        }
+      }
+
+      vm.retailers.allRetailerSelected = true;
+    };
+
+    vm.selectAllRetailer = function () {
+      iniSelectAllRetailers();
+    };
+    vm.filterRetailer = function (searchText, page) {
+
+            refreshRetailer(searchText, page);
+      vm.searchText = "";
+    }
+    function iniSelectAllRetailers() {
+      for (var i = 0; i < vm.retailers.entities.length; i++) {
+        if (!vm.selectedRetailer.includes(vm.retailers.entities[i].retailerId)) {
+          vm.selectedRetailer.push(vm.retailers.entities[i].retailerId);
+        } else {
+          var index = vm.selectedRetailer.indexOf(vm.retailers.entities[i].retailerId);
+          vm.selectedRetailer.splice(index, 1);
+        }
+      }
+    }
+
+    function refreshRetailer(searchTitle, page) {
+      blockUI.start("Loading...");
+      var k = ZoneRelationResource.getZoneRetailer({ zoneId: $stateParams.zoneId, title: searchTitle, page: page }).$promise.then(function (results) {
+        vm.retailers.entities = results.results;
+        vm.retailerTotalCount = results.totalCount;
+        blockUI.stop();
+      },
+        function (data, status) {
+          blockUI.stop();
+          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+        });
+    }
+
+    vm.changeRetailerPage = function (page) {
+      vm.currentRetailerPage = page;
+      refreshRetailer("", page);
+    }
+    function ChangeRetailerStatus(model) {
+
+            var updateObj = new ZoneRelationResource();
+      updateObj.$zoneRetailerStatus({ zoneId: $stateParams.zoneId, zoneRetailerId: model.zoneRetailerRelationId, status: model.isChecked }).then(
+        function (data, status) {
+          blockUI.stop();
+          if (data.isSuccsess) {
+          } else {
+
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+          }
+        },
+        function (data, status) {
+
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+        }
+      );
+      return;
+    }
+
+    vm.steps = [
+      {
+        step: 1,
+        name: "First step",
+        template: "./app/GlobalAdmin/ZoneRelation/templates/step1.html"
+      },
+      {
+        step: 2,
+        name: "Second step",
+        template: "./app/GlobalAdmin/ZoneRelation/templates/step2.html"
+      },
+      {
+        step: 3,
+        name: "Third step",
+        template: "./app/GlobalAdmin/ZoneRelation/templates/step3.html"
+      },
+    ];
+
+    vm.gotoStep = function (newStep) {
+
+      vm.currentStep = newStep;
+
+
+    }
+    vm.getStepTemplate = function () {
+      for (var i = 0; i < vm.steps.length; i++) {
+        if (vm.currentStep == vm.steps[i].step) {
+          return vm.steps[i].template;
+        }
+      }
+    }
+
+    vm.addNewZoneRelation = function () {
+
+      var newZoneRelation = new ZoneRelationResource();
+      newZoneRelation.zoneId = $stateParams.zoneId;
+
+      newZoneRelation.$setDistributor({ zoneId: $stateParams.zoneId, distributorId: vm.selectedDistributerId }).then
+        (
+          function (data, status) {
+
+            ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+            $state.go('ZoneRelation');
+
+            blockUI.stop();
+
+          },
+          function (data, status) {
+            blockUI.stop();
+            console.log(data.data);
+            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+          }
+        );
+
+
+    }
+
+
+  }
+
+
+})();(function () {
     'use strict';
 
     angular
@@ -7003,800 +9277,6 @@
 
     angular
         .module('home')
-        .config(function ($stateProvider, $urlRouterProvider) {
-
-            $stateProvider
-                .state('newZoneRelation', {
-                    url: '/newZoneRelation/:zoneId',
-                    templateUrl: './app/GlobalAdmin/ZoneRelation/templates/new.html',
-                    controller: 'createZoneRelationDialogController',
-                    'controllerAs': 'newZoneRelationCtrl',
-                    resolve: {
-                        ActiveDistributersPrepService: ActiveDistributersPrepService,
-                        ActiveRetailersPrepService: ActiveRetailersPrepService,
-                        ActiveProductsPrepService: ActiveProductsPrepService
-                    },
-                    data: {
-                        permissions: {
-                            only: ['13'],
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('editZoneRelation', {
-                    url: '/editZoneRelation/:zoneId',
-                    templateUrl: './app/GlobalAdmin/ZoneRelation/templates/editZone.html',
-                    controller: 'editZoneRelationController',
-                    'controllerAs': 'editZoneRelationCtrl',
-                    resolve: {
-                        ActiveDistributersPrepService: ActiveDistributersPrepService,
-                        ZoneDistributerPrepService: ZoneDistributerPrepService,
-                        ActiveRetailersPrepService: ActiveRetailersPrepService,
-                        ActiveProductsPrepService: ActiveProductsPrepService,
-                        ZoneByIdPrepService: ZoneByIdPrepService
-                    },
-                    data: {
-                        permissions: {
-                            only: ['13'],
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-
-                .state('zoneRelationDetails', {
-                    url: '/zoneRelationDetails/:zoneId',
-                    templateUrl: './app/GlobalAdmin/ZoneRelation/templates/ZoneDetails.html',
-                    controller: 'zoneRelationDetailsController',
-                    'controllerAs': 'zoneRelationDetailsCtrl',
-                    resolve: {
-                        ActiveDistributersPrepService: ActiveDistributersPrepService,
-                        ZoneDistributerPrepService: ZoneDistributerPrepService,
-                        SelectedRetailersPrepService: SelectedRetailersPrepService,
-                        SelectedProductsPrepService: SelectedProductsPrepService,
-                        ZoneByIdPrepService: ZoneByIdPrepService
-                    },
-                    data: {
-                        permissions: {
-                            only: ['13'],
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-        });
-
-
-
-    ZoneByIdPrepService.$inject = ['ZoneResource', '$stateParams']
-    function ZoneByIdPrepService(ZoneResource, $stateParams) {
-        return ZoneResource.getZone({ zoneId: $stateParams.zoneId }).$promise;
-    }
-    ZoneRelationByIdPrepService.$inject = ['ZoneRelationResource', '$stateParams']
-    function ZoneRelationByIdPrepService(ZoneRelationResource, $stateParams) {
-        return ZoneRelationResource.getZoneRelation({ zoneId: $stateParams.zoneId }).$promise;
-    }
-
-
-    ActiveRetailersPrepService.$inject = ['ZoneRelationResource', '$stateParams']
-    function ActiveRetailersPrepService(ZoneRelationResource, $stateParams) {
-        return ZoneRelationResource.getZoneRetailer({ zoneId: $stateParams.zoneId }).$promise;
-    }
-    SelectedRetailersPrepService.$inject = ['ZoneRelationResource', '$stateParams']
-    function SelectedRetailersPrepService(ZoneRelationResource, $stateParams) {
-        return ZoneRelationResource.getZoneRetailer({ zoneId: $stateParams.zoneId, isChecked: true }).$promise;
-    }
-
-    SelectedProductsPrepService.$inject = ['ZoneRelationResource', '$stateParams']
-    function SelectedProductsPrepService(ZoneRelationResource, $stateParams) {
-        return ZoneRelationResource.getZoneProduct({ zoneId: $stateParams.zoneId , isChecked: true}).$promise;
-    }
-    ActiveProductsPrepService.$inject = ['ZoneRelationResource', '$stateParams']
-    function ActiveProductsPrepService(ZoneRelationResource, $stateParams) {
-        return ZoneRelationResource.getZoneProduct({ zoneId: $stateParams.zoneId }).$promise;
-    }
-
-    ZoneDistributerPrepService.$inject = ['ZoneRelationResource', '$stateParams']
-    function ZoneDistributerPrepService(ZoneRelationResource, $stateParams) {
-        return ZoneRelationResource.getDistributor({ zoneId: $stateParams.zoneId }).$promise;
-    }
-    ActiveDistributersPrepService.$inject = ['DistributorsResource']
-    function ActiveDistributersPrepService(DistributorsResource) {
-        return DistributorsResource.GetAllActiveDistributers().$promise;
-    }
-}());
-(function () {
-    angular
-        .module('home')
-        .factory('ZoneRelationResource', ['$resource', 'appCONSTANTS', ZoneRelationResource])
-
-    function ZoneRelationResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL, {}, {
-            getDistributor: { method: 'GET', url: appCONSTANTS.API_URL + 'Relation/GetDistributorZone/:zoneId', useToken: true },
-            setDistributor: { method: 'POST', url: appCONSTANTS.API_URL + 'Relation/SetDistributor/:zoneId/:distributorId', useToken: true, params: { lang: '@lang' } },
-
-            getZoneRetailer: { method: 'GET', url: appCONSTANTS.API_URL + 'Relation/GetZoneRetailer/:zoneId', useToken: true },
-            zoneRetailerStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Relation/ZoneRetailerStatus/:zoneId/:zoneRetailerId/:status', useToken: true },
-
-            getZoneProduct: { method: 'GET', url: appCONSTANTS.API_URL + 'Relation/GetZoneProduct/:zoneId', useToken: true },
-            zoneProductStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Relation/ZoneProductStatus/:zoneId/:zoneProductId/:status', useToken: true },
-
-        })
-    }
-
-}());
-(function () {
-  angular.module('home')
-    .controller("createZoneRelationDialogController", ['ActiveProductsPrepService', 'ActiveDistributersPrepService', 'ActiveRetailersPrepService', '$stateParams', '$scope', 'ZoneRelationResource',
-      'appCONSTANTS', 'ToastService', '$translate', 'blockUI', '$state', createZoneRelationDialogController]);
-
-  function createZoneRelationDialogController(ActiveProductsPrepService, ActiveDistributersPrepService, ActiveRetailersPrepService, $stateParams, $scope, ZoneRelationResource,
-    appCONSTANTS, ToastService, $translate, blockUI, $state) {
-    var vm = this;
-
-        vm.appCONSTANTS = appCONSTANTS;
-    vm.language = appCONSTANTS.supportedLanguage;
-    vm.currentStep = 1;
-    vm.distributers = ActiveDistributersPrepService;
-    vm.selectedProduct = [];
-    vm.currentProductPage = 1;
-    vm.products = {};
-    vm.selectedRetailer = [];
-    vm.retailers = {};
-    vm.currentRetailerPage = 1;
-    vm.selectedDistributerId = 0;
-
-
-    vm.products.allProductSelected = true;
-    vm.products.entities = ActiveProductsPrepService.results;
-    vm.productTotalCount = ActiveProductsPrepService.totalCount;
-    initSelectAllProduct();
-
-    vm.selectProduct = function (product) {
-
-            ChangeProductStatus(product)
-
-    };
-
-    vm.selectAllProduct = function () {
-      initSelectAllProduct();
-    };
-    vm.filterProduct = function (searchText, page, isChecked) { 
-      refreshProduct(searchText, page, isChecked);
-      vm.searchText = "";
-    }
-    function initSelectAllProduct() {
-      for (var i = 0; i < vm.products.entities.length; i++) {
-        if (!vm.selectedProduct.includes(vm.products.entities[i].productId))
-          vm.selectedProduct.push(vm.products.entities[i].productId);
-        else {
-          var index = vm.selectedProduct.indexOf(vm.products.entities[i].productId);
-          vm.selectedProduct.splice(index, 1);
-        }
-      }
-    }
-
-    function refreshProduct(searchTitle, page,isChecked) {
-      blockUI.start("Loading...");
-      var k = ZoneRelationResource.getZoneProduct({ zoneId: $stateParams.zoneId, description: searchTitle,isChecked: isChecked,  page: page }).$promise.then(function (results) {
-        vm.products.entities = results.results;
-        vm.productTotalCount = results.totalCount;
-        blockUI.stop();
-      },
-        function (data, status) {
-          blockUI.stop();
-          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        });
-    }
-
-    vm.changeProductPage = function (page, isChecked) {
-      vm.currentProductPage = page;
-      refreshProduct("", page, isChecked);
-    }
-    function ChangeProductStatus(model) {
-      var updateObj = new ZoneRelationResource();
-      updateObj.$zoneProductStatus({ zoneId: $stateParams.zoneId, zoneProductId: model.zoneProductRelationId, status: model.isChecked }).then(
-        function (data, status) {
-          blockUI.stop();
-          if (!data.isSuccsess)
-            ToastService.show("right", "bottom", "fadeInUp", data.message, "error"); 
-        },
-        function (data, status) {
-
-                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
-        }
-      );
-      return;
-    }
-
-
-    vm.retailers.allRetailerSelected = true;
-
-    vm.retailers.entities = ActiveRetailersPrepService.results;
-    vm.retailerTotalCount = ActiveRetailersPrepService.totalCount;
-    iniSelectAllRetailers();
-
-    vm.selectRetailer = function (retailer) {
-
-      ChangeRetailerStatus(retailer)
-      for (var i = 0; i < vm.retailers.entities.length; i++) {
-        if (!vm.retailers.entities[i].isChecked) {
-          vm.retailers.allRetailerSelected = false;
-          return;
-        }
-      }
-
-      vm.retailers.allRetailerSelected = true;
-    };
-
-    vm.selectAllRetailer = function () {
-      iniSelectAllRetailers();
-    };
-    vm.filterRetailer = function (searchText, page, isChecked) {
-
-            refreshRetailer(searchText, page, isChecked);
-      vm.searchText = "";
-    }
-    function iniSelectAllRetailers() {
-      for (var i = 0; i < vm.retailers.entities.length; i++) {
-        if (!vm.selectedRetailer.includes(vm.retailers.entities[i].retailerId)) {
-          vm.selectedRetailer.push(vm.retailers.entities[i].retailerId);
-        } else {
-          var index = vm.selectedRetailer.indexOf(vm.retailers.entities[i].retailerId);
-          vm.selectedRetailer.splice(index, 1);
-        }
-      }
-    }
-
-    function refreshRetailer(searchTitle, page, isChecked) {
-      blockUI.start("Loading...");
-      var k = ZoneRelationResource.getZoneRetailer({ zoneId: $stateParams.zoneId, title: searchTitle,isChecked:isChecked, page: page }).$promise.then(function (results) {
-        vm.retailers.entities = results.results;
-        vm.retailerTotalCount = results.totalCount;
-        blockUI.stop();
-      },
-        function (data, status) {
-          blockUI.stop();
-          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        });
-    }
-
-    vm.changeRetailerPage = function (page, isChecked) {
-      vm.currentRetailerPage = page;
-      refreshRetailer("", page, isChecked);
-    }
-    function ChangeRetailerStatus(model) {
-
-            var updateObj = new ZoneRelationResource();
-      updateObj.$zoneRetailerStatus({ zoneId: $stateParams.zoneId, zoneRetailerId: model.zoneRetailerRelationId, status: model.isChecked }).then(
-        function (data, status) {
-          blockUI.stop();
-          if (data.isSuccsess) {
-          } else {
-
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-          }
-        },
-        function (data, status) {
-
-                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
-        }
-      );
-      return;
-    }
-
-    vm.steps = [
-      {
-        step: 1,
-        name:  $translate.instant('ChooseDistributer'),
-        template: "./app/GlobalAdmin/ZoneRelation/templates/step1.html"
-      },
-      {
-        step: 2,
-        name:  $translate.instant('ChooseRetailer'),
-         template: "./app/GlobalAdmin/ZoneRelation/templates/step2.html"
-      },
-      {
-        step: 3,
-        name:  $translate.instant('ChooseProduct'),
-        template: "./app/GlobalAdmin/ZoneRelation/templates/step3.html"
-      },
-    ];
-
-    vm.gotoStep = function (newStep) {
-
-      vm.currentStep = newStep;
-
-
-    }
-    vm.getStepTemplate = function () {
-      for (var i = 0; i < vm.steps.length; i++) {
-        if (vm.currentStep == vm.steps[i].step) {
-          return vm.steps[i].template;
-        }
-      }
-    }
-
-    vm.addNewZoneRelation = function () {
-
-      var newZoneRelation = new ZoneRelationResource();
-      newZoneRelation.zoneId = $stateParams.zoneId;
-
-      newZoneRelation.$setDistributor({ zoneId: $stateParams.zoneId, distributorId: vm.selectedDistributerId }).then
-        (
-          function (data, status) {
-
-            ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-            $state.go('ZoneRelation');
-
-            blockUI.stop();
-
-          },
-          function (data, status) {
-            blockUI.stop();
-            console.log(data.data);
-            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-          }
-        );
-
-
-    }
-
-
-  }
-
-
-})();(function () {
-  angular.module('home')
-    .controller("editZoneRelationController", ['ActiveProductsPrepService', 'ActiveDistributersPrepService', 'ZoneDistributerPrepService', 'ActiveRetailersPrepService', '$stateParams', '$scope', 'ZoneRelationResource',
-      'appCONSTANTS', 'ToastService', '$translate', 'blockUI', '$state', 'ZoneByIdPrepService', editZoneRelationController]);
-
-   function editZoneRelationController(ActiveProductsPrepService, ActiveDistributersPrepService, ZoneDistributerPrepService, ActiveRetailersPrepService, $stateParams, $scope, ZoneRelationResource,
-    appCONSTANTS, ToastService, $translate, blockUI, $state, ZoneByIdPrepService) {
-    var vm = this;
-    vm.appCONSTANTS = appCONSTANTS;
-    vm.language = appCONSTANTS.supportedLanguage;
-    vm.currentStep = 1;
-    vm.distributers = ActiveDistributersPrepService;
-    vm.selectedProduct = [];
-    vm.currentProductPage = 1;
-    vm.products = {};
-    vm.selectedRetailer = [];
-    vm.retailers = {};
-    vm.currentRetailerPage = 1;
-    vm.zone = ZoneByIdPrepService;
-    vm.manufacture = ZoneByIdPrepService.manufacture;
-    vm.selectedDistributerId = ZoneDistributerPrepService.results[0].distributorId;
-
-
-    vm.products.allProductSelected = true;
-    vm.products.entities = ActiveProductsPrepService.results;
-    vm.productTotalCount = ActiveProductsPrepService.totalCount;
-    initSelectAllProduct();
-
-    vm.selectProduct = function (product) {
-
-            ChangeProductStatus(product)
-
-    };
-
-    vm.selectAllProduct = function () {
-      initSelectAllProduct();
-    };
-    vm.filterProduct = function (searchText, page, isChecked) {
-      refreshProduct(searchText, page, isChecked);
-      vm.searchText = "";
-    }
-    function initSelectAllProduct() {
-      for (var i = 0; i < vm.products.entities.length; i++) {
-        if (!vm.selectedProduct.includes(vm.products.entities[i].productId))
-          vm.selectedProduct.push(vm.products.entities[i].productId);
-        else {
-          var index = vm.selectedProduct.indexOf(vm.products.entities[i].productId);
-          vm.selectedProduct.splice(index, 1);
-        }
-      }
-    }
-
-    function refreshProduct(searchTitle, page, isChecked) {
-      blockUI.start("Loading...");
-      var k = ZoneRelationResource.getZoneProduct({ zoneId: $stateParams.zoneId, description: searchTitle, isChecked: isChecked, page: page }).$promise.then(function (results) {
-        vm.products.entities = results.results;
-        vm.productTotalCount = results.totalCount;
-        blockUI.stop();
-      },
-        function (data, status) {
-          blockUI.stop();
-          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        });
-    }
-
-    vm.changeProductPage = function (page) {
-      vm.currentProductPage = page;
-      refreshProduct("", page,"");
-    }
-    function ChangeProductStatus(model) {
-      var updateObj = new ZoneRelationResource();
-      updateObj.$zoneProductStatus({ zoneId: $stateParams.zoneId, zoneProductId: model.zoneProductRelationId, status: model.isChecked }).then(
-        function (data, status) {
-          blockUI.stop();
-          if (!data.isSuccsess)
-            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        },
-        function (data, status) {
-
-                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
-        }
-      );
-      return;
-    }
-
-
-    vm.retailers.allRetailerSelected = true;
-
-    vm.retailers.entities = ActiveRetailersPrepService.results;
-    vm.retailerTotalCount = ActiveRetailersPrepService.totalCount;
-    iniSelectAllRetailers();
-
-    vm.selectRetailer = function (retailer) {
-
-      ChangeRetailerStatus(retailer)
-      for (var i = 0; i < vm.retailers.entities.length; i++) {
-        if (!vm.retailers.entities[i].isChecked) {
-          vm.retailers.allRetailerSelected = false;
-          return;
-        }
-      }
-
-      vm.retailers.allRetailerSelected = true;
-    };
-
-    vm.selectAllRetailer = function () {
-      iniSelectAllRetailers();
-    };
-    vm.filterRetailer = function (searchText, page, isChecked) {
-
-            refreshRetailer(searchText, page, isChecked);
-      vm.searchText = "";
-    }
-    function iniSelectAllRetailers() {
-      for (var i = 0; i < vm.retailers.entities.length; i++) {
-        if (!vm.selectedRetailer.includes(vm.retailers.entities[i].retailerId)) {
-          vm.selectedRetailer.push(vm.retailers.entities[i].retailerId);
-        } else {
-          var index = vm.selectedRetailer.indexOf(vm.retailers.entities[i].retailerId);
-          vm.selectedRetailer.splice(index, 1);
-        }
-      }
-    }
-
-    function refreshRetailer(searchTitle, page, isChecked) {
-      blockUI.start("Loading...");
-      var k = ZoneRelationResource.getZoneRetailer({ zoneId: $stateParams.zoneId, title: searchTitle, isChecked: isChecked, page: page }).$promise.then(function (results) {
-        vm.retailers.entities = results.results;
-        vm.retailerTotalCount = results.totalCount;
-        blockUI.stop();
-      },
-        function (data, status) {
-          blockUI.stop();
-          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        });
-    }
-
-    vm.changeRetailerPage = function (page) {
-      vm.currentRetailerPage = page;
-      refreshRetailer("", page, "");
-    }
-    function ChangeRetailerStatus(model) {
-
-            var updateObj = new ZoneRelationResource();
-      updateObj.$zoneRetailerStatus({ zoneId: $stateParams.zoneId, zoneRetailerId: model.zoneRetailerRelationId, status: model.isChecked }).then(
-        function (data, status) {
-          blockUI.stop();
-          if (data.isSuccsess) {
-          } else {
-
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-          }
-        },
-        function (data, status) {
-
-                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
-        }
-      );
-      return;
-    }
-
-    vm.steps = [
-      {
-        step: 1,
-        name: "First step",
-        template: "./app/GlobalAdmin/ZoneRelation/templates/step1.html"
-      },
-      {
-        step: 2,
-        name: "Second step",
-        template: "./app/GlobalAdmin/ZoneRelation/templates/step2.html"
-      },
-      {
-        step: 3,
-        name: "Third step",
-        template: "./app/GlobalAdmin/ZoneRelation/templates/step3.html"
-      },
-    ];
-
-    vm.gotoStep = function (newStep) {
-
-      vm.currentStep = newStep;
-
-
-    }
-    vm.getStepTemplate = function () {
-      for (var i = 0; i < vm.steps.length; i++) {
-        if (vm.currentStep == vm.steps[i].step) {
-          return vm.steps[i].template;
-        }
-      }
-    }
-
-    vm.addNewZoneRelation = function () {
-
-      var newZoneRelation = new ZoneRelationResource();
-      newZoneRelation.zoneId = $stateParams.zoneId;
-
-      newZoneRelation.$setDistributor({ zoneId: $stateParams.zoneId, distributorId: vm.selectedDistributerId }).then
-        (
-          function (data, status) {
-
-            ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-            $state.go('ZoneRelation');
-
-            blockUI.stop();
-
-          },
-          function (data, status) {
-            blockUI.stop();
-            console.log(data.data);
-            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-          }
-        );
-
-
-    }
-
-
-  }
-
-
-})();(function () {
-  angular.module('home')
-    .controller("zoneRelationDetailsController", ['SelectedProductsPrepService', 'ActiveDistributersPrepService', 'ZoneDistributerPrepService', 'SelectedRetailersPrepService', '$stateParams', '$scope', 'ZoneRelationResource',
-      'appCONSTANTS', 'ToastService', '$translate', 'blockUI', '$state', 'ZoneByIdPrepService', zoneRelationDetailsController]);
-
-  function zoneRelationDetailsController(SelectedProductsPrepService, ActiveDistributersPrepService, ZoneDistributerPrepService, SelectedRetailersPrepService, $stateParams, $scope, ZoneRelationResource,
-    appCONSTANTS, ToastService, $translate, blockUI, $state, ZoneByIdPrepService) {
-    var vm = this;
-    vm.appCONSTANTS = appCONSTANTS;
-    vm.language = appCONSTANTS.supportedLanguage;
-    vm.currentStep = 1;
-    vm.distributers = ActiveDistributersPrepService;
-    vm.selectedProduct = [];
-    vm.currentProductPage = 1;
-    vm.products = {};
-    vm.selectedRetailer = [];
-    vm.retailers = {};
-    vm.currentRetailerPage = 1;
-
-        vm.zone = ZoneByIdPrepService;
-    vm.manufacture = ZoneByIdPrepService.manufacture;
-    vm.selectedDistributerId = ZoneDistributerPrepService.results[0].distributorId;
-
-
-    vm.products.allProductSelected = true;
-    vm.products.entities = SelectedProductsPrepService.results;
-    vm.productTotalCount = SelectedProductsPrepService.totalCount;
-    initSelectAllProduct();
-
-    vm.selectProduct = function (product) {
-
-            ChangeProductStatus(product)
-
-    };
-
-    vm.selectAllProduct = function () {
-      initSelectAllProduct();
-    };
-    vm.filterProduct = function (searchText, page) {
-      refreshProduct(searchText, page);
-      vm.searchText = "";
-    }
-    function initSelectAllProduct() {
-      for (var i = 0; i < vm.products.entities.length; i++) {
-        if (!vm.selectedProduct.includes(vm.products.entities[i].productId))
-          vm.selectedProduct.push(vm.products.entities[i].productId);
-        else {
-          var index = vm.selectedProduct.indexOf(vm.products.entities[i].productId);
-          vm.selectedProduct.splice(index, 1);
-        }
-      }
-    }
-
-    function refreshProduct(searchTitle, page) {
-      blockUI.start("Loading...");
-      var k = ZoneRelationResource.getZoneProduct({ zoneId: $stateParams.zoneId, description: searchTitle, page: page }).$promise.then(function (results) {
-        vm.products.entities = results.results;
-        vm.productTotalCount = results.totalCount;
-        blockUI.stop();
-      },
-        function (data, status) {
-          blockUI.stop();
-          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        });
-    }
-
-    vm.changeProductPage = function (page) {
-      vm.currentProductPage = page;
-      refreshProduct("", page);
-    }
-    function ChangeProductStatus(model) {
-      var updateObj = new ZoneRelationResource();
-      updateObj.$zoneProductStatus({ zoneId: $stateParams.zoneId, zoneProductId: model.zoneProductRelationId, status: model.isChecked }).then(
-        function (data, status) {
-          blockUI.stop();
-          if (!data.isSuccsess)
-            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        },
-        function (data, status) {
-
-                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
-        }
-      );
-      return;
-    }
-
-
-    vm.retailers.allRetailerSelected = true;
-
-    vm.retailers.entities = SelectedRetailersPrepService.results;
-    vm.retailerTotalCount = SelectedRetailersPrepService.totalCount;
-    iniSelectAllRetailers();
-
-    vm.selectRetailer = function (retailer) {
-
-      ChangeRetailerStatus(retailer)
-      for (var i = 0; i < vm.retailers.entities.length; i++) {
-        if (!vm.retailers.entities[i].isChecked) {
-          vm.retailers.allRetailerSelected = false;
-          return;
-        }
-      }
-
-      vm.retailers.allRetailerSelected = true;
-    };
-
-    vm.selectAllRetailer = function () {
-      iniSelectAllRetailers();
-    };
-    vm.filterRetailer = function (searchText, page) {
-
-            refreshRetailer(searchText, page);
-      vm.searchText = "";
-    }
-    function iniSelectAllRetailers() {
-      for (var i = 0; i < vm.retailers.entities.length; i++) {
-        if (!vm.selectedRetailer.includes(vm.retailers.entities[i].retailerId)) {
-          vm.selectedRetailer.push(vm.retailers.entities[i].retailerId);
-        } else {
-          var index = vm.selectedRetailer.indexOf(vm.retailers.entities[i].retailerId);
-          vm.selectedRetailer.splice(index, 1);
-        }
-      }
-    }
-
-    function refreshRetailer(searchTitle, page) {
-      blockUI.start("Loading...");
-      var k = ZoneRelationResource.getZoneRetailer({ zoneId: $stateParams.zoneId, title: searchTitle, page: page }).$promise.then(function (results) {
-        vm.retailers.entities = results.results;
-        vm.retailerTotalCount = results.totalCount;
-        blockUI.stop();
-      },
-        function (data, status) {
-          blockUI.stop();
-          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        });
-    }
-
-    vm.changeRetailerPage = function (page) {
-      vm.currentRetailerPage = page;
-      refreshRetailer("", page);
-    }
-    function ChangeRetailerStatus(model) {
-
-            var updateObj = new ZoneRelationResource();
-      updateObj.$zoneRetailerStatus({ zoneId: $stateParams.zoneId, zoneRetailerId: model.zoneRetailerRelationId, status: model.isChecked }).then(
-        function (data, status) {
-          blockUI.stop();
-          if (data.isSuccsess) {
-          } else {
-
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-          }
-        },
-        function (data, status) {
-
-                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
-        }
-      );
-      return;
-    }
-
-    vm.steps = [
-      {
-        step: 1,
-        name: "First step",
-        template: "./app/GlobalAdmin/ZoneRelation/templates/step1.html"
-      },
-      {
-        step: 2,
-        name: "Second step",
-        template: "./app/GlobalAdmin/ZoneRelation/templates/step2.html"
-      },
-      {
-        step: 3,
-        name: "Third step",
-        template: "./app/GlobalAdmin/ZoneRelation/templates/step3.html"
-      },
-    ];
-
-    vm.gotoStep = function (newStep) {
-
-      vm.currentStep = newStep;
-
-
-    }
-    vm.getStepTemplate = function () {
-      for (var i = 0; i < vm.steps.length; i++) {
-        if (vm.currentStep == vm.steps[i].step) {
-          return vm.steps[i].template;
-        }
-      }
-    }
-
-    vm.addNewZoneRelation = function () {
-
-      var newZoneRelation = new ZoneRelationResource();
-      newZoneRelation.zoneId = $stateParams.zoneId;
-
-      newZoneRelation.$setDistributor({ zoneId: $stateParams.zoneId, distributorId: vm.selectedDistributerId }).then
-        (
-          function (data, status) {
-
-            ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-            $state.go('ZoneRelation');
-
-            blockUI.stop();
-
-          },
-          function (data, status) {
-            blockUI.stop();
-            console.log(data.data);
-            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-          }
-        );
-
-
-    }
-
-
-  }
-
-
-})();(function () {
-    'use strict';
-
-    angular
-        .module('home')
         .controller('addOperationUserController', ['blockUI', 'UserRoleByIdPrepService','$stateParams', '$translate', '$state', 'UserResource', '$scope', 'ToastService', addOperationUserController]);
 
     function addOperationUserController(blockUI,UserRoleByIdPrepService, $stateParams, $translate, $state, UserResource, $scope, ToastService, ) {
@@ -8670,1483 +10150,4 @@
         blockUI.stop();
     }
 
-}());(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('CountryController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
-            '$state', 'CountryResource', 'CountryPrepService',  '$localStorage', 'appCONSTANTS',
-            'ToastService', CountryController]);
-
-
-    function CountryController($rootScope, blockUI, $scope, $filter, $translate,
-        $state, CountryResource, CountryPrepService, $localStorage, appCONSTANTS, ToastService) { 
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
-
-        blockUI.start("Loading..."); 
-
-                    var Manufacture = this;
-        $scope.totalCount = CountryPrepService.totalCount;
-        $scope.Countries  = CountryPrepService.results;
-        console.log($scope.Countries);
-        function refreshCountries() {
-
-            blockUI.start("Loading..."); 
-
-                     var k = CountryResource.getAllCountries({page:Manufacture.currentPage}).$promise.then(function (results) { 
-                $scope.Countries = results  
-                blockUI.stop();
-
-                            },
-
-                        function (data, status) {
-                blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
-        }
-
-                Manufacture.currentPage = 1;
-        $scope.changePage = function (page) {
-            Manufacture.currentPage = page;
-            refreshCountries();
-        }
-        blockUI.stop();
-
-            }
-
-})();
-(function () {
-    angular
-        .module('home')
-        .factory('CountryResource', ['$resource', 'appCONSTANTS', CountryResource])
-
-    function CountryResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Country/CreateCountry', {}, {
-            getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Country/GetAllCountry',useToken: true, params: { lang: '@lang' } },
-            GetAllActiveCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Country/GetAllActiveCountries',useToken: true, params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Country/UpdateCountry', useToken: true },
-            getCountry: { method: 'GET', url: appCONSTANTS.API_URL + 'Country/GetCountryById/:countryId', useToken: true }
-
-        })
-    }
-
 }());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .config(function ($stateProvider, $urlRouterProvider) {
-
-            $stateProvider
-                .state('Countries', {
-                    url: '/Country',
-                    templateUrl: './app/GlobalAdmin/Country/templates/Countries.html',
-                    controller: 'CountryController',
-                    'controllerAs': 'CountryCtrl',
-                    resolve: {
-                        CountryPrepService: CountryPrepService
-                    },
-                    data: {
-                        permissions: {
-                            only: ['9'],
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('newCountry', {
-                    url: '/newCountry',
-                    templateUrl: './app/GlobalAdmin/Country/templates/new.html',
-                    controller: 'createCountryDialogController',
-                    'controllerAs': 'newCountryCtrl',
-                    data: {
-                        permissions: {
-                            only: ['9'],
-                            redirectTo: 'root'
-                        }
-                    }
-
-
-                })
-                .state('editCountry', {
-                    url: '/editCountry/:countryId',
-                    templateUrl: './app/GlobalAdmin/Country/templates/edit.html',
-                    controller: 'editCountryDialogController',
-                    'controllerAs': 'editCountryCtrl',
-                    resolve: {
-                        CountryByIdPrepService: CountryByIdPrepService
-                    },
-                    data: {
-                        permissions: {
-                            only: ['9'],
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-        });
-
-    CountryPrepService.$inject = ['CountryResource']
-    function CountryPrepService(CountryResource) {
-        return CountryResource.getAllCountries().$promise;
-    }
-
-    CountryByIdPrepService.$inject = ['CountryResource', '$stateParams']
-    function CountryByIdPrepService(CountryResource, $stateParams) {
-        return CountryResource.getCountry({ countryId: $stateParams.countryId }).$promise;
-    }
-
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('createCountryDialogController', ['blockUI', '$state', 'appCONSTANTS', '$translate',
-            'CountryResource', 'ToastService', createCountryDialogController])
-
-    function createCountryDialogController(blockUI, $state, appCONSTANTS, $translate, CountryResource,
-        ToastService) {
-
-        blockUI.start("Loading...");
-
-        var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.close = function () {
-            $state.go('Countries');
-        }
-
-        vm.AddNewCountry = function () {
-            blockUI.start("Loading...");
-
-                        var newObj = new CountryResource();
-            newObj.titles = vm.titles;
-            newObj.$create().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    $state.go('Countries');
-                    blockUI.stop();
-
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
-                }
-            );
-        }
-        blockUI.stop();
-
-    }
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('editCountryDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'CountryResource', 'ToastService',
-            'CountryByIdPrepService', editCountryDialogController])
-
-    function editCountryDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, CountryResource, ToastService, CountryByIdPrepService) {
-        blockUI.start("Loading..."); 
-
-                var vm = this; 
-		vm.language = appCONSTANTS.supportedLanguage;
-        vm.Country = CountryByIdPrepService; 
-        vm.Close = function () {
-            $state.go('Countries');
-        }
-        vm.UpdateCountry  = function () { 
-            blockUI.start("Loading..."); 
-
-                        var updateObj = new CountryResource();
-            updateObj.countryId = vm.Country.countryId;
-            updateObj.titles = vm.Country.titles; 
-		    updateObj.$update().then(
-                function (data, status) {
-                    blockUI.stop();
-
-
-                                                            ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                     $state.go('Countries');
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        blockUI.stop();
-
-        	}	
-}());
-(function () {
-    angular
-        .module('home')
-        .factory('DistributorsResource', ['$resource', 'appCONSTANTS', DistributorsResource])
-
-    function DistributorsResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL, {}, {
-            create: { method: 'POST', url: appCONSTANTS.API_URL + 'Distributor/CreateDistributor', useToken: true, params: { lang: '@lang' } },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Distributor/UpdateDistributor', useToken: true},
-            GenerateNewDistributorId: { method: 'GET', url: appCONSTANTS.API_URL + 'Distributor/GenerateDistributorCode', useToken: true },
-            getAllDistributors: { method: 'GET', url: appCONSTANTS.API_URL + 'Distributor/GetAllDistributors', useToken: true, params: { lang: '@lang' } },
-            delete: { method: 'DELETE', url: appCONSTANTS.API_URL + 'Distributor/DeleteDistributor/:distributorId', useToken: true },
-            getDistributors: { method: 'GET', url: appCONSTANTS.API_URL + 'Distributor/GetDistributorById/:distributorId', useToken: true },
-            ChangeDistributors: { method: 'POST', url: appCONSTANTS.API_URL + 'Distributor/ChangeDistributorStatus/:distributorId/:status', useToken: true },
-            GetAllActiveDistributers: { method: 'GET', url: appCONSTANTS.API_URL + 'Distributor/GetAllActiveDistributor', useToken: true, isArray: true },
-            search: { method: 'GET', url: appCONSTANTS.API_URL + 'Distributor/Search', useToken: true},
-
-        })
-    }
-
-}());
-(function () {
-    'use strict';
-    angular
-        .module('home')
-        .controller('DistributorsController', ["DistributorPrepService",'appCONSTANTS','$translate', 'DistributorsResource',
-            'blockUI', '$uibModal', 'DistributorsPrepService',
-            'ToastService', DistributorsController]);
-
-    function DistributorsController(DistributorPrepService,appCONSTANTS,$translate, DistributorsResource,
-        blockUI, $uibModal, DistributorsPrepService, ToastService) {
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[11].children[0]).addClass("active")
-        var vm = this;
-        vm.currentPage =2;
-        vm.appCONSTANTS = appCONSTANTS;
-        vm.totalCount = DistributorsPrepService.totalCount;
-        vm.DistributorsList = DistributorsPrepService.results;
-
-        console.log(DistributorsPrepService);
-
-                function refreshDistributors() {
-            blockUI.start("Loading...");
-
-            var k = DistributorsResource.getAllDistributors({ page: vm.currentPage }).$promise.then(function (results) {
-                vm.DistributorsList = results.results;
-                vm.totalCount = results.totalCount;
-                 console.log(vm.DistributorsList);
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-        function change(Distributors, isDeleted) {
-            var updateObj = new DistributorsResource();
-            updateObj.distributorId = Distributors.distributorId;
-            updateObj.name =Distributors.name;
-            updateObj.address = Distributors.address;
-            updateObj.code = Distributors.code;
-            if (!isDeleted)
-            updateObj.isActive = (Distributors.isActive == true ? false : true);
-            updateObj.isDeleted = Distributors.isDeleted;
-
-            updateObj.$update().then(
-                function (data, status) {
-                    if (isDeleted)
-                        refreshDistributors();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    Distributors.isActive = updateObj.isActive;
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-        vm.ChangeDistributorsStatus = function (model) {
-
-
-                        var updateObj = new DistributorsResource();
-            updateObj.distributorId = model.distributorId;
-            updateObj.status =   (model.isActive == true ? false : true);
-            updateObj.$ChangeDistributors({distributorId:model.distributorId,status:updateObj.status}).then(
-                function (data, status) {
-                    refreshDistributors();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    updateObj.status = model.isActive;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-        function confirmationDelete(model) {
-
-                        var updateObj = new DistributorsResource();
-            updateObj.distributorId = model.distributorId;
-            updateObj.$delete({ distributorId: model.distributorId }).then(
-                function (data, status) {
-                    refreshDistributors();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.openDeleteDialog = function (model, name, distributorId) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return distributorId },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        }
-        vm.filterDistributor = function (name, page) {
-
-                        refreshDistributor(name, page);
-            vm.name = "";
-          }
-        function refreshDistributor(name, page) {
-            blockUI.start("Loading...");
-            var k = DistributorsResource.search({ name: name, page: page }).$promise.then(function (results) {
-              vm.DistributorsList= results.results;
-              vm.totalCount = results.totalCount;
-              blockUI.stop();
-            },
-              function (data, status) {
-                blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-              });
-          }
-
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshDistributors();
-        }
-    }
-
-})();
-(function () {
-  angular.module('home')
-    .controller("createDistributorDialogController", ['ContactTypePrepService', 'getDistributorsPrepService', '$rootScope', '$scope', 'DistributorsResource',
-      'CountryResource', 'GovernrateResource', 'CityResource',
-      'appCONSTANTS', 'ToastService',
-      '$translate', 'blockUI', '$http', '$state', 'CountriesPrepService',
-      createDistributorDialogController]);
-
-  function createDistributorDialogController(ContactTypePrepService, getDistributorsPrepService, $rootScope, $scope, DistributorsResource,
-    CountryResource, GovernrateResource,
-    CityResource, appCONSTANTS, ToastService, $translate, blockUI, $http,
-    $state, CountriesPrepService) {
-    var vm = this;
-    vm.code = getDistributorsPrepService.id;
-    vm.language = appCONSTANTS.supportedLanguage;
-    vm.currentStep = 1;
-    vm.DistributorLogo;
-    vm.nameStepOne;
-    vm.address;
-    vm.taxId;
-    vm.commercialReg;
-    vm.emailStepOne;
-    vm.url;
-    vm.countryId;
-    vm.ContactList = [];
-    vm.cityId;
-    vm.governrateId;
-    vm.contactType;
-    vm.ContactTypeList = ContactTypePrepService;
-    vm.user = {};
-    vm.companyLogo;
-    vm.imageData;
-    $rootScope.image = null;
-
-
-
-    vm.steps = [
-      {
-        step: 1,
-        name: "First step",
-        template: "./app/GlobalAdmin/Distributors/templates/step1.html"
-      },
-      {
-        step: 2,
-        name: "Second step",
-        template: "./app/GlobalAdmin/Distributors/templates/step2.html"
-      },
-      {
-        step: 3,
-        name: "Third step",
-        template: "./app/GlobalAdmin/Distributors/templates/step3.html"
-      },
-    ];
-
-    vm.LoadUploadLogo = function () {
-      $("#DistributorLogo ").click();
-    }
-    vm.LoadUploadLogo = function () {
-      $("#companyLogo").click();
-    }
-    var companyLogo;
-    $scope.AddcompanyLogo = function (element) {
-      var logoFile = element[0];
-      var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
-
-      if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
-
-        if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
-          $scope.newDistributorsForm = true;
-          $scope.$apply(function () {
-
-            companyLogo = logoFile;
-            var reader = new FileReader();
-
-            reader.onloadend = function () {
-              vm.companyLogo = reader.result;
-
-              $scope.$apply();
-            };
-            if (logoFile) {
-              reader.readAsDataURL(logoFile);
-            }
-          })
-        } else {
-          $("#logoImage").val('');
-          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
-        }
-
-      } else {
-        if (logoFile) {
-          $("#logoImage").val('');
-          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
-        }
-
-
-      }
-
-
-    }
-    vm.openDeleteContactTypeDialog = function(e){
-      vm.ContactList.splice(e, 1);
-   };
-    vm.AddContact = function () {
-      vm.conactObject =
-        {
-          name: vm.name,
-          title: vm.title,
-          mobileNumber: vm.mobileNumber,
-          email: vm.email,
-          checkbox: false,
-          contactTypeId: vm.selectedContactType
-        }
-      if (vm.ContactList.length != 0) {
-        var checkContact = vm.ContactList.find(v => v.mobileNumber == vm.conactObject.mobileNumber);
-        if (checkContact != null) {
-          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('must insert uniqe contact'), "error");
-          return;
-        }
-      }
-      if (vm.name == null) {
-        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put name'), "error"); return;
-      }
-      if (vm.mobileNumber == null) {
-        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put correct mobileNumber'), "error"); return;
-      }
-
-
-      vm.ContactList.push(vm.conactObject);
-    }
-    vm.setContactMain = function (index) {
-      var checkIfContactHasMain = vm.ContactList.find(v => v.checkbox == true && v.mobileNumber != index.mobileNumber);
-      if (checkIfContactHasMain) {
-        index.checkbox = false;
-        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('just one contact must be main '), "error"); return;
-      }
-    }
-    var checkboxValue=[];
-    vm.gotoStep = function (newStep) {
-
-      if (vm.currentStep == 1) {
-        if (vm.nameStepOne == null) {
-          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put Name'), "error");
-          return;
-        }
-        if (vm.address == null) {
-          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put Address'), "error");
-          return;
-        }
-        if (vm.selectedCityId == 0 || vm.selectedCountryId == 0 || vm.selectedGovernrateId == 0) {
-          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put location'), "error");
-          return;
-        }
-      }
-      if (vm.currentStep == 2) {
-        if (vm.ContactList.length == 0) 
-        {
-          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put contact list'), "error");
-          return;
-        }
-        else
-        {
-          for (i = 0; i < vm.ContactList.length; i++) 
-          { 
-            var value =vm.ContactList[i].checkbox;
-            checkboxValue.push(value);
-          }
-         if (!checkboxValue.includes(true))
-         {
-          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should Check at least one Contact'), "error");
-          return;
-         }
-        }
-      }
-      vm.currentStep = newStep;
-
-
-    }
-    vm.getStepTemplate = function () {
-      for (var i = 0; i < vm.steps.length; i++) {
-        if (vm.currentStep == vm.steps[i].step) {
-          return vm.steps[i].template;
-        }
-      }
-    }
-
-    vm.addNewDistributors = function () {
-      blockUI.start("Loading...");
-
-      var splitImage = $rootScope.image.split(',');
-      var newDistributors = new DistributorsResource();
-      newDistributors.name = vm.nameStepOne;
-      newDistributors.address = vm.address;
-      newDistributors.email = vm.emailStepOne;
-      newDistributors.url = vm.url;
-      newDistributors.code = vm.code;
-      newDistributors.cityId = vm.selectedCityId;
-      newDistributors.countryId = vm.selectedCountryId;
-      newDistributors.governrateId = vm.selectedGovernrateId;
-      newDistributors.distributorContactInformation = vm.ContactList;
-      newDistributors.taxId = vm.taxId;
-      newDistributors.commercialReg = vm.commercialReg;
-      newDistributors.companyLogo = splitImage[1];
-      newDistributors.logoContentType = $rootScope.imageType;
-
-      newDistributors.$create().then
-        (
-          function (data, status) {
-            blockUI.stop();
-            if (data.isSuccsess) {
-              ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-              $state.go('Distributor');
-            }
-            else {
-              ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            }
-          },
-          function (data, status) {
-            blockUI.stop();
-            console.log(data.data);
-            ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
-          }
-        );
-
-
-    }
-
-
-    vm.countries = [];
-    vm.countries.push({ countryId: 0, titles: { "en-uk": "Select Country", "ar-eg": "اختار بلد" } });
-    vm.selectedCountryId = 0;
-    console.log(vm.countries);
-    CountryResource.getAllCountries().$promise.then(function (results) {
-
-      vm.countries = vm.countries.concat(results.results);
-      console.log(vm.countries);
-    },
-      function (data, status) {
-        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-      });
-    vm.resetDLL = function () {
-      vm.countries = [];
-      vm.countries.push({ id: 0, titles: { "en-uk": "Select Country", "ar-eg": "اختار بلد" } });
-      vm.selectedCountryId = 0;
-      vm.countries = vm.countries.concat(CountriesPrepService.results)
-      vm.Governrates = [];
-      vm.cities = [];
-      vm.categoryList = [];
-    }
-    vm.countryChange = function () {
-
-      vm.Governrates = [];
-      vm.cities = [];
-
-      if (vm.selectedCountryId == null)
-        return;
-      vm.Governrates.push({ governrateId: 0, titles: { "en-uk": "Select Governrate", "ar-eg": "اختار اقليم" } });
-      GovernrateResource.GetAllActiveGovernrates({ countryId: vm.selectedCountryId }).$promise.then(function (results) {
-        vm.selectedGovernrateId = 0;
-        vm.Governrates = vm.Governrates.concat(results);
-        console.log(vm.Governrates);
-      },
-        function (data, status) {
-          ToastService.show("right", "bottom", "fadeInUp", data.message, "You should put city");
-        });
-      blockUI.stop();
-    }
-    vm.GovernrateChange = function () {
-      if (vm.selectedGovernrateId != undefined) {
-        for (var i = vm.Governrates.length - 1; i >= 0; i--) {
-          if (vm.Governrates[i].id == 0) {
-            vm.Governrates.splice(i, 1);
-          }
-        }
-        vm.cities = [];
-
-        if (vm.selectedGovernrateId == null)
-          return;
-        vm.cities.push({ cityId: 0, titles: { "en-uk": "Select City", "ar-eg": "اختار مدينة" } });
-        CityResource.getAllActiveCities({ governrateId: vm.selectedGovernrateId }).$promise.then(function (results) {
-          vm.selectedCityId = 0;
-          vm.cities = vm.cities.concat(results);
-        },
-          function (data, status) {
-            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-          });
-      }
-    }
-    vm.cityChange = function () {
-      if (vm.selectedCityId != undefined) {
-        for (var i = vm.cities.length - 1; i >= 0; i--) {
-          if (vm.cities[i].id == 0) {
-            vm.cities.splice(i, 1);
-          }
-        }
-      }
-    }
-
-  }
-
-
-})();(function () {
-  'use strict';
-
-  angular
-    .module('home')
-    .controller('editDistributorDialogController', ['$rootScope', 'ContactTypePrepService', 'CityResource', 'GovernrateResource', 'CountriesPrepService', 'CountryResource', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
-      'DistributorsResource', 'ToastService', 'DistributorEditByIdPrepService', editDistributorDialogController])
-
-  function editDistributorDialogController($rootScope, ContactTypePrepService, CityResource, GovernrateResource, CountriesPrepService, CountryResource, blockUI, $filter, $http, $state, appCONSTANTS, $translate, DistributorsResource,
-    ToastService, DistributorEditByIdPrepService) {
-    var vm = this;
-    vm.language = appCONSTANTS.supportedLanguage;
-    vm.Distributor = DistributorEditByIdPrepService;
-    console.log("m", vm.Distributor);
-    $rootScope.image = appCONSTANTS.Image_URL_ACTOR + vm.Distributor.companyLogo;
-    vm.currentStep = 1;
-    vm.DistributorLogo;
-    vm.nameStepOne;
-    vm.address;
-    vm.taxId;
-    vm.commercialReg;
-    vm.emailStepOne;
-    vm.url;
-    vm.countryId;
-    vm.ContactList = [];
-    vm.cityId;
-    vm.governrateId;
-    vm.ContactList = [];
-    vm.contactType;
-    vm.ContactTypeList = ContactTypePrepService;
-    vm.Contacts = [];
-    vm.user = {};
-    vm.companyLogo;
-    vm.imageData;
-
-
-    vm.openDeleteContactTypeDialog = function(e){
-      vm.Distributor.distributorContactInformation.splice(e, 1);
-   };
-   vm.openDeleteContactTypeDialogContactList = function(e){
-    vm.ContactList.splice(e, 1);
- };
-    vm.AddContact = function () {
-
-      vm.conactObject =
-        {
-          name: vm.name,
-          title: vm.title,
-          mobileNumber: vm.mobileNumber,
-          email: vm.email,
-          checkbox: false,
-          contactTypeId: vm.selectedContactType
-        }
-      if (vm.Distributor.distributorContactInformation.length != 0) {
-        var checkContact = vm.Distributor.distributorContactInformation.find(v => v.mobileNumber == vm.conactObject.mobileNumber);
-        if (checkContact != null) {
-          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('must insert uniqe contact'), "error");
-          return;
-        }
-      }
-      if (vm.name == null) {
-        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put name'), "error"); return;
-      }
-      if (vm.mobileNumber == null) {
-        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should put correct mobileNumber'), "error"); return;
-      }
-
-
-      vm.Distributor.distributorContactInformation.push(vm.conactObject);
-    }
-    vm.setContactMain = function (index) {
-      var checkIfContactHasMain = vm.Distributor.distributorContactInformation.find(v => v.main == true && v.mobileNumber != index.mobileNumber);
-      if (checkIfContactHasMain) {
-        index.main = false;
-        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('just one contact must be main '), "error"); return;
-      }
-    }
-
-
-    vm.steps = [
-      {
-        step: 1,
-        name: "First step",
-        template: "./app/GlobalAdmin/Distributors/templates/editstep1.html"
-      },
-      {
-        step: 2,
-        name: "Second step",
-        template: "./app/GlobalAdmin/Distributors/templates/editstep2.html"
-      },
-      {
-        step: 3,
-        name: "Third step",
-        template: "./app/GlobalAdmin/Distributors/templates/editstep3.html"
-      },
-    ];
-    vm.gotoStep = function (newStep) {
-
-      if (vm.currentStep == 1) {
-        if (vm.Distributor.name == null) {
-          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should edit Name'), "error");
-          return;
-        }
-        if (vm.Distributor.address == null) {
-          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should edit Address'), "error");
-          return;
-        }
-        if (vm.selectedCityId == 0 || vm.selectedCountryId == 0 || vm.selectedGovernrateId == 0) {
-          ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should edit location'), "error");
-          return;
-        }
-      }
-      if (vm.Distributor.currentStep == 2) 
-      {
-        if (vm.Distributor.distributorContactInformation != 0) 
-        {
-
-          for (let i = 0; i < vm.Distributor.distributorContactInformation.length; i++) {
-            var value = vm.Distributor.distributorContactInformation[i].main;
-            checkboxValue.push(value);
-          }
-          if (!checkboxValue.includes(true)) {
-            ToastService.show("right", "bottom", "fadeInUp", $translate.instant('you should Check at least one Contact'), "error");
-            return;
-          }
-        }
-      }
-      vm.currentStep = newStep;
-
-
-    }
-    vm.getStepTemplate = function () {
-      for (var i = 0; i < vm.steps.length; i++) {
-        if (vm.currentStep == vm.steps[i].step) {
-          return vm.steps[i].template;
-        }
-      }
-    }
-    vm.Close = function () {
-      $state.go('Distributor');
-    }
-    vm.UpdateDistributor = function () {
-
-            blockUI.start("Loading...");
-      var updateObj = new DistributorsResource();
-      var splitImage = $rootScope.image.split(',');
-      updateObj.code = vm.Distributor.code;
-      updateObj.name = vm.Distributor.name;
-      updateObj.distributorId = vm.Distributor.distributorId;
-      updateObj.address = vm.Distributor.address;
-      updateObj.email = vm.Distributor.email;
-      updateObj.url = vm.Distributor.webSite;
-      updateObj.code = vm.Distributor.code;
-      updateObj.cityId = vm.selectedCityId;
-      updateObj.countryId = vm.selectedCountryId;
-      updateObj.governrateId = vm.selectedGovernrateId;
-      updateObj.distributorContactInformation = vm.Distributor.distributorContactInformation;
-      updateObj.taxId = vm.Distributor.taxId;
-      updateObj.commercialReg = vm.Distributor.commercialReg;
-      if ($rootScope.imageType != null) {
-        updateObj.companyLogo = splitImage[1];
-        updateObj.logoContentType = $rootScope.imageType;
-      }
-
-      updateObj.$update().then
-        (
-          function (data, status) {
-            blockUI.stop();
-            if (data.isSuccsess) {
-              ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
-              $state.go('Distributor');
-            }
-            else {
-              ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            }
-          },
-          function (data, status) {
-            blockUI.stop();
-            console.log(data.data);
-            ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
-          }
-        );
-
-    }
-
-    vm.countries = [];
-    vm.countries.push({ id: 0, titles: { "en-uk": "Select Country", "ar-eg": "اختار بلد" } });
-    vm.selectedCountryId = 0;
-    CountryResource.getAllCountries().$promise.then(function (results) {
-
-      vm.countries = vm.countries.concat(results.results)
-
-      var indexRate = vm.countries.indexOf($filter('filter')(vm.countries, { 'countryId': vm.Distributor.country.countryId }, true)[0]);
-      vm.selectedCountryId = vm.countries[indexRate].countryId;
-      console.log(vm.cities);
-      vm.Governrates = [];
-      vm.cities = [];
-      vm.Governrates.push({ id: 0, titles: { "en-uk": "Select Governrate", "ar-eg": "اختار اقليم" } });
-      GovernrateResource.GetAllActiveGovernrates({ countryId: vm.selectedCountryId }).$promise.then(function (results) {
-        vm.selectedGovernrateId = 0;
-
-                vm.Governrates = vm.Governrates.concat(results);
-        var indexRate = vm.Governrates.indexOf($filter('filter')(vm.Governrates, { 'governrateId': vm.Distributor.governrate.governrateId }, true)[0]);
-        vm.selectedGovernrateId = vm.Governrates[indexRate].governrateId;
-        if (vm.selectedGovernrateId != undefined) {
-          for (var i = vm.Governrates.length - 1; i >= 0; i--) {
-            if (vm.Governrates[i].id == 0) {
-              vm.Governrates.splice(i, 1);
-            }
-          }
-          vm.GovernrateChange = function () {
-            if (vm.selectedGovernrateId != undefined) {
-              for (var i = vm.Governrates.length - 1; i >= 0; i--) {
-                if (vm.Governrates[i].id == 0) {
-                  vm.Governrates.splice(i, 1);
-                }
-              }
-
-                    vm.cities = [];
-
-                    if (vm.selectedGovernrateId == null)
-                return;
-              vm.cities.push({ cityId: 0, titles: { "en-uk": "Select City", "ar-eg": "اختار مدينة" } });
-              CityResource.getAllActiveCities({ governrateId: vm.selectedGovernrateId }).$promise.then(function (results) {
-                vm.selectedCityId = 0;
-                vm.cities = vm.cities.concat(results);
-              },
-                function (data, status) {
-                  ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-            }
-          }
-          vm.cities = [];
-          vm.area = [];
-          vm.cities.push({ id: 0, titles: { "en-uk": "Select City", "ar-eg": "اختار مدينة" } });
-          CityResource.getAllActiveCities({ governrateId: vm.selectedGovernrateId }).$promise.then(function (results) {
-            vm.selectedCityId = 0;
-            vm.cities = vm.cities.concat(results);
-            var indexRate = vm.cities.indexOf($filter('filter')(vm.cities,
-              { 'cityId': vm.Distributor.city.cityId }, true)[0]);
-            vm.selectedCityId = vm.cities[indexRate].cityId;
-          },
-            function (data, status) {
-              ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
-        }
-      },
-        function (data, status) {
-          ToastService.show("right", "bottom", "fadeInUp", data.message, "You should put city");
-        });
-    },
-      function (data, status) {
-        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-      });
-    vm.resetDLL = function () {
-      vm.countries = [];
-      vm.countries.push({ id: 0, titles: { "en-uk": "Select Country", "ar-eg": "اختار بلد" } });
-      vm.selectedCountryId = 0;
-      vm.countries = vm.countries.concat(CountriesPrepService.results)
-      vm.Governrates = [];
-      vm.cities = [];
-      vm.categoryList = [];
-    }
-    vm.cityChange = function () {
-      if (vm.selectedCityId != undefined) {
-        for (var i = vm.cities.length - 1; i >= 0; i--) {
-          if (vm.cities[i].id == 0) {
-            vm.cities.splice(i, 1);
-          }
-        }
-      }
-    }
-    vm.LoadUploadLogo = function () {
-			$("#imageName").click();
-		}
-  }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('OrderIooController', ['blockUI', '$translate', '$uibModal', 'appCONSTANTS', '$scope', 'OrderResource',
-            'ToastService', OrderIooController]);
-
-    function OrderIooController(blockUI, $translate, $uibModal, appCONSTANTS, $scope, OrderResource, ToastService) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
-
-        blockUI.start("Loading...");
-
-        var vm = this;
-        refreshOrders();
-        vm.filterOrder = function (all) {
-
-            if (all) { 
-                vm.searchBasket = "";
-                vm.searchRetailer = "";
-                vm.searchOrder = "";
-                vm.from = "";
-                vm.to = "";
-            }
-            filterBasket();
-        }
-
-        function filterBasket() {
-            blockUI.start("Loading...");
-            var k = OrderResource.getFilterBaskets({ retailerTitle: vm.searchRetailer, orderNo: vm.searchOrder, basketNo: vm.searchBasket, from: vm.from, to: vm.to, page: vm.currentPage }).$promise.then(function (results) {
-                vm.Orders = results.results;
-                vm.totalCount = results.totalCount;
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-        function refreshOrders() {
-            blockUI.start("Loading...");
-            var k = OrderResource.getAllBasketsBy({ page: vm.currentPage }).$promise.then(function (results) {
-                vm.Orders = results.results;
-                vm.totalCount = results.totalCount;
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-        vm.ChangeStatus = function (model) {
-
-                        var updateObj = new OrderResource();
-            updateObj.OrderId = model.OrderId;
-            updateObj.status = (model.isActive == true ? false : true);
-            updateObj.$changeStatus({ OrderId: model.OrderId, status: updateObj.status }).then(
-                function (data, status) {
-                    refreshOrders();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    updateObj.status = model.isActive;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-            return;
-        }
-        vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshOrders();
-        }
-        blockUI.stop();
-
-        vm.dateIsValid = false;
-        $scope.dateFromChange = function () {
-            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
-                vm.dateIsValid = false;
-            }
-            else {
-
-                                vm.from = $('#startdate').data('date');
-                $scope.$apply();
-            }
-        }
-
-        $scope.dateToChange = function () {
-            if ($('#enddate').data('date') == null || $('#enddate').data('date') == "") {
-                vm.dateIsValid = false;
-            }
-            else {
-
-                                vm.to = $('#enddate').data('date');
-                $scope.$apply();
-            }
-        }
-        vm.showMore = function (element) {
-            $(element.currentTarget).toggleClass("child-table-collapse");
-        }
-    }
-
-})();
-(function () {
-    angular
-        .module('home')
-        .factory('OrderResource', ['$resource', 'appCONSTANTS', OrderResource])
-
-    function OrderResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Order/CreateOrder', {}, {
-            getAllOrdersBy: { method: 'GET', url: appCONSTANTS.API_URL + 'Order/GetOrders', useToken: true },
-            getAllBasketsBy: { method: 'GET', url: appCONSTANTS.API_URL + 'Order/GetBaskets', useToken: true },
-            getFilterBaskets: { method: 'GET', url: appCONSTANTS.API_URL + 'Order/GetBasketsOperation', useToken: true },
-            getOrder: { method: 'GET', url: appCONSTANTS.API_URL + 'Order/GetOrderById/:id', useToken: true },
-            getOrderDetails: { method: 'GET', url: appCONSTANTS.API_URL + 'Order/GetOrderDetails/:orderId ', useToken: true },
-            getOrderById: { method: 'GET', url: appCONSTANTS.API_URL + 'Order/GetOrderById/:orderId ', useToken: true },
-            changeStatusOpen: { method: 'POST', url: appCONSTANTS.API_URL + 'Order/Open/:orderId', useToken: true },
-            forwordFor: { method: 'POST', url: appCONSTANTS.API_URL + 'Order/ForwordFor/:orderItemIds', useToken: true },
-            cancelFor: { method: 'POST', url: appCONSTANTS.API_URL + 'Order/CancelFor/:orderItemIds', useToken: true },
-        })
-    }
-
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .config(function ($stateProvider, $urlRouterProvider) {
-
-            $stateProvider
-                .state('OrdersIoo', {
-                    url: '/Order',
-                    templateUrl: './app/GlobalAdmin/Order/templates/IooOrder.html',
-                    controller: 'OrderIooController',
-                    'controllerAs': 'OrderIooCtrl',
-                    resolve: {
-                    },
-                    data: {
-                        permissions: {
-                            only: ['23'],
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-
-                .state('OrdersM', {
-                    url: '/OrderM',
-                    templateUrl: './app/GlobalAdmin/Order/templates/mOrder.html',
-                    controller: 'OrderMController',
-                    'controllerAs': 'OrderMCtrl', 
-                    data: {
-                        permissions: {
-                            only: ['24'],
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('OrderDetails', {
-                    url: '/OrderDetails/:orderId',
-                    templateUrl: './app/GlobalAdmin/Order/templates/OrderDetails.html',
-                    controller: 'OrderDetailsController',
-                    'controllerAs': 'OrderDetailsCtrl',
-                    resolve: {
-                        OrderDetaqilsByOrderIdPrepService: OrderDetaqilsByOrderIdPrepService
-                    },
-                    data: {
-                        permissions: {
-                            only: ['23'],
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('OrderDetailsByTenant', {
-                    url: '/OrderMDetails/:orderId',
-                    templateUrl: './app/GlobalAdmin/Order/templates/OrderDetailsByTenant.html',
-                    controller: 'OrderDetailsByTenantController',
-                    'controllerAs': 'OrderDetailsByTenantCtrl',
-                    resolve: {
-                        OrderDetaqilsByOrderIdPrepService: OrderDetaqilsByOrderIdPrepService
-                    },
-                    data: {
-                        permissions: {
-                            only: ['24'],
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-
-         });
-
-
-     OrderDetaqilsByOrderIdPrepService.$inject = ['OrderResource', '$stateParams']
-    function OrderDetaqilsByOrderIdPrepService(OrderResource, $stateParams) {
-        return OrderResource.getOrderDetails({ orderId: $stateParams.orderId }).$promise;
-    }
-
- }());
-
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('OrderDetailsController', ['blockUI', '$stateParams', 'appCONSTANTS', '$scope', 'OrderResource', 'OrderDetaqilsByOrderIdPrepService',
-            'ToastService', OrderDetailsController]);
-
-
-    function OrderDetailsController(blockUI, $stateParams, appCONSTANTS, $scope, OrderResource, OrderDetaqilsByOrderIdPrepService, ToastService) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
-
-        blockUI.start("Loading...");
-
-        var vm = this;
-        vm.appCONSTANTS = appCONSTANTS;
-        vm.totalCount = OrderDetaqilsByOrderIdPrepService.totalCount;
-        vm.OrderDetails = OrderDetaqilsByOrderIdPrepService;
-        vm.listSelected = [];
-        console.log(vm.OrderDetails);
-        getOrderById();
-        function getOrderById() {
-            blockUI.start("Loading...");
-            var k = OrderResource.getOrderById({ orderId: $stateParams.orderId }).$promise.then(function (results) {
-
-                vm.order = results;
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-        function getOrderDetailsById() {
-            blockUI.start("Loading...");
-            var k = OrderResource.getOrderDetails({ orderId: $stateParams.orderId }).$promise.then(function (results) {
-
-                vm.totalCount = results.totalCount;
-                vm.OrderDetails = results.results;
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-        blockUI.stop();
-        vm.forwardSelected = function () {
-            blockUI.start("Loading...");
-            var updateObj = new OrderResource();
-            updateObj.orderItemIds = vm.listSelected;
-            updateObj.$forwordFor().then(
-                function (data, status) {
-                    blockUI.stop();
-
-                                        if (data.isSuccsess) {
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                        vm.listSelected = [];
-                        getOrderDetailsById();
-                    }
-                    else {
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                    }
-                    blockUI.stop();
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            ); 
-        }
-        vm.refreshOrder = function () {
-
-                        getOrderById();
-        }
-        vm.cancelSelected = function () {
-            blockUI.start("Loading...");
-            var updateObj = new OrderResource();
-            updateObj.orderItemIds = vm.listSelected;
-            updateObj.$cancelFor().then(
-                function (data, status) {
-
-                                        if (data.isSuccsess) {
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                        vm.listSelected = [];
-                        getOrderDetailsById();
-                    }
-                    else {
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                    }
-                    blockUI.stop();
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-        }
-
-        vm.toggleSelection = function toggleSelection(order) {
-            var idx = vm.listSelected.indexOf(order);
-            if (idx > -1) {
-                vm.listSelected.splice(idx, 1);
-            }
-            else {
-                vm.listSelected.push(order);
-            }
-        };
-
-
-    }
-
-})();
-
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('OrderDetailsByTenantController', ['blockUI', '$translate', '$uibModal', 'appCONSTANTS', '$stateParams', 'OrderResource', 'OrderDetaqilsByOrderIdPrepService',
-            'ToastService', OrderDetailsByTenantController]);
-
-
-    function OrderDetailsByTenantController(blockUI, $translate, $uibModal, appCONSTANTS, $stateParams, OrderResource, OrderDetaqilsByOrderIdPrepService, ToastService) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
-
-        blockUI.start("Loading...");
-
-        var vm = this;
-        vm.appCONSTANTS = appCONSTANTS;
-        vm.totalCount = OrderDetaqilsByOrderIdPrepService.totalCount;
-        vm.OrderDetails = OrderDetaqilsByOrderIdPrepService.results;
-        vm.listSelected = [];
-        getOrderById();
-        function getOrderById() {
-            blockUI.start("Loading...");
-            var k = OrderResource.getOrderById({ orderId: $stateParams.orderId }).$promise.then(function (results) {
-
-                vm.order = results;
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-        function getOrderDetailsById() {
-            blockUI.start("Loading...");
-            var k = OrderResource.getOrderDetails({ orderId: $stateParams.orderId }).$promise.then(function (results) {
-
-                vm.totalCount = results.totalCount;
-                vm.OrderDetails = results.results;
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-        blockUI.stop();
-        vm.forwardSelected = function () {
-            blockUI.start("Loading...");
-            var updateObj = new OrderResource();
-            updateObj.orderItemIds = vm.listSelected;
-            updateObj.$forwordFor().then(
-                function (data, status) {
-                    blockUI.stop();
-
-                                        if (data.isSuccsess) {
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                        vm.listSelected = [];
-                        getOrderDetailsById();
-                    }
-                    else {
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                    }
-                    blockUI.stop();
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-
-
-        }
-        vm.cancelSelected = function () {
-            blockUI.start("Loading...");
-            var updateObj = new OrderResource();
-            updateObj.orderItemIds = vm.listSelected;
-            updateObj.$cancelFor().then(
-                function (data, status) {
-
-                                        if (data.isSuccsess) {
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                        vm.listSelected = [];
-                        getOrderDetailsById();
-                    }
-                    else {
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                    }
-                    blockUI.stop();
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-        }
-
-        vm.toggleSelection = function toggleSelection(order) {
-            var idx = vm.listSelected.indexOf(order);
-            if (idx > -1) {
-                vm.listSelected.splice(idx, 1);
-            }
-            else {
-                vm.listSelected.push(order);
-            }
-        };
-        vm.refreshDetails = function () {
-            getOrderDetailsById();
-        }
-    }
-
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('OrderMController', ['blockUI', 'appCONSTANTS', '$scope', '$interval', 'OrderResource', '$state', 'ToastService', OrderMController]);
-
-    function OrderMController(blockUI, appCONSTANTS, $scope, $interval, OrderResource, $state, ToastService) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
-
-        blockUI.start("Loading...");
-        var vm = this;
-        vm.connectionId = 0;
-        vm.connection = new signalR.HubConnectionBuilder().withUrl(appCONSTANTS.SIGNAL_URL + "newOrder").build();
-
-        vm.connection.on("NewOrder", function () {
-            refreshOrders();
-            return console.log(vm.connection);
-        });
-
-        vm.connection.on("RefreshOrder", function () {
-            refreshOrders();
-            return console.log(vm.connection);
-        });
-
-        vm.connection.start().then(function () {
-
-            console.log(vm.connection);
-
-        }).catch(function (err) {
-            return console.error(err.toString());
-        });
-
-        vm.appCONSTANTS = appCONSTANTS;
-        refreshOrders();
-        $scope.openOrder = function (orderId) {
-            blockUI.start("Loading...");
-
-
-                        vm.connection.invoke('getConnectionId')
-                .then(function (connectionId) {
-
-                                        vm.connectionId = connectionId;
-                    vm.connection.invoke('refresh'); 
-                });
-
-
-            var updateObj = new OrderResource();
-            updateObj.orderId = orderId;
-            updateObj.$changeStatusOpen({ orderId: orderId }).then(
-                function (data, status) {
-                    blockUI.stop();
-                    $state.go('OrderDetailsByTenant', { orderId: orderId });
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-        }
-        function refreshOrders() {
-            blockUI.start("Loading...");
-            var k = OrderResource.getAllOrdersBy({ page: vm.currentPage }).$promise.then(function (results) {
-                vm.Orders = results.results;
-                vm.totalCount = results.totalCount;
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-        vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshOrders();
-        }
-        blockUI.stop();
-        $scope.checkAll = function () {
-            if (!$scope.selectedAll) {
-                $scope.selectedAll = true;
-            } else {
-                $scope.selectedAll = false;
-            }
-        }
-    }
-
-})();
