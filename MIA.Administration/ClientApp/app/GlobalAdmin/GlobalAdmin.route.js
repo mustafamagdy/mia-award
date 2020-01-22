@@ -183,14 +183,14 @@
                     }
 
                 })
-                // Category
-                .state('Category', {
-                    url: '/Category',
-                    templateUrl: './app/GlobalAdmin/Category/templates/Category.html',
-                    controller: 'CategoryController',
-                    'controllerAs': 'CategoryCtrl',
+                // News
+                .state('News', {
+                    url: '/News',
+                    templateUrl: './app/GlobalAdmin/News/templates/News.html',
+                    controller: 'NewsController',
+                    'controllerAs': 'NewsCtrl',
                     resolve: {
-                        CategoryPrepService: CategoryPrepService
+                        NewsPrepService: NewsPrepService
                     },
                     data: {
                         permissions: {
@@ -201,11 +201,11 @@
 
                 })
 
-                .state('newCategory', {
-                    url: '/newCategory',
-                    templateUrl: './app/GlobalAdmin/Category/templates/new.html',
-                    controller: 'createCategoryDialogController',
-                    'controllerAs': 'newCategoryCtrl',
+                .state('newNews', {
+                    url: '/newNews',
+                    templateUrl: './app/GlobalAdmin/News/templates/new.html',
+                    controller: 'createNewsDialogController',
+                    'controllerAs': 'newNewsCtrl',
                     resolve: {
                     },
                     data: {
@@ -216,13 +216,13 @@
                     }
 
                 })
-                .state('editCategory', {
-                    url: '/editcategory/:id',
-                    templateUrl: './app/GlobalAdmin/Category/templates/edit.html',
-                    controller: 'editCategoryDialogController',
-                    'controllerAs': 'editCategoryCtrl',
+                .state('editNews', {
+                    url: '/editnews/:id',
+                    templateUrl: './app/GlobalAdmin/News/templates/edit.html',
+                    controller: 'editNewsDialogController',
+                    'controllerAs': 'editNewsCtrl',
                     resolve: {
-                        CategoryByIdPrepService: CategoryByIdPrepService,
+                        NewsByIdPrepService: NewsByIdPrepService,
                     },
                     data: {
                         permissions: {
@@ -490,15 +490,15 @@
         return GetProgramDetailResource.getProgramDetail({ programId: $stateParams.programId }).$promise;
     }
 
-    /*Category */
-    CategoryPrepService.$inject = ['CategoryResource']
-    function CategoryPrepService(CategoryResource) {
-        return CategoryResource.getAllCategories().$promise;
+    /*News */
+    NewsPrepService.$inject = ['NewsResource']
+    function NewsPrepService(NewsResource) {
+        return NewsResource.getAllCategories().$promise;
     }
 
-    CategoriesPrepService.$inject = ['CategoryResource']
-    function CategoriesPrepService(CategoryResource) {
-        return CategoryResource.getAllCategories().$promise;
+    CategoriesPrepService.$inject = ['NewsResource']
+    function CategoriesPrepService(NewsResource) {
+        return NewsResource.getAllCategories().$promise;
     }
     // Item
     itemsssPrepService.$inject = ['GetItemsssResource']
@@ -506,14 +506,14 @@
         return GetItemsssResource.getAllItemsss().$promise;
     }
 
-    CategoryByIdPrepService.$inject = ['CategoryResource', '$stateParams']
-    function CategoryByIdPrepService(CategoryResource, $stateParams) {
-        return CategoryResource.getCategory({ id: $stateParams.id }).$promise;
+    NewsByIdPrepService.$inject = ['NewsResource', '$stateParams']
+    function NewsByIdPrepService(NewsResource, $stateParams) {
+        return NewsResource.getNews({ id: $stateParams.id }).$promise;
     }
     /*Items */
     itemsPrepService.$inject = ['GetItemsResource', '$stateParams']
     function itemsPrepService(GetItemsResource, $stateParams) {
-        return GetItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
+        return GetItemsResource.getAllItems({ NewsId: $stateParams.newsId }).$promise;
     }
 
     itemPrepService.$inject = ['ItemResource', '$stateParams']

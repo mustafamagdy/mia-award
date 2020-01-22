@@ -46,17 +46,17 @@ namespace MIA.Administration.Api {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
       var newsItem = await db.News.FindAsync(resultDto.Id);
-      if (dto.Poster != null && dto.Poster.Length > 0) {
+      if (dto.Image != null && dto.Image.Length > 0) {
         using (var memorySteam = new MemoryStream()) {
-          dto.Poster.CopyTo(memorySteam);
+          dto.Image.CopyTo(memorySteam);
 
           string validationError = "";
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
             return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
           }
 
-          string fileKey = $"news/{newsItem.Id}/{dto.Poster.FileName}";
-          var posterUrl = await fileManager.UploadFile(dto.Poster.OpenReadStream(), fileKey);
+          string fileKey = $"news/{newsItem.Id}/{dto.Image.FileName}";
+          var posterUrl = await fileManager.UploadFile(dto.Image.OpenReadStream(), fileKey);
 
           newsItem.PosterUrl = posterUrl;
           newsItem.PosterId = fileKey;

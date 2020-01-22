@@ -565,7 +565,8 @@
 										<div class="list-group" ng-repeat="Order in Orders">
 											<a class="list-group-item active" ng-click="openOrder(Order.orderId);">
 												<h4 class="list-group-item-heading">{{Order.orderNo}}
-													<span id="spanPrice">{{Order.totalPrice}}<sub> {{'EGP' | translate}}</sub></span>
+													<span id="spanPrice">{{Order.totalPrice}}<sub>
+															{{'EGP' | translate}}</sub></span>
 												</h4>
 												<p class="list-group-item-text">
 													{{Order.retailer.name}}-{{Order.retailer.code}}</p>
@@ -988,8 +989,9 @@
 
 
 			</li>
-			<li ng-show="user.PermissionId.split(';').includes('1') ">
-				<a class="pmd-ripple-effect" ng-click="$state.go('Category');">
+			<li>
+				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
+				<a class="pmd-ripple-effect" ng-click="$state.go('News');">
 					<i class="media-left media-middle">
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
 							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -1003,7 +1005,7 @@
 							</g>
 						</svg>
 					</i>
-					<span class="media-body">{{'CategoryLbl' | translate}}</span>
+					<span class="media-body">{{'NewsLbl' | translate}}</span>
 				</a>
 			</li>
 			<li ng-show="user.PermissionId.split(';').includes('3') ">
