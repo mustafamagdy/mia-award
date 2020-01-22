@@ -1,4 +1,5 @@
 ﻿using System;
+using MIA.Authorization.Entities;
 using MIA.Dto.Base;
 
 namespace MIA.Dto.Admin
@@ -12,5 +13,6 @@ namespace MIA.Dto.Admin
     public short Id { get; set; }
     public string Group { get; set; }
     public string Name { get; set; }
+    public SystemModules SystemModule { get; set; }
   }
 }
