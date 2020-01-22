@@ -3,27 +3,27 @@
 
     angular
         .module('home')
-        .controller('editCategoryDialogController', ['$rootScope','$scope','blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
-            'CategoryResource', 'ToastService', 'CategoryByIdPrepService', editCategoryDialogController])
+        .controller('editNewsDialogController', ['$rootScope','$scope','blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+            'NewsResource', 'ToastService', 'NewsByIdPrepService', editNewsDialogController])
 
-    function editCategoryDialogController($rootScope,$scope,blockUI, $filter, $http, $state, appCONSTANTS, $translate, CategoryResource,
-        ToastService, CategoryByIdPrepService) {
+    function editNewsDialogController($rootScope,$scope,blockUI, $filter, $http, $state, appCONSTANTS, $translate, NewsResource,
+        ToastService, NewsByIdPrepService) {
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
-        vm.Category = CategoryByIdPrepService;
-        $rootScope.image = appCONSTANTS.Image_URL_ORDER + vm.Category.image;
-        // console.log(vm.Category.image);
+        vm.News = NewsByIdPrepService;
+        $rootScope.image = appCONSTANTS.Image_URL_ORDER + vm.News.image;
+        // console.log(vm.News.image);
 
         vm.Close = function () {
-            $state.go('Category');
+            $state.go('News');
         }
-        vm.UpdateCategory = function () {
+        vm.UpdateNews = function () {
             var splitImage = $rootScope.image.split(',');
             blockUI.start("Loading...");
             
-            var updateObj = new CategoryResource();
-            updateObj.CategoryId = vm.Category.id;
-            updateObj.titles = vm.Category.titles;  
+            var updateObj = new NewsResource();
+            updateObj.NewsId = vm.News.id;
+            updateObj.titles = vm.News.titles;  
             if ($rootScope.imageType != null) {
                 updateObj.image = splitImage[1];
                 updateObj.imageContentType = $rootScope.imageType;
@@ -33,7 +33,7 @@
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
                     blockUI.stop();
 
-                    $state.go('Category');
+                    $state.go('News');
 
                 },
                 function (data, status) {

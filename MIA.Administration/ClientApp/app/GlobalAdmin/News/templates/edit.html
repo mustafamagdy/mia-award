@@ -1,16 +1,16 @@
 <div id="bold">
-        {{'EditCategory' | translate}}        
+        {{'EditNews' | translate}}        
 </div>
 <div class="modal-content">
     <div class="modal-header bordered">
-        <h2 class="pmd-card-title-text">{{'CategoryLbl' | translate}}</h2>
+        <h2 class="pmd-card-title-text">{{'NewsLbl' | translate}}</h2>
     </div>
     <div class="modal-body">
         <form class="form-horizontal" name="editTypeForm">
             <div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in editCategoryCtrl.language">
+                    <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in editNewsCtrl.language">
                         <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">
                                 <span style="color:red">*</span>  {{lang.value | translate}}
                         </a>
@@ -20,10 +20,10 @@
                     <div class="pmd-card-body">
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in editCategoryCtrl.language" id="{{lang.value}}-form">
+                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in editNewsCtrl.language" id="{{lang.value}}-form">
                                 <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
                                     <label for="first-name">{{ lang.value+'Name' | translate}} </label>
-                                    <input required type="text" class="mat-input form-control" name="titles{{lang.value+'Name'}}" ng-model="editCategoryCtrl.Category.titles[lang.key]"
+                                    <input required type="text" class="mat-input form-control" name="titles{{lang.value+'Name'}}" ng-model="editNewsCtrl.News.titles[lang.key]"
                                         ng-minlength="3" ng-maxlength="255">
                                     <div ng-messages="editTypeForm.titles{{lang.value+'Name'}}.$error">
 
@@ -56,8 +56,8 @@
         </form>
     </div>
     <div class="pmd-modal-action text-right">
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editCategoryCtrl.UpdateCategory()">{{'saveChangesBtn' | translate}}</button>
-        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editCategoryCtrl.Close()">{{'DiscardBtn' | translate}}</button>
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editNewsCtrl.UpdateNews()">{{'saveChangesBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editNewsCtrl.Close()">{{'DiscardBtn' | translate}}</button>
     </div>
 </div>
 
