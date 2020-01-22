@@ -1,7 +1,5 @@
 <div>
-    {{user.PermessionModules  }}
-    <!-- ng-show="user.PermessionModules['News'].includes('add_new')" -->
-    <div style="margin-bottom:10px">
+    <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
         <!-- <div id="bold"> {{'AddNewNewsBtn'| translate}} </div> -->
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
             ng-click="$state.go('newNews');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
@@ -24,49 +22,38 @@
                 <tbody>
                     <tr ng-repeat="News in NewsList">
                         <td>
-                            <img style="width: 70px;height: 70px;"
-                                data-ng-src="{{NewsCtrl.appCONSTANTS.Image_URL_ORDER}}{{News.image}}" />
+                            <img style="width: 70px;height: 70px;" data-ng-src="{{News.posterUrl}}" />
                         </td>
                         <td data-title="Name">
                             {{News.title  | limitTo : 20}}
                             {{News.title.length > 20 ? '...' : ''}}
                         </td>
-                        <td ng-show="!News.isActive">
-                            <div ng-if="user.permessionModules['News'].includes(15)==true">
-                                <div class="btn-switch" ng-class="{'btn-switch--on':News.isActive}"
-                                    ng-model="News.isActive" ng-click="NewsCtrl.ChangeStatus(News)">
+                        <td ng-show="!News.outdated">
+                            <div ng-if="user.PermessionModules['News'].includes('view')==true">
+                                <div class="btn-switch" ng-class="{'btn-switch--on':News.outdated}"
+                                    ng-model="News.outdated" ng-click="NewsCtrl.ChangeStatus(News)">
 
-                                    <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':News.isActive}"
-                                        ng-model="News.isActive" ng-click="NewsCtrl.ChangeStatus(News)">
+                                    <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':News.outdated}"
+                                        ng-model="News.outdated" ng-click="NewsCtrl.ChangeStatus(News)">
                                     </div>
                                 </div>
-                            </div>
-                            <div ng-if="user.permessionModules['News'].includes(15)==false"
-                                title="You don't have permssion">
-                                <div class="btn-switch" ng-class="{'btn-switch--on':News.isActive}"
-                                    ng-model="News.isActive">
-
-                                    <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':News.isActive}"
-                                        ng-model="News.isActive">
-                                    </div>
-                                </div>
-
+                            </div> 
                         </td>
-                        <td ng-show="News.isActive">
-                            <div class="btn-switch" ng-class="{'btn-switch--on':News.isActive}"
-                                ng-model="News.isActive">
+                        <td ng-show="News.outdated">
+                            <div class="btn-switch" ng-class="{'btn-switch--on':News.outdated}"
+                            ng-click="NewsCtrl.ChangeStatus(News)" ng-model="News.outdated">
 
-                                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':News.isActive}"
-                                    ng-model="News.isActive">
+                                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':News.outdated}"
+                                ng-click="NewsCtrl.ChangeStatus(News)"  ng-model="News.outdated">
                                 </div>
                         </td>
                         <td width="30%">
-                            <i ng-show="user.permessionModules['News'].includes(14)"
+                            <i ng-show="user.PermessionModules['News'].includes('add_new')"
                                 class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('editNews',{id: News.id});" title="Edit">mode_edit</i>
-                            <i ng-show="user.permessionModules['News'].includes(3)"
+                            <i ng-show="user.PermessionModules['News'].includes('remove')"
                                 class="material-icons pmd-md deleteButton cursorPointer font25"
-                                ng-click="NewsCtrl.openDeleteDialog(News,News.titles[selectedLanguage],News.id)"
+                                ng-click="NewsCtrl.openDeleteDialog(News,News.title,News.id)"
                                 title="Delete">delete</i>
                         </td>
                     </tr>

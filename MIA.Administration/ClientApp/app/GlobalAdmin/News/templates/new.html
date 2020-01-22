@@ -7,8 +7,7 @@
             <div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" ng-class="{'active':$index == 0}"
-                        ng-repeat="lang in newNewsCtrl.language">
+                    <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in newNewsCtrl.language">
                         <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
                             data-toggle="tab">
                             <span style="color:red">*</span>{{lang.value | translate}}
@@ -46,12 +45,12 @@
                             <span style="color:red">*</span>
                             <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
                                 Photo</label>
-                            <input id="image" class="hidden" type="file" img-upload ng-model="imageName"
+                            <input id="image" class="hidden" type="file" img-upload ng-model="newNewsCtrl.image"
                                 name="imageName">
                             <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
                             <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
                                 {{'RecommendedProductImage' | translate}}</span>
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -59,7 +58,7 @@
     </div>
     <div class="pmd-modal-action text-right">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-disabled="newNewsForm.$invalid" class="btn pmd-ripple-effect btn-primary" News="button"
+            ng-disabled="newNewsForm.$invalid ||  file ==null" class="btn pmd-ripple-effect btn-primary" News="button"
             ng-click="newNewsCtrl.AddNewNews()">{{'saveChangesBtn' | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" News="button"
             ng-click="newNewsCtrl.close()">{{'DiscardBtn' | translate}}</button>

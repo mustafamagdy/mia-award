@@ -17,7 +17,6 @@
 			// callBackFunction(model);
 			// $uibModalInstance.dismiss();
 		}
-		debugger
 		vm.SKUConversion = SKUConversionPrepService;
 
 		blockUI.stop();

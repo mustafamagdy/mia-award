@@ -3,10 +3,10 @@
 
     angular
         .module('home')
-        .controller('editNewsDialogController', ['$rootScope','$scope','blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+        .controller('editNewsDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
             'NewsResource', 'ToastService', 'NewsByIdPrepService', editNewsDialogController])
 
-    function editNewsDialogController($rootScope,$scope,blockUI, $filter, $http, $state, appCONSTANTS, $translate, NewsResource,
+    function editNewsDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, NewsResource,
         ToastService, NewsByIdPrepService) {
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
@@ -20,10 +20,10 @@
         vm.UpdateNews = function () {
             var splitImage = $rootScope.image.split(',');
             blockUI.start("Loading...");
-            
+
             var updateObj = new NewsResource();
             updateObj.NewsId = vm.News.id;
-            updateObj.titles = vm.News.titles;  
+            updateObj.titles = vm.News.titles;
             if ($rootScope.imageType != null) {
                 updateObj.image = splitImage[1];
                 updateObj.imageContentType = $rootScope.imageType;
@@ -37,8 +37,8 @@
 
                 },
                 function (data, status) {
-                blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }

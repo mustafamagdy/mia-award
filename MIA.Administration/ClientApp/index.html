@@ -989,7 +989,7 @@
 
 
 			</li>
-			<li ng-show="user.PermissionId.split(';').includes(' News') ">
+			<li ng-show="user.PermissionId.includes('News') ">
 				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
 				<a class="pmd-ripple-effect" ng-click="$state.go('News');">
 					<i class="media-left media-middle">
