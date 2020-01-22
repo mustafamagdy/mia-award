@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;HttpsEverywhere, HstsPreload, HealthCheck, Versioning, CORS, ResponseCompression, ForwardedHeaders, Swagger, ApplicationInsights, ResponseCaching, SMTPSender</DefineConstants>
+    <DefineConstants>TRACE;HttpsEverywhere, HstsPreload, HealthCheck, Versioning, CORS, ResponseCompression, ForwardedHeaders, Swagger, ResponseCaching, SMTPSender</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
