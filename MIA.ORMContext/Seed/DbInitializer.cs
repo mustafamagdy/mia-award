@@ -26,7 +26,93 @@ namespace MIA.ORMContext.Seed {
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
       await SeedCategoriesAsync(db);
+      await SeedDemoNews(db);
+
+      await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
       await db.CommitTransactionAsync();
+    }
+
+    private static async Task SeedDemoNews(IAppUnitOfWork db) {
+      //var news1 = db.News.ToList();
+      //var news2 = db.News.Where(a => a.Title.ArabicContains("ghgh")).ToList();
+
+      //for (int i = 0; i < 5; i++) {
+      //  var news = new News {
+      //    Title = new LocalizedData {
+      //      { LocalizedData.Arabic, "الخبر الاول"},
+      //      { LocalizedData.English, "news title 1"},
+      //    },
+      //    Body = new LocalizedData {
+      //      { LocalizedData.Arabic, @"لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت"},
+      //      { LocalizedData.English, @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate "},
+      //    }
+      //  };
+      //  await db.News.AddAsync(news);
+      //}
+    }
+
+    private static async Task SeedDemoUserAndRoleAsync(
+      RoleManager<AppRole> roleManager,
+      UserManager<AppUser> userManager,
+      IAppUnitOfWork db) {
+
+      if (await roleManager.FindByNameAsync(Constants.DEMO_ROLE) == null) {
+        await roleManager.CreateAsync(
+          new AppRole {
+            Name = Constants.DEMO_ROLE,
+            NormalizedName = Constants.DEMO_ROLE.ToUpper()
+          });
+
+        var demoRole = await roleManager.FindByNameAsync(Constants.DEMO_ROLE);
+        if (demoRole.Permissions == null) {
+          demoRole.Permissions = "";
+        }
+
+        //(this is an example only)
+        Permissions[] demoPermissions = new Permissions[] {
+          Permissions.NewsRead,
+          Permissions.NewsAddNew,
+          Permissions.NewsRemove,
+          Permissions.AddUserToRole,
+          Permissions.ReadRolePermissions,
+          Permissions.RemoveUserFromRole,
+          Permissions.RemoveUserFromRole,
+        };
+
+        demoPermissions.ForEach(m => {
+          if (!demoRole.Permissions.Contains((char)m)) {
+            demoRole.Permissions += (char)m;
+          }
+        });
+      }
+
+
+      if (await userManager.FindByNameAsync(Constants.DEMO_USERNAME) == null) {
+        AppUser demoUser = new AppUser {
+          FirstName = "Demo",
+          LastName = "User",
+          Email = Constants.DEMO_EMAIL,
+          UserName = Constants.DEMO_USERNAME,
+          NormalizedEmail = Constants.DEMO_EMAIL.ToUpper(),
+          NormalizedUserName = Constants.DEMO_USERNAME.ToUpper(),
+        };
+
+        IdentityResult result = await userManager.CreateAsync(demoUser, Constants.DEMO_PASSWORD);
+        if (result.Succeeded) {
+          await userManager.AddToRoleAsync(demoUser, Constants.DEMO_ROLE);
+
+          //add allowed modules (this is an example only)
+          var allowedModules = new SystemModules[] { SystemModules.News, SystemModules.Adminstration };
+          var modules = allowedModules[0];
+          for (int i = 1; i < allowedModules.Length; i++) {
+            modules |= allowedModules[i];
+          }
+
+          //adds allowed modules for user
+          await db.UserModules.AddAsync(new UserModule(demoUser.Id, modules));
+        }
+      }
+
     }
 
 

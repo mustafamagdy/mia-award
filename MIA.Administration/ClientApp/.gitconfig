@@ -1,2 +1,0 @@
-[alias]
-        ac = !git add -A && git commit  

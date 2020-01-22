@@ -1,0 +1,47 @@
+.deleteButton{
+	color:red;
+}
+.cursorPointer{
+	cursor:pointer;
+}
+.font25{
+	font-size: 25px !important;
+}
+.loginFailed{
+	color: red;
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+	padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+	border-radius: 4px;
+	margin: 10px;
+}
+.warrningIcon{
+	font-size: 20px !important;
+	color: #d7e15e !important;
+}
+.font12{
+	font-size:12px;
+}
+.disabled {
+	cursor: not-allowed;
+  }
+  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	display: none !important;
+	}
+	body{
+		direction: rtl;
+	}
+
+	.pmd-sidebar-slide-push{
+
+		right: 0!important;
+	}
+
+	.pmd-table.table>tbody>tr>td, .pmd-table.table>tbody>tr>th, .pmd-table.table>tfoot>tr>td, .pmd-table.table>tfoot>tr>th, .pmd-table.table>thead>tr>td, .pmd-table.table>thead>tr>th{
+		text-align: right !important;
+	}
+	/* .panel{
+		background-color: #fbf8f800;
+	} */

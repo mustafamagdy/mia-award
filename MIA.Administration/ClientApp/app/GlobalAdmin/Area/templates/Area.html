@@ -1,0 +1,78 @@
+
+<div>
+        <div>
+                 {{'Area' | translate}}
+        </div>  
+    <div style="margin-bottom:10px">
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go('newArea',{countryId: $stateParams.countryId,GovernrateId: $stateParams.GovernrateId,cityId:$stateParams.cityId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew' | translate}}</button>
+
+    </div> 
+    <div ng-if="AreaList.results.length == 0">
+        <span>{{'NoAreasAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="AreaList.results.length > 0">
+        <div class="table-responsive">
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'Name' | translate}}</th>
+                    <!-- <th>{{'status' | translate}}</th> -->
+                    <th>{{'Branch' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat-start="Area in AreaList.results">
+                    <td data-title="Name">
+                        {{Area.titleDictionary[selectedLanguage] | limitTo : 20}} 
+                        {{Area.titleDictionary[selectedLanguage].length > 20 ? '...' : ''}}
+                    </td>
+                    
+                    <!-- <td>
+                        <p ng-show="Area.isStatic"> Static</p>
+                    </td> -->
+                    <td>
+                        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="Area.branches.length != 0" ng-click="$state.go('newBranch',{countryId: $stateParams.countryId,GovernrateId: $stateParams.GovernrateId,cityId:$stateParams.cityId,areaId: Area.areaId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNewBranch' | translate}}</button>
+                        <span href="javascript:void(0);" ng-click="Area.show=!Area.show;AreaCtrl.showMore($event)" ng-show="Area.branches.length != 0"
+                              class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i class="material-icons md-dark pmd-sm"></i></span>
+                    </td>
+                   
+                    <td width="30%" ng-show="!Area.isStatic">
+                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editArea',{countryId: $stateParams.countryId,GovernrateId: $stateParams.GovernrateId,cityId:$stateParams.cityId,areaId: Area.areaId});" title="Edit">mode_edit</i>
+                    </td>
+                </tr>
+                <tr ng-repeat-end ng-show="Area.show">
+                    <td>
+                        <table class="table pmd-table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>{{'Name' | translate}}</th>
+                                    <!-- <th>{{'status' | translate}}</th> -->
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="Branch in Area.branches">
+                                    <td data-title="Name">
+                                        {{Branch.titleDictionary[selectedLanguage] | limitTo : 20}} 
+                                        {{Branch.titleDictionary[selectedLanguage].length > 20 ? '...' : ''}}
+                                    </td> 
+                                    <!-- <td>
+                                        <p ng-show="Branch.isStatic"> Static</p>
+                                    </td> -->
+                                    <td width="30%" ng-show="!Branch.isStatic">
+                                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editBranch',{countryId: $stateParams.countryId,GovernrateId: $stateParams.GovernrateId,cityId:$stateParams.cityId,areaId: Area.areaId,branchId: Branch.branchId});">mode_edit</i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
+         flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

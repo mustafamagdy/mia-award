@@ -1,0 +1,54 @@
+<div>
+        <div  id="bold">
+                {{'RetailerZones' | translate}}
+        </div>
+        <h1 class="text-center">
+             <kbd style="background-color: #383a53;"> 
+                 {{selectedManufacture.name}} :
+                    {{selectedManufacture.code}}
+                </kbd>
+        </h1>
+     
+        <div ng-if="RetailerZones.results.length == 0">
+            <span>{{'NoRetailerZonesAvailable' | translate}}</span>
+        </div>
+        <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="RetailerZones.results.length > 0">
+            <div class="table-responsive">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th> {{'CompanyLogo' | translate}}</th>
+                        <th>{{'codeLbl' | translate}}</th>
+                        <th>{{'Name' | translate}}</th>
+                        <th>{{'AddressLbl' | translate}}</th>
+                        <th>{{'Title' | translate}}</th>
+                        <th>{{'mobileNumber' | translate}}</th>
+                        <th>{{'EmailLbl' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr ng-repeat="RetailerZones in createRetailerZoneCtrl.RetailerZoneList">
+                                <td> 
+                                    <img width="100px" height="100px" data-ng-src="http://172.21.22.222/actor/{{RetailerZones.companyLogo}}" />
+                                </td>
+                                <td data-title="code">{{RetailerZones.code}}</td>
+                                <td data-title="Name">
+                                    {{RetailerZones.name | limitTo : 20}} 
+                                    {{RetailerZones.name.length > 20 ? '...' : ''}}
+                                </td>
+                                <td data-title="code">{{RetailerZones.address}}</td>
+                                <td data-title="city">{{RetailerZones.retailerContactInformation[0].title}}</td>
+                                <td data-title="governrate">{{RetailerZones.retailerContactInformation[0].mobileNumber}}</td>
+                                <td data-title="address">{{RetailerZones.retailerContactInformation[0].email}}</td>
+                            </tr>
+    
+                </tbody>
+            </table>
+        </div>
+        </div>
+        <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="createRetailerZoneCtrl.changePage(page)" flex="nogrow"
+        ] show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        disabled-class="hide">
+        </div>
+    </div>

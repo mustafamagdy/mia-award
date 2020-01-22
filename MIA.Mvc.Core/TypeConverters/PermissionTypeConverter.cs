@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MIA.Authorization.Attributes;
 using MIA.Authorization.Entities;
 using MIA.Dto.Admin;
 using System;
@@ -10,13 +11,13 @@ namespace MIA.Mvc.Core {
       var dto = new PermissionDto();
       dto.Id = (short)source;
 
-      var displayAttribute = source.GetAttribute<DisplayAttribute>();
-      if (displayAttribute != null) {
-        dto.Name = displayAttribute.Name;
-        dto.Group = displayAttribute.GroupName;
+      var moduleAttribute = source.GetAttribute<PermissionDescriptorAttribute>();
+      if (moduleAttribute != null) {
+        dto.Name = moduleAttribute.Name;
+        dto.SystemModule = moduleAttribute.SystemModule;
       } else {
         dto.Name = source.ToString();
-        dto.Group = "";
+        dto.SystemModule = SystemModules.Dashboard;
       }
 
       return dto;

@@ -113,7 +113,7 @@ namespace MIA.Api {
     }
 
     [HttpGet]
-    [HasPermission(Permissions.EmployeesRead)]
+    [HasPermission(Permissions.NewsRead)]
     public IActionResult Employees() {
       return Ok("here are all employees");
     }

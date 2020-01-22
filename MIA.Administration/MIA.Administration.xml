@@ -94,7 +94,7 @@
             </summary>
             <param name="logger"></param>
         </member>
-        <member name="M:MIA.Administration.Api.AuthController.Login(System.String,MIA.Dto.Auth.LoginRequest,Microsoft.AspNetCore.Identity.SignInManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.Extensions.Options.IOptions{MIA.Infrastructure.Options.JwtOptions},Microsoft.AspNetCore.Identity.IUserClaimsPrincipalFactory{MIA.Models.Entities.AppUser})">
+        <member name="M:MIA.Administration.Api.AuthController.Login(System.String,MIA.Dto.Auth.LoginRequest,Microsoft.AspNetCore.Identity.SignInManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},MIA.ORMContext.Uow.IAppUnitOfWork,Microsoft.Extensions.Options.IOptions{MIA.Infrastructure.Options.JwtOptions},Microsoft.AspNetCore.Identity.IUserClaimsPrincipalFactory{MIA.Models.Entities.AppUser})">
             <summary>
             Login using username and password
             </summary>

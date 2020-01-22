@@ -1,0 +1,60 @@
+<div>
+    <div id="bold">
+             {{'Countries' | translate}}
+    </div>
+    <!-- <div style="margin-bottom:10px">
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go('newCountry');"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew' | translate}}</button>
+
+    </div> -->
+    <div ng-if="Countries.length == 0">
+        <span>{{'NoCountriesAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="Countries.length > 0">
+        <div class="table-responsive">
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'Name' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="country in Countries">
+                    <td data-title="Name">{{country.titles[selectedLanguage]}}</td>
+                    <td ng-show="user.permessionModules['Governrate'].includes(38) ||user.permessionModules['Governrate'].includes(40) || user.permessionModules['Governrate'].includes(41)" >
+                        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+                            ng-click="$state.go('Governrates',{countryId: country.countryId});"
+                            class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                            type="button">
+                            {{'viewGovernrates' | translate}}
+                        </button>
+                    </td>
+
+                    <td width="30%">
+                        <i ng-show="user.permessionModules['Country'].includes(36)" 
+                        class="material-icons md-dark pmd-md cursorPointer font25"
+                            ng-click="$state.go('editCountry',{countryId: country.countryId});" title="Edit">mode_edit</i>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        disabled-class="hide">
+    </div>
+</div>
+<div>
+        <a onclick="goBack()">
+            <div class="col-xs-12">
+                <button type="button"
+                class="btn btn-primary" 
+                style="height: 36px;border: #494b74 solid 1px;border-radius: 6px;">
+                {{'goBack' | translate}}
+                </button>
+            </div>
+            </a>
+    </div>

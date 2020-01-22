@@ -1,0 +1,376 @@
+<style>
+    .my-custom-stars .button .material-icons {
+        font-size: 20px;
+    }
+
+    .my-custom-stars .star-button.star-on .material-icons {
+        color: #003399;
+    }
+
+    .my-custom-stars .star-button.star-off .material-icons {
+        color: #99ccff;
+    }
+
+    .my-custom-stars .button .material-icons a:focus,
+    a:hover {
+        text-decoration: none;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $('#fromdate').datetimepicker(
+            {
+                format: 'DD/MM/YYYY',
+                // minDate: new Date()
+            }
+        );
+        $('#todate').datetimepicker(
+            {
+                format: 'DD/MM/YYYY',
+                // minDate: new Date(),
+                useCurrent: false
+            }
+        );
+        $("#fromdate").on("dp.change", function (e) {
+            $('#todate').data("DateTimePicker").minDate(e.date);
+        });
+        // Start date picke on chagne event [select maxmimum date for start date datepicker]
+        $("#todate").on("dp.change", function (e) {
+            $('#fromdate').data("DateTimePicker").maxDate(e.date);
+        });
+
+        
+
+        
+        $('#fromdateSurvey').datetimepicker(
+            {
+                format: 'DD/MM/YYYY',
+                // minDate: new Date()
+            }
+        );
+        $('#todateSurvey').datetimepicker(
+            {
+                format: 'DD/MM/YYYY',
+                // minDate: new Date(),
+                useCurrent: false
+            }
+        );
+        $("#fromdateSurvey").on("dp.change", function (e) {
+            $('#todateSurvey').data("DateTimePicker").minDate(e.date);
+        });
+        // Start date picke on chagne event [select maxmimum date for start date datepicker]
+        $("#todateSurvey").on("dp.change", function (e) {
+            $('#fromdateSurvey').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+
+</script>
+<div class="container-fluid" ng-init="showMoreFilter = false">
+        <div class="row" id="card-masonry">
+            <!-- Today's Site Activity -->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="pmd-card pmd-z-depth">      
+                    <div class="pmd-card-title">
+                        <div class="media-left"> 
+                            <div style="cursor: pointer;  background-color: #ccc;">
+                                <h1 style="padding: 4px" ng-init="showTicket = false" ng-click="showTicket=!showTicket">
+                                    {{'Tickets' | translate}}
+                                </h1>
+                            </div>
+                        </div>
+
+                        <div class="pmd-card-body" ng-show="showTicket" ng-init="showMoreFilter = false">
+                            <div class="row">
+                        
+                                <div style="direction: ltr;" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label>{{'fromLbl' | translate}}</label>
+                                    <input type="text" id="fromdate" class="form-control" required />
+                                </div>
+                        
+                                <div style="direction: ltr;" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label>{{'toLbl' | translate}}</label>
+                                    <input type="text" id="todate" class="form-control" required />
+                                </div>
+                                <!-- <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+                                    for="first-name">{{'StatusLbl' | translate}}</label>
+                                    <select class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedStatus">
+                                        <option value="">{{'AllLbl' | translate}}</option>
+                                        <option value="Pending">{{'Pending'|translate}}</option>
+                                        <option value="Assigned">{{'Assigned'|translate}}</option>
+                                        <option value="InProgress">{{'InProgress'|translate}}</option>
+                                        <option value="Closed">{{'Closed'|translate}}</option>
+                                        <option value="Rejected">{{'Rejected'|translate}}</option>
+                                    </select>
+                                </div> -->
+                                <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                        <label for="first-name">{{'branchManager' | translate}}</label>
+                            
+                                        <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedBranchManager"
+                                            ng-options="a as a.userName for a in dashboardCtrl.BranchManagers"></select>
+                                    </div>
+                            
+                                    <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                        <label for="first-name">{{'Tech' | translate}}</label>
+                            
+                                        <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedTechnician" ng-options="a as a.userName for a in dashboardCtrl.Technicians"></select>
+                                    </div>
+                            </div>
+                            <div class="row" ng-show="showMoreFilter">
+                                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+                                    for="first-name">{{'Country' | translate}}</label>
+                                    <select class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.countryChange()" ng-model="dashboardCtrl.selectedCountry"
+                                        ng-options="group as group.titleDictionary[selectedLanguage] for group in dashboardCtrl.counties">
+                                    </select>
+                                </div>
+                                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+                                    for="first-name">{{'Governrate' | translate}}</label>
+                                    <select class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.GovernrateChange()" ng-model="dashboardCtrl.selectedGovernrate"
+                                        ng-options="group as group.titleDictionary[selectedLanguage] for group in dashboardCtrl.Governrates">
+                                    </select>
+                                </div>
+                                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+                                    for="first-name">{{'City' | translate}}</label>
+                                    <select class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.cityChange()" ng-model="dashboardCtrl.selectedCity"
+                                        ng-options="group as group.titleDictionary[selectedLanguage] for group in dashboardCtrl.cities">
+                                    </select>
+                                </div>
+                                <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'Area' | translate}}</label>
+                        
+                                    <select required class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.areaChange()" ng-model="dashboardCtrl.selectedArea"
+                                        ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.areaList"></select>
+                                </div>
+                        
+                                <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'Branch' | translate}}</label>
+                        
+                                    <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedBranch" ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.branchList"></select>
+                                </div>
+                        
+                                <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'Department' | translate}}</label>
+                        
+                                    <select required class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.departmentChange()" ng-model="dashboardCtrl.selectedDepartment"
+                                        ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.departments"></select>
+                                </div>
+                        
+                                <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'CategoryLbl' | translate}}</label>
+                        
+                                    <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedCategory" ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.categories"></select>
+                                </div>
+                                
+                            </div>
+                            <div class="row" style="padding-bottom: 5px;">
+                                <div class="col-md-2 ">
+                                    <button ng-click="dashboardCtrl.applyFilter()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'filterBtn' | translate}}</button>
+                                </div>
+                                <span ng-show="!showMoreFilter" ng-click="showMoreFilter = !showMoreFilter" style="cursor: pointer">{{'moreFilter'|translate}}</span>
+                                <span ng-show="showMoreFilter" ng-click="showMoreFilter = !showMoreFilter" style="cursor: pointer">{{'lessFilter'|translate}}</span>
+                            </div>
+                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                <label for="first-name">{{'ViewBy' | translate}}</label>
+                                <select style="width:15% !important" class="select-tags form-control pmd-select2-tags" ng-change="dashboardCtrl.ticketFilterChange()"
+                                    ng-model="dashboardCtrl.selectedTicketFilter" ng-options="f.value as f.name for f  in dashboardCtrl.ticketsFilter">
+                                </select>
+                            </div>
+                            <nvd3 style="direction: ltr" options="dashboardCtrl.options" data="dashboardCtrl.data"></nvd3>
+                        </div>
+
+                        <div class="media-left">
+                            <div style="cursor: pointer; background-color: #ccc;">
+                                <h1 style="padding: 4px" ng-init="showSurvey = false" ng-click="showSurvey=!showSurvey">
+                                    {{'Survey' | translate}}
+                                </h1>
+                            </div>
+                        </div>
+
+                        <div class="pmd-card-body" ng-show="showSurvey" ng-init="showMoreFilterSurvey = false">
+
+                            <div class="row">
+                                <div style="direction: ltr;" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label>{{'fromLbl' | translate}}</label>
+                                    <input type="text" id="fromdateSurvey" class="form-control" required />
+                                </div>
+                        
+                        
+                                <div style="direction: ltr;" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label>{{'toLbl' | translate}}</label>
+                                    <input type="text" id="todateSurvey" class="form-control" required />
+                                </div>
+                                <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'AnswererdBy' | translate}}</label>
+                        
+                                    <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedAnswersUser"
+                                        ng-options="a as a.userName for a in dashboardCtrl.AnswersUsers"></select>
+                                </div>
+                                <!-- <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+                                    for="first-name">{{'StatusLbl' | translate}}</label>
+                                    <select class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedStatus">
+                                        <option value="">{{'AllLbl' | translate}}</option>
+                                        <option value="Pending">{{'Pending'|translate}}</option>
+                                        <option value="Assigned">{{'Assigned'|translate}}</option>
+                                        <option value="InProgress">{{'InProgress'|translate}}</option>
+                                        <option value="Closed">{{'Closed'|translate}}</option>
+                                        <option value="Rejected">{{'Rejected'|translate}}</option>
+                                    </select>
+                                </div> -->
+                        
+                            </div>
+                            <div class="row" ng-show="showMoreFilterSurvey">
+                                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                        <label for="first-name">{{'Country' | translate}}</label>
+                                    <select class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.countrySurveyChange()" ng-model="dashboardCtrl.selectedCountrySurvey"
+                                        ng-options="group as group.titleDictionary[selectedLanguage] for group in dashboardCtrl.countiesSurvey">
+                                    </select>
+                                </div>
+                                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'Governrate' | translate}}</label>
+                                    <select class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.GovernrateSurveyChange()" ng-model="dashboardCtrl.selectedGovernrateSurvey"
+                                        ng-options="group as group.titleDictionary[selectedLanguage] for group in dashboardCtrl.GovernratesSurvey">
+                                    </select>
+                                </div>
+                                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'City' | translate}}</label>
+                                    <select class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.citySurveyChange()" ng-model="dashboardCtrl.selectedCitySurvey"
+                                        ng-options="group as group.titleDictionary[selectedLanguage] for group in dashboardCtrl.citiesSurvey">
+                                    </select>
+                                </div>
+                                <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'Area' | translate}}</label>
+                        
+                                    <select required class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.areaSurveyChange()" ng-model="dashboardCtrl.selectedAreaSurvey"
+                                        ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.areaListSurvey"></select>
+                                </div>
+                        
+                                <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'Branch' | translate}}</label>
+                        
+                                    <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedBranchSurvey" ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.branchListSurvey"></select>
+                                </div>
+                        
+                                <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'Department' | translate}}</label>
+                        
+                                    <select required class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.departmentSurveyChange()" ng-model="dashboardCtrl.selectedDepartmentSurvey"
+                                        ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.departmentsSurvey"></select>
+                                </div>
+                        
+                                <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'CategoryLbl' | translate}}</label>
+                        
+                                    <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedCategorySurvey" ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.categoriesSurvey"></select>
+                                </div>
+                        
+                                <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'categoryType' | translate}}</label>
+                        
+                                    <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.categoryTypeChange()"
+                                        ng-model="dashboardCtrl.selectedCategoryType" ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.categoryTypes"></select>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-bottom: 5px;">
+                                <div class="col-md-2 ">
+                                    <button ng-click="dashboardCtrl.applySurveyFilter()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'filterBtn' | translate}}</button>
+                                    <!-- <button ng-click="dashboardCtrl.exportPDF()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'exportPDFBtn' | translate}}</button> -->
+                                </div>
+                                <span ng-show="!showMoreFilterSurvey" ng-click="showMoreFilterSurvey = !showMoreFilterSurvey" style="cursor: pointer">{{'moreFilter'|translate}}</span>
+                                <span ng-show="showMoreFilterSurvey" ng-click="showMoreFilterSurvey = !showMoreFilterSurvey" style="cursor: pointer">{{'lessFilter'|translate}}</span>
+                            </div>
+                        
+                            <div class="total-sales" ng-show="dashboardCtrl.questionList.length<=0">
+                                <br>
+                                <span>{{'NoQuestionsAvailable' | translate}}</span>
+                            </div>
+                        
+                            <ul id="surveyDiv">
+                        
+                                <li ng-repeat="(k,v) in dashboardCtrl.questionList| groupBy: 'categoryId'">
+                                    <div style="cursor: pointer; background-color: #ccc;">
+                        
+                                        <h2 style="padding: 7px" ng-init="t = false" ng-click="t=!t">
+                                            {{v[0].category.titleDictionary[selectedLanguage]}}
+                                        </h2>
+                                    </div>
+                                    <ul ng-show="t">
+                                        <li ng-repeat="ques in v">
+                                            <!-- <button class="accordion">{{ques.titleDictionary[selectedLanguage]}}</button> -->
+                                            <div style="cursor: pointer;    background-color: #ccc;">
+                        
+                                                <h3 style="padding: 4px" ng-click="ques.showAnswer=!ques.showAnswer;ques.showAnswer?dashboardCtrl.getQuestionDashbard(ques):ques.showAnswer=ques.showAnswer">
+                                                    {{ques.titleDictionary[selectedLanguage]}}
+                                                </h3>
+                                            </div>
+                                            <div ng-show="ques.showAnswer">
+                                                <div style="text-align: center;">
+                                                    <img ng-show="ques.isloading" src="assets/img/loading.gif" style="height: 80px;">
+                                                </div>
+                                                <span ng-if="!ques.isloading" ng-show="(ques.data.length == 0 && ques.questionTypeId ==0) 
+                                                    || (ques.questionTypeId == 1 && ques.dashboard.oneStartCount == 0 && ques.dashboard.twoStartCount == 0 && ques.dashboard.threeStartCount == 0 && ques.dashboard.fourStartCount == 0 && ques.dashboard.fiveStartCount == 0)
+                                                    || (ques.questionTypeId == 2 && ques.dashboard.likeCount == 0 && ques.dashboard.disLikeCount == 0 )
+                                                    ">{{'noAnswersLbl'|translate}}</span>
+                                                <div ng-if="!ques.isloading &&  
+                                                ((ques.questionTypeId == 1 && (ques.dashboard.oneStartCount != 0 || ques.dashboard.twoStartCount != 0 || ques.dashboard.threeStartCount != 0 || ques.dashboard.fourStartCount != 0 || ques.dashboard.fiveStartCount != 0))
+                                                ||(ques.questionTypeId == 2 && (ques.dashboard.likeCount != 0 || ques.dashboard.disLikeCount != 0 ))
+                                                || (ques.data.length > 0 && ques.questionTypeId ==0))">
+                                                    <nvd3 style="direction: ltr" options="ques.options" data="ques.data"></nvd3>
+                                                </div>
+                                                <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-show="!ques.isloading  && 
+                                                (ques.questionTypeId == 1 && (ques.dashboard.oneStartCount != 0 || ques.dashboard.twoStartCount != 0 || ques.dashboard.threeStartCount != 0 || ques.dashboard.fourStartCount != 0 || ques.dashboard.fiveStartCount != 0))"
+                                                    ng-if="ques.questionTypeId == 1">
+                                                    <div class="table-responsive">
+                                                        <table class="table pmd-table table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        <jk-rating-stars rating="1" max-rating="5" read-only="true" class="my-custom-stars "></jk-rating-stars>
+                                                                    </th>
+                                                                    <th>
+                                                                        <jk-rating-stars rating="2" max-rating="5" read-only="true" class="my-custom-stars "></jk-rating-stars>
+                                                                    </th>
+                                                                    <th>
+                                                                        <jk-rating-stars rating="3" max-rating="5" read-only="true" class="my-custom-stars "></jk-rating-stars>
+                                                                    </th>
+                                                                    <th>
+                                                                        <jk-rating-stars rating="4" max-rating="5" read-only="true" class="my-custom-stars "></jk-rating-stars>
+                                                                    </th>
+                                                                    <th>
+                                                                        <jk-rating-stars rating="5" max-rating="5" read-only="true" class="my-custom-stars "></jk-rating-stars>
+                                                                    </th>
+                                                                    <th>{{'averageLbl' | translate}}</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>{{ques.dashboard.oneStartCount}}</td>
+                                                                    <td>{{ques.dashboard.twoStartCount}}</td>
+                                                                    <td>{{ques.dashboard.threeStartCount}}</td>
+                                                                    <td>{{ques.dashboard.fourStartCount}}</td>
+                                                                    <td>{{ques.dashboard.fiveStartCount}}</td>
+                                                                    <td>{{ques.dashboard.average | number:2}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                        
+                                        </li>
+                        
+                                    </ul>
+                                </li>
+                            </ul>
+                            <canvas id="cc"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

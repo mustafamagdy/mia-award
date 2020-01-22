@@ -1,0 +1,79 @@
+<div class="modal-content container">
+  <h2> {{'ListOfProduct' | translate}} </h2>
+
+  <div class="modal-body">
+    <form class="form-horizontal" name="newZoneRelationForm">
+      <div class="row">
+        <div class="col-md-3  form-group pmd-textfield pmd-textfield-floating-label-completed">
+
+          <input required type="text" class="mat-input form-control" name="searchInput"
+            placeholder="search by Product Name" ng-model="newZoneRelationCtrl.searchText" ng-minlength="3"
+            ng-maxlength="255">
+          <div ng-messages="newZoneRelationForm.searchInput.$error">
+            <!-- 
+                <div class="error"
+                  ng-show="newZoneRelationForm.searchInput.$error.required && !newZoneRelationForm.searchInput.$pristine">
+                  {{'requiredErr' | translate}}</div> -->
+            <div class="error"
+              ng-show="(newZoneRelationForm.searchInput.$error.minlength || newZoneRelationForm.searchInput.$error.maxlength) && !newZoneRelationForm.searchInput.$error.required">
+              {{'NameLengthError3' | translate}}</div>
+          </div>
+          <div class="col-md-5  form-group pmd-textfield pmd-textfield-floating-label-completed">
+            <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+              ng-disabled="newZoneRelationForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
+              ng-click="newZoneRelationCtrl.filterProduct(newZoneRelationCtrl.searchText)">{{'search' | translate}}</button>
+          </div>
+
+          <div class="col-md-5  form-group pmd-textfield pmd-textfield-floating-label-completed">
+            <button class="btn pmd-ripple-effect btn-default" type="button"
+              ng-click="newZoneRelationCtrl.filterProduct()">{{'All' | translate}}</button>
+          </div>
+        </div>
+
+        <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
+          <input type="radio" ng-change="newZoneRelationCtrl.filterProduct('','',true)"
+            ng-model="newZoneRelationCtrl.isChecked" ng-value="true"> {{'Selcted' | translate}}
+          <input type="radio" ng-change="newZoneRelationCtrl.filterProduct('','',false)"
+            ng-model="newZoneRelationCtrl.isChecked" ng-value="false">
+          {{'UnSelcted' | translate}}
+
+        </div>
+      </div>
+      <div class="pmd-card pmd-z-depth pmd-card-custom-view">
+        <div class="table-responsive">
+        {{'Total' | translate}}: {{newZoneRelationCtrl.productTotalCount}}
+        <table class="table pmd-table table-hover">
+          <thead>
+            <tr>
+              <th> </th>
+              <th>{{'image' | translate}}</th>
+
+              <th>{{'ProductDescLbl' | translate}}</th>
+              <th>{{'Category' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="product in newZoneRelationCtrl.products.entities" ng-class="{selected: product.isChecked}">
+
+              <td><input type="checkbox" ng-model="product.isChecked"
+                  ng-change="newZoneRelationCtrl.selectProduct(product)"></td>
+              <td>
+                <img style="width: 70px;height: 70px;"
+                  data-ng-src="{{newZoneRelationCtrl.appCONSTANTS.Image_URL_ORDER}}{{product.image}}" />
+              </td>
+              <td style="width:  40% !important;">{{product.code}} - {{product.description[selectedLanguage]| limitTo: 20}}</td>
+              <td style="width:  30% !important;">{{product.category.titles[selectedLanguage]}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+        <div style="text-align:center;direction: ltr" paging page="1" page-size="10"
+          total="newZoneRelationCtrl.productTotalCount" paging-action="newZoneRelationCtrl.changeProductPage(page,'')"
+          flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+        </div>
+      </div>
+
+      <!-- <pre>  {{newZoneRelationCtrl.selectedProduct}}</pre> -->
+  </div>
+</div>
