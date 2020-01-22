@@ -3,24 +3,24 @@
 
     angular
         .module('home')
-        .controller('createCategoryDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'CategoryResource', 'ToastService', '$rootScope', createCategoryDialogController])
+        .controller('createNewsDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'NewsResource', 'ToastService', '$rootScope', createNewsDialogController])
 
-    function createCategoryDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, CategoryResource,
+    function createNewsDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, NewsResource,
         ToastService, $rootScope) {
         var vm = this;
         $rootScope.image = null;
 
         vm.language = appCONSTANTS.supportedLanguage;
         vm.close = function () {
-            $state.go('Category');
+            $state.go('News');
         }
 
 
-        vm.AddNewCategory = function () {
+        vm.AddNewNews = function () {
             var splitImage = $rootScope.image.split(',');
             blockUI.start("Loading...");
-            var newObj = new CategoryResource();
+            var newObj = new NewsResource();
             newObj.Titles = vm.titleDictionary;
             newObj.image = splitImage[1];
             newObj.imageContentType = $rootScope.imageType;
@@ -28,7 +28,7 @@
                 function (data, status) {
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    $state.go('Category');
+                    $state.go('News');
                 },
                 function (data, status) {
                     blockUI.stop();
