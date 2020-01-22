@@ -21,6 +21,7 @@ using System.Security.Claims;
 using MIA.Authorization.Entities;
 using MIA.ORMContext.Uow;
 using MIA.Dto.Admin;
+using Newtonsoft.Json;
 
 namespace MIA.Administration.Api {
   /// <summary>
@@ -102,8 +103,9 @@ namespace MIA.Administration.Api {
                               .GroupBy(a => a.SystemModule)
                               .ToDictionary(
                                   a => a.Key,
-                                  b => string.Join(";", b.Select(a => string.Join('_', a.Name.ToLower().Split(' ')))))
-                              .ToArray();
+                                  b => 
+                                  b.Select(a => string.Join('_', a.Name.ToLower().Split(' '))).ToArray());
+                              
 
 
       ClaimsPrincipal res = await claimFactory.CreateAsync(user);
@@ -115,8 +117,8 @@ namespace MIA.Administration.Api {
       allClaims.Add(new Claim("firstName", user.FirstName));
       allClaims.Add(new Claim("lastName", user.LastName));
       allClaims.Add(new Claim("roles", string.Join(",", roles)));
-      allClaims.Add(new Claim("PermissionId", string.Join(",", userModules)));
-      allClaims.Add(new Claim("PermessionModules", string.Join(",", rolePermissions)));
+      allClaims.Add(new Claim("PermissionId", userModules));
+      allClaims.Add(new Claim("PermessionModules", JsonConvert.SerializeObject(rolePermissions)));
 
       SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecretKey));
       SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
