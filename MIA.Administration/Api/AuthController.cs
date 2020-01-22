@@ -89,7 +89,7 @@ namespace MIA.Administration.Api {
       var modulePermissions = new Dictionary<string, string>();
       var userModules = string.Join(";",
         ((db.UserModules.FirstOrDefault(a => a.UserId == user.Id)
-        ?? new UserModule(user.Id, SystemModules.None))
+        ?? new UserModule(user.Id, SystemModules.Dashboard))
         .AllowedModules.ToString()).Split(","));
 
 
