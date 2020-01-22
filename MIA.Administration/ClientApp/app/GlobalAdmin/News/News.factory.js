@@ -5,7 +5,7 @@
 
     function NewsResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'news', {}, {
-            getAllCategories: { method: 'GET', url: appCONSTANTS.API_URL + 'News/GetAllNews', useToken: true, params: { lang: '@lang' }  },
+            getAllCategories: { method: 'POST', url: appCONSTANTS.API_URL + 'news/search', useToken: true, params: { lang: '@lang' }  },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'News/UpdateNews', useToken: true },
             getNews: { method: 'GET', url: appCONSTANTS.API_URL + 'News/GetNewsById/:id', useToken: true },

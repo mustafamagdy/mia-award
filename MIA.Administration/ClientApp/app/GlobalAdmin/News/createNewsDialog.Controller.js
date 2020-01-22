@@ -18,11 +18,12 @@
 
 
         vm.AddNewNews = function () {
+          debugger;
             var splitImage = $rootScope.image.split(',');
             blockUI.start("Loading...");
             var newObj = new NewsResource();
-            newObj.Titles = vm.titleDictionary;
-            newObj.image = splitImage[1];
+            newObj.Title = vm.titleDictionary;
+            newObj.Image = splitImage[1];
             newObj.imageContentType = $rootScope.imageType;
             newObj.$create().then(
                 function (data, status) {

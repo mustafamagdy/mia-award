@@ -30,7 +30,7 @@
       var token = getAuthInfo();
       if(token == undefined) return undefined;
       const userDetails = jwtHelper.decodeToken(token);
-      debugger;
+     // debugger;
       
       return userDetails;
       // return {

@@ -1,81 +1,82 @@
 <div>
-  
-    <div style="margin-bottom:10px" ng-show="user.permessionModules['Category'].includes(2)">
-    <div id="bold"> {{'AddNewCategoryBtn'| translate}} </div>
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go('newCategory');"
-            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+    {{user.PermessionModules  }}
+    <!-- ng-show="user.PermessionModules['News'].includes('add_new')" -->
+    <div style="margin-bottom:10px">
+        <!-- <div id="bold"> {{'AddNewNewsBtn'| translate}} </div> -->
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-click="$state.go('newNews');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
             {{'AddNew'| translate}}</button>
-
     </div>
-    <div ng-if="CategoryList.results.length == 0">
-        <span>{{'NoCategorysAvailable' | translate}}</span>
+    <div ng-if="NewsList.length == 0">
+        <span>{{'NoNewssAvailable' | translate}}</span>
     </div>
-    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="CategoryList.results.length > 0">
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="NewsList.length > 0">
         <div class="table-responsive">
-        <table class="table pmd-table table-hover">
-            <thead>
-                <tr>
-                    <th>{{'image' | translate}}</th>
-                    <th>{{'Name' | translate}}</th>
-                    <th>{{'StatusLbl' | translate}}</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="Category in CategoryList.results">
-                    <td>
-                        <img style="width: 70px;height: 70px;"
-                            data-ng-src="{{CategoryCtrl.appCONSTANTS.Image_URL_ORDER}}{{Category.image}}" />
-                    </td>
-                    <td data-title="Name">
-                        {{Category.titles[selectedLanguage] | limitTo : 20}} 
-                        {{Category.titles[selectedLanguage].length > 20 ? '...' : ''}}
-                    </td>
-                    <td ng-show="!Category.isActive">
-                            <div ng-if="user.permessionModules['Category'].includes(15)==true">
-                                <div class="btn-switch" ng-class="{'btn-switch--on':Category.isActive}"
-                                    ng-model="Category.isActive" ng-click="CategoryCtrl.ChangeStatus(Category)">
-    
-                                    <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':Category.isActive}"
-                                        ng-model="Category.isActive" ng-click="CategoryCtrl.ChangeStatus(Category)">
-                                    </div>
-                                </div>
-                            </div>
-                            <div ng-if="user.permessionModules['Category'].includes(15)==false"
-                                title="You don't have permssion">
-                                <div class="btn-switch" ng-class="{'btn-switch--on':Category.isActive}"
-                                    ng-model="Category.isActive">
-    
-                                    <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':Category.isActive}"
-                                        ng-model="Category.isActive">
-                                    </div>
-                                </div>
-    
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'image' | translate}}</th>
+                        <th>{{'title' | translate}}</th>
+                        <th>{{'StatusLbl' | translate}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="News in NewsList">
+                        <td>
+                            <img style="width: 70px;height: 70px;"
+                                data-ng-src="{{NewsCtrl.appCONSTANTS.Image_URL_ORDER}}{{News.image}}" />
                         </td>
-                    <td ng-show="Category.isActive">
-                        <div class="btn-switch" ng-class="{'btn-switch--on':Category.isActive}"
-                            ng-model="Category.isActive">
+                        <td data-title="Name">
+                            {{News.title  | limitTo : 20}}
+                            {{News.title.length > 20 ? '...' : ''}}
+                        </td>
+                        <td ng-show="!News.isActive">
+                            <div ng-if="user.permessionModules['News'].includes(15)==true">
+                                <div class="btn-switch" ng-class="{'btn-switch--on':News.isActive}"
+                                    ng-model="News.isActive" ng-click="NewsCtrl.ChangeStatus(News)">
 
-                            <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':Category.isActive}"
-                                ng-model="Category.isActive">
+                                    <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':News.isActive}"
+                                        ng-model="News.isActive" ng-click="NewsCtrl.ChangeStatus(News)">
+                                    </div>
+                                </div>
                             </div>
-                    </td>
-                    <td width="30%">
-                        <i ng-show="user.permessionModules['Category'].includes(14)"
-                            class="material-icons md-dark pmd-md cursorPointer font25"
-                            ng-click="$state.go('editCategory',{id: Category.id});" title="Edit">mode_edit</i>
-                        <i ng-show="user.permessionModules['Category'].includes(3)"
-                            class="material-icons pmd-md deleteButton cursorPointer font25"
-                            ng-click="CategoryCtrl.openDeleteDialog(Category,Category.titles[selectedLanguage],Category.id)" title="Delete">delete</i>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                            <div ng-if="user.permessionModules['News'].includes(15)==false"
+                                title="You don't have permssion">
+                                <div class="btn-switch" ng-class="{'btn-switch--on':News.isActive}"
+                                    ng-model="News.isActive">
+
+                                    <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':News.isActive}"
+                                        ng-model="News.isActive">
+                                    </div>
+                                </div>
+
+                        </td>
+                        <td ng-show="News.isActive">
+                            <div class="btn-switch" ng-class="{'btn-switch--on':News.isActive}"
+                                ng-model="News.isActive">
+
+                                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':News.isActive}"
+                                    ng-model="News.isActive">
+                                </div>
+                        </td>
+                        <td width="30%">
+                            <i ng-show="user.permessionModules['News'].includes(14)"
+                                class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('editNews',{id: News.id});" title="Edit">mode_edit</i>
+                            <i ng-show="user.permessionModules['News'].includes(3)"
+                                class="material-icons pmd-md deleteButton cursorPointer font25"
+                                ng-click="NewsCtrl.openDeleteDialog(News,News.titles[selectedLanguage],News.id)"
+                                title="Delete">delete</i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
-        paging-action="CategoryCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+        paging-action="NewsCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
         hide-if-empty="true" disabled-class="hide">
     </div>
 </div>

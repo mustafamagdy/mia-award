@@ -493,7 +493,7 @@
     /*News */
     NewsPrepService.$inject = ['NewsResource']
     function NewsPrepService(NewsResource) {
-        return NewsResource.getAllCategories().$promise;
+        return NewsResource.getAllCategories({pageNumber:1,pageSize :10}).$promise;
     }
 
     CategoriesPrepService.$inject = ['NewsResource']
