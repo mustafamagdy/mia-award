@@ -1,4 +1,279 @@
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Branch/templates/edit.html',
+    '<div>\n' +
+    '        {{\'ُEditArea\' | translate}}\n' +
+    '</div>  \n' +
+    '<div class="modal-content">\n' +
+    '	<div class="modal-header bordered">\n' +
+    '		<h2 class="pmd-card-title-text">{{\'Branch\' | translate}}</h2>\n' +
+    '	</div>\n' +
+    '	<div class="modal-body">\n' +
+    '		<form class="form-horizontal" name="editTypeForm"> \n' +
+    '                <div> \n' +
+    '                    <!-- Nav tabs -->\n' +
+    '                    <ul class="nav nav-tabs" role="tablist">\n' +
+    '                        <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editBranchCtrl.language">\n' +
+    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '                                    <span style="color:red">*</span>  {{lang.value | translate}}\n' +
+    '                            </a>\n' +
+    '                        </li> \n' +
+    '                    </ul>\n' +
+    '                    <div class="pmd-card">\n' +
+    '                        <div class="pmd-card-body">\n' +
+    '                            <!-- Tab panes -->\n' +
+    '                            <div class="tab-content">\n' +
+    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editBranchCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                        <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                        <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="editBranchCtrl.Branch.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
+    '                                        <div ng-messages="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error" >\n' +
+    '                                            \n' +
+    '                                            <div ng-show="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                                            <div ng-show="(editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                        </div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div> \n' +
+    '                        </div>\n' +
+    '\n' +
+    '                   \n' +
+    '                    </div>\n' +
+    '                </div> \n' +
+    ' \n' +
+    '		</form>\n' +
+    '	</div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editBranchCtrl.UpdateBranch()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editBranchCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>\n' +
+    '\n' +
+    '	\n' +
+    '');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Branch/templates/new.html',
+    '<div>\n' +
+    ' {{\'AddNewBranch\' | translate}} </div>  \n' +
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'Branch\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="newBranchForm"> \n' +
+    '            <div> \n' +
+    '                <!-- Nav tabs -->\n' +
+    '                <ul class="nav nav-tabs" role="tablist">\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newBranchCtrl.language">\n' +
+    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '                                <span style="color:red">*</span>  {{lang.value | translate}}\n' +
+    '                        </a>\n' +
+    '                    </li> \n' +
+    '                </ul>\n' +
+    '                <div class="pmd-card">\n' +
+    '                    <div class="pmd-card-body">\n' +
+    '                        <!-- Tab panes -->\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newBranchCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                                    <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                    <input required Branch="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="newBranchCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
+    '                                    <div ng-messages="newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error" >\n' +
+    '										\n' +
+    '                                        <div ng-show="newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div ng-show="(newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div> \n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="newBranchForm.$invalid" class="btn pmd-ripple-effect btn-primary" Branch="button" ng-click="newBranchCtrl.AddNewBranch()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" Branch="button" ng-click="newBranchCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/City/templates/Cities.html',
+    '<div>\n' +
+    '\n' +
+    '    <div ncy-breadcrumb></div>\n' +
+    '    <!-- <div>\n' +
+    '        {{\'viewCities\' | translate}}\n' +
+    '    </div> -->\n' +
+    '    <div style="margin-bottom:10px">\n' +
+    '\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-click="$state.go(\'newCity\',{ countryId: $stateParams.countryId,governrateId: $stateParams.governrateId });"\n' +
+    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNew\' | translate}}</button>\n' +
+    '\n' +
+    '    </div>\n' +
+    '    <div ng-if="Cities.length == 0">\n' +
+    '        <span>{{\'NoCitiesAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="Cities.length > 0">\n' +
+    '        <div class="table-responsive">\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th>{{\'Name\' | translate}}</th>\n' +
+    '                        <th></th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                    <tr ng-repeat="city in Cities">\n' +
+    '                        <td data-title="Name">\n' +
+    '                            {{city.titles[selectedLanguage]}}\n' +
+    '\n' +
+    '                        </td>\n' +
+    '                        <td width="30%">\n' +
+    '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
+    '                                ng-click="$state.go(\'editCity\',{countryId: $stateParams.countryId,governrateId: $stateParams.governrateId,cityId: city.cityId});"\n' +
+    '                                title="Edit">mode_edit</i>\n' +
+    '                        </td>\n' +
+    '                        <td>\n' +
+    '                            <div class="btn-switch" ng-class="{\'btn-switch--on\':city.isActive}" ng-model="city.isActive"\n' +
+    '                                ng-click="CityCtrl.ChangeCityStatus(city)">\n' +
+    '\n' +
+    '                                <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':city.isActive}"\n' +
+    '                                    ng-model="city.isActive" ng-click="CityCtrl.ChangeCityStatus(city)">\n' +
+    '                                </div>\n' +
+    '\n' +
+    '                        </td>\n' +
+    '                    </tr>\n' +
+    '\n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
+    '        disabled-class="hide">\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '<div>\n' +
+    '        <a onclick="goBack()">\n' +
+    '            <div class="col-xs-12">\n' +
+    '                <button type="button"\n' +
+    '                class="btn btn-primary" \n' +
+    '                style="height: 36px;border: #494b74 solid 1px;border-radius: 6px;">\n' +
+    '                {{\'goBack\' | translate}}\n' +
+    '                </button>\n' +
+    '            </div>\n' +
+    '            </a>\n' +
+    '    </div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/City/templates/edit.html',
+    '<div>\n' +
+    '        {{\'EditCities\' | translate}}\n' +
+    '</div>  \n' +
+    '<div class="modal-content">\n' +
+    '	<div class="modal-header bordered">\n' +
+    '		<h2 class="pmd-card-title-text">{{\'City\' | translate}}</h2>\n' +
+    '	</div>\n' +
+    '	<div class="modal-body">\n' +
+    '		<form class="form-horizontal" name="editTypeForm"> \n' +
+    '                <div> \n' +
+    '                    <!-- Nav tabs -->\n' +
+    '                    <ul class="nav nav-tabs" role="tablist">\n' +
+    '                        <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editCityCtrl.language">\n' +
+    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '                                    <span style="color:red">*</span> {{lang.value | translate}}\n' +
+    '                            </a>\n' +
+    '                        </li> \n' +
+    '                    </ul>\n' +
+    '                    <div class="pmd-card">\n' +
+    '                        <div class="pmd-card-body">\n' +
+    '                            <!-- Tab panes -->\n' +
+    '                            <div class="tab-content">\n' +
+    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editCityCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                        <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                        <input required type="text" class="mat-input form-control" name="titles{{lang.value+\'Name\'}}" ng-model="editCityCtrl.City.titles[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
+    '                                        <div class="error" ng-messages="editTypeForm.titles{{lang.value+\'Name\'}}.$error" >\n' +
+    '                                            \n' +
+    '                                            <div class="error" ng-show="editTypeForm.titles{{lang.value+\'Name\'}}.$error.required && !editTypeForm.titles{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                                            <div class="error" ng-show="(editTypeForm.titles{{lang.value+\'Name\'}}.$error.minlength || editTypeForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !editTypeForm.titles{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                        </div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div> \n' +
+    '                        </div>\n' +
+    '\n' +
+    '                   \n' +
+    '                    </div>\n' +
+    '                </div> \n' +
+    ' \n' +
+    '		</form>\n' +
+    '	</div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editCityCtrl.UpdateCity()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editCityCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>\n' +
+    '\n' +
+    '	\n' +
+    '');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/City/templates/new.html',
+    '<div>\n' +
+    '        {{\'NewCity\' | translate}}</div>  \n' +
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'NewCity\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="newAreaForm"> \n' +
+    '            <div> \n' +
+    '                <!-- Nav tabs -->\n' +
+    '                <ul class="nav nav-tabs" role="tablist">\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newCityCtrl.language">\n' +
+    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '                                <span style="color:red">*</span>  {{lang.value | translate}}\n' +
+    '                        </a>\n' +
+    '                    </li> \n' +
+    '                </ul>\n' +
+    '                <div class="pmd-card">\n' +
+    '                    <div class="pmd-card-body">\n' +
+    '                        <!-- Tab panes -->\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newCityCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                                    <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                    <input required Area="text" class="mat-input form-control" name="titles{{lang.value+\'Name\'}}" ng-model="newCityCtrl.titles[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
+    '                                    <div ng-messages="newAreaForm.titles{{lang.value+\'Name\'}}.$error" >\n' +
+    '										\n' +
+    '                                        <div ng-show="newAreaForm.titles{{lang.value+\'Name\'}}.$error.required && !newAreaForm.titles{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div ng-show="(newAreaForm.titles{{lang.value+\'Name\'}}.$error.minlength || newAreaForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !newAreaForm.titles{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div> \n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="newAreaForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button" ng-click="newCityCtrl.AddNewCity()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" Area="button" ng-click="$state.go(\'Cities\',{governrateId: $stateParams.governrateId });">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/Area/templates/Area.html',
     '\n' +
     '<div>\n' +
@@ -186,278 +461,187 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/City/templates/Cities.html',
+  $templateCache.put('./app/GlobalAdmin/ContactType/templates/ContactType.html',
+    '<div id="bold">\n' +
+    '        {{\'ContactType\' | translate}}\n' +
+    '</div>\n' +
     '<div>\n' +
     '\n' +
-    '    <div ncy-breadcrumb></div>\n' +
-    '    <!-- <div>\n' +
-    '        {{\'viewCities\' | translate}}\n' +
-    '    </div> -->\n' +
-    '    <div style="margin-bottom:10px">\n' +
-    '\n' +
+    '    <div style="margin-bottom:10px" ng-show="user.permessionModules[\'ContactType\'].includes(43)">\n' +
     '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-click="$state.go(\'newCity\',{ countryId: $stateParams.countryId,governrateId: $stateParams.governrateId });"\n' +
-    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNew\' | translate}}</button>\n' +
+    '            ng-click="$state.go(\'newContactType\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
+    '            type="button">{{\'AddNew\' | translate}}</button>\n' +
     '\n' +
     '    </div>\n' +
-    '    <div ng-if="Cities.length == 0">\n' +
-    '        <span>{{\'NoCitiesAvailable\' | translate}}</span>\n' +
+    '    <div ng-if="ContactTypeCtrl.ContactTypes.length == 0">\n' +
+    '        <span>{{\'NoContactTypeAvailable\' | translate}}</span>\n' +
     '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="Cities.length > 0">\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="ContactTypeCtrl.ContactTypes.length > 0">\n' +
     '        <div class="table-responsive">\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th>{{\'Name\' | translate}}</th>\n' +
-    '                        <th></th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat="city in Cities">\n' +
-    '                        <td data-title="Name">\n' +
-    '                            {{city.titles[selectedLanguage]}}\n' +
+    '        <table class="table pmd-table table-hover">\n' +
+    '            <thead>\n' +
+    '                <tr>\n' +
+    '                    <th style="width: 50%">{{\'Name\' | translate}}</th>\n' +
+    '                    <th>{{\'Status\' | translate}}</th>\n' +
+    '                    <th></th>\n' +
     '\n' +
+    '                </tr>\n' +
+    '\n' +
+    '            </thead>\n' +
+    '            <tbody>\n' +
+    '                <tr ng-repeat="ContactType in ContactTypeCtrl.ContactTypes">\n' +
+    '                    <td data-title="Name">{{ContactType.titles[selectedLanguage]}}</td>\n' +
+    '                   \n' +
+    '                    <td>\n' +
+    '                        <div ng-show="user.permessionModules[\'ContactType\'].includes(45)"  class="btn-switch" ng-class="{\'btn-switch--on\':ContactType.status}"\n' +
+    '                            ng-model="ContactType.status"\n' +
+    '                            ng-click="ContactTypeCtrl.ChangeContactTypeStatus(ContactType)">\n' +
+    '\n' +
+    '                            <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':ContactType.status}"\n' +
+    '                                ng-model="ContactType.status"\n' +
+    '                                ng-click="ContactTypeCtrl.ChangeContactTypeStatus(ContactType)">\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '\n' +
+    '                    </td>\n' +
+    '                    <td width="30%">\n' +
+    '                            <i ng-show="user.permessionModules[\'ContactType\'].includes(42)" \n' +
+    '                            class="material-icons md-dark pmd-md cursorPointer font25"\n' +
+    '                                ng-click="$state.go(\'editContactType\',{contactTypeId:ContactType.contactTypeId});" title="Edit">mode_edit</i>\n' +
     '                        </td>\n' +
-    '                        <td width="30%">\n' +
-    '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'editCity\',{countryId: $stateParams.countryId,governrateId: $stateParams.governrateId,cityId: city.cityId});"\n' +
-    '                                title="Edit">mode_edit</i>\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            <div class="btn-switch" ng-class="{\'btn-switch--on\':city.isActive}" ng-model="city.isActive"\n' +
-    '                                ng-click="CityCtrl.ChangeCityStatus(city)">\n' +
+    '                </tr>\n' +
     '\n' +
-    '                                <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':city.isActive}"\n' +
-    '                                    ng-model="city.isActive" ng-click="CityCtrl.ChangeCityStatus(city)">\n' +
-    '                                </div>\n' +
-    '\n' +
-    '                        </td>\n' +
-    '                    </tr>\n' +
-    '\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
+    '            </tbody>\n' +
+    '        </table>\n' +
+    '    </div>\n' +
     '    </div>\n' +
     '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
     '        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
     '        disabled-class="hide">\n' +
     '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/ContactType/templates/edit.html',
+    '<div id="bold">\n' +
+    '        {{\'EditContactType\' | translate}}\n' +
     '</div>\n' +
-    '<div>\n' +
-    '        <a onclick="goBack()">\n' +
-    '            <div class="col-xs-12">\n' +
-    '                <button type="button"\n' +
-    '                class="btn btn-primary" \n' +
-    '                style="height: 36px;border: #494b74 solid 1px;border-radius: 6px;">\n' +
-    '                {{\'goBack\' | translate}}\n' +
-    '                </button>\n' +
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'ContactType\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="editContactTypeForm">\n' +
+    '            <div>\n' +
+    '                <!-- Nav tabs -->\n' +
+    '                <ul class="nav nav-tabs" role="tablist">\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
+    '                        ng-repeat="lang in editContactTypeCtrl.language">\n' +
+    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"\n' +
+    '                            data-toggle="tab">\n' +
+    '                            <span style="color:red">*</span> {{lang.value | translate}}\n' +
+    '                        </a>\n' +
+    '                    </li>\n' +
+    '                </ul>\n' +
+    '                <div class="pmd-card">\n' +
+    '                    <div class="pmd-card-body">\n' +
+    '                        <!-- Tab panes -->\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
+    '                                ng-repeat="lang in editContactTypeCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                    <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                    <input required type="text" class="mat-input form-control"\n' +
+    '                                        name="titles{{lang.value+\'Name\'}}"\n' +
+    '                                        ng-model="editContactTypeCtrl.ContactType.titles[lang.key]" ng-minlength="3"\n' +
+    '                                        ng-maxlength="255">\n' +
+    '                                    <div ng-messages="editContactTypeForm.titles{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                        <div class="error"\n' +
+    '                                            ng-show="editContactTypeForm.titles{{lang.value+\'Name\'}}.$error.required && !editContactTypeForm.titles{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                            {{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div class="error"\n' +
+    '                                            ng-show="(editContactTypeForm.titles{{lang.value+\'Name\'}}.$error.minlength || editContactTypeForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !editContactTypeForm.titles{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '\n' +
+    '                </div>\n' +
     '            </div>\n' +
-    '            </a>\n' +
-    '    </div>');
+    '\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="editContactTypeForm.$invalid"\n' +
+    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="editContactTypeCtrl.UpdateContactType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '            ng-click="editContactTypeCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/City/templates/edit.html',
-    '<div>\n' +
-    '        {{\'EditCities\' | translate}}\n' +
-    '</div>  \n' +
-    '<div class="modal-content">\n' +
-    '	<div class="modal-header bordered">\n' +
-    '		<h2 class="pmd-card-title-text">{{\'City\' | translate}}</h2>\n' +
-    '	</div>\n' +
-    '	<div class="modal-body">\n' +
-    '		<form class="form-horizontal" name="editTypeForm"> \n' +
-    '                <div> \n' +
-    '                    <!-- Nav tabs -->\n' +
-    '                    <ul class="nav nav-tabs" role="tablist">\n' +
-    '                        <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editCityCtrl.language">\n' +
-    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
-    '                                    <span style="color:red">*</span> {{lang.value | translate}}\n' +
-    '                            </a>\n' +
-    '                        </li> \n' +
-    '                    </ul>\n' +
-    '                    <div class="pmd-card">\n' +
-    '                        <div class="pmd-card-body">\n' +
-    '                            <!-- Tab panes -->\n' +
-    '                            <div class="tab-content">\n' +
-    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editCityCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                        <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                        <input required type="text" class="mat-input form-control" name="titles{{lang.value+\'Name\'}}" ng-model="editCityCtrl.City.titles[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
-    '                                        <div class="error" ng-messages="editTypeForm.titles{{lang.value+\'Name\'}}.$error" >\n' +
-    '                                            \n' +
-    '                                            <div class="error" ng-show="editTypeForm.titles{{lang.value+\'Name\'}}.$error.required && !editTypeForm.titles{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                                            <div class="error" ng-show="(editTypeForm.titles{{lang.value+\'Name\'}}.$error.minlength || editTypeForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !editTypeForm.titles{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                        </div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div> \n' +
-    '                        </div>\n' +
-    '\n' +
-    '                   \n' +
-    '                    </div>\n' +
-    '                </div> \n' +
-    ' \n' +
-    '		</form>\n' +
-    '	</div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editCityCtrl.UpdateCity()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editCityCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>\n' +
-    '\n' +
-    '	\n' +
-    '');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/City/templates/new.html',
-    '<div>\n' +
-    '        {{\'NewCity\' | translate}}</div>  \n' +
+  $templateCache.put('./app/GlobalAdmin/ContactType/templates/new.html',
     '<div class="modal-content">\n' +
     '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text">{{\'NewCity\' | translate}}</h2>\n' +
+    '        <h2 class="pmd-card-title-text">{{\'NewContactType\' | translate}}</h2>\n' +
     '    </div>\n' +
     '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="newAreaForm"> \n' +
-    '            <div> \n' +
+    '        <form class="form-horizontal" name="newContactTypeForm">\n' +
+    '            <div>\n' +
     '                <!-- Nav tabs -->\n' +
     '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newCityCtrl.language">\n' +
-    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
-    '                                <span style="color:red">*</span>  {{lang.value | translate}}\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
+    '                        ng-repeat="lang in newContactTypeCtrl.language">\n' +
+    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"\n' +
+    '                            data-toggle="tab">\n' +
+    '                            <span style="color:red">*</span>   {{lang.value | translate}}\n' +
     '                        </a>\n' +
-    '                    </li> \n' +
+    '                    </li>\n' +
     '                </ul>\n' +
     '                <div class="pmd-card">\n' +
     '                    <div class="pmd-card-body">\n' +
     '                        <!-- Tab panes -->\n' +
     '                        <div class="tab-content">\n' +
-    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newCityCtrl.language" id="{{lang.value}}-form">\n' +
+    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
+    '                                ng-repeat="lang in newContactTypeCtrl.language" id="{{lang.value}}-form">\n' +
     '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '                                    <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <input required Area="text" class="mat-input form-control" name="titles{{lang.value+\'Name\'}}" ng-model="newCityCtrl.titles[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
-    '                                    <div ng-messages="newAreaForm.titles{{lang.value+\'Name\'}}.$error" >\n' +
-    '										\n' +
-    '                                        <div ng-show="newAreaForm.titles{{lang.value+\'Name\'}}.$error.required && !newAreaForm.titles{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div ng-show="(newAreaForm.titles{{lang.value+\'Name\'}}.$error.minlength || newAreaForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !newAreaForm.titles{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                    <input required Area="text" class="mat-input form-control"\n' +
+    '                                        name="titles{{lang.value+\'Name\'}}"\n' +
+    '                                        ng-model="newContactTypeCtrl.titles[lang.key]" ng-minlength="3"\n' +
+    '                                        ng-maxlength="255">\n' +
+    '                                    <div ng-messages="newContactTypeForm.titles{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                        <div class="error"\n' +
+    '                                            ng-show="newContactTypeForm.titles{{lang.value+\'Name\'}}.$error.required && !newContactTypeForm.titles{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                            {{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div class="error"\n' +
+    '                                            ng-show="(newContactTypeForm.titles{{lang.value+\'Name\'}}.$error.minlength || newContactTypeForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !newContactTypeForm.titles{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
     '                                    </div>\n' +
     '                                </div>\n' +
     '                            </div>\n' +
     '                        </div>\n' +
     '                    </div>\n' +
     '                </div>\n' +
-    '            </div> \n' +
+    '            </div>\n' +
     '        </form>\n' +
     '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="newAreaForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button" ng-click="newCityCtrl.AddNewCity()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" Area="button" ng-click="$state.go(\'Cities\',{governrateId: $stateParams.governrateId });">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-disabled="newContactTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button"\n' +
+    '            ng-click="newContactTypeCtrl.AddNewContactType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '            ng-click="$state.go(\'ContactType\');">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
-    '</div>\n' +
-    '');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Branch/templates/edit.html',
-    '<div>\n' +
-    '        {{\'ُEditArea\' | translate}}\n' +
-    '</div>  \n' +
-    '<div class="modal-content">\n' +
-    '	<div class="modal-header bordered">\n' +
-    '		<h2 class="pmd-card-title-text">{{\'Branch\' | translate}}</h2>\n' +
-    '	</div>\n' +
-    '	<div class="modal-body">\n' +
-    '		<form class="form-horizontal" name="editTypeForm"> \n' +
-    '                <div> \n' +
-    '                    <!-- Nav tabs -->\n' +
-    '                    <ul class="nav nav-tabs" role="tablist">\n' +
-    '                        <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editBranchCtrl.language">\n' +
-    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
-    '                                    <span style="color:red">*</span>  {{lang.value | translate}}\n' +
-    '                            </a>\n' +
-    '                        </li> \n' +
-    '                    </ul>\n' +
-    '                    <div class="pmd-card">\n' +
-    '                        <div class="pmd-card-body">\n' +
-    '                            <!-- Tab panes -->\n' +
-    '                            <div class="tab-content">\n' +
-    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editBranchCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                        <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                        <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="editBranchCtrl.Branch.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
-    '                                        <div ng-messages="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error" >\n' +
-    '                                            \n' +
-    '                                            <div ng-show="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                                            <div ng-show="(editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                        </div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div> \n' +
-    '                        </div>\n' +
-    '\n' +
-    '                   \n' +
-    '                    </div>\n' +
-    '                </div> \n' +
-    ' \n' +
-    '		</form>\n' +
-    '	</div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editBranchCtrl.UpdateBranch()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editBranchCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>\n' +
-    '\n' +
-    '	\n' +
-    '');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Branch/templates/new.html',
-    '<div>\n' +
-    ' {{\'AddNewBranch\' | translate}} </div>  \n' +
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text">{{\'Branch\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="newBranchForm"> \n' +
-    '            <div> \n' +
-    '                <!-- Nav tabs -->\n' +
-    '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newBranchCtrl.language">\n' +
-    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
-    '                                <span style="color:red">*</span>  {{lang.value | translate}}\n' +
-    '                        </a>\n' +
-    '                    </li> \n' +
-    '                </ul>\n' +
-    '                <div class="pmd-card">\n' +
-    '                    <div class="pmd-card-body">\n' +
-    '                        <!-- Tab panes -->\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newBranchCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                                    <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <input required Branch="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="newBranchCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
-    '                                    <div ng-messages="newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error" >\n' +
-    '										\n' +
-    '                                        <div ng-show="newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div ng-show="(newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div> \n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="newBranchForm.$invalid" class="btn pmd-ripple-effect btn-primary" Branch="button" ng-click="newBranchCtrl.AddNewBranch()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" Branch="button" ng-click="newBranchCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '');
+    '</div>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -644,190 +828,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            ng-click="newCountryCtrl.AddNewCountry()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" Area="button"\n' +
     '            ng-click="$state.go(\'Countries\');">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/ContactType/templates/ContactType.html',
-    '<div id="bold">\n' +
-    '        {{\'ContactType\' | translate}}\n' +
-    '</div>\n' +
-    '<div>\n' +
-    '\n' +
-    '    <div style="margin-bottom:10px" ng-show="user.permessionModules[\'ContactType\'].includes(43)">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-click="$state.go(\'newContactType\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '            type="button">{{\'AddNew\' | translate}}</button>\n' +
-    '\n' +
-    '    </div>\n' +
-    '    <div ng-if="ContactTypeCtrl.ContactTypes.length == 0">\n' +
-    '        <span>{{\'NoContactTypeAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="ContactTypeCtrl.ContactTypes.length > 0">\n' +
-    '        <div class="table-responsive">\n' +
-    '        <table class="table pmd-table table-hover">\n' +
-    '            <thead>\n' +
-    '                <tr>\n' +
-    '                    <th style="width: 50%">{{\'Name\' | translate}}</th>\n' +
-    '                    <th>{{\'Status\' | translate}}</th>\n' +
-    '                    <th></th>\n' +
-    '\n' +
-    '                </tr>\n' +
-    '\n' +
-    '            </thead>\n' +
-    '            <tbody>\n' +
-    '                <tr ng-repeat="ContactType in ContactTypeCtrl.ContactTypes">\n' +
-    '                    <td data-title="Name">{{ContactType.titles[selectedLanguage]}}</td>\n' +
-    '                   \n' +
-    '                    <td>\n' +
-    '                        <div ng-show="user.permessionModules[\'ContactType\'].includes(45)"  class="btn-switch" ng-class="{\'btn-switch--on\':ContactType.status}"\n' +
-    '                            ng-model="ContactType.status"\n' +
-    '                            ng-click="ContactTypeCtrl.ChangeContactTypeStatus(ContactType)">\n' +
-    '\n' +
-    '                            <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':ContactType.status}"\n' +
-    '                                ng-model="ContactType.status"\n' +
-    '                                ng-click="ContactTypeCtrl.ChangeContactTypeStatus(ContactType)">\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '\n' +
-    '                    </td>\n' +
-    '                    <td width="30%">\n' +
-    '                            <i ng-show="user.permessionModules[\'ContactType\'].includes(42)" \n' +
-    '                            class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'editContactType\',{contactTypeId:ContactType.contactTypeId});" title="Edit">mode_edit</i>\n' +
-    '                        </td>\n' +
-    '                </tr>\n' +
-    '\n' +
-    '            </tbody>\n' +
-    '        </table>\n' +
-    '    </div>\n' +
-    '    </div>\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
-    '        disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/ContactType/templates/edit.html',
-    '<div id="bold">\n' +
-    '        {{\'EditContactType\' | translate}}\n' +
-    '</div>\n' +
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text">{{\'ContactType\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="editContactTypeForm">\n' +
-    '            <div>\n' +
-    '                <!-- Nav tabs -->\n' +
-    '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
-    '                        ng-repeat="lang in editContactTypeCtrl.language">\n' +
-    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"\n' +
-    '                            data-toggle="tab">\n' +
-    '                            <span style="color:red">*</span> {{lang.value | translate}}\n' +
-    '                        </a>\n' +
-    '                    </li>\n' +
-    '                </ul>\n' +
-    '                <div class="pmd-card">\n' +
-    '                    <div class="pmd-card-body">\n' +
-    '                        <!-- Tab panes -->\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
-    '                                ng-repeat="lang in editContactTypeCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                    <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <input required type="text" class="mat-input form-control"\n' +
-    '                                        name="titles{{lang.value+\'Name\'}}"\n' +
-    '                                        ng-model="editContactTypeCtrl.ContactType.titles[lang.key]" ng-minlength="3"\n' +
-    '                                        ng-maxlength="255">\n' +
-    '                                    <div ng-messages="editContactTypeForm.titles{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                        <div class="error"\n' +
-    '                                            ng-show="editContactTypeForm.titles{{lang.value+\'Name\'}}.$error.required && !editContactTypeForm.titles{{lang.value+\'Name\'}}.$pristine">\n' +
-    '                                            {{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div class="error"\n' +
-    '                                            ng-show="(editContactTypeForm.titles{{lang.value+\'Name\'}}.$error.minlength || editContactTypeForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !editContactTypeForm.titles{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="editContactTypeForm.$invalid"\n' +
-    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="editContactTypeCtrl.UpdateContactType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="editContactTypeCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/ContactType/templates/new.html',
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text">{{\'NewContactType\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="newContactTypeForm">\n' +
-    '            <div>\n' +
-    '                <!-- Nav tabs -->\n' +
-    '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
-    '                        ng-repeat="lang in newContactTypeCtrl.language">\n' +
-    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"\n' +
-    '                            data-toggle="tab">\n' +
-    '                            <span style="color:red">*</span>   {{lang.value | translate}}\n' +
-    '                        </a>\n' +
-    '                    </li>\n' +
-    '                </ul>\n' +
-    '                <div class="pmd-card">\n' +
-    '                    <div class="pmd-card-body">\n' +
-    '                        <!-- Tab panes -->\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
-    '                                ng-repeat="lang in newContactTypeCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                                    <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <input required Area="text" class="mat-input form-control"\n' +
-    '                                        name="titles{{lang.value+\'Name\'}}"\n' +
-    '                                        ng-model="newContactTypeCtrl.titles[lang.key]" ng-minlength="3"\n' +
-    '                                        ng-maxlength="255">\n' +
-    '                                    <div ng-messages="newContactTypeForm.titles{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                        <div class="error"\n' +
-    '                                            ng-show="newContactTypeForm.titles{{lang.value+\'Name\'}}.$error.required && !newContactTypeForm.titles{{lang.value+\'Name\'}}.$pristine">\n' +
-    '                                            {{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div class="error"\n' +
-    '                                            ng-show="(newContactTypeForm.titles{{lang.value+\'Name\'}}.$error.minlength || newContactTypeForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !newContactTypeForm.titles{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="newContactTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button"\n' +
-    '            ng-click="newContactTypeCtrl.AddNewContactType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="$state.go(\'ContactType\');">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>');
 }]);
@@ -4352,158 +4352,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Region/templates/Regions.html',
-    '<div>\n' +
-    '        <div>\n' +
-    '                {{\'Regions\' | translate}}\n' +
-    '        </div> \n' +
-    '    <div style="margin-bottom:10px">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go(\'newRegion\',{ countryId: $stateParams.countryId });" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '            type="button">{{\'AddNew\' | translate}}</button>\n' +
-    '\n' +
-    '    </div>\n' +
-    '    <div ng-if="Regions.results.length == 0">\n' +
-    '        <span>{{\'NoRegionsAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="Regions.results.length > 0">\n' +
-    '        <div class="table-responsive">\n' +
-    '        <table class="table pmd-table table-hover">\n' +
-    '            <thead>\n' +
-    '                <tr>\n' +
-    '                    <th>{{\'Name\' | translate}}</th> \n' +
-    '                    <th></th>\n' +
-    '                </tr>\n' +
-    '            </thead>\n' +
-    '            <tbody>\n' +
-    '                <tr ng-repeat="region in Regions.results">\n' +
-    '                    <td data-title="Name">{{region.titleDictionary[selectedLanguage]}}</td>\n' +
-    ' \n' +
-    '                    <td>\n' +
-    '                        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go(\'Cities\',{countryId: $stateParams.countryId,regionId: region.regionId});"\n' +
-    '                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'viewCities\' |\n' +
-    '                            translate}}</button>\n' +
-    '                      </td>\n' +
-    '\n' +
-    '                    <td width="30%">\n' +
-    '                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editRegion\',{countryId: $stateParams.countryId ,regionId: region.regionId});"title="Edit">mode_edit</i>\n' +
-    '                    </td>\n' +
-    '                </tr>\n' +
-    '\n' +
-    '            </tbody>\n' +
-    '        </table>\n' +
-    '    </div>\n' +
-    '    </div>\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"\n' +
-    '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Region/templates/edit.html',
-    '<div>\n' +
-    '        {{\'EditRegion\' | translate}}\n' +
-    '</div>        \n' +
-    '<div class="modal-content">\n' +
-    '        <div class="modal-header bordered">\n' +
-    '		<h2 class="pmd-card-title-text">{{\'Region\' | translate}}</h2>\n' +
-    '	</div>\n' +
-    '	<div class="modal-body">\n' +
-    '		<form class="form-horizontal" name="editTypeForm"> \n' +
-    '                <div> \n' +
-    '                    <!-- Nav tabs -->\n' +
-    '                    <ul class="nav nav-tabs" role="tablist">\n' +
-    '                        <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editRegionCtrl.language">\n' +
-    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
-    '                                    <span style="color:red">*</span>  {{lang.value | translate}}\n' +
-    '                            </a>\n' +
-    '                        </li> \n' +
-    '                    </ul>\n' +
-    '                    <div class="pmd-card">\n' +
-    '                        <div class="pmd-card-body">\n' +
-    '                            <!-- Tab panes -->\n' +
-    '                            <div class="tab-content">\n' +
-    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editRegionCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                        <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                        <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="editRegionCtrl.Region.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
-    '                                        <div ng-messages="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error" >\n' +
-    '                                            \n' +
-    '                                            <div ng-show="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                                            <div ng-show="(editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                        </div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div> \n' +
-    '                        </div>\n' +
-    '\n' +
-    '                   \n' +
-    '                    </div>\n' +
-    '                </div> \n' +
-    ' \n' +
-    '		</form>\n' +
-    '	</div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editRegionCtrl.UpdateRegion()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editRegionCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>\n' +
-    '\n' +
-    '	\n' +
-    '');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Region/templates/new.html',
-    '<div>\n' +
-    '        {{\'NewRegion\' | translate}}\n' +
-    '</div>          \n' +
-    '<div class="modal-content">\n' +
-    '        \n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text">{{\'NewRegion\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="newAreaForm"> \n' +
-    '            <div> \n' +
-    '                <!-- Nav tabs -->\n' +
-    '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newRegionCtrl.language">\n' +
-    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
-    '                                <span style="color:red">*</span> {{lang.value | translate}}\n' +
-    '                        </a>\n' +
-    '                    </li> \n' +
-    '                </ul>\n' +
-    '                <div class="pmd-card">\n' +
-    '                    <div class="pmd-card-body">\n' +
-    '                        <!-- Tab panes -->\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newRegionCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                                    <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <input required Area="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="newRegionCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
-    '                                    <div ng-messages="newAreaForm.titleDictionary{{lang.value+\'Name\'}}.$error" >\n' +
-    '										\n' +
-    '                                        <div ng-show="newAreaForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !newAreaForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div ng-show="(newAreaForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || newAreaForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newAreaForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div> \n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="newAreaForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button" ng-click="newRegionCtrl.AddNewRegion()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" Area="button" ng-click="$state.go(\'Regions\',{countryId: $stateParams.countryId });">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/Retailer/templates/Retailer.html',
     '<div>\n' +
     '    <div  id="bold">\n' +
@@ -5947,6 +5795,158 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Region/templates/Regions.html',
+    '<div>\n' +
+    '        <div>\n' +
+    '                {{\'Regions\' | translate}}\n' +
+    '        </div> \n' +
+    '    <div style="margin-bottom:10px">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go(\'newRegion\',{ countryId: $stateParams.countryId });" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
+    '            type="button">{{\'AddNew\' | translate}}</button>\n' +
+    '\n' +
+    '    </div>\n' +
+    '    <div ng-if="Regions.results.length == 0">\n' +
+    '        <span>{{\'NoRegionsAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="Regions.results.length > 0">\n' +
+    '        <div class="table-responsive">\n' +
+    '        <table class="table pmd-table table-hover">\n' +
+    '            <thead>\n' +
+    '                <tr>\n' +
+    '                    <th>{{\'Name\' | translate}}</th> \n' +
+    '                    <th></th>\n' +
+    '                </tr>\n' +
+    '            </thead>\n' +
+    '            <tbody>\n' +
+    '                <tr ng-repeat="region in Regions.results">\n' +
+    '                    <td data-title="Name">{{region.titleDictionary[selectedLanguage]}}</td>\n' +
+    ' \n' +
+    '                    <td>\n' +
+    '                        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go(\'Cities\',{countryId: $stateParams.countryId,regionId: region.regionId});"\n' +
+    '                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'viewCities\' |\n' +
+    '                            translate}}</button>\n' +
+    '                      </td>\n' +
+    '\n' +
+    '                    <td width="30%">\n' +
+    '                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editRegion\',{countryId: $stateParams.countryId ,regionId: region.regionId});"title="Edit">mode_edit</i>\n' +
+    '                    </td>\n' +
+    '                </tr>\n' +
+    '\n' +
+    '            </tbody>\n' +
+    '        </table>\n' +
+    '    </div>\n' +
+    '    </div>\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"\n' +
+    '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Region/templates/edit.html',
+    '<div>\n' +
+    '        {{\'EditRegion\' | translate}}\n' +
+    '</div>        \n' +
+    '<div class="modal-content">\n' +
+    '        <div class="modal-header bordered">\n' +
+    '		<h2 class="pmd-card-title-text">{{\'Region\' | translate}}</h2>\n' +
+    '	</div>\n' +
+    '	<div class="modal-body">\n' +
+    '		<form class="form-horizontal" name="editTypeForm"> \n' +
+    '                <div> \n' +
+    '                    <!-- Nav tabs -->\n' +
+    '                    <ul class="nav nav-tabs" role="tablist">\n' +
+    '                        <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editRegionCtrl.language">\n' +
+    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '                                    <span style="color:red">*</span>  {{lang.value | translate}}\n' +
+    '                            </a>\n' +
+    '                        </li> \n' +
+    '                    </ul>\n' +
+    '                    <div class="pmd-card">\n' +
+    '                        <div class="pmd-card-body">\n' +
+    '                            <!-- Tab panes -->\n' +
+    '                            <div class="tab-content">\n' +
+    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editRegionCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                        <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                        <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="editRegionCtrl.Region.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
+    '                                        <div ng-messages="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error" >\n' +
+    '                                            \n' +
+    '                                            <div ng-show="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                                            <div ng-show="(editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                        </div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div> \n' +
+    '                        </div>\n' +
+    '\n' +
+    '                   \n' +
+    '                    </div>\n' +
+    '                </div> \n' +
+    ' \n' +
+    '		</form>\n' +
+    '	</div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editRegionCtrl.UpdateRegion()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editRegionCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>\n' +
+    '\n' +
+    '	\n' +
+    '');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Region/templates/new.html',
+    '<div>\n' +
+    '        {{\'NewRegion\' | translate}}\n' +
+    '</div>          \n' +
+    '<div class="modal-content">\n' +
+    '        \n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'NewRegion\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="newAreaForm"> \n' +
+    '            <div> \n' +
+    '                <!-- Nav tabs -->\n' +
+    '                <ul class="nav nav-tabs" role="tablist">\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newRegionCtrl.language">\n' +
+    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '                                <span style="color:red">*</span> {{lang.value | translate}}\n' +
+    '                        </a>\n' +
+    '                    </li> \n' +
+    '                </ul>\n' +
+    '                <div class="pmd-card">\n' +
+    '                    <div class="pmd-card-body">\n' +
+    '                        <!-- Tab panes -->\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newRegionCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                                    <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                    <input required Area="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="newRegionCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
+    '                                    <div ng-messages="newAreaForm.titleDictionary{{lang.value+\'Name\'}}.$error" >\n' +
+    '										\n' +
+    '                                        <div ng-show="newAreaForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !newAreaForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div ng-show="(newAreaForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || newAreaForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newAreaForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div> \n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="newAreaForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button" ng-click="newRegionCtrl.AddNewRegion()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" Area="button" ng-click="$state.go(\'Regions\',{countryId: $stateParams.countryId });">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/Sku/templates/SKU.html',
     '<div>\n' +
     '    <h1 class="text-center">\n' +
@@ -6170,605 +6170,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        <button class="btn pmd-ripple-effect btn-default" Area="button"\n' +
     '            ng-click="$state.go(\'SKU\');">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Zone/templates/DistributorZone.html',
-    '<div>\n' +
-    '        <div  id="bold"> \n' +
-    '                {{\'DistributorZones\' | translate}}\n' +
-    '        </div>\n' +
-    '    <h1 class="text-center">\n' +
-    '         <kbd style="background-color: #494b74c4;"> \n' +
-    '             {{selectedManufacture.name}} :\n' +
-    '                {{selectedManufacture.code}}\n' +
-    '            </kbd>\n' +
-    '    </h1>\n' +
-    '    \n' +
-    '    <div ng-if="DistributorZones.results.length == 0">\n' +
-    '        <span>{{\'NoDistributorZoneAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="DistributorZones.results.length > 0">\n' +
-    '        <div class="table-responsive">\n' +
-    '        <table class="table pmd-table table-hover">\n' +
-    '            <thead>\n' +
-    '                <tr>\n' +
-    '                        <th> {{\'CompanyLogo\' | translate}}</th>\n' +
-    '                        <th>{{\'codeLbl\' | translate}}</th>\n' +
-    '                        <th>{{\'Name\' | translate}}</th>\n' +
-    '                        <th>{{\'AddressLbl\' | translate}}</th>\n' +
-    '                        <th>{{\'Title\' | translate}}</th>\n' +
-    '                        <th>{{\'mobileNumber\' | translate}}</th>\n' +
-    '                        <th>{{\'EmailLbl\' | translate}}</th>\n' +
-    '                </tr>\n' +
-    '            </thead>\n' +
-    '            <tbody>\n' +
-    '                    <tr ng-repeat="DistributorZone in createDistributorZoneCtrl.DistributorZoneList">\n' +
-    '                            <td> \n' +
-    '                                <img width="100px" height="100px" data-ng-src="http://172.21.22.222/actor/{{DistributorZone.companyLogo}}" />\n' +
-    '                            </td>\n' +
-    '                            <td data-title="code">{{DistributorZone.code}}</td>\n' +
-    '                            <td data-title="Name">\n' +
-    '                                {{DistributorZone.name | limitTo : 20}} \n' +
-    '                                {{DistributorZone.name.length > 20 ? \'...\' : \'\'}}\n' +
-    '                            </td>\n' +
-    '                            <td data-title="code">{{DistributorZone.address}}</td>\n' +
-    '                            <td data-title="city">{{DistributorZone.distributorContactInformation[0].title}}</td>\n' +
-    '                            <td data-title="governrate">{{DistributorZone.distributorContactInformation[0].mobileNumber}}</td>\n' +
-    '                            <td data-title="address">{{DistributorZone.distributorContactInformation[0].email}}</td>\n' +
-    '                        </tr>\n' +
-    '\n' +
-    '            </tbody>\n' +
-    '        </table>\n' +
-    '    </div>\n' +
-    '    </div>\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '                paging-action="createDistributorZoneCtrl.changePage(page)" flex="nogrow"\n' +
-    '                ] show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
-    '                disabled-class="hide">\n' +
-    '                </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Zone/templates/RetailerZone.html',
-    '<div>\n' +
-    '        <div  id="bold">\n' +
-    '                {{\'RetailerZones\' | translate}}\n' +
-    '        </div>\n' +
-    '        <h1 class="text-center">\n' +
-    '             <kbd style="background-color: #383a53;"> \n' +
-    '                 {{selectedManufacture.name}} :\n' +
-    '                    {{selectedManufacture.code}}\n' +
-    '                </kbd>\n' +
-    '        </h1>\n' +
-    '     \n' +
-    '        <div ng-if="RetailerZones.results.length == 0">\n' +
-    '            <span>{{\'NoRetailerZonesAvailable\' | translate}}</span>\n' +
-    '        </div>\n' +
-    '        <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="RetailerZones.results.length > 0">\n' +
-    '            <div class="table-responsive">\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th> {{\'CompanyLogo\' | translate}}</th>\n' +
-    '                        <th>{{\'codeLbl\' | translate}}</th>\n' +
-    '                        <th>{{\'Name\' | translate}}</th>\n' +
-    '                        <th>{{\'AddressLbl\' | translate}}</th>\n' +
-    '                        <th>{{\'Title\' | translate}}</th>\n' +
-    '                        <th>{{\'mobileNumber\' | translate}}</th>\n' +
-    '                        <th>{{\'EmailLbl\' | translate}}</th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                        <tr ng-repeat="RetailerZones in createRetailerZoneCtrl.RetailerZoneList">\n' +
-    '                                <td> \n' +
-    '                                    <img width="100px" height="100px" data-ng-src="http://172.21.22.222/actor/{{RetailerZones.companyLogo}}" />\n' +
-    '                                </td>\n' +
-    '                                <td data-title="code">{{RetailerZones.code}}</td>\n' +
-    '                                <td data-title="Name">\n' +
-    '                                    {{RetailerZones.name | limitTo : 20}} \n' +
-    '                                    {{RetailerZones.name.length > 20 ? \'...\' : \'\'}}\n' +
-    '                                </td>\n' +
-    '                                <td data-title="code">{{RetailerZones.address}}</td>\n' +
-    '                                <td data-title="city">{{RetailerZones.retailerContactInformation[0].title}}</td>\n' +
-    '                                <td data-title="governrate">{{RetailerZones.retailerContactInformation[0].mobileNumber}}</td>\n' +
-    '                                <td data-title="address">{{RetailerZones.retailerContactInformation[0].email}}</td>\n' +
-    '                            </tr>\n' +
-    '    \n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
-    '        </div>\n' +
-    '        <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '        paging-action="createRetailerZoneCtrl.changePage(page)" flex="nogrow"\n' +
-    '        ] show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
-    '        disabled-class="hide">\n' +
-    '        </div>\n' +
-    '    </div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Zone/templates/Zone.html',
-    '<div>\n' +
-    '    <div id="bold">\n' +
-    '        {{\'Zone\' | translate}}\n' +
-    '    </div>\n' +
-    '    <h1 class="text-center">\n' +
-    '        <kbd style="background-color: #494b74c4;">\n' +
-    '            {{selectedManufacture.name}} :\n' +
-    '            {{selectedManufacture.code}}\n' +
-    '        </kbd>\n' +
-    '    </h1>\n' +
-    '    <div style="margin-bottom:10px" ng-show="user.permessionModules[\'Zone\'].includes(63)">\n' +
-    '            <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '                ng-disabled="selectedManufacture.manufactureId==0" ng-click="$state.go(\'newZone\');"\n' +
-    '                class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNew\' | translate}}</button>\n' +
-    '                <div class="error"\n' +
-    '                ng-show="selectedManufacture.manufactureId==0">\n' +
-    '                {{\'selectedManufacture\' | translate}}</div>\n' +
-    '        </div>\n' +
-    '    <div ng-if="Zones.results.length == 0">\n' +
-    '        <span>{{\'NoZoneAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="Zones.results.length > 0">\n' +
-    '        <div class="table-responsive">\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th>{{\'codeLbl\' | translate}}</th>\n' +
-    '                        <!-- <th>{{\'ManufactureLbl\' | translate}}</th> -->\n' +
-    '                        <th>{{\'Name\' | translate}}</th>\n' +
-    '\n' +
-    '                        <th>{{\'CreateZoneRelation\' | translate}}</th>\n' +
-    '                        <th>{{\'EditZoneRelation\' | translate}}</th>\n' +
-    '                        <th>{{\'ZoneDetails\' | translate}}</th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat="Zone in Zones.results">\n' +
-    '\n' +
-    '                        <td>{{Zone.zoneCode}}</td>\n' +
-    '                        <!-- <td>{{Zone.manufactureCode}}</td> -->\n' +
-    '                        <td>{{Zone.titles[selectedLanguage]}}</td>\n' +
-    '                        <!-- <td ng-show="!Zone.isActive">\n' +
-    '                        <div ng-if="user.permessionModules[\'zone\'].includes(12)==true">\n' +
-    '                            <div class="btn-switch" ng-class="{\'btn-switch--on\':Zone.isActive}" ng-model="Zone.isActive"\n' +
-    '                                ng-click="ZoneCtrl.ChangeStatus(Zone)">\n' +
-    '\n' +
-    '                                <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':Zone.isActive}"\n' +
-    '                                    ng-model="Zone.isActive" ng-click="ZoneCtrl.ChangeStatus(Zone)">\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                        <div ng-if="user.permessionModules[\'zone\'].includes(12)==false"\n' +
-    '                            title="You don\'t have permssion">\n' +
-    '                            <div class="btn-switch" ng-class="{\'btn-switch--on\':Zone.isActive}"\n' +
-    '                                ng-model="Zone.isActive">\n' +
-    '\n' +
-    '                                <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':Zone.isActive}"\n' +
-    '                                    ng-model="Zone.isActive">\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '\n' +
-    '                    </td>\n' +
-    '                    <td ng-show="Zone.isActive">\n' +
-    '                        <div class="btn-switch" ng-class="{\'btn-switch--on\':Zone.isActive}" ng-model="Zone.isActive">\n' +
-    '\n' +
-    '                            <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':Zone.isActive}"\n' +
-    '                                ng-model="Zone.isActive">\n' +
-    '                            </div>\n' +
-    '                    </td> -->\n' +
-    '\n' +
-    '                        <td>\n' +
-    '                            <button ng-disabled="Zone.hasRetailer && Zone.hasDistribuitor"\n' +
-    '                                ng-show="user.permessionModules[\'Zone\'].includes(85)"\n' +
-    '                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '                                ng-click="$state.go(\'CreateMap\',{zoneId : Zone.zoneId});"\n' +
-    '                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '                                type="button">{{\'CreateMap\' | translate}}</button>\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            <button ng-disabled="Zone.hasRetailer && Zone.hasDistribuitor"\n' +
-    '                                ng-show="user.permessionModules[\'Zone\'].includes(64)"\n' +
-    '                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '                                ng-click="$state.go(\'newZoneRelation\',{zoneId : Zone.zoneId});"\n' +
-    '                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '                                type="button">{{\'CreateZoneRelation\' | translate}}</button>\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            <button ng-disabled="!Zone.hasRetailer || !Zone.hasDistribuitor"\n' +
-    '                                ng-show="user.permessionModules[\'Zone\'].includes(66)"\n' +
-    '                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '                                ng-click="$state.go(\'editZoneRelation\',{zoneId : Zone.zoneId});"\n' +
-    '                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '                                type="button">{{\'EditZoneRelation\' | translate}}</button>\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            <button ng-disabled="!Zone.hasRetailer || !Zone.hasDistribuitor"\n' +
-    '                                ng-show="user.permessionModules[\'Zone\'].includes(65)"\n' +
-    '                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '                                ng-click="$state.go(\'zoneRelationDetails\',{zoneId : Zone.zoneId});"\n' +
-    '                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '                                type="button">{{\'ZoneDetails\' | translate}}</button>\n' +
-    '                        </td>\n' +
-    '\n' +
-    '\n' +
-    '\n' +
-    '                    </tr>\n' +
-    '\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
-    '        disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Zone/templates/new.html',
-    '<style>\n' +
-    '    /* Always set the map height explicitly to define the size of the div\n' +
-    ' * element that contains the map. */\n' +
-    '    #map {\n' +
-    '        height: 100%;\n' +
-    '        margin-top: 20%;\n' +
-    '\n' +
-    '        margin-left: 50%;\n' +
-    '        position: initial !important;\n' +
-    '        overflow: initial !important;\n' +
-    '    }\n' +
-    '\n' +
-    '    /* Optional: Makes the sample page fill the window. */\n' +
-    '    html,\n' +
-    '    body {\n' +
-    '        height: 100%;\n' +
-    '        margin: 0;\n' +
-    '        padding: 0;\n' +
-    '    }\n' +
-    '\n' +
-    '    #description {\n' +
-    '        font-family: Roboto;\n' +
-    '        font-size: 15px;\n' +
-    '        font-weight: 300;\n' +
-    '    }\n' +
-    '\n' +
-    '    #infowindow-content .title {\n' +
-    '        font-weight: bold;\n' +
-    '    }\n' +
-    '\n' +
-    '    #infowindow-content {\n' +
-    '        display: none;\n' +
-    '    }\n' +
-    '\n' +
-    '    #map #infowindow-content {\n' +
-    '        display: inline;\n' +
-    '    }\n' +
-    '\n' +
-    '    .pac-card {\n' +
-    '        margin: 10px 10px 0 0;\n' +
-    '        border-radius: 2px 0 0 2px;\n' +
-    '        box-sizing: border-box;\n' +
-    '        -moz-box-sizing: border-box;\n' +
-    '        outline: none;\n' +
-    '        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);\n' +
-    '        background-color: #fff;\n' +
-    '        font-family: Roboto;\n' +
-    '    }\n' +
-    '\n' +
-    '    #pac-container {\n' +
-    '        padding-bottom: 12px;\n' +
-    '        margin-right: 12px;\n' +
-    '    }\n' +
-    '\n' +
-    '    .pac-controls {\n' +
-    '        display: inline-block;\n' +
-    '        padding: 5px 11px;\n' +
-    '    }\n' +
-    '\n' +
-    '    .pac-controls label {\n' +
-    '        font-family: Roboto;\n' +
-    '        font-size: 13px;\n' +
-    '        font-weight: 300;\n' +
-    '    }\n' +
-    '\n' +
-    '    #pac-input {\n' +
-    '        background-color: #fff;\n' +
-    '        font-family: Roboto;\n' +
-    '        font-size: 15px;\n' +
-    '        font-weight: 300;\n' +
-    '        margin-left: 12px;\n' +
-    '        padding: 0 11px 0 13px;\n' +
-    '        text-overflow: ellipsis;\n' +
-    '        width: 400px;\n' +
-    '    }\n' +
-    '\n' +
-    '    #pac-input:focus {\n' +
-    '        border-color: #4d90fe;\n' +
-    '    }\n' +
-    '\n' +
-    '    #title {\n' +
-    '        color: #fff;\n' +
-    '        background-color: #4d90fe;\n' +
-    '        font-size: 25px;\n' +
-    '        font-weight: 500;\n' +
-    '        padding: 6px 12px;\n' +
-    '    }\n' +
-    '</style>\n' +
-    '<div id="bold">\n' +
-    '    {{\'NewZone\' | translate}}\n' +
-    '</div>\n' +
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text">{{\'NewZone\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="newZoneForm">\n' +
-    '            <div>\n' +
-    '                <!-- Nav tabs -->\n' +
-    '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newZoneCtrl.language">\n' +
-    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"\n' +
-    '                            data-toggle="tab">\n' +
-    '                            <span style="color:red">*</span>  {{lang.value | translate}}\n' +
-    '                        </a>\n' +
-    '                    </li>\n' +
-    '                </ul>\n' +
-    '                <div class="pmd-card">\n' +
-    '                    <div class="pmd-card-body">\n' +
-    '                        <!-- Tab panes -->\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
-    '                                ng-repeat="lang in newZoneCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                                    <label for="first-name">\n' +
-    '                                        {{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <input required Area="text" class="mat-input form-control"\n' +
-    '                                        name="titles{{lang.value+\'Name\'}}" ng-model="newZoneCtrl.titles[lang.key]"\n' +
-    '                                        ng-minlength="3" ng-maxlength="255">\n' +
-    '                                    <div ng-messages="newZoneForm.titles{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                        <div class="error"\n' +
-    '                                            ng-show="newZoneForm.titles{{lang.value+\'Name\'}}.$error.required && !newZoneForm.titles{{lang.value+\'Name\'}}.$pristine">\n' +
-    '                                            {{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div class="error"\n' +
-    '                                            ng-show="(newZoneForm.titles{{lang.value+\'Name\'}}.$error.minlength || newZoneForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !newZoneForm.titles{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '\n' +
-    '                        <!-- <div class="row">\n' +
-    '                            <div class="col-md-3  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                <label for="readonly"><span style="color:red">*</span> {{\'codeLbl\' | translate}}\n' +
-    '                                </label>\n' +
-    '                                <input type="text" name="zoneCode" ng-readonly="true" ng-model="newZoneCtrl.zoneCode"\n' +
-    '                                    aria-label="readonly" class="mat-input form-control">\n' +
-    '\n' +
-    '                            </div>\n' +
-    '                        </div> -->\n' +
-    '\n' +
-    '                        <div class="row">\n' +
-    '                        <!-- country --- drop down  -->\n' +
-    '                  <div \n' +
-    '                  class="col-md-3  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                  <label for="first-name"><span style="color:red">*</span> {{\'Country\' | translate}}</label>\n' +
-    '                  <select class="select-tags form-control pmd-select2-tags" name="countryId"\n' +
-    '                    ng-change="newZoneCtrl.countryChange()" ng-model="newZoneCtrl.selectedCountryId"\n' +
-    '                    ng-options="group.countryId  as group.titles[selectedLanguage] for group in newZoneCtrl.countries">\n' +
-    '                  </select>\n' +
-    '                  <div>\n' +
-    '                    <!-- required validation -->\n' +
-    '                    <span class="error"\n' +
-    '                      ng-show="newretailerForm.results[countryId].$error.required && !newretailerForm.results[countryId].$pristine">\n' +
-    '                      {{\'RequiredLbl\' | translate}} </span>\n' +
-    '                    <span class="error" ng-show="newretailerForm.results[countryId].$error.results[countryId]">\n' +
-    '                      {{\' NotvalidLbl\' | translate}}</span>\n' +
-    '                  </div>\n' +
-    '                </div>\n' +
-    '                <!-- governrate based on country id  -->\n' +
-    '                <div \n' +
-    '                class="col-md-3  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                  <label for="first-name"><span style="color:red">*</span> {{\'Governrate\' | translate}}</label>\n' +
-    '                  <select class="select-tags form-control pmd-select2-tags" name="governrateId"\n' +
-    '                    ng-change="newZoneCtrl.GovernrateChange()" ng-model="newZoneCtrl.selectedGovernrateId"\n' +
-    '                    ng-options="group.governrateId as group.titles[selectedLanguage] for group in newZoneCtrl.Governrates">\n' +
-    '                  </select>\n' +
-    '                  <div>\n' +
-    '                    <span class="error"\n' +
-    '                      ng-show="newretailerForm.governrateId.$error.required && !newretailerForm.governrateId.$pristine">\n' +
-    '                      {{\'RequiredLbl\' | translate}} </span>\n' +
-    '                    <span class="error" ng-show="newretailerForm.governrateId.$error.governrateId">\n' +
-    '                      {{\' NotvalidLbl\' | translate}}</span>\n' +
-    '                  </div>\n' +
-    '                </div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                    <!-- <div class="row" style="    padding-bottom: 8%;">\n' +
-    '                        <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                          \n' +
-    '                            <input id="pac-input" class="controls" type="text" placeholder="Search Box">\n' +
-    '\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                    <div class="row" style="    padding-left: 18%;">\n' +
-    '                        <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                            <div id="map"></div>\n' +
-    '                            <div id="infowindow-content">\n' +
-    '                                <img src="" width="16" height="16" id="place-icon">\n' +
-    '                                <span id="place-name" class="title"></span><br>\n' +
-    '                                <span id="place-address"></span>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '\n' +
-    '                    </div> -->\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '    </div>\n' +
-    '    </form>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="newZoneForm.$invalid || newZoneCtrl.selectedCityId <= 0"\n' +
-    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="newZoneCtrl.AddNewZone()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="$state.go(\'Zone\');">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Zone/templates/newMap.html',
-    '<style>\n' +
-    '    /* Always set the map height explicitly to define the size of the div\n' +
-    ' * element that contains the map. */\n' +
-    '    #map {\n' +
-    '        height: 100%;\n' +
-    '        margin-top: 20%;\n' +
-    '\n' +
-    '        margin-left: 50%;\n' +
-    '        position: initial !important;\n' +
-    '        overflow: initial !important;\n' +
-    '    }\n' +
-    '\n' +
-    '    #description {\n' +
-    '        font-family: Roboto;\n' +
-    '        font-size: 15px;\n' +
-    '        font-weight: 300;\n' +
-    '    }\n' +
-    '\n' +
-    '    #infowindow-content .title {\n' +
-    '        font-weight: bold;\n' +
-    '    }\n' +
-    '\n' +
-    '    #infowindow-content {\n' +
-    '        display: none;\n' +
-    '    }\n' +
-    '\n' +
-    '    #map #infowindow-content {\n' +
-    '        display: inline;\n' +
-    '    }\n' +
-    '\n' +
-    '    .pac-card {\n' +
-    '        margin: 10px 10px 0 0;\n' +
-    '        border-radius: 2px 0 0 2px;\n' +
-    '        box-sizing: border-box;\n' +
-    '        -moz-box-sizing: border-box;\n' +
-    '        outline: none;\n' +
-    '        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);\n' +
-    '        background-color: #fff;\n' +
-    '        font-family: Roboto;\n' +
-    '    }\n' +
-    '\n' +
-    '    #pac-container {\n' +
-    '        padding-bottom: 12px;\n' +
-    '        margin-right: 12px;\n' +
-    '    }\n' +
-    '\n' +
-    '    .pac-controls {\n' +
-    '        display: inline-block;\n' +
-    '        padding: 5px 11px;\n' +
-    '    }\n' +
-    '\n' +
-    '    .pac-controls label {\n' +
-    '        font-family: Roboto;\n' +
-    '        font-size: 13px;\n' +
-    '        font-weight: 300;\n' +
-    '    }\n' +
-    '\n' +
-    '    #pac-input {\n' +
-    '        background-color: #fff;\n' +
-    '        font-family: Roboto;\n' +
-    '        font-size: 15px;\n' +
-    '        font-weight: 300;\n' +
-    '        margin-left: 12px;\n' +
-    '        padding: 0 11px 0 13px;\n' +
-    '        text-overflow: ellipsis;\n' +
-    '        width: 400px;\n' +
-    '    }\n' +
-    '\n' +
-    '    #pac-input:focus {\n' +
-    '        border-color: #4d90fe;\n' +
-    '    }\n' +
-    '\n' +
-    '    #title {\n' +
-    '        color: #fff;\n' +
-    '        background-color: #4d90fe;\n' +
-    '        font-size: 25px;\n' +
-    '        font-weight: 500;\n' +
-    '        padding: 6px 12px;\n' +
-    '    }\n' +
-    '\n' +
-    '    #footer {\n' +
-    '        position: fixed;\n' +
-    '        left: 0;\n' +
-    '        bottom: 0;\n' +
-    '        width: 100%;\n' +
-    '        background-color: transparent;\n' +
-    '        color: #494b74;\n' +
-    '    }\n' +
-    '</style>\n' +
-    '<div>\n' +
-    '    {{\'NewZone\' | translate}}\n' +
-    '</div>\n' +
-    '<div class="row  pmd-card pmd-z-depth" style="margin-bottom: 0;">\n' +
-    '    <div class="col-md-12 form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '        <div class="col-md-6 col-sm-6 form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '            <h1 class="text-center">\n' +
-    '                <kbd style="background-color: #494b74c4;">\n' +
-    '                    {{\'ManufactureLbl\' | translate}}:\n' +
-    '                    {{zoneMapCtrl.zone.manufacture.code}} -\n' +
-    '                    {{zoneMapCtrl.zone.manufacture.name}}\n' +
-    '                </kbd>\n' +
-    '            </h1>\n' +
-    '        </div>\n' +
-    '        <div class="col-md-6 col-sm-6 form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '            <h1>\n' +
-    '                <kbd style="background-color: #494b74c4;">\n' +
-    '                    {{\'Zone\' | translate}}:\n' +
-    '                    {{zoneMapCtrl.zone.zoneCode}} -\n' +
-    '                    {{zoneMapCtrl.zone.titles[selectedLanguage]}}\n' +
-    '                </kbd>\n' +
-    '            </h1>\n' +
-    '        </div>\n' +
-    '        <form class="form-horizontal" name="newZoneForm">\n' +
-    '\n' +
-    '            <div class="row" style="    padding-bottom: 8%;">\n' +
-    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <!-- <label for="readonly"><span style="color:red">*</span> {{\'map\' | translate}}\n' +
-    '                                        </label> -->\n' +
-    '                    <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->\n' +
-    '\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '            <div class="row" style=" padding-left: 18%; padding-bottom: 10%">\n' +
-    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <div id="map"></div>\n' +
-    '                    <!-- <div id="infowindow-content">\n' +
-    '                            <img src="" width="16" height="16" id="place-icon">\n' +
-    '                            <span id="place-name" class="title"></span><br>\n' +
-    '                            <span id="place-address"></span>\n' +
-    '                        </div> -->\n' +
-    '                </div>\n' +
-    '\n' +
-    '            </div>\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '<div class="pmd-modal-action text-right" id="footer">\n' +
-    '    <!-- {{zoneMapCtrl.CordinatesOfPoly}} -->\n' +
-    '    <button style="border: #494b74 solid 1px;border-radius: 6px;"  \n' +
-    '        class="btn pmd-ripple-effect btn-primary" Area="button"\n' +
-    '        ng-click="zoneMapCtrl.AddNewZone()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '    <button class="btn pmd-ripple-effect btn-default" Area="button"\n' +
-    '        ng-click="$state.go(\'Zone\');">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    <!-- ng-disabled="zoneMapCtrl.CordinatesOfPoly.length==0" -->\n' +
     '</div>');
 }]);
 
@@ -7528,6 +6929,605 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '      <!-- <pre>  {{newZoneRelationCtrl.selectedProduct}}</pre> -->\n' +
     '  </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Zone/templates/DistributorZone.html',
+    '<div>\n' +
+    '        <div  id="bold"> \n' +
+    '                {{\'DistributorZones\' | translate}}\n' +
+    '        </div>\n' +
+    '    <h1 class="text-center">\n' +
+    '         <kbd style="background-color: #494b74c4;"> \n' +
+    '             {{selectedManufacture.name}} :\n' +
+    '                {{selectedManufacture.code}}\n' +
+    '            </kbd>\n' +
+    '    </h1>\n' +
+    '    \n' +
+    '    <div ng-if="DistributorZones.results.length == 0">\n' +
+    '        <span>{{\'NoDistributorZoneAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="DistributorZones.results.length > 0">\n' +
+    '        <div class="table-responsive">\n' +
+    '        <table class="table pmd-table table-hover">\n' +
+    '            <thead>\n' +
+    '                <tr>\n' +
+    '                        <th> {{\'CompanyLogo\' | translate}}</th>\n' +
+    '                        <th>{{\'codeLbl\' | translate}}</th>\n' +
+    '                        <th>{{\'Name\' | translate}}</th>\n' +
+    '                        <th>{{\'AddressLbl\' | translate}}</th>\n' +
+    '                        <th>{{\'Title\' | translate}}</th>\n' +
+    '                        <th>{{\'mobileNumber\' | translate}}</th>\n' +
+    '                        <th>{{\'EmailLbl\' | translate}}</th>\n' +
+    '                </tr>\n' +
+    '            </thead>\n' +
+    '            <tbody>\n' +
+    '                    <tr ng-repeat="DistributorZone in createDistributorZoneCtrl.DistributorZoneList">\n' +
+    '                            <td> \n' +
+    '                                <img width="100px" height="100px" data-ng-src="http://172.21.22.222/actor/{{DistributorZone.companyLogo}}" />\n' +
+    '                            </td>\n' +
+    '                            <td data-title="code">{{DistributorZone.code}}</td>\n' +
+    '                            <td data-title="Name">\n' +
+    '                                {{DistributorZone.name | limitTo : 20}} \n' +
+    '                                {{DistributorZone.name.length > 20 ? \'...\' : \'\'}}\n' +
+    '                            </td>\n' +
+    '                            <td data-title="code">{{DistributorZone.address}}</td>\n' +
+    '                            <td data-title="city">{{DistributorZone.distributorContactInformation[0].title}}</td>\n' +
+    '                            <td data-title="governrate">{{DistributorZone.distributorContactInformation[0].mobileNumber}}</td>\n' +
+    '                            <td data-title="address">{{DistributorZone.distributorContactInformation[0].email}}</td>\n' +
+    '                        </tr>\n' +
+    '\n' +
+    '            </tbody>\n' +
+    '        </table>\n' +
+    '    </div>\n' +
+    '    </div>\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '                paging-action="createDistributorZoneCtrl.changePage(page)" flex="nogrow"\n' +
+    '                ] show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
+    '                disabled-class="hide">\n' +
+    '                </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Zone/templates/RetailerZone.html',
+    '<div>\n' +
+    '        <div  id="bold">\n' +
+    '                {{\'RetailerZones\' | translate}}\n' +
+    '        </div>\n' +
+    '        <h1 class="text-center">\n' +
+    '             <kbd style="background-color: #383a53;"> \n' +
+    '                 {{selectedManufacture.name}} :\n' +
+    '                    {{selectedManufacture.code}}\n' +
+    '                </kbd>\n' +
+    '        </h1>\n' +
+    '     \n' +
+    '        <div ng-if="RetailerZones.results.length == 0">\n' +
+    '            <span>{{\'NoRetailerZonesAvailable\' | translate}}</span>\n' +
+    '        </div>\n' +
+    '        <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="RetailerZones.results.length > 0">\n' +
+    '            <div class="table-responsive">\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th> {{\'CompanyLogo\' | translate}}</th>\n' +
+    '                        <th>{{\'codeLbl\' | translate}}</th>\n' +
+    '                        <th>{{\'Name\' | translate}}</th>\n' +
+    '                        <th>{{\'AddressLbl\' | translate}}</th>\n' +
+    '                        <th>{{\'Title\' | translate}}</th>\n' +
+    '                        <th>{{\'mobileNumber\' | translate}}</th>\n' +
+    '                        <th>{{\'EmailLbl\' | translate}}</th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                        <tr ng-repeat="RetailerZones in createRetailerZoneCtrl.RetailerZoneList">\n' +
+    '                                <td> \n' +
+    '                                    <img width="100px" height="100px" data-ng-src="http://172.21.22.222/actor/{{RetailerZones.companyLogo}}" />\n' +
+    '                                </td>\n' +
+    '                                <td data-title="code">{{RetailerZones.code}}</td>\n' +
+    '                                <td data-title="Name">\n' +
+    '                                    {{RetailerZones.name | limitTo : 20}} \n' +
+    '                                    {{RetailerZones.name.length > 20 ? \'...\' : \'\'}}\n' +
+    '                                </td>\n' +
+    '                                <td data-title="code">{{RetailerZones.address}}</td>\n' +
+    '                                <td data-title="city">{{RetailerZones.retailerContactInformation[0].title}}</td>\n' +
+    '                                <td data-title="governrate">{{RetailerZones.retailerContactInformation[0].mobileNumber}}</td>\n' +
+    '                                <td data-title="address">{{RetailerZones.retailerContactInformation[0].email}}</td>\n' +
+    '                            </tr>\n' +
+    '    \n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
+    '        </div>\n' +
+    '        <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '        paging-action="createRetailerZoneCtrl.changePage(page)" flex="nogrow"\n' +
+    '        ] show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
+    '        disabled-class="hide">\n' +
+    '        </div>\n' +
+    '    </div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Zone/templates/Zone.html',
+    '<div>\n' +
+    '    <div id="bold">\n' +
+    '        {{\'Zone\' | translate}}\n' +
+    '    </div>\n' +
+    '    <h1 class="text-center">\n' +
+    '        <kbd style="background-color: #494b74c4;">\n' +
+    '            {{selectedManufacture.name}} :\n' +
+    '            {{selectedManufacture.code}}\n' +
+    '        </kbd>\n' +
+    '    </h1>\n' +
+    '    <div style="margin-bottom:10px" ng-show="user.permessionModules[\'Zone\'].includes(63)">\n' +
+    '            <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '                ng-disabled="selectedManufacture.manufactureId==0" ng-click="$state.go(\'newZone\');"\n' +
+    '                class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNew\' | translate}}</button>\n' +
+    '                <div class="error"\n' +
+    '                ng-show="selectedManufacture.manufactureId==0">\n' +
+    '                {{\'selectedManufacture\' | translate}}</div>\n' +
+    '        </div>\n' +
+    '    <div ng-if="Zones.results.length == 0">\n' +
+    '        <span>{{\'NoZoneAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="Zones.results.length > 0">\n' +
+    '        <div class="table-responsive">\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th>{{\'codeLbl\' | translate}}</th>\n' +
+    '                        <!-- <th>{{\'ManufactureLbl\' | translate}}</th> -->\n' +
+    '                        <th>{{\'Name\' | translate}}</th>\n' +
+    '\n' +
+    '                        <th>{{\'CreateZoneRelation\' | translate}}</th>\n' +
+    '                        <th>{{\'EditZoneRelation\' | translate}}</th>\n' +
+    '                        <th>{{\'ZoneDetails\' | translate}}</th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                    <tr ng-repeat="Zone in Zones.results">\n' +
+    '\n' +
+    '                        <td>{{Zone.zoneCode}}</td>\n' +
+    '                        <!-- <td>{{Zone.manufactureCode}}</td> -->\n' +
+    '                        <td>{{Zone.titles[selectedLanguage]}}</td>\n' +
+    '                        <!-- <td ng-show="!Zone.isActive">\n' +
+    '                        <div ng-if="user.permessionModules[\'zone\'].includes(12)==true">\n' +
+    '                            <div class="btn-switch" ng-class="{\'btn-switch--on\':Zone.isActive}" ng-model="Zone.isActive"\n' +
+    '                                ng-click="ZoneCtrl.ChangeStatus(Zone)">\n' +
+    '\n' +
+    '                                <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':Zone.isActive}"\n' +
+    '                                    ng-model="Zone.isActive" ng-click="ZoneCtrl.ChangeStatus(Zone)">\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                        <div ng-if="user.permessionModules[\'zone\'].includes(12)==false"\n' +
+    '                            title="You don\'t have permssion">\n' +
+    '                            <div class="btn-switch" ng-class="{\'btn-switch--on\':Zone.isActive}"\n' +
+    '                                ng-model="Zone.isActive">\n' +
+    '\n' +
+    '                                <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':Zone.isActive}"\n' +
+    '                                    ng-model="Zone.isActive">\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '\n' +
+    '                    </td>\n' +
+    '                    <td ng-show="Zone.isActive">\n' +
+    '                        <div class="btn-switch" ng-class="{\'btn-switch--on\':Zone.isActive}" ng-model="Zone.isActive">\n' +
+    '\n' +
+    '                            <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':Zone.isActive}"\n' +
+    '                                ng-model="Zone.isActive">\n' +
+    '                            </div>\n' +
+    '                    </td> -->\n' +
+    '\n' +
+    '                        <td>\n' +
+    '                            <button ng-disabled="Zone.hasRetailer && Zone.hasDistribuitor"\n' +
+    '                                ng-show="user.permessionModules[\'Zone\'].includes(85)"\n' +
+    '                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '                                ng-click="$state.go(\'CreateMap\',{zoneId : Zone.zoneId});"\n' +
+    '                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
+    '                                type="button">{{\'CreateMap\' | translate}}</button>\n' +
+    '                        </td>\n' +
+    '                        <td>\n' +
+    '                            <button ng-disabled="Zone.hasRetailer && Zone.hasDistribuitor"\n' +
+    '                                ng-show="user.permessionModules[\'Zone\'].includes(64)"\n' +
+    '                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '                                ng-click="$state.go(\'newZoneRelation\',{zoneId : Zone.zoneId});"\n' +
+    '                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
+    '                                type="button">{{\'CreateZoneRelation\' | translate}}</button>\n' +
+    '                        </td>\n' +
+    '                        <td>\n' +
+    '                            <button ng-disabled="!Zone.hasRetailer || !Zone.hasDistribuitor"\n' +
+    '                                ng-show="user.permessionModules[\'Zone\'].includes(66)"\n' +
+    '                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '                                ng-click="$state.go(\'editZoneRelation\',{zoneId : Zone.zoneId});"\n' +
+    '                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
+    '                                type="button">{{\'EditZoneRelation\' | translate}}</button>\n' +
+    '                        </td>\n' +
+    '                        <td>\n' +
+    '                            <button ng-disabled="!Zone.hasRetailer || !Zone.hasDistribuitor"\n' +
+    '                                ng-show="user.permessionModules[\'Zone\'].includes(65)"\n' +
+    '                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '                                ng-click="$state.go(\'zoneRelationDetails\',{zoneId : Zone.zoneId});"\n' +
+    '                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
+    '                                type="button">{{\'ZoneDetails\' | translate}}</button>\n' +
+    '                        </td>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '                    </tr>\n' +
+    '\n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
+    '        disabled-class="hide">\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Zone/templates/new.html',
+    '<style>\n' +
+    '    /* Always set the map height explicitly to define the size of the div\n' +
+    ' * element that contains the map. */\n' +
+    '    #map {\n' +
+    '        height: 100%;\n' +
+    '        margin-top: 20%;\n' +
+    '\n' +
+    '        margin-left: 50%;\n' +
+    '        position: initial !important;\n' +
+    '        overflow: initial !important;\n' +
+    '    }\n' +
+    '\n' +
+    '    /* Optional: Makes the sample page fill the window. */\n' +
+    '    html,\n' +
+    '    body {\n' +
+    '        height: 100%;\n' +
+    '        margin: 0;\n' +
+    '        padding: 0;\n' +
+    '    }\n' +
+    '\n' +
+    '    #description {\n' +
+    '        font-family: Roboto;\n' +
+    '        font-size: 15px;\n' +
+    '        font-weight: 300;\n' +
+    '    }\n' +
+    '\n' +
+    '    #infowindow-content .title {\n' +
+    '        font-weight: bold;\n' +
+    '    }\n' +
+    '\n' +
+    '    #infowindow-content {\n' +
+    '        display: none;\n' +
+    '    }\n' +
+    '\n' +
+    '    #map #infowindow-content {\n' +
+    '        display: inline;\n' +
+    '    }\n' +
+    '\n' +
+    '    .pac-card {\n' +
+    '        margin: 10px 10px 0 0;\n' +
+    '        border-radius: 2px 0 0 2px;\n' +
+    '        box-sizing: border-box;\n' +
+    '        -moz-box-sizing: border-box;\n' +
+    '        outline: none;\n' +
+    '        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);\n' +
+    '        background-color: #fff;\n' +
+    '        font-family: Roboto;\n' +
+    '    }\n' +
+    '\n' +
+    '    #pac-container {\n' +
+    '        padding-bottom: 12px;\n' +
+    '        margin-right: 12px;\n' +
+    '    }\n' +
+    '\n' +
+    '    .pac-controls {\n' +
+    '        display: inline-block;\n' +
+    '        padding: 5px 11px;\n' +
+    '    }\n' +
+    '\n' +
+    '    .pac-controls label {\n' +
+    '        font-family: Roboto;\n' +
+    '        font-size: 13px;\n' +
+    '        font-weight: 300;\n' +
+    '    }\n' +
+    '\n' +
+    '    #pac-input {\n' +
+    '        background-color: #fff;\n' +
+    '        font-family: Roboto;\n' +
+    '        font-size: 15px;\n' +
+    '        font-weight: 300;\n' +
+    '        margin-left: 12px;\n' +
+    '        padding: 0 11px 0 13px;\n' +
+    '        text-overflow: ellipsis;\n' +
+    '        width: 400px;\n' +
+    '    }\n' +
+    '\n' +
+    '    #pac-input:focus {\n' +
+    '        border-color: #4d90fe;\n' +
+    '    }\n' +
+    '\n' +
+    '    #title {\n' +
+    '        color: #fff;\n' +
+    '        background-color: #4d90fe;\n' +
+    '        font-size: 25px;\n' +
+    '        font-weight: 500;\n' +
+    '        padding: 6px 12px;\n' +
+    '    }\n' +
+    '</style>\n' +
+    '<div id="bold">\n' +
+    '    {{\'NewZone\' | translate}}\n' +
+    '</div>\n' +
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'NewZone\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="newZoneForm">\n' +
+    '            <div>\n' +
+    '                <!-- Nav tabs -->\n' +
+    '                <ul class="nav nav-tabs" role="tablist">\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newZoneCtrl.language">\n' +
+    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"\n' +
+    '                            data-toggle="tab">\n' +
+    '                            <span style="color:red">*</span>  {{lang.value | translate}}\n' +
+    '                        </a>\n' +
+    '                    </li>\n' +
+    '                </ul>\n' +
+    '                <div class="pmd-card">\n' +
+    '                    <div class="pmd-card-body">\n' +
+    '                        <!-- Tab panes -->\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
+    '                                ng-repeat="lang in newZoneCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                                    <label for="first-name">\n' +
+    '                                        {{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                    <input required Area="text" class="mat-input form-control"\n' +
+    '                                        name="titles{{lang.value+\'Name\'}}" ng-model="newZoneCtrl.titles[lang.key]"\n' +
+    '                                        ng-minlength="3" ng-maxlength="255">\n' +
+    '                                    <div ng-messages="newZoneForm.titles{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                        <div class="error"\n' +
+    '                                            ng-show="newZoneForm.titles{{lang.value+\'Name\'}}.$error.required && !newZoneForm.titles{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                            {{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div class="error"\n' +
+    '                                            ng-show="(newZoneForm.titles{{lang.value+\'Name\'}}.$error.minlength || newZoneForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !newZoneForm.titles{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '\n' +
+    '                        <!-- <div class="row">\n' +
+    '                            <div class="col-md-3  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                <label for="readonly"><span style="color:red">*</span> {{\'codeLbl\' | translate}}\n' +
+    '                                </label>\n' +
+    '                                <input type="text" name="zoneCode" ng-readonly="true" ng-model="newZoneCtrl.zoneCode"\n' +
+    '                                    aria-label="readonly" class="mat-input form-control">\n' +
+    '\n' +
+    '                            </div>\n' +
+    '                        </div> -->\n' +
+    '\n' +
+    '                        <div class="row">\n' +
+    '                        <!-- country --- drop down  -->\n' +
+    '                  <div \n' +
+    '                  class="col-md-3  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                  <label for="first-name"><span style="color:red">*</span> {{\'Country\' | translate}}</label>\n' +
+    '                  <select class="select-tags form-control pmd-select2-tags" name="countryId"\n' +
+    '                    ng-change="newZoneCtrl.countryChange()" ng-model="newZoneCtrl.selectedCountryId"\n' +
+    '                    ng-options="group.countryId  as group.titles[selectedLanguage] for group in newZoneCtrl.countries">\n' +
+    '                  </select>\n' +
+    '                  <div>\n' +
+    '                    <!-- required validation -->\n' +
+    '                    <span class="error"\n' +
+    '                      ng-show="newretailerForm.results[countryId].$error.required && !newretailerForm.results[countryId].$pristine">\n' +
+    '                      {{\'RequiredLbl\' | translate}} </span>\n' +
+    '                    <span class="error" ng-show="newretailerForm.results[countryId].$error.results[countryId]">\n' +
+    '                      {{\' NotvalidLbl\' | translate}}</span>\n' +
+    '                  </div>\n' +
+    '                </div>\n' +
+    '                <!-- governrate based on country id  -->\n' +
+    '                <div \n' +
+    '                class="col-md-3  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                  <label for="first-name"><span style="color:red">*</span> {{\'Governrate\' | translate}}</label>\n' +
+    '                  <select class="select-tags form-control pmd-select2-tags" name="governrateId"\n' +
+    '                    ng-change="newZoneCtrl.GovernrateChange()" ng-model="newZoneCtrl.selectedGovernrateId"\n' +
+    '                    ng-options="group.governrateId as group.titles[selectedLanguage] for group in newZoneCtrl.Governrates">\n' +
+    '                  </select>\n' +
+    '                  <div>\n' +
+    '                    <span class="error"\n' +
+    '                      ng-show="newretailerForm.governrateId.$error.required && !newretailerForm.governrateId.$pristine">\n' +
+    '                      {{\'RequiredLbl\' | translate}} </span>\n' +
+    '                    <span class="error" ng-show="newretailerForm.governrateId.$error.governrateId">\n' +
+    '                      {{\' NotvalidLbl\' | translate}}</span>\n' +
+    '                  </div>\n' +
+    '                </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                    <!-- <div class="row" style="    padding-bottom: 8%;">\n' +
+    '                        <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                          \n' +
+    '                            <input id="pac-input" class="controls" type="text" placeholder="Search Box">\n' +
+    '\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                    <div class="row" style="    padding-left: 18%;">\n' +
+    '                        <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                            <div id="map"></div>\n' +
+    '                            <div id="infowindow-content">\n' +
+    '                                <img src="" width="16" height="16" id="place-icon">\n' +
+    '                                <span id="place-name" class="title"></span><br>\n' +
+    '                                <span id="place-address"></span>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '\n' +
+    '                    </div> -->\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '    </div>\n' +
+    '    </form>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-disabled="newZoneForm.$invalid || newZoneCtrl.selectedCityId <= 0"\n' +
+    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="newZoneCtrl.AddNewZone()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '            ng-click="$state.go(\'Zone\');">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Zone/templates/newMap.html',
+    '<style>\n' +
+    '    /* Always set the map height explicitly to define the size of the div\n' +
+    ' * element that contains the map. */\n' +
+    '    #map {\n' +
+    '        height: 100%;\n' +
+    '        margin-top: 20%;\n' +
+    '\n' +
+    '        margin-left: 50%;\n' +
+    '        position: initial !important;\n' +
+    '        overflow: initial !important;\n' +
+    '    }\n' +
+    '\n' +
+    '    #description {\n' +
+    '        font-family: Roboto;\n' +
+    '        font-size: 15px;\n' +
+    '        font-weight: 300;\n' +
+    '    }\n' +
+    '\n' +
+    '    #infowindow-content .title {\n' +
+    '        font-weight: bold;\n' +
+    '    }\n' +
+    '\n' +
+    '    #infowindow-content {\n' +
+    '        display: none;\n' +
+    '    }\n' +
+    '\n' +
+    '    #map #infowindow-content {\n' +
+    '        display: inline;\n' +
+    '    }\n' +
+    '\n' +
+    '    .pac-card {\n' +
+    '        margin: 10px 10px 0 0;\n' +
+    '        border-radius: 2px 0 0 2px;\n' +
+    '        box-sizing: border-box;\n' +
+    '        -moz-box-sizing: border-box;\n' +
+    '        outline: none;\n' +
+    '        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);\n' +
+    '        background-color: #fff;\n' +
+    '        font-family: Roboto;\n' +
+    '    }\n' +
+    '\n' +
+    '    #pac-container {\n' +
+    '        padding-bottom: 12px;\n' +
+    '        margin-right: 12px;\n' +
+    '    }\n' +
+    '\n' +
+    '    .pac-controls {\n' +
+    '        display: inline-block;\n' +
+    '        padding: 5px 11px;\n' +
+    '    }\n' +
+    '\n' +
+    '    .pac-controls label {\n' +
+    '        font-family: Roboto;\n' +
+    '        font-size: 13px;\n' +
+    '        font-weight: 300;\n' +
+    '    }\n' +
+    '\n' +
+    '    #pac-input {\n' +
+    '        background-color: #fff;\n' +
+    '        font-family: Roboto;\n' +
+    '        font-size: 15px;\n' +
+    '        font-weight: 300;\n' +
+    '        margin-left: 12px;\n' +
+    '        padding: 0 11px 0 13px;\n' +
+    '        text-overflow: ellipsis;\n' +
+    '        width: 400px;\n' +
+    '    }\n' +
+    '\n' +
+    '    #pac-input:focus {\n' +
+    '        border-color: #4d90fe;\n' +
+    '    }\n' +
+    '\n' +
+    '    #title {\n' +
+    '        color: #fff;\n' +
+    '        background-color: #4d90fe;\n' +
+    '        font-size: 25px;\n' +
+    '        font-weight: 500;\n' +
+    '        padding: 6px 12px;\n' +
+    '    }\n' +
+    '\n' +
+    '    #footer {\n' +
+    '        position: fixed;\n' +
+    '        left: 0;\n' +
+    '        bottom: 0;\n' +
+    '        width: 100%;\n' +
+    '        background-color: transparent;\n' +
+    '        color: #494b74;\n' +
+    '    }\n' +
+    '</style>\n' +
+    '<div>\n' +
+    '    {{\'NewZone\' | translate}}\n' +
+    '</div>\n' +
+    '<div class="row  pmd-card pmd-z-depth" style="margin-bottom: 0;">\n' +
+    '    <div class="col-md-12 form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '        <div class="col-md-6 col-sm-6 form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '            <h1 class="text-center">\n' +
+    '                <kbd style="background-color: #494b74c4;">\n' +
+    '                    {{\'ManufactureLbl\' | translate}}:\n' +
+    '                    {{zoneMapCtrl.zone.manufacture.code}} -\n' +
+    '                    {{zoneMapCtrl.zone.manufacture.name}}\n' +
+    '                </kbd>\n' +
+    '            </h1>\n' +
+    '        </div>\n' +
+    '        <div class="col-md-6 col-sm-6 form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '            <h1>\n' +
+    '                <kbd style="background-color: #494b74c4;">\n' +
+    '                    {{\'Zone\' | translate}}:\n' +
+    '                    {{zoneMapCtrl.zone.zoneCode}} -\n' +
+    '                    {{zoneMapCtrl.zone.titles[selectedLanguage]}}\n' +
+    '                </kbd>\n' +
+    '            </h1>\n' +
+    '        </div>\n' +
+    '        <form class="form-horizontal" name="newZoneForm">\n' +
+    '\n' +
+    '            <div class="row" style="    padding-bottom: 8%;">\n' +
+    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                    <!-- <label for="readonly"><span style="color:red">*</span> {{\'map\' | translate}}\n' +
+    '                                        </label> -->\n' +
+    '                    <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->\n' +
+    '\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '            <div class="row" style=" padding-left: 18%; padding-bottom: 10%">\n' +
+    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                    <div id="map"></div>\n' +
+    '                    <!-- <div id="infowindow-content">\n' +
+    '                            <img src="" width="16" height="16" id="place-icon">\n' +
+    '                            <span id="place-name" class="title"></span><br>\n' +
+    '                            <span id="place-address"></span>\n' +
+    '                        </div> -->\n' +
+    '                </div>\n' +
+    '\n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<div class="pmd-modal-action text-right" id="footer">\n' +
+    '    <!-- {{zoneMapCtrl.CordinatesOfPoly}} -->\n' +
+    '    <button style="border: #494b74 solid 1px;border-radius: 6px;"  \n' +
+    '        class="btn pmd-ripple-effect btn-primary" Area="button"\n' +
+    '        ng-click="zoneMapCtrl.AddNewZone()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '    <button class="btn pmd-ripple-effect btn-default" Area="button"\n' +
+    '        ng-click="$state.go(\'Zone\');">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    <!-- ng-disabled="zoneMapCtrl.CordinatesOfPoly.length==0" -->\n' +
     '</div>');
 }]);
 

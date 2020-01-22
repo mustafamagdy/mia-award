@@ -26,11 +26,29 @@ namespace MIA.ORMContext.Seed {
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
       await SeedCategoriesAsync(db);
+      await SeedDemoNews(db);
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
-
-
       await db.CommitTransactionAsync();
+    }
+
+    private static async Task SeedDemoNews(IAppUnitOfWork db) {
+      //var news1 = db.News.ToList();
+      //var news2 = db.News.Where(a => a.Title.ArabicContains("ghgh")).ToList();
+
+      //for (int i = 0; i < 5; i++) {
+      //  var news = new News {
+      //    Title = new LocalizedData {
+      //      { LocalizedData.Arabic, "الخبر الاول"},
+      //      { LocalizedData.English, "news title 1"},
+      //    },
+      //    Body = new LocalizedData {
+      //      { LocalizedData.Arabic, @"لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت"},
+      //      { LocalizedData.English, @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate "},
+      //    }
+      //  };
+      //  await db.News.AddAsync(news);
+      //}
     }
 
     private static async Task SeedDemoUserAndRoleAsync(
