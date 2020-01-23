@@ -178,9 +178,9 @@ namespace MIA {
 #if (CORS)
         .UseCors(CorsPolicyName.AllowAll)
 #endif
-#if (HttpsEverywhere)
-        .UseIf(!this.env.IsDevelopment(), x => x.UseHsts())
-#endif
+//#if (HttpsEverywhere)
+//        .UseIf(!this.env.IsDevelopment(), x => x.UseHsts())
+//#endif
         .UseIf(this.env.IsDevelopment(), x => x.UseDeveloperErrorPages())
         .UseCustomExceptionHandler()
         .UseMiddleware<ImageProxyMiddleware>()
