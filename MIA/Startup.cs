@@ -25,6 +25,7 @@ using MIA.Constants;
 using MIA.Extensions;
 using MIA.Middlewares;
 using MIA.Middlewares.Auth;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace MIA {
   /// <summary>
@@ -162,13 +163,17 @@ namespace MIA {
         //Run pending db migrations
         .UpdateDatabase()
 
-        .UseAuthentication()
-
-#if (ForwardedHeaders)
-        .UseForwardedHeaders()
-#elif (HostFiltering)
+        //#if (ForwardedHeaders)
+        .UseForwardedHeaders(new ForwardedHeadersOptions {
+          ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+        })
+        //#elif (HostFiltering)
+#if (HostFiltering)
         .UseHostFiltering ()
 #endif
+
+        .UseAuthentication()
+
 #if (ResponseCaching)
         .UseResponseCaching()
 #endif
@@ -178,9 +183,9 @@ namespace MIA {
 #if (CORS)
         .UseCors(CorsPolicyName.AllowAll)
 #endif
-//#if (HttpsEverywhere)
-//        .UseIf(!this.env.IsDevelopment(), x => x.UseHsts())
-//#endif
+        //#if (HttpsEverywhere)
+        //        .UseIf(!this.env.IsDevelopment(), x => x.UseHsts())
+        //#endif
         .UseIf(this.env.IsDevelopment(), x => x.UseDeveloperErrorPages())
         .UseCustomExceptionHandler()
         .UseMiddleware<ImageProxyMiddleware>()
