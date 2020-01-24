@@ -36,7 +36,7 @@ const Tickets = props => {
           </div>
           <div className="ticket_imgthumb">
             <Tilt reset={true}>
-              <img src="assets/images/tickets_img.png" alt="#" />
+              <img src="/assets/images/tickets_img.png" alt="#" />
             </Tilt>
           </div>
         </div>

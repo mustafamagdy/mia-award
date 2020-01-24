@@ -18,7 +18,7 @@ const Footer = props => {
             <div className="about_mia">
               <div className="logo">
                 <a href="#" title="#">
-                  <img src="assets/images/logo.png" alt="#" />
+                  <img src="/assets/images/logo.png" alt="#" />
                 </a>
               </div>
               <p>

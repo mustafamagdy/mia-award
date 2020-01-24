@@ -25,32 +25,29 @@ import DirectionProvider from "containers/Providers/DirectionProvider";
 import ConfirmEmail from "containers/User/ConfirmEmail";
 import Profile from "containers/User/Profile";
 import CheckYourEmail from "containers/User/CheckYourEmail";
-import ResetPasswordByEmail from "containers/User/ResetPasswordByEmail";
-import ScrollToTop from "./ScrollToTop";
 
 import AboutUs from "../Pages/AboutUs";
 import ContactUs from "../Pages/ContactUs";
-
-import SignIn from "../User/SignIn";
-import Signup from "../User/Signup";
-import { UserContext } from "../Providers/UserProvider";
-import CookieGDPR from "./CookieGDPR";
-
-import LoadingScreen from "./Loading";
 import Awards from "../Pages/Awards";
 import Events from "../Pages/Events";
+import Gallery from "../Pages/Gallery";
+import News from "../Pages/News";
+
+import PaymentForm from "../Payment/PaymentForm";
+
 import MediaBrowser from "../Media";
 import Booths from "../Booths";
 import BuyBooth from "../Booths/BuyBooth";
+
 import Members from "../Members";
 import CompleteProfile from "../Members/CompleteProfile";
-import PaymentForm from "../Payment/PaymentForm";
 import UploadMedia from "../Members/UploadMedia";
 import MyDashboard from "../Members/MyDashboard";
 
 import TestUpload from "../Test/Upload";
 
 import "sass/style.scss";
+import NewsView from "../Pages/News/view";
 
 history.listen((location, action) => {
   //todo: use this for query string sync
@@ -77,6 +74,9 @@ class App extends React.Component {
                     <Route path="/events" component={Events} />
                     <Route path="/awards" component={Awards} />
                     <Route path="/contact-us" component={ContactUs} />
+                    <Route path="/gallery" component={Gallery} />
+                    <Route exact path="/news" component={News} />
+                    <Route path="/news/:id" component={NewsView} />
 
                     {/* browse media */}
                     <Route path="/media" component={MediaBrowser} />

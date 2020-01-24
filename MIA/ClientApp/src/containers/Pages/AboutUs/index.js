@@ -96,7 +96,7 @@ class AboutUs extends React.PureComponent {
             <div className="container">
               <div className="event">
                 <div className="icon">
-                  <img src="assets/images/our_value_icon.png" alt="#" />
+                  <img src="/assets/images/our_value_icon.png" alt="#" />
                 </div>
                 <div className="txt_area">
                   <div className="inside_txt_area">
@@ -114,7 +114,7 @@ class AboutUs extends React.PureComponent {
                 </div>
               </div>
               <div className="imgthumb">
-                <img src="assets/images/our_events_img.png" alt="#" />
+                <img src="/assets/images/our_events_img.png" alt="#" />
               </div>
             </div>
           </div>
@@ -122,12 +122,12 @@ class AboutUs extends React.PureComponent {
             <div className="container">
               <div className="imgthumb">
                 <div className="img">
-                  <img src="assets/images/our_awards_img.png" alt="#" />
+                  <img src="/assets/images/our_awards_img.png" alt="#" />
                 </div>
               </div>
               <div className="award">
                 <div className="icon">
-                  <img src="assets/images/our_award_icon.png" alt="#" />
+                  <img src="/assets/images/our_award_icon.png" alt="#" />
                 </div>
                 <div className="txt_area">
                   <div className="inside_txt_area">
