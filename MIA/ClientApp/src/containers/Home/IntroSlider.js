@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Trans } from "@lingui/macro";
 
-// import "sass/intro.scss";
-
 const Intro = props => {
   const [current, setCurrent] = useState(0);
   const [startAnim, setStartAnim] = useState(false);

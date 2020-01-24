@@ -44,7 +44,6 @@ const Partners = props => {
             <PagedPartners partners={pagedPartners} />
           </div>
           <div className="slider_dots">
-            {/* <!-- when user select slider number please add class "current" --> */}
             {new Array(pages).fill().map((a, i) => (
               <span className={classnames({ current: page == i })} onClick={() => setPage(i)}></span>
             ))}

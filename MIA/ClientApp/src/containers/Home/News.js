@@ -4,8 +4,6 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import homeActions from "store/home/actions";
 
-// import "sass/news.scss";
-
 const initState = {
   pageNumber: 1,
   pageSize: 4
@@ -20,7 +18,9 @@ const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage
   return (
     <div id="news_features">
       <div className="container">
-        <div className="title">news & features</div>
+        <div className="title">
+          <Trans id="news_features">news & features</Trans>
+        </div>
         <div className="features_sliders">
           {news.map((item, index) => (
             <div className="feature_item" key={index}>
