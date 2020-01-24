@@ -47,7 +47,6 @@ import MyDashboard from "../Members/MyDashboard";
 
 import TestUpload from "../Test/Upload";
 
-
 import "sass/style.scss";
 
 history.listen((location, action) => {
@@ -63,46 +62,46 @@ class App extends React.Component {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistedStore}>
           <LanguageProvider>
-            <DirectionProvider>
-              <ConnectedRouter history={history}>
-                <Layout>
-                  <Switch>
-                    {/* General website */}
-                    <Route path="test" component={TestUpload} />
+            {/* <DirectionProvider> */}
+            <ConnectedRouter history={history}>
+              <Layout>
+                <Switch>
+                  {/* General website */}
+                  <Route path="test" component={TestUpload} />
 
-                    <Route exact path="/" component={Home} />
-                    <Route path="/about-us" component={AboutUs} />
-                    <Route path="/events" component={Events} />
-                    <Route path="/awards" component={Awards} />
-                    <Route path="/contact-us" component={ContactUs} />
-                    <Route path="/gallery" component={Gallery} />
-                    <Route exact path="/news" component={News} />
-                    <Route path="/news/:id" component={NewsView} />
+                  <Route exact path="/" component={Home} />
+                  <Route path="/about-us" component={AboutUs} />
+                  <Route path="/events" component={Events} />
+                  <Route path="/awards" component={Awards} />
+                  <Route path="/contact-us" component={ContactUs} />
+                  <Route path="/gallery" component={Gallery} />
+                  <Route exact path="/news" component={News} />
+                  <Route path="/news/:id" component={NewsView} />
 
-                    {/* browse media */}
-                    <Route path="/media" component={MediaBrowser} />
+                  {/* browse media */}
+                  <Route path="/media" component={MediaBrowser} />
 
-                    {/* Account management */}
-                    <Route exact path="/account" component={Profile} />
-                    <Route path="/account/checkYourEmail" component={CheckYourEmail} />
-                    <Route path="/account/profile" component={Profile} />
-                    <Route path="/account/confirm" component={ConfirmEmail} />
-                    {/* <Route path="/account/resetPassword" component={ResetPasswordByEmail} /> */}
+                  {/* Account management */}
+                  <Route exact path="/account" component={Profile} />
+                  <Route path="/account/checkYourEmail" component={CheckYourEmail} />
+                  <Route path="/account/profile" component={Profile} />
+                  <Route path="/account/confirm" component={ConfirmEmail} />
+                  {/* <Route path="/account/resetPassword" component={ResetPasswordByEmail} /> */}
 
-                    {/* booths */}
-                    <Route path="/booth" component={Booths} />
-                    <Route path="/booth-buy" component={BuyBooth} />
+                  {/* booths */}
+                  <Route path="/booth" component={Booths} />
+                  <Route path="/booth-buy" component={BuyBooth} />
 
-                    {/* Member section */}
-                    <Route path="/members" component={Members} />
-                    <Route path="/complete-profile" component={CompleteProfile} />
-                    <Route path="/pay" component={PaymentForm} />
-                    <Route path="/dashboard" component={MyDashboard} />
-                    <Route path="/upload-media" component={UploadMedia} />
+                  {/* Member section */}
+                  <Route path="/members" component={Members} />
+                  <Route path="/complete-profile" component={CompleteProfile} />
+                  <Route path="/pay" component={PaymentForm} />
+                  <Route path="/dashboard" component={MyDashboard} />
+                  <Route path="/upload-media" component={UploadMedia} />
 
-                    <Redirect from="*" to="/" />
-                  </Switch>
-                  {/*
+                  <Redirect from="*" to="/" />
+                </Switch>
+                {/*
                    <UserContext.Consumer>
                     {({
                       signinModalOpened,
@@ -146,9 +145,9 @@ class App extends React.Component {
                       )}
                   </UserContext.Consumer> 
                   */}
-                </Layout>
-              </ConnectedRouter>
-            </DirectionProvider>
+              </Layout>
+            </ConnectedRouter>
+            {/* </DirectionProvider> */}
           </LanguageProvider>
         </PersistGate>
       </Provider>

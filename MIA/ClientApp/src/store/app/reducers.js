@@ -12,7 +12,7 @@ const initialState = {
   lastPing: "",
   sidebarOpen: false,
   searchFormOpen: false,
-  shareSidebarOpen: false,
+  shareSidebarOpen: false
 };
 
 const toggleSidebar = (state, { locale }) => {
@@ -52,6 +52,8 @@ const changeLocale = (state, { locale }) => {
     localStorage.setItem("culture", _locale.code);
     localStorage.setItem("language", _locale.code);
     localStorage.setItem("cultureCode", _locale.culture);
+    
+    document.body.setAttribute("dir", draft.direction);
   });
 };
 
@@ -80,5 +82,5 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.CHANGE_LOCALE]: changeLocale,
   [ActionTypes.TOGGLE_SIDEBAR]: toggleSidebar,
   [ActionTypes.TOGGLE_SEARCH_FORM]: toggleSearchForm,
-  [ActionTypes.TOGGLE_SHARE_SIDEBAR]: toggleShareSidebar,
+  [ActionTypes.TOGGLE_SHARE_SIDEBAR]: toggleShareSidebar
 });
