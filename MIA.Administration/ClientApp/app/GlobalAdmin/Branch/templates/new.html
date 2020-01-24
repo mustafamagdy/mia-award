@@ -1,0 +1,43 @@
+<div>
+ {{'AddNewBranch' | translate}} </div>  
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-title-text">{{'Branch' | translate}}</h2>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="newBranchForm"> 
+            <div> 
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in newBranchCtrl.language">
+                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">
+                                <span style="color:red">*</span>  {{lang.value | translate}}
+                        </a>
+                    </li> 
+                </ul>
+                <div class="pmd-card">
+                    <div class="pmd-card-body">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in newBranchCtrl.language" id="{{lang.value}}-form">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label for="first-name">{{ lang.value+'Name' | translate}} </label>
+                                    <input required Branch="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="newBranchCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">
+                                    <div ng-messages="newBranchForm.titleDictionary{{lang.value+'Name'}}.$error" >
+										
+                                        <div ng-show="newBranchForm.titleDictionary{{lang.value+'Name'}}.$error.required && !newBranchForm.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+                                        <div ng-show="(newBranchForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || newBranchForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newBranchForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError3' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </form>
+    </div>
+    <div class="pmd-modal-action text-right">
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="newBranchForm.$invalid" class="btn pmd-ripple-effect btn-primary" Branch="button" ng-click="newBranchCtrl.AddNewBranch()">{{'saveChangesBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" Branch="button" ng-click="newBranchCtrl.close()">{{'DiscardBtn' | translate}}</button>
+    </div>
+</div>

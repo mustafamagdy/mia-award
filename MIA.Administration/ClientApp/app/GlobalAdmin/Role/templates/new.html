@@ -1,0 +1,90 @@
+
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-title-text">{{'NewRoleLbl' | translate}}</h2>
+    </div>
+
+    <div class="modal-body">
+        <form class="form-horizontal" name="newRoleForm">
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in newRoleCtrl.language">
+                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
+                            data-toggle="tab">
+                            <span style="color:red">*</span> {{lang.value | translate}}
+                        </a>
+                    </li>
+                </ul>
+                <div class="pmd-card">
+                    <div class="pmd-card-body">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
+                                ng-repeat="lang in newRoleCtrl.language" id="{{lang.value}}-form">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
+                                    <input required type="text" class="mat-input form-control"
+                                        name="titles{{lang.value+'Name'}}"
+                                        ng-model="newRoleCtrl.titles[lang.key]" ng-minlength="3"
+                                        ng-maxlength="255">
+                                    <div ng-messages="newRoleForm.titles{{lang.value+'Name'}}.$error">
+
+                                        <div
+                                            ng-show="newRoleForm.titles{{lang.value+'Name'}}.$error.required && !newRoleForm.titles{{lang.value+'Name'}}.$pristine">
+                                            {{'requiredErr' | translate}}</div>
+                                        <div
+                                            ng-show="(newRoleForm.titles{{lang.value+'Name'}}.$error.minlength || newRoleForm.titles{{lang.value+'Name'}}.$error.maxlength) && !newRoleForm.titles{{lang.value+'Name'}}.$error.required">
+                                            {{'NameLengthError3' | translate}}</div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div
+                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                <label for="first-name">{{'Module' | translate}}</label>
+                                <select required style="width:100% !important"
+                                    class="form-control select-with-search pmd-select2-tags" multiple
+                                    ng-model="newRoleCtrl.selectedModule"
+                                    ng-change="newRoleCtrl.ChangeSelectedModule()"
+                                    ng-options="group as group.module.title[selectedLanguage] for group in permissionList">
+                                </select>
+                            </div>
+                            <div
+                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                <label for="first-name">{{'Permission' | translate}}</label>
+                                <select required style="width:100% !important"
+                                    class="form-control select-with-search pmd-select2-tags" multiple
+                                    ng-model="newRoleCtrl.selectedPermissions" ng-options="group.permessionId as group.title[selectedLanguage]
+                                     for group in newRoleCtrl.selectedModuleList">
+                                </select>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="pmd-modal-action text-right">
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="newRoleForm.$invalid"
+            class="btn pmd-ripple-effect btn-primary" type="button"
+            ng-click="newRoleCtrl.AddNewRole()">{{'saveChangesBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" type="button"
+            ng-click="$state.go('Role');">{{'DiscardBtn' | translate}}</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-with-search").select2({
+            theme: "bootstrap"
+        });
+    });
+    $(".select-tags").select2({
+        tags: false,
+        theme: "bootstrap",
+    });
+</script>

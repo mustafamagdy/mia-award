@@ -1,0 +1,56 @@
+<div class="container">
+    <!-- header -->
+    <div class="modal-header bordered" id="bold">
+            {{'EditDistributor'| translate}}
+        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="vm-container">
+                <!-- Distributor form step -->
+                <div id="vm-step-container">
+                    <ul class="nav nav-pills nav-justified">
+                        <li ng-repeat="step in editDistributorCtrl.steps"
+                            ng-class="{'active':step.step == editDistributorCtrl.currentStep}">
+                            <a> {{step.step | translate }}. {{step.name | translate}}</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- function -- get pages  -->
+                <div id="vm-content-container">
+                    <ng-include src="editDistributorCtrl.getStepTemplate()"></ng-include>
+                </div>
+                <!-- previous button  -->
+                <div id="vm-navigation-container" class="col-lg-12">
+                    <div class="pull-right">
+                        <span class="btn-group">
+                                <button class="btn btn-primary" name="next" type="button"
+                                onclick="goBack()"> {{'goBack' | translate}}</button>
+                            <button ng-disabled="editDistributorCtrl.currentStep <= 1" class="btn btn-default"
+                                name="previous" type="button"
+                                ng-click="editDistributorCtrl.gotoStep(editDistributorCtrl.currentStep - 1)"><i
+                                    class="fa fa-arrow-left"></i>{{'PreviousStep' | translate}}
+                            </button>
+                            <!-- next button  -->
+                            <button ng-disabled="editDistributorCtrl.currentStep >=editDistributorCtrl.steps.length"
+                                class="btn btn-primary" name="next" type="button"
+                                ng-click="editDistributorCtrl.gotoStep(editDistributorCtrl.currentStep + 1)">
+                                {{'Nextstep' | translate}}
+                                <i class="fa fa-arrow-right"></i>
+                            </button>
+                   
+                        </span>
+                        <!-- save button  -->
+                        <button
+                            ng-disabled="editDistributorCtrl.currentStep !=editDistributorCtrl.steps.length ||  isValid == false"
+                            class="btn btn-success" name="next" type="button"
+                            ng-click="editDistributorCtrl.UpdateDistributor()">
+                            <i class="fa fa-floppy-o"></i> {{'Save' | translate}}</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

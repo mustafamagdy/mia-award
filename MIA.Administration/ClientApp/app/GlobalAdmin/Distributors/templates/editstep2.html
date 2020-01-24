@@ -1,0 +1,142 @@
+<div class="modal-content container">
+    <h2> {{ContactInformation | translate}} </h2>
+
+    <div class="modal-body">
+        <form class="form-horizontal" name="editDistributorForm">
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" ng-class="{'active':$index == 0}"
+                        ng-repeat="lang in newCategoryCtrl.language">
+                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
+                            data-toggle="tab">
+                            {{lang.value | translate}}
+                        </a>
+                    </li>
+                </ul>
+                <div class="pmd-card">
+                    <div class="pmd-card-body">
+                        <!-- Tab panes -->
+                        <div class="tab-content table-responsive">
+                            <!-- name -->
+                            <div class="form-group col-lg-2">
+                                <label><span style="color:red">*</span> {{'Name' | translate}}</label>
+                                <input type="text" class="form-control" name="name" style="display: inline-block; "
+                                    ng-model="editDistributorCtrl.name" required />
+                                <div class="error" ng-messages="editDistributorForm.name.$error">
+                                    <div ng-if="editDistributorForm.name.$error.required && 
+                                    !editDistributorForm.name.$pristine">{{'requiredErr' | translate}}</div>
+                                </div>
+                            </div>
+                            <!-- title -->
+                            <div class="form-group col-lg-2">
+                                <label>{{'Title' | translate}}</label>
+                                <input type="text" class="form-control" name="title" style="display: inline-block;"
+                                    ng-model="editDistributorCtrl.title" required />
+                            </div>
+                            <!-- Mobile number -->
+                            <div class="form-group col-lg-2">
+                                <label> <span style="color:red">*</span> {{'MobileNo' | translate}}</label>
+                                <input required type="text" class="mat-input form-control" name="mobileNumber" numbers-only  style="display: inline-block;" ng-minlength="11" ng-maxlength="11"
+                                    ng-model="editDistributorCtrl.mobileNumber" required />
+                                <!-- required validation  -->
+                                <div ng-messages="editDistributorForm.mobileNumber.$error">
+                                    <div class="error" ng-if="editDistributorForm.mobileNumber.$error.required && 
+                                        !editDistributorForm.mobileNumber.$pristine">
+                                        {{'requiredErr' |  translate}}
+                                    </div>
+                                    <!-- length validation -->
+                                    <div class="error" ng-if="(editDistributorForm.mobileNumber.$error.minlength ||
+                                            editDistributorForm.mobileNumber.$error.maxlength) 
+                                             && !editDistributorForm.mobileNumber.newmobileNumber.$error.required">
+                                             {{'PhoneLengthError' |  translate}}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- email -->
+                            <div class="form-group col-lg-2">
+                                <label>{{'EmailLbl' | translate}}</label>
+                                <input type="text" class="form-control" name="email" style="display: inline-block;"
+                                    ng-model="editDistributorCtrl.email" required />
+                            </div>
+                            <!-- contact Type -->
+                            <!-- contact Type -->
+                            <div class="form-group col-lg-2">
+                                <label>{{'ContactType' | translate}}</label>
+                                <!-- required validation -->
+                                <select class="form-control select-tags pmd-select2-tags"
+                                    ng-model="editDistributorCtrl.contactType" name="contactType">
+                                    <option ng-repeat="contact in editDistributorCtrl.ContactTypeList">
+                                        {{contact.titles[selectedLanguage]}}
+                                    </option>
+                                </select>
+
+                            </div>
+                            <!-- {{size.sizeNameDictionary[selectedLanguage]}} -->
+
+                            <!-- add button -->
+                            <div class="col-lg-2">
+                                <label>{{'Addtotable' | translate}}</label>
+                                <input type="button" ng-click="editDistributorCtrl.AddContact()"
+                                class="btn btn-primary" value="{{'AddBtn' | translate}}"
+                                style="height: 36px;border: #494b74 solid 1px;border-radius: 6px;">
+                        </div>
+                            <hr>
+                            <!-- binding data from inputs to table -->
+                            <table class="table pmd-table table-hover">
+                                <!-- heads -->
+                                <thead>
+                                    <tr>
+                                        <th>{{'Name' | translate}}</th>
+                                        <th>{{'Title' | translate}}</th>
+                                        <th>{{'MobileNo' | translate}}</th>
+                                        <th>{{'EmailLbl' | translate}}</th>
+                                        <th>{{'ContactType' | translate}}</th>
+                                        <th>{{'Action' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <!-- binding data -->
+                                <tbody>
+                                    <tr
+                                        ng-repeat="(index,Contact) in editDistributorCtrl.Distributor.distributorContactInformation">
+                                        <td data-title="Name">{{Contact.name}}</td>
+                                        <td data-title="Title">{{Contact.title}}</td>
+                                        <td data-title="mobileNumber"> {{Contact.mobileNumber}}</td>
+                                        <td data-title="email">{{Contact.email}}</td>
+                                        <td data-title="ContactType">{{Contact.title}}</td>
+                                        <td data-title="Action">
+                                            <input type="checkbox"
+                                                ng-change="editDistributorCtrl.setContactMain(Contact)"
+                                                ng-model="Contact.main">
+                                        </td>
+                                        <td width="30%">
+                                            <i
+                                    class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="editDistributorCtrl.openDeleteContactTypeDialog(index)"title="Delete">delete</i>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="(index,Contact1) in editDistributorCtrl.ContactList">
+                                        <td data-title="Name">{{Contact1.name}}</td>
+                                        <td data-title="Title">{{Contact1.title}}</td>
+                                        <td data-title="mobileNumber"> {{Contact1.mobileNumber}}</td>
+                                        <td data-title="email">{{Contact1.email}}</td>
+                                        <td data-title="ContactType">{{editDistributorCtrl.contactType}}</td>
+                                        <td data-title="Action">
+                                            <input type="checkbox"
+                                                ng-change="editDistributorCtrl.setContactMain(Contact1)"
+                                                ng-model="Contact1.checkbox">
+                                        </td>
+                                        <td width="30%">
+                                            <i
+                                    class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="editDistributorCtrl.openDeleteContactTypeDialogContactList(index)"title="Delete">delete</i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

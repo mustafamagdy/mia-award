@@ -34,12 +34,12 @@ namespace MIA.Authorization {
 
       //we get the modules this user is allowed to see
       var userModules = _context.ModulesForUsers.Find(userId)
-                          ?.AllowedModules ?? SystemModules.None;
+                          ?.AllowedModules ?? SystemModules.Dashboard;
       //Now we remove permissions that are linked to modules that the user has no access to
       var filteredPermissions =
         from permission in permissionsForUser
         let moduleAttr = typeof(Permissions).GetMember(permission.ToString())[0]
-          .GetCustomAttribute<LinkedToModuleAttribute>()
+          .GetCustomAttribute<PermissionDescriptorAttribute>()
         where moduleAttr == null || userModules.HasFlag(moduleAttr.SystemModule)
         select permission;
 

@@ -1,0 +1,18 @@
+<div class="modal-content container">
+  <h2>  {{'commercialInformation' | translate}} </h2>
+
+  <div class="modal-body">
+    <form class="form-horizontal" name="editManufactureForm">
+      <div>
+        <div class="form-group pmd-textfield-floating-label-completed">
+          <span style="color:red">*</span>
+          <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">
+              {{'UploadPhoto' | translate}}</label>
+          <input id="image" class="hidden" type="file" img-upload ng-model="imageName" name="imageName">
+          <img height="100" width="100" ng-src="{{image}}" />
+          <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+            {{'RecommendedProductImage' | translate}}</span>
+
+        </div>
+      </div>
+  </div>

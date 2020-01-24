@@ -1,0 +1,97 @@
+<div>
+    <div id="bold">
+        {{'OrderDetails' | translate}}
+    </div>
+
+    <h1 class="text-center">
+        <kbd style="background-color: #494b74c4;">
+            {{OrderDetailsByTenantCtrl.order.orderNo}} /
+            {{OrderDetailsByTenantCtrl.order.retailer.name}} /
+            {{OrderDetailsByTenantCtrl.order.createDate}}
+        </kbd>
+    </h1>
+
+    <div ng-if="OrderDetailsByTenantCtrl.OrderDetails.length == 0">
+        <span>{{'NoOrderAvailable' | translate}}</span>
+    </div>
+
+    <div class="col-sm-3 form-group pmd-textfield pmd-textfield-floating-label-completed">
+        <button class="btn pmd-ripple-effect btn-primary " type="button" id="Selected"
+            ng-click="OrderDetailsByTenantCtrl.refreshDetails()">{{'refresh' | translate}}</button>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="OrderDetailsByTenantCtrl.OrderDetails.length > 0">
+        <div class="table-responsive">
+            <div class="col-sm-3 form-group pmd-textfield pmd-textfield-floating-label-completed">
+                <button ng-disabled="OrderDetailsByTenantCtrl.listSelected.length==0"
+                    class="btn pmd-ripple-effect btn-primary " type="button" id="Selected"
+                    ng-click="OrderDetailsByTenantCtrl.forwardSelected()">{{'ForwordSelected' | translate}}</button>
+            </div>
+            <div class="col-sm-6 form-group pmd-textfield pmd-textfield-floating-label-completed">
+                <button ng-disabled="OrderDetailsByTenantCtrl.listSelected.length==0"
+                    class="btn pmd-ripple-effect btn-primary " type="button" id="Selected"
+                    ng-click="OrderDetailsByTenantCtrl.cancelSelected()">{{'CancelSelected' | translate}}</button>
+            </div>
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <!-- <input type="checkbox" ng-model="selectedAll" ng-click="checkAll()" /> -->
+                        </th>
+                        <th style="width: 30%">{{'Name' | translate}}</th>
+                        <th style="width: 20%">{{'SKU' | translate}}</th>
+                        <th style="width: 6%">{{'price' | translate}}</th>
+                        <th style="width: 4%">{{'Quantity' | translate}}</th>
+                        <th style="width: 6%"> {{'Status' | translate}}</th>
+                        <th style="width: 6%">{{'DistributorLbl' | translate}} {{'Status' | translate}}</th>
+                        <th style="width: 6%">{{'RetailerLbl' | translate}} {{'Status' | translate}}</th>
+                        <!-- <th></th> -->
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr ng-repeat="Order in OrderDetailsByTenantCtrl.OrderDetails">
+                        <td>
+                            <input ng-disabled="Order.distributorStatus.statusCode != 255" id="{{Order.orderItemId}}"
+                                type="checkbox" value="{{Order.orderItemId}}"
+                                ng-checked="OrderDetailsByTenantCtrl.listSelected.indexOf(Order.orderItemId) > -1"
+                                ng-click="OrderDetailsByTenantCtrl.toggleSelection(Order.orderItemId)" />
+
+                            <!-- <input type="checkbox" ng-model="Order.isChecked" ng-checked="selectedAll"
+                                ng-change="editZoneRelationCtrl.selectRetailer(Retailer)"> -->
+                        </td>
+
+                        <td>{{Order.productTitle[selectedLanguage] | limitTo : 20}}</td>
+                        <td data-title="Name">{{Order.skuTitle[selectedLanguage]}}</td>
+                        <td data-title="Name">{{Order.price}}<sub> {{'EGP' | translate}}</sub></td>
+                        <td data-title="Name">{{Order.quantity}}</td>
+                        <td> <span class="label label-success">
+                                {{Order.manufactureStatus.title[selectedLanguage]}}</span></td>
+
+
+                        <td>
+                            <span class="label label-default">
+                                {{Order.distributorStatus.title[selectedLanguage]}}</span>
+                        </td>
+                        <td>
+                            <span class="label label-warning">
+                                {{Order.retailerStatus.title[selectedLanguage]}}</span>
+                        </td>
+                        <td data-title="Name">
+                            <i ng-show="user.permessionModules['Order'].includes(8)"
+                                class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="OrderDetailsByTenantCtrl.openOrderDetails(Order)">mode_edit</i>
+                        </td>
+
+
+                    </tr>
+
+                </tbody>
+            </table>
+            <!-- <pre>{{OrderDetailsByTenantCtrl.listSelected}}</pre> -->
+        </div>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10"
+        total="OrderDetailsByTenantCtrl.totalCount" paging-action="OrderDetailsByTenantCtrl.changePage(page)"
+        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

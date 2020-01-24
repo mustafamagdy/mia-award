@@ -1,0 +1,70 @@
+<div>
+    <h1 class="text-center">
+        <kbd style="background-color: #494b74c4;">
+            {{selectedManufacture.name}} :
+            {{selectedManufacture.code}}
+        </kbd>
+    </h1>
+    <div style="margin-bottom:10px" ng-show="user.permessionModules['SKU'].includes(18)">
+            <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+                ng-disabled="selectedManufacture.manufactureId==0" ng-click="$state.go('newSKU');"
+                class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew' | translate}}</button>
+                <div class="error"
+                ng-show="selectedManufacture.manufactureId==0">
+                {{'selectedManufacture' | translate}}</div>
+        </div>
+
+    <div ng-if="SKUs.length == 0">
+        <span>{{'NoSKUsAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="SKUs.length > 0">
+        <div class="table-responsive">
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'codeLbl' | translate}}</th>
+                    <th> {{'Title' | translate}}</th>
+                    <th>{{'basic' | translate}}</th>
+                    <th>{{'StatusLbl' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="sku in SKUs">
+                    <td data-title="code">{{sku.code}}</td>
+                    <td data-title="titles">
+                        {{sku.titles[selectedLanguage]}}
+                    </td>
+                    <td>
+                        <div ng-show="user.permessionModules['SKU'].includes(21)" class="btn-switch"
+                            ng-class="{'btn-switch--on':sku.isBasic }" ng-model="sku.isBasic">
+
+                            <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':sku.isBasic }"
+                                ng-model="sku.isBasic">
+                            </div>
+
+                    </td>
+                    <td>
+                        <div class="btn-switch" ng-class="{'btn-switch--on':sku.isActive }" ng-model="sku.isActive "
+                            ng-click="SKUCtrl.ChangeSKYStatus(sku)">
+
+                            <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':sku.isActive }"
+                                ng-model="sku.isActive " ng-click="SKUCtrl.ChangeSKYStatus(sku)">
+                            </div>
+
+                    </td>
+                    <td width="30%">
+                        <i ng-show="user.permessionModules['SKU'].includes(20)" class="material-icons md-dark pmd-md cursorPointer font25"
+                            ng-click="$state.go('editSKU',{skuId: sku.skuId});" title="Edit">mode_edit</i>
+                        <i ng-show="user.permessionModules['SKU'].includes(19)" class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="SKUCtrl.openDeleteDialog
+                            (sku,sku.titles[selectedLanguage],sku.skuId)" title="Delete">delete</i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        class="hide">
+    </div>
+</div>

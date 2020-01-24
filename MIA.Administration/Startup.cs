@@ -26,14 +26,14 @@ using MIA.Middlewares.Auth;
 using MIA.Api.Base;
 using MIA.Administration.Extensions;
 using MIA.Administration.Middlewares;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.AspNetCore.HttpOverrides;
 
-namespace MIA
-{
+namespace MIA {
   /// <summary>
   /// Startup class for asp.net core Api
   /// </summary>
-  public class Startup
-  {
+  public class Startup {
     private readonly IConfiguration configuration;
     private readonly IHostingEnvironment env;
 
@@ -42,8 +42,7 @@ namespace MIA
     /// </summary>
     /// <param name="configuration">Used to read configuration from appsettings.json</param>
     /// <param name="hostingEnvironment">Used to configure hosting environment</param>
-    public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
-    {
+    public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment) {
       this.configuration = configuration;
       this.env = hostingEnvironment;
     }
@@ -53,8 +52,7 @@ namespace MIA
     /// </summary>
     /// <param name="services">service collection to add to</param>
     /// <returns></returns>
-    public IServiceProvider ConfigureServices(IServiceCollection services)
-    {
+    public IServiceProvider ConfigureServices(IServiceCollection services) {
       IServiceProvider provider = services
         .AddSeriLogging()
 #if (ApplicationInsights)
@@ -162,19 +160,21 @@ namespace MIA
     public void Configure(IApplicationBuilder app,
       UserManager<AppUser> userManager,
       RoleManager<AppRole> roleManager,
-      IAppUnitOfWork db)
-    {
+      IAppUnitOfWork db) {
       app
         //Run pending db migrations
         .UpdateDatabase()
 
-        .UseAuthentication()
-
-#if (ForwardedHeaders)
-        .UseForwardedHeaders()
-#elif (HostFiltering)
+        //#if (ForwardedHeaders)
+        .UseForwardedHeaders(new ForwardedHeadersOptions {
+          ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+        })
+        //#elif (HostFiltering)
+#if (HostFiltering)
         .UseHostFiltering ()
 #endif
+
+        .UseAuthentication()
 #if (ResponseCaching)
         .UseResponseCaching()
 #endif
@@ -184,9 +184,9 @@ namespace MIA
 #if (CORS)
         .UseCors(CorsPolicyName.AllowAll)
 #endif
-#if (HttpsEverywhere)
-        .UseIf(!this.env.IsDevelopment(), x => x.UseHsts())
-#endif
+        //#if (HttpsEverywhere)
+        //        .UseIf(!this.env.IsDevelopment(), x => x.UseHsts())
+        //#endif
         .UseIf(this.env.IsDevelopment(), x => x.UseDeveloperErrorPages())
         .UseCustomExceptionHandler()
         .UseMiddleware<ImageProxyMiddleware>()
@@ -200,8 +200,7 @@ namespace MIA
 #endif
 
         .UseMiddleware<AuthTokenManagerMiddleware>()
-        .UseMvc(routes =>
-        {
+        .UseMvc(routes => {
           routes.MapRoute(
               name: "default",
               template: "api/{culture::regex(^[a-z]{{2}}-[A-Za-z]{{4}}$)}/{controller}/{id?}");
@@ -214,14 +213,13 @@ namespace MIA
 
         .UseStaticFilesWithCacheControl()
         .UseSpaFiles()
-        .UseSpa(spa =>
-        {
+        .UseSpa(spa => {
           spa.Options.SourcePath = env.IsProduction() ? "wwwroot" : "ClientApp";
 
-          if (env.IsDevelopment())
-          {
+          if (env.IsDevelopment()) {
             spa.Options.StartupTimeout = TimeSpan.FromSeconds(120);
-            spa.UseReactDevelopmentServer(npmScript: "start");
+            spa.UseAngularCliServer(npmScript: "start");
+            //spa.UseReactDevelopmentServer(npmScript: "start");
           }
         });
 

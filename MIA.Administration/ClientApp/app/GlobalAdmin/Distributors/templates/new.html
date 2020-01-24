@@ -1,0 +1,55 @@
+<div class="container">
+        <!-- header -->
+        <div class="modal-header bordered" id="bold">
+                {{'NewDistributor'| translate}}
+            </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="vm-container">
+                    <!-- Distributors form step -->
+                    <div id="vm-step-container">
+                        <ul class="nav nav-pills nav-justified">
+                            <li ng-repeat="step in newDistributorCtrl.steps"
+                                ng-class="{'active':step.step == newDistributorCtrl.currentStep}">
+                                <a> {{step.step | translate }}. {{step.name | translate}}</a>
+                            </li>
+                        </ul>
+                    </div>
+    
+                    <!-- function -- get pages  -->
+                    <div id="vm-content-container">
+                        <ng-include src="newDistributorCtrl.getStepTemplate()"></ng-include>
+                    </div>
+                    <!-- previous button  -->
+                    <div id="vm-navigation-container" class="col-lg-12">
+                        <div class="pull-right">
+                            <span class="btn-group">
+                                    <button class="btn btn-primary" name="next" type="button"
+                                    onclick="goBack()"> {{'goBack' | translate}}</button>
+                                <button ng-disabled="newDistributorCtrl.currentStep <= 1" class="btn btn-default"
+                                    name="previous" type="button"
+                                    ng-click="newDistributorCtrl.gotoStep(newDistributorCtrl.currentStep - 1)"><i
+                                        class="fa fa-arrow-left"></i> {{'PreviousStep' | translate}}
+                                </button>
+                                <!-- next button  -->
+                                <button ng-disabled="newDistributorCtrl.currentStep >=newDistributorCtrl.steps.length"
+                                    class="btn btn-primary" name="next" type="button"
+                                    ng-click="newDistributorCtrl.gotoStep(newDistributorCtrl.currentStep + 1)">
+                                     {{'Nextstep' | translate}}
+                                    <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </span>
+                            <!-- save button  -->
+                            <button
+                                ng-disabled="newDistributorCtrl.currentStep !=newDistributorCtrl.steps.length || image == null"
+                                class="btn btn-success" name="next" type="button"
+                                ng-click="newDistributorCtrl.addNewDistributors()">
+                                <i class="fa fa-floppy-o"></i>  {{'Save' | translate}}</button>
+                        </div>
+                    </div>
+    
+                </div>
+    
+            </div>
+        </div>
+    </div>

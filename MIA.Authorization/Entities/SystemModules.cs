@@ -1,16 +1,12 @@
 ﻿using System;
 
-namespace MIA.Authorization.Entities
-{
-  /// <summary>
-  /// This is an example of how you would manage what optional parts of your system a user can access
-  /// NOTE: You can add Display attributes (as done on Permissions) to give more information about a module
-  /// </summary>
+namespace MIA.Authorization.Entities {
   [Flags]
   public enum SystemModules : long {
-    None = 0,
-    Module1 = 1,
-    Module2 = 2,
-    Module3 = 3
+    Dashboard = 1 << 1,
+    Adminstration = 1 << 2,
+    News = 1 << 3,
+    Booths = 1 << 4,
+    Gallery = 1 << 5
   }
 }

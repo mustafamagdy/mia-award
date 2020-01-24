@@ -1,0 +1,67 @@
+<div>
+
+    <div ncy-breadcrumb></div>
+    <!-- <div>
+        {{'viewCities' | translate}}
+    </div> -->
+    <div style="margin-bottom:10px">
+
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-click="$state.go('newCity',{ countryId: $stateParams.countryId,governrateId: $stateParams.governrateId });"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew' | translate}}</button>
+
+    </div>
+    <div ng-if="Cities.length == 0">
+        <span>{{'NoCitiesAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="Cities.length > 0">
+        <div class="table-responsive">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'Name' | translate}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="city in Cities">
+                        <td data-title="Name">
+                            {{city.titles[selectedLanguage]}}
+
+                        </td>
+                        <td width="30%">
+                            <i class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('editCity',{countryId: $stateParams.countryId,governrateId: $stateParams.governrateId,cityId: city.cityId});"
+                                title="Edit">mode_edit</i>
+                        </td>
+                        <td>
+                            <div class="btn-switch" ng-class="{'btn-switch--on':city.isActive}" ng-model="city.isActive"
+                                ng-click="CityCtrl.ChangeCityStatus(city)">
+
+                                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':city.isActive}"
+                                    ng-model="city.isActive" ng-click="CityCtrl.ChangeCityStatus(city)">
+                                </div>
+
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        disabled-class="hide">
+    </div>
+</div>
+<div>
+        <a onclick="goBack()">
+            <div class="col-xs-12">
+                <button type="button"
+                class="btn btn-primary" 
+                style="height: 36px;border: #494b74 solid 1px;border-radius: 6px;">
+                {{'goBack' | translate}}
+                </button>
+            </div>
+            </a>
+    </div>

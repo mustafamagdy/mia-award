@@ -1,0 +1,80 @@
+<div style="margin-bottom:10px">
+    <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+        ng-click="$state.go('addOperationUser',{userType:5});" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+        type="button">{{'AddBtn'
+            | translate}}</button>
+
+</div>
+<div>
+    <div ng-if="userIoaCtrl.userList.length == 0">
+        <span>{{'NouserAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="userIoaCtrl.userList.length >0">
+
+        <div class="table-responsive">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'fullname' | translate}}</th>
+                        <th>{{'username' | translate}}</th>
+                        <th>{{'mail' | translate}}</th>
+                        <th>{{'phone' | translate}}</th>
+                        <th>{{'Status' | translate}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="userRow in userIoaCtrl.userList">
+                        <td>{{ userRow.fullName}}</td>
+                        <td>{{ userRow.userName}}</td>
+                        <td>{{ userRow.email}}</td>
+                        <td>{{ userRow.mobileNumber}}</td>
+                        <!-- <td> <span ng-show="userRow.isMaster">
+                                        <img ng-click="userIoaCtrl.ChangeRole(userRow)"
+                                            src="../../../../assets/img/admin.png" alt="admin">
+                                    </span> <span ng-show="!userRow.isMaster">
+                                        <img ng-click="userIoaCtrl.ChangeRole(userRow)"
+                                            src="../../../../assets/img/user.png" alt="User">
+                                    </span>
+        
+        
+                                </td> -->
+                        <td>
+                            <div>
+                                <div class="btn-switch" ng-class="{'btn-switch--on':userRow.isActive}"
+                                    ng-model="userRow.isActive" ng-click="userIoaCtrl.ChangeStatus(userRow)">
+
+                                    <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':userRow.isActive}"
+                                        ng-model="userRow.isActive" ng-click="userIoaCtrl.ChangeStatus(userRow)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="user.permessionModules['Product'].includes(12)==false"
+                                title="You don't have permssion">
+                                <div class="btn-switch" ng-class="{'btn-switch--on':userRow.isActive}"
+                                    ng-model="userRow.isActive">
+
+                                    <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':userRow.isActive}"
+                                        ng-model="userRow.isActive">
+                                    </div>
+                                </div>
+
+                        </td>
+                        <td>
+                            <i class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('editUser', {userId: userRow.userId,userType:2});">mode_edit</i>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="userIoaCtrl.totalCount"
+        paging-action="userIoaCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+        hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

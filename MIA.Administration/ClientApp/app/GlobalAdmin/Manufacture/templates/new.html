@@ -1,0 +1,57 @@
+
+<div class="container">
+    <!-- header -->
+    <div class="modal-header bordered" id="bold">
+            {{'ManufactureLbl' | translate}}
+        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="vm-container">
+                <!-- Manufacture form step -->
+                <div id="vm-step-container">
+                    <ul class="nav nav-pills nav-justified">
+                        <li ng-repeat="step in newManufactureCtrl.steps"
+                            ng-class="{'active':step.step == newManufactureCtrl.currentStep}">
+                            <a> {{step.step | translate }}. {{step.name | translate}}</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- function -- get pages  -->
+                <div id="vm-content-container">
+                    <ng-include src="newManufactureCtrl.getStepTemplate()"></ng-include>
+                </div>
+                <!-- previous button  -->
+                <div id="vm-navigation-container" class="col-lg-12">
+                    <div class="pull-right">
+                        <span class="btn-group">
+                                <button class="btn btn-primary" name="next" type="button"
+                                onclick="goBack()"> {{'goBack' | translate}}</button>
+                            <button ng-disabled="newManufactureCtrl.currentStep <= 1" class="btn btn-default"
+                                name="previous" type="button"
+                                ng-click="newManufactureCtrl.gotoStep(newManufactureCtrl.currentStep - 1)"><i
+                                    class="fa fa-arrow-left"></i> {{'PreviousStep' | translate}}
+
+                            </button>
+                            <!-- next button  -->
+                            <button ng-disabled="newManufactureCtrl.currentStep >=newManufactureCtrl.steps.length"
+                                class="btn btn-primary" name="next" type="button"
+                                ng-click="newManufactureCtrl.gotoStep(newManufactureCtrl.currentStep + 1)">
+                                {{'Nextstep' | translate}}
+                                <i class="fa fa-arrow-right"></i>
+                            </button>
+                        </span>
+                        <!-- save button  -->
+                        <button
+                            ng-disabled="newManufactureCtrl.currentStep !=newManufactureCtrl.steps.length || image == null"
+                            class="btn btn-success" name="next" type="button"
+                            ng-click="newManufactureCtrl.addNewManufacture()">
+                            <i class="fa fa-floppy-o"></i> {{'Save' | translate}}</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
