@@ -34,7 +34,7 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
   const { register, handleSubmit, reset } = useForm();
   return (
     <UserProvider>
-      <section id="main_site">
+      <React.Fragment>
         <aside>
           <div className="logo">
             <a href="/">MIA Awards</a>
@@ -107,7 +107,7 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
           {props.children}
           <Footer />
         </section>
-      </section>
+      </React.Fragment>
     </UserProvider>
   );
 };

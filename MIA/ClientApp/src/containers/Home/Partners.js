@@ -45,7 +45,7 @@ const Partners = props => {
           </div>
           <div className="slider_dots">
             {new Array(pages).fill().map((a, i) => (
-              <span className={classnames({ current: page == i })} onClick={() => setPage(i)}></span>
+              <span key={i} className={classnames({ current: page == i })} onClick={() => setPage(i)}></span>
             ))}
           </div>
         </div>

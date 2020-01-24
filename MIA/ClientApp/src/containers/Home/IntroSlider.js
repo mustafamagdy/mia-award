@@ -59,15 +59,16 @@ const Intro = props => {
     <section id="intro">
       <div className="container">
         <div className="slide_item">
-          <TransitionGroup className="view_award">
+          {/* <TransitionGroup className="view_award"> */}
+          <div className="view_award">
             {/* <CSSTransition key={items[current].key} appear={true} timeout={1000} classNames="big_image"> */}
-              <div className="big_image">
-                <a href="#" title="#">
-                  <img src={items[current].bigImgPath} alt="#" />
-                </a>
-              </div>
+            <div className="big_image">
+              <a href="#" title="#">
+                <img src={items[current].bigImgPath} />
+              </a>
+              <div className="progress_bar"></div>
+            </div>
             {/* </CSSTransition> */}
-            <div className="progress_bar" style={{ width: 460 }}></div>
             <div className="desc">
               <span>{items[current].title}</span>
               <p>{items[current].text}</p>
@@ -75,14 +76,15 @@ const Intro = props => {
                 <Trans id="view_awards">view awards</Trans>
               </a>
             </div>
-          </TransitionGroup>
+          </div>
+          {/* </TransitionGroup> */}
         </div>
         <div className="slider_thumb">
-          <button type="button" className="arrow arrow_prev" onClick={() => setCurrent(current > 0 ? current - 1 : items.length - 1)}>
+          {/* <button type="button" className="arrow arrow_prev" onClick={() => setCurrent(current > 0 ? current - 1 : items.length - 1)}>
             <i className="icofont-simple-left"></i>
-          </button>
+          </button> */}
           <div className="thmb">
-            <img src={items.length > current + 1 ? items[current + 1].smallImgPath : items[0].smallImgPath} alt="#" />
+            <img src={items.length > current + 1 ? items[current + 1].smallImgPath : items[0].smallImgPath} />
           </div>
           <button type="button" className="arrow arrow_next" onClick={() => setCurrent(current < items.length - 1 ? current + 1 : 0)}>
             <i className="icofont-simple-right"></i>
