@@ -1,9 +1,8 @@
 import { createReducer } from "utils/reduxsauce";
 import produce from "immer";
 import { DIRECTIONS } from "react-with-direction/dist/DirectionProvider";
-import { DEFAULT_LOCALE, DEFAULT_DIRECTION, getLocaleDirection, DEFAULT_CURRENCY } from "../constants";
+import { DEFAULT_LOCALE, DEFAULT_DIRECTION } from "../constants";
 import { ActionTypes } from "./actions";
-import SupportedCurrencies from "../SupportedCurrencies";
 import SupportedLocales from "../SupportedLocales";
 
 const initialState = {

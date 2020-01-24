@@ -1,6 +1,6 @@
 import React from "react";
 
-import "sass/contactus.scss";
+// import "sass/contactus.scss";
 
 class ContactUs extends React.PureComponent {
   render() {

@@ -1,8 +1,8 @@
 import React from "react";
 import Tilt from "react-parallax-tilt";
 
-import "sass/google_map.scss";
-import "sass/tickets.scss";
+// import "sass/google_map.scss";
+// import "sass/tickets.scss";
 
 const Tickets = props => {
   return (

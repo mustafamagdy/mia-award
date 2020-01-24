@@ -1,6 +1,6 @@
 import React from "react";
 
-import "sass/news_category.scss";
+// import "sass/news_category.scss";
 
 const News = pros => (
   <section id="news_category">

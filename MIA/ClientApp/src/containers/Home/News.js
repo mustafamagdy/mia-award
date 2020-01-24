@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import homeActions from "store/home/actions";
 
-import "sass/news.scss";
+// import "sass/news.scss";
 
 const initState = {
   pageNumber: 1,

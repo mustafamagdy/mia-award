@@ -1,7 +1,5 @@
 @charset "utf-8";
 
-@import "./variables.scss";
-
 /** Main Style **/
 @import url("/assets/fonts/icofont.min.css");
 @font-face {
@@ -111,7 +109,7 @@ a:focus {
 body {
   background-color: #141414;
   color: #333333;
-  font: 15px "Montserrat_Medium", Arial, Helvetica, sans-serif;
+  font: 15px "Montserrat_Medium","Tajawal_Medium",Arial,Helvetica,sans-serif;
   overflow-x: hidden;
   height: 100%;
   padding: 0;
@@ -241,6 +239,28 @@ body {
 } /* main_site */
 
 
+@import "./variables.scss";
+@import "./main_sidebar.scss";
+@import "./header.scss";
+@import "./intro.scss";
+@import "./awards.scss";
+@import "./videos.scss";
+@import "./recent_shows.scss";
+@import "./tickets.scss";
+@import "./google_map.scss";
+@import "./news.scss";
+@import "./partners.scss";
+@import "./footer.scss";
+@import "./modals/aside.scss";
+@import "./modals/search.scss";
+@import "./modals/share_sidebar.scss";
+@import "./contactus.scss";
+@import "./about.scss";
+@import "./gallery.scss";
+@import "./news_category.scss";
+@import "./news_single.scss";
+
+
 //**** RTL Style ****//
 [dir="rtl"] {
 	body {
@@ -251,7 +271,7 @@ body {
 			left: auto;
 			right: 0;
 			#wrapper {
-				left: auto;
+				left: 0;
 				right: 77px;
 			} /* wrapper */
 		} /* main_site */
@@ -344,7 +364,7 @@ body {
 	  }/* close_search */
 	}/* search_modal */
 	header {
-		left: auto;
+		left: 0;
 		right: 77px;
 	}/* header */
 	#apply_award {
@@ -541,6 +561,7 @@ body {
 							.category {
 								right: -24px;
 								left: auto;
+								top: 22px;
 								p {
 									font-family: Tajawal_Bold;
 									font-size: 25px;
@@ -728,6 +749,220 @@ body {
 			}	/* container */
 		} /* our_awards */
 	} /* about_us */
+	#gallery {
+  	.gallery_slider {
+	    &::after {
+	      content: "جوائز مايا";
+	      left: auto;
+	      right: 50px;
+	      font-family: Tajawal_Bold;
+	    } /* after */
+	    .container {
+	      .slider_area {
+	        .slider_items {
+	          .item {
+	            .zoom_image {
+	              right: auto;
+	              left: 0;
+	              a {border-radius: 0 0 10px 0;}
+	            } /* zoom_image */
+	            &.next_item {
+	              -webkit-transform: rotate3d(0, 1, 0, 20deg);;
+	              -moz-transform: rotate3d(0, 1, 0, 20deg);
+	              -o-transform: rotate3d(0, 1, 0, 20deg);
+	              transform: rotate3d(0, 1, 0, 20deg);
+	            } /* next_item */
+	            &.prev_item {
+	              -webkit-transform: rotate3d(0, 1, 0, -20deg);;
+	              -moz-transform: rotate3d(0, 1, 0, -20deg);
+	              -o-transform: rotate3d(0, 1, 0, -20deg);
+	              transform: rotate3d(0, 1, 0, -20deg);
+	            } /* next_item */
+	          } /* item */
+	        } /* slider_items */
+	        .slider_nav {
+	          button {
+							-webkit-transform: rotate(180deg);
+						  -moz-transform: rotate(180deg);
+						  -o-transform: rotate(180deg);
+							transform: rotate(180deg);
+	          } /* button */
+	        } /* slider_nav */
+	      } /* slider_area */
+	    } /* container */
+  	} /* gallery_slider */
+	  .gallery_tabs {
+	    .container {
+	      .title {
+	        .name {
+	          font-family: Tajawal_Bold;
+	        } /* name */
+	        .tabs {
+	          ul {
+	            li {
+	              margin: 0 30px 0 0;
+	            } /* li */
+	          } /* ul */
+	        }/* tabs */
+	      } /* title */
+	    } /* container */
+	  } /* gallery_tabs */
+	} /* gallery */
+	#news_category {
+  	.news_slider {
+	    &::after {
+	      content: "جوائز مايا";
+	      left: auto;
+	      right: 50px;
+	      font-family: Tajawal_Bold;
+	    } /* after */
+	    .container {
+	      .slider_area {
+	        .slider_items {
+	          .item {
+	        		.content {
+								padding: 0 30px 0 0;
+								span {
+									font-family: Tajawal_Bold;
+									font-size: 20px;
+								} /* span */
+								time {
+									font-family: Tajawal_Medium;
+									font-size: 14px;
+								} /* time */
+								.more {
+									a {
+										font-family: Tajawal_Bold;
+										font-size: 16px;
+									} /* a */
+								} /* more */
+							} /* content */
+	            &.next_item {
+	              -webkit-transform: rotate3d(0, 1, 0, 20deg);;
+	              -moz-transform: rotate3d(0, 1, 0, 20deg);
+	              -o-transform: rotate3d(0, 1, 0, 20deg);
+	              transform: rotate3d(0, 1, 0, 20deg);
+	            } /* next_item */
+	            &.prev_item {
+	              -webkit-transform: rotate3d(0, 1, 0, -20deg);;
+	              -moz-transform: rotate3d(0, 1, 0, -20deg);
+	              -o-transform: rotate3d(0, 1, 0, -20deg);
+	              transform: rotate3d(0, 1, 0, -20deg);
+	            } /* next_item */
+	          } /* item */
+	        } /* slider_items */
+	        .slider_nav {
+	          button {
+							-webkit-transform: rotate(180deg);
+						  -moz-transform: rotate(180deg);
+						  -o-transform: rotate(180deg);
+							transform: rotate(180deg);
+	          } /* button */
+	        } /* slider_nav */
+	      } /* slider_area */
+	    } /* container */
+  	} /* news_slider */
+  	.news_features {
+  		.container {
+  			.title {
+	        .name {
+	          font-family: Tajawal_Bold;
+	        } /* name */
+	      	.customize {
+	      		select {
+							background: #141414 url("/assets/images/arrow_rtl.png") scroll no-repeat 0 center;
+							padding: 0 15px 0 59px;
+							margin: 0 0 0 20px;
+							font-family: Tajawal_Bold;
+						} /* select */
+					} /* customize */
+				} /* title */
+				.blocks_news {
+					.feature_item {
+						.feature_block {
+							time {
+								padding: 0 33px 0 0;
+								&::before {
+									right: 10px;
+									left: auto;
+								}	/* before */
+							}	/* time */
+							.item {
+								padding: 0 33px 0 0;
+								.category {
+									right: -24px;
+									left: auto;
+									top: 22px;
+									p {
+										font-family: Tajawal_Bold;
+										font-size: 25px;
+										letter-spacing: 0;
+									}	/* p */
+								}	/* category */
+								.imgthumb {
+									.mask {
+										p {font-size: 15px;}
+										.more {
+											a {
+												font-size: 14px;
+												font-family: Tajawal_Bold;
+											}	/* a */
+										}	/* more */
+									}	/* mask */
+								}	/* imgthumb */
+							}	/* item */
+						}	/* feature_block */
+					}	/* feature_item */
+				}	/* blocks_news */
+				.listing_news {
+					.item {
+						.content {
+							padding: 0 30px 0 0;
+							span {
+								font-family: Tajawal_Bold;
+								font-size: 20px;
+							} /* span */
+							time {
+								font-family: Tajawal_Medium;
+								font-size: 14px;
+							} /* time */
+						} /* content */
+					} /* item */
+				} /* listing_news */
+			} /* container */
+		} /* news_features */
+	} /* news_category */
+	#news_single {
+	  .container {
+	    .data_side {
+	      .title {font-family: Tajawal_Bold;}
+	      .comments_area {
+	        .item {
+	          .user_info {
+	            .imgthumb {margin: 0 0 0 20px;}
+	            .details {
+	              span {font-family: Tajawal_Bold;}
+	            } /* details */
+	          } /* user_info */
+	        } /* item */
+	      } /* comments_area */
+	      .comment_form {
+	        button {font-family: Tajawal_Medium;}
+	      } /* comment_form */
+	    } /* data_side */
+	    .side_bar {
+	      .related_news {
+	        .title {
+	          font-family: Tajawal_Bold;
+	          &::after {
+	          	right: 0;
+	            left: auto;
+	          } /* after */
+	        } /* title */
+	      } /* related_news */
+	    } /* side_bar */
+	  } /* container */
+	} /* news_single */
 	footer {
 		.container {
 			.row {

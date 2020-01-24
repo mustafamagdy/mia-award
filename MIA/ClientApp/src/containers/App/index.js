@@ -32,6 +32,7 @@ import Awards from "../Pages/Awards";
 import Events from "../Pages/Events";
 import Gallery from "../Pages/Gallery";
 import News from "../Pages/News";
+import NewsView from "../Pages/News/view";
 
 import PaymentForm from "../Payment/PaymentForm";
 
@@ -46,8 +47,8 @@ import MyDashboard from "../Members/MyDashboard";
 
 import TestUpload from "../Test/Upload";
 
+
 import "sass/style.scss";
-import NewsView from "../Pages/News/view";
 
 history.listen((location, action) => {
   //todo: use this for query string sync

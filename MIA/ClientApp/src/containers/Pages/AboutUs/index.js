@@ -1,7 +1,7 @@
 import React from "react";
 import Partners from "../../Home/Partners";
 
-import "sass/about.scss";
+// import "sass/about.scss";
 
 class AboutUs extends React.PureComponent {
   render() {

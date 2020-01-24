@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Trans } from "@lingui/macro";
 
-import "sass/intro.scss";
+// import "sass/intro.scss";
 
 const Intro = props => {
   const [current, setCurrent] = useState(0);
@@ -62,13 +62,13 @@ const Intro = props => {
       <div className="container">
         <div className="slide_item">
           <TransitionGroup className="view_award">
-            <CSSTransition key={items[current].key} appear={true} timeout={1000} classNames="big_image">
-              <div className="">
+            {/* <CSSTransition key={items[current].key} appear={true} timeout={1000} classNames="big_image"> */}
+              <div className="big_image">
                 <a href="#" title="#">
                   <img src={items[current].bigImgPath} alt="#" />
                 </a>
               </div>
-            </CSSTransition>
+            {/* </CSSTransition> */}
             <div className="progress_bar" style={{ width: 460 }}></div>
             <div className="desc">
               <span>{items[current].title}</span>

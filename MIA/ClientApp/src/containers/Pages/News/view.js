@@ -1,6 +1,6 @@
 import React from "react";
 
-import "sass/news_single.scss";
+// import "sass/news_single.scss";
 
 const NewsView = props => (
   <section id="news_single">

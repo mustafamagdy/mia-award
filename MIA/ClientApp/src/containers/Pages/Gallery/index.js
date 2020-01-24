@@ -1,6 +1,6 @@
 import React from "react";
 
-import "sass/gallery.scss";
+// import "sass/gallery.scss";
 
 const Gallery = props => (
   <section id="gallery">

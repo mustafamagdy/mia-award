@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import classnames from "classnames";
-import "sass/partners.scss";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
+// import "sass/partners.scss";
 const Partners = props => {
   const partners = [
     { key: "1", img: "partner_img_2" },

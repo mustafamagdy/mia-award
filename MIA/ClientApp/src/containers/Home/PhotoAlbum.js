@@ -1,6 +1,6 @@
 import React from "react";
 
-import "sass/videos.scss";
+// import "sass/videos.scss";
 
 const PhotoAlbum = props => (
   <div id="videos_photo">

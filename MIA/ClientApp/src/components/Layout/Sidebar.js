@@ -8,6 +8,7 @@ import "sass/main_sidebar.scss";
 import "sass/modals/aside.scss";
 import "sass/modals/search.scss";
 import "sass/modals/share_sidebar.scss";
+import LanguageSelect from "./LanguageSelect";
 
 const Sidebar = ({ toggleSidebar, toggleSearchForm, toggleShareSidebar, ...props }) => {
   return (
@@ -35,11 +36,12 @@ const Sidebar = ({ toggleSidebar, toggleSearchForm, toggleShareSidebar, ...props
         </button>
       </div>
       {/* <!-- end search_area --> */}
-      <div className="language_switcher">
+      {/* <div className="language_switcher">
         <a href="#" title="#">
           EN
         </a>
-      </div>
+      </div> */}
+      <LanguageSelect />
       {/* <!-- end language_switcher --> */}
       <div className="social_media">
         <a href="#" title="#">

@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect } from "react";
 import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "sass/awards.scss";
+// import "sass/awards.scss";
 
 const AwardsSlider = props => {
   const [awards, setAwards] = useState([
