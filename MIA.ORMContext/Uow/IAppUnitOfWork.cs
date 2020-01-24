@@ -30,8 +30,8 @@ namespace MIA.ORMContext.Uow {
     DbSet<MediaFile> MediaFiles { get; }
     DbSet<News> News { get; }
     //DbSet<NewsImage> NewsImages { get; }
-    DbSet<PhotoAlbum> PhotoAlbums { get; }
-    DbSet<PhotoAlbumImage> PhotoAlbumImages{ get; }
+    DbSet<Album> Albums { get; }
+    DbSet<AlbumItem> AlbumItems{ get; }
     DbSet<TrophyImage> TrophyImages { get; }
     DbSet<VotingCriteria> VotingCriterias { get; }
 

@@ -11,7 +11,7 @@
     .partners_slider {
       display: flex;
       flex-wrap: nowrap;
-      justify-content: space-between;
+      justify-content: space-around;
       margin: 0 -15px;
       .slide_item {
         flex-grow: 0;
@@ -77,5 +77,22 @@
         } /* current */
       } /* span */
     } /* slider_dots */
+    .slide_item-enter {
+      opacity: 0;
+    }
+    .slide_item-enter-active {
+      opacity: 1;
+      transition: opacity 2000ms;
+    }
+    .slide_item-enter-end {
+      opacity: 1;
+    }
+    .slide_item-exit {
+      opacity: 1;
+    }
+    .slide_item-exit-active {
+      opacity: 0;
+      transition: opacity 2000ms;
+    }
   } /* container */
 } /* partners */

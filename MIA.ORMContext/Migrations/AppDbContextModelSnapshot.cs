@@ -63,6 +63,40 @@ namespace MIA.ORMContext.Migrations
                     b.ToTable("UserModules");
                 });
 
+            modelBuilder.Entity("MIA.Models.Entities.Album", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Albums");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.AlbumItem", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AlbumId");
+
+                    b.Property<string>("FileKey");
+
+                    b.Property<string>("FileUrl");
+
+                    b.Property<int>("MediaType");
+
+                    b.Property<int>("Order");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AlbumId");
+
+                    b.ToTable("AlbumItems");
+                });
+
             modelBuilder.Entity("MIA.Models.Entities.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -393,18 +427,6 @@ namespace MIA.ORMContext.Migrations
                     b.ToTable("News");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.PhotoAlbum", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Title");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PhotoAlbums");
-                });
-
             modelBuilder.Entity("MIA.Models.Entities.VotingCriteria", b =>
                 {
                     b.Property<string>("Id")
@@ -584,21 +606,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasDiscriminator().HasValue("Nominee");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.PhotoAlbumImage", b =>
-                {
-                    b.HasBaseType("MIA.Models.Entities.Image");
-
-                    b.Property<int>("MediaType");
-
-                    b.Property<int>("Order");
-
-                    b.Property<string>("PhotoAlbumId");
-
-                    b.HasIndex("PhotoAlbumId");
-
-                    b.HasDiscriminator().HasValue("PhotoAlbumImage");
-                });
-
             modelBuilder.Entity("MIA.Models.Entities.TrophyImage", b =>
                 {
                     b.HasBaseType("MIA.Models.Entities.Image");
@@ -617,6 +624,13 @@ namespace MIA.ORMContext.Migrations
                         .HasFilter("[UserId] IS NOT NULL");
 
                     b.HasDiscriminator().HasValue("UserImage");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.AlbumItem", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.Album", "Album")
+                        .WithMany("MediaItems")
+                        .HasForeignKey("AlbumId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.ArtWork", b =>
@@ -754,13 +768,6 @@ namespace MIA.ORMContext.Migrations
                         .WithMany("Properties")
                         .HasForeignKey("AuditEntryID")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.PhotoAlbumImage", b =>
-                {
-                    b.HasOne("MIA.Models.Entities.PhotoAlbum", "PhotoAlbum")
-                        .WithMany("Images")
-                        .HasForeignKey("PhotoAlbumId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.UserImage", b =>

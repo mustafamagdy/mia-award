@@ -25,26 +25,23 @@ import DirectionProvider from "containers/Providers/DirectionProvider";
 import ConfirmEmail from "containers/User/ConfirmEmail";
 import Profile from "containers/User/Profile";
 import CheckYourEmail from "containers/User/CheckYourEmail";
-import ResetPasswordByEmail from "containers/User/ResetPasswordByEmail";
-import ScrollToTop from "./ScrollToTop";
 
 import AboutUs from "../Pages/AboutUs";
 import ContactUs from "../Pages/ContactUs";
-
-import SignIn from "../User/SignIn";
-import Signup from "../User/Signup";
-import { UserContext } from "../Providers/UserProvider";
-import CookieGDPR from "./CookieGDPR";
-
-import LoadingScreen from "./Loading";
 import Awards from "../Pages/Awards";
 import Events from "../Pages/Events";
+import Gallery from "../Pages/Gallery";
+import News from "../Pages/News";
+import NewsView from "../Pages/News/view";
+
+import PaymentForm from "../Payment/PaymentForm";
+
 import MediaBrowser from "../Media";
 import Booths from "../Booths";
 import BuyBooth from "../Booths/BuyBooth";
+
 import Members from "../Members";
 import CompleteProfile from "../Members/CompleteProfile";
-import PaymentForm from "../Payment/PaymentForm";
 import UploadMedia from "../Members/UploadMedia";
 import MyDashboard from "../Members/MyDashboard";
 
@@ -65,43 +62,46 @@ class App extends React.Component {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistedStore}>
           <LanguageProvider>
-            <DirectionProvider>
-              <ConnectedRouter history={history}>
-                <Layout>
-                  <Switch>
-                    {/* General website */}
-                    <Route path="test" component={TestUpload} />
+            {/* <DirectionProvider> */}
+            <ConnectedRouter history={history}>
+              <Layout>
+                <Switch>
+                  {/* General website */}
+                  <Route path="test" component={TestUpload} />
 
-                    <Route exact path="/" component={Home} />
-                    <Route path="/aboutus" component={AboutUs} />
-                    <Route path="/events" component={Events} />
-                    <Route path="/awards" component={Awards} />
-                    <Route path="/contact-us" component={ContactUs} />
+                  <Route exact path="/" component={Home} />
+                  <Route path="/about-us" component={AboutUs} />
+                  <Route path="/events" component={Events} />
+                  <Route path="/awards" component={Awards} />
+                  <Route path="/contact-us" component={ContactUs} />
+                  <Route path="/gallery" component={Gallery} />
+                  <Route exact path="/news" component={News} />
+                  <Route path="/news/:id" component={NewsView} />
 
-                    {/* browse media */}
-                    <Route path="/media" component={MediaBrowser} />
+                  {/* browse media */}
+                  <Route path="/media" component={MediaBrowser} />
 
-                    {/* Account management */}
-                    <Route exact path="/account" component={Profile} />
-                    <Route path="/account/checkYourEmail" component={CheckYourEmail} />
-                    <Route path="/account/profile" component={Profile} />
-                    <Route path="/account/confirm" component={ConfirmEmail} />
-                    {/* <Route path="/account/resetPassword" component={ResetPasswordByEmail} /> */}
+                  {/* Account management */}
+                  <Route exact path="/account" component={Profile} />
+                  <Route path="/account/checkYourEmail" component={CheckYourEmail} />
+                  <Route path="/account/profile" component={Profile} />
+                  <Route path="/account/confirm" component={ConfirmEmail} />
+                  {/* <Route path="/account/resetPassword" component={ResetPasswordByEmail} /> */}
 
-                    {/* booths */}
-                    <Route path="/booth" component={Booths} />
-                    <Route path="/booth-buy" component={BuyBooth} />
+                  {/* booths */}
+                  <Route path="/booth" component={Booths} />
+                  <Route path="/booth-buy" component={BuyBooth} />
 
-                    {/* Member section */}
-                    <Route path="/members" component={Members} />
-                    <Route path="/complete-profile" component={CompleteProfile} />
-                    <Route path="/pay" component={PaymentForm} />
-                    <Route path="/dashboard" component={MyDashboard} />
-                    <Route path="/upload-media" component={UploadMedia} />
+                  {/* Member section */}
+                  <Route path="/members" component={Members} />
+                  <Route path="/complete-profile" component={CompleteProfile} />
+                  <Route path="/pay" component={PaymentForm} />
+                  <Route path="/dashboard" component={MyDashboard} />
+                  <Route path="/upload-media" component={UploadMedia} />
 
-                    <Redirect from="*" to="/" />
-                  </Switch>
-                  {/*
+                  <Redirect from="*" to="/" />
+                </Switch>
+                {/*
                    <UserContext.Consumer>
                     {({
                       signinModalOpened,
@@ -145,9 +145,9 @@ class App extends React.Component {
                       )}
                   </UserContext.Consumer> 
                   */}
-                </Layout>
-              </ConnectedRouter>
-            </DirectionProvider>
+              </Layout>
+            </ConnectedRouter>
+            {/* </DirectionProvider> */}
           </LanguageProvider>
         </PersistGate>
       </Provider>

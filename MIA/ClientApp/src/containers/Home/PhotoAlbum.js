@@ -1,6 +1,6 @@
 import React from "react";
 
-import "sass/videos.scss";
+// import "sass/videos.scss";
 
 const PhotoAlbum = props => (
   <div id="videos_photo">
@@ -8,7 +8,7 @@ const PhotoAlbum = props => (
       <div className="big_show">
         <div className="imgthumb">
           <a href="#" title="#">
-            <img src="assets/images/video_image.png" alt="#" />
+            <img src="/assets/images/video_image.png" alt="#" />
           </a>
         </div>
       </div>
@@ -26,7 +26,7 @@ const PhotoAlbum = props => (
               <i>Dubai</i> Opera
             </span>
             <div className="imgthumb">
-              <img src="assets/images/video_image.png" alt="#" />
+              <img src="/assets/images/video_image.png" alt="#" />
             </div>
           </div>
           <div className="item current">
@@ -34,7 +34,7 @@ const PhotoAlbum = props => (
               <i>Dubai</i> Opera
             </span>
             <div className="imgthumb">
-              <img src="assets/images/video_image2.png" alt="#" />
+              <img src="/assets/images/video_image2.png" alt="#" />
             </div>
           </div>
           <div className="slide_nav">

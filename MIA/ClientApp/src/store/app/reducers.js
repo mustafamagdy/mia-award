@@ -1,9 +1,8 @@
 import { createReducer } from "utils/reduxsauce";
 import produce from "immer";
 import { DIRECTIONS } from "react-with-direction/dist/DirectionProvider";
-import { DEFAULT_LOCALE, DEFAULT_DIRECTION, getLocaleDirection, DEFAULT_CURRENCY } from "../constants";
+import { DEFAULT_LOCALE, DEFAULT_DIRECTION } from "../constants";
 import { ActionTypes } from "./actions";
-import SupportedCurrencies from "../SupportedCurrencies";
 import SupportedLocales from "../SupportedLocales";
 
 const initialState = {
@@ -13,7 +12,7 @@ const initialState = {
   lastPing: "",
   sidebarOpen: false,
   searchFormOpen: false,
-  shareSidebarOpen: false,
+  shareSidebarOpen: false
 };
 
 const toggleSidebar = (state, { locale }) => {
@@ -53,6 +52,8 @@ const changeLocale = (state, { locale }) => {
     localStorage.setItem("culture", _locale.code);
     localStorage.setItem("language", _locale.code);
     localStorage.setItem("cultureCode", _locale.culture);
+    
+    document.body.setAttribute("dir", draft.direction);
   });
 };
 
@@ -81,5 +82,5 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.CHANGE_LOCALE]: changeLocale,
   [ActionTypes.TOGGLE_SIDEBAR]: toggleSidebar,
   [ActionTypes.TOGGLE_SEARCH_FORM]: toggleSearchForm,
-  [ActionTypes.TOGGLE_SHARE_SIDEBAR]: toggleShareSidebar,
+  [ActionTypes.TOGGLE_SHARE_SIDEBAR]: toggleShareSidebar
 });
