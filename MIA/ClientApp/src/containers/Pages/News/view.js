@@ -1,82 +1,24 @@
 import React from "react";
 import { Trans } from "@lingui/macro";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { connect } from "react-redux";
+import newsActions from "store/news/actions";
+import { bindActionCreators } from "redux";
+import { useEffect, useState } from "react";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
 
-const NewsView = props => {
-  const comments = [
-    {
-      id: "1",
-      userAvatarUrl: "/assets/images/comment_user_image.png",
-      userFullName: "Ahmed Adel",
-      date: "25 March 2020",
-      comment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit
-    amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-    ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`
-    },
-    {
-      id: "2",
-      userAvatarUrl: "/assets/images/comment_user_image.png",
-      userFullName: "Ahmed Adel",
-      date: "25 March 2020",
-      comment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit
-    amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-    ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`
-    },
-    {
-      id: "3",
-      userAvatarUrl: "/assets/images/comment_user_image.png",
-      userFullName: "Ahmed Adel",
-      date: "25 March 2020",
-      comment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit
-    amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-    ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`
-    },
-    {
-      id: "4",
-      userAvatarUrl: "/assets/images/comment_user_image.png",
-      userFullName: "Ahmed Adel",
-      date: "25 March 2020",
-      comment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit
-    amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-    ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`
-    },
-    {
-      id: "5",
-      userAvatarUrl: "/assets/images/comment_user_image.png",
-      userFullName: "Ahmed Adel",
-      date: "25 March 2020",
-      comment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit
-    amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-    ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`
-    }
-  ];
+const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, commentsSuccess, ...props }) => {
+  useEffect(() => {
+    const id = location.pathname.split("/").pop();
+    fetchNewsItem(id);
+  }, []);
 
-  const newsItem = {
-    id: "1",
-    thumbImgUrl: "/assets/images/news_single_image.png",
-    date: "12-05-2020",
-    title: "The Blue Elephant (News Title)",
-    body: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-publishing software like Aldus PageMaker including versions of Lorem Ipsum Lorem Ipsum passages, and more recently with desktop
-publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
-    comments: comments
-  };
-
-  return (
+  return newsItem != undefined && !!newsItem.id ? (
     <section id="news_single">
       <div className="container">
         <div className="data_side">
           <div className="post_imgthumb">
-            <img src={newsItem.thumbImgUrl} />
+            <img src={newsItem.posterUrl} />
           </div>
           <div className="post_details">
             <div className="share">
@@ -100,35 +42,42 @@ publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
               <Trans id="posted">Posted</Trans>: {newsItem.date}
             </time>
           </div>
-          <div className="title">{newsItem.title}</div>
-          <div className="content">{newsItem.body}</div>
+          <LanguageContext.Consumer>
+            {({ locale }) => (
+              <>
+                <div className="title">{newsItem.title[locale.code]}</div>
+                <div className="content">{newsItem.body[locale.code]}</div>
+              </>
+            )}
+          </LanguageContext.Consumer>
           <div className="comments_area">
             <Comments comments={newsItem.comments} />
           </div>
-          <CommentForm />
+          <CommentForm newsId={newsItem.id} postNewsComment={postNewsComment} commentsSuccess={commentsSuccess} />
         </div>
         <div className="side_bar">
           <AdsArea />
-          <RelatedNews />
+          <RelatedNews relatedNews={newsItem.relatedNews} />
         </div>
       </div>
     </section>
+  ) : (
+    <div>loading...</div>
   );
 };
 
-const CommentForm = props => {
+const CommentForm = ({ newsId, postNewsComment, commentsSuccess, ...props }) => {
   const { register, handleSubmit, reset } = useForm();
-  const [message, setMessage] = useState(undefined);
-  const [status, setStatus] = useState(false);
+  const [success, setSuccess] = useState(commentsSuccess);
 
   const onSubmit = values => {
+    console.log("values", values);
+    postNewsComment({ ...values, id: newsId });
     setTimeout(() => {
-      console.log("comment ", values);
-      setStatus(true);
-      setMessage("Your comment has been submitted successfully for review");
+      setSuccess(true);
       reset();
       setTimeout(() => {
-        setMessage(undefined);
+        setSuccess(undefined);
       }, 3000);
     }, 1000);
   };
@@ -145,7 +94,11 @@ const CommentForm = props => {
           <Trans id="post_comment">Post Comment</Trans>
         </button>
         {"  "}
-        {message == undefined ? null : <span className={!!status ? "success" : "danger"}>{message}</span>}
+        {success == undefined ? null : (
+          <span className="success">
+            <Trans id="comment_submitted">Your comment has been submitted successfully for review</Trans>
+          </span>
+        )}
       </form>
     </div>
   );
@@ -156,13 +109,12 @@ const Comments = ({ comments, ...props }) =>
     <div key={c.id} className="item">
       <div className="user_info">
         <div className="imgthumb">
-          <img src={c.userAvatarUrl} />
+          <img src={`https://ui-avatars.com/api/?name=${c.userFullName}`} />
         </div>
         <div className="details">
           <span>{c.title}</span>
           <p>
-            {c.date}
-            <Trans id="by">by</Trans> <span>{c.userFullName}</span>
+            {c.date} <Trans id="by">by</Trans> <span>{c.userFullName}</span>
           </p>
         </div>
       </div>
@@ -185,25 +137,27 @@ const AdsArea = props => (
   </>
 );
 
-const RelatedNews = props => (
+const RelatedNews = ({ relatedNews, ...props }) => (
   <div className="related_news">
-    <div className="title">Related News</div>
-    <div className="item">
-      <a href="#" title="#">
-        <img src="/assets/images/related_news_image.png" alt="#" />
-      </a>
+    <div className="title">
+      <Trans id="related_news">Related News</Trans>
     </div>
-    <div className="item">
-      <a href="#" title="#">
-        <img src="/assets/images/related_news_image.png" alt="#" />
-      </a>
-    </div>
-    <div className="item">
-      <a href="#" title="#">
-        <img src="/assets/images/related_news_image.png" alt="#" />
-      </a>
-    </div>
+    {relatedNews &&
+      relatedNews.map(n => (
+        <div key={n.id} className="item">
+          <a href={`/news/${n.id}`}>
+            <img src={n.posterUrl} />
+          </a>
+        </div>
+      ))}
   </div>
 );
 
-export default NewsView;
+const mapStateToProps = ({ news: { newsItem, postNewsComment, commentsSuccess }, router: { location } }) => ({
+  newsItem,
+  postNewsComment,
+  commentsSuccess,
+  location
+});
+const mapDispatchToProps = dispatch => bindActionCreators({ ...newsActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(NewsView);

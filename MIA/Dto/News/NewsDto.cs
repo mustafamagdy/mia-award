@@ -15,14 +15,21 @@ namespace MIA.Api {
   }
 
   public class FullNewsWithCommentsDto : FullNewsDto {
+    public string Keywords { get; set; }
     public UserCommentDto[] Comments { get; set; }
+    public RelatedNewsDto[] RelatedNews { get; set; }
+  }
+
+  public class RelatedNewsDto: BaseDto {
+    public string Id { get; set; }
+    public string PosterUrl { get; set; }
   }
 
   public class UserCommentDto : BaseDto {
-    public int Id { get; set; }
+    public string Id { get; set; }
     public string Comment { get; set; }
-    public string userFullName { get; set; }
-    public string userAvatarUrl { get; set; }
+    public string UserFullName { get; set; }
+    public string UserAvatarUrl { get; set; }
     public string Date { get; set; }
   }
 }

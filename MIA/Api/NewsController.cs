@@ -46,22 +46,37 @@ namespace MIA.Api {
       return IfFound(categories);
     }
 
-    [HttpGet("/with-comments/:id")]
+    [HttpGet("with-comments/{id}")]
     public async Task<IActionResult> ListWithComments(
       [FromRoute(Name = "id")] string newsId,
       [FromServices] IAppUnitOfWork db) {
       var result = await db.News
         .Include(a => a.Comments)
         .Where(a => a.Id == newsId)
-        .ProjectTo<FullNewsWithCommentsDto>()
+        .ProjectTo<FullNewsWithCommentsDto>(_mapper.ConfigurationProvider)
         .FirstOrDefaultAsync();
 
+      //poor performace, but for sake of time
+      var relatedNews = db.News
+        .Where(a => a.Outdated == false)
+        .AsEnumerable()
+        .Where(a =>
+          a.Id != result.Id &&
+          a.Keywords.Split(" ")
+          .Intersect(result.Keywords.Split(" "))
+          .Any())
+        .Take(3)
+        .AsQueryable()
+        .ProjectTo<RelatedNewsDto>(_mapper.ConfigurationProvider)
+        .ToArray();
+
+      result.RelatedNews = relatedNews;
 
       return IfFound(result);
     }
 
 
-    [HttpPost("/news/:id/comments")]
+    [HttpPost("{id}/comment")]
     public async Task<IActionResult> AddComment(
       [FromRoute(Name = "id")] string newsId,
       [FromBody] NewsUserComment dto,

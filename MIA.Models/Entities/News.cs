@@ -10,6 +10,7 @@ namespace MIA.Models.Entities {
     public bool Featured { get; set; }
     public string Category { get; set; }
 
+    public string Keywords { get; set; }
     public string PosterId { get; set; }
     public string PosterUrl { get; set; }
 

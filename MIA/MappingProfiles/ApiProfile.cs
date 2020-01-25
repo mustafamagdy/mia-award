@@ -23,13 +23,19 @@ namespace MIA.MappingProfiles {
       CreateMap<News, FullNewsDto>()
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
+      
+      CreateMap<News, RelatedNewsDto>()
+       .ValidateMemberList(MemberList.None);
 
       CreateMap<News, FullNewsWithCommentsDto>()
+        .ForMember(a => a.RelatedNews, cfg => cfg.Ignore())
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
       CreateMap<NewsComment, UserCommentDto>()
         .ForMember(a => a.Comment, cfg => cfg.MapFrom(a => a.Comments))
+        .ForMember(a => a.UserFullName, cfg => cfg.MapFrom(a => a.Name))
+        .ForMember(a => a.UserAvatarUrl, cfg => cfg.Ignore())
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 

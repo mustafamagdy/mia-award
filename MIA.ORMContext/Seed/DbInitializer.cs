@@ -37,6 +37,8 @@ namespace MIA.ORMContext.Seed {
     private static async Task SeedDemoNews(IAppUnitOfWork db) {
       var _faker_en = new Faker("en");
       var _faker_ar = new Faker("ar");
+      string[] keywords = _faker_en.Random.WordsArray(10);
+
       string[] categories = Enum.GetNames(typeof(NewsCategory)).Select(a => a.ToLower()).ToArray();
 
       //TODO remove in production
@@ -45,6 +47,7 @@ namespace MIA.ORMContext.Seed {
 
       for (int i = 0; i < 20; i++) {
         var news = new News {
+          Keywords = string.Join(" ", _faker_ar.Random.ArrayElements(keywords, 4)),
           Title = LocalizedData.FromBoth(_faker_ar.Lorem.Sentence(), _faker_en.Lorem.Sentence()),
           Body = LocalizedData.FromBoth(_faker_ar.Lorem.Paragraph(), _faker_en.Lorem.Paragraph()),
           Date = _faker_en.Date.Past().ToUnixTimeSeconds(),
