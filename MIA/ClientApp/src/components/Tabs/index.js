@@ -1,43 +1,28 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 
-const TabList = ({
-  children,
-  activeIndex,
-  handleActiveTab,
-  activeClassName,
-  ...props
-}) => {
+const TabList = ({ children, activeIndex, handleActiveTab, activeClassName, ...props }) => {
   const TabList = React.Children.map(children, (childElement, index) =>
     React.cloneElement(childElement, {
       isActive: activeIndex === index,
       onActive: () => handleActiveTab(index),
-      activeClassName: activeClassName
+      activeClassName: activeClassName,
+      ...props
     })
   );
-  return <div {...props}> {TabList} </div>;
+  return TabList;
 };
 
-const Tab = ({
-  isActive,
-  onActive,
-  activeClassName,
-  tabClassName,
-  children,
-  ...props
-}) => {
+const Tab = ({ isActive, onActive, activeClassName, tabClassName, children, ...props }) => {
   const styles = classNames(tabClassName, { [activeClassName]: isActive });
-  return (
-    <div className={styles} onClick={() => onActive && onActive()} {...props}>
-      {" "}
-      {children}{" "}
-    </div>
-  );
+  return React.cloneElement(children, {
+    className: styles,
+    onClick: () => onActive && onActive(),
+    ...props
+  });
 };
 
-const TabPanels = ({ activeIndex, ...props }) => (
-  <div {...props}> {props.children[activeIndex]} </div>
-);
+const TabPanels = ({ activeIndex, ...props }) => <div {...props}> {props.children[activeIndex]} </div>;
 
 const TabPane = ({ children, ...props }) => <div {...props}> {children} </div>;
 

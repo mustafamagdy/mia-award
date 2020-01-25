@@ -3,7 +3,7 @@
   height: 100%;
   .container {
     background: transparent url("/assets/images/intro_bg.png") scroll no-repeat top center / cover;
-    // width: 1442px;
+    width: 100%;
     margin: 0 auto;
     padding: 161px 25px 0;
     overflow: hidden;
@@ -17,22 +17,34 @@
         justify-content: center;
         align-content: center;
         .big_image {
-          width: 60%;
+          width: 50%;
           position: relative;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
           img {
             width: 100%;
             height: auto;
+            -webkit-transition: all 0.2s ease-in-out;
+            -moz-transition: all 0.2s ease-in-out;
+            -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
           } /* img */
+          .progress_bar {
+            position: absolute;
+            height: 5px;
+            width: 460px;
+            background: #c0a176;
+            display: block;
+            left: 89%;
+            bottom: 12px;
+            -webkit-transition: all 0.2s ease-in-out;
+            -moz-transition: all 0.2s ease-in-out;
+            -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+          } /* progress_bar */
         } /* big_image */
-        .progress_bar {
-          position: absolute;
-          height: 5px;
-          width: 460px;
-          background: #c0a176;
-          display: block;
-          left: 89%;
-          bottom: 12px;
-        } /* progress_bar */
         .desc {
           width: 50%;
           padding: 0 40px;
@@ -88,19 +100,18 @@
         img {
           height: 100%;
           width: 100%;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
         } /* img */
       } /* thmb */
-      .arrow {
-        &_next {
-          margin: 0 0 0 10px;
-        }
-        &_next {
-          margin: 0 10px 0 0;
-        }
+      .arrow_next {
         background: transparent;
         font-size: 40px;
         border: none;
         padding: 0;
+        margin: 0 0 0 10px;
         color: #c0a176;
         cursor: pointer;
         display: inline-block;
@@ -125,6 +136,10 @@
         position: relative;
         font-size: 20px;
         cursor: pointer;
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
         &:after {
           position: absolute;
           content: "";
@@ -135,6 +150,10 @@
           right: 0;
           margin: 0 auto;
           bottom: 0;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
         } /* after */
         &.current {
           color: $maincolor;

@@ -93,52 +93,56 @@ class CookieGDPR extends React.PureComponent {
     if (!visible) return null;
 
     return (
-        <div className={`cookie${visible ? "" : " is-hidden"}`}>
-          <div className="cookie__wrap">
-            <div className="container cookie__container">
-              <div className="cookie__title"><Trans id="review_our_cookie_policy"> Review our cookie policy </Trans></div>
-
-              <div className="grid _pt-md _md-pt-def">
-                <div className="gcell gcell--12 gcell--def-9">
-                  <div className="cookie__subtitle"><Trans id="what_do_we_use_cookies_for"> What do we use cookies for? </Trans></div>
-
-                  <p className="cookie__content">
-                    <Trans id="we_use_cookies_and_similar_technology">
-                      We use cookies and similar technologies to recognize your repeat visits and preferences, as well as to measure the
-                      affectiveness of campaigns and analyze traffic. To learn more about cookies, including how to disable them, view our
-                    </Trans>
-                    <a href="#" className="cookie__link">
-                      <Trans id="cookie_policy"> Cookie Policy </Trans>
-                    </a>
-                    <Trans id="by_clicking_you_accept"> 
-                    . By clicking «I Accept» or «X» on this banner, or using our site, you consent to the use of cookies unless you have
-                    disabled them.      
-                    </Trans>
-                  </p>
-                </div>
-                <div className="gcell gcell--12 gcell--def-3">
-                  <div className="cookie__btn">
-                    <button className="button" onClick={this.accept}>
-                      <Trans id="i_accept"> I accept </Trans>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <span className="cookie__close _lg-hide" onClick={this.decline}>
-                <svg width="20" height="20">
-                  <use href="#cancel" />
-                </svg>
-              </span>
+      <div className={`cookie${visible ? "" : " is-hidden"}`}>
+        <div className="cookie__wrap">
+          <div className="container cookie__container">
+            <div className="cookie__title">
+              <Trans id="review_our_cookie_policy"> Review our cookie policy </Trans>
             </div>
 
-            <span className="cookie__close _lg-show" onClick={this.decline}>
+            <div className="grid _pt-md _md-pt-def">
+              <div className="gcell gcell--12 gcell--def-9">
+                <div className="cookie__subtitle">
+                  <Trans id="what_do_we_use_cookies_for"> What do we use cookies for? </Trans>
+                </div>
+
+                <p className="cookie__content">
+                  <Trans id="we_use_cookies_and_similar_technology">
+                    We use cookies and similar technologies to recognize your repeat visits and preferences, as well as to measure the
+                    affectiveness of campaigns and analyze traffic. To learn more about cookies, including how to disable them, view our
+                  </Trans>
+                  <a href="#" className="cookie__link">
+                    <Trans id="cookie_policy"> Cookie Policy </Trans>
+                  </a>
+                  <Trans id="by_clicking_you_accept">
+                    . By clicking «I Accept» or «X» on this banner, or using our site, you consent to the use of cookies unless you have
+                    disabled them.
+                  </Trans>
+                </p>
+              </div>
+              <div className="gcell gcell--12 gcell--def-3">
+                <div className="cookie__btn">
+                  <button className="button" onClick={this.accept}>
+                    <Trans id="i_accept"> I accept </Trans>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <span className="cookie__close _lg-hide" onClick={this.decline}>
               <svg width="20" height="20">
                 <use href="#cancel" />
               </svg>
             </span>
           </div>
+
+          <span className="cookie__close _lg-show" onClick={this.decline}>
+            <svg width="20" height="20">
+              <use href="#cancel" />
+            </svg>
+          </span>
         </div>
+      </div>
     );
   }
 }

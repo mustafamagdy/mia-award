@@ -21,7 +21,6 @@ import authActions from "store/auth/actions";
 import Layout from "components/Layout";
 import Home from "containers/Home";
 import LanguageProvider from "containers/Providers/LanguageProvider";
-import DirectionProvider from "containers/Providers/DirectionProvider";
 import ConfirmEmail from "containers/User/ConfirmEmail";
 import Profile from "containers/User/Profile";
 import CheckYourEmail from "containers/User/CheckYourEmail";
@@ -62,7 +61,6 @@ class App extends React.Component {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistedStore}>
           <LanguageProvider>
-            {/* <DirectionProvider> */}
             <ConnectedRouter history={history}>
               <Layout>
                 <Switch>
@@ -147,7 +145,6 @@ class App extends React.Component {
                   */}
               </Layout>
             </ConnectedRouter>
-            {/* </DirectionProvider> */}
           </LanguageProvider>
         </PersistGate>
       </Provider>

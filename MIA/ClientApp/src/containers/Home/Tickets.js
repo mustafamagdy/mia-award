@@ -1,5 +1,6 @@
 import React from "react";
 import Tilt from "react-parallax-tilt";
+import { Trans } from "@lingui/macro";
 
 // import "sass/google_map.scss";
 // import "sass/tickets.scss";
@@ -11,11 +12,14 @@ const Tickets = props => {
         <div className="container">
           <div className="ticket_txt">
             <p>
-              brief about the DRAMA award and how to apply for it text Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-              of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
+              <Trans id="ticket_desc">
+                brief about the DRAMA award and how to apply for it text Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
+                versions of
+              </Trans>
             </p>
             <ul>
               <li>
@@ -30,13 +34,13 @@ const Tickets = props => {
             </ul>
             <div className="buy_now">
               <a href="#" title="#">
-                buy your ticket
+                <Trans id="buy_your_ticket">buy your ticket</Trans>
               </a>
             </div>
           </div>
           <div className="ticket_imgthumb">
             <Tilt reset={true}>
-              <img src="/assets/images/tickets_img.png" alt="#" />
+              <img src="/assets/images/tickets_img.png" />
             </Tilt>
           </div>
         </div>
