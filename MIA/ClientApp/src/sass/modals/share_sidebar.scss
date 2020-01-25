@@ -25,6 +25,8 @@
     margin: 0 auto 10px;
     text-transform: capitalize;
     font-size: 16px;
+    position: relative;
+    z-index: 1;
     a {
       display: block;
       color: #ffff;

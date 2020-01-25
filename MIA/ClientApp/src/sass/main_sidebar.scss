@@ -121,13 +121,15 @@
     display: flex;
     justify-content: center;
     margin: 0 auto 20px;
-    a {
+    span {
       font-size: 20px;
       color: $maincolor;
+      cursor: pointer;
+      display: block;
       &:hover {
         color: $secondcolor;
       } /* a hover */
-    } /* a */
+    } /* span */
   } /* language_switcher */
   .share_site {
     position: absolute;

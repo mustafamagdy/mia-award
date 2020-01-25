@@ -4,8 +4,6 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import homeActions from "store/home/actions";
 
-import "sass/news.scss";
-
 const initState = {
   pageNumber: 1,
   pageSize: 4
@@ -20,7 +18,9 @@ const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage
   return (
     <div id="news_features">
       <div className="container">
-        <div className="title">news & features</div>
+        <div className="title">
+          <Trans id="news_features">news & features</Trans>
+        </div>
         <div className="features_sliders">
           {news.map((item, index) => (
             <div className="feature_item" key={index}>
@@ -33,12 +33,12 @@ const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage
                     </p>
                   </div>
                   <div className="imgthumb">
-                    <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} alt="#" />
+                    <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} />
                     <div className="mask">
                       <div className="content">
                         <p>{item.title}</p>
                         <div className="more">
-                          <a href="#" title="#">
+                          <a href={`/news/${item.id}`}>
                             <Trans id="read_more">read more</Trans>
                           </a>
                         </div>
@@ -64,7 +64,7 @@ const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage
           ) : (
             <span />
           )}
-          <a href="#" title="#">
+          <a href="/news" title="#">
             <Trans id="show_all">show all</Trans>
           </a>
           {hasNextPage ? (

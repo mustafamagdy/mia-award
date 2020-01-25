@@ -14,18 +14,63 @@ const initialState = {
   recentShows: []
 };
 
+const _news = [
+  {
+    id: "1",
+    date: "15-01-2020",
+    category: "sports",
+    posterUrl: "/assets/images/news_image_1.png",
+    title: "And Mo Salah Makes football history for real"
+  },
+  {
+    id: "2",
+    date: "15-01-2020",
+    category: "media",
+    posterUrl: "/assets/images/news_image_2.jpg",
+    title: "And Mo Salah Makes football history for real"
+  },
+  {
+    id: "3",
+    date: "15-01-2020",
+    category: "sports",
+    posterUrl: "/assets/images/news_image_1.png",
+    title: "And Mo Salah Makes football history for real"
+  },
+  {
+    id: "4",
+    date: "15-01-2020",
+    category: "media",
+    posterUrl: "/assets/images/news_image_2.jpg",
+    title: "And Mo Salah Makes football history for real"
+  },
+  {
+    id: "5",
+    date: "15-01-2020",
+    category: "sports",
+    posterUrl: "/assets/images/news_image_1.png",
+    title: "And Mo Salah Makes football history for real"
+  },
+  {
+    id: "6",
+    date: "15-01-2020",
+    category: "media",
+    posterUrl: "/assets/images/news_image_2.jpg",
+    title: "And Mo Salah Makes football history for real"
+  }
+];
+const fetchNews = (state, action) => {
+  return produce(state, draft => {
+    draft.news = _news;
+    draft.news_pagination = {
+      hasNextPage: true,
+      hasPreviousPage: true
+    };
+  });
+};
+
 const fetchNewsSuccess = (state, action) => {
   return produce(state, draft => {
-    const news = [
-      { date: "15-01-2020", category: "sports", img: "news_image_1.png", title: "And Mo Salah Makes football history for real" },
-      { date: "15-01-2020", category: "media", img: "news_image_2.jpg", title: "And Mo Salah Makes football history for real" },
-      { date: "15-01-2020", category: "sports", img: "news_image_1.png", title: "And Mo Salah Makes football history for real" },
-      { date: "15-01-2020", category: "media", img: "news_image_2.jpg", title: "And Mo Salah Makes football history for real" },
-      { date: "15-01-2020", category: "sports", img: "news_image_1.png", title: "And Mo Salah Makes football history for real" },
-      { date: "15-01-2020", category: "media", img: "news_image_2.jpg", title: "And Mo Salah Makes football history for real" }
-    ];
-
-    draft.news = [...action.payload.items];
+    draft.news = _news; //[...action.payload.items];
     draft.news_pagination = {
       hasNextPage: action.payload.metadata.hasNextPage,
       hasPreviousPage: action.payload.metadata.hasPreviousPage
@@ -74,6 +119,7 @@ const searchForShow = (state, action) => {
 };
 
 export const reducer = createReducer(initialState, {
+  [ActionTypes.FETCH_NEWS]: fetchNews,
   [ActionTypes.FETCH_NEWS_SUCCESS]: fetchNewsSuccess,
   [ActionTypes.FETCH_NEWS_FAIL]: fetchNewsFailed,
   [ActionTypes.FETCH_AWARDS_SUCCESS]: fetchAwardsSuccess,

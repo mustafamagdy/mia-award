@@ -36,40 +36,40 @@ class Header extends React.Component {
         <header className={classNames({ fixed: this.state.headerFixed })}>
           <div className="container">
             <div className="logo">
-              <a href="#" title="#">
-                <img src="assets/images/logo.png" alt="#" />
+              <a href="/">
+                <img src="/assets/images/logo.png" />
               </a>
             </div>
             {/* <!-- end logo --> */}
             <div className="mainmenu">
               <ul>
                 <li>
-                  <a href="#" title="#">
+                  <a href="/awards">
                     <Trans id="awards">Awards</Trans>
                   </a>
                 </li>
                 <li>
-                  <a href="#" title="#">
+                  <a href="/about-us">
                     <Trans id="about_us">About Us</Trans>
                   </a>
                 </li>
                 <li>
-                  <a href="#" title="#">
+                  <a href="/news">
                     <Trans id="news">News</Trans>
                   </a>
                 </li>
                 <li>
-                  <a href="#" title="#">
+                  <a href="/program">
                     <Trans id="programs">Program</Trans>
                   </a>
                 </li>
                 <li>
-                  <a href="#" title="#">
+                  <a href="/gallery">
                     <Trans id="gallery">Gallery</Trans>
                   </a>
                 </li>
                 <li>
-                  <a href="#" title="#">
+                  <a href="/contact-us">
                     <Trans id="contact_us">Contact US</Trans>
                   </a>
                 </li>

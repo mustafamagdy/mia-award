@@ -1,7 +1,7 @@
 import React from "react";
 import { Trans } from "@lingui/macro";
 
-import "sass/recent_shows.scss";
+// import "sass/recent_shows.scss";
 
 const Rating = ({ rate, ...props }) => {
   const maxRating = 5;

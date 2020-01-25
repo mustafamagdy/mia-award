@@ -22,19 +22,21 @@ namespace MIA.Extensions
     /// http://classically.me/blogs/how-clear-hsts-settings-major-browsers
     /// </summary>
     public static IServiceCollection AddCustomStrictTransportSecurity(this IServiceCollection services) {
-      return services
-          .AddHsts(options => {
-                  // Preload the HSTS HTTP header for better security. See https://hstspreload.org/
-#if (HstsPreload)
-                  options.IncludeSubDomains = true;
-                  options.MaxAge = TimeSpan.FromSeconds(31536000); // 1 Year
-                  options.Preload = true;
-#else
-                    // options.IncludeSubDomains = true;
-                    // options.MaxAge = TimeSpan.FromSeconds(31536000); // 1 Year
-                    // options.Preload = true;
-#endif
-                });
+      return services;
+
+//      return services
+//          .AddHsts(options => {
+//                  // Preload the HSTS HTTP header for better security. See https://hstspreload.org/
+//#if (HstsPreload)
+//                  options.IncludeSubDomains = true;
+//                  options.MaxAge = TimeSpan.FromSeconds(31536000); // 1 Year
+//                  options.Preload = true;
+//#else
+//                    // options.IncludeSubDomains = true;
+//                    // options.MaxAge = TimeSpan.FromSeconds(31536000); // 1 Year
+//                    // options.Preload = true;
+//#endif
+//                });
     }
 
 

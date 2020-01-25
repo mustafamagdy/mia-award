@@ -1,44 +1,18 @@
 {
   "ar": {
     "code": "ar",
-    "name":"العربية",
+    "name": "العربية",
+    "short": "ع",
     "direction": "RTL",
     "flag": "sa",
-    "culture":"ar-SA"
+    "culture": "ar-SA"
   },
   "en": {
     "code": "en",
-    "name":"English",
+    "name": "English",
+    "short": "en",
     "direction": "LTR",
     "flag": "us",
-    "culture":"en-US"
-  },
-  "fr": {
-    "code": "fr",
-    "name":"Frensh",
-    "direction": "LTR",
-    "flag": "fr",
-    "culture":"fr-FR"
-  },
-  "de": {
-    "code": "de",
-    "name":"german",
-    "direction": "LTR",
-    "flag": "de",
-    "culture":"de-GR"
-  },
-  "es": {
-    "code": "es",
-    "name":"Portgegoos",
-    "direction": "LTR",
-    "flag": "pr",
-    "culture":"es-SP"
-  },
-  "cs": {
-    "code": "cs",
-    "name":"checqqq :)",
-    "direction": "LTR",
-    "flag": "ck",
-    "culture":"cs-SA"
+    "culture": "en-US"
   }
 }

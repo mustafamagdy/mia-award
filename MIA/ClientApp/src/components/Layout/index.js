@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import appActions from "store/app/actions";
+import { Trans } from "@lingui/macro";
 import { useForm } from "react-hook-form";
 
 import "sass/layout.scss";
@@ -33,43 +34,41 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
   const { register, handleSubmit, reset } = useForm();
   return (
     <UserProvider>
-      <section id="main_site">
+      <React.Fragment>
         <aside>
           <div className="logo">
-            <a href="#" title="#">
-              MIA Awards
-            </a>
+            <a href="/">MIA Awards</a>
           </div>
           <div className="mainmenu">
             <ul>
               <li>
-                <a href="#" title="#">
-                  Awards
+                <a href="/awards">
+                  <Trans id="awards">Awards</Trans>
                 </a>
               </li>
               <li>
-                <a href="#" title="#">
-                  About Us
+                <a href="/about-us">
+                  <Trans id="about_us">About Us</Trans>
                 </a>
               </li>
               <li>
-                <a href="#" title="#">
-                  News
+                <a href="/news">
+                  <Trans id="news">News</Trans>
                 </a>
               </li>
               <li>
-                <a href="#" title="#">
-                  Program
+                <a href="program">
+                  <Trans id="program">Program</Trans>
                 </a>
               </li>
               <li>
-                <a href="#" title="#">
-                  Gallery
+                <a href="/gallery">
+                  <Trans id="gallery">Gallery</Trans>
                 </a>
               </li>
               <li>
-                <a href="#" title="#">
-                  Contact US
+                <a href="/contact-us">
+                  <Trans id="contact_us">Contact US</Trans>
                 </a>
               </li>
             </ul>
@@ -89,24 +88,16 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
           </div>
           <ul>
             <li>
-              <a href="#" title="#">
-                facebook
-              </a>
+              <a href="/facebook">facebook</a>
             </li>
             <li>
-              <a href="#" title="#">
-                twitter
-              </a>
+              <a href="/twitter">twitter</a>
             </li>
             <li>
-              <a href="#" title="#">
-                instagram
-              </a>
+              <a href="/instagram">instagram</a>
             </li>
             <li>
-              <a href="#" title="#">
-                youtube
-              </a>
+              <a href="/youtube">youtube</a>
             </li>
           </ul>
         </div>
@@ -116,7 +107,7 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
           {props.children}
           <Footer />
         </section>
-      </section>
+      </React.Fragment>
     </UserProvider>
   );
 };
