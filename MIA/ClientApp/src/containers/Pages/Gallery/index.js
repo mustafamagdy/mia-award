@@ -3,7 +3,6 @@ import classNames from "classnames";
 import { Trans } from "@lingui/macro";
 import { useState } from "react";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
-// import "sass/gallery.scss";
 
 const Gallery = props => {
   const allSlides = [

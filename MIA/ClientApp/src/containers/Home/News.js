@@ -33,12 +33,12 @@ const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage
                     </p>
                   </div>
                   <div className="imgthumb">
-                    <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} alt="#" />
+                    <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} />
                     <div className="mask">
                       <div className="content">
                         <p>{item.title}</p>
                         <div className="more">
-                          <a href="#" title="#">
+                          <a href={`/news/${item.id}`}>
                             <Trans id="read_more">read more</Trans>
                           </a>
                         </div>
@@ -64,7 +64,7 @@ const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage
           ) : (
             <span />
           )}
-          <a href="#" title="#">
+          <a href="/news" title="#">
             <Trans id="show_all">show all</Trans>
           </a>
           {hasNextPage ? (
