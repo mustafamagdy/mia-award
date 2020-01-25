@@ -11,7 +11,7 @@
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
         vm.News = NewsByIdPrepService;
-        $rootScope.image = appCONSTANTS.Image_URL_ORDER + vm.News.image;
+        $rootScope.image = vm.News.posterUrl;
         // console.log(vm.News.image);
 
         vm.Close = function () {

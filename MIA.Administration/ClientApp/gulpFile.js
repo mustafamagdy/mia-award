@@ -180,14 +180,14 @@ gulp.task('copy-app', function () {
 //concat css
 gulp.task('css', function () {
   return gulp.src(paths.css)
-    .pipe(concat('bundle-en-uk.css'))
+    .pipe(concat('bundle-en.css'))
     .pipe(cleanCSS({ compatibility: 'ie8' }))
     .pipe(gulp.dest(paths.build + '/'));
 });
 
 gulp.task('cssAR', function () {
   return gulp.src(paths.cssAR)
-    .pipe(concat('bundle-ar-eg.css'))
+    .pipe(concat('bundle-ar.css'))
     .pipe(cleanCSS({ compatibility: 'ie8' }))
     .pipe(gulp.dest(paths.build + '/'));
 });

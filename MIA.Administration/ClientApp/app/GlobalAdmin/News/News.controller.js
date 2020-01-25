@@ -3,35 +3,34 @@
 
     angular
         .module('home')
-        .controller('NewsController', ['appCONSTANTS', '$scope', '$translate', 'NewsResource', 'blockUI', '$uibModal', 'NewsPrepService',
+        .controller('NewsController', ['appCONSTANTS', '$scope', '$translate', 'NewsResource', 'blockUI', '$uibModal',
             'ToastService', NewsController]);
 
 
-    function NewsController(appCONSTANTS, $scope, $translate, NewsResource, blockUI, $uibModal, NewsPrepService, ToastService) {
+    function NewsController(appCONSTANTS, $scope, $translate, NewsResource, blockUI, $uibModal, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         var vm = this;
-        // vm.actionList = [];
-        // for (var i = 1; i <= $scope.user.permessionModules[1][2].length; i++)  
-        //     vm.actionList.push(i);
+
         vm.currentPage = 1;
         vm.appCONSTANTS = appCONSTANTS;
-        $scope.totalCount = NewsPrepService.metadata.totalItemCount;
-        $scope.NewsList = NewsPrepService.items;
-        console.log(NewsPrepService);
+
+        refreshNewss();
         function refreshNewss() {
             blockUI.start("Loading...");
 
-            var k = NewsResource.getAllCategories({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
+            var k = NewsResource.getAllNewss({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
+                debugger;
                 $scope.NewsList = results.items;
-
+                $scope.totalCount = results.metadata.totalItemCount;
                 console.log($scope.NewsList);
                 blockUI.stop();
 
             },
                 function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                debugger;
+                blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
         }
         function change(news, isDeleted) {
@@ -61,9 +60,7 @@
         }
 
         function confirmationDelete(model) {
-            debugger; 
             var updateObj = new NewsResource();
-            // updateObj.id = model.id;
             updateObj.$delete({ id: model.id }).then(
                 function (data, status) {
                     refreshNewss();
@@ -90,7 +87,6 @@
             });
         }
         vm.ChangeStatus = function (model) {
-
             var updateObj = new NewsResource();
             updateObj.id = model.id;
             updateObj.title = model.title;

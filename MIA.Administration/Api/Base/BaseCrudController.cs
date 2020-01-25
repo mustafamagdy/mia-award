@@ -119,9 +119,9 @@ namespace MIA.Administration.Api.Base
             return Ok();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet()]
         public virtual async Task<IActionResult> GetAsync(
-            [FromRoute] string id,
+            [FromQuery(Name="id")] string id,
             [FromServices] IAppUnitOfWork db
             )
         {

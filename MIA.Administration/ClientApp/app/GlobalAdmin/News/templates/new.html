@@ -21,7 +21,7 @@
                             <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
                                 ng-repeat="lang in newNewsCtrl.language" id="{{lang.value}}-form">
                                 <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                                    <label for="first-name">{{ lang.value+'Name' | translate}} </label>
+                                    <label for="first-name">{{ 'Title' | translate}} </label>
                                     <input required News="text" class="mat-input form-control"
                                         name="titleDictionary{{lang.value+'Name'}}"
                                         ng-model="newNewsCtrl.titleDictionary[lang.key]" ng-minlength="3"
@@ -36,23 +36,38 @@
                                             {{'NameLengthError3' | translate}}</div>
                                     </div>
                                 </div>
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label for="first-name">{{ 'Body' | translate}} </label>
+                                    <textarea required class="mat-input form-control"
+                                        name="bodyDictionary{{lang.value+'Name'}}"
+                                        ng-model="newNewsCtrl.bodyDictionary[lang.key]" ng-minlength="3"
+                                        ng-maxlength="955"></textarea>
+                                    <div ng-messages="newNewsForm.bodyDictionary{{lang.value+'Name'}}.$error">
+
+                                        <div class="error ng-binding"
+                                            ng-show="newNewsForm.bodyDictionary{{lang.value+'Name'}}.$error.required && !newNewsForm.bodyDictionary{{lang.value+'Name'}}.$pristine">
+                                            {{'requiredErr' | translate}}</div>
+                                        <div class="error ng-binding"
+                                            ng-show="(newNewsForm.bodyDictionary{{lang.value+'Name'}}.$error.minlength || newNewsForm.bodyDictionary{{lang.value+'Name'}}.$error.maxlength) && !newNewsForm.bodyDictionary{{lang.value+'Name'}}.$error.required">
+                                            {{'NameLengthError3' | translate}}</div>
+                                    </div>
+                                </div>
                             </div>
 
 
                         </div>
-
-                        <div class="form-group pmd-textfield-floating-label-completed">
-                            <span style="color:red">*</span>
-                            <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
-                                Photo</label>
-                            <input id="image" class="hidden" type="file" img-upload ng-model="newNewsCtrl.image"
-                                name="imageName">
-                            <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
-                            <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                                {{'RecommendedProductImage' | translate}}</span>
-                        </div> 
                     </div>
-                </div>
+                </div>  
+                <div class="form-group pmd-textfield-floating-label-completed">
+                    <span style="color:red">*</span>
+                    <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
+                        Photo</label>
+                    <input id="image" class="hidden" type="file" img-upload ng-model="imageName"
+                        name="imageName">
+                    <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
+                    <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                        {{'RecommendedProductImage' | translate}}</span>
+                </div> 
             </div>
         </form>
     </div>

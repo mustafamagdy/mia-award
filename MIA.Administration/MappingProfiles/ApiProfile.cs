@@ -22,7 +22,11 @@ namespace MIA.Administration.MappingProfiles
             CreateMap<News, NewsDto>()
               //.ForMember(a => a.ImageUrl, cfg => cfg.MapFrom(a => a.Image != null ? a.Image.Imageurl : ""))
               .ValidateMemberList(MemberList.None);
-            CreateMap<NewNewsDto, News>().ValidateMemberList(MemberList.None);
+            CreateMap<NewNewsDto, News>()
+                  .ForMember(a => a.Title, cfg => cfg.MapFrom(a=> LocalizedData.FromArabic(a.Title)))
+                  .ForMember(a => a.Body, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.Body)))
+                  .ValidateMemberList(MemberList.None);
+
             CreateMap<UpdateNewsDto, News>()
                   .ForMember(a => a.PosterId, cfg => cfg.Ignore())
                   .ForMember(a => a.PosterUrl, cfg => cfg.Ignore())

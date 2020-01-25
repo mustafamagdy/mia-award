@@ -5,11 +5,10 @@
 
     function NewsResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'news', {}, {
-            getAllCategories: { method: 'POST', url: appCONSTANTS.API_URL + 'news/search', useToken: true, params: { lang: '@lang' } },
+            getAllNewss: { method: 'POST', url: appCONSTANTS.API_URL + 'news/search', useToken: true, params: { lang: '@lang' } },
             create: {
                 method: 'POST', useToken: true,
                 transformRequest: function (data) {
-                    debugger;
                     if (data === undefined)
                         return data;
 
@@ -24,7 +23,17 @@
                                 });
                             }
                         } else {
-                            fd.append(key, value);
+                            if (typeof value == "object" && typeof value.size == "number")
+                                fd.append(key, value);
+                            if (typeof value == "object") {
+                                Object.keys(value).forEach(v => {
+                                    // fd.append(key, JSON.stringify({ [v]: value[v] }));
+                                    fd.append(key, value[v]);
+                                });
+                            }
+                            else
+                                fd.append(key, value);
+
                         }
                     });
 
@@ -58,9 +67,9 @@
                 },
                 headers: { 'Content-Type': undefined }
             },
-            getNews: { method: 'GET', url: appCONSTANTS.API_URL + 'news/GetAsync/:id', useToken: true },
-            delete: { method: 'DELETE',  useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'news/ChangeStatus/:id/:status', useToken: true },
+            getNews: { method: 'GET', useToken: true },
+            delete: { method: 'DELETE', useToken: true },
+            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'news/ChangeStatus/:id/:status', useToken: true }
 
         })
     }

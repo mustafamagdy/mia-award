@@ -47,7 +47,7 @@ namespace MIA.Administration.Api
 
         public override async Task<IActionResult> SaveNewAsync([FromForm] NewNewsDto dto, [FromServices] IAppUnitOfWork db)
         {
-            var result = await base.SaveNewAsync(dto, db);
+            var result = await base.SaveNewAsync( dto, db);
             var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
             var newsItem = await db.News.FindAsync(resultDto.Id);
             if (dto.Poster != null && dto.Poster.Length > 0)

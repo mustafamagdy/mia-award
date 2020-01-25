@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MIA.Models.Entities;
+using System.Collections.Generic;
 
 namespace MIA.Administration.Api
 {
@@ -9,8 +10,8 @@ namespace MIA.Administration.Api
         //public Dictionary<string, string> Body { get; set; }
 
 
-        public string Title { get; set; }
-        public string Body { get; set; }
+        public LocalizedData Title { get; set; }
+        public LocalizedData Body { get; set; }
         public string PosterUrl { get; set; }
 
         public long Date { get; set; }

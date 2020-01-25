@@ -5,7 +5,8 @@
             ng-click="$state.go('newNews');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
             {{'AddNew'| translate}}</button>
     </div>
-    <div ng-if="NewsList.length == 0">
+    
+    <div ng-if="NewsList.length == null">
         <span>{{'NoNewssAvailable' | translate}}</span>
     </div>
     <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="NewsList.length > 0">
@@ -23,10 +24,10 @@
                     <tr ng-repeat="News in NewsList">
                         <td>
                             <img style="width: 70px;height: 70px;" data-ng-src="{{News.posterUrl}}" />
-                        </td>
+                      </td>
                         <td data-title="Name">
-                            {{News.title  | limitTo : 20}}
-                            {{News.title.length > 20 ? '...' : ''}}
+                            {{News.title[selectedLanguage]   | limitTo : 20}}
+                            {{News.title[selectedLanguage].length > 20 ? '...' : ''}}
                         </td>
                         <td ng-show="!News.outdated">
                             <div ng-if="user.PermessionModules['News'].includes('view')==true">
@@ -37,14 +38,14 @@
                                         ng-model="News.outdated" ng-click="NewsCtrl.ChangeStatus(News)">
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </td>
                         <td ng-show="News.outdated">
                             <div class="btn-switch" ng-class="{'btn-switch--on':News.outdated}"
-                            ng-click="NewsCtrl.ChangeStatus(News)" ng-model="News.outdated">
+                                ng-click="NewsCtrl.ChangeStatus(News)" ng-model="News.outdated">
 
                                 <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':News.outdated}"
-                                ng-click="NewsCtrl.ChangeStatus(News)"  ng-model="News.outdated">
+                                    ng-click="NewsCtrl.ChangeStatus(News)" ng-model="News.outdated">
                                 </div>
                         </td>
                         <td width="30%">
@@ -53,7 +54,7 @@
                                 ng-click="$state.go('editNews',{id: News.id});" title="Edit">mode_edit</i>
                             <i ng-show="user.PermessionModules['News'].includes('remove')"
                                 class="material-icons pmd-md deleteButton cursorPointer font25"
-                                ng-click="NewsCtrl.openDeleteDialog(News,News.title,News.id)"
+                                ng-click="NewsCtrl.openDeleteDialog(News,News.title[selectedLanguage] ,News.id)"
                                 title="Delete">delete</i>
                         </td>
                     </tr>
