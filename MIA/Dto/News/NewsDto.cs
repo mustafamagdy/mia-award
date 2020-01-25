@@ -7,6 +7,7 @@ namespace MIA.Api {
     public string Date { get; set; }
     public string PosterUrl { get; set; }
     public string Category { get; set; }
+    public bool Featured { get; set; }
   }
 
   public class FullNewsDto : NewsDto {

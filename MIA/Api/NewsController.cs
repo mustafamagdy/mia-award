@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using MIA.Models.Entities;
 using Microsoft.Extensions.Options;
 using MIA.Infrastructure.Options;
+using System;
+using MIA.Models.Entities.Enums;
 
 namespace MIA.Api {
 #if Versioning
@@ -28,11 +30,20 @@ namespace MIA.Api {
       [FromBody] FullNewsSearch query,
       [FromServices] IAppUnitOfWork db) {
       var result = db.News
-        .Where(a => a.Category.ToLower() == query.Category.ToLower())
+        .Where(a => string.IsNullOrEmpty(query.Category)
+            || query.Category.ToLower() == "all"
+            || a.Category.ToLower() == query.Category.ToLower())
         .ProjectTo<FullNewsDto>(_mapper.ConfigurationProvider)
         .ToPagedList(query);
 
       return IfFound(result);
+    }
+
+
+    [HttpGet("categories")]
+    public IActionResult Categories() {
+      var categories = Enum.GetNames(typeof(NewsCategory)).Select(a => a.ToLower()).ToArray();
+      return IfFound(categories);
     }
 
     [HttpGet("/with-comments/:id")]
@@ -40,7 +51,7 @@ namespace MIA.Api {
       [FromRoute(Name = "id")] string newsId,
       [FromServices] IAppUnitOfWork db) {
       var result = await db.News
-        //.Include(a=>a.Comments)
+        .Include(a => a.Comments)
         .Where(a => a.Id == newsId)
         .ProjectTo<FullNewsWithCommentsDto>()
         .FirstOrDefaultAsync();

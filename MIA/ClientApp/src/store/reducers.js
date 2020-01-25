@@ -18,6 +18,7 @@ export default function createReducer(asyncReducers, history) {
       account: require("./accounts/reducers").reducer,
       auth: require("./auth/reducers").reducer,
       home: require("./home/reducers").reducer,
+      news: require("./news/reducers").reducer,
       ...asyncReducers
     })
   );
