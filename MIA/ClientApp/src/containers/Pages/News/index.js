@@ -9,6 +9,7 @@ const News = pros => {
     {
       id: "1",
       thumbImg: "https://via.placeholder.com/373x541?text=thumbnail image+1",
+      time: "12-05-2020",
       title: "And Mo Salah Makes football history for real",
       category: "sports",
       body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -19,6 +20,7 @@ const News = pros => {
     {
       id: "2",
       thumbImg: "https://via.placeholder.com/373x541?text=thumbnail image+2",
+      time: "12-05-2020",
       title: "And Mo Salah Makes football history for real",
       category: "sports",
       body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -29,6 +31,7 @@ const News = pros => {
     {
       id: "3",
       thumbImg: "https://via.placeholder.com/373x541?text=thumbnail image+3",
+      time: "12-05-2020",
       title: "And Mo Salah Makes football history for real",
       category: "sports",
       body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -39,6 +42,7 @@ const News = pros => {
     {
       id: "4",
       thumbImg: "https://via.placeholder.com/373x541?text=thumbnail image+4",
+      time: "12-05-2020",
       title: "And Mo Salah Makes football history for real",
       category: "sports",
       body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -49,6 +53,7 @@ const News = pros => {
     {
       id: "5",
       thumbImg: "https://via.placeholder.com/373x541?text=thumbnail image+5",
+      time: "12-05-2020",
       title: "And Mo Salah Makes football history for real",
       category: "sports",
       body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -59,6 +64,7 @@ const News = pros => {
     {
       id: "6",
       thumbImg: "https://via.placeholder.com/373x541?text=thumbnail image+6",
+      time: "12-05-2020",
       title: "And Mo Salah Makes football history for real",
       category: "sports",
       body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -163,12 +169,19 @@ const News = pros => {
                     <img src={item.thumbImg} />
                   </div>
                   <div className="content">
-                    <span>{item.title}</span>
-                    <p>{item.category}</p>
-                    <time>
-                      <Trans id="posted">Posted</Trans>: {item.time}
-                    </time>
-                    <b>{item.body}</b>
+                    <div class="desc">
+                      <span>{item.title}</span>
+                      <p>{item.category}</p>
+                      <time>
+                        <Trans id="posted">Posted</Trans>: {item.time}
+                      </time>
+                      <b>{item.body}</b>
+                    </div>
+                    <div className="more">
+                      <a href={`/news/${item.id}`}>
+                        <Trans id="read_more">Read More</Trans>
+                      </a>
+                    </div>
                   </div>
                 </div>
               ))}
