@@ -9,10 +9,9 @@ import { bindActionCreators } from "redux";
 import { useEffect } from "react";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
 
-const News = ({ news, fetchNews, fetchCategories, categories, pageCount, ...pros }) => {
+const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategories, categories, pageCount, ...pros }) => {
   const [pageNumber, setPageNumber] = useState(1);
-  const [allSlides, setAllSlides] = useState(news.filter(a => !!a.featured));
-  const [slides, setSlides] = useState(news.filter(a => !!a.featured).slice(0, 3));
+  const [slides, setSlides] = useState(featuredNews.slice(0, 3));
   const [current, setCurrent] = useState(1);
   const [currentView, setCurrentView] = useState("listing");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -23,26 +22,29 @@ const News = ({ news, fetchNews, fetchCategories, categories, pageCount, ...pros
   }, [selectedCategory, pageNumber]);
 
   useEffect(() => {
-    setAllSlides(news.filter(a => !!a.featured));
-    setSlides(news.filter(a => !!a.featured).slice(0, 3));
-  }, [news]);
+    fetchFeaturedNews();
+  }, []);
+
+  useEffect(() => {
+    setSlides(featuredNews.slice(0, 3));
+  }, [featuredNews]);
 
   const nextSlide = () => {
     let _current = current + 1;
-    if (_current == allSlides.length) {
+    if (_current == featuredNews.length) {
       _current = 0;
     }
 
     const slice = [];
     if (_current == 0) {
-      slice.push(allSlides[allSlides.length - 1]);
-      slice.push(...allSlides.slice(_current, _current + 2));
-    } else if (_current == allSlides.length - 1) {
-      slice.push(allSlides[allSlides.length - 2]);
-      slice.push(allSlides[allSlides.length - 1]);
-      slice.push(allSlides[0]);
+      slice.push(featuredNews[featuredNews.length - 1]);
+      slice.push(...featuredNews.slice(_current, _current + 2));
+    } else if (_current == featuredNews.length - 1) {
+      slice.push(featuredNews[featuredNews.length - 2]);
+      slice.push(featuredNews[featuredNews.length - 1]);
+      slice.push(featuredNews[0]);
     } else {
-      slice.push(...allSlides.slice(_current - 1, _current + 2));
+      slice.push(...featuredNews.slice(_current - 1, _current + 2));
     }
 
     setCurrent(_current);
@@ -52,19 +54,19 @@ const News = ({ news, fetchNews, fetchCategories, categories, pageCount, ...pros
   const prevSlide = () => {
     let _current = current - 1;
     if (_current < 0) {
-      _current = allSlides.length - 1;
+      _current = featuredNews.length - 1;
     }
 
     const slice = [];
     if (_current == 0) {
-      slice.push(allSlides[allSlides.length - 1]);
-      slice.push(...allSlides.slice(_current, _current + 2));
-    } else if (_current == allSlides.length - 1) {
-      slice.push(allSlides[allSlides.length - 2]);
-      slice.push(allSlides[allSlides.length - 1]);
-      slice.push(allSlides[0]);
+      slice.push(featuredNews[featuredNews.length - 1]);
+      slice.push(...featuredNews.slice(_current, _current + 2));
+    } else if (_current == featuredNews.length - 1) {
+      slice.push(featuredNews[featuredNews.length - 2]);
+      slice.push(featuredNews[featuredNews.length - 1]);
+      slice.push(featuredNews[0]);
     } else {
-      slice.push(...allSlides.slice(_current - 1, _current + 2));
+      slice.push(...featuredNews.slice(_current - 1, _current + 2));
     }
 
     setCurrent(_current);
@@ -72,7 +74,7 @@ const News = ({ news, fetchNews, fetchCategories, categories, pageCount, ...pros
   };
 
   const onSlideSleected = slideIndex => {
-    const slice = allSlides.slice(slideIndex, slideIndex + 3);
+    const slice = featuredNews.slice(slideIndex, slideIndex + 3);
     setCurrent(slideIndex);
     setSlides(slice);
   };
@@ -126,7 +128,7 @@ const News = ({ news, fetchNews, fetchCategories, categories, pageCount, ...pros
                 </div>
               ))}
             </div>
-            <SliderDots onSlideSleected={onSlideSleected} slides={allSlides} currentSlide={current} />
+            <SliderDots onSlideSleected={onSlideSleected} slides={featuredNews} currentSlide={current} />
           </div>
         </div>
       </div>
@@ -270,8 +272,9 @@ const mapStateToProps = ({
   news: {
     categories,
     newsList,
+    featuredNews,
     news_pagination: { pageCount }
   }
-}) => ({ categories, news: newsList, pageCount });
+}) => ({ categories, news: newsList, featuredNews, pageCount });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...newsActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(News);
