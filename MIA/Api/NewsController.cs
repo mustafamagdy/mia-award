@@ -30,11 +30,23 @@ namespace MIA.Api {
       [FromBody] FullNewsSearch query,
       [FromServices] IAppUnitOfWork db) {
       var result = db.News
-        .Where(a => string.IsNullOrEmpty(query.Category)
+        .Where(a => a.Outdated == false &&
+            (string.IsNullOrEmpty(query.Category)
             || query.Category.ToLower() == "all"
-            || a.Category.ToLower() == query.Category.ToLower())
+            || a.Category.ToLower() == query.Category.ToLower()))
         .ProjectTo<FullNewsDto>(_mapper.ConfigurationProvider)
         .ToPagedList(query);
+
+      return IfFound(result);
+    }
+
+    [HttpGet("featured")]
+    public IActionResult Featured(
+      [FromServices] IAppUnitOfWork db) {
+      var result = db.News
+        .Where(a => a.Featured == true && a.Outdated == false)
+        .ProjectTo<FullNewsDto>(_mapper.ConfigurationProvider)
+        .ToArray();
 
       return IfFound(result);
     }
