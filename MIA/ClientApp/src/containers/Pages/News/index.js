@@ -3,87 +3,29 @@ import classNames from "classnames";
 import { Trans } from "@lingui/macro";
 import { useState } from "react";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
+import { connect } from "react-redux";
+import newsActions from "store/news/actions";
+import { bindActionCreators } from "redux";
+import { useEffect } from "react";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
 
-const News = pros => {
-  const allSlides = [
-    {
-      id: "1",
-      thumbImg: "https://via.placeholder.com/373x541?text=thumbnail image+1",
-      title: "And Mo Salah Makes football history for real",
-      category: "sports",
-      body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-      aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem
-      ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`
-    },
-    {
-      id: "2",
-      thumbImg: "https://via.placeholder.com/373x541?text=thumbnail image+2",
-      title: "And Mo Salah Makes football history for real",
-      category: "sports",
-      body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-      aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem
-      ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`
-    },
-    {
-      id: "3",
-      thumbImg: "https://via.placeholder.com/373x541?text=thumbnail image+3",
-      title: "And Mo Salah Makes football history for real",
-      category: "sports",
-      body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-      aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem
-      ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`
-    },
-    {
-      id: "4",
-      thumbImg: "https://via.placeholder.com/373x541?text=thumbnail image+4",
-      title: "And Mo Salah Makes football history for real",
-      category: "sports",
-      body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-      aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem
-      ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`
-    },
-    {
-      id: "5",
-      thumbImg: "https://via.placeholder.com/373x541?text=thumbnail image+5",
-      title: "And Mo Salah Makes football history for real",
-      category: "sports",
-      body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-      aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem
-      ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`
-    },
-    {
-      id: "6",
-      thumbImg: "https://via.placeholder.com/373x541?text=thumbnail image+6",
-      title: "And Mo Salah Makes football history for real",
-      category: "sports",
-      body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-      aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem
-      ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`
-    }
-  ];
-  /*
-
-*/
-  const news = new Array(10).fill().map((_, a) => ({
-    id: a.toString(),
-    title: "And Mo Salah Makes football history for real",
-    posterUrl: "https://via.placeholder.com",
-    category: "sports",
-    time: "12-05-2020",
-    body: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-  ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet,
-  consectetur adipiscing elit, sed do eiusmod tempor incididunt ut`
-  }));
-
-  const [slides, setSlides] = useState(allSlides.slice(0, 3));
+const News = ({ news, fetchNews, fetchCategories, categories, pageCount, ...pros }) => {
+  const [pageNumber, setPageNumber] = useState(1);
+  const [allSlides, setAllSlides] = useState(news.filter(a => !!a.featured));
+  const [slides, setSlides] = useState(news.filter(a => !!a.featured).slice(0, 3));
   const [current, setCurrent] = useState(1);
   const [currentView, setCurrentView] = useState("listing");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  useEffect(() => {
+    fetchCategories();
+    fetchNews({ pageNumber, pageSize: 10, category: selectedCategory });
+  }, [selectedCategory, pageNumber]);
+
+  useEffect(() => {
+    setAllSlides(news.filter(a => !!a.featured));
+    setSlides(news.filter(a => !!a.featured).slice(0, 3));
+  }, [news]);
 
   const nextSlide = () => {
     let _current = current + 1;
@@ -160,16 +102,27 @@ const News = pros => {
               {slides.map((item, i) => (
                 <div key={item.id} className={classNames("item", { prev_item: i == 0 }, { current_item: i == 1 }, { next_item: i == 2 })}>
                   <div className="imgthmb">
-                    <img src={item.thumbImg} />
+                    <img src={item.posterUrl} />
                   </div>
-                  <div className="content">
-                    <span>{item.title}</span>
-                    <p>{item.category}</p>
-                    <time>
-                      <Trans id="posted">Posted</Trans>: {item.time}
-                    </time>
-                    <b>{item.body}</b>
-                  </div>
+                  <LanguageContext.Consumer>
+                    {({ locale }) => (
+                      <div className="content">
+                        <div className="desc">
+                          <span>{item.title[locale.code]}</span>
+                          <p>{item.category}</p>
+                          <time>
+                            <Trans id="posted">Posted</Trans>: {item.date}
+                          </time>
+                          <b>{item.body[locale.code]}</b>
+                        </div>
+                        <div className="more">
+                          <a href={`/news/${item.id}`}>
+                            <Trans id="read_more">Read More</Trans>
+                          </a>
+                        </div>
+                      </div>
+                    )}
+                  </LanguageContext.Consumer>
                 </div>
               ))}
             </div>
@@ -180,18 +133,24 @@ const News = pros => {
       <div className="news_features">
         <div className="container">
           <div className="title">
-            <div className="name">News</div>
+            <div className="name">
+              <Trans id="news">News</Trans>
+            </div>
             <div className="customize">
-              <select name="" id="" defaultValue="">
-                <option value="">News Type</option>
-                <option value="">News Type</option>
-                <option value="">News Type</option>
-                <option value="">News Type</option>
-                <option value="">News Type</option>
-                <option value="">News Type</option>
-                <option value="">News Type</option>
-                <option value="">News Type</option>
-                <option value="">News Type</option>
+              <select
+                value={selectedCategory}
+                onChange={e => {
+                  setSelectedCategory(e.target.value);
+                  setPageNumber(1);
+                }}
+              >
+                <option value="all">All</option>
+                {categories &&
+                  categories.map((c, i) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
               </select>
               <div className="change_grid">
                 <button type="button" className={classNames({ active: currentView == "listing" })} onClick={toggleBlocks}>
@@ -203,69 +162,81 @@ const News = pros => {
               </div>
             </div>
           </div>
-          {currentView == "listing" ? <ListingNews news={news} /> : <BlocksNews news={news} />}
+          {currentView == "listing" ? (
+            <ListingNews news={news} pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
+          ) : (
+            <BlocksNews news={news} pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
+          )}
         </div>
       </div>
     </section>
   );
 };
 
-const BlocksNews = ({ news, ...props }) => (
+const BlocksNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) => (
   <div className="blocks_news active">
     {news.map((item, i) => (
-      <div className="feature_item">
+      <div key={item.id} className="feature_item">
         <div className="feature_block">
-          <time>{item.time}</time>
+          <time>{item.date}</time>
           <div className="item">
             <div className="category">
               <p>{item.category}</p>
             </div>
-            <div className="imgthumb">
-              <img src={`${item.posterUrl}/280x549?text=news item+${item.id}`} />
-              <div className="mask">
-                <div className="content">
-                  <p>{item.title}</p>
-                  <div className="more">
-                    <a href={`/news/${item.id}`}>
-                      <Trans id="read_more">Read More..</Trans>
-                    </a>
+            <LanguageContext.Consumer>
+              {({ locale }) => (
+                <div className="imgthumb">
+                  <img src={`${item.posterUrl}/280x549?text=news item+${item.id}`} />
+                  <div className="mask">
+                    <div className="content">
+                      <p>{item.title[locale.code]}</p>
+                      <div className="more">
+                        <a href={`/news/${item.id}`}>
+                          <Trans id="read_more">Read More..</Trans>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              )}
+            </LanguageContext.Consumer>
           </div>
         </div>
       </div>
     ))}
-    <Pagination />
+    <Pagination pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
   </div>
 );
 
-const ListingNews = ({ news, ...props }) => (
+const ListingNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) => (
   <div className="listing_news">
     {news.map((item, i) => (
       <div key={item.id} className="item">
         <div className="imgthmb">
           <img src={`${item.posterUrl}/280x261?text=news item+${item.id}`} />
         </div>
-        <div className="content">
-          <div className="desc">
-            <span>{item.title}</span>
-            <p>{item.category}</p>
-            <time>
-              <Trans id="posted">Posted</Trans> : {item.time}
-            </time>
-            <b>{item.body}</b>
-          </div>
-          <div className="more">
-            <a href={`/news/${item.id}`}>
-              <Trans id="read_more">Read More..</Trans>
-            </a>
-          </div>
-        </div>
+        <LanguageContext.Consumer>
+          {({ locale }) => (
+            <div className="content">
+              <div className="desc">
+                <span>{item.title[locale.code]}</span>
+                <p>{item.category}</p>
+                <time>
+                  <Trans id="posted">Posted</Trans> : {item.date}
+                </time>
+                <b>{item.body[locale.code]}</b>
+              </div>
+              <div className="more">
+                <a href={`/news/${item.id}`}>
+                  <Trans id="read_more">Read More..</Trans>
+                </a>
+              </div>
+            </div>
+          )}
+        </LanguageContext.Consumer>
       </div>
     ))}
-    <Pagination />
+    <Pagination pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
   </div>
 );
 
@@ -279,22 +250,28 @@ const SliderDots = ({ slides, onSlideSleected, currentSlide, ...props }) => {
   );
 };
 
-const Pagination = props => {
-  const pages = [1, 2, 3, 4, 5];
-  const currentPage = 3;
+const Pagination = ({ pageCount, pageNumber, setPageNumber, ...props }) => {
   return (
     <div className="paginations">
       <ul>
-        {pages.map((p, i) => (
-          <li key={i} className={classNames({ current: currentPage == p })}>
-            <a href="#" title="#">
-              {p}
-            </a>
-          </li>
-        ))}
+        {new Array(pageCount).fill().map((_, i) => {
+          return (
+            <li key={i} className={classNames({ current: pageNumber == i + 1 })}>
+              <span onClick={() => setPageNumber(i + 1)}>{i + 1}</span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
 };
 
-export default News;
+const mapStateToProps = ({
+  news: {
+    categories,
+    newsList,
+    news_pagination: { pageCount }
+  }
+}) => ({ categories, news: newsList, pageCount });
+const mapDispatchToProps = dispatch => bindActionCreators({ ...newsActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(News);

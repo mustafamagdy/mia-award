@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MIA.ORMContext;
@@ -10,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using MIA.Api.Base;
 using Z.EntityFramework.Plus;
 using Microsoft.EntityFrameworkCore;
-using MIA.Models.Entities;
 
 namespace MIA.Api {
 #if Versioning
@@ -107,56 +105,8 @@ namespace MIA.Api {
 
       return Ok();
     }
-  }
 
-  public class NewsLetterDto : BaseDto {
-    public string Email { get; set; }
-  }
-
-  public class NewsSearchDto : IPagedData {
-    public int PageNumber { get; set; }
-    public int PageSize { get; set; }
   }
 
 
-  public class NewsDto : BaseDto {
-    public string Id { get; set; }
-    public string Title { get; set; }
-    public string Date { get; set; }
-    public string PosterUrl { get; set; }
-    public string Category { get; set; }
-  }
-
-
-  public class RecentShowsSearchDto : IPagedData {
-    public int PageNumber { get; set; }
-    public int PageSize { get; set; }
-    public int? Year { get; set; }
-    public string AwardId { get; set; }
-    public string CountryId { get; set; }
-  }
-
-  public class RecentShowsDto : BaseDto {
-    public string Id { get; set; }
-    public string Title { get; set; }
-    public int Rating { get; set; }
-    public string PosterUrl { get; set; }
-  }
-
-  public enum AlbumItemType { Photo, Video }
-  public class AlbumItemDto : BaseDto {
-    public string Url { get; set; }
-    public int Order { get; set; }
-    public AlbumItemType Type { get; set; }
-  }
-  public class MainAlbumDto : BaseDto {
-    public string Description { get; set; }
-    public AlbumItemDto[] Items { get; set; }
-  }
-  public class AwardDto : BaseDto {
-    public string Id { get; set; }
-    public string Title { get; set; }
-    public string TrophyUrl { get; set; }
-    public int Order { get; set; }
-  }
 }
