@@ -658,7 +658,7 @@
 						<span style="color: #494b74;" ng-click="logout()" class="btn-user dropdown-toggle media"
 							data-sidebar="true" aria-expandedhref="javascript:void(0);">
 							{{'logout' | translate}}
-						</span>
+						</span> 
 						<!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
 							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
 							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -989,7 +989,7 @@
 
 
 			</li>
-			<li>
+			<li ng-show="user.PermissionId.includes('News') ">
 				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
 				<a class="pmd-ripple-effect" ng-click="$state.go('News');">
 					<i class="media-left media-middle">

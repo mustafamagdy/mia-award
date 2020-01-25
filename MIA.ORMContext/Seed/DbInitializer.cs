@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using Bogus;
 
-namespace MIA.ORMContext.Seed {
-  public class DbInitializer {
+namespace MIA.ORMContext.Seed
+{
+  public class DbInitializer
+  {
 
     /// <summary>
     /// Seed database with default required data
@@ -22,7 +24,8 @@ namespace MIA.ORMContext.Seed {
     public static async Task SeedDbAsync(
       UserManager<AppUser> userManager,
       RoleManager<AppRole> roleManager,
-      IAppUnitOfWork db) {
+      IAppUnitOfWork db)
+    {
 
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
@@ -65,17 +68,21 @@ namespace MIA.ORMContext.Seed {
     private static async Task SeedDemoUserAndRoleAsync(
       RoleManager<AppRole> roleManager,
       UserManager<AppUser> userManager,
-      IAppUnitOfWork db) {
+      IAppUnitOfWork db)
+    {
 
-      if (await roleManager.FindByNameAsync(Constants.DEMO_ROLE) == null) {
+      if (await roleManager.FindByNameAsync(Constants.DEMO_ROLE) == null)
+      {
         await roleManager.CreateAsync(
-          new AppRole {
+          new AppRole
+          {
             Name = Constants.DEMO_ROLE,
             NormalizedName = Constants.DEMO_ROLE.ToUpper()
           });
 
         var demoRole = await roleManager.FindByNameAsync(Constants.DEMO_ROLE);
-        if (demoRole.Permissions == null) {
+        if (demoRole.Permissions == null)
+        {
           demoRole.Permissions = "";
         }
 
@@ -90,16 +97,20 @@ namespace MIA.ORMContext.Seed {
           Permissions.RemoveUserFromRole,
         };
 
-        demoPermissions.ForEach(m => {
-          if (!demoRole.Permissions.Contains((char)m)) {
+        demoPermissions.ForEach(m =>
+        {
+          if (!demoRole.Permissions.Contains((char)m))
+          {
             demoRole.Permissions += (char)m;
           }
         });
       }
 
 
-      if (await userManager.FindByNameAsync(Constants.DEMO_USERNAME) == null) {
-        AppUser demoUser = new AppUser {
+      if (await userManager.FindByNameAsync(Constants.DEMO_USERNAME) == null)
+      {
+        AppUser demoUser = new AppUser
+        {
           FirstName = "Demo",
           LastName = "User",
           Email = Constants.DEMO_EMAIL,
@@ -109,13 +120,15 @@ namespace MIA.ORMContext.Seed {
         };
 
         IdentityResult result = await userManager.CreateAsync(demoUser, Constants.DEMO_PASSWORD);
-        if (result.Succeeded) {
+        if (result.Succeeded)
+        {
           await userManager.AddToRoleAsync(demoUser, Constants.DEMO_ROLE);
 
           //add allowed modules (this is an example only)
           var allowedModules = new SystemModules[] { SystemModules.News, SystemModules.Adminstration };
           var modules = allowedModules[0];
-          for (int i = 1; i < allowedModules.Length; i++) {
+          for (int i = 1; i < allowedModules.Length; i++)
+          {
             modules |= allowedModules[i];
           }
 
@@ -132,20 +145,25 @@ namespace MIA.ORMContext.Seed {
     /// </summary>
     /// <param name="roleManager">Rolemanager instance to create default roles</param>
     /// <returns></returns>
-    private static async Task SeedAdminRoleAndPermissions(RoleManager<AppRole> roleManager, IAppUnitOfWork db) {
-      if (await roleManager.FindByNameAsync(Constants.ADMIN_ROLE) == null) {
+    private static async Task SeedAdminRoleAndPermissions(RoleManager<AppRole> roleManager, IAppUnitOfWork db)
+    {
+      if (await roleManager.FindByNameAsync(Constants.ADMIN_ROLE) == null)
+      {
         await roleManager.CreateAsync(
-          new AppRole {
+          new AppRole
+          {
             Name = Constants.ADMIN_ROLE,
             NormalizedName = Constants.ADMIN_ROLE.ToUpper()
           });
 
         var adminRole = await roleManager.FindByNameAsync(Constants.ADMIN_ROLE);
-        if (adminRole.Permissions == null) {
+        if (adminRole.Permissions == null)
+        {
           adminRole.Permissions = "";
         }
 
-        if (!adminRole.Permissions.Contains((char)Permissions.AccessAll)) {
+        if (!adminRole.Permissions.Contains((char)Permissions.AccessAll))
+        {
           adminRole.Permissions += (char)Permissions.AccessAll;
         }
 
@@ -157,9 +175,12 @@ namespace MIA.ORMContext.Seed {
     /// </summary>
     /// <param name="userManager">Usermanager instance to create default users</param>
     /// <returns></returns>
-    private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager) {
-      if (await userManager.FindByNameAsync(Constants.ADMIN_USERNAME) == null) {
-        AppUser admin = new AppUser {
+    private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager)
+    {
+      if (await userManager.FindByNameAsync(Constants.ADMIN_USERNAME) == null)
+      {
+        AppUser admin = new AppUser
+        {
           FirstName = "System",
           LastName = "Admin",
           Email = Constants.ADMIN_EMAIL,
@@ -169,30 +190,36 @@ namespace MIA.ORMContext.Seed {
         };
 
         IdentityResult result = await userManager.CreateAsync(admin, Constants.ADMIN_PASSWORD);
-        if (result.Succeeded) {
+        if (result.Succeeded)
+        {
           await userManager.AddToRoleAsync(admin, Constants.ADMIN_ROLE);
         }
       }
     }
 
-    private static async Task SeedCategoriesAsync(IAppUnitOfWork db) {
+    private static async Task SeedCategoriesAsync(IAppUnitOfWork db)
+    {
       List<Award> awards = db.Awards.ToList();
       if (awards.Any())
         return;
       var filename = "all_awards.json";
-      if (File.Exists("./" + filename)) {
-        using (StreamReader r = new StreamReader(filename)) {
+      if (File.Exists("./" + filename))
+      {
+        using (StreamReader r = new StreamReader(filename))
+        {
           var newCategories = new List<Award>();
           string json = r.ReadToEnd();
           var listCountries = JsonConvert.DeserializeObject<List<Award>>(json);
 
 
-          foreach (var c in listCountries) {
+          foreach (var c in listCountries)
+          {
             var country = awards.FirstOrDefault(a => a.Title == c.Title);
             if (country != null) continue;
             newCategories.Add(c);
           }
-          if (newCategories.Any()) {
+          if (newCategories.Any())
+          {
             await db.Awards.AddRangeAsync(newCategories);
           }
         }

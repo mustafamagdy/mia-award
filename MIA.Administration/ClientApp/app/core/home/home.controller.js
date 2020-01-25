@@ -3,12 +3,9 @@
 
   angular
     .module("home")
-    .controller("homeCtrl", [
-      "ManufactureResource",
+    .controller("homeCtrl", [ 
       "$interval",
-      "$filter",
-      "OrderResource",
-      "UserResource",
+      "$filter",  
       "ToastService",
       "$window",
       "$rootScope",
@@ -25,12 +22,9 @@
       homeCtrl
     ]);
 
-  function homeCtrl(
-    ManufactureResource,
+  function homeCtrl( 
     $interval,
-    $filter,
-    OrderResource,
-    UserResource,
+    $filter,  
     ToastService,
     $window,
     $rootScope,
@@ -55,19 +49,14 @@
     $scope.ManufactureList = [];
     $scope.totalCount = 0;
     $scope.CurrentDate = new Date();
-
-    var tick = function() {
-      $scope.clock = Date.now();
-    };
-    // tick();
-    // $interval(tick, 1000);
+ 
     $scope.languages = [
       {
-        id: "en-uk",
+        id: "en",
         label: "english"
       },
       {
-        id: "ar-eg",
+        id: "ar",
         label: "arabic"
       }
     ];
@@ -112,75 +101,28 @@
         $scope.selectedManufacture = $localStorage.tenant;
       }
     };
-    $scope.init();
-    function refreshOrders() {
-      //  blockUI.start("Loading...");
-      var k = OrderResource.getAllOrdersBy({ isNew: true, page: vm.currentPage }).$promise.then(
-        function(results) {
-          $scope.Orders = results.results;
-          $scope.totalCount = results.totalCount;
-          blockUI.stop();
-        },
-        function(data, status) {
-          blockUI.stop();
-          //   ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        }
-      );
-    }
+    $scope.init(); 
 
     $scope.openOrder = function(orderId) {
       blockUI.start("Loading...");
-      var updateObj = new OrderResource();
-      updateObj.orderId = orderId;
-      updateObj.$changeStatusOpen({ orderId: orderId }).then(
-        function(data, status) {
-          vm.connection.invoke("getConnectionId").then(function(connectionId) {
-            vm.connectionId = connectionId;
-            vm.connection.invoke("refresh"); // Send the connectionId to controller
-          });
-          blockUI.stop();
-          $state.go("OrderDetailsByTenant", { orderId: orderId });
-        },
-        function(data, status) {
-          blockUI.stop();
-          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        }
-      );
+      // var updateObj = new OrderResource();
+      // updateObj.orderId = orderId;
+      // updateObj.$changeStatusOpen({ orderId: orderId }).then(
+      //   function(data, status) {
+      //     vm.connection.invoke("getConnectionId").then(function(connectionId) {
+      //       vm.connectionId = connectionId;
+      //       vm.connection.invoke("refresh"); // Send the connectionId to controller
+      //     });
+      //     blockUI.stop();
+      //     $state.go("OrderDetailsByTenant", { orderId: orderId });
+      //   },
+      //   function(data, status) {
+      //     blockUI.stop();
+      //     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+      //   }
+      // );
     };
-    function getManufactureById() {
-      blockUI.start("Loading...");
-      var k = ManufactureResource.getManufacture({ manufactureId: $scope.user.tenantId }).$promise.then(
-        function(results) {
-          $localStorage.tenant = results;
-          $scope.selectedManufacture = $localStorage.tenant;
-          blockUI.stop();
-        },
-        function(data, status) {
-          blockUI.stop();
-          if ((data.statusText = "Unauthorized")) authorizationService.logout();
-          //ToastService.show("right", "bottom", "fadeInUp", data.statusText, "error");
-        }
-      );
-    }
-    function getManufactures() {
-      blockUI.start("Loading...");
-      var k = ManufactureResource.getAllManufactures().$promise.then(
-        function(results) {
-          $scope.ManufactureList.push({ manufactureId: 0, name: "All", companyLogo: "/Upload/newlogo.png" });
-          // $scope.ManufactureList = results.results;
-          $scope.ManufactureList = $scope.ManufactureList.concat(results.results);
-          $scope.selectedManufacture = $localStorage.tenant;
-          vm.selectedCountryId = 0; // $scope.selectedTenant = $scope.ManufactureList[0];
-          blockUI.stop();
-        },
-        function(data, status) {
-          blockUI.stop();
-
-          if ((data.statusText = "Unauthorized")) authorizationService.logout();
-          ToastService.show("right", "bottom", "fadeInUp", data.statusText, "error");
-        }
-      );
-    }
+    
 
     if ($localStorage.language == null) {
       $scope.selectedLanguage = $scope.languages[0].id;
@@ -257,24 +199,11 @@
         return;
       }
 
-      //comment this at 4/8/2019
-      // if (response.xhrStatus = "error")
-      //     loginFailed(response);
+       
       $scope.afterSubmit = false;
-      $scope.invalidLoginInfo = false;
-      //$scope.inActiveUser = false;
+      $scope.invalidLoginInfo = false; 
       $scope.user = authorizationService.getUser();
-      $localStorage.tenant = { manufactureId: 0, name: "All", companyLogo: "/Upload/newlogo.png" };
-      if ($scope.user.userTypeId == 4) $window.location.reload();
-
-      // if ($scope.user.PermissionId[0] == 1)
-      //    $state.go('users');
-      // $state.reload();
-      // $scope.init();
-      // if ($scope.user.userTypeId == 4 || $scope.user.userTypeId == 5)
-      //     getManufactures();
-      // else
-      //     getManufactureById();
+      
     }
 
     function loginFailed(response) {
@@ -325,35 +254,6 @@
     $scope.getCurrentTime = function() {
       return new Date().getTime();
     };
-    $scope.changeTenant = function(tenant) {
-      blockUI.start("We Are Changing now to new Manufacture...");
-      var newObj = new UserResource();
-      newObj.tenantId = $scope.selectedTenant;
-      newObj.$refreshLogin().then(
-        function(data, status) {
-          blockUI.stop();
-          if (data.token != null) {
-            var getUserInfo = authorizationService.getUser();
-            getUserInfo.token = data.token;
-            getUserInfo.username = data.username;
-            getUserInfo.userId = data.userId;
-            getUserInfo.userType = data.userType;
-
-            authorizationService.setAuthInfoAfterChangeTenant(getUserInfo);
-            var index = $scope.ManufactureList.indexOf($filter("filter")($scope.ManufactureList, { manufactureId: tenant }, true)[0]);
-            $localStorage.tenant = $scope.ManufactureList[index];
-            $scope.selectedManufacture = $localStorage.tenant;
-            $window.location.reload();
-          } else {
-            //    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-          }
-        },
-        function(data, status) {
-          blockUI.stop();
-
-          // ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-        }
-      );
-    };
+     
   }
 })();

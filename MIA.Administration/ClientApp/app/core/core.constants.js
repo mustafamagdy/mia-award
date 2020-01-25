@@ -4,17 +4,17 @@
     .module("core")
     .constant("appCONSTANTS", {
       API_URL: `${apiBaseUrl}/api/`,
-      SIGNAL_URL: `${apiBaseUrl}/signal/order/`,
+      // SIGNAL_URL: `${apiBaseUrl}/signal/order/`,
 
-      Image_URL: `${apiBaseUrl}/auth`,
-      Image_URL_ORDER: `${apiBaseUrl}/order`,
-      Image_URL_GLOBAL: `${apiBaseUrl}/global`,
-      Image_URL_ACTOR: `${apiBaseUrl}/actor`,
+      // Image_URL: `${apiBaseUrl}/auth`,
+      // Image_URL_ORDER: `${apiBaseUrl}/order`,
+      // Image_URL_GLOBAL: `${apiBaseUrl}/global`,
+      // Image_URL_ACTOR: `${apiBaseUrl}/actor`,
 
-      defaultLanguage: "ar-eg",
+      defaultLanguage: "ar",
       supportedLanguage: {
-        "en-uk": { key: "en-uk", value: "english" },
-        "ar-eg": { key: "ar-eg", value: "arabic" }
+        "en": { key: "en", value: "english" },
+        "ar": { key: "ar", value: "arabic" }
       }
     })
     .constant("messageTypeEnum", {

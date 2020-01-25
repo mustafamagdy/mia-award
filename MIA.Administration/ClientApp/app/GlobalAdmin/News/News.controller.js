@@ -3,52 +3,50 @@
 
     angular
         .module('home')
-        .controller('CategoryController', ['appCONSTANTS','$scope', '$translate', 'CategoryResource', 'blockUI', '$uibModal', 'CategoryPrepService',
-            'ToastService', CategoryController]);
+        .controller('NewsController', ['appCONSTANTS', '$scope', '$translate', 'NewsResource', 'blockUI', '$uibModal',
+            'ToastService', NewsController]);
 
 
-    function CategoryController(appCONSTANTS,$scope, $translate, CategoryResource, blockUI, $uibModal, CategoryPrepService, ToastService) {
+    function NewsController(appCONSTANTS, $scope, $translate, NewsResource, blockUI, $uibModal, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         var vm = this;
-        // vm.actionList = [];
-        // for (var i = 1; i <= $scope.user.permessionModules[1][2].length; i++)  
-        //     vm.actionList.push(i);
-       
+
         vm.currentPage = 1;
         vm.appCONSTANTS = appCONSTANTS;
-        $scope.totalCount = CategoryPrepService.totalCount;
-        $scope.CategoryList = CategoryPrepService;
-        console.log(CategoryPrepService);
-        function refreshCategorys() {
+
+        refreshNewss();
+        function refreshNewss() {
             blockUI.start("Loading...");
 
-            var k = CategoryResource.getAllCategories({ page: vm.currentPage }).$promise.then(function (results) {
-                $scope.CategoryList = results;
-
-                console.log($scope.CategoryList);
+            var k = NewsResource.getAllNewss({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
+                debugger;
+                $scope.NewsList = results.items;
+                $scope.totalCount = results.metadata.totalItemCount;
+                console.log($scope.NewsList);
                 blockUI.stop();
 
             },
                 function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                debugger;
+                blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
         }
-        function change(category, isDeleted) {
-            var updateObj = new CategoryResource();
-            updateObj.CategoryId = category.categoryId;
+        function change(news, isDeleted) {
+            var updateObj = new NewsResource();
+            updateObj.id = news.id;
             if (!isDeleted)
-                updateObj.status = (category.status == true ? false : true);
-            updateObj.isDeleted = category.isDeleted;
+                updateObj.status = (news.status == true ? false : true);
+            updateObj.isDeleted = news.isDeleted;
 
             updateObj.$update().then(
                 function (data, status) {
-                    if (isDeleted)
-                        refreshCategorys();
+                    // if (isDeleted)
+                    refreshNewss();
 
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    category.status = updateObj.status;
+                    news.status = updateObj.status;
 
                 },
                 function (data, status) {
@@ -57,17 +55,15 @@
             );
 
         }
-        vm.UpdateCategory = function (category) {
-            change(category, false);
+        vm.UpdateNews = function (news) {
+            change(news, false);
         }
 
         function confirmationDelete(model) {
-            
-            var updateObj = new CategoryResource();
-            updateObj.id = model.id;
+            var updateObj = new NewsResource();
             updateObj.$delete({ id: model.id }).then(
                 function (data, status) {
-                    refreshCategorys();
+                    refreshNewss();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
                 },
                 function (data, status) {
@@ -91,26 +87,27 @@
             });
         }
         vm.ChangeStatus = function (model) {
-            
-              var updateObj = new CategoryResource();
-              updateObj.categoryId = model.categoryId;
-              updateObj.status = (model.isActive == true ? false : true);
-              updateObj.$changeStatus({ categoryId: updateObj.categoryId, status: updateObj.status }).then(
-                  function (data, status) {
-                    refreshCategorys();
-                      ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                      updateObj.status = model.isActive;
-                  },
-                  function (data, status) {
-                      ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                  }
-              );
-              return;
-          }
+            var updateObj = new NewsResource();
+            updateObj.id = model.id;
+            updateObj.title = model.title;
+            updateObj.body = model.body;
+            updateObj.outdated = (model.outdated == true ? false : true);
+            updateObj.$update().then(
+                function (data, status) {
+                    //  refreshNewss();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    model.outdated = updateObj.outdated;
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                }
+            );
+            return;
+        }
 
         vm.changePage = function (page) {
             vm.currentPage = page;
-            refreshCategorys();
+            refreshNewss();
         }
 
     }

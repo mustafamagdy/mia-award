@@ -56,17 +56,17 @@
     .module("core")
     .constant("appCONSTANTS", {
       API_URL: `${apiBaseUrl}/api/`,
-      SIGNAL_URL: `${apiBaseUrl}/signal/order/`,
+      // SIGNAL_URL: `${apiBaseUrl}/signal/order/`,
 
-      Image_URL: `${apiBaseUrl}/auth`,
-      Image_URL_ORDER: `${apiBaseUrl}/order`,
-      Image_URL_GLOBAL: `${apiBaseUrl}/global`,
-      Image_URL_ACTOR: `${apiBaseUrl}/actor`,
+      // Image_URL: `${apiBaseUrl}/auth`,
+      // Image_URL_ORDER: `${apiBaseUrl}/order`,
+      // Image_URL_GLOBAL: `${apiBaseUrl}/global`,
+      // Image_URL_ACTOR: `${apiBaseUrl}/actor`,
 
-      defaultLanguage: "ar-eg",
+      defaultLanguage: "ar",
       supportedLanguage: {
-        "en-uk": { key: "en-uk", value: "english" },
-        "ar-eg": { key: "ar-eg", value: "arabic" }
+        "en": { key: "en", value: "english" },
+        "ar": { key: "ar", value: "arabic" }
       }
     })
     .constant("messageTypeEnum", {
@@ -465,7 +465,7 @@ angular.module('core')
         "costlbl": "cost",
         "PriceBeforeDiscount": "Price Before Discount",
         "PriceAfterDiscount": "Price After Discount",
-        "NoNewssAvailable": "No Categories Available",
+        "NoNewssAvailable": "No News Available",
         "mustchooseProduct": "Must Choose an Product",
         "imageTypeError": "Image Type Error",
         "imgaeSizeError": "Image Size Error",
@@ -734,7 +734,7 @@ angular.module('core')
         "imgaeSizeError": "خطأ في حجم الصورة",
         "imageTypeError": "خطأ في نوع الصورة",
         "mustchooseProduct": "يجب ان تختار عنصر",
-        "NoNewssAvailable": "لا يوجد أقسام متاحه",
+        "NoNewssAvailable": "لا يوجد اخبار متاحه",
         "PriceBeforeDiscount": "سعر قبل الخصم",
         "PriceAfterDiscount": "سعر بعد الخصم",
         "Total": "مجموع",
@@ -924,9 +924,9 @@ angular.module('core')
         "SelectNews": "أختار قسم",
         "addProductBtn": "أضف منتج",
       }
-      $translateProvider.translations('en-uk', en_translations);
+      $translateProvider.translations('en', en_translations);
 
-      $translateProvider.translations('ar-eg', ar_translations);
+      $translateProvider.translations('ar', ar_translations);
 
       $translateProvider.preferredLanguage(appCONSTANTS.defaultLanguage);
 
@@ -1072,12 +1072,9 @@ angular.module('core')
 
   angular
     .module("home")
-    .controller("homeCtrl", [
-      "ManufactureResource",
+    .controller("homeCtrl", [ 
       "$interval",
-      "$filter",
-      "OrderResource",
-      "UserResource",
+      "$filter",  
       "ToastService",
       "$window",
       "$rootScope",
@@ -1094,12 +1091,9 @@ angular.module('core')
       homeCtrl
     ]);
 
-  function homeCtrl(
-    ManufactureResource,
+  function homeCtrl( 
     $interval,
-    $filter,
-    OrderResource,
-    UserResource,
+    $filter,  
     ToastService,
     $window,
     $rootScope,
@@ -1124,19 +1118,14 @@ angular.module('core')
     $scope.ManufactureList = [];
     $scope.totalCount = 0;
     $scope.CurrentDate = new Date();
-
-    var tick = function() {
-      $scope.clock = Date.now();
-    };
-    // tick();
-    // $interval(tick, 1000);
+ 
     $scope.languages = [
       {
-        id: "en-uk",
+        id: "en",
         label: "english"
       },
       {
-        id: "ar-eg",
+        id: "ar",
         label: "arabic"
       }
     ];
@@ -1181,75 +1170,28 @@ angular.module('core')
         $scope.selectedManufacture = $localStorage.tenant;
       }
     };
-    $scope.init();
-    function refreshOrders() {
-      //  blockUI.start("Loading...");
-      var k = OrderResource.getAllOrdersBy({ isNew: true, page: vm.currentPage }).$promise.then(
-        function(results) {
-          $scope.Orders = results.results;
-          $scope.totalCount = results.totalCount;
-          blockUI.stop();
-        },
-        function(data, status) {
-          blockUI.stop();
-          //   ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        }
-      );
-    }
+    $scope.init(); 
 
     $scope.openOrder = function(orderId) {
       blockUI.start("Loading...");
-      var updateObj = new OrderResource();
-      updateObj.orderId = orderId;
-      updateObj.$changeStatusOpen({ orderId: orderId }).then(
-        function(data, status) {
-          vm.connection.invoke("getConnectionId").then(function(connectionId) {
-            vm.connectionId = connectionId;
-            vm.connection.invoke("refresh"); // Send the connectionId to controller
-          });
-          blockUI.stop();
-          $state.go("OrderDetailsByTenant", { orderId: orderId });
-        },
-        function(data, status) {
-          blockUI.stop();
-          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        }
-      );
+      // var updateObj = new OrderResource();
+      // updateObj.orderId = orderId;
+      // updateObj.$changeStatusOpen({ orderId: orderId }).then(
+      //   function(data, status) {
+      //     vm.connection.invoke("getConnectionId").then(function(connectionId) {
+      //       vm.connectionId = connectionId;
+      //       vm.connection.invoke("refresh"); // Send the connectionId to controller
+      //     });
+      //     blockUI.stop();
+      //     $state.go("OrderDetailsByTenant", { orderId: orderId });
+      //   },
+      //   function(data, status) {
+      //     blockUI.stop();
+      //     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+      //   }
+      // );
     };
-    function getManufactureById() {
-      blockUI.start("Loading...");
-      var k = ManufactureResource.getManufacture({ manufactureId: $scope.user.tenantId }).$promise.then(
-        function(results) {
-          $localStorage.tenant = results;
-          $scope.selectedManufacture = $localStorage.tenant;
-          blockUI.stop();
-        },
-        function(data, status) {
-          blockUI.stop();
-          if ((data.statusText = "Unauthorized")) authorizationService.logout();
-          //ToastService.show("right", "bottom", "fadeInUp", data.statusText, "error");
-        }
-      );
-    }
-    function getManufactures() {
-      blockUI.start("Loading...");
-      var k = ManufactureResource.getAllManufactures().$promise.then(
-        function(results) {
-          $scope.ManufactureList.push({ manufactureId: 0, name: "All", companyLogo: "/Upload/newlogo.png" });
-          // $scope.ManufactureList = results.results;
-          $scope.ManufactureList = $scope.ManufactureList.concat(results.results);
-          $scope.selectedManufacture = $localStorage.tenant;
-          vm.selectedCountryId = 0; // $scope.selectedTenant = $scope.ManufactureList[0];
-          blockUI.stop();
-        },
-        function(data, status) {
-          blockUI.stop();
-
-          if ((data.statusText = "Unauthorized")) authorizationService.logout();
-          ToastService.show("right", "bottom", "fadeInUp", data.statusText, "error");
-        }
-      );
-    }
+    
 
     if ($localStorage.language == null) {
       $scope.selectedLanguage = $scope.languages[0].id;
@@ -1326,24 +1268,11 @@ angular.module('core')
         return;
       }
 
-      //comment this at 4/8/2019
-      // if (response.xhrStatus = "error")
-      //     loginFailed(response);
+       
       $scope.afterSubmit = false;
-      $scope.invalidLoginInfo = false;
-      //$scope.inActiveUser = false;
+      $scope.invalidLoginInfo = false; 
       $scope.user = authorizationService.getUser();
-      $localStorage.tenant = { manufactureId: 0, name: "All", companyLogo: "/Upload/newlogo.png" };
-      if ($scope.user.userTypeId == 4) $window.location.reload();
-
-      // if ($scope.user.PermissionId[0] == 1)
-      //    $state.go('users');
-      // $state.reload();
-      // $scope.init();
-      // if ($scope.user.userTypeId == 4 || $scope.user.userTypeId == 5)
-      //     getManufactures();
-      // else
-      //     getManufactureById();
+      
     }
 
     function loginFailed(response) {
@@ -1394,36 +1323,7 @@ angular.module('core')
     $scope.getCurrentTime = function() {
       return new Date().getTime();
     };
-    $scope.changeTenant = function(tenant) {
-      blockUI.start("We Are Changing now to new Manufacture...");
-      var newObj = new UserResource();
-      newObj.tenantId = $scope.selectedTenant;
-      newObj.$refreshLogin().then(
-        function(data, status) {
-          blockUI.stop();
-          if (data.token != null) {
-            var getUserInfo = authorizationService.getUser();
-            getUserInfo.token = data.token;
-            getUserInfo.username = data.username;
-            getUserInfo.userId = data.userId;
-            getUserInfo.userType = data.userType;
-
-            authorizationService.setAuthInfoAfterChangeTenant(getUserInfo);
-            var index = $scope.ManufactureList.indexOf($filter("filter")($scope.ManufactureList, { manufactureId: tenant }, true)[0]);
-            $localStorage.tenant = $scope.ManufactureList[index];
-            $scope.selectedManufacture = $localStorage.tenant;
-            $window.location.reload();
-          } else {
-            //    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-          }
-        },
-        function(data, status) {
-          blockUI.stop();
-
-          // ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-        }
-      );
-    };
+     
   }
 })();
 ;(function() {
@@ -1726,7 +1626,7 @@ angular.module('core')
   }
 
 }());
-;(function() {
+;(function () {
   "use strict";
 
   angular.module("core").factory("authorizationService", authorizationService);
@@ -1756,10 +1656,12 @@ angular.module('core')
 
     function getUser() {
       var token = getAuthInfo();
-      if(token == undefined) return undefined;
+      if (token == undefined) return undefined;
       const userDetails = jwtHelper.decodeToken(token);
-      debugger;
-      
+      userDetails.PermessionId  = userDetails.PermessionId || '';
+      userDetails.PermessionId = userDetails.PermessionId.split(';').map(a => a.trim());
+      userDetails.PermessionModules = JSON.parse(userDetails.PermessionModules);
+
       return userDetails;
       // return {
       //   tenantId: info ? info.tenantId : "",

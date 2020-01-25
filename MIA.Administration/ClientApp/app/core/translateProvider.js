@@ -211,7 +211,7 @@
         "costlbl": "cost",
         "PriceBeforeDiscount": "Price Before Discount",
         "PriceAfterDiscount": "Price After Discount",
-        "NoNewssAvailable": "No Categories Available",
+        "NoNewssAvailable": "No News Available",
         "mustchooseProduct": "Must Choose an Product",
         "imageTypeError": "Image Type Error",
         "imgaeSizeError": "Image Size Error",
@@ -480,7 +480,7 @@
         "imgaeSizeError": "خطأ في حجم الصورة",
         "imageTypeError": "خطأ في نوع الصورة",
         "mustchooseProduct": "يجب ان تختار عنصر",
-        "NoNewssAvailable": "لا يوجد أقسام متاحه",
+        "NoNewssAvailable": "لا يوجد اخبار متاحه",
         "PriceBeforeDiscount": "سعر قبل الخصم",
         "PriceAfterDiscount": "سعر بعد الخصم",
         "Total": "مجموع",
@@ -670,9 +670,9 @@
         "SelectNews": "أختار قسم",
         "addProductBtn": "أضف منتج",
       }
-      $translateProvider.translations('en-uk', en_translations);
+      $translateProvider.translations('en', en_translations);
 
-      $translateProvider.translations('ar-eg', ar_translations);
+      $translateProvider.translations('ar', ar_translations);
 
       $translateProvider.preferredLanguage(appCONSTANTS.defaultLanguage);
 
