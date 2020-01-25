@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 import { useEffect, useState } from "react";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
 
-const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, commentsSuccess, ...props }) => {
+const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, commentsSuccess, clearCommentSuccess, ...props }) => {
   useEffect(() => {
     const id = location.pathname.split("/").pop();
     fetchNewsItem(id);
@@ -53,7 +53,12 @@ const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, comments
           <div className="comments_area">
             <Comments comments={newsItem.comments} />
           </div>
-          <CommentForm newsId={newsItem.id} postNewsComment={postNewsComment} commentsSuccess={commentsSuccess} />
+          <CommentForm
+            newsId={newsItem.id}
+            postNewsComment={postNewsComment}
+            commentsSuccess={commentsSuccess}
+            clearCommentSuccess={clearCommentSuccess}
+          />
         </div>
         <div className="side_bar">
           <AdsArea />
@@ -66,19 +71,16 @@ const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, comments
   );
 };
 
-const CommentForm = ({ newsId, postNewsComment, commentsSuccess, ...props }) => {
+const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuccess, ...props }) => {
   const { register, handleSubmit, reset } = useForm();
-  const [success, setSuccess] = useState(commentsSuccess);
 
   const onSubmit = values => {
-    console.log("values", values);
     postNewsComment({ ...values, id: newsId });
     setTimeout(() => {
-      setSuccess(true);
       reset();
       setTimeout(() => {
-        setSuccess(undefined);
-      }, 3000);
+        clearCommentSuccess();
+      }, 2000);
     }, 1000);
   };
 
@@ -94,7 +96,7 @@ const CommentForm = ({ newsId, postNewsComment, commentsSuccess, ...props }) => 
           <Trans id="post_comment">Post Comment</Trans>
         </button>
         {"  "}
-        {success == undefined ? null : (
+        {commentsSuccess == undefined ? null : (
           <span className="success">
             <Trans id="comment_submitted">Your comment has been submitted successfully for review</Trans>
           </span>

@@ -38,9 +38,16 @@ const postNewsCommentSuccess = (state, action) => {
   });
 };
 
+const clearCommentSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.commentsSuccess = undefined;
+  });
+};
+
 export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_NEWS_SUCCESS]: fetchNewsSuccess,
   [ActionTypes.FETCH_CATEGORIES_SUCCESS]: fetchCategoriesSuccess,
   [ActionTypes.FETCH_NEWS_ITEM_SUCCESS]: fetchNewsItemSuccess,
-  [ActionTypes.POST_NEWS_COMMENT_SUCCESS]: postNewsCommentSuccess
+  [ActionTypes.POST_NEWS_COMMENT_SUCCESS]: postNewsCommentSuccess,
+  [ActionTypes.CLEAR_COMMENT_SUCCESS]: clearCommentSuccess
 });
