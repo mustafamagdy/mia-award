@@ -5,8 +5,16 @@ using System.Text;
 
 namespace MIA.Models.Entities {
   public class LocalizedData : Dictionary<string, string> {
-    public static readonly string Arabic = "arabic";
-    public static readonly string English = "english";
+    public static readonly string Arabic = "ar";
+    public static readonly string English = "en";
+
+    public static LocalizedData FromArabic(string data) {
+      return new LocalizedData { { Arabic, data } };
+    }
+
+    public static LocalizedData FromEnglish(string data) {
+      return new LocalizedData { { English, data } };
+    }
 
     public bool ArabicContains(string query) {
       return this[Arabic].Contains(query);

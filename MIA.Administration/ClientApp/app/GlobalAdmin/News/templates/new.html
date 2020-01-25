@@ -1,14 +1,13 @@
 <div class="modal-content">
     <div class="modal-header bordered">
-        <h2 class="pmd-card-title-text">      {{'AddNewCategoryBtn' | translate}}       </h2>
+        <h2 class="pmd-card-title-text"> {{'AddNewNewsBtn' | translate}} </h2>
     </div>
     <div class="modal-body">
-        <form class="form-horizontal" name="newCategoryForm">
+        <form class="form-horizontal" name="newNewsForm">
             <div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" ng-class="{'active':$index == 0}"
-                        ng-repeat="lang in newCategoryCtrl.language">
+                    <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in newNewsCtrl.language">
                         <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
                             data-toggle="tab">
                             <span style="color:red">*</span>{{lang.value | translate}}
@@ -20,49 +19,64 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
-                                ng-repeat="lang in newCategoryCtrl.language" id="{{lang.value}}-form">
+                                ng-repeat="lang in newNewsCtrl.language" id="{{lang.value}}-form">
                                 <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                                    <label for="first-name">{{ lang.value+'Name' | translate}} </label>
-                                    <input required Category="text" class="mat-input form-control"
+                                    <label for="first-name">{{ 'Title' | translate}} </label>
+                                    <input required News="text" class="mat-input form-control"
                                         name="titleDictionary{{lang.value+'Name'}}"
-                                        ng-model="newCategoryCtrl.titleDictionary[lang.key]" ng-minlength="3"
+                                        ng-model="newNewsCtrl.titleDictionary[lang.key]" ng-minlength="3"
                                         ng-maxlength="255">
-                                    <div ng-messages="newCategoryForm.titleDictionary{{lang.value+'Name'}}.$error">
+                                    <div ng-messages="newNewsForm.titleDictionary{{lang.value+'Name'}}.$error">
 
                                         <div class="error ng-binding"
-                                            ng-show="newCategoryForm.titleDictionary{{lang.value+'Name'}}.$error.required && !newCategoryForm.titleDictionary{{lang.value+'Name'}}.$pristine">
+                                            ng-show="newNewsForm.titleDictionary{{lang.value+'Name'}}.$error.required && !newNewsForm.titleDictionary{{lang.value+'Name'}}.$pristine">
                                             {{'requiredErr' | translate}}</div>
                                         <div class="error ng-binding"
-                                            ng-show="(newCategoryForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || newCategoryForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newCategoryForm.titleDictionary{{lang.value+'Name'}}.$error.required">
+                                            ng-show="(newNewsForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || newNewsForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newNewsForm.titleDictionary{{lang.value+'Name'}}.$error.required">
+                                            {{'NameLengthError3' | translate}}</div>
+                                    </div>
+                                </div>
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label for="first-name">{{ 'Body' | translate}} </label>
+                                    <textarea required class="mat-input form-control"
+                                        name="bodyDictionary{{lang.value+'Name'}}"
+                                        ng-model="newNewsCtrl.bodyDictionary[lang.key]" ng-minlength="3"
+                                        ng-maxlength="955"></textarea>
+                                    <div ng-messages="newNewsForm.bodyDictionary{{lang.value+'Name'}}.$error">
+
+                                        <div class="error ng-binding"
+                                            ng-show="newNewsForm.bodyDictionary{{lang.value+'Name'}}.$error.required && !newNewsForm.bodyDictionary{{lang.value+'Name'}}.$pristine">
+                                            {{'requiredErr' | translate}}</div>
+                                        <div class="error ng-binding"
+                                            ng-show="(newNewsForm.bodyDictionary{{lang.value+'Name'}}.$error.minlength || newNewsForm.bodyDictionary{{lang.value+'Name'}}.$error.maxlength) && !newNewsForm.bodyDictionary{{lang.value+'Name'}}.$error.required">
                                             {{'NameLengthError3' | translate}}</div>
                                     </div>
                                 </div>
                             </div>
 
-                        
-                        </div>
 
-                        <div class="form-group pmd-textfield-floating-label-completed">
-                            <span style="color:red">*</span>
-                            <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
-                                Photo</label>
-                            <input id="image" class="hidden" type="file" img-upload ng-model="imageName"
-                                name="imageName">
-                            <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
-                            <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                                {{'RecommendedProductImage' | translate}}</span>
                         </div>
                     </div>
-                </div>
+                </div>  
+                <div class="form-group pmd-textfield-floating-label-completed">
+                    <span style="color:red">*</span>
+                    <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
+                        Photo</label>
+                    <input id="image" class="hidden" type="file" img-upload ng-model="imageName"
+                        name="imageName">
+                    <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
+                    <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                        {{'RecommendedProductImage' | translate}}</span>
+                </div> 
             </div>
         </form>
     </div>
     <div class="pmd-modal-action text-right">
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="newCategoryForm.$invalid"
-            class="btn pmd-ripple-effect btn-primary" Category="button"
-            ng-click="newCategoryCtrl.AddNewCategory()">{{'saveChangesBtn' | translate}}</button>
-        <button class="btn pmd-ripple-effect btn-default" Category="button"
-            ng-click="newCategoryCtrl.close()">{{'DiscardBtn' | translate}}</button>
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-disabled="newNewsForm.$invalid ||  file ==null" class="btn pmd-ripple-effect btn-primary" News="button"
+            ng-click="newNewsCtrl.AddNewNews()">{{'saveChangesBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" News="button"
+            ng-click="newNewsCtrl.close()">{{'DiscardBtn' | translate}}</button>
     </div>
 </div>
 

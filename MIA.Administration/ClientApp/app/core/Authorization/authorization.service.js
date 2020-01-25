@@ -1,4 +1,4 @@
-(function() {
+(function () {
   "use strict";
 
   angular.module("core").factory("authorizationService", authorizationService);
@@ -28,10 +28,12 @@
 
     function getUser() {
       var token = getAuthInfo();
-      if(token == undefined) return undefined;
+      if (token == undefined) return undefined;
       const userDetails = jwtHelper.decodeToken(token);
-      debugger;
-      
+      userDetails.PermessionId  = userDetails.PermessionId || '';
+      userDetails.PermessionId = userDetails.PermessionId.split(';').map(a => a.trim());
+      userDetails.PermessionModules = JSON.parse(userDetails.PermessionModules);
+
       return userDetails;
       // return {
       //   tenantId: info ? info.tenantId : "",
