@@ -11,20 +11,13 @@ namespace MIA.Mvc.Core {
       var dto = new PermissionDto();
       dto.Id = (short)source;
 
-      var displayAttribute = source.GetAttribute<DisplayAttribute>();
-      if (displayAttribute != null) {
-        dto.Name = displayAttribute.Name;
-        dto.Group = displayAttribute.GroupName;
-      } else {
-        dto.Name = source.ToString();
-        dto.Group = "";
-      }
-
-      var moduleAttribute = source.GetAttribute<LinkedToModuleAttribute>();
+      var moduleAttribute = source.GetAttribute<PermissionDescriptorAttribute>();
       if (moduleAttribute != null) {
+        dto.Name = moduleAttribute.Name;
         dto.SystemModule = moduleAttribute.SystemModule;
       } else {
-        dto.SystemModule = SystemModules.None;
+        dto.Name = source.ToString();
+        dto.SystemModule = SystemModules.Dashboard;
       }
 
       return dto;
