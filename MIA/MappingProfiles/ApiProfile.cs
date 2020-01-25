@@ -17,8 +17,28 @@ namespace MIA.MappingProfiles {
 
       CreateMap<News, NewsDto>()
        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
-       //.ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Image != null ? a.Image.Imageurl : ""))
        .ValidateMemberList(MemberList.None);
+
+
+      CreateMap<News, FullNewsDto>()
+        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
+       .ValidateMemberList(MemberList.None);
+
+      CreateMap<News, FullNewsWithCommentsDto>()
+        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
+       .ValidateMemberList(MemberList.None);
+
+      CreateMap<NewsComment, UserCommentDto>()
+        .ForMember(a => a.Comment, cfg => cfg.MapFrom(a => a.Comments))
+        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
+       .ValidateMemberList(MemberList.None);
+
+      CreateMap<NewsUserComment, NewsComment>()
+        .ForMember(a => a.News, cfg => cfg.Ignore())
+        .ForMember(a => a.NewsId, cfg => cfg.Ignore())
+        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => DateTime.Now.ToUniversalTime()))
+       .ValidateMemberList(MemberList.None);
+
     }
   }
 

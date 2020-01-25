@@ -8,6 +8,7 @@ using MIA.Models.Entities;
 using MIA.ORMContext.Uow;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
+using Bogus;
 
 namespace MIA.ORMContext.Seed {
   public class DbInitializer {
@@ -33,22 +34,32 @@ namespace MIA.ORMContext.Seed {
     }
 
     private static async Task SeedDemoNews(IAppUnitOfWork db) {
-      //var news1 = db.News.ToList();
-      //var news2 = db.News.Where(a => a.Title.ArabicContains("ghgh")).ToList();
+      var _faker_en = new Faker("en");
+      var _faker_ar = new Faker("ar");
+      string[] categories = new string[] { "sports", "drama", "politics", "documental" };
+      //TODO remove in production
+      var newsCount = db.News.Count();
+      if (newsCount >= 20) return;
 
-      //for (int i = 0; i < 5; i++) {
-      //  var news = new News {
-      //    Title = new LocalizedData {
-      //      { LocalizedData.Arabic, "الخبر الاول"},
-      //      { LocalizedData.English, "news title 1"},
-      //    },
-      //    Body = new LocalizedData {
-      //      { LocalizedData.Arabic, @"لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت"},
-      //      { LocalizedData.English, @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate "},
-      //    }
-      //  };
-      //  await db.News.AddAsync(news);
-      //}
+      for (int i = 0; i < 20; i++) {
+        var news = new News {
+          Title = LocalizedData.FromTwo(_faker_ar.Lorem.Sentence(), _faker_en.Lorem.Sentence()),
+          Body = LocalizedData.FromTwo(_faker_ar.Lorem.Paragraph(), _faker_en.Lorem.Paragraph()),
+          Date = _faker_en.Date.Past().ToUnixTimeSeconds(),
+          Category = _faker_en.Random.ArrayElement(categories),
+          Outdated = _faker_en.Random.Bool(),
+          PosterUrl = $"https://via.placeholder.com/373x541?text={_faker_ar.Lorem.Word()}",
+          Comments = Enumerable.Range(0, _faker_en.Random.Number(10)).Select(a => new NewsComment {
+            Comments = _faker_ar.Lorem.Paragraph(),
+            Date = _faker_ar.Date.Past().ToUnixTimeSeconds(),
+            Name = _faker_ar.Internet.UserName(),
+            IsApproved = _faker_ar.Random.Bool(),
+            Title = _faker_ar.Lorem.Sentence(),
+          }).ToHashSet()
+        };
+
+        await db.News.AddAsync(news);
+      }
     }
 
     private static async Task SeedDemoUserAndRoleAsync(

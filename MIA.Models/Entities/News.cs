@@ -1,4 +1,5 @@
 ﻿using MIA.Models.Entities;
+using System.Collections.Generic;
 
 namespace MIA.Models.Entities {
   public class News : BaseEntity<string> {
@@ -10,5 +11,7 @@ namespace MIA.Models.Entities {
 
     public string PosterId { get; set; }
     public string PosterUrl { get; set; }
+
+    public HashSet<NewsComment> Comments { get; set; }
   }
 }

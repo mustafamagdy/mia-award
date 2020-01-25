@@ -8,6 +8,10 @@ namespace MIA.Models.Entities {
     public static readonly string Arabic = "arabic";
     public static readonly string English = "english";
 
+    public static LocalizedData FromTwo(string arabic, string english) {
+      return new LocalizedData { { Arabic, arabic }, { English, english } };
+    }
+
     public bool ArabicContains(string query) {
       return this[Arabic].Contains(query);
     }

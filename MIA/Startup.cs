@@ -164,9 +164,10 @@ namespace MIA {
         .UpdateDatabase()
 
         //#if (ForwardedHeaders)
-        .UseForwardedHeaders(new ForwardedHeadersOptions {
-          ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-        })
+        .UseIf(!this.env.IsDevelopment(),
+          x => x.UseForwardedHeaders(new ForwardedHeadersOptions {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+          }))
         //#elif (HostFiltering)
 #if (HostFiltering)
         .UseHostFiltering ()

@@ -1,0 +1,70 @@
+﻿using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using MIA.ORMContext;
+using MIA.ORMContext.Uow;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using MIA.Api.Base;
+using Z.EntityFramework.Plus;
+using Microsoft.EntityFrameworkCore;
+using MIA.Models.Entities;
+using Microsoft.Extensions.Options;
+using MIA.Infrastructure.Options;
+
+namespace MIA.Api {
+#if Versioning
+  [ApiVersion("1.0")]
+#endif
+  [Route("api/news")]
+  public class NewsController : BaseApiController<NewsController> {
+
+    public NewsController(IMapper mapper, [FromServices] ILogger<NewsController> logger) : base(logger, mapper) {
+    }
+
+    [HttpPost("")]
+    public IActionResult List(
+      [FromBody] FullNewsSearch query,
+      [FromServices] IAppUnitOfWork db) {
+      var result = db.News
+        .Where(a => a.Category.ToLower() == query.Category.ToLower())
+        .ProjectTo<FullNewsDto>(_mapper.ConfigurationProvider)
+        .ToPagedList(query);
+
+      return IfFound(result);
+    }
+
+    [HttpGet("/with-comments/:id")]
+    public async Task<IActionResult> ListWithComments(
+      [FromRoute(Name = "id")] string newsId,
+      [FromServices] IAppUnitOfWork db) {
+      var result = await db.News
+        //.Include(a=>a.Comments)
+        .Where(a => a.Id == newsId)
+        .ProjectTo<FullNewsWithCommentsDto>()
+        .FirstOrDefaultAsync();
+
+
+      return IfFound(result);
+    }
+
+
+    [HttpPost("/news/:id/comments")]
+    public async Task<IActionResult> AddComment(
+      [FromRoute(Name = "id")] string newsId,
+      [FromBody] NewsUserComment dto,
+      [FromServices] IAppUnitOfWork db,
+      [FromServices] IOptions<AdminOptions> adminOptions
+      ) {
+      var comment = _mapper.Map<NewsComment>(dto);
+      comment.NewsId = newsId;
+      comment.IsApproved = adminOptions.Value.AutoApproveNewssComments;
+
+      await db.NewsComments.AddAsync(comment);
+      return Ok(_mapper.Map<UserCommentDto>(comment));
+    }
+  }
+
+
+}

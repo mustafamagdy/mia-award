@@ -5,48 +5,29 @@ import { useState } from "react";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
 
 const Gallery = props => {
-  const allSlides = [
-    {
-      id: "1",
-      posterUrl: "https://via.placeholder.com/998x558?text=image+1"
-    },
-    {
-      id: "2",
-      posterUrl: "https://via.placeholder.com/998x558?text=image+2"
-    },
-    {
-      id: "3",
-      posterUrl: "https://via.placeholder.com/998x558?text=image+3"
-    },
-    {
-      id: "4",
-      posterUrl: "https://via.placeholder.com/998x558?text=image+4"
-    },
-    {
-      id: "5",
-      posterUrl: "https://via.placeholder.com/998x558?text=image+5"
-    }
-  ];
-
   const initialGalleryItems = [
-    { id: "1", type: "video", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "2", type: "video", posterUrl: "/assets/images/gallery_item_image2.png" },
-    { id: "3", type: "photo", posterUrl: "/assets/images/gallery_item_image2.png" },
-    { id: "4", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "5", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "6", type: "video", posterUrl: "/assets/images/gallery_item_image2.png" },
-    { id: "7", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "8", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "9", type: "video", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "10", type: "video", posterUrl: "/assets/images/gallery_item_image2.png" },
-    { id: "11", type: "photo", posterUrl: "/assets/images/gallery_item_image2.png" },
-    { id: "12", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "13", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "14", type: "video", posterUrl: "/assets/images/gallery_item_image2.png" },
-    { id: "15", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "16", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" }
+    { id: "1", type: "video", posterUrl: "https://via.placeholder.com/998x558?text=image+1" },
+    { id: "2", type: "video", posterUrl: "https://via.placeholder.com/998x558?text=image+2" },
+    { id: "3", featured: true, type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+3" },
+    { id: "4", featured: true, type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+4" },
+    { id: "5", type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+5" },
+    { id: "6", type: "video", posterUrl: "https://via.placeholder.com/998x558?text=image+6" },
+    { id: "7", featured: true, type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+7" },
+    { id: "8", type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+8" },
+    { id: "9", type: "video", posterUrl: "https://via.placeholder.com/998x558?text=image+9" },
+    { id: "10", type: "video", posterUrl: "https://via.placeholder.com/998x558?text=image+10" },
+    { id: "11", featured: true, type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+11" },
+    { id: "12", featured: true, type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+12" },
+    { id: "13", type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+13" },
+    { id: "14", type: "video", posterUrl: "https://via.placeholder.com/998x558?text=image+14" },
+    { id: "15", type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+15" },
+    { id: "16", featured: true, type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+16" },
+    { id: "17", featured: true, type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+17" },
+    { id: "18", type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+18" },
+    { id: "19", featured: true, type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+19" },
+    { id: "20", type: "photo", posterUrl: "https://via.placeholder.com/998x558?text=image+20" }
   ];
-
+  const [allSlides] = useState(initialGalleryItems.filter(a => !!a.featured));
   const [slides, setSlides] = useState(allSlides.slice(0, 3));
   const [current, setCurrent] = useState(1);
   const [galleryItems, setGalleryItems] = useState(initialGalleryItems.slice(0, 6));
@@ -107,6 +88,10 @@ const Gallery = props => {
   };
 
   const onSlideSleected = slideIndex => {
+    if (slideIndex == allSlides.length - 1) {
+    } else {
+      slice.push(...allSlides.slice(slideIndex - 1, slideIndex + 2));
+    }
     const slice = allSlides.slice(slideIndex, slideIndex + 3);
     setCurrent(slideIndex);
     setSlides(slice);
