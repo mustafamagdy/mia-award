@@ -180,9 +180,7 @@ const Pagination = props => {
       <ul>
         {pages.map((p, i) => (
           <li key={i} className={classNames({ current: currentPage == p })}>
-            <a href="#" title="#">
-              {p}
-            </a>
+            <span>{p}</span>
           </li>
         ))}
       </ul>

@@ -127,10 +127,14 @@ const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuc
           <Trans id="post_comment">Post Comment</Trans>
         </button>
         {"  "}
-        {commentsSuccess == undefined ? null : (
-          <span className="success">
+        {commentsSuccess === undefined ? null : commentsSuccess === true ? (
+          <div class="msg_success">
             <Trans id="comment_submitted">Your comment has been submitted successfully for review</Trans>
-          </span>
+          </div>
+        ) : (
+          <div class="msg_wrong">
+            <Trans id="comment_submitted">There is an error, the message could not be sent</Trans>
+          </div>
         )}
       </form>
     </div>

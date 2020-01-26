@@ -97,12 +97,16 @@ const ContactUs = props => {
                   <option value="">Subject</option>
                 </select>
               </div>
-              <div className="item">
-                <textarea ref={register} name="message" id="" cols="30" rows="10" placeholder="Type here your Comment"></textarea>
-              </div>
+              <textarea ref={register} name="message" id="" cols="30" rows="10" placeholder="Type here your Comment"></textarea>
               <button type="submit">
                 <Trans id="send_message">Send Message</Trans>
               </button>
+              <div class="msg_success">
+                <Trans id="contact_us_message_sent_success">The message was sent successfully</Trans>
+              </div>
+              <div class="msg_wrong">
+                <Trans id="contact_us_message_sent_fail">There is an error, the message could not be sent</Trans>
+              </div>
             </form>
           </div>
         </div>

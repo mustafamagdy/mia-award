@@ -28,9 +28,7 @@ const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage
                 <time>{item.date}</time>
                 <div className="item">
                   <div className="category">
-                    <p>
-                      <Trans id={item.category}>{item.category}</Trans>
-                    </p>
+                    <Trans id={item.category}>{item.category}</Trans>
                   </div>
                   <div className="imgthumb">
                     <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} />
