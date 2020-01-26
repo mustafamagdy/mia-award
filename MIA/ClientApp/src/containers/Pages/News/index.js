@@ -188,7 +188,7 @@ const BlocksNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =>
             <LanguageContext.Consumer>
               {({ locale }) => (
                 <div className="imgthumb">
-                  <img src={`${item.posterUrl}/280x549?text=news item+${item.id}`} />
+                  <img src={item.posterUrl} />
                   <div className="mask">
                     <div className="content">
                       <p>{item.title[locale.code]}</p>
@@ -215,7 +215,7 @@ const ListingNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =
     {news.map((item, i) => (
       <div key={item.id} className="item">
         <div className="imgthmb">
-          <img src={`${item.posterUrl}/280x261?text=news item+${item.id}`} />
+          <img src={item.posterUrl} />
         </div>
         <LanguageContext.Consumer>
           {({ locale }) => (

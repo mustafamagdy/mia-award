@@ -275,7 +275,7 @@
             <param name="services">service collection to add to</param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.RoleManager{MIA.Authorization.Entities.AppRole},MIA.ORMContext.Uow.IAppUnitOfWork)">
+        <member name="M:MIA.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.RoleManager{MIA.Authorization.Entities.AppRole},MIA.Infrastructure.IS3FileManager,MIA.ORMContext.Uow.IAppUnitOfWork)">
             <summary>
             This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
             </summary>

@@ -1,4 +1,5 @@
 namespace MIA.Extensions {
+  using MIA.Infrastructure;
   using MIA.Mvc.Core;
   using Microsoft.Extensions.DependencyInjection;
 
