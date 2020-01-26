@@ -67,18 +67,11 @@
           flex-shrink: 0;
           flex-basis: 280px;
           margin: 0 20px;
-
-          -webkit-transform: scale(1);
-          -moz-transform: scale(1);
-          -o-transform: scale(1);
-          transform: scale(1);
-
           box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.35);
-          -webkit-transition: all 0.4s ease-in-out;
-          -moz-transition: all 0.4s ease-in-out;
-          -o-transition: all 0.4s ease-in-out;
-          transition: all 0.4s ease-in-out;
-
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
           .imgthumb {
             background: #0d0d0d;
             border-radius: 10px 10px 0 0;
@@ -101,15 +94,15 @@
           } /* title */
           .desc {
             padding: 10px;
-            background: #0d0d0d;            
+            background: #0d0d0d;
             color: #808080;
             border-radius: 0 0 10px 10px;
             line-height: 20px;
             font-size: 14px;
-            -webkit-transition: scale 0.2s ease-in-out;
-            -moz-transition: scale 0.2s ease-in-out;
-            -o-transition: scale 0.2s ease-in-out;
-            transition: scale 0.2s ease-in-out;
+            -webkit-transition: all 0.2s ease-in-out;
+            -moz-transition: all 0.2s ease-in-out;
+            -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
           } /* desc */
           .apply {
             padding: 0 10px;
@@ -131,13 +124,11 @@
             } /* a */
           } /* apply */
           &.active {
-            -webkit-transform: scale(1.2);
-            -moz-transform: scale(1.2);
-            -o-transform: scale(1.2);
-            transform: scale(1.2);
-
+            -webkit-transform: scale(1.1);
+            -moz-transform: scale(1.1);
+            -o-transform: scale(1.1);
+            transform: scale(1.1);
             box-shadow: none;
-            padding-right: 20px;
             .imgthumb {
               padding-bottom: 80px;
               box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.35);
@@ -164,8 +155,6 @@
             } /* desc */
           } /* active */
         } /* slide_block */
-
-       
       } /* slides_items */
       .slider_nav {
         position: absolute;

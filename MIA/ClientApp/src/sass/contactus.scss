@@ -146,18 +146,18 @@
 			        -o-appearance: none;
 			        appearance: none;
 			      } /* select */
-			      &:last-of-type {width: 100%;}
-			      textarea {
-							width: 100%;
-							height: 200px;
-							background: #141414;
-			        border: 1px solid #21231e;
-			        border-radius: 10px;
-							padding: 15px;
-							font-size: 16px;
-							color: #fff;
-						}
 					} /* item */
+		      textarea {
+						width: 100%;
+						height: 200px;
+						background: #141414;
+		        border: 1px solid #21231e;
+		        border-radius: 10px;
+						padding: 15px;
+						font-size: 16px;
+						color: #fff;
+						margin: 10px;
+					} /* textarea */
 					button {
 						background: -moz-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%); /* ff3.6+ */
 				    background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f7e483), color-stop(57%, #dbba5a), color-stop(100%, #a36d31)); /* safari4+,chrome */
@@ -183,6 +183,32 @@
 							background: #a36d31;
 						}
 					} /* button */
+					.msg_success {
+						background: #d4edda;
+						border: 1px solid #c3e6cb;
+						color: #155724;
+						padding: 13px;
+						display: block;
+						width: 100%;
+						border-radius: 5px;
+						text-align: center;
+						text-transform: capitalize;
+						font-size: 17px;
+						margin: 10px;
+					} /* msg_success */
+					.msg_wrong {
+						background: #f8d7da;
+						border: 1px solid #f5c6cb;
+						color: #721c24;
+						padding: 13px;
+						display: block;
+						width: 100%;
+						border-radius: 5px;
+						text-align: center;
+						text-transform: capitalize;
+						font-size: 17px;
+						margin: 10px;
+					} /* msg_wrong */
 				} /* form_contact */
 			} /* content */
   	} /* form_area */

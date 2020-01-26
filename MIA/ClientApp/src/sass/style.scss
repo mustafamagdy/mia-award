@@ -259,6 +259,8 @@ body {
 @import "./gallery.scss";
 @import "./news_category.scss";
 @import "./news_single.scss";
+@import "./show_all.scss";
+@import "./show_inner.scss";
 
 
 //**** RTL Style ****//
@@ -559,14 +561,13 @@ body {
 						.item {
 							padding: 0 33px 0 0;
 							.category {
-								right: -24px;
-								left: auto;
-								top: 22px;
-								p {
+								right: 0;
+						    left: auto;
+						    top: 0;
 									font-family: Tajawal_Bold;
 									font-size: 25px;
 									letter-spacing: 0;
-								}	/* p */
+									writing-mode: sideways-rl;
 							}	/* category */
 							.imgthumb {
 								.mask {
@@ -890,14 +891,13 @@ body {
 							.item {
 								padding: 0 33px 0 0;
 								.category {
-									right: -24px;
-									left: auto;
-									top: 22px;
-									p {
-										font-family: Tajawal_Bold;
-										font-size: 25px;
-										letter-spacing: 0;
-									}	/* p */
+									right: 0;
+							    left: auto;
+							    top: 0;
+							    font-family: Tajawal_Bold;
+							    font-size: 25px;
+							    letter-spacing: 0;
+							    writing-mode: sideways-rl;
 								}	/* category */
 								.imgthumb {
 									.mask {
@@ -963,6 +963,146 @@ body {
 	    } /* side_bar */
 	  } /* container */
 	} /* news_single */
+	#show_all {
+  	.show_slider {
+	    &::after {
+	      content: "جوائز ميا";
+	      left: auto;
+	      right: 50px;
+	      font-family: Tajawal_Bold;
+	    } /* after */
+	    .container {
+	      .slider_area {
+	        .slider_items {
+	          .item {
+	        		.content {
+								padding: 0 50px 0 0;
+								.title {
+									span {
+										font-size: 22px;
+										font-family: Tajawal_Bold;
+									} /* span */
+								} /* title */
+								.video_details {
+									.user_item {
+										.imgthumb {margin: 0 20px 0 0;}
+									} /* user_item */
+								} /* video_details */
+								.more {
+									a {font-family: Tajawal_Bold;} 
+								} /* more */
+							} /* content */
+	            &.next_item {
+	              -webkit-transform: rotate3d(0, 1, 0, 20deg);;
+	              -moz-transform: rotate3d(0, 1, 0, 20deg);
+	              -o-transform: rotate3d(0, 1, 0, 20deg);
+	              transform: rotate3d(0, 1, 0, 20deg);
+	            } /* next_item */
+	            &.prev_item {
+	              -webkit-transform: rotate3d(0, 1, 0, -20deg);;
+	              -moz-transform: rotate3d(0, 1, 0, -20deg);
+	              -o-transform: rotate3d(0, 1, 0, -20deg);
+	              transform: rotate3d(0, 1, 0, -20deg);
+	            } /* next_item */
+	          } /* item */
+	        } /* slider_items */
+	        .slider_nav {
+	          button {
+							-webkit-transform: rotate(180deg);
+						  -moz-transform: rotate(180deg);
+						  -o-transform: rotate(180deg);
+							transform: rotate(180deg);
+	          } /* button */
+	        } /* slider_nav */
+	      } /* slider_area */
+	    } /* container */
+  	} /* show_slider */
+  	.show_blocks {
+    	.container {
+		  	.search_filter {
+					input {
+						margin: 0 0 0 10px;
+						font-family: Tajawal_Bold;
+					}	/* input */
+					select {
+						background: #141414 url("/assets/images/arrow_rtl.png") scroll no-repeat 0 center;
+						padding: 0 15px 0 59px;
+						margin: 0 0 0 10px;
+						font-family: Tajawal_Bold;
+					}	/* select */
+				}	/* search_filter */
+				.shows_items {
+					.item {
+						.imgthumb {
+							.mask {
+								.content {
+									p {
+										font-family: Tajawal_Bold;
+										font-size: 17px;
+									}	/* p */
+								}	/* content */
+							}	/* mask */
+						}	/* imgthumb */
+					}	/* item */
+				} /* shows_items */
+			} /* container */
+		} /* show_blocks */
+ 	} /* show_all */
+	#show_inner {
+	  .show_inner_one {
+	    &::after {
+	      content: "جوائز ميا";
+	      left: auto;
+	      right: 50px;
+	      font-family: Tajawal_Bold;
+	    } /* after */
+	    .container {
+	      .show_info {
+	        .show_details {
+	          .imgthumb {
+	            .mask {
+	              span {
+	                font-size: 15px;
+	                font-family: Tajawal_Bold;
+	              } /* span */
+	            } /* mask */
+	          } /* imgthumb */
+	          .desc {
+	            padding: 0 30px 0 0;
+	            .name {
+	              font-size: 25px;
+	              font-family: Tajawal_Bold;
+	            } /* name */
+	          } /* desc */
+	        } /* show_details */
+	        .about_show {
+	          span {
+	         		font-family: Tajawal_Bold;
+	            font-size: 21px;
+	          } /* span */
+	        } /* about_show */
+	      } /* show_info */
+	    } /* container */
+	  } /* show_inner_one */
+	  .show_inner_two {
+	    .container {
+	      .show_content {
+	        .tabs_area {
+	          
+	          .all_tabs_content {
+	            .item_tabs_content {
+	              .choose_season {
+	                button {
+	                  &::after {margin: 0 10px 0 0;}
+	                } /* button */
+	              } /* choose_season */
+	            } /* item_tabs_content */
+	          } /* all_tabs_content */
+	        } /* tabs_area */
+	      } /* show_content */
+	    } /* container */
+	  } /* show_inner_two */
+	} /* show_inner */
 	footer {
 		.container {
 			.row {
@@ -1000,5 +1140,6 @@ body {
 		}	/* container */
 	} /* footer */
 } /* html */
+
 
 @import './responsive.scss';

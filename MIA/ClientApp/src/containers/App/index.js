@@ -32,6 +32,8 @@ import Events from "../Pages/Events";
 import Gallery from "../Pages/Gallery";
 import News from "../Pages/News";
 import NewsView from "../Pages/News/view";
+import Shows from "../Pages/Shows";
+import ShowsView from "../Pages/Shows/view";
 
 import PaymentForm from "../Payment/PaymentForm";
 
@@ -75,6 +77,8 @@ class App extends React.Component {
                   <Route path="/gallery" component={Gallery} />
                   <Route exact path="/news" component={News} />
                   <Route path="/news/:id" component={NewsView} />
+                  <Route exact path="/shows" component={Shows} />
+                  <Route path="/shows/:id" component={ShowsView} />
 
                   {/* browse media */}
                   <Route path="/media" component={MediaBrowser} />
