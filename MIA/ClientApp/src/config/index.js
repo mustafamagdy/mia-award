@@ -5,4 +5,5 @@ export default {
   appDescription: "MIA application",
   apiRoot: "/api",
   devApiRoot: "/api",
+  reCaptchaKey: "6LfQxtIUAAAAAJyXHUzzKShDXhpzF_TZgpVSN7P0"
 };

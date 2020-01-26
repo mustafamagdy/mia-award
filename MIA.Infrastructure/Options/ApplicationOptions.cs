@@ -42,5 +42,7 @@ namespace MIA.Infrastructure.Options {
     public AwsOptions AwsOptions { get; set; }
     [Required]
     public AdminOptions AdminOptions { get; set; }
+    [Required]
+    public GoogleOptions Google { get; set; }
   }
 }

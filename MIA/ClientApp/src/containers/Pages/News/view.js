@@ -6,6 +6,9 @@ import newsActions from "store/news/actions";
 import { bindActionCreators } from "redux";
 import { useEffect, useState } from "react";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
+import ReCAPTCHA from "react-google-recaptcha";
+import config from "config";
+import { useRef } from "react";
 
 const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, commentsSuccess, clearCommentSuccess, ...props }) => {
   useEffect(() => {
@@ -72,10 +75,14 @@ const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, comments
 };
 
 const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuccess, ...props }) => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm();
+  // let reCaptchaRef = useRef();
 
   const onSubmit = values => {
-    postNewsComment({ ...values, id: newsId });
+    postNewsComment({
+      ...values,
+      id: newsId
+    });
     setTimeout(() => {
       reset();
       setTimeout(() => {
@@ -88,10 +95,34 @@ const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuc
     <div className="comment_form">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="inputs">
-          <input ref={register} name="name" type="text" placeholder="Name" />
-          <input ref={register} name="title" type="text" placeholder="Comment Title" />
+          <input ref={register({ required: true })} name="name" type="text" placeholder="Name" />
+          <input ref={register({ required: true })} name="title" type="text" placeholder="Comment Title" />
         </div>
-        <textarea ref={register} name="comment" id="" cols="30" rows="10" placeholder="Type here your Comment"></textarea>
+        <textarea
+          ref={register({ required: true })}
+          name="comment"
+          id=""
+          cols="30"
+          rows="10"
+          placeholder="Type here your Comment"
+        ></textarea>
+        <ReCAPTCHA
+          sitekey={config.reCaptchaKey}
+          ref={() =>
+            register(
+              { name: "reCaptchaToken" },
+              {
+                validate: value => {
+                  return !!value;
+                }
+              }
+            )
+          }
+          onChange={v => {
+            setValue("reCaptchaToken", v);
+          }}
+        />
+        ,
         <button type="submit">
           <Trans id="post_comment">Post Comment</Trans>
         </button>
