@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace MIA.Attrributes
-{
+namespace MIA.Attrributes {
   /// <summary>
   /// Allow actions to specify <seealso cref="System.Data.IsolationLevel"/> using attributes
   /// </summary>
