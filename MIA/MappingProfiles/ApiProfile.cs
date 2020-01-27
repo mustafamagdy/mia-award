@@ -45,6 +45,11 @@ namespace MIA.MappingProfiles {
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => DateTime.Now.ToUniversalTime()))
        .ValidateMemberList(MemberList.None);
 
+
+      CreateMap<AlbumItem, AlbumItemDto>()
+       .ForMember(a => a.DateCreated, cfg => cfg.MapFrom(a => a.DateCreated.LocalDateTime().ToString("dd-MM-yyyy")))
+       .ValidateMemberList(MemberList.None);
+
     }
   }
 

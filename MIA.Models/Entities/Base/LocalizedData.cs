@@ -27,6 +27,13 @@ namespace MIA.Models.Entities {
     public bool EnglishContains(string query) {
       return this[English].Contains(query);
     }
+
+    public string InEnglish() {
+      return this[English];
+    }
+    public string InArabic() {
+      return this[Arabic];
+    }
   }
 
   public static class EntityConvensions {

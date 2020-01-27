@@ -6,7 +6,7 @@ import storage from "redux-persist/lib/storage";
 const rootPersistConfig = {
   key: "root",
   storage,
-  blacklist: ["router", "auth", "home", "global", "news", "account"]
+  blacklist: ["router", "auth", "home", "global", "news", "account", "gallery"]
 };
 
 export default function createReducer(asyncReducers, history) {
@@ -19,6 +19,7 @@ export default function createReducer(asyncReducers, history) {
       auth: require("./auth/reducers").reducer,
       home: require("./home/reducers").reducer,
       news: require("./news/reducers").reducer,
+      gallery: require("./gallery/reducers").reducer,
       ...asyncReducers
     })
   );

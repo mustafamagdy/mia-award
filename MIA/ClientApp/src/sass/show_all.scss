@@ -220,7 +220,7 @@
               } /* video_details */
               .more {
                 display: flex;
-                justify-content: end;
+                justify-content: flex-end;
                 width: 100%;
                 a {
                   background: -moz-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%); /* ff3.6+ */

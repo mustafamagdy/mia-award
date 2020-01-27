@@ -1,6 +1,7 @@
 ﻿using Amazon;
 using Amazon.S3;
 using Amazon.S3.Transfer;
+using MIA.Infrastructure;
 using MIA.Infrastructure.Options;
 using Microsoft.Extensions.Options;
 using System.IO;
@@ -14,7 +15,7 @@ namespace MIA.Mvc.Core {
       this._awsOptions = awsOptions;
     }
 
-    public async Task DeleteFile(string key, string bucketName = null) {
+    public async Task DeleteFileAsync(string key, string bucketName = null) {
       bucketName = bucketName ?? _awsOptions.Value.S3_Content_BucketName;
       using (var client = new AmazonS3Client(
       awsAccessKeyId: _awsOptions.Value.S3_Content_AccessKey,
@@ -25,7 +26,11 @@ namespace MIA.Mvc.Core {
       }
     }
 
-    public async Task<string> UploadFile(Stream stream, string key, string bucketName = null, bool publicRead = true) {
+    public string GenerateFileKeyForResource(ResourceType resourceType, string resourceId, string fileName) {
+      return $"{resourceType.ToString().ToLower()}/{resourceId}/{fileName}";
+    }
+
+    public async Task<string> UploadFileAsync(Stream stream, string key, string bucketName = null, bool publicRead = true) {
 
       bucketName = bucketName ?? _awsOptions.Value.S3_Content_BucketName;
       using (var client = new AmazonS3Client(

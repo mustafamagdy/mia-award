@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using Bogus;
 using MIA.Models.Entities.Enums;
+using MIA.Infrastructure;
+using System.Net.Http;
 
 namespace MIA.ORMContext.Seed {
   public class DbInitializer {
@@ -23,18 +25,20 @@ namespace MIA.ORMContext.Seed {
     public static async Task SeedDbAsync(
       UserManager<AppUser> userManager,
       RoleManager<AppRole> roleManager,
+      IS3FileManager s3FileManager,
       IAppUnitOfWork db) {
 
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
       await SeedCategoriesAsync(db);
-      await SeedDemoNews(db);
+      await SeedDemoNews(db, s3FileManager);
+      await SeedDemoGallery(db, s3FileManager);
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
       await db.CommitTransactionAsync();
     }
 
-    private static async Task SeedDemoNews(IAppUnitOfWork db) {
+    private static async Task SeedDemoNews(IAppUnitOfWork db, IS3FileManager fileManager) {
       var _faker_en = new Faker("en");
       var _faker_ar = new Faker("ar");
       string[] keywords = _faker_en.Random.WordsArray(10);
@@ -46,6 +50,7 @@ namespace MIA.ORMContext.Seed {
       if (newsCount >= 20) return;
 
       for (int i = 0; i < 20; i++) {
+
         var news = new News {
           Keywords = string.Join(" ", _faker_ar.Random.ArrayElements(keywords, 4)),
           Title = LocalizedData.FromBoth(_faker_ar.Lorem.Sentence(), _faker_en.Lorem.Sentence()),
@@ -53,7 +58,7 @@ namespace MIA.ORMContext.Seed {
           Date = _faker_en.Date.Past().ToUnixTimeSeconds(),
           Category = _faker_en.Random.ArrayElement(categories),
           Outdated = _faker_en.Random.Bool(),
-          PosterUrl = $"https://via.placeholder.com/373x541?text={_faker_ar.Lorem.Word()}",
+          PosterUrl = "",
           Featured = _faker_ar.Random.Bool(),
           Comments = Enumerable.Range(0, _faker_en.Random.Number(10)).Select(a => new NewsComment {
             Comments = _faker_ar.Lorem.Paragraph(),
@@ -65,7 +70,83 @@ namespace MIA.ORMContext.Seed {
         };
 
         await db.News.AddAsync(news);
+        await db.CommitTransactionAsync();
+
+        var client = new HttpClient();
+        var file = await client.GetAsync(_faker_en.Image.PicsumUrl(400, 600));
+        var fileStream = await file.Content.ReadAsStreamAsync();
+
+        var imageKey = fileManager.GenerateFileKeyForResource(ResourceType.News, news.Id, news.Id + ".jpg");
+        var imageUrl = await fileManager.UploadFileAsync(fileStream, imageKey);
+
+        news.PosterUrl = imageUrl;
+        news.PosterId = imageKey;
+
+        db.News.Update(news);
       }
+    }
+    private static async Task SeedDemoGallery(IAppUnitOfWork db, IS3FileManager fileManager) {
+      var _faker_en = new Faker("en");
+
+      //TODO remove in production
+      var mainAlbum = db.Albums.FirstOrDefault(a => a.MainGallery);
+      if (mainAlbum == null) {
+        mainAlbum = new Album {
+          MainGallery = true,
+          Title = "MAIN ALBUM"
+        };
+
+        await db.Albums.AddAsync(mainAlbum);
+      }
+
+      var itemsCount = db.AlbumItems.Where(a => a.Album.MainGallery).Count();
+      if (itemsCount >= 30) return;
+      string[] random_videos = new string[] {
+        "https://mia-temp-files.s3.amazonaws.com/v1.mp4",
+        "https://mia-temp-files.s3.amazonaws.com/v2.mp4",
+        "https://mia-temp-files.s3.amazonaws.com/v3.mp4",
+        "https://mia-temp-files.s3.amazonaws.com/v4.mp4",
+        "https://mia-temp-files.s3.amazonaws.com/v5.mp4",
+        "https://mia-temp-files.s3.amazonaws.com/v6.mp4",
+      };
+
+      for (int i = 0; i < 30; i++) {
+
+        var type = _faker_en.Random.Enum<MediaType>();
+        var url = "";
+        if (type == MediaType.Image) {
+          url = _faker_en.Image.PicsumUrl(600, 400);
+        } else {
+          url = _faker_en.Random.ArrayElement(random_videos);
+        }
+
+        var item = new AlbumItem {
+          AlbumId = mainAlbum.Id,
+          Featured = _faker_en.Random.Bool(),
+          Order = i + 1,
+          DateCreated = DateTime.Now.ToUnixTimeSeconds(),
+          MediaType = type,
+          FileKey = "",
+          FileUrl = ""
+        };
+
+        await db.AlbumItems.AddAsync(item);
+        await db.CommitTransactionAsync();
+
+        var client = new HttpClient();
+        client.Timeout = TimeSpan.FromMinutes(5);
+        var file = await client.GetAsync(url);
+        var fileStream = await file.Content.ReadAsStreamAsync();
+
+        var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + (type == MediaType.Image ? ".jpg" : ".mp4"));
+        var fileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
+
+        item.FileUrl = fileUrl;
+        item.FileKey = fileKey;
+
+        db.AlbumItems.Update(item);
+      }
+
     }
 
     private static async Task SeedDemoUserAndRoleAsync(

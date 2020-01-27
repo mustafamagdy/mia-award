@@ -26,6 +26,7 @@ using MIA.Extensions;
 using MIA.Middlewares;
 using MIA.Middlewares.Auth;
 using Microsoft.AspNetCore.HttpOverrides;
+using MIA.Infrastructure;
 
 namespace MIA {
   /// <summary>
@@ -158,6 +159,7 @@ namespace MIA {
     public void Configure(IApplicationBuilder app,
       UserManager<AppUser> userManager,
       RoleManager<AppRole> roleManager,
+      IS3FileManager fileManager,
       IAppUnitOfWork db) {
       app
         //Run pending db migrations
@@ -223,7 +225,7 @@ namespace MIA {
         });
 
       //seed default data
-      DbInitializer.SeedDbAsync(userManager, roleManager, db).Wait();
+      DbInitializer.SeedDbAsync(userManager, roleManager, fileManager, db).Wait();
     }
 
   }
