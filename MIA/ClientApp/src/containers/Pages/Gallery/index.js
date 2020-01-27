@@ -6,7 +6,7 @@ import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
 import galleryActions from "store/gallery/actions";
 import { bindActionCreators } from "redux";
 import { useEffect } from "react";
-import { LanguageContext } from "containers/Providers/LanguageProvider";
+import ReactPlayer from "react-player";
 
 const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCount, ...props }) => {
   const [slides, setSlides] = useState(featuredItems.slice(0, 3));
@@ -117,8 +117,14 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                     </>
                   ) : (
                     <>
-                    {/* TODO: video player */}
-                      <img src="https://picsum.photos/200/300" />
+                      <ReactPlayer
+                        playing
+                        url={s.fileUrl}
+                        className="react-player"
+                        width="100%"
+                        height="100%"
+                        light="https://picsum.photos/200/300"
+                      />
                       <div className="zoom_image">
                         <span>
                           <i className="icofont-ui-zoom-in"></i>
@@ -158,7 +164,22 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
               {items.map((p, i) => (
                 <div key={p.id} className={classNames("item", { video: p.mediaType == "video" }, { photo: p.mediaType == "image" })}>
                   <div onClick={p => handleItemClicked(p)}>
-                    <img src={p.fileUrl} />
+                    {p.mediaType == "image" ? (
+                      <>
+                        <img src={p.fileUrl} />
+                      </>
+                    ) : (
+                      <>
+                        <ReactPlayer
+                          playing
+                          url={p.fileUrl}
+                          className="react-player"
+                          width="100%"
+                          height="100%"
+                          light="https://picsum.photos/200/300"
+                        />
+                      </>
+                    )}
                   </div>
                 </div>
               ))}
