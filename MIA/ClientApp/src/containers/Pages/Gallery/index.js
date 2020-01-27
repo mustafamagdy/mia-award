@@ -7,6 +7,8 @@ import galleryActions from "store/gallery/actions";
 import { bindActionCreators } from "redux";
 import { useEffect } from "react";
 import ReactPlayer from "react-player";
+import Lightbox from "lightbox-react";
+import "lightbox-react/style.css"; // This only needs to be imported once in your app
 
 const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCount, ...props }) => {
   const [slides, setSlides] = useState(featuredItems.slice(0, 3));
@@ -87,104 +89,112 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   };
 
   const handleItemClicked = p => {
-    //todo:
+    if (p.mediaType == "video") {
+      setCurrentItem(<Video url={p.fileUrl} />);
+    } else {
+      setCurrentItem(p.fileUrl);
+    }
   };
 
+  const [currentItem, setCurrentItem] = useState(undefined);
   return (
-    <section id="gallery">
-      <div className="gallery_slider">
-        <div className="container">
-          <div className="slider_area">
-            <div className="slider_nav">
-              <button type="button" className="arrow_prev" onClick={prevSlide}>
-                <i className="icofont-simple-left"></i>
-              </button>
-              <button type="button" className="arrow_next" onClick={nextSlide}>
-                <i className="icofont-simple-right"></i>
-              </button>
-            </div>
-            <div className="slider_items">
-              {slides.map((s, i) => (
-                <div key={s.id} className={classNames("item", { prev_item: i == 0 }, { current_item: i == 1 }, { next_item: i == 2 })}>
-                  {s.mediaType == "image" ? (
-                    <>
-                      <img src={s.fileUrl} />
-                      <div className="zoom_image">
-                        <span>
-                          <i className="icofont-ui-zoom-in"></i>
-                        </span>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <ReactPlayer
-                        playing
-                        url={s.fileUrl}
-                        className="react-player"
-                        width="100%"
-                        height="100%"
-                        light="https://picsum.photos/200/300"
-                      />
-                      <div className="zoom_image">
-                        <span>
-                          <i className="icofont-ui-zoom-in"></i>
-                        </span>
-                      </div>
-                    </>
-                  )}
-                </div>
-              ))}
-            </div>
-            <SliderDots onSlideSleected={onSlideSleected} slides={featuredItems} currentSlide={current} />
-          </div>
-        </div>
-      </div>
-      <div className="gallery_tabs">
-        <div className="container">
-          <div className="title">
-            <div className="name">
-              <Trans id="gallery">Gallery</Trans>
-            </div>
-            <div className="tabs">
-              <ul>
-                <TabList activeClassName="active" activeIndex={activeTab} handleActiveTab={handleActiveTab}>
-                  {tabs.map((t, i) => (
-                    <Tab key={i}>
-                      <li>
-                        <Trans id={t}>{t}</Trans>
-                      </li>
-                    </Tab>
-                  ))}
-                </TabList>
-              </ul>
-            </div>
-          </div>
-          <div className="tab_content active">
-            <div className="gallery_items">
-              {items.map((p, i) => (
-                <div key={p.id} className={classNames("item", { video: p.mediaType == "video" }, { photo: p.mediaType == "image" })}>
-                  <div onClick={p => handleItemClicked(p)}>
-                    {p.mediaType == "image" ? (
-                      <img src={p.fileUrl} />
+    <React.Fragment>
+      <RenderLightBox currentItem={currentItem} setCurrentitem={setCurrentItem} />
+      <section id="gallery">
+        <div className="gallery_slider">
+          <div className="container">
+            <div className="slider_area">
+              <div className="slider_nav">
+                <button type="button" className="arrow_prev" onClick={prevSlide}>
+                  <i className="icofont-simple-left"></i>
+                </button>
+                <button type="button" className="arrow_next" onClick={nextSlide}>
+                  <i className="icofont-simple-right"></i>
+                </button>
+              </div>
+              <div className="slider_items">
+                {slides.map((s, i) => (
+                  <div key={s.id} className={classNames("item", { prev_item: i == 0 }, { current_item: i == 1 }, { next_item: i == 2 })}>
+                    {s.mediaType == "image" ? (
+                      <>
+                        <img src={s.fileUrl} />
+                        <div className="zoom_image">
+                          <span>
+                            <i className="icofont-ui-zoom-in"></i>
+                          </span>
+                        </div>
+                      </>
                     ) : (
-                      <ReactPlayer
-                        playing
-                        url={p.fileUrl}
-                        className="react-player"
-                        width="100%"
-                        height="100%"
-                        light="https://picsum.photos/200/300"
-                      />
+                      <>
+                        <ReactPlayer
+                          playing
+                          url={s.fileUrl}
+                          className="react-player"
+                          width="100%"
+                          height="100%"
+                          light="https://picsum.photos/200/300"
+                        />
+                        <div className="zoom_image">
+                          <span>
+                            <i className="icofont-ui-zoom-in"></i>
+                          </span>
+                        </div>
+                      </>
                     )}
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              <SliderDots onSlideSleected={onSlideSleected} slides={featuredItems} currentSlide={current} />
             </div>
           </div>
-          <Pagination pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
         </div>
-      </div>
-    </section>
+        <div className="gallery_tabs">
+          <div className="container">
+            <div className="title">
+              <div className="name">
+                <Trans id="gallery">Gallery</Trans>
+              </div>
+              <div className="tabs">
+                <ul>
+                  <TabList activeClassName="active" activeIndex={activeTab} handleActiveTab={handleActiveTab}>
+                    {tabs.map((t, i) => (
+                      <Tab key={i}>
+                        <li>
+                          <Trans id={t}>{t}</Trans>
+                        </li>
+                      </Tab>
+                    ))}
+                  </TabList>
+                </ul>
+              </div>
+            </div>
+            <div className="tab_content active">
+              <div className="gallery_items">
+                {items.map((p, i) => (
+                  <div key={p.id} className={classNames("item", { video: p.mediaType == "video" }, { photo: p.mediaType == "image" })}>
+                    <div onClick={() => handleItemClicked(p)}>
+                      {p.mediaType == "image" ? (
+                        <img src={p.fileUrl} />
+                      ) : (
+                        <ReactPlayer
+                          playing
+                          url={p.fileUrl}
+                          className="react-player"
+                          width="100%"
+                          height="100%"
+                          light="https://picsum.photos/200/300"
+                        />
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <Pagination pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
+          </div>
+        </div>
+      </section>
+    </React.Fragment>
   );
 };
 
@@ -212,6 +222,32 @@ const Pagination = ({ pageCount, pageNumber, setPageNumber, ...props }) => {
       </ul>
     </div>
   );
+};
+
+const Video = ({ url }) => (
+  <ReactPlayer playing url={url} className="react-player-lightbox" width="90%" height="90%" />
+);
+
+const RenderLightBox = ({ currentItem, setCurrentitem, nextItem, prevItem, onNext, onPrev, ...props }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    console.log("curr", currentItem);
+    setIsOpen(currentItem != undefined);
+  }, [currentItem]);
+
+  return isOpen ? (
+    <Lightbox
+      mainSrc={currentItem}
+      nextSrc={nextItem}
+      prevSrc={prevItem}
+      onCloseRequest={() => {
+        setCurrentitem(undefined);
+      }}
+      onMovePrevRequest={onPrev}
+      onMoveNextRequest={onNext}
+    />
+  ) : null;
 };
 
 const mapStateToProps = ({
