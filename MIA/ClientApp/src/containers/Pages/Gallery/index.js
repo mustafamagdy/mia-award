@@ -165,20 +165,16 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                 <div key={p.id} className={classNames("item", { video: p.mediaType == "video" }, { photo: p.mediaType == "image" })}>
                   <div onClick={p => handleItemClicked(p)}>
                     {p.mediaType == "image" ? (
-                      <>
-                        <img src={p.fileUrl} />
-                      </>
+                      <img src={p.fileUrl} />
                     ) : (
-                      <>
-                        <ReactPlayer
-                          playing
-                          url={p.fileUrl}
-                          className="react-player"
-                          width="100%"
-                          height="100%"
-                          light="https://picsum.photos/200/300"
-                        />
-                      </>
+                      <ReactPlayer
+                        playing
+                        url={p.fileUrl}
+                        className="react-player"
+                        width="100%"
+                        height="100%"
+                        light="https://picsum.photos/200/300"
+                      />
                     )}
                   </div>
                 </div>

@@ -206,7 +206,7 @@
           .item {
             width: 50%;
             padding: 10px;
-            a {
+            div {
               display: block;
               width: 100%;
               height: 302px;
@@ -241,12 +241,8 @@
                 }
               } /* hover */
             } /* a */
-            &.video {
-              div:first-of-type {
-                width: 100%;
-                height: 100%;
-              }
-              a {
+            &.video {             
+              div {
                 &::before {
                   content: "\ec74";
                   font-family: IcoFont;
