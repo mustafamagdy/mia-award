@@ -25,6 +25,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Api\UserController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Resources\email1.cshtml" />
     <Content Remove="wwwroot\favicon.ico" />
   </ItemGroup>
