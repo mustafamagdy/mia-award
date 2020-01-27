@@ -24,6 +24,7 @@ using Amazon.S3;
 using System.IO;
 using Amazon;
 using MIA.Mvc.Core;
+using MIA.Infrastructure;
 
 namespace MIA.Api {
   /// <summary>
@@ -154,7 +155,7 @@ namespace MIA.Api {
 
     [HttpPost("upload-s3")]
     public async Task<IActionResult> UploadS3([FromServices] IS3FileManager fileManager, [FromForm]IFormFile file) {
-      var filePath = await fileManager.UploadFile(file.OpenReadStream(), file.FileName);
+      var filePath = await fileManager.UploadFileAsync(file.OpenReadStream(), file.FileName);
       return Ok(filePath);
       //using (var client = new AmazonS3Client("AKIAWESSA665T54GZGW3", "eZnVaD8WoMFNcFOXu8uqUOcWewhjr7sNmegUjILx", RegionEndpoint.USEast1)) {
       //  using (var newMemoryStream = new MemoryStream()) {

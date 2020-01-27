@@ -6,6 +6,8 @@ import accountsApi from "./accounts";
 import authApi from "./auth";
 import homeApi from "./home";
 import lookupsApi from "./lookups";
+import newsApi from "./news";
+import galleryApi from "./gallery";
 
 const apiURI = config.useLocalApi ? config.devApiRoot : config.apiRoot;
 const create = (baseURL = apiURI) => {
@@ -40,6 +42,8 @@ const create = (baseURL = apiURI) => {
   const auth = authApi(api);
   const home = homeApi(api);
   const lookups = lookupsApi(api);
+  const news = newsApi(api);
+  const gallery = galleryApi(api);
 
   return {
     setHeader: api.setHeader,
@@ -49,6 +53,8 @@ const create = (baseURL = apiURI) => {
     ...auth,
     ...home,
     ...lookups,
+    ...news,
+    ...gallery
   };
 };
 

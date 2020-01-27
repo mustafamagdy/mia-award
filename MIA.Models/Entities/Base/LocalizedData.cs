@@ -16,6 +16,10 @@ namespace MIA.Models.Entities {
       return new LocalizedData { { English, data } };
     }
 
+    public static LocalizedData FromBoth(string arabic, string english) {
+      return new LocalizedData { { Arabic, arabic }, { English, english } };
+    }
+
     public bool ArabicContains(string query) {
       return this[Arabic].Contains(query);
     }
@@ -24,11 +28,11 @@ namespace MIA.Models.Entities {
       return this[English].Contains(query);
     }
 
-    public static KeyValuePair<string, string> WithArabic(string value) {
-      return new KeyValuePair<string, string>(Arabic, value);
+    public string InEnglish() {
+      return this[English];
     }
-    public static KeyValuePair<string, string> WithEnglish(string value) {
-      return new KeyValuePair<string, string>(English, value);
+    public string InArabic() {
+      return this[Arabic];
     }
   }
 

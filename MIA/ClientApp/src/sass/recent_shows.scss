@@ -133,7 +133,7 @@
         flex-wrap: nowrap;
         li {
           margin: 0 5px;
-          a {
+          span {
             border: 2px solid #808080;
             background: #141414;
             color: #fff;
@@ -144,9 +144,10 @@
             height: 40px;
             line-height: 36px;
             text-align: center;
+            cursor: pointer;
           } /* a */
           &.current {
-            a {
+            span {
               background: #c0a176;
               border-color: #c0a176;
               color: #000;

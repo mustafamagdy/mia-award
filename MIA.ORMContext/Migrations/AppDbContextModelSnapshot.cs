@@ -68,6 +68,8 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("MainGallery");
+
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
@@ -81,6 +83,10 @@ namespace MIA.ORMContext.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AlbumId");
+
+                    b.Property<long>("DateCreated");
+
+                    b.Property<bool>("Featured");
 
                     b.Property<string>("FileKey");
 
@@ -412,6 +418,10 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<long>("Date");
 
+                    b.Property<bool>("Featured");
+
+                    b.Property<string>("Keywords");
+
                     b.Property<bool>("Outdated");
 
                     b.Property<string>("PosterId")
@@ -425,6 +435,30 @@ namespace MIA.ORMContext.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("News");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.NewsComment", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Comments");
+
+                    b.Property<long>("Date");
+
+                    b.Property<bool>("IsApproved");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("NewsId");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
+
+                    b.ToTable("NewsComments");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.VotingCriteria", b =>
@@ -715,6 +749,14 @@ namespace MIA.ORMContext.Migrations
                     b.HasOne("MIA.Models.Entities.ArtWork", "ArtWork")
                         .WithMany("MediaFiles")
                         .HasForeignKey("ArtWorkId");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.NewsComment", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.News", "News")
+                        .WithMany("Comments")
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

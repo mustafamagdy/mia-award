@@ -22,6 +22,7 @@ using Microsoft.EntityFrameworkCore;
 using X.PagedList;
 using AutoMapper.QueryableExtensions;
 using MIA.ORMContext;
+using MIA.Infrastructure;
 
 namespace MIA.Administration.Api {
 
@@ -75,8 +76,8 @@ namespace MIA.Administration.Api {
               return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
             }
 
-            string fileKey = $"album/{album.Id}/{file.FileName}";
-            var fileUrl = await fileManager.UploadFile(file.OpenReadStream(), fileKey);
+            string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, album.Id, file.FileName);
+            var fileUrl = await fileManager.UploadFileAsync(file.OpenReadStream(), fileKey);
 
             var albumItem = new AlbumItem {
               FileKey = fileKey,
@@ -110,7 +111,7 @@ namespace MIA.Administration.Api {
       foreach (var file in dto.DeleteFiles) {
         var mediaItem = album.MediaItems.FirstOrDefault(a => a.FileKey == file);
         if (mediaItem != null) {
-          await fileManager.DeleteFile(file);
+          await fileManager.DeleteFileAsync(file);
           db.AlbumItems.Remove(mediaItem);
         }
       }
@@ -128,8 +129,8 @@ namespace MIA.Administration.Api {
                 return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
               }
 
-              string fileKey = $"album/{album.Id}/{file.FileName}";
-              var fileUrl = await fileManager.UploadFile(file.OpenReadStream(), fileKey);
+              string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, album.Id, file.FileName);
+              var fileUrl = await fileManager.UploadFileAsync(file.OpenReadStream(), fileKey);
 
               var albumItem = new AlbumItem {
                 FileKey = fileKey,

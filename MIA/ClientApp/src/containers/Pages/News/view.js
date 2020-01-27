@@ -1,196 +1,200 @@
 import React from "react";
+import { Trans } from "@lingui/macro";
+import { useForm } from "react-hook-form";
+import { connect } from "react-redux";
+import newsActions from "store/news/actions";
+import { bindActionCreators } from "redux";
+import { useEffect, useState } from "react";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
+import ReCAPTCHA from "react-google-recaptcha";
+import config from "config";
+import { useRef } from "react";
 
-// import "sass/news_single.scss";
+const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, commentsSuccess, clearCommentSuccess, ...props }) => {
+  useEffect(() => {
+    const id = location.pathname.split("/").pop();
+    fetchNewsItem(id);
+  }, []);
 
-const NewsView = props => (
-  <section id="news_single">
-    <div className="container">
-      <div className="data_side">
-        <div className="post_imgthumb">
-          <img src="/assets/images/news_single_image.png" alt="#" />
+  return newsItem != undefined && !!newsItem.id ? (
+    <section id="news_single">
+      <div className="container">
+        <div className="data_side">
+          <div className="post_imgthumb">
+            <img src={newsItem.posterUrl} />
+          </div>
+          <div className="post_details">
+            <div className="share">
+              <span>
+                <Trans id="share">Share</Trans> :
+              </span>
+              <a href="#" title="#">
+                <i className="icofont-facebook"></i>
+              </a>
+              <a href="#" title="#">
+                <i className="icofont-twitter"></i>
+              </a>
+              <a href="#" title="#">
+                <i className="icofont-instagram"></i>
+              </a>
+              <a href="#" title="#">
+                <i className="icofont-youtube"></i>
+              </a>
+            </div>
+            <time>
+              <Trans id="posted">Posted</Trans>: {newsItem.date}
+            </time>
+          </div>
+          <LanguageContext.Consumer>
+            {({ locale }) => (
+              <>
+                <div className="title">{newsItem.title[locale.code]}</div>
+                <div className="content">{newsItem.body[locale.code]}</div>
+              </>
+            )}
+          </LanguageContext.Consumer>
+          <div className="comments_area">
+            <Comments comments={newsItem.comments} />
+          </div>
+          <CommentForm
+            newsId={newsItem.id}
+            postNewsComment={postNewsComment}
+            commentsSuccess={commentsSuccess}
+            clearCommentSuccess={clearCommentSuccess}
+          />
         </div>
-        <div className="post_details">
-          <div className="share">
-            <span>Share :</span>
-            <a href="#" title="#">
-              <i className="icofont-facebook"></i>
-            </a>
-            <a href="#" title="#">
-              <i className="icofont-twitter"></i>
-            </a>
-            <a href="#" title="#">
-              <i className="icofont-instagram"></i>
-            </a>
-            <a href="#" title="#">
-              <i className="icofont-youtube"></i>
-            </a>
-          </div>
-          <time>Posted : 12-05-2020</time>
-        </div>
-        <div className="title">The Blue Elephant (News Title)</div>
-        <div className="content">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-          ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
-          not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the
-          1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-          Aldus PageMaker including versions of Lorem Ipsum Lorem Ipsum passages, and more recently with desktop publishing software like
-          Aldus PageMaker including versions of Lorem Ipsum
-        </div>
-        <div className="comments_area">
-          <div className="item">
-            <div className="user_info">
-              <div className="imgthumb">
-                <img src="/assets/images/comment_user_image.png" alt="#" />
-              </div>
-              <div className="details">
-                <span>Best Marvel Movie in my opinion</span>
-                <p>
-                  25 March 2020 by{" "}
-                  <a href="#" title="#">
-                    Ahmed Adel
-                  </a>
-                </p>
-              </div>
-            </div>
-            <div className="comment_content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit
-              amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-              ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
-            </div>
-          </div>
-          <div className="item">
-            <div className="user_info">
-              <div className="imgthumb">
-                <img src="/assets/images/comment_user_image.png" alt="#" />
-              </div>
-              <div className="details">
-                <span>Best Marvel Movie in my opinion</span>
-                <p>
-                  25 March 2020 by{" "}
-                  <a href="#" title="#">
-                    Ahmed Adel
-                  </a>
-                </p>
-              </div>
-            </div>
-            <div className="comment_content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit
-              amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-              ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
-            </div>
-          </div>
-          <div className="item">
-            <div className="user_info">
-              <div className="imgthumb">
-                <img src="/assets/images/comment_user_image.png" alt="#" />
-              </div>
-              <div className="details">
-                <span>Best Marvel Movie in my opinion</span>
-                <p>
-                  25 March 2020 by{" "}
-                  <a href="#" title="#">
-                    Ahmed Adel
-                  </a>
-                </p>
-              </div>
-            </div>
-            <div className="comment_content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit
-              amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-              ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
-            </div>
-          </div>
-          <div className="item">
-            <div className="user_info">
-              <div className="imgthumb">
-                <img src="/assets/images/comment_user_image.png" alt="#" />
-              </div>
-              <div className="details">
-                <span>Best Marvel Movie in my opinion</span>
-                <p>
-                  25 March 2020 by{" "}
-                  <a href="#" title="#">
-                    Ahmed Adel
-                  </a>
-                </p>
-              </div>
-            </div>
-            <div className="comment_content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit
-              amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-              ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
-            </div>
-          </div>
-          <div className="item">
-            <div className="user_info">
-              <div className="imgthumb">
-                <img src="/assets/images/comment_user_image.png" alt="#" />
-              </div>
-              <div className="details">
-                <span>Best Marvel Movie in my opinion</span>
-                <p>
-                  25 March 2020 by{" "}
-                  <a href="#" title="#">
-                    Ahmed Adel
-                  </a>
-                </p>
-              </div>
-            </div>
-            <div className="comment_content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit
-              amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-              ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
-            </div>
-          </div>
-        </div>
-        <div className="comment_form">
-          <form action="#">
-            <div className="inputs">
-              <input type="text" placeholder="Name" />
-              <input type="text" placeholder="Comment Title" />
-            </div>
-            <textarea name="" id="" cols="30" rows="10" placeholder="Type here your Comment"></textarea>
-            <button type="submit">Post Comment</button>
-          </form>
+        <div className="side_bar">
+          <AdsArea />
+          <RelatedNews relatedNews={newsItem.relatedNews} />
         </div>
       </div>
-      <div className="side_bar">
-        <div className="small_banner">
-          <a href="#" title="#">
-            <img src="/assets/images/small_banner.png" alt="#" />
-          </a>
+    </section>
+  ) : (
+    <div>loading...</div>
+  );
+};
+
+const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuccess, ...props }) => {
+  const { register, handleSubmit, reset, setValue } = useForm();
+  // let reCaptchaRef = useRef();
+
+  const onSubmit = values => {
+    postNewsComment({
+      ...values,
+      id: newsId
+    });
+    setTimeout(() => {
+      reset();
+      setTimeout(() => {
+        clearCommentSuccess();
+      }, 2000);
+    }, 1000);
+  };
+
+  return (
+    <div className="comment_form">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="inputs">
+          <input ref={register({ required: true })} name="name" type="text" placeholder="Name" />
+          <input ref={register({ required: true })} name="title" type="text" placeholder="Comment Title" />
         </div>
-        <div className="big_banner">
-          <a href="#" title="#">
-            <img src="/assets/images/big_banner.png" alt="#" />
-          </a>
-        </div>
-        <div className="related_news">
-          <div className="title">Related News</div>
-          <div className="item">
-            <a href="#" title="#">
-              <img src="/assets/images/related_news_image.png" alt="#" />
-            </a>
+        <textarea
+          ref={register({ required: true })}
+          name="comment"
+          id=""
+          cols="30"
+          rows="10"
+          placeholder="Type here your Comment"
+        ></textarea>
+        <ReCAPTCHA
+          sitekey={config.reCaptchaKey}
+          ref={() =>
+            register(
+              { name: "reCaptchaToken" },
+              {
+                validate: value => {
+                  return !!value;
+                }
+              }
+            )
+          }
+          onChange={v => {
+            setValue("reCaptchaToken", v);
+          }}
+        />
+        ,
+        <button type="submit">
+          <Trans id="post_comment">Post Comment</Trans>
+        </button>
+        {"  "}
+        {commentsSuccess === undefined ? null : commentsSuccess === true ? (
+          <div class="msg_success">
+            <Trans id="comment_submitted">Your comment has been submitted successfully for review</Trans>
           </div>
-          <div className="item">
-            <a href="#" title="#">
-              <img src="/assets/images/related_news_image.png" alt="#" />
-            </a>
+        ) : (
+          <div class="msg_wrong">
+            <Trans id="comment_submitted">There is an error, the message could not be sent</Trans>
           </div>
-          <div className="item">
-            <a href="#" title="#">
-              <img src="/assets/images/related_news_image.png" alt="#" />
-            </a>
-          </div>
-        </div>
-      </div>
+        )}
+      </form>
     </div>
-  </section>
+  );
+};
+
+const Comments = ({ comments, ...props }) =>
+  comments.map((c, i) => (
+    <div key={c.id} className="item">
+      <div className="user_info">
+        <div className="imgthumb">
+          <img src={`https://ui-avatars.com/api/?name=${c.userFullName}`} />
+        </div>
+        <div className="details">
+          <span>{c.title}</span>
+          <p>
+            {c.date} <Trans id="by">by</Trans> <span>{c.userFullName}</span>
+          </p>
+        </div>
+      </div>
+      <div className="comment_content">{c.comment}</div>
+    </div>
+  ));
+
+const AdsArea = props => (
+  <>
+    <div className="small_banner">
+      <a href="#" title="#">
+        <img src="/assets/images/small_banner.png" alt="#" />
+      </a>
+    </div>
+    <div className="big_banner">
+      <a href="#" title="#">
+        <img src="/assets/images/big_banner.png" alt="#" />
+      </a>
+    </div>
+  </>
 );
 
-export default NewsView;
+const RelatedNews = ({ relatedNews, ...props }) => (
+  <div className="related_news">
+    <div className="title">
+      <Trans id="related_news">Related News</Trans>
+    </div>
+    {relatedNews &&
+      relatedNews.map(n => (
+        <div key={n.id} className="item">
+          <a href={`/news/${n.id}`}>
+            <img src={n.posterUrl} />
+          </a>
+        </div>
+      ))}
+  </div>
+);
+
+const mapStateToProps = ({ news: { newsItem, postNewsComment, commentsSuccess }, router: { location } }) => ({
+  newsItem,
+  postNewsComment,
+  commentsSuccess,
+  location
+});
+const mapDispatchToProps = dispatch => bindActionCreators({ ...newsActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(NewsView);

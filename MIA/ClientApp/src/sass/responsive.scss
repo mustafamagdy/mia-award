@@ -497,6 +497,174 @@
 					} /* data_side */
 				} /* container */
 			} /* news_single */
+			#show_all {
+			  .show_slider {
+			    .container {
+			      width: auto;
+			      padding: 100px 15px 60px;
+			      .slider_area {
+			        .slider_items {
+			          perspective: 0;
+			          .item {
+									display: block;
+									width: auto;
+									flex-basis: 100%;
+									height: auto;
+									padding: 10px;
+			            .imgthmb {
+										display: block;
+										width: auto;
+										height: auto;
+										margin: 0 auto;
+									} /* imgthmb */
+			            .content {
+			              width: auto;
+										padding: 10px 5px;
+										display: block;
+			              .title {
+			                display: block;
+			                span {margin: 0 auto 5px;}
+			              } /* title */
+			              .video_item {
+			                a {
+			                  height: 100%;
+			                  &::before {
+			                    width: 50px;
+			                  height: 50px;
+			                  top: 40%;
+			                  line-height: 50px;
+			                  font-size: 20px;
+			                  } /* before */
+			                } /* a */
+			              } /* video_item */
+			              .video_details {
+			                display: block;
+			                .info_item {width: 100%;}
+			                .user_item {
+			                  width: 100%;
+			                  justify-content: center;
+			                  align-items: center;
+			                  margin: 15px auto;
+			                } /* user_item */
+			              } /* video_details */
+			            } /* content */
+			          } /* item */
+			        } /* slider_items */
+							.slider_nav, .slider_dots {display: none;}
+			      } /* slider_area */
+			    } /* container */
+			  } /* show_slider */
+			  .show_blocks {
+			    .container {
+						width: auto;
+						padding: 25px 15px;
+						.search_filter {
+							display: block;
+							input, select {
+								width: 100%;
+								margin: 0 auto 10px;
+							} /* input */
+						} /* search_filter */
+						.shows_items {
+							margin: 0 -10px;
+							.item {
+								width: 50%;
+								padding: 0 10px;
+								margin: 15px auto;
+								.imgthumb {
+									width: auto;
+									height: auto;
+									p {font-size: 12px;}
+								} /* imgthumb */
+							} /* item */
+						} /* shows_items */
+						.paginations {
+							margin: 15px auto;
+							ul {
+								flex-wrap: wrap;
+								li {margin: 5px;}
+							} /* ul */
+						} /* paginations */
+					} /* container */
+			  } /* show_blocks */
+			} /* show_all */
+			#show_inner {
+			  .show_inner_one {
+			    .container {
+			      width: auto;
+			      padding: 100px 15px 60px;
+			      display: block;
+			      .show_info {
+			        width: auto;
+			        .show_details {
+			          display: block;
+			          .imgthumb {
+			            height: auto;
+			            width: 100%;
+			          } /* imgthumb */
+			          .desc {
+			            width: auto;
+			            padding: 20px 0 0;
+			            .name {font-size: 20px;}
+			          } /* desc */
+			        } /* show_details */
+			      } /* show_info */
+			      .show_video_show {
+			        width: auto;
+			        a {
+			          height: auto;
+			          &::before {
+			            width: 50px;
+			            height: 50px;
+			            display: block;
+			            top: 40%;
+			            line-height: 50px;
+			            font-size: 20px;
+			          } /* before */
+			        } /* a */
+			      } /* show_video_show */
+			    } /* container */
+			  } /* show_inner_one */
+			  .show_inner_two {
+			    .container {
+			      width: auto;
+			      .show_video {
+			        iframe, embed {
+			          width: 100%;
+			          height: 200px;
+			        } /* iframe */
+			      } /* show_video */
+			      .show_content {
+			        display: block;
+			        margin: 0 -15px;
+			        .tabs_area {
+			          width: auto;
+			          .all_tabs_content {
+			            .item_tabs_content {
+			              .info_show {
+			                ul {
+			                  li {
+			                    display: block;
+			                    span {
+			                      width: 100%;
+			                      margin: 0 auto 10px;
+			                    } /* span */
+			                    .crew_content {
+			                      width: 100%;
+			                    } /* crew_content */
+			                  } /* li */
+			                } /* ul */
+			              } /* info_show */
+			            } /* item_tabs_content */
+			          } /* all_tabs_content */
+			        } /* tabs_area */
+			        .side_bar {
+			          width: auto;
+			        } /* side_bar */
+			      } /* show_content */
+			    } /* container */
+			  } /* show_inner_two */
+			} /* show_inner */
 		} /* wrapper */
 		footer {
 			.container {

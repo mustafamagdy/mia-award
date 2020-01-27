@@ -15,6 +15,7 @@ const Rating = ({ rate, ...props }) => {
 
 const RecentShows = props => {
   const recentShows = new Array(10).fill().map((_, a) => ({
+    id: a,
     poster: a % 2 > 0 ? "show_image" : "show_image2",
     title: "The blue elephant",
     rating: Math.floor(Math.random() * 5)
@@ -84,8 +85,8 @@ const RecentShows = props => {
           {recentShows.map((show, i) => (
             <div className="item" key={i}>
               <div className="imgthumb">
-                <a href="#" title="#">
-                  <img src={`assets/images/${show.poster}.png`} alt="#" />
+                <a href={`/shows/${show.id}`}>
+                  <img src={`assets/images/${show.poster}.png`} />
                   <div className="mask">
                     <div className="content">
                       <p>{show.title}</p>
@@ -101,9 +102,7 @@ const RecentShows = props => {
           <ul>
             {pages.map((p, i) => (
               <li key={i}>
-                <a href="#" title="#">
-                  {p}
-                </a>
+                <span onClick={() => console.log("goto page", p)}>{p}</span>
               </li>
             ))}
           </ul>

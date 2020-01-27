@@ -1,83 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
 import { Trans } from "@lingui/macro";
-import { useState } from "react";
+import { connect } from "react-redux";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
+import galleryActions from "store/gallery/actions";
+import { bindActionCreators } from "redux";
+import { useEffect } from "react";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
 
-const Gallery = props => {
-  const allSlides = [
-    {
-      id: "1",
-      posterUrl: "https://via.placeholder.com/998x558?text=image+1"
-    },
-    {
-      id: "2",
-      posterUrl: "https://via.placeholder.com/998x558?text=image+2"
-    },
-    {
-      id: "3",
-      posterUrl: "https://via.placeholder.com/998x558?text=image+3"
-    },
-    {
-      id: "4",
-      posterUrl: "https://via.placeholder.com/998x558?text=image+4"
-    },
-    {
-      id: "5",
-      posterUrl: "https://via.placeholder.com/998x558?text=image+5"
-    }
-  ];
-
-  const initialGalleryItems = [
-    { id: "1", type: "video", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "2", type: "video", posterUrl: "/assets/images/gallery_item_image2.png" },
-    { id: "3", type: "photo", posterUrl: "/assets/images/gallery_item_image2.png" },
-    { id: "4", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "5", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "6", type: "video", posterUrl: "/assets/images/gallery_item_image2.png" },
-    { id: "7", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "8", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "9", type: "video", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "10", type: "video", posterUrl: "/assets/images/gallery_item_image2.png" },
-    { id: "11", type: "photo", posterUrl: "/assets/images/gallery_item_image2.png" },
-    { id: "12", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "13", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "14", type: "video", posterUrl: "/assets/images/gallery_item_image2.png" },
-    { id: "15", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" },
-    { id: "16", type: "photo", posterUrl: "/assets/images/gallery_item_image.png" }
-  ];
-
-  const [slides, setSlides] = useState(allSlides.slice(0, 3));
+const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCount, ...props }) => {
+  const [slides, setSlides] = useState(featuredItems.slice(0, 3));
   const [current, setCurrent] = useState(1);
-  const [galleryItems, setGalleryItems] = useState(initialGalleryItems.slice(0, 6));
   const [activeTab, setActiveTab] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const tabs = ["All", "Latest", "Photos", "Videos"];
+
+  useEffect(() => {
+    fetchFeaturedItems();
+  }, []);
+
+  useEffect(() => {
+    setSlides(featuredItems.slice(0, 3));
+  }, [featuredItems]);
+
+  useEffect(() => {
+    fetchItems({ pageNumber, pageSize: 10, type: tabs[activeTab] });
+  }, [pageNumber, activeTab]);
 
   const handleActiveTab = tab => {
     setActiveTab(tab);
-    if (tab == 0) setGalleryItems(initialGalleryItems);
-    else {
-      const slice = initialGalleryItems.slice(tab * 2, tab * 2 * 3);
-      setGalleryItems(slice);
-    }
+    setPageNumber(1);
   };
 
   const nextSlide = () => {
     let _current = current + 1;
-    if (_current == allSlides.length) {
+    if (_current == featuredItems.length) {
       _current = 0;
     }
 
     const slice = [];
     if (_current == 0) {
-      slice.push(allSlides[allSlides.length - 1]);
-      slice.push(...allSlides.slice(_current, _current + 2));
-    } else if (_current == allSlides.length - 1) {
-      slice.push(allSlides[allSlides.length - 2]);
-      slice.push(allSlides[allSlides.length - 1]);
-      slice.push(allSlides[0]);
+      slice.push(featuredItems[featuredItems.length - 1]);
+      slice.push(...featuredItems.slice(_current, _current + 2));
+    } else if (_current == featuredItems.length - 1) {
+      slice.push(featuredItems[featuredItems.length - 2]);
+      slice.push(featuredItems[featuredItems.length - 1]);
+      slice.push(featuredItems[0]);
     } else {
-      slice.push(...allSlides.slice(_current - 1, _current + 2));
+      slice.push(...featuredItems.slice(_current - 1, _current + 2));
     }
 
     setCurrent(_current);
@@ -87,19 +57,19 @@ const Gallery = props => {
   const prevSlide = () => {
     let _current = current - 1;
     if (_current < 0) {
-      _current = allSlides.length - 1;
+      _current = featuredItems.length - 1;
     }
 
     const slice = [];
     if (_current == 0) {
-      slice.push(allSlides[allSlides.length - 1]);
-      slice.push(...allSlides.slice(_current, _current + 2));
-    } else if (_current == allSlides.length - 1) {
-      slice.push(allSlides[allSlides.length - 2]);
-      slice.push(allSlides[allSlides.length - 1]);
-      slice.push(allSlides[0]);
+      slice.push(featuredItems[featuredItems.length - 1]);
+      slice.push(...featuredItems.slice(_current, _current + 2));
+    } else if (_current == featuredItems.length - 1) {
+      slice.push(featuredItems[featuredItems.length - 2]);
+      slice.push(featuredItems[featuredItems.length - 1]);
+      slice.push(featuredItems[0]);
     } else {
-      slice.push(...allSlides.slice(_current - 1, _current + 2));
+      slice.push(...featuredItems.slice(_current - 1, _current + 2));
     }
 
     setCurrent(_current);
@@ -107,9 +77,17 @@ const Gallery = props => {
   };
 
   const onSlideSleected = slideIndex => {
-    const slice = allSlides.slice(slideIndex, slideIndex + 3);
+    if (slideIndex == featuredItems.length - 1) {
+    } else {
+      slice.push(...featuredItems.slice(slideIndex - 1, slideIndex + 2));
+    }
+    const slice = featuredItems.slice(slideIndex, slideIndex + 3);
     setCurrent(slideIndex);
     setSlides(slice);
+  };
+
+  const handleItemClicked = p => {
+    //todo:
   };
 
   return (
@@ -128,23 +106,39 @@ const Gallery = props => {
             <div className="slider_items">
               {slides.map((s, i) => (
                 <div key={s.id} className={classNames("item", { prev_item: i == 0 }, { current_item: i == 1 }, { next_item: i == 2 })}>
-                  <img src={s.posterUrl} />
-                  <div className="zoom_image">
-                    <a href="#" title="#">
-                      <i className="icofont-ui-zoom-in"></i>
-                    </a>
-                  </div>
+                  {s.mediaType == "image" ? (
+                    <>
+                      <img src={s.fileUrl} />
+                      <div className="zoom_image">
+                        <span>
+                          <i className="icofont-ui-zoom-in"></i>
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                    {/* TODO: video player */}
+                      <img src="https://picsum.photos/200/300" />
+                      <div className="zoom_image">
+                        <span>
+                          <i className="icofont-ui-zoom-in"></i>
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </div>
               ))}
             </div>
-            <SliderDots onSlideSleected={onSlideSleected} slides={allSlides} currentSlide={current} />
+            <SliderDots onSlideSleected={onSlideSleected} slides={featuredItems} currentSlide={current} />
           </div>
         </div>
       </div>
       <div className="gallery_tabs">
         <div className="container">
           <div className="title">
-            <div className="name">Gallery</div>
+            <div className="name">
+              <Trans id="gallery">Gallery</Trans>
+            </div>
             <div className="tabs">
               <ul>
                 <TabList activeClassName="active" activeIndex={activeTab} handleActiveTab={handleActiveTab}>
@@ -161,16 +155,16 @@ const Gallery = props => {
           </div>
           <div className="tab_content active">
             <div className="gallery_items">
-              {galleryItems.map((p, i) => (
-                <div key={p.id} className={classNames("item", { video: p.type == "video" }, { photo: p.type == "photo" })}>
-                  <a href="#" title="#">
-                    <img src={p.posterUrl} />
-                  </a>
+              {items.map((p, i) => (
+                <div key={p.id} className={classNames("item", { video: p.mediaType == "video" }, { photo: p.mediaType == "image" })}>
+                  <div onClick={p => handleItemClicked(p)}>
+                    <img src={p.fileUrl} />
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-          <Pagination />
+          <Pagination pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
         </div>
       </div>
     </section>
@@ -187,22 +181,28 @@ const SliderDots = ({ slides, onSlideSleected, currentSlide, ...props }) => {
   );
 };
 
-const Pagination = props => {
-  const pages = [1, 2, 3, 4, 5];
-  const currentPage = 3;
+const Pagination = ({ pageCount, pageNumber, setPageNumber, ...props }) => {
   return (
     <div className="paginations">
       <ul>
-        {pages.map((p, i) => (
-          <li key={i} className={classNames({ current: currentPage == p })}>
-            <a href="#" title="#">
-              {p}
-            </a>
-          </li>
-        ))}
+        {new Array(pageCount).fill().map((_, i) => {
+          return (
+            <li key={i} className={classNames({ current: pageNumber == i + 1 })}>
+              <span onClick={() => setPageNumber(i + 1)}>{i + 1}</span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
 };
 
-export default Gallery;
+const mapStateToProps = ({
+  gallery: {
+    items,
+    featuredItems,
+    items_pagination: { pageCount }
+  }
+}) => ({ items, featuredItems, pageCount });
+const mapDispatchToProps = dispatch => bindActionCreators({ ...galleryActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Gallery);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace MIA.Models.Entities {
   public class Album : BaseEntity<string> {
+    public bool MainGallery { get; set; }
     public string Title { get; set; }
     public HashSet<AlbumItem> MediaItems { get; set; }
   }
