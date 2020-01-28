@@ -11,10 +11,14 @@ import Lightbox from "lightbox-react";
 import "lightbox-react/style.css"; // This only needs to be imported once in your app
 
 const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCount, ...props }) => {
-  const [slides, setSlides] = useState(featuredItems.slice(0, 3));
+  const [slides, setSlides] = useState(featuredItems.slice(0, 9));
   const [current, setCurrent] = useState(1);
+  const [currentSlide, setCurrentSlide] = useState(4);
   const [activeTab, setActiveTab] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
+  const [currentItem, setCurrentItem] = useState(undefined);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const tabs = ["All", "Latest", "Photos", "Videos"];
 
   useEffect(() => {
@@ -22,7 +26,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   }, []);
 
   useEffect(() => {
-    setSlides(featuredItems.slice(0, 3));
+    setSlides(featuredItems.slice(0, 9));
   }, [featuredItems]);
 
   useEffect(() => {
@@ -35,47 +39,53 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   };
 
   const nextSlide = () => {
-    let _current = current + 1;
-    if (_current == featuredItems.length) {
-      _current = 0;
-    }
+    setCurrentIndex(currentIndex + 1);
+    setCurrentSlide(currentSlide + 1);
+    console.log("next", currentIndex);
+    // let _current = current + 1;
+    // if (_current == featuredItems.length) {
+    //   _current = 0;
+    // }
 
-    const slice = [];
-    if (_current == 0) {
-      slice.push(featuredItems[featuredItems.length - 1]);
-      slice.push(...featuredItems.slice(_current, _current + 2));
-    } else if (_current == featuredItems.length - 1) {
-      slice.push(featuredItems[featuredItems.length - 2]);
-      slice.push(featuredItems[featuredItems.length - 1]);
-      slice.push(featuredItems[0]);
-    } else {
-      slice.push(...featuredItems.slice(_current - 1, _current + 2));
-    }
+    // const slice = [];
+    // if (_current == 0) {
+    //   slice.push(featuredItems[featuredItems.length - 1]);
+    //   slice.push(...featuredItems.slice(_current, _current + 7));
+    // } else if (_current == featuredItems.length - 1) {
+    //   slice.push(featuredItems[featuredItems.length - 7]);
+    //   slice.push(featuredItems[featuredItems.length - 1]);
+    //   slice.push(featuredItems[0]);
+    // } else {
+    //   slice.push(...featuredItems.slice(_current - 1, _current + 7));
+    // }
 
-    setCurrent(_current);
-    setSlides(slice);
+    // setCurrent(_current);
+    // setSlides(slice);
   };
 
   const prevSlide = () => {
-    let _current = current - 1;
-    if (_current < 0) {
-      _current = featuredItems.length - 1;
-    }
+    setCurrentIndex(currentIndex - 1);
+    setCurrentSlide(currentSlide - 1);
+    // console.log("prev", currentIndex);
+    // let _current = current - 1;
+    // if (_current < 0) {
+    //   _current = featuredItems.length - 1;
+    // }
 
-    const slice = [];
-    if (_current == 0) {
-      slice.push(featuredItems[featuredItems.length - 1]);
-      slice.push(...featuredItems.slice(_current, _current + 2));
-    } else if (_current == featuredItems.length - 1) {
-      slice.push(featuredItems[featuredItems.length - 2]);
-      slice.push(featuredItems[featuredItems.length - 1]);
-      slice.push(featuredItems[0]);
-    } else {
-      slice.push(...featuredItems.slice(_current - 1, _current + 2));
-    }
+    // const slice = [];
+    // if (_current == 0) {
+    //   slice.push(featuredItems[featuredItems.length - 1]);
+    //   slice.push(...featuredItems.slice(_current, _current + 7));
+    // } else if (_current == featuredItems.length - 1) {
+    //   slice.push(featuredItems[featuredItems.length - 7]);
+    //   slice.push(featuredItems[featuredItems.length - 1]);
+    //   slice.push(featuredItems[0]);
+    // } else {
+    //   slice.push(...featuredItems.slice(_current - 1, _current + 7));
+    // }
 
-    setCurrent(_current);
-    setSlides(slice);
+    // setCurrent(_current);
+    // setSlides(slice);
   };
 
   const onSlideSleected = slideIndex => {
@@ -96,7 +106,6 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
     }
   };
 
-  const [currentItem, setCurrentItem] = useState(undefined);
   return (
     <React.Fragment>
       <RenderLightBox currentItem={currentItem} setCurrentitem={setCurrentItem} />
@@ -112,37 +121,43 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                   <i className="icofont-simple-right"></i>
                 </button>
               </div>
-              <div className="slider_items">
-                {slides.map((s, i) => (
-                  <div key={s.id} className={classNames("item", { prev_item: i == 0 }, { current_item: i == 1 }, { next_item: i == 2 })}>
-                    {s.mediaType == "image" ? (
-                      <>
-                        <img src={s.fileUrl} />
-                        <div className="zoom_image">
-                          <span>
-                            <i className="icofont-ui-zoom-in"></i>
-                          </span>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <ReactPlayer
-                          playing
-                          url={s.fileUrl}
-                          className="react-player"
-                          width="100%"
-                          height="100%"
-                          light="https://picsum.photos/200/300"
-                        />
-                        <div className="zoom_image">
-                          <span>
-                            <i className="icofont-ui-zoom-in"></i>
-                          </span>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                ))}
+              <div className="slider_items" style={{ transform: `translate3d(${currentIndex * 1000}px, 0px, 0px)` }}>
+                {slides.map((s, i) => {
+                  const isCurr = i == currentSlide;
+                  const isPrev = i < currentSlide;
+                  const isNext = i > currentSlide;
+
+                  return (
+                    <div key={s.id} className={classNames("item", { prev_item: isPrev }, { current_item: isCurr }, { next_item: isNext })}>
+                      {s.mediaType == "image" ? (
+                        <>
+                          <img src={s.fileUrl} />
+                          <div className="zoom_image">
+                            <span>
+                              <i className="icofont-ui-zoom-in"></i>
+                            </span>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <ReactPlayer
+                            playing
+                            url={s.fileUrl}
+                            className="react-player"
+                            width="100%"
+                            height="100%"
+                            light="https://picsum.photos/200/300"
+                          />
+                          <div className="zoom_image">
+                            <span>
+                              <i className="icofont-ui-zoom-in"></i>
+                            </span>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
               <SliderDots onSlideSleected={onSlideSleected} slides={featuredItems} currentSlide={current} />
             </div>
@@ -172,7 +187,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
               <div className="gallery_items">
                 {items.map((p, i) => (
                   <div key={p.id} className={classNames("item", { video: p.mediaType == "video" }, { photo: p.mediaType == "image" })}>
-                    <div onClick={() => handleItemClicked(p)}>
+                    <span onClick={() => handleItemClicked(p)}>
                       {p.mediaType == "image" ? (
                         <img src={p.fileUrl} />
                       ) : (
@@ -185,7 +200,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                           light="https://picsum.photos/200/300"
                         />
                       )}
-                    </div>
+                    </span>
                   </div>
                 ))}
               </div>
@@ -224,9 +239,7 @@ const Pagination = ({ pageCount, pageNumber, setPageNumber, ...props }) => {
   );
 };
 
-const Video = ({ url }) => (
-  <ReactPlayer playing url={url} className="react-player-lightbox" width="90%" height="90%" />
-);
+const Video = ({ url }) => <ReactPlayer playing url={url} className="react-player-lightbox" width="90%" height="90%" />;
 
 const RenderLightBox = ({ currentItem, setCurrentitem, nextItem, prevItem, onNext, onPrev, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);

@@ -18,7 +18,10 @@ namespace MIA.MappingProfiles {
       CreateMap<News, NewsDto>()
        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
-
+      
+      CreateMap<Lookup, LocalizedLookupDto>()
+       .IncludeAllDerived()
+       .ValidateMemberList(MemberList.None);
 
       CreateMap<News, FullNewsDto>()
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))

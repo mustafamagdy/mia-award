@@ -46,11 +46,11 @@
 				.contact_info {
 					display: flex;
 					justify-content: space-between;
-					text-align: center;
-					margin: 10px auto;
+					margin: 10px -15px;
 					.item {
 						width: 25%;
 						margin: 15px auto;
+						padding: 0 15px;
 						span {
 							text-transform: capitalize;
 							font-family: Montserrat_Bold;
@@ -59,22 +59,29 @@
 							position: relative;
 							margin: 0 auto 20px;
 							display: flex;
-							justify-content: center;
 							align-items: flex-end;
-							i {
-								display: block;
+							padding: 0 0 0 15px;
+							&::before {
+								content: "";
+								height: 8px;
+								width: 8px;
+								background: #ccbc93;
+								border-radius: 100%;
 								float: left;
+								position: absolute;
+								left: 0;
+								bottom: 3px;
+							} /* before */
+							&::after {
+								content: "\ed42";
+								position: absolute;
+								font-family: IcoFont;
+								left: -31px;
 								font-size: 30px;
-								&::after {
-									content: "";
-									height: 6px;
-									width: 6px;
-									background: #ccbc93;
-									border-radius: 100%;
-									display: inline-block;
-									margin: 0 5px;
-								} /* after */
-							} /* i */
+								width: 30px;
+								text-align: center;
+								display: block;
+							} /* after */
 						} /* span */
 						p {
 							color: #fff;
@@ -82,6 +89,18 @@
 							margin: 5px auto;
 							line-height: 25px;
 						} /* p */
+						&.address span {
+							&::after {content: "\ed42";}
+						} /* address */
+						&.phone span {
+							&::after {content: "\efbb";}
+						} /* phone */
+						&.fax span {
+							&::after {content: "\ef26";left: -34px;}
+						} /* fax */
+						&.mail span {
+							&::after {content: "\ef12";left: -34px;}
+						} /* mail */
 					} /* item */
 				} /* contact_info */
 				.google_map {
@@ -158,6 +177,14 @@
 						color: #fff;
 						margin: 10px;
 					} /* textarea */
+					.captcha_item {
+						margin: 10px;
+						overflow: hidden;
+						iframe {
+							width: 100% !important;
+							height: 100px !important;
+						} /* iframe */
+					} /* captcha_item */
 					button {
 						background: -moz-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%); /* ff3.6+ */
 				    background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f7e483), color-stop(57%, #dbba5a), color-stop(100%, #a36d31)); /* safari4+,chrome */
@@ -214,3 +241,80 @@
   	} /* form_area */
   } /* container */
 } /* contact_us */
+
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+	#contact_us {
+		.container {
+			.map_area {
+				.title {
+					font-family: Tajawal_Bold;
+					font-size: 18px;
+					padding: 0 33px 0 0;
+					&::before {
+						left: auto;
+						right: 0;
+						top: 13px;
+					}	/* before */
+				}	/* title */
+				.content {
+					.contact_info {
+						.item {
+							span {
+								font-family: Tajawal_Bold;
+								i {
+									float: right;
+									&::after {
+										content: "";
+										height: 6px;
+										width: 6px;
+										background: #ccbc93;
+										border-radius: 100%;
+										display: inline-block;
+										margin: 18px 5px 0 5px;
+										float: left;
+									}
+								}	/* i */
+							}	/* span */
+							p {
+								direction: ltr;
+							}	/* p */
+						}	/* item */
+					}	/* contact_info */
+				}	/* content */
+			}	/* map_area */
+			.form_area {
+				.title {
+					font-family: Tajawal_Bold;
+					font-size: 18px;
+					padding: 0 33px 0 0;
+					&::before {
+						left: auto;
+						right: 0;
+						top: 13px;
+					}	/* before */
+				}	/* title */
+				.content {
+					.form_contact {
+						.item {
+							input {
+								font-family: Tajawal_Medium;
+							}	/* input */
+							select {
+								font-family: Tajawal_Medium;
+								background: #141414 url("/assets/images/arrow2_rtl.png") scroll no-repeat left center;
+								padding: 0 10px 0 59px;
+							}	/* select */
+						}	/* item */
+						button {
+							font-family: Tajawal_Medium;
+							font-size: 15px;
+						} /* button */
+					}	/* form_contact */
+				}	/* content */
+			}	/* form_area */
+		}	/* container */
+	} /* contact_us */
+}
+//**** RTL Style ****//

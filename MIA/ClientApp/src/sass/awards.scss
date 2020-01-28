@@ -1,6 +1,4 @@
 @import "./variables.scss";
-
-//**** Apply Award ****//
 #apply_award {
   background: #171717 url("/assets/images/apply_award_bg.png") scroll no-repeat bottom center/cover;
   .container {
@@ -49,9 +47,7 @@
         border-radius: 100px;
         text-transform: capitalize;
         color: #b59870;
-        &:hover {
-          background: #222;
-        }
+        &:hover {background: #222;}
       } /* a */
     } /* award_txt */
     .award_slider {
@@ -118,9 +114,7 @@
               color: #fff;
               min-width: 90%;
               box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 15px 0px inset, 0 0 10px 5px rgba(0, 0, 0, 0.35);
-              &:hover {
-                background: #c79a4d;
-              }
+              &:hover {background: #c79a4d;}
             } /* a */
           } /* apply */
           &.active {
@@ -173,14 +167,57 @@
           border: none;
           color: #fff;
           cursor: pointer;
-          &:hover {
-            color: #c0a176;
-          }
-          i {
-            display: block;
-          }
+          &:hover {color: #c0a176;}
+          i {display: block;}
         } /* button */
       } /* slider_nav */
     } /* award_slider */
   } /* container */
 } /* apply_award */
+
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+  #apply_award {
+    .container {
+      padding: 60px 25px 60px 0;
+      .award_txt {
+        padding: 0 0 0 40px;
+        span {
+          font-family: Tajawal_Bold;
+        } /* span */
+        p {
+          font-size: 16px;
+          line-height: 25px;
+        } /* p */
+      } /* award_txt */
+      .award_slider {
+        .slides_items {
+          .slide_block {
+            .apply {
+              a {
+                font-family: Tajawal_Bold;
+                font-size: 22px;
+              } /* a */
+            } /* apply */
+            .title {
+              font-family: Tajawal_Bold;
+              font-size: 28px;
+            } /* title */
+          } /* slide_blocka */
+        } /* slides_items */
+        .slider_nav {
+          left: 20px;
+          right: auto;
+          button {
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg);
+          } /* button */
+        } /* slider_nav */
+      } /* award_slider */
+    } /* container */
+  } /* apply_award */
+}
+//**** RTL Style ****//

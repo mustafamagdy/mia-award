@@ -31,8 +31,8 @@ namespace MIA.ORMContext.Seed {
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
       await SeedCategoriesAsync(db);
-      await SeedDemoNews(db, s3FileManager);
-      await SeedDemoGallery(db, s3FileManager);
+      //await SeedDemoNews(db, s3FileManager);
+      //await SeedDemoGallery(db, s3FileManager);
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
       await db.CommitTransactionAsync();

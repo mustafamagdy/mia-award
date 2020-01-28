@@ -1,6 +1,4 @@
 @import "./variables.scss";
-
-//**** Partners Slider ****//
 #partners {
   background: #fff;
   .container {
@@ -11,7 +9,7 @@
     .partners_slider {
       display: flex;
       flex-wrap: nowrap;
-      justify-content: space-around;
+      justify-content: space-between;
       margin: 0 -15px;
       .slide_item {
         flex-grow: 0;
@@ -56,7 +54,7 @@
         } /* a */
       } /* slide_item */
     } /* partners_slider */
-    .slider_dots {
+    .slider_dots{
       display: flex;
       flex-wrap: nowrap;
       justify-content: center;
@@ -72,10 +70,10 @@
         cursor: pointer;
         &.current {
           background: $maincolor;
-          border-color: $maincolor;
+          border-color: $maincolor; 
           cursor: inherit;
         } /* current */
       } /* span */
-    } /* slider_dots */   
+    } /* slider_dots */
   } /* container */
 } /* partners */

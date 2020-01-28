@@ -87,6 +87,7 @@ namespace MIA.ORMContext {
     public DbSet<AlbumItem> AlbumItems { get; set; }
     public DbSet<TrophyImage> TrophyImages { get; set; }
     public DbSet<VotingCriteria> VotingCriterias { get; set; }
+    public DbSet<ContactUsSubject> ContactUsSubjects { get; set; }
 
   }
 

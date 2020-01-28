@@ -53,3 +53,13 @@
     } /* button */
   } /* form */
 } /* search_modal */
+
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+  #search_modal {
+    right: 0;
+    left: auto;
+  } /* search_modal */
+}
+//**** RTL Style ****//

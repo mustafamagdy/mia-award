@@ -296,3 +296,88 @@
     } /* container */
   } /* our_awards */
 } /* about_us */
+
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+  #about_us {
+    .about_txt {
+      .container {
+        .item {
+          .title {
+            font-family: Tajawal_Bold;
+            padding: 0 33px 0 0;
+            &::before {
+              left: auto;
+              right: 0;
+              top: 13px;
+            } /* before */
+          } /* title */
+          .content {line-height: 26px;}
+        } /* item */
+      } /* container */
+    } /* about_txt */
+    .our_value {
+      .container {
+        .title {
+          span {
+            font-size: 60px;
+            font-family: Tajawal_Bold;
+            &::after {
+              right: -45px;
+              left: auto;
+            } /* after */
+          } /* span */
+        } /* title */
+      } /* container */
+    } /* our_value */
+    .our_events {
+      .container {
+        .event {
+          .txt_area {
+            .inside_txt_area {
+              right: auto;
+              left:-25%;
+              top: -60px;
+              span {
+                font-family: Tajawal_Bold;
+                &::after {
+                  right: 0;
+                  left: auto;
+                }
+              } /* span */
+              li {margin: 15px auto;}
+            } /* inside_txt_area */
+          } /* txt_area */
+        } /* event */
+      } /* container */
+    } /* our_events */
+    .our_awards {
+      .container {
+        .imgthumb{
+          &::after {
+            left: -70%;
+            right: auto;
+          } /* after */
+        } /* imgthumb */
+        .award {
+          .txt_area {
+            .inside_txt_area {
+              right: -25%;
+              left: auto;
+              span {
+                font-family: Tajawal_Bold;
+                &::after {
+                  right: 0;
+                  left: auto;
+                }
+              } /* span */
+              li {font-family: Tajawal_Bold;}
+            } /* inside_txt_area */
+          } /* txt_area */
+        } /* award */
+      } /* container */
+    } /* our_awards */
+  } /* about_us */
+}
+//**** RTL Style ****//

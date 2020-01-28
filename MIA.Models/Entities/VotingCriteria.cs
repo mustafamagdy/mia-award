@@ -10,5 +10,4 @@ namespace MIA.Models.Entities {
 
     public HashSet<JudgeVote> Votes { get; set; }
   }
-
 }

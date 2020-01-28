@@ -1,9 +1,4 @@
 @import "./variables.scss";
-.react-player-lightbox {
-  margin: auto;
-  padding-top: 60px;
-}
-
 #gallery {
   .gallery_slider {
     background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
@@ -34,6 +29,10 @@
           flex-wrap: nowrap;
           justify-content: center;
           perspective: 1000px;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
           .item {
             flex-grow: 0;
             flex-shrink: 0;
@@ -54,7 +53,7 @@
               right: 0;
               top: 0;
               display: none;
-              a {
+              span {
                 display: block;
                 height: 50px;
                 width: 50px;
@@ -64,6 +63,11 @@
                 font-size: 22px;
                 color: #909090;
                 border-radius: 0 0 0 10px;
+                cursor: pointer;
+                -webkit-transition: all 0.2s ease-in-out;
+                -moz-transition: all 0.2s ease-in-out;
+                -o-transition: all 0.2s ease-in-out;
+                transition: all 0.2s ease-in-out;
                 &:hover {
                   background: #b88b3e;
                   color: #ffffff;
@@ -75,18 +79,16 @@
               height: 100%;
             } /* img */
             &.next_item {
-              -webkit-transform: rotate3d(0, 1, 0, -20deg);
+              -webkit-transform: rotate3d(0, 1, 0, -20deg);;
               -moz-transform: rotate3d(0, 1, 0, -20deg);
               -o-transform: rotate3d(0, 1, 0, -20deg);
               transform: rotate3d(0, 1, 0, -20deg);
             } /* next_item */
             &.current_item {
-              .zoom_image {
-                display: block;
-              }
+              .zoom_image {display: block;}
             } /* current_item */
             &.prev_item {
-              -webkit-transform: rotate3d(0, 1, 0, 20deg);
+              -webkit-transform: rotate3d(0, 1, 0, 20deg);;
               -moz-transform: rotate3d(0, 1, 0, 20deg);
               -o-transform: rotate3d(0, 1, 0, 20deg);
               transform: rotate3d(0, 1, 0, 20deg);
@@ -110,19 +112,16 @@
             font-size: 25px;
             text-align: center;
             padding: 0;
-            background: transparent;
+            background:
+            transparent;
             border: none;
             color: #fff;
             cursor: pointer;
-            &:hover {
-              color: #c0a176;
-            }
-            i {
-              display: block;
-            }
+            &:hover {color: #c0a176;}
+            i {display: block;}
           } /* button */
         } /* slider_nav */
-        .slider_dots {
+        .slider_dots{
           display: flex;
           flex-wrap: nowrap;
           justify-content: center;
@@ -138,7 +137,7 @@
             cursor: pointer;
             &.current {
               background: $maincolor;
-              border-color: $maincolor;
+              border-color: $maincolor; 
               cursor: inherit;
             } /* current */
           } /* span */
@@ -194,13 +193,11 @@
               &.active {
                 color: #ffffff;
                 cursor: auto;
-                &::after {
-                  display: block;
-                }
+                &::after {display: block;}
               } /* current */
             } /* li */
           } /* ul */
-        } /* tabs */
+        }/* tabs */
       } /* title */
       .tab_content {
         .gallery_items {
@@ -211,7 +208,8 @@
           .item {
             width: 50%;
             padding: 10px;
-            div {
+            span {
+              cursor: pointer;
               display: block;
               width: 100%;
               height: 302px;
@@ -240,14 +238,13 @@
                 -o-transition: all 0.4s ease-in-out;
                 transition: all 0.4s ease-in-out;
               } /* after */
-              &:hover {
-                &::after {
-                  opacity: 1;
-                }
+              &:hover{
+                &::after {opacity: 1;}
               } /* hover */
-            } /* a */
+            } /* span */
             &.video {
-              div {
+              span {
+                cursor: pointer;
                 &::before {
                   content: "\ec74";
                   font-family: IcoFont;
@@ -272,11 +269,9 @@
                   transition: all 0.4s ease-in-out;
                 } /* before */
                 &:hover {
-                  &::before {
-                    opacity: 0;
-                  }
+                   &::before {opacity: 0;}
                 } /* hover */
-              } /* a */
+              } /* span */
             } /* video */
           } /* item */
         } /* gallery_items */
@@ -302,7 +297,7 @@
               line-height: 36px;
               text-align: center;
               cursor: pointer;
-            } /* span */
+            } /* a */
             &.current {
               span {
                 background: #c0a176;
@@ -316,3 +311,68 @@
     } /* container */
   } /* gallery_tabs */
 } /* gallery */
+
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+  #gallery {
+    .gallery_slider {
+      &::after {
+        content: "جوائز ميا";
+        left: auto;
+        right: 50px;
+        font-family: Tajawal_Bold;
+      } /* after */
+      .container {
+        .slider_area {
+          .slider_items {
+            .item {
+              .zoom_image {
+                right: auto;
+                left: 0;
+                span {border-radius: 0 0 10px 0;}
+              } /* zoom_image */
+              &.next_item {
+                -webkit-transform: rotate3d(0, 1, 0, 20deg);;
+                -moz-transform: rotate3d(0, 1, 0, 20deg);
+                -o-transform: rotate3d(0, 1, 0, 20deg);
+                transform: rotate3d(0, 1, 0, 20deg);
+              } /* next_item */
+              &.prev_item {
+                -webkit-transform: rotate3d(0, 1, 0, -20deg);;
+                -moz-transform: rotate3d(0, 1, 0, -20deg);
+                -o-transform: rotate3d(0, 1, 0, -20deg);
+                transform: rotate3d(0, 1, 0, -20deg);
+              } /* next_item */
+            } /* item */
+          } /* slider_items */
+          .slider_nav {
+            button {
+              -webkit-transform: rotate(180deg);
+              -moz-transform: rotate(180deg);
+              -o-transform: rotate(180deg);
+              transform: rotate(180deg);
+            } /* button */
+          } /* slider_nav */
+        } /* slider_area */
+      } /* container */
+    } /* gallery_slider */
+    .gallery_tabs {
+      .container {
+        .title {
+          .name {
+            font-family: Tajawal_Bold;
+          } /* name */
+          .tabs {
+            ul {
+              li {
+                margin: 0 30px 0 0;
+              } /* li */
+            } /* ul */
+          }/* tabs */
+        } /* title */
+      } /* container */
+    } /* gallery_tabs */
+  } /* gallery */
+}
+//**** RTL Style ****//

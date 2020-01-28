@@ -92,3 +92,40 @@ aside {
     letter-spacing: 21px;
   }
 } /* aside */
+
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+  aside {
+    left: auto;
+    right: -600px;
+    padding: 50px 160px 50px 30px;
+    .logo {
+      &::before {
+        content: '';
+        position: absolute;
+        left: -100px;
+        right: 90px;
+        top: -2px;
+      } /* before */
+      &:hover {
+        &::before {
+          right: calc(100% + 100px);
+        } /* before */
+      } /* hover */
+    } /* logo */
+    li {
+      a {
+        &::after {
+          right: -10px;
+          left: auto;
+        } /* after */
+      } /* a */
+    } /* li */
+    &::after {
+      left: 0;
+      right: 77px;
+    } /* after */
+  } /* aside */
+}
+//**** RTL Style ****//

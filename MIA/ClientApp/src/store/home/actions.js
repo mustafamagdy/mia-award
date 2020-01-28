@@ -3,6 +3,7 @@ import { createActions } from "utils/reduxsauce";
 const { Types, Creators } = createActions(
   {
     fetchNews: { args: ["payload"], meta: { async: true } },
+    fetchContactUsMessageSubjects: { args: ["payload"], meta: { async: true } },
     fetchAwards: { args: [], meta: { async: true } },
     fetchSponsers: { args: [], meta: { async: true } },
     fetchLatestAlbumContents: { args: [], meta: { async: true } },

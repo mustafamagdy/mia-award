@@ -121,8 +121,7 @@ const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuc
           onChange={v => {
             setValue("reCaptchaToken", v);
           }}
-        />
-        ,
+        />        
         <button type="submit">
           <Trans id="post_comment">Post Comment</Trans>
         </button>
