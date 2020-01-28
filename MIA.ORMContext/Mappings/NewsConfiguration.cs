@@ -30,4 +30,19 @@ namespace MIA.ORMContext.Mappings {
       builder.HasMany(a => a.Comments).WithOne(a => a.News).HasForeignKey(a => a.NewsId).OnDelete(DeleteBehavior.Cascade);
     }
   }
+
+  internal class ContactUsSubjectConfiguration : IEntityTypeConfiguration<ContactUsSubject> {
+    public void Configure(EntityTypeBuilder<ContactUsSubject> builder) {
+
+      builder.HasKey(x => x.Id);
+      builder.Property(x => x.Id)
+        .HasValueGenerator<SeqIdValueGenerator>()
+        .ValueGeneratedOnAdd();
+
+      builder.Property(a => a.Name)
+        .HasConversion(
+            v => JsonConvert.SerializeObject(v, EntityConvensions.Settings),
+            v => JsonConvert.DeserializeObject<LocalizedData>(v, EntityConvensions.Settings));
+    }
+  }
 }

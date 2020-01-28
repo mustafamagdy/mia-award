@@ -106,6 +106,15 @@ namespace MIA.Api {
       return Ok();
     }
 
+    [HttpGet("contact-message-subject")]
+    public IActionResult ContactUsMessageSubjects([FromServices] IAppUnitOfWork db) {
+      var subjects = db.ContactUsSubjects
+        .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
+        .ToList();
+
+      return IfFound(subjects);
+    }
+
   }
 
 

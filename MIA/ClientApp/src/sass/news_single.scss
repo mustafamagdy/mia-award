@@ -1,5 +1,4 @@
 @import "./variables.scss";
-
 #news_single {
   background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
   position: relative;
@@ -112,7 +111,7 @@
                 margin: 8px auto 0;
                 font-size: 13px;
                 color: #a8a8a8;
-                span {
+                a {
                   color: #447fba;
                   &:hover {color: #5893ce;}
                 } /* a */
@@ -187,7 +186,7 @@
           &:hover {
             background: #a36d31;
           }
-        } /* button */      
+        } /* button */
         .msg_success {
           background: #d4edda;
           border: 1px solid #c3e6cb;
@@ -311,3 +310,40 @@
     } /* side_bar */
   } /* container */
 } /* news_single */
+
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+  #news_single {
+    .container {
+      .data_side {
+        .title {font-family: Tajawal_Bold;}
+        .comments_area {
+          .item {
+            .user_info {
+              .imgthumb {margin: 0 0 0 20px;}
+              .details {
+                span {font-family: Tajawal_Bold;}
+              } /* details */
+            } /* user_info */
+          } /* item */
+        } /* comments_area */
+        .comment_form {
+          button {font-family: Tajawal_Medium;}
+        } /* comment_form */
+      } /* data_side */
+      .side_bar {
+        .related_news {
+          .title {
+            font-family: Tajawal_Bold;
+            &::after {
+              right: 0;
+              left: auto;
+            } /* after */
+          } /* title */
+        } /* related_news */
+      } /* side_bar */
+    } /* container */
+  } /* news_single */
+}
+//**** RTL Style ****//

@@ -172,7 +172,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
               <div className="gallery_items">
                 {items.map((p, i) => (
                   <div key={p.id} className={classNames("item", { video: p.mediaType == "video" }, { photo: p.mediaType == "image" })}>
-                    <div onClick={() => handleItemClicked(p)}>
+                    <span onClick={() => handleItemClicked(p)}>
                       {p.mediaType == "image" ? (
                         <img src={p.fileUrl} />
                       ) : (
@@ -185,7 +185,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                           light="https://picsum.photos/200/300"
                         />
                       )}
-                    </div>
+                    </span>
                   </div>
                 ))}
               </div>

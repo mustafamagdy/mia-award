@@ -1,39 +1,56 @@
 #googlemap {
-  background: #171717;
-  iframe,
-  embed {
-    width: 100%;
-    height: 500px !important;
-  } /* iframe & embed */
-  .map_nav {
-    display: flex;
-    justify-content: center;
-    padding: 15px 0;
-    span {
-      align-self: center;
-      text-transform: uppercase;
-      font-family: Montserrat_Bold;
-      font-size: 15px;
-      line-height: 30px;
-      height: 30px;
-      color: #ccbc93;
-      position: relative;
-      margin: 0 5px;
-    }
-    button {
-      height: 30px;
-      width: 30px;
-      font-size: 30px;
-      line-height: 30px;
-      padding: 0;
-      background: transparent;
-      border: none;
-      color: #ccbc93;
-      cursor: pointer;
-      i {display: block;}
-      &:hover {
-        color: #eadab1;
-      }
-    }
-  }
+	background: #171717;
+	iframe, embed {
+		width: 100%;
+		height: 500px !important;
+	} /* iframe & embed */
+	.map_nav {
+		display: flex;
+		justify-content: center;
+		padding: 15px 0;
+		span {
+			align-self: center;
+			text-transform: uppercase;
+			font-family: Montserrat_Bold;
+			font-size: 15px;
+			line-height: 30px;
+			height: 30px;
+			color: #ccbc93;
+			position: relative;
+			margin: 0 5px;
+		}
+		button {
+			height: 30px;
+			width: 30px;
+			font-size: 30px;
+			line-height: 30px;
+			padding: 0;
+			background: transparent;
+			border: none;
+			color: #ccbc93;
+			cursor: pointer;
+			i {display: block;}
+			&:hover {color: #eadab1;}
+		}
+	}
 } /* googlemap */
+
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+	#googlemap {
+		.map_nav {
+			span {
+				font-family: Tajawal_Bold;
+				font-size: 19px;
+			}
+			button {
+				-webkit-transform: rotate(180deg);
+			  -moz-transform: rotate(180deg);
+			  -o-transform: rotate(180deg);
+				transform: rotate(180deg);
+			} /* button */
+		}	/* map_nav */
+	} /* googlemap */
+}
+//**** RTL Style ****//

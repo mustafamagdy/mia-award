@@ -1,6 +1,4 @@
 @import "./variables.scss";
-
-//**** Recent Shows ****//
 #recent_shows {
   background: #141414 url("/assets/images/recent_shows_bg.png") scroll no-repeat 0 10%;
   .container {
@@ -61,9 +59,7 @@
         float: right;
         color: #000;
         cursor: pointer;
-        &:hover {
-          background: #eadab1;
-        }
+        &:hover {background: #eadab1}
       }
     } /* search_filter */
     .shows_items {
@@ -158,3 +154,43 @@
     } /* paginations */
   } /* container */
 } /* recent_shows */
+
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+  #recent_shows {
+    .container {
+      .title {
+        font-size: 30px;
+        font-family: Tajawal_Bold;
+      } /* title */
+      .search_filter {
+        input {
+          margin: 0 0 0 10px;
+          font-family: Tajawal_Bold;
+        } /* input */
+        select {
+          background: #141414 url("/assets/images/arrow_rtl.png") scroll no-repeat 0 center;
+          padding: 0 15px 0 59px;
+          margin: 0 0 0 10px;
+          font-family: Tajawal_Bold;
+        } /* select */
+      } /* search_filter */
+      .shows_items {
+        .item {
+          .imgthumb {
+            .mask {
+              .content {
+                p {
+                  font-family: Tajawal_Bold;
+                  font-size: 17px;
+                } /* p */
+              } /* content */
+            } /* mask */
+          } /* imgthumb */
+        } /* item */
+      } /* shows_items */
+    } /* container */
+  } /* recent_shows */
+}
+//**** RTL Style ****//

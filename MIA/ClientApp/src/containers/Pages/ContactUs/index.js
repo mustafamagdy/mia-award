@@ -1,10 +1,17 @@
 import React from "react";
 import { Trans } from "@lingui/macro";
 import { useForm } from "react-hook-form";
+import ReCAPTCHA from "react-google-recaptcha";
+import config from "config";
+import { useEffect } from "react";
+// import {} from 'react-redux'
 // import "sass/contactus.scss";
 
-const ContactUs = props => {
-  const { register, handleSubmit } = useForm();
+const ContactUs = ({ fetchContactUsMessageSubjects, ...props }) => {
+  useEffect(() => {
+    //fetchContactUsMessageSubjects();
+  }, []);
+  const { register, handleSubmit, setValue } = useForm();
 
   const onSubmit = values => {
     console.log("contact us", values);
@@ -98,13 +105,29 @@ const ContactUs = props => {
                 </select>
               </div>
               <textarea ref={register} name="message" id="" cols="30" rows="10" placeholder="Type here your Comment"></textarea>
+              <ReCAPTCHA
+                sitekey={config.reCaptchaKey}
+                ref={() =>
+                  register(
+                    { name: "reCaptchaToken" },
+                    {
+                      validate: value => {
+                        return !!value;
+                      }
+                    }
+                  )
+                }
+                onChange={v => {
+                  setValue("reCaptchaToken", v);
+                }}
+              />
               <button type="submit">
                 <Trans id="send_message">Send Message</Trans>
               </button>
-              <div class="msg_success">
+              <div className="msg_success">
                 <Trans id="contact_us_message_sent_success">The message was sent successfully</Trans>
               </div>
-              <div class="msg_wrong">
+              <div className="msg_wrong">
                 <Trans id="contact_us_message_sent_fail">There is an error, the message could not be sent</Trans>
               </div>
             </form>

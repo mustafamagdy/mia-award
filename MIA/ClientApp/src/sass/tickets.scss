@@ -1,6 +1,4 @@
 @import "./variables.scss";
-
-//**** Tickets Area ****//
 #tickets_area {
   background: #171717 url("/assets/images/tickets_bg.png") scroll no-repeat 70% 10%;
   .container {
@@ -17,7 +15,6 @@
       p {
         font-size: 16px;
         line-height: 24px;
-        
         color: #808080;
         margin: 0 auto 20px;
       } /* p */
@@ -43,10 +40,7 @@
           border-radius: 100px;
           text-transform: capitalize;
           color: #787878;
-          &:hover {
-            background: #222;
-            color: #b59870;
-          }
+          &:hover {background: #222;color: #b59870;}
         } /* a */
       } /* buy_now */
     } /* ticket_txt */
@@ -60,4 +54,3 @@
     } /* ticket_imgthumb */
   } /* container */
 } /* tickets_area */
-
