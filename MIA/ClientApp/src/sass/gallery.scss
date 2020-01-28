@@ -29,6 +29,10 @@
           flex-wrap: nowrap;
           justify-content: center;
           perspective: 1000px;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
           .item {
             flex-grow: 0;
             flex-shrink: 0;
@@ -204,7 +208,8 @@
           .item {
             width: 50%;
             padding: 10px;
-            a {
+            span {
+              cursor: pointer;
               display: block;
               width: 100%;
               height: 302px;
@@ -236,9 +241,10 @@
               &:hover{
                 &::after {opacity: 1;}
               } /* hover */
-            } /* a */
+            } /* span */
             &.video {
-              a {
+              span {
+                cursor: pointer;
                 &::before {
                   content: "\ec74";
                   font-family: IcoFont;
@@ -265,7 +271,7 @@
                 &:hover {
                    &::before {opacity: 0;}
                 } /* hover */
-              } /* a */
+              } /* span */
             } /* video */
           } /* item */
         } /* gallery_items */
