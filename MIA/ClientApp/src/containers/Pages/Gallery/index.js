@@ -121,7 +121,14 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                   <i className="icofont-simple-right"></i>
                 </button>
               </div>
-              <div className="slider_items" style={{ transform: `translate3d(${currentIndex * 1000}px, 0px, 0px)` }}>
+              <div
+                className="slider_items"
+                style={{
+                  transform: `translate3d(${
+                    currentIndex == 0 ? 0 : currentIndex < 0 ? Math.abs(currentIndex) * 1000 + 120 : Math.abs(currentIndex) * -1000 - 120
+                  }px, 0px, 0px)`
+                }}
+              >
                 {slides.map((s, i) => {
                   const isCurr = i == currentSlide;
                   const isPrev = i < currentSlide;
