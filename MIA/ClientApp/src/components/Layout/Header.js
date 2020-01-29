@@ -70,7 +70,7 @@ class Header extends React.Component {
                 </li>
                 <li>
                   <a href="/contact-us">
-                    <Trans id="contact_us">Contact US</Trans>
+                    <Trans id="contact_us">Contact Us</Trans>
                   </a>
                 </li>
               </ul>

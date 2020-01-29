@@ -114,10 +114,12 @@ namespace MIA.ORMContext.Seed {
 
         var type = _faker_en.Random.Enum<MediaType>();
         var url = "";
+        var posterUrl = "";
         if (type == MediaType.Image) {
           url = _faker_en.Image.PicsumUrl(600, 400);
         } else {
           url = _faker_en.Random.ArrayElement(random_videos);
+          posterUrl = _faker_en.Image.PicsumUrl(600, 400);
         }
 
         var item = new AlbumItem {
@@ -127,7 +129,9 @@ namespace MIA.ORMContext.Seed {
           DateCreated = DateTime.Now.ToUnixTimeSeconds(),
           MediaType = type,
           FileKey = "",
-          FileUrl = ""
+          FileUrl = "",
+          PosterKey = "",
+          PosterUrl = ""
         };
 
         await db.AlbumItems.AddAsync(item);
@@ -140,6 +144,16 @@ namespace MIA.ORMContext.Seed {
 
         var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + (type == MediaType.Image ? ".jpg" : ".mp4"));
         var fileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
+
+        if (type == MediaType.Video) {
+          var posterFile = await client.GetAsync(posterUrl);
+          var posterFileStream = await file.Content.ReadAsStreamAsync();
+          var posterFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + ".jpg");
+          var posterFileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
+
+          item.PosterUrl = posterFileUrl;
+          item.PosterKey = posterFileKey;
+        }
 
         item.FileUrl = fileUrl;
         item.FileKey = fileKey;

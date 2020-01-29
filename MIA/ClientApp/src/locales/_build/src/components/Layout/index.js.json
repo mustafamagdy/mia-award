@@ -3,8 +3,8 @@
     "defaults": "Awards",
     "origin": [
       [
-        "src/components/Layout/Header.js",
-        48
+        "src/components/Layout/index.js",
+        46
       ]
     ]
   },
@@ -12,8 +12,8 @@
     "defaults": "About Us",
     "origin": [
       [
-        "src/components/Layout/Header.js",
-        53
+        "src/components/Layout/index.js",
+        51
       ]
     ]
   },
@@ -21,17 +21,17 @@
     "defaults": "News",
     "origin": [
       [
-        "src/components/Layout/Header.js",
-        58
+        "src/components/Layout/index.js",
+        56
       ]
     ]
   },
-  "programs": {
+  "program": {
     "defaults": "Program",
     "origin": [
       [
-        "src/components/Layout/Header.js",
-        63
+        "src/components/Layout/index.js",
+        61
       ]
     ]
   },
@@ -39,8 +39,8 @@
     "defaults": "Gallery",
     "origin": [
       [
-        "src/components/Layout/Header.js",
-        68
+        "src/components/Layout/index.js",
+        66
       ]
     ]
   },
@@ -48,8 +48,8 @@
     "defaults": "Contact Us",
     "origin": [
       [
-        "src/components/Layout/Header.js",
-        73
+        "src/components/Layout/index.js",
+        71
       ]
     ]
   }

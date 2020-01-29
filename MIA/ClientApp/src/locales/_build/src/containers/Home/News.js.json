@@ -1,10 +1,19 @@
 {
-  "read_more": {
-    "defaults": "read more",
+  "news_features": {
+    "defaults": "news & features",
     "origin": [
       [
         "src/containers/Home/News.js",
-        36
+        22
+      ]
+    ]
+  },
+  "read_more": {
+    "defaults": "Read More",
+    "origin": [
+      [
+        "src/containers/Home/News.js",
+        40
       ]
     ]
   },
@@ -12,7 +21,7 @@
     "origin": [
       [
         "src/containers/Home/News.js",
-        49
+        60
       ]
     ]
   },
@@ -21,7 +30,7 @@
     "origin": [
       [
         "src/containers/Home/News.js",
-        52
+        66
       ]
     ]
   },
@@ -29,7 +38,7 @@
     "origin": [
       [
         "src/containers/Home/News.js",
-        55
+        76
       ]
     ]
   }

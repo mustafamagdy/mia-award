@@ -22,7 +22,7 @@ const ContactUs = ({ fetchContactUsMessageSubjects, ...props }) => {
       <div className="container">
         <div className="map_area">
           <div className="title">
-            <Trans id="contact_us">Contact us</Trans>
+            <Trans id="contact_us">Contact Us</Trans>
           </div>
           <div className="content">
             <div className="contact_info">
@@ -59,7 +59,7 @@ const ContactUs = ({ fetchContactUsMessageSubjects, ...props }) => {
               <div className="item">
                 <span>
                   <i className="icofont-email"></i>
-                  <Trans id="email">Mail</Trans>
+                  <Trans id="email">EMail</Trans>
                 </span>
                 <p>Info@mediaindustry.me</p>
               </div>
