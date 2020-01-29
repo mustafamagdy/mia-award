@@ -102,5 +102,6 @@
     <Folder Include="ClientApp\src\locales\" />
     <Folder Include="ClientApp\src\sass\" />
     <Folder Include="wwwroot\logs\" />
+    <Folder Include="wwwroot\temp_media\sample\" />
   </ItemGroup>
 </Project>
