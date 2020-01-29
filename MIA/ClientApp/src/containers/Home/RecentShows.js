@@ -1,26 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import classNames from "classnames";
 import { Trans } from "@lingui/macro";
+import { useForm } from "react-hook-form";
+import { connect } from "react-redux";
+import homeActions from "store/home/actions";
+import { bindActionCreators } from "redux";
 
 // import "sass/recent_shows.scss";
 
-const Rating = ({ rate, ...props }) => {
-  const maxRating = 5;
-  return (
-    <div className="stars">
-      {rate > 0 && new Array(rate).fill().map((_, a) => <i className="icofont-ui-rating" key={a}></i>)}
-      {maxRating - rate > 0 && new Array(maxRating - rate).fill().map((_, a) => <i className="icofont-ui-rate-blank" key={a}></i>)}
-    </div>
-  );
-};
+const RecentShows = ({ fetchRecentShows, recentShows, categories, countries, generas, years, pageCount, ...props }) => {
+  const { register, handleSubmit, reset } = useForm();
+  const [pageNumber, setPageNumber] = useState(1);
+  const [searchQuery, setSearchQuery] = useState({});
 
-const RecentShows = props => {
-  const recentShows = new Array(10).fill().map((_, a) => ({
-    id: a,
-    poster: a % 2 > 0 ? "show_image" : "show_image2",
-    title: "The blue elephant",
-    rating: Math.floor(Math.random() * 5)
-  }));
-  const pages = [1, 2, 3, 4, 5];
+  useEffect(() => {
+    fetchRecentShows({ pageNumber, pageSize: 10, ...searchQuery });
+  }, [searchQuery, pageNumber]);
+
+  useEffect(() => {
+    fetchRecentShows({ pageNumber, pageSize: 10 });
+  }, []);
+
+  const onSubmit = values => {
+    setSearchQuery({ ...values });
+  };
+
   return (
     <div id="recent_shows">
       <div className="container">
@@ -28,53 +32,33 @@ const RecentShows = props => {
           <Trans id="recent_shows">recent shows</Trans>
         </div>
         <div className="search_filter">
-          <form action="#">
-            <input type="text" placeholder="show title" />
-            <select name="" id="" defaultValue="">
-              <option value="">2020</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input type="text" ref={register} name="title" placeholder="show title" />
+            <select ref={register} name="year">
+              {generas.map((y, i) => (
+                <option value={y}>{y}</option>
+              ))}
             </select>
-            <select name="" id="" defaultValue="">
-              <option value="">
-                <Trans id="award_category">award category</Trans>
-              </option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
+            <select ref={register} name="category">
+              {generas.map((c, i) => (
+                <option value={c}>
+                  <Trans id={c}>{c}</Trans>
+                </option>
+              ))}
             </select>
-            <select name="" id="" defaultValue="">
-              <option value="">
-                <Trans id="genre">Genre</Trans>
-              </option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
+            <select ref={register} name="genera">
+              {generas.map((g, i) => (
+                <option value={g}>
+                  <Trans id={g}>{g}</Trans>
+                </option>
+              ))}
             </select>
-            <select name="" id="" defaultValue="">
-              <option value="">
-                <Trans id="country">Country</Trans>
-              </option>
-              <option value="">Country</option>
-              <option value="">Country</option>
-              <option value="">Country</option>
-              <option value="">Country</option>
+            <select ref={register} name="country">
+              {countries.map((c, i) => (
+                <option value={c}>
+                  <Trans id={c}>{c}</Trans>
+                </option>
+              ))}
             </select>
             <button type="submit">
               <i className="icofont-ui-search"></i>
@@ -83,7 +67,7 @@ const RecentShows = props => {
         </div>
         <div className="shows_items">
           {recentShows.map((show, i) => (
-            <div className="item" key={i}>
+            <div className="item" key={show.id}>
               <div className="imgthumb">
                 <a href={`/shows/${show.id}`}>
                   <img src={`assets/images/${show.poster}.png`} />
@@ -98,18 +82,54 @@ const RecentShows = props => {
             </div>
           ))}
         </div>
-        <div className="paginations">
-          <ul>
-            {pages.map((p, i) => (
-              <li key={i}>
-                <span onClick={() => console.log("goto page", p)}>{p}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Pagination pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
       </div>
     </div>
   );
 };
 
-export default RecentShows;
+const Rating = ({ rate, ...props }) => {
+  const maxRating = 5;
+  return (
+    <div className="stars">
+      {rate > 0 && new Array(rate).fill().map((_, a) => <i className="icofont-ui-rating" key={a}></i>)}
+      {maxRating - rate > 0 && new Array(maxRating - rate).fill().map((_, a) => <i className="icofont-ui-rate-blank" key={a}></i>)}
+    </div>
+  );
+};
+
+const Pagination = ({ pageCount, pageNumber, setPageNumber, ...props }) => {
+  return (
+    <div className="paginations">
+      <ul>
+        {new Array(pageCount).fill().map((_, i) => {
+          return (
+            <li key={i} className={classNames({ current: pageNumber == i + 1 })}>
+              <span onClick={() => setPageNumber(i + 1)}>{i + 1}</span>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
+
+const mapStateToProps = ({
+  home: {
+    recentShows,
+    recentShows_pagination: { pageCount },
+    shows_categories: categories,
+    shows_countries: countries,
+    shows_generas: generas,
+    shows_years: years
+  }
+}) => ({
+  recentShows,
+  categories,
+  countries,
+  generas,
+  years,
+  pageCount
+});
+const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(RecentShows);

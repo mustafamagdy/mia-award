@@ -13,8 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/Layout/Footer.js:41
-#: src/components/Layout/Header.js:55
+#: src/components/Layout/Footer.js:45
+#: src/components/Layout/Header.js:53
+#: src/components/Layout/index.js:51
 msgid "about_us"
 msgstr ""
 
@@ -22,47 +23,64 @@ msgstr ""
 msgid "accept_changes"
 msgstr ""
 
-#: src/components/Layout/LanguageSelect.js:65
-msgid "all_languages"
+#: src/containers/Pages/ContactUs/index.js:32
+msgid "address"
 msgstr ""
 
-#: src/containers/Home/Awards.js:11
+#: src/components/Layout/LanguageSelect.js:65
+#~ msgid "all_languages"
+#~ msgstr ""
+
+#: src/containers/Home/Awards.js:77
 msgid "apply_for_your_award"
 msgstr ""
 
-#: src/containers/Home/Awards.js:40
-#: src/containers/Home/Awards.js:58
-#: src/containers/Home/Awards.js:76
-#: src/containers/Home/Awards.js:107
-#: src/containers/Home/Awards.js:125
+#: src/containers/Home/Awards.js:127
 msgid "apply_now"
 msgstr ""
 
-#: src/containers/Home/RecentShows.js:43
+#: src/containers/Home/RecentShows.js:46
 msgid "award_category"
 msgstr ""
 
-#: src/components/Layout/Header.js:50
+#: src/components/Layout/Header.js:48
+#: src/components/Layout/index.js:46
 msgid "awards"
 msgstr ""
 
-#: src/containers/App/CookieGDPR.js:113
+#: src/containers/Home/Tickets.js:37
+msgid "buy_your_ticket"
+msgstr ""
+
+#: src/containers/Pages/News/view.js:153
+msgid "by"
+msgstr ""
+
+#: src/containers/App/CookieGDPR.js:117
 msgid "by_clicking_you_accept"
 msgstr ""
 
-#: src/containers/MyProfile/index.js:250
+#: src/containers/MyProfile/index.js:259
 msgid "cancel"
 msgstr ""
 
 #: src/containers/MyProfile/ChangePassword.js:17
-#: src/containers/MyProfile/index.js:228
+#: src/containers/MyProfile/index.js:222
 #: src/containers/MyProfile/index.js:230
 msgid "change_password"
 msgstr ""
 
-#: src/containers/MyProfile/index.js:115
-#: src/containers/MyProfile/index.js:117
+#: src/containers/MyProfile/index.js:110
+#: src/containers/MyProfile/index.js:114
 msgid "change_photo"
+msgstr ""
+
+#: src/containers/Pages/News/view.js:135
+msgid "comment_failed"
+msgstr ""
+
+#: src/containers/Pages/News/view.js:131
+msgid "comment_submitted"
 msgstr ""
 
 #: src/containers/MyProfile/ChangePassword.js:83
@@ -73,19 +91,29 @@ msgstr ""
 msgid "confirm_your_email_first"
 msgstr ""
 
-#: src/components/Layout/Header.js:75
+#: src/components/Layout/Header.js:73
+#: src/components/Layout/index.js:71
+#: src/containers/Pages/ContactUs/index.js:25
 msgid "contact_us"
 msgstr ""
 
-#: src/containers/App/CookieGDPR.js:111
+#: src/containers/Pages/ContactUs/index.js:131
+msgid "contact_us_message_sent_fail"
+msgstr ""
+
+#: src/containers/Pages/ContactUs/index.js:128
+msgid "contact_us_message_sent_success"
+msgstr ""
+
+#: src/containers/App/CookieGDPR.js:115
 msgid "cookie_policy"
 msgstr ""
 
-#: src/components/Layout/Footer.js:79
+#: src/components/Layout/Footer.js:83
 msgid "copyright_media_industry"
 msgstr ""
 
-#: src/containers/Home/RecentShows.js:69
+#: src/containers/Home/RecentShows.js:72
 msgid "country"
 msgstr ""
 
@@ -93,11 +121,16 @@ msgstr ""
 msgid "create_account"
 msgstr ""
 
-#: src/containers/MyProfile/index.js:159
+#: src/containers/Pages/ContactUs/index.js:35
+msgid "dubai_address"
+msgstr ""
+
+#: src/containers/MyProfile/index.js:155
+#: src/containers/Pages/ContactUs/index.js:62
 msgid "email"
 msgstr ""
 
-#: src/containers/MyProfile/index.js:244
+#: src/containers/MyProfile/index.js:248
 msgid "enable_edit"
 msgstr ""
 
@@ -105,12 +138,30 @@ msgstr ""
 msgid "failed"
 msgstr ""
 
-#: src/components/Layout/Header.js:70
+#: src/containers/Pages/ContactUs/index.js:53
+msgid "fax"
+msgstr ""
+
+#: src/containers/Pages/ContactUs/index.js:56
+msgid "fax_1"
+msgstr ""
+
+#: src/components/Layout/Footer.js:25
+msgid "footer_text"
+msgstr ""
+
+#: src/components/Layout/Header.js:68
+#: src/components/Layout/index.js:66
+#: src/containers/Pages/Gallery/index.js:181
 msgid "gallery"
 msgstr ""
 
-#: src/containers/Home/RecentShows.js:56
+#: src/containers/Home/RecentShows.js:59
 msgid "genre"
+msgstr ""
+
+#: src/containers/Pages/ContactUs/index.js:81
+msgid "get_in_touch"
 msgstr ""
 
 #: src/components/Forms/Date/DualCalendar.js:49
@@ -118,16 +169,20 @@ msgstr ""
 msgid "hijri"
 msgstr ""
 
-#: src/containers/App/CookieGDPR.js:122
+#: src/containers/App/CookieGDPR.js:126
 msgid "i_accept"
 msgstr ""
 
-#: src/components/Layout/Footer.js:66
+#: src/components/Layout/Footer.js:70
 msgid "if_you_want_to_keep_updated"
 msgstr ""
 
 #: src/components/Layout/LanguageSelect.js:44
-msgid "language"
+#~ msgid "language"
+#~ msgstr ""
+
+#: src/containers/Home/PhotoAlbum.js:21
+msgid "latest_video"
 msgstr ""
 
 #: src/containers/MyProfile/ChangePassword.js:116
@@ -140,7 +195,7 @@ msgstr ""
 msgid "logout"
 msgstr ""
 
-#: src/components/Layout/Footer.js:46
+#: src/components/Layout/Footer.js:50
 msgid "members"
 msgstr ""
 
@@ -149,17 +204,15 @@ msgstr ""
 msgid "mia"
 msgstr ""
 
-#: src/components/Layout/Footer.js:36
+#: src/components/Layout/Footer.js:40
 msgid "mia_awards"
 msgstr ""
 
-#: src/containers/Home/Awards.js:44
-#: src/containers/Home/Awards.js:80
-#: src/containers/Home/Awards.js:111
+#: src/containers/Home/Awards.js:131
 msgid "movies"
 msgstr ""
 
-#: src/containers/MyProfile/index.js:126
+#: src/containers/MyProfile/index.js:123
 msgid "name"
 msgstr ""
 
@@ -167,15 +220,21 @@ msgstr ""
 msgid "new_password"
 msgstr ""
 
-#: src/components/Layout/Header.js:60
+#: src/components/Layout/Header.js:58
+#: src/components/Layout/index.js:56
+#: src/containers/Pages/News/index.js:139
 msgid "news"
 msgstr ""
 
-#: src/components/Layout/Footer.js:63
+#: src/containers/Home/News.js:22
+msgid "news_features"
+msgstr ""
+
+#: src/components/Layout/Footer.js:67
 msgid "newsletter"
 msgstr ""
 
-#: src/containers/Home/News.js:55
+#: src/containers/Home/News.js:76
 msgid "next"
 msgstr ""
 
@@ -183,8 +242,17 @@ msgstr ""
 msgid "old_password"
 msgstr ""
 
-#: src/containers/MyProfile/index.js:192
+#: src/containers/MyProfile/index.js:187
+#: src/containers/Pages/ContactUs/index.js:41
 msgid "phone"
+msgstr ""
+
+#: src/containers/Pages/ContactUs/index.js:44
+msgid "phone_1"
+msgstr ""
+
+#: src/containers/Pages/ContactUs/index.js:47
+msgid "phone_2"
 msgstr ""
 
 #: src/components/Forms/Date/DualCalendar.js:22
@@ -195,27 +263,55 @@ msgstr ""
 msgid "please_select_checkout_date"
 msgstr ""
 
-#: src/containers/Home/News.js:49
+#: src/containers/Pages/News/view.js:126
+msgid "post_comment"
+msgstr ""
+
+#: src/containers/Pages/News/index.js:116
+#: src/containers/Pages/News/index.js:227
+#: src/containers/Pages/News/view.js:45
+msgid "posted"
+msgstr ""
+
+#: src/containers/Home/News.js:60
 msgid "prev"
 msgstr ""
 
-#: src/components/Layout/Footer.js:56
+#: src/components/Layout/Footer.js:60
 msgid "privacy_policy"
 msgstr ""
 
-#: src/components/Layout/Header.js:65
+#: src/components/Layout/index.js:61
+msgid "program"
+msgstr ""
+
+#: src/components/Layout/Header.js:63
 msgid "programs"
 msgstr ""
 
-#: src/containers/Home/News.js:36
+#: src/components/Layout/Footer.js:35
+msgid "quick_links"
+msgstr ""
+
+#: src/containers/Home/News.js:40
+#: src/containers/Pages/News/index.js:122
 msgid "read_more"
 msgstr ""
 
-#: src/containers/Home/RecentShows.js:23
+#: src/containers/Pages/News/index.js:197
+#: src/containers/Pages/News/index.js:233
+msgid "read_more_elapsed"
+msgstr ""
+
+#: src/containers/Home/RecentShows.js:28
 msgid "recent_shows"
 msgstr ""
 
-#: src/containers/App/CookieGDPR.js:99
+#: src/containers/Pages/News/view.js:179
+msgid "related_news"
+msgstr ""
+
+#: src/containers/App/CookieGDPR.js:100
 msgid "review_our_cookie_policy"
 msgstr ""
 
@@ -223,7 +319,15 @@ msgstr ""
 msgid "select_your_image"
 msgstr ""
 
-#: src/containers/Home/News.js:52
+#: src/containers/Pages/ContactUs/index.js:125
+msgid "send_message"
+msgstr ""
+
+#: src/containers/Pages/News/view.js:29
+msgid "share"
+msgstr ""
+
+#: src/containers/Home/News.js:66
 msgid "show_all"
 msgstr ""
 
@@ -234,10 +338,10 @@ msgstr ""
 #: src/containers/Home/Awards.js:62
 #: src/containers/Home/Awards.js:93
 #: src/containers/Home/Awards.js:129
-msgid "sports"
-msgstr ""
+#~ msgid "sports"
+#~ msgstr ""
 
-#: src/containers/Home/Awards.js:21
+#: src/containers/Home/Awards.js:87
 msgid "start_from"
 msgstr ""
 
@@ -246,14 +350,18 @@ msgid "submit"
 msgstr ""
 
 #: src/components/Layout/LanguageSelect.js:50
-msgid "suggested_languages"
-msgstr ""
+#~ msgid "suggested_languages"
+#~ msgstr ""
 
-#: src/components/Layout/Footer.js:51
+#: src/components/Layout/Footer.js:55
 msgid "terms_conditions"
 msgstr ""
 
-#: src/containers/Home/Awards.js:23
+#: src/containers/Home/Tickets.js:15
+msgid "ticket_desc"
+msgstr ""
+
+#: src/containers/Home/Awards.js:89
 msgid "to"
 msgstr ""
 
@@ -262,7 +370,7 @@ msgstr ""
 msgid "today"
 msgstr ""
 
-#: src/containers/MyProfile/index.js:253
+#: src/containers/MyProfile/index.js:264
 msgid "update"
 msgstr ""
 
@@ -274,18 +382,22 @@ msgstr ""
 msgid "upload_image"
 msgstr ""
 
-#: src/containers/Home/Awards.js:29
+#: src/containers/Home/PhotoAlbum.js:24
+msgid "videos_desc"
+msgstr ""
+
+#: src/containers/Home/Awards.js:95
 msgid "view_all"
 msgstr ""
 
-#: src/containers/Home/IntroSlider.js:27
+#: src/containers/Home/IntroSlider.js:76
 msgid "view_awards"
 msgstr ""
 
-#: src/containers/App/CookieGDPR.js:106
+#: src/containers/App/CookieGDPR.js:110
 msgid "we_use_cookies_and_similar_technology"
 msgstr ""
 
-#: src/containers/App/CookieGDPR.js:103
+#: src/containers/App/CookieGDPR.js:106
 msgid "what_do_we_use_cookies_for"
 msgstr ""

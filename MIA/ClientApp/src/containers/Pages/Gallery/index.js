@@ -17,7 +17,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   const [activeTab, setActiveTab] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [currentItem, setCurrentItem] = useState(undefined);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(4);
 
   const tabs = ["All", "Latest", "Photos", "Videos"];
 

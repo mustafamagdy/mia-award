@@ -9,7 +9,8 @@
     "build:dev": "node scripts/build.dev.js",
     "build:prod": "node --max_old_space_size=4096 scripts/build.js && rimraf ./build/**/*.map",
     "add-locale": "lingui add-locale",
-    "extract": "lingui extract",
+    "extract": "rm -r -f 'src\\locales\\_build' && lingui extract",
+    "extract-xls": "node CreateXlsFile.js",
     "compile": "lingui compile",
     "test": "node scripts/test.js"
   },

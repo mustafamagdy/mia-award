@@ -3,17 +3,14 @@ import { Trans } from "@lingui/macro";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import homeActions from "store/home/actions";
-
-const initState = {
-  pageNumber: 1,
-  pageSize: 4
-};
+import { LanguageContext } from "containers/Providers/LanguageProvider";
 
 const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage }, ...props }) => {
-  const [state, setState] = useState(initState);
+  const [pageNumber, setPageNumber] = useState(1);
+
   useEffect(() => {
-    fetchNews({ pageNumber: state.pageNumber, pageSize: state.pageSize });
-  }, [state.pageNumber, state.pageSize]);
+    fetchNews({ pageNumber: pageNumber, pageSize: 4 });
+  }, [pageNumber]);
 
   return (
     <div id="news_features">
@@ -32,16 +29,20 @@ const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage
                   </div>
                   <div className="imgthumb">
                     <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} />
-                    <div className="mask">
-                      <div className="content">
-                        <p>{item.title}</p>
-                        <div className="more">
-                          <a href={`/news/${item.id}`}>
-                            <Trans id="read_more">read more</Trans>
-                          </a>
+                    <LanguageContext.Consumer>
+                      {({ locale }) => (
+                        <div className="mask">
+                          <div className="content">
+                            <p>{item.title[locale.code]}</p>
+                            <div className="more">
+                              <a href={`/news/${item.id}`}>
+                                <Trans id="read_more">Read More</Trans>
+                              </a>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
+                      )}
+                    </LanguageContext.Consumer>
                   </div>
                 </div>
               </div>
@@ -54,7 +55,7 @@ const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage
               type="button"
               className="arrow_prev"
               onClick={() => {
-                setState({ ...state, pageNumber: state.pageNumber - 1 });
+                setPageNumber(p => p - 1);
               }}
             >
               <Trans id="prev">prev</Trans>
@@ -70,7 +71,7 @@ const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage
               type="button"
               className="arrow_next"
               onClick={() => {
-                setState({ ...state, pageNumber: state.pageNumber + 1 });
+                setPageNumber(p => p + 1);
               }}
             >
               <Trans id="next">next</Trans>

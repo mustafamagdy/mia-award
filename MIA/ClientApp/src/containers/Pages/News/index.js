@@ -194,7 +194,7 @@ const BlocksNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =>
                       <p>{item.title[locale.code]}</p>
                       <div className="more">
                         <a href={`/news/${item.id}`}>
-                          <Trans id="read_more">Read More..</Trans>
+                          <Trans id="read_more_elapsed">Read More..</Trans>
                         </a>
                       </div>
                     </div>
@@ -211,7 +211,7 @@ const BlocksNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =>
 );
 
 const ListingNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) => (
-  <div className="listing_news">
+  <div className="listing_news active">
     {news.map((item, i) => (
       <div key={item.id} className="item">
         <div className="imgthmb">
@@ -230,7 +230,7 @@ const ListingNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =
               </div>
               <div className="more">
                 <a href={`/news/${item.id}`}>
-                  <Trans id="read_more">Read More..</Trans>
+                  <Trans id="read_more_elapsed">Read More..</Trans>
                 </a>
               </div>
             </div>

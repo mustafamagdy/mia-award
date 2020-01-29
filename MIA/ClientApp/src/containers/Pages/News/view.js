@@ -132,7 +132,7 @@ const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuc
           </div>
         ) : (
           <div class="msg_wrong">
-            <Trans id="comment_submitted">There is an error, the message could not be sent</Trans>
+            <Trans id="comment_failed">There is an error, the message could not be sent</Trans>
           </div>
         )}
       </form>
