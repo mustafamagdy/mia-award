@@ -268,22 +268,19 @@
         var vm = this;
 
         vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS;
-        debugger;
+        vm.appCONSTANTS = appCONSTANTS; 
         refreshArtWorks();
         function refreshArtWorks() {
             blockUI.start("Loading...");
 
             var k = ArtWorkResource.getAllArtWorks({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
-                debugger;
                 $scope.ArtWorkList = results.items;
                 $scope.totalCount = results.metadata.totalItemCount;
                 console.log($scope.ArtWorkList);
                 blockUI.stop();
 
             },
-                function (data, status) {
-                    debugger;
+                function (data, status) { 
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
@@ -376,11 +373,40 @@
             getAllArtWorks: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/search', useToken: true, params: { lang: '@lang' } },
             getAllNominees: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/nominees', useToken: true, isArray: true, params: { lang: '@lang' } },
             getAllAwards: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/search', useToken: true, params: { lang: '@lang' } },
+            getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/countries', useToken: true, isArray: true,  params: { lang: '@lang' } },
             create: {
                 method: 'POST', useToken: true,
+                transformRequest: function (data) {
+                    if (data === undefined)
+                        return data;
 
+                    var fd = new FormData();
+                    angular.forEach(data, function (value, key) {
+                        if (value instanceof FileList) {
+                            if (value.length == 1) {
+                                fd.append(key, value[0]);
+                            } else {
+                                angular.forEach(value, function (file, index) {
+                                    fd.append(key + '_' + index, file);
+                                });
+                            }
+                        } else {
+                            if (typeof value == "object" && typeof value.size == "number")
+                                fd.append(key, value);
+                            if (typeof value == "object") {
+                                Object.keys(value).forEach(v => {
+                                    fd.append(key, value[v]);
+                                });
+                            }
+                            else
+                                fd.append(key, value);
 
+                        }
+                    });
 
+                    return fd;
+                },
+                headers: { 'Content-Type': undefined }
             },
             update: {
                 method: 'PUT', useToken: true,
@@ -500,32 +526,83 @@
     function createArtWorkDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
         ToastService, $rootScope) {
         var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
         vm.awardList = [];
-        vm.selectedAward = "";
-
         vm.nomineeList = [];
+        vm.countryList = [];
+        vm.selectedAward = "";
         vm.selectedNominee = "";
+        vm.selectedCountry = "";
+        vm.PaymentStatus = 0;
+        vm.showStepOne = true;
+        vm.showStepTwo = false;
+        vm.receipt = "";
+
         refreshAwards();
         refreshNominees();
-        vm.language = appCONSTANTS.supportedLanguage;
+        refreshCountries();
+
         vm.close = function () {
             $state.go('ArtWork');
         }
 
+        vm.nextStep = function () {
+            vm.showStepOne = false;
+            vm.showStepTwo = true;
+        }
 
-        vm.AddNewArtWork = function () {
+        vm.perviousStep = function () {
+            vm.showStepOne = true;
+            vm.showStepTwo = false;
+        }
+        $scope.dateIsValid = false;
+        $scope.dateChange = function () {
             debugger;
+            if ($('#paymentDate').data('date') == null || $('#paymentDate').data('date') == "") {
+                $scope.dateIsValid = false;
+            } else if ($scope.newArtWorkForm.$valid) {
+                $scope.dateIsValid = true;
+            }
+        }
+        $scope.uploadReceiptFile = function (element) { 
+            vm.receipt = $(element)[0].files[0];
+        };
+
+        vm.AddNewArtWork = function () { 
+
+
+
             blockUI.start("Loading...");
             var newObj = new ArtWorkResource();
             newObj.Title = vm.Title;
             newObj.AwardId = vm.selectedAward.id;
             newObj.NomineeId = vm.selectedNominee.id;
             newObj.FileCount = vm.FileCount;
+            newObj.DateOfRelease = vm.DateOfRelease;
+            newObj.Country = vm.selectedCountry.shortName;
+            newObj.ShowDescription = vm.ShowDescription;
+            newObj.Director = vm.Director.join(', ');
+            newObj.Production = vm.Production.join(', ');
+            newObj.Writers = vm.Writers.join(', ');
+            newObj.Story = vm.Story.join(', ');
+            newObj.Crew = vm.Crew.join(', ');
+            newObj.PaymentStatus = vm.PaymentStatus == true ? 1 : 0;
+            newObj.Payment={};
+            newObj.Payment.TransactionNumber= vm.TransactionNumber,
+            newObj.Payment.Amount= vm.Amount,
+            newObj.Payment.PaymentDate=$('#paymentDate').val();
+
+            newObj.Poster = $scope.file;
+            newObj.Video = $scope.file;
 
             newObj.$create().then(
                 function (data, status) {
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+
+                                       $rootScope.$broadcast('artWorkId', data.Id);
+                    $rootScope.$broadcast('FilesCount', data.FileCount);
+                     $state.go('Payment', data.id);
                 },
                 function (data, status) {
                     blockUI.stop();
@@ -536,34 +613,42 @@
 
 
         function refreshNominees() {
-
             var k = ArtWorkResource.getAllNominees().$promise.then(function (results) {
-                debugger;
                 vm.nomineeList = results;
                 blockUI.stop();
 
             },
                 function (data, status) {
-                    debugger;
+
                     blockUI.stop();
                 });
         }
 
         function refreshAwards() {
-
             var k = ArtWorkResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise.then(function (results) {
-                debugger;
+
                 vm.awardList = results.items;
                 vm.totalCount = results.metadata.totalItemCount;
                 blockUI.stop();
 
             },
                 function (data, status) {
-                    debugger;
+
                     blockUI.stop();
                 });
         }
 
+
+        function refreshCountries() {
+            var k = ArtWorkResource.getAllCountries().$promise.then(function (results) {
+                vm.countryList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+                });
+        }
     }
 }());
 (function () {
@@ -728,9 +813,9 @@
 (function () {
     angular
         .module('home')
-        .factory('ArtWorkResource', ['$resource', 'appCONSTANTS', ArtWorkResource])
+        .factory('ArtWorkMediaResource', ['$resource', 'appCONSTANTS', ArtWorkMediaResource])
 
-    function ArtWorkResource($resource, appCONSTANTS) {
+    function ArtWorkMediaResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'artWorks', {}, {
             getAllArtWorks: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/search', useToken: true, params: { lang: '@lang' } },
             getAllNominees: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/nominees', useToken: true, isArray: true, params: { lang: '@lang' } },
@@ -791,11 +876,11 @@
         .config(function ($stateProvider, $urlRouterProvider) {
 
             $stateProvider
-                .state('ArtWork', {
-                    url: '/ArtWork',
-                    templateUrl: './app/GlobalAdmin/ArtWork/templates/ArtWork.html',
-                    controller: 'ArtWorkController',
-                    'controllerAs': 'ArtWorkCtrl',
+                .state('ArtWorkMedia', {
+                    url: '/ArtWorkMedia',
+                    templateUrl: './app/GlobalAdmin/ArtWorkMedia/templates/ArtWorkMedia.html',
+                    controller: 'ArtWorkMediaController',
+                    'controllerAs': 'ArtWorkMediaCtrl',
                     data: {
                         permissions: {
                             redirectTo: 'root'
@@ -803,11 +888,11 @@
                     }
 
                 })
-                .state('newArtWork', {
-                    url: '/newArtWork',
-                    templateUrl: './app/GlobalAdmin/ArtWork/templates/new.html',
-                    controller: 'createArtWorkDialogController',
-                    'controllerAs': 'newArtWorkCtrl', 
+                .state('newArtWorkMedia', {
+                    url: '/newArtWorkMedia',
+                    templateUrl: './app/GlobalAdmin/ArtWorkMedia/templates/new.html',
+                    controller: 'createArtWorkMediaDialogController',
+                    'controllerAs': 'newArtWorkMediaCtrl', 
                     data: {
                         permissions: {
                             redirectTo: 'root'
@@ -815,13 +900,13 @@
                     }
 
                 })
-                .state('editArtWork', {
-                    url: '/editArtWork/:countryId',
-                    templateUrl: './app/GlobalAdmin/ArtWork/templates/edit.html',
-                    controller: 'editArtWorkDialogController',
-                    'controllerAs': 'editArtWorkCtrl',
+                .state('editArtWorkMedia', {
+                    url: '/editArtWorkMedia/:countryId',
+                    templateUrl: './app/GlobalAdmin/ArtWorkMedia/templates/edit.html',
+                    controller: 'editArtWorkMediaDialogController',
+                    'controllerAs': 'editArtWorkMediaCtrl',
                     resolve: {
-                        ArtWorkByIdPrepService: ArtWorkByIdPrepService
+                        ArtWorkMediaByIdPrepService: ArtWorkMediaByIdPrepService
                     },
                     data: {
                         permissions: {
@@ -832,19 +917,19 @@
                 })
         });
 
-    ArtWorkPrepService.$inject = ['ArtWorkResource']
-    function ArtWorkPrepService(ArtWorkResource) {
-        return ArtWorkResource.getAllArtWorks({ pageNumber: 1, pageSize: 10 }).$promise;
+    ArtWorkMediaPrepService.$inject = ['ArtWorkMediaResource']
+    function ArtWorkMediaPrepService(ArtWorkMediaResource) {
+        return ArtWorkMediaResource.getAllArtWorkMedias({ pageNumber: 1, pageSize: 10 }).$promise;
     }
 
-    ArtWorkByIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
-    function ArtWorkByIdPrepService(ArtWorkResource, $stateParams) {
-        return ArtWorkResource.getArtWork({ countryId: $stateParams.countryId }).$promise;
+    ArtWorkMediaByIdPrepService.$inject = ['ArtWorkMediaResource', '$stateParams']
+    function ArtWorkMediaByIdPrepService(ArtWorkMediaResource, $stateParams) {
+        return ArtWorkMediaResource.getArtWorkMedia({ countryId: $stateParams.countryId }).$promise;
     }
 
-    AllAwardPrepService.$inject = ['ArtWorkResource']
-    function AllAwardPrepService(ArtWorkResource) {
-        return ArtWorkResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
+    AllAwardPrepService.$inject = ['ArtWorkMediaResource']
+    function AllAwardPrepService(ArtWorkMediaResource) {
+        return ArtWorkMediaResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
  
 }());
@@ -853,10 +938,10 @@
 
     angular
         .module('home')
-        .controller('createArtWorkDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'ArtWorkResource', 'ToastService', '$rootScope', createArtWorkDialogController])
+        .controller('createArtWorkMediaDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'ArtWorkResource', 'ToastService', '$rootScope', createArtWorkMediaDialogController])
 
-    function createArtWorkDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
+    function createArtWorkMediaDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
         ToastService, $rootScope) {
         var vm = this;
         vm.awardList = [];
@@ -930,369 +1015,10 @@
 
     angular
         .module('home')
-        .controller('editArtWorkDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
-            'ArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', editArtWorkDialogController])
+        .controller('editArtWorkMediaDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+            'ArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', editArtWorkMediaDialogController])
 
-    function editArtWorkDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
-        ToastService, ArtWorkByIdPrepService) {
-        var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.ArtWork = ArtWorkByIdPrepService;
-     debugger; 
-
-        vm.Close = function () {
-            $state.go('ArtWork');
-        }
-        vm.UpdateArtWork = function () {
-            blockUI.start("Loading...");
-            debugger;
-
-            var updateObj = new ArtWorkResource();
-            updateObj.Id = vm.ArtWork.id;
-            updateObj.title = vm.ArtWork.title;
-            updateObj.body = vm.ArtWork.body;
-            if ($scope.file != null) {
-                updateObj.Poster = $scope.file;
-
-            }
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    blockUI.stop();
-
-                    $state.go('ArtWork');
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('ArtWorkController', ['appCONSTANTS', '$scope', '$translate', 'ArtWorkResource', 'blockUI', '$uibModal',
-            'ToastService', ArtWorkController]);
-
-
-    function ArtWorkController(appCONSTANTS, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
-        var vm = this;
-
-        vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS;
-        debugger;
-        refreshArtWorks();
-        function refreshArtWorks() {
-            blockUI.start("Loading...");
-
-            var k = ArtWorkResource.getAllArtWorks({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
-                debugger;
-                $scope.ArtWorkList = results.items;
-                $scope.totalCount = results.metadata.totalItemCount;
-                console.log($scope.ArtWorkList);
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    debugger;
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
-                });
-        }
-        function change(artWork, isDeleted) {
-            var updateObj = new ArtWorkResource();
-            updateObj.id = artWork.id;
-            if (!isDeleted)
-                updateObj.status = (artWork.status == true ? false : true);
-            updateObj.isDeleted = artWork.isDeleted;
-
-            updateObj.$update().then(
-                function (data, status) {
-                    refreshArtWorks();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    artWork.status = updateObj.status;
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-        vm.UpdateArtWork = function (artWork) {
-            change(artWork, false);
-        }
-
-        function confirmationDelete(model) {
-            var updateObj = new ArtWorkResource();
-            updateObj.$delete({ id: model.id }).then(
-                function (data, status) {
-                    refreshArtWorks();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        }
-        vm.ChangeStatus = function (model) {
-            var updateObj = new ArtWorkResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-            return;
-        }
-
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshArtWorks();
-        }
-
-    }
-
-})();
-(function () {
-    angular
-        .module('home')
-        .factory('ArtWorkResource', ['$resource', 'appCONSTANTS', ArtWorkResource])
-
-    function ArtWorkResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'artWorks', {}, {
-            getAllArtWorks: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/search', useToken: true, params: { lang: '@lang' } },
-            getAllNominees: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/nominees', useToken: true, isArray: true, params: { lang: '@lang' } },
-            getAllAwards: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/search', useToken: true, params: { lang: '@lang' } },
-            create: {
-                method: 'POST', useToken: true,
-
-
-
-            },
-            update: {
-                method: 'PUT', useToken: true,
-                transformRequest: function (data) {
-                    debugger;
-                    if (data === undefined)
-                        return data;
-
-                    var fd = new FormData();
-                    angular.forEach(data, function (value, key) {
-                        if (value instanceof FileList) {
-                            if (value.length == 1) {
-                                fd.append(key, value[0]);
-                            } else {
-                                angular.forEach(value, function (file, index) {
-                                    fd.append(key + '_' + index, file);
-                                });
-                            }
-                        } else {
-                            if (typeof value == "object" && typeof value.size == "number")
-                                fd.append(key, value);
-                            if (typeof value == "object") {
-                                Object.keys(value).forEach(v => {
-                                    fd.append(key, value[v]);
-                                });
-                            }
-                            else
-                                fd.append(key, value);
-
-                        }
-                    });
-                    return fd;
-                },
-                headers: { 'Content-Type': undefined }
-            },
-            getArtWork: { method: 'GET', useToken: true },
-            delete: { method: 'DELETE', useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/ChangeStatus/:id/:status', useToken: true }
-
-        })
-    }
-
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .config(function ($stateProvider, $urlRouterProvider) {
-
-            $stateProvider
-                .state('ArtWork', {
-                    url: '/ArtWork',
-                    templateUrl: './app/GlobalAdmin/ArtWork/templates/ArtWork.html',
-                    controller: 'ArtWorkController',
-                    'controllerAs': 'ArtWorkCtrl',
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('newArtWork', {
-                    url: '/newArtWork',
-                    templateUrl: './app/GlobalAdmin/ArtWork/templates/new.html',
-                    controller: 'createArtWorkDialogController',
-                    'controllerAs': 'newArtWorkCtrl', 
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('editArtWork', {
-                    url: '/editArtWork/:countryId',
-                    templateUrl: './app/GlobalAdmin/ArtWork/templates/edit.html',
-                    controller: 'editArtWorkDialogController',
-                    'controllerAs': 'editArtWorkCtrl',
-                    resolve: {
-                        ArtWorkByIdPrepService: ArtWorkByIdPrepService
-                    },
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-        });
-
-    ArtWorkPrepService.$inject = ['ArtWorkResource']
-    function ArtWorkPrepService(ArtWorkResource) {
-        return ArtWorkResource.getAllArtWorks({ pageNumber: 1, pageSize: 10 }).$promise;
-    }
-
-    ArtWorkByIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
-    function ArtWorkByIdPrepService(ArtWorkResource, $stateParams) {
-        return ArtWorkResource.getArtWork({ countryId: $stateParams.countryId }).$promise;
-    }
-
-    AllAwardPrepService.$inject = ['ArtWorkResource']
-    function AllAwardPrepService(ArtWorkResource) {
-        return ArtWorkResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
-    }
- 
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('createArtWorkDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'ArtWorkResource', 'ToastService', '$rootScope', createArtWorkDialogController])
-
-    function createArtWorkDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
-        ToastService, $rootScope) {
-        var vm = this;
-        vm.awardList = [];
-        vm.selectedAward = "";
-
-        vm.nomineeList = [];
-        vm.selectedNominee = "";
-        refreshAwards();
-        refreshNominees();
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.close = function () {
-            $state.go('ArtWork');
-        }
-
-
-        vm.AddNewArtWork = function () {
-            debugger;
-            blockUI.start("Loading...");
-            var newObj = new ArtWorkResource();
-            newObj.Title = vm.Title;
-            newObj.AwardId = vm.selectedAward.id;
-            newObj.NomineeId = vm.selectedNominee.id;
-            newObj.FileCount = vm.FileCount;
-
-            newObj.$create().then(
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.title, "error");
-                }
-            );
-        }
-
-
-        function refreshNominees() {
-
-            var k = ArtWorkResource.getAllNominees().$promise.then(function (results) {
-                debugger;
-                vm.nomineeList = results;
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    debugger;
-                    blockUI.stop();
-                });
-        }
-
-        function refreshAwards() {
-
-            var k = ArtWorkResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise.then(function (results) {
-                debugger;
-                vm.awardList = results.items;
-                vm.totalCount = results.metadata.totalItemCount;
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    debugger;
-                    blockUI.stop();
-                });
-        }
-
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editArtWorkDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
-            'ArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', editArtWorkDialogController])
-
-    function editArtWorkDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
+    function editArtWorkMediaDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
         ToastService, ArtWorkByIdPrepService) {
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;

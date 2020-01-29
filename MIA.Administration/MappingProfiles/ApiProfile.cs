@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MIA.Administration.Api;
+using MIA.Administration.Dto.ArtWorkPayment;
 using MIA.Administration.Dto.Award;
 using MIA.Administration.Dto.User;
 using MIA.Models.Entities;
@@ -64,12 +65,24 @@ namespace MIA.Administration.MappingProfiles {
 
       #endregion
 
-      #region ArtWork
-      CreateMap<ArtWork, ArtWorkDto>().ValidateMemberList(MemberList.None);
-      CreateMap<NewArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None);
-      CreateMap<UpdateArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None);
+
+      #region Payment
+   //   CreateMap<Payment, ArtWorkPaymentDto>().ValidateMemberList(MemberList.None);
+      CreateMap<ArtWorkPaymentDto, ArtWorkPayment>().ValidateMemberList(MemberList.None);
+      //CreateMap<NewPaymentDto, Payment>().ValidateMemberList(MemberList.None);
+      //CreateMap<UpdatePaymentDto, Payment>().ValidateMemberList(MemberList.None);
 
       #endregion
+
+      #region ArtWork
+      CreateMap<ArtWork, ArtWorkDto>().ValidateMemberList(MemberList.None);
+      CreateMap<NewArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None)
+            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.Title)))
+            .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.ShowDescription)))
+            .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment));
+      CreateMap<UpdateArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None);
+      #endregion
+
 
       #region Award
       CreateMap<Award, AwardDto>().ValidateMemberList(MemberList.None);
@@ -88,7 +101,7 @@ namespace MIA.Administration.MappingProfiles {
 
     }
 
-    }
-
-
   }
+
+
+}

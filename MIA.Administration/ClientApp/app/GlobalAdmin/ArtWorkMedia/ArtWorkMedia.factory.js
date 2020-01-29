@@ -1,9 +1,9 @@
 (function () {
     angular
         .module('home')
-        .factory('ArtWorkResource', ['$resource', 'appCONSTANTS', ArtWorkResource])
+        .factory('ArtWorkMediaResource', ['$resource', 'appCONSTANTS', ArtWorkMediaResource])
 
-    function ArtWorkResource($resource, appCONSTANTS) {
+    function ArtWorkMediaResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'artWorks', {}, {
             getAllArtWorks: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/search', useToken: true, params: { lang: '@lang' } },
             getAllNominees: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/nominees', useToken: true, isArray: true, params: { lang: '@lang' } },

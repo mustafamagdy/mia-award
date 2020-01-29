@@ -13,22 +13,19 @@
         var vm = this;
 
         vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS;
-        debugger;
+        vm.appCONSTANTS = appCONSTANTS; 
         refreshArtWorks();
         function refreshArtWorks() {
             blockUI.start("Loading...");
 
             var k = ArtWorkResource.getAllArtWorks({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
-                debugger;
                 $scope.ArtWorkList = results.items;
                 $scope.totalCount = results.metadata.totalItemCount;
                 console.log($scope.ArtWorkList);
                 blockUI.stop();
 
             },
-                function (data, status) {
-                    debugger;
+                function (data, status) { 
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });

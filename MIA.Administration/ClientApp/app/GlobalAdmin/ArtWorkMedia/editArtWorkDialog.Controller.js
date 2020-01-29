@@ -3,10 +3,10 @@
 
     angular
         .module('home')
-        .controller('editArtWorkDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
-            'ArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', editArtWorkDialogController])
+        .controller('editArtWorkMediaDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+            'ArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', editArtWorkMediaDialogController])
 
-    function editArtWorkDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
+    function editArtWorkMediaDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
         ToastService, ArtWorkByIdPrepService) {
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;

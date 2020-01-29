@@ -4,76 +4,296 @@
     </div>
     <div class="modal-body">
         <form class="form-horizontal" name="newArtWorkForm">
-            <div class="row">
-                <div class="form-group col-lg-4">
-                    <label for="first-name">{{'Award' | translate}}</label>
-                    <select required style="width:100% !important"
-                        class="form-control select-with-search pmd-select2-tags" ng-model="newArtWorkCtrl.selectedAward"
-                        ng-options="group as group.title for group in newArtWorkCtrl.awardList">
-                    </select>
-                </div>
+            <div id="stepOne" ng-show="newArtWorkCtrl.showStepOne">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" ng-class="{'active':$index == 0}"
+                        ng-repeat="lang in newArtWorkCtrl.language">
+                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
+                            data-toggle="tab">
+                            <span style="color:red">*</span>{{lang.value | translate}}
+                        </a>
+                    </li>
+                </ul>
+                <div class="pmd-card">
+                    <div class="pmd-card-body">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
+                                ng-repeat="lang in newArtWorkCtrl.language" id="{{lang.value}}-form">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label for="first-name">{{ 'Title' | translate}} </label>
+                                    <input required News="text" class="mat-input form-control"
+                                        name="title{{lang.value+'Name'}}" ng-model="newArtWorkCtrl.Title[lang.key]"
+                                        ng-minlength="3" ng-maxlength="255">
+                                    <div ng-messages="newArtWorkForm.title{{lang.value+'Name'}}.$error">
 
-                <div class="form-group col-lg-4"> <label for="first-name">{{'Nominee' | translate}}</label>
-                    <select required style="width:100% !important"
-                        class="form-control select-with-search pmd-select2-tags"
-                        ng-model="newArtWorkCtrl.selectedNominee"
-                        ng-options="group as group.firstName  for group in newArtWorkCtrl.nomineeList">
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-lg-4">
-                    <label for="first-name">{{'ArtWorkName' | translate}}</label>
-                    <input type="text" class="form-control" name="title" style="display: inline-block; "
-                        ng-model="newArtWorkCtrl.Title" required />
-                    <div class="error" ng-messages="newArtWorkForm.title.$error">
-                        <div ng-if="newArtWorkForm.title.$error.required && 
-                    !newArtWorkForm.title.$pristine">{{'requiredErr' | translate}}</div>
+                                        <div class="error ng-binding"
+                                            ng-show="newArtWorkForm.title{{lang.value+'Name'}}.$error.required && !newArtWorkForm.title{{lang.value+'Name'}}.$pristine">
+                                            {{'requiredErr' | translate}}</div>
+                                        <div class="error ng-binding"
+                                            ng-show="(newArtWorkForm.title{{lang.value+'Name'}}.$error.minlength || newArtWorkForm.title{{lang.value+'Name'}}.$error.maxlength) && !newArtWorkForm.title{{lang.value+'Name'}}.$error.required">
+                                            {{'NameLengthError3' | translate}}</div>
+                                    </div>
+                                </div>
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label for="first-name">{{ 'ShowDescription' | translate}} </label>
+                                    <textarea required class="mat-input form-control"
+                                        name="ShowDescription{{lang.value+'Name'}}"
+                                        ng-model="newArtWorkCtrl.ShowDescription[lang.key]" ng-minlength="3"
+                                        ng-maxlength="955"></textarea>
+                                    <div ng-messages="newArtWorkForm.ShowDescription{{lang.value+'Name'}}.$error">
+
+                                        <div class="error ng-binding"
+                                            ng-show="newArtWorkForm.ShowDescription{{lang.value+'Name'}}.$error.required && !newArtWorkForm.ShowDescription{{lang.value+'Name'}}.$pristine">
+                                            {{'requiredErr' | translate}}</div>
+                                        <div class="error ng-binding"
+                                            ng-show="(newArtWorkForm.ShowDescription{{lang.value+'Name'}}.$error.minlength || newArtWorkForm.ShowDescription{{lang.value+'Name'}}.$error.maxlength) && !newArtWorkForm.ShowDescription{{lang.value+'Name'}}.$error.required">
+                                            {{'NameLengthError3' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'Award' | translate}}</label>
+                        <select required style="width:100% !important"
+                            class="form-control select-with-search pmd-select2-tags"
+                            ng-model="newArtWorkCtrl.selectedAward"
+                            ng-options="group as group.title for group in newArtWorkCtrl.awardList">
+                        </select>
+                    </div>
 
-                <div class="form-group col-lg-4">
-                    <label for="first-name">{{'FilesCount' | translate}}</label>
-                    <input required type="text" class="mat-input form-control" name="fileCount" numbers-only
-                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
-                        ng-model="newArtWorkCtrl.FileCount" required />
-                    <!-- required validation  -->
-                    <div ng-messages="newArtWorkForm.fileCount.$error">
-                        <div class="error" ng-if="newArtWorkForm.fileCount.$error.required && 
+                    <div class="form-group col-lg-4"> <label for="first-name">{{'Nominee' | translate}}</label>
+                        <select required style="width:100% !important"
+                            class="form-control select-with-search pmd-select2-tags"
+                            ng-model="newArtWorkCtrl.selectedNominee"
+                            ng-options="group as group.firstName  for group in newArtWorkCtrl.nomineeList">
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'FilesCount' | translate}}</label>
+                        <input required type="text" class="mat-input form-control" name="fileCount" numbers-only
+                            style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
+                            ng-model="newArtWorkCtrl.FileCount" />
+                        <!-- required validation  -->
+                        <div ng-messages="newArtWorkForm.fileCount.$error">
+                            <div class="error" ng-if="newArtWorkForm.fileCount.$error.required && 
                                         !newArtWorkForm.fileCount.$pristine">
-                            {{'requiredErr' |  translate}}
-                        </div>
-                        <!-- length validation -->
-                        <div class="error" ng-if="(newArtWorkForm.fileCount.$error.minlength ||
+                                {{'requiredErr' |  translate}}
+                            </div>
+                            <!-- length validation -->
+                            <div class="error" ng-if="(newArtWorkForm.fileCount.$error.minlength ||
                                             newArtWorkForm.fileCount.$error.maxlength) 
                                              && !newArtWorkForm.fileCount.newfileCount.$error.required">
-                            {{'PhoneLengthError' |  translate}}
+                                {{'PhoneLengthError' |  translate}}
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'Production' | translate}}</label>
+                        <select required style="width:100% !important" multiple
+                            class="select-add-tags form-control pmd-select2-tags" ng-model="newArtWorkCtrl.Production">
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-4"> <label for="first-name">{{'Director' | translate}}</label>
+                        <select required style="width:100% !important" multiple
+                            class="select-add-tags form-control pmd-select2-tags" ng-model="newArtWorkCtrl.Director">
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-4"> <label for="first-name">{{'Country' | translate}}</label>
+                        <select required style="width:100% !important"
+                            class="form-control select-with-search pmd-select2-tags"
+                            ng-model="newArtWorkCtrl.selectedCountry"
+                            ng-options="group as group.shortName  for group in newArtWorkCtrl.countryList">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'Writers' | translate}}</label>
+                        <select required style="width:100% !important" multiple
+                            class="select-add-tags form-control pmd-select2-tags" ng-model="newArtWorkCtrl.Writers">
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-4"> <label for="first-name">{{'Story' | translate}}</label>
+                        <select required style="width:100% !important" multiple
+                            class="select-add-tags form-control pmd-select2-tags" ng-model="newArtWorkCtrl.Story">
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'DateOfRelease' | translate}}</label>
+                        <input required type="text" class="mat-input form-control" name="dateOfRelease" numbers-only
+                            style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
+                            ng-model="newArtWorkCtrl.DateOfRelease" required />
+                        <!-- required validation  -->
+                        <div ng-messages="newArtWorkForm.dateOfRelease.$error">
+                            <div class="error" ng-if="newArtWorkForm.dateOfRelease.$error.required && 
+                                        !newArtWorkForm.dateOfRelease.$pristine">
+                                {{'requiredErr' |  translate}}
+                            </div>
+                            <!-- length validation -->
+                            <div class="error" ng-if="(newArtWorkForm.dateOfRelease.$error.minlength ||
+                                            newArtWorkForm.dateOfRelease.$error.maxlength) 
+                                             && !newArtWorkForm.dateOfRelease.dateOfRelease.$error.required">
+                                {{'PhoneLengthError' |  translate}}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'Crew' | translate}}</label>
+                        <select required style="width:100% !important" multiple
+                            class="select-add-tags form-control pmd-select2-tags" ng-model="newArtWorkCtrl.Crew">
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <span style="color:red">*</span>
+                        <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
+                            Cover</label>
+                        <input id="image" class="hidden" type="file" img-upload ng-model="imageName" name="imageName">
+                        <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
+                        <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                            {{'RecommendedProductImage' | translate}}</span> 
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <span style="color:red">*</span>
+                        <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
+                            Trailer</label>
+                        <input id="image" class="hidden" type="file" img-upload ng-model="imageName" name="imageName">
+
+                    </div>
+                </div>
+                <button class="btn pmd-ripple-effect btn-default" type="button"
+                    ng-click="newArtWorkCtrl.nextStep()">{{'Next' | translate}}</button>
+            </div>
+            <div id="stepTwo" ng-show="newArtWorkCtrl.showStepTwo">
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'Amount' | translate}}</label>
+                        <input required type="text" class="mat-input form-control" name="Amount" numbers-only
+                            style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
+                            ng-model="newArtWorkCtrl.Amount" required />
+                        <!-- required validation  -->
+                        <div ng-messages="newArtWorkForm.Amount.$error">
+                            <div class="error" ng-if="newArtWorkForm.Amount.$error.required && 
+                                        !newArtWorkForm.Amount.$pristine">
+                                {{'requiredErr' |  translate}}
+                            </div>
+                            <!-- length validation -->
+                            <div class="error" ng-if="(newArtWorkForm.Amount.$error.minlength ||
+                                            newArtWorkForm.Amount.$error.maxlength) 
+                                             && !newArtWorkForm.Amount.newAmount.$error.required">
+                                {{'PhoneLengthError' |  translate}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <label><span style="color:red">*</span> {{'TransactionNumber' | translate}}</label>
+                        <input type="text" class="form-control" name="TransactionNumber" style="display: inline-block; "
+                            ng-model="newArtWorkCtrl.TransactionNumber" required />
+                        <div class="error" ng-messages="newArtWorkForm.TransactionNumber.$error">
+                            <div ng-if="newArtWorkForm.TransactionNumber.$error.required && 
+                            !newArtWorkForm.TransactionNumber.$pristine">{{'requiredErr' | translate}}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <label><span style="color:red">*</span> {{'PaymentDate' | translate}}</label>
+
+                        <input name="itemDatetime" ng-model="itemDatetime" type="text" id="paymentDate"
+                            class="form-control" ng-change="dateChange();" />
+                        <div ng-messages="newArtWorkForm.paymentDate.$error">
+                            <div
+                                ng-if="newArtWorkForm.paymentDate.$error.required && !newArtWorkForm.paymentDate.$pristine">
+                                {{'paymentDateReqError' | translate}}</div>
+                            <div
+                                ng-if="(newArtWorkForm.paymentDate.$error.minlength || newArtWorkForm.paymentDate.$error.maxlength)">
+                                {{'paymentDateLengthError' | translate}}</div>
+                        </div>
+
+                        <input type="text" class="form-control" name="PaymentDate" style="display: inline-block; "
+                            ng-model="newArtWorkCtrl.PaymentDate" required />
+                        <div class="error" ng-messages="newArtWorkForm.PaymentDate.$error">
+                            <div ng-if="newArtWorkForm.PaymentDate.$error.required && 
+                            !newArtWorkForm.PaymentDate.$pristine">{{'requiredErr' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'Allow To upload Media' | translate}}</label>
+                        <input type="checkbox" ng-model="newArtWorkCtrl.PaymentStatus">
+                    </div>
+                    <div class="form-group col-lg-4">
+
+                        <div class="form-group col-lg-4">
+                            <span style="color:red">*</span>
+                            <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
+                                Receipt</label>
+                            <input id="image" class="hidden" type="file"  onchange="angular.element(this).scope().uploadReceiptFile(this)" ng-model="receit" name="receitName">
+                            <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
+                            <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                                {{'RecommendedProductImage' | translate}}</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn pmd-ripple-effect btn-default" type="button"
+                    ng-click="newArtWorkCtrl.perviousStep()">{{'Pervious' | translate}}</button>
+                <div class="pmd-modal-action text-right">
+                    <button
+                        style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+                        ng-disabled="newArtWorkForm.$invalid ||  newArtWorkCtrl.selectedNominee ==null ||  newArtWorkCtrl.selectedAward ==null"
+                        class="btn pmd-ripple-effect btn-primary" ArtWork="button"
+                        ng-click="newArtWorkCtrl.AddNewArtWork()">{{'saveChangesBtn' | translate}}</button>
+                    <button class="btn pmd-ripple-effect btn-default" ArtWork="button"
+                        ng-click="newArtWorkCtrl.close()">{{'DiscardBtn' | translate}}</button>
                 </div>
             </div>
         </form>
     </div>
-    <div class="pmd-modal-action text-right">
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-disabled="newArtWorkForm.$invalid ||  newArtWorkCtrl.selectedNominee ==null ||  newArtWorkCtrl.selectedAward ==null" class="btn pmd-ripple-effect btn-primary"
-            ArtWork="button" ng-click="newArtWorkCtrl.AddNewArtWork()">{{'saveChangesBtn' | translate}}</button>
-        <button class="btn pmd-ripple-effect btn-default" ArtWork="button"
-            ng-click="newArtWorkCtrl.close()">{{'DiscardBtn' | translate}}</button>
-    </div>
-</div>
 
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
         $(".select-add-tags").select2({
             tags: true,
             theme: "bootstrap",
-            insertTag: function (data, tag) {
-                data.push(tag);
-            }
+            // insertTag: function (data, tag) {
+            //     data.push(tag);
+            // }
         });
-        $(".select-with-search").select2({
-            theme: "bootstrap"
-        });
+        // $(".select-with-search").select2({
+        //     theme: "bootstrap"
+        // });
+
+        var today = new Date();
+        today.setDate(today.getDate() + 1)
+
+        $('#paymentDate').datetimepicker({
+            widgetPositioning: { vertical: "bottom" },
+            minDate: today,
+        })
+            .on('dp.change', function (e) {
+                debugger;
+                angular.element(document.getElementById('paymentDate')).scope().dateChange();
+            });
+
     });
 </script>

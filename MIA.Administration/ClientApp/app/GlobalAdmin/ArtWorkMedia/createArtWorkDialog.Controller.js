@@ -3,10 +3,10 @@
 
     angular
         .module('home')
-        .controller('createArtWorkDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'ArtWorkResource', 'ToastService', '$rootScope', createArtWorkDialogController])
+        .controller('createArtWorkMediaDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'ArtWorkResource', 'ToastService', '$rootScope', createArtWorkMediaDialogController])
 
-    function createArtWorkDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
+    function createArtWorkMediaDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
         ToastService, $rootScope) {
         var vm = this;
         vm.awardList = [];
