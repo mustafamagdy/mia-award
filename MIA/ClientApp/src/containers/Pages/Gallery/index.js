@@ -39,8 +39,8 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   };
 
   const nextSlide = () => {
-    setCurrentIndex(currentIndex + 1);
-    setCurrentSlide(currentSlide + 1);
+    setCurrentIndex(currentIndex - 1);
+    setCurrentSlide(currentSlide - 1);
     console.log("next", currentIndex);
     // let _current = current + 1;
     // if (_current == featuredItems.length) {
@@ -64,8 +64,10 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   };
 
   const prevSlide = () => {
-    setCurrentIndex(currentIndex - 1);
-    setCurrentSlide(currentSlide - 1);
+    setCurrentIndex(currentIndex + 1);
+    setCurrentSlide(currentSlide + 1);
+    console.log("prev", currentIndex);
+
     // console.log("prev", currentIndex);
     // let _current = current - 1;
     // if (_current < 0) {
@@ -89,13 +91,16 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   };
 
   const onSlideSleected = slideIndex => {
-    if (slideIndex == featuredItems.length - 1) {
-    } else {
-      slice.push(...featuredItems.slice(slideIndex - 1, slideIndex + 2));
-    }
-    const slice = featuredItems.slice(slideIndex, slideIndex + 3);
     setCurrent(slideIndex);
-    setSlides(slice);
+    setCurrentIndex(slideIndex);
+
+    // if (slideIndex == featuredItems.length - 1) {
+    // } else {
+    //   slice.push(...featuredItems.slice(slideIndex - 1, slideIndex + 2));
+    // }
+    // const slice = featuredItems.slice(slideIndex, slideIndex + 3);
+    // setCurrent(slideIndex);
+    // setSlides(slice);
   };
 
   const handleItemClicked = p => {
@@ -106,6 +111,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
     }
   };
 
+  console.log("render->current index", currentIndex);
   return (
     <React.Fragment>
       <RenderLightBox currentItem={currentItem} setCurrentitem={setCurrentItem} />
@@ -124,15 +130,13 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
               <div
                 className="slider_items"
                 style={{
-                  transform: `translate3d(${
-                    currentIndex == 0 ? 0 : currentIndex < 0 ? Math.abs(currentIndex) * 1000 + 120 : Math.abs(currentIndex) * -1000 - 120
-                  }px, 0px, 0px)`
+                  transform: `translate3d(${currentIndex == 0 ? 0 : currentIndex * 1120}px, 0px, 0px)`
                 }}
               >
                 {slides.map((s, i) => {
                   const isCurr = i == currentSlide;
-                  const isPrev = i < currentSlide;
-                  const isNext = i > currentSlide;
+                  const isPrev = i == currentSlide - 1;
+                  const isNext = i == currentSlide + 1;
 
                   return (
                     <div key={s.id} className={classNames("item", { prev_item: isPrev }, { current_item: isCurr }, { next_item: isNext })}>
@@ -252,7 +256,6 @@ const RenderLightBox = ({ currentItem, setCurrentitem, nextItem, prevItem, onNex
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    console.log("curr", currentItem);
     setIsOpen(currentItem != undefined);
   }, [currentItem]);
 
