@@ -32,7 +32,7 @@ namespace MIA.ORMContext.Seed {
       await SeedAdminUserAsync(userManager);
       await SeedCategoriesAsync(db);
       
-      //await SeedAwards(db, s3FileManager);
+      await SeedAwards(db, s3FileManager);
       //await SeedDemoNews(db, s3FileManager);
       //await SeedDemoGallery(db, s3FileManager);
       //await SeedDemoArtworks(db, s3FileManager);
@@ -67,7 +67,8 @@ namespace MIA.ORMContext.Seed {
           };
 
           await db.Awards.AddAsync(award);
-          var file = await client.GetAsync(_faker_en.Image.PicsumUrl(400, 600));
+
+          var file = await client.GetAsync(_faker_en.Image.PicsumUrl(100, 200));
           var fileStream = await file.Content.ReadAsStreamAsync();
 
           var imageKey = fileManager.GenerateFileKeyForResource(ResourceType.Awards, award.Id, award.Code + ".jpg");
