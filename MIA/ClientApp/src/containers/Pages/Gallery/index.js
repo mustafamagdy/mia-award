@@ -14,7 +14,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   const [slides, setSlides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(-1);
   const [activeTab, setActiveTab] = useState(0);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const [currentItem, setCurrentItem] = useState(undefined);
   const [slideTranslate, setSlideTranslate] = useState(0);
 
@@ -142,12 +142,8 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                   const isCurr = i == a;
                   const isPrev = i == a - 1;
                   const isNext = i == a + 1;
-
-                  console.log(isPrev, isCurr, isNext);
-
                   return (
                     <div key={s.id} className={classNames("item", { prev_item: isPrev }, { current_item: isCurr }, { next_item: isNext })}>
-                      {/* <div key={s.id} className={classNames("item")}> */}
                       {s.mediaType == "image" ? (
                         <>
                           <img src={s.fileUrl} />
