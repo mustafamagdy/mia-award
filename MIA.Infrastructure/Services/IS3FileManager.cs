@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 namespace MIA.Infrastructure {
   public enum ResourceType {
     News,
-    Album
+    Album,
+    ArtWork
   }
 
   public interface IS3FileManager {

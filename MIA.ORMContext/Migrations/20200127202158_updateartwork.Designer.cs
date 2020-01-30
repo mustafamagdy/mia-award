@@ -4,14 +4,16 @@ using MIA.ORMContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MIA.ORMContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200127202158_updateartwork")]
+    partial class updateartwork
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,12 +97,6 @@ namespace MIA.ORMContext.Migrations
                     b.Property<int>("MediaType");
 
                     b.Property<int>("Order");
-
-                    b.Property<string>("PosterKey");
-
-                    b.Property<string>("PosterUrl");
-
-                    b.Property<string>("Title");
 
                     b.HasKey("Id");
 
@@ -246,10 +242,6 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<int>("PaymentStatus");
 
-                    b.Property<string>("ReceiptId");
-
-                    b.Property<string>("ReceiptUrl");
-
                     b.Property<string>("TransactionNumber");
 
                     b.HasKey("Id");
@@ -347,20 +339,6 @@ namespace MIA.ORMContext.Migrations
                         .HasFilter("[PaymentId] IS NOT NULL");
 
                     b.ToTable("BoothPurchases");
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.ContactUsSubject", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Code");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ContactUsSubjects");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Image", b =>

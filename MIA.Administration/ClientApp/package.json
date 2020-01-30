@@ -1,7 +1,7 @@
 {
-  "name": "EcatalogAdmin",
+  "name": "MIAAdmin",
   "version": "0.3.0",
-  "description": "Ecatalog Admin npm package",
+  "description": "MIA Admin npm package",
   "main": "index.js",
   "scripts": {
     "start": "gulp",

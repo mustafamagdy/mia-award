@@ -1,0 +1,1710 @@
+﻿[
+  {
+    "NumericCode": "1",
+    "NameAr": "الولايات المتحدة الأمريكية",
+    "ShortName": "United States of America",
+    "TwoCode": "US",
+    "ThreeCode": "USA"
+  },
+  {
+    "NumericCode": "20",
+    "NameAr": "مصر",
+    "ShortName": "Egypt",
+    "TwoCode": "EG",
+    "ThreeCode": "EGY"
+  },
+  {
+    "NumericCode": "27",
+    "NameAr": "جنوب افريقيا",
+    "ShortName": "South Africa",
+    "TwoCode": "ZA",
+    "ThreeCode": "ZAF"
+  },
+  {
+    "NumericCode": "30",
+    "NameAr": "اليونان",
+    "ShortName": "Greece",
+    "TwoCode": "GR",
+    "ThreeCode": "GRC"
+  },
+  {
+    "NumericCode": "31",
+    "NameAr": "هولندا",
+    "ShortName": "Netherlands",
+    "TwoCode": "NL",
+    "ThreeCode": "NLD"
+  },
+  {
+    "NumericCode": "32",
+    "NameAr": "بلجيكا",
+    "ShortName": "Belgium",
+    "TwoCode": "BE",
+    "ThreeCode": "BEL"
+  },
+  {
+    "NumericCode": "33",
+    "NameAr": "فرنسا",
+    "ShortName": "France",
+    "TwoCode": "FR",
+    "ThreeCode": "FRA"
+  },
+  {
+    "NumericCode": "34",
+    "NameAr": "أسبانيا",
+    "ShortName": "Spain",
+    "TwoCode": "ES",
+    "ThreeCode": "ESP"
+  },
+  {
+    "NumericCode": "36",
+    "NameAr": "هنغاريا",
+    "ShortName": "Hungary ",
+    "TwoCode": "HU",
+    "ThreeCode": "HUN"
+  },
+  {
+    "NumericCode": "39",
+    "NameAr": "إيطاليا",
+    "ShortName": "Italy",
+    "TwoCode": "IT",
+    "ThreeCode": "ITA"
+  },
+  {
+    "NumericCode": "40",
+    "NameAr": "رومانيا",
+    "ShortName": "Romania",
+    "TwoCode": "RO",
+    "ThreeCode": "ROM"
+  },
+  {
+    "NumericCode": "41",
+    "NameAr": "سويسرا",
+    "ShortName": "Switzerland",
+    "TwoCode": "CH",
+    "ThreeCode": "CHE"
+  },
+  {
+    "NumericCode": "43",
+    "NameAr": "النمسا",
+    "ShortName": "Austria",
+    "TwoCode": "AT",
+    "ThreeCode": "AUT"
+  },
+  {
+    "NumericCode": "44",
+    "NameAr": "المملكة المتحدة",
+    "ShortName": "United Kingdom",
+    "TwoCode": "GB",
+    "ThreeCode": "GBR"
+  },
+  {
+    "NumericCode": "45",
+    "NameAr": "الدنمارك",
+    "ShortName": "Denmark",
+    "TwoCode": "DK",
+    "ThreeCode": "DNK"
+  },
+  {
+    "NumericCode": "46",
+    "NameAr": "السويد",
+    "ShortName": "Sweden",
+    "TwoCode": "SE",
+    "ThreeCode": "SWE"
+  },
+  {
+    "NumericCode": "47",
+    "NameAr": "النرويج",
+    "ShortName": "Norway",
+    "TwoCode": "NO",
+    "ThreeCode": "NOR"
+  },
+  {
+    "NumericCode": "48",
+    "NameAr": "بولندا",
+    "ShortName": "Poland",
+    "TwoCode": "PL",
+    "ThreeCode": "POL"
+  },
+  {
+    "NumericCode": "49",
+    "NameAr": "ألمانيا",
+    "ShortName": "Germany",
+    "TwoCode": "DE",
+    "ThreeCode": "DEU"
+  },
+  {
+    "NumericCode": "51",
+    "NameAr": "البيرو",
+    "ShortName": "Peru",
+    "TwoCode": "PE",
+    "ThreeCode": "PER"
+  },
+  {
+    "NumericCode": "52",
+    "NameAr": "المكسيك",
+    "ShortName": "Mexico",
+    "TwoCode": "MX",
+    "ThreeCode": "MEX"
+  },
+  {
+    "NumericCode": "53",
+    "NameAr": "كوبا",
+    "ShortName": "Cuba",
+    "TwoCode": "CU",
+    "ThreeCode": "CUB"
+  },
+  {
+    "NumericCode": "54",
+    "NameAr": "الأرجنتين",
+    "ShortName": "Argentina",
+    "TwoCode": "AR",
+    "ThreeCode": "ARG"
+  },
+  {
+    "NumericCode": "55",
+    "NameAr": "البرازيل",
+    "ShortName": "Brazil",
+    "TwoCode": "BR",
+    "ThreeCode": "BRA"
+  },
+  {
+    "NumericCode": "56",
+    "NameAr": "تشيلي",
+    "ShortName": "Chile",
+    "TwoCode": "CL",
+    "ThreeCode": "CHL"
+  },
+  {
+    "NumericCode": "57",
+    "NameAr": "كولومبيا",
+    "ShortName": "Colombia",
+    "TwoCode": "CO",
+    "ThreeCode": "COL"
+  },
+  {
+    "NumericCode": "58",
+    "NameAr": "فينزويلا",
+    "ShortName": "Venezuela",
+    "TwoCode": "VE",
+    "ThreeCode": "VEN"
+  },
+  {
+    "NumericCode": "60",
+    "NameAr": "ماليزيا",
+    "ShortName": "Malaysia",
+    "TwoCode": "MY",
+    "ThreeCode": "MYS"
+  },
+  {
+    "NumericCode": "61",
+    "NameAr": "أستراليا",
+    "ShortName": "Australia",
+    "TwoCode": "AU",
+    "ThreeCode": "AUS"
+  },
+  {
+    "NumericCode": "62",
+    "NameAr": "إندونيسيا",
+    "ShortName": "Indonesia",
+    "TwoCode": "ID",
+    "ThreeCode": "IDN"
+  },
+  {
+    "NumericCode": "63",
+    "NameAr": "الفليبين",
+    "ShortName": "Philippines",
+    "TwoCode": "PH",
+    "ThreeCode": "PHL"
+  },
+  {
+    "NumericCode": "64",
+    "NameAr": "نيوزيلاند",
+    "ShortName": "New Zealand",
+    "TwoCode": "NZ",
+    "ThreeCode": "NZL"
+  },
+  {
+    "NumericCode": "65",
+    "NameAr": "سنغافورة",
+    "ShortName": "Singapore",
+    "TwoCode": "SG",
+    "ThreeCode": "SGP"
+  },
+  {
+    "NumericCode": "66",
+    "NameAr": "تايلاند",
+    "ShortName": "Thailand",
+    "TwoCode": "TH",
+    "ThreeCode": "THA"
+  },
+  {
+    "NumericCode": "81",
+    "NameAr": "اليابان",
+    "ShortName": "Japan",
+    "TwoCode": "JP",
+    "ThreeCode": "JPN"
+  },
+  {
+    "NumericCode": "82",
+    "NameAr": "كوريا الجنوبية",
+    "ShortName": "South Korea",
+    "TwoCode": "KR",
+    "ThreeCode": "KOR"
+  },
+  {
+    "NumericCode": "84",
+    "NameAr": "فيتنام",
+    "ShortName": "Vietnam ",
+    "TwoCode": "VN",
+    "ThreeCode": "VNM"
+  },
+  {
+    "NumericCode": "86",
+    "NameAr": "الصين",
+    "ShortName": "China (PRC)",
+    "TwoCode": "CN",
+    "ThreeCode": "CHN"
+  },
+  {
+    "NumericCode": "90",
+    "NameAr": "تركيا",
+    "ShortName": "Turkey",
+    "TwoCode": "TR",
+    "ThreeCode": "TUR"
+  },
+  {
+    "NumericCode": "91",
+    "NameAr": "الهند",
+    "ShortName": "India",
+    "TwoCode": "IN",
+    "ThreeCode": "IND"
+  },
+  {
+    "NumericCode": "92",
+    "NameAr": "باكستان",
+    "ShortName": "Pakistan",
+    "TwoCode": "PK",
+    "ThreeCode": "PAK"
+  },
+  {
+    "NumericCode": "93",
+    "NameAr": "أفغانستان",
+    "ShortName": "Afghanistan",
+    "TwoCode": "AF",
+    "ThreeCode": "AFG"
+  },
+  {
+    "NumericCode": "94",
+    "NameAr": "سريلانكا",
+    "ShortName": "Sri Lanka",
+    "TwoCode": "LK",
+    "ThreeCode": "LKA"
+  },
+  {
+    "NumericCode": "95",
+    "NameAr": "مانيمار",
+    "ShortName": "Myanmar",
+    "TwoCode": "MM",
+    "ThreeCode": "MMR"
+  },
+  {
+    "NumericCode": "98",
+    "NameAr": "إيران",
+    "ShortName": "Iran",
+    "TwoCode": "IR",
+    "ThreeCode": "IRN"
+  },
+  {
+    "NumericCode": "211",
+    "NameAr": "جنوب السودان",
+    "ShortName": "South Sudan",
+    "TwoCode": "SS",
+    "ThreeCode": "SSD"
+  },
+  {
+    "NumericCode": "212",
+    "NameAr": "المغرب",
+    "ShortName": "Morocco   ",
+    "TwoCode": "MA",
+    "ThreeCode": "MAR"
+  },
+  {
+    "NumericCode": "213",
+    "NameAr": "الجزائر",
+    "ShortName": "Algeria",
+    "TwoCode": "DZ",
+    "ThreeCode": "DZA"
+  },
+  {
+    "NumericCode": "216",
+    "NameAr": "تونس",
+    "ShortName": "Tunisia",
+    "TwoCode": "TN",
+    "ThreeCode": "TUN"
+  },
+  {
+    "NumericCode": "218",
+    "NameAr": "ليبيا",
+    "ShortName": "Libya",
+    "TwoCode": "LY",
+    "ThreeCode": "LBY"
+  },
+  {
+    "NumericCode": "220",
+    "NameAr": "غامبيا",
+    "ShortName": "Gambia",
+    "TwoCode": "GM",
+    "ThreeCode": "GMB"
+  },
+  {
+    "NumericCode": "221",
+    "NameAr": "السنغال",
+    "ShortName": "Senegal",
+    "TwoCode": "SN",
+    "ThreeCode": "SEN"
+  },
+  {
+    "NumericCode": "222",
+    "NameAr": "موريتانيا",
+    "ShortName": "Mauritania",
+    "TwoCode": "MR",
+    "ThreeCode": "MRT"
+  },
+  {
+    "NumericCode": "223",
+    "NameAr": "جمهورية مالي",
+    "ShortName": "Mali",
+    "TwoCode": "ML",
+    "ThreeCode": "MLI"
+  },
+  {
+    "NumericCode": "224",
+    "NameAr": "غينيا",
+    "ShortName": "Guinea (PRP)",
+    "TwoCode": "GN",
+    "ThreeCode": "GIN"
+  },
+  {
+    "NumericCode": "225",
+    "NameAr": "كوت ديفوار",
+    "ShortName": "Ivory Coast",
+    "TwoCode": "CI",
+    "ThreeCode": "CIV"
+  },
+  {
+    "NumericCode": "226",
+    "NameAr": "بوركينا فاسو",
+    "ShortName": "Burkina Faso",
+    "TwoCode": "BF",
+    "ThreeCode": "BFA"
+  },
+  {
+    "NumericCode": "227",
+    "NameAr": "النيجر",
+    "ShortName": "Niger",
+    "TwoCode": "NE",
+    "ThreeCode": "NER"
+  },
+  {
+    "NumericCode": "228",
+    "NameAr": "توغو",
+    "ShortName": "Togo",
+    "TwoCode": "TG",
+    "ThreeCode": "TGO"
+  },
+  {
+    "NumericCode": "229",
+    "NameAr": "بنين",
+    "ShortName": "Benin",
+    "TwoCode": "BJ",
+    "ThreeCode": "BEN"
+  },
+  {
+    "NumericCode": "230",
+    "NameAr": "موريشس",
+    "ShortName": "Mauritius",
+    "TwoCode": "MU",
+    "ThreeCode": "MUS"
+  },
+  {
+    "NumericCode": "231",
+    "NameAr": "ليبيريا",
+    "ShortName": "Liberia",
+    "TwoCode": "LR",
+    "ThreeCode": "LBR"
+  },
+  {
+    "NumericCode": "232",
+    "NameAr": "سيراليون",
+    "ShortName": "Sierra Leone",
+    "TwoCode": "SL",
+    "ThreeCode": "SLE"
+  },
+  {
+    "NumericCode": "233",
+    "NameAr": "غانا",
+    "ShortName": "Ghana",
+    "TwoCode": "GH",
+    "ThreeCode": "GHA"
+  },
+  {
+    "NumericCode": "234",
+    "NameAr": "نيجيريا",
+    "ShortName": "Nigeria",
+    "TwoCode": "NG",
+    "ThreeCode": "NGA"
+  },
+  {
+    "NumericCode": "235",
+    "NameAr": "تشاد",
+    "ShortName": "Chad",
+    "TwoCode": "TD",
+    "ThreeCode": "TCD"
+  },
+  {
+    "NumericCode": "236",
+    "NameAr": "افريقيا الوسطى",
+    "ShortName": "Central African Republic",
+    "TwoCode": "CF",
+    "ThreeCode": "CAF"
+  },
+  {
+    "NumericCode": "237",
+    "NameAr": "الكاميرون",
+    "ShortName": "Cameroon",
+    "TwoCode": "CM",
+    "ThreeCode": "CMR"
+  },
+  {
+    "NumericCode": "238",
+    "NameAr": "جزر رأس أخضر",
+    "ShortName": "Cape Verde Islands",
+    "TwoCode": "CV",
+    "ThreeCode": "CPV"
+  },
+  {
+    "NumericCode": "239",
+    "NameAr": "ساو تومي وبرينسيب",
+    "ShortName": "Sao Tome and Principe",
+    "TwoCode": "ST",
+    "ThreeCode": "STP"
+  },
+  {
+    "NumericCode": "240",
+    "NameAr": "غينيا الإستوائية",
+    "ShortName": "Equatorial Guinea",
+    "TwoCode": "GQ",
+    "ThreeCode": "GNQ"
+  },
+  {
+    "NumericCode": "241",
+    "NameAr": "جابون",
+    "ShortName": "Gabon",
+    "TwoCode": "GA",
+    "ThreeCode": "GAB"
+  },
+  {
+    "NumericCode": "242",
+    "NameAr": "الكونغو",
+    "ShortName": "CONGO",
+    "TwoCode": "CG",
+    "ThreeCode": "COG"
+  },
+  {
+    "NumericCode": "243",
+    "NameAr": "الكونغو الديمقراطية",
+    "ShortName": "Congo, Dem. Rep. of (former Zaire)",
+    "TwoCode": "CD",
+    "ThreeCode": "COD"
+  },
+  {
+    "NumericCode": "244",
+    "NameAr": "أنغولا",
+    "ShortName": "Angola",
+    "TwoCode": "AO",
+    "ThreeCode": "AGO"
+  },
+  {
+    "NumericCode": "245",
+    "NameAr": "غينيا بيساو",
+    "ShortName": "Guinea-Bissau",
+    "TwoCode": "GW",
+    "ThreeCode": "GNB"
+  },
+  {
+    "NumericCode": "246",
+    "NameAr": "ديغوغارسيا",
+    "ShortName": "Diego Garcia",
+    "TwoCode": "IO",
+    "ThreeCode": "IOT"
+  },
+  {
+    "NumericCode": "247",
+    "NameAr": "اسنسيون جزر",
+    "ShortName": "Ascension Island",
+    "TwoCode": "SH",
+    "ThreeCode": "SHN"
+  },
+  {
+    "NumericCode": "248",
+    "NameAr": "جزر سيشيل",
+    "ShortName": "Seychelles",
+    "TwoCode": "SC",
+    "ThreeCode": "SYC"
+  },
+  {
+    "NumericCode": "249",
+    "NameAr": "السودان",
+    "ShortName": "Sudan",
+    "TwoCode": "SD",
+    "ThreeCode": "SDN"
+  },
+  {
+    "NumericCode": "250",
+    "NameAr": "رواندا",
+    "ShortName": "Rwanda",
+    "TwoCode": "RW",
+    "ThreeCode": "RWA"
+  },
+  {
+    "NumericCode": "251",
+    "NameAr": "إثيوبيا",
+    "ShortName": "Ethiopia",
+    "TwoCode": "ET",
+    "ThreeCode": "ETH"
+  },
+  {
+    "NumericCode": "252",
+    "NameAr": "الصومال",
+    "ShortName": "Somalia",
+    "TwoCode": "SO",
+    "ThreeCode": "SOM"
+  },
+  {
+    "NumericCode": "253",
+    "NameAr": "جيبوتي",
+    "ShortName": "Djibouti",
+    "TwoCode": "DJ",
+    "ThreeCode": "DJI"
+  },
+  {
+    "NumericCode": "254",
+    "NameAr": "كينيا",
+    "ShortName": "Kenya",
+    "TwoCode": "KE",
+    "ThreeCode": "KEN"
+  },
+  {
+    "NumericCode": "256",
+    "NameAr": "أوغندا",
+    "ShortName": "Uganda",
+    "TwoCode": "UG",
+    "ThreeCode": "UGA"
+  },
+  {
+    "NumericCode": "257",
+    "NameAr": "بوروندي",
+    "ShortName": "Burundi",
+    "TwoCode": "BI",
+    "ThreeCode": "BDI"
+  },
+  {
+    "NumericCode": "258",
+    "NameAr": "موزمبيق",
+    "ShortName": "Mozambique",
+    "TwoCode": "MZ",
+    "ThreeCode": "MOZ"
+  },
+  {
+    "NumericCode": "260",
+    "NameAr": "زامبيا",
+    "ShortName": "Zambia",
+    "TwoCode": "ZM",
+    "ThreeCode": "ZMB"
+  },
+  {
+    "NumericCode": "261",
+    "NameAr": "ملاجاسي/مدغشقر",
+    "ShortName": "Madagascar",
+    "TwoCode": "MG",
+    "ThreeCode": "MDG"
+  },
+  {
+    "NumericCode": "262",
+    "NameAr": "رينيون",
+    "ShortName": "Réunion Island",
+    "TwoCode": "RE",
+    "ThreeCode": "REU"
+  },
+  {
+    "NumericCode": "263",
+    "NameAr": "زمبابوي",
+    "ShortName": "Zimbabwe",
+    "TwoCode": "ZW",
+    "ThreeCode": "ZWE"
+  },
+  {
+    "NumericCode": "265",
+    "NameAr": "مالاوي",
+    "ShortName": "Malawi",
+    "TwoCode": "MW",
+    "ThreeCode": "MWI"
+  },
+  {
+    "NumericCode": "266",
+    "NameAr": "ليسوتو",
+    "ShortName": "Lesotho",
+    "TwoCode": "LS",
+    "ThreeCode": "LSO"
+  },
+  {
+    "NumericCode": "267",
+    "NameAr": "بوتسوانا",
+    "ShortName": "Botswana",
+    "TwoCode": "BW",
+    "ThreeCode": "BWA"
+  },
+  {
+    "NumericCode": "284",
+    "NameAr": "جزيرة فيرجين البريطانية",
+    "ShortName": "British Virgin Islands",
+    "TwoCode": "VG",
+    "ThreeCode": "VGB"
+  },
+  {
+    "NumericCode": "290",
+    "NameAr": "سانت هيلانة",
+    "ShortName": "St. Helena",
+    "TwoCode": "SH",
+    "ThreeCode": "SHN"
+  },
+  {
+    "NumericCode": "291",
+    "NameAr": "إرتريا",
+    "ShortName": "Eritrea",
+    "TwoCode": "ER",
+    "ThreeCode": "ERI"
+  },
+  {
+    "NumericCode": "297",
+    "NameAr": "اروبا",
+    "ShortName": "Aruba",
+    "TwoCode": "AW",
+    "ThreeCode": "ABW"
+  },
+  {
+    "NumericCode": "298",
+    "NameAr": "جزر فيرو",
+    "ShortName": "Faeroe Islands",
+    "TwoCode": "FO",
+    "ThreeCode": "FRO"
+  },
+  {
+    "NumericCode": "299",
+    "NameAr": "جرين لاند",
+    "ShortName": "Greenland",
+    "TwoCode": "GL",
+    "ThreeCode": "GRL"
+  },
+  {
+    "NumericCode": "340",
+    "NameAr": "جزر فيرجين الامريكية",
+    "ShortName": "US Virgin Islands",
+    "TwoCode": "VI",
+    "ThreeCode": "VIR"
+  },
+  {
+    "NumericCode": "345",
+    "NameAr": "جزر كايمن",
+    "ShortName": "Cayman Islands",
+    "TwoCode": "KY",
+    "ThreeCode": "CYM"
+  },
+  {
+    "NumericCode": "350",
+    "NameAr": "جبل طارق",
+    "ShortName": "Gibraltar",
+    "TwoCode": "GI",
+    "ThreeCode": "GIB"
+  },
+  {
+    "NumericCode": "351",
+    "NameAr": "البرتغال",
+    "ShortName": "Portugal",
+    "TwoCode": "PT",
+    "ThreeCode": "PRT"
+  },
+  {
+    "NumericCode": "352",
+    "NameAr": "لوكسمبورج",
+    "ShortName": "Luxembourg",
+    "TwoCode": "LU",
+    "ThreeCode": "LUX"
+  },
+  {
+    "NumericCode": "353",
+    "NameAr": "ايرلندا",
+    "ShortName": "Ireland",
+    "TwoCode": "IE",
+    "ThreeCode": "IRL"
+  },
+  {
+    "NumericCode": "354",
+    "NameAr": "ايسلندا",
+    "ShortName": "Iceland",
+    "TwoCode": "IS",
+    "ThreeCode": "ISL"
+  },
+  {
+    "NumericCode": "355",
+    "NameAr": "البانيا",
+    "ShortName": "Albania",
+    "TwoCode": "AL",
+    "ThreeCode": "ALB"
+  },
+  {
+    "NumericCode": "356",
+    "NameAr": "مالطا",
+    "ShortName": "Malta",
+    "TwoCode": "MT",
+    "ThreeCode": "MLT"
+  },
+  {
+    "NumericCode": "357",
+    "NameAr": "قبرص",
+    "ShortName": "Cyprus",
+    "TwoCode": "CY",
+    "ThreeCode": "CYP"
+  },
+  {
+    "NumericCode": "358",
+    "NameAr": "فنلندا",
+    "ShortName": "Finland",
+    "TwoCode": "FI",
+    "ThreeCode": "FIN"
+  },
+  {
+    "NumericCode": "359",
+    "NameAr": "بلغاريا",
+    "ShortName": "Bulgaria ",
+    "TwoCode": "BG",
+    "ThreeCode": "BGR"
+  },
+  {
+    "NumericCode": "370",
+    "NameAr": "ليتوانيا",
+    "ShortName": "Lithuania",
+    "TwoCode": "LT",
+    "ThreeCode": "LTU"
+  },
+  {
+    "NumericCode": "371",
+    "NameAr": "لاتفيا",
+    "ShortName": "Latvia",
+    "TwoCode": "LV",
+    "ThreeCode": "LVA"
+  },
+  {
+    "NumericCode": "372",
+    "NameAr": "ايستونيا",
+    "ShortName": "Estonia ",
+    "TwoCode": "EE",
+    "ThreeCode": "EST"
+  },
+  {
+    "NumericCode": "373",
+    "NameAr": "مولدوفا",
+    "ShortName": "Moldavia",
+    "TwoCode": "MD",
+    "ThreeCode": "MDA"
+  },
+  {
+    "NumericCode": "374",
+    "NameAr": "ارمينيا",
+    "ShortName": "Armenia",
+    "TwoCode": "AM",
+    "ThreeCode": "ARM"
+  },
+  {
+    "NumericCode": "375",
+    "NameAr": "بيلاروسيا",
+    "ShortName": "Belarus",
+    "TwoCode": "BY",
+    "ThreeCode": "BLR"
+  },
+  {
+    "NumericCode": "376",
+    "NameAr": "اندورا",
+    "ShortName": "Andorra",
+    "TwoCode": "AD",
+    "ThreeCode": "AND"
+  },
+  {
+    "NumericCode": "377",
+    "NameAr": "موناكو",
+    "ShortName": "Monaco",
+    "TwoCode": "MC",
+    "ThreeCode": "MCO"
+  },
+  {
+    "NumericCode": "378",
+    "NameAr": "سان مارينو",
+    "ShortName": "San Marino",
+    "TwoCode": "SM",
+    "ThreeCode": "SMR"
+  },
+  {
+    "NumericCode": "380",
+    "NameAr": "اوكرانيا",
+    "ShortName": "Ukraine",
+    "TwoCode": "UA",
+    "ThreeCode": "UKR"
+  },
+  {
+    "NumericCode": "381",
+    "NameAr": "صربيا",
+    "ShortName": "Serbia",
+    "ThreeCode": "SRB"
+  },
+  {
+    "NumericCode": "382",
+    "NameAr": "الجبل الاسود",
+    "ShortName": "MONTENEGRO",
+    "ThreeCode": "ME"
+  },
+  {
+    "NumericCode": "385",
+    "NameAr": "كرواتيا",
+    "ShortName": "Croatia",
+    "TwoCode": "HR",
+    "ThreeCode": "HRV"
+  },
+  {
+    "NumericCode": "386",
+    "NameAr": "سلوفينيا",
+    "ShortName": "Slovenia",
+    "TwoCode": "SI",
+    "ThreeCode": "SVN"
+  },
+  {
+    "NumericCode": "387",
+    "NameAr": "البوسنة والهرسك",
+    "ShortName": "Bosnia and Herzegovina",
+    "TwoCode": "BA",
+    "ThreeCode": "BIH"
+  },
+  {
+    "NumericCode": "389",
+    "NameAr": "مقدونيا",
+    "ShortName": "Macedonia",
+    "TwoCode": "MK",
+    "ThreeCode": "MKD"
+  },
+  {
+    "NumericCode": "420",
+    "NameAr": "تشيكيا",
+    "ShortName": "Czech Republic",
+    "TwoCode": "CZ",
+    "ThreeCode": "CZE"
+  },
+  {
+    "NumericCode": "421",
+    "NameAr": "سلوفاكيا",
+    "ShortName": "Slovakia",
+    "TwoCode": "SK",
+    "ThreeCode": "SVK"
+  },
+  {
+    "NumericCode": "423",
+    "NameAr": "لختنشتاين",
+    "ShortName": "Liechtenstein",
+    "TwoCode": "LI",
+    "ThreeCode": "LIE"
+  },
+  {
+    "NumericCode": "441",
+    "NameAr": "بيرمودا",
+    "ShortName": "Bermuda",
+    "TwoCode": "BM",
+    "ThreeCode": "BMU"
+  },
+  {
+    "NumericCode": "473",
+    "NameAr": "غرينادا",
+    "ShortName": "Grenada",
+    "TwoCode": "GD",
+    "ThreeCode": "GRD"
+  },
+  {
+    "NumericCode": "500",
+    "NameAr": "جزر فولكلاند",
+    "ShortName": "Falkland Islands  Dem. Rep. of (former Zaire)",
+    "TwoCode": "FK",
+    "ThreeCode": "FLK"
+  },
+  {
+    "NumericCode": "501",
+    "NameAr": "بيليز",
+    "ShortName": "Belize",
+    "TwoCode": "BZ",
+    "ThreeCode": "BLZ"
+  },
+  {
+    "NumericCode": "502",
+    "NameAr": "غواتيمالا",
+    "ShortName": "Guatemala",
+    "TwoCode": "GT",
+    "ThreeCode": "GTM"
+  },
+  {
+    "NumericCode": "503",
+    "NameAr": "السلفادور",
+    "ShortName": "Salvador",
+    "TwoCode": "SV",
+    "ThreeCode": "SLV"
+  },
+  {
+    "NumericCode": "504",
+    "NameAr": "هندوراس",
+    "ShortName": "Honduras",
+    "TwoCode": "HN",
+    "ThreeCode": "HND"
+  },
+  {
+    "NumericCode": "505",
+    "NameAr": "نيكاراغوا",
+    "ShortName": "Nicaragua",
+    "TwoCode": "NI",
+    "ThreeCode": "NIC"
+  },
+  {
+    "NumericCode": "506",
+    "NameAr": "كوستاريكا",
+    "ShortName": "Costa Rica",
+    "TwoCode": "CR",
+    "ThreeCode": "CRI"
+  },
+  {
+    "NumericCode": "507",
+    "NameAr": "بنما",
+    "ShortName": "Panama",
+    "TwoCode": "PA",
+    "ThreeCode": "PAN"
+  },
+  {
+    "NumericCode": "508",
+    "NameAr": "سانت بيير وميكلون",
+    "ShortName": "St. Pierre ,Miquelon",
+    "TwoCode": "PM",
+    "ThreeCode": "SPM"
+  },
+  {
+    "NumericCode": "509",
+    "NameAr": "هاييي",
+    "ShortName": "Haiti",
+    "TwoCode": "HT",
+    "ThreeCode": "HTI"
+  },
+  {
+    "NumericCode": "550",
+    "NameAr": "كوسوفوا",
+    "ShortName": "KOSOVO",
+    "TwoCode": "XK",
+    "ThreeCode": "RKS"
+  },
+  {
+    "NumericCode": "590",
+    "NameAr": "جيودي لوب",
+    "ShortName": "Guadeloupe",
+    "TwoCode": "GP",
+    "ThreeCode": "GLP"
+  },
+  {
+    "NumericCode": "591",
+    "NameAr": "بوليفيا",
+    "ShortName": "Bolivia",
+    "TwoCode": "BO",
+    "ThreeCode": "BOL"
+  },
+  {
+    "NumericCode": "592",
+    "NameAr": "جواني",
+    "ShortName": "Guyana",
+    "TwoCode": "GY",
+    "ThreeCode": "GUY"
+  },
+  {
+    "NumericCode": "593",
+    "NameAr": "الاكوادور",
+    "ShortName": "Ecuador",
+    "TwoCode": "EC",
+    "ThreeCode": "ECU"
+  },
+  {
+    "NumericCode": "594",
+    "NameAr": "جيانا الفرنسية",
+    "ShortName": "French Guiana",
+    "TwoCode": "GF",
+    "ThreeCode": "GUF"
+  },
+  {
+    "NumericCode": "595",
+    "NameAr": "الباراغواي",
+    "ShortName": "Paraguay",
+    "TwoCode": "PY",
+    "ThreeCode": "PRY"
+  },
+  {
+    "NumericCode": "597",
+    "NameAr": "سورينام",
+    "ShortName": "Suriname",
+    "TwoCode": "SR",
+    "ThreeCode": "SUR"
+  },
+  {
+    "NumericCode": "598",
+    "NameAr": "الاوروغواي",
+    "ShortName": "Uruguay",
+    "TwoCode": "UY",
+    "ThreeCode": "URY"
+  },
+  {
+    "NumericCode": "649",
+    "NameAr": "جزر تركس وكيكوس",
+    "ShortName": "Turks and Caicos Islands",
+    "TwoCode": "TC",
+    "ThreeCode": "TCA"
+  },
+  {
+    "NumericCode": "664",
+    "NameAr": "مونت سيرات",
+    "ShortName": "Montserrat",
+    "TwoCode": "MS",
+    "ThreeCode": "MSR"
+  },
+  {
+    "NumericCode": "671",
+    "NameAr": "جوام",
+    "ShortName": "Guam",
+    "TwoCode": "GU",
+    "ThreeCode": "GUM"
+  },
+  {
+    "NumericCode": "673",
+    "NameAr": "بروناي",
+    "ShortName": "Brunei",
+    "TwoCode": "BN",
+    "ThreeCode": "BRN"
+  },
+  {
+    "NumericCode": "674",
+    "NameAr": "نورو",
+    "ShortName": "Nauru",
+    "TwoCode": "NR",
+    "ThreeCode": "NRU"
+  },
+  {
+    "NumericCode": "675",
+    "NameAr": "بابوا نيوغينيا",
+    "ShortName": "Papua New Guinea",
+    "TwoCode": "PG",
+    "ThreeCode": "PNG"
+  },
+  {
+    "NumericCode": "676",
+    "NameAr": "تونجا",
+    "ShortName": "Tonga Islands",
+    "TwoCode": "TO",
+    "ThreeCode": "TON"
+  },
+  {
+    "NumericCode": "677",
+    "NameAr": "جزيرة سليمان",
+    "ShortName": "Solomon Islands",
+    "TwoCode": "SB",
+    "ThreeCode": "SLB"
+  },
+  {
+    "NumericCode": "678",
+    "NameAr": "فانويتو",
+    "ShortName": "Vanuatu",
+    "TwoCode": "VU",
+    "ThreeCode": "VUT"
+  },
+  {
+    "NumericCode": "679",
+    "NameAr": "جزر فيجي",
+    "ShortName": "Fiji",
+    "TwoCode": "FJ",
+    "ThreeCode": "FJI"
+  },
+  {
+    "NumericCode": "680",
+    "NameAr": "بيلو",
+    "ShortName": "Palau",
+    "TwoCode": "PW",
+    "ThreeCode": "PLW"
+  },
+  {
+    "NumericCode": "681",
+    "NameAr": "جزيرة والس وفوتونا",
+    "ShortName": "Wallis and Futuna Islands",
+    "TwoCode": "WF",
+    "ThreeCode": "WLF"
+  },
+  {
+    "NumericCode": "682",
+    "NameAr": "جزر كوك",
+    "ShortName": "Cook Islands",
+    "TwoCode": "CK",
+    "ThreeCode": "COK"
+  },
+  {
+    "NumericCode": "683",
+    "NameAr": "نيو",
+    "ShortName": "Niue",
+    "TwoCode": "NU",
+    "ThreeCode": "NIU"
+  },
+  {
+    "NumericCode": "684",
+    "NameAr": "ساموا الامريكية",
+    "ShortName": "American Samoa",
+    "TwoCode": "AS",
+    "ThreeCode": "ASM"
+  },
+  {
+    "NumericCode": "685",
+    "NameAr": "ساموا الغربية",
+    "ShortName": "Western Samoa",
+    "TwoCode": "WS",
+    "ThreeCode": "WSM"
+  },
+  {
+    "NumericCode": "686",
+    "NameAr": "كيريباتي",
+    "ShortName": "Kiribati",
+    "TwoCode": "KI",
+    "ThreeCode": "KIR"
+  },
+  {
+    "NumericCode": "687",
+    "NameAr": "كاليدونيا الجديدة",
+    "ShortName": "New Caledonia",
+    "TwoCode": "NC",
+    "ThreeCode": "NCL"
+  },
+  {
+    "NumericCode": "688",
+    "NameAr": "توفالو",
+    "ShortName": "Tuvalu",
+    "TwoCode": "TV",
+    "ThreeCode": "TUV"
+  },
+  {
+    "NumericCode": "689",
+    "NameAr": "بولينيسيا الفرنسية",
+    "ShortName": "French Polynesia",
+    "TwoCode": "PF",
+    "ThreeCode": "PYF"
+  },
+  {
+    "NumericCode": "690",
+    "NameAr": "توكيلاو",
+    "ShortName": "Tokelau",
+    "TwoCode": "TK",
+    "ThreeCode": "TKL"
+  },
+  {
+    "NumericCode": "691",
+    "NameAr": "ميكرونيسيا",
+    "ShortName": "Micronesia  (Federal States of)",
+    "TwoCode": "FM",
+    "ThreeCode": "FSM"
+  },
+  {
+    "NumericCode": "692",
+    "NameAr": "جزر مارشال",
+    "ShortName": "Marshall Islands",
+    "TwoCode": "MH",
+    "ThreeCode": "MHL"
+  },
+  {
+    "NumericCode": "758",
+    "NameAr": "سانت لوشيا",
+    "ShortName": "St. Lucia",
+    "TwoCode": "LC",
+    "ThreeCode": "LCA"
+  },
+  {
+    "NumericCode": "767",
+    "NameAr": "دومينيكان",
+    "ShortName": "Dominican Republic",
+    "TwoCode": "DM",
+    "ThreeCode": "DMA"
+  },
+  {
+    "NumericCode": "784",
+    "NameAr": "سنت فينسنت و جريندين",
+    "ShortName": "St. Vincent , Grenadines",
+    "TwoCode": "VC",
+    "ThreeCode": "VCT"
+  },
+  {
+    "NumericCode": "809",
+    "NameAr": "جمهورية دومينيكان",
+    "ShortName": "Dominican Republic",
+    "TwoCode": "DO",
+    "ThreeCode": "DOM"
+  },
+  {
+    "NumericCode": "850",
+    "NameAr": "كوريا الشمالية",
+    "ShortName": "North Korea",
+    "TwoCode": "KP",
+    "ThreeCode": "PRK"
+  },
+  {
+    "NumericCode": "852",
+    "NameAr": "هونغ كونغ",
+    "ShortName": "Hong Kong",
+    "TwoCode": "HK",
+    "ThreeCode": "HKG"
+  },
+  {
+    "NumericCode": "853",
+    "NameAr": "مكاو",
+    "ShortName": "Macau",
+    "TwoCode": "MO",
+    "ThreeCode": "MAC"
+  },
+  {
+    "NumericCode": "855",
+    "NameAr": "كمبوديا",
+    "ShortName": "Cambodia",
+    "TwoCode": "KH",
+    "ThreeCode": "KHM"
+  },
+  {
+    "NumericCode": "856",
+    "NameAr": "لاوس",
+    "ShortName": "Laos",
+    "TwoCode": "LA",
+    "ThreeCode": "LAO"
+  },
+  {
+    "NumericCode": "868",
+    "NameAr": "ترنداد وتوباجو",
+    "ShortName": "Trinidad , Tobago",
+    "TwoCode": "TT",
+    "ThreeCode": "TTO"
+  },
+  {
+    "NumericCode": "876",
+    "NameAr": "جامايكا",
+    "ShortName": "Jamaica",
+    "TwoCode": "JM",
+    "ThreeCode": "JAM"
+  },
+  {
+    "NumericCode": "880",
+    "NameAr": "بنجلادش",
+    "ShortName": "Bangladesh",
+    "TwoCode": "BD",
+    "ThreeCode": "BGD"
+  },
+  {
+    "NumericCode": "886",
+    "NameAr": "تايوان",
+    "ShortName": "Taiwan",
+    "TwoCode": "TW",
+    "ThreeCode": "TWN"
+  },
+  {
+    "NumericCode": "960",
+    "NameAr": "المالديف",
+    "ShortName": "Maldives",
+    "TwoCode": "MV",
+    "ThreeCode": "MDV"
+  },
+  {
+    "NumericCode": "961",
+    "NameAr": "لبنان",
+    "ShortName": "Lebanon",
+    "TwoCode": "LB",
+    "ThreeCode": "LBN"
+  },
+  {
+    "NumericCode": "962",
+    "NameAr": "الأردن",
+    "ShortName": "Jordan ",
+    "TwoCode": "JO",
+    "ThreeCode": "JOR"
+  },
+  {
+    "NumericCode": "963",
+    "NameAr": "سوريا",
+    "ShortName": "Syria ",
+    "TwoCode": "SY",
+    "ThreeCode": "SYR"
+  },
+  {
+    "NumericCode": "964",
+    "NameAr": "العراق",
+    "ShortName": "Iraq",
+    "TwoCode": "IQ",
+    "ThreeCode": "IRQ"
+  },
+  {
+    "NumericCode": "965",
+    "NameAr": "الكويت",
+    "ShortName": "Kuwait",
+    "TwoCode": "KW",
+    "ThreeCode": "KWT"
+  },
+  {
+    "NumericCode": "966",
+    "NameAr": "المملكة العربية السعودية",
+    "ShortName": "Saudi Arabia",
+    "TwoCode": "SA",
+    "ThreeCode": "SAU"
+  },
+  {
+    "NumericCode": "967",
+    "NameAr": "اليمن",
+    "ShortName": "Yemen",
+    "TwoCode": "YE",
+    "ThreeCode": "YEM"
+  },
+  {
+    "NumericCode": "968",
+    "NameAr": "عمان",
+    "ShortName": "Oman",
+    "TwoCode": "OM",
+    "ThreeCode": "OMN"
+  },
+  {
+    "NumericCode": "970",
+    "NameAr": "فلسطين",
+    "ShortName": "Philistine",
+    "TwoCode": "PS",
+    "ThreeCode": "PSE"
+  },
+  {
+    "NumericCode": "971",
+    "NameAr": "الامارات العربية المتحدة",
+    "ShortName": "United Arab Emirates",
+    "TwoCode": "AE",
+    "ThreeCode": "ARE"
+  },
+  {
+    "NumericCode": "972",
+    "NameAr": "فلسطين عرب",
+    "ShortName": "Philistine (Arab 48)",
+    "TwoCode": "PS",
+    "ThreeCode": "PSE"
+  },
+  {
+    "NumericCode": "973",
+    "NameAr": "البحرين",
+    "ShortName": "Bahrain",
+    "TwoCode": "BH",
+    "ThreeCode": "BHR"
+  },
+  {
+    "NumericCode": "974",
+    "NameAr": "قطر",
+    "ShortName": "Qatar ",
+    "TwoCode": "QA",
+    "ThreeCode": "QAT"
+  },
+  {
+    "NumericCode": "975",
+    "NameAr": "بهوتان",
+    "ShortName": "Bhutan",
+    "TwoCode": "BT",
+    "ThreeCode": "BTN"
+  },
+  {
+    "NumericCode": "976",
+    "NameAr": "منغوليا",
+    "ShortName": "Mongolia",
+    "TwoCode": "MN",
+    "ThreeCode": "MNG"
+  },
+  {
+    "NumericCode": "977",
+    "NameAr": "نيبال",
+    "ShortName": "Nepal",
+    "TwoCode": "NP",
+    "ThreeCode": "NPL"
+  },
+  {
+    "NumericCode": "992",
+    "NameAr": "طاجكستان",
+    "ShortName": "Tajikistan",
+    "TwoCode": "TJ",
+    "ThreeCode": "TJK"
+  },
+  {
+    "NumericCode": "993",
+    "NameAr": "تركمانستان",
+    "ShortName": "Turkmenistan",
+    "TwoCode": "TM",
+    "ThreeCode": "TKM"
+  },
+  {
+    "NumericCode": "994",
+    "NameAr": "أذربيجان",
+    "ShortName": "Azerbaijan",
+    "TwoCode": "AZ",
+    "ThreeCode": "AZE"
+  },
+  {
+    "NumericCode": "995",
+    "NameAr": "جورجيا",
+    "ShortName": "Georgia",
+    "TwoCode": "GE",
+    "ThreeCode": "GEO"
+  },
+  {
+    "NumericCode": "996",
+    "NameAr": "جمهوية قرغيزيا",
+    "ShortName": "Kyrgyz Republic",
+    "TwoCode": "KG",
+    "ThreeCode": "KGZ"
+  },
+  {
+    "NumericCode": "998",
+    "NameAr": "اوزبكستان",
+    "ShortName": "Uzbekistan ",
+    "TwoCode": "UZ",
+    "ThreeCode": "UZB"
+  },
+  {
+    "NumericCode": "1039",
+    "NameAr": "فاتيكان ",
+    "ShortName": "Vatican City",
+    "TwoCode": "VA",
+    "ThreeCode": "VAT"
+  },
+  {
+    "NumericCode": "1061",
+    "NameAr": "جزيرة كريسماس",
+    "ShortName": "Christmas Island",
+    "TwoCode": "CX",
+    "ThreeCode": "CXR"
+  },
+  {
+    "NumericCode": "1112",
+    "NameAr": "كندا",
+    "ShortName": "Canada",
+    "TwoCode": "CA",
+    "ThreeCode": "CAN"
+  },
+  {
+    "NumericCode": "1242",
+    "NameAr": "الباهاماز",
+    "ShortName": "Bahamas",
+    "TwoCode": "BS",
+    "ThreeCode": "BHS"
+  },
+  {
+    "NumericCode": "1246",
+    "NameAr": "باربادوس",
+    "ShortName": "Barbados",
+    "TwoCode": "BB",
+    "ThreeCode": "BRB"
+  },
+  {
+    "NumericCode": "1787",
+    "NameAr": "بورتوريكو ",
+    "ShortName": "Puerto Rico",
+    "TwoCode": "PR",
+    "ThreeCode": "PRI"
+  },
+  {
+    "NumericCode": "2061",
+    "NameAr": "جزرة كوكو- كيلنج",
+    "ShortName": "Cocos-Keeling Islands",
+    "TwoCode": "CC",
+    "ThreeCode": "CCK"
+  },
+  {
+    "NumericCode": "2551",
+    "NameAr": "تنزانيا",
+    "ShortName": "Tanzania",
+    "TwoCode": "TZ",
+    "ThreeCode": "TZA"
+  },
+  {
+    "NumericCode": "2552",
+    "NameAr": "زنجبار",
+    "ShortName": "Zanzibar",
+    "ThreeCode": "TZA"
+  },
+  {
+    "NumericCode": "2641",
+    "NameAr": "انجويليا",
+    "ShortName": "Anguilla",
+    "TwoCode": "AI",
+    "ThreeCode": "AIA"
+  },
+  {
+    "NumericCode": "2642",
+    "NameAr": "ناميبيا",
+    "ShortName": "Namibia",
+    "TwoCode": "NA",
+    "ThreeCode": "NAM"
+  },
+  {
+    "NumericCode": "2681",
+    "NameAr": "انتيكو",
+    "ShortName": "Antigua",
+    "TwoCode": "AG",
+    "ThreeCode": "ATG"
+  },
+  {
+    "NumericCode": "2682",
+    "NameAr": "باربودا",
+    "ShortName": "Barbuda",
+    "TwoCode": "AG",
+    "ThreeCode": "ATG"
+  },
+  {
+    "NumericCode": "2683",
+    "NameAr": "سويزلاند",
+    "ShortName": "Swaziland",
+    "TwoCode": "SZ",
+    "ThreeCode": "SWZ"
+  },
+  {
+    "NumericCode": "2691",
+    "NameAr": "جزر القمر",
+    "ShortName": "Comoros Islands",
+    "TwoCode": "KM",
+    "ThreeCode": "COM"
+  },
+  {
+    "NumericCode": "2692",
+    "NameAr": "جزيرة مايوت",
+    "ShortName": "Mayotte Island",
+    "TwoCode": "YT",
+    "ThreeCode": "MYT"
+  },
+  {
+    "NumericCode": "3811",
+    "NameAr": "سيبيريا",
+    "ShortName": "Siberia",
+    "TwoCode": "SP",
+    "ThreeCode": "SR"
+  },
+  {
+    "NumericCode": "3812",
+    "NameAr": "يوغسلافيا",
+    "ShortName": "Yugoslavia",
+    "TwoCode": "YU",
+    "ThreeCode": "YUG"
+  },
+  {
+    "NumericCode": "5961",
+    "NameAr": "فرنسية انتيل",
+    "ShortName": "French Antilles"
+  },
+  {
+    "NumericCode": "5962",
+    "NameAr": "مارتينيكو",
+    "ShortName": "Martinique",
+    "TwoCode": "MQ",
+    "ThreeCode": "MTQ"
+  },
+  {
+    "NumericCode": "5991",
+    "NameAr": "كوراكاو",
+    "ShortName": "Curacao",
+    "TwoCode": "CW",
+    "ThreeCode": "CUW"
+  },
+  {
+    "NumericCode": "5992",
+    "NameAr": "هولندية انتيل",
+    "ShortName": "Netherlands Antilles",
+    "TwoCode": "AN",
+    "ThreeCode": "ATN"
+  },
+  {
+    "NumericCode": "6701",
+    "NameAr": "تيمور الشرقية",
+    "ShortName": "East Timor",
+    "ThreeCode": "TMP"
+  },
+  {
+    "NumericCode": "6702",
+    "NameAr": "جزر ماريانا الشمالية",
+    "ShortName": "Northern Marianas Islands",
+    "TwoCode": "MP",
+    "ThreeCode": "MNP"
+  },
+  {
+    "NumericCode": "6721",
+    "NameAr": "انتاركتيكا",
+    "ShortName": "Antarctica",
+    "TwoCode": "AQ",
+    "ThreeCode": "ATA"
+  },
+  {
+    "NumericCode": "6722",
+    "NameAr": "جزر نورفولك",
+    "ShortName": "Norfolk Island",
+    "TwoCode": "NF",
+    "ThreeCode": "NFK"
+  },
+  {
+    "NumericCode": "7001",
+    "NameAr": "كازخستان",
+    "ShortName": "Kazakhstan",
+    "TwoCode": "KZ",
+    "ThreeCode": "KAZ"
+  },
+  {
+    "NumericCode": "7002",
+    "NameAr": "روسيا",
+    "ShortName": "Russia",
+    "TwoCode": "RU",
+    "ThreeCode": "RUS"
+  },
+  {
+    "NumericCode": "7872",
+    "NameAr": "داغستان",
+    "ShortName": "Dagestan",
+    "ThreeCode": "DAG"
+  },
+  {
+    "NumericCode": "8081",
+    "NameAr": "جزيرة ميدواي",
+    "ShortName": "Midway Island",
+    "TwoCode": "MI",
+    "ThreeCode": "MID"
+  },
+  {
+    "NumericCode": "8082",
+    "NameAr": "جزيرة ويك",
+    "ShortName": "Wake Island",
+    "TwoCode": "UM",
+    "ThreeCode": "UMI"
+  },
+  {
+    "NumericCode": "8691",
+    "NameAr": "نفيس",
+    "ShortName": "Nevis",
+    "TwoCode": "KN",
+    "ThreeCode": "KNA"
+  },
+  {
+    "NumericCode": "8692",
+    "NameAr": "سانت كتس ونيفيس",
+    "ShortName": "St. Kitts/Nevis",
+    "TwoCode": "KN",
+    "ThreeCode": "KNA"
+  }
+]

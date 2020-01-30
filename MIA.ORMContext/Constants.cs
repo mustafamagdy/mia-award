@@ -16,6 +16,10 @@ namespace MIA.ORMContext
     internal const string DEMO_PASSWORD = "demo@123456.com";
     public const string DEMO_ROLE = "demo";
 
+    internal const string NOMINEE_USERNAME = "nominee";
+    internal const string NOMINEE_EMAIL = "nominee@email.com";
+    internal const string NOMINEE_PASSWORD = "nominee@123456.com";
+    public const string NOMINEE_ROLE = "nominee";
 
     internal const int MAX_50 = 50;
     internal const int MAX_100 = 100;

@@ -3,30 +3,28 @@
 
     angular
         .module('home')
-        .controller('editNewsDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
-            'NewsResource', 'ToastService', 'NewsByIdPrepService', editNewsDialogController])
+        .controller('editArtWorkMediaDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+            'ArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', editArtWorkMediaDialogController])
 
-    function editNewsDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, NewsResource,
-        ToastService, NewsByIdPrepService) {
+    function editArtWorkMediaDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
+        ToastService, ArtWorkByIdPrepService) {
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
-        vm.News = NewsByIdPrepService;
-     debugger;
-        $rootScope.image = vm.News.posterUrl;
-        // console.log(vm.News.image);
+        vm.ArtWork = ArtWorkByIdPrepService;
+     debugger; 
 
         vm.Close = function () {
-            $state.go('News');
+            $state.go('ArtWork');
         }
-        vm.UpdateNews = function () {
+        vm.UpdateArtWork = function () {
           //  var splitImage = $rootScope.image.split(',');
             blockUI.start("Loading...");
             debugger;
 
-            var updateObj = new NewsResource();
-            updateObj.Id = vm.News.id;
-            updateObj.title = vm.News.title;
-            updateObj.body = vm.News.body;
+            var updateObj = new ArtWorkResource();
+            updateObj.Id = vm.ArtWork.id;
+            updateObj.title = vm.ArtWork.title;
+            updateObj.body = vm.ArtWork.body;
             if ($scope.file != null) {
                 // updateObj.image = splitImage[1];
                 // updateObj.imageContentType = $rootScope.imageType;
@@ -38,7 +36,7 @@
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
                     blockUI.stop();
 
-                    $state.go('News');
+                    $state.go('ArtWork');
 
                 },
                 function (data, status) {
