@@ -1,11 +1,14 @@
 (function () {
     angular
         .module('home')
-        .factory('NewsResource', ['$resource', 'appCONSTANTS', NewsResource])
+        .factory('ArtWorkResource', ['$resource', 'appCONSTANTS', ArtWorkResource])
 
-    function NewsResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'news', {}, {
-            getAllNewss: { method: 'POST', url: appCONSTANTS.API_URL + 'news/search', useToken: true, params: { lang: '@lang' } },
+    function ArtWorkResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'artWorks', {}, {
+            getAllArtWorks: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/search', useToken: true, params: { lang: '@lang' } },
+            getAllNominees: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/nominees', useToken: true, isArray: true, params: { lang: '@lang' } },
+            getAllAwards: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/search', useToken: true, params: { lang: '@lang' } },
+            getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/countries', useToken: true, isArray: true,  params: { lang: '@lang' } },
             create: {
                 method: 'POST', useToken: true,
                 transformRequest: function (data) {
@@ -89,9 +92,9 @@
                 },
                 headers: { 'Content-Type': undefined }
             },
-            getNews: { method: 'GET', useToken: true },
+            getArtWork: { method: 'GET', useToken: true },
             delete: { method: 'DELETE', useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'news/ChangeStatus/:id/:status', useToken: true }
+            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/ChangeStatus/:id/:status', useToken: true }
 
         })
     }
