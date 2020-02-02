@@ -107,9 +107,9 @@ const ContactUs = ({
               <div className="item">
                 <LanguageContext.Consumer>
                   {({ locale }) => (
-                    <select key={locale.code} ref={register} name="subjectId">
+                    <select key={locale.code} ref={register} name="subject">
                       {contactUsMessageSubjects.map((c, i) => (
-                        <option key={c.id} value={c.id}>
+                        <option key={c.name[locale.code]} value={c.id}>
                           {c.name[locale.code]}
                         </option>
                       ))}
