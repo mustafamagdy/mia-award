@@ -22,9 +22,19 @@ const Tab = ({ isActive, onActive, activeClassName, tabClassName, children, ...p
   });
 };
 
-const TabPanels = ({ activeIndex, ...props }) => <div {...props}> {props.children[activeIndex]} </div>;
+const TabPanels = ({ children, activeIndex, activeClassName, ...props }) => {
+  const element = React.cloneElement(children[activeIndex], { activeClassName, ...props });
+  return element;
+};
 
-const TabPane = ({ children, ...props }) => <div {...props}> {children} </div>;
+const TabPane = ({ children, className, activeClassName, ...props }) => {
+  const childClassName = children.props.className;
+  const styles = classNames(className, childClassName, `${activeClassName}`);
+  return React.cloneElement(children, {
+    className: styles,
+    ...props
+  });
+};
 
 class Tabs extends Component {
   state = { activeTab: 0 };

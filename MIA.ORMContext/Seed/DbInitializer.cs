@@ -28,17 +28,42 @@ namespace MIA.ORMContext.Seed {
       IS3FileManager s3FileManager,
       IAppUnitOfWork db) {
 
+      await SeedContactUsMessageSubjectsAsync(db);
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
       await SeedCategoriesAsync(db);
-      
-      await SeedAwards(db, s3FileManager);
+
+      //await SeedAwards(db, s3FileManager);
       //await SeedDemoNews(db, s3FileManager);
       //await SeedDemoGallery(db, s3FileManager);
       //await SeedDemoArtworks(db, s3FileManager);
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
       await db.CommitTransactionAsync();
+    }
+
+
+    private static async Task SeedContactUsMessageSubjectsAsync(IAppUnitOfWork db) {
+      List<ContactUsSubject> dbItems = db.ContactUsSubjects.ToList();
+      if (dbItems.Any())
+        return;
+      var filename = "contact_us_subjects.json";
+      if (File.Exists("./" + filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
+          var items = new List<ContactUsSubject>();
+          string json = r.ReadToEnd();
+          var deserializedItems = JsonConvert.DeserializeObject<List<ContactUsSubject>>(json);
+
+          foreach (var c in deserializedItems) {
+            var country = dbItems.FirstOrDefault(a => a.Name == c.Name);
+            if (country != null) continue;
+            items.Add(c);
+          }
+          if (items.Any()) {
+            await db.ContactUsSubjects.AddRangeAsync(items);
+          }
+        }
+      }
     }
 
     private static async Task SeedAwards(IAppUnitOfWork db, IS3FileManager fileManager) {
@@ -238,7 +263,7 @@ namespace MIA.ORMContext.Seed {
           //item.FileUrl = fileUrl;
           //item.FileKey = fileKey;
 
-         
+
 
           var posterFile = await client.GetAsync(posterUrl);
           var posterFileStream = await posterFile.Content.ReadAsStreamAsync();

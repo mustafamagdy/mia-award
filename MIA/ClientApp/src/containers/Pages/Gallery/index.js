@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import { Trans } from "@lingui/macro";
-import { connect } from "react-redux";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
-import galleryActions from "store/gallery/actions";
+import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import galleryActions from "store/gallery/actions";
 import { useEffect } from "react";
 import ReactPlayer from "react-player";
 import Lightbox from "lightbox-react";

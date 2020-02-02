@@ -4,17 +4,30 @@ import { useForm } from "react-hook-form";
 import ReCAPTCHA from "react-google-recaptcha";
 import config from "config";
 import { useEffect } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import homeActions from "store/home/actions";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
+
 // import {} from 'react-redux'
 // import "sass/contactus.scss";
 
-const ContactUs = ({ fetchContactUsMessageSubjects, ...props }) => {
+const ContactUs = ({
+  fetchContactUsMessageSubjects,
+  sendContactUsMessage,
+  contactUsMessageSubjects,
+  contactUsSuccess,
+  contactUsFailed,
+  ...props
+}) => {
   useEffect(() => {
-    //fetchContactUsMessageSubjects();
+    fetchContactUsMessageSubjects();
   }, []);
+
   const { register, handleSubmit, setValue } = useForm();
 
   const onSubmit = values => {
-    console.log("contact us", values);
+    sendContactUsMessage(values);
   };
 
   return (
@@ -92,17 +105,17 @@ const ContactUs = ({ fetchContactUsMessageSubjects, ...props }) => {
                 <input ref={register} name="phone" type="number" placeholder="Phone" />
               </div>
               <div className="item">
-                <select ref={register} name="subject">
-                  <option value="">Message Subject*</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                </select>
+                <LanguageContext.Consumer>
+                  {({ locale }) => (
+                    <select key={locale.code} ref={register} name="subjectId">
+                      {contactUsMessageSubjects.map((c, i) => (
+                        <option key={c.id} value={c.id}>
+                          {c.name[locale.code]}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </LanguageContext.Consumer>
               </div>
               <textarea ref={register} name="message" id="" cols="30" rows="10" placeholder="Type here your Comment"></textarea>
               <ReCAPTCHA
@@ -124,12 +137,16 @@ const ContactUs = ({ fetchContactUsMessageSubjects, ...props }) => {
               <button type="submit">
                 <Trans id="send_message">Send Message</Trans>
               </button>
-              <div className="msg_success">
-                <Trans id="contact_us_message_sent_success">The message was sent successfully</Trans>
-              </div>
-              <div className="msg_wrong">
-                <Trans id="contact_us_message_sent_fail">There is an error, the message could not be sent</Trans>
-              </div>
+              {contactUsSuccess && (
+                <div className="msg_success">
+                  <Trans id="contact_us_message_sent_success">The message was sent successfully</Trans>
+                </div>
+              )}
+              {contactUsFailed && (
+                <div className="msg_wrong">
+                  <Trans id="contact_us_message_sent_fail">There is an error, the message could not be sent</Trans>
+                </div>
+              )}
             </form>
           </div>
         </div>
@@ -138,4 +155,10 @@ const ContactUs = ({ fetchContactUsMessageSubjects, ...props }) => {
   );
 };
 
-export default ContactUs;
+const mapStateToProps = ({ home: { contactUsMessageSubjects, contactUsSuccess, contactUsFailed } }) => ({
+  contactUsMessageSubjects,
+  contactUsSuccess,
+  contactUsFailed
+});
+const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactUs);

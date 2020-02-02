@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace MIA.Models.Entities {
-  public class LocalizedData : Dictionary<string, string> {
+  public class LocalizedData : Dictionary<string, string>, IEquatable<LocalizedData> {
     public static readonly string Arabic = "ar";
     public static readonly string English = "en";
 
@@ -34,6 +34,14 @@ namespace MIA.Models.Entities {
     public string InArabic() {
       return this[Arabic];
     }
+
+    public bool Equals(LocalizedData other) {
+      return
+        (!this.InArabic().IsNullOrEmpty() && !other.InArabic().IsNullOrEmpty() && this.InArabic() == other.InArabic()) ||
+        (!this.InEnglish().IsNullOrEmpty() && !other.InEnglish().IsNullOrEmpty() && this.InEnglish() == other.InEnglish());
+    }
+
+
   }
 
   public static class EntityConvensions {

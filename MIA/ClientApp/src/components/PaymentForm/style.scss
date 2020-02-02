@@ -12,10 +12,10 @@ html {
   width: 280px;
   margin: 0 auto;
 
-  iframe {
-    /* This fixes a mobile Safari bug */
-    height: 38px !important;
-  }
+  // iframe {
+  //   /* This fixes a mobile Safari bug */
+  //   height: 38px !important;
+  // }
 
   label {
     display: block;

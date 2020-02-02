@@ -21,9 +21,22 @@ const initialState = {
   shows_categories: [],
   shows_countries: [],
   shows_generas: [],
-  shows_years: []
+  shows_years: [],
+  contactUsSuccess: false,
+  contactUsFailed: false
 };
 
+const sendContactUsMessageSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.contactUsSuccess = true;
+    draft.contactUsFailed = false;
+  });
+};
+const sendContactUsMessageFailed = (state, action) => {
+  return produce(state, draft => {
+    draft.contactUsFailed = true;
+  });
+};
 const fetchNewsSuccess = (state, action) => {
   return produce(state, draft => {
     draft.news = [...action.payload.items];
@@ -69,5 +82,7 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_CONTACT_US_MESSAGE_SUBJECTS_SUCCESS]: contactUsMessageSubjectsSuccess,
   [ActionTypes.FETCH_AWARDS_SUCCESS]: fetchAwardsSuccess,
   [ActionTypes.FETCH_SPONSERS_SUCCESS]: fetchSponsersSuccess,
-  [ActionTypes.FETCH_LATEST_ALBUM_CONTENTS_SUCCESS]: fetchLatestAlbumContentSuccess
+  [ActionTypes.FETCH_LATEST_ALBUM_CONTENTS_SUCCESS]: fetchLatestAlbumContentSuccess,
+  [ActionTypes.SEND_CONTACT_US_MESSAGE_SUCCESS]: sendContactUsMessageSuccess,
+  [ActionTypes.SEND_CONTACT_US_MESSAGE_FAIL]: sendContactUsMessageFailed
 });

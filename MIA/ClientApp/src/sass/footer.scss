@@ -1,6 +1,6 @@
 @import "./variables.scss";
 footer {
-	background: #141414;
+	background: #121212;
 	.container {
 		width: 1442px;
 		margin: 0 auto;
@@ -104,7 +104,7 @@ footer {
 						border-radius: 10px 0 0 10px;
 						border: none;
 						background: #141414;
-						padding: 0 0 0 10px;
+						padding: 0 10px 0 10px;
 						font-size: 18px;
 						color: #ffffff;
 					} /* input */
