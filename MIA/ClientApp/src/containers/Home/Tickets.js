@@ -67,14 +67,12 @@ const Tickets = props => {
     let _a = activeIndex;
     if (_a < 1) _a = locations.length - 1;
     else _a = _a - 1;
-    console.log("prev ", _a);
     setActiveIndex(_a);
   };
   const next = () => {
     let _a = activeIndex;
     if (_a >= locations.length - 1) _a = 0;
     else _a = _a + 1;
-    console.log("next ", _a);
     setActiveIndex(_a);
   };
   return (
