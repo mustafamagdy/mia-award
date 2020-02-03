@@ -11,6 +11,7 @@
     "add-locale": "lingui add-locale",
     "extract": "rm -r -f 'src\\locales\\_build' && lingui extract",
     "extract-xls": "node CreateXlsFile.js",
+    "extract-po": "node createPoFile.js",
     "compile": "lingui compile",
     "test": "node scripts/test.js"
   },
