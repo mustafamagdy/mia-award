@@ -24,7 +24,7 @@ const News = ({ fetchNews, news, ...props }) => {
           <div
             className="feature_item_pages"
             style={{
-              transform: `translate3d(${(pageNumber - 1) * -1404}px, 0px, 0px)`
+              transform: `translate3d(${(pageNumber - 1) * -window.innerWidth}px, 0px, 0px)`
             }}
           >
             {news.chunk(4).map((chunk, i) => {

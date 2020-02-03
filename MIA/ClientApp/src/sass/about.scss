@@ -16,14 +16,14 @@
       opacity: 0.75;
     } /* after */
     .container {
-      width: 1442px;
+      width: 1440px;
       margin: 0 auto;
       padding: 161px 25px 60px;
       overflow: hidden;
       position: relative;
       z-index: 4;
       .item {
-         margin: 0 auto 50px;
+        margin: 0 auto 50px;
         .title {
           text-transform: uppercase;
           font-family: Montserrat_Bold;
@@ -48,7 +48,9 @@
           line-height: 26px;
           width: 90%;
           margin: 0 auto;
-          li {margin: 0 auto 10px;}
+          li {
+            margin: 0 auto 10px;
+          }
         } /* content */
       } /* item */
     } /* container */
@@ -59,7 +61,7 @@
     border-top: 1px solid #21231e;
     border-bottom: 1px solid #21231e;
     .container {
-      width: 1442px;
+      width: 1440px;
       margin: 0 auto;
       padding: 50px 25px;
       overflow: hidden;
@@ -114,7 +116,7 @@
     background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
     position: relative;
     .container {
-      width: 1442px;
+      width: 1440px;
       margin: 0 auto;
       padding: 60px 25px;
       overflow: hidden;
@@ -185,7 +187,7 @@
     background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
     position: relative;
     .container {
-      width: 1442px;
+      width: 1440px;
       margin: 0 auto;
       padding: 60px 25px 100px;
       overflow: hidden;
@@ -288,7 +290,9 @@
               color: #fff;
               line-height: 25px;
               display: none;
-              &.active {display: block;}
+              &.active {
+                display: block;
+              }
             } /* tab_content */
           } /* inside_txt_area */
         } /* txt_area */
@@ -296,7 +300,6 @@
     } /* container */
   } /* our_awards */
 } /* about_us */
-
 
 //**** RTL Style ****//
 body[dir="rtl"] {
@@ -313,7 +316,9 @@ body[dir="rtl"] {
               top: 13px;
             } /* before */
           } /* title */
-          .content {line-height: 26px;}
+          .content {
+            line-height: 26px;
+          }
         } /* item */
       } /* container */
     } /* about_txt */
@@ -337,7 +342,7 @@ body[dir="rtl"] {
           .txt_area {
             .inside_txt_area {
               right: auto;
-              left:-25%;
+              left: -25%;
               top: -60px;
               span {
                 font-family: Tajawal_Bold;
@@ -346,7 +351,9 @@ body[dir="rtl"] {
                   left: auto;
                 }
               } /* span */
-              li {margin: 15px auto;}
+              li {
+                margin: 15px auto;
+              }
             } /* inside_txt_area */
           } /* txt_area */
         } /* event */
@@ -354,7 +361,7 @@ body[dir="rtl"] {
     } /* our_events */
     .our_awards {
       .container {
-        .imgthumb{
+        .imgthumb {
           &::after {
             left: -70%;
             right: auto;
@@ -372,7 +379,9 @@ body[dir="rtl"] {
                   left: auto;
                 }
               } /* span */
-              li {font-family: Tajawal_Bold;}
+              li {
+                font-family: Tajawal_Bold;
+              }
             } /* inside_txt_area */
           } /* txt_area */
         } /* award */

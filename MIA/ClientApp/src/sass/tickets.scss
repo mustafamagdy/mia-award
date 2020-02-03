@@ -2,16 +2,17 @@
 #tickets_area {
   background: #171717 url("/assets/images/tickets_bg.png") scroll no-repeat 70% 10%;
   .container {
-    width: 1442px;
+    // width: 1440px;
     margin: 0 auto;
     padding: 25px;
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
     .ticket_txt {
-      width: 50%;
+      width: 30%;
       margin: 30px auto;
       padding: 0 20px;
+      text-align: justify;
       p {
         font-size: 16px;
         line-height: 24px;
