@@ -56,28 +56,17 @@ book.`,
   ]);
 
   const [activeKey, setActiveKey] = useState(awards[0].key);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [slideTranslate, setSlideTranslate] = useState(0);
 
   const nextAward = () => {
-    // const item = awards.shift();
-    // setAwards([...awards, item]);
-    // setActiveKey(awards[0].key);
-    const _activeIndex = activeIndex + 1;
-
-    setActiveIndex(_activeIndex);
-    setActiveKey(awards[_activeIndex].key);
+    const item = awards.shift();
+    setAwards([...awards, item]);
+    setActiveKey(awards[0].key);
   };
 
   const prevAward = () => {
-    // const item = awards.pop();
-    // setAwards([item, ...awards]);
-    // setActiveKey(item.key);
-
-    const _activeIndex = activeIndex - 1;
-
-    setActiveIndex(_activeIndex);
-    setActiveKey(awards[_activeIndex].key);
+    const item = awards.pop();
+    setAwards([item, ...awards]);
+    setActiveKey(item.key);
   };
 
   return (
@@ -107,13 +96,8 @@ book.`,
           </a>
         </div>
         <div className="award_slider">
-          <div
-            className="slides_items"
-            style={{
-              transform: `translate3d(${(slideTranslate + activeIndex) * -300}px, 0px, 0px)`
-            }}
-          >
-            <Awards awards={awards} activeKey={activeKey} activeIndex={activeIndex} />
+          <div className="slides_items">
+            <Awards awards={awards} activeKey={activeKey} />
           </div>
           <div className="slider_nav">
             <button type="button" className="arrow_prev" onClick={prevAward}>
@@ -129,14 +113,12 @@ book.`,
   );
 };
 
-const Awards = ({ awards, activeKey, activeIndex }) => {
+const Awards = ({ awards, activeKey }) => {
   return (
     awards &&
     awards.map((award, i) => {
-      const isActive = award.key == activeKey;
-      const isPrev = i < activeIndex;
       return (
-        <div key={award.key} className={classNames("slide_block", { active: isActive }, { prev: isPrev })}>
+        <div key={award.key} className={classNames("slide_block", { active: award.key == activeKey })}>
           <div className="imgthumb">
             <img src={`assets/images/${award.img}.png`} alt="#" />
           </div>

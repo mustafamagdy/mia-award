@@ -36,29 +36,27 @@ const Partners = props => {
   return (
     <div id="partners">
       <div className="container">
-        <div className="container">
-          <div className="partners_slider">
-            {partners.chunk(4).map((chunk, i) => {
-              const isActive = i == page - 1;
-              return (
-                <div key={i} className={classNames("slide_page", { active: isActive })}>
-                  {chunk &&
-                    chunk.map(p => (
-                      <div key={p.key} className="slide_item">
-                        <span>
-                          <img src={`assets/images/${p.img}.png`} />
-                        </span>
-                      </div>
-                    ))}
-                </div>
-              );
-            })}
-          </div>
-          <div className="slider_dots">
-            {new Array(pages).fill().map((_, i) => (
-              <span key={i} className={classnames({ current: i == page - 1 })} onClick={() => setPage(i + 1)}></span>
-            ))}
-          </div>
+        <div className="partners_slider">
+          {partners.chunk(4).map((chunk, i) => {
+            const isActive = i == page - 1;
+            return (
+              <div key={i} className={classNames("slide_page", { active: isActive })}>
+                {chunk &&
+                  chunk.map(p => (
+                    <div key={p.key} className="slide_item">
+                      <span>
+                        <img src={`assets/images/${p.img}.png`} />
+                      </span>
+                    </div>
+                  ))}
+              </div>
+            );
+          })}
+        </div>
+        <div className="slider_dots">
+          {new Array(pages).fill().map((_, i) => (
+            <span key={i} className={classnames({ current: i == page - 1 })} onClick={() => setPage(i + 1)}></span>
+          ))}
         </div>
       </div>
     </div>

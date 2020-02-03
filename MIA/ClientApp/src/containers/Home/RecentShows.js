@@ -65,24 +65,32 @@ const RecentShows = ({ fetchRecentShows, recentShows, categories, countries, gen
             </button>
           </form>
         </div>
-        <div className="shows_items">
-          {recentShows.map((show, i) => (
-            <div className="item" key={show.id}>
-              <div className="imgthumb">
-                <a href={`/shows/${show.id}`}>
-                  <img src={`assets/images/${show.poster}.png`} />
-                  <div className="mask">
-                    <div className="content">
-                      <p>{show.title}</p>
-                      <Rating rate={show.rating} readonly />
-                    </div>
+        {recentShows && recentShows.length > 0 ? (
+          <>
+            <div className="shows_items">
+              {recentShows.map((show, i) => (
+                <div className="item" key={show.id}>
+                  <div className="imgthumb">
+                    <a href={`/shows/${show.id}`}>
+                      <img src={`assets/images/${show.poster}.png`} />
+                      <div className="mask">
+                        <div className="content">
+                          <p>{show.title}</p>
+                          <Rating rate={show.rating} readonly />
+                        </div>
+                      </div>
+                    </a>
                   </div>
-                </a>
-              </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <Pagination pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
+            <Pagination pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
+          </>
+        ) : (
+          <div className="title">
+            <Trans id="no_shows_available_yet">No Shows Available Yet</Trans>
+          </div>
+        )}
       </div>
     </div>
   );

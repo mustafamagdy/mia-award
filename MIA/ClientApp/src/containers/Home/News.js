@@ -20,48 +20,50 @@ const News = ({ fetchNews, news, ...props }) => {
         <div className="title">
           <Trans id="news_features">news & features</Trans>
         </div>
-        <div
-          className="features_sliders"
-          style={{
-            transform: `translate3d(${(pageNumber - 1) * -100}%, 0px, 0px)`
-          }}
-        >
-          {news.chunk(4).map((chunk, i) => {
-            const isCurrent = i == pageNumber - 1;
-            return (
-              <div className={classNames("feature_item_page", { "active": isCurrent })} key={i}>
-                {chunk.map((item, index) => (
-                  <div className="feature_item" key={index}>
-                    <div className="feature_block">
-                      <time>{item.date}</time>
-                      <div className="item">
-                        <div className="category">
-                          <Trans id={item.category}>{item.category}</Trans>
-                        </div>
-                        <div className="imgthumb">
-                          <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} />
-                          <LanguageContext.Consumer>
-                            {({ locale }) => (
-                              <div className="mask">
-                                <div className="content">
-                                  <p>{item.title[locale.code]}</p>
-                                  <div className="more">
-                                    <a href={`/news/${item.id}`}>
-                                      <Trans id="read_more">Read More</Trans>
-                                    </a>
+        <div className="features_sliders">
+          <div
+            className="feature_item_pages"
+            style={{
+              transform: `translate3d(${(pageNumber - 1) * -window.innerWidth}px, 0px, 0px)`
+            }}
+          >
+            {news.chunk(4).map((chunk, i) => {
+              const isCurrent = i == pageNumber - 1;
+              return (
+                <div className={classNames("feature_item_page", { active: isCurrent })} key={i}>
+                  {chunk.map((item, index) => (
+                    <div className="feature_item" key={index}>
+                      <div className="feature_block">
+                        <time>{item.date}</time>
+                        <div className="item">
+                          <div className="category">
+                            <Trans id={item.category}>{item.category}</Trans>
+                          </div>
+                          <div className="imgthumb">
+                            <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} />
+                            <LanguageContext.Consumer>
+                              {({ locale }) => (
+                                <div className="mask">
+                                  <div className="content">
+                                    <p>{item.title[locale.code]}</p>
+                                    <div className="more">
+                                      <a href={`/news/${item.id}`}>
+                                        <Trans id="read_more">Read More</Trans>
+                                      </a>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            )}
-                          </LanguageContext.Consumer>
+                              )}
+                            </LanguageContext.Consumer>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            );
-          })}
+                  ))}
+                </div>
+              );
+            })}
+          </div>
         </div>
         <div className="features_nav">
           <button

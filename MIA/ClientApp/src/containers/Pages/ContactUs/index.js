@@ -139,6 +139,7 @@ const ContactUs = ({
                 placeholder="Type here your Comment (100 character minimum)"
               ></textarea>
               <ReCAPTCHA
+                className="captcha_item"
                 theme="dark"
                 sitekey={config.reCaptchaKey}
                 ref={() =>
