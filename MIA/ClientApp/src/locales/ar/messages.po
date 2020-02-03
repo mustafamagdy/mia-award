@@ -23,7 +23,7 @@ msgstr ""
 msgid "accept_changes"
 msgstr ""
 
-#: src/containers/Pages/ContactUs/index.js:32
+#: src/containers/Pages/ContactUs/index.js:45
 msgid "address"
 msgstr ""
 
@@ -31,17 +31,17 @@ msgstr ""
 #~ msgid "all_languages"
 #~ msgstr ""
 
-#: src/containers/Home/Awards.js:77
+#: src/containers/Home/Awards.js:88
 msgid "apply_for_your_award"
 msgstr ""
 
-#: src/containers/Home/Awards.js:127
+#: src/containers/Home/Awards.js:145
 msgid "apply_now"
 msgstr ""
 
 #: src/containers/Home/RecentShows.js:46
-msgid "award_category"
-msgstr ""
+#~ msgid "award_category"
+#~ msgstr ""
 
 #: src/components/Layout/Header.js:48
 #: src/components/Layout/index.js:46
@@ -93,15 +93,15 @@ msgstr ""
 
 #: src/components/Layout/Header.js:73
 #: src/components/Layout/index.js:71
-#: src/containers/Pages/ContactUs/index.js:25
+#: src/containers/Pages/ContactUs/index.js:38
 msgid "contact_us"
 msgstr ""
 
-#: src/containers/Pages/ContactUs/index.js:131
+#: src/containers/Pages/ContactUs/index.js:147
 msgid "contact_us_message_sent_fail"
 msgstr ""
 
-#: src/containers/Pages/ContactUs/index.js:128
+#: src/containers/Pages/ContactUs/index.js:142
 msgid "contact_us_message_sent_success"
 msgstr ""
 
@@ -114,19 +114,19 @@ msgid "copyright_media_industry"
 msgstr ""
 
 #: src/containers/Home/RecentShows.js:72
-msgid "country"
-msgstr ""
+#~ msgid "country"
+#~ msgstr ""
 
 #: src/components/Layout/LoginStatus.js:34
 msgid "create_account"
 msgstr ""
 
-#: src/containers/Pages/ContactUs/index.js:35
+#: src/containers/Pages/ContactUs/index.js:48
 msgid "dubai_address"
 msgstr ""
 
 #: src/containers/MyProfile/index.js:155
-#: src/containers/Pages/ContactUs/index.js:62
+#: src/containers/Pages/ContactUs/index.js:75
 msgid "email"
 msgstr ""
 
@@ -138,11 +138,11 @@ msgstr ""
 msgid "failed"
 msgstr ""
 
-#: src/containers/Pages/ContactUs/index.js:53
+#: src/containers/Pages/ContactUs/index.js:66
 msgid "fax"
 msgstr ""
 
-#: src/containers/Pages/ContactUs/index.js:56
+#: src/containers/Pages/ContactUs/index.js:69
 msgid "fax_1"
 msgstr ""
 
@@ -152,15 +152,15 @@ msgstr ""
 
 #: src/components/Layout/Header.js:68
 #: src/components/Layout/index.js:66
-#: src/containers/Pages/Gallery/index.js:181
+#: src/containers/Pages/Gallery/index.js:185
 msgid "gallery"
 msgstr ""
 
 #: src/containers/Home/RecentShows.js:59
-msgid "genre"
-msgstr ""
+#~ msgid "genre"
+#~ msgstr ""
 
-#: src/containers/Pages/ContactUs/index.js:81
+#: src/containers/Pages/ContactUs/index.js:94
 msgid "get_in_touch"
 msgstr ""
 
@@ -208,7 +208,7 @@ msgstr ""
 msgid "mia_awards"
 msgstr ""
 
-#: src/containers/Home/Awards.js:131
+#: src/containers/Home/Awards.js:149
 msgid "movies"
 msgstr ""
 
@@ -226,7 +226,7 @@ msgstr ""
 msgid "news"
 msgstr ""
 
-#: src/containers/Home/News.js:22
+#: src/containers/Home/News.js:21
 msgid "news_features"
 msgstr ""
 
@@ -234,7 +234,7 @@ msgstr ""
 msgid "newsletter"
 msgstr ""
 
-#: src/containers/Home/News.js:76
+#: src/containers/Home/News.js:86
 msgid "next"
 msgstr ""
 
@@ -242,16 +242,56 @@ msgstr ""
 msgid "old_password"
 msgstr ""
 
+#: src/containers/Pages/AboutUs/index.js:274
+msgid "our_awards"
+msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:277
+msgid "our_awards_text"
+msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:239
+msgid "our_events"
+msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:241
+msgid "our_events_text"
+msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:164
+msgid "our_goal"
+msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:167
+msgid "our_goal_text"
+msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:149
+msgid "our_message"
+msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:152
+msgid "our_message_text"
+msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:201
+msgid "our_value"
+msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:205
+msgid "our_value_text"
+msgstr ""
+
 #: src/containers/MyProfile/index.js:187
-#: src/containers/Pages/ContactUs/index.js:41
+#: src/containers/Pages/ContactUs/index.js:54
 msgid "phone"
 msgstr ""
 
-#: src/containers/Pages/ContactUs/index.js:44
+#: src/containers/Pages/ContactUs/index.js:57
 msgid "phone_1"
 msgstr ""
 
-#: src/containers/Pages/ContactUs/index.js:47
+#: src/containers/Pages/ContactUs/index.js:60
 msgid "phone_2"
 msgstr ""
 
@@ -273,7 +313,7 @@ msgstr ""
 msgid "posted"
 msgstr ""
 
-#: src/containers/Home/News.js:60
+#: src/containers/Home/News.js:74
 msgid "prev"
 msgstr ""
 
@@ -293,7 +333,7 @@ msgstr ""
 msgid "quick_links"
 msgstr ""
 
-#: src/containers/Home/News.js:40
+#: src/containers/Home/News.js:50
 #: src/containers/Pages/News/index.js:122
 msgid "read_more"
 msgstr ""
@@ -303,7 +343,7 @@ msgstr ""
 msgid "read_more_elapsed"
 msgstr ""
 
-#: src/containers/Home/RecentShows.js:28
+#: src/containers/Home/RecentShows.js:32
 msgid "recent_shows"
 msgstr ""
 
@@ -319,7 +359,7 @@ msgstr ""
 msgid "select_your_image"
 msgstr ""
 
-#: src/containers/Pages/ContactUs/index.js:125
+#: src/containers/Pages/ContactUs/index.js:138
 msgid "send_message"
 msgstr ""
 
@@ -327,7 +367,7 @@ msgstr ""
 msgid "share"
 msgstr ""
 
-#: src/containers/Home/News.js:66
+#: src/containers/Home/News.js:77
 msgid "show_all"
 msgstr ""
 
@@ -341,8 +381,16 @@ msgstr ""
 #~ msgid "sports"
 #~ msgstr ""
 
-#: src/containers/Home/Awards.js:87
+#: src/containers/Home/Awards.js:98
 msgid "start_from"
+msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:134
+msgid "story"
+msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:137
+msgid "story_text"
 msgstr ""
 
 #: src/containers/PreloaderPage/LoaderTestSample.js:38
@@ -361,7 +409,7 @@ msgstr ""
 msgid "ticket_desc"
 msgstr ""
 
-#: src/containers/Home/Awards.js:89
+#: src/containers/Home/Awards.js:100
 msgid "to"
 msgstr ""
 
@@ -386,7 +434,7 @@ msgstr ""
 msgid "videos_desc"
 msgstr ""
 
-#: src/containers/Home/Awards.js:95
+#: src/containers/Home/Awards.js:106
 msgid "view_all"
 msgstr ""
 

@@ -10,112 +10,27 @@ const AboutUs = props => {
     {
       titlleKey: "awards",
       title: "Awards",
-      contentKey: `about_award_tab_content`,
-      content: `"MIA Drama" for Best Dramatic Work
-      <br />
-      "MIA Documentary" for Best Documentary Work
-      <br />
-      "MIA Comic" for Best Comedy
-      <br />
-      "MIA Policy" for Best Political Work
-      <br />
-      "MIA Economics" for Best Economic Work
-      <br />
-      "MIA Sport" for the best sports work
-      <br />
-      "MIA Dialogue" for Best Talk Show
-      <br />
-      “MIA Quizzes” for Best Competitive Work
-      <br />
-      "MIA human being" for the best humanitarian action`
+      contentKey: `about_award_tab_content`
     },
     {
       titlleKey: "contestants",
       title: "Contestants",
-      contentKey: `about_contestants_tab_content`,
-      content: `"MIA Drama" for Best Dramatic Work
-      <br />
-      "MIA Documentary" for Best Documentary Work
-      <br />
-      "MIA Comic" for Best Comedy
-      <br />
-      "MIA Policy" for Best Political Work
-      <br />
-      "MIA Economics" for Best Economic Work
-      <br />
-      "MIA Sport" for the best sports work
-      <br />
-      "MIA Dialogue" for Best Talk Show
-      <br />
-      “MIA Quizzes” for Best Competitive Work
-      <br />
-      "MIA human being" for the best humanitarian action`
+      contentKey: `about_contestants_tab_content`
     },
     {
       titlleKey: "our_platform",
       title: "Our platform",
-      contentKey: `about_our_platform_tab_content`,
-      content: `"MIA Drama" for Best Dramatic Work
-      <br />
-      "MIA Documentary" for Best Documentary Work
-      <br />
-      "MIA Comic" for Best Comedy
-      <br />
-      "MIA Policy" for Best Political Work
-      <br />
-      "MIA Economics" for Best Economic Work
-      <br />
-      "MIA Sport" for the best sports work
-      <br />
-      "MIA Dialogue" for Best Talk Show
-      <br />
-      “MIA Quizzes” for Best Competitive Work
-      <br />
-      "MIA human being" for the best humanitarian action`
+      contentKey: `about_our_platform_tab_content`
     },
     {
       titlleKey: "location",
       title: "Location",
-      contentKey: `about_location_tab_content`,
-      content: `"MIA Drama" for Best Dramatic Work
-      <br />
-      "MIA Documentary" for Best Documentary Work
-      <br />
-      "MIA Comic" for Best Comedy
-      <br />
-      "MIA Policy" for Best Political Work
-      <br />
-      "MIA Economics" for Best Economic Work
-      <br />
-      "MIA Sport" for the best sports work
-      <br />
-      "MIA Dialogue" for Best Talk Show
-      <br />
-      “MIA Quizzes” for Best Competitive Work
-      <br />
-      "MIA human being" for the best humanitarian action`
+      contentKey: `about_location_tab_content`
     },
     {
       titlleKey: "arbitration",
       title: "Arbitration",
-      contentKey: `about_arbitration_tab_content`,
-      content: `"MIA Drama" for Best Dramatic Work
-      <br />
-      "MIA Documentary" for Best Documentary Work
-      <br />
-      "MIA Comic" for Best Comedy
-      <br />
-      "MIA Policy" for Best Political Work
-      <br />
-      "MIA Economics" for Best Economic Work
-      <br />
-      "MIA Sport" for the best sports work
-      <br />
-      "MIA Dialogue" for Best Talk Show
-      <br />
-      “MIA Quizzes” for Best Competitive Work
-      <br />
-      "MIA human being" for the best humanitarian action`
+      contentKey: `about_arbitration_tab_content`
     }
   ]);
 
@@ -295,27 +210,117 @@ const AboutUs = props => {
                   <TabPanels activeIndex={activeTab} activeClassName="active">
                     <TabPane>
                       <div className="tab_content">
-                        <Trans id={awardsTabs[activeTab].contentKey}>{awardsTabs[activeTab].content}</Trans>
+                        <Trans id={awardsTabs[activeTab].contentKey}>
+                          "MIA Drama" for Best Dramatic Work
+                          <br />
+                          "MIA Documentary" for Best Documentary Work
+                          <br />
+                          "MIA Comic" for Best Comedy
+                          <br />
+                          "MIA Policy" for Best Political Work
+                          <br />
+                          "MIA Economics" for Best Economic Work
+                          <br />
+                          "MIA Sport" for the best sports work
+                          <br />
+                          "MIA Dialogue" for Best Talk Show
+                          <br />
+                          “MIA Quizzes” for Best Competitive Work
+                          <br />
+                          "MIA human being" for the best humanitarian action
+                        </Trans>
                       </div>
                     </TabPane>
                     <TabPane>
                       <div className="tab_content">
-                        <Trans id={awardsTabs[activeTab].contentKey}>{awardsTabs[activeTab].content}</Trans>
+                        <Trans id={awardsTabs[activeTab].contentKey}>
+                          "MIA Drama" for Best Dramatic Work
+                          <br />
+                          "MIA Documentary" for Best Documentary Work
+                          <br />
+                          "MIA Comic" for Best Comedy
+                          <br />
+                          "MIA Policy" for Best Political Work
+                          <br />
+                          "MIA Economics" for Best Economic Work
+                          <br />
+                          "MIA Sport" for the best sports work
+                          <br />
+                          "MIA Dialogue" for Best Talk Show
+                          <br />
+                          “MIA Quizzes” for Best Competitive Work
+                          <br />
+                          "MIA human being" for the best humanitarian action
+                        </Trans>
                       </div>
                     </TabPane>
                     <TabPane>
                       <div className="tab_content">
-                        <Trans id={awardsTabs[activeTab].contentKey}>{awardsTabs[activeTab].content}</Trans>
+                        <Trans id={awardsTabs[activeTab].contentKey}>
+                          "MIA Drama" for Best Dramatic Work
+                          <br />
+                          "MIA Documentary" for Best Documentary Work
+                          <br />
+                          "MIA Comic" for Best Comedy
+                          <br />
+                          "MIA Policy" for Best Political Work
+                          <br />
+                          "MIA Economics" for Best Economic Work
+                          <br />
+                          "MIA Sport" for the best sports work
+                          <br />
+                          "MIA Dialogue" for Best Talk Show
+                          <br />
+                          “MIA Quizzes” for Best Competitive Work
+                          <br />
+                          "MIA human being" for the best humanitarian action
+                        </Trans>
                       </div>
                     </TabPane>
                     <TabPane>
                       <div className="tab_content">
-                        <Trans id={awardsTabs[activeTab].contentKey}>{awardsTabs[activeTab].content}</Trans>
+                        <Trans id={awardsTabs[activeTab].contentKey}>
+                          "MIA Drama" for Best Dramatic Work
+                          <br />
+                          "MIA Documentary" for Best Documentary Work
+                          <br />
+                          "MIA Comic" for Best Comedy
+                          <br />
+                          "MIA Policy" for Best Political Work
+                          <br />
+                          "MIA Economics" for Best Economic Work
+                          <br />
+                          "MIA Sport" for the best sports work
+                          <br />
+                          "MIA Dialogue" for Best Talk Show
+                          <br />
+                          “MIA Quizzes” for Best Competitive Work
+                          <br />
+                          "MIA human being" for the best humanitarian action
+                        </Trans>
                       </div>
                     </TabPane>
                     <TabPane>
                       <div className="tab_content">
-                        <Trans id={awardsTabs[activeTab].contentKey}>{awardsTabs[activeTab].content}</Trans>
+                        <Trans id={awardsTabs[activeTab].contentKey}>
+                          "MIA Drama" for Best Dramatic Work
+                          <br />
+                          "MIA Documentary" for Best Documentary Work
+                          <br />
+                          "MIA Comic" for Best Comedy
+                          <br />
+                          "MIA Policy" for Best Political Work
+                          <br />
+                          "MIA Economics" for Best Economic Work
+                          <br />
+                          "MIA Sport" for the best sports work
+                          <br />
+                          "MIA Dialogue" for Best Talk Show
+                          <br />
+                          “MIA Quizzes” for Best Competitive Work
+                          <br />
+                          "MIA human being" for the best humanitarian action
+                        </Trans>
                       </div>
                     </TabPane>
                   </TabPanels>

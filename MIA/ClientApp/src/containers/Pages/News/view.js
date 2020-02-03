@@ -107,6 +107,7 @@ const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuc
           placeholder="Type here your Comment"
         ></textarea>
         <ReCAPTCHA
+          theme="dark"
           sitekey={config.reCaptchaKey}
           ref={() =>
             register(
@@ -121,7 +122,7 @@ const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuc
           onChange={v => {
             setValue("reCaptchaToken", v);
           }}
-        />        
+        />
         <button type="submit">
           <Trans id="post_comment">Post Comment</Trans>
         </button>
