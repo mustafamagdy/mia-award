@@ -2,7 +2,11 @@
   background: #171717;
   .map {
     width: 100%;
-    height: 500px !important;
+		height: 500px !important;
+		filter: grayscale(1);
+		&:hover {
+			filter: grayscale(0);
+		}
   } /* iframe & embed */
   .map_nav {
     display: flex;
