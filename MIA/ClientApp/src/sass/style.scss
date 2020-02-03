@@ -272,42 +272,4 @@ body[dir="rtl"] {
 		} /* app */
 	} /* open_share_side */
 } /* body */
-footer {
-	.container {
-		.row {
-			.about_mia {
-				.logo {float: right;}
-				p {
-					text-indent: 0;
-				}	/* p */
-			}	/* about_mia */
-			.quick_links, .news_letter {
-				.title {
-					font-family: Tajawal_Bold;
-					font-size: 18px;
-					&::after {
-						right: 0;
-						left: auto;
-					}
-				}	/* title */
-			}	/* quick_links */
-			.news_letter {
-				form {
-					input {
-						float: right;
-						border-radius: 0 10px 10px 0;
-						padding: 0 10px 0 0;
-						font-size: 17px;
-						font-family: Tajawal_Medium;
-					}	/* input */
-					button {
-						float: left;
-					}	/* button */
-				}	/* form */
-			}	/* news_letter */
-		}	/* row */
-	}	/* container */
-} /* footer */
-
-
 @import "responsive.scss";
