@@ -5,5 +5,6 @@ const apiNamespace = "home";
 const fetchNewsLogic = generateLogic(apiNamespace, ActionTypes.FETCH_NEWS);
 const fetchRecentShowsLogic = generateLogic(apiNamespace, ActionTypes.FETCH_RECENT_SHOWS);
 const fetchContactUsMessageSubjectsLogic = generateLogic(apiNamespace, ActionTypes.FETCH_CONTACT_US_MESSAGE_SUBJECTS);
+const sendContactUsMessageLogic = generateLogic(apiNamespace, ActionTypes.SEND_CONTACT_US_MESSAGE);
 
-export default [fetchNewsLogic, fetchRecentShowsLogic, fetchContactUsMessageSubjectsLogic];
+export default [fetchNewsLogic, fetchRecentShowsLogic, fetchContactUsMessageSubjectsLogic, sendContactUsMessageLogic];

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Trans } from "@lingui/macro";
+import classNames from "classnames";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import homeActions from "store/home/actions";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
+import "utils";
 
-const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage }, ...props }) => {
+const News = ({ fetchNews, news, ...props }) => {
   const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
-    fetchNews({ pageNumber: pageNumber, pageSize: 4 });
-  }, [pageNumber]);
+    fetchNews({ pageNumber: pageNumber, pageSize: 100 });
+  }, []);
 
   return (
     <div id="news_features">
@@ -18,67 +20,71 @@ const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage
         <div className="title">
           <Trans id="news_features">news & features</Trans>
         </div>
-        <div className="features_sliders">
-          {news.map((item, index) => (
-            <div className="feature_item" key={index}>
-              <div className="feature_block">
-                <time>{item.date}</time>
-                <div className="item">
-                  <div className="category">
-                    <Trans id={item.category}>{item.category}</Trans>
-                  </div>
-                  <div className="imgthumb">
-                    <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} />
-                    <LanguageContext.Consumer>
-                      {({ locale }) => (
-                        <div className="mask">
-                          <div className="content">
-                            <p>{item.title[locale.code]}</p>
-                            <div className="more">
-                              <a href={`/news/${item.id}`}>
-                                <Trans id="read_more">Read More</Trans>
-                              </a>
-                            </div>
-                          </div>
+        <div
+          className="features_sliders"
+          style={{
+            transform: `translate3d(${(pageNumber - 1) * -100}%, 0px, 0px)`
+          }}
+        >
+          {news.chunk(4).map((chunk, i) => {
+            const isCurrent = i == pageNumber - 1;
+            return (
+              <div className={classNames("feature_item_page", { "active": isCurrent })} key={i}>
+                {chunk.map((item, index) => (
+                  <div className="feature_item" key={index}>
+                    <div className="feature_block">
+                      <time>{item.date}</time>
+                      <div className="item">
+                        <div className="category">
+                          <Trans id={item.category}>{item.category}</Trans>
                         </div>
-                      )}
-                    </LanguageContext.Consumer>
+                        <div className="imgthumb">
+                          <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} />
+                          <LanguageContext.Consumer>
+                            {({ locale }) => (
+                              <div className="mask">
+                                <div className="content">
+                                  <p>{item.title[locale.code]}</p>
+                                  <div className="more">
+                                    <a href={`/news/${item.id}`}>
+                                      <Trans id="read_more">Read More</Trans>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </LanguageContext.Consumer>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         <div className="features_nav">
-          {hasPreviousPage ? (
-            <button
-              type="button"
-              className="arrow_prev"
-              onClick={() => {
-                setPageNumber(p => p - 1);
-              }}
-            >
-              <Trans id="prev">prev</Trans>
-            </button>
-          ) : (
-            <span />
-          )}
+          <button
+            type="button"
+            className="arrow_prev"
+            onClick={() => {
+              setPageNumber(p => p - 1);
+            }}
+          >
+            <Trans id="prev">prev</Trans>
+          </button>
           <a href="/news" title="#">
             <Trans id="show_all">show all</Trans>
           </a>
-          {hasNextPage ? (
-            <button
-              type="button"
-              className="arrow_next"
-              onClick={() => {
-                setPageNumber(p => p + 1);
-              }}
-            >
-              <Trans id="next">next</Trans>
-            </button>
-          ) : (
-            <span />
-          )}
+          <button
+            type="button"
+            className="arrow_next"
+            onClick={() => {
+              setPageNumber(p => p + 1);
+            }}
+          >
+            <Trans id="next">next</Trans>
+          </button>
         </div>
       </div>
     </div>

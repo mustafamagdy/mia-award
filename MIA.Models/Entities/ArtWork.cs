@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace MIA.Models.Entities {
   public class ArtWork : BaseEntity<string> {
-    //public string Id { get; set; }
     public LocalizedData Title { get; set; }
     public bool UploadComplete { get; set; }
     public Award Award { get; set; }

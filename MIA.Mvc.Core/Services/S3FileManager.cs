@@ -50,5 +50,25 @@ namespace MIA.Mvc.Core {
         return $"https://{bucketName}.s3.amazonaws.com/{key}";
       }
     }
+
+    public async Task CopyObjectAsync(string sourceKey, string destinationKey) {
+      var bucketName = _awsOptions.Value.S3_Content_BucketName;
+      await CopyObjectAsync(sourceKey, bucketName, destinationKey, bucketName);
+    }
+
+    public async Task CopyObjectAsync(string sourceKey, string sourceBucketName, string destinationKey, string destinationBucketName) {
+      using (var client = new AmazonS3Client(
+      awsAccessKeyId: _awsOptions.Value.S3_Content_AccessKey,
+      awsSecretAccessKey: _awsOptions.Value.S3_Content_SecretKey,
+      region: RegionEndpoint.GetBySystemName(_awsOptions.Value.S3_Content_Region))) {
+        await client.CopyObjectAsync(
+          new Amazon.S3.Model.CopyObjectRequest() {
+            SourceBucket = sourceBucketName,
+            DestinationBucket = destinationBucketName,
+            SourceKey = sourceKey,
+            DestinationKey = destinationKey
+          });
+      }
+    }
   }
 }

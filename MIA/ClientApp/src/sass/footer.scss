@@ -1,6 +1,6 @@
 @import "./variables.scss";
 footer {
-	background: #141414;
+	background: #121212;
 	.container {
 		width: 1442px;
 		margin: 0 auto;
@@ -104,7 +104,7 @@ footer {
 						border-radius: 10px 0 0 10px;
 						border: none;
 						background: #141414;
-						padding: 0 0 0 10px;
+						padding: 0 10px 0 10px;
 						font-size: 18px;
 						color: #ffffff;
 					} /* input */
@@ -152,3 +152,45 @@ footer {
 		} /* row */
 	} /* container */
 } /* footer */
+
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+	footer {
+		.container {
+			.row {
+				.about_mia {
+					.logo {float: right;}
+					p {
+						text-indent: 0;
+					}	/* p */
+				}	/* about_mia */
+				.quick_links, .news_letter {
+					.title {
+						font-family: Tajawal_Bold;
+						font-size: 18px;
+						&::after {
+							right: 0;
+							left: auto;
+						}
+					}	/* title */
+				}	/* quick_links */
+				.news_letter {
+					form {
+						input {
+							float: right;
+							border-radius: 0 10px 10px 0;
+							padding: 0 10px 0 0;
+							font-size: 17px;
+							font-family: Tajawal_Medium;
+						}	/* input */
+						button {
+							float: left;
+						}	/* button */
+					}	/* form */
+				}	/* news_letter */
+			}	/* row */
+		}	/* container */
+	} /* footer */
+}
+//**** RTL Style ****//

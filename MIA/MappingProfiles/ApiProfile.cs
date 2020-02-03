@@ -18,7 +18,7 @@ namespace MIA.MappingProfiles {
       CreateMap<News, NewsDto>()
        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
-      
+
       CreateMap<Lookup, LocalizedLookupDto>()
        .IncludeAllDerived()
        .ValidateMemberList(MemberList.None);
@@ -26,7 +26,7 @@ namespace MIA.MappingProfiles {
       CreateMap<News, FullNewsDto>()
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
-      
+
       CreateMap<News, RelatedNewsDto>()
        .ValidateMemberList(MemberList.None);
 
@@ -52,6 +52,15 @@ namespace MIA.MappingProfiles {
       CreateMap<AlbumItem, AlbumItemDto>()
        .ForMember(a => a.DateCreated, cfg => cfg.MapFrom(a => a.DateCreated.LocalDateTime().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
+
+
+      CreateMap<ArtWork, RecentShowsDto>()
+       .ForMember(a => a.Rating, cfg => cfg.MapFrom(a => a.Rate))
+       .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.PosterUrl))
+       .ForMember(a => a.PostedDate, cfg => cfg.MapFrom(a => a.PostedDate.LocalDateTime().ToString("dd-MM-yyyy")))
+       .ForMember(a => a.DateOfRelease, cfg => cfg.MapFrom(a => a.DateOfRelease))
+       .ValidateMemberList(MemberList.None);
+
 
     }
   }

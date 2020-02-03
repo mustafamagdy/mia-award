@@ -28,14 +28,120 @@ namespace MIA.ORMContext.Seed {
       IS3FileManager s3FileManager,
       IAppUnitOfWork db) {
 
+      await SeedContactUsMessageSubjectsAsync(db);
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
       await SeedCategoriesAsync(db);
+
+      //await SeedAwards(db, s3FileManager);
       //await SeedDemoNews(db, s3FileManager);
       //await SeedDemoGallery(db, s3FileManager);
+      //await SeedDemoArtworks(db, s3FileManager);
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
       await db.CommitTransactionAsync();
+    }
+
+
+    private static async Task SeedContactUsMessageSubjectsAsync(IAppUnitOfWork db) {
+      List<ContactUsSubject> dbItems = db.ContactUsSubjects.ToList();
+      if (dbItems.Any())
+        return;
+      var filename = "contact_us_subjects.json";
+      if (File.Exists("./" + filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
+          var items = new List<ContactUsSubject>();
+          string json = r.ReadToEnd();
+          var deserializedItems = JsonConvert.DeserializeObject<List<ContactUsSubject>>(json);
+
+          foreach (var c in deserializedItems) {
+            var country = dbItems.FirstOrDefault(a => a.Name == c.Name);
+            if (country != null) continue;
+            items.Add(c);
+          }
+          if (items.Any()) {
+            await db.ContactUsSubjects.AddRangeAsync(items);
+          }
+        }
+      }
+    }
+
+    private static async Task SeedAwards(IAppUnitOfWork db, IS3FileManager fileManager) {
+      var awards = new Dictionary<string, LocalizedData> {
+        { "drama", LocalizedData.FromBoth("دراما","Drama") },
+        { "sports", LocalizedData.FromBoth("رياضة","Sports") },
+        { "comedy", LocalizedData.FromBoth("كوميدي","comedy") },
+        { "political", LocalizedData.FromBoth("سياسة","Political") },
+        { "economic", LocalizedData.FromBoth("اقتصادي","Economic") },
+        { "talkshow", LocalizedData.FromBoth("حواري","Talkshow") },
+        { "competition", LocalizedData.FromBoth("تنافسي","Competition") },
+        { "human", LocalizedData.FromBoth("انساني","Human") }
+      };
+      var client = new HttpClient();
+      var _faker_en = new Faker("en");
+
+      foreach (var _award in awards) {
+        var award = db.Awards.FirstOrDefault(a => a.Code.ToLower() == _award.Key.ToLower());
+        if (award == null) {
+          award = new Award {
+            Code = _award.Key.ToLower(),
+            Title = _award.Value,
+            Description = _award.Value,
+            TrophyImageKey = "",
+            TrophyImageUrl = ""
+          };
+
+          await db.Awards.AddAsync(award);
+
+          var file = await client.GetAsync(_faker_en.Image.PicsumUrl(100, 200));
+          var fileStream = await file.Content.ReadAsStreamAsync();
+
+          var imageKey = fileManager.GenerateFileKeyForResource(ResourceType.Awards, award.Id, award.Code + ".jpg");
+          var imageUrl = await fileManager.UploadFileAsync(fileStream, imageKey);
+
+          award.TrophyImageUrl = imageUrl;
+          award.TrophyImageKey = imageKey;
+
+          db.Awards.Update(award);
+        }
+      }
+    }
+
+    private static async Task SeedDemoArtworks(IAppUnitOfWork db, IS3FileManager fileManager) {
+      var artworksCount = db.ArtWorks.Count();
+      if (artworksCount >= 30) return;
+
+      var _faker_en = new Faker("en");
+      var _faker_ar = new Faker("ar");
+      var awards = db.Awards.ToArray();
+      var client = new HttpClient();
+
+      for (int i = 0; i < 30; i++) {
+        var artwork = new ArtWork {
+          AwardId = _faker_en.Random.ArrayElement(awards).Id,
+          FileCount = 3,
+          UploadComplete = true,
+        };
+
+        await db.ArtWorks.AddAsync(artwork);
+        var file = await client.GetAsync(_faker_en.Image.PicsumUrl(400, 600));
+        var fileStream = await file.Content.ReadAsStreamAsync();
+
+        var posterKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, artwork.Id, artwork.Id + ".jpg");
+        var posterUrl = await fileManager.UploadFileAsync(fileStream, posterKey);
+
+        //artwork.PosterUrl = posterUrl;
+        //artwork.PosterKey = posterKey;
+
+        var trailerKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, artwork.Id, artwork.Id + ".mp4");
+        var trailerUrl = await fileManager.UploadFileAsync(fileStream, posterKey);
+
+        //artwork.TrailerUrl = trailerUrl;
+        //artwork.TrailerKey = trailerKey;
+
+        db.ArtWorks.Update(artwork);
+      }
+
     }
 
     private static async Task SeedDemoNews(IAppUnitOfWork db, IS3FileManager fileManager) {
@@ -139,24 +245,36 @@ namespace MIA.ORMContext.Seed {
 
         var client = new HttpClient();
         client.Timeout = TimeSpan.FromMinutes(5);
-        var file = await client.GetAsync(url);
-        var fileStream = await file.Content.ReadAsStreamAsync();
+        if (type == MediaType.Image) {
+          var file = await client.GetAsync(url);
+          var fileStream = await file.Content.ReadAsStreamAsync();
 
-        var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + (type == MediaType.Image ? ".jpg" : ".mp4"));
-        var fileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
+          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + ".jpg");
+          var fileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
 
-        if (type == MediaType.Video) {
+          item.FileUrl = fileUrl;
+          item.FileKey = fileKey;
+        } else if (type == MediaType.Video) {
+
+          //var sour
+          //var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + ".mp4");
+          //var fileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
+
+          //item.FileUrl = fileUrl;
+          //item.FileKey = fileKey;
+
+
+
           var posterFile = await client.GetAsync(posterUrl);
-          var posterFileStream = await file.Content.ReadAsStreamAsync();
+          var posterFileStream = await posterFile.Content.ReadAsStreamAsync();
           var posterFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + ".jpg");
-          var posterFileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
+          var posterFileUrl = await fileManager.UploadFileAsync(posterFileStream, posterFileKey);
 
           item.PosterUrl = posterFileUrl;
           item.PosterKey = posterFileKey;
         }
 
-        item.FileUrl = fileUrl;
-        item.FileKey = fileKey;
+
 
         db.AlbumItems.Update(item);
       }

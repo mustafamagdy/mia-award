@@ -266,19 +266,21 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Code");
+
                     b.Property<string>("Description");
 
                     b.Property<string>("ManagerId");
 
                     b.Property<string>("Title");
 
-                    b.Property<string>("TrophyId");
+                    b.Property<string>("TrophyImageKey");
+
+                    b.Property<string>("TrophyImageUrl");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ManagerId");
-
-                    b.HasIndex("TrophyId");
 
                     b.ToTable("Awards");
                 });
@@ -746,10 +748,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasOne("MIA.Models.Entities.Judge", "Manager")
                         .WithMany()
                         .HasForeignKey("ManagerId");
-
-                    b.HasOne("MIA.Models.Entities.TrophyImage", "Trophy")
-                        .WithMany()
-                        .HasForeignKey("TrophyId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.BoothPurchase", b =>

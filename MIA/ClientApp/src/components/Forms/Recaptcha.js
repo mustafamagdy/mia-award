@@ -19,6 +19,7 @@ class Recaptcha extends React.PureComponent {
     } = this.props;
     return (
       <ReCAPTCHA
+        theme="dark"
         sitekey={TEST_SITE_KEY}
         render="explicit"
         theme="light"

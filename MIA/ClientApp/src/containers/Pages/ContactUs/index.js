@@ -4,17 +4,45 @@ import { useForm } from "react-hook-form";
 import ReCAPTCHA from "react-google-recaptcha";
 import config from "config";
 import { useEffect } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import homeActions from "store/home/actions";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
+import * as Yup from "yup";
+import Map from "components/Map";
+
 // import {} from 'react-redux'
 // import "sass/contactus.scss";
 
-const ContactUs = ({ fetchContactUsMessageSubjects, ...props }) => {
+const ContactUs = ({
+  fetchContactUsMessageSubjects,
+  sendContactUsMessage,
+  contactUsMessageSubjects,
+  contactUsSuccess,
+  contactUsFailed,
+  ...props
+}) => {
   useEffect(() => {
-    //fetchContactUsMessageSubjects();
+    fetchContactUsMessageSubjects();
   }, []);
-  const { register, handleSubmit, setValue } = useForm();
+
+  const { register, handleSubmit, setValue } = useForm({
+    validationSchema: Yup.object({
+      name: Yup.string().required(),
+      email: Yup.string()
+        .email()
+        .required(),
+      phone: Yup.string().required(),
+      subject: Yup.string().required(),
+      message: Yup.string()
+        .required()
+        .min(100)
+        .max(4000)
+    })
+  });
 
   const onSubmit = values => {
-    console.log("contact us", values);
+    sendContactUsMessage(values);
   };
 
   return (
@@ -65,14 +93,12 @@ const ContactUs = ({ fetchContactUsMessageSubjects, ...props }) => {
               </div>
             </div>
             <div className="google_map">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57754.16425696088!2d55.24657784522731!3d25.216057688437235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2seg!4v1579277859447!5m2!1sen!2seg"
-                width="600"
-                height="450"
-                frameBorder="0"
-                style={{ border: 0 }}
-                allowFullScreen=""
-              ></iframe>
+              <Map
+                lat={config.companyLocation.lat}
+                long={config.companyLocation.long}
+                zoom={config.companyLocation.zoom}
+                landMarks={[config.companyLocation.landMarker]}
+              />
             </div>
           </div>
         </div>
@@ -92,20 +118,28 @@ const ContactUs = ({ fetchContactUsMessageSubjects, ...props }) => {
                 <input ref={register} name="phone" type="number" placeholder="Phone" />
               </div>
               <div className="item">
-                <select ref={register} name="subject">
-                  <option value="">Message Subject*</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                  <option value="">Subject</option>
-                </select>
+                <LanguageContext.Consumer>
+                  {({ locale }) => (
+                    <select key={locale.code} ref={register} name="subject">
+                      {contactUsMessageSubjects.map((c, i) => (
+                        <option key={c.name[locale.code]} value={c.id}>
+                          {c.name[locale.code]}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </LanguageContext.Consumer>
               </div>
-              <textarea ref={register} name="message" id="" cols="30" rows="10" placeholder="Type here your Comment"></textarea>
+              <textarea
+                ref={register}
+                name="message"
+                id=""
+                cols="30"
+                rows="10"
+                placeholder="Type here your Comment (100 character minimum)"
+              ></textarea>
               <ReCAPTCHA
+                theme="dark"
                 sitekey={config.reCaptchaKey}
                 ref={() =>
                   register(
@@ -124,12 +158,16 @@ const ContactUs = ({ fetchContactUsMessageSubjects, ...props }) => {
               <button type="submit">
                 <Trans id="send_message">Send Message</Trans>
               </button>
-              <div className="msg_success">
-                <Trans id="contact_us_message_sent_success">The message was sent successfully</Trans>
-              </div>
-              <div className="msg_wrong">
-                <Trans id="contact_us_message_sent_fail">There is an error, the message could not be sent</Trans>
-              </div>
+              {contactUsSuccess && (
+                <div className="msg_success">
+                  <Trans id="contact_us_message_sent_success">The message was sent successfully</Trans>
+                </div>
+              )}
+              {contactUsFailed && (
+                <div className="msg_wrong">
+                  <Trans id="contact_us_message_sent_fail">There is an error, the message could not be sent</Trans>
+                </div>
+              )}
             </form>
           </div>
         </div>
@@ -138,4 +176,10 @@ const ContactUs = ({ fetchContactUsMessageSubjects, ...props }) => {
   );
 };
 
-export default ContactUs;
+const mapStateToProps = ({ home: { contactUsMessageSubjects, contactUsSuccess, contactUsFailed } }) => ({
+  contactUsMessageSubjects,
+  contactUsSuccess,
+  contactUsFailed
+});
+const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactUs);

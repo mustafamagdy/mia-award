@@ -253,203 +253,219 @@
 
       }
   })();
-  (function () {
-    'use strict';
+  (function() {
+  "use strict";
 
-    angular
-        .module('home')
-        .controller('ArtWorkController', ['appCONSTANTS', '$scope', '$translate', 'ArtWorkResource', 'blockUI', '$uibModal',
-            'ToastService', ArtWorkController]);
+  angular
+    .module("home")
+    .controller("ArtWorkController", [
+      "appCONSTANTS",
+      "$scope",
+      "$translate",
+      "ArtWorkResource",
+      "blockUI",
+      "$uibModal",
+      "ToastService",
+      ArtWorkController
+    ]);
 
+  function ArtWorkController(appCONSTANTS, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
+    $(".pmd-sidebar-nav>li>a").removeClass("active");
+    $($(".pmd-sidebar-nav").children()[6].children[0]).addClass("active");
+    var vm = this;
 
-    function ArtWorkController(appCONSTANTS, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
-        var vm = this;
+    vm.currentPage = 1;
+    vm.appCONSTANTS = appCONSTANTS;
+    refreshArtWorks();
+    function refreshArtWorks() {
+      blockUI.start("Loading...");
 
-        vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS; 
-        refreshArtWorks();
-        function refreshArtWorks() {
-            blockUI.start("Loading...");
-
-            var k = ArtWorkResource.getAllArtWorks({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
-                $scope.ArtWorkList = results.items;
-                $scope.totalCount = results.metadata.totalItemCount;
-                console.log($scope.ArtWorkList);
-                blockUI.stop();
-
-            },
-                function (data, status) { 
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
-                });
+      var k = ArtWorkResource.getAllArtWorks({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(
+        function(results) {
+          $scope.ArtWorkList = results.items;
+          $scope.totalCount = results.metadata.totalItemCount;
+          console.log($scope.ArtWorkList);
+          blockUI.stop();
+        },
+        function(data, status) {
+          blockUI.stop();
+          ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
         }
-        function change(artWork, isDeleted) {
-            var updateObj = new ArtWorkResource();
-            updateObj.id = artWork.id;
-            if (!isDeleted)
-                updateObj.status = (artWork.status == true ? false : true);
-            updateObj.isDeleted = artWork.isDeleted;
-
-            updateObj.$update().then(
-                function (data, status) {
-                    refreshArtWorks();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    artWork.status = updateObj.status;
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-        vm.UpdateArtWork = function (artWork) {
-            change(artWork, false);
-        }
-
-        function confirmationDelete(model) {
-            var updateObj = new ArtWorkResource();
-            updateObj.$delete({ id: model.id }).then(
-                function (data, status) {
-                    refreshArtWorks();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        }
-        vm.ChangeStatus = function (model) {
-            var updateObj = new ArtWorkResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-            return;
-        }
-
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshArtWorks();
-        }
-
+      );
     }
+    function change(artWork, isDeleted) {
+      var updateObj = new ArtWorkResource();
+      updateObj.id = artWork.id;
+      if (!isDeleted) updateObj.status = artWork.status == true ? false : true;
+      updateObj.isDeleted = artWork.isDeleted;
 
+      updateObj.$update().then(
+        function(data, status) {
+          refreshArtWorks();
+
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("Editeduccessfully"), "success");
+          artWork.status = updateObj.status;
+        },
+        function(data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+        }
+      );
+    }
+    vm.UpdateArtWork = function(artWork) {
+      change(artWork, false);
+    };
+
+    function confirmationDelete(model) {
+      var updateObj = new ArtWorkResource();
+      updateObj.$delete({ id: model.id }).then(
+        function(data, status) {
+          refreshArtWorks();
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("DeletedSuccessfully"), "success");
+        },
+        function(data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+        }
+      );
+    }
+    vm.openDeleteDialog = function(model, name, id) {
+      var modalContent = $uibModal.open({
+        templateUrl: "./app/core/Delete/templates/ConfirmDeleteDialog.html",
+        controller: "confirmDeleteDialogController",
+        controllerAs: "deleteDlCtrl",
+        resolve: {
+          model: function() {
+            return model;
+          },
+          itemName: function() {
+            return name;
+          },
+          itemId: function() {
+            return id;
+          },
+          message: function() {
+            return null;
+          },
+          callBackFunction: function() {
+            return confirmationDelete;
+          }
+        }
+      });
+    };
+    vm.ChangeStatus = function(model) {
+      var updateObj = new ArtWorkResource();
+      updateObj.id = model.id;
+      updateObj.title = model.title;
+      updateObj.body = model.body;
+      updateObj.outdated = model.outdated == true ? false : true;
+      updateObj.$update().then(
+        function(data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("Editeduccessfully"), "success");
+          model.outdated = updateObj.outdated;
+        },
+        function(data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+        }
+      );
+      return;
+    };
+
+    vm.changePage = function(page) {
+      vm.currentPage = page;
+      refreshArtWorks();
+    };
+  }
 })();
-(function () {
-    angular
-        .module('home')
-        .factory('ArtWorkResource', ['$resource', 'appCONSTANTS', ArtWorkResource])
+(function() {
+  angular.module("home").factory("ArtWorkResource", ["$resource", "appCONSTANTS", ArtWorkResource]);
 
-    function ArtWorkResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'artWorks', {}, {
-            getAllArtWorks: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/search', useToken: true, params: { lang: '@lang' } },
-            getAllNominees: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/nominees', useToken: true, isArray: true, params: { lang: '@lang' } },
-            getAllAwards: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/search', useToken: true, params: { lang: '@lang' } },
-            getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/countries', useToken: true, isArray: true,  params: { lang: '@lang' } },
-            create: {
-                method: 'POST', useToken: true,
-                transformRequest: function (data) {
-                    if (data === undefined)
-                        return data;
+  function ArtWorkResource($resource, appCONSTANTS) {
+    return $resource(
+      appCONSTANTS.API_URL + "artWorks",
+      {},
+      {
+        getAllArtWorks: { method: "POST", url: appCONSTANTS.API_URL + "artWorks/search", useToken: true, params: { lang: "@lang" } },
+        getAllNominees: {
+          method: "GET",
+          url: appCONSTANTS.API_URL + "artWorks/nominees",
+          useToken: true,
+          isArray: true,
+          params: { lang: "@lang" }
+        },
+        getAllAwards: { method: "POST", url: appCONSTANTS.API_URL + "Awards/search", useToken: true, params: { lang: "@lang" } },
+        getAllCountries: {
+          method: "GET",
+          url: appCONSTANTS.API_URL + "artWorks/countries",
+          useToken: true,
+          isArray: true,
+          params: { lang: "@lang" }
+        },
+        create: {
+          method: "POST",
+          useToken: true,
+          transformRequest: function(data) {
+            if (data === undefined) return data;
+            var fd = new FormData();
+            angular.forEach(data, function(value, key) {
+              if (value instanceof FileList) {
+                if (value.length == 1) {
+                  fd.append(key, value[0]);
+                } else {
+                  angular.forEach(value, function(file, index) {
+                    fd.append(key + "_" + index, file);
+                  });
+                }
+              } else {
+                if (typeof value == "object" && typeof value.size == "number") {
+                  fd.append(key, value);
+                } else if (typeof value == "object") {
+                  Object.keys(value).forEach(v => {
+                    fd.append(key, value[v]);
+                  });
+                } else fd.append(key, value);
+              }
+            });
 
-                    var fd = new FormData();
-                    angular.forEach(data, function (value, key) {
-                        if (value instanceof FileList) {
-                            if (value.length == 1) {
-                                fd.append(key, value[0]);
-                            } else {
-                                angular.forEach(value, function (file, index) {
-                                    fd.append(key + '_' + index, file);
-                                });
-                            }
-                        } else {
-                            if (typeof value == "object" && typeof value.size == "number")
-                                fd.append(key, value);
-                            if (typeof value == "object") {
-                                Object.keys(value).forEach(v => {
-                                    fd.append(key, value[v]);
-                                });
-                            }
-                            else
-                                fd.append(key, value);
+            return fd;
+          },
+          headers: { "Content-Type": undefined }
+        },
+        update: {
+          method: "PUT",
+          useToken: true,
+          transformRequest: function(data) {
+            debugger;
+            if (data === undefined) return data;
 
-                        }
-                    });
-
-                    return fd;
-                },
-                headers: { 'Content-Type': undefined }
-            },
-            update: {
-                method: 'PUT', useToken: true,
-                transformRequest: function (data) {
-                    debugger;
-                    if (data === undefined)
-                        return data;
-
-                    var fd = new FormData();
-                    angular.forEach(data, function (value, key) {
-                        if (value instanceof FileList) {
-                            if (value.length == 1) {
-                                fd.append(key, value[0]);
-                            } else {
-                                angular.forEach(value, function (file, index) {
-                                    fd.append(key + '_' + index, file);
-                                });
-                            }
-                        } else {
-                            if (typeof value == "object" && typeof value.size == "number")
-                                fd.append(key, value);
-                            if (typeof value == "object") {
-                                Object.keys(value).forEach(v => {
-                                    fd.append(key, value[v]);
-                                });
-                            }
-                            else
-                                fd.append(key, value);
-
-                        }
-                    });
-                    return fd;
-                },
-                headers: { 'Content-Type': undefined }
-            },
-            getArtWork: { method: 'GET', useToken: true },
-            delete: { method: 'DELETE', useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/ChangeStatus/:id/:status', useToken: true }
-
-        })
-    }
-
-}());
+            var fd = new FormData();
+            angular.forEach(data, function(value, key) {
+              if (value instanceof FileList) {
+                if (value.length == 1) {
+                  fd.append(key, value[0]);
+                } else {
+                  angular.forEach(value, function(file, index) {
+                    fd.append(key + "_" + index, file);
+                  });
+                }
+              } else {
+                if (typeof value == "object" && typeof value.size == "number") fd.append(key, value);
+                if (typeof value == "object") {
+                  Object.keys(value).forEach(v => {
+                    fd.append(key, value[v]);
+                  });
+                } else fd.append(key, value);
+              }
+            });
+            return fd;
+          },
+          headers: { "Content-Type": undefined }
+        },
+        getArtWork: { method: "GET", useToken: true },
+        delete: { method: "DELETE", useToken: true },
+        changeStatus: { method: "POST", url: appCONSTANTS.API_URL + "artWorks/ChangeStatus/:id/:status", useToken: true }
+      }
+    );
+  }
+})();
 (function () {
     'use strict';
 
@@ -513,8 +529,8 @@
     function AllAwardPrepService(ArtWorkResource) {
         return ArtWorkResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
- 
-}());
+
+ }());
 (function () {
     'use strict';
 
@@ -931,8 +947,8 @@
     function AllAwardPrepService(ArtWorkMediaResource) {
         return ArtWorkMediaResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
- 
-}());
+
+ }());
 (function () {
     'use strict';
 

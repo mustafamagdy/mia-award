@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import { Trans } from "@lingui/macro";
-import { connect } from "react-redux";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
-import galleryActions from "store/gallery/actions";
+import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import galleryActions from "store/gallery/actions";
 import { useEffect } from "react";
 import ReactPlayer from "react-player";
 import Lightbox from "lightbox-react";
 import "lightbox-react/style.css"; // This only needs to be imported once in your app
 
 const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCount, ...props }) => {
-  const [slides, setSlides] = useState(featuredItems.slice(0, 9));
-  const [current, setCurrent] = useState(1);
-  const [currentSlide, setCurrentSlide] = useState(4);
+  const [slides, setSlides] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(-1);
   const [activeTab, setActiveTab] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [currentItem, setCurrentItem] = useState(undefined);
-  const [currentIndex, setCurrentIndex] = useState(4);
+  const [slideTranslate, setSlideTranslate] = useState(0);
 
   const tabs = ["All", "Latest", "Photos", "Videos"];
 
@@ -26,12 +25,20 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   }, []);
 
   useEffect(() => {
-    setSlides(featuredItems.slice(0, 9));
+    const _slides = featuredItems;
+    if (_slides.length % 2 === 0) _slides.pop();
+
+    setSlides(_slides);
   }, [featuredItems]);
 
   useEffect(() => {
     fetchItems({ pageNumber, pageSize: 10, type: tabs[activeTab] });
   }, [pageNumber, activeTab]);
+
+  useEffect(() => {
+    setSlideTranslate(Math.floor(slides.length / 2));
+    setCurrentSlide(Math.floor(slides.length / 2) * -1);
+  }, [slides]);
 
   const handleActiveTab = tab => {
     setActiveTab(tab);
@@ -39,9 +46,8 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   };
 
   const nextSlide = () => {
-    setCurrentIndex(currentIndex - 1);
-    setCurrentSlide(currentSlide - 1);
-    console.log("next", currentIndex);
+    setCurrentSlide(currentSlide + 1);
+    console.log("next", currentSlide);
     // let _current = current + 1;
     // if (_current == featuredItems.length) {
     //   _current = 0;
@@ -64,9 +70,8 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   };
 
   const prevSlide = () => {
-    setCurrentIndex(currentIndex + 1);
-    setCurrentSlide(currentSlide + 1);
-    console.log("prev", currentIndex);
+    setCurrentSlide(currentSlide - 1);
+    console.log("prev", currentSlide);
 
     // console.log("prev", currentIndex);
     // let _current = current - 1;
@@ -91,8 +96,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   };
 
   const onSlideSleected = slideIndex => {
-    setCurrent(slideIndex);
-    setCurrentIndex(slideIndex);
+    setCurrentSlide(slideIndex * -1);
 
     // if (slideIndex == featuredItems.length - 1) {
     // } else {
@@ -111,7 +115,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
     }
   };
 
-  console.log("render->current index", currentIndex);
+  console.log("render->current index", currentSlide, slideTranslate + currentSlide);
   return (
     <React.Fragment>
       <RenderLightBox currentItem={currentItem} setCurrentitem={setCurrentItem} />
@@ -130,14 +134,14 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
               <div
                 className="slider_items"
                 style={{
-                  transform: `translate3d(${currentIndex == 0 ? 0 : currentIndex * 1120}px, 0px, 0px)`
+                  transform: `translate3d(${(slideTranslate + currentSlide) * 800}px, 0px, 0px)`
                 }}
               >
                 {slides.map((s, i) => {
-                  const isCurr = i == currentSlide;
-                  const isPrev = i == currentSlide - 1;
-                  const isNext = i == currentSlide + 1;
-
+                  const a = Math.abs(currentSlide);
+                  const isCurr = i == a;
+                  const isPrev = i == a - 1;
+                  const isNext = i == a + 1;
                   return (
                     <div key={s.id} className={classNames("item", { prev_item: isPrev }, { current_item: isCurr }, { next_item: isNext })}>
                       {s.mediaType == "image" ? (
@@ -170,7 +174,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                   );
                 })}
               </div>
-              <SliderDots onSlideSleected={onSlideSleected} slides={featuredItems} currentSlide={current} />
+              <SliderDots onSlideSleected={onSlideSleected} slides={featuredItems} currentSlide={currentSlide} />
             </div>
           </div>
         </div>
@@ -228,7 +232,7 @@ const SliderDots = ({ slides, onSlideSleected, currentSlide, ...props }) => {
   return (
     <div className="slider_dots">
       {slides.map((s, i) => (
-        <span key={s.id} className={classNames({ current: currentSlide == i })} onClick={() => onSlideSleected(i)}></span>
+        <span key={s.id} className={classNames({ current: Math.abs(currentSlide) == i })} onClick={() => onSlideSleected(i)}></span>
       ))}
     </div>
   );

@@ -4,34 +4,7 @@
     "origin": [
       [
         "src/containers/Home/RecentShows.js",
-        28
-      ]
-    ]
-  },
-  "award_category": {
-    "defaults": "award category",
-    "origin": [
-      [
-        "src/containers/Home/RecentShows.js",
-        46
-      ]
-    ]
-  },
-  "genre": {
-    "defaults": "Genre",
-    "origin": [
-      [
-        "src/containers/Home/RecentShows.js",
-        59
-      ]
-    ]
-  },
-  "country": {
-    "defaults": "Country",
-    "origin": [
-      [
-        "src/containers/Home/RecentShows.js",
-        72
+        32
       ]
     ]
   }

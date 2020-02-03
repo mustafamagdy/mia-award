@@ -31,124 +31,141 @@
       overflow: hidden;
       margin: 0 -15px;
       padding: 40px 0;
-      .feature_item {
+      .feature_item_page {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        overflow: hidden;
         flex-grow: 0;
         flex-shrink: 0;
-        flex-basis: 25%;
-        padding: 0 15px;
-        .feature_block {
-          time {
-            display: block;
-            font-size: 18px;
-            font-family: Montserrat_Bold;
-            position: relative;
-            color: #484848;
-            margin: 0 auto 40px;
-            padding: 0 0 0 33px;
-            &::before {
-              position: absolute;
-              height: 9px;
-              width: 9px;
-              background: #ccbc93;
-              content: "";
-              border-radius: 100%;
-              top: 7px;
-              left: 10px;
-            }
-          }
-          .item {
-            position: relative;
-            padding: 0 0 0 33px;
-            .category {
-              position: absolute;
-              left: 0;
-              top: 0;
-              margin: 0;
+        flex-basis: 100%;
+        opacity: 0;
+
+        &.active {
+          opacity: 1;
+        }
+
+        .feature_item {
+          flex-grow: 0;
+          flex-shrink: 0;
+          flex-basis: 25%;
+          padding: 0 15px;
+          .feature_block {
+            time {
               display: block;
-              line-height: 23px;
-              color: #fff;
-              text-transform: uppercase;
+              font-size: 18px;
               font-family: Montserrat_Bold;
-              font-size: 25px;
-              letter-spacing: 3px;
-              writing-mode: tb-rl;
-            } /* category */
-            .imgthumb {
               position: relative;
-              border-radius: 4px;
-              overflow: hidden;
-              height: 550px;
-                -webkit-transition: all 0.4s ease-in-out;
-                -moz-transition: all 0.4s ease-in-out;
-                -o-transition: all 0.4s ease-in-out;
-                transition: all 0.4s ease-in-out;
-              img {
-                width: 100%;
-                height: 100%;
-                -webkit-transition: all 0.4s ease-in-out;
-                -moz-transition: all 0.4s ease-in-out;
-                -o-transition: all 0.4s ease-in-out;
-                transition: all 0.4s ease-in-out;
-                -webkit-filter: grayscale(100%);
-                -moz-filter: grayscale(100%);
-                -o-filter: grayscale(100%);
-                filter: grayscale(100%);
-              } /* img */
-              .mask {
-                background: transparent url("/assets/images/mask_bg.png") scroll no-repeat center top;
+              color: #484848;
+              margin: 0 auto 40px;
+              padding: 0 0 0 33px;
+              &::before {
                 position: absolute;
-                bottom: -100%;
-                padding: 10px;
+                height: 9px;
+                width: 9px;
+                background: #ccbc93;
+                content: "";
+                border-radius: 100%;
+                top: 7px;
+                left: 10px;
+              }
+            }
+            .item {
+              position: relative;
+              padding: 0 0 0 33px;
+              .category {
+                position: absolute;
                 left: 0;
-                width: 100%;
-                display: flex;
-                min-height: 80%;
-                align-items: flex-end;
-                opacity: 0;
+                top: 0;
+                margin: 0;
+                display: block;
+                line-height: 23px;
+                color: #fff;
+                text-transform: uppercase;
+                font-family: Montserrat_Bold;
+                font-size: 25px;
+                letter-spacing: 3px;
+                writing-mode: tb-rl;
+              } /* category */
+              .imgthumb {
+                position: relative;
+                border-radius: 4px;
+                overflow: hidden;
+                height: 550px;
                 -webkit-transition: all 0.4s ease-in-out;
                 -moz-transition: all 0.4s ease-in-out;
                 -o-transition: all 0.4s ease-in-out;
                 transition: all 0.4s ease-in-out;
-                p {
-                  color: #fff;
-                  font-size: 13px;
-                  margin: 0 auto 10px;
-                  text-transform: capitalize;
-                  line-height: 21px;
-                } /* p */
-                .more {
-                  display: flex;
-                  justify-content: flex-end;
-                  a {
-                    text-transform: uppercase;
-                    font-size: 12px;
-                    color: #baac87;
-                    font-family: Montserrat_Bold;
-                    &:hover {color: #cec09b;}
-                  }
-                } /* more */
-              }
-              &:hover {
-                -webkit-transform: scale(1.04);
-                -moz-transform: scale(1.04);
-                -o-transform: scale(1.04);
-                transform: scale(1.04);
-                box-shadow: 0 0 0 1px #ccbc93;
                 img {
-                  -webkit-filter: grayscale(0%);
-                  -moz-filter: grayscale(0%);
-                  -o-filter: grayscale(0%);
-                  filter: grayscale(0%);
+                  width: 100%;
+                  height: 100%;
+                  -webkit-transition: all 0.4s ease-in-out;
+                  -moz-transition: all 0.4s ease-in-out;
+                  -o-transition: all 0.4s ease-in-out;
+                  transition: all 0.4s ease-in-out;
+                  -webkit-filter: grayscale(100%);
+                  -moz-filter: grayscale(100%);
+                  -o-filter: grayscale(100%);
+                  filter: grayscale(100%);
                 } /* img */
                 .mask {
-                  bottom: 0;
-                  opacity: 1;
+                  background: transparent url("/assets/images/mask_bg.png") scroll no-repeat center top;
+                  position: absolute;
+                  bottom: -100%;
+                  padding: 10px;
+                  left: 0;
+                  width: 100%;
+                  display: flex;
+                  min-height: 80%;
+                  align-items: flex-end;
+                  opacity: 0;
+                  -webkit-transition: all 0.4s ease-in-out;
+                  -moz-transition: all 0.4s ease-in-out;
+                  -o-transition: all 0.4s ease-in-out;
+                  transition: all 0.4s ease-in-out;
+                  p {
+                    color: #fff;
+                    font-size: 13px;
+                    margin: 0 auto 10px;
+                    text-transform: capitalize;
+                    line-height: 21px;
+                  } /* p */
+                  .more {
+                    display: flex;
+                    justify-content: flex-end;
+                    a {
+                      text-transform: uppercase;
+                      font-size: 12px;
+                      color: #baac87;
+                      font-family: Montserrat_Bold;
+                      &:hover {
+                        color: #cec09b;
+                      }
+                    }
+                  } /* more */
                 }
-              } /* hover */
-            } /* imgthumb */
-          } /* item */
-        } /* feature_block */
-      } /* slide_item */
+                &:hover {
+                  -webkit-transform: scale(1.04);
+                  -moz-transform: scale(1.04);
+                  -o-transform: scale(1.04);
+                  transform: scale(1.04);
+                  box-shadow: 0 0 0 1px #ccbc93;
+                  img {
+                    -webkit-filter: grayscale(0%);
+                    -moz-filter: grayscale(0%);
+                    -o-filter: grayscale(0%);
+                    filter: grayscale(0%);
+                  } /* img */
+                  .mask {
+                    bottom: 0;
+                    opacity: 1;
+                  }
+                } /* hover */
+              } /* imgthumb */
+            } /* item */
+          } /* feature_block */
+        } /* slide_item */
+      }
     } /* features_sliders */
     .features_nav {
       margin: 30px auto;
@@ -194,8 +211,12 @@
         } /* before */
         &:hover {
           color: #eadab1;
-          &::after {background: #eadab1;}
-          &::before {background: #eadab1;}
+          &::after {
+            background: #eadab1;
+          }
+          &::before {
+            background: #eadab1;
+          }
         } /* hover */
       } /* a */
       button.arrow_next {
@@ -208,7 +229,7 @@
         text-transform: uppercase;
         padding: 0;
         position: relative;
-        color: #5C5C5C;
+        color: #5c5c5c;
         cursor: pointer;
         &::after {
           height: 2px;
@@ -226,7 +247,9 @@
         }
         &:hover {
           color: #ccbc93;
-          &::after {width: 50px;}
+          &::after {
+            width: 50px;
+          }
         } /* hover */
       } /* button */
       button.arrow_prev {
@@ -239,7 +262,7 @@
         text-transform: uppercase;
         padding: 0;
         position: relative;
-        color: #5C5C5C;
+        color: #5c5c5c;
         cursor: pointer;
         &::after {
           height: 2px;
@@ -257,13 +280,14 @@
         }
         &:hover {
           color: #ccbc93;
-          &::after {width: 50px;}
+          &::after {
+            width: 50px;
+          }
         } /* hover */
       } /* button */
     } /* features_nav */
   } /* container */
 } /* news_features */
-
 
 //**** RTL Style ****//
 body[dir="rtl"] {
@@ -274,7 +298,7 @@ body[dir="rtl"] {
         font-size: 25px;
         padding: 0 33px 0 0;
         &::before {
-          right:  0;
+          right: 0;
           left: auto;
           top: 17px;
         }
@@ -301,7 +325,9 @@ body[dir="rtl"] {
               } /* category */
               .imgthumb {
                 .mask {
-                  p {font-size: 15px;}
+                  p {
+                    font-size: 15px;
+                  }
                   .more {
                     a {
                       font-size: 14px;

@@ -56,7 +56,7 @@ namespace MIA.Administration.Api {
           }
           if (dto.Payment.Receipt != null && dto.Payment.Receipt.Length > 0) {
 
-            string fileReceiptKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.Payment.Receipt.FileName);
+            string fileReceiptKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, ArtWorksItem.Id, dto.Payment.Receipt.FileName);
             var ReceiptUrl = await fileManager.UploadFileAsync(dto.Poster.OpenReadStream(), fileReceiptKey);
 
             ArtWorksItem.Payment.ReceiptUrl = ReceiptUrl;
@@ -64,13 +64,13 @@ namespace MIA.Administration.Api {
 
           }
 
-          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.Poster.FileName);
+          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, ArtWorksItem.Id, dto.Poster.FileName);
           var posterUrl = await fileManager.UploadFileAsync(dto.Poster.OpenReadStream(), fileKey);
 
           ArtWorksItem.PosterUrl = posterUrl;
           ArtWorksItem.PosterId = fileKey;
 
-          string fileVideoKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.Video.FileName);
+          string fileVideoKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, ArtWorksItem.Id, dto.Video.FileName);
           var videoUrl = await fileManager.UploadFileAsync(dto.Video.OpenReadStream(), fileVideoKey);
 
           ArtWorksItem.TrailerUrl = videoUrl;

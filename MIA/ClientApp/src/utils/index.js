@@ -22,3 +22,11 @@ export const distinctByProps = (array, props) => {
   }
   return result;
 };
+
+Object.defineProperty(Array.prototype, "chunk", {
+  value: function(chunkSize) {
+    const result = [];
+    for (let i = 0; i < this.length; i += chunkSize) result.push(this.slice(i, i + chunkSize));
+    return result;
+  }
+});

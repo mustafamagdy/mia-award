@@ -13,391 +13,443 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+
+msgid "msgid"
+msgstr "msgstr_en"
+
 #: src/components/Layout/Footer.js:45
 #: src/components/Layout/Header.js:53
 #: src/components/Layout/index.js:51
 msgid "about_us"
-msgstr ""
+msgstr "About Us"
 
 #: src/containers/MyProfile/ChangePassword.js:101
 msgid "accept_changes"
-msgstr ""
+msgstr "Accept changes"
 
-#: src/containers/Pages/ContactUs/index.js:32
+#: src/containers/Pages/ContactUs/index.js:45
 msgid "address"
-msgstr ""
+msgstr "Address"
 
 #: src/components/Layout/LanguageSelect.js:65
-#~ msgid "all_languages"
-#~ msgstr ""
+msgid "all_languages"
+msgstr "All Languages"
 
-#: src/containers/Home/Awards.js:77
+#: src/containers/Home/Awards.js:88
 msgid "apply_for_your_award"
-msgstr ""
+msgstr "Apply For Your Award"
 
-#: src/containers/Home/Awards.js:127
+#: src/containers/Home/Awards.js:145
 msgid "apply_now"
-msgstr ""
+msgstr "Apply Now"
 
 #: src/containers/Home/RecentShows.js:46
 msgid "award_category"
-msgstr ""
+msgstr "Awards Category"
 
 #: src/components/Layout/Header.js:48
 #: src/components/Layout/index.js:46
 msgid "awards"
-msgstr ""
+msgstr "Awards"
 
 #: src/containers/Home/Tickets.js:37
 msgid "buy_your_ticket"
-msgstr ""
+msgstr "Buy Your Ticket"
 
 #: src/containers/Pages/News/view.js:153
 msgid "by"
-msgstr ""
+msgstr "By"
 
 #: src/containers/App/CookieGDPR.js:117
 msgid "by_clicking_you_accept"
-msgstr ""
+msgstr "By clicking «I Accept» or «X» on this banner, or using our site, you consent to the use of cookies unless you have disabled them."
 
 #: src/containers/MyProfile/index.js:259
 msgid "cancel"
-msgstr ""
+msgstr "Cancel"
 
 #: src/containers/MyProfile/ChangePassword.js:17
 #: src/containers/MyProfile/index.js:222
 #: src/containers/MyProfile/index.js:230
 msgid "change_password"
-msgstr ""
+msgstr "Change Password"
 
 #: src/containers/MyProfile/index.js:110
 #: src/containers/MyProfile/index.js:114
 msgid "change_photo"
-msgstr ""
+msgstr "Change Photo"
 
 #: src/containers/Pages/News/view.js:135
 msgid "comment_failed"
-msgstr ""
+msgstr "There was an error, the message could not be sent."
 
 #: src/containers/Pages/News/view.js:131
 msgid "comment_submitted"
-msgstr ""
+msgstr "Your comment has been submitted successfully for review."
 
 #: src/containers/MyProfile/ChangePassword.js:83
 msgid "confirm_password"
-msgstr ""
+msgstr "Confirm Password"
 
 #: src/containers/User/CheckYourEmail.js:6
 msgid "confirm_your_email_first"
-msgstr ""
+msgstr "Confirm Your Email First"
 
 #: src/components/Layout/Header.js:73
 #: src/components/Layout/index.js:71
-#: src/containers/Pages/ContactUs/index.js:25
+#: src/containers/Pages/ContactUs/index.js:38
 msgid "contact_us"
-msgstr ""
+msgstr "Contact Us"
 
-#: src/containers/Pages/ContactUs/index.js:131
+#: src/containers/Pages/ContactUs/index.js:147
 msgid "contact_us_message_sent_fail"
-msgstr ""
+msgstr "There was an error, the message could not be sent."
 
-#: src/containers/Pages/ContactUs/index.js:128
+#: src/containers/Pages/ContactUs/index.js:142
 msgid "contact_us_message_sent_success"
-msgstr ""
+msgstr "The message was sent successfully."
 
 #: src/containers/App/CookieGDPR.js:115
 msgid "cookie_policy"
-msgstr ""
+msgstr "Cookies Policy"
 
 #: src/components/Layout/Footer.js:83
 msgid "copyright_media_industry"
-msgstr ""
+msgstr "Copyright© 2020 Media Industry Awards. All rights reserved."
 
 #: src/containers/Home/RecentShows.js:72
 msgid "country"
-msgstr ""
+msgstr "Country"
 
 #: src/components/Layout/LoginStatus.js:34
 msgid "create_account"
-msgstr ""
+msgstr "Create Account"
 
-#: src/containers/Pages/ContactUs/index.js:35
+#: src/containers/Pages/ContactUs/index.js:48
 msgid "dubai_address"
-msgstr ""
+msgstr "Dubai, Dubai Media City, Building No. 1, Second Floor - Office No. 214"
 
 #: src/containers/MyProfile/index.js:155
-#: src/containers/Pages/ContactUs/index.js:62
+#: src/containers/Pages/ContactUs/index.js:75
 msgid "email"
-msgstr ""
+msgstr "E-Mail"
 
 #: src/containers/MyProfile/index.js:248
 msgid "enable_edit"
-msgstr ""
+msgstr "Enable Edit"
 
 #: src/containers/User/ConfirmEmail.js:18
 msgid "failed"
-msgstr ""
+msgstr "Failed"
 
-#: src/containers/Pages/ContactUs/index.js:53
+#: src/containers/Pages/ContactUs/index.js:66
 msgid "fax"
-msgstr ""
+msgstr "Fax"
 
-#: src/containers/Pages/ContactUs/index.js:56
+#: src/containers/Pages/ContactUs/index.js:69
 msgid "fax_1"
-msgstr ""
+msgstr "+971 4 57 2636 6"
 
 #: src/components/Layout/Footer.js:25
 msgid "footer_text"
-msgstr ""
+msgstr "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
 
 #: src/components/Layout/Header.js:68
 #: src/components/Layout/index.js:66
-#: src/containers/Pages/Gallery/index.js:181
+#: src/containers/Pages/Gallery/index.js:185
 msgid "gallery"
-msgstr ""
+msgstr "Gallery"
 
 #: src/containers/Home/RecentShows.js:59
 msgid "genre"
-msgstr ""
+msgstr "Genre"
 
-#: src/containers/Pages/ContactUs/index.js:81
+#: src/containers/Pages/ContactUs/index.js:94
 msgid "get_in_touch"
-msgstr ""
+msgstr "Get In Touch"
 
 #: src/components/Forms/Date/DualCalendar.js:49
 #: src/components/Forms/Date/MonoCalendar.js:39
 msgid "hijri"
-msgstr ""
+msgstr "Hijri"
 
 #: src/containers/App/CookieGDPR.js:126
 msgid "i_accept"
-msgstr ""
+msgstr "I Accept"
 
 #: src/components/Layout/Footer.js:70
 msgid "if_you_want_to_keep_updated"
-msgstr ""
+msgstr "If you want to stay updated about all new properties, enter your email and we will send you the latest updates."
 
 #: src/components/Layout/LanguageSelect.js:44
-#~ msgid "language"
-#~ msgstr ""
+msgid "language"
+msgstr "Language"
 
 #: src/containers/Home/PhotoAlbum.js:21
 msgid "latest_video"
-msgstr ""
+msgstr "Latest Videos & Photos"
 
 #: src/containers/MyProfile/ChangePassword.js:116
 #: src/containers/MyProfile/ImageUpload.js:78
 #: src/containers/User/ConfirmEmail.js:18
 msgid "loading"
-msgstr ""
+msgstr "Loading...."
 
 #: src/components/Layout/LoginStatus.js:14
 msgid "logout"
-msgstr ""
+msgstr "Logout"
 
 #: src/components/Layout/Footer.js:50
 msgid "members"
-msgstr ""
+msgstr "Members"
 
 #: src/containers/MyProfile/ChangePassword.js:15
 #: src/containers/MyProfile/ImageUpload.js:54
 msgid "mia"
-msgstr ""
+msgstr "MIA"
 
 #: src/components/Layout/Footer.js:40
 msgid "mia_awards"
-msgstr ""
+msgstr "MIA Awards"
 
-#: src/containers/Home/Awards.js:131
+#: src/containers/Home/Awards.js:149
 msgid "movies"
-msgstr ""
+msgstr "{0}"
 
 #: src/containers/MyProfile/index.js:123
 msgid "name"
-msgstr ""
+msgstr "Name"
 
 #: src/containers/MyProfile/ChangePassword.js:65
 msgid "new_password"
-msgstr ""
+msgstr "New password"
 
 #: src/components/Layout/Header.js:58
 #: src/components/Layout/index.js:56
 #: src/containers/Pages/News/index.js:139
 msgid "news"
-msgstr ""
+msgstr "News"
 
-#: src/containers/Home/News.js:22
+#: src/containers/Home/News.js:21
 msgid "news_features"
-msgstr ""
+msgstr "News Features"
 
 #: src/components/Layout/Footer.js:67
 msgid "newsletter"
-msgstr ""
+msgstr "NEWSLETTER"
 
-#: src/containers/Home/News.js:76
+#: src/containers/Home/News.js:86
 msgid "next"
-msgstr ""
+msgstr "Next"
 
 #: src/containers/MyProfile/ChangePassword.js:47
 msgid "old_password"
-msgstr ""
+msgstr "Old Password"
+
+#: src/containers/Pages/AboutUs/index.js:274
+msgid "our_awards"
+msgstr "Our Awards"
+
+#: src/containers/Pages/AboutUs/index.js:277
+msgid "our_awards_text"
+msgstr "The Arab Media Industry Award (MIA 2020) aims to measure the quality and depth of TV content impact on lifestyle and public thinking. This will be achieved by sorting the participating works in accordance with the terms and criteria set by the jury. The competitors will be judged electronically. We have allocated three awards; gold, silver and bronze, to each category of the competition to be granted to the winners with certificates of merit."
+
+#: src/containers/Pages/AboutUs/index.js:239
+msgid "our_events"
+msgstr "Our Events"
+
+#: src/containers/Pages/AboutUs/index.js:241
+msgid "our_events_text"
+msgstr "<0><1>• Workshops to develop professional and technical capacities.</1><2>• Specialized seminars delivered by media industry experts and professionals and Arab media stars</2><3>• The presentation of distinctive success stories.</3><4>• A market for the latest engineering and technical systems in the media and TV production industry.</4><5>•TV interviews to discuss important issues (live broadcasts).<5></0>"
+
+#: src/containers/Pages/AboutUs/index.js:164
+msgid "our_goal"
+msgstr "Our Goals"
+
+#: src/containers/Pages/AboutUs/index.js:167
+msgid "our_goal_text"
+msgstr "<0><1>• Developing the tastes & preferences of all segments of Arab citizens, and providing new insights to support the future of Arabic TV production.</1><2>• Promoting TV content industry, and elevating Arabic Production to world class levels.</2><3>•Creating an opportunity for integration, interaction and cross-cultural affinity in order to reunite the Arab identity to create together a golden future, "with one power and promising generations."</3><4>•Increasing communication between young talents in the Arab world and the elite of producers and technicians working in the field, in addition to providing maximum integration between production sectors as well as media organizations and TV channels.</4><5>•Discovering new talents and turn the spotlight on the unique ones.</5><6>• Recognizing and honouring the innovators and achievers throughout the Arab world by evaluating their work, seeking specialists reviews about it and celebrating the best.</6></0>"
+
+#: src/containers/Pages/AboutUs/index.js:149
+msgid "our_message"
+msgstr "Our Message"
+
+#: src/containers/Pages/AboutUs/index.js:152
+msgid "our_message_text"
+msgstr "Recent studies have demonstrated the importance of TV content in our daily lives and its influence on changing cultural values and awareness in any society. Our message, inspired by our slogan (Arab Media Is A New Reality), was therefore originated to improve the quality of Arab TV production content. Moreover we aim to make this award an Arab platform in which all the distinguished and creative people in this field are honoured, while meeting to discuss new ideas. This will result in cognitive and technical products that would benefit the Arab societies to face their different future challenges."
+
+#: src/containers/Pages/AboutUs/index.js:201
+msgid "our_value"
+msgstr "our Values"
+
+#: src/containers/Pages/AboutUs/index.js:205
+msgid "our_value_text"
+msgstr "<0><1><2>• Impartiality: :</2><3>We stand without bias and at the same distance from all the people of the Arab world</3></1><4><5>• Objectivity:</5><6>Away from whims, we have a single mechanism for judging all performances. Your creativity is the one factor that determines your status.</6></4><8><9>Credibility:</9><10>The basic essence of our work is that the method of assessment is based on our integrity.</10></8><11><12>• Promotion:</12><13>We provide multiple quality awards and certificates of merit according to performance standards.</13></11></0>"
 
 #: src/containers/MyProfile/index.js:187
-#: src/containers/Pages/ContactUs/index.js:41
+#: src/containers/Pages/ContactUs/index.js:54
 msgid "phone"
-msgstr ""
+msgstr "Phone"
 
-#: src/containers/Pages/ContactUs/index.js:44
+#: src/containers/Pages/ContactUs/index.js:57
 msgid "phone_1"
-msgstr ""
+msgstr "+971 4 57 2636 7"
 
-#: src/containers/Pages/ContactUs/index.js:47
+#: src/containers/Pages/ContactUs/index.js:60
 msgid "phone_2"
-msgstr ""
+msgstr "+971 4 57 2636 8"
 
 #: src/components/Forms/Date/DualCalendar.js:22
 msgid "please_select_checkin_date"
-msgstr ""
+msgstr "Please select check-in day."
 
 #: src/components/Forms/Date/DualCalendar.js:23
 msgid "please_select_checkout_date"
-msgstr ""
+msgstr "Please select check-out day."
 
 #: src/containers/Pages/News/view.js:126
 msgid "post_comment"
-msgstr ""
+msgstr "Post A Comment"
 
 #: src/containers/Pages/News/index.js:116
 #: src/containers/Pages/News/index.js:227
 #: src/containers/Pages/News/view.js:45
 msgid "posted"
-msgstr ""
+msgstr "Posted"
 
-#: src/containers/Home/News.js:60
+#: src/containers/Home/News.js:74
 msgid "prev"
-msgstr ""
+msgstr "Prev"
 
 #: src/components/Layout/Footer.js:60
 msgid "privacy_policy"
-msgstr ""
+msgstr "Privacy Policy"
 
 #: src/components/Layout/index.js:61
 msgid "program"
-msgstr ""
+msgstr "Program"
 
 #: src/components/Layout/Header.js:63
 msgid "programs"
-msgstr ""
+msgstr "Programs"
 
 #: src/components/Layout/Footer.js:35
 msgid "quick_links"
-msgstr ""
+msgstr "QUICK LINKS"
 
-#: src/containers/Home/News.js:40
+#: src/containers/Home/News.js:50
 #: src/containers/Pages/News/index.js:122
 msgid "read_more"
-msgstr ""
+msgstr "Read More"
 
 #: src/containers/Pages/News/index.js:197
 #: src/containers/Pages/News/index.js:233
 msgid "read_more_elapsed"
-msgstr ""
+msgstr "Read More.."
 
-#: src/containers/Home/RecentShows.js:28
+#: src/containers/Home/RecentShows.js:32
 msgid "recent_shows"
-msgstr ""
+msgstr "Recent Shows"
 
 #: src/containers/Pages/News/view.js:179
 msgid "related_news"
-msgstr ""
+msgstr "Related News"
 
 #: src/containers/App/CookieGDPR.js:100
 msgid "review_our_cookie_policy"
-msgstr ""
+msgstr "Review Our Cookie Policy"
 
 #: src/containers/MyProfile/ImageUpload.js:63
 msgid "select_your_image"
-msgstr ""
+msgstr "Select Your Image"
 
-#: src/containers/Pages/ContactUs/index.js:125
+#: src/containers/Pages/ContactUs/index.js:138
 msgid "send_message"
-msgstr ""
+msgstr "Send Message"
 
 #: src/containers/Pages/News/view.js:29
 msgid "share"
-msgstr ""
+msgstr "Share"
 
-#: src/containers/Home/News.js:66
+#: src/containers/Home/News.js:77
 msgid "show_all"
-msgstr ""
+msgstr "Show All"
 
 #: src/components/Layout/LoginStatus.js:31
 msgid "sign_in"
-msgstr ""
+msgstr "Sign In"
 
 #: src/containers/Home/Awards.js:62
 #: src/containers/Home/Awards.js:93
 #: src/containers/Home/Awards.js:129
-#~ msgid "sports"
-#~ msgstr ""
+msgid "sports"
+msgstr "Sports"
 
-#: src/containers/Home/Awards.js:87
+#: src/containers/Home/Awards.js:98
 msgid "start_from"
-msgstr ""
+msgstr "Starts From"
+
+#: src/containers/Pages/AboutUs/index.js:134
+msgid "story"
+msgstr "Story"
+
+#: src/containers/Pages/AboutUs/index.js:137
+msgid "story_text"
+msgstr "The Arab media has been facing many challenges over the past decades, and has been lacking the proper Arab reality representation. Despite the great investment in the field of media, it lacks  concerted efforts between investors and production companies. In this respect, the Media Industry Company decided to create a TV award in an attempt to elevate the level of competition, develop the art industry content, and produce Arabic artwork. It also aims to be the link between the investor and the producer to put the Arab TV reality on the right track by creating such TV award. We also believe that the competition will lead to produce rich and unique content, which will be reflected on the audience in the Arab world."
 
 #: src/containers/PreloaderPage/LoaderTestSample.js:38
 msgid "submit"
-msgstr ""
+msgstr "Submit"
 
 #: src/components/Layout/LanguageSelect.js:50
-#~ msgid "suggested_languages"
-#~ msgstr ""
+msgid "suggested_languages"
+msgstr "Suggested Languages"
 
 #: src/components/Layout/Footer.js:55
 msgid "terms_conditions"
-msgstr ""
+msgstr "Terms & Conditions"
 
 #: src/containers/Home/Tickets.js:15
 msgid "ticket_desc"
-msgstr ""
+msgstr "brief about the DRAMA award and how to apply for it text Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of"
 
-#: src/containers/Home/Awards.js:89
+#: src/containers/Home/Awards.js:100
 msgid "to"
-msgstr ""
+msgstr "To"
 
 #: src/components/Forms/Date/DualCalendar.js:35
 #: src/components/Forms/Date/MonoCalendar.js:25
 msgid "today"
-msgstr ""
+msgstr "Today"
 
 #: src/containers/MyProfile/index.js:264
 msgid "update"
-msgstr ""
+msgstr "Update"
 
 #: src/containers/MyProfile/ImageUpload.js:56
 msgid "upload_avatar"
-msgstr ""
+msgstr "Upload Avatar"
 
 #: src/containers/MyProfile/ImageUpload.js:66
 msgid "upload_image"
-msgstr ""
+msgstr "Upload Image"
 
 #: src/containers/Home/PhotoAlbum.js:24
 msgid "videos_desc"
-msgstr ""
+msgstr "brief about the DRAMA award and how to apply for it text Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
 
-#: src/containers/Home/Awards.js:95
+#: src/containers/Home/Awards.js:106
 msgid "view_all"
-msgstr ""
+msgstr "View All"
 
 #: src/containers/Home/IntroSlider.js:76
 msgid "view_awards"
-msgstr ""
+msgstr "View Awards"
 
 #: src/containers/App/CookieGDPR.js:110
 msgid "we_use_cookies_and_similar_technology"
-msgstr ""
+msgstr "We use cookies and similar technologies to recognize your repeated visits and preferences; to measure the affectiveness of publicity campaigns and to analyze traffic. To learn more about cookies, including how to disable them, view our"
 
 #: src/containers/App/CookieGDPR.js:106
 msgid "what_do_we_use_cookies_for"
-msgstr ""
+msgstr "What do we use cookies for?"
