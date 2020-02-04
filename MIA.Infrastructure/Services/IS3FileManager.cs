@@ -5,7 +5,8 @@ namespace MIA.Infrastructure {
   public enum ResourceType {
     News,
     Album,
-    ArtWork
+    ArtWork,
+    ArtWrokPayment
   }
 
   public interface IS3FileManager {

@@ -7,6 +7,7 @@ using MIA.ORMContext.Uow;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -45,7 +46,12 @@ namespace MIA.Administration.Api {
       var BoothsItem = await db.Booths.FindAsync(resultDto.Id);
       return IfFound(_mapper.Map<BoothsDto>(BoothsItem));
     }
-
+    public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
+      var result = await base.GetAsync(id, db);
+      var resultDto = ((BoothsDto)(result as OkObjectResult)?.Value);
+      var boothItem = await db.Booths.FirstOrDefaultAsync(a => a.Id == resultDto.Id);
+      return IfFound(_mapper.Map<BoothsDto>(boothItem));
+    }
   }
 
 }

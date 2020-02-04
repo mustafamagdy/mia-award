@@ -3,11 +3,11 @@
 
     angular
         .module('home')
-        .controller('ArtWorkController', ['appCONSTANTS', '$scope', '$translate', 'ArtWorkResource', 'blockUI', '$uibModal',
-            'ToastService', ArtWorkController]);
+        .controller('ArtWorkMediaController', ['appCONSTANTS', '$scope', '$translate', 'ArtWorkResource', 'blockUI', '$uibModal',
+            'ToastService', ArtWorkMediaController]);
 
 
-    function ArtWorkController(appCONSTANTS, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
+    function ArtWorkMediaController(appCONSTANTS, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         var vm = this;

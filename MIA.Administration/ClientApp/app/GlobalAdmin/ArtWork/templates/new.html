@@ -163,12 +163,26 @@
 
                     <div class="form-group col-lg-4">
                         <span style="color:red">*</span>
-                        <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
-                            Cover</label>
-                        <input id="image" class="hidden" type="file" img-upload ng-model="imageName" name="imageName">
+                        <!-- <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
+                            Cover</label> -->
+                        <!-- <input id="image" class="hidden" type="file"
+                            onchange="angular.element(this).scope().uploadPosterFile  (this)" ng-model="imageName"
+                            name="imageName">
                         <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
                         <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                            {{'RecommendedProductImage' | translate}}</span> 
+                            {{'RecommendedProductImage' | translate}}</span> -->
+
+                        <input id="posterImage" name="posterImage" style="display: none;"
+                            onchange="angular.element(this).scope().AddposterImage(this.files)" type="file" required>
+                        <button class="btn btn-success btn-xs pull-center"
+                            ng-click="newArtWorkCtrl.LoadUploadPoster()">{{'Upload Cover' | translate}}</button>
+                        <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                            {{'RecommendedProductImage' | translate}}</span>
+                        <img ng-src="{{newArtWorkCtrl.posterImage}}" style="max-height: 139px;max-width: 423px;">
+                        <div ng-messages="newArtWorkForm.posterImage.$error">
+                            <div ng-if="newArtWorkForm.posterImage.$error.required">{{'requiredErr' | translate}}</div>
+                        </div>
+
                     </div>
 
                     <div class="form-group col-lg-4">
@@ -227,9 +241,9 @@
                                 ng-if="(newArtWorkForm.paymentDate.$error.minlength || newArtWorkForm.paymentDate.$error.maxlength)">
                                 {{'paymentDateLengthError' | translate}}</div>
                         </div>
-
+                        <!-- 
                         <input type="text" class="form-control" name="PaymentDate" style="display: inline-block; "
-                            ng-model="newArtWorkCtrl.PaymentDate" required />
+                            ng-model="newArtWorkCtrl.PaymentDate" required /> -->
                         <div class="error" ng-messages="newArtWorkForm.PaymentDate.$error">
                             <div ng-if="newArtWorkForm.PaymentDate.$error.required && 
                             !newArtWorkForm.PaymentDate.$pristine">{{'requiredErr' | translate}}</div>
@@ -237,21 +251,35 @@
                     </div>
                 </div>
                 <div class="row">
+
+
+                    <div class="form-group col-lg-4">
+                        <span style="color:red">*</span>
+
+                        <input id="receiptImage" name="receiptImage" style="display: none;"
+                            onchange="angular.element(this).scope().AddreceiptImage(this.files)" type="file" required>
+                        <button class="btn btn-success btn-xs pull-center"
+                            ng-click="newArtWorkCtrl.LoadUploadreceipt()">{{'Upload Receipt' | translate}}</button>
+                        <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                            {{'RecommendedProductImage' | translate}}</span>
+                        <img ng-src="{{newArtWorkCtrl.receiptImage}}" style="max-height: 139px;max-width: 423px;">
+                        <div ng-messages="newArtWorkForm.receiptImage.$error">
+                            <div ng-if="newArtWorkForm.receiptImage.$error.required">{{'requiredErr' | translate}}
+                            </div>
+                        </div>
+
+                        <!-- <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
+                                Receipt</label>
+                            <input class="hidden" type="file"
+                                onchange="angular.element(this).scope().uploadReceiptFile(this)" ng-model="receipt"
+                                name="receiptName">
+                            <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
+                            <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                                {{'RecommendedProductImage' | translate}}</span> -->
+                    </div>
                     <div class="form-group col-lg-4">
                         <label for="first-name">{{'Allow To upload Media' | translate}}</label>
                         <input type="checkbox" ng-model="newArtWorkCtrl.PaymentStatus">
-                    </div>
-                    <div class="form-group col-lg-4">
-
-                        <div class="form-group col-lg-4">
-                            <span style="color:red">*</span>
-                            <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
-                                Receipt</label>
-                            <input id="image" class="hidden" type="file"  onchange="angular.element(this).scope().uploadReceiptFile(this)" ng-model="receit" name="receitName">
-                            <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
-                            <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                                {{'RecommendedProductImage' | translate}}</span>
-                        </div>
                     </div>
                 </div>
                 <button class="btn pmd-ripple-effect btn-default" type="button"

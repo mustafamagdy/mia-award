@@ -4,10 +4,10 @@
     angular
         .module('home')
         .controller('createArtWorkDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'ArtWorkResource', 'ToastService', '$rootScope', createArtWorkDialogController])
+            'ArtWorkResource', 'ToastService', '$rootScope', '$localStorage', createArtWorkDialogController])
 
     function createArtWorkDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
-        ToastService, $rootScope) {
+        ToastService, $rootScope, $localStorage) {
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
         vm.awardList = [];
@@ -49,17 +49,18 @@
                 // $scope.$apply();
             }
         }
-        $scope.uploadReceiptFile = function (element) { 
+        $scope.uploadReceiptFile = function (element) {
+            debugger;
             vm.receipt = $(element)[0].files[0];
         };
 
-        vm.AddNewArtWork = function () { 
 
-
-          
+        vm.AddNewArtWork = function () {
+            // var Payment = {
+            //     TransactionNumber: vm.TransactionNumber,
             //     Amount: vm.Amount,
             //     PaymentDate: $('#paymentDate').val(),
-            //     Receipt: vm.receipt
+            //     Receipt: receiptImage//vm.receipt
             // };
             blockUI.start("Loading...");
             var newObj = new ArtWorkResource();
@@ -76,28 +77,28 @@
             newObj.Story = vm.Story.join(', ');
             newObj.Crew = vm.Crew.join(', ');
             newObj.PaymentStatus = vm.PaymentStatus == true ? 1 : 0;
-            // newObj.Payment = {
-            //     TransactionNumber: vm.TransactionNumber,
-            //     Amount: vm.Amount,
-            //     PaymentDate: $('#paymentDate').val(),
-            //     Receipt: vm.receipt
-            // };
-            newObj.Payment={};
-            newObj.Payment.TransactionNumber= vm.TransactionNumber,
-            newObj.Payment.Amount= vm.Amount,
-            newObj.Payment.PaymentDate=$('#paymentDate').val();
+            newObj.TransactionNumber = vm.TransactionNumber;
+            newObj.Amount = vm.Amount;
+            // newObj.PaymentDate = $('#paymentDate').val();
+            newObj.Receipt = receiptImage;
+            // newObj.Payment = JSON.stringify(Payment)
+            newObj.Poster = posterImage;// $scope.file;
+            newObj.Video = posterImage;
 
-            newObj.Poster = $scope.file;
-            newObj.Video = $scope.file;
+
 
             newObj.$create().then(
                 function (data, status) {
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                   
-                    $rootScope.$broadcast('artWorkId', data.Id);
-                    $rootScope.$broadcast('FilesCount', data.FileCount);
-                     $state.go('Payment', data.id);
+                    debugger;
+
+                    // $rootScope.$broadcast('artWorkId', data.id);
+                    // $rootScope.$broadcast('filesCount', data.fileCount);
+                    localStorage.setItem('artWorkId', data.id);
+                    localStorage.setItem('filesCount', data.filesCount);
+
+                    $state.go('newArtWorkMedia', { id: data.id });
                 },
                 function (data, status) {
                     blockUI.stop();
@@ -144,5 +145,105 @@
                     blockUI.stop();
                 });
         }
+
+        vm.LoadUploadPoster = function () {
+            $("#posterImage").click();
+        }
+        var posterImage;
+        $scope.AddposterImage = function (element) {
+            var logoFile = element[0];
+
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newArtWorkForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        posterImage = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.posterImage = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+
+
+        }
+
+        $scope.uploadPosterFile = function (element) {
+            debugger;
+            vm.posterImage = $(element)[0].files[0];
+        };
+
+
+
+
+
+        vm.LoadUploadreceipt = function () {
+            $("#receiptImage").click();
+        }
+        var receiptImage;
+        $scope.AddreceiptImage = function (element) {
+            var logoFile = element[0];
+
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newArtWorkForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        receiptImage = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.receiptImage = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+
+
+        }
+
+        $scope.uploadreceiptFile = function (element) {
+            debugger;
+            vm.receiptImage = $(element)[0].files[0];
+        };
     }
 }());

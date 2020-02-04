@@ -1,16 +1,14 @@
-<div id="bold">
-    {{'EditArtWork' | translate}}
-</div>
 <div class="modal-content">
     <div class="modal-header bordered">
-        <h2 class="pmd-card-title-text">{{'ArtWorkLbl' | translate}}</h2>
+        <h2 class="pmd-card-title-text">{{'EditArtWork' | translate}}</h2>
     </div>
     <div class="modal-body">
         <form class="form-horizontal" name="editArtWorkForm">
             <div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in editArtWorkCtrl.language">
+                    <li role="presentation" ng-class="{'active':$index == 0}"
+                        ng-repeat="lang in editArtWorkCtrl.language">
                         <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
                             data-toggle="tab">
                             <span style="color:red">*</span> {{lang.value | translate}}
@@ -26,8 +24,9 @@
                                 <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
                                     <label for="first-name">{{ lang.value+'Name' | translate}} </label>
                                     <input required type="text" class="mat-input form-control"
-                                        name="title{{lang.value+'Name'}}" ng-model="editArtWorkCtrl.ArtWork.title[lang.key]"
-                                        ng-minlength="3" ng-maxlength="255">
+                                        name="title{{lang.value+'Name'}}"
+                                        ng-model="editArtWorkCtrl.ArtWork.title[lang.key]" ng-minlength="3"
+                                        ng-maxlength="255">
                                     <div ng-messages="editArtWorkForm.title{{lang.value+'Name'}}.$error">
 
                                         <div class="error ng-binding"
@@ -41,32 +40,19 @@
                                 <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
                                     <label for="first-name">{{ lang.value+'Name' | translate}} </label>
                                     <textarea required type="text" class="mat-input form-control"
-                                        name="body{{lang.value+'Name'}}" ng-model="editArtWorkCtrl.ArtWork.body[lang.key]"
-                                        ng-minlength="3" ng-maxlength="955"></textarea>
-                                    <div ng-messages="editArtWorkForm.body{{lang.value+'Name'}}.$error">
+                                        name="showDescription{{lang.value+'Name'}}"
+                                        ng-model="editArtWorkCtrl.ArtWork.showDescription[lang.key]" ng-minlength="3"
+                                        ng-maxlength="955"></textarea>
+                                    <div ng-messages="editArtWorkForm.showDescription{{lang.value+'Name'}}.$error">
 
                                         <div class="error ng-binding"
-                                            ng-show="editArtWorkForm.body{{lang.value+'Name'}}.$error.required && !editArtWorkForm.body{{lang.value+'Name'}}.$pristine">
+                                            ng-show="editArtWorkForm.showDescription{{lang.value+'Name'}}.$error.required && !editArtWorkForm.showDescription{{lang.value+'Name'}}.$pristine">
                                             {{'requiredErr' | translate}}</div>
                                         <div class="error ng-binding"
-                                            ng-show="(editArtWorkForm.body{{lang.value+'Name'}}.$error.minlength || editArtWorkForm.body{{lang.value+'Name'}}.$error.maxlength) && !editArtWorkForm.body{{lang.value+'Name'}}.$error.required">
+                                            ng-show="(editArtWorkForm.showDescription{{lang.value+'Name'}}.$error.minlength || editArtWorkForm.showDescription{{lang.value+'Name'}}.$error.maxlength) && !editArtWorkForm.showDescription{{lang.value+'Name'}}.$error.required">
                                             {{'NameLengthError3' | translate}}</div>
                                     </div>
                                 </div>
-
-                            </div>
-
-                            <div class="form-group pmd-textfield-floating-label-completed">
-                                <span style="color:red">*</span>
-                                <label for="image" class="btn btn-success btn-xs pull-center" name="upload"
-                                    Value="">Upload
-                                    Photo</label>
-                                <input id="image" class="hidden" type="file" img-upload ng-model="imageName"
-                                    name="imageName">
-                                <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
-
-                                <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                                    {{'RecommendedProductImage' | translate}}</span>
 
                             </div>
 
@@ -75,14 +61,153 @@
 
 
                 </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'Award' | translate}}</label>
+                        <select required style="width:100% !important"
+                            class="form-control select-with-search pmd-select2-tags"
+                            ng-model="editArtWorkCtrl.selectedAward"
+                            ng-options="group as group.title for group in editArtWorkCtrl.awardList">
+                        </select> 
+                    </div>
+
+                    <div class="form-group col-lg-4"> <label for="first-name">{{'Nominee' | translate}}</label>
+                        <select required style="width:100% !important"
+                            class="form-control select-with-search pmd-select2-tags"
+                            ng-model="editArtWorkCtrl.selectedNominee"
+                            ng-options="group as group.firstName  for group in editArtWorkCtrl.nomineeList">
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'FilesCount' | translate}}</label>
+                        <input required type="text" class="mat-input form-control" name="fileCount" numbers-only
+                            style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
+                            ng-model="editArtWorkCtrl.ArtWork.fileCount" />
+                        <!-- required validation  -->
+                        <div ng-messages="editArtWorkForm.fileCount.$error">
+                            <div class="error" ng-if="editArtWorkForm.fileCount.$error.required && 
+                                        !editArtWorkForm.fileCount.$pristine">
+                                {{'requiredErr' |  translate}}
+                            </div>
+                            <!-- length validation -->
+                            <div class="error" ng-if="(editArtWorkForm.fileCount.$error.minlength ||
+                                            editArtWorkForm.fileCount.$error.maxlength) 
+                                             && !editArtWorkForm.fileCount.newfileCount.$error.required">
+                                {{'PhoneLengthError' |  translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'Production' | translate}}</label>
+                        <select required style="width:100% !important" multiple
+                            class="select-add-tags form-control pmd-select2-tags"
+                            ng-model="editArtWorkCtrl.ArtWork.production"
+                            ng-change="editArtWorkCtrl.changeProduction(group)"
+                            ng-options="group for group  in editArtWorkCtrl.productionList">
+
+                        </select>
+                        {{editArtWorkCtrl.selectedProduction}}
+                    </div>
+
+                    <div class="form-group col-lg-4"> <label for="first-name">{{'Director' | translate}}</label>
+                        <select required style="width:100% !important" multiple
+                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.Director">
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-4"> <label for="first-name">{{'Country' | translate}}</label>
+                        <select required style="width:100% !important"
+                            class="form-control select-with-search pmd-select2-tags"
+                            ng-model="editArtWorkCtrl.selectedCountry"
+                            ng-options="group as group.shortName  for group in editArtWorkCtrl.countryList">
+                        </select> 
+                        {{ editArtWorkCtrl.ArtWork.country }}
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'Writers' | translate}}</label>
+                        <select required style="width:100% !important" multiple
+                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.Writers">
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'Story' | translate}}</label>
+                        <select required style="width:100% !important" multiple
+                            class="select-add-tags form-control pmd-select2-tags"
+                            ng-model="editArtWorkCtrl.ArtWork.story">
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'DateOfRelease' | translate}}</label>
+                        <input required type="text" class="mat-input form-control" name="dateOfRelease" numbers-only
+                            style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
+                            ng-model="editArtWorkCtrl.ArtWork.dateOfRelease" required />
+                        <!-- required validation  -->
+                        <div ng-messages="editArtWorkForm.dateOfRelease.$error">
+                            <div class="error" ng-if="editArtWorkForm.dateOfRelease.$error.required && 
+                                        !editArtWorkForm.dateOfRelease.$pristine">
+                                {{'requiredErr' |  translate}}
+                            </div>
+                            <!-- length validation -->
+                            <div class="error" ng-if="(editArtWorkForm.dateOfRelease.$error.minlength ||
+                                            editArtWorkForm.dateOfRelease.$error.maxlength) 
+                                             && !editArtWorkForm.dateOfRelease.dateOfRelease.$error.required">
+                                {{'PhoneLengthError' |  translate}}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'Crew' | translate}}</label>
+                        <select required style="width:100% !important" multiple
+                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.Crew">
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <span style="color:red">*</span>
+                        <input id="posterImage" name="posterImage" style="display: none;"
+                            onchange="angular.element(this).scope().AddposterImage(this.files)" type="file" required>
+                        <button class="btn btn-success btn-xs pull-center"
+                            ng-click="editArtWorkCtrl.LoadUploadPoster()">{{'Upload Cover' | translate}}</button>
+                        <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                            {{'RecommendedProductImage' | translate}}</span>
+                        <img ng-src="{{editArtWorkCtrl.posterImage}}" style="max-height: 139px;max-width: 423px;">
+                        <div ng-messages="editArtWorkForm.posterImage.$error">
+                            <div ng-if="editArtWorkForm.posterImage.$error.required">{{'requiredErr' | translate}}</div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <span style="color:red">*</span>
+                        <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
+                            Trailer</label>
+                        <input id="image" class="hidden" type="file" img-upload ng-model="imageName" name="imageName">
+
+                    </div>
+                </div>
             </div>
 
         </form>
     </div>
+
+    <!-- {{editArtWorkCtrl.ArtWork}} -->
     <div class="pmd-modal-action text-right">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-disabled="editArtWorkForm.$invalid ||  file ==null" class="btn pmd-ripple-effect btn-primary" type="button"
-            ng-click="editArtWorkCtrl.UpdateArtWork()">{{'saveChangesBtn' | translate}}</button>
+            ng-disabled="editArtWorkForm.$invalid ||  receiptImage ==null" class="btn pmd-ripple-effect btn-primary"
+            type="button" ng-click="editArtWorkCtrl.UpdateArtWork()">{{'saveChangesBtn' | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" type="button"
             ng-click="editArtWorkCtrl.Close()">{{'DiscardBtn' | translate}}</button>
     </div>

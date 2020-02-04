@@ -5,6 +5,8 @@ namespace MIA.Administration.Api {
   public class PhotoAlbumDto {
     public string Id { get; set; }
     public string Title { get; set; }
+     
+    public string PosterUrl { get; set; }
     public List<PhotoAlbumFileDto> Files { get; set; }
   }
 

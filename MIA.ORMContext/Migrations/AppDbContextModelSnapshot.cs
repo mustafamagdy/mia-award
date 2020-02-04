@@ -70,6 +70,10 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<bool>("MainGallery");
 
+                    b.Property<string>("PosterId");
+
+                    b.Property<string>("PosterUrl");
+
                     b.Property<string>("Title");
 
                     b.HasKey("Id");

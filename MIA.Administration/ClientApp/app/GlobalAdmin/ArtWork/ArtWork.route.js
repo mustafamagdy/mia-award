@@ -31,12 +31,27 @@
 
                 })
                 .state('editArtWork', {
-                    url: '/editArtWork/:countryId',
+                    url: '/editArtWork/:id',
                     templateUrl: './app/GlobalAdmin/ArtWork/templates/edit.html',
                     controller: 'editArtWorkDialogController',
                     'controllerAs': 'editArtWorkCtrl',
                     resolve: {
                         ArtWorkByIdPrepService: ArtWorkByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('ArtWorkpayment', {
+                    url: '/ArtWorkpayment/:id',
+                    templateUrl: './app/GlobalAdmin/ArtWork/templates/payment.html',
+                    controller: 'artWorkPaymentDialogController',
+                    'controllerAs': 'artWorkPaymentCtrl',
+                    resolve: {
+                        ArtWorkPaymentByArtWorkIdPrepService: ArtWorkPaymentByArtWorkIdPrepService
                     },
                     data: {
                         permissions: {
@@ -54,7 +69,7 @@
 
     ArtWorkByIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
     function ArtWorkByIdPrepService(ArtWorkResource, $stateParams) {
-        return ArtWorkResource.getArtWork({ countryId: $stateParams.countryId }).$promise;
+        return ArtWorkResource.getArtWork({ id: $stateParams.id }).$promise;
     }
 
     AllAwardPrepService.$inject = ['ArtWorkResource']
@@ -62,4 +77,8 @@
         return ArtWorkResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
  
+    ArtWorkPaymentByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
+    function ArtWorkPaymentByArtWorkIdPrepService(ArtWorkResource, $stateParams) {
+        return ArtWorkResource.getPayment({ id: $stateParams.id }).$promise;
+    }
 }());

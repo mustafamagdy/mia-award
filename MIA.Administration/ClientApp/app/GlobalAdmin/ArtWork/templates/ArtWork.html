@@ -14,44 +14,51 @@
             <table class="table pmd-table table-hover">
                 <thead>
                     <tr>
+                        <th>{{'poster' | translate}}</th>
                         <th>{{'title' | translate}}</th>
-                        <th>{{'StatusLbl' | translate}}</th>
+                        <th>{{'award' | translate}}</th>
+                        <th>{{'fileCount' | translate}}</th>
+                        <th>{{'Ready for review' | translate}}</th>
+                        <th>{{'paymentStatus' | translate}}</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="ArtWork in ArtWorkList">
+                        <td>
+                            <img style="width: 70px;height: 70px;" data-ng-src="{{ArtWork.posterUrl}}" />
+                        </td>
                         <td data-title="Name">
                             {{ArtWork.title[selectedLanguage]   | limitTo : 20}}
                             {{ArtWork.title[selectedLanguage].length > 20 ? '...' : ''}}
                         </td>
-                        <td ng-show="!ArtWork.outdated">
-                            <div ng-if="user.PermessionModules['ArtWork'].includes('view')==true">
-                                <div class="btn-switch" ng-class="{'btn-switch--on':ArtWork.outdated}"
-                                    ng-model="ArtWork.outdated" ng-click="ArtWorkCtrl.ChangeStatus(ArtWork)">
-
-                                    <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':ArtWork.outdated}"
-                                        ng-model="ArtWork.outdated" ng-click="ArtWorkCtrl.ChangeStatus(ArtWork)">
-                                    </div>
-                                </div>
-                            </div>
+                        <td data-title="Name">
+                            {{ArtWork.award.title   | limitTo : 20}}
+                            {{ArtWork.award.title.length > 20 ? '...' : ''}}
                         </td>
-                        <td ng-show="ArtWork.outdated">
-                            <div class="btn-switch" ng-class="{'btn-switch--on':ArtWork.outdated}"
-                                ng-click="ArtWorkCtrl.ChangeStatus(ArtWork)" ng-model="ArtWork.outdated">
-
-                                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':ArtWork.outdated}"
-                                    ng-click="ArtWorkCtrl.ChangeStatus(ArtWork)" ng-model="ArtWork.outdated">
-                                </div>
+                        <td data-title="uploadComplete">
+                            {{ArtWork.fileCount}}
+                        </td>
+                        <td data-title="uploadComplete">
+                            {{ArtWork.uploadComplete}}
+                        </td>
+                        <td data-title="paymentStatus">
+                            {{ArtWork.payment.paymentStatus}}
                         </td>
                         <td width="30%">
-                            <i ng-show="user.PermessionModules['ArtWork'].includes('add_new')"
-                                class="material-icons md-dark pmd-md cursorPointer font25"
+                            <i ng-show="user.PermessionModules['News'].includes('add_new')"
+                                class="material-icons md-dark pmd-md perm_media font25"
                                 ng-click="$state.go('editArtWork',{id: ArtWork.id});" title="Edit">mode_edit</i>
-                            <i ng-show="user.PermessionModules['ArtWork'].includes('remove')"
-                                class="material-icons pmd-md deleteButton cursorPointer font25"
-                                ng-click="ArtWorkCtrl.openDeleteDialog(ArtWork,ArtWork.title[selectedLanguage] ,ArtWork.id)"
-                                title="Delete">delete</i>
+
+                            <i ng-show="user.PermessionModules['News'].includes('add_new')"
+                                class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('ArtWorkpayment',{id: ArtWork.id});" title="payment"><img
+                                    src="../../../../assets/img/payment.png"></img></i>
+
+                            <i ng-show="user.PermessionModules['News'].includes('add_new')"
+                                class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('newArtWorkMedia',{id: ArtWork.id});" title="media"><img
+                                    src="../../../../assets/img/media.png"></img></i>
                         </td>
                     </tr>
                 </tbody>

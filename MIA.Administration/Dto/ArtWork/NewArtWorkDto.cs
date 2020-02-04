@@ -2,6 +2,7 @@
 using MIA.Administration.Dto.ArtWorkPayment;
 using MIA.Administration.Dto.Award;
 using MIA.Administration.Dto.User;
+using MIA.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
@@ -31,6 +32,13 @@ namespace MIA.Administration.Api {
     public string Story { get; set; }
     public string Stars { get; set; }
     public string Crew { get; set; }
+
+    public PaymentStatus PaymentStatus { get; set; }
+    public IFormFile Receipt { get; set; }
+
+    public string TransactionNumber { get; set; }
+    public decimal Amount { get; set; }
+    public long PaymentDate { get; set; }
   }
 
 }

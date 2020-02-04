@@ -104,14 +104,7 @@ namespace MIA.Administration.Api {
       var newsItem = await db.News.FirstOrDefaultAsync(a => a.Id == resultDto.Id);
       return IfFound(_mapper.Map<NewsDto>(newsItem));
     }
-    //public async Task<IActionResult> ChangeStatus(string id, bool status, [FromServices] IAppUnitOfWork db)
-    //{ 
-    //    var newsItem = await db.News.FirstOrDefaultAsync(a => a.Id == id);
-    //    newsItem.Outdated = status;
-    //    var entry = db.Set<News>().Attach(newsItem);
-    //    entry.State = EntityState.Modified;
-    //    return IfFound(_mapper.Map<NewsDto>(newsItem));
-    //}
+     
   }
 
 }

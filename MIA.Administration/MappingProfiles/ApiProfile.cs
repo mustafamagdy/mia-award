@@ -34,9 +34,17 @@ namespace MIA.Administration.MappingProfiles {
             //.ForMember(a => a.PosterUrl, cfg => cfg.Ignore()) 
             .ValidateMemberList(MemberList.None);
       #endregion
+      #region BoothPurchase
+      CreateMap<BoothPurchase, BoothPurchaseDto>().ValidateMemberList(MemberList.None);
+      CreateMap<NewBoothPurchaseDto, BoothPurchase>().ValidateMemberList(MemberList.None);
+      CreateMap<UpdateBoothPurchaseDto, BoothPurchase>().ValidateMemberList(MemberList.None);
+
+      #endregion
 
       #region Booth
-      CreateMap<Booth, BoothsDto>().ValidateMemberList(MemberList.None);
+      CreateMap<Booth, BoothsDto>().ValidateMemberList(MemberList.None)
+            .ForMember(a => a.BoothPurchase, cfg => cfg.MapFrom(a => a.Purchases))
+        ;
       CreateMap<NewBoothsDto, Booth>().ValidateMemberList(MemberList.None);
       CreateMap<UpdateBoothsDto, Booth>().ValidateMemberList(MemberList.None);
 
@@ -66,20 +74,35 @@ namespace MIA.Administration.MappingProfiles {
       #endregion
 
 
-      #region Payment
-   //   CreateMap<Payment, ArtWorkPaymentDto>().ValidateMemberList(MemberList.None);
-      CreateMap<ArtWorkPaymentDto, ArtWorkPayment>().ValidateMemberList(MemberList.None);
-      //CreateMap<NewPaymentDto, Payment>().ValidateMemberList(MemberList.None);
-      //CreateMap<UpdatePaymentDto, Payment>().ValidateMemberList(MemberList.None);
+      #region Payment 
+      CreateMap<ArtWorkPayment, ArtWorkPaymentDto>().ValidateMemberList(MemberList.None);
+      CreateMap<UpdateArtWorkPaymentDto, ArtWorkPayment>().ValidateMemberList(MemberList.None);
+
+      #endregion
+
+
+      #region Nominee
+      CreateMap<Nominee, NomineeDto>().ValidateMemberList(MemberList.None);
+      //   CreateMap<UserDto, Nominee>().ValidateMemberList(MemberList.None);
+
+      #endregion
+
+
+      #region Media File
+      CreateMap<MediaFile, MediaFileDto>().ValidateMemberList(MemberList.None);
+      CreateMap<MediaFileDto, MediaFile>().ValidateMemberList(MemberList.None);
 
       #endregion
 
       #region ArtWork
-      CreateMap<ArtWork, ArtWorkDto>().ValidateMemberList(MemberList.None);
-      CreateMap<NewArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None)
-            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.Title)))
-            .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.ShowDescription)))
+      CreateMap<ArtWork, ArtWorkDto>().ValidateMemberList(MemberList.None)
             .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment));
+
+
+      CreateMap<NewArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None)
+            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.Title))) 
+            .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
+            .ForMember(a => a.Nominee, cfg => cfg.MapFrom(a => a.Nominee));
       CreateMap<UpdateArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None);
       #endregion
 
@@ -91,13 +114,6 @@ namespace MIA.Administration.MappingProfiles {
 
       #endregion
 
-
-      #region Nominee
-      CreateMap<Nominee, ProfileDto>().ValidateMemberList(MemberList.None);
-      //CreateMap<NewNomineeDto, Nominee>().ValidateMemberList(MemberList.None);
-      //CreateMap<UpdateNomineeDto, Nominee>().ValidateMemberList(MemberList.None);
-
-      #endregion
 
     }
 
