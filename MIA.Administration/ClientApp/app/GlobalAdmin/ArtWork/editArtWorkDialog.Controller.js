@@ -23,19 +23,17 @@
         vm.selectedCountry = "";
         vm.language = appCONSTANTS.supportedLanguage;
         vm.ArtWork = ArtWorkByIdPrepService;
-        vm.selectedProduction =  vm.ArtWork.production;
-
+        vm.selectedProduction = null;//vm.ArtWork.production; 
         vm.posterImage = vm.ArtWork.posterUrl;
         if (vm.ArtWork.production.indexOf(',') != -1) {
             vm.productionList = vm.ArtWork.production.split(',');
-        } 
-        console.log(vm.ArtWork);
-        debugger
-
-        vm.changeProduction = function (group) {
-            debugger
-            vm.selectedProduction + vm.selectedProduction;
         }
+        console.log(vm.ArtWork);
+        // vm.changeProduction = function (group) {
+        //  debugger;
+        //  var dd=$scope.valueee;
+        //     vm.ArtWork.production = vm.selectedProduction;
+        // }
         vm.Close = function () {
             $state.go('ArtWork');
         }
@@ -45,12 +43,27 @@
 
             var updateObj = new ArtWorkResource();
             updateObj.Id = vm.ArtWork.id;
-            updateObj.title = vm.ArtWork.title;
-            updateObj.body = vm.ArtWork.body;
-            if ($scope.file != null) {
-                updateObj.Poster = $scope.file;
+            updateObj.Title = vm.ArtWork.title;
+            updateObj.AwardId = vm.selectedAward.id;
+            updateObj.NomineeId = vm.selectedNominee.id;
+            updateObj.FileCount = vm.ArtWork.fileCount;
+            updateObj.DateOfRelease = vm.ArtWork.dateOfRelease;
+            updateObj.Country = vm.selectedCountry.shortName;
+            updateObj.ShowDescription = vm.ArtWork.showDescription;
+            updateObj.Director = vm.ArtWork.director.join(', ');
+            updateObj.Production = vm.ArtWork.production.join(', ');
+            updateObj.Writers = vm.ArtWork.writers.join(', ');
+            updateObj.Story = vm.ArtWork.story.join(', ');
+            updateObj.Crew = vm.ArtWork.crew.join(', ');
+ 
+            if (posterImage != null) {
+                updateObj.Poster = posterImage;
+                updateObj.Video = posterImage;
 
             }
+            // updateObj.Poster = posterImage;
+            // updateObj.Video = posterImage;
+
             updateObj.$update().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
@@ -68,10 +81,10 @@
 
         function refreshNominees() {
             var k = ArtWorkResource.getAllNominees().$promise.then(function (results) {
-                vm.nomineeList = results; 
+                vm.nomineeList = results;
                 blockUI.stop();
 
-                debugger
+
                 var index = vm.nomineeList.indexOf($filter('filter')(vm.nomineeList, { 'id': vm.ArtWork.nomineeId }, true)[0]);
                 vm.selectedNominee = vm.nomineeList[index];
             },
@@ -86,10 +99,10 @@
 
                 vm.awardList = results.items;
                 vm.totalCount = results.metadata.totalItemCount;
-                blockUI.stop(); 
+                blockUI.stop();
                 var index = vm.awardList.indexOf($filter('filter')(vm.awardList, { 'id': vm.ArtWork.awardId }, true)[0]);
                 vm.selectedAward = vm.awardList[index];
-               
+
             },
                 function (data, status) {
 
@@ -102,11 +115,11 @@
             var k = ArtWorkResource.getAllCountries().$promise.then(function (results) {
                 vm.countryList = results;
                 blockUI.stop();
-  
+
                 var indexRate = vm.countryList.indexOf($filter('filter')(vm.countryList, { 'shortName': vm.ArtWork.country }, true)[0]);
                 vm.selectedCountry = vm.countryList[indexRate];
-               
-                
+
+
             },
                 function (data, status) {
                     blockUI.stop();
@@ -114,17 +127,18 @@
         }
 
         vm.LoadUploadPoster = function () {
+            debugger
             $("#posterImage").click();
         }
         $scope.AddposterImage = function (element) {
             var logoFile = element[0];
-
+            debugger
             var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
 
             if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
 
                 if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
-                    $scope.newArtWorkForm.$dirty = true;
+                    $scope.editArtWorkForm.$dirty = true;
                     $scope.$apply(function () {
 
                         posterImage = logoFile;

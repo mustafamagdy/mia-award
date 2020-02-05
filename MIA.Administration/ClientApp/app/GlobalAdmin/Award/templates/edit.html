@@ -1,0 +1,94 @@
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-description-text">{{'EditAward' | translate}}</h2>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="editAwardForm">
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label for="first-name">{{'Title' | translate}}</label>
+                    <input required type="text" class="mat-input form-control" name="title" numbers-only
+                        style="display: inline-block;" ng-minlength="1" ng-maxlength="200"
+                        ng-model="editAwardCtrl.Award.title" required />
+                    <!-- required validation  -->
+                    <div ng-messages="editAwardForm.title.$error">
+                        <div class="error" ng-if="editAwardForm.title.$error.required && 
+                                    !editAwardForm.title.$pristine">
+                            {{'requiredErr' |  translate}}
+                        </div>
+                        <!-- length validation -->
+                        <div class="error" ng-if="(editAwardForm.title.$error.minlength ||
+                                        editAwardForm.title.$error.maxlength) 
+                                         && !editAwardForm.title.newtitle.$error.required">
+                            {{'PhoneLengthError' |  translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="first-name">{{'Description' | translate}}</label>
+                    <textarea required class="mat-input form-control" name="description" numbers-only
+                        style="display: inline-block;" ng-minlength="1" ng-maxlength="955"
+                        ng-model="editAwardCtrl.Award.description" required> </textarea>
+                    <!-- required validation  -->
+                    <div ng-messages="editAwardForm.description.$error">
+                        <div class="error" ng-if="editAwardForm.description.$error.required && 
+                                    !editAwardForm.description.$pristine">
+                            {{'requiredErr' |  translate}}
+                        </div>
+                        <!-- length validation -->
+                        <div class="error" ng-if="(editAwardForm.description.$error.minlength ||
+                                        editAwardForm.description.$error.maxlength) 
+                                         && !editAwardForm.description.newdescription.$error.required">
+                            {{'PhoneLengthError' |  translate}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label for="first-name">{{'Manager' | translate}}</label>
+                    <select required style="width:100% !important"
+                        class="form-control select-with-search pmd-select2-tags"
+                        ng-model="editAwardCtrl.selectedManager"
+                        ng-options="group as group.firstName +' '+ group.lastName for group in editAwardCtrl.ManagerList">
+                    </select>
+
+                </div>
+                <div class="form-group col-lg-6">
+
+                    <label for="first-name">{{'Judges' | translate}}</label>
+                    <select required style="width:100% !important" multiple
+                        class="form-control select-with-search pmd-select2-tags"
+                        ng-model="editAwardCtrl.selectedJudges"
+                        ng-options="group as group.firstName +' '+ group.lastName  for group in editAwardCtrl.judgesList">
+                    </select>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="pmd-modal-action text-right">
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            class="btn pmd-ripple-effect btn-primary" type="button"
+            ng-click="editAwardCtrl.UpdateAward()">{{'saveChangesBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" type="button"
+            ng-click="editAwardCtrl.Close()">{{'DiscardBtn' | translate}}</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap",
+            insertTag: function (data, tag) {
+                // Insert the tag at the end of the results
+                data.push(tag);
+                // console.log(data);
+            }
+        });
+        $(".select-with-search").select2({
+            theme: "bootstrap"
+        });
+    });
+</script>

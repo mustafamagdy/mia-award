@@ -19,12 +19,12 @@ namespace MIA.Administration.Api {
     //   public ArtWorkPaymentDto Payment { get; set; }
     public string PaymentId { get; set; }
     public int FileCount { get; set; }
-    public ArtWorkPaymentDto Payment { get; set; }
+     public ArtWorkPaymentDto Payment { get; set; }
     public double Rate { get; set; }
 
     public string DateOfRelease { get; set; }
     public string Country { get; set; }
-    public LocalizedData ShowDescription { get; set; }
+    public string ShowDescription { get; set; }
     public string Director { get; set; }
     public string Production { get; set; }
     public string Writers { get; set; }

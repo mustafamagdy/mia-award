@@ -1,4 +1,52 @@
-(function () {
+(function() {
+    'use strict';
+
+      angular
+      .module('home')
+      .config(config)
+      .run(runBlock);
+
+      config.$inject = ['ngProgressLiteProvider'];
+    runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
+
+      function config(ngProgressLiteProvider) {
+      ngProgressLiteProvider.settings.speed = 1000;
+
+      }
+
+      function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
+
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+          startProgress();
+      });
+      $transitions.onStart({}, function(transition) {
+        blockUI.start("Loading..."); 
+      });
+      $transitions.onSuccess({}, function(transition) {
+        blockUI.stop();
+      });
+      $transitions.onError({  }, function(transition) {
+        blockUI.stop();
+      });
+      var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
+
+        angular.forEach(routingDoneEvents, function(event) {
+        $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
+          endProgress();
+        });
+      });
+
+        function startProgress() {
+        ngProgressLite.start();
+      }
+
+        function endProgress() {
+        ngProgressLite.done();
+      }
+
+      }
+  })();
+  (function () {
     'use strict';
 
     angular
@@ -205,55 +253,7 @@
         return UserResource.getUserRole({ userId: $stateParams.userId }).$promise;
     }
 
-}());(function() {
-    'use strict';
-
-      angular
-      .module('home')
-      .config(config)
-      .run(runBlock);
-
-      config.$inject = ['ngProgressLiteProvider'];
-    runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
-
-      function config(ngProgressLiteProvider) {
-      ngProgressLiteProvider.settings.speed = 1000;
-
-      }
-
-      function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
-
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-          startProgress();
-      });
-      $transitions.onStart({}, function(transition) {
-        blockUI.start("Loading..."); 
-      });
-      $transitions.onSuccess({}, function(transition) {
-        blockUI.stop();
-      });
-      $transitions.onError({  }, function(transition) {
-        blockUI.stop();
-      });
-      var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
-
-        angular.forEach(routingDoneEvents, function(event) {
-        $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
-          endProgress();
-        });
-      });
-
-        function startProgress() {
-        ngProgressLite.start();
-      }
-
-        function endProgress() {
-        ngProgressLite.done();
-      }
-
-      }
-  })();
-  (function () {
+}());(function () {
     'use strict';
 
     angular
@@ -831,19 +831,12 @@
         vm.selectedCountry = "";
         vm.language = appCONSTANTS.supportedLanguage;
         vm.ArtWork = ArtWorkByIdPrepService;
-        vm.selectedProduction =  vm.ArtWork.production;
-
+        vm.selectedProduction = null;
         vm.posterImage = vm.ArtWork.posterUrl;
         if (vm.ArtWork.production.indexOf(',') != -1) {
             vm.productionList = vm.ArtWork.production.split(',');
-        } 
-        console.log(vm.ArtWork);
-        debugger
-
-        vm.changeProduction = function (group) {
-            debugger
-            vm.selectedProduction + vm.selectedProduction;
         }
+        console.log(vm.ArtWork);
         vm.Close = function () {
             $state.go('ArtWork');
         }
@@ -853,12 +846,25 @@
 
             var updateObj = new ArtWorkResource();
             updateObj.Id = vm.ArtWork.id;
-            updateObj.title = vm.ArtWork.title;
-            updateObj.body = vm.ArtWork.body;
-            if ($scope.file != null) {
-                updateObj.Poster = $scope.file;
+            updateObj.Title = vm.ArtWork.title;
+            updateObj.AwardId = vm.selectedAward.id;
+            updateObj.NomineeId = vm.selectedNominee.id;
+            updateObj.FileCount = vm.ArtWork.fileCount;
+            updateObj.DateOfRelease = vm.ArtWork.dateOfRelease;
+            updateObj.Country = vm.selectedCountry.shortName;
+            updateObj.ShowDescription = vm.ArtWork.showDescription;
+            updateObj.Director = vm.ArtWork.director.join(', ');
+            updateObj.Production = vm.ArtWork.production.join(', ');
+            updateObj.Writers = vm.ArtWork.writers.join(', ');
+            updateObj.Story = vm.ArtWork.story.join(', ');
+            updateObj.Crew = vm.ArtWork.crew.join(', ');
+
+             if (posterImage != null) {
+                updateObj.Poster = posterImage;
+                updateObj.Video = posterImage;
 
             }
+
             updateObj.$update().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
@@ -876,10 +882,10 @@
 
         function refreshNominees() {
             var k = ArtWorkResource.getAllNominees().$promise.then(function (results) {
-                vm.nomineeList = results; 
+                vm.nomineeList = results;
                 blockUI.stop();
 
-                debugger
+
                 var index = vm.nomineeList.indexOf($filter('filter')(vm.nomineeList, { 'id': vm.ArtWork.nomineeId }, true)[0]);
                 vm.selectedNominee = vm.nomineeList[index];
             },
@@ -894,11 +900,11 @@
 
                 vm.awardList = results.items;
                 vm.totalCount = results.metadata.totalItemCount;
-                blockUI.stop(); 
+                blockUI.stop();
                 var index = vm.awardList.indexOf($filter('filter')(vm.awardList, { 'id': vm.ArtWork.awardId }, true)[0]);
                 vm.selectedAward = vm.awardList[index];
 
-                           },
+            },
                 function (data, status) {
 
                     blockUI.stop();
@@ -911,28 +917,29 @@
                 vm.countryList = results;
                 blockUI.stop();
 
-                  var indexRate = vm.countryList.indexOf($filter('filter')(vm.countryList, { 'shortName': vm.ArtWork.country }, true)[0]);
+                var indexRate = vm.countryList.indexOf($filter('filter')(vm.countryList, { 'shortName': vm.ArtWork.country }, true)[0]);
                 vm.selectedCountry = vm.countryList[indexRate];
 
 
-                                           },
+            },
                 function (data, status) {
                     blockUI.stop();
                 });
         }
 
         vm.LoadUploadPoster = function () {
+            debugger
             $("#posterImage").click();
         }
         $scope.AddposterImage = function (element) {
             var logoFile = element[0];
-
+            debugger
             var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
 
             if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
 
                 if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
-                    $scope.newArtWorkForm.$dirty = true;
+                    $scope.editArtWorkForm.$dirty = true;
                     $scope.$apply(function () {
 
                         posterImage = logoFile;
@@ -1100,6 +1107,290 @@
             debugger;
             vm.receiptImage = $(element)[0].files[0];
         };
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('AwardController', ['appCONSTANTS', '$scope', '$translate', 'AwardResource', 'blockUI', '$uibModal',
+            'ToastService', AwardController]);
+
+
+    function AwardController(appCONSTANTS, $scope, $translate, AwardResource, blockUI, $uibModal, ToastService) {
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+        var vm = this;
+
+        vm.currentPage = 1;
+        vm.appCONSTANTS = appCONSTANTS;
+
+        refreshAwards();
+        function refreshAwards() {
+            blockUI.start("Loading...");
+
+            var k = AwardResource.getAllAwards({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
+                $scope.AwardList = results.items;
+                $scope.totalCount = results.metadata.totalItemCount;
+                console.log($scope.AwardList);
+                blockUI.stop();
+
+            },
+                function (data, status) { 
+                blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+                });
+        }
+        vm.showMore = function (element) {
+            $(element.currentTarget).toggleClass("child-table-collapse");
+        }
+
+                function confirmationDelete(model) {
+            var updateObj = new AwardResource();
+            updateObj.$delete({ id: model.id }).then(
+                function (data, status) {
+                    refreshAwards();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.openDeleteDialog = function (model, name, id) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+                controller: 'confirmDeleteDialogController',
+                controllerAs: 'deleteDlCtrl',
+                resolve: {
+                    model: function () { return model },
+                    itemName: function () { return name },
+                    itemId: function () { return id },
+                    message: function () { return null },
+                    callBackFunction: function () { return confirmationDelete }
+                }
+
+            });
+        }
+        vm.ChangeStatus = function (model) {
+            var updateObj = new AwardResource();
+            updateObj.id = model.id;
+            updateObj.title = model.title;
+            updateObj.body = model.body;
+            updateObj.outdated = (model.outdated == true ? false : true);
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    model.outdated = updateObj.outdated;
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                }
+            );
+            return;
+        }
+
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshAwards();
+        }
+
+    }
+
+})();
+(function () {
+    angular
+        .module('home')
+        .factory('AwardResource', ['$resource', 'appCONSTANTS', AwardResource])
+
+    function AwardResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Awards', {}, {
+            getAllAwards: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/search', useToken: true, params: { lang: '@lang' } },
+            getAllJudges: { method: 'GET', url: appCONSTANTS.API_URL + 'Awards/judges', useToken: true, isArray: true, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'PUT', useToken: true },
+            getAward: { method: 'GET', useToken: true },
+            delete: { method: 'DELETE', useToken: true },
+            getAwardDetails: { method: 'GET', url: appCONSTANTS.API_URL + 'Awards/getAwardDetails?id=:id',  useToken: true },
+        })
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .config(function ($stateProvider, $urlRouterProvider) {
+
+            $stateProvider
+                .state('Award', {
+                    url: '/Award',
+                    templateUrl: './app/GlobalAdmin/Award/templates/Award.html',
+                    controller: 'AwardController',
+                    'controllerAs': 'AwardCtrl',
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('newAward', {
+                    url: '/newAward',
+                    templateUrl: './app/GlobalAdmin/Award/templates/new.html',
+                    controller: 'createAwardDialogController',
+                    'controllerAs': 'newAwardCtrl',
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('editAward', {
+                    url: '/editAward/:id',
+                    templateUrl: './app/GlobalAdmin/Award/templates/edit.html',
+                    controller: 'editAwardDialogController',
+                    'controllerAs': 'editAwardCtrl',
+                    resolve: {
+                        AwardDetailsByAwardIdPrepService: AwardDetailsByAwardIdPrepService 
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+        });
+
+    AwardPrepService.$inject = ['AwardResource']
+    function AwardPrepService(AwardResource) {
+        return AwardResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+
+    AwardByIdPrepService.$inject = ['AwardResource', '$stateParams']
+    function AwardByIdPrepService(AwardResource, $stateParams) {
+        return AwardResource.getAward({ id: $stateParams.id }).$promise;
+    }
+
+    AllAwardPrepService.$inject = ['AwardResource']
+    function AllAwardPrepService(AwardResource) {
+        return AwardResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+
+    AwardDetailsByAwardIdPrepService.$inject = ['AwardResource', '$stateParams']
+    function AwardDetailsByAwardIdPrepService(AwardResource, $stateParams) {
+        return AwardResource.getAwardDetails({ id: $stateParams.id }).$promise;
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('createBoothDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'BoothResource', 'ToastService', '$rootScope', createBoothDialogController])
+
+    function createBoothDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, BoothResource,
+        ToastService, $rootScope) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.close = function () {
+            $state.go('Booth');
+        }
+
+
+        vm.AddNewBooth = function () {
+            blockUI.start("Loading...");
+            var newObj = new BoothResource();
+            newObj.Description = vm.Description;
+            newObj.Code = vm.Code;
+            newObj.Price = vm.Price;
+            newObj.$create().then(
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('Booth');
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.title, "error");
+                }
+            );
+        }
+
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editAwardDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+            'AwardResource', 'ToastService', 'AwardDetailsByAwardIdPrepService', editAwardDialogController])
+
+    function editAwardDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, AwardResource,
+        ToastService, AwardDetailsByAwardIdPrepService) {
+        var vm = this;
+        vm.judgesList = [];
+        vm.ManagerList = [];
+        vm.selectedManager = "";
+        vm.selectedJudges = [];
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.Award = AwardDetailsByAwardIdPrepService;
+        console.log(vm.Award);
+        refreshJudgess();
+        vm.Close = function () {
+            $state.go('Award');
+        }
+        vm.UpdateAward = function () {
+            blockUI.start("Loading...");
+            debugger;
+
+            var updateObj = new AwardResource();
+            updateObj.Id = vm.Award.id;
+            updateObj.ManagerId = vm.selectedManager.id;
+            updateObj.JudgeAwards = vm.selectedJudges;
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    blockUI.stop();
+
+                    $state.go('Award');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+        function refreshJudgess() {
+            var k = AwardResource.getAllJudges().$promise.then(function (results) {
+                vm.judgesList = results;
+                vm.ManagerList = results;
+                blockUI.stop();
+                debugger;
+                if (vm.Award.judgeAwards != null) {
+                    var i;
+                    for (i = 0; i < vm.Award.judgeAwards.length; i++) {
+                        var index = vm.judgesList.indexOf($filter('filter')(vm.judgesList, { 'id': vm.Award.judgeAwards[i].judgeId }, true)[0]);
+                        vm.selectedJudges.push(vm.judgesList[index]);
+
+                    }
+                }
+                var index = vm.ManagerList.indexOf($filter('filter')(vm.ManagerList, { 'id': vm.Award.managerId }, true)[0]);
+                vm.selectedManager = vm.ManagerList[index];
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
     }
 }());
 (function () {
@@ -1797,6 +2088,235 @@
 
     angular
         .module('home')
+        .controller('JudgeArtWorkController', ['appCONSTANTS', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$uibModal',
+            'ToastService','$stateParams', JudgeArtWorkController]);
+
+
+    function JudgeArtWorkController(appCONSTANTS, $scope, $translate, JudgeArtWorkResource, blockUI, $uibModal, ToastService,$stateParams) {
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+        var vm = this; 
+        vm.currentPage = 1;
+        vm.appCONSTANTS = appCONSTANTS;
+
+       refreshJudgeArtWorks();
+        function refreshJudgeArtWorks() {
+            blockUI.start("Loading...");
+
+            var k = JudgeArtWorkResource.getJudgeArtWorks({ id: $scope.user.id }).$promise.then(function (results) {
+                $scope.JudgeArtWorkList = results;
+                console.log($scope.JudgeArtWorkList);
+                blockUI.stop();
+
+            },
+                function (data, status) { 
+                blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+                });
+        }
+        vm.showMore = function (element) {
+            $(element.currentTarget).toggleClass("child-table-collapse");
+        }
+
+                function confirmationDelete(model) {
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.$delete({ id: model.id }).then(
+                function (data, status) {
+                    refreshJudgeArtWorks();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.openDeleteDialog = function (model, name, id) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+                controller: 'confirmDeleteDialogController',
+                controllerAs: 'deleteDlCtrl',
+                resolve: {
+                    model: function () { return model },
+                    itemName: function () { return name },
+                    itemId: function () { return id },
+                    message: function () { return null },
+                    callBackFunction: function () { return confirmationDelete }
+                }
+
+            });
+        }
+        vm.ChangeStatus = function (model) {
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.id = model.id;
+            updateObj.title = model.title;
+            updateObj.body = model.body;
+            updateObj.outdated = (model.outdated == true ? false : true);
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    model.outdated = updateObj.outdated;
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                }
+            );
+            return;
+        }
+
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshJudgeArtWorks();
+        }
+
+    }
+
+})();
+(function () {
+    angular
+        .module('home')
+        .factory('JudgeArtWorkResource', ['$resource', 'appCONSTANTS', JudgeArtWorkResource])
+
+    function JudgeArtWorkResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'artWorks', {}, {
+            getAllVotingCriterias: { method: 'POST', url: appCONSTANTS.API_URL + 'votingCriterias/search', useToken: true, params: { lang: '@lang' } },
+            update: { method: 'PUT', useToken: true },
+            getJudgeArtWork: { method: 'GET', useToken: true },
+            delete: { method: 'DELETE', useToken: true },
+            getJudgeArtWorks: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/getJudgeArtWorks?id=:id', isArray: true, useToken: true },
+        })
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .config(function ($stateProvider, $urlRouterProvider) {
+
+            $stateProvider
+                .state('JudgeArtWork', {
+                    url: '/JudgeArtWork',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/JudgeArtWork.html',
+                    controller: 'JudgeArtWorkController',
+                    'controllerAs': 'JudgeArtWorkCtrl', 
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('viewJudgeArtWork', {
+                    url: '/viewJudgeArtWork/:id',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/view.html',
+                    controller: 'viewJudgeArtWorkController',
+                    'controllerAs': 'viewJudgeArtWorkCtrl',
+                    resolve: {
+                        ArtWorkByIdPrepService: ArtWorkByIdPrepService,
+                        ArtWorkMediaByArtWorkIdPrepService: ArtWorkMediaByArtWorkIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+        });
+
+    JudgeArtWorkPrepService.$inject = ['JudgeArtWorkResource']
+    function JudgeArtWorkPrepService(JudgeArtWorkResource) {
+        return JudgeArtWorkResource.getAllJudgeArtWorks({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+
+    JudgeArtWorkByIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
+    function JudgeArtWorkByIdPrepService(JudgeArtWorkResource, $stateParams) {
+        return JudgeArtWorkResource.getJudgeArtWork({ id: $stateParams.id }).$promise;
+    }
+
+    AllJudgeArtWorkPrepService.$inject = ['JudgeArtWorkResource']
+    function AllJudgeArtWorkPrepService(JudgeArtWorkResource) {
+        return JudgeArtWorkResource.getAllJudgeArtWorks({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+
+    JudgeArtWorkDetailsByArtWorkIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
+    function JudgeArtWorkDetailsByArtWorkIdPrepService(JudgeArtWorkResource, $stateParams) {
+        return JudgeArtWorkResource.getJudgeArtWorkDetails({ id: $stateParams.id }).$promise;
+    }
+
+    ArtWorkByIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
+    function ArtWorkByIdPrepService(ArtWorkResource, $stateParams) {
+        return ArtWorkResource.getArtWork({ id: $stateParams.id }).$promise;
+    }
+
+    ArtWorkMediaByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
+    function ArtWorkMediaByArtWorkIdPrepService(ArtWorkResource, $stateParams) {
+        return ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise;
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('viewJudgeArtWorkController', ['ArtWorkMediaByArtWorkIdPrepService', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+            'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', viewJudgeArtWorkController])
+
+    function viewJudgeArtWorkController(ArtWorkMediaByArtWorkIdPrepService, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
+        ToastService, ArtWorkByIdPrepService) {
+        var vm = this;
+        vm.JudgeArtWork = ArtWorkByIdPrepService;
+        vm.artWorkMedia = ArtWorkMediaByArtWorkIdPrepService;
+        vm.votingCriteriaList = [];
+        console.log(vm.JudgeArtWork);
+        refreshVotingCriterias();
+        vm.Close = function () {
+            $state.go('JudgeArtWork');
+        }
+        vm.changeValue = function (value, index) { 
+            vm.votingCriteriaList[index].value = value;
+
+        }
+        vm.UpdateJudgeArtWork = function () {
+            blockUI.start("Loading...");
+            debugger; 
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.ArtWorkId = vm.JudgeArtWork.id;
+            updateObj.JudgeId = $scope.user.id; 
+            updateObj.CriteriaValues =vm.votingCriteriaList; 
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    blockUI.stop();
+
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+        function refreshVotingCriterias() {
+            var k = JudgeArtWorkResource.getAllVotingCriterias({ pageNumber: 1, pageSize: 10 }).$promise.then(function (results) {
+                vm.votingCriteriaList = results.items;
+                vm.totalCount = results.metadata.totalItemCount;
+                blockUI.stop();
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
         .controller('NewsController', ['appCONSTANTS', '$scope', '$translate', 'NewsResource', 'blockUI', '$uibModal',
             'ToastService', NewsController]);
 
@@ -2120,265 +2640,6 @@
         }
     }
 }());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('createRoleDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'RoleResource', 'ToastService', '$rootScope', 'PermissionPrepService', createRoleDialogController])
-
-    function createRoleDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RoleResource,
-        ToastService, $rootScope, PermissionPrepService) {
-        var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage;
-        $scope.permissionList = PermissionPrepService 
-        vm.selectedModuleList = [];
-        vm.selectedModule = "";
-        vm.selectedPermissions = [];
-        vm.ChangeSelectedModule = function () {
-            angular.forEach(vm.selectedModule, function (value, key) {
-                angular.forEach(value.permessions, function (valuePermission, key1) {
-                    if (vm.selectedModuleList != 0) {
-                        if (!vm.selectedModuleList.includes(valuePermission)) {
-                            vm.selectedModuleList.push(valuePermission);
-                        }
-
-                    }
-                    else
-                        vm.selectedModuleList.push(valuePermission);
-
-                });
-            });
-
-         }
-
-         vm.close = function () {
-            $state.go('Role');
-        }
-
-        vm.AddNewRole = function () {
-            blockUI.start("Loading...");
-
-            var newObj = new RoleResource();
-            newObj.titles = vm.titles;
-            newObj.roles = vm.selectedPermissions;
-            newObj.$create().then(
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    $state.go('Role');
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editRoleDialogController', ['blockUI', '$filter', '$state',
-            'appCONSTANTS', '$translate', 'RoleResource', 'PermissionPrepService', 'ToastService',
-            'RoleByIdPrepService', editRoleDialogController])
-
-    function editRoleDialogController(blockUI, $filter, $state, appCONSTANTS, $translate, RoleResource,
-        PermissionPrepService, ToastService, RoleByIdPrepService) {
-        var vm = this;
-
-        vm.selectedModuleList = [];
-        vm.selectedModule = ""; 
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.permissionList = PermissionPrepService;
-        vm.Role = RoleByIdPrepService;
-        console.log(RoleByIdPrepService);
-        vm.selectedPermissions = [];
-
-        var i;
-        for (i = 0; i < vm.Role.permessionTree.length; i++) {
-
-                        angular.forEach(vm.Role.permessionTree[i].permessions, function (valueModule, keyModule) {
-                if (valueModule.seclected)
-                    vm.selectedPermissions.push(valueModule.permessionId);
-            });
-
-        }
-        vm.UpdateRole = function () {
-
-                        blockUI.start("Loading...");
-            console.log(vm.Role);
-            var updateObj = new RoleResource();
-            updateObj.roleId = vm.Role.userGroupId;
-            updateObj.roles = vm.selectedPermissions;
-            updateObj.titles = vm.Role.titles;
-            updateObj.$update().then(
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    $state.go('Role');
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.checkPermission = function (obj) {
-            var checkIfPermissionExist = vm.selectedPermissions.indexOf(obj.permessionId);
-            if (checkIfPermissionExist == -1) {
-                vm.selectedPermissions.push(obj.permessionId);
-            }
-            else {
-                var index = vm.selectedPermissions.indexOf(obj.permessionId);
-                vm.selectedPermissions.splice(index, 1);
-            }
-        }
-        vm.ChangeSelectedModule = function () {
-            angular.forEach(vm.selectedModule, function (value, key) {
-                angular.forEach(value.permessions, function (valuePermission, key1) {
-                    if (vm.selectedModuleList != 0) {
-                        if (!vm.selectedModuleList.includes(valuePermission)) {
-                            vm.selectedModuleList.push(valuePermission);
-                        }
-
-                    }
-                    else
-                        vm.selectedModuleList.push(valuePermission);
-
-                });
-            });
-
-        }
-        vm.Close = function () {
-            $state.go('Role');
-        }
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('RoleController', ['blockUI', '$scope', '$translate', 'RoleResource', 'RolePrepService',
-            'ToastService', '$uibModal', RoleController]);
-
-
-    function RoleController(blockUI, $scope, $translate, RoleResource, RolePrepService, ToastService, $uibModal) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
-
-        blockUI.start("Loading...");
-
-        var vm = this;
-
-        $scope.totalCount = RolePrepService.totalCount;
-        $scope.RoleList = RolePrepService;
-        console.log($scope.RoleList)
-        function refreshRoles() {
-            blockUI.start("Loading...");
-
-            var k = RoleResource.getAllRoles({ page: vm.currentPage }).$promise.then(function (results) {
-                $scope.RoleList = results;
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-        vm.ChangeStatus = function (model) {
-
-                          var updateObj = new RoleResource();
-              updateObj.roleId = model.userGroupId;
-              updateObj.status = (model.isActive == true ? false : true);
-              updateObj.$changeStatus({ roleId: model.userGroupId, status: updateObj.status }).then(
-                  function (data, status) {
-                      refreshRoles();
-                      ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                      updateObj.status = model.isActive;
-                  },
-                  function (data, status) {
-                      ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                  }
-              );
-              return;
-          }
-
-        function confirmationDelete(model) {
-
-                        var deleteObj = new RoleResource();
-            deleteObj.roleId = model.userGroupId;
-            deleteObj.$delete({ roleId : model.userGroupId }).then(
-                function (data, status) {
-                    refreshRoles();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeleteSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
-                }
-            );
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-
-                        var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        }
-
-
-        vm.currentPage = 1;
-        $scope.changePage = function (page) {
-            vm.currentPage = page;
-            refreshRoles();
-        }
-        blockUI.stop();
-
-    }
-
-})();(function () {
-    angular
-        .module('home')
-        .factory('RoleResource', ['$resource', 'appCONSTANTS', RoleResource])
-
-    function RoleResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Role/CreateRole', {}, {
-            getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/GetAllRoles', useToken: true },
-            getAllActivateRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Roles/GetAllActivateRoles', useToken: true, params: { lang: '@lang' } },
-            getAllPermissions: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/PermessionTree', isArray: true, useToken: true, params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/UpdateRole', useToken: true },
-            delete: { method: 'DELETE', url: appCONSTANTS.API_URL + 'Role/Delete/:roleId', useToken: true },
-            getRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/GetRoleById/:roleId', useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/ChangeStatus/:roleId/:status', useToken: true },
-
-        })
-    } 
-}());
-
 (function () {
     'use strict';
 
@@ -3005,6 +3266,265 @@
     }
 
 }());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('createRoleDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'RoleResource', 'ToastService', '$rootScope', 'PermissionPrepService', createRoleDialogController])
+
+    function createRoleDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RoleResource,
+        ToastService, $rootScope, PermissionPrepService) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        $scope.permissionList = PermissionPrepService 
+        vm.selectedModuleList = [];
+        vm.selectedModule = "";
+        vm.selectedPermissions = [];
+        vm.ChangeSelectedModule = function () {
+            angular.forEach(vm.selectedModule, function (value, key) {
+                angular.forEach(value.permessions, function (valuePermission, key1) {
+                    if (vm.selectedModuleList != 0) {
+                        if (!vm.selectedModuleList.includes(valuePermission)) {
+                            vm.selectedModuleList.push(valuePermission);
+                        }
+
+                    }
+                    else
+                        vm.selectedModuleList.push(valuePermission);
+
+                });
+            });
+
+         }
+
+         vm.close = function () {
+            $state.go('Role');
+        }
+
+        vm.AddNewRole = function () {
+            blockUI.start("Loading...");
+
+            var newObj = new RoleResource();
+            newObj.titles = vm.titles;
+            newObj.roles = vm.selectedPermissions;
+            newObj.$create().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('Role');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editRoleDialogController', ['blockUI', '$filter', '$state',
+            'appCONSTANTS', '$translate', 'RoleResource', 'PermissionPrepService', 'ToastService',
+            'RoleByIdPrepService', editRoleDialogController])
+
+    function editRoleDialogController(blockUI, $filter, $state, appCONSTANTS, $translate, RoleResource,
+        PermissionPrepService, ToastService, RoleByIdPrepService) {
+        var vm = this;
+
+        vm.selectedModuleList = [];
+        vm.selectedModule = ""; 
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.permissionList = PermissionPrepService;
+        vm.Role = RoleByIdPrepService;
+        console.log(RoleByIdPrepService);
+        vm.selectedPermissions = [];
+
+        var i;
+        for (i = 0; i < vm.Role.permessionTree.length; i++) {
+
+                        angular.forEach(vm.Role.permessionTree[i].permessions, function (valueModule, keyModule) {
+                if (valueModule.seclected)
+                    vm.selectedPermissions.push(valueModule.permessionId);
+            });
+
+        }
+        vm.UpdateRole = function () {
+
+                        blockUI.start("Loading...");
+            console.log(vm.Role);
+            var updateObj = new RoleResource();
+            updateObj.roleId = vm.Role.userGroupId;
+            updateObj.roles = vm.selectedPermissions;
+            updateObj.titles = vm.Role.titles;
+            updateObj.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    $state.go('Role');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.checkPermission = function (obj) {
+            var checkIfPermissionExist = vm.selectedPermissions.indexOf(obj.permessionId);
+            if (checkIfPermissionExist == -1) {
+                vm.selectedPermissions.push(obj.permessionId);
+            }
+            else {
+                var index = vm.selectedPermissions.indexOf(obj.permessionId);
+                vm.selectedPermissions.splice(index, 1);
+            }
+        }
+        vm.ChangeSelectedModule = function () {
+            angular.forEach(vm.selectedModule, function (value, key) {
+                angular.forEach(value.permessions, function (valuePermission, key1) {
+                    if (vm.selectedModuleList != 0) {
+                        if (!vm.selectedModuleList.includes(valuePermission)) {
+                            vm.selectedModuleList.push(valuePermission);
+                        }
+
+                    }
+                    else
+                        vm.selectedModuleList.push(valuePermission);
+
+                });
+            });
+
+        }
+        vm.Close = function () {
+            $state.go('Role');
+        }
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('RoleController', ['blockUI', '$scope', '$translate', 'RoleResource', 'RolePrepService',
+            'ToastService', '$uibModal', RoleController]);
+
+
+    function RoleController(blockUI, $scope, $translate, RoleResource, RolePrepService, ToastService, $uibModal) {
+
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
+
+        blockUI.start("Loading...");
+
+        var vm = this;
+
+        $scope.totalCount = RolePrepService.totalCount;
+        $scope.RoleList = RolePrepService;
+        console.log($scope.RoleList)
+        function refreshRoles() {
+            blockUI.start("Loading...");
+
+            var k = RoleResource.getAllRoles({ page: vm.currentPage }).$promise.then(function (results) {
+                $scope.RoleList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+        vm.ChangeStatus = function (model) {
+
+                          var updateObj = new RoleResource();
+              updateObj.roleId = model.userGroupId;
+              updateObj.status = (model.isActive == true ? false : true);
+              updateObj.$changeStatus({ roleId: model.userGroupId, status: updateObj.status }).then(
+                  function (data, status) {
+                      refreshRoles();
+                      ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                      updateObj.status = model.isActive;
+                  },
+                  function (data, status) {
+                      ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                  }
+              );
+              return;
+          }
+
+        function confirmationDelete(model) {
+
+                        var deleteObj = new RoleResource();
+            deleteObj.roleId = model.userGroupId;
+            deleteObj.$delete({ roleId : model.userGroupId }).then(
+                function (data, status) {
+                    refreshRoles();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeleteSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+                }
+            );
+        }
+        vm.openDeleteDialog = function (model, name, id) {
+
+                        var modalContent = $uibModal.open({
+                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+                controller: 'confirmDeleteDialogController',
+                controllerAs: 'deleteDlCtrl',
+                resolve: {
+                    model: function () { return model },
+                    itemName: function () { return name },
+                    itemId: function () { return id },
+                    message: function () { return null },
+                    callBackFunction: function () { return confirmationDelete }
+                }
+
+            });
+        }
+
+
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshRoles();
+        }
+        blockUI.stop();
+
+    }
+
+})();(function () {
+    angular
+        .module('home')
+        .factory('RoleResource', ['$resource', 'appCONSTANTS', RoleResource])
+
+    function RoleResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Role/CreateRole', {}, {
+            getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/GetAllRoles', useToken: true },
+            getAllActivateRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Roles/GetAllActivateRoles', useToken: true, params: { lang: '@lang' } },
+            getAllPermissions: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/PermessionTree', isArray: true, useToken: true, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/UpdateRole', useToken: true },
+            delete: { method: 'DELETE', url: appCONSTANTS.API_URL + 'Role/Delete/:roleId', useToken: true },
+            getRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/GetRoleById/:roleId', useToken: true },
+            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/ChangeStatus/:roleId/:status', useToken: true },
+
+        })
+    } 
+}());
+
 (function () {
     'use strict';
 

@@ -1,0 +1,52 @@
+<div>
+    <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
+        <!-- <div id="bold"> {{'AddNewAwardBtn'| translate}} </div> -->
+        <!-- <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-click="$state.go('newAward');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+            {{'AddNew'| translate}}</button> -->
+    </div>
+
+    <div ng-if="AwardList.length == null">
+        <span>{{'NoAwardsAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="AwardList.length > 0">
+        <div class="table-responsive">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'title' | translate}}</th>
+                        <th>{{'description' | translate}}</th>
+                        <th>{{'manager' | translate}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Award in AwardList">
+                        <td data-title="Name">
+                            {{Award.title  | limitTo : 20}}
+                            {{Award.title.length > 20 ? '...' : ''}}
+                        </td>
+                        <td width="30%">
+                            {{Award.description  | limitTo : 60}}
+                            {{Award.description.length > 60 ? '...' : ''}}
+                        </td>
+                        <td data-title="Name">
+                            {{Award.manager.firstName }} - {{Award.manager.lastName}}
+                        </td>
+                        <td>
+                            <i ng-show="user.PermessionModules['News'].includes('add_new')"
+                                class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('editAward',{id: Award.id});" title="Edit">mode_edit</i>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="AwardCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+        hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>
