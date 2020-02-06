@@ -6,7 +6,9 @@ using MIA.Infrastructure;
 using MIA.Infrastructure.Options;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MIA.Mvc.Core {
@@ -30,10 +32,6 @@ namespace MIA.Mvc.Core {
 
     public string GenerateFileKeyForResource(ResourceType resourceType, string resourceId, string fileName) {
       return $"{resourceType.ToString().ToLower()}/{resourceId}/{fileName}";
-    }
-
-    public string GenerateDirectoryKeyForTempUpload(ResourceType resourceType, string resourceId) {
-      return $"{resourceType.ToString().ToLower()}/{resourceId}/temp";
     }
 
     public async Task<string> UploadFileAsync(Stream stream, string key, string bucketName = null, bool publicRead = true) {
@@ -76,120 +74,105 @@ namespace MIA.Mvc.Core {
       }
     }
 
-    private static string addDelimiterToPrefix(string prefix) {
-      string delimiter = "/";
-      if (!prefix.EndsWith(delimiter)) {
-        prefix += delimiter;
-      }
-      return prefix;
-    }
+    public async Task<ChunkStatus> UploadChunk(string directory, FileChunkDto chunkDto, string bucketName = null) {
+      bucketName = bucketName ?? _awsOptions.Value.S3_Content_BucketName;
+      bucketName += $"/{directory}/{chunkDto.FileName.GetFileNameWithoutExt()}";
+      ChunkStatus response = null;
 
-    public async Task<int> GetStartIndex(string sourceDirKey, string bucketName = null) {
-      int index = 0;
-      bucketName = _awsOptions.Value.S3_Content_BucketName;
-      using (var client = new AmazonS3Client(
-                  awsAccessKeyId: _awsOptions.Value.S3_Content_AccessKey,
-                  awsSecretAccessKey: _awsOptions.Value.S3_Content_SecretKey,
-                  region: RegionEndpoint.GetBySystemName(_awsOptions.Value.S3_Content_Region))) {
-
-
-        var request = new ListObjectsV2Request {
-          Prefix = addDelimiterToPrefix(sourceDirKey),
-          BucketName = bucketName,
-          MaxKeys = 1000,
-        };
-
-        ListObjectsV2Response response;
-        do {
-          response = await client.ListObjectsV2Async(request);
-          foreach (S3Object entry in response.S3Objects) {
-            if (entry.Key.EndsWith(".part")) {
-              int i = 0;
-              if (int.TryParse(entry.Key.Substring(entry.Key.LastIndexOf("/") + 1, entry.Key.Length - entry.Key.LastIndexOf(".part") - 4), out i)) {
-                index = Math.Max(i, index);
-              }
-            }
-          }
-          request.ContinuationToken = response.NextContinuationToken;
-        } while (response.IsTruncated);
-      }
-
-      return index;
-    }
-
-
-    public async Task<ChunkStatus> SaveChunk(string sourceDirKey, FileChunkDto chunk, string bucketName = null) {
       try {
-        bucketName = _awsOptions.Value.S3_Content_BucketName;
+        // Retreiving Previous ETags
+        var s3ETags = new List<PartETag>();
+        if (chunkDto.ETags != null && chunkDto.ETags.Any()) {
+          s3ETags = ETagPartToS3ETagPart(chunkDto.ETags).ToList();
+        }
+
         using (var client = new AmazonS3Client(
-                  awsAccessKeyId: _awsOptions.Value.S3_Content_AccessKey,
-                  awsSecretAccessKey: _awsOptions.Value.S3_Content_SecretKey,
-                  region: RegionEndpoint.GetBySystemName(_awsOptions.Value.S3_Content_Region))) {
+                 awsAccessKeyId: _awsOptions.Value.S3_Content_AccessKey,
+                 awsSecretAccessKey: _awsOptions.Value.S3_Content_SecretKey,
+                 region: RegionEndpoint.GetBySystemName(_awsOptions.Value.S3_Content_Region))) {
+          var lastPart = ((chunkDto.TotalChunks - chunkDto.ChunkIndex) == 1) ? true : false;
+          var partNumber = chunkDto.ChunkIndex + 1;
 
-          using (var chunkStream = new MemoryStream()) {
-            string status = "";
-            chunk.Chunk.CopyTo(chunkStream);
-            var maxCompletedChunk = await GetStartIndex(sourceDirKey);
-            // Save the chunk file in temporery location with .part extension
-            var saveFileKey = $"{sourceDirKey}/{++maxCompletedChunk}.part";
+          using (var ms = new MemoryStream(chunkDto.Chunk)) {
+            //using (var ms = new MemoryStream()) {
+            //  chunkDto.Chunk.CopyTo(ms);
+            ms.Position = 0;
 
-            var uploadRequest = new TransferUtilityUploadRequest {
-              InputStream = chunkStream,
-              Key = saveFileKey,
+            //Step 1: build and send a multi upload request
+            if (chunkDto.ChunkIndex == 0) {
+              var initiateRequest = new InitiateMultipartUploadRequest {
+                BucketName = bucketName,
+                Key = chunkDto.FileName
+              };
+
+              var initResponse = await client.InitiateMultipartUploadAsync(initiateRequest);
+              chunkDto.UploadId = initResponse.UploadId;
+            }
+
+            //Step 2: upload each chunk (this is run for every chunk unlike the other steps which are run once)
+            var uploadRequest = new UploadPartRequest {
               BucketName = bucketName,
-              CannedACL = S3CannedACL.Private
+              Key = chunkDto.FileName,
+              UploadId = chunkDto.UploadId,
+              PartNumber = partNumber,
+              InputStream = ms,
+              IsLastPart = lastPart,
+              PartSize = ms.Length
             };
 
-            var fileTransferUtility = new TransferUtility(client);
-            await fileTransferUtility.UploadAsync(uploadRequest);
+            var uploadResponse = await client.UploadPartAsync(uploadRequest);
 
-            status = "chunk saved";
-            if (maxCompletedChunk == chunk.TotalChunks) {
-              //merge all .part files
-              await MergeChunkFiles(sourceDirKey, $"{chunk.FileName.GetFileNameWithoutExt()}.{chunk.FileName.GetFileExt()}");
-              status = "file saved";
+
+            response = new ChunkStatus();
+            //Step 3: build and send the multipart complete request
+            if (lastPart) {
+              s3ETags.Add(new PartETag {
+                PartNumber = partNumber,
+                ETag = uploadResponse.ETag
+              });
+
+              var completeRequest = new CompleteMultipartUploadRequest {
+                BucketName = bucketName,
+                Key = chunkDto.FileName,
+                UploadId = chunkDto.UploadId,
+                PartETags = s3ETags
+              };
+
+              var result = await client.CompleteMultipartUploadAsync(completeRequest);
+              //Set the uploadId and fileURLs with the response.
+              response.UploadId = uploadRequest.UploadId;
+              response.FinalUrl = result.Location;
+
+            } else {
+              s3ETags.Add(new PartETag {
+                PartNumber = partNumber,
+                ETag = uploadResponse.ETag
+              });
+
+              response.UploadId = uploadRequest.UploadId;
+              response.ETags = S3ETagsToETagPart(s3ETags).ToArray();
             }
-
-            return new ChunkStatus { NextChunkIndex = maxCompletedChunk, Status = status };
           }
         }
       } catch (Exception e) {
-        throw e;
+        return null;
       }
+
+      return response;
     }
 
-    private async Task MergeChunkFiles(string sourceDirKey, string fileName, string bucketName = null) {
-      var maxFileNumber = GetStartIndex(sourceDirKey, bucketName);
-      try {
-
-      
-      fileName = Path.Combine(fullPath, fileName);
-      Func<int, string> _partFileName = (int index) => string.Format(Path.Combine(fullPath, $"{index}.part"));
-      if (!System.IO.File.Exists(fileName)) {
-        using (var fs = System.IO.File.Create(fileName)) {
-          fs.Close();
-        }
-      }
-      using (FileStream stream = new FileStream(fileName, FileMode.Append, FileAccess.Write, FileShare.None)) {
-        for (int i = 1; i <= maxFileNumber; i++) {
-          using (var partFile = new FileStream(_partFileName(i), FileMode.Open, FileAccess.Read, FileShare.None)) {
-            partFile.Seek(0, SeekOrigin.Begin);
-            await partFile.CopyToAsync(stream);
-          }
-        }
-      }
-
-      //delete all .part files
-      var allParts = Directory.GetFiles(fullPath, "*.part");
-      foreach (var part in allParts) {
-        System.IO.File.Delete(part);
-      }
-
-      } catch (Exception ex) {
-        throw ex;
-      }
+    private IEnumerable<PartETag> ETagPartToS3ETagPart(IEnumerable<ETagPart> eTags) {
+      return eTags.Select(a => new PartETag {
+        PartNumber = a.PartNumber,
+        ETag = a.ETag
+      }).ToArray();
     }
 
-
+    private IEnumerable<ETagPart> S3ETagsToETagPart(IEnumerable<PartETag> eTags) {
+      return eTags.Select(a => new ETagPart {
+        PartNumber = a.PartNumber,
+        ETag = a.ETag
+      }).ToArray();
+    }
   }
 }

@@ -12,6 +12,7 @@ namespace MIA.ORMContext.Mappings {
       builder.Property(x => x.Id)
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
+
       builder.Property(a => a.Title)
       .HasConversion(
           v => JsonConvert.SerializeObject(v, EntityConvensions.Settings),

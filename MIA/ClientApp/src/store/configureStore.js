@@ -11,6 +11,8 @@ import API from "../services";
 export default function configureStore(initialState, history) {
   // inject helpers, make requestUtil available to all logic
   const api = API.create();
+  window.api = api;
+
   const injectedApi = { api };
   const logicMiddleware = createLogicMiddleware([...logics], injectedApi);
 

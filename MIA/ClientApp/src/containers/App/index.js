@@ -67,7 +67,7 @@ class App extends React.Component {
               <Layout>
                 <Switch>
                   {/* General website */}
-                  <Route path="test" component={TestUpload} />
+                  <Route path="/test" component={TestUpload} />
 
                   <Route exact path="/" component={Home} />
                   <Route path="/about-us" component={AboutUs} />

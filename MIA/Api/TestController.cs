@@ -176,15 +176,14 @@ namespace MIA.Api {
       //return Ok();
     }
 
-    [HttpPost("upload-s3-chunk")]
-    public async Task<IActionResult> UploadS3Chunk([FromServices] IS3FileManager fileManager, [FromForm]IFormFile file) {
-      var dir = fileManager.GenerateDirectoryKeyForTempUpload(ResourceType.Artwork, "01dzsaf77d4eesvrtd1hxhca1r");
-      var index = await fileManager.GetStartIndex(dir);
+    [HttpPost("upload-chunk")]
+    [RequestSizeLimit(1024 * 1024 * 30)]
+    public async Task<IActionResult> UploadS3Chunk(
+      [FromServices] IS3FileManager fileManager,      
+      FileChunkDto dto) {
 
-      //var filePath = await fileManager.UploadFileAsync(file.OpenReadStream(), file.FileName);
-      //return Ok(filePath);
-
-      return Ok(index);
+      var result = await fileManager.UploadChunk(ResourceType.Artwork.ToString().ToLower() + "/temp", dto);
+      return Ok(result);
     }
 
   }

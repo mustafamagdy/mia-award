@@ -8,6 +8,7 @@ import homeApi from "./home";
 import lookupsApi from "./lookups";
 import newsApi from "./news";
 import galleryApi from "./gallery";
+import artworksApi from "./artworks";
 
 const apiURI = config.useLocalApi ? config.devApiRoot : config.apiRoot;
 const create = (baseURL = apiURI) => {
@@ -16,7 +17,7 @@ const create = (baseURL = apiURI) => {
     headers: {
       "Cache-Control": "no-cache"
     },
-    timeout: 30000 //30 sec
+    timeout: 120000 //30000 //30 sec
   });
 
   //add access token on each request
@@ -44,6 +45,7 @@ const create = (baseURL = apiURI) => {
   const lookups = lookupsApi(api);
   const news = newsApi(api);
   const gallery = galleryApi(api);
+  const artworks = artworksApi(api);
 
   return {
     setHeader: api.setHeader,
@@ -54,7 +56,8 @@ const create = (baseURL = apiURI) => {
     ...home,
     ...lookups,
     ...news,
-    ...gallery
+    ...gallery,
+    ...artworks
   };
 };
 

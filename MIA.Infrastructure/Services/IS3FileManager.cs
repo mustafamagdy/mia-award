@@ -13,25 +13,34 @@ namespace MIA.Infrastructure {
 
   public interface IS3FileManager {
     string GenerateFileKeyForResource(ResourceType resourceType, string resourceId, string fileName);
-    string GenerateDirectoryKeyForTempUpload(ResourceType resourceType, string resourceId);
     Task<string> UploadFileAsync(Stream stream, string key, string bucketName = null, bool publicRead = true);
     Task DeleteFileAsync(string key, string bucketName = null);
     Task CopyObjectAsync(string sourceKey, string destinationKey);
     Task CopyObjectAsync(string sourceKey, string sourceBucketName, string destinationKey, string destinationBucketName);
 
 
-    Task<int> GetStartIndex(string sourceDirKey, string bucketName = null);
-    Task<ChunkStatus> SaveChunk(string sourceDirKey, FileChunkDto chunk, string bucketName = null);
+    Task<ChunkStatus> UploadChunk(string directory, FileChunkDto chunkDto, string bucketName = null);
 
+  }
+
+  public class ETagPart {
+    public int PartNumber { get; set; }
+    public string ETag { get; set; }
   }
 
   public class ChunkStatus {
-    public int NextChunkIndex { get; set; }
-    public string Status { get; set; }
+    public ETagPart[] ETags { get; set; }
+    public string UploadId { get; set; }
+    public string FinalUrl { get; set; }
+
+
   }
   public class FileChunkDto {
     public string FileName { get; set; }
-    public IFormFile Chunk { get; set; }
+    public string UploadId { get; set; }
+    public int ChunkIndex { get; set; }
     public int TotalChunks { get; set; }
+    public byte[] Chunk { get; set; }
+    public ETagPart[] ETags { get; set; }
   }
 }
