@@ -19,6 +19,7 @@ using System;
 using Microsoft.Extensions.Options;
 using MIA.Infrastructure;
 using MIA.Infrastructure.Options;
+using Microsoft.EntityFrameworkCore;
 
 namespace MIA.Api {
 
@@ -35,6 +36,15 @@ namespace MIA.Api {
     public string Writer { get; set; }
     public string Crew { get; set; }
   }
+  public class ArtworkViewWithFilesDto: ArtworkViewDto {
+    public ArtworkFileDto[] Files { get; set; }
+  }
+
+  public class ArtworkFileDto {
+    public string FileUrl { get; set; }
+    public int Size { get; set; }
+  }
+
   public class ArtworkWithStatusDto {
     public string Id { get; set; }
     public LocalizedData Title { get; set; }
@@ -209,7 +219,7 @@ namespace MIA.Api {
 
       db.ArtWorks.Update(artwork);
 
-      return Ok();
+      return Ok(_mapper.Map<ArtworkViewDto>(artwork));
     }
 
     private async Task SaveUserPaymentAsync(IS3FileManager fileManager, IAppUnitOfWork db, Award award, SubmitArtworkWithDetails dto, PaymentStatus paymentStatus) {
@@ -231,7 +241,6 @@ namespace MIA.Api {
       }
     }
 
-    //get artwork details
     [HttpGet("{id}")]
     public async Task<IActionResult> GetArtowkrById([FromRoute] string id, [FromServices] IAppUnitOfWork db) {
       var nominee = await _userResolver.CurrentUserAsync();
@@ -245,21 +254,41 @@ namespace MIA.Api {
     [HttpPost("{id}/files")]
     public async Task<IActionResult> UploadArtworkFiles(
       [FromRoute] string id,
-      [FromServices] IAppUnitOfWork db) {
+      [FromServices] IAppUnitOfWork db,
+      [FromServices] IS3FileManager fileManager,
+      FileChunkDto dto) {
       var nominee = await _userResolver.CurrentUserAsync();
       var artwork = await db.ArtWorks.FindAsync(id);
       if (artwork.NomineeId != nominee.Id)
         return NotFound404("Artwork doesn't belong to you");
 
-
-
-      return Ok();
+      var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.Artwork, id);
+      var result = await fileManager.UploadChunk(tempDir, dto);
+      if (!string.IsNullOrEmpty(result.FinalUrl)) {
+        //move file to final directory of the artwork files
+        var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, id, dto.FileName);
+        await fileManager.MoveObjectAsync(result.FileKey, fileKey);
+        return Ok(fileKey);
+      } else {
+        return Ok(result);
+      }
     }
 
-    //view list of artwork files
     [HttpGet("{id}/files")]
-    public async Task<IActionResult> ArtworkFiles() {
-      return Ok();
+    public async Task<IActionResult> ArtworkFiles(
+      [FromRoute] string id,
+      [FromServices] IAppUnitOfWork db) {
+
+      var nominee = await _userResolver.CurrentUserAsync();
+      var artwork = await db.ArtWorks
+                            .Include(a=>a.MediaFiles)
+                            .FirstOrDefaultAsync(a=>a.Id == id);
+
+      if (artwork.NomineeId != nominee.Id)
+        return NotFound404("Artwork doesn't belong to you");
+
+
+      return Ok(_mapper.Map<ArtworkViewWithFilesDto>(artwork));
     }
 
   }

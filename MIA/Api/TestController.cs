@@ -181,9 +181,17 @@ namespace MIA.Api {
     public async Task<IActionResult> UploadS3Chunk(
       [FromServices] IS3FileManager fileManager,      
       FileChunkDto dto) {
-
-      var result = await fileManager.UploadChunk(ResourceType.Artwork.ToString().ToLower() + "/temp", dto);
-      return Ok(result);
+      var id = "someId";
+      var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.Artwork, id);
+      var result = await fileManager.UploadChunk(tempDir, dto);
+      if (!string.IsNullOrEmpty(result.FinalUrl)) {
+        //move file to final directory of the artwork files
+        var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, id, dto.FileName);
+        var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
+        return Ok(fileUrl);
+      } else {
+        return Ok(result);
+      }
     }
 
   }
