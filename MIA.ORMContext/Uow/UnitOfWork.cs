@@ -8,11 +8,11 @@ using Z.EntityFramework.Plus;
 namespace MIA.ORMContext.Uow {
   public class UnitOfWork<T> : IUnitOfWork<T> where T : DbContext {
     protected readonly DbContext Context;
-    private readonly IAuditUser _auditUser;
+    private readonly IUserResolver _auditUser;
     private IDbContextTransaction _transaction;
     private IsolationLevel? _isolationLevel;
 
-    public UnitOfWork(T dbContext, IAuditUser auditUser) {
+    public UnitOfWork(T dbContext, IUserResolver auditUser) {
       Context = dbContext ??
         throw new ArgumentNullException(nameof(dbContext));
       this._auditUser = auditUser;

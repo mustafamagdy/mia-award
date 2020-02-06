@@ -17,7 +17,7 @@
             <param name="logger"></param>
             <param name="_locale"></param>
         </member>
-        <member name="M:MIA.Api.AccountController.CreateByEmail(System.String,MIA.Dto.Auth.SignUpByEmailRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.TemplateParser.ITemplateParser,MIA.Api.Base.IApiUrlHelper)">
+        <member name="M:MIA.Api.AccountController.SignupAsNominee(System.String,MIA.Dto.Auth.SignUpByEmailRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.TemplateParser.ITemplateParser,MIA.Api.Base.IApiUrlHelper)">
             <summary>
             SignUp using email and password
             </summary>

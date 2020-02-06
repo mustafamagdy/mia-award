@@ -17,8 +17,7 @@ using MIA.Api.Base;
 using MIA.Dto.Auth;
 using MIA.Middlewares.Auth;
 
-namespace MIA.Api
-{
+namespace MIA.Api {
   /// <summary>
   /// Authentication controller for different identity operations
   /// </summary>

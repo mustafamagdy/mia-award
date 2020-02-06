@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MIA.Authorization.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,17 +10,17 @@ namespace MIA.ORMContext
     internal const string ADMIN_USERNAME = "admin";
     internal const string ADMIN_EMAIL = "admin@email.com";
     internal const string ADMIN_PASSWORD = "admin@123456.com";
-    public const string ADMIN_ROLE = "admin";
+    public static readonly string ADMIN_ROLE = PredefinedRoles.Administrator.ToString();
 
     internal const string DEMO_USERNAME = "demo";
     internal const string DEMO_EMAIL = "demo@email.com";
     internal const string DEMO_PASSWORD = "demo@123456.com";
-    public const string DEMO_ROLE = "demo";
+    public static readonly string DEMO_ROLE = PredefinedRoles.Demo.ToString();
 
     internal const string NOMINEE_USERNAME = "nominee";
     internal const string NOMINEE_EMAIL = "nominee@email.com";
     internal const string NOMINEE_PASSWORD = "nominee@123456.com";
-    public const string NOMINEE_ROLE = "nominee";
+    public static readonly string NOMINEE_ROLE = PredefinedRoles.Nominee.ToString();
 
     internal const int MAX_50 = 50;
     internal const int MAX_100 = 100;

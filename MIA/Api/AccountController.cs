@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MIA.Api.Base;
+using MIA.Authorization.Entities;
 using MIA.Dto.Auth;
 using MIA.Infrastructure.Options;
 using MIA.Middlewares;
@@ -62,17 +63,20 @@ namespace MIA.Api {
     /// <param name="templateParser"></param>
     /// <param name="urlHelper"></param>
     /// <returns></returns>
-    [HttpPost("CreateByEmail")]
-    [SwaggerOperation("SignUp using email and password")]
-    public async Task<IActionResult> CreateByEmail(
+    [HttpPost("nominee")]
+    [SwaggerOperation("SignUp using email and password as nominee")]
+    public async Task<IActionResult> SignupAsNominee(
       [FromHeader] string culture,
       [FromBody] SignUpByEmailRequest signupData,
       [FromServices] UserManager<AppUser> userManager,
       [FromServices] IEmailSender emailSender,
       [FromServices] ITemplateParser templateParser,
       [FromServices] IApiUrlHelper urlHelper) {
-      AppUser user = signupData.MapTo<AppUser>();
+      
+      Nominee user = signupData.MapTo<Nominee>();
       IdentityResult result = await userManager.CreateAsync(user, signupData.Password);
+
+
       if (result.Succeeded) {
         _logger.LogInformation("User created a new account with password.");
         string token = await userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -86,7 +90,12 @@ namespace MIA.Api {
           FullName = user.FirstName + " " + user.LastName
         });
 
+        //send confirmation email
         await emailSender.SendEmailAsync(user.Email, _Locale["email_confirm_subject"], htmlMessage);
+        
+        //add to nominee role
+        await userManager.AddToRoleAsync(user, PredefinedRoles.Nominee.ToString());
+
         return Ok();
 
       } else {

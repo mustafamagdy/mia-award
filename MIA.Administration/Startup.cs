@@ -86,7 +86,7 @@ namespace MIA {
         // Add useful interface for accessing the ActionContext outside a controller.
         .AddSingleton<IActionContextAccessor, ActionContextAccessor>()
         //access current username, and userid for audit purpose
-        .AddSingleton<IAuditUser, AuditUserResolver>()
+        .AddSingleton<IUserResolver, UserResolver>()
         //.AddSingleton<IBookingManager, BookingManagerClient>()
         //.AddSingleton<ISessionManager, SessionManagerClient>()
         .AddScoped(x => x

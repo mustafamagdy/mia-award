@@ -28,6 +28,7 @@ namespace MIA.ORMContext.Seed {
       IS3FileManager s3FileManager,
       IAppUnitOfWork db) {
 
+      await SeedDefaultRoles(roleManager, db);
       await SeedContactUsMessageSubjectsAsync(db);
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
@@ -368,6 +369,19 @@ namespace MIA.ORMContext.Seed {
           adminRole.Permissions += (char)Permissions.AccessAll;
         }
 
+      }
+    }
+
+    private static async Task SeedDefaultRoles(RoleManager<AppRole> roleManager, IAppUnitOfWork db) {
+      var roles = Enum.GetNames(typeof(PredefinedRoles));
+      foreach (var role in roles) {
+        if (await roleManager.FindByNameAsync(role.ToString().ToLower()) == null) {
+          await roleManager.CreateAsync(
+            new AppRole {
+              Name = role.ToString().ToLower(),
+              NormalizedName = role.ToString().ToUpper()
+            });
+        }
       }
     }
 

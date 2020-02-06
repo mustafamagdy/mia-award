@@ -6,6 +6,7 @@ namespace MIA.Models.Entities {
   public class ArtWork : BaseEntity<string> {
     public LocalizedData Title { get; set; }
     public bool UploadComplete { get; set; }
+    public bool AllowFileUpload { get; set; }
     public Award Award { get; set; }
     public string AwardId { get; set; }
     public Nominee Nominee { get; set; }
@@ -20,6 +21,9 @@ namespace MIA.Models.Entities {
     public string PosterUrl { get; set; }
     public string TrailerId { get; set; }
     public string TrailerUrl { get; set; }
+    public string CoverId { get; set; }
+    public string CoverUrl { get; set; }
+
     public long PostedDate { get; set; }
     public string DateOfRelease { get; set; }
     public string Country { get; set; }
