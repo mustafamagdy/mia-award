@@ -11,7 +11,7 @@ import Trailer from "./Trailer";
 import Files from "./Files";
 import { useForm } from "react-hook-form";
 
-const Artwork = ({ artworkDetails, awards, ...props }) => {
+const Artwork = ({ artworkDetails, awards, saveInfoStep, infoStep, ...props }) => {
   useEffect(() => {
     if (artworkDetails == undefined) {
       setTabs([
@@ -28,23 +28,15 @@ const Artwork = ({ artworkDetails, awards, ...props }) => {
     }
   }, []);
 
-  const [tabs, setTabs] = useState([]);
+  const [tabs, setTabs] = useState([
+    { key: "info", status: true },
+    { key: "payment", status: false }
+  ]);
   const [activeTab, setActiveTab] = useState(0);
+  const [activeTabKey, setActiveTabKey] = useState("info");
 
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      title: { ar: "", en: "" },
-      country: "",
-      year: "",
-      about: "",
-      story: "",
-      directors: "", //[],
-      producers: "", //[],
-      writers: "", //[],
-      stars: "", //[],
-      crew: "", //[]
-      payment: {}
-    }
+  const { register, handleSubmit, getValues } = useForm({
+    defaultValues: {}
   });
 
   const handleActiveTab = tab => {
@@ -52,11 +44,23 @@ const Artwork = ({ artworkDetails, awards, ...props }) => {
     status &= tabs.slice(0, tab).every(a => a.status);
     if (status) {
       setActiveTab(tab);
+      const _key = tabs[tab].key;
+      setActiveTabKey(_key);
     }
   };
 
   const payAndContinue = (isOnline, paymentToken) => {
     console.log("payed online?", isOnline, paymentToken);
+  };
+
+  const gotoPayment = infoValues => {
+    console.log("=>", infoValues);
+    // saveInfoStep(infoValues);
+    const paymentTab = tabs.find(a => a.key == "payment");
+    if (!!paymentTab) {
+      setActiveTab(tabs.indexOf(paymentTab));
+      setActiveTabKey(paymentTab.key);
+    }
   };
 
   return (
@@ -84,25 +88,15 @@ const Artwork = ({ artworkDetails, awards, ...props }) => {
             </TabList>
           </ul>
         </div>
-        <TabPanels activeIndex={activeTab} activeTabKey={tabs && tabs[activeTab] && tabs[activeTab].key} activeClassName="active">
-          <TabPane paneKey="info">
-            <Info register={register} />
-          </TabPane>
-          <TabPane paneKey="payment">
-            <Payment register={register} awards={awards} onPayment={payAndContinue} />
-          </TabPane>
-          <TabPane paneKey="trailer">
-            <Trailer register={register} />
-          </TabPane>
-          <TabPane paneKey="files">
-            <Files register={register} />
-          </TabPane>
-        </TabPanels>
+        <Info active={activeTabKey == "info"} register={register} submitInfo={handleSubmit(gotoPayment)} />
+        <Payment active={activeTabKey == "payment"} awards={awards} onPayment={payAndContinue} />
+        {/* <Trailer active={activeTabKey == "trailer"} register={register} />
+        <Files active={activeTabKey == "upload"} register={register} /> */}
       </div>
     </React.Fragment>
   );
 };
 
-const mapStateToProps = ({ home: { awards }, members: { artworkDetails } }) => ({ awards, artworkDetails });
+const mapStateToProps = ({ home: { awards }, members: { artworkDetails, infoStep } }) => ({ awards, artworkDetails, infoStep });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...membersActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Artwork);

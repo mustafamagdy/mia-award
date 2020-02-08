@@ -6,11 +6,16 @@ import "react-block-ui/style.css";
 import PaymentForm from "components/PaymentForm";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
 import { I18n } from "@lingui/react";
+import { useEffect } from "react";
 
-const Payment = ({ awards = [], onPayment, ...props }) => {
-  const [selectedAward, setSelectedAward] = useState(awards[0]);
+const Payment = ({ active, awards = [], onPayment, ...props }) => {
+  const [selectedAward, setSelectedAward] = useState();
   const [awardConfirmed, setAwardConfirmed] = useState(false);
   const [useOnlinePayment, setUseOnlinePayment] = useState(true);
+
+  useEffect(() => {
+    setSelectedAward(awards[0]);
+  }, [awards]);
 
   const selectAward = () => {
     setAwardConfirmed(true);
@@ -20,57 +25,61 @@ const Payment = ({ awards = [], onPayment, ...props }) => {
   };
 
   return (
-    <div className="tab_content tab_payment">
+    <div className={classNames("tab_content tab_payment", { active })}>
       <div className="all_payments_way">
         <div className="next_step">
           <span>Next</span>
         </div>
         <BlockUi tag="div" blocking={awardConfirmed} className={classNames("pay_col_one", { move: awardConfirmed })}>
-          <div className="item_top">
-            <div className="imgthumb">
-              <img src={selectedAward.trophyUrl} />
-            </div>
-            <div className="desc">
-              <LanguageContext.Consumer>
-                {({ locale }) => (
-                  <>
-                    <span>
-                      <Trans id={selectedAward.title[locale.code]}>{selectedAward.title[locale.code]}</Trans>
-                    </span>
-                    <p>you applied for {selectedAward.title[locale.code]} award please confirm to move on to the payment stage</p>
+          {selectedAward && (
+            <>
+              <div className="item_top">
+                <div className="imgthumb">
+                  <img src={selectedAward.trophyUrl} />
+                </div>
+                <div className="desc">
+                  <LanguageContext.Consumer>
+                    {({ locale }) => (
+                      <>
+                        <span>
+                          <Trans id={selectedAward.title[locale.code]}>{selectedAward.title[locale.code]}</Trans>
+                        </span>
+                        <p>you applied for {selectedAward.title[locale.code]} award please confirm to move on to the payment stage</p>
 
-                    <div className="award_category">
-                      <select
-                        name="award"
-                        onChange={a => {
-                          const _award = awards.find(x => x.id == a.target.value);
-                          setSelectedAward(_award);
-                        }}
-                      >
-                        <I18n>
-                          {({ i18n }) => {
-                            {
-                              return awards.map((a, i) => (
-                                <option key={a.id} value={a.id}>
-                                  {i18n._(a.code)}
-                                </option>
-                              ));
-                            }
-                          }}
-                        </I18n>
-                      </select>
-                    </div>
-                  </>
-                )}
-              </LanguageContext.Consumer>
-            </div>
-          </div>
-          <div className="item_bottom">
-            <div className="price">{selectedAward.artworkFee} USD</div>
-            <div className="confirm">
-              <span onClick={selectAward}>Confirm</span>
-            </div>
-          </div>
+                        <div className="award_category">
+                          <select
+                            name="award"
+                            onChange={a => {
+                              const _award = awards.find(x => x.id == a.target.value);
+                              setSelectedAward(_award);
+                            }}
+                          >
+                            <I18n>
+                              {({ i18n }) => {
+                                {
+                                  return awards.map((a, i) => (
+                                    <option key={a.id} value={a.id}>
+                                      {i18n._(a.code)}
+                                    </option>
+                                  ));
+                                }
+                              }}
+                            </I18n>
+                          </select>
+                        </div>
+                      </>
+                    )}
+                  </LanguageContext.Consumer>
+                </div>
+              </div>
+              <div className="item_bottom">
+                <div className="price">{selectedAward.artworkFee} USD</div>
+                <div className="confirm">
+                  <span onClick={selectAward}>Confirm</span>
+                </div>
+              </div>
+            </>
+          )}
         </BlockUi>
         <BlockUi tag="div" blocking={!awardConfirmed} className={classNames("pay_col_two", { active: awardConfirmed })}>
           <label>Choose Your Payment Method :</label>

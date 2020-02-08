@@ -3,10 +3,10 @@ import produce from "immer";
 import { ActionTypes } from "./actions";
 
 const initialState = {
- myAwards:[],
- myArtworks:[],
- artworkDetails: undefined,
- 
+  myAwards: [],
+  myArtworks: [],
+  artworkDetails: undefined,
+  infoStep: {}
 };
 
 const fetchMyAwardsSuccess = (state, action) => {
@@ -30,8 +30,14 @@ const updateCoverImageSuccess = (state, action) => {
 const postFileChunkSuccess = (state, action) => {
   return produce(state, draft => {});
 };
+const saveInfoStep = (state, action) => {
+  return produce(state, draft => {
+    draft.infoStep = { ...action.payload };
+  });
+};
 
 export const reducer = createReducer(initialState, {
+  [ActionTypes.SAVE_INFO_STEP]: saveInfoStep,
   [ActionTypes.FETCH_MY_AWARDS_SUCCESS]: fetchMyAwardsSuccess,
   [ActionTypes.FETCH_MY_ARTWORKS_SUCCESS]: fetchMyArtworksSuccess,
   [ActionTypes.ADD_NEW_ARTWORK_SUCCESS]: addNewArtworkSuccess,
