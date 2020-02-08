@@ -8,7 +8,7 @@ import homeApi from "./home";
 import lookupsApi from "./lookups";
 import newsApi from "./news";
 import galleryApi from "./gallery";
-import artworksApi from "./artworks";
+import membersApi from "./members";
 
 const apiURI = config.useLocalApi ? config.devApiRoot : config.apiRoot;
 const create = (baseURL = apiURI) => {
@@ -45,7 +45,7 @@ const create = (baseURL = apiURI) => {
   const lookups = lookupsApi(api);
   const news = newsApi(api);
   const gallery = galleryApi(api);
-  const artworks = artworksApi(api);
+  const members = membersApi(api);
 
   return {
     setHeader: api.setHeader,
@@ -57,7 +57,7 @@ const create = (baseURL = apiURI) => {
     ...lookups,
     ...news,
     ...gallery,
-    ...artworks
+    ...members
   };
 };
 

@@ -4,6 +4,6 @@ import configureStore from "./configureStore";
 import { createBrowserHistory } from "history";
 const initialState = {};
 export const history = createBrowserHistory();
-export const { store, persistedStore } = configureStore(initialState, history);
+export const { store /*, persistedStore*/ } = configureStore(initialState, history);
 
 // console.log('state:', store.getState());

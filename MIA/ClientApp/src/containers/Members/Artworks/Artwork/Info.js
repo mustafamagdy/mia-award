@@ -2,33 +2,31 @@ import React, { useState } from "react";
 import Chips from "react-chips";
 import { useForm } from "react-hook-form";
 
-const Info = props => {
+const Info = ({register, handleSubmit, ...props}) => {
   // const [directors, setDirectors] = useState([]);
   // const [producers, setProducers] = useState([]);
   // const [writers, setWriters] = useState([]);
   // const [stars, setStars] = useState([]);
   // const [crew, setCrew] = useState([]);
 
-  const { register, handleSubmit, getValues, setValue } = useForm({
-    defaultValues: {
-      title: "",
-      country: "",
-      year: "",
-      about: "",
-      story: "",
-      directors: [],
-      producers: [],
-      writers: [],
-      stars: [],
-      crew: []
-    }
-  });
+  
 
   return (
     <div className="tab_content tab_info">
       <form action="#">
-        <div className="show_data_items">
-          <input ref={register} type="text" name="title" placeholder="show title" />
+        <div className="form_group">
+          <label for="title.ar">Title (Arabic)</label>
+          <input ref={register} type="text" name="title.ar" placeholder="show title" />
+        </div>
+        <div className="form_group">
+          <label for="title.en">Title (English)</label>
+          <input ref={register} type="text" name="title.en" placeholder="show title" />
+        </div>
+        <div className="form_group">
+          <label for="about">About the show</label>
+          <textarea name="about" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div className="form_group">
           <select name="year" id="">
             <option value="" selected>
               year
@@ -42,6 +40,9 @@ const Info = props => {
             <option value="">2021</option>
             <option value="">2021</option>
           </select>
+        </div>
+
+        <div className="form_group">
           <select name="country" id="">
             <option value="" selected>
               Country
@@ -52,10 +53,7 @@ const Info = props => {
             <option value="">Country</option>
           </select>
         </div>
-        <div className="form_group">
-          <label for="about">About the show</label>
-          <textarea name="about" id="" cols="30" rows="10"></textarea>
-        </div>
+
         <div className="item_col_3">
           <div className="col">
             <div className="form_group">

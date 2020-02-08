@@ -650,6 +650,20 @@
                 margin: 0 auto 10px;
                 text-transform: capitalize;
               } /* label */
+              input {
+                border: 1px solid #171717;
+                display: block;
+                width: 100%;
+                border-radius: 4px;
+                background: #1c1c1c;
+                padding: 15px;
+                color: #fff;
+                font-family: Montserrat_Medium;
+                font-size: 15px;
+                [dir="rtl"] & {
+                  font-family: Tajawal_Medium;
+                } /* rtl */
+              } /* textarea */
               textarea {
                 border: 1px solid #171717;
                 display: block;
@@ -706,6 +720,28 @@
                     margin: 0 auto 5px;
                     text-transform: capitalize;
                   } /* label */
+                  select {
+                    background: #141414 url("/assets/images/arrow.png") scroll no-repeat 100% center;
+                    color: #fff;
+                    border: 1px solid #808080;
+                    border-radius: 4px;
+                    padding: 0 50px 0 5px;
+                    font-size: 13px;
+                    height: 40px;
+                    min-width: 200px;
+                    margin: 0 5px;
+                    font-family: Montserrat_Bold;
+                    text-transform: capitalize;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    -o-appearance: none;
+                    appearance: none;
+                    [dir="rtl"] & {
+                      background: #141414 url("/assets/images/arrow_rtl.png") scroll no-repeat 0 center;
+                      padding: 0 5px 0 50px;
+                      font-family: Tajawal_Bold;
+                    } /* rtl */
+                  } /* select */
                   input {
                     width: 100%;
                     background: transparent;

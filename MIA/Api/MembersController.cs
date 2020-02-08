@@ -36,7 +36,7 @@ namespace MIA.Api {
     public string Writer { get; set; }
     public string Crew { get; set; }
   }
-  public class ArtworkViewWithFilesDto: ArtworkViewDto {
+  public class ArtworkViewWithFilesDto : ArtworkViewDto {
     public ArtworkFileDto[] Files { get; set; }
     public PaymentWithStatusDto Payment { get; set; }
   }
@@ -44,6 +44,14 @@ namespace MIA.Api {
   public class ArtworkFileDto {
     public string FileUrl { get; set; }
     public int Size { get; set; }
+  }
+
+  public class AwardWithStatusDto
+  {
+    public string Id { get; set; }
+    public LocalizedData Name { get; set; }
+    public string TrophyUrl { get; set; }
+    public bool Winner { get; set; }
   }
 
   public class ArtworkWithStatusDto {
@@ -63,15 +71,6 @@ namespace MIA.Api {
     public string Status { get; set; }
   }
 
-  public class ArtworkDetailsDto : ArtworkWithStatusDto {
-    public string About { get; set; }
-    public string Story { get; set; }
-    public string Director { get; set; }
-    public string Production { get; set; }
-    public string Writer { get; set; }
-    public string Crew { get; set; }
-  }
-
   public class SubmitArtworkWithDetails {
     public LocalizedData Title { get; set; }
     public string About { get; set; }
@@ -81,7 +80,6 @@ namespace MIA.Api {
     public string Writer { get; set; }
     public string Crew { get; set; }
     public IFormFile Poster { get; set; }
-    public IFormFile Trailer { get; set; }
     public IFormFile CoverImage { get; set; }
 
     public string AwardId { get; set; }
@@ -106,20 +104,38 @@ namespace MIA.Api {
 #if (Versioning)
   [ApiVersion("1.0")]
 #endif
-  [Route("api/artworks")]
-  [Authorize(Roles = "nominee")]
-  public class ArtworksController : BaseApiController<ArtworksController> {
+  [Route("api/members")]
+  //[Authorize(Roles = "nominee")]
+  public class MembersController : BaseApiController<MembersController> {
     private readonly IUserResolver _userResolver;
 
-    public ArtworksController(IMapper mapper,
-      [FromServices] ILogger<ArtworksController> logger,
+    public MembersController(IMapper mapper,
+      [FromServices] ILogger<MembersController> logger,
       [FromServices] IUserResolver userResolver
       ) : base(logger, mapper) {
       this._userResolver = userResolver;
     }
 
 
-    [HttpGet("")]
+    [HttpGet("awards")]
+    public async Task<IActionResult> Awards([FromServices] IAppUnitOfWork db) {
+      var nominee = await _userResolver.CurrentUserAsync();
+      var artworks = db.ArtWorks
+        .Include(a=>a.Award)
+        .Where(a => a.NomineeId == nominee.Id)
+        .Select(a=>new AwardWithStatusDto
+        {
+          Id = a.AwardId,
+          TrophyUrl = a.Award.TrophyImageUrl,
+          //TODO: this need to be calculated or a flag
+          Winner = false
+        })
+        .ToArray();
+
+      return Ok(artworks);
+    }
+
+    [HttpGet("artworks")]
     public async Task<IActionResult> Artworks([FromServices] IAppUnitOfWork db) {
       var nominee = await _userResolver.CurrentUserAsync();
       var artworks = db.ArtWorks
@@ -131,7 +147,7 @@ namespace MIA.Api {
     }
 
 
-    [HttpPost("payments")]
+    [HttpGet("payments")]
     public async Task<IActionResult> Payments([FromServices] IAppUnitOfWork db) {
       var nominee = await _userResolver.CurrentUserAsync();
       var artworks = db.ArtWorkPayments
@@ -143,7 +159,7 @@ namespace MIA.Api {
     }
 
 
-    [HttpPost("")]
+    [HttpPost("add-artwork")]
     public async Task<IActionResult> SubmitArtwork(
       [FromForm] SubmitArtworkWithDetails dto,
       [FromServices] IPaymentGateway paymentGateway,
@@ -242,7 +258,18 @@ namespace MIA.Api {
       }
     }
 
-    [HttpGet("{id}")]
+    [HttpPut("artwork/{id}/trailer")]
+    public async Task<IActionResult> UpdateTrailer() {
+      return Ok();
+    }
+
+    [HttpPut("artwork/{id}/cover")]
+    public async Task<IActionResult> UpdateCoverImage() {
+      return Ok();
+    }
+
+
+    [HttpGet("artwork/{id}")]
     public async Task<IActionResult> GetArtowkrById([FromRoute] string id, [FromServices] IAppUnitOfWork db) {
       var nominee = await _userResolver.CurrentUserAsync();
       var artwork = await db.ArtWorks.FindAsync(id);
@@ -252,7 +279,7 @@ namespace MIA.Api {
       return Ok(_mapper.Map<ArtworkViewDto>(artwork));
     }
 
-    [HttpPost("{id}/files")]
+    [HttpPost("artwork/{id}/files")]
     public async Task<IActionResult> UploadArtworkFiles(
       [FromRoute] string id,
       [FromServices] IAppUnitOfWork db,
@@ -275,15 +302,15 @@ namespace MIA.Api {
       }
     }
 
-    [HttpGet("{id}/files")]
+    [HttpGet("artwork/{id}/files")]
     public async Task<IActionResult> ArtworkFiles(
       [FromRoute] string id,
       [FromServices] IAppUnitOfWork db) {
 
       var nominee = await _userResolver.CurrentUserAsync();
       var artwork = await db.ArtWorks
-                            .Include(a=>a.MediaFiles)
-                            .FirstOrDefaultAsync(a=>a.Id == id);
+                            .Include(a => a.MediaFiles)
+                            .FirstOrDefaultAsync(a => a.Id == id);
 
       if (artwork.NomineeId != nominee.Id)
         return NotFound404("Artwork doesn't belong to you");

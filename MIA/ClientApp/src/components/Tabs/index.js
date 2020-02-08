@@ -22,9 +22,17 @@ const Tab = ({ isActive, onActive, activeClassName, tabClassName, children, ...p
   });
 };
 
-const TabPanels = ({ children, activeIndex, activeClassName, ...props }) => {
-  const element = React.cloneElement(children[activeIndex], { activeClassName, ...props });
-  return element;
+const TabPanels = ({ children, activeIndex, activeTabKey, activeClassName, ...props }) => {
+  if (activeTabKey != undefined && activeTabKey != "") {
+    const child = children.find(a => a["paneKey"] == activeTabKey);
+    let element;
+    if (child == undefined) element = React.cloneElement(children[activeIndex], { activeClassName, ...props });
+    else element = React.cloneElement(child, { activeClassName, ...props });
+    return element;
+  } else {
+    const element = React.cloneElement(children[activeIndex], { activeClassName, ...props });
+    return element;
+  }
 };
 
 const TabPane = ({ children, className, activeClassName, ...props }) => {

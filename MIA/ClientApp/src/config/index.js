@@ -6,6 +6,7 @@ export default {
   apiRoot: "/api",
   devApiRoot: "/api",
   reCaptchaKey: "6LfQxtIUAAAAAJyXHUzzKShDXhpzF_TZgpVSN7P0",
+  paymentPublicKey: "pk_test_3aa743f7-9a44-4254-9334-7a2c03150753",
   companyLocation: {
     lat: 25.0969085,
     long: 55.155664,

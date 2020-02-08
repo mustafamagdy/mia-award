@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import BlockUi from "react-block-ui";
 import "react-block-ui/style.css";
+import PaymentForm from "../../../../components/PaymentForm";
 
 const Payment = props => {
   const [awardSelected, setAwardSelected] = useState(false);
@@ -52,7 +53,7 @@ const Payment = props => {
             </div>
           </div>
         </BlockUi>
-        <div className={classNames("pay_col_two", { active: awardSelected })}>
+        <BlockUi tag="div" blocking={!awardSelected} className={classNames("pay_col_two", { active: awardSelected })}>
           <label for="#">Choose Your Payment Method :</label>
           <div className="choose_area">
             <label for="payOnline">
@@ -62,17 +63,10 @@ const Payment = props => {
             </label>
             <BlockUi tag="div" blocking={!useOnlinePayment} className={classNames("pay_online_form", { move: !useOnlinePayment })}>
               <img src="/assets/images/pay_logo.png" />
-              <form action="#">
-                <input type="text" placeholder="Card Number" />
-                <input type="text" placeholder="Cardholder Name" />
-                <div className="date_card">
-                  <input type="text" placeholder="MM/YY" />
-                  <input type="text" placeholder="CVV" />
-                </div>
-                <div className="confirm">
-                  <button type="submit">PAY</button>
-                </div>
-              </form>
+              <PaymentForm />
+              <div className="confirm">
+                <button type="submit">Pay & Continue</button>
+              </div>
             </BlockUi>
           </div>
           <div className="choose_area">
@@ -103,7 +97,7 @@ const Payment = props => {
               </form>
             </BlockUi>
           </div>
-        </div>
+        </BlockUi>
       </div>
     </div>
   );
