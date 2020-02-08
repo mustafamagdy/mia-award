@@ -35,17 +35,11 @@ import NewsView from "../Pages/News/view";
 import Shows from "../Pages/Shows";
 import ShowsView from "../Pages/Shows/view";
 
-import PaymentForm from "../Payment/PaymentForm";
-
 import MediaBrowser from "../Media";
 import Booths from "../Booths";
 import BuyBooth from "../Booths/BuyBooth";
 
 import Members from "../Members";
-import CompleteProfile from "../Members/CompleteProfile";
-import UploadMedia from "../Members/UploadMedia";
-import MyDashboard from "../Members/MyDashboard";
-
 import TestUpload from "../Test/Upload";
 
 import "sass/style.scss";
@@ -96,10 +90,6 @@ class App extends React.Component {
 
                   {/* Member section */}
                   <Route path="/members" component={Members} />
-                  <Route path="/complete-profile" component={CompleteProfile} />
-                  <Route path="/pay" component={PaymentForm} />
-                  <Route path="/dashboard" component={MyDashboard} />
-                  <Route path="/upload-media" component={UploadMedia} />
 
                   <Redirect from="*" to="/" />
                 </Switch>

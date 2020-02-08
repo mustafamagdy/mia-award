@@ -38,6 +38,7 @@ namespace MIA.Api {
   }
   public class ArtworkViewWithFilesDto: ArtworkViewDto {
     public ArtworkFileDto[] Files { get; set; }
+    public PaymentWithStatusDto Payment { get; set; }
   }
 
   public class ArtworkFileDto {

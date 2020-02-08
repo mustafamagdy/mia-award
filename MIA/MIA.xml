@@ -25,7 +25,6 @@
             <param name="signupData"></param>
             <param name="userManager"></param>
             <param name="emailSender"></param>
-            <param name="emailTemplateProvider"></param>
             <param name="templateParser"></param>
             <param name="urlHelper"></param>
             <returns></returns>
@@ -45,7 +44,19 @@
             <param name="userRequest"></param>
             <param name="userManager"></param>
             <param name="emailSender"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Api.AccountController.ForgotPassword(System.String,MIA.Dto.Auth.ForgotPasswordRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.TemplateParser.ITemplateParser,MIA.Api.Base.IApiUrlHelper)">
+            <summary>
+            Reset password reset email with token
+            </summary>
+            <param name="culture"></param>
+            <param name="forgotPass"></param>
+            <param name="userManager"></param>
+            <param name="emailSender"></param>
+            <param name="templateParser"></param>
             <param name="emailTemplateProvider"></param>
+            <param name="urlHelper"></param>
             <returns></returns>
         </member>
         <member name="M:MIA.Api.AccountController.ResetPassword(System.String,MIA.Dto.Auth.ResetPasswordRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.TemplateParser.ITemplateParser)">

@@ -28,7 +28,7 @@ class TestUpload extends Component {
 }
 
 const Uploader = props => {
-  const sliceSize = 5 * 1024 * 1024; // Send 5MB Chunks
+  const sliceSize = 5000000; // Send 5MB Chunks
   let size = 0;
   let file = undefined;
 
@@ -62,7 +62,7 @@ const Uploader = props => {
           chunkIndex,
           totalChunks,
           chunk: base64,
-          eTags: etags
+          eTags: etags,
         })
         .then(a => {
           if (a.ok) {
@@ -78,7 +78,7 @@ const Uploader = props => {
               console.log("Upload complete");
             }
           } else {
-            console.error("failed to upload ", a.data);
+            console.error('failed to upload ', a.data);
           }
         });
     };

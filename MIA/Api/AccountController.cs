@@ -59,7 +59,6 @@ namespace MIA.Api {
     /// <param name="signupData"></param>
     /// <param name="userManager"></param>
     /// <param name="emailSender"></param>
-    /// <param name="emailTemplateProvider"></param>
     /// <param name="templateParser"></param>
     /// <param name="urlHelper"></param>
     /// <returns></returns>
@@ -122,7 +121,6 @@ namespace MIA.Api {
     /// <param name="userRequest"></param>
     /// <param name="userManager"></param>
     /// <param name="emailSender"></param>
-    /// <param name="emailTemplateProvider"></param>
     /// <returns></returns>
     [HttpPost("verifyEmail")]
     public async Task<IActionResult> VerifyEmail(
@@ -151,7 +149,6 @@ namespace MIA.Api {
       }
     }
 
-    [HttpPost("forgotPassword")]
     /// <summary>
     /// Reset password reset email with token
     /// </summary>

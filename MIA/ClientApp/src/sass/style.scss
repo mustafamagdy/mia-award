@@ -241,6 +241,8 @@ body {
 @import "news_single.scss";
 @import "show_all.scss";
 @import "show_inner.scss";
+@import "member_area.scss";
+@import "login.scss";
 
 //**** RTL Style ****//
 body[dir="rtl"] {
@@ -273,3 +275,15 @@ body[dir="rtl"] {
 	} /* open_share_side */
 } /* body */
 @import "responsive.scss";
+
+
+//**** CUSTOM Style ****//
+.loading-indicator  {
+	display: none;
+}
+.block-ui-overlay {
+	background-color: transparent;
+}
+
+
+
