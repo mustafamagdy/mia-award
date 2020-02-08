@@ -11,7 +11,7 @@ import Trailer from "./Trailer";
 import Files from "./Files";
 import { useForm } from "react-hook-form";
 
-const Artwork = ({ artworkDetails, ...props }) => {
+const Artwork = ({ artworkDetails, awards, ...props }) => {
   useEffect(() => {
     if (artworkDetails == undefined) {
       setTabs([
@@ -43,9 +43,7 @@ const Artwork = ({ artworkDetails, ...props }) => {
       writers: "", //[],
       stars: "", //[],
       crew: "", //[]
-      payment: {
-
-      }
+      payment: {}
     }
   });
 
@@ -55,6 +53,10 @@ const Artwork = ({ artworkDetails, ...props }) => {
     if (status) {
       setActiveTab(tab);
     }
+  };
+
+  const payAndContinue = (isOnline, paymentToken) => {
+    console.log("payed online?", isOnline, paymentToken);
   };
 
   return (
@@ -87,7 +89,7 @@ const Artwork = ({ artworkDetails, ...props }) => {
             <Info register={register} />
           </TabPane>
           <TabPane paneKey="payment">
-            <Payment register={register} />
+            <Payment register={register} awards={awards} onPayment={payAndContinue} />
           </TabPane>
           <TabPane paneKey="trailer">
             <Trailer register={register} />
@@ -101,6 +103,6 @@ const Artwork = ({ artworkDetails, ...props }) => {
   );
 };
 
-const mapStateToProps = ({ members: { artworkDetails } }) => ({ artworkDetails });
+const mapStateToProps = ({ home: { awards }, members: { artworkDetails } }) => ({ awards, artworkDetails });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...membersActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Artwork);

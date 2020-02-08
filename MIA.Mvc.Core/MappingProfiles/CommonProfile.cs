@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using MIA.Authorization.Entities;
@@ -34,6 +35,11 @@ namespace MIA.MappingProfiles {
 
       CreateMap<Permissions, PermissionDto>()
         .ConvertUsing<PermissionTypeConverter>();
+
+
+      CreateMap<KeyValuePair<string, string>, KeyValuePair<string, string>>()
+        .ConstructUsing(x => new KeyValuePair<string, string>(x.Key, x.Value));
+
 
       CreateMap<AppUser, UserProfileDto>()
          .ValidateMemberList(MemberList.None);

@@ -1,9 +1,16 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using AutoMapper;
+using MIA.Authorization.Attributes;
+using MIA.Authorization.Entities;
+using Newtonsoft.Json.Linq;
 
 namespace MIA.Models.Entities {
+  public class LocalizedDataDto : Dictionary<string, string> { }
+
   public class LocalizedData : Dictionary<string, string>, IEquatable<LocalizedData> {
     public static readonly string Arabic = "ar";
     public static readonly string English = "en";
@@ -41,8 +48,32 @@ namespace MIA.Models.Entities {
         (!this.InEnglish().IsNullOrEmpty() && !other.InEnglish().IsNullOrEmpty() && this.InEnglish() == other.InEnglish());
     }
 
+    public static LocalizedData FromDictionary(Dictionary<string, string> source) {
+      var result = new LocalizedData();
+      if (source != null) {
+        if (source.ContainsKey(Arabic)) {
+          result[Arabic] = source[Arabic];
+        }
+        if (source.ContainsKey(English)) {
+          result[English] = source[English];
+        }
+      }
 
+      return result;
+    }
+
+
+    public static LocalizedData FromDictionary(JObject source) {
+      return FromDictionary(
+        ((IDictionary<string, JToken>)source).ToDictionary(pair => pair.Key, pair => (string)pair.Value));
+    }
   }
+
+  //public class LocalizedDataTypeConverter : ITypeConverter<Dictionary<string, string>, LocalizedData> {
+  //  public LocalizedData Convert(Dictionary<string, string> source, LocalizedData destination, ResolutionContext context) {
+  //    return LocalizedData.FromDictionary(source);
+  //  }
+  //}
 
   public static class EntityConvensions {
     public static readonly JsonSerializerSettings Settings;

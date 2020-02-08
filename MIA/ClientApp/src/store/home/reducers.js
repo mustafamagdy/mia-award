@@ -59,7 +59,9 @@ const fetchRecentShowsSuccess = (state, action) => {
 };
 
 const fetchAwardsSuccess = (state, action) => {
-  return produce(state, draft => {});
+  return produce(state, draft => {
+    draft.awards = [...action.payload];
+  });
 };
 
 const contactUsMessageSubjectsSuccess = (state, action) => {

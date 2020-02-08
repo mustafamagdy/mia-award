@@ -35,7 +35,7 @@ namespace MIA.Api {
       var result = db.Awards
         .ProjectTo<AwardDto>(_mapper.ConfigurationProvider)
         .ToList();
-      return IfFound(result);
+      return Ok(result);
     }
 
     [HttpGet("main-album")]
@@ -45,7 +45,7 @@ namespace MIA.Api {
         //.FirstOrDefault(a => a.IsMain)
         .ProjectTo<MainAlbumDto>(_mapper.ConfigurationProvider)
         .ToList();
-      return IfFound(result);
+      return Ok(result);
     }
 
     [HttpPost("recent-shows")]
@@ -65,7 +65,7 @@ namespace MIA.Api {
         .ProjectTo<RecentShowsDto>(_mapper.ConfigurationProvider)
         .ToPagedList(query);
 
-      return IfFound(result);
+      return Ok(result);
     }
 
     [HttpPost("latest-news")]
@@ -80,10 +80,10 @@ namespace MIA.Api {
         .ProjectTo<NewsDto>(_mapper.ConfigurationProvider)
         .ToPagedList(query);
 
-      return IfFound(result);
+      return Ok(result);
     }
 
-    [HttpGet("sponsers")]
+    [HttpGet("sponsors")]
     public IActionResult Sponsers(
       [FromServices] IAppUnitOfWork db) {
       //var _result = db.News
@@ -94,7 +94,7 @@ namespace MIA.Api {
       //  .ProjectTo<NewsDto>(_mapper.ConfigurationProvider)
       //  .ToPagedList(query);
 
-      //return IfFound(result);
+      //return Ok(result);
 
       return Ok();
     }
@@ -111,7 +111,7 @@ namespace MIA.Api {
       //  .ProjectTo<NewsDto>(_mapper.ConfigurationProvider)
       //  .ToPagedList(query);
 
-      //return IfFound(result);
+      //return Ok(result);
 
       return Ok();
     }
@@ -122,7 +122,7 @@ namespace MIA.Api {
         .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
         .ToList();
 
-      return IfFound(subjects);
+      return Ok(subjects);
     }
 
     [HttpPost("send-contactus")]

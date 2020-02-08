@@ -2,71 +2,32 @@ import React, { useState, useLayoutEffect } from "react";
 import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { useEffect } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import homeActions from "store/home/actions";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
 
-const AwardsSlider = props => {
-  const [awards, setAwards] = useState([
-    {
-      key: "award1",
-      desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
-book.`,
-      img: "award_movies",
-      title: "movies"
-    },
-    {
-      key: "award2",
-      desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
-book.`,
-      img: "award_sport",
-      title: "sports"
-    },
-    {
-      key: "award3",
-      desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
-book.`,
-      img: "award_movies",
-      title: "movies"
-    },
-    {
-      key: "award4",
-      desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
-book.`,
-      img: "award_sport",
-      title: "sports"
-    },
-    {
-      key: "award5",
-      desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
-book.`,
-      img: "award_movies",
-      title: "movies"
-    },
-    {
-      key: "award6",
-      desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
-book.`,
-      img: "award_sport",
-      title: "sports"
-    }
-  ]);
+const AwardsSlider = ({  awards, ...props }) => {
+  
+  useEffect(() => {
+    setActiveKey(awards[0] && awards[0].code);
+    setAwardsInSlider(awards);
+  }, [awards]);
 
-  const [activeKey, setActiveKey] = useState(awards[0].key);
+  const [activeKey, setActiveKey] = useState("");
+  const [awardsInSlider, setAwardsInSlider] = useState([]);
 
   const nextAward = () => {
-    const item = awards.shift();
-    setAwards([...awards, item]);
-    setActiveKey(awards[0].key);
+    const item = awardsInSlider.shift();
+    setAwardsInSlider([...awardsInSlider, item]);
+    setActiveKey(awardsInSlider[0].code);
   };
 
   const prevAward = () => {
-    const item = awards.pop();
-    setAwards([item, ...awards]);
-    setActiveKey(item.key);
+    const item = awardsInSlider.pop();
+    setAwardsInSlider([item, ...awardsInSlider]);
+    setActiveKey(item.code);
   };
 
   return (
@@ -97,7 +58,7 @@ book.`,
         </div>
         <div className="award_slider">
           <div className="slides_items">
-            <Awards awards={awards} activeKey={activeKey} />
+            <Awards awards={awardsInSlider} activeKey={activeKey} />
           </div>
           <div className="slider_nav">
             <button type="button" className="arrow_prev" onClick={prevAward}>
@@ -118,23 +79,31 @@ const Awards = ({ awards, activeKey }) => {
     awards &&
     awards.map((award, i) => {
       return (
-        <div key={award.key} className={classNames("slide_block", { active: award.key == activeKey })}>
+        <div key={award.code} className={classNames("slide_block", { active: award.code == activeKey })}>
           <div className="imgthumb">
-            <img src={`assets/images/${award.img}.png`} alt="#" />
+            <img src={award.trophyUrl} />
           </div>
           <div className="apply">
             <a href="#" title="#">
               <Trans id="apply_now">apply now</Trans>
             </a>
           </div>
-          <div className="title">
-            <Trans id="movies">{award.title}</Trans>
-          </div>
-          <div className="desc">{award.desc}</div>
+          <LanguageContext.Consumer>
+            {({ locale }) => (
+              <>
+                <div className="title">
+                  <Trans id="movies">{award.title[locale.code]}</Trans>
+                </div>
+                <div className="desc">{award.description[locale.code]}</div>
+              </>
+            )}
+          </LanguageContext.Consumer>
         </div>
       );
     })
   );
 };
 
-export default AwardsSlider;
+const mapStateToProps = ({ home: { awards } }) => ({ awards });
+const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(AwardsSlider);

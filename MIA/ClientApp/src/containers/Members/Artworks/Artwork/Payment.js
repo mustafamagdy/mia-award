@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import classNames from "classnames";
+import { Trans, t } from "@lingui/macro";
 import BlockUi from "react-block-ui";
 import "react-block-ui/style.css";
-import PaymentForm from "../../../../components/PaymentForm";
+import PaymentForm from "components/PaymentForm";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
+import { I18n } from "@lingui/react";
 
-const Payment = props => {
-  const [awardSelected, setAwardSelected] = useState(false);
+const Payment = ({ awards = [], onPayment, ...props }) => {
+  const [selectedAward, setSelectedAward] = useState(awards[0]);
+  const [awardConfirmed, setAwardConfirmed] = useState(false);
   const [useOnlinePayment, setUseOnlinePayment] = useState(true);
 
   const selectAward = () => {
-    setAwardSelected(true);
+    setAwardConfirmed(true);
   };
   const setPaymentMethod = e => {
     setUseOnlinePayment(e.target.value.toLowerCase() == "online");
@@ -21,56 +25,73 @@ const Payment = props => {
         <div className="next_step">
           <span>Next</span>
         </div>
-        <BlockUi tag="div" blocking={awardSelected} className={classNames("pay_col_one", { move: awardSelected })}>
+        <BlockUi tag="div" blocking={awardConfirmed} className={classNames("pay_col_one", { move: awardConfirmed })}>
           <div className="item_top">
             <div className="imgthumb">
-              <img src="/assets/images/award_sport.png" />
+              <img src={selectedAward.trophyUrl} />
             </div>
             <div className="desc">
-              <span>movies</span>
-              <p>you applied for movies award please confirm to move on to the payment stage</p>
-              <div className="award_category">
-                <select name="" id="">
-                  <option value="" selected>
-                    Change Award Category
-                  </option>
-                  <option value="">drama</option>
-                  <option value="">sport</option>
-                  <option value="">drama</option>
-                  <option value="">sport</option>
-                  <option value="">drama</option>
-                  <option value="">sport</option>
-                  <option value="">drama</option>
-                  <option value="">sport</option>
-                </select>
-              </div>
+              <LanguageContext.Consumer>
+                {({ locale }) => (
+                  <>
+                    <span>
+                      <Trans id={selectedAward.title[locale.code]}>{selectedAward.title[locale.code]}</Trans>
+                    </span>
+                    <p>you applied for {selectedAward.title[locale.code]} award please confirm to move on to the payment stage</p>
+
+                    <div className="award_category">
+                      <select
+                        name="award"
+                        onChange={a => {
+                          const _award = awards.find(x => x.id == a.target.value);
+                          setSelectedAward(_award);
+                        }}
+                      >
+                        <I18n>
+                          {({ i18n }) => {
+                            {
+                              return awards.map((a, i) => (
+                                <option key={a.id} value={a.id}>
+                                  {i18n._(a.code)}
+                                </option>
+                              ));
+                            }
+                          }}
+                        </I18n>
+                      </select>
+                    </div>
+                  </>
+                )}
+              </LanguageContext.Consumer>
             </div>
           </div>
           <div className="item_bottom">
-            <div className="price">250 USD</div>
+            <div className="price">{selectedAward.artworkFee} USD</div>
             <div className="confirm">
               <span onClick={selectAward}>Confirm</span>
             </div>
           </div>
         </BlockUi>
-        <BlockUi tag="div" blocking={!awardSelected} className={classNames("pay_col_two", { active: awardSelected })}>
-          <label for="#">Choose Your Payment Method :</label>
+        <BlockUi tag="div" blocking={!awardConfirmed} className={classNames("pay_col_two", { active: awardConfirmed })}>
+          <label>Choose Your Payment Method :</label>
           <div className="choose_area">
-            <label for="payOnline">
+            <label htmlFor="payOnline">
               <span>Pay Online</span>
               <input type="radio" id="payOnline" name="customRadio" value="online" onChange={setPaymentMethod} checked={useOnlinePayment} />
               <div className="checkmark"></div>
             </label>
             <BlockUi tag="div" blocking={!useOnlinePayment} className={classNames("pay_online_form", { move: !useOnlinePayment })}>
               <img src="/assets/images/pay_logo.png" />
-              <PaymentForm />
+              <PaymentForm cardTokenized={token => onPayment(true, token)} />
               <div className="confirm">
-                <button type="submit">Pay & Continue</button>
+                <button id="pay-button" type="submit" form="payment-form">
+                  Pay & Continue
+                </button>
               </div>
             </BlockUi>
           </div>
           <div className="choose_area">
-            <label for="payOffline">
+            <label htmlFor="payOffline">
               <span>Pay Offline</span>
               <input
                 type="radio"
@@ -90,9 +111,10 @@ const Payment = props => {
                 <input type="text" placeholder="Payment Date" />
                 <div className="confirm">
                   <input type="file" id="file" />
-                  <label for="file" className="btn-2">
-                    Upload
+                  <label htmlFor="file" className="btn-2">
+                    Choose receipt image
                   </label>
+                  <button type="submit">Submit</button>
                 </div>
               </form>
             </BlockUi>

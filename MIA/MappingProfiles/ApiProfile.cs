@@ -53,12 +53,12 @@ namespace MIA.MappingProfiles {
        .ForMember(a => a.DateCreated, cfg => cfg.MapFrom(a => a.DateCreated.LocalDateTime().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
+      CreateMap<Award, AwardDto>()
+        .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.TrophyImageUrl))
+        .ValidateMemberList(MemberList.None);
 
       CreateMap<ArtWork, RecentShowsDto>()
-       .ForMember(a => a.Rating, cfg => cfg.MapFrom(a => a.Rate))
-       .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.PosterUrl))
-       .ForMember(a => a.PostedDate, cfg => cfg.MapFrom(a => a.PostedDate.LocalDateTime().ToString("dd-MM-yyyy")))
-       .ForMember(a => a.DateOfRelease, cfg => cfg.MapFrom(a => a.DateOfRelease))
+        
        .ValidateMemberList(MemberList.None);
 
 

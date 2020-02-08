@@ -1173,6 +1173,30 @@
                     [type="file"] + label {
                       background: #e2c764;
                       border: none;
+                      border-radius: 10px;
+                      color: #181818;
+                      cursor: pointer;
+                      font-family: Montserrat_Bold;
+                      margin-bottom: 1rem;
+                      outline: none;
+                      height: 40px;
+                      position: relative;
+                      transition: all 0.3s;
+                      vertical-align: middle;
+                      line-height: 40px;
+                      min-width: 120px;
+                      text-align: center;
+                      font-size: 16px;
+                      [dir="rtl"] & {
+                        font-family: Tajawal_Bold;
+                      } /* rtl */
+                      &:hover {
+                        background-color: #ffe784;
+                      }
+                    }
+                    button[type="submit"] {
+                      background: #e2c764;
+                      border: none;
                       border-radius: 100px;
                       color: #181818;
                       cursor: pointer;

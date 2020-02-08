@@ -222,12 +222,6 @@ namespace MIA.Api {
       artwork.PosterId = posterFileKey;
       artwork.PosterUrl = await fileManager.UploadFileAsync(dto.Poster.OpenReadStream(), posterFileKey);
 
-      var trailerFileKey = fileManager.GenerateFileKeyForResource(
-                                    ResourceType.Artwork,
-                                    artwork.Id, $"{artwork.Id}_trailer." + dto.Trailer.GetFileExt());
-      artwork.TrailerId = trailerFileKey;
-      artwork.TrailerUrl = await fileManager.UploadFileAsync(dto.Trailer.OpenReadStream(), trailerFileKey);
-
       var coverFileKey = fileManager.GenerateFileKeyForResource(
                                    ResourceType.Artwork,
                                    artwork.Id, $"{artwork.Id}_cover." + dto.CoverImage.GetFileExt());
@@ -260,11 +254,25 @@ namespace MIA.Api {
 
     [HttpPut("artwork/{id}/trailer")]
     public async Task<IActionResult> UpdateTrailer() {
+      //var trailerFileKey = fileManager.GenerateFileKeyForResource(
+      //  ResourceType.Artwork,
+      //  artwork.Id, $"{artwork.Id}_trailer." + dto.Trailer.GetFileExt());
+      //artwork.TrailerId = trailerFileKey;
+      //artwork.TrailerUrl = await fileManager.UploadFileAsync(dto.Trailer.OpenReadStream(), trailerFileKey);
+
+
       return Ok();
     }
 
     [HttpPut("artwork/{id}/cover")]
     public async Task<IActionResult> UpdateCoverImage() {
+      //var coverFileKey = fileManager.GenerateFileKeyForResource(
+      //  ResourceType.Artwork,
+      //  artwork.Id, $"{artwork.Id}_cover." + dto.CoverImage.GetFileExt());
+      //artwork.CoverId = coverFileKey;
+      //artwork.CoverUrl = await fileManager.UploadFileAsync(dto.CoverImage.OpenReadStream(), coverFileKey);
+
+
       return Ok();
     }
 

@@ -2,35 +2,31 @@ import React, { useState } from "react";
 import Chips from "react-chips";
 import { useForm } from "react-hook-form";
 
-const Info = ({register, handleSubmit, ...props}) => {
+const Info = ({ register, handleSubmit, ...props }) => {
   // const [directors, setDirectors] = useState([]);
   // const [producers, setProducers] = useState([]);
   // const [writers, setWriters] = useState([]);
   // const [stars, setStars] = useState([]);
   // const [crew, setCrew] = useState([]);
 
-  
-
   return (
     <div className="tab_content tab_info">
       <form action="#">
         <div className="form_group">
-          <label for="title.ar">Title (Arabic)</label>
+          <label htmlFor="title.ar">Title (Arabic)</label>
           <input ref={register} type="text" name="title.ar" placeholder="show title" />
         </div>
         <div className="form_group">
-          <label for="title.en">Title (English)</label>
+          <label htmlFor="title.en">Title (English)</label>
           <input ref={register} type="text" name="title.en" placeholder="show title" />
         </div>
         <div className="form_group">
-          <label for="about">About the show</label>
+          <label htmlFor="about">About the show</label>
           <textarea name="about" id="" cols="30" rows="10"></textarea>
         </div>
         <div className="form_group">
           <select name="year" id="">
-            <option value="" selected>
-              year
-            </option>
+            <option value="">year</option>
             <option value="">2021</option>
             <option value="">2021</option>
             <option value="">2021</option>
@@ -44,9 +40,7 @@ const Info = ({register, handleSubmit, ...props}) => {
 
         <div className="form_group">
           <select name="country" id="">
-            <option value="" selected>
-              Country
-            </option>
+            <option value="">Country</option>
             <option value="">Country</option>
             <option value="">Country</option>
             <option value="">Country</option>
@@ -57,32 +51,32 @@ const Info = ({register, handleSubmit, ...props}) => {
         <div className="item_col_3">
           <div className="col">
             <div className="form_group">
-              <label for="about">Director</label>
+              <label htmlFor="about">Director</label>
               <input ref={register} type="text" name="directors" />
               {/* <Chips ref={register} onChange={a => setValue("directors", a)} name="directors" /> */}
             </div>
             <div className="form_group">
-              <label for="about">Story</label>
+              <label htmlFor="about">Story</label>
               <input ref={register} type="text" name="story" />
             </div>
             <div className="form_group">
-              <label for="about">Crew</label>
+              <label htmlFor="about">Crew</label>
               <input ref={register} type="text" name="crew" />
             </div>
           </div>
           <div className="col">
             <div className="form_group">
-              <label for="about">Production</label>
+              <label htmlFor="about">Production</label>
               <input ref={register} type="text" name="producers" />
             </div>
             <div className="form_group">
-              <label for="about">Stars</label>
+              <label htmlFor="about">Stars</label>
               <input ref={register} type="text" name="stars" />
             </div>
           </div>
           <div className="col">
             <div className="form_group">
-              <label for="about">writer</label>
+              <label htmlFor="about">writer</label>
               <input ref={register} type="text" name="writers" />
             </div>
           </div>
