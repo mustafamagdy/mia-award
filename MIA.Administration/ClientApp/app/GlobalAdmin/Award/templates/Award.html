@@ -1,9 +1,9 @@
 <div>
     <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
         <!-- <div id="bold"> {{'AddNewAwardBtn'| translate}} </div> -->
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+        <!-- <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
             ng-click="$state.go('newAward');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
-            {{'AddNew'| translate}}</button>
+            {{'AddNew'| translate}}</button> -->
     </div>
 
     <div ng-if="AwardList.length == null">
@@ -13,10 +13,10 @@
         <div class="table-responsive">
             <table class="table pmd-table table-hover">
                 <thead>
-                    <tr> 
+                    <tr>
                         <th>{{'title' | translate}}</th>
-                        <th>{{'description' | translate}}</th> 
-                        <th>{{'manager' | translate}}</th> 
+                        <th>{{'description' | translate}}</th>
+                        <th>{{'manager' | translate}}</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -29,26 +29,17 @@
                         <td width="30%">
                             {{Award.description  | limitTo : 60}}
                             {{Award.description.length > 60 ? '...' : ''}}
-                        </td> 
+                        </td>
                         <td data-title="Name">
-                            {{Award.manager.firstName }}  - {{Award.manager.lastName}}
+                            {{Award.manager.firstName }} - {{Award.manager.lastName}}
                         </td>
-                        <td class="pmd-table-row-action">
-                            <span href="javascript:void(0);" ng-if="Award.AwardPurchase.length >0 "
-                                ng-click="Award.show=!Award.show;AwardCtrl.showMore($event)"
-                                class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i
-                                    class="material-icons md-dark pmd-sm"></i></span>
-                        </td>
-                        <td >
+                        <td>
                             <i ng-show="user.PermessionModules['News'].includes('add_new')"
                                 class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('editAward',{id: Award.id});" title="Edit">mode_edit</i>
-                            <i ng-show="user.PermessionModules['News'].includes('remove')"
-                                class="material-icons pmd-md deleteButton cursorPointer font25"
-                                ng-click="AwardCtrl.openDeleteDialog(Award,Award.description ,Award.id)"
-                                title="Delete">delete</i>
+
                         </td>
-                    </tr> 
+                    </tr>
                 </tbody>
             </table>
         </div>

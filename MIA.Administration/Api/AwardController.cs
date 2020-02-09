@@ -49,31 +49,31 @@ namespace MIA.Administration.Api {
       var resultDto = ((AwardDto)(result as OkObjectResult)?.Value);
       var AwardsItem = await db.Awards.FindAsync(resultDto.Id);
 
-      var JudgeAwardItem =   db.JudgeAwards.Where(x => x.AwardId == resultDto.Id).ToList();
+      var JudgeAwardItem = db.JudgeAwards.Where(x => x.AwardId == resultDto.Id).ToList();
 
 
       var deleteJudges = new JudgeAward[AwardsItem.JudgeAwards.Count];
       AwardsItem.JudgeAwards.CopyTo(deleteJudges, 0);
 
-      foreach (var objJudges in deleteJudges) { 
+      foreach (var objJudges in deleteJudges) {
         var entity = db.Set<JudgeAward>().FirstOrDefault(a => a.Id == objJudges.Id);
-        if (entity == null)
-          return NotFound404("record not found"); 
-        db.Set<JudgeAward>().Remove(entity); 
+        if (entity != null)
+          // return NotFound404("record not found"); 
+          db.Set<JudgeAward>().Remove(entity);
       }
 
       foreach (var roleper in dto.JudgeAwards) {
-        if (AwardsItem.JudgeAwards.All(x => x.JudgeId != roleper.JudgeId)) {
+        if (AwardsItem.JudgeAwards.All(x => x.JudgeId != roleper.Id)) {
           AwardsItem.JudgeAwards.Add(new JudgeAward {
-            JudgeId = roleper.JudgeId
+            JudgeId = roleper.Id
           });
         }
       }
-     
-        var entry = db.Set<Award>().Attach(AwardsItem);
-        entry.State = EntityState.Modified;
-        await db.CommitTransactionAsync();
-      
+
+      var entry = db.Set<Award>().Attach(AwardsItem);
+      entry.State = EntityState.Modified;
+      await db.CommitTransactionAsync();
+
       return IfFound(_mapper.Map<AwardDto>(AwardsItem));
     }
     [HttpGet("getAwardDetails")]
@@ -83,7 +83,7 @@ namespace MIA.Administration.Api {
       var award = await db.Awards.FirstOrDefaultAsync(a => a.Id == id);
       var judgeItems = await db.JudgeAwards.Where(a => a.AwardId == id).ToListAsync();
       if (!judgeItems.Any()) {
-        returnAwardDetails = new AwardDetailsDto();
+        returnAwardDetails = _mapper.Map<AwardDetailsDto>(award);
         return IfFound(returnAwardDetails);
       } else {
         var returnAwardJudges = _mapper.Map<List<JudgeAwardDto>>(judgeItems);

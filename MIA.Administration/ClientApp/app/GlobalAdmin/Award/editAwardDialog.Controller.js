@@ -49,13 +49,14 @@
                 vm.ManagerList = results;
                 blockUI.stop();
                 debugger;
-                var i;
-                for (i = 0; i < vm.Award.judgeAwards.length; i++) {
-                    var index = vm.judgesList.indexOf($filter('filter')(vm.judgesList, { 'id': vm.Award.judgeAwards[i].judgeId }, true)[0]);
-                    vm.selectedJudges.push(vm.judgesList[index]);
+                if (vm.Award.judgeAwards != null) {
+                    var i;
+                    for (i = 0; i < vm.Award.judgeAwards.length; i++) {
+                        var index = vm.judgesList.indexOf($filter('filter')(vm.judgesList, { 'id': vm.Award.judgeAwards[i].judgeId }, true)[0]);
+                        vm.selectedJudges.push(vm.judgesList[index]);
 
+                    }
                 }
-
                 var index = vm.ManagerList.indexOf($filter('filter')(vm.ManagerList, { 'id': vm.Award.managerId }, true)[0]);
                 vm.selectedManager = vm.ManagerList[index];
             },

@@ -143,15 +143,11 @@ namespace MIA.Administration.Api {
     }
     [HttpGet("getPayment")]
     public async Task<IActionResult> GetPaymentAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
-      //  var result = await base.GetAsync(id, db);
-      // var resultDto = ((ArtWorkPaymentDto)(result as OkObjectResult)?.Value);
       var artWorkItem = await db.ArtWorkPayments.FirstOrDefaultAsync(a => a.ArtWorkId == id);
       return IfFound(_mapper.Map<ArtWorkPaymentDto>(artWorkItem));
     }
     [HttpGet("getArtWorkFiles")]
     public async Task<IActionResult> GetArtWorkFilesAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
-      // var result = await base.GetAsync(id, db);
-      // var resultDto = ((MediaFileDto)(result as OkObjectResult)?.Value);
       var artWork = await db.ArtWorks.FirstOrDefaultAsync(a => a.Id == id);
       var artWorkItem = db.MediaFiles.Where(a => a.ArtWorkId == id).ToList();
       if (!artWorkItem.Any()) {
@@ -230,6 +226,19 @@ namespace MIA.Administration.Api {
       return IfFound(listCountries.MapTo<CountryDto>());
 
     }
+
+    [HttpGet("getJudgeArtWorks")]
+    public async Task<IActionResult> GetJudgeArtWorksAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
+      var listOfArtWork = new List<ArtWorkDto>();
+      var judgeAward = await db.JudgeAwards.Where(a => a.JudgeId == id).ToListAsync();
+      foreach (var award in judgeAward) {
+        var artWork = await db.ArtWorks.FirstOrDefaultAsync(a => a.AwardId == award.AwardId && a.UploadComplete);
+        listOfArtWork.Add(_mapper.Map<ArtWorkDto>(artWork));
+      }
+      return IfFound(listOfArtWork);
+
+    }
+
   }
 
 }
