@@ -58,9 +58,37 @@ namespace MIA.MappingProfiles {
         .ValidateMemberList(MemberList.None);
 
       CreateMap<ArtWork, RecentShowsDto>()
-        
-       .ValidateMemberList(MemberList.None);
+        .ValidateMemberList(MemberList.None);
 
+
+      CreateMap<SubmitArtworkWithDetails, ArtWork>()
+        .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
+        .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => a.About))
+        .ForMember(a => a.Production, cfg => cfg.MapFrom(a => a.Production))
+        .ForMember(a => a.Director, cfg => cfg.MapFrom(a => a.Director))
+        .ForMember(a => a.Writers, cfg => cfg.MapFrom(a => a.Writer))
+        .ForMember(a => a.Crew, cfg => cfg.MapFrom(a => a.Crew))
+        .ForMember(a => a.Stars, cfg => cfg.MapFrom(a => a.Stars))
+        .ForMember(a => a.Payment, cfg => cfg.Ignore())
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<ArtWork, ArtworkViewDto>()
+        .ForMember(a => a.About, cfg => cfg.MapFrom(a => a.ShowDescription))
+        .ForMember(a => a.CanUploadFiles, cfg => cfg.MapFrom(a => a.AllowFileUpload))
+        .IncludeAllDerived()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<ArtWork, ArtworkViewWithFilesDto>()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<MediaFile, ArtworkFileDto>()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<ArtWorkPayment, PaymentWithStatusDto>()
+        .ForMember(a => a.Status, cfg => cfg.MapFrom(a => a.PaymentStatus.ToString()))
+        .ForMember(a => a.Amount, cfg => cfg.MapFrom((a => a.Amount)))
+        .ForMember(a => a.Date, cfg => cfg.MapFrom((a => a.PaymentDate.LocalDateTime().ToString("dd-MM-yyyy"))))
+        .ValidateMemberList(MemberList.None);
 
     }
   }

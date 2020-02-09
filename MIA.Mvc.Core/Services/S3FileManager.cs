@@ -38,6 +38,14 @@ namespace MIA.Mvc.Core {
       return $"{resourceType.ToString().ToLower()}/{resourceId}/temp";
     }
 
+    public async Task<string> UploadFileAsync(byte[] file, string key, string bucketName = null,
+      bool publicRead = true) {
+      using (var mem = new MemoryStream(file))
+      {
+        return await UploadFileAsync(mem, key, bucketName, publicRead);
+      }
+    }
+
     public async Task<string> UploadFileAsync(Stream stream, string key, string bucketName = null, bool publicRead = true) {
       bucketName = bucketName ?? _awsOptions.Value.S3_Content_BucketName;
       using (var client = new AmazonS3Client(

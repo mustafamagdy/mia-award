@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 
-const TabList = ({ children, activeIndex, handleActiveTab, activeClassName, ...props }) => {
+const TabList = ({ children, activeIndex, handleActiveTab, handleActiveTabWithKey, activeClassName, activeTabKey, ...props }) => {
   const TabList = React.Children.map(children, (childElement, index) =>
     React.cloneElement(childElement, {
       isActive: activeIndex === index,
-      onActive: () => handleActiveTab(index),
+      onActive: tabKey => {
+        if (activeTabKey != undefined && handleActiveTabWithKey) {
+          handleActiveTabWithKey(tabKey);
+        } else {
+          handleActiveTab(index);
+        }
+      },
       activeClassName: activeClassName,
       ...props
     })
@@ -13,11 +19,11 @@ const TabList = ({ children, activeIndex, handleActiveTab, activeClassName, ...p
   return TabList;
 };
 
-const Tab = ({ isActive, onActive, activeClassName, tabClassName, children, ...props }) => {
+const Tab = ({ isActive, tabKey, onActive, activeClassName, tabClassName, children, ...props }) => {
   const styles = classNames(tabClassName, { [activeClassName]: isActive });
   return React.cloneElement(children, {
     className: styles,
-    onClick: () => onActive && onActive(),
+    onClick: () => onActive && onActive(tabKey),
     ...props
   });
 };

@@ -9,7 +9,6 @@ const { Types, Creators } = createActions(
     updateTrailer: { args: ["payload"], meta: { async: true } },
     updateCoverImage: { args: ["payload"], meta: { async: true } },
     postFileChunk: { args: ["payload"], meta: { async: true } },
-    saveInfoStep: { args: ["payload"] }
   },
   {
     prefix: "@app/members/"

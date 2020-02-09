@@ -16,6 +16,7 @@ namespace MIA.Infrastructure {
     string GenerateFileKeyForResource(ResourceType resourceType, string resourceId, string fileName);
     string GetTempDirectoryForResource(ResourceType resourceType, string resourceId);
     Task<string> UploadFileAsync(Stream stream, string key, string bucketName = null, bool publicRead = true);
+    Task<string> UploadFileAsync(byte[] file, string key, string bucketName = null, bool publicRead = true);
     Task DeleteFileAsync(string key, string bucketName = null);
     Task CopyObjectAsync(string sourceKey, string destinationKey);
     Task CopyObjectAsync(string sourceKey, string sourceBucketName, string destinationKey, string destinationBucketName);

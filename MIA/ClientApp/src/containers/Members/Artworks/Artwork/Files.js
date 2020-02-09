@@ -4,7 +4,7 @@ const Files = props => (
   <div className="tab_content tab_upload_videos">
     <div className="uploads_area">
       <div className="top_upload">
-        <div className="selection">
+        {/* <div className="selection">
           <select name="" id="">
             <option value="" selected>
               Season 1
@@ -31,7 +31,7 @@ const Files = props => (
             <option value="">Episodes</option>
             <option value="">Episodes</option>
           </select>
-        </div>
+        </div> */}
         <div className="submit">
           <button type="submit">Submit</button>
         </div>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import Chips from "react-chips";
-import { useForm } from "react-hook-form";
 import classNames from "classnames";
 
-const Info = ({ active, register, submitInfo, ...props }) => {
+const Info = ({ active, register, submitInfo,artworkId, ...props }) => {
+  const years = [2017, 2018, 2019, 2020];
+  const countries = ["egypt", "saudi arabia", "uae"];
+
   return (
     <div className={classNames("tab_content tab_info", { active })}>
       <form onSubmit={submitInfo}>
@@ -17,38 +18,33 @@ const Info = ({ active, register, submitInfo, ...props }) => {
         </div>
         <div className="form_group">
           <label htmlFor="about">About the show</label>
-          <textarea ref={register} name="about" id="" cols="30" rows="10"></textarea>
+          <textarea ref={register} name="about" cols="30" rows="10"></textarea>
         </div>
-        {/* <div className="form_group">
-          <select ref={register} name="year" id="">
-            <option value="">year</option>
-            <option value="">2021</option>
-            <option value="">2021</option>
-            <option value="">2021</option>
-            <option value="">2021</option>
-            <option value="">2021</option>
-            <option value="">2021</option>
-            <option value="">2021</option>
-            <option value="">2021</option>
+        <div className="form_group">
+          <select ref={register} name="year">
+            {years.map((y, i) => (
+              <option key={y} value={y}>
+                {y}
+              </option>
+            ))}
           </select>
         </div>
 
         <div className="form_group">
-          <select ref={register} name="country" id="">
-            <option value="">Country</option>
-            <option value="">Country</option>
-            <option value="">Country</option>
-            <option value="">Country</option>
-            <option value="">Country</option>
+          <select ref={register} name="country">
+            {countries.map((c, i) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
           </select>
-        </div> */}
+        </div>
 
         <div className="item_col_3">
           <div className="col">
             <div className="form_group">
               <label htmlFor="directors">directors</label>
               <input ref={register} type="text" name="directors" />
-              {/* <Chips ref={register} onChange={a => setValue("directors", a)} name="directors" /> */}
             </div>
             <div className="form_group">
               <label htmlFor="story">Story</label>

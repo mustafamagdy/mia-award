@@ -8,7 +8,7 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 import { I18n } from "@lingui/react";
 import { useEffect } from "react";
 
-const Payment = ({ active, awards = [], onPayment, ...props }) => {
+const Payment = ({ active, register, awards = [], onPayment, processOrder, setPaymentToken, ...props }) => {
   const [selectedAward, setSelectedAward] = useState();
   const [awardConfirmed, setAwardConfirmed] = useState(false);
   const [useOnlinePayment, setUseOnlinePayment] = useState(true);
@@ -20,8 +20,10 @@ const Payment = ({ active, awards = [], onPayment, ...props }) => {
   const selectAward = () => {
     setAwardConfirmed(true);
   };
+
   const setPaymentMethod = e => {
     setUseOnlinePayment(e.target.value.toLowerCase() == "online");
+    // setValue("payment.paymentMethod", e.target.value.toLowerCase());
   };
 
   return (
@@ -48,7 +50,8 @@ const Payment = ({ active, awards = [], onPayment, ...props }) => {
 
                         <div className="award_category">
                           <select
-                            name="award"
+                            name="awardId"
+                            ref={register}
                             onChange={a => {
                               const _award = awards.find(x => x.id == a.target.value);
                               setSelectedAward(_award);
@@ -84,14 +87,26 @@ const Payment = ({ active, awards = [], onPayment, ...props }) => {
         <BlockUi tag="div" blocking={!awardConfirmed} className={classNames("pay_col_two", { active: awardConfirmed })}>
           <label>Choose Your Payment Method :</label>
           <div className="choose_area">
-            <label htmlFor="payOnline">
+            <label htmlFor="online">
               <span>Pay Online</span>
-              <input type="radio" id="payOnline" name="customRadio" value="online" onChange={setPaymentMethod} checked={useOnlinePayment} />
+              <input
+                ref={register}
+                type="radio"
+                id="online"
+                value="online"
+                name="payment.paymentMethod"
+                onChange={setPaymentMethod}
+                checked={useOnlinePayment}
+              />
               <div className="checkmark"></div>
             </label>
             <BlockUi tag="div" blocking={!useOnlinePayment} className={classNames("pay_online_form", { move: !useOnlinePayment })}>
               <img src="/assets/images/pay_logo.png" />
-              <PaymentForm cardTokenized={token => onPayment(true, token)} />
+              <PaymentForm
+                cardTokenized={token => {
+                  setPaymentToken(token);
+                }}
+              />
               <div className="confirm">
                 <button id="pay-button" type="submit" form="payment-form">
                   Pay & Continue
@@ -100,13 +115,14 @@ const Payment = ({ active, awards = [], onPayment, ...props }) => {
             </BlockUi>
           </div>
           <div className="choose_area">
-            <label htmlFor="payOffline">
+            <label htmlFor="offline">
               <span>Pay Offline</span>
               <input
+                ref={register}
                 type="radio"
-                id="payOffline"
+                id="offline"
                 value="offline"
-                name="customRadio"
+                name="payment.paymentMethod"
                 onChange={setPaymentMethod}
                 checked={!useOnlinePayment}
               />
@@ -114,16 +130,18 @@ const Payment = ({ active, awards = [], onPayment, ...props }) => {
             </label>
             <BlockUi tag="div" blocking={useOnlinePayment} className={classNames("pay_offline_form", { move: useOnlinePayment })}>
               <p>please upload the reciept to be approved from the adminstration and confirm your payment</p>
-              <form action="#">
-                <input type="text" placeholder="Amount" />
-                <input type="text" placeholder="Transaction Number" />
-                <input type="text" placeholder="Payment Date" />
+              <form id="offline-payment" onSubmit={onPayment}>
+                <input ref={register} name="payment.receiptAmount" type="text" placeholder="Amount" />
+                <input ref={register} name="payment.receiptNumber" type="text" placeholder="Transaction Number" />
+                <input ref={register} name="payment.receiptDate" type="text" placeholder="Payment Date" />
                 <div className="confirm">
-                  <input type="file" id="file" />
-                  <label htmlFor="file" className="btn-2">
+                  <input type="file" id="receipt" name="payment.receipt" ref={register} />
+                  <label htmlFor="receipt" className="btn-2">
                     Choose receipt image
                   </label>
-                  <button type="submit">Submit</button>
+                  <button form="offline-payment" type="submit">
+                    Submit
+                  </button>
                 </div>
               </form>
             </BlockUi>

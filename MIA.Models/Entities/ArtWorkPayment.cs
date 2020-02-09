@@ -5,6 +5,7 @@
     public PaymentStatus PaymentStatus { get; set; }
     public string ReceiptId { get; set; }
     public string ReceiptUrl { get; set; }
+    public bool IsOffline { get; set; }
   }
 
 }
