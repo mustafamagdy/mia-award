@@ -106,16 +106,7 @@ namespace MIA.Administration.Api {
           string validationError = "";
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
             return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
-          }
-          //if (dto.Payment.Receipt != null && dto.Payment.Receipt.Length > 0) {
-
-          //  string fileReceiptKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.Payment.Receipt.FileName);
-          //  var ReceiptUrl = await fileManager.UploadFileAsync(dto.Poster.OpenReadStream(), fileReceiptKey);
-
-          //  ArtWorksItem.Payment.ReceiptUrl = ReceiptUrl;
-          //  ArtWorksItem.Payment.ReceiptId = fileReceiptKey;
-
-          //}
+          } 
           if (dto.Receipt != null && dto.Receipt.Length > 0) {
 
             string fileReceiptKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.Receipt.FileName);
@@ -136,8 +127,9 @@ namespace MIA.Administration.Api {
 
           ArtWorksItem.TrailerUrl = videoUrl;
           ArtWorksItem.TrailerId = fileVideoKey;
-          await db.CommitTransactionAsync();
         }
+        await db.CommitTransactionAsync();
+
       }
 
       return IfFound(_mapper.Map<ArtWorkDto>(ArtWorksItem));

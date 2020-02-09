@@ -116,9 +116,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
     '                                    </div>\n' +
     '                                </div>\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
     '                                    <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <textarea required type="text" class="mat-input form-control"\n' +
+    '                                    <textarea required class="mat-input form-control"\n' +
     '                                        name="showDescription{{lang.value+\'Name\'}}"\n' +
     '                                        ng-model="editArtWorkCtrl.ArtWork.showDescription[lang.key]" ng-minlength="3"\n' +
     '                                        ng-maxlength="955"></textarea>\n' +
@@ -131,8 +131,23 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                            ng-show="(editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error.minlength || editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error.maxlength) && !editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error.required">\n' +
     '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
     '                                    </div>\n' +
-    '                                </div>\n' +
+    '                                </div> -->\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                                    <label for="first-name">{{ \'Body\' | translate}} </label>\n' +
+    '                                    <textarea   class="mat-input form-control"\n' +
+    '                                        name="showDescription{{lang.value+\'Name\'}}"\n' +
+    '                                        ng-model="editArtWorkCtrl.showDescription[lang.key]" ng-minlength="3"\n' +
+    '                                        ng-maxlength="955"></textarea>\n' +
+    '                                    <div ng-messages="editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error">\n' +
     '\n' +
+    '                                        <div class="error ng-binding"\n' +
+    '                                            ng-show="editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error.required && !editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                            {{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div class="error ng-binding"\n' +
+    '                                            ng-show="(editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error.minlength || editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error.maxlength) && !editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
     '                            </div>\n' +
     '\n' +
     '                        </div>\n' +
@@ -148,7 +163,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            class="form-control select-with-search pmd-select2-tags"\n' +
     '                            ng-model="editArtWorkCtrl.selectedAward"\n' +
     '                            ng-options="group as group.title for group in editArtWorkCtrl.awardList">\n' +
-    '                        </select> \n' +
+    '                        </select>\n' +
     '                    </div>\n' +
     '\n' +
     '                    <div class="form-group col-lg-4"> <label for="first-name">{{\'Nominee\' | translate}}</label>\n' +
@@ -185,18 +200,19 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <label for="first-name">{{\'Production\' | translate}}</label>\n' +
     '                        <select required style="width:100% !important" multiple\n' +
     '                            class="select-add-tags form-control pmd-select2-tags"\n' +
-    '                            ng-model="editArtWorkCtrl.ArtWork.production"\n' +
-    '                            ng-change="editArtWorkCtrl.changeProduction(group)"\n' +
-    '                            ng-options="group for group  in editArtWorkCtrl.productionList">\n' +
+    '                            ng-model="editArtWorkCtrl.ArtWork.production" > \n' +
     '\n' +
-    '                        </select>\n' +
-    '                        {{editArtWorkCtrl.selectedProduction}}\n' +
+    '                        </select> \n' +
+    '                            <!-- ng-options="group for group  in editArtWorkCtrl.productionList"> -->\n' +
+    '\n' +
+    '                        {{editArtWorkCtrl.ArtWork.production}}\n' +
     '                    </div>\n' +
     '\n' +
     '                    <div class="form-group col-lg-4"> <label for="first-name">{{\'Director\' | translate}}</label>\n' +
     '                        <select required style="width:100% !important" multiple\n' +
-    '                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.Director">\n' +
+    '                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.ArtWork.director">\n' +
     '                        </select>\n' +
+    '                        {{editArtWorkCtrl.ArtWork.director}}\n' +
     '                    </div>\n' +
     '\n' +
     '                    <div class="form-group col-lg-4"> <label for="first-name">{{\'Country\' | translate}}</label>\n' +
@@ -205,7 +221,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            ng-model="editArtWorkCtrl.selectedCountry"\n' +
     '                            ng-options="group as group.shortName  for group in editArtWorkCtrl.countryList">\n' +
     '                        </select> \n' +
-    '                        {{ editArtWorkCtrl.ArtWork.country }}\n' +
     '\n' +
     '                    </div>\n' +
     '                </div>\n' +
@@ -214,7 +229,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    <div class="form-group col-lg-4">\n' +
     '                        <label for="first-name">{{\'Writers\' | translate}}</label>\n' +
     '                        <select required style="width:100% !important" multiple\n' +
-    '                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.Writers">\n' +
+    '                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.ArtWork.writers">\n' +
     '                        </select>\n' +
     '                    </div>\n' +
     '\n' +
@@ -250,7 +265,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    <div class="form-group col-lg-4">\n' +
     '                        <label for="first-name">{{\'Crew\' | translate}}</label>\n' +
     '                        <select required style="width:100% !important" multiple\n' +
-    '                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.Crew">\n' +
+    '                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.ArtWork.crew">\n' +
     '                        </select>\n' +
     '                    </div>\n' +
     '\n' +
@@ -280,13 +295,12 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            </div>\n' +
     '\n' +
     '        </form>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <!-- {{editArtWorkCtrl.ArtWork}} -->\n' +
+    '    </div> \n' +
     '    <div class="pmd-modal-action text-right">\n' +
     '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="editArtWorkForm.$invalid ||  receiptImage ==null" class="btn pmd-ripple-effect btn-primary"\n' +
-    '            type="button" ng-click="editArtWorkCtrl.UpdateArtWork()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '            ng-disabled="editArtWorkForm.$invalid "\n' +
+    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="editArtWorkCtrl.UpdateArtWork()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
     '            ng-click="editArtWorkCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
@@ -1023,200 +1037,147 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Booth/templates/Booth.html',
+  $templateCache.put('./app/GlobalAdmin/Award/templates/Award.html',
     '<div>\n' +
     '    <div style="margin-bottom:10px" ng-show="user.PermessionModules[\'News\'].includes(\'add_new\')">\n' +
-    '        <!-- <div id="bold"> {{\'AddNewBoothBtn\'| translate}} </div> -->\n' +
+    '        <!-- <div id="bold"> {{\'AddNewAwardBtn\'| translate}} </div> -->\n' +
     '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-click="$state.go(\'newBooth\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">\n' +
+    '            ng-click="$state.go(\'newAward\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">\n' +
     '            {{\'AddNew\'| translate}}</button>\n' +
     '    </div>\n' +
     '\n' +
-    '    <div ng-if="BoothList.length == null">\n' +
-    '        <span>{{\'NoBoothsAvailable\' | translate}}</span>\n' +
+    '    <div ng-if="AwardList.length == null">\n' +
+    '        <span>{{\'NoAwardsAvailable\' | translate}}</span>\n' +
     '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="BoothList.length > 0">\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="AwardList.length > 0">\n' +
     '        <div class="table-responsive">\n' +
     '            <table class="table pmd-table table-hover">\n' +
     '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th>{{\'code\' | translate}}</th>\n' +
-    '                        <th>{{\'price\' | translate}}</th>\n' +
-    '                        <th>{{\'description\' | translate}}</th>\n' +
-    '                        <th>{{\'details\' | translate}}</th>\n' +
+    '                    <tr> \n' +
+    '                        <th>{{\'title\' | translate}}</th>\n' +
+    '                        <th>{{\'description\' | translate}}</th> \n' +
+    '                        <th>{{\'manager\' | translate}}</th> \n' +
     '                        <th></th>\n' +
     '                    </tr>\n' +
     '                </thead>\n' +
     '                <tbody>\n' +
-    '                    <tr ng-repeat-start="Booth in BoothList">\n' +
-    '\n' +
-    '                        <td data-title="code">\n' +
-    '                            {{Booth.code}}\n' +
-    '                        </td>\n' +
-    '                        <td data-title="code">\n' +
-    '                            {{Booth.price}}\n' +
-    '                        </td>\n' +
+    '                    <tr ng-repeat="Award in AwardList">\n' +
     '                        <td data-title="Name">\n' +
-    '                            {{Booth.description  | limitTo : 20}}\n' +
-    '                            {{Booth.description.length > 20 ? \'...\' : \'\'}}\n' +
+    '                            {{Award.title  | limitTo : 20}}\n' +
+    '                            {{Award.title.length > 20 ? \'...\' : \'\'}}\n' +
+    '                        </td>\n' +
+    '                        <td width="30%">\n' +
+    '                            {{Award.description  | limitTo : 60}}\n' +
+    '                            {{Award.description.length > 60 ? \'...\' : \'\'}}\n' +
+    '                        </td> \n' +
+    '                        <td data-title="Name">\n' +
+    '                            {{Award.manager.firstName }}  - {{Award.manager.lastName}}\n' +
     '                        </td>\n' +
     '                        <td class="pmd-table-row-action">\n' +
-    '                            <span href="javascript:void(0);" ng-if="Booth.boothPurchase.length >0 "\n' +
-    '                                ng-click="Booth.show=!Booth.show;BoothCtrl.showMore($event)"\n' +
+    '                            <span href="javascript:void(0);" ng-if="Award.AwardPurchase.length >0 "\n' +
+    '                                ng-click="Award.show=!Award.show;AwardCtrl.showMore($event)"\n' +
     '                                class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i\n' +
     '                                    class="material-icons md-dark pmd-sm"></i></span>\n' +
     '                        </td>\n' +
-    '                        <td width="30%">\n' +
+    '                        <td >\n' +
     '                            <i ng-show="user.PermessionModules[\'News\'].includes(\'add_new\')"\n' +
     '                                class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'editBooth\',{id: Booth.id});" title="Edit">mode_edit</i>\n' +
+    '                                ng-click="$state.go(\'editAward\',{id: Award.id});" title="Edit">mode_edit</i>\n' +
     '                            <i ng-show="user.PermessionModules[\'News\'].includes(\'remove\')"\n' +
     '                                class="material-icons pmd-md deleteButton cursorPointer font25"\n' +
-    '                                ng-click="BoothCtrl.openDeleteDialog(Booth,Booth.description ,Booth.id)"\n' +
+    '                                ng-click="AwardCtrl.openDeleteDialog(Award,Award.description ,Award.id)"\n' +
     '                                title="Delete">delete</i>\n' +
     '                        </td>\n' +
-    '                    </tr>\n' +
-    '                    <tr ng-repeat-end ng-repeat="purchase in Booth.boothPurchase" ng-show="Booth.show" id="collapse">\n' +
-    '                        <td style="width: 10px">{{purchase.contactName}}</td>\n' +
-    '                        <td style="width: 10px">{{purchase.phone1}}</td>\n' +
-    '                        <td style="width: 10px">{{purchase.status}}</td>\n' +
-    '                    </tr>\n' +
+    '                    </tr> \n' +
     '                </tbody>\n' +
     '            </table>\n' +
     '        </div>\n' +
     '    </div>\n' +
     '\n' +
     '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '        paging-action="BoothCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
+    '        paging-action="AwardCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
     '        hide-if-empty="true" disabled-class="hide">\n' +
     '    </div>\n' +
     '</div>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Booth/templates/edit.html',
-    '<div id="bold">\n' +
-    '    {{\'EditBooth\' | translate}}\n' +
-    '</div>\n' +
+  $templateCache.put('./app/GlobalAdmin/Award/templates/edit.html',
     '<div class="modal-content">\n' +
     '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-description-text">{{\'BoothLbl\' | translate}}</h2>\n' +
+    '        <h2 class="pmd-card-description-text">{{\'EditAward\' | translate}}</h2>\n' +
     '    </div>\n' +
     '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="editBoothForm">\n' +
+    '        <form class="form-horizontal" name="editAwardForm">\n' +
     '            <div class="row">\n' +
-    '                <div class="form-group col-lg-12">\n' +
-    '                    <img src="../../../../assets/img/booth.jpg" style="height: 350px;\n' +
-    '                    width: 80%;" />\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '            <div class="row">\n' +
-    '                <!-- Nav tabs -->\n' +
     '                <div class="form-group col-lg-6">\n' +
-    '                    <ul class="nav nav-tabs" role="tablist">\n' +
-    '                        <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
-    '                            ng-repeat="lang in editBoothCtrl.language">\n' +
-    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home"\n' +
-    '                                role="tab" data-toggle="tab">\n' +
-    '                                <span style="color:red">*</span> {{lang.value | translate}}\n' +
-    '                            </a>\n' +
-    '                        </li>\n' +
-    '                    </ul>\n' +
-    '                    <div class="pmd-card">\n' +
-    '                        <div class="pmd-card-body">\n' +
-    '                            <!-- Tab panes -->\n' +
-    '                            <div class="tab-content">\n' +
-    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
-    '                                    ng-repeat="lang in editBoothCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                        <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                        <input required type="text" class="mat-input form-control"\n' +
-    '                                            name="description{{lang.value+\'Name\'}}"\n' +
-    '                                            ng-model="editBoothCtrl.Booth.description[lang.key]" ng-minlength="3"\n' +
-    '                                            ng-maxlength="255">\n' +
-    '                                        <div ng-messages="editBoothForm.description{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                            <div class="error ng-binding"\n' +
-    '                                                ng-show="editBoothForm.description{{lang.value+\'Name\'}}.$error.required && !editBoothForm.description{{lang.value+\'Name\'}}.$pristine">\n' +
-    '                                                {{\'requiredErr\' | translate}}</div>\n' +
-    '                                            <div class="error ng-binding"\n' +
-    '                                                ng-show="(editBoothForm.description{{lang.value+\'Name\'}}.$error.minlength || editBoothForm.description{{lang.value+\'Name\'}}.$error.maxlength) && !editBoothForm.description{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                                {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                        </div>\n' +
-    '                                    </div>\n' +
-    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                        <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                        <textarea required type="text" class="mat-input form-control"\n' +
-    '                                            name="body{{lang.value+\'Name\'}}"\n' +
-    '                                            ng-model="editBoothCtrl.Booth.body[lang.key]" ng-minlength="3"\n' +
-    '                                            ng-maxlength="955"></textarea>\n' +
-    '                                        <div ng-messages="editBoothForm.body{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                            <div class="error ng-binding"\n' +
-    '                                                ng-show="editBoothForm.body{{lang.value+\'Name\'}}.$error.required && !editBoothForm.body{{lang.value+\'Name\'}}.$pristine">\n' +
-    '                                                {{\'requiredErr\' | translate}}</div>\n' +
-    '                                            <div class="error ng-binding"\n' +
-    '                                                ng-show="(editBoothForm.body{{lang.value+\'Name\'}}.$error.minlength || editBoothForm.body{{lang.value+\'Name\'}}.$error.maxlength) && !editBoothForm.body{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                                {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                        </div>\n' +
-    '                                    </div>\n' +
-    '\n' +
-    '                                </div>\n' +
-    '\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '\n' +
-    '\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '                <div class="form-group col-lg-3">\n' +
-    '                    <label for="first-name">{{\'Code\' | translate}}</label>\n' +
-    '                    <input required type="text" class="mat-input form-control" name="Code" numbers-only\n' +
-    '                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"\n' +
-    '                        ng-model="editBoothCtrl.Booth.code" required />\n' +
+    '                    <label for="first-name">{{\'Title\' | translate}}</label>\n' +
+    '                    <input required type="text" class="mat-input form-control" name="title" numbers-only\n' +
+    '                        style="display: inline-block;" ng-minlength="1" ng-maxlength="200"\n' +
+    '                        ng-model="editAwardCtrl.Award.title" required />\n' +
     '                    <!-- required validation  -->\n' +
-    '                    <div ng-messages="editBoothForm.Code.$error">\n' +
-    '                        <div class="error" ng-if="editBoothForm.Code.$error.required && \n' +
-    '                                    !editBoothForm.Code.$pristine">\n' +
+    '                    <div ng-messages="editAwardForm.title.$error">\n' +
+    '                        <div class="error" ng-if="editAwardForm.title.$error.required && \n' +
+    '                                    !editAwardForm.title.$pristine">\n' +
     '                            {{\'requiredErr\' |  translate}}\n' +
     '                        </div>\n' +
     '                        <!-- length validation -->\n' +
-    '                        <div class="error" ng-if="(editBoothForm.Code.$error.minlength ||\n' +
-    '                                        editBoothForm.Code.$error.maxlength) \n' +
-    '                                         && !editBoothForm.Code.newCode.$error.required">\n' +
+    '                        <div class="error" ng-if="(editAwardForm.title.$error.minlength ||\n' +
+    '                                        editAwardForm.title.$error.maxlength) \n' +
+    '                                         && !editAwardForm.title.newtitle.$error.required">\n' +
     '                            {{\'PhoneLengthError\' |  translate}}\n' +
     '                        </div>\n' +
     '                    </div>\n' +
     '                </div>\n' +
-    '                <div class="form-group col-lg-3">\n' +
-    '                    <label for="first-name">{{\'Price\' | translate}}</label>\n' +
-    '                    <input required type="text" class="mat-input form-control" name="Price" numbers-only\n' +
-    '                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"\n' +
-    '                        ng-model="editBoothCtrl.Booth.price" required />\n' +
+    '                <div class="form-group col-lg-6">\n' +
+    '                    <label for="first-name">{{\'Description\' | translate}}</label>\n' +
+    '                    <textarea required class="mat-input form-control" name="description" numbers-only\n' +
+    '                        style="display: inline-block;" ng-minlength="1" ng-maxlength="955"\n' +
+    '                        ng-model="editAwardCtrl.Award.description" required> </textarea>\n' +
     '                    <!-- required validation  -->\n' +
-    '                    <div ng-messages="editBoothForm.Price.$error">\n' +
-    '                        <div class="error" ng-if="editBoothForm.Price.$error.required && \n' +
-    '                                    !editBoothForm.Price.$pristine">\n' +
+    '                    <div ng-messages="editAwardForm.description.$error">\n' +
+    '                        <div class="error" ng-if="editAwardForm.description.$error.required && \n' +
+    '                                    !editAwardForm.description.$pristine">\n' +
     '                            {{\'requiredErr\' |  translate}}\n' +
     '                        </div>\n' +
     '                        <!-- length validation -->\n' +
-    '                        <div class="error" ng-if="(editBoothForm.Price.$error.minlength ||\n' +
-    '                                        editBoothForm.Price.$error.maxlength) \n' +
-    '                                         && !editBoothForm.Price.newPrice.$error.required">\n' +
+    '                        <div class="error" ng-if="(editAwardForm.description.$error.minlength ||\n' +
+    '                                        editAwardForm.description.$error.maxlength) \n' +
+    '                                         && !editAwardForm.description.newdescription.$error.required">\n' +
     '                            {{\'PhoneLengthError\' |  translate}}\n' +
     '                        </div>\n' +
     '                    </div>\n' +
     '                </div>\n' +
     '            </div>\n' +
+    '            <div class="row">\n' +
+    '                <div class="form-group col-lg-6">\n' +
+    '                    <label for="first-name">{{\'Manager\' | translate}}</label>\n' +
+    '                    <select required style="width:100% !important"\n' +
+    '                        class="form-control select-with-search pmd-select2-tags"\n' +
+    '                        ng-model="editAwardCtrl.selectedManager"\n' +
+    '                        ng-options="group as group.firstName +\' \'+ group.lastName for group in editAwardCtrl.ManagerList">\n' +
+    '                    </select>\n' +
     '\n' +
+    '                </div>\n' +
+    '                <div class="form-group col-lg-6">\n' +
+    '\n' +
+    '                    <label for="first-name">{{\'Judges\' | translate}}</label>\n' +
+    '                    <select required style="width:100% !important" multiple\n' +
+    '                        class="form-control select-with-search pmd-select2-tags"\n' +
+    '                        ng-model="editAwardCtrl.selectedJudges"\n' +
+    '                        ng-options="group as group.firstName +\' \'+ group.lastName  for group in editAwardCtrl.judgesList">\n' +
+    '                    </select>\n' +
+    '\n' +
+    '                </div>\n' +
+    '            </div>\n' +
     '        </form>\n' +
     '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
     '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '             class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="editBoothCtrl.UpdateBooth()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="editAwardCtrl.UpdateAward()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="editBoothCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '            ng-click="editAwardCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>\n' +
     '\n' +
@@ -1239,7 +1200,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Booth/templates/new.html',
+  $templateCache.put('./app/GlobalAdmin/Award/templates/new.html',
     '<div class="modal-content">\n' +
     '    <div class="modal-header bordered">\n' +
     '        <h2 class="pmd-card-title-text"> {{\'AddNewBoothBtn\' | translate}} </h2>\n' +
@@ -1894,6 +1855,341 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    $(".select-tags").select2({\n' +
     '        tags: false,\n' +
     '        theme: "bootstrap",\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Booth/templates/Booth.html',
+    '<div>\n' +
+    '    <div style="margin-bottom:10px" ng-show="user.PermessionModules[\'News\'].includes(\'add_new\')">\n' +
+    '        <!-- <div id="bold"> {{\'AddNewBoothBtn\'| translate}} </div> -->\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-click="$state.go(\'newBooth\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">\n' +
+    '            {{\'AddNew\'| translate}}</button>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div ng-if="BoothList.length == null">\n' +
+    '        <span>{{\'NoBoothsAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="BoothList.length > 0">\n' +
+    '        <div class="table-responsive">\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th>{{\'code\' | translate}}</th>\n' +
+    '                        <th>{{\'price\' | translate}}</th>\n' +
+    '                        <th>{{\'description\' | translate}}</th>\n' +
+    '                        <th>{{\'details\' | translate}}</th>\n' +
+    '                        <th></th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                    <tr ng-repeat-start="Booth in BoothList">\n' +
+    '\n' +
+    '                        <td data-title="code">\n' +
+    '                            {{Booth.code}}\n' +
+    '                        </td>\n' +
+    '                        <td data-title="code">\n' +
+    '                            {{Booth.price}}\n' +
+    '                        </td>\n' +
+    '                        <td data-title="Name">\n' +
+    '                            {{Booth.description  | limitTo : 20}}\n' +
+    '                            {{Booth.description.length > 20 ? \'...\' : \'\'}}\n' +
+    '                        </td>\n' +
+    '                        <td class="pmd-table-row-action">\n' +
+    '                            <span href="javascript:void(0);" ng-if="Booth.boothPurchase.length >0 "\n' +
+    '                                ng-click="Booth.show=!Booth.show;BoothCtrl.showMore($event)"\n' +
+    '                                class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i\n' +
+    '                                    class="material-icons md-dark pmd-sm"></i></span>\n' +
+    '                        </td>\n' +
+    '                        <td width="30%">\n' +
+    '                            <i ng-show="user.PermessionModules[\'News\'].includes(\'add_new\')"\n' +
+    '                                class="material-icons md-dark pmd-md cursorPointer font25"\n' +
+    '                                ng-click="$state.go(\'editBooth\',{id: Booth.id});" title="Edit">mode_edit</i>\n' +
+    '                            <i ng-show="user.PermessionModules[\'News\'].includes(\'remove\')"\n' +
+    '                                class="material-icons pmd-md deleteButton cursorPointer font25"\n' +
+    '                                ng-click="BoothCtrl.openDeleteDialog(Booth,Booth.description ,Booth.id)"\n' +
+    '                                title="Delete">delete</i>\n' +
+    '                        </td>\n' +
+    '                    </tr>\n' +
+    '                    <tr ng-repeat-end ng-repeat="purchase in Booth.boothPurchase" ng-show="Booth.show" id="collapse">\n' +
+    '                        <td style="width: 10px">{{purchase.contactName}}</td>\n' +
+    '                        <td style="width: 10px">{{purchase.phone1}}</td>\n' +
+    '                        <td style="width: 10px">{{purchase.status}}</td>\n' +
+    '                    </tr>\n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '        paging-action="BoothCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
+    '        hide-if-empty="true" disabled-class="hide">\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Booth/templates/edit.html',
+    '<div id="bold">\n' +
+    '    {{\'EditBooth\' | translate}}\n' +
+    '</div>\n' +
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-description-text">{{\'BoothLbl\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="editBoothForm">\n' +
+    '            <div class="row">\n' +
+    '                <div class="form-group col-lg-12">\n' +
+    '                    <img src="../../../../assets/img/booth.jpg" style="height: 350px;\n' +
+    '                    width: 80%;" />\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '            <div class="row">\n' +
+    '                <!-- Nav tabs -->\n' +
+    '                <div class="form-group col-lg-6">\n' +
+    '                    <ul class="nav nav-tabs" role="tablist">\n' +
+    '                        <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
+    '                            ng-repeat="lang in editBoothCtrl.language">\n' +
+    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home"\n' +
+    '                                role="tab" data-toggle="tab">\n' +
+    '                                <span style="color:red">*</span> {{lang.value | translate}}\n' +
+    '                            </a>\n' +
+    '                        </li>\n' +
+    '                    </ul>\n' +
+    '                    <div class="pmd-card">\n' +
+    '                        <div class="pmd-card-body">\n' +
+    '                            <!-- Tab panes -->\n' +
+    '                            <div class="tab-content">\n' +
+    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
+    '                                    ng-repeat="lang in editBoothCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                        <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                        <input required type="text" class="mat-input form-control"\n' +
+    '                                            name="description{{lang.value+\'Name\'}}"\n' +
+    '                                            ng-model="editBoothCtrl.Booth.description[lang.key]" ng-minlength="3"\n' +
+    '                                            ng-maxlength="255">\n' +
+    '                                        <div ng-messages="editBoothForm.description{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                            <div class="error ng-binding"\n' +
+    '                                                ng-show="editBoothForm.description{{lang.value+\'Name\'}}.$error.required && !editBoothForm.description{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                                {{\'requiredErr\' | translate}}</div>\n' +
+    '                                            <div class="error ng-binding"\n' +
+    '                                                ng-show="(editBoothForm.description{{lang.value+\'Name\'}}.$error.minlength || editBoothForm.description{{lang.value+\'Name\'}}.$error.maxlength) && !editBoothForm.description{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                                {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                        </div>\n' +
+    '                                    </div>\n' +
+    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                        <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                        <textarea required type="text" class="mat-input form-control"\n' +
+    '                                            name="body{{lang.value+\'Name\'}}"\n' +
+    '                                            ng-model="editBoothCtrl.Booth.body[lang.key]" ng-minlength="3"\n' +
+    '                                            ng-maxlength="955"></textarea>\n' +
+    '                                        <div ng-messages="editBoothForm.body{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                            <div class="error ng-binding"\n' +
+    '                                                ng-show="editBoothForm.body{{lang.value+\'Name\'}}.$error.required && !editBoothForm.body{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                                {{\'requiredErr\' | translate}}</div>\n' +
+    '                                            <div class="error ng-binding"\n' +
+    '                                                ng-show="(editBoothForm.body{{lang.value+\'Name\'}}.$error.minlength || editBoothForm.body{{lang.value+\'Name\'}}.$error.maxlength) && !editBoothForm.body{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                                {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                        </div>\n' +
+    '                                    </div>\n' +
+    '\n' +
+    '                                </div>\n' +
+    '\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '\n' +
+    '\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '                <div class="form-group col-lg-3">\n' +
+    '                    <label for="first-name">{{\'Code\' | translate}}</label>\n' +
+    '                    <input required type="text" class="mat-input form-control" name="Code" numbers-only\n' +
+    '                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"\n' +
+    '                        ng-model="editBoothCtrl.Booth.code" required />\n' +
+    '                    <!-- required validation  -->\n' +
+    '                    <div ng-messages="editBoothForm.Code.$error">\n' +
+    '                        <div class="error" ng-if="editBoothForm.Code.$error.required && \n' +
+    '                                    !editBoothForm.Code.$pristine">\n' +
+    '                            {{\'requiredErr\' |  translate}}\n' +
+    '                        </div>\n' +
+    '                        <!-- length validation -->\n' +
+    '                        <div class="error" ng-if="(editBoothForm.Code.$error.minlength ||\n' +
+    '                                        editBoothForm.Code.$error.maxlength) \n' +
+    '                                         && !editBoothForm.Code.newCode.$error.required">\n' +
+    '                            {{\'PhoneLengthError\' |  translate}}\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '                <div class="form-group col-lg-3">\n' +
+    '                    <label for="first-name">{{\'Price\' | translate}}</label>\n' +
+    '                    <input required type="text" class="mat-input form-control" name="Price" numbers-only\n' +
+    '                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"\n' +
+    '                        ng-model="editBoothCtrl.Booth.price" required />\n' +
+    '                    <!-- required validation  -->\n' +
+    '                    <div ng-messages="editBoothForm.Price.$error">\n' +
+    '                        <div class="error" ng-if="editBoothForm.Price.$error.required && \n' +
+    '                                    !editBoothForm.Price.$pristine">\n' +
+    '                            {{\'requiredErr\' |  translate}}\n' +
+    '                        </div>\n' +
+    '                        <!-- length validation -->\n' +
+    '                        <div class="error" ng-if="(editBoothForm.Price.$error.minlength ||\n' +
+    '                                        editBoothForm.Price.$error.maxlength) \n' +
+    '                                         && !editBoothForm.Price.newPrice.$error.required">\n' +
+    '                            {{\'PhoneLengthError\' |  translate}}\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '             class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="editBoothCtrl.UpdateBooth()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '            ng-click="editBoothCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                // Insert the tag at the end of the results\n' +
+    '                data.push(tag);\n' +
+    '                // console.log(data);\n' +
+    '            }\n' +
+    '        });\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Booth/templates/new.html',
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text"> {{\'AddNewBoothBtn\' | translate}} </h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="newBoothForm">\n' +
+    '            <div class="row">\n' +
+    '                <div class="form-group col-lg-12">\n' +
+    '                    <img src="../../../../assets/img/booth.jpg" style="height: 350px;\n' +
+    '                    width: 80%;" />\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '            <div class="row">\n' +
+    '                <div class="form-group col-lg-6">\n' +
+    '                    <ul class="nav nav-tabs" role="tablist">\n' +
+    '                        <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
+    '                            ng-repeat="lang in newBoothCtrl.language">\n' +
+    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home"\n' +
+    '                                role="tab" data-toggle="tab">\n' +
+    '                                <span style="color:red">*</span>{{lang.value | translate}}\n' +
+    '                            </a>\n' +
+    '                        </li>\n' +
+    '                    </ul>\n' +
+    '                    <div class="pmd-card">\n' +
+    '                        <div class="pmd-card-body">\n' +
+    '                            <!-- Tab panes -->\n' +
+    '                            <div class="tab-content">\n' +
+    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
+    '                                    ng-repeat="lang in newBoothCtrl.language" id="{{lang.value}}-form">\n' +
+    '\n' +
+    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                                        <label for="first-name">{{ \'Description\' | translate}} </label>\n' +
+    '                                        <textarea required class="mat-input form-control"\n' +
+    '                                            name="Description{{lang.value+\'Name\'}}"\n' +
+    '                                            ng-model="newBoothCtrl.Description[lang.key]" ng-minlength="3"\n' +
+    '                                            ng-maxlength="955"></textarea>\n' +
+    '                                        <div ng-messages="newBoothForm.Description{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                            <div class="error ng-binding"\n' +
+    '                                                ng-show="newBoothForm.Description{{lang.value+\'Name\'}}.$error.required && !newBoothForm.Description{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                                {{\'requiredErr\' | translate}}</div>\n' +
+    '                                            <div class="error ng-binding"\n' +
+    '                                                ng-show="(newBoothForm.Description{{lang.value+\'Name\'}}.$error.minlength || newBoothForm.Description{{lang.value+\'Name\'}}.$error.maxlength) && !newBoothForm.Description{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                                {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                        </div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '                <div class="form-group col-lg-3">\n' +
+    '                    <label for="first-name">{{\'Code\' | translate}}</label>\n' +
+    '                    <input required type="text" class="mat-input form-control" name="Code" numbers-only\n' +
+    '                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"\n' +
+    '                        ng-model="newBoothCtrl.Code" required />\n' +
+    '                    <!-- required validation  -->\n' +
+    '                    <div ng-messages="newBoothForm.Code.$error">\n' +
+    '                        <div class="error" ng-if="newBoothForm.Code.$error.required && \n' +
+    '                                    !newBoothForm.Code.$pristine">\n' +
+    '                            {{\'requiredErr\' |  translate}}\n' +
+    '                        </div>\n' +
+    '                        <!-- length validation -->\n' +
+    '                        <div class="error" ng-if="(newBoothForm.Code.$error.minlength ||\n' +
+    '                                        newBoothForm.Code.$error.maxlength) \n' +
+    '                                         && !newBoothForm.Code.newCode.$error.required">\n' +
+    '                            {{\'PhoneLengthError\' |  translate}}\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '                <div class="form-group col-lg-3">\n' +
+    '                    <label for="first-name">{{\'Price\' | translate}}</label>\n' +
+    '                    <input required type="text" class="mat-input form-control" name="Price" numbers-only\n' +
+    '                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"\n' +
+    '                        ng-model="newBoothCtrl.Price" required />\n' +
+    '                    <!-- required validation  -->\n' +
+    '                    <div ng-messages="newBoothForm.Price.$error">\n' +
+    '                        <div class="error" ng-if="newBoothForm.Price.$error.required && \n' +
+    '                                    !newBoothForm.Price.$pristine">\n' +
+    '                            {{\'requiredErr\' |  translate}}\n' +
+    '                        </div>\n' +
+    '                        <!-- length validation -->\n' +
+    '                        <div class="error" ng-if="(newBoothForm.Price.$error.minlength ||\n' +
+    '                                        newBoothForm.Price.$error.maxlength) \n' +
+    '                                         && !newBoothForm.Price.newPrice.$error.required">\n' +
+    '                            {{\'PhoneLengthError\' |  translate}}\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-disabled="newBoothForm.$invalid" class="btn pmd-ripple-effect btn-primary" Booth="button"\n' +
+    '            ng-click="newBoothCtrl.AddNewBooth()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" Booth="button"\n' +
+    '            ng-click="newBoothCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                data.push(tag);\n' +
+    '            }\n' +
+    '        });\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
     '    });\n' +
     '</script>');
 }]);

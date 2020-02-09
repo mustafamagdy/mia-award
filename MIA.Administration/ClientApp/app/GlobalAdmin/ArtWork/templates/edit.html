@@ -37,9 +37,9 @@
                                             {{'NameLengthError3' | translate}}</div>
                                     </div>
                                 </div>
-                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
+                                <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
                                     <label for="first-name">{{ lang.value+'Name' | translate}} </label>
-                                    <textarea required type="text" class="mat-input form-control"
+                                    <textarea required class="mat-input form-control"
                                         name="showDescription{{lang.value+'Name'}}"
                                         ng-model="editArtWorkCtrl.ArtWork.showDescription[lang.key]" ng-minlength="3"
                                         ng-maxlength="955"></textarea>
@@ -52,8 +52,23 @@
                                             ng-show="(editArtWorkForm.showDescription{{lang.value+'Name'}}.$error.minlength || editArtWorkForm.showDescription{{lang.value+'Name'}}.$error.maxlength) && !editArtWorkForm.showDescription{{lang.value+'Name'}}.$error.required">
                                             {{'NameLengthError3' | translate}}</div>
                                     </div>
-                                </div>
+                                </div> -->
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label for="first-name">{{ 'Body' | translate}} </label>
+                                    <textarea   class="mat-input form-control"
+                                        name="showDescription{{lang.value+'Name'}}"
+                                        ng-model="editArtWorkCtrl.showDescription[lang.key]" ng-minlength="3"
+                                        ng-maxlength="955"></textarea>
+                                    <div ng-messages="editArtWorkForm.showDescription{{lang.value+'Name'}}.$error">
 
+                                        <div class="error ng-binding"
+                                            ng-show="editArtWorkForm.showDescription{{lang.value+'Name'}}.$error.required && !editArtWorkForm.showDescription{{lang.value+'Name'}}.$pristine">
+                                            {{'requiredErr' | translate}}</div>
+                                        <div class="error ng-binding"
+                                            ng-show="(editArtWorkForm.showDescription{{lang.value+'Name'}}.$error.minlength || editArtWorkForm.showDescription{{lang.value+'Name'}}.$error.maxlength) && !editArtWorkForm.showDescription{{lang.value+'Name'}}.$error.required">
+                                            {{'NameLengthError3' | translate}}</div>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -69,7 +84,7 @@
                             class="form-control select-with-search pmd-select2-tags"
                             ng-model="editArtWorkCtrl.selectedAward"
                             ng-options="group as group.title for group in editArtWorkCtrl.awardList">
-                        </select> 
+                        </select>
                     </div>
 
                     <div class="form-group col-lg-4"> <label for="first-name">{{'Nominee' | translate}}</label>
@@ -106,18 +121,19 @@
                         <label for="first-name">{{'Production' | translate}}</label>
                         <select required style="width:100% !important" multiple
                             class="select-add-tags form-control pmd-select2-tags"
-                            ng-model="editArtWorkCtrl.ArtWork.production"
-                            ng-change="editArtWorkCtrl.changeProduction(group)"
-                            ng-options="group for group  in editArtWorkCtrl.productionList">
+                            ng-model="editArtWorkCtrl.ArtWork.production" > 
 
-                        </select>
-                        {{editArtWorkCtrl.selectedProduction}}
+                        </select> 
+                            <!-- ng-options="group for group  in editArtWorkCtrl.productionList"> -->
+
+                        {{editArtWorkCtrl.ArtWork.production}}
                     </div>
 
                     <div class="form-group col-lg-4"> <label for="first-name">{{'Director' | translate}}</label>
                         <select required style="width:100% !important" multiple
-                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.Director">
+                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.ArtWork.director">
                         </select>
+                        {{editArtWorkCtrl.ArtWork.director}}
                     </div>
 
                     <div class="form-group col-lg-4"> <label for="first-name">{{'Country' | translate}}</label>
@@ -126,7 +142,6 @@
                             ng-model="editArtWorkCtrl.selectedCountry"
                             ng-options="group as group.shortName  for group in editArtWorkCtrl.countryList">
                         </select> 
-                        {{ editArtWorkCtrl.ArtWork.country }}
 
                     </div>
                 </div>
@@ -135,7 +150,7 @@
                     <div class="form-group col-lg-4">
                         <label for="first-name">{{'Writers' | translate}}</label>
                         <select required style="width:100% !important" multiple
-                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.Writers">
+                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.ArtWork.writers">
                         </select>
                     </div>
 
@@ -171,7 +186,7 @@
                     <div class="form-group col-lg-4">
                         <label for="first-name">{{'Crew' | translate}}</label>
                         <select required style="width:100% !important" multiple
-                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.Crew">
+                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.ArtWork.crew">
                         </select>
                     </div>
 
@@ -201,13 +216,12 @@
             </div>
 
         </form>
-    </div>
-
-    <!-- {{editArtWorkCtrl.ArtWork}} -->
+    </div> 
     <div class="pmd-modal-action text-right">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-disabled="editArtWorkForm.$invalid ||  receiptImage ==null" class="btn pmd-ripple-effect btn-primary"
-            type="button" ng-click="editArtWorkCtrl.UpdateArtWork()">{{'saveChangesBtn' | translate}}</button>
+            ng-disabled="editArtWorkForm.$invalid "
+            class="btn pmd-ripple-effect btn-primary" type="button"
+            ng-click="editArtWorkCtrl.UpdateArtWork()">{{'saveChangesBtn' | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" type="button"
             ng-click="editArtWorkCtrl.Close()">{{'DiscardBtn' | translate}}</button>
     </div>

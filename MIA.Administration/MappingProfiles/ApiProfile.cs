@@ -101,19 +101,42 @@ namespace MIA.Administration.MappingProfiles {
 
       CreateMap<NewArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None)
             .ForMember(a => a.Title, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.Title))) 
+            .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.ShowDescription)))
             .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
             .ForMember(a => a.Nominee, cfg => cfg.MapFrom(a => a.Nominee));
-      CreateMap<UpdateArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None);
+      CreateMap<UpdateArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None)
+            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.Title)))
+            .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.ShowDescription)));
       #endregion
 
 
       #region Award
       CreateMap<Award, AwardDto>().ValidateMemberList(MemberList.None);
+      CreateMap<Award, AwardDetailsDto>().ValidateMemberList(MemberList.None);
       CreateMap<NewAwardDto, Award>().ValidateMemberList(MemberList.None);
       CreateMap<UpdateAwardDto, Award>().ValidateMemberList(MemberList.None);
 
       #endregion
 
+      #region Judge Vote
+
+      CreateMap<JudgeVote, JudgeVoteDto>().ValidateMemberList(MemberList.None);
+      CreateMap<NewJudgeVoteDto, JudgeVote>().ValidateMemberList(MemberList.None);
+
+      #endregion
+
+      #region Judge Award
+
+      CreateMap<JudgeAward, JudgeAwardDto>().ValidateMemberList(MemberList.None); 
+      CreateMap< JudgeAwardDto, JudgeAward>().ValidateMemberList(MemberList.None);
+      #endregion
+
+      #region Judge Comment
+
+      CreateMap<JudgeComment, JudgeCommentDto>().ValidateMemberList(MemberList.None);
+      CreateMap<NewJudgeCommentDto, JudgeComment>().ValidateMemberList(MemberList.None);
+
+      #endregion
 
     }
 
