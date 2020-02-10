@@ -29,9 +29,6 @@ const Payment = ({ active, register, awards = [], onPayment, processOrder, setPa
   return (
     <div className={classNames("tab_content tab_payment", { active })}>
       <div className="all_payments_way">
-        <div className="next_step">
-          <span>Next</span>
-        </div>
         <BlockUi tag="div" blocking={awardConfirmed} className={classNames("pay_col_one", { move: awardConfirmed })}>
           {selectedAward && (
             <>

@@ -4,11 +4,11 @@ import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
-const Trailer = ({ active, artworkId, trailerUrl, uploadTrailer, ...props }) => {
+const Trailer = ({ active, artworkId, trailerUrl, updateTrailer, ...props }) => {
   const [startUploading, setStartUploading] = useState(false);
   const startUploadTrailer = async file => {
     console.log("uploading ", file);
-    uploadTrailer({ id: artworkId, trailer: file });
+    updateTrailer({ id: artworkId, trailer: file });
   };
 
   return (

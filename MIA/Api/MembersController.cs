@@ -23,19 +23,24 @@ using MIA.Infrastructure.Options;
 using Microsoft.EntityFrameworkCore;
 
 namespace MIA.Api {
-
-  public class ArtworkViewDto {
-    public string Id { get; set; }
+  public abstract class ArtworkBasiData {
     public LocalizedData Title { get; set; }
+    public string About { get; set; }
+    public string Story { get; set; }
+    public string Directors { get; set; }
+    public string Producers { get; set; }
+    public string Writers { get; set; }
+    public string Crew { get; set; }
+    public string Stars { get; set; }
+    public string Year { get; set; }
+    public string Country { get; set; }
+
+  }
+  public class ArtworkViewDto : ArtworkBasiData {
+    public string Id { get; set; }
     public string PosterUrl { get; set; }
     public string TrailerUrl { get; set; }
     public string CoverImageUrl { get; set; }
-    public string About { get; set; }
-    public string Story { get; set; }
-    public string Director { get; set; }
-    public string Production { get; set; }
-    public string Writer { get; set; }
-    public string Crew { get; set; }
     public bool CanUploadFiles { get; set; }
   }
   public class ArtworkViewWithFilesDto : ArtworkViewDto {
@@ -57,7 +62,6 @@ namespace MIA.Api {
 
   public class ArtworkWithStatusDto {
     public string Id { get; set; }
-    public LocalizedData Title { get; set; }
     public string PosterUrl { get; set; }
     public string TrailerUrl { get; set; }
     public string CoverImageUrl { get; set; }
@@ -72,15 +76,8 @@ namespace MIA.Api {
     public string Status { get; set; }
   }
 
-  public class SubmitArtworkWithDetails {
+  public class SubmitArtworkWithDetails : ArtworkBasiData {
     public LocalizedData Title { get; set; }
-    public string About { get; set; }
-    public string Story { get; set; }
-    public string Director { get; set; }
-    public string Production { get; set; }
-    public string Writer { get; set; }
-    public string Crew { get; set; }
-    public string Stars { get; set; }
     public string PosterFileName { get; set; }
     public string CoverImageFileName { get; set; }
     public byte[] Poster { get; set; }
@@ -246,7 +243,6 @@ namespace MIA.Api {
         artwork.CoverUrl = await fileManager.UploadFileAsync(dto.CoverImage, coverFileKey);
       }
 
-      db.ArtWorks.Update(artwork);
       artwork.Payment = artWorkPayment;
 
       return Ok(_mapper.Map<ArtworkViewWithFilesDto>(artwork));
@@ -268,12 +264,30 @@ namespace MIA.Api {
         var receiptFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Docs, payment.Id, $"{payment.Id}_receipt." + dto.Payment.ReceiptFileName);
         payment.ReceiptId = receiptFileKey;
         payment.ReceiptUrl = await fileManager.UploadFileAsync(dto.Payment.Receipt, receiptFileKey);
-
-        db.ArtWorkPayments.Update(payment);
       }
 
       return payment;
     }
+
+
+    [HttpPut("artwork/{id}")]
+    public async Task<IActionResult> UpdateArtwork(
+      [FromRoute] string id,
+      [FromBody] SubmitArtworkWithDetails dto,
+      [FromServices] IAppUnitOfWork db) {
+
+      //TODO: uncomment
+      //var nominee = await _userResolver.CurrentUserAsync();
+      var artwork = await db.ArtWorks.AsNoTracking().FirstOrDefaultAsync(a=>a.Id == id);
+      artwork = _mapper.Map<ArtWork>(dto);
+      artwork.Id = id;
+      //if (artwork.NomineeId != nominee.Id)
+      //  return NotFound404("Artwork doesn't belong to you");
+
+      db.ArtWorks.Update(artwork);
+      return Ok();
+    }
+
 
     [HttpPut("artwork/{id}/trailer")]
     public async Task<IActionResult> UpdateTrailer() {
@@ -302,12 +316,17 @@ namespace MIA.Api {
 
     [HttpGet("artwork/{id}")]
     public async Task<IActionResult> GetArtowkrById([FromRoute] string id, [FromServices] IAppUnitOfWork db) {
-      var nominee = await _userResolver.CurrentUserAsync();
-      var artwork = await db.ArtWorks.FindAsync(id);
-      if (artwork.NomineeId != nominee.Id)
-        return NotFound404("Artwork doesn't belong to you");
 
-      return Ok(_mapper.Map<ArtworkViewDto>(artwork));
+      //TODO: uncomment
+      //var nominee = await _userResolver.CurrentUserAsync();
+      var artwork = await db.ArtWorks
+        .Include(a => a.Payment)
+        .Include(a => a.MediaFiles)
+        .FirstOrDefaultAsync(a => a.Id == id);
+      //if (artwork.NomineeId != nominee.Id)
+      //  return NotFound404("Artwork doesn't belong to you");
+
+      return Ok(_mapper.Map<ArtworkViewWithFilesDto>(artwork));
     }
 
     [HttpPost("artwork/{id}/files")]

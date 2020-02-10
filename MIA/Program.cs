@@ -99,10 +99,10 @@ namespace MIA {
         .AddJsonFile($"appsettings.{hostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
         // This reads the configuration keys from the secret store. This allows you to store connection strings
         // and other sensitive settings, so you don't have to check them into your source control provider.
-        // Only use this in Development, it is not intended for Production use. See
+        // Only use this in Development, it is not intended for Producers use. See
         // http://docs.asp.net/en/latest/security/app-secrets.html
         .AddIf(hostingEnvironment.IsDevelopment(), x => x.AddUserSecrets(Assembly.GetExecutingAssembly(), optional: true))
-        // Add configuration specific to the Development, Staging or Production environments. This config can
+        // Add configuration specific to the Development, Staging or Producers environments. This config can
         // be stored on the machine being deployed to or if you are using Azure, in the cloud. These settings
         // override the ones in all of the above config files. See
         // http://docs.asp.net/en/latest/security/app-secrets.html

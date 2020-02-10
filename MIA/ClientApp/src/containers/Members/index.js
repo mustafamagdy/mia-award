@@ -12,7 +12,7 @@ const MemberArea = props => (
       <div className="member_wrapper">
         <Route exact path="/members" component={Artworks} />
         <Route exact path="/members/profile" component={Profile} />
-        <Route exact path="/members/add-artwork" component={Artwork} />
+        <Route path="/members/artwork" component={Artwork} />
       </div>
     </div>
   </section>
