@@ -176,17 +176,25 @@ namespace MIA.Api {
       //return Ok();
     }
 
-    [HttpPost("upload-chunk")]
+    [HttpPost("upload-chunk/{dir}/{dirId}")]
     [RequestSizeLimit(1024 * 1024 * 30)]
     public async Task<IActionResult> UploadS3Chunk(
+      [FromRoute(Name = "dir")] string dir,
+      [FromRoute(Name = "dirId")] string dirId,
       [FromServices] IS3FileManager fileManager,      
-      FileChunkDto dto) {
-      var id = "someId";
-      var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.Artwork, id);
+      FileChunkDto dto)
+    {
+      ResourceType rType;
+      if (!Enum.TryParse(dir, out rType))
+      {
+        throw new Exception("Invalid dir name");
+      }
+      
+      var tempDir = fileManager.GetTempDirectoryForResource(rType, dirId);
       var result = await fileManager.UploadChunk(tempDir, dto);
       if (!string.IsNullOrEmpty(result.FinalUrl)) {
         //move file to final directory of the artwork files
-        var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, id, dto.FileName);
+        var fileKey = fileManager.GenerateFileKeyForResource(rType, dirId, dto.FileName);
         var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
         return Ok(fileUrl);
       } else {

@@ -16,6 +16,7 @@ using MIA.Payments;
 using PaymentStatus = MIA.Payments.PaymentStatus;
 using MIA.Exceptions;
 using System;
+using System.Net;
 using Microsoft.Extensions.Options;
 using MIA.Infrastructure;
 using MIA.Infrastructure.Options;
@@ -193,7 +194,7 @@ namespace MIA.Api {
                 ThreeDsUrl = paymentResponse.ThreeDsUrl
               });
             } else if (paymentResponse != null && paymentResponse.IsApproved) {
-              
+
               //TODO: uncomment
               //_logger.LogInformation($"user payment success {nominee.Id}/{nominee.UserName} -> Payment Id: {paymentResponse.PaymentId}");
 
@@ -315,20 +316,49 @@ namespace MIA.Api {
       [FromServices] IAppUnitOfWork db,
       [FromServices] IS3FileManager fileManager,
       FileChunkDto dto) {
-      var nominee = await _userResolver.CurrentUserAsync();
-      var artwork = await db.ArtWorks.FindAsync(id);
-      if (artwork.NomineeId != nominee.Id)
-        return NotFound404("Artwork doesn't belong to you");
+      try {
+        //TODO: uncomment
+        //var nominee = await _userResolver.CurrentUserAsync();
+        //var artwork = await db.ArtWorks.FindAsync(id);
+        //if (artwork == null) {
+        //  return NotFound404("Artwork doesn't exist");
+        //}
+        //if (artwork.NomineeId != nominee.Id) {
+        //  return NotFound404("Artwork doesn't belong to you");
+        //}
+        //if (artwork.UploadComplete) {
+        //  return ValidationError(HttpStatusCode.BadRequest, "Files upload complete, waiting for artwork review");
+        //}
 
-      var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.Artwork, id);
-      var result = await fileManager.UploadChunk(tempDir, dto);
-      if (!string.IsNullOrEmpty(result.FinalUrl)) {
-        //move file to final directory of the artwork files
-        var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, id, dto.FileName);
-        await fileManager.MoveObjectAsync(result.FileKey, fileKey);
-        return Ok(fileKey);
-      } else {
-        return Ok(result);
+        var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.Artwork, id);
+        var result = await fileManager.UploadChunk(tempDir, dto);
+        if (!string.IsNullOrEmpty(result.FinalUrl)) {
+          //move file to final directory of the artwork files
+          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, id, dto.FileName);
+          var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
+
+          var mediaFile = new MediaFile {
+            //TODO: uncomment
+            //ArtWorkId = artwork.Id,
+            UploadDate = DateTime.Now.ToUnixTimeSeconds(),
+            FileKey = fileKey,
+            FileUrl = fileUrl
+          };
+
+          //TODO: uncomment
+          //await db.MediaFiles.AddAsync(mediaFile);
+          //var _artwork = await db.ArtWorks.Include(a => a.MediaFiles).FirstOrDefaultAsync(a => a.Id == id);
+          //if (_artwork.MediaFiles.Any() && _artwork.FileCount <= _artwork.MediaFiles.Count) {
+          //  _artwork.UploadComplete = true;
+          //  db.ArtWorks.Update(_artwork);
+          //}
+          return Ok(fileKey);
+        } else {
+          return Ok(result);
+        }
+      } catch (Exception ex) {
+        _logger.LogError(ex, "Failed to upload file");
+        throw new ApiException(ApiErrorType.FailedToUploadChunkedFile, $"{ex.Message}");
       }
     }
 

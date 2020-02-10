@@ -40,8 +40,7 @@ namespace MIA.Mvc.Core {
 
     public async Task<string> UploadFileAsync(byte[] file, string key, string bucketName = null,
       bool publicRead = true) {
-      using (var mem = new MemoryStream(file))
-      {
+      using (var mem = new MemoryStream(file)) {
         return await UploadFileAsync(mem, key, bucketName, publicRead);
       }
     }
@@ -195,7 +194,7 @@ namespace MIA.Mvc.Core {
           }
         }
       } catch (Exception e) {
-        return null;
+        throw e;
       }
 
       return response;
