@@ -1,7 +1,7 @@
 
 
 export default function (/**@type {ApisauceInstance} */ api) {
-  const signup = user => api.post("user/createByEmail", user);
+  const signup = user => api.post("user/nominee", user);
   const getUserProfile = () => api.get("user/profile");
   const updateUserProfile = (userData) => {
     const headers = { 'Content-Type': 'application/form-data' };

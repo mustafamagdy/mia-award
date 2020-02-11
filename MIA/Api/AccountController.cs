@@ -86,7 +86,7 @@ namespace MIA.Api {
 
         string htmlMessage = await templateParser.LoadAndParse("verifyEmail", locale: culture, new UserEmailReviewDto {
           TokenLink = callbackUrl,
-          FullName = user.FirstName + " " + user.LastName
+          FullName = user.FullName
         });
 
         //send confirmation email
@@ -136,7 +136,7 @@ namespace MIA.Api {
         IdentityResult result = await userManager.ConfirmEmailAsync(user, userRequest.Code);
         if (result.Succeeded) {
           string htmlMessage = await templateParser.LoadAndParse("welcome", locale: culture, new UserEmailReviewDto {
-            FullName = user.FirstName + " " + user.LastName
+            FullName = user.FullName
           });
 
           await emailSender.SendEmailAsync(user.Email, _Locale["welcome_email_subject"], htmlMessage);
@@ -181,7 +181,7 @@ namespace MIA.Api {
 
         string htmlMessage = await templateParser.LoadAndParse("forgotPassword", locale: culture, new UserEmailReviewDto {
           TokenLink = callbackUrl,
-          FullName = user.FirstName + " " + user.LastName
+          FullName = user.FullName
         });
 
         await emailSender.SendEmailAsync(user.Email, _Locale["reset_password_request_subject"], htmlMessage);
@@ -201,6 +201,7 @@ namespace MIA.Api {
     /// <param name="templateParser"></param>
     /// <param name="emailTemplateProvider"></param>
     /// <returns></returns>
+    [HttpPost("resetPassword")]
     public async Task<IActionResult> ResetPassword(
       [FromHeader] string culture,
       [FromBody] ResetPasswordRequest resetPassword,
@@ -216,7 +217,7 @@ namespace MIA.Api {
         if (result.Succeeded) {
 
           string htmlMessage = await templateParser.LoadAndParse("passwordResetComplete", locale: culture, new UserEmailReviewDto {
-            FullName = user.FirstName + " " + user.LastName
+            FullName = user.FullName
           });
 
           await emailSender.SendEmailAsync(user.Email, _Locale["your_password_reset_subject"], htmlMessage);
@@ -254,7 +255,7 @@ namespace MIA.Api {
       if (result.Succeeded) {
 
         string htmlMessage = await templateParser.LoadAndParse("passwordChangeComplete", locale: culture, new UserEmailReviewDto {
-          FullName = user.FirstName + " " + user.LastName
+          FullName = user.FullName
         });
 
         await emailSender.SendEmailAsync(user.Email, _Locale["your_password_changed_subject"], htmlMessage);
@@ -308,8 +309,7 @@ namespace MIA.Api {
       var user = await userManager.FindByNameAsync(username);
       _mapper.Map(dto, user, typeof(UpdateUserProfileDto), typeof(AppUser));
       user.PhoneNumber = dto.PhoneNumber;
-      user.FirstName = dto.FirstName;
-      user.LastName = dto.LastName;
+      user.FullName = dto.FullName;
 
       UserImage avatar = db.UserImages.FirstOrDefault(a => a.UserId == user.Id);
       if (dto.Avatar != null && dto.Avatar.Length > 0) {

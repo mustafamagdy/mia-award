@@ -279,8 +279,7 @@ namespace MIA.ORMContext.Seed {
 
       if (await userManager.FindByNameAsync(Constants.DEMO_USERNAME) == null) {
         AppUser demoUser = new AppUser {
-          FirstName = "Demo",
-          LastName = "User",
+          FullName = "demo user",
           Email = Constants.DEMO_EMAIL,
           UserName = Constants.DEMO_USERNAME,
           NormalizedEmail = Constants.DEMO_EMAIL.ToUpper(),
@@ -352,8 +351,7 @@ namespace MIA.ORMContext.Seed {
     private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager) {
       if (await userManager.FindByNameAsync(Constants.ADMIN_USERNAME) == null) {
         AppUser admin = new AppUser {
-          FirstName = "System",
-          LastName = "Admin",
+          FullName= "System admin",
           Email = Constants.ADMIN_EMAIL,
           UserName = Constants.ADMIN_USERNAME,
           NormalizedEmail = Constants.ADMIN_EMAIL.ToUpper(),

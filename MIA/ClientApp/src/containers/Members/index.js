@@ -31,13 +31,7 @@ const MemberArea = ({ location, match, currentUser, isLoggedIn, ...props }) => {
       );
     }
   } else if (location.pathname === "/members/signin") {
-    return (
-      <section id="member_area">
-        <div className="container">
-          <Auth />
-        </div>
-      </section>
-    );
+    return <Auth />;
   }
 };
 
