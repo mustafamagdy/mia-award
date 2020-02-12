@@ -53,14 +53,52 @@ namespace MIA.MappingProfiles {
        .ForMember(a => a.DateCreated, cfg => cfg.MapFrom(a => a.DateCreated.LocalDateTime().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
+      CreateMap<Award, AwardDto>()
+        .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.TrophyImageUrl))
+        .ValidateMemberList(MemberList.None);
 
       CreateMap<ArtWork, RecentShowsDto>()
-       .ForMember(a => a.Rating, cfg => cfg.MapFrom(a => a.Rate))
-       .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.PosterUrl))
-       .ForMember(a => a.PostedDate, cfg => cfg.MapFrom(a => a.PostedDate.LocalDateTime().ToString("dd-MM-yyyy")))
-       .ForMember(a => a.DateOfRelease, cfg => cfg.MapFrom(a => a.DateOfRelease))
-       .ValidateMemberList(MemberList.None);
+        .ValidateMemberList(MemberList.None);
 
+
+      CreateMap<SubmitArtworkWithDetails, ArtWork>()
+        .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
+        .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => a.About))
+        .ForMember(a => a.Production, cfg => cfg.MapFrom(a => a.Producers))
+        .ForMember(a => a.Director, cfg => cfg.MapFrom(a => a.Directors))
+        .ForMember(a => a.Writers, cfg => cfg.MapFrom(a => a.Writers))
+        .ForMember(a => a.Crew, cfg => cfg.MapFrom(a => a.Crew))
+        .ForMember(a => a.Stars, cfg => cfg.MapFrom(a => a.Stars))
+        .ForMember(a => a.DateOfRelease, cfg => cfg.MapFrom(a => a.Year))
+        .ForMember(a => a.Country, cfg => cfg.MapFrom(a => a.Country))
+        .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
+        .ForMember(a => a.Payment, cfg => cfg.Ignore())
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<ArtWork, ArtworkViewDto>()
+        .ForMember(a => a.About, cfg => cfg.MapFrom(a => a.ShowDescription))
+        .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
+        .ForMember(a => a.Directors, cfg => cfg.MapFrom(a => a.Director))
+        .ForMember(a => a.Writers, cfg => cfg.MapFrom(a => a.Writers))
+        .ForMember(a => a.Crew, cfg => cfg.MapFrom(a => a.Crew))
+        .ForMember(a => a.Stars, cfg => cfg.MapFrom(a => a.Stars))
+        .ForMember(a => a.Year, cfg => cfg.MapFrom(a => a.DateOfRelease))
+        .ForMember(a => a.Country, cfg => cfg.MapFrom(a => a.Country))
+        .ForMember(a => a.CanUploadFiles, cfg => cfg.MapFrom(a => a.AllowFileUpload))
+        .IncludeAllDerived()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<ArtWork, ArtworkViewWithFilesDto>()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<MediaFile, ArtworkFileDto>()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<ArtWorkPayment, PaymentWithStatusDto>()
+        .ForMember(a => a.Status, cfg => cfg.MapFrom(a => a.PaymentStatus.ToString()))
+        .ForMember(a => a.Amount, cfg => cfg.MapFrom((a => a.Amount)))
+        .ForMember(a => a.Date, cfg => cfg.MapFrom((a => a.PaymentDate.LocalDateTime().ToString("dd-MM-yyyy"))))
+        .ValidateMemberList(MemberList.None);
 
     }
   }

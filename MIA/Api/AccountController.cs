@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MIA.Api.Base;
+using MIA.Authorization.Entities;
 using MIA.Dto.Auth;
 using MIA.Infrastructure.Options;
 using MIA.Middlewares;
@@ -58,21 +59,23 @@ namespace MIA.Api {
     /// <param name="signupData"></param>
     /// <param name="userManager"></param>
     /// <param name="emailSender"></param>
-    /// <param name="emailTemplateProvider"></param>
     /// <param name="templateParser"></param>
     /// <param name="urlHelper"></param>
     /// <returns></returns>
-    [HttpPost("CreateByEmail")]
-    [SwaggerOperation("SignUp using email and password")]
-    public async Task<IActionResult> CreateByEmail(
+    [HttpPost("nominee")]
+    [SwaggerOperation("SignUp using email and password as nominee")]
+    public async Task<IActionResult> SignupAsNominee(
       [FromHeader] string culture,
       [FromBody] SignUpByEmailRequest signupData,
       [FromServices] UserManager<AppUser> userManager,
       [FromServices] IEmailSender emailSender,
       [FromServices] ITemplateParser templateParser,
       [FromServices] IApiUrlHelper urlHelper) {
-      AppUser user = signupData.MapTo<AppUser>();
+      
+      Nominee user = signupData.MapTo<Nominee>();
       IdentityResult result = await userManager.CreateAsync(user, signupData.Password);
+
+
       if (result.Succeeded) {
         _logger.LogInformation("User created a new account with password.");
         string token = await userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -83,10 +86,15 @@ namespace MIA.Api {
 
         string htmlMessage = await templateParser.LoadAndParse("verifyEmail", locale: culture, new UserEmailReviewDto {
           TokenLink = callbackUrl,
-          FullName = user.FirstName + " " + user.LastName
+          FullName = user.FullName
         });
 
+        //send confirmation email
         await emailSender.SendEmailAsync(user.Email, _Locale["email_confirm_subject"], htmlMessage);
+        
+        //add to nominee role
+        await userManager.AddToRoleAsync(user, PredefinedRoles.Nominee.ToString());
+
         return Ok();
 
       } else {
@@ -113,7 +121,6 @@ namespace MIA.Api {
     /// <param name="userRequest"></param>
     /// <param name="userManager"></param>
     /// <param name="emailSender"></param>
-    /// <param name="emailTemplateProvider"></param>
     /// <returns></returns>
     [HttpPost("verifyEmail")]
     public async Task<IActionResult> VerifyEmail(
@@ -129,7 +136,7 @@ namespace MIA.Api {
         IdentityResult result = await userManager.ConfirmEmailAsync(user, userRequest.Code);
         if (result.Succeeded) {
           string htmlMessage = await templateParser.LoadAndParse("welcome", locale: culture, new UserEmailReviewDto {
-            FullName = user.FirstName + " " + user.LastName
+            FullName = user.FullName
           });
 
           await emailSender.SendEmailAsync(user.Email, _Locale["welcome_email_subject"], htmlMessage);
@@ -142,7 +149,6 @@ namespace MIA.Api {
       }
     }
 
-    [HttpPost("forgotPassword")]
     /// <summary>
     /// Reset password reset email with token
     /// </summary>
@@ -175,7 +181,7 @@ namespace MIA.Api {
 
         string htmlMessage = await templateParser.LoadAndParse("forgotPassword", locale: culture, new UserEmailReviewDto {
           TokenLink = callbackUrl,
-          FullName = user.FirstName + " " + user.LastName
+          FullName = user.FullName
         });
 
         await emailSender.SendEmailAsync(user.Email, _Locale["reset_password_request_subject"], htmlMessage);
@@ -195,6 +201,7 @@ namespace MIA.Api {
     /// <param name="templateParser"></param>
     /// <param name="emailTemplateProvider"></param>
     /// <returns></returns>
+    [HttpPost("resetPassword")]
     public async Task<IActionResult> ResetPassword(
       [FromHeader] string culture,
       [FromBody] ResetPasswordRequest resetPassword,
@@ -210,7 +217,7 @@ namespace MIA.Api {
         if (result.Succeeded) {
 
           string htmlMessage = await templateParser.LoadAndParse("passwordResetComplete", locale: culture, new UserEmailReviewDto {
-            FullName = user.FirstName + " " + user.LastName
+            FullName = user.FullName
           });
 
           await emailSender.SendEmailAsync(user.Email, _Locale["your_password_reset_subject"], htmlMessage);
@@ -248,7 +255,7 @@ namespace MIA.Api {
       if (result.Succeeded) {
 
         string htmlMessage = await templateParser.LoadAndParse("passwordChangeComplete", locale: culture, new UserEmailReviewDto {
-          FullName = user.FirstName + " " + user.LastName
+          FullName = user.FullName
         });
 
         await emailSender.SendEmailAsync(user.Email, _Locale["your_password_changed_subject"], htmlMessage);
@@ -302,8 +309,7 @@ namespace MIA.Api {
       var user = await userManager.FindByNameAsync(username);
       _mapper.Map(dto, user, typeof(UpdateUserProfileDto), typeof(AppUser));
       user.PhoneNumber = dto.PhoneNumber;
-      user.FirstName = dto.FirstName;
-      user.LastName = dto.LastName;
+      user.FullName = dto.FullName;
 
       UserImage avatar = db.UserImages.FirstOrDefault(a => a.UserId == user.Id);
       if (dto.Avatar != null && dto.Avatar.Length > 0) {

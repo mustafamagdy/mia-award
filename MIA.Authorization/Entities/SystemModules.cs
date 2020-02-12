@@ -7,6 +7,6 @@ namespace MIA.Authorization.Entities {
     Adminstration = 1 << 2,
     News = 1 << 3,
     Booths = 1 << 4,
-    Gallery = 1 << 5
+    Gallery = 1 << 5,
   }
 }

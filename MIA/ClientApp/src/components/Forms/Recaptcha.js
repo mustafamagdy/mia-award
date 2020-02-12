@@ -1,7 +1,7 @@
 import React from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const TEST_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+import config from "config";
 
 class Recaptcha extends React.PureComponent {
   componentDidMount() {
@@ -13,18 +13,15 @@ class Recaptcha extends React.PureComponent {
   }
 
   render() {
-    const {
-      form: { setFieldValue },
-      field: { name }
-    } = this.props;
+    const { setValue, name } = this.props;
     return (
       <ReCAPTCHA
         theme="dark"
-        sitekey={TEST_SITE_KEY}
+        sitekey={config.reCaptchaKey}
         render="explicit"
         theme="light"
         onChange={value => {
-          setFieldValue(name, value);
+          setValue(name, value);
         }}
       />
     );

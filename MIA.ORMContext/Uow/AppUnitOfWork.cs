@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MIA.ORMContext.Uow {
   public class AppUnitOfWork : UnitOfWork<AppDbContext>, IAppUnitOfWork {
 
-    public AppUnitOfWork(AppDbContext dbContext, IAuditUser auditUser) : base(dbContext, auditUser) {
+    public AppUnitOfWork(AppDbContext dbContext, IUserResolver auditUser) : base(dbContext, auditUser) {
     }
 
 

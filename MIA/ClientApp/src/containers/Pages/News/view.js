@@ -128,11 +128,11 @@ const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuc
         </button>
         {"  "}
         {commentsSuccess === undefined ? null : commentsSuccess === true ? (
-          <div class="msg_success">
+          <div className="msg_success">
             <Trans id="comment_submitted">Your comment has been submitted successfully for review</Trans>
           </div>
         ) : (
-          <div class="msg_wrong">
+          <div className="msg_wrong">
             <Trans id="comment_failed">There is an error, the message could not be sent</Trans>
           </div>
         )}

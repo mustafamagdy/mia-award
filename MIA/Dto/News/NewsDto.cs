@@ -1,4 +1,5 @@
-﻿using MIA.Models.Entities;
+﻿using System.Collections.Generic;
+using MIA.Models.Entities;
 
 namespace MIA.Api {
   public class NewsDto : BaseDto {
@@ -20,7 +21,7 @@ namespace MIA.Api {
     public RelatedNewsDto[] RelatedNews { get; set; }
   }
 
-  public class RelatedNewsDto: BaseDto {
+  public class RelatedNewsDto : BaseDto {
     public string Id { get; set; }
     public string PosterUrl { get; set; }
   }

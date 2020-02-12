@@ -39,9 +39,7 @@ namespace MIA.ORMContext {
 
       //AppUser mapping
       builder.Entity<AppUser>().Property(x => x.Id).HasValueGenerator<SeqIdValueGenerator>().ValueGeneratedOnAdd();
-      builder.Entity<AppUser>().Property(x => x.FirstName).IsUnicode(true).HasMaxLength(Constants.MAX_100);
-      builder.Entity<AppUser>().Property(x => x.LastName).IsUnicode(true).HasMaxLength(Constants.MAX_100);
-      builder.Entity<AppUser>().Property(x => x.FullName).HasComputedColumnSql("[FirstName] + ' ' + [LastName]");
+      builder.Entity<AppUser>().Property(x => x.FullName).IsUnicode(true).HasMaxLength(Constants.MAX_100);
       builder.Entity<AppUser>().HasOne(x => x.AvatarImage).WithOne().HasForeignKey<UserImage>(x => x.UserId);
 
       builder.Entity<AppUser>().Property(x => x.Id).HasValueGenerator<SeqIdValueGenerator>().ValueGeneratedOnAdd();

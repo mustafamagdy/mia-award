@@ -1,19 +1,12 @@
 import React from "react";
-import {
-  //Router,
-  Route,
-  Switch,
-  Redirect
-} from "react-router-dom";
-
 import { ConnectedRouter } from "connected-react-router";
 import { Provider } from "react-redux";
 import axios from "axios";
 
-import { PersistGate } from "redux-persist/integration/react";
+// import { PersistGate } from "redux-persist/integration/react";
 
 import setAuthorizationToken from "utils/setAuthorizationToken";
-import { store, persistedStore, history } from "store";
+import { store /*, persistedStore*/, history } from "store";
 
 import appActions from "store/app/actions";
 import authActions from "store/auth/actions";
@@ -21,32 +14,7 @@ import authActions from "store/auth/actions";
 import Layout from "components/Layout";
 import Home from "containers/Home";
 import LanguageProvider from "containers/Providers/LanguageProvider";
-import ConfirmEmail from "containers/User/ConfirmEmail";
-import Profile from "containers/User/Profile";
-import CheckYourEmail from "containers/User/CheckYourEmail";
 
-import AboutUs from "../Pages/AboutUs";
-import ContactUs from "../Pages/ContactUs";
-import Awards from "../Pages/Awards";
-import Events from "../Pages/Events";
-import Gallery from "../Pages/Gallery";
-import News from "../Pages/News";
-import NewsView from "../Pages/News/view";
-import Shows from "../Pages/Shows";
-import ShowsView from "../Pages/Shows/view";
-
-import PaymentForm from "../Payment/PaymentForm";
-
-import MediaBrowser from "../Media";
-import Booths from "../Booths";
-import BuyBooth from "../Booths/BuyBooth";
-
-import Members from "../Members";
-import CompleteProfile from "../Members/CompleteProfile";
-import UploadMedia from "../Members/UploadMedia";
-import MyDashboard from "../Members/MyDashboard";
-
-import TestUpload from "../Test/Upload";
 
 import "sass/style.scss";
 
@@ -56,54 +24,17 @@ history.listen((location, action) => {
 });
 
 class App extends React.Component {
-  componentDidMount() { }
+  componentDidMount() {}
 
   render = () => {
     return (
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistedStore}>
-          <LanguageProvider>
-            <ConnectedRouter history={history}>
-              <Layout>
-                <Switch>
-                  {/* General website */}
-                  <Route path="test" component={TestUpload} />
-
-                  <Route exact path="/" component={Home} />
-                  <Route path="/about-us" component={AboutUs} />
-                  <Route path="/events" component={Events} />
-                  <Route path="/awards" component={Awards} />
-                  <Route path="/contact-us" component={ContactUs} />
-                  <Route path="/gallery" component={Gallery} />
-                  <Route exact path="/news" component={News} />
-                  <Route path="/news/:id" component={NewsView} />
-                  <Route exact path="/shows" component={Shows} />
-                  <Route path="/shows/:id" component={ShowsView} />
-
-                  {/* browse media */}
-                  <Route path="/media" component={MediaBrowser} />
-
-                  {/* Account management */}
-                  <Route exact path="/account" component={Profile} />
-                  <Route path="/account/checkYourEmail" component={CheckYourEmail} />
-                  <Route path="/account/profile" component={Profile} />
-                  <Route path="/account/confirm" component={ConfirmEmail} />
-                  {/* <Route path="/account/resetPassword" component={ResetPasswordByEmail} /> */}
-
-                  {/* booths */}
-                  <Route path="/booth" component={Booths} />
-                  <Route path="/booth-buy" component={BuyBooth} />
-
-                  {/* Member section */}
-                  <Route path="/members" component={Members} />
-                  <Route path="/complete-profile" component={CompleteProfile} />
-                  <Route path="/pay" component={PaymentForm} />
-                  <Route path="/dashboard" component={MyDashboard} />
-                  <Route path="/upload-media" component={UploadMedia} />
-
-                  <Redirect from="*" to="/" />
-                </Switch>
-                {/*
+        {/* <PersistGate loading={null} persistor={persistedStore}> */}
+        <LanguageProvider>
+          <ConnectedRouter history={history}>
+            <Layout>
+              <Home />
+              {/*
                    <UserContext.Consumer>
                     {({
                       signinModalOpened,
@@ -147,10 +78,10 @@ class App extends React.Component {
                       )}
                   </UserContext.Consumer> 
                   */}
-              </Layout>
-            </ConnectedRouter>
-          </LanguageProvider>
-        </PersistGate>
+            </Layout>
+          </ConnectedRouter>
+        </LanguageProvider>
+        {/* </PersistGate> */}
       </Provider>
     );
   };

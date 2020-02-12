@@ -12,6 +12,7 @@ using Bogus;
 using MIA.Models.Entities.Enums;
 using MIA.Infrastructure;
 using System.Net.Http;
+using Newtonsoft.Json.Linq;
 
 namespace MIA.ORMContext.Seed {
   public class DbInitializer {
@@ -28,12 +29,12 @@ namespace MIA.ORMContext.Seed {
       IS3FileManager s3FileManager,
       IAppUnitOfWork db) {
 
+      await SeedDefaultRoles(roleManager, db);
       await SeedContactUsMessageSubjectsAsync(db);
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
-      await SeedCategoriesAsync(db);
+      await SeedAwards(db);
 
-      //await SeedAwards(db, s3FileManager);
       //await SeedDemoNews(db, s3FileManager);
       //await SeedDemoGallery(db, s3FileManager);
       //await SeedDemoArtworks(db, s3FileManager);
@@ -62,47 +63,6 @@ namespace MIA.ORMContext.Seed {
           if (items.Any()) {
             await db.ContactUsSubjects.AddRangeAsync(items);
           }
-        }
-      }
-    }
-
-    private static async Task SeedAwards(IAppUnitOfWork db, IS3FileManager fileManager) {
-      var awards = new Dictionary<string, LocalizedData> {
-        { "drama", LocalizedData.FromBoth("دراما","Drama") },
-        { "sports", LocalizedData.FromBoth("رياضة","Sports") },
-        { "comedy", LocalizedData.FromBoth("كوميدي","comedy") },
-        { "political", LocalizedData.FromBoth("سياسة","Political") },
-        { "economic", LocalizedData.FromBoth("اقتصادي","Economic") },
-        { "talkshow", LocalizedData.FromBoth("حواري","Talkshow") },
-        { "competition", LocalizedData.FromBoth("تنافسي","Competition") },
-        { "human", LocalizedData.FromBoth("انساني","Human") }
-      };
-      var client = new HttpClient();
-      var _faker_en = new Faker("en");
-
-      foreach (var _award in awards) {
-        var award = db.Awards.FirstOrDefault(a => a.Code.ToLower() == _award.Key.ToLower());
-        if (award == null) {
-          award = new Award {
-            Code = _award.Key.ToLower(),
-            Title = _award.Value,
-            Description = _award.Value,
-            TrophyImageKey = "",
-            TrophyImageUrl = ""
-          };
-
-          await db.Awards.AddAsync(award);
-
-          var file = await client.GetAsync(_faker_en.Image.PicsumUrl(100, 200));
-          var fileStream = await file.Content.ReadAsStreamAsync();
-
-          var imageKey = fileManager.GenerateFileKeyForResource(ResourceType.Awards, award.Id, award.Code + ".jpg");
-          var imageUrl = await fileManager.UploadFileAsync(fileStream, imageKey);
-
-          award.TrophyImageUrl = imageUrl;
-          award.TrophyImageKey = imageKey;
-
-          db.Awards.Update(award);
         }
       }
     }
@@ -319,8 +279,7 @@ namespace MIA.ORMContext.Seed {
 
       if (await userManager.FindByNameAsync(Constants.DEMO_USERNAME) == null) {
         AppUser demoUser = new AppUser {
-          FirstName = "Demo",
-          LastName = "User",
+          FullName = "demo user",
           Email = Constants.DEMO_EMAIL,
           UserName = Constants.DEMO_USERNAME,
           NormalizedEmail = Constants.DEMO_EMAIL.ToUpper(),
@@ -371,6 +330,19 @@ namespace MIA.ORMContext.Seed {
       }
     }
 
+    private static async Task SeedDefaultRoles(RoleManager<AppRole> roleManager, IAppUnitOfWork db) {
+      var roles = Enum.GetNames(typeof(PredefinedRoles));
+      foreach (var role in roles) {
+        if (await roleManager.FindByNameAsync(role.ToString().ToLower()) == null) {
+          await roleManager.CreateAsync(
+            new AppRole {
+              Name = role.ToString().ToLower(),
+              NormalizedName = role.ToString().ToUpper()
+            });
+        }
+      }
+    }
+
     /// <summary>
     /// Seed db with default admin user
     /// </summary>
@@ -379,8 +351,7 @@ namespace MIA.ORMContext.Seed {
     private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager) {
       if (await userManager.FindByNameAsync(Constants.ADMIN_USERNAME) == null) {
         AppUser admin = new AppUser {
-          FirstName = "System",
-          LastName = "Admin",
+          FullName= "System admin",
           Email = Constants.ADMIN_EMAIL,
           UserName = Constants.ADMIN_USERNAME,
           NormalizedEmail = Constants.ADMIN_EMAIL.ToUpper(),
@@ -394,25 +365,35 @@ namespace MIA.ORMContext.Seed {
       }
     }
 
-    private static async Task SeedCategoriesAsync(IAppUnitOfWork db) {
+    private static async Task SeedAwards(IAppUnitOfWork db) {
       List<Award> awards = db.Awards.ToList();
       if (awards.Any())
         return;
       var filename = "all_awards.json";
       if (File.Exists("./" + filename)) {
         using (StreamReader r = new StreamReader(filename)) {
-          var newCategories = new List<Award>();
+          var newAwards = new List<Award>();
           string json = r.ReadToEnd();
-          var listCountries = JsonConvert.DeserializeObject<List<Award>>(json);
-
-
-          foreach (var c in listCountries) {
-            var country = awards.FirstOrDefault(a => a.Title == c.Title);
-            if (country != null) continue;
-            newCategories.Add(c);
+          var listAwards = new List<Award>();
+          JArray array = JArray.Parse(json);
+          foreach (JToken j in array) {
+            listAwards.Add(new Award {
+              Code = ((JValue)j["Code"]).Value<string>(),
+              ArtworkFee = ((JValue)j["ArtworkFee"]).Value<decimal>(),
+              TrophyImageKey = ((JValue)j["TrophyImageKey"]).Value<string>(),
+              TrophyImageUrl = ((JValue)j["TrophyImageUrl"]).Value<string>(),
+              Title = LocalizedData.FromDictionary((JObject)j["Title"]),
+              Description = LocalizedData.FromDictionary((JObject)j["Description"]),
+            });
           }
-          if (newCategories.Any()) {
-            await db.Awards.AddRangeAsync(newCategories);
+
+          foreach (var award in listAwards) {
+            var _award = awards.FirstOrDefault(a => a.Title == award.Title);
+            if (_award != null) continue;
+            newAwards.Add(award);
+          }
+          if (newAwards.Any()) {
+            await db.Awards.AddRangeAsync(newAwards);
           }
         }
       }

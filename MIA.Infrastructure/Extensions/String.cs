@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Diagnostics;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace System {
@@ -31,7 +32,13 @@ namespace System {
 
       return string.Format(target, args);
     }
+
+    public static string GetFileExt(this string fileName) {
+      return Path.GetExtension(fileName);
+    }
+    public static string GetFileNameWithoutExt(this string fileName) {
+      return Path.GetFileNameWithoutExtension(fileName);
+    }
+
   }
-}
-namespace System {
 }

@@ -14,8 +14,7 @@ namespace MIA.Dto.Auth {
   }
 
   public class UserProfileDto : BaseResponse {
-    public string FirstName { get; set; }
-    public string LastName{ get; set; }
+    public string FullName { get; set; }
     public string AvatarImageUrl { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
@@ -23,8 +22,7 @@ namespace MIA.Dto.Auth {
 
   public class UpdateUserProfileDto: BaseRequest {
     public IFormFile Avatar { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+    public string FullName { get; set; }
     public string PhoneNumber { get; set; }
   }
 }

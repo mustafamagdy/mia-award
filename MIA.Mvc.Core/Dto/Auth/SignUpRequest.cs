@@ -1,34 +1,22 @@
 ﻿using MIA.Dto.Base;
 
-namespace MIA.Dto.Auth
-{
+namespace MIA.Dto.Auth {
   /// <summary>
   /// abstract class for user data dto
   /// </summary>
-  public abstract class UserDataDto : BaseRequest
-  {
-    /// <summary>
-    /// First name
-    /// </summary>
-    public string FirstName { get; set; }
-    /// <summary>
-    /// Last name 
-    /// </summary>
-    public string LastName { get; set; }
+  public abstract class UserDataDto : BaseRequest {
+    public string FullName { get; set; }
   }
 
   /// <summary>
   /// Signup using email and password
   /// </summary>
-  public class SignUpByEmailRequest : UserDataDto
-  {
-    /// <summary>
-    /// email for signup
-    /// </summary>
+  public class SignUpByEmailRequest : UserDataDto {
+    public string CompanyName { get; set; }
+    public string JobTitle { get; set; }
+    public string PhoneNumber { get; set; }
+    public string Address { get; set; }
     public string Email { get; set; }
-    /// <summary>
-    /// password for user signup
-    /// </summary>
     public string Password { get; set; }
 
   }
@@ -36,8 +24,7 @@ namespace MIA.Dto.Auth
   /// <summary>
   /// Token verification request
   /// </summary>
-  public class UserVerificationRequest : BaseRequest
-  {
+  public class UserVerificationRequest : BaseRequest {
     /// <summary>
     /// UserId to get validate
     /// </summary>
@@ -51,8 +38,7 @@ namespace MIA.Dto.Auth
   /// <summary>
   /// Signup using mobile number
   /// </summary>
-  public class SignUpByMobileRequest
-  {
+  public class SignUpByMobileRequest {
     /// <summary>
     /// Country code for user mobile number
     /// </summary>
@@ -66,8 +52,7 @@ namespace MIA.Dto.Auth
   /// <summary>
   /// Verify user mobile number by sending verification code t it
   /// </summary>
-  public class SignUpByMobileVerifyRequest
-  {
+  public class SignUpByMobileVerifyRequest {
     /// <summary>
     /// Verification code sent to user to validate his mobile number
     /// </summary>
@@ -77,8 +62,7 @@ namespace MIA.Dto.Auth
   /// <summary>
   /// Complete user verification to signup user
   /// </summary>
-  public class SignUpByMobileCompleteRequest : UserDataDto
-  {
+  public class SignUpByMobileCompleteRequest : UserDataDto {
 
   }
 }

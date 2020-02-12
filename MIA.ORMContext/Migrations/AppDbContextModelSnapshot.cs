@@ -116,6 +116,8 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Address");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -127,15 +129,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(100)
-                        .IsUnicode(true);
-
                     b.Property<string>("FullName")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");
-
-                    b.Property<string>("LastName")
                         .HasMaxLength(100)
                         .IsUnicode(true);
 
@@ -182,9 +176,15 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("AllowFileUpload");
+
                     b.Property<string>("AwardId");
 
                     b.Property<string>("Country");
+
+                    b.Property<string>("CoverId");
+
+                    b.Property<string>("CoverUrl");
 
                     b.Property<string>("Crew");
 
@@ -242,7 +242,17 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("ArtWorkId");
 
+                    b.Property<string>("CardHolderName");
+
+                    b.Property<string>("CardType");
+
+                    b.Property<bool>("IsOffline");
+
+                    b.Property<string>("Last4Digits");
+
                     b.Property<long>("PaymentDate");
+
+                    b.Property<string>("PaymentId");
 
                     b.Property<int>("PaymentStatus");
 
@@ -265,6 +275,8 @@ namespace MIA.ORMContext.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("ArtworkFee");
 
                     b.Property<string>("Code");
 
@@ -310,7 +322,17 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("BoothPurchaseId");
 
+                    b.Property<string>("CardHolderName");
+
+                    b.Property<string>("CardType");
+
+                    b.Property<string>("Last4Digits");
+
                     b.Property<long>("PaymentDate");
+
+                    b.Property<string>("PaymentId");
+
+                    b.Property<string>("PaymentStatus");
 
                     b.Property<string>("TransactionNumber");
 
@@ -455,6 +477,10 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("ArtWorkId");
 
                     b.Property<string>("Description");
+
+                    b.Property<string>("FileKey");
+
+                    b.Property<string>("FileUrl");
 
                     b.Property<long>("UploadDate");
 
@@ -694,6 +720,10 @@ namespace MIA.ORMContext.Migrations
             modelBuilder.Entity("MIA.Models.Entities.Nominee", b =>
                 {
                     b.HasBaseType("MIA.Models.Entities.AppUser");
+
+                    b.Property<string>("CompanyName");
+
+                    b.Property<string>("JobTitle");
 
                     b.HasDiscriminator().HasValue("Nominee");
                 });

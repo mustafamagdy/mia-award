@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using Microsoft.AspNetCore.Identity;
 
 namespace MIA.Authorization.Entities {
@@ -25,6 +26,16 @@ namespace MIA.Authorization.Entities {
       get => _permissionsInRole;
       set => _permissionsInRole = value;
     }
+  }
 
+  public enum PredefinedRoles {
+    [EnumMember(Value = "nominee")]
+    Nominee,
+    [EnumMember(Value = "admin")]
+    Administrator,
+    [EnumMember(Value = "judge")]
+    Judge,
+    [EnumMember(Value = "demo")]
+    Demo
   }
 }

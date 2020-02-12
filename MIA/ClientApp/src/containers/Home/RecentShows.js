@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import homeActions from "store/home/actions";
 import { bindActionCreators } from "redux";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
 
 // import "sass/recent_shows.scss";
 
@@ -75,7 +76,7 @@ const RecentShows = ({ fetchRecentShows, recentShows, categories, countries, gen
                       <img src={`assets/images/${show.poster}.png`} />
                       <div className="mask">
                         <div className="content">
-                          <p>{show.title}</p>
+                          <LanguageContext.Consumer>{({ locale }) => <p>{show.title[locale.code]}</p>}</LanguageContext.Consumer>
                           <Rating rate={show.rating} readonly />
                         </div>
                       </div>

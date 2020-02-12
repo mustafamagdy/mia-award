@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import { routerMiddleware } from "connected-react-router";
 import { createLogicMiddleware } from "redux-logic";
-import { persistStore } from "redux-persist";
+// import { persistStore } from "redux-persist";
 
 // import { loadingBarMiddleware } from "./middlewares";
 import createReducer from "./reducers";
@@ -11,6 +11,8 @@ import API from "../services";
 export default function configureStore(initialState, history) {
   // inject helpers, make requestUtil available to all logic
   const api = API.create();
+  window.api = api;
+
   const injectedApi = { api };
   const logicMiddleware = createLogicMiddleware([...logics], injectedApi);
 
@@ -35,9 +37,9 @@ export default function configureStore(initialState, history) {
   /* eslint-enable */
 
   const rootReducer = createReducer(/* asyncReducers */ {}, history);
-  
+
   const store = createStore(rootReducer, initialState, composeEnhancers(...enhancers));
-  const persistedStore = persistStore(store);
+  // const persistedStore = persistStore(store);
 
   // Extensions
   store.logicMiddleware = logicMiddleware;
@@ -57,5 +59,5 @@ export default function configureStore(initialState, history) {
     });
   }
 
-  return { store, persistedStore };
+  return { store /*, persistedStore*/ };
 }

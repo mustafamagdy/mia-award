@@ -44,8 +44,8 @@ class Header extends React.Component {
             <div className="mainmenu">
               <ul>
                 <li>
-                  <a href="/awards">
-                    <Trans id="awards">Awards</Trans>
+                  <a href="/members">
+                    <Trans id="members">Members</Trans>
                   </a>
                 </li>
                 <li>

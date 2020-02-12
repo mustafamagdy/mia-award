@@ -83,7 +83,7 @@ namespace MIA.Administration.Api {
           .GetHtmlMessageAsync(culture,
             "verifyEmail.html",
             new Dictionary<string, string> { { "token_link", callbackUrl },
-              { "fullName", user.FirstName + " " + user.LastName }
+              { "fullName", user.FullName}
             });
 
         await emailSender.SendEmailAsync(user.Email, _Locale["email_confirm_subject"], htmlMessage);
@@ -170,7 +170,7 @@ namespace MIA.Administration.Api {
           .GetHtmlMessageAsync(culture,
             "forgotPassword.html",
             new Dictionary<string, string> { { "token_link", callbackUrl },
-              { "fullName", user.FirstName + " " + user.LastName }
+              { "fullName", user.FullName}
             });
 
         await emailSender.SendEmailAsync(user.Email, _Locale["reset_password_request_subject"], htmlMessage);
@@ -205,7 +205,7 @@ namespace MIA.Administration.Api {
           string htmlMessage = await emailTemplateProvider
             .GetHtmlMessageAsync(culture,
               "passwordResetComplete.html",
-              new Dictionary<string, string> { { "fullName", user.FirstName + " " + user.LastName }
+              new Dictionary<string, string> { { "fullName", user.FullName }
               });
 
           await emailSender.SendEmailAsync(user.Email, _Locale["your_password_reset_subject"], htmlMessage);
@@ -244,7 +244,7 @@ namespace MIA.Administration.Api {
         string htmlMessage = await emailTemplateProvider
           .GetHtmlMessageAsync(culture,
             "passwordChangeComplete.html",
-            new Dictionary<string, string> { { "fullName", user.FirstName + " " + user.LastName }
+            new Dictionary<string, string> { { "fullName", user.FullName }
             });
 
         await emailSender.SendEmailAsync(user.Email, _Locale["your_password_changed_subject"], htmlMessage);

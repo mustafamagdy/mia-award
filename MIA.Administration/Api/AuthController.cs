@@ -114,8 +114,7 @@ namespace MIA.Administration.Api {
       allClaims.Add(new Claim("id", user.Id));
       allClaims.Add(new Claim("name", user.UserName));
       allClaims.Add(new Claim("username", user.UserName));
-      allClaims.Add(new Claim("firstName", user.FirstName));
-      allClaims.Add(new Claim("lastName", user.LastName));
+      allClaims.Add(new Claim("FullName", user.FullName));
       allClaims.Add(new Claim("roles", string.Join(",", roles)));
       allClaims.Add(new Claim("PermissionId", userModules));
       allClaims.Add(new Claim("PermessionModules", JsonConvert.SerializeObject(rolePermissions)));

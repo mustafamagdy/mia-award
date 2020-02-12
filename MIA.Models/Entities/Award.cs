@@ -6,6 +6,7 @@ namespace MIA.Models.Entities {
     public string Code { get; set; }
     public LocalizedData Title { get; set; }
     public LocalizedData Description { get; set; }
+    public decimal ArtworkFee { get; set; }
     public string TrophyImageKey { get; set; }
     public string TrophyImageUrl { get; set; }
 

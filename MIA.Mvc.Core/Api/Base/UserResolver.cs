@@ -8,7 +8,7 @@ namespace MIA.Api.Base {
   /// <summary>
   /// Get the current User, Id, and name
   /// </summary>
-  public sealed class AuditUserResolver : IAuditUser {
+  public sealed class UserResolver : IUserResolver {
     private readonly IHttpContextAccessor _context;
     private readonly UserManager<AppUser> _userManager;
 
@@ -17,7 +17,7 @@ namespace MIA.Api.Base {
     /// </summary>
     /// <param name="context"></param>
     /// <param name="userManager"></param>
-    public AuditUserResolver(IHttpContextAccessor context, UserManager<AppUser> userManager) {
+    public UserResolver(IHttpContextAccessor context, UserManager<AppUser> userManager) {
       this._userManager = userManager;
       this._context = context;
     }

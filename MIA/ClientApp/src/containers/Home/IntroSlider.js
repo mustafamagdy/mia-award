@@ -27,8 +27,8 @@ const Intro = props => {
       book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
       unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
       recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
-      smallImgPath: "assets/images/small_image.png",
-      bigImgPath: "assets/images/small_image.png"
+      smallImgPath: "assets/images/big_image.png",
+      bigImgPath: "assets/images/big_image.png"
     },
     {
       key: 3,
@@ -51,8 +51,8 @@ const Intro = props => {
       book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
       unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
       recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
-      smallImgPath: "assets/images/small_image.png",
-      bigImgPath: "assets/images/small_image.png"
+      smallImgPath: "assets/images/big_image.png",
+      bigImgPath: "assets/images/big_image.png"
     }
   ];
   return (
