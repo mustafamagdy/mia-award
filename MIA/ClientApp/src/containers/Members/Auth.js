@@ -32,7 +32,7 @@ const ResetPasswordForm = ({ switchToLogin, resetPasswordForUser, ...props }) =>
   );
 };
 
-const LoginForm = ({ switchResetPassword, loginUser, props }) => {
+const LoginForm = ({ switchResetPassword, loginUser, demoLogin, props }) => {
   const { register, handleSubmit } = useForm();
 
   const login = values => {
@@ -52,6 +52,7 @@ const LoginForm = ({ switchResetPassword, loginUser, props }) => {
         <button form="login-form" type="submit">
           Sign in
         </button>
+        <button type="button" onClick={() => demoLogin()}>demo-login</button>
       </div>
     </form>
   );
@@ -138,7 +139,9 @@ const Auth = ({ ...props }) => {
               <img src="/assets/images/logo_login.png" />
             </div>
             <span>{view == "login" ? "Sign in" : "Forgot password?"}</span>
-            {view == "login" && <LoginForm switchResetPassword={() => setView("reset-password")} loginUser={props.login} />}
+            {view == "login" && (
+              <LoginForm switchResetPassword={() => setView("reset-password")} loginUser={props.login} demoLogin={props.demoLogin} />
+            )}
             {view == "reset-password" && (
               <ResetPasswordForm switchToLogin={() => setView("login")} resetPasswordForUser={props.resetPassword} />
             )}

@@ -41,7 +41,33 @@ namespace MIA.ORMContext.Seed {
       //await SeedDemoArtworks(db, s3FileManager);
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
+      await SeedDemoUsers(roleManager, userManager, db);
       await db.CommitTransactionAsync();
+    }
+
+    private static async Task SeedDemoUsers(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IAppUnitOfWork db) {
+      if (await roleManager.FindByNameAsync(Constants.NOMINEE_ROLE) == null) {
+        await roleManager.CreateAsync(
+          new AppRole {
+            Name = Constants.NOMINEE_ROLE,
+            NormalizedName = Constants.NOMINEE_ROLE.ToUpper()
+          });
+      }
+
+      if (await userManager.FindByNameAsync(Constants.NOMINEE_USERNAME) == null) {
+        Nominee demoNominee = new Nominee {
+          FullName = "nominee user",
+          Email = Constants.NOMINEE_EMAIL,
+          UserName = Constants.NOMINEE_USERNAME,
+          NormalizedEmail = Constants.NOMINEE_EMAIL.ToUpper(),
+          NormalizedUserName = Constants.NOMINEE_USERNAME.ToUpper(),
+        };
+
+        IdentityResult result = await userManager.CreateAsync(demoNominee, Constants.NOMINEE_PASSWORD);
+        if (result.Succeeded) {
+          await userManager.AddToRoleAsync(demoNominee, Constants.NOMINEE_ROLE);
+        }
+      }
     }
 
 
@@ -352,7 +378,7 @@ namespace MIA.ORMContext.Seed {
     private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager) {
       if (await userManager.FindByNameAsync(Constants.ADMIN_USERNAME) == null) {
         AppUser admin = new AppUser {
-          FullName= "System admin",
+          FullName = "System admin",
           Email = Constants.ADMIN_EMAIL,
           UserName = Constants.ADMIN_USERNAME,
           NormalizedEmail = Constants.ADMIN_EMAIL.ToUpper(),
