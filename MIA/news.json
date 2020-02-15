@@ -1,0 +1,71 @@
+﻿[
+  {
+    "Title": {
+      "ar": "تعريف بالجائزة",
+      "en": "Award: Award Introduction"
+    },
+    "Date": 127,
+    "Outdated": false,
+    "PosterId": "",
+    "PosterUrl": "",
+    "Body": {
+      "ar": "<p>MIA AWARD هي أكبر حدث تلفزيوني ينتظركم </p><p> جائزة فخرية في الأعمال التلفزيونية وفي تطوير محتوى الإنتاج التلفزيوني </p><p>حيث تجمع بين الأفراد والشركات تحت غطاء التنافس وتقديم الأعمال التي ترتقي بمستوى الإنتاج العربي بما يعود نفعه اليك انت كمشاهد عربي</p>",
+      "en": "<p>MIA Award is the biggest TV event awaiting you. </p><p> It is an honorary award for TV works and for developing TV production content. </p><p>It also brings individuals and companies under the dome of competition, and presents all the works that upgrades the level of Arab production to benefit you as an Arab viewer.</p>"
+    },
+    "Category": "General",
+    "Featured": true,
+    "Keywords": "events,awards"
+  },
+  {
+    "Title": {
+      "ar": "موعد الإنطلاق ",
+      "en": "Launch Date "
+    },
+    "Date": 127,
+    "Outdated": false,
+    "PosterId": "",
+    "PosterUrl": "",
+    "Body": {
+      "ar": "في عاصمة الإعلام العربي ومن دار الاوبرا في دبي تحت شعار الإعلام العربي واقع جديد تنطلق MIA AWARD وهي جائزة جديدة في طرحها  متخصصة في محتوى الإعلام لتلفزيوني وستكون الحدث الأضخم بمشاركة 22 دولة عربية انتظرونا قريبا ",
+      "en": "In the Opera House in Dubai, the Arab Media Capital, under the slogan of “Arab Media Is A New Reality”, MIA AWARD is being launched, it is a new award for creative TV media content. It will be the largest event with the participation of 22 Arab countries, wait for us soon."
+    },
+    "Category": "General",
+    "Featured": true,
+    "Keywords": "events,awards"
+  },
+  {
+    "Title": {
+      "ar": "فعاليات الجائزة",
+      "en": "Award Events"
+    },
+    "Date": 127,
+    "Outdated": false,
+    "PosterId": "",
+    "PosterUrl": "",
+    "Body": {
+      "ar": "<p>ما يميز MIA AWARD عن غيرها كثرة الأنشطة الفكرية والثقافية المصاحبة للجائزة، لإيمان لديها أن هذه الأنشطة لها بالغ الأثر على جموع الجمهور المتلقي.</p><p>مؤتمرات وورش عمل ومفاجئات أخرى بنتظاركم </p>",
+      "en": "<p>What distinguishes MIA Award from many of the intellectual and cultural activities associated with the Award is that these activities have a profound impact on the audience. </p><p>Conferences, workshops and other surprises are awaiting you. </p>"
+    },
+    "Category": "General",
+    "Featured": true,
+    "Keywords": "events,awards"
+  },
+  {
+    "Title": {
+      "ar": "فئات الجائزة",
+      "en": "Award Categories"
+    },
+    "Date": 127,
+    "Outdated": false,
+    "PosterId": "",
+    "PosterUrl": "",
+    "Body": {
+      "ar": "<p>تهدف MIA AWARD  لرفع مستوى تأثير محتوى الأعمال التلفزيونية في نمط الجمهور ومدى عمق هذا الأثر.</p><p>يتنافس على الجوائز أصحاب الإبداع من مختلف الدول العربية والهيئات الحكومية والمؤسسات الفردية .</p>",
+      "en": "<p>MIA Award aims to increase the level and impact of TV content on audience styles.</p><p>The owners of the innovative works from all of the Arab countries, government entities, and individual institutions are competing for the awards.</p>"
+    },
+    "Category": "General",
+    "Featured": true,
+    "Keywords": "events,awards"
+  }
+
+]

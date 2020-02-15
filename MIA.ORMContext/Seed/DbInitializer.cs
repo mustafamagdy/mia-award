@@ -34,6 +34,7 @@ namespace MIA.ORMContext.Seed {
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
       await SeedAwards(db);
+      await SeedNews(db);
 
       //await SeedDemoNews(db, s3FileManager);
       //await SeedDemoGallery(db, s3FileManager);
@@ -367,9 +368,7 @@ namespace MIA.ORMContext.Seed {
 
     private static async Task SeedAwards(IAppUnitOfWork db) {
       List<Award> awards = db.Awards.ToList();
-      if (awards.Any())
-        return;
-      var filename = "all_awards.json";
+      var filename = "awards.json";
       if (File.Exists("./" + filename)) {
         using (StreamReader r = new StreamReader(filename)) {
           var newAwards = new List<Award>();
@@ -398,6 +397,41 @@ namespace MIA.ORMContext.Seed {
         }
       }
     }
+    private static async Task SeedNews(IAppUnitOfWork db) {
+      List<News> allNews = db.News.ToList();
+      var filename = "news.json";
+      if (File.Exists("./" + filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
+          var newNews = new List<News>();
+          string json = r.ReadToEnd();
+          var listNews = new List<News>();
+          JArray array = JArray.Parse(json);
+          foreach (JToken j in array) {
+            listNews.Add(new News {
+              Date = ((JValue)j["Date"]).Value<long>(),
+              Outdated = ((JValue)j["Outdated"]).Value<bool>(),
+              PosterId = ((JValue)j["PosterId"]).Value<string>(),
+              PosterUrl = ((JValue)j["PosterUrl"]).Value<string>(),
+              Featured = ((JValue)j["Featured"]).Value<bool>(),
+              Category = ((JValue)j["Category"]).Value<string>(),
+              Keywords = ((JValue)j["Keywords"]).Value<string>(),
+              Title = LocalizedData.FromDictionary((JObject)j["Title"]),
+              Body = LocalizedData.FromDictionary((JObject)j["Body"]),
+            });
+          }
+
+          foreach (var news in listNews) {
+            var _news = allNews.FirstOrDefault(a => a.Title == news.Title);
+            if (_news != null) continue;
+            newNews.Add(news);
+          }
+          if (newNews.Any()) {
+            await db.News.AddRangeAsync(newNews);
+          }
+        }
+      }
+    }
+
 
   }
 }
