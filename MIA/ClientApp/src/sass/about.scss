@@ -4,16 +4,16 @@
     background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
     position: relative;
     &::after {
-      content: "About Us";
+      content: "About \A Us";
       position: absolute;
       left: 50px;
       top: 261px;
       font-size: 150px;
       text-transform: uppercase;
       font-family: Montserrat_Bold;
-      line-height: 0;
       color: #1b1b1b;
       opacity: 0.75;
+      white-space: pre;
     } /* after */
     .container {
       width: 1440px;

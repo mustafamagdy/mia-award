@@ -8,8 +8,7 @@ import { connect } from "react-redux";
 import homeActions from "store/home/actions";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
 
-const AwardsSlider = ({  awards, ...props }) => {
-  
+const AwardsSlider = ({ awards, ...props }) => {
   useEffect(() => {
     setActiveKey(awards[0] && awards[0].code);
     setAwardsInSlider(awards);
@@ -38,11 +37,14 @@ const AwardsSlider = ({  awards, ...props }) => {
             <Trans id="apply_for_your_award">apply for your award</Trans>
           </span>
           <p>
-            brief about the DRAMA award and how to apply for it text Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-            type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-            typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-            Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of .
+            <Trans id="home_general_award_text">
+              brief about the DRAMA award and how to apply for it text Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+              of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
+              containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
+              .
+            </Trans>
           </p>
           <time>
             <Trans id="start_from">starts from{"  "}</Trans>

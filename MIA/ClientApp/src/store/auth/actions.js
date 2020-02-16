@@ -5,6 +5,7 @@ const { Types, Creators } = createActions(
     login: { args: ["loginRequest"], meta: { async: true } },
     logout: { args: ["token"], meta: { async: true } },
     setAuthToken: { args: ["token"], meta: { async: false } },
+    demoLogin: {},
     resetSigninErrors: {},
     closeSigninModal: {},
     openSigninModal: {},
@@ -17,5 +18,6 @@ const { Types, Creators } = createActions(
     prefix: "@app/auth/"
   }
 );
+
 export const ActionTypes = Types;
 export default Creators;

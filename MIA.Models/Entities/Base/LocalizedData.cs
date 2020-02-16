@@ -2,11 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Text.Encodings.Web;
 using AutoMapper;
 using MIA.Authorization.Attributes;
 using MIA.Authorization.Entities;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace MIA.Models.Entities {
   public class LocalizedDataDto : Dictionary<string, string> { }
@@ -67,6 +70,10 @@ namespace MIA.Models.Entities {
       return FromDictionary(
         ((IDictionary<string, JToken>)source).ToDictionary(pair => pair.Key, pair => (string)pair.Value));
     }
+    public static LocalizedData HtmlFromDictionary(JObject source, HtmlEncoder encoder) {
+      return FromDictionary(
+        ((IDictionary<string, JToken>)source).ToDictionary(pair => pair.Key, pair => encoder.Encode((string)pair.Value)));
+    }
   }
 
   //public class LocalizedDataTypeConverter : ITypeConverter<Dictionary<string, string>, LocalizedData> {
@@ -80,8 +87,9 @@ namespace MIA.Models.Entities {
 
     static EntityConvensions() {
       Settings = new JsonSerializerSettings {
-        NullValueHandling = NullValueHandling.Ignore
+        NullValueHandling = NullValueHandling.Ignore,
       };
     }
   }
+
 }

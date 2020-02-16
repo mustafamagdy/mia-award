@@ -9,7 +9,6 @@ import appActions from "store/app/actions";
 import { Trans } from "@lingui/macro";
 import { useForm } from "react-hook-form";
 
-import "sass/layout.scss";
 
 const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
   const dismissDlgs = event => {

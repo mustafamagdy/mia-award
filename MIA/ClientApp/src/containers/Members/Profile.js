@@ -25,7 +25,7 @@ const Profile = props => (
         <div className="item">
           <div className="col-one">
             <div className="imgthumb">
-              <img src="/assets/images/award_movies.png" alt="#" />
+              <img src="/assets/images/award.png" alt="#" />
             </div>
             <div className="txt">
               <span>movies</span>

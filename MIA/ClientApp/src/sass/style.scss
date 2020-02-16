@@ -191,12 +191,7 @@ body {
 		} /* app */
 	} /* open_search_area */
 } /* body */
-#app {
-	height: 100%;
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
+#app {	
 	#wrapper {
 		position: absolute;
 		top: 0;
@@ -243,6 +238,9 @@ body {
 @import "show_inner.scss";
 @import "member_area.scss";
 @import "login.scss";
+@import "timeline.scss";
+@import "show_award.scss";
+@import "booth.scss";
 
 //**** RTL Style ****//
 body[dir="rtl"] {
