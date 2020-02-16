@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using MIA.Constants;
 using MIA.Extensions;
 using MIA.Middlewares;
@@ -94,6 +96,11 @@ namespace MIA {
          .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext))
         //url helper to get current api url
         .AddScoped<IApiUrlHelper, ApiUrlHelper>()
+        .AddSingleton<HtmlEncoder>(
+          HtmlEncoder.Create(allowedRanges: new[] {
+            UnicodeRanges.BasicLatin,
+            UnicodeRanges.Arabic
+          }))
 #if (Versioning)
         .AddCustomApiVersioning()
 #endif
@@ -162,7 +169,8 @@ namespace MIA {
       UserManager<AppUser> userManager,
       RoleManager<AppRole> roleManager,
       IS3FileManager fileManager,
-      IAppUnitOfWork db) {
+      IAppUnitOfWork db,
+      HtmlEncoder encoder) {
       app
         //Run pending db migrations
         .UpdateDatabase()
@@ -226,7 +234,7 @@ namespace MIA {
         });
 
       //seed default data
-      DbInitializer.SeedDbAsync(userManager, roleManager, fileManager, db).Wait();
+      DbInitializer.SeedDbAsync(userManager, roleManager, fileManager, db, encoder).Wait();
     }
 
   }

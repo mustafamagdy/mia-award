@@ -12,29 +12,33 @@ using Bogus;
 using MIA.Models.Entities.Enums;
 using MIA.Infrastructure;
 using System.Net.Http;
+using System.Text.Encodings.Web;
 using Newtonsoft.Json.Linq;
 
 namespace MIA.ORMContext.Seed {
   public class DbInitializer {
-
     /// <summary>
     /// Seed database with default required data
     /// </summary>
     /// <param name="userManager">Usermanager instance to create default users</param>
     /// <param name="roleManager">Rolemanager instance to create default roles</param>
+    /// <param name="s3FileManager"></param>
+    /// <param name="db"></param>
+    /// <param name="encoder"></param>
     /// <returns></returns>
     public static async Task SeedDbAsync(
       UserManager<AppUser> userManager,
       RoleManager<AppRole> roleManager,
       IS3FileManager s3FileManager,
-      IAppUnitOfWork db) {
+      IAppUnitOfWork db,
+      HtmlEncoder encoder) {
 
       await SeedDefaultRoles(roleManager, db);
       await SeedContactUsMessageSubjectsAsync(db);
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
-      await SeedAwards(db);
-      await SeedNews(db);
+      await SeedAwards(db, encoder);
+      await SeedNews(db, encoder);
 
       //await SeedDemoNews(db, s3FileManager);
       //await SeedDemoGallery(db, s3FileManager);
@@ -392,7 +396,7 @@ namespace MIA.ORMContext.Seed {
       }
     }
 
-    private static async Task SeedAwards(IAppUnitOfWork db) {
+    private static async Task SeedAwards(IAppUnitOfWork db, HtmlEncoder encoder) {
       List<Award> awards = db.Awards.ToList();
       var filename = "awards.json";
       if (File.Exists("./" + filename)) {
@@ -407,13 +411,13 @@ namespace MIA.ORMContext.Seed {
               ArtworkFee = ((JValue)j["ArtworkFee"]).Value<decimal>(),
               TrophyImageKey = ((JValue)j["TrophyImageKey"]).Value<string>(),
               TrophyImageUrl = ((JValue)j["TrophyImageUrl"]).Value<string>(),
-              Title = LocalizedData.FromDictionary((JObject)j["Title"]),
-              Description = LocalizedData.FromDictionary((JObject)j["Description"]),
+              Title = LocalizedData.HtmlFromDictionary((JObject)j["Title"], encoder),
+              Description = LocalizedData.HtmlFromDictionary((JObject)j["Description"], encoder),
             });
           }
 
           foreach (var award in listAwards) {
-            var _award = awards.FirstOrDefault(a => a.Title == award.Title);
+            var _award = awards.FirstOrDefault(a => a.Code == award.Code);
             if (_award != null) continue;
             newAwards.Add(award);
           }
@@ -423,7 +427,8 @@ namespace MIA.ORMContext.Seed {
         }
       }
     }
-    private static async Task SeedNews(IAppUnitOfWork db) {
+
+    private static async Task SeedNews(IAppUnitOfWork db, HtmlEncoder encoder) {
       List<News> allNews = db.News.ToList();
       var filename = "news.json";
       if (File.Exists("./" + filename)) {
@@ -441,8 +446,8 @@ namespace MIA.ORMContext.Seed {
               Featured = ((JValue)j["Featured"]).Value<bool>(),
               Category = ((JValue)j["Category"]).Value<string>(),
               Keywords = ((JValue)j["Keywords"]).Value<string>(),
-              Title = LocalizedData.FromDictionary((JObject)j["Title"]),
-              Body = LocalizedData.FromDictionary((JObject)j["Body"]),
+              Title = LocalizedData.HtmlFromDictionary((JObject)j["Title"], encoder),
+              Body = LocalizedData.HtmlFromDictionary((JObject)j["Body"], encoder),
             });
           }
 

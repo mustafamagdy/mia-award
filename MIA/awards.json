@@ -10,8 +10,8 @@
       "en": "The jury will grant MIA Award for Best Drama Series a golden award for the first place and a silver one for the second place."
     },
     "ArtworkFee": 200,
-    "TrophyImageKey": "awards/trophy/drama.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/drama.png"
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
   },
   {
     "Code": "documentary",
@@ -24,8 +24,8 @@
       "en": "The jury will grant MIA Award for Best Documentary Series a golden award for the first place and a silver one for the second place."
     },
     "ArtworkFee": 200,
-    "TrophyImageKey": "awards/trophy/sports.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/sports.png"
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
   },
 
   {
@@ -39,8 +39,8 @@
       "en": "The jury will grant MIA Award for Best Sports TV Show a golden award for the first place and a silver one for the second place."
     },
     "ArtworkFee": 200,
-    "TrophyImageKey": "awards/trophy/sports.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/sports.png"
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
   },
   {
     "Code": "comedy",
@@ -53,8 +53,8 @@
       "en": "The jury will grant MIA Award for Best Comedy Series a golden award for the first place and a silver one for the second place."
     },
     "ArtworkFee": 200,
-    "TrophyImageKey": "awards/trophy/comedy.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/comedy.png"
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
   },
   {
     "Code": "political",
@@ -67,8 +67,8 @@
       "en": "The jury will grant MIA Award for Best Political TV Show a golden award for the first place and a silver one for the second place."
     },
     "ArtworkFee": 200,
-    "TrophyImageKey": "awards/trophy/political.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/political.png"
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
   },
   {
     "Code": "economic",
@@ -81,8 +81,8 @@
       "en": "The jury will grant MIA Award for Best Economic TV Show a golden award for the first place and a silver one for the second place."
     },
     "ArtworkFee": 350,
-    "TrophyImageKey": "awards/trophy/economic.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/economic.png"
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
   },
   {
     "Code": "talkshow",
@@ -95,8 +95,8 @@
       "en": "The jury will grant MIA Award for Best Talk Show a golden award for the first place and a silver one for the second place."
     },
     "ArtworkFee": 250,
-    "TrophyImageKey": "awards/trophy/talkshow.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/talkshow.png"
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
   },
   {
     "Code": "competition",
@@ -109,8 +109,8 @@
       "en": "The jury will grant MIA Award for Best Game Show a golden award for the first place and a silver one for the second place."
     },
     "ArtworkFee": 500,
-    "TrophyImageKey": "awards/trophy/competition.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/competition.png"
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
   },
   {
     "Code": "human",
@@ -123,7 +123,7 @@
       "en": "The jury will grant MIA Award for Best Humanitarian Show a golden award for the first place and a silver one for the second place."
     },
     "ArtworkFee": 100,
-    "TrophyImageKey": "awards/trophy/human.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/human.png"
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
   }
 ]
