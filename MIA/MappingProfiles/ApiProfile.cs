@@ -2,6 +2,7 @@
 using MIA.Api;
 using MIA.Models.Entities;
 using System;
+using MIA.Payments;
 
 namespace MIA.MappingProfiles {
 
@@ -59,6 +60,11 @@ namespace MIA.MappingProfiles {
         .ValidateMemberList(MemberList.None);
 
       CreateMap<ArtWork, RecentShowsDto>()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<PaymentDto, PaymentRequest>()
+        .ForMember(a => a.CardToken, cfg => cfg.MapFrom(a => a.CardToken))
+        .ForMember(a => a.Last4Digits, cfg => cfg.MapFrom(a => a.Last4Digit))
         .ValidateMemberList(MemberList.None);
 
 

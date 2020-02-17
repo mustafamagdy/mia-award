@@ -11,7 +11,10 @@ import Profile from "./Profile";
 import Auth from "./Auth";
 
 const MemberArea = ({ location, match, currentUser, isLoggedIn, ...props }) => {
-  if (location.pathname === "/members") {
+  if (location.pathname === "/members/signin") {
+    return <Auth />;
+  }
+  else {
     if (!isLoggedIn || !currentUser) {
       return <Redirect to={"/members/signin"} />;
     } else {
@@ -21,18 +24,16 @@ const MemberArea = ({ location, match, currentUser, isLoggedIn, ...props }) => {
             <MemberSidebar />
             <div className="member_wrapper">
               <Switch>
-                <Route exact path="/members" component={Artworks} />
                 <Route exact path="/members/profile" component={Profile} />
                 <Route path="/members/artwork" component={Artwork} />
+                <Route path="/members" component={Artworks} />
               </Switch>
             </div>
           </div>
         </section>
       );
     }
-  } else if (location.pathname === "/members/signin") {
-    return <Auth />;
-  }
+  } 
 };
 
 const mapStateToProps = ({ auth: { currentUser, isLoggedIn } }) => ({ currentUser, isLoggedIn });

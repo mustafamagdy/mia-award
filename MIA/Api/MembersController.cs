@@ -93,7 +93,6 @@ namespace MIA.Api {
     public string Last4Digit { get; set; }
     public string CardToken { get; set; }
     public string Currency { get; set; }
-    public string BookingToken { get; set; }
     public string SessionId { get; set; }
     public string Type { get; set; }
 
