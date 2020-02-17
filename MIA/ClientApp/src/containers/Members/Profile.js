@@ -4,7 +4,7 @@ const Profile = props => (
   <div className="profile_area">
     <div className="edit_profile">
       <div className="imgthumb">
-        <img src="/assets/images/related_news_image.png" alt="#" />
+        <img src="/assets/images/related_news_image.png"  />
       </div>
       <button type="button">Edit Profile</button>
     </div>
@@ -25,7 +25,7 @@ const Profile = props => (
         <div className="item">
           <div className="col-one">
             <div className="imgthumb">
-              <img src="/assets/images/award.png" alt="#" />
+              <img src="/assets/images/award.png"  />
             </div>
             <div className="txt">
               <span>movies</span>
@@ -38,14 +38,14 @@ const Profile = props => (
           </div>
           <div className="col-two">
             <div className="imgthumb">
-              <img src="/assets/images/show_image2.png" alt="#" />
+              <img src="/assets/images/show_image2.png"  />
             </div>
           </div>
         </div>
         <div className="item">
           <div className="col-one">
             <div className="imgthumb">
-              <img src="/assets/images/award_sport.png" alt="#" />
+              <img src="/assets/images/award_sport.png"  />
             </div>
             <div className="txt">
               <span>Sports</span>
@@ -58,7 +58,7 @@ const Profile = props => (
           </div>
           <div className="col-two">
             <div className="imgthumb">
-              <img src="/assets/images/show_image2.png" alt="#" />
+              <img src="/assets/images/show_image2.png"  />
             </div>
           </div>
         </div>

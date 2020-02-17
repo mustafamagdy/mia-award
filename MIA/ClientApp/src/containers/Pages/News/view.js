@@ -48,8 +48,18 @@ const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, comments
           <LanguageContext.Consumer>
             {({ locale }) => (
               <>
-                <div className="title">{newsItem.title[locale.code]}</div>
-                <div className="content">{newsItem.body[locale.code]}</div>
+                <div
+                  className="title"
+                  dangerouslySetInnerHTML={{
+                    __html: newsItem.title[locale.code]
+                  }}
+                ></div>
+                <div
+                  className="content"
+                  dangerouslySetInnerHTML={{
+                    __html: newsItem.body[locale.code]
+                  }}
+                ></div>
               </>
             )}
           </LanguageContext.Consumer>
@@ -168,12 +178,12 @@ const AdsArea = props => (
   <>
     <div className="small_banner">
       <a href="#" title="#">
-        <img src="/assets/images/small_banner.png" alt="#" />
+        <img src="/assets/images/small_banner.png"  />
       </a>
     </div>
     <div className="big_banner">
       <a href="#" title="#">
-        <img src="/assets/images/big_banner.png" alt="#" />
+        <img src="/assets/images/big_banner.png"  />
       </a>
     </div>
   </>

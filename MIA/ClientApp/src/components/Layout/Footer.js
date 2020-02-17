@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Trans } from "@lingui/macro";
 
 import "sass/footer.scss";
 
 const Footer = props => {
-  const { register, handleSubmit } = useForm();
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitFailed, setSubmitFailed] = useState(false);
+  const { register, handleSubmit, reset } = useForm();
   const onSubmit = data => {
+    //TODO: submit form for news letter
     console.log("newsletter ", data);
+
+    setSubmitSuccess(true);
+
+    setTimeout(() => {
+      reset();
+      setTimeout(() => {
+        setSubmitSuccess(false);
+      }, 2000);
+    }, 1000);
   };
 
   return (
@@ -17,8 +29,8 @@ const Footer = props => {
           <div className="row">
             <div className="about_mia">
               <div className="logo">
-                <a href="#" title="#">
-                  <img src="/assets/images/logo.png" alt="#" />
+                <a href="/">
+                  <img src="/assets/images/logo.png" />
                 </a>
               </div>
               <p>
@@ -36,27 +48,27 @@ const Footer = props => {
               </div>
               <ul>
                 <li>
-                  <a href="#" title="#">
+                  <a href="/awards">
                     <Trans id="mia_awards">MIA Awards</Trans>
                   </a>
                 </li>
                 <li>
-                  <a href="#" title="#">
+                  <a href="/about-us">
                     <Trans id="about_us">About Us</Trans>
                   </a>
                 </li>
                 <li>
-                  <a href="#" title="#">
+                  <a href="/members">
                     <Trans id="members">Members</Trans>
                   </a>
                 </li>
                 <li>
-                  <a href="#" title="#">
+                  <a href="/terms">
                     <Trans id="terms_conditions">Terms & Conditions</Trans>
                   </a>
                 </li>
                 <li>
-                  <a href="#" title="#">
+                  <a href="/terms-policy">
                     <Trans id="privacy_policy">Privacy & Policy</Trans>
                   </a>
                 </li>
@@ -72,11 +84,13 @@ const Footer = props => {
                 </Trans>
               </p>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <input type="text" name="email" ref={register} placeholder="Email" />
+                <input type="text" name="email" ref={register({ required: true })} placeholder="Email" />
                 <button type="submit">
                   <i className="icofont-send-mail"></i>
                 </button>
               </form>
+              {submitSuccess && <div className="msg_success">The message was sent successfully</div>}
+              {submitFailed && <div className="msg_wrong">There is an error, the message could not be sent</div>}{" "}
             </div>
           </div>
           <div className="copyrights">

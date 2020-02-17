@@ -4,7 +4,7 @@ const MemberSidebar = props => (
   <div className="member_sidebar">
     <div>
       <div className="imgthumb">
-        <img src="/assets/images/related_news_image.png" alt="#" />
+        <img src="/assets/images/related_news_image.png"  />
       </div>
       <div className="username">Ahmed Hassan Ahmed</div>
       <ul>

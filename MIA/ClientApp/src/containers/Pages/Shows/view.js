@@ -7,7 +7,7 @@ const ShowsView = props => (
         <div className="show_info">
           <div className="show_details">
             <div className="imgthumb">
-              <img src="/assets/images/show_image.png" alt="#" />
+              <img src="/assets/images/show_image.png"  />
               <div className="mask">
                 <span>The blue elephant</span>
               </div>
@@ -58,7 +58,7 @@ const ShowsView = props => (
         </div>
         <div className="show_video_show">
           <a href="#" title="#">
-            <img src="/assets/images/show_inner_image.png" alt="#" />
+            <img src="/assets/images/show_inner_image.png"  />
           </a>
         </div>
       </div>
@@ -145,7 +145,7 @@ const ShowsView = props => (
                   <ul>
                     <li>
                       <div className="imgthumb">
-                        <img src="/assets/images/show_inner_image.png" alt="#" />
+                        <img src="/assets/images/show_inner_image.png"  />
                       </div>
                       <p>season 1</p>
                       <div className="stars">
@@ -158,7 +158,7 @@ const ShowsView = props => (
                     </li>
                     <li>
                       <div className="imgthumb">
-                        <img src="/assets/images/show_inner_image.png" alt="#" />
+                        <img src="/assets/images/show_inner_image.png"  />
                       </div>
                       <p>season 2</p>
                       <div className="stars">
@@ -171,7 +171,7 @@ const ShowsView = props => (
                     </li>
                     <li>
                       <div className="imgthumb">
-                        <img src="/assets/images/show_inner_image.png" alt="#" />
+                        <img src="/assets/images/show_inner_image.png"  />
                       </div>
                       <p>season 3</p>
                       <div className="stars">
@@ -192,12 +192,12 @@ const ShowsView = props => (
           <div className="side_bar">
             <div className="small_banner">
               <a href="#" title="#">
-                <img src="/assets/images/small_banner.png" alt="#" />
+                <img src="/assets/images/small_banner.png"  />
               </a>
             </div>
             <div className="big_banner">
               <a href="#" title="#">
-                <img src="/assets/images/big_banner.png" alt="#" />
+                <img src="/assets/images/big_banner.png"  />
               </a>
             </div>
           </div>
