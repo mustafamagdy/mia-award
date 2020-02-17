@@ -45,8 +45,9 @@ namespace MIA.MappingProfiles {
       CreateMap<NewsUserComment, NewsComment>()
         .ForMember(a => a.News, cfg => cfg.Ignore())
         .ForMember(a => a.NewsId, cfg => cfg.Ignore())
+        .ForMember(a => a.Comments, cfg => cfg.MapFrom(a => a.Comment))
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => DateTime.Now.ToUniversalTime()))
-       .ValidateMemberList(MemberList.None);
+        .ValidateMemberList(MemberList.None);
 
 
       CreateMap<AlbumItem, AlbumItemDto>()

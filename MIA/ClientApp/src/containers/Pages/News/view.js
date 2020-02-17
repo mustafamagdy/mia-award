@@ -53,9 +53,11 @@ const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, comments
               </>
             )}
           </LanguageContext.Consumer>
-          <div className="comments_area">
-            <Comments comments={newsItem.comments} />
-          </div>
+          {newsItem.comments && newsItem.comments.length > 0 && (
+            <div className="comments_area">
+              <Comments comments={newsItem.comments} />
+            </div>
+          )}
           <CommentForm
             newsId={newsItem.id}
             postNewsComment={postNewsComment}
@@ -96,7 +98,10 @@ const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuc
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="inputs">
           <input ref={register({ required: true })} name="name" type="text" placeholder="Name" />
-          <input ref={register({ required: true })} name="title" type="text" placeholder="Comment Title" />
+          <input ref={register({ required: true })} name="email" type="email" placeholder="Your Email" />
+        </div>
+        <div className="inputs">
+          <input ref={register({ required: true })} name="title" type="text" placeholder="Comment Title" style={{ flex: 1 }} />
         </div>
         <textarea
           ref={register({ required: true })}

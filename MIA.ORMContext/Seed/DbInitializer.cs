@@ -161,6 +161,7 @@ namespace MIA.ORMContext.Seed {
             Comments = _faker_ar.Lorem.Paragraph(),
             Date = _faker_ar.Date.Past().ToUnixTimeSeconds(),
             Name = _faker_ar.Internet.UserName(),
+            Email = _faker_ar.Internet.Email(),
             IsApproved = _faker_ar.Random.Bool(),
             Title = _faker_ar.Lorem.Sentence(),
           }).ToHashSet()
