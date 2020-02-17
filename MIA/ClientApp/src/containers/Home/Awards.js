@@ -93,10 +93,18 @@ const Awards = ({ awards, activeKey }) => {
           <LanguageContext.Consumer>
             {({ locale }) => (
               <>
-                <div className="title">
-                  <Trans id="movies">{award.title[locale.code]}</Trans>
-                </div>
-                <div className="desc">{award.description[locale.code]}</div>
+                <div
+                  className="title"
+                  dangerouslySetInnerHTML={{
+                    __html: award.title[locale.code]
+                  }}
+                ></div>
+                <div
+                  className="desc"
+                  dangerouslySetInnerHTML={{
+                    __html: award.description[locale.code]
+                  }}
+                ></div>
               </>
             )}
           </LanguageContext.Consumer>
