@@ -2,6 +2,7 @@
 using MIA.Api;
 using MIA.Models.Entities;
 using System;
+using MIA.Payments;
 
 namespace MIA.MappingProfiles {
 
@@ -45,8 +46,9 @@ namespace MIA.MappingProfiles {
       CreateMap<NewsUserComment, NewsComment>()
         .ForMember(a => a.News, cfg => cfg.Ignore())
         .ForMember(a => a.NewsId, cfg => cfg.Ignore())
+        .ForMember(a => a.Comments, cfg => cfg.MapFrom(a => a.Comment))
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => DateTime.Now.ToUniversalTime()))
-       .ValidateMemberList(MemberList.None);
+        .ValidateMemberList(MemberList.None);
 
 
       CreateMap<AlbumItem, AlbumItemDto>()
@@ -58,6 +60,11 @@ namespace MIA.MappingProfiles {
         .ValidateMemberList(MemberList.None);
 
       CreateMap<ArtWork, RecentShowsDto>()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<PaymentDto, PaymentRequest>()
+        .ForMember(a => a.CardToken, cfg => cfg.MapFrom(a => a.CardToken))
+        .ForMember(a => a.Last4Digits, cfg => cfg.MapFrom(a => a.Last4Digit))
         .ValidateMemberList(MemberList.None);
 
 

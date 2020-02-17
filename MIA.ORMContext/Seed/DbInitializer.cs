@@ -161,6 +161,7 @@ namespace MIA.ORMContext.Seed {
             Comments = _faker_ar.Lorem.Paragraph(),
             Date = _faker_ar.Date.Past().ToUnixTimeSeconds(),
             Name = _faker_ar.Internet.UserName(),
+            Email = _faker_ar.Internet.Email(),
             IsApproved = _faker_ar.Random.Bool(),
             Title = _faker_ar.Lorem.Sentence(),
           }).ToHashSet()
@@ -411,8 +412,8 @@ namespace MIA.ORMContext.Seed {
               ArtworkFee = ((JValue)j["ArtworkFee"]).Value<decimal>(),
               TrophyImageKey = ((JValue)j["TrophyImageKey"]).Value<string>(),
               TrophyImageUrl = ((JValue)j["TrophyImageUrl"]).Value<string>(),
-              Title = LocalizedData.HtmlFromDictionary((JObject)j["Title"], encoder),
-              Description = LocalizedData.HtmlFromDictionary((JObject)j["Description"], encoder),
+              Title = LocalizedData.FromDictionary((JObject)j["Title"]),
+              Description = LocalizedData.FromDictionary((JObject)j["Description"]),
             });
           }
 
@@ -446,8 +447,8 @@ namespace MIA.ORMContext.Seed {
               Featured = ((JValue)j["Featured"]).Value<bool>(),
               Category = ((JValue)j["Category"]).Value<string>(),
               Keywords = ((JValue)j["Keywords"]).Value<string>(),
-              Title = LocalizedData.HtmlFromDictionary((JObject)j["Title"], encoder),
-              Body = LocalizedData.HtmlFromDictionary((JObject)j["Body"], encoder),
+              Title = LocalizedData.FromDictionary((JObject)j["Title"]),
+              Body = LocalizedData.FromDictionary((JObject)j["Body"]),
             });
           }
 

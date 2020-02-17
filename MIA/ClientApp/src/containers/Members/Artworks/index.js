@@ -11,7 +11,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
             <div className="award_block">
               <div className="show_one">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="name">movies</div>
                 <div className="desc">
@@ -21,7 +21,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
               </div>
               <div className="show_two">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="apply">
                   <a href="#" title="#">
@@ -36,7 +36,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
             <div className="award_block">
               <div className="show_one">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="name">movies</div>
                 <div className="desc">
@@ -46,7 +46,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
               </div>
               <div className="show_two">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="apply">
                   <a href="#" title="#">
@@ -61,7 +61,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
             <div className="award_block">
               <div className="show_one">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="name">movies</div>
                 <div className="desc">
@@ -71,7 +71,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
               </div>
               <div className="show_two">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="apply">
                   <a href="#" title="#">
@@ -86,7 +86,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
             <div className="award_block">
               <div className="show_one">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="name">movies</div>
                 <div className="desc">
@@ -96,7 +96,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
               </div>
               <div className="show_two">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="apply">
                   <a href="#" title="#">
@@ -111,7 +111,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
             <div className="award_block">
               <div className="show_one">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="name">movies</div>
                 <div className="desc">
@@ -121,7 +121,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
               </div>
               <div className="show_two">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="apply">
                   <a href="#" title="#">
@@ -136,7 +136,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
             <div className="award_block">
               <div className="show_one">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="name">movies</div>
                 <div className="desc">
@@ -146,7 +146,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
               </div>
               <div className="show_two">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="apply">
                   <a href="#" title="#">
@@ -161,7 +161,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
             <div className="award_block">
               <div className="show_one">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="name">movies</div>
                 <div className="desc">
@@ -171,7 +171,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
               </div>
               <div className="show_two">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="apply">
                   <a href="#" title="#">
@@ -186,7 +186,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
             <div className="award_block">
               <div className="show_one">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="name">movies</div>
                 <div className="desc">
@@ -196,7 +196,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
               </div>
               <div className="show_two">
                 <div className="imgthumb">
-                  <img src="assets/images/award.png" alt="#" />
+                  <img src="assets/images/award.png"  />
                 </div>
                 <div className="apply">
                   <a href="#" title="#">
@@ -215,7 +215,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="assets/images/show_image.png" alt="#" />
+                <img src="assets/images/show_image.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>
@@ -234,7 +234,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="assets/images/show_image.png" alt="#" />
+                <img src="assets/images/show_image.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>
@@ -253,7 +253,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="assets/images/show_image.png" alt="#" />
+                <img src="assets/images/show_image.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>
@@ -272,7 +272,7 @@ const Artworks = ({ fetchMyArtworks, ...props }) => {
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="assets/images/show_image.png" alt="#" />
+                <img src="assets/images/show_image.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>

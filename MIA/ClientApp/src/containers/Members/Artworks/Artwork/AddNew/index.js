@@ -108,6 +108,17 @@ const AddArtwork = ({ artworkDetails, addNewArtwork, awards, ...props }) => {
       const receipt = await fileToBase64(values.payment.receipt[0].name, values.payment.receipt[0]);
       values.payment.receiptFileName = values.payment.receipt[0].name;
       values.payment.receipt = receipt;
+    } else {
+      values.payment.receipt = undefined;
+      values.payment = {
+        paymentMethod: values.payment.paymentMethod,
+        cardHolderName: values.payment.paymentToken.name,
+        cardType: values.payment.paymentToken.card_type,
+        last4Digit: values.payment.paymentToken.last4,
+        cardToken: values.payment.paymentToken.token,
+        currency: "USD",
+        type: values.payment.paymentToken.type
+      };
     }
 
     addNewArtwork(values);

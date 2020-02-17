@@ -32,5 +32,6 @@ namespace MIA.Api {
     public string UserFullName { get; set; }
     public string UserAvatarUrl { get; set; }
     public string Date { get; set; }
+    public bool IsApproved { get; set; }
   }
 }

@@ -48,14 +48,26 @@ const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, comments
           <LanguageContext.Consumer>
             {({ locale }) => (
               <>
-                <div className="title">{newsItem.title[locale.code]}</div>
-                <div className="content">{newsItem.body[locale.code]}</div>
+                <div
+                  className="title"
+                  dangerouslySetInnerHTML={{
+                    __html: newsItem.title[locale.code]
+                  }}
+                ></div>
+                <div
+                  className="content"
+                  dangerouslySetInnerHTML={{
+                    __html: newsItem.body[locale.code]
+                  }}
+                ></div>
               </>
             )}
           </LanguageContext.Consumer>
-          <div className="comments_area">
-            <Comments comments={newsItem.comments} />
-          </div>
+          {newsItem.comments && newsItem.comments.length > 0 && (
+            <div className="comments_area">
+              <Comments comments={newsItem.comments} />
+            </div>
+          )}
           <CommentForm
             newsId={newsItem.id}
             postNewsComment={postNewsComment}
@@ -96,7 +108,10 @@ const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuc
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="inputs">
           <input ref={register({ required: true })} name="name" type="text" placeholder="Name" />
-          <input ref={register({ required: true })} name="title" type="text" placeholder="Comment Title" />
+          <input ref={register({ required: true })} name="email" type="email" placeholder="Your Email" />
+        </div>
+        <div className="inputs">
+          <input ref={register({ required: true })} name="title" type="text" placeholder="Comment Title" style={{ flex: 1 }} />
         </div>
         <textarea
           ref={register({ required: true })}
@@ -163,12 +178,12 @@ const AdsArea = props => (
   <>
     <div className="small_banner">
       <a href="#" title="#">
-        <img src="/assets/images/small_banner.png" alt="#" />
+        <img src="/assets/images/small_banner.png"  />
       </a>
     </div>
     <div className="big_banner">
       <a href="#" title="#">
-        <img src="/assets/images/big_banner.png" alt="#" />
+        <img src="/assets/images/big_banner.png"  />
       </a>
     </div>
   </>

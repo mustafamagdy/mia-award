@@ -16,7 +16,7 @@ const Shows = props => (
           <div className="slider_items">
             <div className="item prev_item">
               <div className="imgthmb">
-                <img src="/assets/images/news_image.png" alt="#" />
+                <img src="/assets/images/news_image.png"  />
               </div>
               <div className="content">
                 <div className="title">
@@ -25,7 +25,7 @@ const Shows = props => (
                 </div>
                 <div className="video_item">
                   <a href="#" title="#">
-                    <img src="/assets/images/gallery_item_image.png" alt="#" />
+                    <img src="/assets/images/gallery_item_image.png"  />
                   </a>
                 </div>
                 <div className="video_details">
@@ -59,7 +59,7 @@ const Shows = props => (
                       <p>Ahmed Adel</p>
                     </div>
                     <div className="imgthumb">
-                      <img src="/assets/images/comment_user_image.png" alt="#" />
+                      <img src="/assets/images/comment_user_image.png"  />
                     </div>
                   </div>
                 </div>
@@ -72,7 +72,7 @@ const Shows = props => (
             </div>
             <div className="item current_item">
               <div className="imgthmb">
-                <img src="/assets/images/show_all_slider_image.png" alt="#" />
+                <img src="/assets/images/show_all_slider_image.png"  />
               </div>
               <div className="content">
                 <div className="title">
@@ -81,7 +81,7 @@ const Shows = props => (
                 </div>
                 <div className="video_item">
                   <a href="#" title="#">
-                    <img src="/assets/images/gallery_item_image.png" alt="#" />
+                    <img src="/assets/images/gallery_item_image.png"  />
                   </a>
                 </div>
                 <div className="video_details">
@@ -115,7 +115,7 @@ const Shows = props => (
                       <p>Ahmed Adel</p>
                     </div>
                     <div className="imgthumb">
-                      <img src="/assets/images/comment_user_image.png" alt="#" />
+                      <img src="/assets/images/comment_user_image.png"  />
                     </div>
                   </div>
                 </div>
@@ -128,7 +128,7 @@ const Shows = props => (
             </div>
             <div className="item next_item">
               <div className="imgthmb">
-                <img src="/assets/images/news_image.png" alt="#" />
+                <img src="/assets/images/news_image.png"  />
               </div>
               <div className="content">
                 <div className="title">
@@ -137,7 +137,7 @@ const Shows = props => (
                 </div>
                 <div className="video_item">
                   <a href="#" title="#">
-                    <img src="/assets/images/gallery_item_image.png" alt="#" />
+                    <img src="/assets/images/gallery_item_image.png"  />
                   </a>
                 </div>
                 <div className="video_details">
@@ -171,7 +171,7 @@ const Shows = props => (
                       <p>Ahmed Adel</p>
                     </div>
                     <div className="imgthumb">
-                      <img src="/assets/images/comment_user_image.png" alt="#" />
+                      <img src="/assets/images/comment_user_image.png"  />
                     </div>
                   </div>
                 </div>
@@ -252,7 +252,7 @@ const Shows = props => (
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image.png" alt="#" />
+                <img src="/assets/images/show_image.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>
@@ -271,7 +271,7 @@ const Shows = props => (
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image2.png" alt="#" />
+                <img src="/assets/images/show_image2.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>
@@ -290,7 +290,7 @@ const Shows = props => (
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image.png" alt="#" />
+                <img src="/assets/images/show_image.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>
@@ -309,7 +309,7 @@ const Shows = props => (
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image2.png" alt="#" />
+                <img src="/assets/images/show_image2.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>
@@ -328,7 +328,7 @@ const Shows = props => (
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image.png" alt="#" />
+                <img src="/assets/images/show_image.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>
@@ -347,7 +347,7 @@ const Shows = props => (
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image2.png" alt="#" />
+                <img src="/assets/images/show_image2.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>
@@ -366,7 +366,7 @@ const Shows = props => (
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image.png" alt="#" />
+                <img src="/assets/images/show_image.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>
@@ -385,7 +385,7 @@ const Shows = props => (
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image2.png" alt="#" />
+                <img src="/assets/images/show_image2.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>
@@ -404,7 +404,7 @@ const Shows = props => (
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image.png" alt="#" />
+                <img src="/assets/images/show_image.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>
@@ -423,7 +423,7 @@ const Shows = props => (
           <div className="item">
             <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image2.png" alt="#" />
+                <img src="/assets/images/show_image2.png"  />
                 <div className="mask">
                   <div className="content">
                     <p>The blue elephant</p>

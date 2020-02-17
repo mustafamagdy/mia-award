@@ -63,10 +63,14 @@ namespace MIA.Api {
       [FromRoute(Name = "id")] string newsId,
       [FromServices] IAppUnitOfWork db) {
       var result = await db.News
-        .Include(a => a.Comments)
-        .Where(a => a.Id == newsId)
-        .ProjectTo<FullNewsWithCommentsDto>(_mapper.ConfigurationProvider)
-        .FirstOrDefaultAsync();
+                          .Include(a => a.Comments)
+                          .Where(a => a.Id == newsId)
+                          .ProjectTo<FullNewsWithCommentsDto>(_mapper.ConfigurationProvider)
+                          .FirstOrDefaultAsync();
+
+
+      //filter not approved comments, this should be using the filter inside inlucde, but it needs work from zzz project
+      result.Comments = result.Comments.Where(a => a.IsApproved).ToArray();
 
       //poor performace, but for sake of time
       var relatedNews = db.News
@@ -97,7 +101,7 @@ namespace MIA.Api {
       ) {
       var comment = _mapper.Map<NewsComment>(dto);
       comment.NewsId = newsId;
-      comment.IsApproved = adminOptions.Value.AutoApproveNewssComments;
+      comment.IsApproved = adminOptions.Value.AutoApproveNewsComments;
 
       await db.NewsComments.AddAsync(comment);
       return Ok(_mapper.Map<UserCommentDto>(comment));
