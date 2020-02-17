@@ -1,7 +1,7 @@
 import React from "react";
 
 const MemberSidebar = props => (
-  <div className="member_sidebar">
+   <div className="member_sidebar">
     <div>
       <div className="imgthumb">
         <img src="/assets/images/related_news_image.png" alt="#" />
@@ -30,12 +30,12 @@ const MemberSidebar = props => (
         </li>
       </ul>
     </div>
-    <div className="logout">
+    <div className="logout" onClick={() => props.logout()}>
       <span>
-        <i className="icofont-logout"></i>Logout
+        <i className="icofont-logout" ></i>Logout
       </span>
     </div>
   </div>
-);
+)
 
 export default MemberSidebar;
