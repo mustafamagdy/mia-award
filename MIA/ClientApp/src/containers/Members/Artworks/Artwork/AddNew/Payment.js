@@ -73,7 +73,10 @@ const Payment = ({ active, register, awards = [], onPayment, processOrder, setPa
                 </div>
               </div>
               <div className="item_bottom">
-                <div className="price">{selectedAward.artworkFee} USD</div>
+                <div className="price">
+                  {selectedAward.artworkFee}
+                  <Trans id="usd">USD</Trans>
+                </div>
                 <div className="confirm">
                   <span onClick={selectAward}>Confirm</span>
                 </div>

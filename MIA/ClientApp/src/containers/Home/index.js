@@ -26,6 +26,9 @@ import Members from "../Members";
 import TestUpload from "../Test/Upload";
 import News from "../Pages/News";
 import Homepage from "./Homepage";
+import Award from "../Award";
+import Terms from "../Pages/Terms";
+import Policies from "../Pages/Policies";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -49,6 +52,7 @@ class Home extends React.Component {
           <Route path="/news/:id" component={NewsView} />
           <Route exact path="/shows" component={Shows} />
           <Route path="/shows/:id" component={ShowsView} />
+          <Route path="/award/:id" component={Award} />
 
           {/* browse media */}
           <Route path="/media" component={MediaBrowser} />
@@ -66,6 +70,10 @@ class Home extends React.Component {
 
           {/* Member section */}
           <Route path="/members" component={Members} />
+
+          {/* terms and conditions */}
+          <Route path="/terms" component={Terms} />
+          <Route path="/policies" component={Policies} />
 
           <Redirect from="*" to="/" />
         </Switch>

@@ -48,8 +48,8 @@ const Footer = props => {
               </div>
               <ul>
                 <li>
-                  <a href="/awards">
-                    <Trans id="mia_awards">MIA Awards</Trans>
+                  <a href="/members">
+                    <Trans id="members">Members</Trans>
                   </a>
                 </li>
                 <li>
@@ -68,7 +68,7 @@ const Footer = props => {
                   </a>
                 </li>
                 <li>
-                  <a href="/terms-policy">
+                  <a href="/policies">
                     <Trans id="privacy_policy">Privacy & Policy</Trans>
                   </a>
                 </li>
