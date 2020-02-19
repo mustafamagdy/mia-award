@@ -111,11 +111,16 @@ const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategorie
                       <div className="content">
                         <div className="desc">
                           <span>{item.title[locale.code]}</span>
-                          <p>{item.category}</p>
+                          <p className="category">{item.category}</p>
                           <time>
                             <Trans id="posted">Posted</Trans>: {item.date}
                           </time>
-                          <b>{item.body[locale.code]}</b>
+                          <div
+                          className="body"
+                            dangerouslySetInnerHTML={{
+                              __html: item.body[locale.code]
+                            }}
+                          ></div>
                         </div>
                         <div className="more">
                           <a href={`/news/${item.id}`}>
@@ -222,11 +227,16 @@ const ListingNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =
             <div className="content">
               <div className="desc">
                 <span>{item.title[locale.code]}</span>
-                <p>{item.category}</p>
+                <p className="category">{item.category}</p>
                 <time>
                   <Trans id="posted">Posted</Trans> : {item.date}
                 </time>
-                <b>{item.body[locale.code]}</b>
+                <div
+                className="body"
+                  dangerouslySetInnerHTML={{
+                    __html: item.body[locale.code]
+                  }}
+                ></div>
               </div>
               <div className="more">
                 <a href={`/news/${item.id}`}>

@@ -76,13 +76,15 @@
                 font-family: Montserrat_Bold;
                 color: #fff;
               } /* span */
-              p {
+              
+              .category {
                 display: block;
                 margin: 0 auto 10px;
                 font-size: 18px;
                 color: #c0a176;
               } /* p */
-              b {
+
+              .body {
                 font-weight: normal;
                 font-size: 16px;
                 line-height: 25px;
@@ -398,13 +400,13 @@
               font-family: Montserrat_Bold;
               color: #fff;
             } /* span */
-            p {
+            .category {
               display: block;
               margin: 0 auto 10px;
               font-size: 18px;
               color: #c0a176;
             } /* p */
-            b {
+            .body {
               font-weight: normal;
               font-size: 16px;
               line-height: 25px;
