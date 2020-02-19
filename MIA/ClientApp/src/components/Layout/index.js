@@ -41,8 +41,8 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
           <div className="mainmenu">
             <ul>
               <li>
-                <a href="/awards">
-                  <Trans id="awards">Awards</Trans>
+                <a href="/members">
+                  <Trans id="members">Members</Trans>
                 </a>
               </li>
               <li>
@@ -56,7 +56,7 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
                 </a>
               </li>
               <li>
-                <a href="program">
+                <a href="/timeline">
                   <Trans id="program">Program</Trans>
                 </a>
               </li>
