@@ -141,9 +141,6 @@ const Intro = props => {
               </div>
               <div className="slider_dots">
                 {items.map((item, index) => {
-                      console.log(index)
-                      console.log(current)
-                      console.log(index === current)
                       return <span key={item.key} className={`${index === current ? "current" : ""}`}>
                              {item.keyText}
                             </span>
