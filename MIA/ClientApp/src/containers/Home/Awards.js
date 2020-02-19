@@ -54,9 +54,9 @@ const AwardsSlider = ({ awards, ...props }) => {
             </Trans>
             <i>20-05-2020</i>
           </time>
-          <a href="#" title="#">
+          {/* <a href="#" title="#">
             <Trans id="view_all">view all</Trans>
-          </a>
+          </a> */}
         </div>
         <div className="award_slider">
           <div className="slides_items">
@@ -86,7 +86,7 @@ const Awards = ({ awards, activeKey }) => {
             <img src={award.trophyUrl} />
           </div>
           <div className="apply">
-            <a href="#" title="#">
+            <a href={`/award/${award.id}`}>
               <Trans id="apply_now">apply now</Trans>
             </a>
           </div>

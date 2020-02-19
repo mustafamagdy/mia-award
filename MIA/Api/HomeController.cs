@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -15,6 +17,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using MIA.Infrastructure.Options;
+using MIA.Models.Entities;
+using Newtonsoft.Json;
 
 namespace MIA.Api {
 #if Versioning
@@ -114,6 +118,21 @@ namespace MIA.Api {
       //return Ok(result);
 
       return Ok();
+    }
+
+    [HttpGet("timeline")]
+    public IActionResult TimelineEvents(
+      ) {
+      var filename = "timeline.json";
+      if (System.IO.File.Exists("./" + filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
+          string json = r.ReadToEnd();
+          var deserializedItems = JsonConvert.DeserializeObject<dynamic>(json);
+          return Ok(deserializedItems);
+        }
+      } else {
+        return NoContent();
+      }
     }
 
     [HttpGet("contact-message-subject")]

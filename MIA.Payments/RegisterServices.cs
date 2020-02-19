@@ -17,8 +17,8 @@ namespace MIA.Payments {
         var options = provider.GetRequiredService<IOptions<PaymentGatewayOptions>>();
         var optValues = options.Value;
         return services
-                     .AddScoped<IPaymentGateway, PaymentGateway>()
-                     .AddCheckoutSdk(new Checkout.CheckoutConfiguration(optValues.SecretKey, optValues.UseSandbox));
+                     .AddCheckoutSdk(new Checkout.CheckoutConfiguration(optValues.SecretKey, optValues.UseSandbox))
+                     .AddScoped<IPaymentGateway, PaymentGateway>();
       }
     }
   }

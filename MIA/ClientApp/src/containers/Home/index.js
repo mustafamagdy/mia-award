@@ -12,7 +12,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import AboutUs from "../Pages/AboutUs";
 import ContactUs from "../Pages/ContactUs";
 import Awards from "../Pages/Awards";
-import Events from "../Pages/Events";
+import Timeline from "../Timeline";
 import Gallery from "../Pages/Gallery";
 import NewsView from "../Pages/News/view";
 import Shows from "../Pages/Shows";
@@ -26,6 +26,9 @@ import Members from "../Members";
 import TestUpload from "../Test/Upload";
 import News from "../Pages/News";
 import Homepage from "./Homepage";
+import Award from "../Award";
+import Terms from "../Pages/Terms";
+import Policies from "../Pages/Policies";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -41,7 +44,7 @@ class Home extends React.Component {
 
           <Route exact path="/" component={Homepage} />
           <Route path="/about-us" component={AboutUs} />
-          <Route path="/events" component={Events} />
+          <Route path="/timeline" component={Timeline} />
           <Route path="/awards" component={Awards} />
           <Route path="/contact-us" component={ContactUs} />
           <Route path="/gallery" component={Gallery} />
@@ -49,6 +52,7 @@ class Home extends React.Component {
           <Route path="/news/:id" component={NewsView} />
           <Route exact path="/shows" component={Shows} />
           <Route path="/shows/:id" component={ShowsView} />
+          <Route path="/award/:id" component={Award} />
 
           {/* browse media */}
           <Route path="/media" component={MediaBrowser} />
@@ -66,6 +70,10 @@ class Home extends React.Component {
 
           {/* Member section */}
           <Route path="/members" component={Members} />
+
+          {/* terms and conditions */}
+          <Route path="/terms" component={Terms} />
+          <Route path="/policies" component={Policies} />
 
           <Redirect from="*" to="/" />
         </Switch>

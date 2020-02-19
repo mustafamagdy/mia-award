@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Trans } from "@lingui/macro";
 import Swiper from 'react-id-swiper';
