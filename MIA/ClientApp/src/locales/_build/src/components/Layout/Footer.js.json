@@ -4,7 +4,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        25
+        37
       ]
     ]
   },
@@ -13,25 +13,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        35
-      ]
-    ]
-  },
-  "mia_awards": {
-    "defaults": "MIA Awards",
-    "origin": [
-      [
-        "src/components/Layout/Footer.js",
-        40
-      ]
-    ]
-  },
-  "about_us": {
-    "defaults": "About Us",
-    "origin": [
-      [
-        "src/components/Layout/Footer.js",
-        45
+        47
       ]
     ]
   },
@@ -40,7 +22,20 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        50
+        52
+      ],
+      [
+        "src/components/Layout/Footer.js",
+        62
+      ]
+    ]
+  },
+  "about_us": {
+    "defaults": "About Us",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        57
       ]
     ]
   },
@@ -49,7 +44,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        55
+        67
       ]
     ]
   },
@@ -58,7 +53,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        60
+        72
       ]
     ]
   },
@@ -67,7 +62,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        67
+        79
       ]
     ]
   },
@@ -76,7 +71,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        70
+        82
       ]
     ]
   },
@@ -85,7 +80,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        83
+        97
       ]
     ]
   }

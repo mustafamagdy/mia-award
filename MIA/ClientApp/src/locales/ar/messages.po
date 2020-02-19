@@ -13,13 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-
-msgid "msgid"
-msgstr "msgstr_ar"
-
-#: src/components/Layout/Footer.js:45
+#: src/components/Layout/Footer.js:57
 #: src/components/Layout/Header.js:53
-#: src/components/Layout/index.js:51
+#: src/components/Layout/index.js:50
 msgid "about_us"
 msgstr "من نحن"
 
@@ -27,36 +23,40 @@ msgstr "من نحن"
 msgid "accept_changes"
 msgstr "قبول التغييرات"
 
-#: src/containers/Pages/ContactUs/index.js:45
+#: src/containers/Pages/ContactUs/index.js:60
 msgid "address"
 msgstr "العنوان"
 
 #: src/components/Layout/LanguageSelect.js:65
-msgid "all_languages"
-msgstr "جميع اللغات"
+#~ msgid "all_languages"
+#~ msgstr "جميع اللغات"
 
-#: src/containers/Home/Awards.js:88
+#: src/containers/Award/index.js:63
+msgid "apply_for_award"
+msgstr ""
+
+#: src/containers/Home/Awards.js:37
 msgid "apply_for_your_award"
 msgstr "التقدم للجائزة"
 
-#: src/containers/Home/Awards.js:145
+#: src/containers/Home/Awards.js:90
 msgid "apply_now"
 msgstr "التقدم الآن"
 
 #: src/containers/Home/RecentShows.js:46
-msgid "award_category"
-msgstr "فئة الجائزة"
+#~ msgid "award_category"
+#~ msgstr "فئة الجائزة"
 
 #: src/components/Layout/Header.js:48
 #: src/components/Layout/index.js:46
-msgid "awards"
-msgstr "الجوائز"
+#~ msgid "awards"
+#~ msgstr "الجوائز"
 
-#: src/containers/Home/Tickets.js:37
+#: src/containers/Home/Tickets.js:95
 msgid "buy_your_ticket"
 msgstr "شراء التذكرة"
 
-#: src/containers/Pages/News/view.js:153
+#: src/containers/Pages/News/view.js:169
 msgid "by"
 msgstr "بواسطة"
 
@@ -79,11 +79,11 @@ msgstr "تغيير كلمة المرور"
 msgid "change_photo"
 msgstr "تغيير الصورة"
 
-#: src/containers/Pages/News/view.js:135
+#: src/containers/Pages/News/view.js:151
 msgid "comment_failed"
 msgstr "حدث خطأ، يتعذر إرسال الرسالة."
 
-#: src/containers/Pages/News/view.js:131
+#: src/containers/Pages/News/view.js:147
 msgid "comment_submitted"
 msgstr "تم إرسال تعليقك بنجاح للمراجعة."
 
@@ -96,16 +96,16 @@ msgid "confirm_your_email_first"
 msgstr "التحقق من صحة بريدك الإلكتروني أولاً."
 
 #: src/components/Layout/Header.js:73
-#: src/components/Layout/index.js:71
-#: src/containers/Pages/ContactUs/index.js:38
+#: src/components/Layout/index.js:70
+#: src/containers/Pages/ContactUs/index.js:53
 msgid "contact_us"
 msgstr "الاتصال بنا"
 
-#: src/containers/Pages/ContactUs/index.js:147
+#: src/containers/Pages/ContactUs/index.js:169
 msgid "contact_us_message_sent_fail"
 msgstr "حدث خطأ، يتعذر إرسال الرسالة."
 
-#: src/containers/Pages/ContactUs/index.js:142
+#: src/containers/Pages/ContactUs/index.js:164
 msgid "contact_us_message_sent_success"
 msgstr "تم إرسال الرسالة بنجاح."
 
@@ -113,24 +113,28 @@ msgstr "تم إرسال الرسالة بنجاح."
 msgid "cookie_policy"
 msgstr "سياسة ملفات تعريف الارتباط"
 
-#: src/components/Layout/Footer.js:83
+#: src/components/Layout/Footer.js:97
 msgid "copyright_media_industry"
 msgstr "حقوق النشر© 2020 لشركة جوائز صناعة الإعلام. كافة الحقوق محفوظة"
 
 #: src/containers/Home/RecentShows.js:72
-msgid "country"
-msgstr "الدولة"
+#~ msgid "country"
+#~ msgstr "الدولة"
 
 #: src/components/Layout/LoginStatus.js:34
 msgid "create_account"
 msgstr "إنشاء حساب"
 
-#: src/containers/Pages/ContactUs/index.js:48
+#: src/containers/Home/Tickets.js:89
+msgid "date"
+msgstr ""
+
+#: src/containers/Pages/ContactUs/index.js:63
 msgid "dubai_address"
 msgstr "دبي، مدينة دبي الإعلامية، مبنى رقم 1، الدور الثاني - مكتب رقم 214"
 
 #: src/containers/MyProfile/index.js:155
-#: src/containers/Pages/ContactUs/index.js:75
+#: src/containers/Pages/ContactUs/index.js:90
 msgid "email"
 msgstr "البريد الإلكتروني"
 
@@ -142,50 +146,54 @@ msgstr "تمكين التحرير"
 msgid "failed"
 msgstr "فشل"
 
-#: src/containers/Pages/ContactUs/index.js:66
+#: src/containers/Pages/ContactUs/index.js:81
 msgid "fax"
 msgstr "فاكس"
 
-#: src/containers/Pages/ContactUs/index.js:69
+#: src/containers/Pages/ContactUs/index.js:84
 msgid "fax_1"
 msgstr "+971 4 57 2636 6"
 
-#: src/components/Layout/Footer.js:25
+#: src/components/Layout/Footer.js:37
 msgid "footer_text"
 msgstr ""
 
 #: src/components/Layout/Header.js:68
-#: src/components/Layout/index.js:66
+#: src/components/Layout/index.js:65
 #: src/containers/Pages/Gallery/index.js:185
 msgid "gallery"
 msgstr "معرض الصور"
 
 #: src/containers/Home/RecentShows.js:59
-msgid "genre"
-msgstr "النوع"
+#~ msgid "genre"
+#~ msgstr "النوع"
 
-#: src/containers/Pages/ContactUs/index.js:94
+#: src/containers/Pages/ContactUs/index.js:107
 msgid "get_in_touch"
 msgstr "التواصل"
 
 #: src/components/Forms/Date/DualCalendar.js:49
 #: src/components/Forms/Date/MonoCalendar.js:39
-msgid "hijri"
-msgstr "هجري"
+#~ msgid "hijri"
+#~ msgstr "هجري"
+
+#: src/containers/Home/Awards.js:40
+msgid "home_general_award_text"
+msgstr ""
 
 #: src/containers/App/CookieGDPR.js:126
 msgid "i_accept"
 msgstr "أوافق"
 
-#: src/components/Layout/Footer.js:70
+#: src/components/Layout/Footer.js:82
 msgid "if_you_want_to_keep_updated"
 msgstr "لكي تبقى على علم بآخر مستجدات كل الخصائص، قم بإدخال بريدك الإلكتروني وسنرسل لك آخر المستجدات."
 
 #: src/components/Layout/LanguageSelect.js:44
-msgid "language"
-msgstr "اللغة"
+#~ msgid "language"
+#~ msgstr "اللغة"
 
-#: src/containers/Home/PhotoAlbum.js:21
+#: src/containers/Home/PhotoAlbum.js:78
 msgid "latest_video"
 msgstr "أحدث الفيديوهات والصور"
 
@@ -199,7 +207,10 @@ msgstr "تحميل...."
 msgid "logout"
 msgstr "تسجيل الخروج"
 
-#: src/components/Layout/Footer.js:50
+#: src/components/Layout/Footer.js:52
+#: src/components/Layout/Footer.js:62
+#: src/components/Layout/Header.js:48
+#: src/components/Layout/index.js:45
 msgid "members"
 msgstr "الأعضاء"
 
@@ -209,12 +220,15 @@ msgid "mia"
 msgstr "MIA"
 
 #: src/components/Layout/Footer.js:40
-msgid "mia_awards"
-msgstr "جوائز MIA"
+#~ msgid "mia_awards"
+#~ msgstr "جوائز MIA"
 
 #: src/containers/Home/Awards.js:149
-msgid "movies"
-msgstr "{0}"
+#~ msgid "movies"
+#~ msgstr "{0}"
+
+#~ msgid "msgid"
+#~ msgstr "msgstr_ar"
 
 #: src/containers/MyProfile/index.js:123
 msgid "name"
@@ -225,7 +239,7 @@ msgid "new_password"
 msgstr "كلمة المرور الجديدة"
 
 #: src/components/Layout/Header.js:58
-#: src/components/Layout/index.js:56
+#: src/components/Layout/index.js:55
 #: src/containers/Pages/News/index.js:139
 msgid "news"
 msgstr "الأخبار"
@@ -234,80 +248,84 @@ msgstr "الأخبار"
 msgid "news_features"
 msgstr "الأفلام الإخبارية"
 
-#: src/components/Layout/Footer.js:67
+#: src/components/Layout/Footer.js:79
 msgid "newsletter"
 msgstr "رسالة إخبارية"
 
-#: src/containers/Home/News.js:86
+#: src/containers/Home/News.js:88
 msgid "next"
 msgstr "التالي"
+
+#: src/containers/Home/RecentShows.js:92
+msgid "no_shows_available_yet"
+msgstr ""
 
 #: src/containers/MyProfile/ChangePassword.js:47
 msgid "old_password"
 msgstr "كلمة المرور القديمة"
 
-#: src/containers/Pages/AboutUs/index.js:274
+#: src/containers/Pages/AboutUs/index.js:189
 msgid "our_awards"
 msgstr "جوائزنا"
 
-#: src/containers/Pages/AboutUs/index.js:277
+#: src/containers/Pages/AboutUs/index.js:192
 msgid "our_awards_text"
 msgstr "تهدف جائزة صنّاع الإعلام العربي (MIA 2020)  والتي يتم التحكيم بين المتسابقين فيها إلكترونياً، إلى قياس جودة مستوى تأثير محتوى الأعمال التلفزيونية المرئية في نمط الحياة وتفكير الجمهور وعمق الأثر من خلال فرز الأعمال المشاركة وفقاً لشروط ومعايير محددة من قبل لجنة التحكيم، وقد خصصنا لكل فئة من المسابقة ثلاث جوائز ذهبية وفضية وبرونزية توزع على الفائزين مع شهادات تقديرية."
 
-#: src/containers/Pages/AboutUs/index.js:239
+#: src/containers/Pages/AboutUs/index.js:154
 msgid "our_events"
 msgstr "فعالياتنا"
 
-#: src/containers/Pages/AboutUs/index.js:241
+#: src/containers/Pages/AboutUs/index.js:156
 msgid "our_events_text"
 msgstr "<0><1>• ورش عمل لتطوير القدرات المهنية الفنية والتقنية.</1><2>• ندوات متخصصة يلقيها خبراء ومحترفون من صناع الإعلام ونجوم الفن العربي.</2><3>• عرض قصص نجاح مميزة.</3><4>• سوق لأحدث النظم الهندسية والتقنية في مجال صناعة الإعلام والإنتاج التلفزيوني.</4><5>•لقاءات تليفزيونية لمناقشة القضايا الهامة (بث مباشر)</5></0>"
 
-#: src/containers/Pages/AboutUs/index.js:164
+#: src/containers/Pages/AboutUs/index.js:79
 msgid "our_goal"
 msgstr "هدفنا"
 
-#: src/containers/Pages/AboutUs/index.js:167
+#: src/containers/Pages/AboutUs/index.js:82
 msgid "our_goal_text"
-msgstr "<0><1>• الارتقاء بذائقة الانسان العربي بمختلف شرائحه، وتقديم رؤى مستقبلية جديدة تسهم في رفد مستقبل الانتاج التلفزيوني العربي.</1><2>•   تنشيط وتحفيز صناعة المحتوى التلفزيوني ورفع مستوى الانتاج العربي والرقي به إلى مصاف عالمية</2><3>•ايجاد فرصة للإندماج والتفاعل وتقارب الثقافات المتعددة من أجل لم شمل الهوية العربية  لنصنع معاً مستقبلًا باهرًا " بقوة واحدة وأجيال واعدة"</3><4>•  زيادة التواصل بين المواهب الشابة في العالم العربي ونخبة المنتجين والفنيين العاملين في المجال وتوفير أكبر قدر من التكامل بين القطاعات الإنتاجية وبين الهيئات الإعلامية والقنوات التلفزيونية</4><5>•  اكتشاف المواهب الجديدة وإظهار المتميز منها إلى الأضواء</5><6>• تقدير وتكريم المبدعين والمنجزين في أرجاء الوطن العربي من خلال تقييم أعمالهم ومعرفة آراء المختصين حيالها والاحتفال بأفضلها.</6></0>"
+msgstr "<0><1>• الارتقاء بذائقة الانسان العربي بمختلف شرائحه، وتقديم رؤى مستقبلية جديدة تسهم في رفد مستقبل الانتاج التلفزيوني العربي.</1><2>•   تنشيط وتحفيز صناعة المحتوى التلفزيوني ورفع مستوى الانتاج العربي والرقي به إلى مصاف عالمية</2><3>•ايجاد فرصة للإندماج والتفاعل وتقارب الثقافات المتعددة من أجل لم شمل الهوية العربية  لنصنع معاً مستقبلًا باهرًا \" بقوة واحدة وأجيال واعدة\"</3><4>•  زيادة التواصل بين المواهب الشابة في العالم العربي ونخبة المنتجين والفنيين العاملين في المجال وتوفير أكبر قدر من التكامل بين القطاعات الإنتاجية وبين الهيئات الإعلامية والقنوات التلفزيونية</4><5>•  اكتشاف المواهب الجديدة وإظهار المتميز منها إلى الأضواء</5><6>• تقدير وتكريم المبدعين والمنجزين في أرجاء الوطن العربي من خلال تقييم أعمالهم ومعرفة آراء المختصين حيالها والاحتفال بأفضلها.</6></0>"
 
-#: src/containers/Pages/AboutUs/index.js:149
+#: src/containers/Pages/AboutUs/index.js:64
 msgid "our_message"
 msgstr "رسالتنا"
 
-#: src/containers/Pages/AboutUs/index.js:152
+#: src/containers/Pages/AboutUs/index.js:67
 msgid "our_message_text"
 msgstr "أثبتت الدراسات الحديثة أهمية محتوى المادة التلفزيونية في حياتنا اليومية وقدرتها التأثيرية على تغيير القيم والوعي الثقافي في أي مجتمع. ولهذه الأهمية انطلقت رسالتنا من وحي شعارنا (الإعلام العربي واقع جديد) لرفع مستوى جودة المحتوى في الإنتاج العربي التلفزيوني وجعل هذه الجائزة منصة عربية يكرم ويلتقي فيها كل المميزين والمبدعين في هذا المجال لتتلاقح خلالها الأفكار الجديدة وتؤدي إلى نتاج معرفي وتقني تستفيد منه المجتمعات العربية وتواجه به تحدياتها المستقبلية المختلفة."
 
-#: src/containers/Pages/AboutUs/index.js:201
+#: src/containers/Pages/AboutUs/index.js:116
 msgid "our_value"
 msgstr "قيِّمنا"
 
-#: src/containers/Pages/AboutUs/index.js:205
+#: src/containers/Pages/AboutUs/index.js:120
 msgid "our_value_text"
 msgstr "<0><1><2>• الحيادية : :</2><3>نقف بدون انحياز وعلى مسافة واحدة من كل ابناء الوطن العربي</3></1><4><5>• الموضوعية :</5><6>بعيداً عن الاهواء، لدينا آلية واحدة في التعامل مع كل أداء.. ابداعك هو ما يحدد مركزك</6></4><8><9>المصداقية:</9><10>من أساسيات جوهر عملنا أن نزاهتنا هي منهجنا في التقييم</10></8><11><12>• التعزيز :</12><13>تقديم جوائز نوعية عديدة وشهادات تقدير وفق معايير الأداء.</13></11></0>"
 
 #: src/containers/MyProfile/index.js:187
-#: src/containers/Pages/ContactUs/index.js:54
+#: src/containers/Pages/ContactUs/index.js:69
 msgid "phone"
 msgstr "الهاتف"
 
-#: src/containers/Pages/ContactUs/index.js:57
+#: src/containers/Pages/ContactUs/index.js:72
 msgid "phone_1"
 msgstr "+971 4 57 2636 7"
 
-#: src/containers/Pages/ContactUs/index.js:60
+#: src/containers/Pages/ContactUs/index.js:75
 msgid "phone_2"
 msgstr "+971 4 57 2636 8"
 
 #: src/components/Forms/Date/DualCalendar.js:22
-msgid "please_select_checkin_date"
-msgstr "الرجاء تحديد يوم الوصول."
+#~ msgid "please_select_checkin_date"
+#~ msgstr "الرجاء تحديد يوم الوصول."
 
 #: src/components/Forms/Date/DualCalendar.js:23
-msgid "please_select_checkout_date"
-msgstr "الرجاء تحديد يوم المغادرة."
+#~ msgid "please_select_checkout_date"
+#~ msgstr "الرجاء تحديد يوم المغادرة."
 
-#: src/containers/Pages/News/view.js:126
+#: src/containers/Pages/News/view.js:142
 msgid "post_comment"
 msgstr "نشر تعليق"
 
@@ -317,27 +335,35 @@ msgstr "نشر تعليق"
 msgid "posted"
 msgstr "تم النشر"
 
-#: src/containers/Home/News.js:74
+#: src/containers/Home/News.js:76
 msgid "prev"
 msgstr "السابق"
 
-#: src/components/Layout/Footer.js:60
+#: src/components/Layout/Footer.js:72
 msgid "privacy_policy"
 msgstr "سياسة الخصوصية"
 
-#: src/components/Layout/index.js:61
+#: src/components/Layout/index.js:60
 msgid "program"
 msgstr "البرنامج"
+
+#: src/containers/Timeline/index.js:28
+msgid "program_schedule"
+msgstr ""
+
+#: src/containers/Timeline/index.js:31
+msgid "program_schedule_brief"
+msgstr ""
 
 #: src/components/Layout/Header.js:63
 msgid "programs"
 msgstr "البرامج"
 
-#: src/components/Layout/Footer.js:35
+#: src/components/Layout/Footer.js:47
 msgid "quick_links"
 msgstr "ارتباطات سريعة"
 
-#: src/containers/Home/News.js:50
+#: src/containers/Home/News.js:51
 #: src/containers/Pages/News/index.js:122
 msgid "read_more"
 msgstr "قراءة المزيد"
@@ -347,11 +373,11 @@ msgstr "قراءة المزيد"
 msgid "read_more_elapsed"
 msgstr "قراءة المزيد.."
 
-#: src/containers/Home/RecentShows.js:32
+#: src/containers/Home/RecentShows.js:33
 msgid "recent_shows"
 msgstr "آخر العروض"
 
-#: src/containers/Pages/News/view.js:179
+#: src/containers/Pages/News/view.js:195
 msgid "related_news"
 msgstr "الأخبار المتعلقة"
 
@@ -363,7 +389,7 @@ msgstr "استعراض سياسة ملفات تعريف الارتباط"
 msgid "select_your_image"
 msgstr "تحديد صورتك"
 
-#: src/containers/Pages/ContactUs/index.js:138
+#: src/containers/Pages/ContactUs/index.js:160
 msgid "send_message"
 msgstr "إرسال رسالة"
 
@@ -371,7 +397,7 @@ msgstr "إرسال رسالة"
 msgid "share"
 msgstr "مشاركة"
 
-#: src/containers/Home/News.js:77
+#: src/containers/Home/News.js:79
 msgid "show_all"
 msgstr "إظهار الكل"
 
@@ -382,45 +408,45 @@ msgstr "تسجيل الدخول"
 #: src/containers/Home/Awards.js:62
 #: src/containers/Home/Awards.js:93
 #: src/containers/Home/Awards.js:129
-msgid "sports"
-msgstr "الرياضة"
+#~ msgid "sports"
+#~ msgstr "الرياضة"
 
-#: src/containers/Home/Awards.js:98
+#: src/containers/Home/Awards.js:50
 msgid "start_from"
 msgstr "البدء من"
 
-#: src/containers/Pages/AboutUs/index.js:134
+#: src/containers/Pages/AboutUs/index.js:49
 msgid "story"
 msgstr "القصة"
 
-#: src/containers/Pages/AboutUs/index.js:137
+#: src/containers/Pages/AboutUs/index.js:52
 msgid "story_text"
-msgstr "يمرالإعلام العربي خلال العقود الماضية بالكثيرمن التحديات وعدم تمثيل الواقع العربي بالتمثيل الصحيح، وبالرغم من وجود استثمار كبير في مجال الاعلام بكل أشكالة، إلا أنه يفتقر إلى تضافر الجهود بين المستثمرين وشركات الانتاج، ومن هذا المنطلق قررت شركة صناعة الإعلام إنشاء جائزة تلفزيونية في محاولة منها لرفع مستوى التنافس وتطوير محتوى صناعة الفن وانتاج الأعمال العربية بأن تكون حلقة الوصل بين المستثمر والمنتج لنقل الواقع العربي "التلفزيوني " إلى الطريق الصحيح عبر إنشاء جائزة للإعلام المرئي؛ إيماناً منها بأن المنافسة ستصنع محتوى ثري ومميز ينعكس أثره على جموع الجمهور والمتلقين في الوطن العربي."
+msgstr "يمرالإعلام العربي خلال العقود الماضية بالكثيرمن التحديات وعدم تمثيل الواقع العربي بالتمثيل الصحيح، وبالرغم من وجود استثمار كبير في مجال الاعلام بكل أشكالة، إلا أنه يفتقر إلى تضافر الجهود بين المستثمرين وشركات الانتاج، ومن هذا المنطلق قررت شركة صناعة الإعلام إنشاء جائزة تلفزيونية في محاولة منها لرفع مستوى التنافس وتطوير محتوى صناعة الفن وانتاج الأعمال العربية بأن تكون حلقة الوصل بين المستثمر والمنتج لنقل الواقع العربي \"التلفزيوني \" إلى الطريق الصحيح عبر إنشاء جائزة للإعلام المرئي؛ إيماناً منها بأن المنافسة ستصنع محتوى ثري ومميز ينعكس أثره على جموع الجمهور والمتلقين في الوطن العربي."
 
 #: src/containers/PreloaderPage/LoaderTestSample.js:38
 msgid "submit"
 msgstr "إرسال"
 
 #: src/components/Layout/LanguageSelect.js:50
-msgid "suggested_languages"
-msgstr "اللغات المقترحة"
+#~ msgid "suggested_languages"
+#~ msgstr "اللغات المقترحة"
 
-#: src/components/Layout/Footer.js:55
+#: src/components/Layout/Footer.js:67
 msgid "terms_conditions"
 msgstr "الشروط والأحكام"
 
 #: src/containers/Home/Tickets.js:15
-msgid "ticket_desc"
-msgstr ""
+#~ msgid "ticket_desc"
+#~ msgstr ""
 
-#: src/containers/Home/Awards.js:100
+#: src/containers/Home/Awards.js:52
 msgid "to"
 msgstr "إلى"
 
 #: src/components/Forms/Date/DualCalendar.js:35
 #: src/components/Forms/Date/MonoCalendar.js:25
-msgid "today"
-msgstr "اليوم"
+#~ msgid "today"
+#~ msgstr "اليوم"
 
 #: src/containers/MyProfile/index.js:264
 msgid "update"
@@ -434,15 +460,20 @@ msgstr "تحميل الصورة الرمزية"
 msgid "upload_image"
 msgstr "تحميل الصورة"
 
-#: src/containers/Home/PhotoAlbum.js:24
+#: src/containers/Award/index.js:38
+#: src/containers/Members/Artworks/Artwork/AddNew/Payment.js:78
+msgid "usd"
+msgstr ""
+
+#: src/containers/Home/PhotoAlbum.js:81
 msgid "videos_desc"
 msgstr ""
 
 #: src/containers/Home/Awards.js:106
-msgid "view_all"
-msgstr "عرض الكل"
+#~ msgid "view_all"
+#~ msgstr "عرض الكل"
 
-#: src/containers/Home/IntroSlider.js:76
+#: src/containers/Home/IntroSlider.js:122
 msgid "view_awards"
 msgstr "عرض الجوائز"
 

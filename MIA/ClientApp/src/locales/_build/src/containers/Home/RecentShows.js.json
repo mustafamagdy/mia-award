@@ -4,7 +4,16 @@
     "origin": [
       [
         "src/containers/Home/RecentShows.js",
-        32
+        33
+      ]
+    ]
+  },
+  "no_shows_available_yet": {
+    "defaults": "No Shows Available Yet",
+    "origin": [
+      [
+        "src/containers/Home/RecentShows.js",
+        92
       ]
     ]
   }

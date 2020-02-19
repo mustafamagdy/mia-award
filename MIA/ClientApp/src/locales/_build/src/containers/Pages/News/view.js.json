@@ -22,7 +22,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        126
+        142
       ]
     ]
   },
@@ -31,7 +31,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        131
+        147
       ]
     ]
   },
@@ -40,7 +40,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        135
+        151
       ]
     ]
   },
@@ -48,7 +48,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        153
+        169
       ]
     ]
   },
@@ -57,7 +57,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        179
+        195
       ]
     ]
   }
