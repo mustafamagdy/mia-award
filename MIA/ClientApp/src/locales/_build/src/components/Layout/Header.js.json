@@ -1,6 +1,6 @@
 {
-  "awards": {
-    "defaults": "Awards",
+  "members": {
+    "defaults": "Members",
     "origin": [
       [
         "src/components/Layout/Header.js",
