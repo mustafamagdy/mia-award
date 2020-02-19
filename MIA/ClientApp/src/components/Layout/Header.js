@@ -59,7 +59,7 @@ class Header extends React.Component {
                   </a>
                 </li>
                 <li>
-                  <a href="/program">
+                  <a href="/timeline">
                     <Trans id="programs">Program</Trans>
                   </a>
                 </li>

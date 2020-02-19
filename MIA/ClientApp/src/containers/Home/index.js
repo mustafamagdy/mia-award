@@ -12,7 +12,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import AboutUs from "../Pages/AboutUs";
 import ContactUs from "../Pages/ContactUs";
 import Awards from "../Pages/Awards";
-import Events from "../Pages/Events";
+import Timeline from "../Timeline";
 import Gallery from "../Pages/Gallery";
 import NewsView from "../Pages/News/view";
 import Shows from "../Pages/Shows";
@@ -41,7 +41,7 @@ class Home extends React.Component {
 
           <Route exact path="/" component={Homepage} />
           <Route path="/about-us" component={AboutUs} />
-          <Route path="/events" component={Events} />
+          <Route path="/timeline" component={Timeline} />
           <Route path="/awards" component={Awards} />
           <Route path="/contact-us" component={ContactUs} />
           <Route path="/gallery" component={Gallery} />

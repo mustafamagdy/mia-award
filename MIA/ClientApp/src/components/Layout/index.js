@@ -56,7 +56,7 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
                 </a>
               </li>
               <li>
-                <a href="program">
+                <a href="/timeline">
                   <Trans id="program">Program</Trans>
                 </a>
               </li>
