@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Trans } from "@lingui/macro";
 
 const Intro = props => {
   const [current, setCurrent] = useState(0);
   const [startAnim, setStartAnim] = useState(false);
+
   const items = [
     {
       key: 1,
