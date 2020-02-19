@@ -4,10 +4,12 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import classNames from "classnames";
 import "utils";
 
-// import "sass/partners.scss";
+import "sass/partners.scss";
+
+
 const Partners = props => {
   const [partners, setPartners] = useState([
-    { key: "1", img: "partner_img_2" },
+    { key: "1", img: "partner_img_1" },
     { key: "2", img: "partner_img_3" },
     { key: "3", img: "partner_img_2" },
     { key: "4", img: "partner_img_4" },
