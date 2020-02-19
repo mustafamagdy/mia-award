@@ -1,0 +1,49 @@
+[
+  {
+    "id": "1",
+    "day": "day 1 20-05-2020",
+    "events": [
+      {
+        "id": 1,
+        "time": "11:00 - 12:00",
+        "title": "THE FIRST SEMINAR",
+        "brief": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
+        "icon": "icofont-ui-calendar"
+      },
+      {
+        "id": 2,
+        "time": "11:00 - 12:00",
+        "title": "THE FIRST SEMINAR",
+        "brief": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
+        "icon": "icofont-ui-calendar"
+      },
+      {
+        "id": 3,
+        "time": "11:00 - 12:00",
+        "title": "THE FIRST SEMINAR",
+        "brief": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
+        "icon": "icofont-ui-calendar"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "day": "day 2 21-05-2020",
+    "events": [
+      {
+        "id": 4,
+        "time": "11:00 - 12:00",
+        "title": "THE FIRST SEMINAR",
+        "brief": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
+        "icon": "icofont-ui-calendar"
+      },
+      {
+        "id": 5,
+        "time": "11:00 - 12:00",
+        "title": "THE FIRST SEMINAR",
+        "brief": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
+        "icon": "icofont-ui-calendar"
+      }
+    ]
+  }
+]

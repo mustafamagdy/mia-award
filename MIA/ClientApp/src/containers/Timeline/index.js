@@ -1,58 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classNames from "classnames";
 import { useState } from "react";
-const Timeline = props => {
-  const timeline = [
-    {
-      id: "1",
-      day: "day 1 20-05-2020",
-      events: [
-        {
-          id: 1,
-          time: "11:00 - 12:00",
-          title: "THE FIRST SEMINAR",
-          brief: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`,
-          icon: "icofont-ui-calendar"
-        },
-        {
-          id: 2,
-          time: "11:00 - 12:00",
-          title: "THE FIRST SEMINAR",
-          brief: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`,
-          icon: "icofont-ui-calendar"
-        },
-        {
-          id: 3,
-          time: "11:00 - 12:00",
-          title: "THE FIRST SEMINAR",
-          brief: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`,
-          icon: "icofont-ui-calendar"
-        }
-      ]
-    },
-    {
-      id: "2",
-      day: "day 2 21-05-2020",
-      events: [
-        {
-          id: 4,
-          time: "11:00 - 12:00",
-          title: "THE FIRST SEMINAR",
-          brief: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`,
-          icon: "icofont-ui-calendar"
-        },
-        {
-          id: 5,
-          time: "11:00 - 12:00",
-          title: "THE FIRST SEMINAR",
-          brief: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.`,
-          icon: "icofont-ui-calendar"
-        }
-      ]
-    }
-  ];
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import homeActions from "store/home/actions";
 
-  const [selectedDay, setSelectedDay] = useState(timeline[0]);
+const Timeline = ({ timeline, fetchTimeline, props }) => {
+  useEffect(() => {
+    fetchTimeline();
+  }, []);
+
+  useEffect(() => {
+    setSelectedDay(timeline[0]);
+  }, [timeline]);
+
+  const [selectedDay, setSelectedDay] = useState(undefined);
 
   return (
     <section id="timeline_page">
@@ -75,7 +37,7 @@ const Timeline = props => {
                     type="radio"
                     id={t.day}
                     name="eventDay"
-                    checked={selectedDay.id == t.id}
+                    checked={selectedDay && selectedDay.id == t.id}
                     value={t}
                     onChange={e => {
                       setSelectedDay(timeline[i]);
@@ -105,41 +67,6 @@ const Timeline = props => {
                       </div>
                     );
                   })}
-
-                {/* <div className="item timeleft">
-                  <div className="circle">
-                    <i className="icofont-ui-calendar"></i>
-                  </div>
-                  <time>11:00 - 12:00</time>
-                  <span>The first seminar</span>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
-                  </p>
-                </div>
-                <div className="item timeright">
-                  <div className="circle">
-                    <i className="icofont-chart-histogram"></i>
-                  </div>
-                  <time>11:00 - 12:00</time>
-                  <span>The first seminar</span>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
-                  </p>
-                </div>
-                <div className="item timeleft">
-                  <div className="circle">
-                    <i className="icofont-ui-wifi"></i>
-                  </div>
-                  <time>11:00 - 12:00</time>
-                  <span>The first seminar</span>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
-                  </p>
-                </div>
-               */}
               </div>
             </div>
           </div>
@@ -149,4 +76,6 @@ const Timeline = props => {
   );
 };
 
-export default Timeline;
+const mapStateToProps = ({ home: { timeline } }) => ({ timeline });
+const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Timeline);
