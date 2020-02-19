@@ -453,7 +453,7 @@ namespace MIA.ORMContext.Seed {
           }
 
           foreach (var news in listNews) {
-            var _news = allNews.FirstOrDefault(a => a.Title == news.Title);
+            var _news = allNews.FirstOrDefault(a => a.Title.InEnglish() == news.Title.InEnglish());
             if (_news != null) continue;
             newNews.Add(news);
           }
