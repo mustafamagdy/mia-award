@@ -1,6 +1,8 @@
 import { createLogic } from "redux-logic";
 import { ActionTypes } from "./actions";
 import { ActionTypes as Authactions } from "../auth/actions";
+import { push } from "connected-react-router";
+
 
 export const signupLogic = createLogic({
   type: ActionTypes.SIGNUP,
@@ -18,6 +20,7 @@ export const signupLogic = createLogic({
       } else {
         dispatch({ type: ActionTypes.SIGNUP_SUCCESS });
         dispatch({ type: Authactions.CLOSE_CREATE_ACCOUNT_MODAL });
+        dispatch(push('/account/checkYourEmail'))
       }
     } catch (err) {
       dispatch({ type: ActionTypes.SIGNUP_FAIL, payload: err, error: true });
