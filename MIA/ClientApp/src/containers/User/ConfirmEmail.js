@@ -15,7 +15,7 @@ class VerifyEmail extends React.Component {
 
   render() {
     const { emailVerified, emailVerifing } = this.props;
-    return emailVerifing ? <Trans id="loading"> Loading.... </Trans> : emailVerified ? <Redirect to="/home" /> : <div><Trans id="failed"> Failed </Trans></div>;
+    return emailVerifing ? <Trans id="loading"> Loading.... </Trans> : emailVerified ? <Redirect to="/members" /> : <div><Trans id="failed"> Failed </Trans></div>;
   }
 }
 

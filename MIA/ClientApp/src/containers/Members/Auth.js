@@ -10,6 +10,11 @@ import accountsActions from "store/accounts/actions";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router";
 
+import { Formik, Form } from 'formik';
+
+import  FormField  from 'components/Forms/Field'
+import * as Yup from 'yup';
+
 const ResetPasswordForm = ({ switchToLogin, resetPasswordForUser, ...props }) => {
   const { register, handleSubmit } = useForm();
 
@@ -66,62 +71,143 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
   };
 
   return (
-    <form onSubmit={handleSubmit(signUp)}>
-      <div className={classNames("tab_item info_tab", { active: signupActiveTab == 0 })}>
-        <div className="content">
-          <input type="text" ref={register} name="fullName" placeholder="full name" />
-          <input type="email" ref={register} name="email" placeholder="email" />
-          <input type="text" ref={register} name="jobTitle" placeholder="job title" />
-          <input type="text" ref={register} name="phoneNumber" placeholder="phone number" />
-          <input type="text" ref={register} name="companyName" placeholder="company name" />
-          <input type="text" ref={register} name="address" placeholder="address" />
-          <input type="password" ref={register} name="password" placeholder="password" />
-        </div>
-        <div className="next_step">
-          <span onClick={() => setSignupActiveTab(1)}>Next</span>
-        </div>
-      </div>
-      <div className={classNames("tab_item upload_tab ", { active: signupActiveTab == 1 })}>
-        <div className="imgthumb">
-          <img src="/assets/images/related_news_image.png" />
-          <span>Upload</span>
-          <input name="avatar" ref={register} type="file" />
-        </div>
-        <div className="next_step">
-          <span onClick={() => setSignupActiveTab(2)}>Next</span>
-        </div>
-      </div>
-      <div className={classNames("tab_item term_tab", { active: signupActiveTab == 2 })}>
-        <div className="content">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-          ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
-          not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the
-          1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-          Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-          Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-          passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </div>
-        <div className="checkbox">
-          <input
-            type="checkbox"
-            className="custom-control-input"
-            id="chkAccept"
-            value={acceptTerms}
-            onChange={e => setAcceptTerms(e.target.checked)}
-          />
-          <label className="custom-control-label" htmlFor="chkAccept">
-            Accept Terms & Conditions
-          </label>
-          <div className="next_step">
-            <button className="action" type="submit" disabled={!acceptTerms}>
-              Register
-            </button>
+    <Formik
+      initialValues={{
+        fullName: '',
+        email: '',
+        jobTitle: '',
+        phoneNumber: '',
+        companyName: '',
+        password: ''
+      }}
+
+      validationSchema={
+        Yup.object().shape({
+          fullName: Yup.string()
+            .required('Required'),
+          email: Yup.string()
+            .required('Required'),
+          phoneNumber: Yup.string()
+            .required('Required'),
+          companyName: Yup.string()
+            .required('Required'),
+          password: Yup.string()
+            .required('Required')
+        })
+      }
+      onSubmit={values => {
+        handleSubmit(signUp(values))
+      }
+      }
+    >
+      {({ values, errors, touched, isSubmitting, formik }) => {
+
+        return <Form className="form popup__form" method="post">
+          <div className={classNames("tab_item info_tab", { active: signupActiveTab == 0 })}>
+            <div className="content">
+              <FormField
+                type="text"
+                className={`form-group__input ${errors.fullName && touched.fullName ? "has-error" : ''}`}
+                placeholder="full name"
+
+                name="fullName"
+              />
+              <span style={{ color: 'crimson' }}>{(errors.fullName && touched.fullName) && errors.fullName} </span>
+              <FormField
+                type="text"
+                className={`form-group__input ${errors.email && touched.email ? "has-error" : ''}`}
+                placeholder="email"
+
+                name="email"
+              />
+              <span style={{ color: 'crimson' }}>{(errors.email && touched.email) && errors.email} </span>
+              <FormField
+                type="text"
+                className={`form-group__input ${errors.jobTitle && touched.jobTitle ? "has-error" : ''}`}
+                placeholder="job title"
+                name="jobTitle"
+              />
+              <span style={{ color: 'crimson' }}>{(errors.jobTitle && touched.jobTitle) && errors.jobTitle} </span>
+              <FormField
+                type="text"
+                className={`form-group__input ${errors.phoneNumber && touched.phoneNumber ? "has-error" : ''}`}
+                placeholder="phone number"
+
+                name="phoneNumber"
+              />
+              <span style={{ color: 'crimson' }}>{(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber} </span>
+              <FormField
+                type="text"
+                className={`form-group__input ${errors.companyName && touched.companyName ? "has-error" : ''}`}
+                placeholder="company name"
+
+                name="companyName"
+              />
+              <span style={{ color: 'crimson' }}>{(errors.companyName && touched.companyName) && errors.companyName} </span>
+              <FormField
+                type="text"
+                className={`form-group__input ${errors.address && touched.address ? "has-error" : ''}`}
+                placeholder="address"
+
+                name="address"
+              />
+              <span style={{ color: 'crimson' }}>{(errors.address && touched.address) && errors.address} </span>
+              <FormField
+                type="password"
+                className={`form-group__input ${errors.password && touched.password ? "has-error" : ''}`}
+                placeholder="password"
+                name="password"
+              />
+              <span style={{ color: 'crimson' }}>{(errors.password && touched.password) && errors.password} </span>
+            </div>
+            <div className="next_step">
+              <span onClick={() => setSignupActiveTab(1)}>Next</span>
+            </div>
           </div>
+          <div className={classNames("tab_item upload_tab ", { active: signupActiveTab == 1 })}>
+            <div className="imgthumb">
+              <img src="/assets/images/related_news_image.png" />
+              <span>Upload</span>
+              <input name="avatar" ref={register} type="file" />
+            </div>
+            <div className="next_step">
+              <span onClick={() => setSignupActiveTab(2)}>Next</span>
+            </div>
+          </div>
+          <div className={classNames("tab_item term_tab", { active: signupActiveTab == 2 })}>
+            <div className="content">
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
+              not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the
+              1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+              Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+              Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+              scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+              remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+              passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
         </div>
-      </div>
-    </form>
+            <div className="checkbox">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="chkAccept"
+                value={acceptTerms}
+                onChange={e => setAcceptTerms(e.target.checked)}
+              />
+              <label className="custom-control-label" htmlFor="chkAccept">
+                Accept Terms & Conditions
+          </label>
+              <div className="next_step">
+                <button className="action" type="submit" disabled={!acceptTerms}>
+                  Register
+            </button>
+              </div>
+            </div>
+          </div>
+        </Form>
+      }
+      }
+    </Formik>
   );
 };
 
@@ -174,17 +260,17 @@ const Auth = ({ ...props }) => {
                 </span>
               </>
             ) : (
-              <>
-                <span className="title">Sign Up</span>
-                <p>
-                  In order to apply for any award you need be a member in our website and follow all our policies. please signup to start
-                  your way to the awards
+                <>
+                  <span className="title">Sign Up</span>
+                  <p>
+                    In order to apply for any award you need be a member in our website and follow all our policies. please signup to start
+                    your way to the awards
                 </p>
-                <span className="action" onClick={() => setView("signup")}>
-                  Register
+                  <span className="action" onClick={() => setView("signup")}>
+                    Register
                 </span>
-              </>
-            )}
+                </>
+              )}
           </div>
         </div>
       </div>
