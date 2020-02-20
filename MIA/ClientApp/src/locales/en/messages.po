@@ -156,7 +156,7 @@ msgstr "+971 4 57 2636 6"
 
 #: src/components/Layout/Footer.js:37
 msgid "footer_text"
-msgstr "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+msgstr ""
 
 #: src/components/Layout/Header.js:68
 #: src/components/Layout/index.js:65
@@ -437,7 +437,7 @@ msgstr "Terms & Conditions"
 
 #: src/containers/Home/Tickets.js:15
 #~ msgid "ticket_desc"
-#~ msgstr "brief about the DRAMA award and how to apply for it text Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of"
+#~ msgstr ""
 
 #: src/containers/Home/Awards.js:52
 msgid "to"
@@ -467,7 +467,7 @@ msgstr ""
 
 #: src/containers/Home/PhotoAlbum.js:81
 msgid "videos_desc"
-msgstr "brief about the DRAMA award and how to apply for it text Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+msgstr ""
 
 #: src/containers/Home/Awards.js:106
 #~ msgid "view_all"

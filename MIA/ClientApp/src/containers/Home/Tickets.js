@@ -32,7 +32,6 @@ const Tickets = props => {
       into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
       sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
       versions of`,
-      mapLocation: { lat: 1, long: 2 },
       dates: [{ date: "20-05-2020" }, { date: "21-05-2020" }, { date: "22-05-2020" }]
     },
     {
@@ -58,7 +57,6 @@ const Tickets = props => {
       into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
       sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
       versions of`,
-      mapLocation: { lat: 1, long: 2 },
       dates: [{ date: "29-05-2020" }, { date: "30-05-2020" }]
     }
   ];
