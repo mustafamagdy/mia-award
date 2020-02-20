@@ -73,6 +73,11 @@ class Header extends React.Component {
                     <Trans id="contact_us">Contact Us</Trans>
                   </a>
                 </li>
+                <li>
+                  <a href="/booths">
+                    <Trans id="booths">Booths</Trans>
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
