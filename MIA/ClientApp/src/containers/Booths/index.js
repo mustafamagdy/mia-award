@@ -3,15 +3,19 @@ import classNames from "classnames";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
 import { Trans } from "@lingui/macro";
 import { connect } from "react-redux";
-import membersActions from "store/members/actions";
+import homeActions from "store/home/actions";
 import { bindActionCreators } from "redux";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { fileToBase64 } from "utils";
 import { withRouter } from "react-router-dom";
 import { ImageZoom } from "react-simple-image-zoom";
+import { Dropdown } from "components/Forms";
+const Booths = ({ fetchBooths, booths, ...props }) => {
+  useEffect(() => {
+    fetchBooths();
+  }, []);
 
-const Booths = props => {
   const tabs = ["info", "payment"];
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
@@ -99,7 +103,7 @@ const Booths = props => {
             </div>
             <div id="zoom-img" className="tabs_content" />
             <div className="tabs_content">
-              <Info active={activeTabKey == "info"} register={register} />
+              <Info active={activeTabKey == "info"} register={register} booths={booths} />
               <Payment
                 active={activeTabKey == "payment"}
                 // awards={awards}
@@ -120,7 +124,7 @@ const Booths = props => {
 const Info = ({ booths, active, register, submitInfo, ...props }) => {
   return (
     <div className={classNames("tab_item info_tab", { active })}>
-      <div className="labels_area">
+      {/* <div className="labels_area">
         <ul>
           <li className="booth_1">Booth type 1</li>
           <li className="booth_2">Booth type 2</li>
@@ -128,17 +132,9 @@ const Info = ({ booths, active, register, submitInfo, ...props }) => {
           <li className="booth_4">Booth type 4</li>
           <li className="booth_5">Booth type 5</li>
         </ul>
-      </div>
+      </div> */}
       <div className="choose_booth">
-        <select name="" id="">
-          <option value="" selected>
-            Booth type 1
-          </option>
-          <option value="">Booth type 2</option>
-          <option value="">Booth type 3</option>
-          <option value="">Booth type 4</option>
-          <option value="">Booth type 5</option>
-        </select>
+        <Dropdown options={booths.map(a => ({ value: a.id, label: a.code, price: a.price }))} />
         <span>1,250 USD</span>
       </div>
       <div className="title">AREA: 9 X 6 m</div>
@@ -166,7 +162,7 @@ const Payment = ({ active, ...props }) => {
       <div className="paymnets_area">
         <div className="title">Choose Your Payment Method :</div>
         <div className="choose_area">
-          <label for="payOnline">
+          <label htmlFor="payOnline">
             <span>Pay Online</span>
             <input type="radio" id="payOnline" name="customRadio" />
             <div className="checkmark"></div>
@@ -189,7 +185,7 @@ const Payment = ({ active, ...props }) => {
           </div>
         </div>
         <div className="choose_area">
-          <label for="payOffline">
+          <label htmlFor="payOffline">
             <span>Pay Offline</span>
             <input type="radio" id="payOffline" name="customRadio" />
             <div className="checkmark"></div>
@@ -200,7 +196,7 @@ const Payment = ({ active, ...props }) => {
         </div>
         <div className="Upload">
           <input type="file" id="file" />
-          <label for="file" className="btn-2">
+          <label htmlFor="file" className="btn-2">
             Upload
           </label>
         </div>
@@ -224,4 +220,8 @@ const Confirmation = ({ active, success, ...props }) => {
   );
 };
 
-export default Booths;
+const mapStateToProps = ({ home: { booths } }) => ({
+  booths
+});
+const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Booths);

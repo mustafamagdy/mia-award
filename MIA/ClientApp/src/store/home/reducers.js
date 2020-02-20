@@ -12,6 +12,7 @@ const initialState = {
   awards: [],
   sponsers: [],
   timeline: [],
+  booths: [],
   albumContents: [],
   recentShows: [],
   recentShows_pagination: {
@@ -27,11 +28,18 @@ const initialState = {
   contactUsFailed: false
 };
 
+const fetchBoothsSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.booths = [...action.payload];
+  });
+};
+
 const fetchTimelineSuccess = (state, action) => {
   return produce(state, draft => {
     draft.timeline = [...action.payload];
   });
 };
+
 const sendContactUsMessageSuccess = (state, action) => {
   return produce(state, draft => {
     draft.contactUsSuccess = true;
@@ -87,6 +95,7 @@ const fetchLatestAlbumContentSuccess = (state, action) => {
 export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_NEWS_SUCCESS]: fetchNewsSuccess,
   [ActionTypes.FETCH_TIMELINE_SUCCESS]: fetchTimelineSuccess,
+  [ActionTypes.FETCH_BOOTHS_SUCCESS]: fetchBoothsSuccess,
   [ActionTypes.FETCH_RECENT_SHOWS_SUCCESS]: fetchRecentShowsSuccess,
   [ActionTypes.FETCH_CONTACT_US_MESSAGE_SUBJECTS_SUCCESS]: contactUsMessageSubjectsSuccess,
   [ActionTypes.FETCH_AWARDS_SUCCESS]: fetchAwardsSuccess,
