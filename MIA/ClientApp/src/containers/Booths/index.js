@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { fileToBase64 } from "utils";
 import { withRouter } from "react-router-dom";
+import { ImageZoom } from "react-simple-image-zoom";
 
 const Booths = props => {
   const tabs = ["info", "payment"];
@@ -58,10 +59,23 @@ const Booths = props => {
         <div className="booth_row">
           <div className="col_left">
             <div className="imgthumb">
-              <img src="assets/images/booth_image.png" />
-              <span>
+              <div style={{ width: "540px", marginLeft: "20px", overflow: "hidden" }}>
+                <ImageZoom
+                  portalId="zoom-img"
+                  largeImgSrc="assets/images/booth_image.png"
+                  imageWidth={540}
+                  imageHeight={540}
+                  zoomContainerWidth={540}
+                  portalStyle={Object.assign({ ...ImageZoom.defaultPortalStyle }, { top: "140px" })}
+                  zoomScale={3}
+                  responsive={true}
+                >
+                  <img src="assets/images/booth_image.png" />
+                </ImageZoom>
+              </div>
+              {/* <span>
                 <i className="icofont-ui-zoom-in"></i>
-              </span>
+              </span> */}
             </div>
           </div>
           <div className="col_right">
@@ -83,6 +97,7 @@ const Booths = props => {
                 </TabList>
               </ul>
             </div>
+            <div id="zoom-img" className="tabs_content" />
             <div className="tabs_content">
               <Info active={activeTabKey == "info"} register={register} />
               <Payment
