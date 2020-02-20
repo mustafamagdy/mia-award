@@ -10,7 +10,9 @@ import accountsActions from "store/accounts/actions";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router";
 
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form } from 'formik';
+
+import  FormField  from 'components/Forms/Field'
 import * as Yup from 'yup';
 
 const ResetPasswordForm = ({ switchToLogin, resetPasswordForUser, ...props }) => {
@@ -87,7 +89,7 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
             .required('Required'),
           phoneNumber: Yup.string()
             .required('Required'),
-            companyName: Yup.string()
+          companyName: Yup.string()
             .required('Required'),
           password: Yup.string()
             .required('Required')
@@ -98,71 +100,62 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
       }
       }
     >
-      {({ values, errors, touched,isSubmitting,formik }) =>{
+      {({ values, errors, touched, isSubmitting, formik }) => {
 
-       return <Form className="form popup__form" method="post">
+        return <Form className="form popup__form" method="post">
           <div className={classNames("tab_item info_tab", { active: signupActiveTab == 0 })}>
             <div className="content">
-              <Field
+              <FormField
                 type="text"
                 className={`form-group__input ${errors.fullName && touched.fullName ? "has-error" : ''}`}
-                required
                 placeholder="full name"
-                values={values.fullName}
+
                 name="fullName"
               />
               <span style={{ color: 'crimson' }}>{(errors.fullName && touched.fullName) && errors.fullName} </span>
-              <Field
+              <FormField
                 type="text"
                 className={`form-group__input ${errors.email && touched.email ? "has-error" : ''}`}
-                required
                 placeholder="email"
-                values={values.email}
+
                 name="email"
               />
               <span style={{ color: 'crimson' }}>{(errors.email && touched.email) && errors.email} </span>
-              <Field
+              <FormField
                 type="text"
                 className={`form-group__input ${errors.jobTitle && touched.jobTitle ? "has-error" : ''}`}
-                required
                 placeholder="job title"
-                values={values.jobTitle}
                 name="jobTitle"
               />
               <span style={{ color: 'crimson' }}>{(errors.jobTitle && touched.jobTitle) && errors.jobTitle} </span>
-              <Field
+              <FormField
                 type="text"
                 className={`form-group__input ${errors.phoneNumber && touched.phoneNumber ? "has-error" : ''}`}
-                required
                 placeholder="phone number"
-                values={values.phoneNumber}
+
                 name="phoneNumber"
               />
               <span style={{ color: 'crimson' }}>{(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber} </span>
-              <Field
+              <FormField
                 type="text"
                 className={`form-group__input ${errors.companyName && touched.companyName ? "has-error" : ''}`}
-                required
                 placeholder="company name"
-                values={values.companyName}
+
                 name="companyName"
               />
               <span style={{ color: 'crimson' }}>{(errors.companyName && touched.companyName) && errors.companyName} </span>
-              <Field
+              <FormField
                 type="text"
                 className={`form-group__input ${errors.address && touched.address ? "has-error" : ''}`}
-                required
                 placeholder="address"
-                values={values.address}
+
                 name="address"
               />
               <span style={{ color: 'crimson' }}>{(errors.address && touched.address) && errors.address} </span>
-              <Field
+              <FormField
                 type="password"
                 className={`form-group__input ${errors.password && touched.password ? "has-error" : ''}`}
-                required
                 placeholder="password"
-                values={values.password}
                 name="password"
               />
               <span style={{ color: 'crimson' }}>{(errors.password && touched.password) && errors.password} </span>
@@ -205,13 +198,14 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
                 Accept Terms & Conditions
           </label>
               <div className="next_step">
-                <button className="action" type="submit" disabled={!acceptTerms }>
+                <button className="action" type="submit" disabled={!acceptTerms}>
                   Register
             </button>
               </div>
             </div>
           </div>
-        </Form>}
+        </Form>
+      }
       }
     </Formik>
   );
