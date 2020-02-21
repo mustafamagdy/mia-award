@@ -99,7 +99,6 @@ export const resetPasswordLogic = createLogic({
   latest: true,
 
   async process({ getState, action, api }, dispatch, done) {
-    console.log('log', action.changedPasswords);
     
     try {
       const res = await api.accounts.resetPassword(action.resetPasswordRequest);
@@ -114,6 +113,7 @@ export const resetPasswordLogic = createLogic({
           type: ActionTypes.RESET_PASSWORD_SUCCESS,
           token: res.data.result
         });
+        dispatch(push({ pathname:'/members', search: '' }))
       }
     } catch (err) {
       dispatch({

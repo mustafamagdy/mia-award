@@ -12,18 +12,78 @@ import { withRouter } from "react-router";
 
 import { Formik, Form } from 'formik';
 
-import  FormField  from 'components/Forms/Field'
+import FormField from 'components/Forms/Field'
 import * as Yup from 'yup';
 
 const ResetPasswordForm = ({ switchToLogin, resetPasswordForUser, ...props }) => {
   const { register, handleSubmit } = useForm();
-
   const resetPassword = values => {
-    resetPasswordForUser(resetPasswordForUser);
+    resetPasswordForUser(values);
+  };
+  return (
+
+    <Formik
+      initialValues={{
+        newPassword: '',
+        confirmPassword: '',
+        code: props.code,
+        userId: props.userId,
+      }}
+
+      validationSchema={
+        Yup.object().shape({
+          newPassword: Yup.string()
+            .required('Required'),
+          confirmPassword: Yup.string()
+            .required('Required')
+        })
+      }
+      onSubmit={values => {
+        handleSubmit(resetPassword(values))
+      }
+      }
+    >
+      {({ values, errors, touched, isSubmitting, formik }) => {
+
+        return <Form className="form popup__form" method="post">
+          <div className="content">
+
+            <FormField
+              type="password"
+              className={`form-group__input ${errors.newPassword && touched.newPassword ? "has-error" : ''}`}
+              placeholder="newPassword"
+              name="newPassword"
+            />
+            <FormField
+              type="password"
+              className={`form-group__input ${errors.confirmPassword && touched.confirmPassword ? "has-error" : ''}`}
+              placeholder="confirmPassword"
+              name="confirmPassword"
+            />
+          </div>
+          <div className="submit_area">
+            <div className="resset">
+              <label className="action" onClick={switchToLogin}>
+                Login ?
+           </label>
+            </div>
+            <button type="submit">Reset Password</button>
+          </div>
+        </Form>
+      }
+      }
+    </Formik>
+  );
+};
+
+const ForgetPasswordForm = ({ switchToLogin, forgetPasswordForUser, ...props }) => {
+  const { register, handleSubmit } = useForm();
+  const forgetPassword = values => {
+    forgetPasswordForUser(values);
   };
 
   return (
-    <form id="login-form" onSubmit={handleSubmit(resetPassword)}>
+    <form id="login-form" onSubmit={handleSubmit(forgetPassword)}>
       <input ref={register} name="email" type="text" placeholder="email" />
       <div className="submit_area">
         <div className="resset">
@@ -211,25 +271,34 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
   );
 };
 
+let resetPassword =false;
 const Auth = ({ ...props }) => {
   const [view, setView] = useState("login");
   const [signupActiveTab, setSignupActiveTab] = useState(0);
   const signupTabs = ["info", "upload_avatar", "terms_and_conditions"];
+  let { reset, code, userId } = props
+  if (reset && !resetPassword && view != 'reset-password') {
+    setView('reset-password')
+    resetPassword=true;
+  }
 
   return (
     <section id="login_page">
       <div className="container">
         <div className="login_area">
-          <div className={classNames("login_block", { active: view == "login" || view == "reset-password" })}>
+          <div className={classNames("login_block", { active: view == "login" || view == "forget-password" || view == "reset-password" })}>
             <div className="logo">
               <img src="/assets/images/logo_login.png" />
             </div>
-            <span>{view == "login" ? "Sign in" : "Forgot password?"}</span>
+            <span>{view == "login" ? "Sign in" : view == "forget-password" ? "Forgot password?" : "Reset password"}</span>
             {view == "login" && (
-              <LoginForm switchResetPassword={() => setView("reset-password")} loginUser={props.login} demoLogin={props.demoLogin} />
+              <LoginForm switchResetPassword={() => setView("forget-password")} loginUser={props.login} demoLogin={props.demoLogin} />
+            )}
+            {view == "forget-password" && (
+              <ForgetPasswordForm switchToLogin={() => setView("login")} forgetPasswordForUser={props.forgotPassword} />
             )}
             {view == "reset-password" && (
-              <ResetPasswordForm switchToLogin={() => setView("login")} resetPasswordForUser={props.resetPassword} />
+              <ResetPasswordForm switchToLogin={() => setView("login")} resetPasswordForUser={props.resetPassword} code={props.code} userId={props.userId} />
             )}
           </div>
           <div className={classNames("register_block", { active: view == "signup" })}>
