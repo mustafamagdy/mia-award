@@ -1,29 +1,29 @@
 @import "./variables.scss";
 #booth_page {
-	background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
-	position: relative;
-	&::after {
-		content: "About \A Awards";
-		position: absolute;
-		left: 50px;
-		bottom: 0;
-		font-size: 150px;
-		text-transform: uppercase;
-		font-family: Montserrat_Bold;
-		white-space: pre;
-		color: #1b1b1b;
-		opacity: 0.75;
+  background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
+  position: relative;
+  &::after {
+    content: "About \A Awards";
+    position: absolute;
+    left: 50px;
+    bottom: 0;
+    font-size: 150px;
+    text-transform: uppercase;
+    font-family: Montserrat_Bold;
+    white-space: pre;
+    color: #1b1b1b;
+    opacity: 0.75;
     [dir="rtl"] & {
       content: "عن \A الجوائز";
       font-family: Tajawal_Bold;
     } /* rtl */
-	} /* after */
+  } /* after */
   .container {
-		width: 1442px;
-		margin: 0 auto;
-		padding: 161px 25px 60px;
-		overflow: hidden;
-		position: relative;
+    width: 1442px;
+    margin: 0 auto;
+    padding: 161px 25px 60px;
+    overflow: hidden;
+    position: relative;
     z-index: 4;
     min-height: 90vh;
     display: flex;
@@ -124,7 +124,9 @@
                 } /* rtl */
               } /* after */
               &:hover {
-                &::after {width: 40%;}
+                &::after {
+                  width: 40%;
+                }
               } /* hover */
               &.active {
                 color: #e9c785;
@@ -139,7 +141,9 @@
         .tabs_content {
           .tab_item {
             display: none;
-            &.active {display: block;}
+            &.active {
+              display: block;
+            }
             &.info_tab {
               .labels_area {
                 margin: 0 auto 30px;
@@ -166,11 +170,31 @@
                         float: right;
                       } /* rtl */
                     } /* before */
-                    &.booth_1 {&:before{background: #f8b72a;}}
-                    &.booth_2 {&:before{background: #f5b3cf;}}
-                    &.booth_3 {&:before{background: #9fd7f6;}}
-                    &.booth_4 {&:before{background: #bedfc2;}}
-                    &.booth_5 {&:before{background: #e9c785;}}
+                    &.booth_1 {
+                      &:before {
+                        background: #f8b72a;
+                      }
+                    }
+                    &.booth_2 {
+                      &:before {
+                        background: #f5b3cf;
+                      }
+                    }
+                    &.booth_3 {
+                      &:before {
+                        background: #9fd7f6;
+                      }
+                    }
+                    &.booth_4 {
+                      &:before {
+                        background: #bedfc2;
+                      }
+                    }
+                    &.booth_5 {
+                      &:before {
+                        background: #e9c785;
+                      }
+                    }
                   } /* li */
                 } /* ul */
               } /* labels_area */
@@ -232,37 +256,46 @@
                 font-size: 14px;
                 margin: 0 auto 50px;
               } /* content */
-              .next_step {
-                display: flex;
-                justify-content: flex-end;
-                button {
-                  background: -moz-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
-                  background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f7e483), color-stop(57%, #dbba5a), color-stop(100%, #a36d31));
-                  background: -webkit-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
-                  background: -o-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
-                  background: -ms-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
-                  background: linear-gradient(90deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
-                  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7e483', endColorstr='#a36d31',GradientType=1 );
-                  height: 45px;
-                  padding: 0 25px;
-                  border-radius: 10px;
-                  font-family: Montserrat_Bold;
-                  border: none;
-                  font-size: 17px;
-                  color: #0c0c0c;
-                  cursor: pointer;
-                  -webkit-transition: all 0s ease-in-out;
-                  -moz-transition: all 0s ease-in-out;
-                  -o-transition: all 0s ease-in-out;
-                  transition: all 0s ease-in-out;
-                  min-width: 130px;
-                  [dir="rtl"] & {
-                    font-family: Tajawal_Bold;
-                  } /* rtl */
-                  &:hover {background: #a36d31;}
-                } /* button */
-              } /* next_step */
             } /* info_tab */
+            .next_step {
+              display: flex;
+              justify-content: flex-end;
+              button {
+                background: -moz-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
+                background: -webkit-gradient(
+                  linear,
+                  left top,
+                  right top,
+                  color-stop(0%, #f7e483),
+                  color-stop(57%, #dbba5a),
+                  color-stop(100%, #a36d31)
+                );
+                background: -webkit-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
+                background: -o-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
+                background: -ms-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
+                background: linear-gradient(90deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7e483', endColorstr='#a36d31',GradientType=1 );
+                height: 45px;
+                padding: 0 25px;
+                border-radius: 10px;
+                font-family: Montserrat_Bold;
+                border: none;
+                font-size: 17px;
+                color: #0c0c0c;
+                cursor: pointer;
+                -webkit-transition: all 0s ease-in-out;
+                -moz-transition: all 0s ease-in-out;
+                -o-transition: all 0s ease-in-out;
+                transition: all 0s ease-in-out;
+                min-width: 130px;
+                [dir="rtl"] & {
+                  font-family: Tajawal_Bold;
+                } /* rtl */
+                &:hover {
+                  background: #a36d31;
+                }
+              } /* button */
+            } /* next_step */
             &.payment_tab {
               .title {
                 display: block;
@@ -297,7 +330,9 @@
                     &:checked {
                       + .checkmark {
                         background-color: #333333;
-                        &:after {display: block;}
+                        &:after {
+                          display: block;
+                        }
                       } /* checkmark */
                     } /* checked */
                   } /* input */
@@ -329,7 +364,9 @@
                     } /* after */
                   } /* checkmark */
                   &:hover {
-                    .checkmark {background-color: #333;}
+                    .checkmark {
+                      background-color: #333;
+                    }
                   } /* hover */
                 } /* label */
               } /* choose_area */
@@ -373,7 +410,9 @@
                   [dir="rtl"] & {
                     font-family: Tajawal_Bold;
                   } /* rtl */
-                  &:hover {background-color: #ffe784;}
+                  &:hover {
+                    background-color: #ffe784;
+                  }
                 } /* label */
                 input[type="file"] {
                   height: 0;
@@ -382,7 +421,7 @@
                 } /* input */
               } /* Upload */
             } /* payment_tab */
-            &.confirmation_tab  {
+            &.confirmation_tab {
               .title {
                 font-size: 40px;
                 text-align: center;

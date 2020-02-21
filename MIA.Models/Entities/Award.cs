@@ -16,5 +16,12 @@ namespace MIA.Models.Entities {
     public HashSet<JudgeAward> JudgeAwards { get; set; }
     public HashSet<ArtWork> ArtWorks { get; set; }
 
+
+    public Nominee FirstPlace { get; set; }
+    public string FirstPlaceNomineeId { get; set; }
+
+    public Nominee SecondPlace { get; set; }
+    public string SecondPlaceNomineeId { get; set; }
+
   }
 }
