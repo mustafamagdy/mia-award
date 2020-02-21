@@ -1,8 +1,9 @@
 @import "./variables.scss";
-.swiper-container{
+.swiper-container {
   height: 100%;
 }
 #intro {
+  height: 100%;
   .container {
     background: transparent url("/assets/images/intro_bg.png") scroll no-repeat top center / cover;
     width: 100%;
@@ -12,9 +13,10 @@
     position: relative;
     z-index: 4;
     height: 100%;
-
     .slide_item {
+      height: 85%;
       .view_award {
+        height: 100%;
         display: flex;
         flex-wrap: nowrap;
         justify-content: center;
@@ -26,72 +28,91 @@
           -moz-transition: all 0.2s ease-in-out;
           -o-transition: all 0.2s ease-in-out;
           transition: all 0.2s ease-in-out;
-          max-width: 1050px;
-          width: 100%;
-          height: 600px;
-          padding: 0 10px;
-          .swiper-slide{
+          width: 70%;
+          .swiper-slide {
             width: 100%;
-          }
-          @media (max-width: 1530px) {
-            max-width: 960px;
-            width: 100%;
-          }
-          @media (max-width: 1430px) {
-            max-width: 900px;
-            width: 100%;
-          }
-          @media (max-width: 1330px) {
-            max-width: 860px;
-            width: 100%;
-          }
-          @media (max-width: 991px){
-            height: 400px;
-            width: 100%;
-          }
-
-          &.big_image_animate {
-            transform: scale(0);
-            animation-name: left-opacity;
-            opacity: 1;
-            left: 100%;
-            transition: 1s;
           }
 
           img {
-            max-width: 1050px;
             width: 100%;
             height: 100%;
+            object-fit: fill;
             -webkit-transition: all 0.2s ease-in-out;
             -moz-transition: all 0.2s ease-in-out;
             -o-transition: all 0.2s ease-in-out;
             transition: all 0.2s ease-in-out;
-            object-fit: cover;
-            object-position: bottom;
+            @media (max-width: 991px) {
+              height: calc(100vw / 1.4);
+              object-fit: cover;
+              object-position: bottom;
+            }
+          }
+          img.burg_khalifa {
+            object-fit: cover !important;
+            object-position: bottom !important;
           }
 
           /* img */
           .progress_bar {
             position: absolute;
-            height: 3px;
-            width: 236px;
+            height: 5px;
+            
             background: #c0a176;
             display: block;
-            left: 89%;
-            bottom: 12px;
+            width: 350px;
+            left: 85%;
+            bottom: 15px;     
+            z-index: 1000;
             -webkit-transition: all 0.2s ease-in-out;
             -moz-transition: all 0.2s ease-in-out;
             -o-transition: all 0.2s ease-in-out;
             transition: all 0.2s ease-in-out;
+            @media (max-width: 1740px) {
+              width: 350px;
+              left: 80%;
+              bottom: 40px;
+            }
+            @media (max-width: 1600px) {
+              width: 250px;
+              left: 80%;
+              bottom: 30px;
+            }
+            @media (max-width: 1470px) {
+              width: 250px;
+              left: 80%;
+              bottom: 40px;
+            }
+            @media (max-width: 1300px) {
+              width: 180px;
+              left: 80%;
+              bottom: 50px;
+            }
+            @media (max-width: 1180px) {
+              width: 250px;
+              left: 60%;
+              bottom: 55px;
+            }
+            @media (max-width: 1120px) {
+              width: 250px;
+              left: 60%;
+              bottom: 55px;
+            }
+            @media (max-width: 1100px) {
+              width: 250px;
+              left: 60%;
+            }
+            @media (max-width: 1045px) {
+              width: 250px;
+              left: 50%;
+            }
           }
-
           /* progress_bar */
         }
 
         /* big_image */
         .desc {
-          width: 45%;
-          padding: 0 40px;
+          width: 30%;
+          padding: 30px 40px 0 40px;
 
           span {
             display: block;
@@ -99,8 +120,8 @@
             text-transform: capitalize;
             font-family: Montserrat_Bold;
             color: $maincolor;
-            @media (max-width: 1080px) {
-              font-size: 24px;
+            @media(max-width: 1090px){
+              font-size: 25px;
             }
           }
 
@@ -111,8 +132,11 @@
             color: #808080;
             font-size: 14px;
             line-height: 24px;
-            max-height: 220px;
-            overflow-y: auto;
+            @media (max-width: 1750px){
+              max-height: 220px;
+              height: 100%;
+              overflow-y: auto;
+            }
 
             &::-webkit-scrollbar {
               width: 3px;
@@ -138,12 +162,12 @@
             border-radius: 100px;
             color: #141414;
 
+            @media(max-width: 1090px){
+              font-size: 16px;
+              text-align: center;
+            }
             &:hover {
               background: $secondcolor;
-            }
-
-            @media (max-width: 1005px) {
-              font-size: 16px;
             }
           }
 
@@ -163,8 +187,11 @@
       bottom: 90px;
       display: flex;
       align-items: center;
-      @media (max-width: 1180px) {
-        right: -2%;
+      @media(max-width: 1230px){
+        right: 25px;
+      }
+      @media(max-width: 1050px){
+        right: 0px;
       }
 
       .thmb {
@@ -176,16 +203,7 @@
         -moz-transition: all 0.2s ease-in-out;
         -o-transition: all 0.2s ease-in-out;
         transition: all 0.2s ease-in-out;
-        @media (max-width: 1330px) {
-          width: 180px;
-          height: 140px;
-        }
-
-        &.small_image_animate {
-          //transform: scale(0);
-          opacity: 0;
-          transition: 1s;
-        }
+        z-index: 999999999999;
 
         &:hover {
           -webkit-opacity: 0.6;
@@ -240,18 +258,15 @@
       span {
         margin: 0 20px;
         height: 80px;
-        color: #1b1b1b;
+        color: #1b1b1b !important;
         position: relative;
-        font-size: 20px;
+        font-size: 20px !important;
         cursor: pointer;
+        font-weight: 300 !important;
         -webkit-transition: all 0.2s ease-in-out;
         -moz-transition: all 0.2s ease-in-out;
         -o-transition: all 0.2s ease-in-out;
         transition: all 0.2s ease-in-out;
-        @media (max-width:1250px){
-          font-size: 20px !important;
-          margin: 0 15px;
-        }
 
         &:after {
           position: absolute;
@@ -271,8 +286,9 @@
 
         /* after */
         &.current {
-          color: $maincolor;
+          color: $maincolor !important;
           cursor: inherit;
+          font-weight: normal !important;
 
           &:after {
             background: $maincolor;
@@ -291,19 +307,6 @@
   /* container */
 }
 
-/* intro */
-#intro .container .slide_item .view_award .desc span{
-  @media (max-width: 1330px) {
-    font-size: 25px;
-  }
-}
-#intro .container .slide_item .view_award .desc{
-  @media (max-width: 1330px) {
-    padding: 0;
-    min-width: 300px;
-  }
-}
-
 //**** RTL Style ****//
 body[dir="rtl"] {
   #intro {
@@ -314,9 +317,9 @@ body[dir="rtl"] {
             span {
               font-family: Tajawal_Bold;
               font-size: 35px;
-              @media (max-width: 1330px) {
-                font-size: 25px;
-              }
+              //@media (max-width: 1330px) {
+              //  font-size: 25px;
+              //}
             }
 
             /* span */
@@ -370,4 +373,3 @@ body[dir="rtl"] {
 }
 
 //**** RTL Style ****//
-

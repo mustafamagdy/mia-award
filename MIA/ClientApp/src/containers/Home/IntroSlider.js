@@ -67,16 +67,28 @@ const Intro = props => {
     spaceBetween: 0,
     speed: 1000,
     loop: true,
+    simulateTouch: true,
     getSwiper: (swiper) => {
       setSwiper(swiper)
     },
+    breakpoints:{
+      991:{
+        simulateTouch: false,
+      }
+    }
   };
   const params2 = {
     spaceBetween: 0,
     speed: 1000,
     loop: true,
+    simulateTouch: true,
     getSwiper: (swiperMini) => {
       setSwiperMini(swiperMini)
+    },
+    breakpoints:{
+      991:{
+        simulateTouch: false,
+      }
     }
   };
 
@@ -111,8 +123,11 @@ const Intro = props => {
             {/* </CSSTransition> */}
             <div className="big_image">
               <Swiper {...params}>
-                {items.map(item => <div key = {item.key}><img src={item.bigImgPath} /></div>)}
+                {/*{items.map(item => <a href="#" title="#"><div key = {item.key}><img src={item.bigImgPath} /></div></a>)}*/}
+                {items.map(item => <a href="#" title="#"  key = {item.key}><img className={item.bigImgPath === "assets/images/burg_khalifa.jpg" ? "burg_khalifa": ""} src={item.bigImgPath} /></a>)}
+
               </Swiper>
+              <div className="progress_bar"></div>
 
             </div>
             <div className="desc">
@@ -134,17 +149,21 @@ const Intro = props => {
                   <Swiper {...params2}>
                     {items.map(item => <div key = {item.key}><img src={item.smallImgPath} /></div>)}
                   </Swiper>
+                  <div>
+
+                  </div>
                 </div>
+
                 <button type="button" className="arrow arrow_next" onClick={handleClick}>
                   <i className="icofont-simple-right"></i>
                 </button>
+
               </div>
               <div className="slider_dots">
                 {items.map((item, index) => {
-                      return <span key={item.key} className={`${index === current ? "current" : ""}`}>
-                             {item.keyText}
-                            </span>
+                      return <span key={item.key} className={`${index === current ? "current" : ""}`}>{item.keyText}</span>
                 })}
+
               </div>
             </div>
           </div>
