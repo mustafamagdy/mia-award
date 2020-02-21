@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
 import { Trans } from "@lingui/macro";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
 import { connect } from "react-redux";
 import homeActions from "store/home/actions";
 import { bindActionCreators } from "redux";
@@ -122,6 +123,11 @@ const Booths = ({ fetchBooths, booths, ...props }) => {
 };
 
 const Info = ({ booths, active, register, submitInfo, ...props }) => {
+  const [selectedBooth, setSelectedBooth] = useState(undefined);
+  useEffect(() => {
+    setSelectedBooth(booths[0]);
+  }, [booths]);
+
   return (
     <div className={classNames("tab_item info_tab", { active })}>
       {/* <div className="labels_area">
@@ -134,23 +140,31 @@ const Info = ({ booths, active, register, submitInfo, ...props }) => {
         </ul>
       </div> */}
       <div className="choose_booth">
-        <Dropdown options={booths.map(a => ({ value: a.id, label: a.code, price: a.price }))} />
-        <span>1,250 USD</span>
+        <select
+          onChange={e => {
+            const _b = booths.find(a => a.code == e.target.value);
+            setSelectedBooth(_b);
+          }}
+        >
+          {booths.map(a => (
+            <option key={a.code} value={a.code} selected={selectedBooth && a.code == selectedBooth.code}>
+              {a.code}
+            </option>
+          ))}
+        </select>
+
+        {selectedBooth && <span>{selectedBooth.price} USD</span>}
       </div>
-      <div className="title">AREA: 9 X 6 m</div>
-      <div className="content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-        ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices
-        gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-        do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra
-        maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-        ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. .
+      <div className="title">
+        <Trans id="area">AREA</Trans>: {selectedBooth && selectedBooth.area}
       </div>
+      <LanguageContext.Consumer>
+        {({ locale }) => <div className="content">{selectedBooth && selectedBooth.description[locale.code]}</div>}
+      </LanguageContext.Consumer>
       <div className="next_step">
-        <button type="button">Next</button>
+        <button type="button">
+          <Trans id="next">Next</Trans>
+        </button>
       </div>
     </div>
   );
