@@ -10,8 +10,14 @@ import Artwork from "./Artworks/Artwork";
 import MemberSidebar from "./MemberSidebar";
 import Profile from "./Profile";
 import Auth from "./Auth";
+import { Code } from "bson";
 
 const MemberArea = ({ location, match, currentUser, isLoggedIn, logout, ...props }) => {
+
+  if (location.pathname === "/members/resetPassword") {
+
+    return <Auth reset={true} />;
+  }
   if (location.pathname === "/members/signin") {
     return <Auth />;
   }
@@ -34,9 +40,9 @@ const MemberArea = ({ location, match, currentUser, isLoggedIn, logout, ...props
         </section>
       );
     }
-  } 
+  }
 };
 
 const mapStateToProps = ({ auth: { currentUser, isLoggedIn } }) => ({ currentUser, isLoggedIn });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...membersActions,...authActions }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ ...membersActions, ...authActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MemberArea));

@@ -175,7 +175,7 @@ namespace MIA.Api {
         _logger.LogInformation($"User with email {forgotPass.Email } request password reset.");
         string token = await userManager.GeneratePasswordResetTokenAsync(user);
         string url = urlHelper.GetApiUrl();
-        string callbackUrl = QueryHelpers.AddQueryString($"{url}/account/resetPassword",
+        string callbackUrl = QueryHelpers.AddQueryString($"{url}/members/resetPassword",
           new Dictionary<string, string>() { { "userId", user.Id }, { "code", token }
           });
 
