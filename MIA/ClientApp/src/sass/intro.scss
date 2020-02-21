@@ -28,7 +28,7 @@
           -moz-transition: all 0.2s ease-in-out;
           -o-transition: all 0.2s ease-in-out;
           transition: all 0.2s ease-in-out;
-          width: 50%;
+          width: 65%;
           .swiper-slide{
             width: 100%;
           }
@@ -51,7 +51,7 @@
               -o-transition: all 0.2s ease-in-out;
               transition: all 0.2s ease-in-out;
               @media(max-width: 991px){
-                height: calc(100vw/1.6);
+                height: calc(100vw/1.4);
                 object-fit: cover;
                 object-position: bottom;
               }
@@ -98,7 +98,7 @@
 
         /* big_image */
         .desc {
-          width: 50%;
+          width: 35%;
           padding: 0 40px;
 
           span {
