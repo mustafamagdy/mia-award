@@ -15,12 +15,12 @@ import { Dropdown } from "components/Forms";
 import BlockUi from "react-block-ui";
 import PaymentForm from "components/PaymentForm";
 
-const Booths = ({ fetchBooths, booths, ...props }) => {
+const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
   useEffect(() => {
     fetchBooths();
   }, []);
 
-  const tabs = ["info", "payment"];
+  const tabs = ["info", "details", "payment"];
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
   const [paymentToken, setPaymentToken] = useState(undefined);
@@ -55,10 +55,18 @@ const Booths = ({ fetchBooths, booths, ...props }) => {
       };
     }
 
-    // addNewArtwork(values);
+    debugger;
+    bookBooth(values);
   };
 
+  useEffect(() => {
+    if (paymentToken != undefined) {
+      processOrder();
+    }
+  }, [paymentToken]);
+
   const onPayment = values => {
+    debugger;
     processOrder();
   };
 
@@ -110,18 +118,23 @@ const Booths = ({ fetchBooths, booths, ...props }) => {
             </div>
             <div id="zoom-img" className="tabs_content" />
             <div className="tabs_content">
-              <Info active={activeTabKey == "info"} register={register} booths={booths} />
-              <Payment
-                active={activeTabKey == "payment"}
-                // awards={awards}
-                register={register}
-                onPayment={handleSubmit(onPayment)}
-                setPaymentToken={setPaymentToken}
-                processOrder={processOrder}
-                useOnlinePayment={useOnlinePayment}
-                setPaymentMethod={setPaymentMethod}
-              />
-              <Confirmation finished={false} success={false} />
+              {!boothBooked && (
+                <>
+                  <Info active={activeTabKey == "info"} register={register} booths={booths} />
+                  <Details active={activeTabKey == "details"} register={register} />
+                  <Payment
+                    active={activeTabKey == "payment"}
+                    // awards={awards}
+                    register={register}
+                    onPayment={handleSubmit(onPayment)}
+                    setPaymentToken={setPaymentToken}
+                    processOrder={processOrder}
+                    useOnlinePayment={useOnlinePayment}
+                    setPaymentMethod={setPaymentMethod}
+                  />
+                </>
+              )}
+              <Confirmation finished={boothBooked} success={true} />
             </div>
           </div>
         </div>
@@ -130,7 +143,7 @@ const Booths = ({ fetchBooths, booths, ...props }) => {
   );
 };
 
-const Info = ({ booths, active, register, submitInfo, ...props }) => {
+const Info = ({ booths, active, register, ...props }) => {
   const [selectedBooth, setSelectedBooth] = useState(undefined);
   useEffect(() => {
     setSelectedBooth(booths[0]);
@@ -149,6 +162,8 @@ const Info = ({ booths, active, register, submitInfo, ...props }) => {
       </div> */}
       <div className="choose_booth">
         <select
+          name="boothCode"
+          ref={register}
           onChange={e => {
             const _b = booths.find(a => a.code == e.target.value);
             setSelectedBooth(_b);
@@ -178,14 +193,36 @@ const Info = ({ booths, active, register, submitInfo, ...props }) => {
   );
 };
 
+const Details = ({ active, register, ...props }) => {
+  return (
+    <div className={classNames("tab_item info_tab", { active })}>
+      <div className="choose_booth">
+        <input ref={register} name="contactName" />
+        <input ref={register} name="phone1" />
+        <input ref={register} name="phone2" />
+        <input ref={register} name="email" />
+      </div>
+      <div className="next_step">
+        <button type="button">
+          <Trans id="next">Next</Trans>
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const Payment = ({ active, register, useOnlinePayment, setPaymentMethod, setPaymentToken, onPayment, ...props }) => {
   return (
     <div className={classNames("tab_item payment_tab", { active })}>
       <div className="paymnets_area">
-        <div className="title">Choose Your Payment Method :</div>
+        <div className="title">
+          <Trans id="choose_your_payment_method">Choose Your Payment Method</Trans>:
+        </div>
         <div className="choose_area">
           <label htmlFor="online">
-            <span>Pay Online</span>
+            <span>
+              <Trans id="pay_online">Pay Online</Trans>
+            </span>
             <input
               ref={register}
               type="radio"
@@ -204,16 +241,18 @@ const Payment = ({ active, register, useOnlinePayment, setPaymentMethod, setPaym
                 setPaymentToken(token);
               }}
             />
-            <div className="confirm">
+            <div className="next_step">
               <button id="pay-button" type="submit" form="payment-form">
-                Pay & Continue
+                <Trans id="pay_and_continue">Pay & Continue</Trans>
               </button>
             </div>
           </BlockUi>
         </div>
         <div className="choose_area">
           <label htmlFor="offline">
-            <span>Pay Offline</span>
+            <span>
+              <Trans id="pay_offline">Pay Offline</Trans>
+            </span>
             <input
               ref={register}
               type="radio"
@@ -226,7 +265,11 @@ const Payment = ({ active, register, useOnlinePayment, setPaymentMethod, setPaym
             <div className="checkmark"></div>
           </label>
           <BlockUi tag="div" blocking={useOnlinePayment} className={classNames("pay_offline_form", { move: useOnlinePayment })}>
-            <p>please upload the reciept to be approved from the adminstration and confirm your payment</p>
+            <p>
+              <Trans id="please_upload_the_receipt">
+                please upload the reciept to be approved from the adminstration and confirm your payment
+              </Trans>
+            </p>
             <form id="offline-payment" onSubmit={onPayment}>
               <input ref={register} name="payment.receiptAmount" type="text" placeholder="Amount" />
               <input ref={register} name="payment.receiptNumber" type="text" placeholder="Transaction Number" />
@@ -234,23 +277,16 @@ const Payment = ({ active, register, useOnlinePayment, setPaymentMethod, setPaym
               <div className="confirm">
                 <input type="file" id="receipt" name="payment.receipt" ref={register} />
                 <label htmlFor="receipt" className="btn-2">
-                  Choose receipt image
+                  <Trans id="choose_receipt_image">Choose receipt image</Trans>
                 </label>
-                <button form="offline-payment" type="submit">
-                  Submit
-                </button>
+                <div className="next_step">
+                  <button type="button">
+                    <Trans id="book_now">Book Now</Trans>
+                  </button>
+                </div>
               </div>
             </form>
-            <div className="Upload">
-              <input type="file" id="file" />
-              <label htmlFor="file" className="btn-2">
-                Upload
-              </label>
-            </div>
           </BlockUi>
-        </div>
-        <div className="next_step">
-          <button type="button">Buy Now</button>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ export default function(/**@type {ApisauceInstance} */ api) {
   const fetchRecentShows = (query = {}) => api.post("home/recent-shows", query);
   const fetchContactUsMessageSubjects = () => api.get("home/contact-message-subject");
   const sendContactUsMessage = message => api.post("home/send-contactus", message);
+  const bookBooth = data => api.post("home/book-booth", data);
 
   return {
     home: {
@@ -15,7 +16,8 @@ export default function(/**@type {ApisauceInstance} */ api) {
       fetchAwards,
       fetchRecentShows,
       fetchContactUsMessageSubjects,
-      sendContactUsMessage
+      sendContactUsMessage,
+      bookBooth
     }
   };
 }

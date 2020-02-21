@@ -291,6 +291,9 @@
                 [dir="rtl"] & {
                   font-family: Tajawal_Bold;
                 } /* rtl */
+                &:disabled {
+                  background: #5b5651 !important;
+                }
                 &:hover {
                   background: #a36d31;
                 }

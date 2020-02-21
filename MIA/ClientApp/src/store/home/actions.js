@@ -11,7 +11,8 @@ const { Types, Creators } = createActions(
     sendContactUsMessage: { args: ["payload"], meta: { async: true } },
     fetchSponsers: { args: [], meta: { async: true } },
     fetchLatestAlbumContents: { args: [], meta: { async: true } },
-    searchForShow: { args: ["showTitle"] }
+    searchForShow: { args: ["showTitle"] },
+    bookBooth: { args: ["payload"], meta: { async: true } },
   },
   {
     prefix: "@app/home/"
