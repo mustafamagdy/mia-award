@@ -1,137 +1,196 @@
 @import "./variables.scss";
-
-//**** Footer ****//
-footer {  
-  background: #141414;
-  .container {
-    width: 1442px;
-    margin: 0 auto;
-    padding: 25px;
-    .copyrights {
-      text-align: center;
-      color: #6e6f6f;
-      font-size: 15px;
-      border-top: 2px solid #9e9f9f;
-      padding: 20px 0 10px 0;
-    } /* copyrights */
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 0 -15px;
-      .about_mia {
-        padding: 25px 15px;
-        width: 45%;
-        display: table;
-        clear: both;
-        .logo {
-          float: left;
-        }
-        p {
-          color: #9e9f9f;
-          font-size: 15px;
-          margin: 0 auto;
-          padding: 105px 0 0 0;
-          text-indent: -55px;
-          line-height: 23px;
-        } /* p */
-      } /* about_mia */
-      .quick_links {
-        padding: 25px 15px;
-        width: 20%;
-        .title {
-          display: block;
-          position: relative;
-          color: #fff;
-          text-transform: uppercase;
-          margin: 0 auto 35px;
-          font-size: 17px;
-          font-family: Montserrat_Bold;
-          &::after {
-            height: 1px;
-            width: 55px;
-            background: #dcc47f;
-            content: "";
-            display: block;
-            bottom: -15px;
-            position: absolute;
-            left: 0;
-          }
-        } /* title */
-        li {
-          margin: 0 auto 15px;
-          font-size: 15px;
-          a {
-            color: #9e9f9f;
-            &:hover {
-              color: $maincolor;
-            }
-          }
-        }
-      } /* quick_links */
-      .news_letter {
-        padding: 25px 15px;
-        width: 35%;
-        .title {
-          display: block;
-          position: relative;
-          color: #fff;
-          text-transform: uppercase;
-          margin: 0 auto 35px;
-          font-size: 17px;
-          font-family: Montserrat_Bold;
-          &::after {
-            height: 1px;
-            width: 55px;
-            background: #dcc47f;
-            content: "";
-            display: block;
-            bottom: -15px;
-            position: absolute;
-            left: 0;
-          } /* after */
-        } /* title */
-        p {
-          color: #9e9f9f;
-          line-height: 27px;
-          text-transform: capitalize;
-          margin: 0 auto 25px;
-        } /* p */
-        form {
-          border: 1px solid #a7a7a7;
-          width: 350px;
-          height: 45px;
-          border-radius: 10px;
-          overflow: hidden;
-          input {
-            float: left;
-            width: 80%;
-            height: 45px;
-            border-radius: 10px 0 0 10px;
-            border: none;
-            background: #141414;
-            padding: 0 0 0 10px;
-            font-size: 18px;
-            color: #ffffff;
-          } /* input */
-          button {
-            float: right;
-            width: 20%;
-            height: 44px;
-            border: none;
-            padding: 0;
-            font-size: 45px;
-            line-height: 45px;
-            background: #dcc685;
-            cursor: pointer;
-            &:hover {
-              background: #ebd594;
-            }
-            i {
-              display: block;
-            }
-          } /* button */
-        } /* form */
-      } /* news_letter */
-    } /* row */
-  } /* container */
+footer {
+	background: #121212;
+	.container {
+		width: 1440px;
+		margin: 0 auto;
+		padding: 25px;
+		.copyrights {
+			text-align: center;
+			color: #6e6f6f;
+			font-size: 15px;
+			border-top: 2px solid #9e9f9f;
+			padding: 20px 0 10px 0;
+		} /* copyrights */
+		.row {
+			display: flex;
+			flex-wrap: wrap;
+			margin: 0 -15px;
+			.about_mia {
+				padding: 25px 15px;
+				width: 45%;
+				display: table;
+				clear: both;
+				.logo {float: left;}
+				p {
+					color: #9e9f9f;
+					font-size: 15px;
+					margin: 0 auto;
+					padding: 105px 0 0 0;
+					text-indent: -55px;
+					line-height: 23px;
+				} /* p */
+			} /* about_mia */
+			.quick_links {
+				padding: 25px 15px;
+				width: 20%;
+				.title {
+					display: block;
+					position: relative;
+					color: #fff;
+					text-transform: uppercase;
+					margin: 0 auto 35px;
+					font-size: 17px;
+					font-family: Montserrat_Bold;
+					&::after {
+						height: 1px;
+						width: 55px;
+						background: #dcc47f;
+						content: "";
+						display: block;
+						bottom: -15px;
+						position: absolute;
+						left: 0;
+					}
+				} /* title */
+				li {
+					margin: 0 auto 15px;
+					font-size: 15px;
+					a {
+						color: #9e9f9f;
+						&:hover {color: $maincolor;}
+					}
+				}
+			} /* quick_links */
+			.news_letter {
+				padding: 25px 15px;
+				width: 35%;
+				.title {
+					display: block;
+					position: relative;
+					color: #fff;
+					text-transform: uppercase;
+					margin: 0 auto 35px;
+					font-size: 17px;
+					font-family: Montserrat_Bold;
+					&::after {
+						height: 1px;
+						width: 55px;
+						background: #dcc47f;
+						content: "";
+						display: block;
+						bottom: -15px;
+						position: absolute;
+						left: 0;
+					} /* after */
+				} /* title */
+				p {
+					color: #9e9f9f;
+					line-height: 27px;
+					text-transform: capitalize;
+					margin: 0 auto 25px;
+				} /* p */
+				form {
+					border: 1px solid #a7a7a7;
+					width: 350px;
+					height: 45px;
+					border-radius: 10px;
+					overflow: hidden;
+					margin: 0 0 20px;
+					input {
+						float: left;
+						width: 80%;
+						height: 45px;
+						border-radius: 10px 0 0 10px;
+						border: none;
+						background: #141414;
+						padding: 0 0 0 10px;
+						font-size: 18px;
+						color: #ffffff;
+					} /* input */
+					button {
+						float: right;
+						width: 20%;
+						height: 44px;
+						border: none;
+						padding: 0;
+						font-size: 45px;
+						line-height: 45px;
+						background: #dcc685;
+						cursor: pointer;
+						&:hover {background: #ebd594;}
+						i {display: block;}
+					} /* button */
+				} /* form */
+				.msg_success {
+					background: #d4edda;
+					border: 1px solid #c3e6cb;
+					color: #155724;
+					padding: 10px;
+					display: block;
+					width: 100%;
+					border-radius: 5px;
+					text-align: center;
+					text-transform: capitalize;
+					font-size: 15px;
+					margin: 10px auto;
+				} /* msg_success */
+				.msg_wrong {
+					background: #f8d7da;
+					border: 1px solid #f5c6cb;
+					color: #721c24;
+					padding: 10px;
+					display: block;
+					width: 100%;
+					border-radius: 5px;
+					text-align: center;
+					text-transform: capitalize;
+					font-size: 15px;
+					margin: 10px auto;
+				} /* msg_wrong */
+			} /* news_letter */
+		} /* row */
+	} /* container */
 } /* footer */
+
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+	footer {
+		.container {
+			.row {
+				.about_mia {
+					.logo {float: right;}
+					p {
+						text-indent: 0;
+					}	/* p */
+				}	/* about_mia */
+				.quick_links, .news_letter {
+					.title {
+						font-family: Tajawal_Bold;
+						font-size: 18px;
+						&::after {
+							right: 0;
+							left: auto;
+						}
+					}	/* title */
+				}	/* quick_links */
+				.news_letter {
+					form {
+						input {
+							float: right;
+							border-radius: 0 10px 10px 0;
+							padding: 0 10px 0 0;
+							font-size: 17px;
+							font-family: Tajawal_Medium;
+						}	/* input */
+						button {
+							float: left;
+						}	/* button */
+					}	/* form */
+				}	/* news_letter */
+			}	/* row */
+		}	/* container */
+	} /* footer */
+}
+//**** RTL Style ****//

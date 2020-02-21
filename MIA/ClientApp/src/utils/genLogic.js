@@ -8,7 +8,7 @@ const normalizeActionName = actionName =>
     .map((a, i) => (i > 0 ? a.charAt(0).toUpperCase() + a.substring(1) : a))
     .join("");
 
-export const generateLogic = (apiNamespace, actionName) => {
+export const generateLogic = (apiNamespace, actionName, successCb, failCb) => {
   const api_name = normalizeActionName(actionName);
   const logic = createLogic({
     type: actionName,
@@ -23,13 +23,15 @@ export const generateLogic = (apiNamespace, actionName) => {
             payload: res.data.Error || res.data.Message || "Unknown Error",
             error: true
           });
+          failCb && failCb(dispatch);
         } else {
           dispatch({ type: `${actionName}_SUCCESS`, payload: res.data });
+          successCb && successCb(dispatch, res.data);
         }
       } catch (err) {
         dispatch({ type: `${actionName}_FAIL`, payload: err, error: true });
+        failCb && failCb(dispatch);
       }
-
       done();
     }
   });

@@ -8,19 +8,18 @@ namespace MIA.Payments {
     public static IServiceCollection AddPaymentGatewayWithConfiguration(this IServiceCollection services,
       IConfiguration Configuration) {
 
-      return services;
-      //var scopeFactory = services
-      //              .BuildServiceProvider()
-      //              .GetRequiredService<IServiceScopeFactory>();
+      var scopeFactory = services
+                    .BuildServiceProvider()
+                    .GetRequiredService<IServiceScopeFactory>();
 
-      //using (var scope = scopeFactory.CreateScope()) {
-      //  var provider = scope.ServiceProvider;
-      //  var options = provider.GetRequiredService<IOptions<PaymentGatewayOptions>>();
-      //  var optValues = options.Value;
-      //  return services
-      //               .AddScoped<IPaymentGateway, PaymentGateway>()
-      //               .AddCheckoutSdk(new Checkout.CheckoutConfiguration(optValues.SecretKey, optValues.UseSandbox));
-      //}
+      using (var scope = scopeFactory.CreateScope()) {
+        var provider = scope.ServiceProvider;
+        var options = provider.GetRequiredService<IOptions<PaymentGatewayOptions>>();
+        var optValues = options.Value;
+        return services
+                     .AddCheckoutSdk(new Checkout.CheckoutConfiguration(optValues.SecretKey, optValues.UseSandbox))
+                     .AddScoped<IPaymentGateway, PaymentGateway>();
+      }
     }
   }
 }

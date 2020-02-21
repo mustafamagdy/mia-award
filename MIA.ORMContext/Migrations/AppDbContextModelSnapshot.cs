@@ -96,6 +96,12 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<int>("Order");
 
+                    b.Property<string>("PosterKey");
+
+                    b.Property<string>("PosterUrl");
+
+                    b.Property<string>("Title");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AlbumId");
@@ -110,6 +116,8 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Address");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -121,15 +129,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(100)
-                        .IsUnicode(true);
-
                     b.Property<string>("FullName")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");
-
-                    b.Property<string>("LastName")
                         .HasMaxLength(100)
                         .IsUnicode(true);
 
@@ -176,9 +176,15 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("AllowFileUpload");
+
                     b.Property<string>("AwardId");
 
                     b.Property<string>("Country");
+
+                    b.Property<string>("CoverId");
+
+                    b.Property<string>("CoverUrl");
 
                     b.Property<string>("Crew");
 
@@ -216,6 +222,10 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<bool>("UploadComplete");
 
+                    b.Property<string>("WinnerAwardFirstPlaceId");
+
+                    b.Property<string>("WinnerAwardSecondPlaceId");
+
                     b.Property<string>("Writers");
 
                     b.HasKey("Id");
@@ -236,7 +246,17 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("ArtWorkId");
 
+                    b.Property<string>("CardHolderName");
+
+                    b.Property<string>("CardType");
+
+                    b.Property<bool>("IsOffline");
+
+                    b.Property<string>("Last4Digits");
+
                     b.Property<long>("PaymentDate");
+
+                    b.Property<string>("PaymentId");
 
                     b.Property<int>("PaymentStatus");
 
@@ -260,19 +280,35 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<decimal>("ArtworkFee");
+
+                    b.Property<string>("Code");
+
                     b.Property<string>("Description");
+
+                    b.Property<string>("FirstPlaceArtworkId");
 
                     b.Property<string>("ManagerId");
 
+                    b.Property<string>("SecondPlaceArtworkId");
+
                     b.Property<string>("Title");
 
-                    b.Property<string>("TrophyId");
+                    b.Property<string>("TrophyImageKey");
+
+                    b.Property<string>("TrophyImageUrl");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FirstPlaceArtworkId")
+                        .IsUnique()
+                        .HasFilter("[FirstPlaceArtworkId] IS NOT NULL");
+
                     b.HasIndex("ManagerId");
 
-                    b.HasIndex("TrophyId");
+                    b.HasIndex("SecondPlaceArtworkId")
+                        .IsUnique()
+                        .HasFilter("[SecondPlaceArtworkId] IS NOT NULL");
 
                     b.ToTable("Awards");
                 });
@@ -304,7 +340,23 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("BoothPurchaseId");
 
+                    b.Property<string>("CardHolderName");
+
+                    b.Property<string>("CardType");
+
+                    b.Property<bool>("IsOffline");
+
+                    b.Property<string>("Last4Digits");
+
                     b.Property<long>("PaymentDate");
+
+                    b.Property<string>("PaymentId");
+
+                    b.Property<int>("PaymentStatus");
+
+                    b.Property<string>("ReceiptId");
+
+                    b.Property<string>("ReceiptUrl");
 
                     b.Property<string>("TransactionNumber");
 
@@ -343,6 +395,20 @@ namespace MIA.ORMContext.Migrations
                         .HasFilter("[PaymentId] IS NOT NULL");
 
                     b.ToTable("BoothPurchases");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ContactUsSubject", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactUsSubjects");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Image", b =>
@@ -436,6 +502,10 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("FileKey");
+
+                    b.Property<string>("FileUrl");
+
                     b.Property<long>("UploadDate");
 
                     b.HasKey("Id");
@@ -483,6 +553,8 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Comments");
 
                     b.Property<long>("Date");
+
+                    b.Property<string>("Email");
 
                     b.Property<bool>("IsApproved");
 
@@ -675,6 +747,10 @@ namespace MIA.ORMContext.Migrations
                 {
                     b.HasBaseType("MIA.Models.Entities.AppUser");
 
+                    b.Property<string>("CompanyName");
+
+                    b.Property<string>("JobTitle");
+
                     b.HasDiscriminator().HasValue("Nominee");
                 });
 
@@ -725,13 +801,17 @@ namespace MIA.ORMContext.Migrations
 
             modelBuilder.Entity("MIA.Models.Entities.Award", b =>
                 {
+                    b.HasOne("MIA.Models.Entities.ArtWork", "FirstPlace")
+                        .WithOne("WinnerAwardFirstPlace")
+                        .HasForeignKey("MIA.Models.Entities.Award", "FirstPlaceArtworkId");
+
                     b.HasOne("MIA.Models.Entities.Judge", "Manager")
                         .WithMany()
                         .HasForeignKey("ManagerId");
 
-                    b.HasOne("MIA.Models.Entities.TrophyImage", "Trophy")
-                        .WithMany()
-                        .HasForeignKey("TrophyId");
+                    b.HasOne("MIA.Models.Entities.ArtWork", "SecondPlace")
+                        .WithOne("WinnerAwardSecondPlace")
+                        .HasForeignKey("MIA.Models.Entities.Award", "SecondPlaceArtworkId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.BoothPurchase", b =>

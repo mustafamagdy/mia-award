@@ -4,26 +4,26 @@
     background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
     position: relative;
     &::after {
-      content: "About Us";
+      content: "About \A Us";
       position: absolute;
       left: 50px;
       top: 261px;
       font-size: 150px;
       text-transform: uppercase;
       font-family: Montserrat_Bold;
-      line-height: 0;
       color: #1b1b1b;
       opacity: 0.75;
+      white-space: pre;
     } /* after */
     .container {
-      width: 1442px;
+      width: 1440px;
       margin: 0 auto;
       padding: 161px 25px 60px;
       overflow: hidden;
       position: relative;
       z-index: 4;
       .item {
-         margin: 0 auto 50px;
+        margin: 0 auto 50px;
         .title {
           text-transform: uppercase;
           font-family: Montserrat_Bold;
@@ -48,7 +48,9 @@
           line-height: 26px;
           width: 90%;
           margin: 0 auto;
-          li {margin: 0 auto 10px;}
+          li {
+            margin: 0 auto 10px;
+          }
         } /* content */
       } /* item */
     } /* container */
@@ -59,7 +61,7 @@
     border-top: 1px solid #21231e;
     border-bottom: 1px solid #21231e;
     .container {
-      width: 1442px;
+      width: 1440px;
       margin: 0 auto;
       padding: 50px 25px;
       overflow: hidden;
@@ -114,7 +116,7 @@
     background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
     position: relative;
     .container {
-      width: 1442px;
+      width: 1440px;
       margin: 0 auto;
       padding: 60px 25px;
       overflow: hidden;
@@ -185,7 +187,7 @@
     background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
     position: relative;
     .container {
-      width: 1442px;
+      width: 1440px;
       margin: 0 auto;
       padding: 60px 25px 100px;
       overflow: hidden;
@@ -288,7 +290,9 @@
               color: #fff;
               line-height: 25px;
               display: none;
-              &.active {display: block;}
+              &.active {
+                display: block;
+              }
             } /* tab_content */
           } /* inside_txt_area */
         } /* txt_area */
@@ -296,3 +300,93 @@
     } /* container */
   } /* our_awards */
 } /* about_us */
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+  #about_us {
+    .about_txt {
+      .container {
+        .item {
+          .title {
+            font-family: Tajawal_Bold;
+            padding: 0 33px 0 0;
+            &::before {
+              left: auto;
+              right: 0;
+              top: 13px;
+            } /* before */
+          } /* title */
+          .content {
+            line-height: 26px;
+          }
+        } /* item */
+      } /* container */
+    } /* about_txt */
+    .our_value {
+      .container {
+        .title {
+          span {
+            font-size: 60px;
+            font-family: Tajawal_Bold;
+            &::after {
+              right: -45px;
+              left: auto;
+            } /* after */
+          } /* span */
+        } /* title */
+      } /* container */
+    } /* our_value */
+    .our_events {
+      .container {
+        .event {
+          .txt_area {
+            .inside_txt_area {
+              right: auto;
+              left: -25%;
+              top: -60px;
+              span {
+                font-family: Tajawal_Bold;
+                &::after {
+                  right: 0;
+                  left: auto;
+                }
+              } /* span */
+              li {
+                margin: 15px auto;
+              }
+            } /* inside_txt_area */
+          } /* txt_area */
+        } /* event */
+      } /* container */
+    } /* our_events */
+    .our_awards {
+      .container {
+        .imgthumb {
+          &::after {
+            left: -70%;
+            right: auto;
+          } /* after */
+        } /* imgthumb */
+        .award {
+          .txt_area {
+            .inside_txt_area {
+              right: -25%;
+              left: auto;
+              span {
+                font-family: Tajawal_Bold;
+                &::after {
+                  right: 0;
+                  left: auto;
+                }
+              } /* span */
+              li {
+                font-family: Tajawal_Bold;
+              }
+            } /* inside_txt_area */
+          } /* txt_area */
+        } /* award */
+      } /* container */
+    } /* our_awards */
+  } /* about_us */
+}
+//**** RTL Style ****//

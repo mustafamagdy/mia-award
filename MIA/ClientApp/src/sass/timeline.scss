@@ -1,0 +1,303 @@
+@import "./variables.scss";
+#timeline_page {
+	background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
+	position: relative;
+	&::after {
+    content: "program \A schedule";
+    position: absolute;
+    left: 50px;
+    bottom: 20px;
+    font-size: 100px;
+    text-transform: uppercase;
+    font-family: Montserrat_Bold;
+    color: #1b1b1b;
+    opacity: 0.75;
+    white-space: pre;
+    [dir="rtl"] & {
+      content: "جدول \A برنامج";
+      font-family: Tajawal_Bold;
+      right: 50px;
+      left: auto;
+    } /* rtl */
+	} /* after */
+  .container {
+		width: 1442px;
+		margin: 0 auto;
+		padding: 161px 25px 60px;
+		overflow: hidden;
+		position: relative;
+    z-index: 4;
+    min-height: 90vh;
+    @media (min-width: 320px) and (max-width: 767px) {
+      width: auto;
+      min-height: auto;
+      padding: 100px 15px 60px;
+    }
+    .all_blocks_timeline {
+      display: flex;
+      justify-content: space-between;
+      @media (min-width: 320px) and (max-width: 767px) {
+        display: block;
+      }
+      .left_col {
+        width: 50%;
+        padding: 0 30px;
+        @media (min-width: 320px) and (max-width: 767px) {
+          width: 100%;
+          padding: 0;
+        }
+        .title {
+          text-transform: uppercase;
+          font-family: Montserrat_Bold;
+          font-size: 18px;
+          color: #ccbc93;
+          position: relative;
+          padding: 0 0 0 33px;
+          margin: 0 auto 15px;
+          display: block;
+          [dir="rtl"] & {
+            font-family: Tajawal_Bold;
+            padding: 0 33px 0 0;
+          } /* rtl */
+          &::before {
+            content: "";
+            height: 3px;
+            width: 23px;
+            background: #ccbc93;
+            position: absolute;
+            left: 0;
+            top: 11px;
+            [dir="rtl"] & {
+              left: auto;
+              right: 0;
+            } /* rtl */
+          } /* before */
+        } /* title */
+        p {
+          font-size: 15px;
+          line-height: 22px;
+          color: #808080;
+          margin: 0 auto 25px;
+          padding: 0 0 0 33px;
+          [dir="rtl"] & {
+            padding: 0 33px 0 0;
+          } /* rtl */
+          @media (min-width: 320px) and (max-width: 767px) {
+            padding: 0;
+          }
+        } /* p */
+        label {
+          margin: 0 0 20px 33px;
+          [dir="rtl"] & {
+            padding: 0 33px 20px 0;
+          } /* rtl */
+          @media (min-width: 320px) and (max-width: 767px) {
+            margin: 0 0 20px 0;
+          }
+          cursor: pointer;
+          position: relative;
+          display: block;
+          padding: 0 0 0 30px;
+          [dir="rtl"] & {
+            padding: 0 30px 0 0;
+          } /* rtl */
+          span {
+            display: block;
+            font-size: 18px;
+            height: 20px;
+            line-height: 20px;
+            color: #7d7d7d;
+            text-transform: capitalize;
+          } /* span */
+          input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+            &:checked {
+              + .checkmark {
+                background-color: #333333;
+                &:after {display: block;}
+                + span {color: #b59870;}
+              } /* checkmark */
+            } /* checked */
+          } /* input */
+          .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: transparent;
+            border-radius: 50%;
+            border: 2px solid #808080;
+            [dir="rtl"] & {
+              top: 2px;
+              left: auto;
+              right: 0;
+            } /* rtl */
+            &::after {
+              content: "";
+              position: absolute;
+              display: none;
+              top: 2px;
+              left: 2px;
+              border-radius: 50%;
+              background: #e2c764;
+              width: auto;
+              height: auto;
+              right: 2px;
+              bottom: 2px;
+            } /* after */
+          } /* checkmark */
+          &:hover {
+            .checkmark {background-color: #333;}
+          } /* hover */
+        } /* label */
+      } /* left_col */
+      .right_col {
+        width: 50%;
+        padding: 0 30px;
+        @media (min-width: 320px) and (max-width: 767px) {
+          width: 100%;
+          padding: 0;
+        }
+        .schedule {
+          background: #141414;
+          box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.35);
+          padding: 20px;
+          .title {
+            text-transform: uppercase;
+            font-family: Montserrat_Bold;
+            font-size: 30px;
+            color: #ccbc93;
+            position: relative;
+            margin: 0 auto 30px;
+            display: block;
+            text-align: center;
+            [dir="rtl"] & {
+              font-family: Tajawal_Bold;
+            } /* rtl */
+          } /* title */
+          .timeline_blocks {
+            position: relative;
+            margin: 0 auto;
+            &::after {
+              content: '';
+              position: absolute;
+              width: 3px;
+              background-color: #ccbc93;
+              top: 0;
+              bottom: 0;
+              left: 50%;
+              margin-left: -1.5px;
+              [dir="rtl"] & {
+                left: auto;
+                right: 50%;
+              } /* rtl */
+              @media (min-width: 320px) and (max-width: 767px) {
+                left: 10px;
+                [dir="rtl"] & {
+                  left: auto;
+                  right: 10px;
+                } /* rtl */
+              }
+            } /* after */
+            .item {
+              padding: 15px 40px 15px 0;
+              position: relative;
+              width: 50%;
+              [dir="rtl"] & {
+                padding: 15px 0 15px 40px;
+              } /* rtl */
+              @media (min-width: 320px) and (max-width: 767px) {
+                padding: 15px 0 15px 40px;
+                width: 100%;
+                [dir="rtl"] & {
+                  padding: 15px 40px 15px 0;
+                } /* rtl */
+              }
+              .circle {
+                position: absolute;
+                color: #ccbc93;
+                right: -25px;
+                background: #141414;
+                width: 50px;
+                height: 50px;
+                border-radius: 100%;
+                text-align: center;
+                line-height: 40px;
+                font-size: 20px;
+                z-index: 9;
+                [dir="rtl"] & {
+                  left: -25px;
+                  right: auto;
+                } /* rtl */
+                @media (min-width: 320px) and (max-width: 767px) {
+                  left: -15px;
+                  right: auto;
+                  [dir="rtl"] & {
+                    left: auto;
+                    right: -15px;
+                  } /* rtl */
+                }
+              } /* circle */
+              time {
+                display: block;
+                font-size: 13px;
+                margin: 0 auto 5px;
+                color: #ccbc93;
+              } /* time */
+              span {
+                text-transform: uppercase;
+                font-family: Montserrat_Bold;
+                font-size: 18px;
+                color: #ccbc93;
+                position: relative;
+                margin: 0 auto 5px;
+                display: block;
+                [dir="rtl"] & {
+                  font-family: Tajawal_Bold;
+                } /* rtl */
+              } /* span */
+              p {
+                display: block;
+                margin: 0 auto;
+                font-size: 13px;
+                line-height: 18px;
+                color: #443f33;
+              } /* p */
+              &.timeleft {left: 0;}
+              &.timeright {
+                left: 50%;
+                padding: 15px 0 15px 40px;
+                [dir="rtl"] & {
+                  left: auto;
+                  right: 50%;
+                  padding: 15px 40px 15px 0;
+                } /* rtl */
+                @media (min-width: 320px) and (max-width: 767px) {
+                  width: 100%;
+                  left: 5px;
+                  [dir="rtl"] & {
+                    left: auto;
+                    right: 5px;
+                  } /* rtl */
+                }
+                .circle {
+                  left: -20px;
+                  right: auto;
+                  [dir="rtl"] & {
+                    left: auto;
+                    right: -20px;
+                  } /* rtl */
+                } /* circle */
+              } /* timeright */
+            } /* item */
+          } /* timeline_blocks */
+        } /* schedule */
+      } /* right_col */
+    } /* all_blocks_timeline */
+  } /* container */
+} /* timeline_page */

@@ -1,40 +1,85 @@
-import React from "react";
+import React, { useState } from "react";
+import { Trans } from "@lingui/macro";
 import Partners from "../../Home/Partners";
+import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
 
 // import "sass/about.scss";
 
-class AboutUs extends React.PureComponent {
-  render() {
-    return (
-      <React.Fragment>
-        <section id="about_us">
-          <div className="about_txt">
-            <div className="container">
-              <div className="item">
-                <div className="title">Story</div>
-                <div className="content">
+const AboutUs = props => {
+  const [awardsTabs] = useState([
+    {
+      titlleKey: "awards",
+      title: "Awards",
+      contentKey: `about_award_tab_content`
+    },
+    {
+      titlleKey: "contestants",
+      title: "Contestants",
+      contentKey: `about_contestants_tab_content`
+    },
+    {
+      titlleKey: "our_platform",
+      title: "Our platform",
+      contentKey: `about_our_platform_tab_content`
+    },
+    {
+      titlleKey: "location",
+      title: "Location",
+      contentKey: `about_location_tab_content`
+    },
+    {
+      titlleKey: "arbitration",
+      title: "Arbitration",
+      contentKey: `about_arbitration_tab_content`
+    }
+  ]);
+
+  const [activeTab, setActiveTab] = useState(0);
+  const handleActiveTab = tab => {
+    setActiveTab(tab);
+  };
+
+  return (
+    <React.Fragment>
+      <section id="about_us">
+        <div className="about_txt">
+          <div className="container">
+            <div className="item">
+              <div className="title">
+                <Trans id="story">Story</Trans>
+              </div>
+              <div className="content">
+                <Trans id="story_text">
                   The Arab media passes during the past decades a lot of challenges and the lack of representation of the Arab reality with
                   the correct representation, despite the presence of a large investment in the field of media in all its forms, but it
                   lacks concerted efforts between investors and production companies. Art making and Arab business production by being the
                   link between the investor and the producer in order to transfer the Arab "television" reality to the right path by
                   creating an award for visual media, believing that the competition will create rich and distinctive content that will
                   affect its audience. Dowries and recipients in the Arab world
-                </div>
+                </Trans>
               </div>
-              <div className="item">
-                <div className="title">Our Message</div>
-                <div className="content">
+            </div>
+            <div className="item">
+              <div className="title">
+                <Trans id="our_message">Our Message</Trans>
+              </div>
+              <div className="content">
+                <Trans id="our_message_text">
                   Recent studies have proven the importance of television content in our daily lives and its influence on changing values
                   ​​and cultural awareness in any society. It is for this importance that our message was launched from the slogan of our
                   slogan (Arab media is a new reality) to raise the level of quality content in Arab television production and make this
                   award an Arab platform that honors and meets all the distinguished and creative in this field, during which new ideas
                   converge and lead to a knowledge and technical product that Arab societies benefit from and confront with it Its various
                   future challenges
-                </div>
+                </Trans>
               </div>
-              <div className="item">
-                <div className="title">Our Goal</div>
-                <div className="content">
+            </div>
+            <div className="item">
+              <div className="title">
+                <Trans id="our_goal">Our Goal</Trans>
+              </div>
+              <div className="content">
+                <Trans id="our_goal_text">
                   <ul>
                     <li>
                       • Upgrading the taste of the Arab person in its various segments, and presenting new future visions that contribute to
@@ -59,16 +104,20 @@ class AboutUs extends React.PureComponent {
                       knowing the opinions of the specialists about it and celebrating its best.
                     </li>
                   </ul>
-                </div>
+                </Trans>
               </div>
             </div>
           </div>
-          <div className="our_value">
-            <div className="container">
-              <div className="title">
-                <span>our value</span>
-              </div>
-              <div className="content">
+        </div>
+        <div className="our_value">
+          <div className="container">
+            <div className="title">
+              <span>
+                <Trans id="our_value">our value</Trans>
+              </span>
+            </div>
+            <div className="content">
+              <Trans id="our_value_text">
                 <ul>
                   <li>
                     <span>• Neutrality :</span>
@@ -89,18 +138,22 @@ class AboutUs extends React.PureComponent {
                     <p>Providing numerous quality awards and discretionary seals according to performance criteria</p>
                   </li>
                 </ul>
-              </div>
+              </Trans>
             </div>
           </div>
-          <div className="our_events">
-            <div className="container">
-              <div className="event">
-                <div className="icon">
-                  <img src="/assets/images/our_value_icon.png" alt="#" />
-                </div>
-                <div className="txt_area">
-                  <div className="inside_txt_area">
-                    <span>Our Events</span>
+        </div>
+        <div className="our_events">
+          <div className="container">
+            <div className="event">
+              <div className="icon">
+                <img src="/assets/images/our_value_icon.png" />
+              </div>
+              <div className="txt_area">
+                <div className="inside_txt_area">
+                  <span>
+                    <Trans id="our_events">Our Events</Trans>
+                  </span>
+                  <Trans id="our_events_text">
                     <ul>
                       <li>• Workshops to develop technical and technical professional capabilities</li>
                       <li>• Specialized seminars, to be hosted by experts and professionals from the media makers and Arab art stars</li>
@@ -110,146 +163,176 @@ class AboutUs extends React.PureComponent {
                       </li>
                       <li>• TV interviews discussing important issues (live broadcast)</li>
                     </ul>
-                  </div>
+                  </Trans>
                 </div>
-              </div>
-              <div className="imgthumb">
-                <img src="/assets/images/our_events_img.png" alt="#" />
               </div>
             </div>
+            <div className="imgthumb">
+              <img src="/assets/images/our_events_img.png" />
+            </div>
           </div>
-          <div className="our_awards">
-            <div className="container">
-              <div className="imgthumb">
-                <div className="img">
-                  <img src="/assets/images/our_awards_img.png" alt="#" />
-                </div>
+        </div>
+        <div className="our_awards">
+          <div className="container">
+            <div className="imgthumb">
+              <div className="img">
+                <img src="/assets/images/our_awards_img.png" />
               </div>
-              <div className="award">
-                <div className="icon">
-                  <img src="/assets/images/our_award_icon.png" alt="#" />
-                </div>
-                <div className="txt_area">
-                  <div className="inside_txt_area">
-                    <span>Our Awards</span>
-                    <p>
+            </div>
+            <div className="award">
+              <div className="icon">
+                <img src="/assets/images/our_award_icon.png" />
+              </div>
+              <div className="txt_area">
+                <div className="inside_txt_area">
+                  <span>
+                    <Trans id="our_awards">Our Awards</Trans>
+                  </span>
+                  <p>
+                    <Trans id="our_awards_text">
                       The Arab Media Makers Award (MIA 2020), which is judged among contestants electronically, aims to measure the quality
                       of the level of influence of the content of TV works on the lifestyle, audience thinking and impact by sorting the
                       participating works according to specific conditions and criteria by the jury, and we have dedicated to each Category
                       of the competition is three gold, silver and bronze prizes distributed to the winners with appreciation certificates
-                    </p>
-                    <ul>
-                      <li className="active">Awards</li>
-                      <li>Contestants</li>
-                      <li>Our platform</li>
-                      <li>Location</li>
-                      <li>Arbitration</li>
-                    </ul>
-                    <div className="tab_content active">
-                      "MIA Drama" for Best Dramatic Work
-                      <br />
-                      "MIA Documentary" for Best Documentary Work
-                      <br />
-                      "MIA Comic" for Best Comedy
-                      <br />
-                      "MIA Policy" for Best Political Work
-                      <br />
-                      "MIA Economics" for Best Economic Work
-                      <br />
-                      "MIA Sport" for the best sports work
-                      <br />
-                      "MIA Dialogue" for Best Talk Show
-                      <br />
-                      “MIA Quizzes” for Best Competitive Work
-                      <br />
-                      "MIA human being" for the best humanitarian action
-                    </div>
-                    <div className="tab_content">
-                      "MIA Drama" for Best Dramatic Work
-                      <br />
-                      "MIA Documentary" for Best Documentary Work
-                      <br />
-                      "MIA Comic" for Best Comedy
-                      <br />
-                      "MIA Policy" for Best Political Work
-                      <br />
-                      "MIA Economics" for Best Economic Work
-                      <br />
-                      "MIA Sport" for the best sports work
-                      <br />
-                      "MIA Dialogue" for Best Talk Show
-                      <br />
-                      “MIA Quizzes” for Best Competitive Work
-                      <br />
-                      "MIA human being" for the best humanitarian action
-                    </div>
-                    <div className="tab_content">
-                      "MIA Drama" for Best Dramatic Work
-                      <br />
-                      "MIA Documentary" for Best Documentary Work
-                      <br />
-                      "MIA Comic" for Best Comedy
-                      <br />
-                      "MIA Policy" for Best Political Work
-                      <br />
-                      "MIA Economics" for Best Economic Work
-                      <br />
-                      "MIA Sport" for the best sports work
-                      <br />
-                      "MIA Dialogue" for Best Talk Show
-                      <br />
-                      “MIA Quizzes” for Best Competitive Work
-                      <br />
-                      "MIA human being" for the best humanitarian action
-                    </div>
-                    <div className="tab_content">
-                      "MIA Drama" for Best Dramatic Work
-                      <br />
-                      "MIA Documentary" for Best Documentary Work
-                      <br />
-                      "MIA Comic" for Best Comedy
-                      <br />
-                      "MIA Policy" for Best Political Work
-                      <br />
-                      "MIA Economics" for Best Economic Work
-                      <br />
-                      "MIA Sport" for the best sports work
-                      <br />
-                      "MIA Dialogue" for Best Talk Show
-                      <br />
-                      “MIA Quizzes” for Best Competitive Work
-                      <br />
-                      "MIA human being" for the best humanitarian action
-                    </div>
-                    <div className="tab_content">
-                      "MIA Drama" for Best Dramatic Work
-                      <br />
-                      "MIA Documentary" for Best Documentary Work
-                      <br />
-                      "MIA Comic" for Best Comedy
-                      <br />
-                      "MIA Policy" for Best Political Work
-                      <br />
-                      "MIA Economics" for Best Economic Work
-                      <br />
-                      "MIA Sport" for the best sports work
-                      <br />
-                      "MIA Dialogue" for Best Talk Show
-                      <br />
-                      “MIA Quizzes” for Best Competitive Work
-                      <br />
-                      "MIA human being" for the best humanitarian action
-                    </div>
-                  </div>
+                    </Trans>
+                  </p>
+                  <ul>
+                    <TabList activeClassName="active" activeIndex={activeTab} handleActiveTab={handleActiveTab}>
+                      {awardsTabs.map((t, i) => (
+                        <Tab key={t.titlleKey}>
+                          <li>
+                            <Trans id={t.titlleKey}>{t.title}</Trans>
+                          </li>
+                        </Tab>
+                      ))}
+                    </TabList>
+                  </ul>
+                  <TabPanels activeIndex={activeTab} activeClassName="active">
+                    <TabPane>
+                      <div className="tab_content">
+                        <Trans id={awardsTabs[activeTab].contentKey}>
+                          "MIA Drama" for Best Dramatic Work
+                          <br />
+                          "MIA Documentary" for Best Documentary Work
+                          <br />
+                          "MIA Comic" for Best Comedy
+                          <br />
+                          "MIA Policy" for Best Political Work
+                          <br />
+                          "MIA Economics" for Best Economic Work
+                          <br />
+                          "MIA Sport" for the best sports work
+                          <br />
+                          "MIA Dialogue" for Best Talk Show
+                          <br />
+                          “MIA Quizzes” for Best Competitive Work
+                          <br />
+                          "MIA human being" for the best humanitarian action
+                        </Trans>
+                      </div>
+                    </TabPane>
+                    <TabPane>
+                      <div className="tab_content">
+                        <Trans id={awardsTabs[activeTab].contentKey}>
+                          "MIA Drama" for Best Dramatic Work
+                          <br />
+                          "MIA Documentary" for Best Documentary Work
+                          <br />
+                          "MIA Comic" for Best Comedy
+                          <br />
+                          "MIA Policy" for Best Political Work
+                          <br />
+                          "MIA Economics" for Best Economic Work
+                          <br />
+                          "MIA Sport" for the best sports work
+                          <br />
+                          "MIA Dialogue" for Best Talk Show
+                          <br />
+                          “MIA Quizzes” for Best Competitive Work
+                          <br />
+                          "MIA human being" for the best humanitarian action
+                        </Trans>
+                      </div>
+                    </TabPane>
+                    <TabPane>
+                      <div className="tab_content">
+                        <Trans id={awardsTabs[activeTab].contentKey}>
+                          "MIA Drama" for Best Dramatic Work
+                          <br />
+                          "MIA Documentary" for Best Documentary Work
+                          <br />
+                          "MIA Comic" for Best Comedy
+                          <br />
+                          "MIA Policy" for Best Political Work
+                          <br />
+                          "MIA Economics" for Best Economic Work
+                          <br />
+                          "MIA Sport" for the best sports work
+                          <br />
+                          "MIA Dialogue" for Best Talk Show
+                          <br />
+                          “MIA Quizzes” for Best Competitive Work
+                          <br />
+                          "MIA human being" for the best humanitarian action
+                        </Trans>
+                      </div>
+                    </TabPane>
+                    <TabPane>
+                      <div className="tab_content">
+                        <Trans id={awardsTabs[activeTab].contentKey}>
+                          "MIA Drama" for Best Dramatic Work
+                          <br />
+                          "MIA Documentary" for Best Documentary Work
+                          <br />
+                          "MIA Comic" for Best Comedy
+                          <br />
+                          "MIA Policy" for Best Political Work
+                          <br />
+                          "MIA Economics" for Best Economic Work
+                          <br />
+                          "MIA Sport" for the best sports work
+                          <br />
+                          "MIA Dialogue" for Best Talk Show
+                          <br />
+                          “MIA Quizzes” for Best Competitive Work
+                          <br />
+                          "MIA human being" for the best humanitarian action
+                        </Trans>
+                      </div>
+                    </TabPane>
+                    <TabPane>
+                      <div className="tab_content">
+                        <Trans id={awardsTabs[activeTab].contentKey}>
+                          "MIA Drama" for Best Dramatic Work
+                          <br />
+                          "MIA Documentary" for Best Documentary Work
+                          <br />
+                          "MIA Comic" for Best Comedy
+                          <br />
+                          "MIA Policy" for Best Political Work
+                          <br />
+                          "MIA Economics" for Best Economic Work
+                          <br />
+                          "MIA Sport" for the best sports work
+                          <br />
+                          "MIA Dialogue" for Best Talk Show
+                          <br />
+                          “MIA Quizzes” for Best Competitive Work
+                          <br />
+                          "MIA human being" for the best humanitarian action
+                        </Trans>
+                      </div>
+                    </TabPane>
+                  </TabPanels>
                 </div>
               </div>
             </div>
           </div>
-        </section>
-        ;
-        <Partners />
-      </React.Fragment>
-    );
-  }
-}
+        </div>
+      </section>
+      <Partners />
+    </React.Fragment>
+  );
+};
+
 export default AboutUs;

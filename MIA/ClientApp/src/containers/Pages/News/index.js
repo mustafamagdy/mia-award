@@ -111,11 +111,16 @@ const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategorie
                       <div className="content">
                         <div className="desc">
                           <span>{item.title[locale.code]}</span>
-                          <p>{item.category}</p>
+                          <p className="category">{item.category}</p>
                           <time>
                             <Trans id="posted">Posted</Trans>: {item.date}
                           </time>
-                          <b>{item.body[locale.code]}</b>
+                          <div
+                          className="body"
+                            dangerouslySetInnerHTML={{
+                              __html: item.body[locale.code]
+                            }}
+                          ></div>
                         </div>
                         <div className="more">
                           <a href={`/news/${item.id}`}>
@@ -194,7 +199,7 @@ const BlocksNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =>
                       <p>{item.title[locale.code]}</p>
                       <div className="more">
                         <a href={`/news/${item.id}`}>
-                          <Trans id="read_more">Read More..</Trans>
+                          <Trans id="read_more_elapsed">Read More..</Trans>
                         </a>
                       </div>
                     </div>
@@ -211,7 +216,7 @@ const BlocksNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =>
 );
 
 const ListingNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) => (
-  <div className="listing_news">
+  <div className="listing_news active">
     {news.map((item, i) => (
       <div key={item.id} className="item">
         <div className="imgthmb">
@@ -222,15 +227,20 @@ const ListingNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =
             <div className="content">
               <div className="desc">
                 <span>{item.title[locale.code]}</span>
-                <p>{item.category}</p>
+                <p className="category">{item.category}</p>
                 <time>
                   <Trans id="posted">Posted</Trans> : {item.date}
                 </time>
-                <b>{item.body[locale.code]}</b>
+                <div
+                className="body"
+                  dangerouslySetInnerHTML={{
+                    __html: item.body[locale.code]
+                  }}
+                ></div>
               </div>
               <div className="more">
                 <a href={`/news/${item.id}`}>
-                  <Trans id="read_more">Read More..</Trans>
+                  <Trans id="read_more_elapsed">Read More..</Trans>
                 </a>
               </div>
             </div>

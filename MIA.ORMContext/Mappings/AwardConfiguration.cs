@@ -14,21 +14,14 @@ namespace MIA.ORMContext.Mappings {
         .ValueGeneratedOnAdd();
 
 
-      builder.Property(a => a.Title)
-        .HasConversion(
-            v => JsonConvert.SerializeObject(v, EntityConvensions.Settings),
-            v => JsonConvert.DeserializeObject<LocalizedData>(v, EntityConvensions.Settings));
-
-      builder.Property(a => a.Description)
-        .HasConversion(
-            v => JsonConvert.SerializeObject(v, EntityConvensions.Settings),
-            v => JsonConvert.DeserializeObject<LocalizedData>(v, EntityConvensions.Settings));
-
-
-      builder.HasOne(a => a.Trophy);
+      //builder.HasOne(a => a.Trophy);
       builder.HasMany(a => a.JudgeAwards).WithOne(a => a.Award).HasForeignKey(a => a.AwardId);
       builder.HasOne(a => a.Manager);
       builder.HasMany(a => a.ArtWorks).WithOne(a => a.Award).HasForeignKey(a => a.AwardId);
+
+      builder.HasOne(a => a.FirstPlace).WithOne(a=>a.WinnerAwardFirstPlace).HasForeignKey<Award>(a=>a.FirstPlaceArtworkId);
+      builder.HasOne(a => a.SecondPlace).WithOne(a => a.WinnerAwardSecondPlace).HasForeignKey<Award>(a => a.SecondPlaceArtworkId);
+
     }
   }
 

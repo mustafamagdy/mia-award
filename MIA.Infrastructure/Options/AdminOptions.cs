@@ -1,5 +1,6 @@
 ﻿namespace MIA.Infrastructure.Options {
   public class AdminOptions {
-    public bool AutoApproveNewssComments { get; set; }
+    public string ContactUsEmail { get; set; }
+    public bool AutoApproveNewsComments { get; set; }
   }
 }

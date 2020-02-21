@@ -1,17 +1,11 @@
 import React from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-
-const TEST_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+import config from "config";
 
 class Recaptcha extends React.PureComponent {
-  componentDidMount() {
-    const script = document.createElement("script");
-    script.src = "https://www.google.com/recaptcha/api.js";
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-  }
-
+  state = {
+    captcha: undefined
+  };
   render() {
     const {
       form: { setFieldValue },
@@ -19,11 +13,16 @@ class Recaptcha extends React.PureComponent {
     } = this.props;
     return (
       <ReCAPTCHA
-        sitekey={TEST_SITE_KEY}
+        ref={e => this.setState({ captcha: e })}
+        sitekey={config.reCaptchaKey}
         render="explicit"
         theme="light"
         onChange={value => {
           setFieldValue(name, value);
+        }}
+        onExpired={() => {
+          const { captcha } = this.state;
+          captcha.reset();
         }}
       />
     );

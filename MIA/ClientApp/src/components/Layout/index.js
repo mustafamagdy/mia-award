@@ -9,7 +9,6 @@ import appActions from "store/app/actions";
 import { Trans } from "@lingui/macro";
 import { useForm } from "react-hook-form";
 
-import "sass/layout.scss";
 
 const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
   const dismissDlgs = event => {
@@ -42,8 +41,8 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
           <div className="mainmenu">
             <ul>
               <li>
-                <a href="/awards">
-                  <Trans id="awards">Awards</Trans>
+                <a href="/members">
+                  <Trans id="members">Members</Trans>
                 </a>
               </li>
               <li>
@@ -57,7 +56,7 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
                 </a>
               </li>
               <li>
-                <a href="program">
+                <a href="/timeline">
                   <Trans id="program">Program</Trans>
                 </a>
               </li>
@@ -68,7 +67,12 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
               </li>
               <li>
                 <a href="/contact-us">
-                  <Trans id="contact_us">Contact US</Trans>
+                  <Trans id="contact_us">Contact Us</Trans>
+                </a>
+              </li>
+              <li>
+                <a href="/booths">
+                  <Trans id="booths">Booths</Trans>
                 </a>
               </li>
             </ul>

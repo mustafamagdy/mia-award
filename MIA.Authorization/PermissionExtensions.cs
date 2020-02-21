@@ -28,12 +28,10 @@ namespace MIA.Authorization {
     }
 
     public static IEnumerable<Permissions> UnpackPermissionsFromString(this string packedPermissions) {
-      if (packedPermissions == null) {
-        throw new ArgumentNullException(nameof(packedPermissions));
-      }
-
-      foreach (var character in packedPermissions) {
-        yield return ((Permissions)character);
+      if (!string.IsNullOrEmpty(packedPermissions)) {
+        foreach (var character in packedPermissions) {
+          yield return ((Permissions)character);
+        }
       }
     }
 

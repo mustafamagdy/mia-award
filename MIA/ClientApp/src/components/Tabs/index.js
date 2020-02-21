@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 
-const TabList = ({ children, activeIndex, handleActiveTab, activeClassName, ...props }) => {
+const TabList = ({ children, activeIndex, handleActiveTab, handleActiveTabWithKey, activeClassName, activeTabKey, ...props }) => {
   const TabList = React.Children.map(children, (childElement, index) =>
     React.cloneElement(childElement, {
       isActive: activeIndex === index,
-      onActive: () => handleActiveTab(index),
+      onActive: tabKey => {
+        if (activeTabKey != undefined && handleActiveTabWithKey) {
+          handleActiveTabWithKey(tabKey);
+        } else {
+          handleActiveTab(index);
+        }
+      },
       activeClassName: activeClassName,
       ...props
     })
@@ -13,18 +19,36 @@ const TabList = ({ children, activeIndex, handleActiveTab, activeClassName, ...p
   return TabList;
 };
 
-const Tab = ({ isActive, onActive, activeClassName, tabClassName, children, ...props }) => {
+const Tab = ({ isActive, tabKey, onActive, activeClassName, tabClassName, children, ...props }) => {
   const styles = classNames(tabClassName, { [activeClassName]: isActive });
   return React.cloneElement(children, {
     className: styles,
-    onClick: () => onActive && onActive(),
+    onClick: () => onActive && onActive(tabKey),
     ...props
   });
 };
 
-const TabPanels = ({ activeIndex, ...props }) => <div {...props}> {props.children[activeIndex]} </div>;
+const TabPanels = ({ children, activeIndex, activeTabKey, activeClassName, ...props }) => {
+  if (activeTabKey != undefined && activeTabKey != "") {
+    const child = children.find(a => a["paneKey"] == activeTabKey);
+    let element;
+    if (child == undefined) element = React.cloneElement(children[activeIndex], { activeClassName, ...props });
+    else element = React.cloneElement(child, { activeClassName, ...props });
+    return element;
+  } else {
+    const element = React.cloneElement(children[activeIndex], { activeClassName, ...props });
+    return element;
+  }
+};
 
-const TabPane = ({ children, ...props }) => <div {...props}> {children} </div>;
+const TabPane = ({ children, className, activeClassName, ...props }) => {
+  const childClassName = children.props.className;
+  const styles = classNames(className, childClassName, `${activeClassName}`);
+  return React.cloneElement(children, {
+    className: styles,
+    ...props
+  });
+};
 
 class Tabs extends Component {
   state = { activeTab: 0 };

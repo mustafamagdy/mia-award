@@ -16,9 +16,9 @@ using System.Threading.Tasks;
 using MIA.Api.Base;
 using MIA.Dto.Auth;
 using MIA.Middlewares.Auth;
+using MIA.ORMContext.Uow;
 
-namespace MIA.Api
-{
+namespace MIA.Api {
   /// <summary>
   /// Authentication controller for different identity operations
   /// </summary>
@@ -26,13 +26,12 @@ namespace MIA.Api
   [ApiVersion("1.0")]
 #endif
   [Route("api/auth")]
-  public class AuthController : BaseApiController<AuthController>
-  {
+  public class AuthController : BaseApiController<AuthController> {
     /// <summary>
     /// 
     /// </summary>
     /// <param name="logger"></param>
-    public AuthController(IMapper mapper, [FromServices] ILogger<AuthController> logger) : base(logger, mapper) {}
+    public AuthController(IMapper mapper, [FromServices] ILogger<AuthController> logger) : base(logger, mapper) { }
 
     /// <summary>
     /// Login using username and password
@@ -43,11 +42,12 @@ namespace MIA.Api
     /// <param name="userManager"></param>
     /// <param name="jwtOptions"></param>
     /// <returns></returns>
-    [HttpPost("login")]
+    [HttpPost("login-nominee")]
     [SwaggerOperation("Login user using username and password")]
     public async Task<IActionResult> Login(
       [FromHeader] string userIp,
       [FromBody] LoginRequest loginData,
+      [FromServices] IAppUnitOfWork db,
       [FromServices] SignInManager<AppUser> signInManager,
       [FromServices] UserManager<AppUser> userManager,
       [FromServices] IOptions<JwtOptions> jwtOptions,
@@ -58,7 +58,7 @@ namespace MIA.Api
         throw new ArgumentException("jwt not configured correctly", nameof(jwtOptions));
       }
 
-      AppUser user = await userManager.FindByEmailAsync(loginData.UserName);
+      AppUser user = await userManager.FindByNameAsync(loginData.UserName);
       if (user == null) {
         return NotFound404("invalid credentials");
       }
@@ -66,6 +66,11 @@ namespace MIA.Api
       bool canSignIn = await signInManager.CanSignInAsync(user);
       if (!canSignIn) {
         return Forbid403("User cannot login");
+      }
+
+      var nominee = await db.Nominees.FindAsync(user.Id);
+      if (nominee == null) {
+        return NotFound404("user is not nominee, or not allowed");
       }
 
       Microsoft.AspNetCore.Identity.SignInResult signInResult = await signInManager.PasswordSignInAsync(user,

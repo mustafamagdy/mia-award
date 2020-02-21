@@ -46,9 +46,9 @@ const Sidebar = ({ toggleSidebar, toggleSearchForm, toggleShareSidebar, ...props
         </a>
       </div>
       <div className="share_site" onClick={toggleShareSidebar}>
-        <a href="/share">
+        <span>
           <i className="icofont-share"></i>
-        </a>
+        </span>
       </div>
     </section>
   );

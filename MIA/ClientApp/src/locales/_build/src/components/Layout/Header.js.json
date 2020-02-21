@@ -1,10 +1,10 @@
 {
-  "awards": {
-    "defaults": "Awards",
+  "members": {
+    "defaults": "Members",
     "origin": [
       [
         "src/components/Layout/Header.js",
-        50
+        48
       ]
     ]
   },
@@ -13,7 +13,7 @@
     "origin": [
       [
         "src/components/Layout/Header.js",
-        55
+        53
       ]
     ]
   },
@@ -22,7 +22,7 @@
     "origin": [
       [
         "src/components/Layout/Header.js",
-        60
+        58
       ]
     ]
   },
@@ -31,7 +31,7 @@
     "origin": [
       [
         "src/components/Layout/Header.js",
-        65
+        63
       ]
     ]
   },
@@ -40,16 +40,16 @@
     "origin": [
       [
         "src/components/Layout/Header.js",
-        70
+        68
       ]
     ]
   },
   "contact_us": {
-    "defaults": "Contact US",
+    "defaults": "Contact Us",
     "origin": [
       [
         "src/components/Layout/Header.js",
-        75
+        73
       ]
     ]
   }

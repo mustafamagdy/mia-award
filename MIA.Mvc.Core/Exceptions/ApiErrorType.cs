@@ -37,7 +37,8 @@ namespace MIA.Exceptions {
 
     [Error("4000", HttpStatusCode.BadRequest, Message = "File name is too long")]
     FileNameIsTooLong,
-    
+    [Error("4001", HttpStatusCode.BadRequest, Message = "Filed to upload chunked file")]
+    FailedToUploadChunkedFile,
 
   }
 

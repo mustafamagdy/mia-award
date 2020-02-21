@@ -12,31 +12,158 @@ using Bogus;
 using MIA.Models.Entities.Enums;
 using MIA.Infrastructure;
 using System.Net.Http;
+using System.Text.Encodings.Web;
+using Newtonsoft.Json.Linq;
 
 namespace MIA.ORMContext.Seed {
   public class DbInitializer {
-
     /// <summary>
     /// Seed database with default required data
     /// </summary>
     /// <param name="userManager">Usermanager instance to create default users</param>
     /// <param name="roleManager">Rolemanager instance to create default roles</param>
+    /// <param name="s3FileManager"></param>
+    /// <param name="db"></param>
+    /// <param name="encoder"></param>
     /// <returns></returns>
     public static async Task SeedDbAsync(
       UserManager<AppUser> userManager,
       RoleManager<AppRole> roleManager,
       IS3FileManager s3FileManager,
-      IAppUnitOfWork db) {
+      IAppUnitOfWork db,
+      HtmlEncoder encoder) {
 
+      await SeedDefaultRoles(roleManager, db);
+      await SeedContactUsMessageSubjectsAsync(db);
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
-      await SeedCategoriesAsync(db);
-      await SeedDemoNews(db, s3FileManager);
-      await SeedDemoGallery(db, s3FileManager);
+      await SeedAwards(db, encoder);
+      await SeedBooths(db);
+      await SeedNews(db, encoder);
+
+      //await SeedDemoNews(db, s3FileManager);
+      //await SeedDemoGallery(db, s3FileManager);
+      //await SeedDemoArtworks(db, s3FileManager);
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
-      
+      await SeedDemoUsers(roleManager, userManager, db);
       await db.CommitTransactionAsync();
+    }
+
+    private static async Task SeedBooths(IAppUnitOfWork db)
+    {
+      List<Booth> booths = db.Booths.ToList();
+      var filename = "booths.json";
+      if (File.Exists("./" + filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
+          var newBooth = new List<Booth>();
+          string json = r.ReadToEnd();
+          var listBooths = new List<Booth>();
+          JArray array = JArray.Parse(json);
+          foreach (JToken j in array) {
+            listBooths.Add(new Booth {
+              Code = ((JValue)j["Code"]).Value<string>(),
+              Price = ((JValue)j["Price"]).Value<decimal>(),
+              Description = LocalizedData.FromDictionary((JObject)j["Description"]),
+            });
+          }
+
+          foreach (var booth in listBooths) {
+            var _booth = booths.FirstOrDefault(a => a.Code == booth.Code);
+            if (_booth != null) continue;
+            newBooth.Add(booth);
+          }
+          if (newBooth.Any()) {
+            await db.Booths.AddRangeAsync(newBooth);
+          }
+        }
+      }
+    }
+
+    private static async Task SeedDemoUsers(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IAppUnitOfWork db) {
+      if (await roleManager.FindByNameAsync(Constants.NOMINEE_ROLE) == null) {
+        await roleManager.CreateAsync(
+          new AppRole {
+            Name = Constants.NOMINEE_ROLE,
+            NormalizedName = Constants.NOMINEE_ROLE.ToUpper()
+          });
+      }
+
+      if (await userManager.FindByNameAsync(Constants.NOMINEE_USERNAME) == null) {
+        Nominee demoNominee = new Nominee {
+          FullName = "nominee user",
+          Email = Constants.NOMINEE_EMAIL,
+          UserName = Constants.NOMINEE_USERNAME,
+          NormalizedEmail = Constants.NOMINEE_EMAIL.ToUpper(),
+          NormalizedUserName = Constants.NOMINEE_USERNAME.ToUpper(),
+        };
+
+        IdentityResult result = await userManager.CreateAsync(demoNominee, Constants.NOMINEE_PASSWORD);
+        if (result.Succeeded) {
+          await userManager.AddToRoleAsync(demoNominee, Constants.NOMINEE_ROLE);
+        }
+      }
+    }
+
+
+    private static async Task SeedContactUsMessageSubjectsAsync(IAppUnitOfWork db) {
+      List<ContactUsSubject> dbItems = db.ContactUsSubjects.ToList();
+      if (dbItems.Any())
+        return;
+      var filename = "contact_us_subjects.json";
+      if (File.Exists("./" + filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
+          var items = new List<ContactUsSubject>();
+          string json = r.ReadToEnd();
+          var deserializedItems = JsonConvert.DeserializeObject<List<ContactUsSubject>>(json);
+
+          foreach (var c in deserializedItems) {
+            var country = dbItems.FirstOrDefault(a => a.Name == c.Name);
+            if (country != null) continue;
+            items.Add(c);
+          }
+          if (items.Any()) {
+            await db.ContactUsSubjects.AddRangeAsync(items);
+          }
+        }
+      }
+    }
+
+    private static async Task SeedDemoArtworks(IAppUnitOfWork db, IS3FileManager fileManager) {
+      var artworksCount = db.ArtWorks.Count();
+      if (artworksCount >= 30) return;
+
+      var _faker_en = new Faker("en");
+      var _faker_ar = new Faker("ar");
+      var awards = db.Awards.ToArray();
+      var client = new HttpClient();
+
+      for (int i = 0; i < 30; i++) {
+        var artwork = new ArtWork {
+          AwardId = _faker_en.Random.ArrayElement(awards).Id,
+          FileCount = 3,
+          UploadComplete = true,
+        };
+
+        await db.ArtWorks.AddAsync(artwork);
+        var file = await client.GetAsync(_faker_en.Image.PicsumUrl(400, 600));
+        var fileStream = await file.Content.ReadAsStreamAsync();
+
+        var posterKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, artwork.Id, artwork.Id + ".jpg");
+        var posterUrl = await fileManager.UploadFileAsync(fileStream, posterKey);
+
+        //artwork.PosterUrl = posterUrl;
+        //artwork.PosterKey = posterKey;
+
+        var trailerKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, artwork.Id, artwork.Id + ".mp4");
+        var trailerUrl = await fileManager.UploadFileAsync(fileStream, posterKey);
+
+        //artwork.TrailerUrl = trailerUrl;
+        //artwork.TrailerKey = trailerKey;
+
+        db.ArtWorks.Update(artwork);
+      }
+
     }
 
     private static async Task SeedDemoNews(IAppUnitOfWork db, IS3FileManager fileManager) {
@@ -65,6 +192,7 @@ namespace MIA.ORMContext.Seed {
             Comments = _faker_ar.Lorem.Paragraph(),
             Date = _faker_ar.Date.Past().ToUnixTimeSeconds(),
             Name = _faker_ar.Internet.UserName(),
+            Email = _faker_ar.Internet.Email(),
             IsApproved = _faker_ar.Random.Bool(),
             Title = _faker_ar.Lorem.Sentence(),
           }).ToHashSet()
@@ -115,10 +243,12 @@ namespace MIA.ORMContext.Seed {
 
         var type = _faker_en.Random.Enum<MediaType>();
         var url = "";
+        var posterUrl = "";
         if (type == MediaType.Image) {
           url = _faker_en.Image.PicsumUrl(600, 400);
         } else {
           url = _faker_en.Random.ArrayElement(random_videos);
+          posterUrl = _faker_en.Image.PicsumUrl(600, 400);
         }
 
         var item = new AlbumItem {
@@ -128,7 +258,9 @@ namespace MIA.ORMContext.Seed {
           DateCreated = DateTime.Now.ToUnixTimeSeconds(),
           MediaType = type,
           FileKey = "",
-          FileUrl = ""
+          FileUrl = "",
+          PosterKey = "",
+          PosterUrl = ""
         };
 
         await db.AlbumItems.AddAsync(item);
@@ -136,14 +268,36 @@ namespace MIA.ORMContext.Seed {
 
         var client = new HttpClient();
         client.Timeout = TimeSpan.FromMinutes(5);
-        var file = await client.GetAsync(url);
-        var fileStream = await file.Content.ReadAsStreamAsync();
+        if (type == MediaType.Image) {
+          var file = await client.GetAsync(url);
+          var fileStream = await file.Content.ReadAsStreamAsync();
 
-        var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + (type == MediaType.Image ? ".jpg" : ".mp4"));
-        var fileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
+          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + ".jpg");
+          var fileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
 
-        item.FileUrl = fileUrl;
-        item.FileKey = fileKey;
+          item.FileUrl = fileUrl;
+          item.FileKey = fileKey;
+        } else if (type == MediaType.Video) {
+
+          //var sour
+          //var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + ".mp4");
+          //var fileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
+
+          //item.FileUrl = fileUrl;
+          //item.FileKey = fileKey;
+
+
+
+          var posterFile = await client.GetAsync(posterUrl);
+          var posterFileStream = await posterFile.Content.ReadAsStreamAsync();
+          var posterFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + ".jpg");
+          var posterFileUrl = await fileManager.UploadFileAsync(posterFileStream, posterFileKey);
+
+          item.PosterUrl = posterFileUrl;
+          item.PosterKey = posterFileKey;
+        }
+
+
 
         db.AlbumItems.Update(item);
       }
@@ -188,8 +342,7 @@ namespace MIA.ORMContext.Seed {
 
       if (await userManager.FindByNameAsync(Constants.DEMO_USERNAME) == null) {
         AppUser demoUser = new AppUser {
-          FirstName = "Demo",
-          LastName = "User",
+          FullName = "demo user",
           Email = Constants.DEMO_EMAIL,
           UserName = Constants.DEMO_USERNAME,
           NormalizedEmail = Constants.DEMO_EMAIL.ToUpper(),
@@ -240,6 +393,19 @@ namespace MIA.ORMContext.Seed {
       }
     }
 
+    private static async Task SeedDefaultRoles(RoleManager<AppRole> roleManager, IAppUnitOfWork db) {
+      var roles = Enum.GetNames(typeof(PredefinedRoles));
+      foreach (var role in roles) {
+        if (await roleManager.FindByNameAsync(role.ToString().ToLower()) == null) {
+          await roleManager.CreateAsync(
+            new AppRole {
+              Name = role.ToString().ToLower(),
+              NormalizedName = role.ToString().ToUpper()
+            });
+        }
+      }
+    }
+
     /// <summary>
     /// Seed db with default admin user
     /// </summary>
@@ -248,8 +414,7 @@ namespace MIA.ORMContext.Seed {
     private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager) {
       if (await userManager.FindByNameAsync(Constants.ADMIN_USERNAME) == null) {
         AppUser admin = new AppUser {
-          FirstName = "System",
-          LastName = "Admin",
+          FullName = "System admin",
           Email = Constants.ADMIN_EMAIL,
           UserName = Constants.ADMIN_USERNAME,
           NormalizedEmail = Constants.ADMIN_EMAIL.ToUpper(),
@@ -263,29 +428,73 @@ namespace MIA.ORMContext.Seed {
       }
     }
 
-    private static async Task SeedCategoriesAsync(IAppUnitOfWork db) {
+    private static async Task SeedAwards(IAppUnitOfWork db, HtmlEncoder encoder) {
       List<Award> awards = db.Awards.ToList();
-      if (awards.Any())
-        return;
-      var filename = "all_awards.json";
+      var filename = "awards.json";
       if (File.Exists("./" + filename)) {
         using (StreamReader r = new StreamReader(filename)) {
-          var newCategories = new List<Award>();
+          var newAwards = new List<Award>();
           string json = r.ReadToEnd();
-          var listCountries = JsonConvert.DeserializeObject<List<Award>>(json);
-
-
-          foreach (var c in listCountries) {
-            var country = awards.FirstOrDefault(a => a.Title == c.Title);
-            if (country != null) continue;
-            newCategories.Add(c);
+          var listAwards = new List<Award>();
+          JArray array = JArray.Parse(json);
+          foreach (JToken j in array) {
+            listAwards.Add(new Award {
+              Code = ((JValue)j["Code"]).Value<string>(),
+              ArtworkFee = ((JValue)j["ArtworkFee"]).Value<decimal>(),
+              TrophyImageKey = ((JValue)j["TrophyImageKey"]).Value<string>(),
+              TrophyImageUrl = ((JValue)j["TrophyImageUrl"]).Value<string>(),
+              Title = LocalizedData.FromDictionary((JObject)j["Title"]),
+              Description = LocalizedData.FromDictionary((JObject)j["Description"]),
+            });
           }
-          if (newCategories.Any()) {
-            await db.Awards.AddRangeAsync(newCategories);
+
+          foreach (var award in listAwards) {
+            var _award = awards.FirstOrDefault(a => a.Code == award.Code);
+            if (_award != null) continue;
+            newAwards.Add(award);
+          }
+          if (newAwards.Any()) {
+            await db.Awards.AddRangeAsync(newAwards);
           }
         }
       }
     }
+
+    private static async Task SeedNews(IAppUnitOfWork db, HtmlEncoder encoder) {
+      List<News> allNews = db.News.ToList();
+      var filename = "news.json";
+      if (File.Exists("./" + filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
+          var newNews = new List<News>();
+          string json = r.ReadToEnd();
+          var listNews = new List<News>();
+          JArray array = JArray.Parse(json);
+          foreach (JToken j in array) {
+            listNews.Add(new News {
+              Date = ((JValue)j["Date"]).Value<long>(),
+              Outdated = ((JValue)j["Outdated"]).Value<bool>(),
+              PosterId = ((JValue)j["PosterId"]).Value<string>(),
+              PosterUrl = ((JValue)j["PosterUrl"]).Value<string>(),
+              Featured = ((JValue)j["Featured"]).Value<bool>(),
+              Category = ((JValue)j["Category"]).Value<string>(),
+              Keywords = ((JValue)j["Keywords"]).Value<string>(),
+              Title = LocalizedData.FromDictionary((JObject)j["Title"]),
+              Body = LocalizedData.FromDictionary((JObject)j["Body"]),
+            });
+          }
+
+          foreach (var news in listNews) {
+            var _news = allNews.FirstOrDefault(a => a.Title.InEnglish() == news.Title.InEnglish());
+            if (_news != null) continue;
+            newNews.Add(news);
+          }
+          if (newNews.Any()) {
+            await db.News.AddRangeAsync(newNews);
+          }
+        }
+      }
+    }
+
 
   }
 }

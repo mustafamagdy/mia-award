@@ -2,6 +2,7 @@
 using MIA.Api;
 using MIA.Models.Entities;
 using System;
+using MIA.Payments;
 
 namespace MIA.MappingProfiles {
 
@@ -19,11 +20,17 @@ namespace MIA.MappingProfiles {
        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
+      CreateMap<Lookup, LocalizedLookupDto>()
+       .IncludeAllDerived()
+       .ValidateMemberList(MemberList.None);
 
       CreateMap<News, FullNewsDto>()
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
-      
+
+     CreateMap<Booth, BoothDto>()
+       .ValidateMemberList(MemberList.None);
+
       CreateMap<News, RelatedNewsDto>()
        .ValidateMemberList(MemberList.None);
 
@@ -42,13 +49,66 @@ namespace MIA.MappingProfiles {
       CreateMap<NewsUserComment, NewsComment>()
         .ForMember(a => a.News, cfg => cfg.Ignore())
         .ForMember(a => a.NewsId, cfg => cfg.Ignore())
+        .ForMember(a => a.Comments, cfg => cfg.MapFrom(a => a.Comment))
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => DateTime.Now.ToUniversalTime()))
-       .ValidateMemberList(MemberList.None);
+        .ValidateMemberList(MemberList.None);
 
 
       CreateMap<AlbumItem, AlbumItemDto>()
        .ForMember(a => a.DateCreated, cfg => cfg.MapFrom(a => a.DateCreated.LocalDateTime().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
+
+      CreateMap<Award, AwardDto>()
+        .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.TrophyImageUrl))
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<ArtWork, RecentShowsDto>()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<PaymentDto, PaymentRequest>()
+        .ForMember(a => a.CardToken, cfg => cfg.MapFrom(a => a.CardToken))
+        .ForMember(a => a.Last4Digits, cfg => cfg.MapFrom(a => a.Last4Digit))
+        .ValidateMemberList(MemberList.None);
+
+
+      CreateMap<SubmitArtworkWithDetails, ArtWork>()
+        .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
+        .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => a.About))
+        .ForMember(a => a.Production, cfg => cfg.MapFrom(a => a.Producers))
+        .ForMember(a => a.Director, cfg => cfg.MapFrom(a => a.Directors))
+        .ForMember(a => a.Writers, cfg => cfg.MapFrom(a => a.Writers))
+        .ForMember(a => a.Crew, cfg => cfg.MapFrom(a => a.Crew))
+        .ForMember(a => a.Stars, cfg => cfg.MapFrom(a => a.Stars))
+        .ForMember(a => a.DateOfRelease, cfg => cfg.MapFrom(a => a.Year))
+        .ForMember(a => a.Country, cfg => cfg.MapFrom(a => a.Country))
+        .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
+        .ForMember(a => a.Payment, cfg => cfg.Ignore())
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<ArtWork, ArtworkViewDto>()
+        .ForMember(a => a.About, cfg => cfg.MapFrom(a => a.ShowDescription))
+        .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
+        .ForMember(a => a.Directors, cfg => cfg.MapFrom(a => a.Director))
+        .ForMember(a => a.Writers, cfg => cfg.MapFrom(a => a.Writers))
+        .ForMember(a => a.Crew, cfg => cfg.MapFrom(a => a.Crew))
+        .ForMember(a => a.Stars, cfg => cfg.MapFrom(a => a.Stars))
+        .ForMember(a => a.Year, cfg => cfg.MapFrom(a => a.DateOfRelease))
+        .ForMember(a => a.Country, cfg => cfg.MapFrom(a => a.Country))
+        .ForMember(a => a.CanUploadFiles, cfg => cfg.MapFrom(a => a.AllowFileUpload))
+        .IncludeAllDerived()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<ArtWork, ArtworkViewWithFilesDto>()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<MediaFile, ArtworkFileDto>()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<ArtWorkPayment, PaymentWithStatusDto>()
+        .ForMember(a => a.Status, cfg => cfg.MapFrom(a => a.PaymentStatus.ToString()))
+        .ForMember(a => a.Amount, cfg => cfg.MapFrom((a => a.Amount)))
+        .ForMember(a => a.Date, cfg => cfg.MapFrom((a => a.PaymentDate.LocalDateTime().ToString("dd-MM-yyyy"))))
+        .ValidateMemberList(MemberList.None);
 
     }
   }

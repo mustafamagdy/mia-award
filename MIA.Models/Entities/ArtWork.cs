@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace MIA.Models.Entities {
   public class ArtWork : BaseEntity<string> {
-    //public string Id { get; set; }
     public LocalizedData Title { get; set; }
     public bool UploadComplete { get; set; }
+    public bool AllowFileUpload { get; set; }
     public Award Award { get; set; }
     public string AwardId { get; set; }
     public Nominee Nominee { get; set; }
@@ -17,10 +17,18 @@ namespace MIA.Models.Entities {
     public HashSet<MediaFile> MediaFiles { get; set; }
     public HashSet<JudgeVote> Votes { get; set; }
 
+    public Award WinnerAwardFirstPlace { get; set; }
+    public string WinnerAwardFirstPlaceId { get; set; }
+    public Award WinnerAwardSecondPlace { get; set; }
+    public string WinnerAwardSecondPlaceId { get; set; }
+
     public string PosterId { get; set; }
     public string PosterUrl { get; set; }
     public string TrailerId { get; set; }
     public string TrailerUrl { get; set; }
+    public string CoverId { get; set; }
+    public string CoverUrl { get; set; }
+
     public long PostedDate { get; set; }
     public string DateOfRelease { get; set; }
     public string Country { get; set; }

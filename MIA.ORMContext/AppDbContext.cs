@@ -1,5 +1,6 @@
 ﻿using MIA.Authorization.Entities;
 using MIA.Models.Entities;
+using MIA.ORMContext.ValueConverters;
 using MIA.ORMContext.ValueGenerators;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -39,9 +40,7 @@ namespace MIA.ORMContext {
 
       //AppUser mapping
       builder.Entity<AppUser>().Property(x => x.Id).HasValueGenerator<SeqIdValueGenerator>().ValueGeneratedOnAdd();
-      builder.Entity<AppUser>().Property(x => x.FirstName).IsUnicode(true).HasMaxLength(Constants.MAX_100);
-      builder.Entity<AppUser>().Property(x => x.LastName).IsUnicode(true).HasMaxLength(Constants.MAX_100);
-      builder.Entity<AppUser>().Property(x => x.FullName).HasComputedColumnSql("[FirstName] + ' ' + [LastName]");
+      builder.Entity<AppUser>().Property(x => x.FullName).IsUnicode(true).HasMaxLength(Constants.MAX_100);
       builder.Entity<AppUser>().HasOne(x => x.AvatarImage).WithOne().HasForeignKey<UserImage>(x => x.UserId);
 
       builder.Entity<AppUser>().Property(x => x.Id).HasValueGenerator<SeqIdValueGenerator>().ValueGeneratedOnAdd();
@@ -50,6 +49,8 @@ namespace MIA.ORMContext {
       builder.Entity<AppRole>().Property(x => x.Description).HasColumnType("nvarchar(MAX)");
       builder.Entity<AppRole>().Property(x => x.Permissions).HasColumnType("nvarchar(1000)").HasMaxLength(1000);
 
+      // set localizedData converter
+      builder.UseValueConverterForType<LocalizedData>(new LocalizedDataConverter());
     }
 
     #region Auditing
@@ -87,6 +88,7 @@ namespace MIA.ORMContext {
     public DbSet<AlbumItem> AlbumItems { get; set; }
     public DbSet<TrophyImage> TrophyImages { get; set; }
     public DbSet<VotingCriteria> VotingCriterias { get; set; }
+    public DbSet<ContactUsSubject> ContactUsSubjects { get; set; }
 
   }
 

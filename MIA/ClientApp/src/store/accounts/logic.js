@@ -1,6 +1,8 @@
 import { createLogic } from "redux-logic";
 import { ActionTypes } from "./actions";
 import { ActionTypes as Authactions } from "../auth/actions";
+import { push } from "connected-react-router";
+
 
 export const signupLogic = createLogic({
   type: ActionTypes.SIGNUP,
@@ -18,6 +20,7 @@ export const signupLogic = createLogic({
       } else {
         dispatch({ type: ActionTypes.SIGNUP_SUCCESS });
         dispatch({ type: Authactions.CLOSE_CREATE_ACCOUNT_MODAL });
+        dispatch(push('/account/checkYourEmail'))
       }
     } catch (err) {
       dispatch({ type: ActionTypes.SIGNUP_FAIL, payload: err, error: true });
@@ -96,7 +99,6 @@ export const resetPasswordLogic = createLogic({
   latest: true,
 
   async process({ getState, action, api }, dispatch, done) {
-    console.log('log', action.changedPasswords);
     
     try {
       const res = await api.accounts.resetPassword(action.resetPasswordRequest);
@@ -111,6 +113,7 @@ export const resetPasswordLogic = createLogic({
           type: ActionTypes.RESET_PASSWORD_SUCCESS,
           token: res.data.result
         });
+        dispatch(push({ pathname:'/members', search: '' }))
       }
     } catch (err) {
       dispatch({

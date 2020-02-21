@@ -40,10 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Audit\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MIA.Models\MIA.Models.csproj" />
   </ItemGroup>
 

@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2019-12-23 23:03+0200\n"
+"POT-Creation-Date: 2019-12-23 23:04+0200\n"
 "Mime-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
-"Language: ar\n"
+"Language: en\n"
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: \n"
@@ -13,279 +13,474 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/Layout/Footer.js:41
-#: src/components/Layout/Header.js:55
+#: src/components/Layout/Footer.js:57
+#: src/components/Layout/Header.js:53
+#: src/components/Layout/index.js:50
 msgid "about_us"
-msgstr ""
+msgstr "من نحن"
 
 #: src/containers/MyProfile/ChangePassword.js:101
 msgid "accept_changes"
-msgstr ""
+msgstr "قبول التغييرات"
+
+#: src/containers/Pages/ContactUs/index.js:60
+msgid "address"
+msgstr "العنوان"
 
 #: src/components/Layout/LanguageSelect.js:65
-msgid "all_languages"
+#~ msgid "all_languages"
+#~ msgstr "جميع اللغات"
+
+#: src/containers/Award/index.js:63
+msgid "apply_for_award"
 msgstr ""
 
-#: src/containers/Home/Awards.js:11
+#: src/containers/Home/Awards.js:37
 msgid "apply_for_your_award"
-msgstr ""
+msgstr "التقدم للجائزة"
 
-#: src/containers/Home/Awards.js:40
-#: src/containers/Home/Awards.js:58
-#: src/containers/Home/Awards.js:76
-#: src/containers/Home/Awards.js:107
-#: src/containers/Home/Awards.js:125
+#: src/containers/Home/Awards.js:90
 msgid "apply_now"
-msgstr ""
+msgstr "التقدم الآن"
 
-#: src/containers/Home/RecentShows.js:43
-msgid "award_category"
-msgstr ""
+#: src/containers/Home/RecentShows.js:46
+#~ msgid "award_category"
+#~ msgstr "فئة الجائزة"
 
-#: src/components/Layout/Header.js:50
-msgid "awards"
-msgstr ""
+#: src/components/Layout/Header.js:48
+#: src/components/Layout/index.js:46
+#~ msgid "awards"
+#~ msgstr "الجوائز"
 
-#: src/containers/App/CookieGDPR.js:113
+#: src/containers/Home/Tickets.js:95
+msgid "buy_your_ticket"
+msgstr "شراء التذكرة"
+
+#: src/containers/Pages/News/view.js:169
+msgid "by"
+msgstr "بواسطة"
+
+#: src/containers/App/CookieGDPR.js:117
 msgid "by_clicking_you_accept"
-msgstr ""
+msgstr "بالنقر على «أوافق» أو علامة «X» على هذا الشعار، أو باستخدامك لموقعنا، فإنك توافق على استخدام ملفات تعريف الارتباط ما لم تقم بتعطيلها."
 
-#: src/containers/MyProfile/index.js:250
+#: src/containers/MyProfile/index.js:259
 msgid "cancel"
-msgstr ""
+msgstr "إلغاء"
 
 #: src/containers/MyProfile/ChangePassword.js:17
-#: src/containers/MyProfile/index.js:228
+#: src/containers/MyProfile/index.js:222
 #: src/containers/MyProfile/index.js:230
 msgid "change_password"
-msgstr ""
+msgstr "تغيير كلمة المرور"
 
-#: src/containers/MyProfile/index.js:115
-#: src/containers/MyProfile/index.js:117
+#: src/containers/MyProfile/index.js:110
+#: src/containers/MyProfile/index.js:114
 msgid "change_photo"
-msgstr ""
+msgstr "تغيير الصورة"
+
+#: src/containers/Pages/News/view.js:151
+msgid "comment_failed"
+msgstr "حدث خطأ، يتعذر إرسال الرسالة."
+
+#: src/containers/Pages/News/view.js:147
+msgid "comment_submitted"
+msgstr "تم إرسال تعليقك بنجاح للمراجعة."
 
 #: src/containers/MyProfile/ChangePassword.js:83
 msgid "confirm_password"
-msgstr ""
+msgstr "تأكيد كلمة المرور"
 
 #: src/containers/User/CheckYourEmail.js:6
 msgid "confirm_your_email_first"
-msgstr ""
+msgstr "التحقق من صحة بريدك الإلكتروني أولاً."
 
-#: src/components/Layout/Header.js:75
+#: src/components/Layout/Header.js:73
+#: src/components/Layout/index.js:70
+#: src/containers/Pages/ContactUs/index.js:53
 msgid "contact_us"
-msgstr ""
+msgstr "الاتصال بنا"
 
-#: src/containers/App/CookieGDPR.js:111
+#: src/containers/Pages/ContactUs/index.js:169
+msgid "contact_us_message_sent_fail"
+msgstr "حدث خطأ، يتعذر إرسال الرسالة."
+
+#: src/containers/Pages/ContactUs/index.js:164
+msgid "contact_us_message_sent_success"
+msgstr "تم إرسال الرسالة بنجاح."
+
+#: src/containers/App/CookieGDPR.js:115
 msgid "cookie_policy"
-msgstr ""
+msgstr "سياسة ملفات تعريف الارتباط"
 
-#: src/components/Layout/Footer.js:79
+#: src/components/Layout/Footer.js:97
 msgid "copyright_media_industry"
-msgstr ""
+msgstr "حقوق النشر© 2020 لشركة جوائز صناعة الإعلام. كافة الحقوق محفوظة"
 
-#: src/containers/Home/RecentShows.js:69
-msgid "country"
-msgstr ""
+#: src/containers/Home/RecentShows.js:72
+#~ msgid "country"
+#~ msgstr "الدولة"
 
 #: src/components/Layout/LoginStatus.js:34
 msgid "create_account"
+msgstr "إنشاء حساب"
+
+#: src/containers/Home/Tickets.js:89
+msgid "date"
 msgstr ""
 
-#: src/containers/MyProfile/index.js:159
+#: src/containers/Pages/ContactUs/index.js:63
+msgid "dubai_address"
+msgstr "دبي، مدينة دبي الإعلامية، مبنى رقم 1، الدور الثاني - مكتب رقم 214"
+
+#: src/containers/MyProfile/index.js:155
+#: src/containers/Pages/ContactUs/index.js:90
 msgid "email"
-msgstr ""
+msgstr "البريد الإلكتروني"
 
-#: src/containers/MyProfile/index.js:244
+#: src/containers/MyProfile/index.js:248
 msgid "enable_edit"
-msgstr ""
+msgstr "تمكين التحرير"
 
 #: src/containers/User/ConfirmEmail.js:18
 msgid "failed"
+msgstr "فشل"
+
+#: src/containers/Pages/ContactUs/index.js:81
+msgid "fax"
+msgstr "فاكس"
+
+#: src/containers/Pages/ContactUs/index.js:84
+msgid "fax_1"
+msgstr "+971 4 57 2636 6"
+
+#: src/components/Layout/Footer.js:37
+msgid "footer_text"
 msgstr ""
 
-#: src/components/Layout/Header.js:70
+#: src/components/Layout/Header.js:68
+#: src/components/Layout/index.js:65
+#: src/containers/Pages/Gallery/index.js:185
 msgid "gallery"
-msgstr ""
+msgstr "معرض الصور"
 
-#: src/containers/Home/RecentShows.js:56
-msgid "genre"
-msgstr ""
+#: src/containers/Home/RecentShows.js:59
+#~ msgid "genre"
+#~ msgstr "النوع"
+
+#: src/containers/Pages/ContactUs/index.js:107
+msgid "get_in_touch"
+msgstr "التواصل"
 
 #: src/components/Forms/Date/DualCalendar.js:49
 #: src/components/Forms/Date/MonoCalendar.js:39
-msgid "hijri"
+#~ msgid "hijri"
+#~ msgstr "هجري"
+
+#: src/containers/Home/Awards.js:40
+msgid "home_general_award_text"
 msgstr ""
 
-#: src/containers/App/CookieGDPR.js:122
+#: src/containers/App/CookieGDPR.js:126
 msgid "i_accept"
-msgstr ""
+msgstr "أوافق"
 
-#: src/components/Layout/Footer.js:66
+#: src/components/Layout/Footer.js:82
 msgid "if_you_want_to_keep_updated"
-msgstr ""
+msgstr "لكي تبقى على علم بآخر مستجدات كل الخصائص، قم بإدخال بريدك الإلكتروني وسنرسل لك آخر المستجدات."
 
 #: src/components/Layout/LanguageSelect.js:44
-msgid "language"
-msgstr ""
+#~ msgid "language"
+#~ msgstr "اللغة"
+
+#: src/containers/Home/PhotoAlbum.js:78
+msgid "latest_video"
+msgstr "أحدث الفيديوهات والصور"
 
 #: src/containers/MyProfile/ChangePassword.js:116
 #: src/containers/MyProfile/ImageUpload.js:78
 #: src/containers/User/ConfirmEmail.js:18
 msgid "loading"
-msgstr ""
+msgstr "تحميل...."
 
 #: src/components/Layout/LoginStatus.js:14
 msgid "logout"
-msgstr ""
+msgstr "تسجيل الخروج"
 
-#: src/components/Layout/Footer.js:46
+#: src/components/Layout/Footer.js:52
+#: src/components/Layout/Footer.js:62
+#: src/components/Layout/Header.js:48
+#: src/components/Layout/index.js:45
 msgid "members"
-msgstr ""
+msgstr "الأعضاء"
 
 #: src/containers/MyProfile/ChangePassword.js:15
 #: src/containers/MyProfile/ImageUpload.js:54
 msgid "mia"
-msgstr ""
+msgstr "MIA"
 
-#: src/components/Layout/Footer.js:36
-msgid "mia_awards"
-msgstr ""
+#: src/components/Layout/Footer.js:40
+#~ msgid "mia_awards"
+#~ msgstr "جوائز MIA"
 
-#: src/containers/Home/Awards.js:44
-#: src/containers/Home/Awards.js:80
-#: src/containers/Home/Awards.js:111
-msgid "movies"
-msgstr ""
+#: src/containers/Home/Awards.js:149
+#~ msgid "movies"
+#~ msgstr "{0}"
 
-#: src/containers/MyProfile/index.js:126
+#~ msgid "msgid"
+#~ msgstr "msgstr_ar"
+
+#: src/containers/MyProfile/index.js:123
 msgid "name"
-msgstr ""
+msgstr "الاسم"
 
 #: src/containers/MyProfile/ChangePassword.js:65
 msgid "new_password"
-msgstr ""
+msgstr "كلمة المرور الجديدة"
 
-#: src/components/Layout/Header.js:60
+#: src/components/Layout/Header.js:58
+#: src/components/Layout/index.js:55
+#: src/containers/Pages/News/index.js:139
 msgid "news"
-msgstr ""
+msgstr "الأخبار"
 
-#: src/components/Layout/Footer.js:63
+#: src/containers/Home/News.js:21
+msgid "news_features"
+msgstr "الأفلام الإخبارية"
+
+#: src/components/Layout/Footer.js:79
 msgid "newsletter"
-msgstr ""
+msgstr "رسالة إخبارية"
 
-#: src/containers/Home/News.js:55
+#: src/containers/Home/News.js:88
 msgid "next"
+msgstr "التالي"
+
+#: src/containers/Home/RecentShows.js:92
+msgid "no_shows_available_yet"
 msgstr ""
 
 #: src/containers/MyProfile/ChangePassword.js:47
 msgid "old_password"
-msgstr ""
+msgstr "كلمة المرور القديمة"
 
-#: src/containers/MyProfile/index.js:192
+#: src/containers/Pages/AboutUs/index.js:189
+msgid "our_awards"
+msgstr "جوائزنا"
+
+#: src/containers/Pages/AboutUs/index.js:192
+msgid "our_awards_text"
+msgstr "تهدف جائزة صنّاع الإعلام العربي (MIA 2020)  والتي يتم التحكيم بين المتسابقين فيها إلكترونياً، إلى قياس جودة مستوى تأثير محتوى الأعمال التلفزيونية المرئية في نمط الحياة وتفكير الجمهور وعمق الأثر من خلال فرز الأعمال المشاركة وفقاً لشروط ومعايير محددة من قبل لجنة التحكيم، وقد خصصنا لكل فئة من المسابقة ثلاث جوائز ذهبية وفضية وبرونزية توزع على الفائزين مع شهادات تقديرية."
+
+#: src/containers/Pages/AboutUs/index.js:154
+msgid "our_events"
+msgstr "فعالياتنا"
+
+#: src/containers/Pages/AboutUs/index.js:156
+msgid "our_events_text"
+msgstr "<0><1>• ورش عمل لتطوير القدرات المهنية الفنية والتقنية.</1><2>• ندوات متخصصة يلقيها خبراء ومحترفون من صناع الإعلام ونجوم الفن العربي.</2><3>• عرض قصص نجاح مميزة.</3><4>• سوق لأحدث النظم الهندسية والتقنية في مجال صناعة الإعلام والإنتاج التلفزيوني.</4><5>•لقاءات تليفزيونية لمناقشة القضايا الهامة (بث مباشر)</5></0>"
+
+#: src/containers/Pages/AboutUs/index.js:79
+msgid "our_goal"
+msgstr "هدفنا"
+
+#: src/containers/Pages/AboutUs/index.js:82
+msgid "our_goal_text"
+msgstr "<0><1>• الارتقاء بذائقة الانسان العربي بمختلف شرائحه، وتقديم رؤى مستقبلية جديدة تسهم في رفد مستقبل الانتاج التلفزيوني العربي.</1><2>•   تنشيط وتحفيز صناعة المحتوى التلفزيوني ورفع مستوى الانتاج العربي والرقي به إلى مصاف عالمية</2><3>•ايجاد فرصة للإندماج والتفاعل وتقارب الثقافات المتعددة من أجل لم شمل الهوية العربية  لنصنع معاً مستقبلًا باهرًا \" بقوة واحدة وأجيال واعدة\"</3><4>•  زيادة التواصل بين المواهب الشابة في العالم العربي ونخبة المنتجين والفنيين العاملين في المجال وتوفير أكبر قدر من التكامل بين القطاعات الإنتاجية وبين الهيئات الإعلامية والقنوات التلفزيونية</4><5>•  اكتشاف المواهب الجديدة وإظهار المتميز منها إلى الأضواء</5><6>• تقدير وتكريم المبدعين والمنجزين في أرجاء الوطن العربي من خلال تقييم أعمالهم ومعرفة آراء المختصين حيالها والاحتفال بأفضلها.</6></0>"
+
+#: src/containers/Pages/AboutUs/index.js:64
+msgid "our_message"
+msgstr "رسالتنا"
+
+#: src/containers/Pages/AboutUs/index.js:67
+msgid "our_message_text"
+msgstr "أثبتت الدراسات الحديثة أهمية محتوى المادة التلفزيونية في حياتنا اليومية وقدرتها التأثيرية على تغيير القيم والوعي الثقافي في أي مجتمع. ولهذه الأهمية انطلقت رسالتنا من وحي شعارنا (الإعلام العربي واقع جديد) لرفع مستوى جودة المحتوى في الإنتاج العربي التلفزيوني وجعل هذه الجائزة منصة عربية يكرم ويلتقي فيها كل المميزين والمبدعين في هذا المجال لتتلاقح خلالها الأفكار الجديدة وتؤدي إلى نتاج معرفي وتقني تستفيد منه المجتمعات العربية وتواجه به تحدياتها المستقبلية المختلفة."
+
+#: src/containers/Pages/AboutUs/index.js:116
+msgid "our_value"
+msgstr "قيِّمنا"
+
+#: src/containers/Pages/AboutUs/index.js:120
+msgid "our_value_text"
+msgstr "<0><1><2>• الحيادية : :</2><3>نقف بدون انحياز وعلى مسافة واحدة من كل ابناء الوطن العربي</3></1><4><5>• الموضوعية :</5><6>بعيداً عن الاهواء، لدينا آلية واحدة في التعامل مع كل أداء.. ابداعك هو ما يحدد مركزك</6></4><8><9>المصداقية:</9><10>من أساسيات جوهر عملنا أن نزاهتنا هي منهجنا في التقييم</10></8><11><12>• التعزيز :</12><13>تقديم جوائز نوعية عديدة وشهادات تقدير وفق معايير الأداء.</13></11></0>"
+
+#: src/containers/MyProfile/index.js:187
+#: src/containers/Pages/ContactUs/index.js:69
 msgid "phone"
-msgstr ""
+msgstr "الهاتف"
+
+#: src/containers/Pages/ContactUs/index.js:72
+msgid "phone_1"
+msgstr "+971 4 57 2636 7"
+
+#: src/containers/Pages/ContactUs/index.js:75
+msgid "phone_2"
+msgstr "+971 4 57 2636 8"
 
 #: src/components/Forms/Date/DualCalendar.js:22
-msgid "please_select_checkin_date"
-msgstr ""
+#~ msgid "please_select_checkin_date"
+#~ msgstr "الرجاء تحديد يوم الوصول."
 
 #: src/components/Forms/Date/DualCalendar.js:23
-msgid "please_select_checkout_date"
-msgstr ""
+#~ msgid "please_select_checkout_date"
+#~ msgstr "الرجاء تحديد يوم المغادرة."
 
-#: src/containers/Home/News.js:49
+#: src/containers/Pages/News/view.js:142
+msgid "post_comment"
+msgstr "نشر تعليق"
+
+#: src/containers/Pages/News/index.js:116
+#: src/containers/Pages/News/index.js:227
+#: src/containers/Pages/News/view.js:45
+msgid "posted"
+msgstr "تم النشر"
+
+#: src/containers/Home/News.js:76
 msgid "prev"
-msgstr ""
+msgstr "السابق"
 
-#: src/components/Layout/Footer.js:56
+#: src/components/Layout/Footer.js:72
 msgid "privacy_policy"
+msgstr "سياسة الخصوصية"
+
+#: src/components/Layout/index.js:60
+msgid "program"
+msgstr "البرنامج"
+
+#: src/containers/Timeline/index.js:28
+msgid "program_schedule"
 msgstr ""
 
-#: src/components/Layout/Header.js:65
+#: src/containers/Timeline/index.js:31
+msgid "program_schedule_brief"
+msgstr ""
+
+#: src/components/Layout/Header.js:63
 msgid "programs"
-msgstr ""
+msgstr "البرامج"
 
-#: src/containers/Home/News.js:36
+#: src/components/Layout/Footer.js:47
+msgid "quick_links"
+msgstr "ارتباطات سريعة"
+
+#: src/containers/Home/News.js:51
+#: src/containers/Pages/News/index.js:122
 msgid "read_more"
-msgstr ""
+msgstr "قراءة المزيد"
 
-#: src/containers/Home/RecentShows.js:23
+#: src/containers/Pages/News/index.js:197
+#: src/containers/Pages/News/index.js:233
+msgid "read_more_elapsed"
+msgstr "قراءة المزيد.."
+
+#: src/containers/Home/RecentShows.js:33
 msgid "recent_shows"
-msgstr ""
+msgstr "آخر العروض"
 
-#: src/containers/App/CookieGDPR.js:99
+#: src/containers/Pages/News/view.js:195
+msgid "related_news"
+msgstr "الأخبار المتعلقة"
+
+#: src/containers/App/CookieGDPR.js:100
 msgid "review_our_cookie_policy"
-msgstr ""
+msgstr "استعراض سياسة ملفات تعريف الارتباط"
 
 #: src/containers/MyProfile/ImageUpload.js:63
 msgid "select_your_image"
-msgstr ""
+msgstr "تحديد صورتك"
 
-#: src/containers/Home/News.js:52
+#: src/containers/Pages/ContactUs/index.js:160
+msgid "send_message"
+msgstr "إرسال رسالة"
+
+#: src/containers/Pages/News/view.js:29
+msgid "share"
+msgstr "مشاركة"
+
+#: src/containers/Home/News.js:79
 msgid "show_all"
-msgstr ""
+msgstr "إظهار الكل"
 
 #: src/components/Layout/LoginStatus.js:31
 msgid "sign_in"
-msgstr ""
+msgstr "تسجيل الدخول"
 
 #: src/containers/Home/Awards.js:62
 #: src/containers/Home/Awards.js:93
 #: src/containers/Home/Awards.js:129
-msgid "sports"
-msgstr ""
+#~ msgid "sports"
+#~ msgstr "الرياضة"
 
-#: src/containers/Home/Awards.js:21
+#: src/containers/Home/Awards.js:50
 msgid "start_from"
-msgstr ""
+msgstr "البدء من"
+
+#: src/containers/Pages/AboutUs/index.js:49
+msgid "story"
+msgstr "القصة"
+
+#: src/containers/Pages/AboutUs/index.js:52
+msgid "story_text"
+msgstr "يمرالإعلام العربي خلال العقود الماضية بالكثيرمن التحديات وعدم تمثيل الواقع العربي بالتمثيل الصحيح، وبالرغم من وجود استثمار كبير في مجال الاعلام بكل أشكالة، إلا أنه يفتقر إلى تضافر الجهود بين المستثمرين وشركات الانتاج، ومن هذا المنطلق قررت شركة صناعة الإعلام إنشاء جائزة تلفزيونية في محاولة منها لرفع مستوى التنافس وتطوير محتوى صناعة الفن وانتاج الأعمال العربية بأن تكون حلقة الوصل بين المستثمر والمنتج لنقل الواقع العربي \"التلفزيوني \" إلى الطريق الصحيح عبر إنشاء جائزة للإعلام المرئي؛ إيماناً منها بأن المنافسة ستصنع محتوى ثري ومميز ينعكس أثره على جموع الجمهور والمتلقين في الوطن العربي."
 
 #: src/containers/PreloaderPage/LoaderTestSample.js:38
 msgid "submit"
-msgstr ""
+msgstr "إرسال"
 
 #: src/components/Layout/LanguageSelect.js:50
-msgid "suggested_languages"
-msgstr ""
+#~ msgid "suggested_languages"
+#~ msgstr "اللغات المقترحة"
 
-#: src/components/Layout/Footer.js:51
+#: src/components/Layout/Footer.js:67
 msgid "terms_conditions"
-msgstr ""
+msgstr "الشروط والأحكام"
 
-#: src/containers/Home/Awards.js:23
+#: src/containers/Home/Tickets.js:15
+#~ msgid "ticket_desc"
+#~ msgstr ""
+
+#: src/containers/Home/Awards.js:52
 msgid "to"
-msgstr ""
+msgstr "إلى"
 
 #: src/components/Forms/Date/DualCalendar.js:35
 #: src/components/Forms/Date/MonoCalendar.js:25
-msgid "today"
-msgstr ""
+#~ msgid "today"
+#~ msgstr "اليوم"
 
-#: src/containers/MyProfile/index.js:253
+#: src/containers/MyProfile/index.js:264
 msgid "update"
-msgstr ""
+msgstr "تحديث"
 
 #: src/containers/MyProfile/ImageUpload.js:56
 msgid "upload_avatar"
-msgstr ""
+msgstr "تحميل الصورة الرمزية"
 
 #: src/containers/MyProfile/ImageUpload.js:66
 msgid "upload_image"
+msgstr "تحميل الصورة"
+
+#: src/containers/Award/index.js:38
+#: src/containers/Members/Artworks/Artwork/AddNew/Payment.js:78
+msgid "usd"
 msgstr ""
 
-#: src/containers/Home/Awards.js:29
-msgid "view_all"
+#: src/containers/Home/PhotoAlbum.js:81
+msgid "videos_desc"
 msgstr ""
 
-#: src/containers/Home/IntroSlider.js:27
+#: src/containers/Home/Awards.js:106
+#~ msgid "view_all"
+#~ msgstr "عرض الكل"
+
+#: src/containers/Home/IntroSlider.js:122
 msgid "view_awards"
-msgstr ""
+msgstr "عرض الجوائز"
+
+#: src/containers/App/CookieGDPR.js:110
+msgid "we_use_cookies_and_similar_technology"
+msgstr "نقوم باستخدام ملفات تعريف الارتباط وبعض التقنيات المشابهة للتعرف على زياراتك المتكررة للموقع وتفضيلاتك فيه، ولقياس مدى فعالية الحملات الدعائية ولتحليل نسبة استخدام الموقع. لمعرفة المزيد حول ملفات تعريف الارتباط، بما في ذلك كيفية تعطيلها، يمكنك استعراض"
 
 #: src/containers/App/CookieGDPR.js:106
-msgid "we_use_cookies_and_similar_technology"
-msgstr ""
-
-#: src/containers/App/CookieGDPR.js:103
 msgid "what_do_we_use_cookies_for"
-msgstr ""
+msgstr "فيما تستخدام ملفات تعريف الارتباط؟"

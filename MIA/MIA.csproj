@@ -38,12 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="wwwroot\emailTemplates\_en\email1.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Resources\Controllers.AccountController.en.resx" />
     <None Include="wwwroot\favicon.ico" />
   </ItemGroup>

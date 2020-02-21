@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { ErrorMessage } from "formik";
+// import { ErrorMessage as FErrorMessage } from "formik";
 
 export default ({ name, ...props }) => (
   <ErrorMessage
@@ -18,3 +18,5 @@ export default ({ name, ...props }) => (
     )}
   />
 );
+
+// export default ErrorMessage;

@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Trans } from "@lingui/macro";
+import classNames from "classnames";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import homeActions from "store/home/actions";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
+import "utils";
 
-const initState = {
-  pageNumber: 1,
-  pageSize: 4
-};
+const News = ({ fetchNews, news, ...props }) => {
+  const [pageNumber, setPageNumber] = useState(1);
 
-const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage }, ...props }) => {
-  const [state, setState] = useState(initState);
   useEffect(() => {
-    fetchNews({ pageNumber: state.pageNumber, pageSize: state.pageSize });
-  }, [state.pageNumber, state.pageSize]);
+    fetchNews({ pageNumber: pageNumber, pageSize: 100 });
+  }, []);
 
   return (
     <div id="news_features">
@@ -22,62 +21,72 @@ const News = ({ fetchNews, news, news_pagination: { hasNextPage, hasPreviousPage
           <Trans id="news_features">news & features</Trans>
         </div>
         <div className="features_sliders">
-          {news.map((item, index) => (
-            <div className="feature_item" key={index}>
-              <div className="feature_block">
-                <time>{item.date}</time>
-                <div className="item">
-                  <div className="category">
-                    <Trans id={item.category}>{item.category}</Trans>
-                  </div>
-                  <div className="imgthumb">
-                    <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} />
-                    <div className="mask">
-                      <div className="content">
-                        <p>{item.title}</p>
-                        <div className="more">
-                          <a href={`/news/${item.id}`}>
-                            <Trans id="read_more">read more</Trans>
-                          </a>
+          <div
+            className="feature_item_pages"
+            style={{
+              transform: `translate3d(${(pageNumber - 1) * -window.innerWidth}px, 0px, 0px)`
+            }}
+          >
+            {news.chunk(4).map((chunk, i) => {
+              const isCurrent = i == pageNumber - 1;
+              return (
+                <div className={classNames("feature_item_page", { active: isCurrent })} key={i}>
+                  {chunk.map((item, index) => (
+                    <div className="feature_item" key={index}>
+                      <div className="feature_block">
+                        <time>{item.date}</time>
+                        <div className="item">
+                          <div className="category">
+                            <Trans id={item.category}>{item.category}</Trans>
+                          </div>
+                          <div className="imgthumb">
+                            <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} />
+                            <LanguageContext.Consumer>
+                              {({ locale }) => (
+                                <div className="mask">
+                                  <div className="content">
+                                    <p>{item.title[locale.code]}</p>
+                                    <div className="more">
+                                      <a href={`/news/${item.id}`}>
+                                        <Trans id="read_more">Read More</Trans>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </LanguageContext.Consumer>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              </div>
-            </div>
-          ))}
+              );
+            })}
+          </div>
         </div>
         <div className="features_nav">
-          {hasPreviousPage ? (
-            <button
-              type="button"
-              className="arrow_prev"
-              onClick={() => {
-                setState({ ...state, pageNumber: state.pageNumber - 1 });
-              }}
-            >
-              <Trans id="prev">prev</Trans>
-            </button>
-          ) : (
-            <span />
-          )}
+          <button
+            type="button"
+            className="arrow_prev"
+            onClick={() => {
+              setPageNumber(p => p - 1);
+            }}
+          >
+            <Trans id="prev">prev</Trans>
+          </button>
           <a href="/news" title="#">
             <Trans id="show_all">show all</Trans>
           </a>
-          {hasNextPage ? (
-            <button
-              type="button"
-              className="arrow_next"
-              onClick={() => {
-                setState({ ...state, pageNumber: state.pageNumber + 1 });
-              }}
-            >
-              <Trans id="next">next</Trans>
-            </button>
-          ) : (
-            <span />
-          )}
+          <button
+            type="button"
+            className="arrow_next"
+            onClick={() => {
+              setPageNumber(p => p + 1);
+            }}
+          >
+            <Trans id="next">next</Trans>
+          </button>
         </div>
       </div>
     </div>

@@ -25,8 +25,7 @@ const recursive = require("recursive-readdir");
   let localTypes = getDirectories(localesDir).filter( d => (d[0] !== "_") && d !== "en" );
   
   let filePath = "src/locales/en/messages.po";
-
-  var outputFile = "lang_en.xlsx";
+  var outputFile = "locales_data.xlsx";
   
   let readableData = fs.readFileSync(filePath, 'utf8');
   let poFormatData = PO.parse(readableData);
@@ -108,10 +107,8 @@ const recursive = require("recursive-readdir");
           });
 
           worksheet.row(1).freeze();
-          worksheet.row(2).hide();
-          worksheet.column(1).hide();
-          worksheet.column(2).hide();
-
+          // worksheet.column(1).hide();
+          // worksheet.column(2).hide();
           workbook.write(outputFile);
 
       });

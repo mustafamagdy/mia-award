@@ -1,19 +1,19 @@
 {
-  "mia_awards": {
-    "defaults": "MIA Awards",
+  "footer_text": {
+    "defaults": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        36
+        37
       ]
     ]
   },
-  "about_us": {
-    "defaults": "About Us",
+  "quick_links": {
+    "defaults": "QUICK LINKS",
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        41
+        47
       ]
     ]
   },
@@ -22,7 +22,20 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        46
+        52
+      ],
+      [
+        "src/components/Layout/Footer.js",
+        62
+      ]
+    ]
+  },
+  "about_us": {
+    "defaults": "About Us",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        57
       ]
     ]
   },
@@ -31,7 +44,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        51
+        67
       ]
     ]
   },
@@ -40,7 +53,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        56
+        72
       ]
     ]
   },
@@ -49,7 +62,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        63
+        79
       ]
     ]
   },
@@ -58,7 +71,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        66
+        82
       ]
     ]
   },
@@ -67,7 +80,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        79
+        97
       ]
     ]
   }

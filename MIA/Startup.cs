@@ -20,6 +20,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using MIA.Api.Base;
 using MIA.Constants;
 using MIA.Extensions;
@@ -84,7 +86,7 @@ namespace MIA {
         // Add useful interface for accessing the ActionContext outside a controller.
         .AddSingleton<IActionContextAccessor, ActionContextAccessor>()
         //access current username, and userid for audit purpose
-        .AddSingleton<IAuditUser, AuditUserResolver>()
+        .AddSingleton<IUserResolver, UserResolver>()
         //.AddSingleton<IBookingManager, BookingManagerClient>()
         //.AddSingleton<ISessionManager, SessionManagerClient>()
         .AddScoped(x => x
@@ -92,6 +94,11 @@ namespace MIA {
          .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext))
         //url helper to get current api url
         .AddScoped<IApiUrlHelper, ApiUrlHelper>()
+        .AddSingleton<HtmlEncoder>(
+          HtmlEncoder.Create(allowedRanges: new[] {
+            UnicodeRanges.BasicLatin,
+            UnicodeRanges.Arabic
+          }))
 #if (Versioning)
         .AddCustomApiVersioning()
 #endif
@@ -160,7 +167,8 @@ namespace MIA {
       UserManager<AppUser> userManager,
       RoleManager<AppRole> roleManager,
       IS3FileManager fileManager,
-      IAppUnitOfWork db) {
+      IAppUnitOfWork db,
+      HtmlEncoder encoder) {
       app
         //Run pending db migrations
         .UpdateDatabase()
@@ -225,7 +233,7 @@ namespace MIA {
         });
 
       //seed default data
-      DbInitializer.SeedDbAsync(userManager, roleManager, fileManager, db).Wait();
+      DbInitializer.SeedDbAsync(userManager, roleManager, fileManager, db, encoder).Wait();
     }
 
   }

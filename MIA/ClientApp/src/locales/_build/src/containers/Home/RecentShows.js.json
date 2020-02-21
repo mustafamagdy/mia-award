@@ -4,34 +4,16 @@
     "origin": [
       [
         "src/containers/Home/RecentShows.js",
-        23
+        33
       ]
     ]
   },
-  "award_category": {
-    "defaults": "award category",
+  "no_shows_available_yet": {
+    "defaults": "No Shows Available Yet",
     "origin": [
       [
         "src/containers/Home/RecentShows.js",
-        43
-      ]
-    ]
-  },
-  "genre": {
-    "defaults": "Genre",
-    "origin": [
-      [
-        "src/containers/Home/RecentShows.js",
-        56
-      ]
-    ]
-  },
-  "country": {
-    "defaults": "Country",
-    "origin": [
-      [
-        "src/containers/Home/RecentShows.js",
-        69
+        92
       ]
     ]
   }

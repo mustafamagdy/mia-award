@@ -1,0 +1,64 @@
+{
+  "share": {
+    "defaults": "Share",
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        29
+      ]
+    ]
+  },
+  "posted": {
+    "defaults": "Posted",
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        45
+      ]
+    ]
+  },
+  "post_comment": {
+    "defaults": "Post Comment",
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        142
+      ]
+    ]
+  },
+  "comment_submitted": {
+    "defaults": "Your comment has been submitted successfully for review",
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        147
+      ]
+    ]
+  },
+  "comment_failed": {
+    "defaults": "There is an error, the message could not be sent",
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        151
+      ]
+    ]
+  },
+  "by": {
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        169
+      ]
+    ]
+  },
+  "related_news": {
+    "defaults": "Related News",
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        195
+      ]
+    ]
+  }
+}

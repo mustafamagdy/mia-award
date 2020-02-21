@@ -17,7 +17,7 @@
             <param name="logger"></param>
             <param name="_locale"></param>
         </member>
-        <member name="M:MIA.Api.AccountController.CreateByEmail(System.String,MIA.Dto.Auth.SignUpByEmailRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider,MIA.Api.Base.IApiUrlHelper)">
+        <member name="M:MIA.Api.AccountController.SignupAsNominee(System.String,MIA.Dto.Auth.SignUpByEmailRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.TemplateParser.ITemplateParser,MIA.Api.Base.IApiUrlHelper)">
             <summary>
             SignUp using email and password
             </summary>
@@ -25,7 +25,7 @@
             <param name="signupData"></param>
             <param name="userManager"></param>
             <param name="emailSender"></param>
-            <param name="emailTemplateProvider"></param>
+            <param name="templateParser"></param>
             <param name="urlHelper"></param>
             <returns></returns>
         </member>
@@ -36,7 +36,7 @@
             <param name="mobileRequestData"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Api.AccountController.VerifyEmail(System.String,MIA.Dto.Auth.UserVerificationRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider)">
+        <member name="M:MIA.Api.AccountController.VerifyEmail(System.String,MIA.Dto.Auth.UserVerificationRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},MIA.TemplateParser.ITemplateParser,Microsoft.AspNetCore.Identity.UI.Services.IEmailSender)">
             <summary>
             Verify user email using the verification token sent by email
             </summary>
@@ -44,10 +44,9 @@
             <param name="userRequest"></param>
             <param name="userManager"></param>
             <param name="emailSender"></param>
-            <param name="emailTemplateProvider"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Api.AccountController.ForgotPassword(System.String,MIA.Dto.Auth.ForgotPasswordRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider,MIA.Api.Base.IApiUrlHelper)">
+        <member name="M:MIA.Api.AccountController.ForgotPassword(System.String,MIA.Dto.Auth.ForgotPasswordRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.TemplateParser.ITemplateParser,MIA.Api.Base.IApiUrlHelper)">
             <summary>
             Reset password reset email with token
             </summary>
@@ -55,11 +54,12 @@
             <param name="forgotPass"></param>
             <param name="userManager"></param>
             <param name="emailSender"></param>
+            <param name="templateParser"></param>
             <param name="emailTemplateProvider"></param>
             <param name="urlHelper"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Api.AccountController.ResetPassword(System.String,MIA.Dto.Auth.ResetPasswordRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider)">
+        <member name="M:MIA.Api.AccountController.ResetPassword(System.String,MIA.Dto.Auth.ResetPasswordRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.TemplateParser.ITemplateParser)">
             <summary>
             Reset password for user using token
             </summary>
@@ -67,6 +67,7 @@
             <param name="resetPassword"></param>
             <param name="userManager"></param>
             <param name="emailSender"></param>
+            <param name="templateParser"></param>
             <param name="emailTemplateProvider"></param>
             <returns></returns>
         </member>
@@ -94,7 +95,7 @@
             </summary>
             <param name="logger"></param>
         </member>
-        <member name="M:MIA.Api.AuthController.Login(System.String,MIA.Dto.Auth.LoginRequest,Microsoft.AspNetCore.Identity.SignInManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.Extensions.Options.IOptions{MIA.Infrastructure.Options.JwtOptions},Microsoft.AspNetCore.Identity.IUserClaimsPrincipalFactory{MIA.Models.Entities.AppUser})">
+        <member name="M:MIA.Api.AuthController.Login(System.String,MIA.Dto.Auth.LoginRequest,MIA.ORMContext.Uow.IAppUnitOfWork,Microsoft.AspNetCore.Identity.SignInManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.Extensions.Options.IOptions{MIA.Infrastructure.Options.JwtOptions},Microsoft.AspNetCore.Identity.IUserClaimsPrincipalFactory{MIA.Models.Entities.AppUser})">
             <summary>
             Login using username and password
             </summary>
@@ -258,7 +259,7 @@
             <param name="services">service collection to add to</param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.RoleManager{MIA.Authorization.Entities.AppRole},MIA.Infrastructure.IS3FileManager,MIA.ORMContext.Uow.IAppUnitOfWork)">
+        <member name="M:MIA.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.RoleManager{MIA.Authorization.Entities.AppRole},MIA.Infrastructure.IS3FileManager,MIA.ORMContext.Uow.IAppUnitOfWork,System.Text.Encodings.Web.HtmlEncoder)">
             <summary>
             This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
             </summary>

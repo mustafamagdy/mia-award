@@ -9,7 +9,6 @@ namespace MIA.Models.Entities
     public LocalizedData Description { get; set; }
     public decimal Price { get; set; }
 
-
     public HashSet<BoothPurchase> Purchases { get; set; }
   }
 

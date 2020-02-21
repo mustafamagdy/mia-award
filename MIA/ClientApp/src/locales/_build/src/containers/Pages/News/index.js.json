@@ -1,0 +1,46 @@
+{
+  "posted": {
+    "defaults": "Posted",
+    "origin": [
+      [
+        "src/containers/Pages/News/index.js",
+        116
+      ],
+      [
+        "src/containers/Pages/News/index.js",
+        227
+      ]
+    ]
+  },
+  "read_more": {
+    "defaults": "Read More",
+    "origin": [
+      [
+        "src/containers/Pages/News/index.js",
+        122
+      ]
+    ]
+  },
+  "news": {
+    "defaults": "News",
+    "origin": [
+      [
+        "src/containers/Pages/News/index.js",
+        139
+      ]
+    ]
+  },
+  "read_more_elapsed": {
+    "defaults": "Read More..",
+    "origin": [
+      [
+        "src/containers/Pages/News/index.js",
+        197
+      ],
+      [
+        "src/containers/Pages/News/index.js",
+        233
+      ]
+    ]
+  }
+}

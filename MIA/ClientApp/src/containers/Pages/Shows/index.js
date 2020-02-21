@@ -2,34 +2,34 @@ import React from "react";
 
 const Shows = props => (
   <section id="show_all">
-    <div class="show_slider">
-      <div class="container">
-        <div class="slider_area">
-          <div class="slider_nav">
-            <button type="button" class="arrow_prev">
-              <i class="icofont-simple-left"></i>
+    <div className="show_slider">
+      <div className="container">
+        <div className="slider_area">
+          <div className="slider_nav">
+            <button type="button"className="arrow_prev">
+              <i className="icofont-simple-left"></i>
             </button>
-            <button type="button" class="arrow_next">
-              <i class="icofont-simple-right"></i>
+            <button type="button"className="arrow_next">
+              <i className="icofont-simple-right"></i>
             </button>
           </div>
-          <div class="slider_items">
-            <div class="item prev_item">
-              <div class="imgthmb">
-                <img src="/assets/images/news_image.png" alt="#" />
+          <div className="slider_items">
+            <div className="item prev_item">
+              <div className="imgthmb">
+                <img src="/assets/images/news_image.png"  />
               </div>
-              <div class="content">
-                <div class="title">
+              <div className="content">
+                <div className="title">
                   <span>The blue elephant</span>
                   <time>Uploaded : 12-05-2020</time>
                 </div>
-                <div class="video_item">
+                <div className="video_item">
                   <a href="#" title="#">
-                    <img src="/assets/images/gallery_item_image.png" alt="#" />
+                    <img src="/assets/images/gallery_item_image.png"  />
                   </a>
                 </div>
-                <div class="video_details">
-                  <div class="info_item">
+                <div className="video_details">
+                  <div className="info_item">
                     <ul>
                       <li>
                         <span>Date of release :</span>
@@ -53,39 +53,39 @@ const Shows = props => (
                       </li>
                     </ul>
                   </div>
-                  <div class="user_item">
-                    <div class="desc">
+                  <div className="user_item">
+                    <div className="desc">
                       <span>User Account</span>
                       <p>Ahmed Adel</p>
                     </div>
-                    <div class="imgthumb">
-                      <img src="/assets/images/comment_user_image.png" alt="#" />
+                    <div className="imgthumb">
+                      <img src="/assets/images/comment_user_image.png"  />
                     </div>
                   </div>
                 </div>
-                <div class="more">
+                <div className="more">
                   <a href="#" title="#">
                     View
                   </a>
                 </div>
               </div>
             </div>
-            <div class="item current_item">
-              <div class="imgthmb">
-                <img src="/assets/images/show_all_slider_image.png" alt="#" />
+            <div className="item current_item">
+              <div className="imgthmb">
+                <img src="/assets/images/show_all_slider_image.png"  />
               </div>
-              <div class="content">
-                <div class="title">
+              <div className="content">
+                <div className="title">
                   <span>The blue elephant</span>
                   <time>Uploaded : 12-05-2020</time>
                 </div>
-                <div class="video_item">
+                <div className="video_item">
                   <a href="#" title="#">
-                    <img src="/assets/images/gallery_item_image.png" alt="#" />
+                    <img src="/assets/images/gallery_item_image.png"  />
                   </a>
                 </div>
-                <div class="video_details">
-                  <div class="info_item">
+                <div className="video_details">
+                  <div className="info_item">
                     <ul>
                       <li>
                         <span>Date of release :</span>
@@ -109,39 +109,39 @@ const Shows = props => (
                       </li>
                     </ul>
                   </div>
-                  <div class="user_item">
-                    <div class="desc">
+                  <div className="user_item">
+                    <div className="desc">
                       <span>User Account</span>
                       <p>Ahmed Adel</p>
                     </div>
-                    <div class="imgthumb">
-                      <img src="/assets/images/comment_user_image.png" alt="#" />
+                    <div className="imgthumb">
+                      <img src="/assets/images/comment_user_image.png"  />
                     </div>
                   </div>
                 </div>
-                <div class="more">
+                <div className="more">
                   <a href="#" title="#">
                     View
                   </a>
                 </div>
               </div>
             </div>
-            <div class="item next_item">
-              <div class="imgthmb">
-                <img src="/assets/images/news_image.png" alt="#" />
+            <div className="item next_item">
+              <div className="imgthmb">
+                <img src="/assets/images/news_image.png"  />
               </div>
-              <div class="content">
-                <div class="title">
+              <div className="content">
+                <div className="title">
                   <span>The blue elephant</span>
                   <time>Uploaded : 12-05-2020</time>
                 </div>
-                <div class="video_item">
+                <div className="video_item">
                   <a href="#" title="#">
-                    <img src="/assets/images/gallery_item_image.png" alt="#" />
+                    <img src="/assets/images/gallery_item_image.png"  />
                   </a>
                 </div>
-                <div class="video_details">
-                  <div class="info_item">
+                <div className="video_details">
+                  <div className="info_item">
                     <ul>
                       <li>
                         <span>Date of release :</span>
@@ -165,17 +165,17 @@ const Shows = props => (
                       </li>
                     </ul>
                   </div>
-                  <div class="user_item">
-                    <div class="desc">
+                  <div className="user_item">
+                    <div className="desc">
                       <span>User Account</span>
                       <p>Ahmed Adel</p>
                     </div>
-                    <div class="imgthumb">
-                      <img src="/assets/images/comment_user_image.png" alt="#" />
+                    <div className="imgthumb">
+                      <img src="/assets/images/comment_user_image.png"  />
                     </div>
                   </div>
                 </div>
-                <div class="more">
+                <div className="more">
                   <a href="#" title="#">
                     View
                   </a>
@@ -183,8 +183,8 @@ const Shows = props => (
               </div>
             </div>
           </div>
-          <div class="slider_dots">
-            <span class="current"></span>
+          <div className="slider_dots">
+            <span className="current"></span>
             <span></span>
             <span></span>
             <span></span>
@@ -192,9 +192,9 @@ const Shows = props => (
         </div>
       </div>
     </div>
-    <div class="show_blocks">
-      <div class="container">
-        <div class="search_filter">
+    <div className="show_blocks">
+      <div className="container">
+        <div className="search_filter">
           <input type="text" placeholder="show title" />
           <select name="" id="">
             <option value="" selected>
@@ -245,194 +245,194 @@ const Shows = props => (
             <option value="">Country</option>
           </select>
           <button type="submit">
-            <i class="icofont-ui-search"></i>
+            <i className="icofont-ui-search"></i>
           </button>
         </div>
-        <div class="shows_items">
-          <div class="item">
-            <div class="imgthumb">
+        <div className="shows_items">
+          <div className="item">
+            <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image.png" alt="#" />
-                <div class="mask">
-                  <div class="content">
+                <img src="/assets/images/show_image.png"  />
+                <div className="mask">
+                  <div className="content">
                     <p>The blue elephant</p>
-                    <div class="stars">
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rate-blank"></i>
-                      <i class="icofont-ui-rate-blank"></i>
+                    <div className="stars">
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rate-blank"></i>
+                      <i className="icofont-ui-rate-blank"></i>
                     </div>
                   </div>
                 </div>
               </a>
             </div>
           </div>
-          <div class="item">
-            <div class="imgthumb">
+          <div className="item">
+            <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image2.png" alt="#" />
-                <div class="mask">
-                  <div class="content">
+                <img src="/assets/images/show_image2.png"  />
+                <div className="mask">
+                  <div className="content">
                     <p>The blue elephant</p>
-                    <div class="stars">
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rate-blank"></i>
-                      <i class="icofont-ui-rate-blank"></i>
+                    <div className="stars">
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rate-blank"></i>
+                      <i className="icofont-ui-rate-blank"></i>
                     </div>
                   </div>
                 </div>
               </a>
             </div>
           </div>
-          <div class="item">
-            <div class="imgthumb">
+          <div className="item">
+            <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image.png" alt="#" />
-                <div class="mask">
-                  <div class="content">
+                <img src="/assets/images/show_image.png"  />
+                <div className="mask">
+                  <div className="content">
                     <p>The blue elephant</p>
-                    <div class="stars">
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rate-blank"></i>
-                      <i class="icofont-ui-rate-blank"></i>
+                    <div className="stars">
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rate-blank"></i>
+                      <i className="icofont-ui-rate-blank"></i>
                     </div>
                   </div>
                 </div>
               </a>
             </div>
           </div>
-          <div class="item">
-            <div class="imgthumb">
+          <div className="item">
+            <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image2.png" alt="#" />
-                <div class="mask">
-                  <div class="content">
+                <img src="/assets/images/show_image2.png"  />
+                <div className="mask">
+                  <div className="content">
                     <p>The blue elephant</p>
-                    <div class="stars">
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rate-blank"></i>
-                      <i class="icofont-ui-rate-blank"></i>
+                    <div className="stars">
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rate-blank"></i>
+                      <i className="icofont-ui-rate-blank"></i>
                     </div>
                   </div>
                 </div>
               </a>
             </div>
           </div>
-          <div class="item">
-            <div class="imgthumb">
+          <div className="item">
+            <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image.png" alt="#" />
-                <div class="mask">
-                  <div class="content">
+                <img src="/assets/images/show_image.png"  />
+                <div className="mask">
+                  <div className="content">
                     <p>The blue elephant</p>
-                    <div class="stars">
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rate-blank"></i>
-                      <i class="icofont-ui-rate-blank"></i>
+                    <div className="stars">
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rate-blank"></i>
+                      <i className="icofont-ui-rate-blank"></i>
                     </div>
                   </div>
                 </div>
               </a>
             </div>
           </div>
-          <div class="item">
-            <div class="imgthumb">
+          <div className="item">
+            <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image2.png" alt="#" />
-                <div class="mask">
-                  <div class="content">
+                <img src="/assets/images/show_image2.png"  />
+                <div className="mask">
+                  <div className="content">
                     <p>The blue elephant</p>
-                    <div class="stars">
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rate-blank"></i>
-                      <i class="icofont-ui-rate-blank"></i>
+                    <div className="stars">
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rate-blank"></i>
+                      <i className="icofont-ui-rate-blank"></i>
                     </div>
                   </div>
                 </div>
               </a>
             </div>
           </div>
-          <div class="item">
-            <div class="imgthumb">
+          <div className="item">
+            <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image.png" alt="#" />
-                <div class="mask">
-                  <div class="content">
+                <img src="/assets/images/show_image.png"  />
+                <div className="mask">
+                  <div className="content">
                     <p>The blue elephant</p>
-                    <div class="stars">
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rate-blank"></i>
-                      <i class="icofont-ui-rate-blank"></i>
+                    <div className="stars">
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rate-blank"></i>
+                      <i className="icofont-ui-rate-blank"></i>
                     </div>
                   </div>
                 </div>
               </a>
             </div>
           </div>
-          <div class="item">
-            <div class="imgthumb">
+          <div className="item">
+            <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image2.png" alt="#" />
-                <div class="mask">
-                  <div class="content">
+                <img src="/assets/images/show_image2.png"  />
+                <div className="mask">
+                  <div className="content">
                     <p>The blue elephant</p>
-                    <div class="stars">
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rate-blank"></i>
-                      <i class="icofont-ui-rate-blank"></i>
+                    <div className="stars">
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rate-blank"></i>
+                      <i className="icofont-ui-rate-blank"></i>
                     </div>
                   </div>
                 </div>
               </a>
             </div>
           </div>
-          <div class="item">
-            <div class="imgthumb">
+          <div className="item">
+            <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image.png" alt="#" />
-                <div class="mask">
-                  <div class="content">
+                <img src="/assets/images/show_image.png"  />
+                <div className="mask">
+                  <div className="content">
                     <p>The blue elephant</p>
-                    <div class="stars">
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rate-blank"></i>
-                      <i class="icofont-ui-rate-blank"></i>
+                    <div className="stars">
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rate-blank"></i>
+                      <i className="icofont-ui-rate-blank"></i>
                     </div>
                   </div>
                 </div>
               </a>
             </div>
           </div>
-          <div class="item">
-            <div class="imgthumb">
+          <div className="item">
+            <div className="imgthumb">
               <a href="#" title="#">
-                <img src="/assets/images/show_image2.png" alt="#" />
-                <div class="mask">
-                  <div class="content">
+                <img src="/assets/images/show_image2.png"  />
+                <div className="mask">
+                  <div className="content">
                     <p>The blue elephant</p>
-                    <div class="stars">
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rating"></i>
-                      <i class="icofont-ui-rate-blank"></i>
-                      <i class="icofont-ui-rate-blank"></i>
+                    <div className="stars">
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rating"></i>
+                      <i className="icofont-ui-rate-blank"></i>
+                      <i className="icofont-ui-rate-blank"></i>
                     </div>
                   </div>
                 </div>
@@ -440,7 +440,7 @@ const Shows = props => (
             </div>
           </div>
         </div>
-        <div class="paginations">
+        <div className="paginations">
           <ul>
             <li>
               <a href="#" title="#">
@@ -457,7 +457,7 @@ const Shows = props => (
                 3
               </a>
             </li>
-            <li class="current">
+            <li className="current">
               <a href="#" title="#">
                 4
               </a>

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MIA.ORMContext.Uow {
   public class AppUnitOfWork : UnitOfWork<AppDbContext>, IAppUnitOfWork {
 
-    public AppUnitOfWork(AppDbContext dbContext, IAuditUser auditUser) : base(dbContext, auditUser) {
+    public AppUnitOfWork(AppDbContext dbContext, IUserResolver auditUser) : base(dbContext, auditUser) {
     }
 
 
@@ -36,6 +36,7 @@ namespace MIA.ORMContext.Uow {
     public DbSet<TrophyImage> TrophyImages => base.Context.Set<TrophyImage>();
     public DbSet<VotingCriteria> VotingCriterias => base.Context.Set<VotingCriteria>();
     public DbSet<AlbumItem> AlbumItems => base.Context.Set<AlbumItem>();
+    public DbSet<ContactUsSubject> ContactUsSubjects => base.Context.Set<ContactUsSubject>();
 
     public TEntity Find<TEntity>(params object[] keys) where TEntity : class => base.Context.Find<TEntity>(keys);
     public void RemoveRange<TEntity>(List<TEntity> entities) where TEntity : class => base.Context.RemoveRange(entities);

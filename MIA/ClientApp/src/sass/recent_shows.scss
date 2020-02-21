@@ -1,10 +1,8 @@
 @import "./variables.scss";
-
-//**** Recent Shows ****//
 #recent_shows {
   background: #141414 url("/assets/images/recent_shows_bg.png") scroll no-repeat 0 10%;
   .container {
-    width: 1442px;
+    // width: 1440px;
     margin: 0 auto;
     padding: 50px 25px;
     .title {
@@ -19,50 +17,53 @@
       display: flex;
       justify-content: center;
       margin: 0 auto 50px;
-      input {
-        width: 300px;
-        height: 45px;
-        border-radius: 100px;
-        padding: 0 15px;
-        font-size: 15px;
-        border: 1px solid #808080;
-        background: #141414;
-        color: #fff;
-        text-transform: capitalize;
-        margin: 0 10px 0 0;
-        font-family: Montserrat_Bold;
-      } /* input */
-      select {
-        background: #141414 url("/assets/images/arrow.png") scroll no-repeat 100% center;
-        color: #fff;
-        border: 1px solid #808080;
-        border-radius: 100px;
-        padding: 0 59px 0 15px;
-        font-size: 15px;
-        height: 45px;
-        min-width: 245px;
-        margin: 0 10px 0 0;
-        font-family: Montserrat_Bold;
-        text-transform: capitalize;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        -o-appearance: none;
-        appearance: none;
-      } /* select */
-      button {
-        height: 45px;
-        width: 45px;
-        line-height: 45px;
-        padding: 0;
-        border-radius: 100%;
-        background: #ccbc93;
-        border: none;
-        font-size: 20px;
-        float: right;
-        color: #000;
-        cursor: pointer;
-        &:hover {
-          background: #eadab1;
+      form {
+        display: flex;
+        input {
+          // width: 300px;
+          height: 45px;
+          border-radius: 100px;
+          padding: 0 15px;
+          font-size: 15px;
+          border: 1px solid #808080;
+          background: #141414;
+          color: #fff;
+          text-transform: capitalize;
+          margin: 0 10px 0 0;
+          font-family: Montserrat_Bold;
+        } /* input */
+        select {
+          background: #141414 url("/assets/images/arrow.png") scroll no-repeat 100% center;
+          color: #fff;
+          border: 1px solid #808080;
+          border-radius: 100px;
+          padding: 0 59px 0 15px;
+          font-size: 15px;
+          height: 45px;
+          min-width: 245px;
+          margin: 0 10px 0 0;
+          font-family: Montserrat_Bold;
+          text-transform: capitalize;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          -o-appearance: none;
+          appearance: none;
+        } /* select */
+        button {
+          height: 45px;
+          width: 45px;
+          line-height: 45px;
+          padding: 0;
+          border-radius: 100%;
+          background: #ccbc93;
+          border: none;
+          font-size: 20px;
+          float: right;
+          color: #000;
+          cursor: pointer;
+          &:hover {
+            background: #eadab1;
+          }
         }
       }
     } /* search_filter */
@@ -158,3 +159,42 @@
     } /* paginations */
   } /* container */
 } /* recent_shows */
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+  #recent_shows {
+    .container {
+      .title {
+        font-size: 30px;
+        font-family: Tajawal_Bold;
+      } /* title */
+      .search_filter {
+        input {
+          margin: 0 0 0 10px;
+          font-family: Tajawal_Bold;
+        } /* input */
+        select {
+          background: #141414 url("/assets/images/arrow_rtl.png") scroll no-repeat 0 center;
+          padding: 0 15px 0 59px;
+          margin: 0 0 0 10px;
+          font-family: Tajawal_Bold;
+        } /* select */
+      } /* search_filter */
+      .shows_items {
+        .item {
+          .imgthumb {
+            .mask {
+              .content {
+                p {
+                  font-family: Tajawal_Bold;
+                  font-size: 17px;
+                } /* p */
+              } /* content */
+            } /* mask */
+          } /* imgthumb */
+        } /* item */
+      } /* shows_items */
+    } /* container */
+  } /* recent_shows */
+}
+//**** RTL Style ****//

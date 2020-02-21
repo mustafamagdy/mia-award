@@ -1,6 +1,4 @@
 @import "./variables.scss";
-
-//**** Main Sidebar ****//
 #main_sidebar {
   position: fixed;
   top: 0;
@@ -93,11 +91,7 @@
         right: 0;
       } /* div.z */
       &:hover {
-        div.x,
-        div.y,
-        div.z {
-          background: $secondcolor;
-        }
+        div.x , div.y, div.z {background: $secondcolor;}
       }
     } /* aside_button */
   } /* sidebar_area */
@@ -129,13 +123,13 @@
       &:hover {
         color: $secondcolor;
       } /* a hover */
-    } /* span */
+    } /* a */
   } /* language_switcher */
   .share_site {
     position: absolute;
     bottom: 0;
     left: 0;
-    a {
+    span {
       display: block;
       width: 77px;
       height: 77px;
@@ -166,3 +160,13 @@
     } /* a */
   } /* social_media */
 } /* main_sidebar */
+
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+  #main_sidebar {
+    left: auto;
+    right: 0;
+  } /* main_sidebar */
+}
+//**** RTL Style ****//

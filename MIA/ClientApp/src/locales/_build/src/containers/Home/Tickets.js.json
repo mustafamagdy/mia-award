@@ -1,0 +1,19 @@
+{
+  "date": {
+    "origin": [
+      [
+        "src/containers/Home/Tickets.js",
+        89
+      ]
+    ]
+  },
+  "buy_your_ticket": {
+    "defaults": "buy your ticket",
+    "origin": [
+      [
+        "src/containers/Home/Tickets.js",
+        95
+      ]
+    ]
+  }
+}

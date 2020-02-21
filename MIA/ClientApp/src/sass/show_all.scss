@@ -1,5 +1,4 @@
 @import "./variables.scss";
-
 #show_all {
   .show_slider {
     background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
@@ -17,7 +16,7 @@
       opacity: 0.75;
     } /* after */
     .container {
-      width: 1442px;
+      width: 1440px;
       margin: 0 auto;
       padding: 220px 0 60px;
       overflow: hidden;
@@ -29,17 +28,20 @@
           display: flex;
           flex-wrap: nowrap;
           justify-content: center;
-          perspective: 1000px;
           .item {
             flex-grow: 0;
             flex-shrink: 0;
             flex-basis: 1000px;
-            margin: 0 60px;
+            margin: 0 auto;
             border: 1px solid #21231e;
             background: #0e0e0e;
             border-radius: 10px;
             position: relative;
             box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.35);
+            -webkit-transform: scale(0.8);
+            -moz-transform: scale(0.8);
+            -o-transform: scale(0.8);
+            transform: scale(0.8);
             -webkit-transition: all 0.2s ease-in-out;
             -moz-transition: all 0.2s ease-in-out;
             -o-transition: all 0.2s ease-in-out;
@@ -220,7 +222,7 @@
               } /* video_details */
               .more {
                 display: flex;
-                justify-content: flex-end;
+                justify-content: end;
                 width: 100%;
                 a {
                   background: -moz-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%); /* ff3.6+ */
@@ -249,21 +251,13 @@
                 } /* a */
               } /* more */
             } /* content */
-            &.next_item {
-              -webkit-transform: rotate3d(0, 1, 0, -20deg);;
-              -moz-transform: rotate3d(0, 1, 0, -20deg);
-              -o-transform: rotate3d(0, 1, 0, -20deg);
-              transform: rotate3d(0, 1, 0, -20deg);
-            } /* next_item */
             &.current_item {
+              -webkit-transform: scale(1);
+              -moz-transform: scale(1);
+              -o-transform: scale(1);
+              transform: scale(1);
               .zoom_image {display: block;}
             } /* current_item */
-            &.prev_item {
-              -webkit-transform: rotate3d(0, 1, 0, 20deg);;
-              -moz-transform: rotate3d(0, 1, 0, 20deg);
-              -o-transform: rotate3d(0, 1, 0, 20deg);
-              transform: rotate3d(0, 1, 0, 20deg);
-            } /* next_item */
           } /* item */
         } /* slider_items */
         .slider_nav {
@@ -318,7 +312,7 @@
   } /* show_slider */
   .show_blocks {
     .container {
-      width: 1442px;
+      width: 1440px;
       margin: 0 auto;
       padding: 50px 25px;
       .search_filter {
@@ -462,3 +456,82 @@
     } /* container */
   } /* show_blocks */
 } /* show_all */
+
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+  #show_all {
+    .show_slider {
+      &::after {
+        content: "جوائز ميا";
+        left: auto;
+        right: 50px;
+        font-family: Tajawal_Bold;
+      } /* after */
+      .container {
+        .slider_area {
+          .slider_items {
+            .item {
+              .content {
+                padding: 0 50px 0 0;
+                .title {
+                  span {
+                    font-size: 22px;
+                    font-family: Tajawal_Bold;
+                  } /* span */
+                } /* title */
+                .video_details {
+                  .user_item {
+                    .imgthumb {margin: 0 20px 0 0;}
+                  } /* user_item */
+                } /* video_details */
+                .more {
+                  a {font-family: Tajawal_Bold;} 
+                } /* more */
+              } /* content */
+            } /* item */
+          } /* slider_items */
+          .slider_nav {
+            button {
+              -webkit-transform: rotate(180deg);
+              -moz-transform: rotate(180deg);
+              -o-transform: rotate(180deg);
+              transform: rotate(180deg);
+            } /* button */
+          } /* slider_nav */
+        } /* slider_area */
+      } /* container */
+    } /* show_slider */
+    .show_blocks {
+      .container {
+        .search_filter {
+          input {
+            margin: 0 0 0 10px;
+            font-family: Tajawal_Bold;
+          } /* input */
+          select {
+            background: #141414 url("/assets/images/arrow_rtl.png") scroll no-repeat 0 center;
+            padding: 0 15px 0 59px;
+            margin: 0 0 0 10px;
+            font-family: Tajawal_Bold;
+          } /* select */
+        } /* search_filter */
+        .shows_items {
+          .item {
+            .imgthumb {
+              .mask {
+                .content {
+                  p {
+                    font-family: Tajawal_Bold;
+                    font-size: 17px;
+                  } /* p */
+                } /* content */
+              } /* mask */
+            } /* imgthumb */
+          } /* item */
+        } /* shows_items */
+      } /* container */
+    } /* show_blocks */
+  } /* show_all */
+}
+//**** RTL Style ****//

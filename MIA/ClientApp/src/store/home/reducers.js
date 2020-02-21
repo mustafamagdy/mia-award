@@ -3,6 +3,7 @@ import produce from "immer";
 import { ActionTypes } from "./actions";
 
 const initialState = {
+  contactUsMessageSubjects: [],
   news: [],
   news_pagination: {
     hasNextPage: false,
@@ -10,67 +11,49 @@ const initialState = {
   },
   awards: [],
   sponsers: [],
+  timeline: [],
+  booths: [],
   albumContents: [],
-  recentShows: []
+  recentShows: [],
+  recentShows_pagination: {
+    pageCount: 1,
+    hasNextPage: false,
+    hasPreviousPage: false
+  },
+  shows_categories: [],
+  shows_countries: [],
+  shows_generas: [],
+  shows_years: [],
+  contactUsSuccess: false,
+  contactUsFailed: false
 };
 
-const _news = [
-  {
-    id: "1",
-    date: "15-01-2020",
-    category: "sports",
-    posterUrl: "/assets/images/news_image_1.png",
-    title: "And Mo Salah Makes football history for real"
-  },
-  {
-    id: "2",
-    date: "15-01-2020",
-    category: "media",
-    posterUrl: "/assets/images/news_image_2.jpg",
-    title: "And Mo Salah Makes football history for real"
-  },
-  {
-    id: "3",
-    date: "15-01-2020",
-    category: "sports",
-    posterUrl: "/assets/images/news_image_1.png",
-    title: "And Mo Salah Makes football history for real"
-  },
-  {
-    id: "4",
-    date: "15-01-2020",
-    category: "media",
-    posterUrl: "/assets/images/news_image_2.jpg",
-    title: "And Mo Salah Makes football history for real"
-  },
-  {
-    id: "5",
-    date: "15-01-2020",
-    category: "sports",
-    posterUrl: "/assets/images/news_image_1.png",
-    title: "And Mo Salah Makes football history for real"
-  },
-  {
-    id: "6",
-    date: "15-01-2020",
-    category: "media",
-    posterUrl: "/assets/images/news_image_2.jpg",
-    title: "And Mo Salah Makes football history for real"
-  }
-];
-const fetchNews = (state, action) => {
+const fetchBoothsSuccess = (state, action) => {
   return produce(state, draft => {
-    draft.news = _news;
-    draft.news_pagination = {
-      hasNextPage: true,
-      hasPreviousPage: true
-    };
+    draft.booths = [...action.payload];
   });
 };
 
+const fetchTimelineSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.timeline = [...action.payload];
+  });
+};
+
+const sendContactUsMessageSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.contactUsSuccess = true;
+    draft.contactUsFailed = false;
+  });
+};
+const sendContactUsMessageFailed = (state, action) => {
+  return produce(state, draft => {
+    draft.contactUsFailed = true;
+  });
+};
 const fetchNewsSuccess = (state, action) => {
   return produce(state, draft => {
-    draft.news = _news; //[...action.payload.items];
+    draft.news = [...action.payload.items];
     draft.news_pagination = {
       hasNextPage: action.payload.metadata.hasNextPage,
       hasPreviousPage: action.payload.metadata.hasPreviousPage
@@ -78,23 +61,30 @@ const fetchNewsSuccess = (state, action) => {
   });
 };
 
-const fetchNewsFailed = (state, action) => {
-  return produce(state, draft => {});
+const fetchRecentShowsSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.recentShows = [...action.payload.items];
+    draft.recentShows_pagination = {
+      pageCount: action.payload.metadata.pageCount,
+      hasNextPage: action.payload.metadata.hasNextPage,
+      hasPreviousPage: action.payload.metadata.hasPreviousPage
+    };
+  });
 };
 
 const fetchAwardsSuccess = (state, action) => {
-  return produce(state, draft => {});
+  return produce(state, draft => {
+    draft.awards = [...action.payload];
+  });
 };
 
-const fetchAwardsFailed = (state, action) => {
-  return produce(state, draft => {});
+const contactUsMessageSubjectsSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.contactUsMessageSubjects = [...action.payload];
+  });
 };
 
 const fetchSponsersSuccess = (state, action) => {
-  return produce(state, draft => {});
-};
-
-const fetchSponsersFailed = (state, action) => {
   return produce(state, draft => {});
 };
 
@@ -102,33 +92,22 @@ const fetchLatestAlbumContentSuccess = (state, action) => {
   return produce(state, draft => {});
 };
 
-const fetchLatestAlbumContentFailed = (state, action) => {
-  return produce(state, draft => {});
-};
-
-const fetchRecentShowsSuccess = (state, action) => {
-  return produce(state, draft => {});
-};
-
-const fetchRecentShowsFailed = (state, action) => {
-  return produce(state, draft => {});
-};
-
-const searchForShow = (state, action) => {
-  return produce(state, draft => {});
+const bookBoothSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.boothBooked = true;
+  });
 };
 
 export const reducer = createReducer(initialState, {
-  [ActionTypes.FETCH_NEWS]: fetchNews,
   [ActionTypes.FETCH_NEWS_SUCCESS]: fetchNewsSuccess,
-  [ActionTypes.FETCH_NEWS_FAIL]: fetchNewsFailed,
-  [ActionTypes.FETCH_AWARDS_SUCCESS]: fetchAwardsSuccess,
-  [ActionTypes.FETCH_AWARDS_FAIL]: fetchAwardsFailed,
-  [ActionTypes.FETCH_SPONSERS_SUCCESS]: fetchSponsersSuccess,
-  [ActionTypes.FETCH_SPONSERS_FAIL]: fetchSponsersFailed,
-  [ActionTypes.FETCH_LATEST_ALBUM_CONTENTS_SUCCESS]: fetchLatestAlbumContentSuccess,
-  [ActionTypes.FETCH_LATEST_ALBUM_CONTENTS_FAIL]: fetchLatestAlbumContentFailed,
+  [ActionTypes.FETCH_TIMELINE_SUCCESS]: fetchTimelineSuccess,
+  [ActionTypes.FETCH_BOOTHS_SUCCESS]: fetchBoothsSuccess,
   [ActionTypes.FETCH_RECENT_SHOWS_SUCCESS]: fetchRecentShowsSuccess,
-  [ActionTypes.FETCH_RECENT_SHOWS_FAIL]: fetchRecentShowsFailed,
-  [ActionTypes.SEARCH_FOR_SHOW]: searchForShow
+  [ActionTypes.FETCH_CONTACT_US_MESSAGE_SUBJECTS_SUCCESS]: contactUsMessageSubjectsSuccess,
+  [ActionTypes.FETCH_AWARDS_SUCCESS]: fetchAwardsSuccess,
+  [ActionTypes.FETCH_SPONSERS_SUCCESS]: fetchSponsersSuccess,
+  [ActionTypes.FETCH_LATEST_ALBUM_CONTENTS_SUCCESS]: fetchLatestAlbumContentSuccess,
+  [ActionTypes.SEND_CONTACT_US_MESSAGE_SUCCESS]: sendContactUsMessageSuccess,
+  [ActionTypes.SEND_CONTACT_US_MESSAGE_FAIL]: sendContactUsMessageFailed,
+  [ActionTypes.BOOK_BOOTH_SUCCESS]: bookBoothSuccess
 });
