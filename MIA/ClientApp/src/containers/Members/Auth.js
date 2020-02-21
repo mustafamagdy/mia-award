@@ -15,19 +15,23 @@ import { Formik, Form } from 'formik';
 import FormField from 'components/Forms/Field'
 import * as Yup from 'yup';
 
-const ResetPasswordForm = ({ switchToLogin, resetPasswordForUser, ...props }) => {
+const ResetPasswordForm = ({ switchToLogin, resetPasswordForUser, location, match, ...props }) => {
   const { register, handleSubmit } = useForm();
   const resetPassword = values => {
     resetPasswordForUser(values);
   };
+  const urlParams = new URLSearchParams(location.search)
+  const userId = urlParams.get('userId')
+  const code = urlParams.get('code')
+
   return (
 
     <Formik
       initialValues={{
         newPassword: '',
         confirmPassword: '',
-        code: props.code,
-        userId: props.userId,
+        code: code,
+        userId: userId,
       }}
 
       validationSchema={
@@ -271,15 +275,16 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
   );
 };
 
-let resetPassword =false;
-const Auth = ({ ...props }) => {
+// let resetPassword =false;
+const Auth = ({location, ...props }) => {
   const [view, setView] = useState("login");
   const [signupActiveTab, setSignupActiveTab] = useState(0);
+  const [resetPassword,setResetPassword]=useState(false)
   const signupTabs = ["info", "upload_avatar", "terms_and_conditions"];
-  let { reset, code, userId } = props
+  let { reset } = props
   if (reset && !resetPassword && view != 'reset-password') {
     setView('reset-password')
-    resetPassword=true;
+    setResetPassword(true)
   }
 
   return (
@@ -298,7 +303,7 @@ const Auth = ({ ...props }) => {
               <ForgetPasswordForm switchToLogin={() => setView("login")} forgetPasswordForUser={props.forgotPassword} />
             )}
             {view == "reset-password" && (
-              <ResetPasswordForm switchToLogin={() => setView("login")} resetPasswordForUser={props.resetPassword} code={props.code} userId={props.userId} />
+              <ResetPasswordForm location={location} switchToLogin={() => setView("login")} resetPasswordForUser={props.resetPassword} />
             )}
           </div>
           <div className={classNames("register_block", { active: view == "signup" })}>

@@ -15,10 +15,8 @@ import { Code } from "bson";
 const MemberArea = ({ location, match, currentUser, isLoggedIn, logout, ...props }) => {
 
   if (location.pathname === "/members/resetPassword") {
-    const urlParams = new URLSearchParams(location.search)
-    const userId = urlParams.get('userId')
-    const code = urlParams.get('code')
-    return <Auth code={code} userId={userId} reset={true} />;
+
+    return <Auth reset={true} />;
   }
   if (location.pathname === "/members/signin") {
     return <Auth />;
