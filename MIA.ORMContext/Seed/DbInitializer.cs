@@ -38,6 +38,7 @@ namespace MIA.ORMContext.Seed {
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
       await SeedAwards(db, encoder);
+      await SeedBooths(db);
       await SeedNews(db, encoder);
 
       //await SeedDemoNews(db, s3FileManager);
@@ -47,6 +48,36 @@ namespace MIA.ORMContext.Seed {
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
       await SeedDemoUsers(roleManager, userManager, db);
       await db.CommitTransactionAsync();
+    }
+
+    private static async Task SeedBooths(IAppUnitOfWork db)
+    {
+      List<Booth> booths = db.Booths.ToList();
+      var filename = "booths.json";
+      if (File.Exists("./" + filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
+          var newBooth = new List<Booth>();
+          string json = r.ReadToEnd();
+          var listBooths = new List<Booth>();
+          JArray array = JArray.Parse(json);
+          foreach (JToken j in array) {
+            listBooths.Add(new Booth {
+              Code = ((JValue)j["Code"]).Value<string>(),
+              Price = ((JValue)j["Price"]).Value<decimal>(),
+              Description = LocalizedData.FromDictionary((JObject)j["Description"]),
+            });
+          }
+
+          foreach (var booth in listBooths) {
+            var _booth = booths.FirstOrDefault(a => a.Code == booth.Code);
+            if (_booth != null) continue;
+            newBooth.Add(booth);
+          }
+          if (newBooth.Any()) {
+            await db.Booths.AddRangeAsync(newBooth);
+          }
+        }
+      }
     }
 
     private static async Task SeedDemoUsers(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IAppUnitOfWork db) {

@@ -13,36 +13,12 @@ namespace MIA.ORMContext.Mappings {
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
 
-      builder.Property(a => a.Title)
-        .HasConversion(
-            v => JsonConvert.SerializeObject(v, EntityConvensions.Settings),
-            v => JsonConvert.DeserializeObject<LocalizedData>(v, EntityConvensions.Settings));
-
-      builder.Property(a => a.Body)
-        .HasConversion(
-            v => JsonConvert.SerializeObject(v, EntityConvensions.Settings),
-            v => JsonConvert.DeserializeObject<LocalizedData>(v, EntityConvensions.Settings));
 
       builder.Property(a => a.PosterUrl).HasMaxLength(1000);
       builder.Property(a => a.PosterId).HasMaxLength(1000);
       builder.Property(a => a.Date).IsRequired();
 
       builder.HasMany(a => a.Comments).WithOne(a => a.News).HasForeignKey(a => a.NewsId).OnDelete(DeleteBehavior.Cascade);
-    }
-  }
-
-  internal class ContactUsSubjectConfiguration : IEntityTypeConfiguration<ContactUsSubject> {
-    public void Configure(EntityTypeBuilder<ContactUsSubject> builder) {
-
-      builder.HasKey(x => x.Id);
-      builder.Property(x => x.Id)
-        .HasValueGenerator<SeqIdValueGenerator>()
-        .ValueGeneratedOnAdd();
-
-      builder.Property(a => a.Name)
-        .HasConversion(
-            v => JsonConvert.SerializeObject(v, EntityConvensions.Settings),
-            v => JsonConvert.DeserializeObject<LocalizedData>(v, EntityConvensions.Settings));
     }
   }
 }

@@ -13,12 +13,7 @@ namespace MIA.ORMContext.Mappings {
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
 
-      builder.Property(a => a.Title)
-      .HasConversion(
-          v => JsonConvert.SerializeObject(v, EntityConvensions.Settings),
-          v => JsonConvert.DeserializeObject<LocalizedData>(v, EntityConvensions.Settings));
-
-
+     
       builder.HasOne(a => a.Payment).WithOne(a => a.ArtWork).HasForeignKey<ArtWork>(a => a.AwardId);
       builder.HasOne(a => a.Award).WithMany(a => a.ArtWorks).HasForeignKey(a => a.AwardId);
       builder.HasOne(a => a.Nominee).WithMany(a => a.ArtWorks).HasForeignKey(a => a.NomineeId);

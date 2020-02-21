@@ -1,5 +1,6 @@
 ﻿using MIA.Authorization.Entities;
 using MIA.Models.Entities;
+using MIA.ORMContext.ValueConverters;
 using MIA.ORMContext.ValueGenerators;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +49,8 @@ namespace MIA.ORMContext {
       builder.Entity<AppRole>().Property(x => x.Description).HasColumnType("nvarchar(MAX)");
       builder.Entity<AppRole>().Property(x => x.Permissions).HasColumnType("nvarchar(1000)").HasMaxLength(1000);
 
+      // set localizedData converter
+      builder.UseValueConverterForType<LocalizedData>(new LocalizedDataConverter());
     }
 
     #region Auditing
