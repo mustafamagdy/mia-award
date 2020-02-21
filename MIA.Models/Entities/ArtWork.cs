@@ -17,6 +17,11 @@ namespace MIA.Models.Entities {
     public HashSet<MediaFile> MediaFiles { get; set; }
     public HashSet<JudgeVote> Votes { get; set; }
 
+    public Award WinnerAwardFirstPlace { get; set; }
+    public string WinnerAwardFirstPlaceId { get; set; }
+    public Award WinnerAwardSecondPlace { get; set; }
+    public string WinnerAwardSecondPlaceId { get; set; }
+
     public string PosterId { get; set; }
     public string PosterUrl { get; set; }
     public string TrailerId { get; set; }

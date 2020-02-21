@@ -18,6 +18,10 @@ namespace MIA.ORMContext.Mappings {
       builder.HasMany(a => a.JudgeAwards).WithOne(a => a.Award).HasForeignKey(a => a.AwardId);
       builder.HasOne(a => a.Manager);
       builder.HasMany(a => a.ArtWorks).WithOne(a => a.Award).HasForeignKey(a => a.AwardId);
+
+      builder.HasOne(a => a.FirstPlace).WithOne(a=>a.WinnerAwardFirstPlace).HasForeignKey<Award>(a=>a.FirstPlaceArtworkId);
+      builder.HasOne(a => a.SecondPlace).WithOne(a => a.WinnerAwardSecondPlace).HasForeignKey<Award>(a => a.SecondPlaceArtworkId);
+
     }
   }
 

@@ -12,6 +12,9 @@ import { fileToBase64 } from "utils";
 import { withRouter } from "react-router-dom";
 import { ImageZoom } from "react-simple-image-zoom";
 import { Dropdown } from "components/Forms";
+import BlockUi from "react-block-ui";
+import PaymentForm from "components/PaymentForm";
+
 const Booths = ({ fetchBooths, booths, ...props }) => {
   useEffect(() => {
     fetchBooths();
@@ -21,6 +24,7 @@ const Booths = ({ fetchBooths, booths, ...props }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
   const [paymentToken, setPaymentToken] = useState(undefined);
+  const [useOnlinePayment, setUseOnlinePayment] = useState(true);
 
   const { register, handleSubmit, getValues, setValue } = useForm();
 
@@ -58,26 +62,28 @@ const Booths = ({ fetchBooths, booths, ...props }) => {
     processOrder();
   };
 
+  const setPaymentMethod = e => {
+    setUseOnlinePayment(e.target.value == "online");
+  };
+
   return (
     <section id="booth_page">
       <div className="container">
         <div className="booth_row">
           <div className="col_left">
             <div className="imgthumb">
-              <div style={{ width: "540px", marginLeft: "20px", overflow: "hidden" }}>
-                <ImageZoom
-                  portalId="zoom-img"
-                  largeImgSrc="assets/images/booth_image.png"
-                  imageWidth={540}
-                  imageHeight={540}
-                  zoomContainerWidth={540}
-                  portalStyle={Object.assign({ ...ImageZoom.defaultPortalStyle }, { top: "140px" })}
-                  zoomScale={3}
-                  responsive={true}
-                >
-                  <img src="assets/images/booth_image.png" />
-                </ImageZoom>
-              </div>
+              <ImageZoom
+                portalId="zoom-img"
+                largeImgSrc="assets/images/booth_image.png"
+                imageWidth={540}
+                imageHeight={540}
+                zoomContainerWidth={540}
+                portalStyle={Object.assign({ ...ImageZoom.defaultPortalStyle }, { top: "140px" })}
+                zoomScale={3}
+                responsive={true}
+              >
+                <img src="assets/images/booth_image.png" />
+              </ImageZoom>
               {/* <span>
                 <i className="icofont-ui-zoom-in"></i>
               </span> */}
@@ -112,6 +118,8 @@ const Booths = ({ fetchBooths, booths, ...props }) => {
                 onPayment={handleSubmit(onPayment)}
                 setPaymentToken={setPaymentToken}
                 processOrder={processOrder}
+                useOnlinePayment={useOnlinePayment}
+                setPaymentMethod={setPaymentMethod}
               />
               <Confirmation finished={false} success={false} />
             </div>
@@ -170,49 +178,76 @@ const Info = ({ booths, active, register, submitInfo, ...props }) => {
   );
 };
 
-const Payment = ({ active, ...props }) => {
+const Payment = ({ active, register, useOnlinePayment, setPaymentMethod, setPaymentToken, onPayment, ...props }) => {
   return (
     <div className={classNames("tab_item payment_tab", { active })}>
       <div className="paymnets_area">
         <div className="title">Choose Your Payment Method :</div>
         <div className="choose_area">
-          <label htmlFor="payOnline">
+          <label htmlFor="online">
             <span>Pay Online</span>
-            <input type="radio" id="payOnline" name="customRadio" />
+            <input
+              ref={register}
+              type="radio"
+              id="online"
+              value="online"
+              name="payment.paymentMethod"
+              onChange={setPaymentMethod}
+              checked={!!useOnlinePayment}
+            />
             <div className="checkmark"></div>
           </label>
-          <div className="pay_online_form">
-            <div className="pay_icons">
-              <span>
-                <img src="assets/images/pay1.png" />
-              </span>
-              <span>
-                <img src="assets/images/pay2.png" />
-              </span>
-              <span>
-                <img src="assets/images/pay3.png" />
-              </span>
-              <span>
-                <img src="assets/images/pay4.png" />
-              </span>
+          <BlockUi tag="div" blocking={!useOnlinePayment} className={classNames("pay_online_form", { move: !useOnlinePayment })}>
+            <img src="/assets/images/pay_logo.png" />
+            <PaymentForm
+              cardTokenized={token => {
+                setPaymentToken(token);
+              }}
+            />
+            <div className="confirm">
+              <button id="pay-button" type="submit" form="payment-form">
+                Pay & Continue
+              </button>
             </div>
-          </div>
+          </BlockUi>
         </div>
         <div className="choose_area">
-          <label htmlFor="payOffline">
+          <label htmlFor="offline">
             <span>Pay Offline</span>
-            <input type="radio" id="payOffline" name="customRadio" />
+            <input
+              ref={register}
+              type="radio"
+              id="offline"
+              value="offline"
+              name="payment.paymentMethod"
+              onChange={setPaymentMethod}
+              checked={!useOnlinePayment}
+            />
             <div className="checkmark"></div>
           </label>
-          <div className="pay_offline_form">
+          <BlockUi tag="div" blocking={useOnlinePayment} className={classNames("pay_offline_form", { move: useOnlinePayment })}>
             <p>please upload the reciept to be approved from the adminstration and confirm your payment</p>
-          </div>
-        </div>
-        <div className="Upload">
-          <input type="file" id="file" />
-          <label htmlFor="file" className="btn-2">
-            Upload
-          </label>
+            <form id="offline-payment" onSubmit={onPayment}>
+              <input ref={register} name="payment.receiptAmount" type="text" placeholder="Amount" />
+              <input ref={register} name="payment.receiptNumber" type="text" placeholder="Transaction Number" />
+              <input ref={register} name="payment.receiptDate" type="text" placeholder="Payment Date" />
+              <div className="confirm">
+                <input type="file" id="receipt" name="payment.receipt" ref={register} />
+                <label htmlFor="receipt" className="btn-2">
+                  Choose receipt image
+                </label>
+                <button form="offline-payment" type="submit">
+                  Submit
+                </button>
+              </div>
+            </form>
+            <div className="Upload">
+              <input type="file" id="file" />
+              <label htmlFor="file" className="btn-2">
+                Upload
+              </label>
+            </div>
+          </BlockUi>
         </div>
         <div className="next_step">
           <button type="button">Buy Now</button>
@@ -225,10 +260,11 @@ const Payment = ({ active, ...props }) => {
 const Confirmation = ({ active, success, ...props }) => {
   return (
     <div className={classNames("tab_item confirmation_tab", { active })}>
-      <div className="title">booking successfull</div>
+      <div className="title">
+        <Trans id="booth_booking_success">Booking successfull</Trans>
+      </div>
       <div className="content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-        ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
+        <Trans id="booth_booking_success_msg">Thank you please contact us @123456</Trans>
       </div>
     </div>
   );
