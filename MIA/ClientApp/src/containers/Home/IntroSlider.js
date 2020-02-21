@@ -67,17 +67,29 @@ const Intro = props => {
     spaceBetween: 0,
     speed: 1000,
     loop: true,
+    simulateTouch: true,
     getSwiper: (swiper) => {
       setSwiper(swiper)
     },
+    breakpoints:{
+      991:{
+        simulateTouch: false,
+      }
+    }
   };
   const params2 = {
     spaceBetween: 0,
     speed: 1000,
     loop: true,
+    simulateTouch: true,
     getSwiper: (swiperMini) => {
       setSwiperMini(swiperMini)
     },
+    breakpoints:{
+      991:{
+        simulateTouch: false,
+      }
+    }
   };
 
 

@@ -133,7 +133,8 @@
             font-size: 14px;
             line-height: 24px;
             @media (max-width: 1750px){
-              height: 260px;
+              max-height: 220px;
+              height: 100%;
               overflow-y: auto;
             }
 
