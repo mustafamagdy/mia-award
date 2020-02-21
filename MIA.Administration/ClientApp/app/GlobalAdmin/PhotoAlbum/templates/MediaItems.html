@@ -1,0 +1,48 @@
+<div>
+    <div ng-show="user.PermessionModules['News'].includes('add_new')">
+
+        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
+        border-radius: 17px;" ng-click="$state.go('newMediaItem',{id: $stateParams.id});"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+            {{'AddNew'| translate}}</button>
+    </div>
+    <div ng-if="mediaItemCtrl.mediaItemList.length == 0">
+        <span>{{'NoPhotoAlbumsAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="mediaItemCtrl.mediaItemList.length > 0">
+        <div class="table-responsive" style="border: 1px solid #21231e;
+        border-radius: 20px;
+        background-color: #0e0e0e;
+        box-shadow: 0 0 10px 5px rgba(0,0,0,.35);
+    ">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'image' | translate}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="mediaItems in mediaItemCtrl.mediaItemList">
+
+                        <td>
+                            <img style="width: 70px;height: 70px;" data-ng-src="{{mediaItems.fileUrl}}" />
+                        </td>
+
+                        <td width="30%">
+                            <i ng-show="user.PermessionModules['News'].includes('remove')"
+                                class="material-icons pmd-md deleteButton cursorPointer font25"
+                                ng-click="mediaItemCtrl.openDeleteDialog(mediaItems,mediaItems.title[selectedLanguage] ,mediaItems.id)"
+                                title="Delete">delete</i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="mediaItemCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+        hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

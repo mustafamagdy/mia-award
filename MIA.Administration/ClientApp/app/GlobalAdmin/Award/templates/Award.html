@@ -23,12 +23,12 @@
                 <tbody>
                     <tr ng-repeat="Award in AwardList">
                         <td data-title="Name">
-                            {{Award.title  | limitTo : 20}}
-                            {{Award.title.length > 20 ? '...' : ''}}
+                            {{Award.title[selectedLanguage]  | limitTo : 20}}
+                            {{Award.title[selectedLanguage].length > 20 ? '...' : ''}}
                         </td>
                         <td width="30%">
-                            {{Award.description  | limitTo : 60}}
-                            {{Award.description.length > 60 ? '...' : ''}}
+                            {{Award.description[selectedLanguage]  | limitTo : 60}}
+                            {{Award.description[selectedLanguage].length > 60 ? '...' : ''}}
                         </td>
                         <td data-title="Name">
                             {{Award.manager.firstName }} - {{Award.manager.lastName}}

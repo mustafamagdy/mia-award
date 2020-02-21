@@ -35,22 +35,7 @@ namespace MIA.ORMContext.Seed {
       await SeedDemoGallery(db, s3FileManager);
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
-      for (int i = 0; i < 5; i++) {
-
-        Judge Judge = new Judge {
-          FirstName = "System",
-          LastName = "Judge no " + i,
-          Email = Constants.JUDGE_EMAIL + i,
-          UserName = Constants.JUDGE_USERNAME + i,
-          NormalizedEmail = Constants.JUDGE_EMAIL.ToUpper() + i,
-          NormalizedUserName = Constants.JUDGE_USERNAME.ToUpper() + i,
-        };
-
-        IdentityResult result = await userManager.CreateAsync(Judge, Constants.DEMO_ROLE);
-        if (result.Succeeded) {
-          await userManager.AddToRoleAsync(Judge, Constants.JUDGE_ROLE);
-        }
-      }
+      
       await db.CommitTransactionAsync();
     }
 
@@ -109,7 +94,7 @@ namespace MIA.ORMContext.Seed {
       if (mainAlbum == null) {
         mainAlbum = new Album {
           MainGallery = true,
-          Title = "MAIN ALBUM"
+         // Title = new LocalizedData { "en":""}
         };
 
         await db.Albums.AddAsync(mainAlbum);

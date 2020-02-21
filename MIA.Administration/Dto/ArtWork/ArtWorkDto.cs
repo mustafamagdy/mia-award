@@ -24,7 +24,7 @@ namespace MIA.Administration.Api {
 
     public string DateOfRelease { get; set; }
     public string Country { get; set; }
-    public string ShowDescription { get; set; }
+    public LocalizedData ShowDescription { get; set; }
     public string Director { get; set; }
     public string Production { get; set; }
     public string Writers { get; set; }

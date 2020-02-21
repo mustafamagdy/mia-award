@@ -56,6 +56,8 @@
 
 
         vm.AddNewArtWork = function () {
+            var splitImage = vm.posterImage.split(',');
+            //var splitReciept = vm.receiptImage.split(',');
             // var Payment = {
             //     TransactionNumber: vm.TransactionNumber,
             //     Amount: vm.Amount,
@@ -76,14 +78,14 @@
             newObj.Writers = vm.Writers.join(', ');
             newObj.Story = vm.Story.join(', ');
             newObj.Crew = vm.Crew.join(', ');
-            newObj.PaymentStatus = vm.PaymentStatus == true ? 1 : 0;
-            newObj.TransactionNumber = vm.TransactionNumber;
-            newObj.Amount = vm.Amount;
-            // newObj.PaymentDate = $('#paymentDate').val();
-            newObj.Receipt = receiptImage;
-            // newObj.Payment = JSON.stringify(Payment)
-            newObj.Poster = posterImage;// $scope.file;
-            newObj.Video = posterImage;
+            // newObj.PaymentStatus = vm.PaymentStatus == true ? 1 : 0;
+            // newObj.TransactionNumber = vm.TransactionNumber;
+            // newObj.Amount = vm.Amount; 
+            // newObj.Receipt = splitReciept[1]; 
+            // newObj.ReceiptFileName = receiptImage.type; 
+
+            newObj.Poster = splitImage[1];
+            newObj.PosterFileName = posterImage.type;  
 
 
 
@@ -190,7 +192,6 @@
         }
 
         $scope.uploadPosterFile = function (element) {
-            debugger;
             vm.posterImage = $(element)[0].files[0];
         };
 

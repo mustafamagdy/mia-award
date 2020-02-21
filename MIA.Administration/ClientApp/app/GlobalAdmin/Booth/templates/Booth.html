@@ -31,8 +31,8 @@
                             {{Booth.price}}
                         </td>
                         <td data-title="Name">
-                            {{Booth.description  | limitTo : 20}}
-                            {{Booth.description.length > 20 ? '...' : ''}}
+                            {{Booth.description[selectedLanguage]  | limitTo : 20}}
+                            {{Booth.description[selectedLanguage].length > 20 ? '...' : ''}}
                         </td>
                         <td class="pmd-table-row-action">
                             <span href="javascript:void(0);" ng-if="Booth.boothPurchase.length >0 "

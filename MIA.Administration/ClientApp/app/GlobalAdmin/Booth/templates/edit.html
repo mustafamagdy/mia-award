@@ -1,16 +1,14 @@
-<div id="bold">
-    {{'EditBooth' | translate}}
-</div>
+ 
 <div class="modal-content">
     <div class="modal-header bordered">
-        <h2 class="pmd-card-description-text">{{'BoothLbl' | translate}}</h2>
+        <h2 class="pmd-card-description-text">{{'EditBooth' | translate}}</h2>
     </div>
     <div class="modal-body">
         <form class="form-horizontal" name="editBoothForm">
             <div class="row">
                 <div class="form-group col-lg-12">
                     <img src="../../../../assets/img/booth.jpg" style="height: 350px;
-                    width: 80%;" />
+                    width: 99%;" />
                 </div>
             </div>
             <div class="row">
@@ -33,10 +31,10 @@
                                     ng-repeat="lang in editBoothCtrl.language" id="{{lang.value}}-form">
                                     <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
                                         <label for="first-name">{{ lang.value+'Name' | translate}} </label>
-                                        <input required type="text" class="mat-input form-control"
+                                        <textarea required type="text" class="mat-input form-control"
                                             name="description{{lang.value+'Name'}}"
                                             ng-model="editBoothCtrl.Booth.description[lang.key]" ng-minlength="3"
-                                            ng-maxlength="255">
+                                            ng-maxlength="255"></textarea>
                                         <div ng-messages="editBoothForm.description{{lang.value+'Name'}}.$error">
 
                                             <div class="error ng-binding"
@@ -46,24 +44,7 @@
                                                 ng-show="(editBoothForm.description{{lang.value+'Name'}}.$error.minlength || editBoothForm.description{{lang.value+'Name'}}.$error.maxlength) && !editBoothForm.description{{lang.value+'Name'}}.$error.required">
                                                 {{'NameLengthError3' | translate}}</div>
                                         </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
-                                        <label for="first-name">{{ lang.value+'Name' | translate}} </label>
-                                        <textarea required type="text" class="mat-input form-control"
-                                            name="body{{lang.value+'Name'}}"
-                                            ng-model="editBoothCtrl.Booth.body[lang.key]" ng-minlength="3"
-                                            ng-maxlength="955"></textarea>
-                                        <div ng-messages="editBoothForm.body{{lang.value+'Name'}}.$error">
-
-                                            <div class="error ng-binding"
-                                                ng-show="editBoothForm.body{{lang.value+'Name'}}.$error.required && !editBoothForm.body{{lang.value+'Name'}}.$pristine">
-                                                {{'requiredErr' | translate}}</div>
-                                            <div class="error ng-binding"
-                                                ng-show="(editBoothForm.body{{lang.value+'Name'}}.$error.minlength || editBoothForm.body{{lang.value+'Name'}}.$error.maxlength) && !editBoothForm.body{{lang.value+'Name'}}.$error.required">
-                                                {{'NameLengthError3' | translate}}</div>
-                                        </div>
-                                    </div>
-
+                                    </div> 
                                 </div>
 
                             </div>
@@ -106,6 +87,25 @@
                         <div class="error" ng-if="(editBoothForm.Price.$error.minlength ||
                                         editBoothForm.Price.$error.maxlength) 
                                          && !editBoothForm.Price.newPrice.$error.required">
+                            {{'PhoneLengthError' |  translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-lg-3">
+                    <label for="first-name">{{'area' | translate}}</label>
+                    <input required type="text" class="mat-input form-control" name="area" 
+                        style="display: inline-block;" ng-minlength="1" ng-maxlength="100"
+                        ng-model="editBoothCtrl.Booth.area" required />
+                    <!-- required validation  -->
+                    <div ng-messages="editBoothForm.area.$error">
+                        <div class="error" ng-if="editBoothForm.area.$error.required && 
+                                    !editBoothForm.area.$pristine">
+                            {{'requiredErr' |  translate}}
+                        </div>
+                        <!-- length validation -->
+                        <div class="error" ng-if="(editBoothForm.area.$error.minlength ||
+                                        editBoothForm.area.$error.maxlength) 
+                                         && !editBoothForm.area.newarea.$error.required">
                             {{'PhoneLengthError' |  translate}}
                         </div>
                     </div>

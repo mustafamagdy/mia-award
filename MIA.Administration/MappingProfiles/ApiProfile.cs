@@ -5,17 +5,20 @@ using MIA.Administration.Dto.Award;
 using MIA.Administration.Dto.User;
 using MIA.Models.Entities;
 
-namespace MIA.Administration.MappingProfiles {
+namespace MIA.Administration.MappingProfiles
+{
 
   /// <summary>
   /// Auto mapper profile that contain mapping used in Api project
   /// </summary>
-  public class ApiProfile : Profile {
+  public class ApiProfile : Profile
+  {
 
     /// <summary>
     /// Constructor
     /// </summary>
-    public ApiProfile() {
+    public ApiProfile()
+    {
 
       #region News
 
@@ -23,13 +26,13 @@ namespace MIA.Administration.MappingProfiles {
         //.ForMember(a => a.ImageUrl, cfg => cfg.MapFrom(a => a.Image != null ? a.Image.Imageurl : ""))
         .ValidateMemberList(MemberList.None);
       CreateMap<NewNewsDto, News>()
-            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.Title)))
-            .ForMember(a => a.Body, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.Body)))
+            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
+            .ForMember(a => a.Body, cfg => cfg.MapFrom(a => a.Body))
             .ValidateMemberList(MemberList.None);
 
       CreateMap<UpdateNewsDto, News>()
-            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.Title)))
-            .ForMember(a => a.Body, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.Body)))
+            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
+            .ForMember(a => a.Body, cfg => cfg.MapFrom(a => a.Body))
             //.ForMember(a => a.PosterId, cfg => cfg.Ignore())
             //.ForMember(a => a.PosterUrl, cfg => cfg.Ignore()) 
             .ValidateMemberList(MemberList.None);
@@ -45,8 +48,12 @@ namespace MIA.Administration.MappingProfiles {
       CreateMap<Booth, BoothsDto>().ValidateMemberList(MemberList.None)
             .ForMember(a => a.BoothPurchase, cfg => cfg.MapFrom(a => a.Purchases))
         ;
-      CreateMap<NewBoothsDto, Booth>().ValidateMemberList(MemberList.None);
-      CreateMap<UpdateBoothsDto, Booth>().ValidateMemberList(MemberList.None);
+      CreateMap<NewBoothsDto, Booth>().ValidateMemberList(MemberList.None)
+            .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
+        ;
+      CreateMap<UpdateBoothsDto, Booth>().ValidateMemberList(MemberList.None)
+            .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
+        ;
 
       #endregion
 
@@ -59,13 +66,18 @@ namespace MIA.Administration.MappingProfiles {
 
       #region PhotoAlbum
 
+
+      CreateMap<AlbumItem, PhotoAlbumFileDto>() 
+         .ValidateMemberList(MemberList.None);
+
+
       CreateMap<AlbumItem, PhotoAlbumFileDto>()
          .ForMember(a => a.FileKey, cfg => cfg.MapFrom(a => a.FileKey))
          .ForMember(a => a.FileUrl, cfg => cfg.MapFrom(a => a.FileUrl))
          .ValidateMemberList(MemberList.None);
 
       CreateMap<Album, PhotoAlbumDto>()
-         .ForMember(a => a.Files, cfg => cfg.MapFrom(a => a.MediaItems))
+      //   .ForMember(a => a.MediaItems, cfg => cfg.MapFrom(a => a.MediaItems))
          .ValidateMemberList(MemberList.None);
 
       CreateMap<NewPhotoAlbumDto, Album>().ValidateMemberList(MemberList.None);
@@ -100,18 +112,21 @@ namespace MIA.Administration.MappingProfiles {
 
 
       CreateMap<NewArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None)
-            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.Title))) 
-            .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.ShowDescription)))
+            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
+            .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => a.ShowDescription))
             .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
             .ForMember(a => a.Nominee, cfg => cfg.MapFrom(a => a.Nominee));
       CreateMap<UpdateArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None)
-            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.Title)))
-            .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => LocalizedData.FromArabic(a.ShowDescription)));
+            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
+            .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => a.ShowDescription));
       #endregion
 
 
       #region Award
-      CreateMap<Award, AwardDto>().ValidateMemberList(MemberList.None);
+      CreateMap<Award, AwardDto>().ValidateMemberList(MemberList.None)
+        .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
+        .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
+;
       CreateMap<Award, AwardDetailsDto>().ValidateMemberList(MemberList.None);
       CreateMap<NewAwardDto, Award>().ValidateMemberList(MemberList.None);
       CreateMap<UpdateAwardDto, Award>().ValidateMemberList(MemberList.None);
@@ -127,8 +142,8 @@ namespace MIA.Administration.MappingProfiles {
 
       #region Judge Award
 
-      CreateMap<JudgeAward, JudgeAwardDto>().ValidateMemberList(MemberList.None); 
-      CreateMap< JudgeAwardDto, JudgeAward>().ValidateMemberList(MemberList.None);
+      CreateMap<JudgeAward, JudgeAwardDto>().ValidateMemberList(MemberList.None);
+      CreateMap<JudgeAwardDto, JudgeAward>().ValidateMemberList(MemberList.None);
       #endregion
 
       #region Judge Comment

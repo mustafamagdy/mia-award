@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="form-group col-lg-12">
                     <img src="../../../../assets/img/booth.jpg" style="height: 350px;
-                    width: 80%;" />
+                    width: 99%;" />
                 </div>
             </div>
             <div class="row">
@@ -52,8 +52,8 @@
                 <div class="form-group col-lg-3">
                     <label for="first-name">{{'Code' | translate}}</label>
                     <input required type="text" class="mat-input form-control" name="Code" numbers-only
-                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
-                        ng-model="newBoothCtrl.Code" required />
+                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4" ng-model="newBoothCtrl.Code"
+                        required />
                     <!-- required validation  -->
                     <div ng-messages="newBoothForm.Code.$error">
                         <div class="error" ng-if="newBoothForm.Code.$error.required && 
@@ -71,8 +71,8 @@
                 <div class="form-group col-lg-3">
                     <label for="first-name">{{'Price' | translate}}</label>
                     <input required type="text" class="mat-input form-control" name="Price" numbers-only
-                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
-                        ng-model="newBoothCtrl.Price" required />
+                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4" ng-model="newBoothCtrl.Price"
+                        required />
                     <!-- required validation  -->
                     <div ng-messages="newBoothForm.Price.$error">
                         <div class="error" ng-if="newBoothForm.Price.$error.required && 
@@ -83,6 +83,26 @@
                         <div class="error" ng-if="(newBoothForm.Price.$error.minlength ||
                                         newBoothForm.Price.$error.maxlength) 
                                          && !newBoothForm.Price.newPrice.$error.required">
+                            {{'PhoneLengthError' |  translate}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <label for="first-name">{{'area' | translate}}</label>
+                    <input required type="text" class="mat-input form-control" name="area"
+                        style="display: inline-block;" ng-minlength="1" ng-maxlength="100" ng-model="newBoothCtrl.Area"
+                        required />
+                    <!-- required validation  -->
+                    <div ng-messages="newBoothForm.area.$error">
+                        <div class="error" ng-if="newBoothForm.area.$error.required && 
+                                    !newBoothForm.area.$pristine">
+                            {{'requiredErr' |  translate}}
+                        </div>
+                        <!-- length validation -->
+                        <div class="error" ng-if="(newBoothForm.area.$error.minlength ||
+                                        newBoothForm.area.$error.maxlength) 
+                                         && !newBoothForm.area.newarea.$error.required">
                             {{'PhoneLengthError' |  translate}}
                         </div>
                     </div>

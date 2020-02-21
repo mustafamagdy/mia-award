@@ -25,6 +25,7 @@
             updateObj.Description = vm.Booth.description;
             updateObj.Code = vm.Booth.code;
             updateObj.Price = vm.Booth.price;
+            updateObj.Area = vm.Booth.area;
             updateObj.$update().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");

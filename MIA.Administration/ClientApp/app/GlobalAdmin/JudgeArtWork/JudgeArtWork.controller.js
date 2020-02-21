@@ -4,36 +4,38 @@
     angular
         .module('home')
         .controller('JudgeArtWorkController', ['appCONSTANTS', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$uibModal',
-            'ToastService','$stateParams', JudgeArtWorkController]);
+            'ToastService', '$stateParams', JudgeArtWorkController]);
 
 
-    function JudgeArtWorkController(appCONSTANTS, $scope, $translate, JudgeArtWorkResource, blockUI, $uibModal, ToastService,$stateParams) {
+    function JudgeArtWorkController(appCONSTANTS, $scope, $translate, JudgeArtWorkResource, blockUI, $uibModal, ToastService, $stateParams) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
-        var vm = this; 
+        var vm = this;
         vm.currentPage = 1;
         vm.appCONSTANTS = appCONSTANTS;
 
-       refreshJudgeArtWorks();
+        refreshJudgeArtWorks();
         function refreshJudgeArtWorks() {
             blockUI.start("Loading...");
+            debugger;
 
-            var k = JudgeArtWorkResource.getJudgeArtWorks({ id: $scope.user.id }).$promise.then(function (results) {
+            var k = JudgeArtWorkResource.getJudgeArtWorks({ id: $scope.user.id }, null).$promise.then(function (results) {
+               
                 $scope.JudgeArtWorkList = results;
-               // $scope.totalCount = results.metadata.totalItemCount;
+                // $scope.totalCount = results.metadata.totalItemCount;
                 console.log($scope.JudgeArtWorkList);
                 blockUI.stop();
 
             },
-                function (data, status) { 
-                blockUI.stop();
+                function (data, status) {
+                    blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
         }
         vm.showMore = function (element) {
             $(element.currentTarget).toggleClass("child-table-collapse");
         }
-        
+
         function confirmationDelete(model) {
             var updateObj = new JudgeArtWorkResource();
             updateObj.$delete({ id: model.id }).then(

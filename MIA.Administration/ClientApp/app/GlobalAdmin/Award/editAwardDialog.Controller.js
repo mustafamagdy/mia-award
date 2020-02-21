@@ -28,6 +28,8 @@
             updateObj.Id = vm.Award.id;
             updateObj.ManagerId = vm.selectedManager.id;
             updateObj.JudgeAwards = vm.selectedJudges;
+            updateObj.Title = vm.Award.title;
+            updateObj.Description = vm.Award.discription;
             updateObj.$update().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");

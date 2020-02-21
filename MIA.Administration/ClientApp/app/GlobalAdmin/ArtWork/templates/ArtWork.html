@@ -1,8 +1,10 @@
 <div>
-    <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
-        <!-- <div id="bold"> {{'AddNewArtWorkBtn'| translate}} </div> -->
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-click="$state.go('newArtWork');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+    <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')"> 
+        <button
+         style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
+        border-radius: 17px;" 
+        ng-click="$state.go('newArtWork');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+            type="button">
             {{'AddNew'| translate}}</button>
     </div>
 
@@ -10,7 +12,11 @@
         <span>{{'NoArtWorksAvailable' | translate}}</span>
     </div>
     <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="ArtWorkList.length > 0">
-        <div class="table-responsive">
+        <div class="table-responsive" style="border: 1px solid #21231e;
+        border-radius: 20px;
+        background-color: #0e0e0e;
+        box-shadow: 0 0 10px 5px rgba(0,0,0,.35);
+    ">
             <table class="table pmd-table table-hover">
                 <thead>
                     <tr>
@@ -24,7 +30,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="ArtWork in ArtWorkList">
+                    <tr ng-repeat="ArtWork in ArtWorkList"
+                        ng-class="{waiting:ArtWork.payment.paymentStatus == 'waiting'}">
                         <td>
                             <img style="width: 70px;height: 70px;" data-ng-src="{{ArtWork.posterUrl}}" />
                         </td>
@@ -33,7 +40,7 @@
                             {{ArtWork.title[selectedLanguage].length > 20 ? '...' : ''}}
                         </td>
                         <td data-title="Name">
-                            {{ArtWork.award.title   | limitTo : 20}}
+                            {{ArtWork.award.title[selectedLanguage]   | limitTo : 20}}
                             {{ArtWork.award.title.length > 20 ? '...' : ''}}
                         </td>
                         <td data-title="uploadComplete">
@@ -51,6 +58,14 @@
                                 ng-click="$state.go('editArtWork',{id: ArtWork.id});" title="Edit">mode_edit</i>
 
                             <i ng-show="user.PermessionModules['News'].includes('add_new')"
+                                class="material-icons md-dark pmd-md perm_media font25"
+                                ng-click="$state.go('ArtWorkpayment',{id: ArtWork.id});" title="payment">payment</i>
+
+                            <i ng-show="user.PermessionModules['News'].includes('add_new')"
+                                class="material-icons md-dark pmd-md perm_media font25"
+                                ng-click="$state.go('newArtWorkMedia',{id: ArtWork.id});" title="media">perm_media</i>
+
+                            <!-- <i ng-show="user.PermessionModules['News'].includes('add_new')"
                                 class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('ArtWorkpayment',{id: ArtWork.id});" title="payment"><img
                                     src="../../../../assets/img/payment.png"></img></i>
@@ -58,7 +73,7 @@
                             <i ng-show="user.PermessionModules['News'].includes('add_new')"
                                 class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('newArtWorkMedia',{id: ArtWork.id});" title="media"><img
-                                    src="../../../../assets/img/media.png"></img></i>
+                                    src="../../../../assets/img/media.png"></img></i> -->
                         </td>
                     </tr>
                 </tbody>

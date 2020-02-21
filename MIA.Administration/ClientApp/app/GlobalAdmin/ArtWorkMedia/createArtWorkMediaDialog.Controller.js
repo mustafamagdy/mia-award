@@ -51,11 +51,11 @@
         // vm.artWorkId = localStorage.getItem('artWorkId');
         // vm.filesCount = localStorage.getItem('filesCount');
         vm.artWorkMedia = ArtWorkMediaByArtWorkIdPrepService;
-        if (vm.artWorkMedia.length < 0) {
-            vm.filesCount = vm.artWorkMedia[0].artWork.fileCount;
-            console.log(vm.artWorkMedia, 'media')
-            vm.filesCounts = [];
-        }
+        //  if (vm.artWorkMedia.length < 0) {
+        vm.filesCount = vm.artWorkMedia[0].artWork.fileCount;
+        console.log(vm.artWorkMedia, 'media')
+        vm.filesCounts = [];
+        //  }
         vm.language = appCONSTANTS.supportedLanguage;
         vm.close = function () {
             $state.go('ArtWork');

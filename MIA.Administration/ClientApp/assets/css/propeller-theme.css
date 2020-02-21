@@ -96,7 +96,8 @@ form.theme-inverse .select2-container--default .select2-selection--single .selec
 /*======= Background fill Color =======*/
 .bg-fill-primary-color {background-color:#202232;} /*Propeller Primary color*/
 .bg-fill-secondary-color {background-color:#494b74;} /*Propeller Secondary color*/
-.bg-fill-white {background-color:#ffffff;}
+.bg-fill-white { background-color: #151515;
+    box-shadow: 0 0 10px 5px rgba(0,0,0,.35)}
 .bg-fill-darkgrey {background-color:#333333;}
 .bg-fill-yellow { background-color:#ffc776;}
 .bg-fill-darkblue {background-color:#333c4e;}
@@ -160,7 +161,8 @@ form.theme-inverse .checkbox-rounded .pmd-checkbox [type="checkbox"]:checked + .
 .bg-fill-secondary-color {background-color: #51D184;} /*Propeller Secondary color*/
 .bg-fill-darkblue {background-color: #202232;}
 .bg-fill-lightblue {background-color: #1f2f46;}
-.bg-fill-white {background-color:#ffffff;}
+.bg-fill-white { background-color: #151515;
+    box-shadow: 0 0 10px 5px rgba(0,0,0,.35)}
 .bg-fill-orange { background-color:#f7912f;}
 .bg-fill-violet { background-color:#04B5A3;}
 .bg-fill-green { background-color:#3CAD45; }

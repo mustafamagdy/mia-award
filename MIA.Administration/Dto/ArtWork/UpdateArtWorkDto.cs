@@ -10,7 +10,7 @@ using MIA.Models.Entities;
 namespace MIA.Administration.Api {
   public class UpdateArtWorkDto : IUpdateDto {
     public string Id { get; set; }
-    public string Title { get; set; }
+    public LocalizedData Title { get; set; }
     public bool UploadComplete { get; set; }
     public AwardDto Award { get; set; }
     public string AwardId { get; set; }
@@ -22,12 +22,13 @@ namespace MIA.Administration.Api {
     public HashSet<MediaFileDto> MediaFiles { get; set; }
     public HashSet<JudgeVoteDto> Votes { get; set; }
 
-    public IFormFile Poster { get; set; }
-    public IFormFile Video { get; set; }
+    public byte[] Poster { get; set; }
+    public string PosterFileName { get; set; }
+    public byte[] Video { get; set; }
     public long PostedDate { get; set; }
     public string DateOfRelease { get; set; }
     public string Country { get; set; }
-    public string ShowDescription { get; set; }
+    public LocalizedData ShowDescription { get; set; }
     public string Director { get; set; }
     public string Production { get; set; }
     public string Writers { get; set; }
@@ -36,7 +37,8 @@ namespace MIA.Administration.Api {
     public string Crew { get; set; }
 
     public PaymentStatus PaymentStatus { get; set; }
-    public IFormFile Receipt { get; set; }
+    public byte[] Receipt { get; set; }
+    public string ReceiptFileName { get; set; }
 
     public string TransactionNumber { get; set; }
     public decimal Amount { get; set; }

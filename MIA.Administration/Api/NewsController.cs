@@ -43,21 +43,21 @@ namespace MIA.Administration.Api {
       this.fileManager = fileManager;
     }
 
-    public override async Task<IActionResult> SaveNewAsync([FromForm] NewNewsDto dto, [FromServices] IAppUnitOfWork db) {
+    public override async Task<IActionResult> SaveNewAsync([FromBody] NewNewsDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
       var newsItem = await db.News.FindAsync(resultDto.Id);
       if (dto.Poster != null && dto.Poster.Length > 0) {
-        using (var memorySteam = new MemoryStream()) {
-          dto.Poster.CopyTo(memorySteam);
+        using (var memorySteam = new MemoryStream(dto.Poster)) {
+          //dto.Poster.CopyTo(memorySteam);
 
           string validationError = "";
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
             return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
           }
 
-          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.News, newsItem.Id, dto.Poster.FileName);
-          var posterUrl = await fileManager.UploadFileAsync(dto.Poster.OpenReadStream(), fileKey);
+          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.News, newsItem.Id, dto.PosterFileName);
+          var posterUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
           newsItem.PosterUrl = posterUrl;
           newsItem.PosterId = fileKey;
@@ -69,26 +69,26 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<NewsDto>(newsItem));
     }
 
-    public override async Task<IActionResult> UpdateAsync([FromForm] UpdateNewsDto dto, [FromServices] IAppUnitOfWork db) {
+    public override async Task<IActionResult> UpdateAsync([FromBody] UpdateNewsDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
       var newsItem = await db.News.FirstOrDefaultAsync(a => a.Id == resultDto.Id);
       if (dto.Poster != null && dto.Poster.Length > 0) {
-        using (var memorySteam = new MemoryStream()) {
-          dto.Poster.CopyTo(memorySteam);
+        using (var memorySteam = new MemoryStream(dto.Poster)) {
+
 
           string validationError = "";
-          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
+          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
+          {
             return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
           }
-
           bool isNew = string.IsNullOrEmpty(newsItem.PosterId);
           if (!isNew) {
             await fileManager.DeleteFileAsync(newsItem.PosterId);
           }
 
-          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.News, newsItem.Id, dto.Poster.FileName);
-          var posterUrl = await fileManager.UploadFileAsync(dto.Poster.OpenReadStream(), fileKey);
+          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.News, newsItem.Id, dto.PosterFileName);
+          var posterUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
           newsItem.PosterUrl = posterUrl;
           newsItem.PosterId = fileKey;

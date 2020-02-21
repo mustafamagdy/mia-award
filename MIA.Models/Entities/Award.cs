@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace MIA.Models.Entities {
   public class Award : BaseEntity<string> {
-    public string Title { get; set; }
-    public string Description { get; set; }
+    public LocalizedData Title { get; set; }
+    public LocalizedData Description { get; set; }
 
     public TrophyImage Trophy { get; set; }
     public string TrophyId { get; set; }

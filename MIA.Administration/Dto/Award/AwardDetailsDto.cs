@@ -1,13 +1,14 @@
 ﻿
 using MIA.Administration.Api;
 using MIA.Administration.Dto.User;
+using MIA.Models.Entities;
 using System.Collections.Generic;
 
 namespace MIA.Administration.Dto.Award {
   public class AwardDetailsDto {
     public string Id { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
+    public LocalizedData Title { get; set; }
+    public LocalizedData Description { get; set; }
 
     // public TrophyImage Trophy { get; set; }
     public string TrophyId { get; set; }

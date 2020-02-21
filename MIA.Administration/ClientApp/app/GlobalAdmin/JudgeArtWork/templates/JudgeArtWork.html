@@ -4,9 +4,8 @@
         <!-- <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
             ng-click="$state.go('newJudgeArtWork');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
             {{'AddNew'| translate}}</button> -->
-    </div>
-
-    <div ng-if="JudgeArtWorkList.length == null">
+    </div> 
+    <div ng-if="JudgeArtWorkList != []">
         <span>{{'NoJudgeArtWorksAvailable' | translate}}</span>
     </div>
     <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="JudgeArtWorkList.length > 0">
@@ -35,7 +34,7 @@
                         <td>
                             <i class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('viewJudgeArtWork',{id: JudgeArtWork.id});"
-                                title="Edit">mode_edit</i>
+                                title="review art work">rate_review</i>
 
                         </td>
                     </tr>

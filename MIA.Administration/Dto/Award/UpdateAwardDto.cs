@@ -1,5 +1,6 @@
 ﻿using MIA.Administration.Api.Base;
-using MIA.Administration.Dto.User; 
+using MIA.Administration.Dto.User;
+using MIA.Models.Entities;
 using System.Collections.Generic;
 
 namespace MIA.Administration.Api {
@@ -8,6 +9,9 @@ namespace MIA.Administration.Api {
 
     public JudgeDto Manager { get; set; }
     public string ManagerId { get; set; }
+
+    public LocalizedData Title { get; set; }
+    public LocalizedData Description { get; set; }
 
     public HashSet<JudgeAwardDto> JudgeAwards { get; set; }
     public HashSet<ArtWorkDto> ArtWorks { get; set; }

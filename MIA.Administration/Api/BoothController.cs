@@ -33,14 +33,14 @@ namespace MIA.Administration.Api {
       this.limitOptions = limitOptions;
     }
 
-    public override async Task<IActionResult> SaveNewAsync([FromForm] NewBoothsDto dto, [FromServices] IAppUnitOfWork db) {
+    public override async Task<IActionResult> SaveNewAsync([FromBody] NewBoothsDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((BoothsDto)(result as OkObjectResult)?.Value);
       var BoothsItem = await db.Booths.FindAsync(resultDto.Id);
       return IfFound(_mapper.Map<BoothsDto>(BoothsItem));
     }
 
-    public override async Task<IActionResult> UpdateAsync([FromForm] UpdateBoothsDto dto, [FromServices] IAppUnitOfWork db) {
+    public override async Task<IActionResult> UpdateAsync([FromBody] UpdateBoothsDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((BoothsDto)(result as OkObjectResult)?.Value);
       var BoothsItem = await db.Booths.FindAsync(resultDto.Id);

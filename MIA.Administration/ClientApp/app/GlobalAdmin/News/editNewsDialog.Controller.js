@@ -9,17 +9,17 @@
     function editNewsDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, NewsResource,
         ToastService, NewsByIdPrepService) {
         var vm = this;
+        var posterImage;
         vm.language = appCONSTANTS.supportedLanguage;
         vm.News = NewsByIdPrepService;
-     debugger;
-        $rootScope.image = vm.News.posterUrl;
-        // console.log(vm.News.image);
+        vm.posterImage= vm.News.posterUrl;
+        console.log(vm.News);
 
         vm.Close = function () {
             $state.go('News');
         }
         vm.UpdateNews = function () {
-          //  var splitImage = $rootScope.image.split(',');
+            var splitImage = vm.posterImage.split(',');
             blockUI.start("Loading...");
             debugger;
 
@@ -27,11 +27,13 @@
             updateObj.Id = vm.News.id;
             updateObj.title = vm.News.title;
             updateObj.body = vm.News.body;
-            if ($scope.file != null) {
+            if ( posterImage != null) {
                 // updateObj.image = splitImage[1];
                 // updateObj.imageContentType = $rootScope.imageType;
-                updateObj.Poster = $scope.file;
+                // updateObj.Poster = $scope.file;
 
+                updateObj.Poster = splitImage[1];
+                updateObj.PosterFileName = posterImage.type;
             }
             updateObj.$update().then(
                 function (data, status) {
@@ -47,5 +49,52 @@
                 }
             );
         }
+
+        vm.LoadUploadPoster = function () {
+            $("#posterImage").click();
+        }
+        $scope.AddposterImage = function (element) {
+            var logoFile = element[0];
+
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/gif']
+
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.editNewsForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        posterImage = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.posterImage = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+
+
+        }
+
+        $scope.uploadPosterFile = function (element) {
+            vm.posterImage = $(element)[0].files[0];
+        };
+
     }
 }());

@@ -20,6 +20,7 @@
             var newObj = new BoothResource();
             newObj.Description = vm.Description;
             newObj.Code = vm.Code;
+            newObj.Area = vm.Area;
             newObj.Price = vm.Price;
             newObj.$create().then(
                 function (data, status) {

@@ -2,6 +2,7 @@
 using MIA.ORMContext.ValueGenerators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Newtonsoft.Json;
 
 namespace MIA.ORMContext.Mappings {
   internal class AwardConfiguration : IEntityTypeConfiguration<Award> {
@@ -11,6 +12,17 @@ namespace MIA.ORMContext.Mappings {
       builder.Property(x => x.Id)
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
+
+
+      builder.Property(a => a.Title)
+        .HasConversion(
+            v => JsonConvert.SerializeObject(v, EntityConvensions.Settings),
+            v => JsonConvert.DeserializeObject<LocalizedData>(v, EntityConvensions.Settings));
+
+      builder.Property(a => a.Description)
+        .HasConversion(
+            v => JsonConvert.SerializeObject(v, EntityConvensions.Settings),
+            v => JsonConvert.DeserializeObject<LocalizedData>(v, EntityConvensions.Settings));
 
 
       builder.HasOne(a => a.Trophy);

@@ -11,14 +11,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace MIA.Administration.Api {
+namespace MIA.Administration.Api
+{
 
   //[Authorize]
   [EnableCors(CorsPolicyName.AllowAll)]
   [Route("api/judgeVote")]
-  public class JudgeVoteController : BaseCrudController<JudgeVote, JudgeVoteDto, NewJudgeVoteDto, UpdateJudgeVoteDto> {
+  public class JudgeVoteController : BaseCrudController<JudgeVote, JudgeVoteDto, NewJudgeVoteDto, UpdateJudgeVoteDto>
+  {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
 
@@ -28,12 +33,14 @@ namespace MIA.Administration.Api {
           IStringLocalizer<JudgeVoteController> localize,
           IHostingEnvironment env,
           IOptions<UploadLimits> limitOptions
-        ) : base(mapper, logger, localize) {
+        ) : base(mapper, logger, localize)
+    {
       this.env = env;
       this.limitOptions = limitOptions;
     }
 
-    public override async Task<IActionResult> SaveNewAsync([FromForm] NewJudgeVoteDto dto, [FromServices] IAppUnitOfWork db) {
+    public override async Task<IActionResult> SaveNewAsync([FromForm] NewJudgeVoteDto dto, [FromServices] IAppUnitOfWork db)
+    {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((JudgeVoteDto)(result as OkObjectResult)?.Value);
       var JudgeVoteItem = await db.JudgeVotes.FindAsync(resultDto.Id);
@@ -45,13 +52,36 @@ namespace MIA.Administration.Api {
 
     }
 
-    public override async Task<IActionResult> UpdateAsync([FromForm] UpdateJudgeVoteDto dto, [FromServices] IAppUnitOfWork db) {
-      var result = await base.UpdateAsync(dto, db);
-      var resultDto = ((JudgeVoteDto)(result as OkObjectResult)?.Value);
-      var JudgeVoteItem = await db.JudgeVotes.FindAsync(resultDto.Id);
-      return IfFound(_mapper.Map<JudgeVoteDto>(JudgeVoteItem));
+    [HttpPost("submitJudgeVote")]
+    public async Task<IActionResult> SubmitJudgeVote([FromBody] UpdateJudgeVoteDto dto, [FromServices] IAppUnitOfWork db)
+    {
+      var judgeVoteItems = db.JudgeVotes.Where(a => a.ArtWorkId == dto.ArtWorkId).ToList();
+      if (judgeVoteItems.Any())
+      {
+
+      }
+      else
+      {
+        var insertList = new List<JudgeVote>();
+        foreach (var value in dto.CriteriaValues)
+        {
+        var judgeObj = new JudgeVote();
+          judgeObj.JudgeId = dto.JudgeId;
+          judgeObj.ArtWorkId = dto.ArtWorkId;
+          judgeObj.CriteriaId = value.Id;
+          judgeObj.VotingValue = Convert.ToInt32(value.Value);
+          insertList.Add(judgeObj);
+        }
+
+        await db.Set<JudgeVote>().AddRangeAsync(_mapper.Map<List<JudgeVote>>(insertList));
+        await db.CommitTransactionAsync();
+
+      }
+
+      return IfFound(_mapper.Map<JudgeVoteDto>(judgeVoteItems));
     }
-    public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
+    public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db)
+    {
       var result = await base.GetAsync(id, db);
       var resultDto = ((JudgeVoteDto)(result as OkObjectResult)?.Value);
       var boothItem = await db.JudgeVotes.FirstOrDefaultAsync(a => a.Id == resultDto.Id);
