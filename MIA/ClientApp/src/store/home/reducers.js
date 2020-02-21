@@ -92,6 +92,12 @@ const fetchLatestAlbumContentSuccess = (state, action) => {
   return produce(state, draft => {});
 };
 
+const bookBoothSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.boothBooked = true;
+  });
+};
+
 export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_NEWS_SUCCESS]: fetchNewsSuccess,
   [ActionTypes.FETCH_TIMELINE_SUCCESS]: fetchTimelineSuccess,
@@ -102,5 +108,6 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_SPONSERS_SUCCESS]: fetchSponsersSuccess,
   [ActionTypes.FETCH_LATEST_ALBUM_CONTENTS_SUCCESS]: fetchLatestAlbumContentSuccess,
   [ActionTypes.SEND_CONTACT_US_MESSAGE_SUCCESS]: sendContactUsMessageSuccess,
-  [ActionTypes.SEND_CONTACT_US_MESSAGE_FAIL]: sendContactUsMessageFailed
+  [ActionTypes.SEND_CONTACT_US_MESSAGE_FAIL]: sendContactUsMessageFailed,
+  [ActionTypes.BOOK_BOOTH_SUCCESS]: bookBoothSuccess
 });
