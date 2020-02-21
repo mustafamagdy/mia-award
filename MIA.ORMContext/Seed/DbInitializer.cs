@@ -149,13 +149,13 @@ namespace MIA.ORMContext.Seed {
         var file = await client.GetAsync(_faker_en.Image.PicsumUrl(400, 600));
         var fileStream = await file.Content.ReadAsStreamAsync();
 
-        var posterKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, artwork.Id, artwork.Id + ".jpg");
+        var posterKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, artwork.Id, artwork.Id + ".jpg");
         var posterUrl = await fileManager.UploadFileAsync(fileStream, posterKey);
 
         //artwork.PosterUrl = posterUrl;
         //artwork.PosterKey = posterKey;
 
-        var trailerKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, artwork.Id, artwork.Id + ".mp4");
+        var trailerKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, artwork.Id, artwork.Id + ".mp4");
         var trailerUrl = await fileManager.UploadFileAsync(fileStream, posterKey);
 
         //artwork.TrailerUrl = trailerUrl;

@@ -14,12 +14,6 @@ namespace MIA.ORMContext.Mappings {
         .ValueGeneratedOnAdd();
 
 
-
-      builder.Property(a => a.Name)
-        .HasConversion(
-            v => JsonConvert.SerializeObject(v, EntityConvensions.Settings),
-            v => JsonConvert.DeserializeObject<LocalizedData>(v, EntityConvensions.Settings));
-
       builder.HasMany(a => a.Votes).WithOne(a => a.Criteria).HasForeignKey(a => a.CriteriaId);
     }
   }

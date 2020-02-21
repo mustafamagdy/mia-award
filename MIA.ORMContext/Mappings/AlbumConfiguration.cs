@@ -13,10 +13,7 @@ namespace MIA.ORMContext.Mappings {
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
 
-      builder.Property(a => a.Title)
-     .HasConversion(
-         v => JsonConvert.SerializeObject(v, EntityConvensions.Settings),
-         v => JsonConvert.DeserializeObject<LocalizedData>(v, EntityConvensions.Settings));
+     
 
       builder.HasMany(a => a.MediaItems).WithOne(a => a.Album).HasForeignKey(a => a.AlbumId);
     }

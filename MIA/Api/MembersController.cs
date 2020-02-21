@@ -228,7 +228,7 @@ namespace MIA.Api {
 
       if (!string.IsNullOrEmpty(dto.PosterFileName) && dto.Poster != null && dto.Poster.Length > 0) {
         var posterFileKey = fileManager.GenerateFileKeyForResource(
-          ResourceType.Artwork,
+          ResourceType.ArtWork,
           artwork.Id, $"{artwork.Id}_poster." + dto.PosterFileName);
         artwork.PosterId = posterFileKey;
         artwork.PosterUrl = await fileManager.UploadFileAsync(dto.Poster, posterFileKey);
@@ -236,7 +236,7 @@ namespace MIA.Api {
 
       if (!string.IsNullOrEmpty(dto.CoverImageFileName) && dto.CoverImage != null && dto.CoverImage.Length > 0) {
         var coverFileKey = fileManager.GenerateFileKeyForResource(
-          ResourceType.Artwork,
+          ResourceType.ArtWork,
           artwork.Id, $"{artwork.Id}_cover." + dto.CoverImageFileName);
         artwork.CoverId = coverFileKey;
         artwork.CoverUrl = await fileManager.UploadFileAsync(dto.CoverImage, coverFileKey);
@@ -348,11 +348,11 @@ namespace MIA.Api {
         //  return ValidationError(HttpStatusCode.BadRequest, "Files upload complete, waiting for artwork review");
         //}
 
-        var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.Artwork, id);
+        var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.ArtWork, id);
         var result = await fileManager.UploadChunk(tempDir, dto);
         if (!string.IsNullOrEmpty(result.FinalUrl)) {
           //move file to final directory of the artwork files
-          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Artwork, id, dto.FileName);
+          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, id, dto.FileName);
           var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
 
           var mediaFile = new MediaFile {
