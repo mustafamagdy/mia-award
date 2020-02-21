@@ -20,7 +20,6 @@ import ShowsView from "../Pages/Shows/view";
 
 import MediaBrowser from "../Media";
 import Booths from "../Booths";
-import BuyBooth from "../Booths/BuyBooth";
 
 import Members from "../Members";
 import TestUpload from "../Test/Upload";
@@ -65,8 +64,7 @@ class Home extends React.Component {
           {/* <Route path="/account/resetPassword" component={ResetPasswordByEmail} /> */}
 
           {/* booths */}
-          <Route path="/booth" component={Booths} />
-          <Route path="/booth-buy" component={BuyBooth} />
+          <Route path="/booths" component={Booths} />
 
           {/* Member section */}
           <Route path="/members" component={Members} />

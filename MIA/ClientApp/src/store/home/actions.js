@@ -4,6 +4,7 @@ const { Types, Creators } = createActions(
   {
     fetchNews: { args: ["payload"], meta: { async: true } },
     fetchTimeline: { args: ["payload"], meta: { async: true } },
+    fetchBooths: { args: ["payload"], meta: { async: true } },
     fetchAwards: { args: [], meta: { async: true } },
     fetchRecentShows: { args: ["payload"], meta: { async: true } },
     fetchContactUsMessageSubjects: { args: ["payload"], meta: { async: true } },

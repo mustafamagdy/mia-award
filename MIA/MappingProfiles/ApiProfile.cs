@@ -28,6 +28,9 @@ namespace MIA.MappingProfiles {
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
+     CreateMap<Booth, BoothDto>()
+       .ValidateMemberList(MemberList.None);
+
       CreateMap<News, RelatedNewsDto>()
        .ValidateMemberList(MemberList.None);
 

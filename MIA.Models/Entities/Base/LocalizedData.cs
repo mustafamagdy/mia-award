@@ -12,7 +12,6 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
 namespace MIA.Models.Entities {
-  public class LocalizedDataDto : Dictionary<string, string> { }
 
   public class LocalizedData : Dictionary<string, string>, IEquatable<LocalizedData> {
     public static readonly string Arabic = "ar";
@@ -82,12 +81,12 @@ namespace MIA.Models.Entities {
   //  }
   //}
 
-  public static class EntityConvensions {
+  public static class EntityConventions {
     public static readonly JsonSerializerSettings Settings;
 
-    static EntityConvensions() {
+    static EntityConventions() {
       Settings = new JsonSerializerSettings {
-        NullValueHandling = NullValueHandling.Ignore,
+        NullValueHandling = NullValueHandling.Ignore
       };
     }
   }

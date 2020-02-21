@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import homeActions from "store/home/actions";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
+import config from "config";
 
 const AwardsSlider = ({ awards, ...props }) => {
   useEffect(() => {
@@ -37,22 +38,15 @@ const AwardsSlider = ({ awards, ...props }) => {
             <Trans id="apply_for_your_award">apply for your award</Trans>
           </span>
           <p>
-            <Trans id="home_general_award_text">
-              brief about the DRAMA award and how to apply for it text Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-              of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
-              .
-            </Trans>
+            <Trans id="home_general_award_text"></Trans>
           </p>
           <time>
             <Trans id="start_from">starts from{"  "}</Trans>
-            <i>01-03-2020</i>
+            <i>{config.awardDetails.startDate}</i>
             <Trans id="to">
               {"  "}to{"  "}
             </Trans>
-            <i>20-05-2020</i>
+            <i>{config.awardDetails.endDate}</i>
           </time>
           {/* <a href="#" title="#">
             <Trans id="view_all">view all</Trans>

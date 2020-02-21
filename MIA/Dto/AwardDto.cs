@@ -10,4 +10,10 @@ namespace MIA.Api {
     public LocalizedData Description { get; set; }
     public decimal ArtworkFee { get; set; }
   }
+
+  public class BoothDto {
+    public string Code { get; set; }
+    public LocalizedData Description { get; set; }
+    public decimal Price { get; set; }
+  }
 }

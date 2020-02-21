@@ -28,14 +28,7 @@ const Timeline = ({ timeline, fetchTimeline, props }) => {
                 <Trans id="program_schedule">Program Schedule</Trans>
               </div>
               <p>
-                <Trans id="program_schedule_brief">
-                  brief about the DRAMA award and how to apply for it text Lorem Ipsum is simply dummy text of the printing and typesetting
-                  industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                  galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                  into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                  sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
-                  versions of .
-                </Trans>
+                <Trans id="program_schedule_brief"></Trans>
               </p>
               <LanguageContext.Consumer>
                 {({ locale }) =>
@@ -49,7 +42,6 @@ const Timeline = ({ timeline, fetchTimeline, props }) => {
                           checked={selectedDay && selectedDay.id == t.id}
                           value={t}
                           onChange={e => {
-                            console.log(e)
                             setSelectedDay(timeline[i]);
                           }}
                         />

@@ -121,8 +121,7 @@ namespace MIA.Api {
     }
 
     [HttpGet("timeline")]
-    public IActionResult TimelineEvents(
-      ) {
+    public IActionResult TimelineEvents() {
       var filename = "timeline.json";
       if (System.IO.File.Exists("./" + filename)) {
         using (StreamReader r = new StreamReader(filename)) {
@@ -134,6 +133,15 @@ namespace MIA.Api {
         return NoContent();
       }
     }
+
+    [HttpGet("booths")]
+    public async Task<IActionResult> Booths([FromServices] IAppUnitOfWork db) {
+      return Ok(await db.Booths.Include(a => a.Purchases)
+                        .Where(a => !a.Purchases.Any())
+                        .ProjectTo<BoothDto>(_mapper.ConfigurationProvider)
+                        .ToArrayAsync());
+    }
+
 
     [HttpGet("contact-message-subject")]
     public IActionResult ContactUsMessageSubjects([FromServices] IAppUnitOfWork db) {

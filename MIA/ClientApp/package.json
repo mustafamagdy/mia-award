@@ -83,6 +83,7 @@
     "react-responsive-carousel": "^3.1.49",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
+    "react-simple-image-zoom": "^0.1.5",
     "react-step-wizard": "^5.3.0",
     "react-telephone-input": "^4.73.4",
     "react-toastify": "^5.1.0",
