@@ -2453,7 +2453,13 @@ table th[class*="col-"] {
     border: 1px solid #ddd;
   }
   .table-responsive > .table {
-    margin-bottom: 0;
+   
+  
+  border: 1px solid #21231e;
+  border-radius: 20px;
+  background-color: #0e0e0e;
+  box-shadow: 0 0 10px 5px rgba(0,0,0,.35);
+ margin-bottom: 0;
   }
   .table-responsive > .table > thead > tr > th,
   .table-responsive > .table > tbody > tr > th,

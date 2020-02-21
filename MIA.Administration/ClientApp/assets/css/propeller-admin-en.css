@@ -13,7 +13,7 @@ body, html{ height:100%; font-family: 'Cairo', sans-serif;
 \.pmd-navbar.navbar .btn.pmd-btn-fab.focus { color: #fff;}
 
 /*========================== header css ===========================*/
-.navbar-inverse{ background-color:#ffffff; border-color:#ffffff;}
+.navbar-inverse{ background-color:#ffffff; border-color:#a38031;}
 .navbar-inverse .navbar-brand svg{ display:inline-block; float:left; vertical-align:top;}
 @media (max-width: 767px) {
 	.navbar-brand > svg{ height:40px; width:auto;}

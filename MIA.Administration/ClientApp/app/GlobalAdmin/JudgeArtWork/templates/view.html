@@ -1,0 +1,85 @@
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-description-text">{{'ViewJudgeArtWork' | translate}}</h2>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="viewJudgeArtWorkForm">
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <div ng-repeat="n in [] | range:viewJudgeArtWorkCtrl.totalCount">
+                        <label for="first-name">{{viewJudgeArtWorkCtrl.votingCriteriaList[n].name[selectedLanguage]}}</label>
+                        <input required type="text" class="mat-input form-control" name="Value" numbers-only
+                            style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
+                            ng-model="viewJudgeArtWorkCtrl.votingCriteria[n]"
+                            ng-change="viewJudgeArtWorkCtrl.changeValue(viewJudgeArtWorkCtrl.votingCriteria[n],n)" required />
+                        <!-- required validation  -->
+                        <div ng-messages="viewJudgeArtWorkForm.Value.$error">
+                            <div class="error" ng-if="viewJudgeArtWorkForm.Value.$error.required && 
+                                        !viewJudgeArtWorkForm.Value.$pristine">
+                                {{'requiredErr' |  translate}}
+                            </div>
+                            <!-- length validation -->
+                            <div class="error" ng-if="(viewJudgeArtWorkForm.Value.$error.minlength ||
+                                            viewJudgeArtWorkForm.Value.$error.maxlength) 
+                                             && !viewJudgeArtWorkForm.Value.newValue.$error.required">
+                                {{'PhoneLengthError' |  translate}}
+                            </div>
+                        </div>
+                        <!-- <input id="{{mediaImage + $index}}" name="{{mediaImage + $index}}" style="display: none;"
+                            onchange="angular.element(this).scope().AddmediaImage(this.files)" type="file" required
+                            file-change handler="fileSelect(files)" ng-repeat="file in viewJudgeArtWorkCtrl.filesCount">
+                        <button class="btn btn-success btn-xs pull-center"
+                            ng-click="viewJudgeArtWorkCtrl.LoadUploadmedia()">{{'Upload Receipt' | translate}}</button>
+
+                        <div ng-messages="viewJudgeArtWorkForm.mediaImage.$error">
+                            <div ng-if="viewJudgeArtWorkForm.mediaImage.$error.required">{{'requiredErr' | translate}}
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+    <div class="pmd-modal-action text-right">
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-disabled="viewJudgeArtWorkForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
+            ng-click="viewJudgeArtWorkCtrl.UpdateJudgeArtWork()">{{'saveChangesBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" type="button"
+            ng-click="viewJudgeArtWorkCtrl.Close()">{{'DiscardBtn' | translate}}</button>
+    </div>
+
+    <div ng-if="viewJudgeArtWorkCtrl.artWorkMedia.length == null">
+        <span>{{'NoMediasAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="viewJudgeArtWorkCtrl.artWorkMedia.length > 0">
+        <div class="table-responsive">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'description' | translate}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Media in viewJudgeArtWorkCtrl.artWorkMedia">
+
+                        <td data-title="code">
+                            {{Media.description}}
+                        </td>
+                        <td width="30%">
+                            <i class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('editMedia',{id: Media.id});" title="Edit">mode_edit</i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="viewJudgeArtWorkCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+        hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

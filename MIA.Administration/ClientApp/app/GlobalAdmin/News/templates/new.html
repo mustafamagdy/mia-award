@@ -57,23 +57,36 @@
 
                         </div>
                     </div>
-                </div>  
+                </div>
                 <div class="form-group pmd-textfield-floating-label-completed">
                     <span style="color:red">*</span>
-                    <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
+
+                    <input id="posterImage" name="posterImage" style="display: none;"
+                        onchange="angular.element(this).scope().AddposterImage(this.files)" type="file" required>
+                    <button class="btn btn-success btn-xs pull-center"
+                        ng-click="newNewsCtrl.LoadUploadPoster()">{{'Upload Poster' | translate}}</button>
+                    <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                        {{'RecommendedProductImage' | translate}}</span>
+                    <img ng-src="{{newNewsCtrl.posterImage}}" style="max-height: 139px;max-width: 423px;">
+                    <div ng-messages="newNewsForm.posterImage.$error">
+                        <div ng-if="newNewsForm.posterImage.$error.required">{{'requiredErr' | translate}}</div>
+                    </div>
+
+                    <!-- <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
                         Photo</label>
                     <input id="image" class="hidden" type="file" img-upload ng-model="imageName"
                         name="imageName">
                     <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
                     <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                        {{'RecommendedProductImage' | translate}}</span>
-                </div> 
+                        {{'RecommendedProductImage' | translate}}</span> -->
+                </div>
             </div>
         </form>
     </div>
     <div class="pmd-modal-action text-right">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-disabled="newNewsForm.$invalid ||  file ==null" class="btn pmd-ripple-effect btn-primary" News="button"
+            ng-disabled="newNewsForm.$invalid || newNewsCtrl.posterImage ==null"
+            class="btn pmd-ripple-effect btn-primary" News="button"
             ng-click="newNewsCtrl.AddNewNews()">{{'saveChangesBtn' | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" News="button"
             ng-click="newNewsCtrl.close()">{{'DiscardBtn' | translate}}</button>

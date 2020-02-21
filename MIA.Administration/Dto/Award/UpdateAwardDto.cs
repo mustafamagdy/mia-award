@@ -1,14 +1,20 @@
 ﻿using MIA.Administration.Api.Base;
-using Microsoft.AspNetCore.Http;
+using MIA.Administration.Dto.User;
+using MIA.Models.Entities;
+using System.Collections.Generic;
 
-namespace MIA.Administration.Api
-{
-    public class UpdateAwardDto : IUpdateDto
-    {
-        public string Id { get; set; }
-        public string Description { get; set; }
-        public string Code { get; set; }
-        public decimal Price { get; set; }
-    }
+namespace MIA.Administration.Api {
+  public class UpdateAwardDto : IUpdateDto {
+    public string Id { get; set; }
+
+    public JudgeDto Manager { get; set; }
+    public string ManagerId { get; set; }
+
+    public LocalizedData Title { get; set; }
+    public LocalizedData Description { get; set; }
+
+    public HashSet<JudgeAwardDto> JudgeAwards { get; set; }
+    public HashSet<ArtWorkDto> ArtWorks { get; set; }
+  }
 
 }

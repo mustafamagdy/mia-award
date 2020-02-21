@@ -7,7 +7,7 @@
 
             $stateProvider
                 .state('ArtWorkMedia', {
-                    url: '/ArtWorkMedia',
+                    url: '/ArtWorkMedia/:id',
                     templateUrl: './app/GlobalAdmin/ArtWorkMedia/templates/ArtWorkMedia.html',
                     controller: 'ArtWorkMediaController',
                     'controllerAs': 'ArtWorkMediaCtrl',
@@ -19,10 +19,13 @@
 
                 })
                 .state('newArtWorkMedia', {
-                    url: '/newArtWorkMedia',
+                    url: '/newArtWorkMedia/:id',
                     templateUrl: './app/GlobalAdmin/ArtWorkMedia/templates/new.html',
                     controller: 'createArtWorkMediaDialogController',
-                    'controllerAs': 'newArtWorkMediaCtrl', 
+                    'controllerAs': 'newArtWorkMediaCtrl',
+                    resolve: {
+                        ArtWorkMediaByArtWorkIdPrepService: ArtWorkMediaByArtWorkIdPrepService
+                    },
                     data: {
                         permissions: {
                             redirectTo: 'root'
@@ -61,5 +64,9 @@
     function AllAwardPrepService(ArtWorkMediaResource) {
         return ArtWorkMediaResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
- 
+
+    ArtWorkMediaByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
+    function ArtWorkMediaByArtWorkIdPrepService(ArtWorkResource, $stateParams) {
+        return ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise;
+    }
 }());

@@ -1,0 +1,50 @@
+<div>
+    <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
+        <!-- <div id="bold"> {{'AddNewJudgeArtWorkBtn'| translate}} </div> -->
+        <!-- <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-click="$state.go('newJudgeArtWork');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+            {{'AddNew'| translate}}</button> -->
+    </div> 
+    <div ng-if="JudgeArtWorkList != []">
+        <span>{{'NoJudgeArtWorksAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="JudgeArtWorkList.length > 0">
+        <div class="table-responsive">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'poster' | translate}}</th>
+                        <th>{{'title' | translate}}</th>
+                        <th>{{'fileCount' | translate}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="JudgeArtWork in JudgeArtWorkList">
+                        <td>
+                            <img style="width: 70px;height: 70px;" data-ng-src="{{JudgeArtWork.posterUrl}}" />
+                        </td>
+                        <td data-title="Name">
+                            {{JudgeArtWork.title[selectedLanguage]   | limitTo : 20}}
+                            {{JudgeArtWork.title[selectedLanguage].length > 20 ? '...' : ''}}
+                        </td>
+                        <td data-title="uploadComplete">
+                            {{JudgeArtWork.fileCount}}
+                        </td>
+                        <td>
+                            <i class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('viewJudgeArtWork',{id: JudgeArtWork.id});"
+                                title="review art work">rate_review</i>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="JudgeArtWorkCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+        hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

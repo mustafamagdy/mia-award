@@ -14,10 +14,14 @@ namespace MIA.Administration.Dto.User {
     public string AvatarImage { get; set; }
   }
   public class ContentReviewerDto : UserDto {
+
   }
   public class NomineeDto : UserDto {
-    public HashSet<ArtWorkDto> ArtWorks { get; set; }
+    // public HashSet<ArtWorkDto> ArtWorks { get; set; }
   }
-  public class JudgeDto : UserDto {
+  public class JudgeDto {
+    public string Id { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
   }
 }

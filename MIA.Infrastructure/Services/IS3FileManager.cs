@@ -9,6 +9,7 @@ namespace MIA.Infrastructure {
     Album,
     Awards,
     Artwork,
+    ArtWrokPayment,
     Docs
   }
 

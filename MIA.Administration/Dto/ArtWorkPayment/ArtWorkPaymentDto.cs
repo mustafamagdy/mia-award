@@ -10,10 +10,11 @@ namespace MIA.Administration.Dto.ArtWorkPayment
 {
     public class ArtWorkPaymentDto
     {
+    public string Id { get; set; }
     public ArtWorkDto ArtWork { get; set; }
     public string ArtWorkId { get; set; }
     public PaymentStatus PaymentStatus { get; set; }
-    public IFormFile Receipt { get; set; }
+    public string ReceiptUrl { get; set; }
 
     public string TransactionNumber { get; set; }
     public decimal Amount { get; set; }

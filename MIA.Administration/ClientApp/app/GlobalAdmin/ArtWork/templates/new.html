@@ -57,12 +57,13 @@
                     </div>
                 </div>
                 <div class="row">
+                    
                     <div class="form-group col-lg-4">
                         <label for="first-name">{{'Award' | translate}}</label>
                         <select required style="width:100% !important"
                             class="form-control select-with-search pmd-select2-tags"
                             ng-model="newArtWorkCtrl.selectedAward"
-                            ng-options="group as group.title for group in newArtWorkCtrl.awardList">
+                            ng-options="group as group.title[selectedLanguage] for group in newArtWorkCtrl.awardList">
                         </select>
                     </div>
 
@@ -162,13 +163,19 @@
                     </div>
 
                     <div class="form-group col-lg-4">
-                        <span style="color:red">*</span>
-                        <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
-                            Cover</label>
-                        <input id="image" class="hidden" type="file" img-upload ng-model="imageName" name="imageName">
-                        <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
+                        <span style="color:red">*</span> 
+
+                        <input id="posterImage" name="posterImage" style="display: none;"
+                            onchange="angular.element(this).scope().AddposterImage(this.files)" type="file" required>
+                        <button class="btn btn-success btn-xs pull-center"
+                            ng-click="newArtWorkCtrl.LoadUploadPoster()">{{'Upload Cover' | translate}}</button>
                         <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                            {{'RecommendedProductImage' | translate}}</span> 
+                            {{'RecommendedProductImage' | translate}}</span>
+                        <img ng-src="{{newArtWorkCtrl.posterImage}}" style="max-height: 139px;max-width: 423px;">
+                        <div ng-messages="newArtWorkForm.posterImage.$error">
+                            <div ng-if="newArtWorkForm.posterImage.$error.required">{{'requiredErr' | translate}}</div>
+                        </div>
+
                     </div>
 
                     <div class="form-group col-lg-4">
@@ -179,83 +186,6 @@
 
                     </div>
                 </div>
-                <button class="btn pmd-ripple-effect btn-default" type="button"
-                    ng-click="newArtWorkCtrl.nextStep()">{{'Next' | translate}}</button>
-            </div>
-            <div id="stepTwo" ng-show="newArtWorkCtrl.showStepTwo">
-                <div class="row">
-                    <div class="form-group col-lg-4">
-                        <label for="first-name">{{'Amount' | translate}}</label>
-                        <input required type="text" class="mat-input form-control" name="Amount" numbers-only
-                            style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
-                            ng-model="newArtWorkCtrl.Amount" required />
-                        <!-- required validation  -->
-                        <div ng-messages="newArtWorkForm.Amount.$error">
-                            <div class="error" ng-if="newArtWorkForm.Amount.$error.required && 
-                                        !newArtWorkForm.Amount.$pristine">
-                                {{'requiredErr' |  translate}}
-                            </div>
-                            <!-- length validation -->
-                            <div class="error" ng-if="(newArtWorkForm.Amount.$error.minlength ||
-                                            newArtWorkForm.Amount.$error.maxlength) 
-                                             && !newArtWorkForm.Amount.newAmount.$error.required">
-                                {{'PhoneLengthError' |  translate}}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-lg-4">
-                        <label><span style="color:red">*</span> {{'TransactionNumber' | translate}}</label>
-                        <input type="text" class="form-control" name="TransactionNumber" style="display: inline-block; "
-                            ng-model="newArtWorkCtrl.TransactionNumber" required />
-                        <div class="error" ng-messages="newArtWorkForm.TransactionNumber.$error">
-                            <div ng-if="newArtWorkForm.TransactionNumber.$error.required && 
-                            !newArtWorkForm.TransactionNumber.$pristine">{{'requiredErr' | translate}}</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-lg-4">
-                        <label><span style="color:red">*</span> {{'PaymentDate' | translate}}</label>
-
-                        <input name="itemDatetime" ng-model="itemDatetime" type="text" id="paymentDate"
-                            class="form-control" ng-change="dateChange();" />
-                        <div ng-messages="newArtWorkForm.paymentDate.$error">
-                            <div
-                                ng-if="newArtWorkForm.paymentDate.$error.required && !newArtWorkForm.paymentDate.$pristine">
-                                {{'paymentDateReqError' | translate}}</div>
-                            <div
-                                ng-if="(newArtWorkForm.paymentDate.$error.minlength || newArtWorkForm.paymentDate.$error.maxlength)">
-                                {{'paymentDateLengthError' | translate}}</div>
-                        </div>
-
-                        <input type="text" class="form-control" name="PaymentDate" style="display: inline-block; "
-                            ng-model="newArtWorkCtrl.PaymentDate" required />
-                        <div class="error" ng-messages="newArtWorkForm.PaymentDate.$error">
-                            <div ng-if="newArtWorkForm.PaymentDate.$error.required && 
-                            !newArtWorkForm.PaymentDate.$pristine">{{'requiredErr' | translate}}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-lg-4">
-                        <label for="first-name">{{'Allow To upload Media' | translate}}</label>
-                        <input type="checkbox" ng-model="newArtWorkCtrl.PaymentStatus">
-                    </div>
-                    <div class="form-group col-lg-4">
-
-                        <div class="form-group col-lg-4">
-                            <span style="color:red">*</span>
-                            <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
-                                Receipt</label>
-                            <input id="image" class="hidden" type="file"  onchange="angular.element(this).scope().uploadReceiptFile(this)" ng-model="receit" name="receitName">
-                            <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
-                            <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                                {{'RecommendedProductImage' | translate}}</span>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn pmd-ripple-effect btn-default" type="button"
-                    ng-click="newArtWorkCtrl.perviousStep()">{{'Pervious' | translate}}</button>
                 <div class="pmd-modal-action text-right">
                     <button
                         style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
@@ -265,7 +195,10 @@
                     <button class="btn pmd-ripple-effect btn-default" ArtWork="button"
                         ng-click="newArtWorkCtrl.close()">{{'DiscardBtn' | translate}}</button>
                 </div>
+                <!-- <button class="btn pmd-ripple-effect btn-default" type="button"
+                    ng-click="newArtWorkCtrl.nextStep()">{{'Next' | translate}}</button> -->
             </div>
+          
         </form>
     </div>
 

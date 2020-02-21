@@ -1,0 +1,112 @@
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-title-text"> {{'AddNewPhotoAlbumBtn' | translate}} </h2>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="newPhotoAlbumForm">
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" ng-class="{'active':$index == 0}"
+                        ng-repeat="lang in newPhotoAlbumCtrl.language">
+                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
+                            data-toggle="tab">
+                            <span style="color:red">*</span>{{lang.value | translate}}
+                        </a>
+                    </li>
+                </ul>
+                <div class="pmd-card">
+                    <div class="pmd-card-body">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
+                                ng-repeat="lang in newPhotoAlbumCtrl.language" id="{{lang.value}}-form">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label for="first-name">{{ 'Title' | translate}} </label>
+                                    <input required PhotoAlbum="text" class="mat-input form-control"
+                                        name="titleDictionary{{lang.value+'Name'}}"
+                                        ng-model="newPhotoAlbumCtrl.titleDictionary[lang.key]" ng-minlength="3"
+                                        ng-maxlength="255">
+                                    <div ng-messages="newPhotoAlbumForm.titleDictionary{{lang.value+'Name'}}.$error">
+
+                                        <div class="error ng-binding"
+                                            ng-show="newPhotoAlbumForm.titleDictionary{{lang.value+'Name'}}.$error.required && !newPhotoAlbumForm.titleDictionary{{lang.value+'Name'}}.$pristine">
+                                            {{'requiredErr' | translate}}</div>
+                                        <div class="error ng-binding"
+                                            ng-show="(newPhotoAlbumForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || newPhotoAlbumForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newPhotoAlbumForm.titleDictionary{{lang.value+'Name'}}.$error.required">
+                                            {{'NameLengthError3' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="form-group col-lg-4"> 
+                        <label>
+                            <input type="radio" ng-model="newPhotoAlbumCtrl.selectedMediaType" value="Image">
+                            Image
+                        </label><br />
+                        <label>
+                            <input type="radio" ng-model="newPhotoAlbumCtrl.selectedMediaType" value="Video">
+                            Video
+                        </label><br />
+
+                    </div>
+                </div>
+                <div class="row" ng-show="newPhotoAlbumCtrl.selectedMediaType== 'Image'">
+                    <div class="form-group col-lg-4">
+                        <div class="form-group pmd-textfield-floating-label-completed">
+                            <span style="color:red">*</span>
+
+                            <input id="posterImage" name="posterImage" style="display: none;" multiple
+                                onchange="angular.element(this).scope().AddposterImage(this.files)" type="file"
+                                required>
+                            <button class="btn btn-success btn-xs pull-center" type="button"
+                                ng-click="newPhotoAlbumCtrl.LoadUploadPoster()">{{'Upload Image' | translate}}</button>
+                            <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                                {{'RecommendedProductImage' | translate}}</span> 
+                            <div ng-repeat=" image in newPhotoAlbumCtrl.posterImage">
+                                <img ng-src="{{image}}" style="max-height: 139px;max-width: 423px;">
+                            </div>
+                            <div ng-messages="newPhotoAlbumForm.posterImage.$error">
+                                <div ng-if="newPhotoAlbumForm.posterImage.$error.required">{{'requiredErr' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="newPhotoAlbumCtrl.selectedMediaType== 'Video'">
+                    <div class="form-group col-lg-4">
+                        Video
+                    </div>
+                </div> -->
+            </div>
+        </form>
+    </div>
+    <div class="pmd-modal-action text-right">
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-disabled="newPhotoAlbumForm.$invalid || newPhotoAlbumCtrl.posterImage ==null"
+            class="btn pmd-ripple-effect btn-primary" type="button"
+            ng-click="newPhotoAlbumCtrl.AddNewPhotoAlbum()">{{'saveChangesBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" type="button"
+            ng-click="newPhotoAlbumCtrl.close()">{{'DiscardBtn' | translate}}</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap",
+            insertTag: function (data, tag) {
+                data.push(tag);
+            }
+        });
+        $(".select-with-search").select2({
+            theme: "bootstrap"
+        });
+    });
+</script>

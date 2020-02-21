@@ -222,7 +222,7 @@ namespace MIA.ORMContext.Seed {
       if (mainAlbum == null) {
         mainAlbum = new Album {
           MainGallery = true,
-          Title = "MAIN ALBUM"
+         // Title = new LocalizedData { "en":""}
         };
 
         await db.Albums.AddAsync(mainAlbum);

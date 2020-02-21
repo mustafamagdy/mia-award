@@ -17,6 +17,10 @@
 	<link href="/assets/styles.css" />
 	<!-- <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet"> -->
 	<style>
+		.waiting {
+			color: #F27878;
+		}
+
 		/* fallback */
 		@font-face {
 			font-family: 'Material Icons';
@@ -477,7 +481,7 @@
 	</div>
 	<nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" ng-show="isLoggedIn()">
 
-		<div class="container-fluid">
+		<div class="container-fluid" style="background-color: black;">
 			<div class="pull-right navigation">
 				<a href="javascript:void(0);"
 					class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left margin-r8 pmd-sidebar-toggle">
@@ -485,7 +489,7 @@
 					<i class="material-icons md-light">menu</i>
 				</a>
 				<a href="index.html" class="navbar-brand">
-					<img src="./assets/img/iOrdrat.png" alt="Fit House Restaurant" id="logo" data-height-percentage="84"
+					<img src="./assets/img/iOrdrat.png" style="width: 72px;" id="logo" data-height-percentage="84"
 						data-actual-height="198" />
 				</a>
 
@@ -637,37 +641,41 @@
 
 			<!-- User info -->
 			<li class="dropdown pmd-dropdown pmd-user-info visible-xs visible-md visible-sm visible-lg">
-				<a>
+				<a style="  background-color: black;
+				">
 					<div class="media-left">
-						<!-- <img ng-src="{{appCONSTANTS.Image_URL_ACTOR}}{{selectedManufacture.companyLogo}}" width="50px" class="avatar"> -->
-						<img ng-src="{{appCONSTANTS.Image_URL_ACTOR}}/Upload/newlogo.png" width="50px" class="avatar">
+						<img ng-src="./assets/img/admin.png" style="border-radius: 50%;">
 						<!-- <img src="/assets/img/user-icon.png" alt="New User"> -->
 						<!-- <span>{{logoutFlag}}</span> -->
 					</div>
-					<div class="media-body media-middle" ng-cloak style="color: #494b74;">
+					<div class="media-body media-middle" ng-cloak style="color: #a38031;">
 						{{user.name}}
 						<div style="font-size: 12px">
-							<!-- {{selectedManufacture.name}} -->
-							<!-- <span ng-if="user.userTypeId == 1">{{'employee' | translate}}</span>
-								<span ng-if="user.userTypeId == 2">{{'deptManager' | translate}}</span>
-								<span ng-if="user.userTypeId == 3">{{'branchManager' | translate}}</span>
-								<span ng-if="user.userTypeId == 4">{{'Tech' | translate}}</span> -->
+							<span ng-if="user.userTypeId == 4">{{'Tech' | translate}}</span>
 						</div>
 					</div>
 					<div class="media-right media-middle" title="logout">
 						<span style="color: #494b74;" ng-click="logout()" class="btn-user dropdown-toggle media"
 							data-sidebar="true" aria-expandedhref="javascript:void(0);">
-							{{'logout' | translate}}
+							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+								width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+								<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+									<rect id="bound" x="0" y="0" width="24" height="24" />
+									<path
+										d="M14.0069431,7.00607258 C13.4546584,7.00607258 13.0069431,6.55855153 13.0069431,6.00650634 C13.0069431,5.45446114 13.4546584,5.00694009 14.0069431,5.00694009 L15.0069431,5.00694009 C17.2160821,5.00694009 19.0069431,6.7970243 19.0069431,9.00520507 L19.0069431,15.001735 C19.0069431,17.2099158 17.2160821,19 15.0069431,19 L3.00694311,19 C0.797804106,19 -0.993056895,17.2099158 -0.993056895,15.001735 L-0.993056895,8.99826498 C-0.993056895,6.7900842 0.797804106,5 3.00694311,5 L4.00694793,5 C4.55923268,5 5.00694793,5.44752105 5.00694793,5.99956624 C5.00694793,6.55161144 4.55923268,6.99913249 4.00694793,6.99913249 L3.00694311,6.99913249 C1.90237361,6.99913249 1.00694311,7.89417459 1.00694311,8.99826498 L1.00694311,15.001735 C1.00694311,16.1058254 1.90237361,17.0008675 3.00694311,17.0008675 L15.0069431,17.0008675 C16.1115126,17.0008675 17.0069431,16.1058254 17.0069431,15.001735 L17.0069431,9.00520507 C17.0069431,7.90111468 16.1115126,7.00607258 15.0069431,7.00607258 L14.0069431,7.00607258 Z"
+										id="Path-103" fill="#a38031" fill-rule="nonzero" opacity="0.3"
+										transform="translate(9.006943, 12.000000) scale(-1, 1) rotate(-90.000000) translate(-9.006943, -12.000000) " />
+									<rect id="Rectangle" fill="white" opacity="0.3"
+										transform="translate(14.000000, 12.000000) rotate(-270.000000) translate(-14.000000, -12.000000) "
+										x="13" y="6" width="2" height="12" rx="1" />
+									<path
+										d="M21.7928932,9.79289322 C22.1834175,9.40236893 22.8165825,9.40236893 23.2071068,9.79289322 C23.5976311,10.1834175 23.5976311,10.8165825 23.2071068,11.2071068 L20.2071068,14.2071068 C19.8165825,14.5976311 19.1834175,14.5976311 18.7928932,14.2071068 L15.7928932,11.2071068 C15.4023689,10.8165825 15.4023689,10.1834175 15.7928932,9.79289322 C16.1834175,9.40236893 16.8165825,9.40236893 17.2071068,9.79289322 L19.5,12.0857864 L21.7928932,9.79289322 Z"
+										id="Path-104" fill="#a38031" fill-rule="nonzero"
+										transform="translate(19.500000, 12.000000) rotate(-90.000000) translate(-19.500000, -12.000000) " />
+								</g>
+							</svg>
 						</span>
-						<!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect id="bound" x="0" y="0" width="24" height="24"/>
-								<path d="M14.0069431,7.00607258 C13.4546584,7.00607258 13.0069431,6.55855153 13.0069431,6.00650634 C13.0069431,5.45446114 13.4546584,5.00694009 14.0069431,5.00694009 L15.0069431,5.00694009 C17.2160821,5.00694009 19.0069431,6.7970243 19.0069431,9.00520507 L19.0069431,15.001735 C19.0069431,17.2099158 17.2160821,19 15.0069431,19 L3.00694311,19 C0.797804106,19 -0.993056895,17.2099158 -0.993056895,15.001735 L-0.993056895,8.99826498 C-0.993056895,6.7900842 0.797804106,5 3.00694311,5 L4.00694793,5 C4.55923268,5 5.00694793,5.44752105 5.00694793,5.99956624 C5.00694793,6.55161144 4.55923268,6.99913249 4.00694793,6.99913249 L3.00694311,6.99913249 C1.90237361,6.99913249 1.00694311,7.89417459 1.00694311,8.99826498 L1.00694311,15.001735 C1.00694311,16.1058254 1.90237361,17.0008675 3.00694311,17.0008675 L15.0069431,17.0008675 C16.1115126,17.0008675 17.0069431,16.1058254 17.0069431,15.001735 L17.0069431,9.00520507 C17.0069431,7.90111468 16.1115126,7.00607258 15.0069431,7.00607258 L14.0069431,7.00607258 Z" id="Path-103" fill="#a139fc" fill-rule="nonzero" opacity="0.3" transform="translate(9.006943, 12.000000) scale(-1, 1) rotate(-90.000000) translate(-9.006943, -12.000000) "/>
-								<rect id="Rectangle" fill="white" opacity="0.3" transform="translate(14.000000, 12.000000) rotate(-270.000000) translate(-14.000000, -12.000000) " x="13" y="6" width="2" height="12" rx="1"/>
-								<path d="M21.7928932,9.79289322 C22.1834175,9.40236893 22.8165825,9.40236893 23.2071068,9.79289322 C23.5976311,10.1834175 23.5976311,10.8165825 23.2071068,11.2071068 L20.2071068,14.2071068 C19.8165825,14.5976311 19.1834175,14.5976311 18.7928932,14.2071068 L15.7928932,11.2071068 C15.4023689,10.8165825 15.4023689,10.1834175 15.7928932,9.79289322 C16.1834175,9.40236893 16.8165825,9.40236893 17.2071068,9.79289322 L19.5,12.0857864 L21.7928932,9.79289322 Z" id="Path-104" fill="#a139fc" fill-rule="nonzero" transform="translate(19.500000, 12.000000) rotate(-90.000000) translate(-19.500000, -12.000000) "/>
-							</g>
-						</svg> -->
+
 					</div>
 				</a>
 			</li>
@@ -693,140 +701,6 @@
 				</a>
 			</li>
 
-			<li ng-show="user.PermissionId.split(';').includes('9') ">
-				<a class="pmd-ripple-effect" ng-click="$state.go('Countries');">
-					<i class="media-left media-middle">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
-								<path
-									d="M5.5,4 L9.5,4 C10.3284271,4 11,4.67157288 11,5.5 L11,6.5 C11,7.32842712 10.3284271,8 9.5,8 L5.5,8 C4.67157288,8 4,7.32842712 4,6.5 L4,5.5 C4,4.67157288 4.67157288,4 5.5,4 Z M14.5,16 L18.5,16 C19.3284271,16 20,16.6715729 20,17.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,17.5 C13,16.6715729 13.6715729,16 14.5,16 Z"
-									id="Combined-Shape" fill="#494b74"></path>
-								<path
-									d="M5.5,10 L9.5,10 C10.3284271,10 11,10.6715729 11,11.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,12.5 C20,13.3284271 19.3284271,14 18.5,14 L14.5,14 C13.6715729,14 13,13.3284271 13,12.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z"
-									id="Combined-Shape" fill="#494b74" opacity="0.3"></path>
-							</g>
-						</svg>
-					</i>
-					<span class="media-body">{{'Country' | translate}} <span style="color:red">/</span>
-						{{'Governrate' | translate}} <span style="color:red">/</span> {{'City' | translate}}</span>
-				</a>
-			</li>
-			<li ng-show="user.PermissionId.split(';').includes('14') ">
-				<a class="pmd-ripple-effect" ng-click="$state.go('ContactType');">
-					<i class="media-left media-middle">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
-								<path
-									d="M13,17.0484323 L13,18 L14,18 C15.1045695,18 16,18.8954305 16,20 L8,20 C8,18.8954305 8.8954305,18 10,18 L11,18 L11,17.0482312 C6.89844817,16.5925472 3.58685702,13.3691811 3.07555009,9.22038742 C3.00799634,8.67224972 3.3975866,8.17313318 3.94572429,8.10557943 C4.49386199,8.03802567 4.99297853,8.42761593 5.06053229,8.97575363 C5.4896663,12.4577884 8.46049164,15.1035129 12.0008191,15.1035129 C15.577644,15.1035129 18.5681939,12.4043008 18.9524872,8.87772126 C19.0123158,8.32868667 19.505897,7.93210686 20.0549316,7.99193546 C20.6039661,8.05176407 21.000546,8.54534521 20.9407173,9.09437981 C20.4824216,13.3000638 17.1471597,16.5885839 13,17.0484323 Z"
-									id="Combined-Shape" fill="#494b74" fill-rule="nonzero"></path>
-								<path
-									d="M12,14 C8.6862915,14 6,11.3137085 6,8 C6,4.6862915 8.6862915,2 12,2 C15.3137085,2 18,4.6862915 18,8 C18,11.3137085 15.3137085,14 12,14 Z M8.81595773,7.80077353 C8.79067542,7.43921955 8.47708263,7.16661749 8.11552864,7.19189981 C7.75397465,7.21718213 7.4813726,7.53077492 7.50665492,7.89232891 C7.62279197,9.55316612 8.39667037,10.8635466 9.79502238,11.7671393 C10.099435,11.9638458 10.5056723,11.8765328 10.7023788,11.5721203 C10.8990854,11.2677077 10.8117724,10.8614704 10.5073598,10.6647638 C9.4559885,9.98538454 8.90327706,9.04949813 8.81595773,7.80077353 Z"
-									id="Combined-Shape" fill="#494b74" opacity="0.3"></path>
-							</g>
-						</svg>
-					</i>
-					<span class="media-body">{{'ContactType' | translate}}</span>
-				</a>
-			</li>
-
-
-			<!-- Order -->
-			<li ng-show="user.PermissionId.split(';').includes('23')  || user.PermissionId.split(';').includes('24')"
-				class="dropdown pmd-dropdown visible-xs visible-md visible-sm visible-lg">
-				<a class="pmd-ripple-effect" data-toggle="dropdown" class="btn-user dropdown-toggle media"
-					data-sidebar="true" aria-expandedhref="javascript:void(0);">
-					<i class="media-left media-middle">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
-								<path d="M13.6855025,18.7082217 C15.9113859,17.8189707 18.682885
-						,17.2495635 22,17 C22,16.9325178 22,13.1012863 22,5.50630526 L21.9999762
-						,5.50630526 C21.9999762,5.23017604 21.7761292,5.00632908 21.5,5.00632908 C21.4957817
-						,5.00632908 21.4915635,5.00638247 21.4873465,5.00648922 C18.658231
-						,5.07811173 15.8291155,5.74261533 13,7 C13,7.04449645 13,10.79246 13
-						,18.2438906 L12.9999854,18.2438906 C12.9999854,18.520041 13.2238496
-						,18.7439052 13.5,18.7439052 C13.5635398,18.7439052 13.6264972
-						,18.7317946 13.6855025,18.7082217 Z" id="Combined-Shape" fill="#494b74"></path>
-								<path d="M10.3144829,18.7082217 C8.08859955,17.8189707 5.31710038
-						,17.2495635 1.99998542,17 C1.99998542,16.9325178 1.99998542
-						,13.1012863 1.99998542,5.50630526 L2.00000925,5.50630526 C2.00000925,5.23017604 2.22385621
-						,5.00632908 2.49998542,5.00632908 C2.50420375,5.00632908 2.5084219,5.00638247 2.51263888
-						,5.00648922 C5.34175439,5.07811173 8.17086991,5.74261533 10.9999854,7 C10.9999854
-						,7.04449645 10.9999854,10.79246 10.9999854,18.2438906 L11,18.2438906 C11
-						,18.520041 10.7761358,18.7439052 10.4999854,18.7439052 C10.4364457
-						,18.7439052 10.3734882,18.7317946 10.3144829,18.7082217 Z" id="Path-41-Copy" fill="#494b74" opacity="0.3">
-								</path>
-							</g>
-						</svg>
-					</i>
-					<span class="media-body">{{'Order' | translate}}
-					</span>
-					<div class="media-right media-middle">
-						<i class="dic-more-vert dic"></i>
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<polygon id="Shape" points="0 0 24 0 24 24 0 24" />
-								<path
-									d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
-									id="Path-94" fill="#494b74" fill-rule="nonzero"
-									transform="translate(12.000003, 11.999999) rotate(-270.000000) translate(-12.000003, -11.999999) " />
-							</g>
-						</svg>
-					</div>
-				</a>
-
-
-				<ul class="dropdown-menu" style="opacity: 1;">
-					<li ng-show="user.PermissionId.split(';').includes('23') ">
-						<a class="pmd-ripple-effect" ng-click="$state.go('OrdersIoo');"
-							style="background-color: transparent;" data-toggle="dropdown"
-							class="btn-user dropdown-toggle media" data-sidebar="true"
-							aria-expandedhref="javascript:void(0);">
-							<span class="media-body">
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-									width="15px" height="15px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										<rect id="bound" x="0" y="0" width="24" height="24" />
-										<path
-											d="M12,16 C14.209139,16 16,14.209139 16,12 C16,9.790861 14.209139,8 12,8 C9.790861,8 8,9.790861 8,12 C8,14.209139 9.790861,16 12,16 Z M12,20 C7.581722,20 4,16.418278 4,12 C4,7.581722 7.581722,4 12,4 C16.418278,4 20,7.581722 20,12 C20,16.418278 16.418278,20 12,20 Z"
-											id="Oval-6" fill="#494b74" fill-rule="nonzero" />
-									</g>
-								</svg>
-								{{'All Orders' | translate}}
-							</span>
-						</a>
-					</li>
-
-					<li ng-show="user.PermissionId.split(';').includes('24') ">
-						<a class="pmd-ripple-effect" ng-click="$state.go('OrdersM');"
-							style="background-color: transparent;" data-toggle="dropdown"
-							class="btn-user dropdown-toggle media" data-sidebar="true"
-							aria-expandedhref="javascript:void(0);">
-							<span class="media-body">
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-									width="15px" height="15px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										<rect id="bound" x="0" y="0" width="24" height="24" />
-										<path
-											d="M12,16 C14.209139,16 16,14.209139 16,12 C16,9.790861 14.209139,8 12,8 C9.790861,8 8,9.790861 8,12 C8,14.209139 9.790861,16 12,16 Z M12,20 C7.581722,20 4,16.418278 4,12 C4,7.581722 7.581722,4 12,4 C16.418278,4 20,7.581722 20,12 C20,16.418278 16.418278,20 12,20 Z"
-											id="Oval-6" fill="#494b74" fill-rule="nonzero" />
-									</g>
-								</svg>
-								{{'ManufactureLbl' | translate}}
-							</span>
-						</a>
-					</li>
-				</ul>
-
-			</li>
-
-
 
 
 			<!-- user -->
@@ -839,12 +713,11 @@
 							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
 							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
-								<rect id="Combined-Shape" fill="#494b74" opacity="0.3" x="2" y="3" width="20"
-									height="18" rx="2"></rect>
 								<path
-									d="M9.9486833,13.3162278 C9.81256925,13.7245699 9.43043041,14 9,14 L5,14 C4.44771525,14 4,13.5522847 4,13 C4,12.4477153 4.44771525,12 5,12 L8.27924078,12 L10.0513167,6.68377223 C10.367686,5.73466443 11.7274983,5.78688777 11.9701425,6.75746437 L13.8145063,14.1349195 L14.6055728,12.5527864 C14.7749648,12.2140024 15.1212279,12 15.5,12 L19,12 C19.5522847,12 20,12.4477153 20,13 C20,13.5522847 19.5522847,14 19,14 L16.118034,14 L14.3944272,17.4472136 C13.9792313,18.2776054 12.7550291,18.143222 12.5298575,17.2425356 L10.8627389,10.5740611 L9.9486833,13.3162278 Z"
-									id="Path-108" fill="#494b74" fill-rule="nonzero"></path>
-								<circle id="Oval" fill="#494b74" opacity="0.3" cx="19" cy="6" r="1"></circle>
+									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+									id="Combined-Shape" fill="#a38031"></path>
+								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+									height="16" rx="1"></rect>
 							</g>
 						</svg>
 					</i>
@@ -919,17 +792,35 @@
 								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
 								<path
 									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
-									id="Combined-Shape" fill="#494b74"></path>
-								<rect id="Rectangle-7-Copy-2" fill="#494b74" opacity="0.3" x="2" y="4" width="5"
+									id="Combined-Shape" fill="#a38031"></path>
+								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
 									height="16" rx="1"></rect>
 							</g>
 						</svg>
 					</i>
-					<span class="media-body">{{'NewsLbl' | translate}}</span>
+					<span class="media-body" style="color: #a38031;">{{'NewsLbl' | translate}}</span>
 				</a>
 			</li>
 			<li ng-show="user.PermissionId.includes('News') ">
 				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
+				<a class="pmd-ripple-effect" ng-click="$state.go('Booth');">
+					<i class="media-left media-middle">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
+								<path
+									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+									id="Combined-Shape" fill="#a38031"></path>
+								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+									height="16" rx="1"></rect>
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" style="color: #a38031;">{{'BoothLbl' | translate}}</span>
+				</a>
+			</li>
+			<li ng-show="user.PermissionId.includes('News') ">
 				<a class="pmd-ripple-effect" ng-click="$state.go('ArtWork');">
 					<i class="media-left media-middle">
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -938,22 +829,99 @@
 								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
 								<path
 									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
-									id="Combined-Shape" fill="#494b74"></path>
-								<rect id="Rectangle-7-Copy-2" fill="#494b74" opacity="0.3" x="2" y="4" width="5"
+									id="Combined-Shape" fill="#a38031"></path>
+								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
 									height="16" rx="1"></rect>
 							</g>
 						</svg>
 					</i>
-					<span class="media-body">{{'ArtWorkLbl' | translate}}</span>
+					<span class="media-body" style="color: #a38031;">{{'ArtWorkLbl' | translate}}</span>
 				</a>
 			</li>
 
+			<li ng-show="user.PermissionId.includes('News') ">
+				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
+				<a class="pmd-ripple-effect" ng-click="$state.go('Award');">
+					<i class="media-left media-middle">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
+								<path
+									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+									id="Combined-Shape" fill="#a38031"></path>
+								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+									height="16" rx="1"></rect>
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" style="color: #a38031;">{{'AwardLbl' | translate}}</span>
+				</a>
+			</li>
+			<li ng-show="user.PermissionId.includes('News') ">
+				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
+				<a class="pmd-ripple-effect" ng-click="$state.go('VotingCriteria');">
+					<i class="media-left media-middle">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
+								<path
+									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+									id="Combined-Shape" fill="#a38031"></path>
+								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+									height="16" rx="1"></rect>
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" style="color: #a38031;">{{'VotingCriteriaLbl' | translate}}</span>
+				</a>
+			</li>
+			<li ng-show="user.PermissionId.includes('News') ">
+				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
+				<a class="pmd-ripple-effect" ng-click="$state.go('PhotoAlbum');">
+					<i class="media-left media-middle">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
+								<path
+									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+									id="Combined-Shape" fill="#a38031"></path>
+								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+									height="16" rx="1"></rect>
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" style="color: #a38031;">{{'PhotoAlbumLbl' | translate}}</span>
+				</a>
+			</li>
+			<li ng-show="user.PermissionId.includes('Dashboard') ">
+				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
+				<a class="pmd-ripple-effect" ng-click="$state.go('JudgeArtWork');">
+					<i class="media-left media-middle">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
+								<path
+									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+									id="Combined-Shape" fill="#a38031"></path>
+								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+									height="16" rx="1"></rect>
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" style="color: #a38031;">{{'JudgeArtWorkLbl' | translate}}</span>
+				</a>
+			</li>
 		</ul>
 	</aside>
 	<!-- End Left sidebar -->
 	<!-- Sidebar Ends -->
 
-	<div ui-view layout="column" class="pmd-content content-area dashboard" flex></div>
+	<div ui-view layout="column" class="pmd-content content-area dashboard" flex style="    background-color: #141414;">
+	</div>
 
 	<!-- scripts area -->
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> -->

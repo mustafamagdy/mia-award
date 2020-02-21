@@ -1,0 +1,57 @@
+<div>
+    <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
+        <!-- <div id="bold"> {{'AddNewVotingCriteriaBtn'| translate}} </div> -->
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-click="$state.go('newVotingCriteria');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+            type="button">
+            {{'AddNew'| translate}}</button>
+    </div>
+
+    <div ng-if="VotingCriteriaList.length == null">
+        <span>{{'NoVotingCriteriasAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="VotingCriteriaList.length > 0">
+        <div class="table-responsive">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'code' | translate}}</th>
+                        <th>{{'name' | translate}}</th>
+                        <th>{{'weight' | translate}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat ="VotingCriteria in VotingCriteriaList">
+
+                        <td data-title="code">
+                            {{VotingCriteria.code}}
+                        </td>
+                        <td data-title="Name">
+                            {{VotingCriteria.name[selectedLanguage]  | limitTo : 20}}
+                            {{VotingCriteria.name[selectedLanguage].length > 20 ? '...' : ''}}
+                        </td>
+                        <td data-title="weight">
+                            {{VotingCriteria.weight}}
+                        </td> 
+                        <td width="30%">
+                            <i ng-show="user.PermessionModules['News'].includes('add_new')"
+                                class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('editVotingCriteria',{id: VotingCriteria.id});"
+                                title="Edit">mode_edit</i>
+                            <i ng-show="user.PermessionModules['News'].includes('remove')"
+                                class="material-icons pmd-md deleteButton cursorPointer font25"
+                                ng-click="VotingCriteriaCtrl.openDeleteDialog(VotingCriteria,VotingCriteria.description ,VotingCriteria.id)"
+                                title="Delete">delete</i>
+                        </td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="VotingCriteriaCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+        hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

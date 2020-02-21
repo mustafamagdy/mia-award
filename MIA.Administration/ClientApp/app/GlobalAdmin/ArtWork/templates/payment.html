@@ -1,0 +1,135 @@
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-title-text"> {{'AddNewArtWorkBtn' | translate}} </h2>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="artWorkPaymentForm">
+
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <label for="first-name">{{'Amount' | translate}}</label>
+                    <input required type="text" class="mat-input form-control" name="Amount" numbers-only
+                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
+                        ng-model="artWorkPaymentCtrl.artWorkPayment.amount" required />
+                    <!-- required validation  -->
+                    <div ng-messages="artWorkPaymentForm.Amount.$error">
+                        <div class="error" ng-if="artWorkPaymentForm.Amount.$error.required && 
+                                        !artWorkPaymentForm.Amount.$pristine">
+                            {{'requiredErr' |  translate}}
+                        </div>
+                        <!-- length validation -->
+                        <div class="error" ng-if="(artWorkPaymentForm.Amount.$error.minlength ||
+                                            artWorkPaymentForm.Amount.$error.maxlength) 
+                                             && !artWorkPaymentForm.Amount.newAmount.$error.required">
+                            {{'PhoneLengthError' |  translate}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-4">
+                    <label><span style="color:red">*</span> {{'TransactionNumber' | translate}}</label>
+                    <input type="text" class="form-control" name="TransactionNumber" style="display: inline-block; "
+                        ng-model="artWorkPaymentCtrl.artWorkPayment.transactionNumber" required />
+                    <div class="error" ng-messages="artWorkPaymentForm.TransactionNumber.$error">
+                        <div ng-if="artWorkPaymentForm.TransactionNumber.$error.required && 
+                            !artWorkPaymentForm.TransactionNumber.$pristine">{{'requiredErr' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-4">
+                    <label><span style="color:red">*</span> {{'PaymentDate' | translate}}</label>
+
+                    <input name="itemDatetime" ng-model="itemDatetime" type="text" id="paymentDate" class="form-control"
+                        ng-change="dateChange();" />
+                    <div ng-messages="artWorkPaymentForm.paymentDate.$error">
+                        <div
+                            ng-if="artWorkPaymentForm.paymentDate.$error.required && !artWorkPaymentForm.paymentDate.$pristine">
+                            {{'paymentDateReqError' | translate}}</div>
+                        <div
+                            ng-if="(artWorkPaymentForm.paymentDate.$error.minlength || artWorkPaymentForm.paymentDate.$error.maxlength)">
+                            {{'paymentDateLengthError' | translate}}</div>
+                    </div>
+                    <!-- 
+                        <input type="text" class="form-control" name="PaymentDate" style="display: inline-block; "
+                            ng-model="artWorkPaymentCtrl.PaymentDate" required /> -->
+                    <div class="error" ng-messages="artWorkPaymentForm.PaymentDate.$error">
+                        <div ng-if="artWorkPaymentForm.PaymentDate.$error.required && 
+                            !artWorkPaymentForm.PaymentDate.$pristine">{{'requiredErr' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+ 
+                <div class="form-group col-lg-4">
+                    <span style="color:red">*</span>
+
+                    <input id="receiptImage" name="receiptImage" style="display: none;"
+                        onchange="angular.element(this).scope().AddreceiptImage(this.files)" type="file"  >
+                    <button class="btn btn-success btn-xs pull-center"
+                        ng-click="artWorkPaymentCtrl.LoadUploadreceipt()">{{'Upload Receipt' | translate}}</button>
+                    <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                        {{'RecommendedProductImage' | translate}}</span>
+                    <img ng-src="{{artWorkPaymentCtrl.receiptImage}}" style="max-height: 139px;max-width: 423px;">
+                    <div ng-messages="artWorkPaymentForm.receiptImage.$error">
+                        <div ng-if="artWorkPaymentForm.receiptImage.$error.required">{{'requiredErr' | translate}}
+                        </div>
+                    </div>
+
+                    <!-- <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
+                                Receipt</label>
+                            <input class="hidden" type="file"
+                                onchange="angular.element(this).scope().uploadReceiptFile(this)" ng-model="receipt"
+                                name="receiptName">
+                            <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
+                            <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                                {{'RecommendedProductImage' | translate}}</span> -->
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="first-name">{{'Allow To upload Media' | translate}}</label>
+                    <input type="checkbox" ng-checked="artWorkPaymentCtrl.artWorkPayment.paymentStatus=='confirmed'"
+                     ng-model="artWorkPaymentCtrl.artWorkPayment.paymentStatus">
+                </div>
+            </div> 
+            <div class="pmd-modal-action text-right">
+                <button ng-show="artWorkPaymentCtrl.artWorkPayment == null"
+                    style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+                    ng-disabled="artWorkPaymentForm.$invalid" class="btn pmd-ripple-effect btn-primary" ArtWork="button"
+                    ng-click="artWorkPaymentCtrl.AddNewArtWork()">{{'saveChangesBtn' | translate}}</button>
+                <button ng-show="artWorkPaymentCtrl.artWorkPayment != null"
+                    style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+                    ng-disabled="artWorkPaymentForm.$invalid" class="btn pmd-ripple-effect btn-primary" ArtWork="button"
+                    ng-click="artWorkPaymentCtrl.UpdatePayment()">{{'saveChangesBtnupdate' | translate}}</button>
+                <button class="btn pmd-ripple-effect btn-default" ArtWork="button"
+                    ng-click="artWorkPaymentCtrl.close()">{{'DiscardBtn' | translate}}</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap",
+            // insertTag: function (data, tag) {
+            //     data.push(tag);
+            // }
+        });
+        // $(".select-with-search").select2({
+        //     theme: "bootstrap"
+        // });
+
+        var today = new Date();
+        today.setDate(today.getDate() + 1)
+
+        $('#paymentDate').datetimepicker({
+            widgetPositioning: { vertical: "bottom" },
+            minDate: today,
+        })
+            .on('dp.change', function (e) {
+                debugger;
+                angular.element(document.getElementById('paymentDate')).scope().dateChange();
+            });
+
+    });
+</script>

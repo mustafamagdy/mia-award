@@ -25,6 +25,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Api\JudgeAwardController.cs" />
     <Compile Remove="Api\UserController.cs" />
   </ItemGroup>
 

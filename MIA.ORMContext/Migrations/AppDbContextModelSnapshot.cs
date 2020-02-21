@@ -318,6 +318,8 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Area");
+
                     b.Property<string>("Code");
 
                     b.Property<string>("Description");
