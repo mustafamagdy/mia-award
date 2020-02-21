@@ -17,11 +17,11 @@ namespace MIA.Models.Entities {
     public HashSet<ArtWork> ArtWorks { get; set; }
 
 
-    public Nominee FirstPlace { get; set; }
-    public string FirstPlaceNomineeId { get; set; }
+    public ArtWork FirstPlace { get; set; }
+    public string FirstPlaceArtworkId { get; set; }
 
-    public Nominee SecondPlace { get; set; }
-    public string SecondPlaceNomineeId { get; set; }
+    public ArtWork SecondPlace { get; set; }
+    public string SecondPlaceArtworkId { get; set; }
 
   }
 }

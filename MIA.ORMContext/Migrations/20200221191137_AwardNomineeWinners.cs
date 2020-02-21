@@ -7,48 +7,52 @@ namespace MIA.ORMContext.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "FirstPlaceId",
+                name: "FirstPlaceArtworkId",
                 table: "Awards",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "FirstPlaceNomineeId",
+                name: "SecondPlaceArtworkId",
                 table: "Awards",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "SecondPlaceId",
-                table: "Awards",
+                name: "WinnerAwardFirstPlaceId",
+                table: "ArtWorks",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "SecondPlaceNomineeId",
-                table: "Awards",
+                name: "WinnerAwardSecondPlaceId",
+                table: "ArtWorks",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Awards_FirstPlaceId",
+                name: "IX_Awards_FirstPlaceArtworkId",
                 table: "Awards",
-                column: "FirstPlaceId");
+                column: "FirstPlaceArtworkId",
+                unique: true,
+                filter: "[FirstPlaceArtworkId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Awards_SecondPlaceId",
+                name: "IX_Awards_SecondPlaceArtworkId",
                 table: "Awards",
-                column: "SecondPlaceId");
+                column: "SecondPlaceArtworkId",
+                unique: true,
+                filter: "[SecondPlaceArtworkId] IS NOT NULL");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Awards_AspNetUsers_FirstPlaceId",
+                name: "FK_Awards_ArtWorks_FirstPlaceArtworkId",
                 table: "Awards",
-                column: "FirstPlaceId",
-                principalTable: "AspNetUsers",
+                column: "FirstPlaceArtworkId",
+                principalTable: "ArtWorks",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Awards_AspNetUsers_SecondPlaceId",
+                name: "FK_Awards_ArtWorks_SecondPlaceArtworkId",
                 table: "Awards",
-                column: "SecondPlaceId",
-                principalTable: "AspNetUsers",
+                column: "SecondPlaceArtworkId",
+                principalTable: "ArtWorks",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -56,36 +60,36 @@ namespace MIA.ORMContext.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Awards_AspNetUsers_FirstPlaceId",
+                name: "FK_Awards_ArtWorks_FirstPlaceArtworkId",
                 table: "Awards");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Awards_AspNetUsers_SecondPlaceId",
+                name: "FK_Awards_ArtWorks_SecondPlaceArtworkId",
                 table: "Awards");
 
             migrationBuilder.DropIndex(
-                name: "IX_Awards_FirstPlaceId",
+                name: "IX_Awards_FirstPlaceArtworkId",
                 table: "Awards");
 
             migrationBuilder.DropIndex(
-                name: "IX_Awards_SecondPlaceId",
+                name: "IX_Awards_SecondPlaceArtworkId",
                 table: "Awards");
 
             migrationBuilder.DropColumn(
-                name: "FirstPlaceId",
+                name: "FirstPlaceArtworkId",
                 table: "Awards");
 
             migrationBuilder.DropColumn(
-                name: "FirstPlaceNomineeId",
+                name: "SecondPlaceArtworkId",
                 table: "Awards");
 
             migrationBuilder.DropColumn(
-                name: "SecondPlaceId",
-                table: "Awards");
+                name: "WinnerAwardFirstPlaceId",
+                table: "ArtWorks");
 
             migrationBuilder.DropColumn(
-                name: "SecondPlaceNomineeId",
-                table: "Awards");
+                name: "WinnerAwardSecondPlaceId",
+                table: "ArtWorks");
         }
     }
 }

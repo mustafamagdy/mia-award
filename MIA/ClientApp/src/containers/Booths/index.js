@@ -24,7 +24,7 @@ const Booths = ({ fetchBooths, booths, ...props }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
   const [paymentToken, setPaymentToken] = useState(undefined);
-  const [useOnlinePayment, setUseOnlinePayment] = useState(false);
+  const [useOnlinePayment, setUseOnlinePayment] = useState(true);
 
   const { register, handleSubmit, getValues, setValue } = useForm();
 
@@ -63,7 +63,7 @@ const Booths = ({ fetchBooths, booths, ...props }) => {
   };
 
   const setPaymentMethod = e => {
-    setUseOnlinePayment(e.target.value);
+    setUseOnlinePayment(e.target.value == "online");
   };
 
   return (
@@ -193,7 +193,7 @@ const Payment = ({ active, register, useOnlinePayment, setPaymentMethod, setPaym
               value="online"
               name="payment.paymentMethod"
               onChange={setPaymentMethod}
-              checked={useOnlinePayment}
+              checked={!!useOnlinePayment}
             />
             <div className="checkmark"></div>
           </label>
@@ -241,13 +241,13 @@ const Payment = ({ active, register, useOnlinePayment, setPaymentMethod, setPaym
                 </button>
               </div>
             </form>
+            <div className="Upload">
+              <input type="file" id="file" />
+              <label htmlFor="file" className="btn-2">
+                Upload
+              </label>
+            </div>
           </BlockUi>
-        </div>
-        <div className="Upload">
-          <input type="file" id="file" />
-          <label htmlFor="file" className="btn-2">
-            Upload
-          </label>
         </div>
         <div className="next_step">
           <button type="button">Buy Now</button>
@@ -260,10 +260,11 @@ const Payment = ({ active, register, useOnlinePayment, setPaymentMethod, setPaym
 const Confirmation = ({ active, success, ...props }) => {
   return (
     <div className={classNames("tab_item confirmation_tab", { active })}>
-      <div className="title">booking successfull</div>
+      <div className="title">
+        <Trans id="booth_booking_success">Booking successfull</Trans>
+      </div>
       <div className="content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-        ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
+        <Trans id="booth_booking_success_msg">Thank you please contact us @123456</Trans>
       </div>
     </div>
   );

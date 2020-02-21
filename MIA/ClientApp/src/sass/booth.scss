@@ -305,6 +305,16 @@
                 text-transform: capitalize;
               } /* title */
               .choose_area {
+                .pay_offline_form {
+                  &.move {
+                    filter: blur(4px);
+                  } /* move */
+                }
+                .pay_online_form {
+                  &.move {
+                    filter: blur(4px);
+                  } /* move */
+                }
                 margin: 0 auto 30px;
                 padding: 0 0 0 30px;
                 position: relative;

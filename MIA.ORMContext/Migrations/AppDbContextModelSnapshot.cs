@@ -222,6 +222,10 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<bool>("UploadComplete");
 
+                    b.Property<string>("WinnerAwardFirstPlaceId");
+
+                    b.Property<string>("WinnerAwardSecondPlaceId");
+
                     b.Property<string>("Writers");
 
                     b.HasKey("Id");
@@ -282,15 +286,11 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("FirstPlaceId");
-
-                    b.Property<string>("FirstPlaceNomineeId");
+                    b.Property<string>("FirstPlaceArtworkId");
 
                     b.Property<string>("ManagerId");
 
-                    b.Property<string>("SecondPlaceId");
-
-                    b.Property<string>("SecondPlaceNomineeId");
+                    b.Property<string>("SecondPlaceArtworkId");
 
                     b.Property<string>("Title");
 
@@ -300,11 +300,15 @@ namespace MIA.ORMContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FirstPlaceId");
+                    b.HasIndex("FirstPlaceArtworkId")
+                        .IsUnique()
+                        .HasFilter("[FirstPlaceArtworkId] IS NOT NULL");
 
                     b.HasIndex("ManagerId");
 
-                    b.HasIndex("SecondPlaceId");
+                    b.HasIndex("SecondPlaceArtworkId")
+                        .IsUnique()
+                        .HasFilter("[SecondPlaceArtworkId] IS NOT NULL");
 
                     b.ToTable("Awards");
                 });
@@ -789,17 +793,17 @@ namespace MIA.ORMContext.Migrations
 
             modelBuilder.Entity("MIA.Models.Entities.Award", b =>
                 {
-                    b.HasOne("MIA.Models.Entities.Nominee", "FirstPlace")
-                        .WithMany()
-                        .HasForeignKey("FirstPlaceId");
+                    b.HasOne("MIA.Models.Entities.ArtWork", "FirstPlace")
+                        .WithOne("WinnerAwardFirstPlace")
+                        .HasForeignKey("MIA.Models.Entities.Award", "FirstPlaceArtworkId");
 
                     b.HasOne("MIA.Models.Entities.Judge", "Manager")
                         .WithMany()
                         .HasForeignKey("ManagerId");
 
-                    b.HasOne("MIA.Models.Entities.Nominee", "SecondPlace")
-                        .WithMany()
-                        .HasForeignKey("SecondPlaceId");
+                    b.HasOne("MIA.Models.Entities.ArtWork", "SecondPlace")
+                        .WithOne("WinnerAwardSecondPlace")
+                        .HasForeignKey("MIA.Models.Entities.Award", "SecondPlaceArtworkId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.BoothPurchase", b =>
