@@ -66,6 +66,7 @@ namespace MIA.Api {
     public string TrailerUrl { get; set; }
     public string CoverImageUrl { get; set; }
     public string Status { get; set; }
+    public string Title { get; set; }
   }
 
   public class PaymentWithStatusDto {
@@ -151,7 +152,24 @@ namespace MIA.Api {
     }
 
 
-    [HttpGet("payments")]
+    [HttpGet("myawards")]
+    public async Task<IActionResult> MyAwards([FromServices] IAppUnitOfWork db)
+    {
+        var nominee = await _userResolver.CurrentUserAsync();
+
+        var awards =await db.Awards 
+            .Include(a => a.FirstPlace)
+            .Include(a => a.SecondPlace)
+            .Where(a => a.SecondPlace.NomineeId == nominee.Id || a.FirstPlace.NomineeId == nominee.Id)
+            .ProjectTo<AwardDto>(_mapper.ConfigurationProvider)
+            .ToArrayAsync();
+
+
+        return Ok(awards);
+    }
+
+
+        [HttpGet("payments")]
     public async Task<IActionResult> Payments([FromServices] IAppUnitOfWork db) {
       var nominee = await _userResolver.CurrentUserAsync();
       var artworks = db.ArtWorkPayments
