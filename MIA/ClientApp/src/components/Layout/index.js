@@ -34,7 +34,7 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
   return (
     <UserProvider>
       <React.Fragment>
-        <aside>
+        <aside className="menu">
           <div className="logo">
             <a href="/">MIA Awards</a>
           </div>

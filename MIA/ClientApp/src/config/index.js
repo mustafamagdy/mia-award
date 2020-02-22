@@ -22,5 +22,11 @@ export default {
       lat: 25.0969085,
       long: 55.155664
     }
+  },
+  social: {
+    fb: "",
+    tw: "",
+    in: "",
+    yt: ""
   }
 };

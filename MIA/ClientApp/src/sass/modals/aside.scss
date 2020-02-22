@@ -1,18 +1,23 @@
-aside {
+aside.menu {
   position: fixed;
   top: 0;
   left: -600px;
   bottom: 0;
   z-index: 99;
-  width: 600px;
+  width: 450px;
   background: #121212;
   overflow: auto;
-  padding: 50px 30px 50px 160px;
+  padding: 50px 30px 50px 120px;
   opacity: 0;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
+  [dir="rtl"] & {
+    left: auto;
+    right: -600px;
+    padding: 50px 120px 50px 30px;
+  }
   .logo {
     font-size: 30px;
     text-transform: uppercase;
@@ -24,7 +29,7 @@ aside {
     width: auto;
     display: table;
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       right: -100px;
       left: 90px;
@@ -37,11 +42,28 @@ aside {
       -o-transition: all 0.2s ease-in-out;
       transition: all 0.2s ease-in-out;
       height: 45px;
+
+      [dir="rtl"] & {
+        content: "";
+        position: absolute;
+        left: -100px;
+        right: 90px;
+        top: -2px;
+      }
     }
-    a {color: #fff;}
+    a {
+      color: #fff;
+    }
     &:hover {
-      &::before {left: calc(100% + 100px);}
-      a {color: #b88b3e;}
+      &::before {
+        left: calc(100% + 100px);
+        [dir="rtl"] & {
+          right: calc(100% + 100px);
+        }
+      }
+      a {
+        color: #b88b3e;
+      }
     } /* hover */
   } /* logo */
   li {
@@ -57,7 +79,7 @@ aside {
       height: 35px;
       line-height: 35px;
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: -10px;
@@ -68,12 +90,18 @@ aside {
         transition: all 0.2s ease-in-out;
         height: 100%;
         background: rgba(255, 255, 255, 0.071);
+        [dir="rtl"] & {
+          right: -10px;
+          left: auto;
+        }
       }
     }
     &:hover {
       a {
         color: #b88b3e;
-        &::after {width: 100%;}
+        &::after {
+          width: 100%;
+        }
       }
     } /* hover */
   } /* li */
@@ -83,49 +111,20 @@ aside {
     bottom: 10px;
     left: 77px;
     right: 0;
-    font-size: 100px;
+    font-size: 86px;
     font-family: Montserrat_Bold;
     width: auto;
     display: table;
     margin: 0 auto;
     color: rgba(255, 255, 255, 0.2);
     letter-spacing: 21px;
+    [dir="rtl"] & {
+      content: "القائمة";
+      font-family: Tajawal_Bold;
+      font-size: 70px;
+      letter-spacing: 5px;
+      left: 0px;
+      right: 109px;
+    } /* rtl */
   }
 } /* aside */
-
-
-//**** RTL Style ****//
-body[dir="rtl"] {
-  aside {
-    left: auto;
-    right: -600px;
-    padding: 50px 160px 50px 30px;
-    .logo {
-      &::before {
-        content: '';
-        position: absolute;
-        left: -100px;
-        right: 90px;
-        top: -2px;
-      } /* before */
-      &:hover {
-        &::before {
-          right: calc(100% + 100px);
-        } /* before */
-      } /* hover */
-    } /* logo */
-    li {
-      a {
-        &::after {
-          right: -10px;
-          left: auto;
-        } /* after */
-      } /* a */
-    } /* li */
-    &::after {
-      left: 0;
-      right: 77px;
-    } /* after */
-  } /* aside */
-}
-//**** RTL Style ****//

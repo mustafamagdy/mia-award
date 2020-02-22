@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import appActions from "store/app/actions";
-
+import config from 'config';
 import LanguageSelect from "./LanguageSelect";
 
-import "sass/main_sidebar.scss";
-import "sass/modals/aside.scss";
-import "sass/modals/search.scss";
-import "sass/modals/share_sidebar.scss";
+// import "sass/main_sidebar.scss";
+// import "sass/modals/aside.scss";
+// import "sass/modals/search.scss";
+// import "sass/modals/share_sidebar.scss";
 
 const Sidebar = ({ toggleSidebar, toggleSearchForm, toggleShareSidebar, ...props }) => {
   return (
@@ -32,16 +32,16 @@ const Sidebar = ({ toggleSidebar, toggleSearchForm, toggleShareSidebar, ...props
       </div>
       <LanguageSelect />
       <div className="social_media">
-        <a href="/facebook">
+        <a href={config.fb} target="_blank">
           <i className="icofont-facebook"></i>
         </a>
-        <a href="/twitter">
+        <a href={config.tw} target="_blank">
           <i className="icofont-twitter"></i>
         </a>
-        <a href="/instagram">
+        <a href={config.in} target="_blank">
           <i className="icofont-instagram"></i>
         </a>
-        <a href="/youtube">
+        <a href={config.yt} target="_blank">
           <i className="icofont-youtube"></i>
         </a>
       </div>
