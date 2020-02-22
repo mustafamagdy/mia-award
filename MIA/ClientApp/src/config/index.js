@@ -33,11 +33,11 @@ export default {
     { label: "booths", route: "/booths" },
     { label: "contact_us", route: "/contact-us" }
   ],
-  siteShareUrl:"http://miaawards.com",
+  siteShareUrl: "http://miaawards.com",
   social: {
-    fb: "https://www.facebook.com/mia-awards",
-    tw: "",
-    in: "",
-    yt: ""
+    fb: "https://www.facebook.com/MIAawardArab",
+    tw: "https://twitter.com/MIAawardArab",
+    in: "https://www.instagram.com/MIAawardarab",
+    yt: "https://www.youtube.com/MIAawardarab"
   }
 };

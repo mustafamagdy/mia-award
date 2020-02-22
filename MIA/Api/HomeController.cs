@@ -22,6 +22,7 @@ using MIA.Infrastructure.Options;
 using MIA.Models.Entities;
 using MIA.Payments;
 using Newtonsoft.Json;
+using X.PagedList;
 using PaymentStatus = MIA.Payments.PaymentStatus;
 
 namespace MIA.Api {
@@ -39,54 +40,48 @@ namespace MIA.Api {
     }
 
     [HttpGet("awards")]
-    public IActionResult Awards([FromServices] IAppUnitOfWork db) {
-      var result = db.Awards
-        .ProjectTo<AwardDto>(_mapper.ConfigurationProvider)
-        .ToList();
+    public async Task<IActionResult> Awards([FromServices] IAppUnitOfWork db) {
+      var result = await db.Awards
+                          .ProjectTo<AwardDto>(_mapper.ConfigurationProvider)
+                          .ToListAsync();
       return Ok(result);
     }
 
     [HttpGet("main-album")]
-    public IActionResult MainAlbum([FromServices] IAppUnitOfWork db) {
-      var result = db.Albums
-        .Include(a => a.MediaItems)
-        //.FirstOrDefault(a => a.IsMain)
-        .ProjectTo<MainAlbumDto>(_mapper.ConfigurationProvider)
-        .ToList();
+    public async Task<IActionResult> MainAlbum([FromServices] IAppUnitOfWork db) {
+      var result = await db.Albums
+                        .Include(a => a.MediaItems)
+                        .Where(a => a.MainGallery == true)
+                        .ProjectTo<MainAlbumDto>(_mapper.ConfigurationProvider)
+                        .ToArrayAsync();
       return Ok(result);
     }
 
     [HttpPost("recent-shows")]
-    public IActionResult RecentShows(
+    public async Task<IActionResult> RecentShows(
       [FromBody]RecentShowsSearchDto query,
       [FromServices] IAppUnitOfWork db) {
       var _result = db.ArtWorks
-        //.Include(a=>a.Poster)
-        .AsQueryable();
-
+                    .AsQueryable();
 
       _result = _result.Where(a => string.IsNullOrEmpty(query.AwardId) || a.AwardId == query.AwardId);
       //_result = _result.Where(a => string.IsNullOrEmpty(query.CountryId) || a.CountryId == query.CountryId);
       //_result = _result.Where(a => query.Year == null || a.Year == query.Year);
+      _result = _result.Where(a => string.IsNullOrEmpty(query.Title) || a.Title.ArabicContains(query.Title) || a.Title.EnglishContains(query.Title));
 
-      var result = _result
-        .ProjectTo<RecentShowsDto>(_mapper.ConfigurationProvider)
-        .ToPagedList(query);
+      var result = await _result
+                .ProjectTo<RecentShowsDto>(_mapper.ConfigurationProvider)
+                .ToPagedListAsync(query);
 
       return Ok(result);
     }
 
-    [HttpPost("latest-news")]
-    public IActionResult LatestNews(
-      [FromBody] NewsSearchDto query,
-      [FromServices] IAppUnitOfWork db) {
-      var _result = db.News
-        //.Include(a => a.Image)
-        .AsQueryable();
-
-      var result = _result
-        .ProjectTo<NewsDto>(_mapper.ConfigurationProvider)
-        .ToPagedList(query);
+    [HttpGet("latest-news")]
+    public async Task<IActionResult> LatestNews([FromServices] IAppUnitOfWork db) {
+      var result = await db.News
+                    .Where(a => a.Featured)
+                    .ProjectTo<NewsDto>(_mapper.ConfigurationProvider)
+                    .ToArrayAsync();
 
       return Ok(result);
     }
@@ -125,7 +120,7 @@ namespace MIA.Api {
     }
 
     [HttpGet("timeline")]
-    public IActionResult TimelineEvents() {
+    public async Task<IActionResult> TimelineEvents() {
       var filename = "timeline.json";
       if (System.IO.File.Exists("./" + filename)) {
         using (StreamReader r = new StreamReader(filename)) {
@@ -154,10 +149,9 @@ namespace MIA.Api {
       [FromServices] IOptions<UploadLimits> limitOptions,
       [FromServices] IS3FileManager fileManager) {
 
-      var booth = await db.Booths.FirstOrDefaultAsync(a=>a.Code.ToLower()== dto.BoothCode.ToLower());
+      var booth = await db.Booths.FirstOrDefaultAsync(a => a.Code.ToLower() == dto.BoothCode.ToLower());
       if (booth == null) return NotFound404("booth not found");
-      if (booth.Purchases.Any())
-      {
+      if (booth.Purchases.Any()) {
         return Conflict("booth already booked");
       }
 
@@ -236,10 +230,10 @@ namespace MIA.Api {
 
 
     [HttpGet("contact-message-subject")]
-    public IActionResult ContactUsMessageSubjects([FromServices] IAppUnitOfWork db) {
-      var subjects = db.ContactUsSubjects
+    public async Task<IActionResult> ContactUsMessageSubjects([FromServices] IAppUnitOfWork db) {
+      var subjects = await db.ContactUsSubjects
         .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
-        .ToList();
+        .ToListAsync();
 
       return Ok(subjects);
     }

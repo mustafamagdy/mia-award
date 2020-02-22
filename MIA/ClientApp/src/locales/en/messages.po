@@ -31,7 +31,7 @@ msgstr "Address"
 
 #: src/containers/Award/index.js:63
 msgid "apply_for_award"
-msgstr ""
+msgstr "Apply for award"
 
 #: src/containers/Home/Awards.js:38
 msgid "apply_for_your_award"
@@ -43,7 +43,7 @@ msgstr "Apply Now"
 
 #: src/containers/Booths/index.js:182
 msgid "area"
-msgstr ""
+msgstr "Area"
 
 #: src/containers/Home/RecentShows.js:46
 #~ msgid "award_category"
@@ -56,7 +56,7 @@ msgstr ""
 
 #: src/containers/Booths/index.js:284
 msgid "book_now"
-msgstr ""
+msgstr "Book now"
 
 #: src/containers/Booths/index.js:300
 msgid "booth_booking_success"
@@ -65,6 +65,10 @@ msgstr ""
 #: src/containers/Booths/index.js:303
 msgid "booth_booking_success_msg"
 msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:9
+msgid "booths"
+msgstr "Booths"
 
 #: src/containers/Home/Tickets.js:93
 msgid "buy_your_ticket"
@@ -95,11 +99,11 @@ msgstr "Change Photo"
 
 #: src/containers/Booths/index.js:280
 msgid "choose_receipt_image"
-msgstr ""
+msgstr "Choose receipt image"
 
 #: src/containers/Booths/index.js:219
 msgid "choose_your_payment_method"
-msgstr ""
+msgstr "Choose payment method"
 
 #: src/containers/Pages/News/view.js:151
 msgid "comment_failed"
@@ -147,7 +151,7 @@ msgstr "Create Account"
 
 #: src/containers/Home/Tickets.js:87
 msgid "date"
-msgstr ""
+msgstr "Date"
 
 #: src/containers/Pages/ContactUs/index.js:63
 msgid "dubai_address"
@@ -181,6 +185,10 @@ msgstr ""
 #: src/containers/Pages/Gallery/index.js:185
 msgid "gallery"
 msgstr "Gallery"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:8
+msgid "general"
+msgstr "General"
 
 #: src/containers/Home/RecentShows.js:59
 #~ msgid "genre"
@@ -322,15 +330,15 @@ msgstr "<0><1><2>• Impartiality: :</2><3>We stand without bias and at the same
 
 #: src/containers/Booths/index.js:246
 msgid "pay_and_continue"
-msgstr ""
+msgstr "Pay and Continue"
 
 #: src/containers/Booths/index.js:254
 msgid "pay_offline"
-msgstr ""
+msgstr "Pay Offline"
 
 #: src/containers/Booths/index.js:224
 msgid "pay_online"
-msgstr ""
+msgstr "Pay Online"
 
 #: src/containers/MyProfile/index.js:187
 #: src/containers/Pages/ContactUs/index.js:69
@@ -355,7 +363,7 @@ msgstr "+971 4 57 2636 8"
 
 #: src/containers/Booths/index.js:269
 msgid "please_upload_the_receipt"
-msgstr ""
+msgstr "Please upload payment receipt"
 
 #: src/containers/Pages/News/view.js:142
 msgid "post_comment"
@@ -433,6 +441,10 @@ msgstr "Share"
 msgid "show_all"
 msgstr "Show All"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:10
+msgid "shows"
+msgstr "Shows"
+
 #: src/components/Layout/LoginStatus.js:31
 msgid "sign_in"
 msgstr "Sign In"
@@ -495,7 +507,7 @@ msgstr "Upload Image"
 #: src/containers/Award/index.js:38
 #: src/containers/Members/Artworks/Artwork/AddNew/Payment.js:78
 msgid "usd"
-msgstr ""
+msgstr "USD"
 
 #: src/containers/Home/PhotoAlbum.js:81
 msgid "videos_desc"
@@ -506,8 +518,12 @@ msgstr ""
 #~ msgstr "View All"
 
 #: src/containers/Home/IntroSlider.js:137
-msgid "view_awards"
-msgstr "View Awards"
+#~ msgid "view_awards"
+#~ msgstr "View Awards"
+
+#: src/containers/Home/IntroSlider.js:156
+msgid "view_more"
+msgstr "View more"
 
 #: src/containers/App/CookieGDPR.js:110
 msgid "we_use_cookies_and_similar_technology"

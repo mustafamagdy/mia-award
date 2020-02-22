@@ -17,7 +17,7 @@ namespace MIA.MappingProfiles {
     public ApiProfile() {
 
       CreateMap<News, NewsDto>()
-       .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
+       .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
       CreateMap<Lookup, LocalizedLookupDto>()
@@ -25,7 +25,7 @@ namespace MIA.MappingProfiles {
        .ValidateMemberList(MemberList.None);
 
       CreateMap<News, FullNewsDto>()
-        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
+        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
      CreateMap<Booth, BoothDto>()
@@ -36,14 +36,14 @@ namespace MIA.MappingProfiles {
 
       CreateMap<News, FullNewsWithCommentsDto>()
         .ForMember(a => a.RelatedNews, cfg => cfg.Ignore())
-        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
+        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
       CreateMap<NewsComment, UserCommentDto>()
         .ForMember(a => a.Comment, cfg => cfg.MapFrom(a => a.Comments))
         .ForMember(a => a.UserFullName, cfg => cfg.MapFrom(a => a.Name))
         .ForMember(a => a.UserAvatarUrl, cfg => cfg.Ignore())
-        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
+        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
       CreateMap<NewsUserComment, NewsComment>()
@@ -55,7 +55,7 @@ namespace MIA.MappingProfiles {
 
 
       CreateMap<AlbumItem, AlbumItemDto>()
-       .ForMember(a => a.DateCreated, cfg => cfg.MapFrom(a => a.DateCreated.LocalDateTime().ToString("dd-MM-yyyy")))
+       .ForMember(a => a.DateCreated, cfg => cfg.MapFrom(a => a.DateCreated.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
       CreateMap<Award, AwardDto>()
@@ -107,7 +107,7 @@ namespace MIA.MappingProfiles {
       CreateMap<ArtWorkPayment, PaymentWithStatusDto>()
         .ForMember(a => a.Status, cfg => cfg.MapFrom(a => a.PaymentStatus.ToString()))
         .ForMember(a => a.Amount, cfg => cfg.MapFrom((a => a.Amount)))
-        .ForMember(a => a.Date, cfg => cfg.MapFrom((a => a.PaymentDate.LocalDateTime().ToString("dd-MM-yyyy"))))
+        .ForMember(a => a.Date, cfg => cfg.MapFrom((a => a.PaymentDate.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy"))))
         .ValidateMemberList(MemberList.None);
 
     }

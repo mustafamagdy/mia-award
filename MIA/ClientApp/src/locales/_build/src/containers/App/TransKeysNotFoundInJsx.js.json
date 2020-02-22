@@ -1,0 +1,26 @@
+{
+  "general": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        8
+      ]
+    ]
+  },
+  "booths": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        9
+      ]
+    ]
+  },
+  "shows": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        10
+      ]
+    ]
+  }
+}
