@@ -9,7 +9,7 @@ const initialState = {
   sponsers: [],
   timeline: [],
   booths: [],
-  albumContents: [],
+  mainAlbum: {},
   recentShows: [],
   recentShows_pagination: {
     pageCount: 1,
@@ -50,7 +50,7 @@ const sendContactUsMessageFailed = (state, action) => {
 
 const fetchMainAlbumSuccess = (state, action) => {
   return produce(state, draft => {
-    draft.albumContents = [...action.payload];
+    draft.mainAlbum = { ...action.payload };
   });
 };
 
@@ -87,7 +87,7 @@ const fetchSponsersSuccess = (state, action) => {
   return produce(state, draft => {});
 };
 
-const fetchLatestAlbumContentSuccess = (state, action) => {
+const fetchLatestmainAlbumuccess = (state, action) => {
   return produce(state, draft => {});
 };
 
@@ -106,7 +106,7 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_CONTACT_US_MESSAGE_SUBJECTS_SUCCESS]: contactUsMessageSubjectsSuccess,
   [ActionTypes.FETCH_AWARDS_SUCCESS]: fetchAwardsSuccess,
   [ActionTypes.FETCH_SPONSERS_SUCCESS]: fetchSponsersSuccess,
-  [ActionTypes.FETCH_LATEST_ALBUM_CONTENTS_SUCCESS]: fetchLatestAlbumContentSuccess,
+  [ActionTypes.FETCH_LATEST_ALBUM_CONTENTS_SUCCESS]: fetchLatestmainAlbumuccess,
   [ActionTypes.SEND_CONTACT_US_MESSAGE_SUCCESS]: sendContactUsMessageSuccess,
   [ActionTypes.SEND_CONTACT_US_MESSAGE_FAIL]: sendContactUsMessageFailed,
   [ActionTypes.BOOK_BOOTH_SUCCESS]: bookBoothSuccess
