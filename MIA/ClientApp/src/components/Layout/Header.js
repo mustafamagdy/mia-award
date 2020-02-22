@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import { Trans } from "@lingui/macro";
 import "sass/header.scss";
+import config from "config";
 
 class Header extends React.Component {
   state = {
@@ -43,41 +44,13 @@ class Header extends React.Component {
             {/* <!-- end logo --> */}
             <div className="mainmenu">
               <ul>
-                <li>
-                  <a href="/members">
-                    <Trans id="members">Members</Trans>
-                  </a>
-                </li>
-                <li>
-                  <a href="/about-us">
-                    <Trans id="about_us">About Us</Trans>
-                  </a>
-                </li>
-                <li>
-                  <a href="/news">
-                    <Trans id="news">News</Trans>
-                  </a>
-                </li>
-                <li>
-                  <a href="/timeline">
-                    <Trans id="programs">Program</Trans>
-                  </a>
-                </li>
-                <li>
-                  <a href="/gallery">
-                    <Trans id="gallery">Gallery</Trans>
-                  </a>
-                </li>
-                <li>
-                  <a href="/contact-us">
-                    <Trans id="contact_us">Contact Us</Trans>
-                  </a>
-                </li>
-                <li>
-                  <a href="/booths">
-                    <Trans id="booths">Booths</Trans>
-                  </a>
-                </li>
+                {config.menu.map((m, i) => (
+                  <li>
+                    <a href={m.location}>
+                      <Trans id={m.label}>{m.label}</Trans>
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

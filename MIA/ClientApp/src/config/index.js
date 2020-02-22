@@ -23,6 +23,16 @@ export default {
       long: 55.155664
     }
   },
+  menu: [
+    { label: "members", route: "/members" },
+    { label: "about_us", route: "about-us" },
+    { label: "news", route: "news" },
+    { label: "program", route: "timeline" },
+    { label: "gallery", route: "/gallery" },
+    { label: "shows", route: "/shows" },
+    { label: "booths", route: "/booths" },
+    { label: "contact_us", route: "/contact-us" }
+  ],
   social: {
     fb: "",
     tw: "",

@@ -8,9 +8,10 @@ import { bindActionCreators } from "redux";
 import appActions from "store/app/actions";
 import { Trans } from "@lingui/macro";
 import { useForm } from "react-hook-form";
+import config from "config";
+import { withRouter } from "react-router";
 
-
-const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
+const Layout = ({ toggleShareSidebar, searchFormOpen, history, ...props }) => {
   const dismissDlgs = event => {
     if (event.keyCode === 27 && searchFormOpen === true) {
       reset();
@@ -26,8 +27,11 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
     };
   }, [searchFormOpen]);
 
-  const onSearch = search => {
-    console.log("search with ", search);
+  const onSearch = q => {
+    const { toggleSearchForm } = props;
+    reset();
+    toggleSearchForm();
+    history.push("/shows/?q=" + q.search);
   };
 
   const { register, handleSubmit, reset } = useForm();
@@ -40,41 +44,13 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
           </div>
           <div className="mainmenu">
             <ul>
-              <li>
-                <a href="/members">
-                  <Trans id="members">Members</Trans>
-                </a>
-              </li>
-              <li>
-                <a href="/about-us">
-                  <Trans id="about_us">About Us</Trans>
-                </a>
-              </li>
-              <li>
-                <a href="/news">
-                  <Trans id="news">News</Trans>
-                </a>
-              </li>
-              <li>
-                <a href="/timeline">
-                  <Trans id="program">Program</Trans>
-                </a>
-              </li>
-              <li>
-                <a href="/gallery">
-                  <Trans id="gallery">Gallery</Trans>
-                </a>
-              </li>
-              <li>
-                <a href="/contact-us">
-                  <Trans id="contact_us">Contact Us</Trans>
-                </a>
-              </li>
-              <li>
-                <a href="/booths">
-                  <Trans id="booths">Booths</Trans>
-                </a>
-              </li>
+              {config.menu.map((m, i) => (
+                <li>
+                  <a href={m.location}>
+                    <Trans id={m.label}>{m.label}</Trans>
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </aside>
@@ -118,4 +94,4 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, ...props }) => {
 
 const mapStateToProps = ({ global: { searchFormOpen } }) => ({ searchFormOpen });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(Layout);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Layout));

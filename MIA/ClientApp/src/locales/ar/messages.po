@@ -212,7 +212,7 @@ msgstr "تسجيل الخروج"
 #: src/components/Layout/Header.js:48
 #: src/components/Layout/index.js:45
 msgid "members"
-msgstr "الأعضاء"
+msgstr "المشاركون"
 
 #: src/containers/MyProfile/ChangePassword.js:15
 #: src/containers/MyProfile/ImageUpload.js:54
@@ -463,7 +463,7 @@ msgstr "تحميل الصورة"
 #: src/containers/Award/index.js:38
 #: src/containers/Members/Artworks/Artwork/AddNew/Payment.js:78
 msgid "usd"
-msgstr ""
+msgstr "USD"
 
 #: src/containers/Home/PhotoAlbum.js:81
 msgid "videos_desc"
