@@ -8,7 +8,7 @@
       ],
       [
         "src/containers/Pages/News/index.js",
-        227
+        232
       ]
     ]
   },
@@ -17,7 +17,7 @@
     "origin": [
       [
         "src/containers/Pages/News/index.js",
-        122
+        127
       ]
     ]
   },
@@ -26,7 +26,7 @@
     "origin": [
       [
         "src/containers/Pages/News/index.js",
-        139
+        144
       ]
     ]
   },
@@ -35,11 +35,11 @@
     "origin": [
       [
         "src/containers/Pages/News/index.js",
-        197
+        202
       ],
       [
         "src/containers/Pages/News/index.js",
-        233
+        243
       ]
     ]
   }

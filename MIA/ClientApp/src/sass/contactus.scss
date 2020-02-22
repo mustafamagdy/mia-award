@@ -60,7 +60,7 @@
         .contact_info {
           display: flex;
           justify-content: space-between;
-          margin: 10px -15px;
+          margin: 10px 15px;
           .item {
             width: 25%;
             margin: 15px auto;
@@ -94,21 +94,22 @@
 									left: auto;
 								} /* rtl */
               } /* before */
-              &::after {
-                content: "\ed42";
-                position: absolute;
-                font-family: IcoFont;
-                left: -31px;
-                font-size: 30px;
-                width: 30px;
-                text-align: center;
-                display: block;
-                [dir="rtl"] & {
-									right: -31px;
-									left: auto;
-								} /* rtl */
-              } /* after */
             } /* span */
+            .item-icon {                                           
+              right: 35px;
+              font-size: 30px;
+              width: 30px;
+              text-align: center;
+              display: block;
+              position: relative;
+              color: #ccbc93;
+              top: 28px;
+              
+              [dir="rtl"] & {
+                right: -35px;
+                left: auto;
+              } /* rtl */
+            } /* item-icon */
             p {
               color: #fff;
               font-size: 15px;

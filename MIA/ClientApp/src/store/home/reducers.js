@@ -5,10 +5,6 @@ import { ActionTypes } from "./actions";
 const initialState = {
   contactUsMessageSubjects: [],
   news: [],
-  news_pagination: {
-    hasNextPage: false,
-    hasPreviousPage: false
-  },
   awards: [],
   sponsers: [],
   timeline: [],
@@ -53,11 +49,7 @@ const sendContactUsMessageFailed = (state, action) => {
 };
 const fetchNewsSuccess = (state, action) => {
   return produce(state, draft => {
-    draft.news = [...action.payload.items];
-    draft.news_pagination = {
-      hasNextPage: action.payload.metadata.hasNextPage,
-      hasPreviousPage: action.payload.metadata.hasPreviousPage
-    };
+    draft.news = [...action.payload, ...action.payload];
   });
 };
 

@@ -1,8 +1,4 @@
 import React from "react";
-import { Trans } from "@lingui/react";
-import withClickOutside from "react-click-outside";
-import keys from "ramda/es/keys";
-import map from "ramda/es/map";
 
 import { LanguageContext } from "containers/Providers/LanguageProvider";
 
@@ -30,5 +26,4 @@ class LanguageSelect extends React.PureComponent {
   }
 }
 
-// export default withClickOutside(LanguageSelect);
 export default LanguageSelect;

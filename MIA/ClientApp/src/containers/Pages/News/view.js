@@ -9,6 +9,7 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 import ReCAPTCHA from "react-google-recaptcha";
 import config from "config";
 import { useRef } from "react";
+import { FacebookShareButton, TwitterShareButton, InstapaperShareButton, WhatsappShareButton } from "react-share";
 
 const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, commentsSuccess, clearCommentSuccess, ...props }) => {
   useEffect(() => {
@@ -28,18 +29,18 @@ const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, comments
               <span>
                 <Trans id="share">Share</Trans> :
               </span>
-              <a href="#" title="#">
+              <FacebookShareButton url={config.siteShareUrl}>
                 <i className="icofont-facebook"></i>
-              </a>
-              <a href="#" title="#">
+              </FacebookShareButton>
+              <TwitterShareButton url={config.siteShareUrl}>
                 <i className="icofont-twitter"></i>
-              </a>
-              <a href="#" title="#">
+              </TwitterShareButton>
+              <InstapaperShareButton url={config.siteShareUrl}>
                 <i className="icofont-instagram"></i>
-              </a>
-              <a href="#" title="#">
-                <i className="icofont-youtube"></i>
-              </a>
+              </InstapaperShareButton>
+              <WhatsappShareButton url={config.siteShareUrl}>
+                <i className="icofont-whatsapp"></i>
+              </WhatsappShareButton>
             </div>
             <time>
               <Trans id="posted">Posted</Trans>: {newsItem.date}
@@ -178,12 +179,12 @@ const AdsArea = props => (
   <>
     <div className="small_banner">
       <a href="#" title="#">
-        <img src="/assets/images/small_banner.png"  />
+        <img src="/assets/images/small_banner.png" />
       </a>
     </div>
     <div className="big_banner">
       <a href="#" title="#">
-        <img src="/assets/images/big_banner.png"  />
+        <img src="/assets/images/big_banner.png" />
       </a>
     </div>
   </>

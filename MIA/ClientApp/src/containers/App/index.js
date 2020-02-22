@@ -14,7 +14,7 @@ import authActions from "store/auth/actions";
 import Layout from "components/Layout";
 import Home from "containers/Home";
 import LanguageProvider from "containers/Providers/LanguageProvider";
-
+import TransKeysNotFoundInJsx from "./TransKeysNotFoundInJsx";
 
 import "sass/style.scss";
 
@@ -33,6 +33,7 @@ class App extends React.Component {
         <LanguageProvider>
           <ConnectedRouter history={history}>
             <Layout>
+              <TransKeysNotFoundInJsx />
               <Home />
               {/*
                    <UserContext.Consumer>

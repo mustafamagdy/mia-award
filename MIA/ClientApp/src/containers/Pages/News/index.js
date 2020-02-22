@@ -111,12 +111,14 @@ const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategorie
                       <div className="content">
                         <div className="desc">
                           <span>{item.title[locale.code]}</span>
-                          <p className="category">{item.category}</p>
+                          <p className="category">
+                            <Trans id={item.category.toLowerCase()}>{item.category}</Trans>
+                          </p>
                           <time>
                             <Trans id="posted">Posted</Trans>: {item.date}
                           </time>
                           <div
-                          className="body"
+                            className="body"
                             dangerouslySetInnerHTML={{
                               __html: item.body[locale.code]
                             }}
@@ -188,7 +190,9 @@ const BlocksNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =>
           <time>{item.date}</time>
           <div className="item">
             <div className="category">
-              <p>{item.category}</p>
+              <p>
+                <Trans id={item.category.toLowerCase()}>{item.category}</Trans>
+              </p>
             </div>
             <LanguageContext.Consumer>
               {({ locale }) => (
@@ -227,12 +231,14 @@ const ListingNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =
             <div className="content">
               <div className="desc">
                 <span>{item.title[locale.code]}</span>
-                <p className="category">{item.category}</p>
+                <p className="category">
+                  <Trans id={item.category.toLowerCase()}>{item.category}</Trans>
+                </p>
                 <time>
                   <Trans id="posted">Posted</Trans> : {item.date}
                 </time>
                 <div
-                className="body"
+                  className="body"
                   dangerouslySetInnerHTML={{
                     __html: item.body[locale.code]
                   }}
