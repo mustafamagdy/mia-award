@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import config from "config";
 import { withRouter } from "react-router";
 import { useOnClickOutside } from "hooks";
+import { FacebookShareButton, TwitterShareButton, InstapaperShareButton, WhatsappShareButton } from "react-share";
 
 const SearchForm = forwardRef(({ history, hideAndReset }, ref) => {
   const { register, handleSubmit, reset } = useForm();
@@ -83,25 +84,7 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, history, toggleSearchForm,
         <div id="search_modal" className="search_modal">
           <SearchForm ref={searchFormRef} history={history} hideAndReset={hideAndReset} />
         </div>
-        <div id="share_sidebar">
-          <div className="close_search" onClick={toggleShareSidebar}>
-            <i className="icofont-close-line"></i>
-          </div>
-          <ul>
-            <li>
-              <a href="/facebook">facebook</a>
-            </li>
-            <li>
-              <a href="/twitter">twitter</a>
-            </li>
-            <li>
-              <a href="/instagram">instagram</a>
-            </li>
-            <li>
-              <a href="/youtube">youtube</a>
-            </li>
-          </ul>
-        </div>
+        <ShareSidebar toggleShareSidebar={toggleShareSidebar} />
         <Sidebar />
         <section id="wrapper">
           <Header />
@@ -110,6 +93,38 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, history, toggleSearchForm,
         </section>
       </React.Fragment>
     </UserProvider>
+  );
+};
+
+const ShareSidebar = ({ toggleShareSidebar, ...props }) => {
+  return (
+    <div id="share_sidebar">
+      <div className="close_search" onClick={toggleShareSidebar}>
+        <i className="icofont-close-line"></i>
+      </div>
+      <ul>
+        <li>
+          <FacebookShareButton url={config.siteShareUrl}>
+            <span className="item">facebook</span>
+          </FacebookShareButton>
+        </li>
+        <li>
+          <TwitterShareButton url={config.siteShareUrl}>
+            <span className="item">twitter</span>
+          </TwitterShareButton>
+        </li>
+        <li>
+          <InstapaperShareButton url={config.siteShareUrl}>
+            <span className="item">instagram</span>
+          </InstapaperShareButton>
+        </li>
+        <li>
+          <WhatsappShareButton url={config.siteShareUrl}>
+            <span className="item">whatsapp</span>
+          </WhatsappShareButton>
+        </li>
+      </ul>
+    </div>
   );
 };
 

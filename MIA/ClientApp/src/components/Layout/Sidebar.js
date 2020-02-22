@@ -32,16 +32,16 @@ const Sidebar = ({ toggleSidebar, toggleSearchForm, toggleShareSidebar, ...props
       </div>
       <LanguageSelect />
       <div className="social_media">
-        <a href={config.fb} target="_blank">
+        <a href={config.social.fb} target="_blank">
           <i className="icofont-facebook"></i>
         </a>
-        <a href={config.tw} target="_blank">
+        <a href={config.social.tw} target="_blank">
           <i className="icofont-twitter"></i>
         </a>
-        <a href={config.in} target="_blank">
+        <a href={config.social.in} target="_blank">
           <i className="icofont-instagram"></i>
         </a>
-        <a href={config.yt} target="_blank">
+        <a href={config.social.yt} target="_blank">
           <i className="icofont-youtube"></i>
         </a>
       </div>

@@ -33,8 +33,9 @@ export default {
     { label: "booths", route: "/booths" },
     { label: "contact_us", route: "/contact-us" }
   ],
+  siteShareUrl:"http://miaawards.com",
   social: {
-    fb: "",
+    fb: "https://www.facebook.com/mia-awards",
     tw: "",
     in: "",
     yt: ""
