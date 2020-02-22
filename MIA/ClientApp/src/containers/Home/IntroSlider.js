@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Trans } from "@lingui/macro";
-import Swiper from 'react-id-swiper';
-import 'swiper/css/swiper.css'
-
-
-
+import Swiper from "react-id-swiper";
+import "swiper/css/swiper.css";
 
 const Intro = props => {
   const [current, setCurrent] = useState(0);
@@ -63,17 +60,19 @@ const Intro = props => {
       bigImgPath: "assets/images/GeorgJensen.jpg"
     }
   ];
+
   const params = {
     spaceBetween: 0,
     speed: 1000,
     loop: true,
     simulateTouch: true,
-    getSwiper: (swiper) => {
-      setSwiper(swiper)
+    getSwiper: swiper => {
+      console.log("set swipper", swiper);
+      setSwiper(swiper);
     },
-    breakpoints:{
-      991:{
-        simulateTouch: false,
+    breakpoints: {
+      991: {
+        simulateTouch: false
       }
     }
   };
@@ -82,94 +81,91 @@ const Intro = props => {
     speed: 1000,
     loop: true,
     simulateTouch: true,
-    getSwiper: (swiperMini) => {
-      setSwiperMini(swiperMini)
+    getSwiper: swiperMini => {
+      setSwiperMini(swiperMini);
     },
-    breakpoints:{
-      991:{
-        simulateTouch: false,
+    breakpoints: {
+      991: {
+        simulateTouch: false
       }
     }
   };
 
-
-
   const handleClick = () => {
     if (current === items.length - 1) {
-      setCurrent( 0)
+      setCurrent(0);
     } else {
-      setCurrent( current + 1);
+      setCurrent(current + 1);
     }
-    if(swiper !== null) {
-      swiper.slideNext()
+    if (swiper !== null) {
+      swiper.slideNext();
     }
-    if(swiperMini !== null) {
-      swiperMini.slideNext()
+    if (swiperMini !== null) {
+      swiperMini.slideNext();
     }
-  }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleClick();
+    }, 5000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [swiper, swiperMini]);
+
   return (
     <section id="intro">
       <div className="container">
         <div className="slide_item">
-          {/* <TransitionGroup className="view_award"> */}
           <div className="view_award">
-            {/* <CSSTransition key={items[current].key} appear={true} timeout={1000} classNames="big_image"> */}
-            {/*<div className={`big_image ${startAnim ? "big_image_animate" : ""}`}>*/}
-            {/*  <a href="#" title="#">*/}
-            {/*    <img src={items[current].bigImgPath} />*/}
-            {/*  </a>*/}
-            {/*  <div className="progress_bar"></div>*/}
-            {/*</div>*/}
-            {/* </CSSTransition> */}
             <div className="big_image">
               <Swiper {...params}>
-                {/*{items.map(item => <a href="#" title="#"><div key = {item.key}><img src={item.bigImgPath} /></div></a>)}*/}
-                {items.map(item => <a href="#" title="#"  key = {item.key}><img className={item.bigImgPath === "assets/images/burg_khalifa.jpg" ? "burg_khalifa": ""} src={item.bigImgPath} /></a>)}
-
+                {items.map(item => (
+                  <img
+                    key={item.key}
+                    className={item.bigImgPath === "assets/images/burg_khalifa.jpg" ? "burg_khalifa" : ""}
+                    src={item.bigImgPath}
+                  />
+                ))}
               </Swiper>
               <div className="progress_bar"></div>
-
             </div>
             <div className="desc">
               <span>{items[current].title}</span>
               <p>{items[current].text}</p>
-              <a href="#" title="#">
-                <Trans id="view_awards">view awards</Trans>
+              <a href="/timeline">
+                <Trans id="view_more">view more</Trans>
               </a>
               <div className="slider_thumb">
-                {/* <button type="button" className="arrow arrow_prev" onClick={() => setCurrent(current > 0 ? current - 1 : items.length - 1)}>
-            <i className="icofont-simple-left"></i>
-          </button> */}
-                {/*<div className={`thmb ${startAnim? "small_image_animate": ""}`}>*/}
-                {/*  <img*/}
-
-                {/*      src={items.length > current + 1 ? items[current + 1].smallImgPath : items[0].smallImgPath} />*/}
-                {/*</div>*/}
                 <div className="thmb">
                   <Swiper {...params2}>
-                    {items.map(item => <div key = {item.key}><img src={item.smallImgPath} /></div>)}
+                    {items.map(item => (
+                      <div key={item.key}>
+                        <img src={item.smallImgPath} />
+                      </div>
+                    ))}
                   </Swiper>
-                  <div>
-
-                  </div>
+                  <div></div>
                 </div>
 
                 <button type="button" className="arrow arrow_next" onClick={handleClick}>
                   <i className="icofont-simple-right"></i>
                 </button>
-
               </div>
               <div className="slider_dots">
                 {items.map((item, index) => {
-                      return <span key={item.key} className={`${index === current ? "current" : ""}`}>{item.keyText}</span>
+                  return (
+                    <span key={item.key} className={`${index === current ? "current" : ""}`}>
+                      {item.keyText}
+                    </span>
+                  );
                 })}
-
               </div>
             </div>
           </div>
           {/* </TransitionGroup> */}
         </div>
-
       </div>
     </section>
   );
