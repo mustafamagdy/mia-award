@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Trans } from "@lingui/macro";
 import Swiper from "react-id-swiper";
 import "swiper/css/swiper.css";
+import { useLayoutEffect } from "react";
 
-const Intro = props => {
+const SliderWrapper = props => {
   const [current, setCurrent] = useState(0);
-  const [startAnim, setStartAnim] = useState(false);
-  const [swiper, setSwiper] = useState(null);
-  const [swiperMini, setSwiperMini] = useState(null);
-  const [isCanSlide, setisCanSlide] = useState(true);
-  const items = [
+  const [items, _] = useState([
     {
       key: 1,
       keyText: "01",
@@ -20,8 +17,8 @@ const Intro = props => {
       book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
       unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
       recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
-      smallImgPath: "assets/images/dubai.jpg",
-      bigImgPath: "assets/images/burg_khalifa.jpg"
+      bigImgPath: "assets/images/dubai.jpg",
+      nextImagePath: "assets/images/burg_khalifa.jpg",
     },
     {
       key: 2,
@@ -32,8 +29,8 @@ const Intro = props => {
       book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
       unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
       recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
-      smallImgPath: "assets/images/ger.jpg",
-      bigImgPath: "assets/images/dubai.jpg"
+      bigImgPath: "assets/images/burg_khalifa.jpg",
+      nextImagePath: "assets/images/GeorgJensen.jpg",
     },
     {
       key: 3,
@@ -44,8 +41,8 @@ const Intro = props => {
       book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
       unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
       recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
-      smallImgPath: "assets/images/GeorgJensen.jpg",
-      bigImgPath: "assets/images/ger.jpg"
+      bigImgPath: "assets/images/GeorgJensen.jpg",
+      nextImagePath: "assets/images/ger.jpg",
     },
     {
       key: 4,
@@ -56,10 +53,31 @@ const Intro = props => {
       book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
       unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
       recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
-      smallImgPath: "assets/images/burg_khalifa.jpg",
-      bigImgPath: "assets/images/GeorgJensen.jpg"
+      bigImgPath: "assets/images/ger.jpg",
+      nextImagePath: "assets/images/dubai.jpg",
     }
-  ];
+  ]);
+
+  const [currentItem, setCurrentItem] = useState(items[current]);
+
+  return (
+    <>
+      <Intro
+        items={items}
+        current={current}
+        setCurrent={i => {
+          setCurrentItem(items[i]);
+          setCurrent(i);
+        }}
+        currentItem={currentItem}
+      />
+    </>
+  );
+};
+
+const Intro = ({ current, setCurrent, items, currentItem, ...props }) => {
+  const [swiper, setSwiper] = useState(null);
+  const [swiperMini, setSwiperMini] = useState(null);
 
   const params = {
     spaceBetween: 0,
@@ -67,7 +85,6 @@ const Intro = props => {
     loop: true,
     simulateTouch: true,
     getSwiper: swiper => {
-      console.log("set swipper", swiper);
       setSwiper(swiper);
     },
     breakpoints: {
@@ -97,22 +114,23 @@ const Intro = props => {
     } else {
       setCurrent(current + 1);
     }
-    if (swiper !== null) {
-      swiper.slideNext();
-    }
-    if (swiperMini !== null) {
-      swiperMini.slideNext();
-    }
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timeout = setTimeout(() => {
       handleClick();
+
+      if (swiper !== null) {
+        swiper.slideNext();
+      }
+      if (swiperMini !== null) {
+        swiperMini.slideNext();
+      }
     }, 5000);
     return () => {
-      clearInterval(interval);
+      clearTimeout(timeout);
     };
-  }, [swiper, swiperMini]);
+  }, [current]);
 
   return (
     <section id="intro">
@@ -132,8 +150,8 @@ const Intro = props => {
               <div className="progress_bar"></div>
             </div>
             <div className="desc">
-              <span>{items[current].title}</span>
-              <p>{items[current].text}</p>
+              <span>{currentItem.title}</span>
+              <p>{currentItem.text}</p>
               <a href="/timeline">
                 <Trans id="view_more">view more</Trans>
               </a>
@@ -142,13 +160,12 @@ const Intro = props => {
                   <Swiper {...params2}>
                     {items.map(item => (
                       <div key={item.key}>
-                        <img src={item.smallImgPath} />
+                        <img src={item.nextImagePath} />
                       </div>
                     ))}
                   </Swiper>
                   <div></div>
                 </div>
-
                 <button type="button" className="arrow arrow_next" onClick={handleClick}>
                   <i className="icofont-simple-right"></i>
                 </button>
@@ -164,11 +181,10 @@ const Intro = props => {
               </div>
             </div>
           </div>
-          {/* </TransitionGroup> */}
         </div>
       </div>
     </section>
   );
 };
 
-export default Intro;
+export default SliderWrapper;

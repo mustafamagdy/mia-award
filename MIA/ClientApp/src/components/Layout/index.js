@@ -72,7 +72,7 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, history, toggleSearchForm,
           <div className="mainmenu">
             <ul>
               {config.menu.map((m, i) => (
-                <li>
+                <li key={i}>
                   <a href={m.location}>
                     <Trans id={m.label}>{m.label}</Trans>
                   </a>
