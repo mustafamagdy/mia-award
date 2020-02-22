@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import UserProvider from "containers/Providers/UserProvider";
@@ -10,12 +10,46 @@ import { Trans } from "@lingui/macro";
 import { useForm } from "react-hook-form";
 import config from "config";
 import { withRouter } from "react-router";
+import { useOnClickOutside } from "hooks";
 
-const Layout = ({ toggleShareSidebar, searchFormOpen, history, ...props }) => {
+const SearchForm = forwardRef(({ history, hideAndReset }, ref) => {
+  const { register, handleSubmit, reset } = useForm();
+  const overlayRef = useRef();
+  useOnClickOutside(overlayRef, () => hideAndReset());
+
+  const onSearch = q => {
+    hideAndReset();
+    history.push("/shows/?q=" + q.search);
+  };
+
+  useImperativeHandle(ref, () => ({
+    reset() {
+      reset();
+    }
+  }));
+
+  return (
+    <form onSubmit={handleSubmit(onSearch)} ref={overlayRef}>
+      <input type="text" name="search" ref={register} placeholder="Search ..." />
+      <button type="submit">
+        <i className="icofont-ui-search"></i>
+      </button>
+    </form>
+  );
+});
+
+const Layout = ({ toggleShareSidebar, searchFormOpen, history, toggleSearchForm, ...props }) => {
+  const searchFormRef = useRef();
+
   const dismissDlgs = event => {
     if (event.keyCode === 27 && searchFormOpen === true) {
-      reset();
-      const { toggleSearchForm } = props;
+      hideAndReset();
+    }
+  };
+
+  const hideAndReset = () => {
+    if (!!searchFormOpen) {
+      searchFormRef.current.reset();
       toggleSearchForm();
     }
   };
@@ -27,14 +61,6 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, history, ...props }) => {
     };
   }, [searchFormOpen]);
 
-  const onSearch = q => {
-    const { toggleSearchForm } = props;
-    reset();
-    toggleSearchForm();
-    history.push("/shows/?q=" + q.search);
-  };
-
-  const { register, handleSubmit, reset } = useForm();
   return (
     <UserProvider>
       <React.Fragment>
@@ -55,12 +81,7 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, history, ...props }) => {
           </div>
         </aside>
         <div id="search_modal" className="search_modal">
-          <form onSubmit={handleSubmit(onSearch)}>
-            <input type="text" name="search" ref={register} placeholder="Search ..." />
-            <button type="submit">
-              <i className="icofont-ui-search"></i>
-            </button>
-          </form>
+          <SearchForm ref={searchFormRef} history={history} hideAndReset={hideAndReset} />
         </div>
         <div id="share_sidebar">
           <div className="close_search" onClick={toggleShareSidebar}>
@@ -94,4 +115,4 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, history, ...props }) => {
 
 const mapStateToProps = ({ global: { searchFormOpen } }) => ({ searchFormOpen });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Layout));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout));
