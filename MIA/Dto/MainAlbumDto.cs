@@ -1,6 +1,8 @@
-﻿namespace MIA.Api {
+﻿using MIA.Models.Entities;
+
+namespace MIA.Api {
   public class MainAlbumDto : BaseDto {
-    public string Description { get; set; }
+    public LocalizedData Title { get; set; }
     public AlbumItemDto[] Items { get; set; }
   }
 }
