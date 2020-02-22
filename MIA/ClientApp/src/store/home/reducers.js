@@ -47,6 +47,13 @@ const sendContactUsMessageFailed = (state, action) => {
     draft.contactUsFailed = true;
   });
 };
+
+const fetchMainAlbumSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.albumContents = [...action.payload];
+  });
+};
+
 const fetchNewsSuccess = (state, action) => {
   return produce(state, draft => {
     draft.news = [...action.payload, ...action.payload];
@@ -91,6 +98,7 @@ const bookBoothSuccess = (state, action) => {
 };
 
 export const reducer = createReducer(initialState, {
+  [ActionTypes.FETCH_MAIN_ALBUM_SUCCESS]: fetchMainAlbumSuccess,
   [ActionTypes.FETCH_NEWS_SUCCESS]: fetchNewsSuccess,
   [ActionTypes.FETCH_TIMELINE_SUCCESS]: fetchTimelineSuccess,
   [ActionTypes.FETCH_BOOTHS_SUCCESS]: fetchBoothsSuccess,

@@ -1,4 +1,5 @@
 export default function(/**@type {ApisauceInstance} */ api) {
+  const fetchMainAlbum = () => api.get("home/main-album");
   const fetchNews = () => api.get("home/latest-news");
   const fetchTimeline = () => api.get("home/timeline");
   const fetchBooths = () => api.get("home/booths");
@@ -10,6 +11,7 @@ export default function(/**@type {ApisauceInstance} */ api) {
 
   return {
     home: {
+      fetchMainAlbum,
       fetchNews,
       fetchTimeline,
       fetchBooths,

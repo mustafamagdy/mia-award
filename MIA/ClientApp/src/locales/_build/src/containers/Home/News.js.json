@@ -4,7 +4,7 @@
     "origin": [
       [
         "src/containers/Home/News.js",
-        21
+        71
       ]
     ]
   },
@@ -13,7 +13,7 @@
     "origin": [
       [
         "src/containers/Home/News.js",
-        51
+        92
       ]
     ]
   },
@@ -21,7 +21,7 @@
     "origin": [
       [
         "src/containers/Home/News.js",
-        76
+        117
       ]
     ]
   },
@@ -30,7 +30,7 @@
     "origin": [
       [
         "src/containers/Home/News.js",
-        79
+        123
       ]
     ]
   },
@@ -38,7 +38,7 @@
     "origin": [
       [
         "src/containers/Home/News.js",
-        88
+        133
       ]
     ]
   }

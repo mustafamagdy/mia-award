@@ -7,7 +7,6 @@ import homeActions from "store/home/actions";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
 import "utils";
 
-import "sass/partners.scss";
 import Swiper from "react-id-swiper";
 
 const News = ({ fetchNews, news, ...props }) => {
@@ -141,51 +140,6 @@ const News = ({ fetchNews, news, ...props }) => {
   );
 };
 
-const mapStateToProps = ({ home: { news, news_pagination } }) => ({ news, news_pagination });
+const mapStateToProps = ({ home: { news } }) => ({ news });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(News);
-/*
- <div
-            className="feature_item_pages"
-            style={{
-              transform: `translate3d(${(pageNumber - 1) * -window.innerWidth}px, 0px, 0px)`
-            }}
-          >
-            {news.chunk(4).map((chunk, i) => {
-              const isCurrent = i == pageNumber - 1;
-              return (
-                <div className={classNames("feature_item_page", { active: isCurrent })} key={i}>
-                  {chunk.map((item, index) => (
-                    <div className="feature_item" key={index}>
-                      <div className="feature_block">
-                        <time>{item.date}</time>
-                        <div className="item">
-                          <div className="category">
-                            <Trans id={item.category.toLowerCase()}>{item.category}</Trans>
-                          </div>
-                          <div className="imgthumb">
-                            <img src={`${item.posterUrl}?w=293&h=550&mode=stretch`} />
-                            <LanguageContext.Consumer>
-                              {({ locale }) => (
-                                <div className="mask">
-                                  <div className="content">
-                                    <p>{item.title[locale.code]}</p>
-                                    <div className="more">
-                                      <a href={`/news/${item.id}`}>
-                                        <Trans id="read_more">Read More</Trans>
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </LanguageContext.Consumer>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              );
-            })}
-          </div>
-        */

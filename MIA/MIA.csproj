@@ -95,6 +95,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\src\locales\" />
     <Folder Include="ClientApp\src\sass\" />
+    <Folder Include="seed\gallery\" />
     <Folder Include="wwwroot\logs\" />
   </ItemGroup>
 </Project>

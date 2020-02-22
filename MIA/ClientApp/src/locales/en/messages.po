@@ -70,11 +70,11 @@ msgstr ""
 msgid "booths"
 msgstr "Booths"
 
-#: src/containers/Home/Tickets.js:93
+#: src/containers/Home/Tickets.js:39
 msgid "buy_your_ticket"
 msgstr "Buy Your Ticket"
 
-#: src/containers/Pages/News/view.js:169
+#: src/containers/Pages/News/view.js:170
 msgid "by"
 msgstr "By"
 
@@ -105,11 +105,11 @@ msgstr "Choose receipt image"
 msgid "choose_your_payment_method"
 msgstr "Choose payment method"
 
-#: src/containers/Pages/News/view.js:151
+#: src/containers/Pages/News/view.js:152
 msgid "comment_failed"
 msgstr "There was an error, the message could not be sent."
 
-#: src/containers/Pages/News/view.js:147
+#: src/containers/Pages/News/view.js:148
 msgid "comment_submitted"
 msgstr "Your comment has been submitted successfully for review."
 
@@ -149,7 +149,7 @@ msgstr "Copyright© 2020 Media Industry Awards. All rights reserved."
 msgid "create_account"
 msgstr "Create Account"
 
-#: src/containers/Home/Tickets.js:87
+#: src/containers/Home/Tickets.js:33
 msgid "date"
 msgstr "Date"
 
@@ -262,11 +262,11 @@ msgstr "Name"
 msgid "new_password"
 msgstr "New password"
 
-#: src/containers/Pages/News/index.js:144
+#: src/containers/Pages/News/index.js:146
 msgid "news"
 msgstr "News"
 
-#: src/containers/Home/News.js:21
+#: src/containers/Home/News.js:71
 msgid "news_features"
 msgstr "News Features"
 
@@ -276,7 +276,7 @@ msgstr "NEWSLETTER"
 
 #: src/containers/Booths/index.js:189
 #: src/containers/Booths/index.js:207
-#: src/containers/Home/News.js:88
+#: src/containers/Home/News.js:133
 msgid "next"
 msgstr "Next"
 
@@ -365,17 +365,17 @@ msgstr "+971 4 57 2636 8"
 msgid "please_upload_the_receipt"
 msgstr "Please upload payment receipt"
 
-#: src/containers/Pages/News/view.js:142
+#: src/containers/Pages/News/view.js:143
 msgid "post_comment"
 msgstr "Post A Comment"
 
-#: src/containers/Pages/News/index.js:116
-#: src/containers/Pages/News/index.js:232
-#: src/containers/Pages/News/view.js:45
+#: src/containers/Pages/News/index.js:118
+#: src/containers/Pages/News/index.js:238
+#: src/containers/Pages/News/view.js:46
 msgid "posted"
 msgstr "Posted"
 
-#: src/containers/Home/News.js:76
+#: src/containers/Home/News.js:117
 msgid "prev"
 msgstr "Prev"
 
@@ -403,13 +403,13 @@ msgstr ""
 msgid "quick_links"
 msgstr "QUICK LINKS"
 
-#: src/containers/Home/News.js:51
-#: src/containers/Pages/News/index.js:127
+#: src/containers/Home/News.js:92
+#: src/containers/Pages/News/index.js:129
 msgid "read_more"
 msgstr "Read More"
 
-#: src/containers/Pages/News/index.js:202
-#: src/containers/Pages/News/index.js:243
+#: src/containers/Pages/News/index.js:206
+#: src/containers/Pages/News/index.js:249
 msgid "read_more_elapsed"
 msgstr "Read More.."
 
@@ -417,7 +417,7 @@ msgstr "Read More.."
 msgid "recent_shows"
 msgstr "Recent Shows"
 
-#: src/containers/Pages/News/view.js:195
+#: src/containers/Pages/News/view.js:196
 msgid "related_news"
 msgstr "Related News"
 
@@ -433,11 +433,11 @@ msgstr "Select Your Image"
 msgid "send_message"
 msgstr "Send Message"
 
-#: src/containers/Pages/News/view.js:29
+#: src/containers/Pages/News/view.js:30
 msgid "share"
 msgstr "Share"
 
-#: src/containers/Home/News.js:79
+#: src/containers/Home/News.js:123
 msgid "show_all"
 msgstr "Show All"
 

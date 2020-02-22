@@ -70,11 +70,11 @@ msgstr ""
 msgid "booths"
 msgstr "المعرض"
 
-#: src/containers/Home/Tickets.js:93
+#: src/containers/Home/Tickets.js:39
 msgid "buy_your_ticket"
 msgstr "شراء التذكرة"
 
-#: src/containers/Pages/News/view.js:169
+#: src/containers/Pages/News/view.js:170
 msgid "by"
 msgstr "بواسطة"
 
@@ -105,11 +105,11 @@ msgstr "اختر صورة ايصال الدفع"
 msgid "choose_your_payment_method"
 msgstr "اختر طريقة الدفع التى تناسبك"
 
-#: src/containers/Pages/News/view.js:151
+#: src/containers/Pages/News/view.js:152
 msgid "comment_failed"
 msgstr "حدث خطأ، يتعذر إرسال الرسالة."
 
-#: src/containers/Pages/News/view.js:147
+#: src/containers/Pages/News/view.js:148
 msgid "comment_submitted"
 msgstr "تم إرسال تعليقك بنجاح للمراجعة."
 
@@ -149,7 +149,7 @@ msgstr "حقوق النشر© 2020 لشركة جوائز صناعة الإعلا
 msgid "create_account"
 msgstr "إنشاء حساب"
 
-#: src/containers/Home/Tickets.js:87
+#: src/containers/Home/Tickets.js:33
 msgid "date"
 msgstr "التاريخ"
 
@@ -262,11 +262,11 @@ msgstr "الاسم"
 msgid "new_password"
 msgstr "كلمة المرور الجديدة"
 
-#: src/containers/Pages/News/index.js:144
+#: src/containers/Pages/News/index.js:146
 msgid "news"
 msgstr "الأخبار"
 
-#: src/containers/Home/News.js:21
+#: src/containers/Home/News.js:71
 msgid "news_features"
 msgstr "اهم الاخبار"
 
@@ -276,7 +276,7 @@ msgstr "رسالة إخبارية"
 
 #: src/containers/Booths/index.js:189
 #: src/containers/Booths/index.js:207
-#: src/containers/Home/News.js:88
+#: src/containers/Home/News.js:133
 msgid "next"
 msgstr "التالي"
 
@@ -365,17 +365,17 @@ msgstr "+971 4 57 2636 8"
 msgid "please_upload_the_receipt"
 msgstr "ارفق ايصال الدفع"
 
-#: src/containers/Pages/News/view.js:142
+#: src/containers/Pages/News/view.js:143
 msgid "post_comment"
 msgstr "نشر تعليق"
 
-#: src/containers/Pages/News/index.js:116
-#: src/containers/Pages/News/index.js:232
-#: src/containers/Pages/News/view.js:45
+#: src/containers/Pages/News/index.js:118
+#: src/containers/Pages/News/index.js:238
+#: src/containers/Pages/News/view.js:46
 msgid "posted"
 msgstr "تم النشر"
 
-#: src/containers/Home/News.js:76
+#: src/containers/Home/News.js:117
 msgid "prev"
 msgstr "السابق"
 
@@ -403,13 +403,13 @@ msgstr ""
 msgid "quick_links"
 msgstr "ارتباطات سريعة"
 
-#: src/containers/Home/News.js:51
-#: src/containers/Pages/News/index.js:127
+#: src/containers/Home/News.js:92
+#: src/containers/Pages/News/index.js:129
 msgid "read_more"
 msgstr "قراءة المزيد"
 
-#: src/containers/Pages/News/index.js:202
-#: src/containers/Pages/News/index.js:243
+#: src/containers/Pages/News/index.js:206
+#: src/containers/Pages/News/index.js:249
 msgid "read_more_elapsed"
 msgstr "قراءة المزيد.."
 
@@ -417,7 +417,7 @@ msgstr "قراءة المزيد.."
 msgid "recent_shows"
 msgstr "آخر العروض"
 
-#: src/containers/Pages/News/view.js:195
+#: src/containers/Pages/News/view.js:196
 msgid "related_news"
 msgstr "الأخبار المتعلقة"
 
@@ -433,11 +433,11 @@ msgstr "تحديد صورتك"
 msgid "send_message"
 msgstr "إرسال رسالة"
 
-#: src/containers/Pages/News/view.js:29
+#: src/containers/Pages/News/view.js:30
 msgid "share"
 msgstr "مشاركة"
 
-#: src/containers/Home/News.js:79
+#: src/containers/Home/News.js:123
 msgid "show_all"
 msgstr "إظهار الكل"
 

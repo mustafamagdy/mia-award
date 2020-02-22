@@ -1,4 +1,5 @@
-﻿using MIA.Models.Entities.Enums;
+﻿using MIA.Models.Entities;
+using MIA.Models.Entities.Enums;
 
 namespace MIA.Api {
   public class AlbumItemDto : BaseDto {
@@ -8,5 +9,6 @@ namespace MIA.Api {
     public MediaType MediaType { get; set; }
     public bool Featured { get; set; }
     public string DateCreated { get; set; }
+    public LocalizedData Title { get; set; }
   }
 }
