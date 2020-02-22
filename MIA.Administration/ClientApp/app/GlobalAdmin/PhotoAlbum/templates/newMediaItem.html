@@ -1,14 +1,13 @@
 <div class="modal-content">
     <div class="modal-header bordered">
-        <h2 class="pmd-card-title-text"> {{'AddNewPhotoAlbumBtn' | translate}} </h2>
+        <h2 class="pmd-card-title-text"> {{'AddNewMediaItemBtn' | translate}} </h2>
     </div>
     <div class="modal-body">
-        <form class="form-horizontal" name="newPhotoAlbumForm">
+        <form class="form-horizontal" name="newMediaItemForm">
             <div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" ng-class="{'active':$index == 0}"
-                        ng-repeat="lang in newPhotoAlbumCtrl.language">
+                    <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in newMediaItemCtrl.language">
                         <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
                             data-toggle="tab">
                             <span style="color:red">*</span>{{lang.value | translate}}
@@ -20,43 +19,50 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
-                                ng-repeat="lang in newPhotoAlbumCtrl.language" id="{{lang.value}}-form">
+                                ng-repeat="lang in newMediaItemCtrl.language" id="{{lang.value}}-form">
                                 <div class="form-group pmd-textfield pmd-textfield-floating-label">
                                     <label for="first-name">{{ 'Title' | translate}} </label>
-                                    <input required PhotoAlbum="text" class="mat-input form-control"
-                                        name="titleDictionary{{lang.value+'Name'}}"
-                                        ng-model="newPhotoAlbumCtrl.titleDictionary[lang.key]" ng-minlength="3"
+                                    <input required News="text" class="mat-input form-control"
+                                        name="title{{lang.value+'Name'}}"
+                                        ng-model="newMediaItemCtrl.title[lang.key]" ng-minlength="3"
                                         ng-maxlength="255">
-                                    <div ng-messages="newPhotoAlbumForm.titleDictionary{{lang.value+'Name'}}.$error">
+                                    <div ng-messages="newMediaItemForm.title{{lang.value+'Name'}}.$error">
 
                                         <div class="error ng-binding"
-                                            ng-show="newPhotoAlbumForm.titleDictionary{{lang.value+'Name'}}.$error.required && !newPhotoAlbumForm.titleDictionary{{lang.value+'Name'}}.$pristine">
+                                            ng-show="newMediaItemForm.title{{lang.value+'Name'}}.$error.required && !newMediaItemForm.title{{lang.value+'Name'}}.$pristine">
                                             {{'requiredErr' | translate}}</div>
                                         <div class="error ng-binding"
-                                            ng-show="(newPhotoAlbumForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || newPhotoAlbumForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newPhotoAlbumForm.titleDictionary{{lang.value+'Name'}}.$error.required">
+                                            ng-show="(newMediaItemForm.title{{lang.value+'Name'}}.$error.minlength || newMediaItemForm.title{{lang.value+'Name'}}.$error.maxlength) && !newMediaItemForm.title{{lang.value+'Name'}}.$error.required">
                                             {{'NameLengthError3' | translate}}</div>
                                     </div>
-                                </div>
+                                </div> 
                             </div>
 
 
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row">
-                    <div class="form-group col-lg-4"> 
+                <div class="row">
+                    <div class="form-group col-lg-4">
                         <label>
-                            <input type="radio" ng-model="newPhotoAlbumCtrl.selectedMediaType" value="Image">
+                            <input type="checkbox" ng-model="newMediaItemCtrl.isFeatured" value="Featred">
+                            Featured
+                        </label>
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>
+                            <input type="radio" ng-model="newMediaItemCtrl.selectedMediaType" value="Image">
                             Image
-                        </label><br />
+                        </label>
                         <label>
-                            <input type="radio" ng-model="newPhotoAlbumCtrl.selectedMediaType" value="Video">
+                            <input type="radio" ng-model="newMediaItemCtrl.selectedMediaType" value="Video">
                             Video
-                        </label><br />
+                        </label>
 
                     </div>
                 </div>
-                <div class="row" ng-show="newPhotoAlbumCtrl.selectedMediaType== 'Image'">
+                <div class="row" ng-show="newMediaItemCtrl.selectedMediaType== 'Image'">
                     <div class="form-group col-lg-4">
                         <div class="form-group pmd-textfield-floating-label-completed">
                             <span style="color:red">*</span>
@@ -65,34 +71,37 @@
                                 onchange="angular.element(this).scope().AddposterImage(this.files)" type="file"
                                 required>
                             <button class="btn btn-success btn-xs pull-center" type="button"
-                                ng-click="newPhotoAlbumCtrl.LoadUploadPoster()">{{'Upload Image' | translate}}</button>
+                                ng-click="newMediaItemCtrl.LoadUploadPoster()">{{'Upload Image' | translate}}</button>
                             <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                                {{'RecommendedProductImage' | translate}}</span> 
-                            <div ng-repeat=" image in newPhotoAlbumCtrl.posterImage">
-                                <img ng-src="{{image}}" style="max-height: 139px;max-width: 423px;">
-                            </div>
-                            <div ng-messages="newPhotoAlbumForm.posterImage.$error">
-                                <div ng-if="newPhotoAlbumForm.posterImage.$error.required">{{'requiredErr' | translate}}
+                                {{'RecommendedProductImage' | translate}}</span>
+                            <img ng-src="{{newMediaItemCtrl.posterImage}}" style="max-height: 139px;max-width: 423px;">
+
+                            <div ng-messages="newMediaItemForm.posterImage.$error">
+                                <div ng-if="newMediaItemForm.posterImage.$error.required">{{'requiredErr' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row" ng-show="newPhotoAlbumCtrl.selectedMediaType== 'Video'">
+                <div class="row" ng-show="newMediaItemCtrl.selectedMediaType== 'Video'">
                     <div class="form-group col-lg-4">
                         Video
                     </div>
-                </div> -->
+                </div>
+                <!-- 
+                <input type="file" id="file">
+                <input type="button" ng-click="one()" value="test_split_upload"> -->
+
             </div>
         </form>
     </div>
     <div class="pmd-modal-action text-right">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-disabled="newPhotoAlbumForm.$invalid || newPhotoAlbumCtrl.posterImage ==null"
+            ng-disabled="newMediaItemForm.$invalid || newMediaItemCtrl.posterImage ==null"
             class="btn pmd-ripple-effect btn-primary" type="button"
-            ng-click="newPhotoAlbumCtrl.AddNewPhotoAlbum()">{{'saveChangesBtn' | translate}}</button>
+            ng-click="newMediaItemCtrl.AddNewMediaItem()">{{'saveChangesBtn' | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" type="button"
-            ng-click="newPhotoAlbumCtrl.close()">{{'DiscardBtn' | translate}}</button>
+            ng-click="newMediaItemCtrl.close()">{{'DiscardBtn' | translate}}</button>
     </div>
 </div>
 

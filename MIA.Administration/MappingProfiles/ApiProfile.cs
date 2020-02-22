@@ -67,8 +67,8 @@ namespace MIA.Administration.MappingProfiles
       #region PhotoAlbum
 
 
-      CreateMap<AlbumItem, PhotoAlbumFileDto>() 
-         .ValidateMemberList(MemberList.None);
+      CreateMap<AlbumItem, PhotoAlbumFileDto>().ValidateMemberList(MemberList.None);
+      CreateMap<NewMediasDto, AlbumItem>().ValidateMemberList(MemberList.None);
 
 
       CreateMap<AlbumItem, PhotoAlbumFileDto>()

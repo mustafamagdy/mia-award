@@ -13,11 +13,14 @@ namespace MIA.Administration.Api
   }
   public class NewMediasDto
   {
+    public LocalizedData Title { get; set; }
     public string MediaFileName { get; set; }
     public byte[] Media { get; set; }
     public bool Featured { get; set; }
     public MediaType MediaType { get; set; }
     public string AlbumId { get; set; }
+    public string PosterFileName { get; set; }
+    public byte[] Poster { get; set; }
 
   }
 }

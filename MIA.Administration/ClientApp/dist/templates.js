@@ -2127,20 +2127,28 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <thead>\n' +
     '                    <tr>\n' +
     '                        <th>{{\'image\' | translate}}</th>\n' +
+    '                        <th>{{\'featured\' | translate}}</th>\n' +
     '                        <th></th>\n' +
     '                    </tr>\n' +
     '                </thead>\n' +
     '                <tbody>\n' +
-    '                    <tr ng-repeat="mediaItems in mediaItemCtrl.mediaItemList">\n' +
+    '                    <tr ng-repeat="mediaItem in mediaItemCtrl.mediaItemList">\n' +
     '\n' +
     '                        <td>\n' +
-    '                            <img style="width: 70px;height: 70px;" data-ng-src="{{mediaItems.fileUrl}}" />\n' +
+    '                            <img style="width: 70px;height: 70px;" data-ng-src="{{mediaItem.fileUrl}}" />\n' +
     '                        </td>\n' +
+    '                        <td>\n' +
+    '                            <div class="btn-switch" ng-class="{\'btn-switch--on\':mediaItem.featured}"\n' +
+    '                                ng-click="mediaItemCtrl.ChangeStatus(mediaItem)" ng-model="mediaItem.featured">\n' +
     '\n' +
+    '                                <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':mediaItem.featured}"\n' +
+    '                                    ng-click="mediaItemCtrl.ChangeStatus(mediaItem)" ng-model="mediaItem.featured">\n' +
+    '                                </div>\n' +
+    '                        </td>\n' +
     '                        <td width="30%">\n' +
     '                            <i ng-show="user.PermessionModules[\'News\'].includes(\'remove\')"\n' +
     '                                class="material-icons pmd-md deleteButton cursorPointer font25"\n' +
-    '                                ng-click="mediaItemCtrl.openDeleteDialog(mediaItems,mediaItems.title[selectedLanguage] ,mediaItems.id)"\n' +
+    '                                ng-click="mediaItemCtrl.openDeleteDialog(mediaItem,mediaItem.title[selectedLanguage] ,mediaItem.id)"\n' +
     '                                title="Delete">delete</i>\n' +
     '                        </td>\n' +
     '                    </tr>\n' +
@@ -2417,15 +2425,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/PhotoAlbum/templates/newMediaItem.html',
     '<div class="modal-content">\n' +
     '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text"> {{\'AddNewPhotoAlbumBtn\' | translate}} </h2>\n' +
+    '        <h2 class="pmd-card-title-text"> {{\'AddNewMediaItemBtn\' | translate}} </h2>\n' +
     '    </div>\n' +
     '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="newPhotoAlbumForm">\n' +
+    '        <form class="form-horizontal" name="newMediaItemForm">\n' +
     '            <div>\n' +
     '                <!-- Nav tabs -->\n' +
     '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
-    '                        ng-repeat="lang in newPhotoAlbumCtrl.language">\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newMediaItemCtrl.language">\n' +
     '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"\n' +
     '                            data-toggle="tab">\n' +
     '                            <span style="color:red">*</span>{{lang.value | translate}}\n' +
@@ -2437,43 +2444,50 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <!-- Tab panes -->\n' +
     '                        <div class="tab-content">\n' +
     '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
-    '                                ng-repeat="lang in newPhotoAlbumCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                ng-repeat="lang in newMediaItemCtrl.language" id="{{lang.value}}-form">\n' +
     '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '                                    <label for="first-name">{{ \'Title\' | translate}} </label>\n' +
-    '                                    <input required PhotoAlbum="text" class="mat-input form-control"\n' +
-    '                                        name="titleDictionary{{lang.value+\'Name\'}}"\n' +
-    '                                        ng-model="newPhotoAlbumCtrl.titleDictionary[lang.key]" ng-minlength="3"\n' +
+    '                                    <input required News="text" class="mat-input form-control"\n' +
+    '                                        name="title{{lang.value+\'Name\'}}"\n' +
+    '                                        ng-model="newMediaItemCtrl.title[lang.key]" ng-minlength="3"\n' +
     '                                        ng-maxlength="255">\n' +
-    '                                    <div ng-messages="newPhotoAlbumForm.titleDictionary{{lang.value+\'Name\'}}.$error">\n' +
+    '                                    <div ng-messages="newMediaItemForm.title{{lang.value+\'Name\'}}.$error">\n' +
     '\n' +
     '                                        <div class="error ng-binding"\n' +
-    '                                            ng-show="newPhotoAlbumForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !newPhotoAlbumForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                            ng-show="newMediaItemForm.title{{lang.value+\'Name\'}}.$error.required && !newMediaItemForm.title{{lang.value+\'Name\'}}.$pristine">\n' +
     '                                            {{\'requiredErr\' | translate}}</div>\n' +
     '                                        <div class="error ng-binding"\n' +
-    '                                            ng-show="(newPhotoAlbumForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || newPhotoAlbumForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newPhotoAlbumForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                            ng-show="(newMediaItemForm.title{{lang.value+\'Name\'}}.$error.minlength || newMediaItemForm.title{{lang.value+\'Name\'}}.$error.maxlength) && !newMediaItemForm.title{{lang.value+\'Name\'}}.$error.required">\n' +
     '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
     '                                    </div>\n' +
-    '                                </div>\n' +
+    '                                </div> \n' +
     '                            </div>\n' +
     '\n' +
     '\n' +
     '                        </div>\n' +
     '                    </div>\n' +
     '                </div>\n' +
-    '                <!-- <div class="row">\n' +
-    '                    <div class="form-group col-lg-4"> \n' +
+    '                <div class="row">\n' +
+    '                    <div class="form-group col-lg-4">\n' +
     '                        <label>\n' +
-    '                            <input type="radio" ng-model="newPhotoAlbumCtrl.selectedMediaType" value="Image">\n' +
+    '                            <input type="checkbox" ng-model="newMediaItemCtrl.isFeatured" value="Featred">\n' +
+    '                            Featured\n' +
+    '                        </label>\n' +
+    '\n' +
+    '                    </div>\n' +
+    '                    <div class="form-group col-lg-4">\n' +
+    '                        <label>\n' +
+    '                            <input type="radio" ng-model="newMediaItemCtrl.selectedMediaType" value="Image">\n' +
     '                            Image\n' +
-    '                        </label><br />\n' +
+    '                        </label>\n' +
     '                        <label>\n' +
-    '                            <input type="radio" ng-model="newPhotoAlbumCtrl.selectedMediaType" value="Video">\n' +
+    '                            <input type="radio" ng-model="newMediaItemCtrl.selectedMediaType" value="Video">\n' +
     '                            Video\n' +
-    '                        </label><br />\n' +
+    '                        </label>\n' +
     '\n' +
     '                    </div>\n' +
     '                </div>\n' +
-    '                <div class="row" ng-show="newPhotoAlbumCtrl.selectedMediaType== \'Image\'">\n' +
+    '                <div class="row" ng-show="newMediaItemCtrl.selectedMediaType== \'Image\'">\n' +
     '                    <div class="form-group col-lg-4">\n' +
     '                        <div class="form-group pmd-textfield-floating-label-completed">\n' +
     '                            <span style="color:red">*</span>\n' +
@@ -2482,34 +2496,37 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                onchange="angular.element(this).scope().AddposterImage(this.files)" type="file"\n' +
     '                                required>\n' +
     '                            <button class="btn btn-success btn-xs pull-center" type="button"\n' +
-    '                                ng-click="newPhotoAlbumCtrl.LoadUploadPoster()">{{\'Upload Image\' | translate}}</button>\n' +
+    '                                ng-click="newMediaItemCtrl.LoadUploadPoster()">{{\'Upload Image\' | translate}}</button>\n' +
     '                            <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>\n' +
-    '                                {{\'RecommendedProductImage\' | translate}}</span> \n' +
-    '                            <div ng-repeat=" image in newPhotoAlbumCtrl.posterImage">\n' +
-    '                                <img ng-src="{{image}}" style="max-height: 139px;max-width: 423px;">\n' +
-    '                            </div>\n' +
-    '                            <div ng-messages="newPhotoAlbumForm.posterImage.$error">\n' +
-    '                                <div ng-if="newPhotoAlbumForm.posterImage.$error.required">{{\'requiredErr\' | translate}}\n' +
+    '                                {{\'RecommendedProductImage\' | translate}}</span>\n' +
+    '                            <img ng-src="{{newMediaItemCtrl.posterImage}}" style="max-height: 139px;max-width: 423px;">\n' +
+    '\n' +
+    '                            <div ng-messages="newMediaItemForm.posterImage.$error">\n' +
+    '                                <div ng-if="newMediaItemForm.posterImage.$error.required">{{\'requiredErr\' | translate}}\n' +
     '                                </div>\n' +
     '                            </div>\n' +
     '                        </div>\n' +
     '                    </div>\n' +
     '                </div>\n' +
-    '                <div class="row" ng-show="newPhotoAlbumCtrl.selectedMediaType== \'Video\'">\n' +
+    '                <div class="row" ng-show="newMediaItemCtrl.selectedMediaType== \'Video\'">\n' +
     '                    <div class="form-group col-lg-4">\n' +
     '                        Video\n' +
     '                    </div>\n' +
-    '                </div> -->\n' +
+    '                </div>\n' +
+    '                <!-- \n' +
+    '                <input type="file" id="file">\n' +
+    '                <input type="button" ng-click="one()" value="test_split_upload"> -->\n' +
+    '\n' +
     '            </div>\n' +
     '        </form>\n' +
     '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
     '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="newPhotoAlbumForm.$invalid || newPhotoAlbumCtrl.posterImage ==null"\n' +
+    '            ng-disabled="newMediaItemForm.$invalid || newMediaItemCtrl.posterImage ==null"\n' +
     '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="newPhotoAlbumCtrl.AddNewPhotoAlbum()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '            ng-click="newMediaItemCtrl.AddNewMediaItem()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="newPhotoAlbumCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '            ng-click="newMediaItemCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>\n' +
     '\n' +

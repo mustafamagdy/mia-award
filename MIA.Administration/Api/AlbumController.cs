@@ -182,7 +182,8 @@ namespace MIA.Administration.Api
     public async Task<IActionResult> CreateMediaItemsAsync([FromBody] NewMediasDto dto, [FromServices] IAppUnitOfWork db)
     {
       var mediaItem = db.AlbumItems.Where(a => a.Id == dto.AlbumId);
-
+      string filePosterKey = String.Empty;
+      var filePosterUrl = "";
       var maxOrder = mediaItem.DefaultIfEmpty().Max(a => a.Order);
       if (dto.Media != null)
       {
@@ -197,20 +198,39 @@ namespace MIA.Administration.Api
           string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, dto.AlbumId, dto.MediaFileName);
           var fileUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
+          if (dto.Poster != null)
+          {
+            using (var memorySteamPoster = new MemoryStream(dto.Poster))
+            {
+              string validationPosterError = "";
+              if (memorySteamPoster.ValidateImage(limitOptions.Value, out validationError) == false)
+              {
+                return ValidationError(System.Net.HttpStatusCode.BadRequest, validationPosterError);
+              }
+
+              filePosterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, dto.AlbumId, dto.PosterFileName);
+              filePosterUrl = await fileManager.UploadFileAsync(memorySteamPoster, filePosterKey);
+
+            }
+          }
+
           var albumItem = new AlbumItem
           {
             FileKey = fileKey,
             FileUrl = fileUrl,
+            PosterKey = filePosterKey,
+            PosterUrl = filePosterUrl,
             MediaType = dto.MediaType,
             Featured = dto.Featured,
             AlbumId = dto.AlbumId,
+            Title=dto.Title,
             Order = maxOrder
           };
           db.AlbumItems.Add(albumItem);
 
         };
       }
-      return IfFound(_mapper.Map<PhotoAlbumDto>(mediaItem));
+      return Ok();
 
     }
     [HttpDelete("deleteMediaItems")]
@@ -219,10 +239,21 @@ namespace MIA.Administration.Api
       var entity = db.Set<AlbumItem>().FirstOrDefault(a => a.Id == id);
       if (entity == null)
         return NotFound404("record not found");
-
+      //   IS3FileManager.DeleteFileAsync(entity.PosterKey);
       db.Set<AlbumItem>().Remove(entity);
       return IfFound(entity);
 
+    }
+    [HttpPut("UpdateMediaItem")]
+    public async Task<IActionResult> UpdateMediaItemAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db)
+    {  
+      var mediaItem= await db.AlbumItems.FirstOrDefaultAsync(a => a.Id == dto.Id);
+      mediaItem.Featured = dto.Featured;
+      mediaItem.Title = dto.Title;
+      var entry = db.Set<AlbumItem>().Attach(mediaItem);
+      entry.State = EntityState.Modified;
+      await db.CommitTransactionAsync();
+      return IfFound(_mapper.Map<PhotoAlbumFileDto>(mediaItem));
     }
   }
 

@@ -253,115 +253,127 @@
 
       }
   })();
-  (function () {
-    'use strict';
+  (function() {
+  "use strict";
 
-    angular
-        .module('home')
-        .controller('ArtWorkController', ['appCONSTANTS', '$scope', '$translate', 'ArtWorkResource', 'blockUI', '$uibModal',
-            'ToastService', ArtWorkController]);
+  angular
+    .module("home")
+    .controller("ArtWorkController", [
+      "appCONSTANTS",
+      "$scope",
+      "$translate",
+      "ArtWorkResource",
+      "blockUI",
+      "$uibModal",
+      "ToastService",
+      ArtWorkController
+    ]);
 
+  function ArtWorkController(appCONSTANTS, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
+    $(".pmd-sidebar-nav>li>a").removeClass("active");
+    $($(".pmd-sidebar-nav").children()[6].children[0]).addClass("active");
+    var vm = this;
 
-    function ArtWorkController(appCONSTANTS, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
-        var vm = this;
+    vm.currentPage = 1;
+    vm.appCONSTANTS = appCONSTANTS;
+    refreshArtWorks();
+    function refreshArtWorks() {
+      blockUI.start("Loading...");
 
-        vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS; 
-        refreshArtWorks();
-        function refreshArtWorks() {
-            blockUI.start("Loading...");
-
-            var k = ArtWorkResource.getAllArtWorks({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
-                $scope.ArtWorkList = results.items;
-                $scope.totalCount = results.metadata.totalItemCount;
-                console.log($scope.ArtWorkList);
-                blockUI.stop();
-
-            },
-                function (data, status) { 
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
-                });
+      var k = ArtWorkResource.getAllArtWorks({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(
+        function(results) {
+          $scope.ArtWorkList = results.items;
+          $scope.totalCount = results.metadata.totalItemCount;
+          console.log($scope.ArtWorkList);
+          blockUI.stop();
+        },
+        function(data, status) {
+          blockUI.stop();
+          ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
         }
-        function change(artWork, isDeleted) {
-            var updateObj = new ArtWorkResource();
-            updateObj.id = artWork.id;
-            if (!isDeleted)
-                updateObj.status = (artWork.status == true ? false : true);
-            updateObj.isDeleted = artWork.isDeleted;
-
-            updateObj.$update().then(
-                function (data, status) {
-                    refreshArtWorks();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    artWork.status = updateObj.status;
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-        vm.UpdateArtWork = function (artWork) {
-            change(artWork, false);
-        }
-
-        function confirmationDelete(model) {
-            var updateObj = new ArtWorkResource();
-            updateObj.$delete({ id: model.id }).then(
-                function (data, status) {
-                    refreshArtWorks();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        }
-        vm.ChangeStatus = function (model) {
-            var updateObj = new ArtWorkResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-            return;
-        }
-
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshArtWorks();
-        }
-
+      );
     }
+    function change(artWork, isDeleted) {
+      var updateObj = new ArtWorkResource();
+      updateObj.id = artWork.id;
+      if (!isDeleted) updateObj.status = artWork.status == true ? false : true;
+      updateObj.isDeleted = artWork.isDeleted;
 
+      updateObj.$update().then(
+        function(data, status) {
+          refreshArtWorks();
+
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("Editeduccessfully"), "success");
+          artWork.status = updateObj.status;
+        },
+        function(data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+        }
+      );
+    }
+    vm.UpdateArtWork = function(artWork) {
+      change(artWork, false);
+    };
+
+    function confirmationDelete(model) {
+      var updateObj = new ArtWorkResource();
+      updateObj.$delete({ id: model.id }).then(
+        function(data, status) {
+          refreshArtWorks();
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("DeletedSuccessfully"), "success");
+        },
+        function(data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+        }
+      );
+    }
+    vm.openDeleteDialog = function(model, name, id) {
+      var modalContent = $uibModal.open({
+        templateUrl: "./app/core/Delete/templates/ConfirmDeleteDialog.html",
+        controller: "confirmDeleteDialogController",
+        controllerAs: "deleteDlCtrl",
+        resolve: {
+          model: function() {
+            return model;
+          },
+          itemName: function() {
+            return name;
+          },
+          itemId: function() {
+            return id;
+          },
+          message: function() {
+            return null;
+          },
+          callBackFunction: function() {
+            return confirmationDelete;
+          }
+        }
+      });
+    };
+    vm.ChangeStatus = function(model) {
+      var updateObj = new ArtWorkResource();
+      updateObj.id = model.id;
+      updateObj.title = model.title;
+      updateObj.body = model.body;
+      updateObj.outdated = model.outdated == true ? false : true;
+      updateObj.$update().then(
+        function(data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("Editeduccessfully"), "success");
+          model.outdated = updateObj.outdated;
+        },
+        function(data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+        }
+      );
+      return;
+    };
+
+    vm.changePage = function(page) {
+      vm.currentPage = page;
+      refreshArtWorks();
+    };
+  }
 })();
 (function () {
     angular
@@ -1957,239 +1969,6 @@
 
     angular
         .module('home')
-        .controller('JudgeArtWorkController', ['appCONSTANTS', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$uibModal',
-            'ToastService', '$stateParams', JudgeArtWorkController]);
-
-
-    function JudgeArtWorkController(appCONSTANTS, $scope, $translate, JudgeArtWorkResource, blockUI, $uibModal, ToastService, $stateParams) {
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
-        var vm = this;
-        vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS;
-
-        refreshJudgeArtWorks();
-        function refreshJudgeArtWorks() {
-            blockUI.start("Loading...");
-            debugger;
-
-            var k = JudgeArtWorkResource.getJudgeArtWorks({ id: $scope.user.id }, null).$promise.then(function (results) {
-
-                               $scope.JudgeArtWorkList = results;
-                console.log($scope.JudgeArtWorkList);
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
-                });
-        }
-        vm.showMore = function (element) {
-            $(element.currentTarget).toggleClass("child-table-collapse");
-        }
-
-        function confirmationDelete(model) {
-            var updateObj = new JudgeArtWorkResource();
-            updateObj.$delete({ id: model.id }).then(
-                function (data, status) {
-                    refreshJudgeArtWorks();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        }
-        vm.ChangeStatus = function (model) {
-            var updateObj = new JudgeArtWorkResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-            return;
-        }
-
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshJudgeArtWorks();
-        }
-
-    }
-
-})();
-(function () {
-    angular
-        .module('home')
-        .factory('JudgeArtWorkResource', ['$resource', 'appCONSTANTS', JudgeArtWorkResource])
-
-    function JudgeArtWorkResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'judgeVote', {}, {
-            getAllVotingCriterias: { method: 'POST', url: appCONSTANTS.API_URL + 'votingCriterias/search', useToken: true, params: { lang: '@lang' } },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'judgeVote/submitJudgeVote',  useToken: true },
-            getJudgeArtWork: { method: 'GET', useToken: true },
-            delete: { method: 'DELETE', useToken: true },
-            getJudgeArtWorks: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/getJudgeArtWorks?id=:id', isArray: true, useToken: true },
-        })
-    }
-
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .config(function ($stateProvider, $urlRouterProvider) {
-
-            $stateProvider
-                .state('JudgeArtWork', {
-                    url: '/JudgeArtWork',
-                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/JudgeArtWork.html',
-                    controller: 'JudgeArtWorkController',
-                    'controllerAs': 'JudgeArtWorkCtrl', 
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('viewJudgeArtWork', {
-                    url: '/viewJudgeArtWork/:id',
-                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/view.html',
-                    controller: 'viewJudgeArtWorkController',
-                    'controllerAs': 'viewJudgeArtWorkCtrl',
-                    resolve: {
-                        ArtWorkByIdPrepService: ArtWorkByIdPrepService,
-                        ArtWorkMediaByArtWorkIdPrepService: ArtWorkMediaByArtWorkIdPrepService
-                    },
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-        });
-
-    JudgeArtWorkPrepService.$inject = ['JudgeArtWorkResource']
-    function JudgeArtWorkPrepService(JudgeArtWorkResource) {
-        return JudgeArtWorkResource.getAllJudgeArtWorks({ pageNumber: 1, pageSize: 10 }).$promise;
-    }
-
-    JudgeArtWorkByIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
-    function JudgeArtWorkByIdPrepService(JudgeArtWorkResource, $stateParams) {
-        return JudgeArtWorkResource.getJudgeArtWork({ id: $stateParams.id }).$promise;
-    }
-
-    AllJudgeArtWorkPrepService.$inject = ['JudgeArtWorkResource']
-    function AllJudgeArtWorkPrepService(JudgeArtWorkResource) {
-        return JudgeArtWorkResource.getAllJudgeArtWorks({ pageNumber: 1, pageSize: 10 }).$promise;
-    }
-
-    JudgeArtWorkDetailsByArtWorkIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
-    function JudgeArtWorkDetailsByArtWorkIdPrepService(JudgeArtWorkResource, $stateParams) {
-        return JudgeArtWorkResource.getJudgeArtWorkDetails({ id: $stateParams.id }).$promise;
-    }
-
-    ArtWorkByIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
-    function ArtWorkByIdPrepService(ArtWorkResource, $stateParams) {
-        return ArtWorkResource.getArtWork({ id: $stateParams.id }).$promise;
-    }
-
-    ArtWorkMediaByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
-    function ArtWorkMediaByArtWorkIdPrepService(ArtWorkResource, $stateParams) {
-        return ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise;
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('viewJudgeArtWorkController', ['ArtWorkMediaByArtWorkIdPrepService', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
-            'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', viewJudgeArtWorkController])
-
-    function viewJudgeArtWorkController(ArtWorkMediaByArtWorkIdPrepService, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
-        ToastService, ArtWorkByIdPrepService) {
-        var vm = this;
-        vm.JudgeArtWork = ArtWorkByIdPrepService;
-        vm.artWorkMedia = ArtWorkMediaByArtWorkIdPrepService;
-        vm.votingCriteriaList = [];
-        console.log(vm.JudgeArtWork);
-        refreshVotingCriterias();
-        vm.Close = function () {
-            $state.go('JudgeArtWork');
-        }
-        vm.changeValue = function (value, index) {
-            vm.votingCriteriaList[index].value = value;
-
-        }
-        vm.UpdateJudgeArtWork = function () {
-            blockUI.start("Loading..."); 
-
-            var updateObj = new JudgeArtWorkResource();
-            updateObj.Id = vm.JudgeArtWork.id;
-            updateObj.ArtWorkId = vm.JudgeArtWork.id;
-            updateObj.JudgeId = $scope.user.id;
-            updateObj.CriteriaValues = vm.votingCriteriaList; 
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    blockUI.stop();
-
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-        function refreshVotingCriterias() {
-            var k = JudgeArtWorkResource.getAllVotingCriterias({ pageNumber: 1, pageSize: 10 }).$promise.then(function (results) {
-                vm.votingCriteriaList = results.items;
-                console.log(vm.votingCriteriaList);
-                vm.totalCount = results.metadata.totalItemCount;
-                blockUI.stop();
-            },
-                function (data, status) {
-
-                    blockUI.stop();
-                });
-        }
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
         .controller('NewsController', ['appCONSTANTS', '$scope', '$translate', 'NewsResource', 'blockUI', '$uibModal',
             'ToastService', NewsController]);
 
@@ -2573,32 +2352,7 @@
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
-        }
-        function change(MediaItem, isDeleted) {
-            var updateObj = new PhotoAlbumResource();
-            updateObj.id = MediaItem.id;
-            if (!isDeleted)
-                updateObj.status = (MediaItem.status == true ? false : true);
-            updateObj.isDeleted = MediaItem.isDeleted;
-
-            updateObj.$update().then(
-                function (data, status) {
-                    refreshMediaItems();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    MediaItem.status = updateObj.status;
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-        vm.UpdateMediaItem = function (MediaItem) {
-            change(MediaItem, false);
-        }
-
+        } 
         function confirmationDelete(model) {
             var obj = new PhotoAlbumResource();
             obj.$deleteMediaItems({ id: model.id }).then(
@@ -2628,14 +2382,12 @@
         }
         vm.ChangeStatus = function (model) {
             var updateObj = new PhotoAlbumResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
+            updateObj.id = model.id; 
+            updateObj.featured = (model.featured == true ? false : true);
+            updateObj.$updateMediaItem().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
+                    model.featured = updateObj.featured;
                 },
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
@@ -2649,7 +2401,9 @@
             refreshMediaItems();
         }
 
-    }
+
+
+            }
 
 })();
 (function () {
@@ -2776,7 +2530,7 @@
             update: { method: 'PUT', useToken: true },
             getPhotoAlbum: { method: 'GET', useToken: true },
             delete: { method: 'DELETE', useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'albums/ChangeStatus/:id/:status', useToken: true },
+            updateMediaItem: { method: 'PUT', url: appCONSTANTS.API_URL + 'albums/UpdateMediaItem', useToken: true },
             getMediaItems: { method: 'GET', url: appCONSTANTS.API_URL + 'albums/getMediaItems', useToken: true, isArray: true },
             createMediaItem: { method: 'POST',url: appCONSTANTS.API_URL + 'albums/createMediaItems', useToken: true }
         })
@@ -2883,6 +2637,159 @@
 
 
 
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('createMediaItemController', ['$scope', 'blockUI', '$stateParams', '$state','$http','$q', 'appCONSTANTS', '$translate',
+            'PhotoAlbumResource', 'ToastService', '$rootScope', createMediaItemController])
+
+    function createMediaItemController($scope, blockUI, $stateParams, $state,$http, $q,appCONSTANTS, $translate, PhotoAlbumResource,
+        ToastService, $rootScope) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.selectedMediaType = "";
+        vm.close = function () {
+            $state.go('PhotoAlbum');
+        }
+
+
+        vm.AddNewMediaItem = function () {
+          debugger;
+            var splitImage = vm.posterImage.split(',');
+            blockUI.start("Loading...");
+            var newObj = new PhotoAlbumResource();
+            newObj.Title = vm.title;
+            newObj.Media = splitImage[1];
+            newObj.MediaFileName = splitImage[0];
+            newObj.Featured = vm.isFeatured;
+            newObj.MediaType = vm.selectedMediaType;
+            newObj.AlbumId = $stateParams.id;
+            newObj.$createMediaItem().then(
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('mediaItems', { id: $stateParams.id });
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.title, "error");
+                }
+            );
+        }
+
+        vm.LoadUploadPoster = function () {
+            $("#posterImage").click();
+        }
+        var posterImage;
+        $scope.AddposterImage = function (element) {
+            var logoFile = element[0]; 
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newMediaItemForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        posterImage = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.posterImage = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+        }
+
+        $scope.uploadPosterFile = function (element) {
+            debugger;
+            vm.posterImage = $(element)[0].files[0];
+        };
+        $scope.one = function () {
+            $scope.file = $('#file').get(0).files[0];
+            $scope.splitfilea(1);
+        };
+
+        $scope.splitfilea = function (currentpage) {
+            let persize=1024*1024*10; 
+            let allpage = Math.ceil($scope.file.size/persize);
+            let start = (currentpage-1)*persize;
+            let end = start+persize;
+            if(currentpage===allpage){
+                end=$scope.file.size;
+            }
+            $scope.filesplitdata = $scope.file.slice(start, end);
+            $scope.r = new FileReader();
+            $scope.r.readAsDataURL($scope.filesplitdata);
+            $scope.r.onloadend=function (e) {
+                console.log(currentpage);
+                var bolb = e.target.result;
+                $scope.encode_blob = new Blob([bolb]);
+                $q.when($scope.httppost($scope.encode_blob)).then(function () {
+                    delete $scope.formData;
+                    if(currentpage<=allpage){
+                        currentpage = currentpage+1;
+                        $scope.splitfilea(currentpage);
+                    }else{
+                        console.log('end');
+                    }
+                });
+            };
+        };
+        $scope.httppost = function (blob) {
+            var deferral_local = $q.defer();
+            $http({
+            method: 'POST',
+            url: 'http://localhost:65207/artwork/01e1gzjhtvpkb68am8q6swp27g/files',
+            headers: {
+                'Content-Type': undefined
+            },
+            data: {
+                abc: blob,
+                filename:"SADECO final.pdf",
+                type:"pdf"
+            },
+            transformRequest: function (data, headersGetter) {
+                if(!$scope.formData){
+                    $scope.formData = new FormData();
+                }
+                angular.forEach(data, function (value, key) {
+                    if(key === "abc"){
+                        $scope.formData.append(key, value,"xxx.txt");
+                    }else{
+                        $scope.formData.append(key, value);
+                    }
+                });
+                var headers = headersGetter();
+                delete headers['Content-Type'];
+
+                return $scope.formData;
+            }
+        }).success(function (response) {
+                deferral_local.resolve( { status: 'good' } );
+            });
+            return deferral_local.promise;
+        };
+    }
 }());
 (function () {
     'use strict';
@@ -3075,6 +2982,239 @@
             vm.posterImage = $(element)[0].files[0];
         };
 
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('JudgeArtWorkController', ['appCONSTANTS', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$uibModal',
+            'ToastService', '$stateParams', JudgeArtWorkController]);
+
+
+    function JudgeArtWorkController(appCONSTANTS, $scope, $translate, JudgeArtWorkResource, blockUI, $uibModal, ToastService, $stateParams) {
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+        var vm = this;
+        vm.currentPage = 1;
+        vm.appCONSTANTS = appCONSTANTS;
+
+        refreshJudgeArtWorks();
+        function refreshJudgeArtWorks() {
+            blockUI.start("Loading...");
+            debugger;
+
+            var k = JudgeArtWorkResource.getJudgeArtWorks({ id: $scope.user.id }, null).$promise.then(function (results) {
+
+                               $scope.JudgeArtWorkList = results;
+                console.log($scope.JudgeArtWorkList);
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+                });
+        }
+        vm.showMore = function (element) {
+            $(element.currentTarget).toggleClass("child-table-collapse");
+        }
+
+        function confirmationDelete(model) {
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.$delete({ id: model.id }).then(
+                function (data, status) {
+                    refreshJudgeArtWorks();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.openDeleteDialog = function (model, name, id) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+                controller: 'confirmDeleteDialogController',
+                controllerAs: 'deleteDlCtrl',
+                resolve: {
+                    model: function () { return model },
+                    itemName: function () { return name },
+                    itemId: function () { return id },
+                    message: function () { return null },
+                    callBackFunction: function () { return confirmationDelete }
+                }
+
+            });
+        }
+        vm.ChangeStatus = function (model) {
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.id = model.id;
+            updateObj.title = model.title;
+            updateObj.body = model.body;
+            updateObj.outdated = (model.outdated == true ? false : true);
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    model.outdated = updateObj.outdated;
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                }
+            );
+            return;
+        }
+
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshJudgeArtWorks();
+        }
+
+    }
+
+})();
+(function () {
+    angular
+        .module('home')
+        .factory('JudgeArtWorkResource', ['$resource', 'appCONSTANTS', JudgeArtWorkResource])
+
+    function JudgeArtWorkResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'judgeVote', {}, {
+            getAllVotingCriterias: { method: 'POST', url: appCONSTANTS.API_URL + 'votingCriterias/search', useToken: true, params: { lang: '@lang' } },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'judgeVote/submitJudgeVote',  useToken: true },
+            getJudgeArtWork: { method: 'GET', useToken: true },
+            delete: { method: 'DELETE', useToken: true },
+            getJudgeArtWorks: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/getJudgeArtWorks?id=:id', isArray: true, useToken: true },
+        })
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .config(function ($stateProvider, $urlRouterProvider) {
+
+            $stateProvider
+                .state('JudgeArtWork', {
+                    url: '/JudgeArtWork',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/JudgeArtWork.html',
+                    controller: 'JudgeArtWorkController',
+                    'controllerAs': 'JudgeArtWorkCtrl', 
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('viewJudgeArtWork', {
+                    url: '/viewJudgeArtWork/:id',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/view.html',
+                    controller: 'viewJudgeArtWorkController',
+                    'controllerAs': 'viewJudgeArtWorkCtrl',
+                    resolve: {
+                        ArtWorkByIdPrepService: ArtWorkByIdPrepService,
+                        ArtWorkMediaByArtWorkIdPrepService: ArtWorkMediaByArtWorkIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+        });
+
+    JudgeArtWorkPrepService.$inject = ['JudgeArtWorkResource']
+    function JudgeArtWorkPrepService(JudgeArtWorkResource) {
+        return JudgeArtWorkResource.getAllJudgeArtWorks({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+
+    JudgeArtWorkByIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
+    function JudgeArtWorkByIdPrepService(JudgeArtWorkResource, $stateParams) {
+        return JudgeArtWorkResource.getJudgeArtWork({ id: $stateParams.id }).$promise;
+    }
+
+    AllJudgeArtWorkPrepService.$inject = ['JudgeArtWorkResource']
+    function AllJudgeArtWorkPrepService(JudgeArtWorkResource) {
+        return JudgeArtWorkResource.getAllJudgeArtWorks({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+
+    JudgeArtWorkDetailsByArtWorkIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
+    function JudgeArtWorkDetailsByArtWorkIdPrepService(JudgeArtWorkResource, $stateParams) {
+        return JudgeArtWorkResource.getJudgeArtWorkDetails({ id: $stateParams.id }).$promise;
+    }
+
+    ArtWorkByIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
+    function ArtWorkByIdPrepService(ArtWorkResource, $stateParams) {
+        return ArtWorkResource.getArtWork({ id: $stateParams.id }).$promise;
+    }
+
+    ArtWorkMediaByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
+    function ArtWorkMediaByArtWorkIdPrepService(ArtWorkResource, $stateParams) {
+        return ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise;
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('viewJudgeArtWorkController', ['ArtWorkMediaByArtWorkIdPrepService', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+            'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', viewJudgeArtWorkController])
+
+    function viewJudgeArtWorkController(ArtWorkMediaByArtWorkIdPrepService, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
+        ToastService, ArtWorkByIdPrepService) {
+        var vm = this;
+        vm.JudgeArtWork = ArtWorkByIdPrepService;
+        vm.artWorkMedia = ArtWorkMediaByArtWorkIdPrepService;
+        vm.votingCriteriaList = [];
+        console.log(vm.JudgeArtWork);
+        refreshVotingCriterias();
+        vm.Close = function () {
+            $state.go('JudgeArtWork');
+        }
+        vm.changeValue = function (value, index) {
+            vm.votingCriteriaList[index].value = value;
+
+        }
+        vm.UpdateJudgeArtWork = function () {
+            blockUI.start("Loading..."); 
+
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.Id = vm.JudgeArtWork.id;
+            updateObj.ArtWorkId = vm.JudgeArtWork.id;
+            updateObj.JudgeId = $scope.user.id;
+            updateObj.CriteriaValues = vm.votingCriteriaList; 
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    blockUI.stop();
+
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+        function refreshVotingCriterias() {
+            var k = JudgeArtWorkResource.getAllVotingCriterias({ pageNumber: 1, pageSize: 10 }).$promise.then(function (results) {
+                vm.votingCriteriaList = results.items;
+                console.log(vm.votingCriteriaList);
+                vm.totalCount = results.metadata.totalItemCount;
+                blockUI.stop();
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
     }
 }());
 (function () {
