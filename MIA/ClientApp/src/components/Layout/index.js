@@ -67,7 +67,9 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, history, toggleSearchForm,
       <React.Fragment>
         <aside className="menu">
           <div className="logo">
-            <a href="/">MIA Awards</a>
+            <a href="/">
+              <Trans id="mia_awards">MIA Awards</Trans>
+            </a>
           </div>
           <div className="mainmenu">
             <ul>
