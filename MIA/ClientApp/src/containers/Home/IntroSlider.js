@@ -2,8 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Trans } from "@lingui/macro";
 import Swiper from "react-id-swiper";
-import "swiper/css/swiper.css";
-import { useLayoutEffect } from "react";
+import 'swiper/css/swiper.css'
 
 const SliderWrapper = props => {
   const [current, setCurrent] = useState(0);
@@ -18,7 +17,7 @@ const SliderWrapper = props => {
       unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
       recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
       bigImgPath: "assets/images/dubai.jpg",
-      nextImagePath: "assets/images/burg_khalifa.jpg",
+      nextImagePath: "assets/images/burg_khalifa.jpg"
     },
     {
       key: 2,
@@ -30,7 +29,7 @@ const SliderWrapper = props => {
       unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
       recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
       bigImgPath: "assets/images/burg_khalifa.jpg",
-      nextImagePath: "assets/images/GeorgJensen.jpg",
+      nextImagePath: "assets/images/GeorgJensen.jpg"
     },
     {
       key: 3,
@@ -42,7 +41,7 @@ const SliderWrapper = props => {
       unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
       recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
       bigImgPath: "assets/images/GeorgJensen.jpg",
-      nextImagePath: "assets/images/ger.jpg",
+      nextImagePath: "assets/images/ger.jpg"
     },
     {
       key: 4,
@@ -54,7 +53,7 @@ const SliderWrapper = props => {
       unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
       recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
       bigImgPath: "assets/images/ger.jpg",
-      nextImagePath: "assets/images/dubai.jpg",
+      nextImagePath: "assets/images/dubai.jpg"
     }
   ]);
 
@@ -109,27 +108,33 @@ const Intro = ({ current, setCurrent, items, currentItem, ...props }) => {
   };
 
   const handleClick = () => {
+    console.log("click");
     if (current === items.length - 1) {
+      console.log("zero");
       setCurrent(0);
     } else {
+      console.log("set cur", current + 1);
       setCurrent(current + 1);
     }
   };
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      handleClick();
+    // console.log("current changed", current, swiper);
 
-      if (swiper !== null) {
-        swiper.slideNext();
-      }
-      if (swiperMini !== null) {
-        swiperMini.slideNext();
-      }
-    }, 5000);
-    return () => {
-      clearTimeout(timeout);
-    };
+    // const timeout = setTimeout(() => {
+    //   handleClick();
+
+    if (swiper !== null) {
+      swiper.slideNext();
+    }
+    if (swiperMini !== null) {
+      swiperMini.slideNext();
+    }
+    // }, 5000);
+    // return () => {
+    //   console.log("clear timeout", current);
+    //   clearTimeout(timeout);
+    // };
   }, [current]);
 
   return (

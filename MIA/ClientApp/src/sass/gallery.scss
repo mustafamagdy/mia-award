@@ -91,6 +91,8 @@
           } /* item */
         } /* slider_items */
         .slider_nav {
+          display: none !important;
+
           position: absolute;
           top: -35px;
           right: 0;
@@ -120,7 +122,7 @@
           display: flex;
           flex-wrap: nowrap;
           justify-content: center;
-          margin: 30px auto 0;
+          margin: 50px auto 0;
           span {
             width: 14px;
             height: 14px;
@@ -130,6 +132,13 @@
             border: 3px solid #808080;
             margin: 0 5px;
             cursor: pointer;
+            
+            &.swiper-pagination-bullet-active {
+              background: $maincolor;
+              border-color: $maincolor;
+              cursor: inherit;
+            } /* current */
+
             &.current {
               background: $maincolor;
               border-color: $maincolor; 
