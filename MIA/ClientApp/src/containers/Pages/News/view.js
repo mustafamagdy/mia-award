@@ -11,6 +11,7 @@ import config from "config";
 import { useRef } from "react";
 import { FacebookShareButton, TwitterShareButton, InstapaperShareButton, WhatsappShareButton } from "react-share";
 
+
 const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, commentsSuccess, clearCommentSuccess, ...props }) => {
   useEffect(() => {
     const id = location.pathname.split("/").pop();

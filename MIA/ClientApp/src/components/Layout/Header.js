@@ -45,7 +45,7 @@ class Header extends React.Component {
             <div className="mainmenu">
               <ul>
                 {config.menu.map((m, i) => (
-                  <li>
+                  <li key={m.label}>
                     <a href={m.route}>
                       <Trans id={m.label}>{m.label}</Trans>
                     </a>
