@@ -66,6 +66,7 @@ const EditArtwork = ({
         active={activeTabKey == "trailer"}
         artworkId={artworkDetails && artworkDetails.id}
         trailerUrl={artworkDetails && artworkDetails.trailerUrl}
+        trailerPosterUrl={artworkDetails && artworkDetails.trailerPosterUrl}
         updateTrailer={updateTrailer}
       />
       {artworkDetails && artworkDetails.canUploadFiles && (
