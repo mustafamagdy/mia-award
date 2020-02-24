@@ -7,52 +7,18 @@ import homeActions from "store/home/actions";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
 import "utils";
 
-const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
-  const [allItems, setAllItems] = useState([
-    {
-      id: "1",
-      title: "Dubai Opera",
-      url: "/assets/images/video_image2.png",
-      posterUrl: "/assets/images/video_image2.png"
-    },
-    {
-      id: "2",
-      title: "Medan Hotel",
-      url: "/assets/images/video_image.png",
-      posterUrl: "/assets/images/video_image.png"
-    },
-    {
-      id: "3",
-      title: "Another Hotel",
-      url: "/assets/images/video_image.png",
-      posterUrl: "/assets/images/video_image.png"
-    },
-    {
-      id: "4",
-      title: "Place With Name",
-      url: "/assets/images/video_image.png",
-      posterUrl: "/assets/images/video_image.png"
-    },
-    {
-      id: "5",
-      title: "The Big Hotel",
-      url: "/assets/images/video_image.png",
-      posterUrl: "/assets/images/video_image.png"
-    },
-    {
-      id: "6",
-      title: "Event",
-      url: "/assets/images/video_image.png",
-      posterUrl: "/assets/images/video_image.png"
-    }
-  ]);
+const PhotoAlbum = ({ mainAlbum, ...props }) => {
+  const [allItems, setAllItems] = useState([]);
   const [activeIndex, setActiveIndex] = useState(1);
-  const [sliderItems, setSliderItems] = useState(allItems.slice(0, 2));
+  const [sliderItems, setSliderItems] = useState([]);
   const [currentItem, setCurrentItem] = useState(undefined);
 
   useEffect(() => {
-    fetchMainAlbum();
-  }, []);
+    if (mainAlbum && mainAlbum.items) {
+      setAllItems(mainAlbum.items);
+      setSliderItems(mainAlbum.items.slice(0, 2));
+    }
+  }, [mainAlbum]);
 
   useEffect(() => {
     setCurrentItem(sliderItems[1]);
@@ -76,7 +42,7 @@ const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
       <div className="container">
         <div className="big_show">
           <div className="imgthumb">
-            <img src={currentItem.posterUrl} />
+            <img src={currentItem.mediaType == "image"? currentItem.fileUrl: currentItem.posterUrl} />
           </div>
         </div>
         <div className="videos_slider">
@@ -86,38 +52,43 @@ const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
           <div className="desc">
             <Trans id="videos_desc"></Trans>
           </div>
-          <div className="slider_media">
-            {sliderItems.map((s, i) => {
-              const isCurrent = currentItem.id == s.id;
-              const currentItemTitlePart1 = s.title.split(" ")[0];
-              const currentItemTitlePart2 = s.title.split(" ").shift();
+          <LanguageContext.Consumer>
+            {({ locale }) => (
+              <div className="slider_media">
+                {sliderItems.map((s, i) => {
+                  console.log("item ", s);
+                  const isCurrent = currentItem.id == s.id;
+                  const currentItemTitlePart1 = s.title[locale.code].split(" ")[0];
+                  const currentItemTitlePart2 = s.title[locale.code].split(" ").shift();
 
-              return (
-                <div key={s.id} className={classNames("item", { current: isCurrent })}>
-                  <span>
-                    {currentItemTitlePart1 && <i>{currentItemTitlePart1}</i>} {currentItemTitlePart2 && currentItemTitlePart2}
-                  </span>
-                  <div className="imgthumb">
-                    <img src={s.posterUrl} />
-                  </div>
+                  return (
+                    <div key={s.id} className={classNames("item", { current: isCurrent })}>
+                      <span>
+                        {currentItemTitlePart1 && <i>{currentItemTitlePart1}</i>} {currentItemTitlePart2 && currentItemTitlePart2}
+                      </span>
+                      <div className="imgthumb">
+                        <img src={s.mediaType == "image"? s.fileUrl: s.posterUrl} />
+                      </div>
+                    </div>
+                  );
+                })}
+                <div className="slide_nav">
+                  <button type="button" className="arrow_prev" onClick={previous}>
+                    <i className="icofont-simple-left"></i>
+                  </button>
+                  <button type="button" className="arrow_next" onClick={next}>
+                    <i className="icofont-simple-right"></i>
+                  </button>
                 </div>
-              );
-            })}
-            <div className="slide_nav">
-              <button type="button" className="arrow_prev" onClick={previous}>
-                <i className="icofont-simple-left"></i>
-              </button>
-              <button type="button" className="arrow_next" onClick={next}>
-                <i className="icofont-simple-right"></i>
-              </button>
-            </div>
-          </div>
+              </div>
+            )}
+          </LanguageContext.Consumer>
         </div>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ home: { albumContents } }) => ({ albumContents });
+const mapStateToProps = ({ home: { mainAlbum } }) => ({ mainAlbum });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(PhotoAlbum);
