@@ -75,6 +75,10 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
     pagination: {
       el: ".slider_dots",
       clickable: true
+    },
+    navigation: {
+      nextEl: "#nav_next",
+      prevEl: "#nav_prev"
     }
   };
 
@@ -86,10 +90,10 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
           <div className="container">
             <div className="slider_area">
               <div className="slider_nav">
-                <button type="button" className="arrow_prev" onClick={prevSlide}>
+                <button type="button" className="arrow_prev" id="nav_prev">
                   <i className="icofont-simple-left"></i>
                 </button>
-                <button type="button" className="arrow_next" onClick={nextSlide}>
+                <button type="button" className="arrow_next" id="nav_next">
                   <i className="icofont-simple-right"></i>
                 </button>
               </div>
@@ -193,7 +197,6 @@ const SliderDots = ({ slides, onSlideSleected, currentSlide, ...props }) => {
     </div>
   );
 };
-
 
 const Video = ({ url }) => <ReactPlayer playing url={url} className="react-player-lightbox" width="90%" height="90%" />;
 
