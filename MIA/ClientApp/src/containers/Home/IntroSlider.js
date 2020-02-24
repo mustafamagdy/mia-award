@@ -2,9 +2,9 @@ import React, { useState, useEffect, useMemo } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Trans } from "@lingui/macro";
 import Swiper from "react-id-swiper";
-import 'swiper/css/swiper.css'
+import "swiper/css/swiper.css";
 
-const SliderWrapper = props => {
+const Intro = ({ ...props }) => {
   const [current, setCurrent] = useState(0);
   const [items, _] = useState([
     {
@@ -57,85 +57,50 @@ const SliderWrapper = props => {
     }
   ]);
 
-  const [currentItem, setCurrentItem] = useState(items[current]);
-
-  return (
-    <>
-      <Intro
-        items={items}
-        current={current}
-        setCurrent={i => {
-          setCurrentItem(items[i]);
-          setCurrent(i);
-        }}
-        currentItem={currentItem}
-      />
-    </>
-  );
-};
-
-const Intro = ({ current, setCurrent, items, currentItem, ...props }) => {
-  const [swiper, setSwiper] = useState(null);
-  const [swiperMini, setSwiperMini] = useState(null);
+  const [currentItem, setCurrentItem] = useState(items[0]);
+  const commonParams = {
+    spaceBetween: 0,
+    speed: 1000,
+    loop: true,
+    simulateTouch: true,
+    breakpoints: {
+      991: {
+        simulateTouch: false
+      }
+    },
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false
+    },
+    navigation: {
+      nextEl: "#move_next"
+    }
+  };
 
   const params = {
-    spaceBetween: 0,
-    speed: 1000,
-    loop: true,
-    simulateTouch: true,
-    getSwiper: swiper => {
-      setSwiper(swiper);
+    ...commonParams,
+    pagination: {
+      el: "#slider_dots",
+      clickable: true,
+      bulletClass: "item",
+      bulletActiveClass: "current",
+      renderBullet: (index, className) => {
+        return '<span class="' + className + '">' + items[index].keyText + "</span>";
+      }
     },
-    breakpoints: {
-      991: {
-        simulateTouch: false
+    on: {
+      slideChange: a => {
+        const _swiper = document.querySelector(".swiper-container").swiper;
+        if (_swiper !== null) {
+          setCurrentItem(items[_swiper.realIndex]);
+        }
       }
     }
   };
+
   const params2 = {
-    spaceBetween: 0,
-    speed: 1000,
-    loop: true,
-    simulateTouch: true,
-    getSwiper: swiperMini => {
-      setSwiperMini(swiperMini);
-    },
-    breakpoints: {
-      991: {
-        simulateTouch: false
-      }
-    }
+    ...commonParams
   };
-
-  const handleClick = () => {
-    console.log("click");
-    if (current === items.length - 1) {
-      console.log("zero");
-      setCurrent(0);
-    } else {
-      console.log("set cur", current + 1);
-      setCurrent(current + 1);
-    }
-  };
-
-  useEffect(() => {
-    // console.log("current changed", current, swiper);
-
-    // const timeout = setTimeout(() => {
-    //   handleClick();
-
-    if (swiper !== null) {
-      swiper.slideNext();
-    }
-    if (swiperMini !== null) {
-      swiperMini.slideNext();
-    }
-    // }, 5000);
-    // return () => {
-    //   console.log("clear timeout", current);
-    //   clearTimeout(timeout);
-    // };
-  }, [current]);
 
   return (
     <section id="intro">
@@ -171,19 +136,11 @@ const Intro = ({ current, setCurrent, items, currentItem, ...props }) => {
                   </Swiper>
                   <div></div>
                 </div>
-                <button type="button" className="arrow arrow_next" onClick={handleClick}>
+                <button type="button" className="arrow arrow_next" id="move_next">
                   <i className="icofont-simple-right"></i>
                 </button>
               </div>
-              <div className="slider_dots">
-                {items.map((item, index) => {
-                  return (
-                    <span key={item.key} className={`${index === current ? "current" : ""}`}>
-                      {item.keyText}
-                    </span>
-                  );
-                })}
-              </div>
+              <div className="slider_dots" id="slider_dots"></div>
             </div>
           </div>
         </div>
@@ -192,4 +149,4 @@ const Intro = ({ current, setCurrent, items, currentItem, ...props }) => {
   );
 };
 
-export default SliderWrapper;
+export default Intro;
