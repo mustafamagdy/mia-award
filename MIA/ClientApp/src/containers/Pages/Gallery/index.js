@@ -8,8 +8,10 @@ import galleryActions from "store/gallery/actions";
 import { useEffect } from "react";
 import ReactPlayer from "react-player";
 import Lightbox from "lightbox-react";
-import "lightbox-react/style.css"; // This only needs to be imported once in your app
 import Swiper from "react-id-swiper";
+import Paginator from "components/Paginator";
+
+import "lightbox-react/style.css"; // This only needs to be imported once in your app
 import "swiper/css/swiper.css";
 
 const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCount, ...props }) => {
@@ -18,7 +20,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   const [pageNumber, setPageNumber] = useState(1);
   const [currentItem, setCurrentItem] = useState(undefined);
   const [swiper, setSwiper] = useState(null);
-  
+
   const tabs = ["All", "Latest", "Photos", "Videos"];
 
   useEffect(() => {
@@ -26,10 +28,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   }, []);
 
   useEffect(() => {
-    const _slides = featuredItems;
-    if (_slides.length % 2 === 0) _slides.pop();
-
-    setSlides(_slides);
+    setSlides(featuredItems);
   }, [featuredItems]);
 
   useEffect(() => {
@@ -49,7 +48,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
     if (swiper !== null) swiper.slidePrev();
   };
 
-    const handleItemClicked = p => {
+  const handleItemClicked = p => {
     if (p.mediaType == "video") {
       setCurrentItem(<Video url={p.fileUrl} />);
     } else {
@@ -177,7 +176,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                 ))}
               </div>
             </div>
-            <Pagination pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
+            <Paginator pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
           </div>
         </div>
       </section>
@@ -195,21 +194,6 @@ const SliderDots = ({ slides, onSlideSleected, currentSlide, ...props }) => {
   );
 };
 
-const Pagination = ({ pageCount, pageNumber, setPageNumber, ...props }) => {
-  return (
-    <div className="paginations">
-      <ul>
-        {new Array(pageCount).fill().map((_, i) => {
-          return (
-            <li key={i} className={classNames({ current: pageNumber == i + 1 })}>
-              <span onClick={() => setPageNumber(i + 1)}>{i + 1}</span>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
-};
 
 const Video = ({ url }) => <ReactPlayer playing url={url} className="react-player-lightbox" width="90%" height="90%" />;
 
