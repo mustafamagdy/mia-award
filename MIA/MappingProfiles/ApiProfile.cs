@@ -4,17 +4,20 @@ using MIA.Models.Entities;
 using System;
 using MIA.Payments;
 
-namespace MIA.MappingProfiles {
+namespace MIA.MappingProfiles
+{
 
   /// <summary>
   /// Auto mapper profile that contain mapping used in Api project
   /// </summary>
-  public class ApiProfile : Profile {
+  public class ApiProfile : Profile
+  {
 
     /// <summary>
     /// Constructor
     /// </summary>
-    public ApiProfile() {
+    public ApiProfile()
+    {
 
       CreateMap<News, NewsDto>()
        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
@@ -28,7 +31,12 @@ namespace MIA.MappingProfiles {
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
-     CreateMap<Booth, BoothDto>()
+      CreateMap<BoothPurchaseDto, BoothPurchase>()
+        .ForMember(a => a.Payment, cfg => cfg.Ignore())
+        .ForMember(a => a.PaymentId, cfg => cfg.Ignore())
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<Booth, BoothDto>()
        .ValidateMemberList(MemberList.None);
 
       CreateMap<News, RelatedNewsDto>()
