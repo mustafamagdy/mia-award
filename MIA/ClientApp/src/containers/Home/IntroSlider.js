@@ -5,7 +5,6 @@ import Swiper from "react-id-swiper";
 import "swiper/css/swiper.css";
 
 const Intro = ({ ...props }) => {
-  const [current, setCurrent] = useState(0);
   const [items, _] = useState([
     {
       key: 1,
