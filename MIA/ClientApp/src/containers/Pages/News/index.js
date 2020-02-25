@@ -26,14 +26,6 @@ const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategorie
     fetchFeaturedNews();
   }, []);
 
-  const nextSlide = () => {
-    if (swiper !== null) swiper.slideNext();
-  };
-
-  const prevSlide = () => {
-    if (swiper !== null) swiper.slidePrev();
-  };
-
   const toggleBlocks = () => {
     setCurrentView("blocks");
   };
@@ -61,6 +53,10 @@ const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategorie
     pagination: {
       el: ".slider_dots",
       clickable: true
+    },
+    navigation: {
+      nextEl: "#nav_next",
+      prevEl: "#nav_prev"
     }
   };
 
@@ -70,10 +66,10 @@ const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategorie
         <div className="container">
           <div className="slider_area">
             <div className="slider_nav">
-              <button type="button" className="arrow_prev" onClick={prevSlide}>
+              <button type="button" className="arrow_prev" id="nav_prev">
                 <i className="icofont-simple-left"></i>
               </button>
-              <button type="button" className="arrow_next" onClick={nextSlide}>
+              <button type="button" className="arrow_next" id="nav_next">
                 <i className="icofont-simple-right"></i>
               </button>
             </div>
