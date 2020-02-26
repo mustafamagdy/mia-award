@@ -25,8 +25,12 @@ namespace MIA.Models.Entities {
 
     public string PosterId { get; set; }
     public string PosterUrl { get; set; }
+
     public string TrailerId { get; set; }
     public string TrailerUrl { get; set; }
+    public string TrailerPosterId { get; set; }
+    public string TrailerPosterUrl { get; set; }
+
     public string CoverId { get; set; }
     public string CoverUrl { get; set; }
 
