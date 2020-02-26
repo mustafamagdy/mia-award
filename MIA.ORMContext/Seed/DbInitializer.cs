@@ -40,9 +40,9 @@ namespace MIA.ORMContext.Seed {
       await SeedAwards(db, encoder);
       await SeedBooths(db);
       await SeedNews(db, encoder, s3FileManager);
+      await SeedDemoGallery(db, s3FileManager);
 
       //await SeedDemoNews(db, s3FileManager);
-      //await SeedDemoGallery(db, s3FileManager);
       //await SeedDemoArtworks(db, s3FileManager);
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
@@ -214,46 +214,38 @@ namespace MIA.ORMContext.Seed {
       }
     }
     private static async Task SeedDemoGallery(IAppUnitOfWork db, IS3FileManager fileManager) {
-      var _faker_en = new Faker("en");
-
-      //TODO remove in production
       var mainAlbum = db.Albums.FirstOrDefault(a => a.MainGallery);
       if (mainAlbum == null) {
         mainAlbum = new Album {
           MainGallery = true,
-          // Title = new LocalizedData { "en":""}
+          Title = LocalizedData.FromBoth("البوم صور كبير جدا", "very large photoo and video gallery"),
         };
 
         await db.Albums.AddAsync(mainAlbum);
       }
 
-      var itemsCount = db.AlbumItems.Where(a => a.Album.MainGallery).Count();
-      if (itemsCount >= 30) return;
-      string[] random_videos = new string[] {
-        "https://mia-temp-files.s3.amazonaws.com/v1.mp4",
-        "https://mia-temp-files.s3.amazonaws.com/v2.mp4",
-        "https://mia-temp-files.s3.amazonaws.com/v3.mp4",
-        "https://mia-temp-files.s3.amazonaws.com/v4.mp4",
-        "https://mia-temp-files.s3.amazonaws.com/v5.mp4",
-        "https://mia-temp-files.s3.amazonaws.com/v6.mp4",
-      };
-
-      for (int i = 0; i < 30; i++) {
-
-        var type = _faker_en.Random.Enum<MediaType>();
+      var galleryDir = "./seed/gallery";
+      var allFiles = Directory.GetFiles(galleryDir);
+      var vidFiles = allFiles.Where(a => a.GetFileExt() == ".mp4").ToArray();
+      var vidFilesWithoutExt = vidFiles.Select(a => a.GetFileNameWithoutExt()).ToArray();
+      //skip video posters
+      var otherFiles = allFiles.Where(a => !vidFilesWithoutExt.Contains(a.GetFileNameWithoutExt())).ToArray();
+      var _listFiles = vidFiles.Concat(otherFiles).ToArray();
+      foreach (var file in _listFiles) {
+        var type = file.GetFileExt() == ".mp4" ? MediaType.Video : MediaType.Image;
         var url = "";
         var posterUrl = "";
         if (type == MediaType.Image) {
-          url = _faker_en.Image.PicsumUrl(600, 400);
+          url = file;
         } else {
-          url = _faker_en.Random.ArrayElement(random_videos);
-          posterUrl = _faker_en.Image.PicsumUrl(600, 400);
+          url = file;
+          posterUrl = allFiles.FirstOrDefault(a => a.GetFileNameWithoutExt() == file.GetFileNameWithoutExt() && a.GetFileExt() != ".mp4");
         }
 
         var item = new AlbumItem {
+          Title =  LocalizedData.FromBoth(file, file),
           AlbumId = mainAlbum.Id,
-          Featured = _faker_en.Random.Bool(),
-          Order = i + 1,
+          Featured = true,
           DateCreated = DateTime.Now.ToUnixTimeSeconds(),
           MediaType = type,
           FileKey = "",
@@ -262,41 +254,31 @@ namespace MIA.ORMContext.Seed {
           PosterUrl = ""
         };
 
+        //avoid adding files again
+        if (db.AlbumItems.FirstOrDefault(a => a.Title != null && a.Title.InEnglish() == item.Title.InEnglish()) != null) 
+          continue;
+
         await db.AlbumItems.AddAsync(item);
         await db.CommitTransactionAsync();
 
         var client = new HttpClient();
         client.Timeout = TimeSpan.FromMinutes(5);
-        if (type == MediaType.Image) {
-          var file = await client.GetAsync(url);
-          var fileStream = await file.Content.ReadAsStreamAsync();
+          using (var sFile = new FileStream(url, FileMode.Open)) {
+            var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + url.GetFileExt());
+            var fileUrl = await fileManager.UploadFileAsync(sFile, fileKey);
 
-          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + ".jpg");
-          var fileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
+            item.FileUrl = fileUrl;
+            item.FileKey = fileKey;
+          }
+        if (type == MediaType.Video) {
+          using (var sFile = new FileStream(posterUrl, FileMode.Open)) {
+            var posterFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + posterUrl.GetFileExt());
+            var posterFileUrl = await fileManager.UploadFileAsync(sFile, posterFileKey);
 
-          item.FileUrl = fileUrl;
-          item.FileKey = fileKey;
-        } else if (type == MediaType.Video) {
-
-          //var sour
-          //var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + ".mp4");
-          //var fileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
-
-          //item.FileUrl = fileUrl;
-          //item.FileKey = fileKey;
-
-
-
-          var posterFile = await client.GetAsync(posterUrl);
-          var posterFileStream = await posterFile.Content.ReadAsStreamAsync();
-          var posterFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + ".jpg");
-          var posterFileUrl = await fileManager.UploadFileAsync(posterFileStream, posterFileKey);
-
-          item.PosterUrl = posterFileUrl;
-          item.PosterKey = posterFileKey;
+            item.PosterUrl = posterFileUrl;
+            item.PosterKey = posterFileKey;
+          }
         }
-
-
 
         db.AlbumItems.Update(item);
       }

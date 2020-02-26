@@ -53,7 +53,7 @@ namespace MIA.Api {
                         .Include(a => a.MediaItems)
                         .Where(a => a.MainGallery == true)
                         .ProjectTo<MainAlbumDto>(_mapper.ConfigurationProvider)
-                        .ToArrayAsync();
+                        .FirstOrDefaultAsync();
       return Ok(result);
     }
 

@@ -53,6 +53,9 @@ aside.menu {
     }
     a {
       color: #fff;
+      [dir="rtl"] & {
+        font-family: Tajawal_Bold;
+      } /* rtl */
     }
     &:hover {
       &::before {

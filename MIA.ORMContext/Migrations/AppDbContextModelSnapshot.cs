@@ -192,6 +192,8 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Director");
 
+                    b.Property<bool>("Featured");
+
                     b.Property<int>("FileCount");
 
                     b.Property<string>("NomineeId");

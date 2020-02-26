@@ -53,6 +53,9 @@ namespace MIA.MappingProfiles {
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => DateTime.Now.ToUniversalTime()))
         .ValidateMemberList(MemberList.None);
 
+      CreateMap<Album, MainAlbumDto>()
+        .ForMember(a => a.Items, cfg => cfg.MapFrom(a => a.MediaItems))
+        .ValidateMemberList(MemberList.None);
 
       CreateMap<AlbumItem, AlbumItemDto>()
        .ForMember(a => a.DateCreated, cfg => cfg.MapFrom(a => a.DateCreated.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
@@ -85,8 +88,9 @@ namespace MIA.MappingProfiles {
         .ForMember(a => a.Payment, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWork, ArtworkViewDto>()
+      CreateMap<ArtWork, ArtworkBasiData>()
         .ForMember(a => a.About, cfg => cfg.MapFrom(a => a.ShowDescription))
+        .ForMember(a => a.Story, cfg => cfg.MapFrom(a => a.Story))
         .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
         .ForMember(a => a.Directors, cfg => cfg.MapFrom(a => a.Director))
         .ForMember(a => a.Writers, cfg => cfg.MapFrom(a => a.Writers))
@@ -94,11 +98,15 @@ namespace MIA.MappingProfiles {
         .ForMember(a => a.Stars, cfg => cfg.MapFrom(a => a.Stars))
         .ForMember(a => a.Year, cfg => cfg.MapFrom(a => a.DateOfRelease))
         .ForMember(a => a.Country, cfg => cfg.MapFrom(a => a.Country))
-        .ForMember(a => a.CanUploadFiles, cfg => cfg.MapFrom(a => a.AllowFileUpload))
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<ArtWork, ArtworkViewDto>()
         .IncludeAllDerived()
+        .ForMember(a => a.CanUploadFiles, cfg => cfg.MapFrom(a => a.AllowFileUpload))
         .ValidateMemberList(MemberList.None);
 
       CreateMap<ArtWork, ArtworkViewWithFilesDto>()
+        .IncludeAllDerived()
         .ValidateMemberList(MemberList.None);
 
       CreateMap<MediaFile, ArtworkFileDto>()

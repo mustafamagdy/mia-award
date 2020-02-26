@@ -3,73 +3,19 @@ import Tilt from "react-parallax-tilt";
 import { Trans } from "@lingui/macro";
 import { useState } from "react";
 import Map from "components/Map";
+import config from 'config'
 
-// import "sass/google_map.scss";
-// import "sass/tickets.scss";
-
-const Tickets = props => {
-  const locations = [
-    {
-      locationId: 1,
-      location: {
-        lat: 25.1948729,
-        long: 55.2654525,
-        zoom: 15.76,
-        landMarker: {
-          id: "1",
-          icon: "./assets/images/markers/marker.svg",
-          name: "Dubai opera",
-          lat: 25.1948729,
-          long: 55.2654525
-        }
-      },
-      titleKey: "location1_title",
-      title: "Dubai opera",
-      descriptionKey: "location1_description",
-      description: `brief about the DRAMA award and how to apply for it text Lorem Ipsum is simply dummy text of the printing and typesetting
-      industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-      galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-      into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-      sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
-      versions of`,
-      dates: [{ date: "20-05-2020" }, { date: "21-05-2020" }, { date: "22-05-2020" }]
-    },
-    {
-      locationId: 2,
-      location: {
-        lat: 25.1559204,
-        long: 55.2977487,
-        zoom: 17,
-        landMarker: {
-          id: "2",
-          icon: "./assets/images/markers/marker.svg",
-          name: "Medan hotel",
-          lat: 25.1559204,
-          long: 55.2977487
-        }
-      },
-      titleKey: "location1_title",
-      title: "Medan hotel",
-      descriptionKey: "location1_description",
-      description: `brief about the DRAMA award and how to apply for it text Lorem Ipsum is simply dummy text of the printing and typesetting
-      industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-      galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-      into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-      sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
-      versions of`,
-      dates: [{ date: "29-05-2020" }, { date: "30-05-2020" }]
-    }
-  ];
+const Tickets = props => {  
   const [activeIndex, setActiveIndex] = useState(0);
   const previous = () => {
     let _a = activeIndex;
-    if (_a < 1) _a = locations.length - 1;
+    if (_a < 1) _a = config.tickets.length - 1;
     else _a = _a - 1;
     setActiveIndex(_a);
   };
   const next = () => {
     let _a = activeIndex;
-    if (_a >= locations.length - 1) _a = 0;
+    if (_a >= config.tickets.length - 1) _a = 0;
     else _a = _a + 1;
     setActiveIndex(_a);
   };
@@ -79,17 +25,17 @@ const Tickets = props => {
         <div className="container">
           <div className="ticket_txt">
             <p>
-              <Trans id={locations[activeIndex].descriptionKey}>{locations[activeIndex].description}</Trans>
+              <Trans id={config.tickets[activeIndex].descriptionKey}>{config.tickets[activeIndex].description}</Trans>
             </p>
             <ul>
-              {locations[activeIndex].dates.map((d, i) => (
+              {config.tickets[activeIndex].dates.map((d, i) => (
                 <li key={i}>
                   <Trans id="date">date</Trans> 1 <i>{d.date}</i>
                 </li>
               ))}
             </ul>
             <div className="buy_now">
-              <a href={`/buy-tiket/${locations[activeIndex].locationId}`}>
+              <a href={`/buy-tiket/${config.tickets[activeIndex].locationId}`}>
                 <Trans id="buy_your_ticket">buy your ticket</Trans>
               </a>
             </div>
@@ -108,7 +54,7 @@ const Tickets = props => {
             <i className="icofont-simple-left"></i>
           </button>
           <span>
-            <Trans id={locations[activeIndex].titleKey}>{locations[activeIndex].title}</Trans>
+            <Trans id={config.tickets[activeIndex].titleKey}>{config.tickets[activeIndex].title}</Trans>
           </span>
           <button type="button" className="arrow_next" onClick={next}>
             <i className="icofont-simple-right"></i>
@@ -116,10 +62,10 @@ const Tickets = props => {
         </div>
 
         <Map
-          lat={locations[activeIndex].location.lat}
-          long={locations[activeIndex].location.long}
-          zoom={locations[activeIndex].location.zoom}
-          landMarks={[locations[activeIndex].location.landMarker]}
+          lat={config.tickets[activeIndex].location.lat}
+          long={config.tickets[activeIndex].location.long}
+          zoom={config.tickets[activeIndex].location.zoom}
+          landMarks={[config.tickets[activeIndex].location.landMarker]}
         />
       </div>
     </React.Fragment>

@@ -7,6 +7,7 @@ namespace MIA.Models.Entities {
     public LocalizedData Title { get; set; }
     public bool UploadComplete { get; set; }
     public bool AllowFileUpload { get; set; }
+    public bool Featured { get; set; }
     public Award Award { get; set; }
     public string AwardId { get; set; }
     public Nominee Nominee { get; set; }

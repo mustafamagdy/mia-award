@@ -31,7 +31,7 @@ import Policies from "../Pages/Policies";
 
 class Home extends React.Component {
   componentDidMount() {
-    this.props.fetchAwards();
+    // this.props.fetchAwards();
   }
 
   render() {
