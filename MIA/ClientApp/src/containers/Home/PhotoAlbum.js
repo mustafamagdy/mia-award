@@ -47,7 +47,7 @@ const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
     }
   ]);
   const [activeIndex, setActiveIndex] = useState(1);
-  const [sliderItems, setSliderItems] = useState(allItems.slice(0, 2));
+  const [sliderItems, setSliderItems] = useState(allItems);
   const [currentItem, setCurrentItem] = useState(undefined);
 
   useEffect(() => {
@@ -57,6 +57,10 @@ const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
   useEffect(() => {
     setCurrentItem(sliderItems[1]);
   }, [sliderItems]);
+
+  useEffect(() => {
+    setCurrentItem(sliderItems[activeIndex]);
+  }, [activeIndex]);
 
   const previous = () => {
     let _a = activeIndex;
@@ -71,6 +75,7 @@ const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
     setActiveIndex(_a);
   };
 
+  console.log('active index ', activeIndex);
   return currentItem === undefined ? null : (
     <div id="videos_photo">
       <div className="container">
@@ -88,14 +93,17 @@ const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
           </div>
           <div className="slider_media">
             {sliderItems.map((s, i) => {
+              const isNext = i > activeIndex;
+              const isPrev = i < activeIndex - 1;
               const isCurrent = currentItem.id == s.id;
-              const currentItemTitlePart1 = s.title.split(" ")[0];
-              const currentItemTitlePart2 = s.title.split(" ").shift();
+              // const currentItemTitlePart1 = s.title.split(" ")[0];
+              // const currentItemTitlePart2 = s.title.split(" ").shift();
 
               return (
-                <div key={s.id} className={classNames("item", { current: isCurrent })}>
+                <div key={s.id} className={classNames("item", { current: isCurrent }, { next: isNext }, { prev: isPrev })}>
                   <span>
-                    {currentItemTitlePart1 && <i>{currentItemTitlePart1}</i>} {currentItemTitlePart2 && currentItemTitlePart2}
+                    {s.title}
+                    {/* {currentItemTitlePart1 && <i>{currentItemTitlePart1}</i>} {currentItemTitlePart2 && currentItemTitlePart2} */}
                   </span>
                   <div className="imgthumb">
                     <img src={s.posterUrl} />
