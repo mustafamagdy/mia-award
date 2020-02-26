@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useEffect } from "react";
 import classNames from "classnames";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
@@ -11,20 +11,37 @@ const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTraile
 
   const [files, setFiles] = useState([]);
   const [progress, setProgress] = useState([]);
-
-
+  const [uploadMode, setuploadMode] = useState(!artworkId && !trailerUrl)
+  const handleUpdateTrailer = () => {
+    setuploadMode(false)
+  }
+  useEffect(() => {
+    setuploadMode(!artworkId && !trailerUrl)
+  }, [artworkId,trailerUrl])
 
   return (
     <div className={classNames("tab_content tab_trailer", { active })}>
       <div className="trailer_area">
-        {artworkId && trailerUrl ? (
-          <TrailerView url={trailerUrl} posterUrl={trailerPosterUrl} />
+        {!uploadMode ? (
+          <TrailerView url={trailerUrl} posterUrl={trailerPosterUrl} setuploadMode={setuploadMode} />
         ) :
           progress && progress.length > 0 ? (
             <UploadingProgress progress={progress} />
           ) : (
               <>
-                <UploadDropZone setFiles={setFiles} style={{ width: '100%', height: '100%' }} />
+                <UploadDropZone 
+                setFiles={setFiles} 
+                accept="video/*"
+                message='Upload your trailer'   
+                multiple={false} 
+                style={{ width: '100%', height: '100%' }} />
+                <br/>
+                <UploadDropZone 
+                multiple={false}
+                accept="image/*"
+                setFiles={setFiles}
+                message='Upload your trailer Poster'  
+                style={{ width: '100%', height: '100%' }} />
 
                 {files &&
                   files.map(f => {
@@ -44,7 +61,12 @@ const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTraile
                     />
                   }
                   )}
-
+                  {trailerUrl && uploadMode &&
+                  (
+                    <button onClick={ handleUpdateTrailer} >Cancel update</button>
+                  )
+                  }
+                
               </>
             )}
       </div>
@@ -62,14 +84,22 @@ const UploadingProgress = ({ progress, props }) => <div style={{ border: "2px so
 </div>;
 
 
-const TrailerView = ({ url, posterUrl, ...props }) => {
-  const [mediaType, setmediaType] = useState(posterUrl && posterUrl !== '' ? 'image' : 'vedio')
+const TrailerView = ({ url, posterUrl, setuploadMode, ...props }) => {
+  const [mediaType, setmediaType] = useState('image');
+
+  useEffect(() => {
+    setmediaType(posterUrl && posterUrl !== '' ? 'image' : 'vedio')
+  }, [posterUrl,url])
+
   const handleItemClicked = () => {
     setmediaType(mediaType == 'image' ? 'vedio' : 'vedio');
   }
-  return <span onClick={() => handleItemClicked()}>
+  const handleUpdateTrailer = () => {
+    setuploadMode(true)
+  }
+  return <> <span onClick={() => handleItemClicked()}>
     {mediaType == "image" ? (
-      <img src={posterUrl} />
+      <img src={posterUrl} width='600px' height='300px' />
     ) : (<>
       <ReactPlayer
         playing
@@ -83,8 +113,12 @@ const TrailerView = ({ url, posterUrl, ...props }) => {
         <span>
           <i className="icofont-ui-zoom-in"></i>
         </span>
-      </div></>)}
+      </div>
+    </>)}
   </span>
+
+    <button onClick={() => handleUpdateTrailer()} >Update Trailer</button>
+  </>
 };
 
 export default Trailer;

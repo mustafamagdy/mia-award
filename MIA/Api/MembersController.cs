@@ -372,16 +372,31 @@ namespace MIA.Api
                     return NotFound404("Artwork doesn't belong to you");
                 }
 
+                var imageExtensions = new[] { ".jpg", ".png" };
+
                 var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.ArtWork, id);
                 var result = await fileManager.UploadChunk(tempDir, dto);
                 if (!string.IsNullOrEmpty(result.FinalUrl))
                 {
-                    //move file to final directory of the artwork files
-                    var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, artwork.Id, $"{artwork.Id}_trailer." + dto.FileName);
-                    var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
+                    var isPoster = imageExtensions.Any(a => dto.FileName.Contains(a));
+                    var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, artwork.Id,isPoster? $"{artwork.Id}_trailer_poster." : $"{artwork.Id}_trailer." + dto.FileName);
 
-                    artwork.TrailerId = fileKey;
-                    artwork.TrailerUrl = fileUrl;
+                    var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
+                    //if file is image the it will be a poster 
+                    
+                    if (isPoster)
+                    {
+                        artwork.TrailerPosterId = fileKey;
+                        artwork.TrailerPosterUrl = fileUrl;
+                    }
+                    // else it will the trailer video
+                    else
+                    {
+                        artwork.TrailerId = fileKey;
+                        artwork.TrailerUrl = fileUrl;
+                    }
+                    //move file to final directory of the artwork files
+
                     db.ArtWorks.Update(artwork);
                     return Ok(fileUrl);
                 }
