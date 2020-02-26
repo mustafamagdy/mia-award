@@ -60,6 +60,12 @@
 				flex-wrap: nowrap;
 				position: relative;
 				.item {
+					&.next {
+						display: none;
+					}
+					&.prev {
+						display: none;
+					}
 					margin-top: -80px;
 					span {
 						display: none;
@@ -85,7 +91,7 @@
 							height: 100%;
 						} /* img */
 					} /* imgthumb */
-				} /* item */
+				} /* item */				
 				.current {
 					margin-top: 0;
 					margin-left: -80px;
@@ -129,7 +135,7 @@ body[dir="rtl"] {
 					line-height: 24px;
 				}	/* desc */
 				.slider_media {
-					.item {
+					.item {						
 						span {
 							font-family: Tajawal_Bold;
 							text-align: left;
