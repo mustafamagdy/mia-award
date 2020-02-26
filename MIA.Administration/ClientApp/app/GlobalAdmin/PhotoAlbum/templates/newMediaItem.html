@@ -7,7 +7,8 @@
             <div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in newMediaItemCtrl.language">
+                    <li role="presentation" ng-class="{'active':$index == 0}"
+                        ng-repeat="lang in newMediaItemCtrl.language">
                         <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
                             data-toggle="tab">
                             <span style="color:red">*</span>{{lang.value | translate}}
@@ -23,9 +24,8 @@
                                 <div class="form-group pmd-textfield pmd-textfield-floating-label">
                                     <label for="first-name">{{ 'Title' | translate}} </label>
                                     <input required News="text" class="mat-input form-control"
-                                        name="title{{lang.value+'Name'}}"
-                                        ng-model="newMediaItemCtrl.title[lang.key]" ng-minlength="3"
-                                        ng-maxlength="255">
+                                        name="title{{lang.value+'Name'}}" ng-model="newMediaItemCtrl.title[lang.key]"
+                                        ng-minlength="3" ng-maxlength="255">
                                     <div ng-messages="newMediaItemForm.title{{lang.value+'Name'}}.$error">
 
                                         <div class="error ng-binding"
@@ -35,7 +35,7 @@
                                             ng-show="(newMediaItemForm.title{{lang.value+'Name'}}.$error.minlength || newMediaItemForm.title{{lang.value+'Name'}}.$error.maxlength) && !newMediaItemForm.title{{lang.value+'Name'}}.$error.required">
                                             {{'NameLengthError3' | translate}}</div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
 
 
@@ -84,13 +84,36 @@
                     </div>
                 </div>
                 <div class="row" ng-show="newMediaItemCtrl.selectedMediaType== 'Video'">
-                    <div class="form-group col-lg-4">
-                        Video
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <div class="form-group pmd-textfield-floating-label-completed">
+                                <span style="color:red">Must upload cover to video</span>
+                                <br>
+                                <input id="posterImage" name="posterImage" style="display: none;"  
+                                    onchange="angular.element(this).scope().AddposterImage(this.files)" type="file"
+                                    required>
+                                <button class="btn btn-success btn-xs pull-center" type="button"
+                                    ng-click="newMediaItemCtrl.LoadUploadPoster()">{{'Upload Image' | translate}}</button>
+                                <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                                    {{'RecommendedProductImage' | translate}}</span>
+                                <img ng-src="{{newMediaItemCtrl.posterImage}}"
+                                    style="max-height: 139px;max-width: 423px;">
+
+                                <div ng-messages="newMediaItemForm.posterImage.$error">
+                                    <div ng-if="newMediaItemForm.posterImage.$error.required">
+                                        {{'requiredErr' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <upload-video-directive id='$stateParams.id'></upload-video-directive>
+
+                        </div>
                     </div>
                 </div>
-                <!-- 
-                <input type="file" id="file">
-                <input type="button" ng-click="one()" value="test_split_upload"> -->
+
 
             </div>
         </form>
@@ -104,18 +127,3 @@
             ng-click="newMediaItemCtrl.close()">{{'DiscardBtn' | translate}}</button>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(".select-add-tags").select2({
-            tags: true,
-            theme: "bootstrap",
-            insertTag: function (data, tag) {
-                data.push(tag);
-            }
-        });
-        $(".select-with-search").select2({
-            theme: "bootstrap"
-        });
-    });
-</script>

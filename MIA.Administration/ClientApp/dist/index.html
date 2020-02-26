@@ -117,7 +117,7 @@
 			z-index: 1090;
 			height: 100vh;
 			width: 100vw;
-			background-color: #f2f3f8;
+			background-color: #070707;
 		}
 
 		.loader-content {
@@ -463,21 +463,20 @@
 
 
 	<div class="loader">
-		<div class="loader-content">
-			<div class="truck">
-				<div class="truck-container"></div>
-				<div class="glases"></div>
-				<div class="bonet"></div>
+		<img src="assets/img/loading-gif-png-5.gif" <div class="loader-content">
+		<!-- <div class="truck">
+			<div class="truck-container"></div>
+			<div class="glases"></div>
+			<div class="bonet"></div>
 
-				<div class="base"></div>
+			<div class="base"></div>
 
-				<div class="base-aux"></div>
-				<div class="wheel-back"></div>
-				<div class="wheel-front"></div>
+			<div class="base-aux"></div>
+			<div class="wheel-back"></div>
+			<div class="wheel-front"></div>
 
-				<div class="smoke"></div>
-			</div>
-		</div>
+			<div class="smoke"></div>
+		</div> -->
 	</div>
 	<nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" ng-show="isLoggedIn()">
 
@@ -495,35 +494,11 @@
 
 
 			</div>
-			<!-- Collect the nav links, forms, and other content for toggling -->
 
-
-
-
-			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<div class="row" ng-show="user.userTypeId == 4">
 
-					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 dropdown notification icons pmd-dropdown">
-						<div id="choose">
-							<label for="readonly"> {{'Choose_Manufacture' | translate}}
-							</label>
-						</div>
-					</div>
-					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 dropdown notification icons pmd-dropdown">
-						<div style="padding-top:10px;">
-							<div class="input-field">
-								<select class="form-control select-with-search pmd-select2-tags"
-									style="width: 100% !important;padding: 5px !important;"
-									ng-change="changeTenant(selectedTenant)" ng-model="selectedTenant">
-									<option ng-repeat="item in ManufactureList" ng-value="{{item.manufactureId}}">
-										{{item.code +" - "+item.name}}
-									</option>
-								</select>
-							</div>
-						</div>
-						<!-- <span id="CurrentDate">{{ CurrentDate | date:'dd/MM/yyyy'}}</span> -->
-					</div>
+
 					<!-- Notifications -->
 					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 dropdown notification icons pmd-dropdown">
 						<div style="padding-top:10px;">
@@ -536,7 +511,7 @@
 								</select>
 							</div>
 						</div>
-						<!-- <span id="clock">{{ clock | date:'HH:mm:ss'}}</span>	 -->
+						<span id="clock">{{ clock | date:'HH:mm:ss'}}</span>
 					</div>
 					<!-- End notifications -->
 				</div>
@@ -589,41 +564,8 @@
 							</ul>
 						</div>
 					</div>
-					<!-- Notifications -->
-					<div class="col-lg-4 col-md-8 col-sm-4 col-xs-4 dropdown notification icons pmd-dropdown">
-						<div style="padding-top:10px;">
-							<div class="input-field">
-								<select class="select-simple form-control pmd-select2" style="color:#6c7293!important;"
-									ng-model="selectedLanguage" ng-change="changeLanguage(selectedLanguage)">
-									<option ng-selected="selectedLanguage == item.id" style="color:#6c7293 !important;"
-										ng-repeat="item in languages" ng-value="item.id">{{item.label | translate}}
-									</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<!-- End notifications -->
-				</div>
-				<div class="row" ng-show="user.userTypeId == 255">
-					<div class="col-lg-12 col-md-3 col-sm-3 col-xs-3 dropdown notification icons pmd-dropdown">
-						<div style="padding-top:10px;">
-							<div class="input-field">
-								<select class="select-simple form-control" style="color:#6c7293!important;"
-									ng-model="selectedLanguage" ng-change="changeLanguage(selectedLanguage)">
-									<option ng-selected="selectedLanguage == item.id" style="color:#6c7293 !important;"
-										ng-repeat="item in languages" ng-value="item.id">{{item.label | translate}}
-									</option>
-								</select>
-							</div>
-						</div>
-						<!-- <span id="clock">{{ clock | date:'HH:mm:ss'}}</span>	 -->
-					</div>
-
-
-					<!-- <span id="CurrentDate">{{ CurrentDate | date:'dd/MM/yyyy'}}</span> -->
 				</div>
 			</div>
-		</div>
 		</div>
 
 	</nav>
@@ -645,8 +587,6 @@
 				">
 					<div class="media-left">
 						<img ng-src="./assets/img/admin.png" style="border-radius: 50%;">
-						<!-- <img src="/assets/img/user-icon.png" alt="New User"> -->
-						<!-- <span>{{logoutFlag}}</span> -->
 					</div>
 					<div class="media-body media-middle" ng-cloak style="color: #a38031;">
 						{{user.name}}
@@ -681,7 +621,7 @@
 			</li>
 			<!-- End user info -->
 
-			<li ng-show="user.PermissionId.split(';').includes('11') ">
+			<li ng-show="user.PermissionId.includes('News') ">
 				<a class="pmd-ripple-effect" ng-click="$state.go('Role');">
 					<i class="media-left media-middle">
 
@@ -690,14 +630,13 @@
 							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
 								<path
-									d="M5,3 L6,3 C6.55228475,3 7,3.44771525 7,4 L7,20 C7,20.5522847 6.55228475,21 6,21 L5,21 C4.44771525,21 4,20.5522847 4,20 L4,4 C4,3.44771525 4.44771525,3 5,3 Z M10,3 L11,3 C11.5522847,3 12,3.44771525 12,4 L12,20 C12,20.5522847 11.5522847,21 11,21 L10,21 C9.44771525,21 9,20.5522847 9,20 L9,4 C9,3.44771525 9.44771525,3 10,3 Z"
-									id="Combined-Shape" fill="#494b74"></path>
-								<rect id="Rectangle-Copy-2" fill="#494b74" opacity="0.3"
-									transform="translate(17.825568, 11.945519) rotate(-19.000000) translate(-17.825568, -11.945519) "
-									x="16.3255682" y="2.94551858" width="3" height="18" rx="1"></rect>
+									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+									id="Combined-Shape" fill="#a38031"></path>
+								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+									height="16" rx="1"></rect>
 							</g>
 						</svg> </i>
-					<span class="media-body">{{'Role' | translate}}</span>
+					<span class="media-body" style="color: #a38031;">{{'Role' | translate}}</span>
 				</a>
 			</li>
 
@@ -705,7 +644,7 @@
 
 			<!-- user -->
 			<li class="dropdown pmd-dropdown visible-xs visible-md visible-sm visible-lg"
-				ng-show="user.PermissionId.split(';').includes('12')  || user.PermissionId.split(';').includes('16')  ||user.PermissionId.split(';').includes('17')  ||user.PermissionId.split(';').includes('18')  || user.PermissionId.split(';').includes('21')  || user.PermissionId.split(';').includes('22') ">
+				ng-show="user.PermissionId.includes('usere') ">
 				<a data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true"
 					aria-expandedhref="javascript:void(0);" class="pmd-ripple-effect">
 					<i class="media-left media-middle">
@@ -783,7 +722,7 @@
 
 			</li>
 			<li ng-show="user.PermissionId.includes('News') ">
-				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
+
 				<a class="pmd-ripple-effect" ng-click="$state.go('News');">
 					<i class="media-left media-middle">
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -802,7 +741,7 @@
 				</a>
 			</li>
 			<li ng-show="user.PermissionId.includes('News') ">
-				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
+
 				<a class="pmd-ripple-effect" ng-click="$state.go('Booth');">
 					<i class="media-left media-middle">
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -840,7 +779,7 @@
 			</li>
 
 			<li ng-show="user.PermissionId.includes('News') ">
-				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
+
 				<a class="pmd-ripple-effect" ng-click="$state.go('Award');">
 					<i class="media-left media-middle">
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -859,7 +798,7 @@
 				</a>
 			</li>
 			<li ng-show="user.PermissionId.includes('News') ">
-				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
+
 				<a class="pmd-ripple-effect" ng-click="$state.go('VotingCriteria');">
 					<i class="media-left media-middle">
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -878,7 +817,6 @@
 				</a>
 			</li>
 			<li ng-show="user.PermissionId.includes('News') ">
-				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
 				<a class="pmd-ripple-effect" ng-click="$state.go('PhotoAlbum');">
 					<i class="media-left media-middle">
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -896,8 +834,26 @@
 					<span class="media-body" style="color: #a38031;">{{'PhotoAlbumLbl' | translate}}</span>
 				</a>
 			</li>
+			<li ng-show="user.PermissionId.includes('News') ">
+				<a class="pmd-ripple-effect" ng-click="$state.go('newUploadChunk');">
+					<i class="media-left media-middle">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
+								<path
+									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+									id="Combined-Shape" fill="#a38031"></path>
+								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+									height="16" rx="1"></rect>
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" style="color: #a38031;">{{'UploadChunk' | translate}}</span>
+				</a>
+			</li>
 			<li ng-show="user.PermissionId.includes('Dashboard') ">
-				<!-- <li ng-show="user.PermissionId.split(';').includes('1') "> -->
+
 				<a class="pmd-ripple-effect" ng-click="$state.go('JudgeArtWork');">
 					<i class="media-left media-middle">
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -915,6 +871,7 @@
 					<span class="media-body" style="color: #a38031;">{{'JudgeArtWorkLbl' | translate}}</span>
 				</a>
 			</li>
+
 		</ul>
 	</aside>
 	<!-- End Left sidebar -->
@@ -922,16 +879,10 @@
 
 	<div ui-view layout="column" class="pmd-content content-area dashboard" flex style="    background-color: #141414;">
 	</div>
-
-	<!-- scripts area -->
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> -->
 	<script src="libs.js?v=%MD5%"></script>
 	<script src="core.js?v=%MD5%"></script>
 	<script src="app.js?v=%MD5%"></script>
 	<script src="templates.js?v=%MD5%"></script>
-	<!-- <script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script> -->
-	<!-- <link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css"> -->
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-base64/2.0.5/angular-base64.js"></script> -->
 	<script type="text/javascript">
 
 		window.onload = function () {
@@ -943,12 +894,6 @@
 
 			}, 1000)
 		}
-		// $(document).on("click", function (event) {
-		// 	var $trigger = $(".dropdown");
-		// 	if ($trigger !== event.target && !$trigger.has(event.target).length) {
-		// 		$(".dropdown-menu").slideUp("fast");
-		// 	}
-		// });
 		$(document).on("click", function (event) {
 			var $trigger = $("#collapsse");
 			if ($trigger !== event.target && !$trigger.has(event.target).length) {

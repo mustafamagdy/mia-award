@@ -22,5 +22,8 @@ namespace MIA.Administration.Api
     public string PosterFileName { get; set; }
     public byte[] Poster { get; set; }
 
+    public string FileKey { get; set; }
+    public string FileUrl { get; set; }
+
   }
 }
