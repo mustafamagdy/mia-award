@@ -4,11 +4,11 @@
     "origin": [
       [
         "src/containers/Pages/News/index.js",
-        116
+        118
       ],
       [
         "src/containers/Pages/News/index.js",
-        227
+        238
       ]
     ]
   },
@@ -17,7 +17,7 @@
     "origin": [
       [
         "src/containers/Pages/News/index.js",
-        122
+        129
       ]
     ]
   },
@@ -26,7 +26,7 @@
     "origin": [
       [
         "src/containers/Pages/News/index.js",
-        139
+        146
       ]
     ]
   },
@@ -35,11 +35,11 @@
     "origin": [
       [
         "src/containers/Pages/News/index.js",
-        197
+        206
       ],
       [
         "src/containers/Pages/News/index.js",
-        233
+        249
       ]
     ]
   }

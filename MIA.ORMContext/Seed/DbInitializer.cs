@@ -39,10 +39,10 @@ namespace MIA.ORMContext.Seed {
       await SeedAdminUserAsync(userManager);
       await SeedAwards(db, encoder);
       await SeedBooths(db);
-      await SeedNews(db, encoder);
+      await SeedNews(db, encoder, s3FileManager);
+      await SeedDemoGallery(db, s3FileManager);
 
       //await SeedDemoNews(db, s3FileManager);
-      //await SeedDemoGallery(db, s3FileManager);
       //await SeedDemoArtworks(db, s3FileManager);
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
@@ -50,11 +50,10 @@ namespace MIA.ORMContext.Seed {
       await db.CommitTransactionAsync();
     }
 
-    private static async Task SeedBooths(IAppUnitOfWork db)
-    {
+    private static async Task SeedBooths(IAppUnitOfWork db) {
       List<Booth> booths = db.Booths.ToList();
-      var filename = "booths.json";
-      if (File.Exists("./" + filename)) {
+      var filename = "./seed/booths.json";
+      if (File.Exists(filename)) {
         using (StreamReader r = new StreamReader(filename)) {
           var newBooth = new List<Booth>();
           string json = r.ReadToEnd();
@@ -110,8 +109,8 @@ namespace MIA.ORMContext.Seed {
       List<ContactUsSubject> dbItems = db.ContactUsSubjects.ToList();
       if (dbItems.Any())
         return;
-      var filename = "contact_us_subjects.json";
-      if (File.Exists("./" + filename)) {
+      var filename = "./seed/contact_us_subjects.json";
+      if (File.Exists(filename)) {
         using (StreamReader r = new StreamReader(filename)) {
           var items = new List<ContactUsSubject>();
           string json = r.ReadToEnd();
@@ -215,46 +214,38 @@ namespace MIA.ORMContext.Seed {
       }
     }
     private static async Task SeedDemoGallery(IAppUnitOfWork db, IS3FileManager fileManager) {
-      var _faker_en = new Faker("en");
-
-      //TODO remove in production
       var mainAlbum = db.Albums.FirstOrDefault(a => a.MainGallery);
       if (mainAlbum == null) {
         mainAlbum = new Album {
           MainGallery = true,
-         // Title = new LocalizedData { "en":""}
+          Title = LocalizedData.FromBoth("البوم صور كبير جدا", "very large photoo and video gallery"),
         };
 
         await db.Albums.AddAsync(mainAlbum);
       }
 
-      var itemsCount = db.AlbumItems.Where(a => a.Album.MainGallery).Count();
-      if (itemsCount >= 30) return;
-      string[] random_videos = new string[] {
-        "https://mia-temp-files.s3.amazonaws.com/v1.mp4",
-        "https://mia-temp-files.s3.amazonaws.com/v2.mp4",
-        "https://mia-temp-files.s3.amazonaws.com/v3.mp4",
-        "https://mia-temp-files.s3.amazonaws.com/v4.mp4",
-        "https://mia-temp-files.s3.amazonaws.com/v5.mp4",
-        "https://mia-temp-files.s3.amazonaws.com/v6.mp4",
-      };
-
-      for (int i = 0; i < 30; i++) {
-
-        var type = _faker_en.Random.Enum<MediaType>();
+      var galleryDir = "./seed/gallery";
+      var allFiles = Directory.GetFiles(galleryDir);
+      var vidFiles = allFiles.Where(a => a.GetFileExt() == ".mp4").ToArray();
+      var vidFilesWithoutExt = vidFiles.Select(a => a.GetFileNameWithoutExt()).ToArray();
+      //skip video posters
+      var otherFiles = allFiles.Where(a => !vidFilesWithoutExt.Contains(a.GetFileNameWithoutExt())).ToArray();
+      var _listFiles = vidFiles.Concat(otherFiles).ToArray();
+      foreach (var file in _listFiles) {
+        var type = file.GetFileExt() == ".mp4" ? MediaType.Video : MediaType.Image;
         var url = "";
         var posterUrl = "";
         if (type == MediaType.Image) {
-          url = _faker_en.Image.PicsumUrl(600, 400);
+          url = file;
         } else {
-          url = _faker_en.Random.ArrayElement(random_videos);
-          posterUrl = _faker_en.Image.PicsumUrl(600, 400);
+          url = file;
+          posterUrl = allFiles.FirstOrDefault(a => a.GetFileNameWithoutExt() == file.GetFileNameWithoutExt() && a.GetFileExt() != ".mp4");
         }
 
         var item = new AlbumItem {
+          Title =  LocalizedData.FromBoth(file, file),
           AlbumId = mainAlbum.Id,
-          Featured = _faker_en.Random.Bool(),
-          Order = i + 1,
+          Featured = true,
           DateCreated = DateTime.Now.ToUnixTimeSeconds(),
           MediaType = type,
           FileKey = "",
@@ -263,41 +254,31 @@ namespace MIA.ORMContext.Seed {
           PosterUrl = ""
         };
 
+        //avoid adding files again
+        if (db.AlbumItems.FirstOrDefault(a => a.Title != null && a.Title.InEnglish() == item.Title.InEnglish()) != null) 
+          continue;
+
         await db.AlbumItems.AddAsync(item);
         await db.CommitTransactionAsync();
 
         var client = new HttpClient();
         client.Timeout = TimeSpan.FromMinutes(5);
-        if (type == MediaType.Image) {
-          var file = await client.GetAsync(url);
-          var fileStream = await file.Content.ReadAsStreamAsync();
+          using (var sFile = new FileStream(url, FileMode.Open)) {
+            var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + url.GetFileExt());
+            var fileUrl = await fileManager.UploadFileAsync(sFile, fileKey);
 
-          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + ".jpg");
-          var fileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
+            item.FileUrl = fileUrl;
+            item.FileKey = fileKey;
+          }
+        if (type == MediaType.Video) {
+          using (var sFile = new FileStream(posterUrl, FileMode.Open)) {
+            var posterFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + posterUrl.GetFileExt());
+            var posterFileUrl = await fileManager.UploadFileAsync(sFile, posterFileKey);
 
-          item.FileUrl = fileUrl;
-          item.FileKey = fileKey;
-        } else if (type == MediaType.Video) {
-
-          //var sour
-          //var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + ".mp4");
-          //var fileUrl = await fileManager.UploadFileAsync(fileStream, fileKey);
-
-          //item.FileUrl = fileUrl;
-          //item.FileKey = fileKey;
-
-
-
-          var posterFile = await client.GetAsync(posterUrl);
-          var posterFileStream = await posterFile.Content.ReadAsStreamAsync();
-          var posterFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + ".jpg");
-          var posterFileUrl = await fileManager.UploadFileAsync(posterFileStream, posterFileKey);
-
-          item.PosterUrl = posterFileUrl;
-          item.PosterKey = posterFileKey;
+            item.PosterUrl = posterFileUrl;
+            item.PosterKey = posterFileKey;
+          }
         }
-
-
 
         db.AlbumItems.Update(item);
       }
@@ -430,8 +411,8 @@ namespace MIA.ORMContext.Seed {
 
     private static async Task SeedAwards(IAppUnitOfWork db, HtmlEncoder encoder) {
       List<Award> awards = db.Awards.ToList();
-      var filename = "awards.json";
-      if (File.Exists("./" + filename)) {
+      var filename = "./seed/awards.json";
+      if (File.Exists(filename)) {
         using (StreamReader r = new StreamReader(filename)) {
           var newAwards = new List<Award>();
           string json = r.ReadToEnd();
@@ -460,36 +441,43 @@ namespace MIA.ORMContext.Seed {
       }
     }
 
-    private static async Task SeedNews(IAppUnitOfWork db, HtmlEncoder encoder) {
+    private static async Task SeedNews(IAppUnitOfWork db, HtmlEncoder encoder, IS3FileManager fileManager) {
       List<News> allNews = db.News.ToList();
-      var filename = "news.json";
-      if (File.Exists("./" + filename)) {
-        using (StreamReader r = new StreamReader(filename)) {
-          var newNews = new List<News>();
-          string json = r.ReadToEnd();
-          var listNews = new List<News>();
-          JArray array = JArray.Parse(json);
-          foreach (JToken j in array) {
-            listNews.Add(new News {
-              Date = ((JValue)j["Date"]).Value<long>(),
-              Outdated = ((JValue)j["Outdated"]).Value<bool>(),
-              PosterId = ((JValue)j["PosterId"]).Value<string>(),
-              PosterUrl = ((JValue)j["PosterUrl"]).Value<string>(),
-              Featured = ((JValue)j["Featured"]).Value<bool>(),
-              Category = ((JValue)j["Category"]).Value<string>(),
-              Keywords = ((JValue)j["Keywords"]).Value<string>(),
-              Title = LocalizedData.FromDictionary((JObject)j["Title"]),
-              Body = LocalizedData.FromDictionary((JObject)j["Body"]),
-            });
-          }
+      var filename = "./seed/news.json";
+      if (File.Exists(filename)) {
+        if (File.Exists(("./seed/news.png"))) {
+          using (StreamReader r = new StreamReader(filename)) {
+            var newNews = new List<News>();
+            string json = r.ReadToEnd();
+            var listNews = new List<News>();
+            JArray array = JArray.Parse(json);
+            foreach (JToken j in array) {
+              listNews.Add(new News {
+                Date = ((JValue)j["Date"]).Value<long>(),
+                Outdated = ((JValue)j["Outdated"]).Value<bool>(),
+                PosterId = ((JValue)j["PosterId"]).Value<string>(),
+                PosterUrl = ((JValue)j["PosterUrl"]).Value<string>(),
+                Featured = ((JValue)j["Featured"]).Value<bool>(),
+                Category = ((JValue)j["Category"]).Value<string>(),
+                Keywords = ((JValue)j["Keywords"]).Value<string>(),
+                Title = LocalizedData.FromDictionary((JObject)j["Title"]),
+                Body = LocalizedData.FromDictionary((JObject)j["Body"]),
+              });
+            }
 
-          foreach (var news in listNews) {
-            var _news = allNews.FirstOrDefault(a => a.Title.InEnglish() == news.Title.InEnglish());
-            if (_news != null) continue;
-            newNews.Add(news);
-          }
-          if (newNews.Any()) {
-            await db.News.AddRangeAsync(newNews);
+            foreach (var news in listNews) {
+              var _news = allNews.FirstOrDefault(a => a.Title.InEnglish() == news.Title.InEnglish());
+              if (_news != null) continue;
+
+              await db.News.AddAsync(news);
+
+              using (var placeholder_image = new MemoryStream(File.ReadAllBytes(("./seed/news.png")))) {
+                var imageKey = fileManager.GenerateFileKeyForResource(ResourceType.News, news.Id, news.Id + ".png");
+                var imageUrl = await fileManager.UploadFileAsync(placeholder_image, imageKey);
+                news.PosterUrl = imageUrl;
+                news.PosterId = imageKey;
+              }
+            }
           }
         }
       }

@@ -215,9 +215,14 @@ const MapWithMarkers = compose(
     >
       {props.markers &&
         props.markers.map((marker, i) => {
-          const iconUrl = props.id === i ? props.icon : props.fallbackIcon;
+          let iconUrl = props.id === i ? props.icon : props.fallbackIcon;
+          iconUrl = iconUrl ? iconUrl : "";
           return (
-            <Marker icon={{ url: iconUrl }} key={marker.id} position={{ lat: marker.lat, lng: marker.long }}>
+            <Marker
+              // icon={{ url: iconUrl }}
+              key={marker.id}
+              position={{ lat: marker.lat, lng: marker.long }}
+            >
               {props.render && props.render !== undefined ? <InfoWindow>{props.render()}</InfoWindow> : null}
             </Marker>
           );

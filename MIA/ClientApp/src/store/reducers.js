@@ -20,6 +20,7 @@ export default function createReducer(asyncReducers, history) {
     home: require("./home/reducers").reducer,
     news: require("./news/reducers").reducer,
     gallery: require("./gallery/reducers").reducer,
+    shows: require("./shows/reducers").reducer,
     members: require("./members/reducers").reducer,
     ...asyncReducers
   });

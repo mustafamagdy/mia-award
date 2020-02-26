@@ -9,5 +9,9 @@ namespace MIA.ORMContext {
       return superset.ToPagedList(page.PageNumber, page.PageSize);
     }
 
+    public static Task<IPagedList<T>> ToPagedListAsync<T>(this IQueryable<T> superset, IPagedData page) {
+      return superset.ToPagedListAsync(page.PageNumber, page.PageSize);
+    }
+
   }
 }

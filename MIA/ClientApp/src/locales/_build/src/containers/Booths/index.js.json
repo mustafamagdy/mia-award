@@ -1,0 +1,105 @@
+{
+  "area": {
+    "defaults": "AREA",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        182
+      ]
+    ]
+  },
+  "next": {
+    "defaults": "Next",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        189
+      ],
+      [
+        "src/containers/Booths/index.js",
+        207
+      ]
+    ]
+  },
+  "choose_your_payment_method": {
+    "defaults": "Choose Your Payment Method",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        219
+      ]
+    ]
+  },
+  "pay_online": {
+    "defaults": "Pay Online",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        224
+      ]
+    ]
+  },
+  "pay_and_continue": {
+    "defaults": "Pay & Continue",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        246
+      ]
+    ]
+  },
+  "pay_offline": {
+    "defaults": "Pay Offline",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        254
+      ]
+    ]
+  },
+  "please_upload_the_receipt": {
+    "defaults": "please upload the reciept to be approved from the adminstration and confirm your payment",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        269
+      ]
+    ]
+  },
+  "choose_receipt_image": {
+    "defaults": "Choose receipt image",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        280
+      ]
+    ]
+  },
+  "book_now": {
+    "defaults": "Book Now",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        284
+      ]
+    ]
+  },
+  "booth_booking_success": {
+    "defaults": "Booking successfull",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        300
+      ]
+    ]
+  },
+  "booth_booking_success_msg": {
+    "defaults": "Thank you please contact us @123456",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        303
+      ]
+    ]
+  }
+}

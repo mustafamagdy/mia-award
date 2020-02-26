@@ -5,7 +5,6 @@ using System.Collections.Generic;
 namespace MIA.Models.Entities {
   public class AlbumItem : BaseEntity<string> {
     public LocalizedData Title { get; set; }
-
     public long DateCreated { get; set; }
     public bool Featured { get; set; }
     public string FileKey { get; set; }

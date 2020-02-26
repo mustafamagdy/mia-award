@@ -7,5 +7,6 @@ namespace MIA.Api {
     public int? Year { get; set; }
     public string AwardId { get; set; }
     public string CountryId { get; set; }
+    public string Title { get; set; }
   }
 }

@@ -192,6 +192,8 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Director");
 
+                    b.Property<bool>("Featured");
+
                     b.Property<int>("FileCount");
 
                     b.Property<string>("NomineeId");
@@ -217,6 +219,10 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Title");
 
                     b.Property<string>("TrailerId");
+
+                    b.Property<string>("TrailerPosterId");
+
+                    b.Property<string>("TrailerPosterUrl");
 
                     b.Property<string>("TrailerUrl");
 

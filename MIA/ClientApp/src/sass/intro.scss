@@ -56,12 +56,12 @@
           .progress_bar {
             position: absolute;
             height: 5px;
-            
+
             background: #c0a176;
             display: block;
             width: 350px;
             left: 85%;
-            bottom: 15px;     
+            bottom: 15px;
             z-index: 1000;
             -webkit-transition: all 0.2s ease-in-out;
             -moz-transition: all 0.2s ease-in-out;
@@ -120,7 +120,7 @@
             text-transform: capitalize;
             font-family: Montserrat_Bold;
             color: $maincolor;
-            @media(max-width: 1090px){
+            @media (max-width: 1090px) {
               font-size: 25px;
             }
           }
@@ -132,7 +132,7 @@
             color: #808080;
             font-size: 14px;
             line-height: 24px;
-            @media (max-width: 1750px){
+            @media (max-width: 1750px) {
               max-height: 220px;
               height: 100%;
               overflow-y: auto;
@@ -162,7 +162,7 @@
             border-radius: 100px;
             color: #141414;
 
-            @media(max-width: 1090px){
+            @media (max-width: 1090px) {
               font-size: 16px;
               text-align: center;
             }
@@ -187,10 +187,10 @@
       bottom: 90px;
       display: flex;
       align-items: center;
-      @media(max-width: 1230px){
+      @media (max-width: 1230px) {
         right: 25px;
       }
-      @media(max-width: 1050px){
+      @media (max-width: 1050px) {
         right: 0px;
       }
 
@@ -245,7 +245,7 @@
       }
 
       /* arrow_next */
-    }
+    } /*slider_thumb*/
 
     /* slider_thumb */
     .slider_dots {
@@ -255,7 +255,7 @@
       display: flex;
       flex-wrap: nowrap;
 
-      span {
+      .item {
         margin: 0 20px;
         height: 80px;
         color: #1b1b1b !important;

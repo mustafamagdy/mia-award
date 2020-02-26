@@ -4,16 +4,24 @@ import { ActionTypes } from "./actions";
 
 const initialState = {
   myAwards: [],
+  myAwardsLoaded: false,
   myArtworks: [],
+  myArtworksLoaded: false,
   artworkDetails: undefined,
   artworkMode: "add" //add, view, edit
 };
 
 const fetchMyAwardsSuccess = (state, action) => {
-  return produce(state, draft => {});
+  return produce(state, draft => {
+    draft.myAwardsLoaded = true;
+    draft.myAwards = [...action.payload];
+  });
 };
 const fetchMyArtworksSuccess = (state, action) => {
-  return produce(state, draft => {});
+  return produce(state, draft => { 
+    draft.myArtworksLoaded = true;
+    draft.myArtworks = [...action.payload];
+  });
 };
 const addNewArtworkSuccess = (state, action) => {
   return produce(state, draft => {
@@ -23,7 +31,7 @@ const addNewArtworkSuccess = (state, action) => {
   });
 };
 const saveArtworkInfoSuccess = (state, action) => {
-  return produce(state, draft => {});
+  return produce(state, draft => { });
 };
 const fetchArtworkWithDetailsSuccess = (state, action) => {
   return produce(state, draft => {
@@ -32,13 +40,13 @@ const fetchArtworkWithDetailsSuccess = (state, action) => {
   });
 };
 const updateTrailerSuccess = (state, action) => {
-  return produce(state, draft => {});
+  return produce(state, draft => { });
 };
 const updateCoverImageSuccess = (state, action) => {
-  return produce(state, draft => {});
+  return produce(state, draft => { });
 };
 const postFileChunkSuccess = (state, action) => {
-  return produce(state, draft => {});
+  return produce(state, draft => { });
 };
 const editArtwork = (state, action) => {
   return produce(state, draft => {

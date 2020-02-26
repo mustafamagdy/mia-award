@@ -8,15 +8,18 @@ import galleryActions from "store/gallery/actions";
 import { useEffect } from "react";
 import ReactPlayer from "react-player";
 import Lightbox from "lightbox-react";
+import Swiper from "react-id-swiper";
+import Paginator from "components/Paginator";
+
 import "lightbox-react/style.css"; // This only needs to be imported once in your app
+import "swiper/css/swiper.css";
 
 const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCount, ...props }) => {
   const [slides, setSlides] = useState([]);
-  const [currentSlide, setCurrentSlide] = useState(-1);
   const [activeTab, setActiveTab] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [currentItem, setCurrentItem] = useState(undefined);
-  const [slideTranslate, setSlideTranslate] = useState(0);
+  const [swiper, setSwiper] = useState(null);
 
   const tabs = ["All", "Latest", "Photos", "Videos"];
 
@@ -25,20 +28,12 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   }, []);
 
   useEffect(() => {
-    const _slides = featuredItems;
-    if (_slides.length % 2 === 0) _slides.pop();
-
-    setSlides(_slides);
+    setSlides(featuredItems);
   }, [featuredItems]);
 
   useEffect(() => {
     fetchItems({ pageNumber, pageSize: 10, type: tabs[activeTab] });
   }, [pageNumber, activeTab]);
-
-  useEffect(() => {
-    setSlideTranslate(Math.floor(slides.length / 2));
-    setCurrentSlide(Math.floor(slides.length / 2) * -1);
-  }, [slides]);
 
   const handleActiveTab = tab => {
     setActiveTab(tab);
@@ -46,65 +41,11 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   };
 
   const nextSlide = () => {
-    setCurrentSlide(currentSlide + 1);
-    console.log("next", currentSlide);
-    // let _current = current + 1;
-    // if (_current == featuredItems.length) {
-    //   _current = 0;
-    // }
-
-    // const slice = [];
-    // if (_current == 0) {
-    //   slice.push(featuredItems[featuredItems.length - 1]);
-    //   slice.push(...featuredItems.slice(_current, _current + 7));
-    // } else if (_current == featuredItems.length - 1) {
-    //   slice.push(featuredItems[featuredItems.length - 7]);
-    //   slice.push(featuredItems[featuredItems.length - 1]);
-    //   slice.push(featuredItems[0]);
-    // } else {
-    //   slice.push(...featuredItems.slice(_current - 1, _current + 7));
-    // }
-
-    // setCurrent(_current);
-    // setSlides(slice);
+    if (swiper !== null) swiper.slideNext();
   };
 
   const prevSlide = () => {
-    setCurrentSlide(currentSlide - 1);
-    console.log("prev", currentSlide);
-
-    // console.log("prev", currentIndex);
-    // let _current = current - 1;
-    // if (_current < 0) {
-    //   _current = featuredItems.length - 1;
-    // }
-
-    // const slice = [];
-    // if (_current == 0) {
-    //   slice.push(featuredItems[featuredItems.length - 1]);
-    //   slice.push(...featuredItems.slice(_current, _current + 7));
-    // } else if (_current == featuredItems.length - 1) {
-    //   slice.push(featuredItems[featuredItems.length - 7]);
-    //   slice.push(featuredItems[featuredItems.length - 1]);
-    //   slice.push(featuredItems[0]);
-    // } else {
-    //   slice.push(...featuredItems.slice(_current - 1, _current + 7));
-    // }
-
-    // setCurrent(_current);
-    // setSlides(slice);
-  };
-
-  const onSlideSleected = slideIndex => {
-    setCurrentSlide(slideIndex * -1);
-
-    // if (slideIndex == featuredItems.length - 1) {
-    // } else {
-    //   slice.push(...featuredItems.slice(slideIndex - 1, slideIndex + 2));
-    // }
-    // const slice = featuredItems.slice(slideIndex, slideIndex + 3);
-    // setCurrent(slideIndex);
-    // setSlides(slice);
+    if (swiper !== null) swiper.slidePrev();
   };
 
   const handleItemClicked = p => {
@@ -115,7 +56,32 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
     }
   };
 
-  console.log("render->current index", currentSlide, slideTranslate + currentSlide);
+  const params = {
+    effect: "coverflow",
+    spaceBetween: 0,
+    speed: 1000,
+    loop: true,
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true
+    },
+    rebuildOnUpdate: true,
+    pagination: {
+      el: ".slider_dots",
+      clickable: true
+    },
+    navigation: {
+      nextEl: "#nav_next",
+      prevEl: "#nav_prev"
+    }
+  };
+
   return (
     <React.Fragment>
       <RenderLightBox currentItem={currentItem} setCurrentitem={setCurrentItem} />
@@ -124,57 +90,51 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
           <div className="container">
             <div className="slider_area">
               <div className="slider_nav">
-                <button type="button" className="arrow_prev" onClick={prevSlide}>
+                <button type="button" className="arrow_prev" id="nav_prev">
                   <i className="icofont-simple-left"></i>
                 </button>
-                <button type="button" className="arrow_next" onClick={nextSlide}>
+                <button type="button" className="arrow_next" id="nav_next">
                   <i className="icofont-simple-right"></i>
                 </button>
               </div>
-              <div
-                className="slider_items"
-                style={{
-                  transform: `translate3d(${(slideTranslate + currentSlide) * 800}px, 0px, 0px)`
-                }}
-              >
-                {slides.map((s, i) => {
-                  const a = Math.abs(currentSlide);
-                  const isCurr = i == a;
-                  const isPrev = i == a - 1;
-                  const isNext = i == a + 1;
-                  return (
-                    <div key={s.id} className={classNames("item", { prev_item: isPrev }, { current_item: isCurr }, { next_item: isNext })}>
-                      {s.mediaType == "image" ? (
-                        <>
-                          <img src={s.fileUrl} />
-                          <div className="zoom_image">
-                            <span>
-                              <i className="icofont-ui-zoom-in"></i>
-                            </span>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <ReactPlayer
-                            playing
-                            url={s.fileUrl}
-                            className="react-player"
-                            width="100%"
-                            height="100%"
-                            light="https://picsum.photos/200/300"
-                          />
-                          <div className="zoom_image">
-                            <span>
-                              <i className="icofont-ui-zoom-in"></i>
-                            </span>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  );
-                })}
+              <div className="slider_items">
+                <Swiper {...params} getSwiper={setSwiper}>
+                  {slides.map((s, i) => {
+                    return (
+                      <div key={s.id} className="item">
+                        {s.mediaType == "image" ? (
+                          <>
+                            <img src={s.fileUrl} />
+                            <div className="zoom_image">
+                              <span>
+                                <i className="icofont-ui-zoom-in"></i>
+                              </span>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <ReactPlayer
+                              playing
+                              url={s.fileUrl}
+                              className="react-player"
+                              width="100%"
+                              height="100%"
+                              light="https://picsum.photos/200/300"
+                            />
+                            <div className="zoom_image">
+                              <span>
+                                <i className="icofont-ui-zoom-in"></i>
+                              </span>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    );
+                  })}
+                </Swiper>
               </div>
-              <SliderDots onSlideSleected={onSlideSleected} slides={featuredItems} currentSlide={currentSlide} />
+              <div className="slider_dots"></div>
+              {/* <SliderDots onSlideSleected={onSlideSleected} slides={featuredItems} currentSlide={currentSlide} /> */}
             </div>
           </div>
         </div>
@@ -220,7 +180,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                 ))}
               </div>
             </div>
-            <Pagination pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
+            <Paginator pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
           </div>
         </div>
       </section>
@@ -234,22 +194,6 @@ const SliderDots = ({ slides, onSlideSleected, currentSlide, ...props }) => {
       {slides.map((s, i) => (
         <span key={s.id} className={classNames({ current: Math.abs(currentSlide) == i })} onClick={() => onSlideSleected(i)}></span>
       ))}
-    </div>
-  );
-};
-
-const Pagination = ({ pageCount, pageNumber, setPageNumber, ...props }) => {
-  return (
-    <div className="paginations">
-      <ul>
-        {new Array(pageCount).fill().map((_, i) => {
-          return (
-            <li key={i} className={classNames({ current: pageNumber == i + 1 })}>
-              <span onClick={() => setPageNumber(i + 1)}>{i + 1}</span>
-            </li>
-          );
-        })}
-      </ul>
     </div>
   );
 };

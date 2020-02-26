@@ -7,6 +7,7 @@ namespace MIA.Models.Entities {
     public LocalizedData Title { get; set; }
     public bool UploadComplete { get; set; }
     public bool AllowFileUpload { get; set; }
+    public bool Featured { get; set; }
     public Award Award { get; set; }
     public string AwardId { get; set; }
     public Nominee Nominee { get; set; }
@@ -24,8 +25,12 @@ namespace MIA.Models.Entities {
 
     public string PosterId { get; set; }
     public string PosterUrl { get; set; }
+
     public string TrailerId { get; set; }
     public string TrailerUrl { get; set; }
+    public string TrailerPosterId { get; set; }
+    public string TrailerPosterUrl { get; set; }
+
     public string CoverId { get; set; }
     public string CoverUrl { get; set; }
 

@@ -8,13 +8,14 @@ import newsActions from "store/news/actions";
 import { bindActionCreators } from "redux";
 import { useEffect } from "react";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
+import Swiper from "react-id-swiper";
+import "swiper/css/swiper.css";
 
 const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategories, categories, pageCount, ...pros }) => {
   const [pageNumber, setPageNumber] = useState(1);
-  const [slides, setSlides] = useState(featuredNews.slice(0, 3));
-  const [current, setCurrent] = useState(1);
   const [currentView, setCurrentView] = useState("listing");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [swiper, setSwiper] = useState(null);
 
   useEffect(() => {
     fetchCategories();
@@ -25,60 +26,6 @@ const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategorie
     fetchFeaturedNews();
   }, []);
 
-  useEffect(() => {
-    setSlides(featuredNews.slice(0, 3));
-  }, [featuredNews]);
-
-  const nextSlide = () => {
-    let _current = current + 1;
-    if (_current == featuredNews.length) {
-      _current = 0;
-    }
-
-    const slice = [];
-    if (_current == 0) {
-      slice.push(featuredNews[featuredNews.length - 1]);
-      slice.push(...featuredNews.slice(_current, _current + 2));
-    } else if (_current == featuredNews.length - 1) {
-      slice.push(featuredNews[featuredNews.length - 2]);
-      slice.push(featuredNews[featuredNews.length - 1]);
-      slice.push(featuredNews[0]);
-    } else {
-      slice.push(...featuredNews.slice(_current - 1, _current + 2));
-    }
-
-    setCurrent(_current);
-    setSlides(slice);
-  };
-
-  const prevSlide = () => {
-    let _current = current - 1;
-    if (_current < 0) {
-      _current = featuredNews.length - 1;
-    }
-
-    const slice = [];
-    if (_current == 0) {
-      slice.push(featuredNews[featuredNews.length - 1]);
-      slice.push(...featuredNews.slice(_current, _current + 2));
-    } else if (_current == featuredNews.length - 1) {
-      slice.push(featuredNews[featuredNews.length - 2]);
-      slice.push(featuredNews[featuredNews.length - 1]);
-      slice.push(featuredNews[0]);
-    } else {
-      slice.push(...featuredNews.slice(_current - 1, _current + 2));
-    }
-
-    setCurrent(_current);
-    setSlides(slice);
-  };
-
-  const onSlideSleected = slideIndex => {
-    const slice = featuredNews.slice(slideIndex, slideIndex + 3);
-    setCurrent(slideIndex);
-    setSlides(slice);
-  };
-
   const toggleBlocks = () => {
     setCurrentView("blocks");
   };
@@ -87,53 +34,84 @@ const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategorie
     setCurrentView("listing");
   };
 
+  const params = {
+    effect: "coverflow",
+    spaceBetween: 0,
+    speed: 1000,
+    loop: true,
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true
+    },
+    rebuildOnUpdate: true,
+    pagination: {
+      el: ".slider_dots",
+      clickable: true
+    },
+    navigation: {
+      nextEl: "#nav_next",
+      prevEl: "#nav_prev"
+    }
+  };
+
   return (
     <section id="news_category">
       <div className="news_slider">
         <div className="container">
           <div className="slider_area">
             <div className="slider_nav">
-              <button type="button" className="arrow_prev" onClick={prevSlide}>
+              <button type="button" className="arrow_prev" id="nav_prev">
                 <i className="icofont-simple-left"></i>
               </button>
-              <button type="button" className="arrow_next" onClick={nextSlide}>
+              <button type="button" className="arrow_next" id="nav_next">
                 <i className="icofont-simple-right"></i>
               </button>
             </div>
             <div className="slider_items">
-              {slides.map((item, i) => (
-                <div key={item.id} className={classNames("item", { prev_item: i == 0 }, { current_item: i == 1 }, { next_item: i == 2 })}>
-                  <div className="imgthmb">
-                    <img src={item.posterUrl} />
+              <Swiper {...params} getSwiper={setSwiper}>
+                {featuredNews.map((item, i) => (
+                  <div key={item.id} className="item">
+                    <div className="imgthmb">
+                      <img src={item.posterUrl} />
+                    </div>
+                    <LanguageContext.Consumer>
+                      {({ locale }) => (
+                        <div className="content">
+                          <div className="desc">
+                            <span>{item.title[locale.code]}</span>
+                            <p className="category">
+                              <Trans id={item.category.toLowerCase()}>{item.category}</Trans>
+                            </p>
+                            <time>
+                              <Trans id="posted">Posted</Trans>: {item.date}
+                            </time>
+                            <div
+                              className="body"
+                              dangerouslySetInnerHTML={{
+                                __html: item.body[locale.code]
+                              }}
+                            ></div>
+                          </div>
+                          <div className="more">
+                            <a href={`/news/${item.id}`}>
+                              <Trans id="read_more">Read More</Trans>
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                    </LanguageContext.Consumer>
                   </div>
-                  <LanguageContext.Consumer>
-                    {({ locale }) => (
-                      <div className="content">
-                        <div className="desc">
-                          <span>{item.title[locale.code]}</span>
-                          <p className="category">{item.category}</p>
-                          <time>
-                            <Trans id="posted">Posted</Trans>: {item.date}
-                          </time>
-                          <div
-                          className="body"
-                            dangerouslySetInnerHTML={{
-                              __html: item.body[locale.code]
-                            }}
-                          ></div>
-                        </div>
-                        <div className="more">
-                          <a href={`/news/${item.id}`}>
-                            <Trans id="read_more">Read More</Trans>
-                          </a>
-                        </div>
-                      </div>
-                    )}
-                  </LanguageContext.Consumer>
-                </div>
-              ))}
+                ))}
+              </Swiper>
             </div>
-            <SliderDots onSlideSleected={onSlideSleected} slides={featuredNews} currentSlide={current} />
+            <div className="slider_dots"></div>
+            {/* <SliderDots onSlideSleected={onSlideSleected} featuredNews={featuredNews} currentSlide={current} /> */}
           </div>
         </div>
       </div>
@@ -188,7 +166,9 @@ const BlocksNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =>
           <time>{item.date}</time>
           <div className="item">
             <div className="category">
-              <p>{item.category}</p>
+              <p>
+                <Trans id={item.category.toLowerCase()}>{item.category}</Trans>
+              </p>
             </div>
             <LanguageContext.Consumer>
               {({ locale }) => (
@@ -227,12 +207,14 @@ const ListingNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =
             <div className="content">
               <div className="desc">
                 <span>{item.title[locale.code]}</span>
-                <p className="category">{item.category}</p>
+                <p className="category">
+                  <Trans id={item.category.toLowerCase()}>{item.category}</Trans>
+                </p>
                 <time>
                   <Trans id="posted">Posted</Trans> : {item.date}
                 </time>
                 <div
-                className="body"
+                  className="body"
                   dangerouslySetInnerHTML={{
                     __html: item.body[locale.code]
                   }}
@@ -252,10 +234,10 @@ const ListingNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =
   </div>
 );
 
-const SliderDots = ({ slides, onSlideSleected, currentSlide, ...props }) => {
+const SliderDots = ({ featuredNews, onSlideSleected, currentSlide, ...props }) => {
   return (
     <div className="slider_dots">
-      {slides.map((s, i) => (
+      {featuredNews.map((s, i) => (
         <span key={s.id} className={classNames({ current: currentSlide == i })} onClick={() => onSlideSleected(i)}></span>
       ))}
     </div>

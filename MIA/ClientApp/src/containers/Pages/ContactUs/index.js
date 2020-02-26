@@ -55,8 +55,8 @@ const ContactUs = ({
           <div className="content">
             <div className="contact_info">
               <div className="item">
+                <i className="icofont-google-map item-icon"></i>
                 <span>
-                  <i className="icofont-google-map"></i>
                   <Trans id="address">Address</Trans>
                 </span>
                 <p>
@@ -64,32 +64,32 @@ const ContactUs = ({
                 </p>
               </div>
               <div className="item">
+                <i className="icofont-phone item-icon"></i>
                 <span>
-                  <i className="icofont-phone"></i>
                   <Trans id="phone">Phone</Trans>
                 </span>
-                <p>
+                <p style={{ direction: "ltr" }}>
                   <Trans id="phone_1">+971 4 57 2636 7</Trans>
                 </p>
-                <p>
+                <p style={{ direction: "ltr" }}>
                   <Trans id="phone_2">+971 4 57 2636 8</Trans>
                 </p>
               </div>
               <div className="item">
+                <i className="icofont-fax  item-icon"></i>
                 <span>
-                  <i className="icofont-fax"></i>
                   <Trans id="fax">Fax</Trans>
                 </span>
-                <p>
+                <p style={{ direction: "ltr" }}>
                   <Trans id="fax_1">+971 4 57 2636 6</Trans>
                 </p>
               </div>
               <div className="item">
+                <i className="icofont-email item-icon"></i>
                 <span>
-                  <i className="icofont-email"></i>
                   <Trans id="email">EMail</Trans>
                 </span>
-                <p>Info@mediaindustry.me</p>
+                <p style={{ direction: "ltr" }}>Info@mediaindustry.me</p>
               </div>
             </div>
             <div className="google_map">

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Trans } from "@lingui/macro";
-import { useState } from "react";
 import classNames from "classnames";
-import { useEffect } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import homeActions from "store/home/actions";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
+import "utils";
 
-const PhotoAlbum = ({ ...props }) => {
+const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
   const [allItems, setAllItems] = useState([
     {
       id: "1",
@@ -48,8 +51,12 @@ const PhotoAlbum = ({ ...props }) => {
   const [currentItem, setCurrentItem] = useState(undefined);
 
   useEffect(() => {
-    setCurrentItem(sliderItems[1]);
+    fetchMainAlbum();
   }, []);
+
+  useEffect(() => {
+    setCurrentItem(sliderItems[1]);
+  }, [sliderItems]);
 
   const previous = () => {
     let _a = activeIndex;
@@ -64,7 +71,6 @@ const PhotoAlbum = ({ ...props }) => {
     setActiveIndex(_a);
   };
 
-  console.log("items", sliderItems);
   return currentItem === undefined ? null : (
     <div id="videos_photo">
       <div className="container">
@@ -112,4 +118,6 @@ const PhotoAlbum = ({ ...props }) => {
   );
 };
 
-export default PhotoAlbum;
+const mapStateToProps = ({ home: { albumContents } }) => ({ albumContents });
+const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(PhotoAlbum);
