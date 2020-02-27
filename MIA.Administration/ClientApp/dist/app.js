@@ -254,114 +254,126 @@
       }
   })();
   (function () {
-    'use strict';
+  "use strict";
 
-    angular
-        .module('home')
-        .controller('ArtWorkController', ['appCONSTANTS', '$scope', '$translate', 'ArtWorkResource', 'blockUI', '$uibModal',
-            'ToastService', ArtWorkController]);
+  angular
+    .module("home")
+    .controller("ArtWorkController", [
+      "appCONSTANTS",
+      "$scope",
+      "$translate",
+      "ArtWorkResource",
+      "blockUI",
+      "$uibModal",
+      "ToastService",
+      ArtWorkController
+    ]);
 
+  function ArtWorkController(appCONSTANTS, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
+    $(".pmd-sidebar-nav>li>a").removeClass("active");
+    $($(".pmd-sidebar-nav").children()[6].children[0]).addClass("active");
+    var vm = this;
 
-    function ArtWorkController(appCONSTANTS, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
-        var vm = this;
+    vm.currentPage = 1;
+    vm.appCONSTANTS = appCONSTANTS;
+    refreshArtWorks();
+    function refreshArtWorks() {
+      blockUI.start("Loading...");
 
-        vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS; 
-        refreshArtWorks();
-        function refreshArtWorks() {
-            blockUI.start("Loading...");
-
-            var k = ArtWorkResource.getAllArtWorks({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
-                $scope.ArtWorkList = results.items;
-                $scope.totalCount = results.metadata.totalItemCount;
-                console.log($scope.ArtWorkList);
-                blockUI.stop();
-
-            },
-                function (data, status) { 
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
-                });
+      var k = ArtWorkResource.getAllArtWorks({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(
+        function (results) {
+          $scope.ArtWorkList = results.items;
+          $scope.totalCount = results.metadata.totalItemCount;
+          console.log($scope.ArtWorkList);
+          blockUI.stop();
+        },
+        function (data, status) {
+          blockUI.stop();
+          ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
         }
-        function change(artWork, isDeleted) {
-            var updateObj = new ArtWorkResource();
-            updateObj.id = artWork.id;
-            if (!isDeleted)
-                updateObj.status = (artWork.status == true ? false : true);
-            updateObj.isDeleted = artWork.isDeleted;
-
-            updateObj.$update().then(
-                function (data, status) {
-                    refreshArtWorks();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    artWork.status = updateObj.status;
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-        vm.UpdateArtWork = function (artWork) {
-            change(artWork, false);
-        }
-
-        function confirmationDelete(model) {
-            var updateObj = new ArtWorkResource();
-            updateObj.$delete({ id: model.id }).then(
-                function (data, status) {
-                    refreshArtWorks();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        }
-        vm.ChangeStatus = function (model) {
-            var updateObj = new ArtWorkResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-            return;
-        }
-
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshArtWorks();
-        }
-
+      );
     }
+    function change(artWork, isDeleted) {
+      var updateObj = new ArtWorkResource();
+      updateObj.id = artWork.id;
+      if (!isDeleted) updateObj.status = artWork.status == true ? false : true;
+      updateObj.isDeleted = artWork.isDeleted;
 
+      updateObj.$update().then(
+        function (data, status) {
+          refreshArtWorks();
+
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("Editeduccessfully"), "success");
+          artWork.status = updateObj.status;
+        },
+        function (data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+        }
+      );
+    }
+    vm.UpdateArtWork = function (artWork) {
+      change(artWork, false);
+    };
+
+    function confirmationDelete(model) {
+      var updateObj = new ArtWorkResource();
+      updateObj.$delete({ id: model.id }).then(
+        function (data, status) {
+          refreshArtWorks();
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("DeletedSuccessfully"), "success");
+        },
+        function (data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+        }
+      );
+    }
+    vm.openDeleteDialog = function (model, name, id) {
+      var modalContent = $uibModal.open({
+        templateUrl: "./app/core/Delete/templates/ConfirmDeleteDialog.html",
+        controller: "confirmDeleteDialogController",
+        controllerAs: "deleteDlCtrl",
+        resolve: {
+          model: function () {
+            return model;
+          },
+          itemName: function () {
+            return name;
+          },
+          itemId: function () {
+            return id;
+          },
+          message: function () {
+            return null;
+          },
+          callBackFunction: function () {
+            return confirmationDelete;
+          }
+        }
+      });
+    };
+    vm.ChangeStatus = function (model) {
+      var updateObj = new ArtWorkResource();
+      updateObj.id = model.id;
+      updateObj.title = model.title;
+      updateObj.body = model.body;
+      updateObj.outdated = model.outdated == true ? false : true;
+      updateObj.$update().then(
+        function (data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("Editeduccessfully"), "success");
+          model.outdated = updateObj.outdated;
+        },
+        function (data, status) {
+          ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+        }
+      );
+      return;
+    };
+
+    vm.changePage = function (page) {
+      vm.currentPage = page;
+      refreshArtWorks();
+    };
+  }
 })();
 (function () {
     angular
@@ -2573,32 +2585,7 @@
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
-        }
-        function change(MediaItem, isDeleted) {
-            var updateObj = new PhotoAlbumResource();
-            updateObj.id = MediaItem.id;
-            if (!isDeleted)
-                updateObj.status = (MediaItem.status == true ? false : true);
-            updateObj.isDeleted = MediaItem.isDeleted;
-
-            updateObj.$update().then(
-                function (data, status) {
-                    refreshMediaItems();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    MediaItem.status = updateObj.status;
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-        vm.UpdateMediaItem = function (MediaItem) {
-            change(MediaItem, false);
-        }
-
+        } 
         function confirmationDelete(model) {
             var obj = new PhotoAlbumResource();
             obj.$deleteMediaItems({ id: model.id }).then(
@@ -2628,14 +2615,12 @@
         }
         vm.ChangeStatus = function (model) {
             var updateObj = new PhotoAlbumResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
+            updateObj.id = model.id; 
+            updateObj.featured = (model.featured == true ? false : true);
+            updateObj.$updateMediaItem().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
+                    model.featured = updateObj.featured;
                 },
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
@@ -2649,7 +2634,9 @@
             refreshMediaItems();
         }
 
-    }
+
+
+            }
 
 })();
 (function () {
@@ -2776,9 +2763,10 @@
             update: { method: 'PUT', useToken: true },
             getPhotoAlbum: { method: 'GET', useToken: true },
             delete: { method: 'DELETE', useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'albums/ChangeStatus/:id/:status', useToken: true },
+            updateMediaItem: { method: 'PUT', url: appCONSTANTS.API_URL + 'albums/UpdateMediaItem', useToken: true },
             getMediaItems: { method: 'GET', url: appCONSTANTS.API_URL + 'albums/getMediaItems', useToken: true, isArray: true },
-            createMediaItem: { method: 'POST',url: appCONSTANTS.API_URL + 'albums/createMediaItems', useToken: true }
+            createMediaItem: { method: 'POST',url: appCONSTANTS.API_URL + 'albums/createMediaItems', useToken: true },
+            UpdateMediaItemVideoUrl: { method: 'PUT', url: appCONSTANTS.API_URL + 'albums/UpdateMediaItemVideoUrl', useToken: true }
         })
     }
 
@@ -2883,6 +2871,191 @@
 
 
 
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('createMediaItemController', ['$uibModal', '$scope', 'blockUI', '$stateParams', '$state', '$http', '$q', 'appCONSTANTS', '$translate',
+            'PhotoAlbumResource', 'ToastService', '$rootScope', createMediaItemController])
+
+    function createMediaItemController($uibModal, $scope, blockUI, $stateParams, $state, $http, $q, appCONSTANTS, $translate, PhotoAlbumResource,
+        ToastService, $rootScope) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.selectedMediaType = "";
+        vm.close = function () {
+            $state.go('PhotoAlbum');
+        }
+
+
+        vm.AddNewMediaItem = function () {
+
+            blockUI.start("Loading...");
+            var newObj = new PhotoAlbumResource();
+            newObj.Title = vm.title;
+
+            newObj.Featured = vm.isFeatured;
+            newObj.MediaType = vm.selectedMediaType;
+            newObj.AlbumId = $stateParams.id;
+            debugger;
+            if (vm.posterVideo != null) {
+                var splitVideoImage = vm.posterVideo.split(',');
+                newObj.Poster = splitVideoImage[1];
+                newObj.PosterFileName = splitVideoImage[0];
+            }
+            else {
+                var splitImage = vm.posterImage.split(',');
+                newObj.Media = splitImage[1];
+                newObj.MediaFileName = splitImage[0];
+            }
+
+
+
+            newObj.$createMediaItem().then(
+                function (data, status) {
+                    blockUI.stop();
+                    debugger;
+                    if (data.mediaType == 'image') {
+                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                        $state.go('mediaItems', { id: $stateParams.id });
+
+                    } else {
+                        openUploadDialog(data.id)
+                    }
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.title, "error");
+                }
+            );
+        }
+
+        vm.LoadUploadPoster = function () {
+            $("#posterImage").click();
+            debugger;
+        }
+        var posterImage;
+        $scope.AddposterImage = function (element) {
+            debugger;
+            var logoFile = element[0];
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newMediaItemForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        posterImage = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.posterImage = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+        }
+
+        $scope.uploadPosterFile = function (element) {
+            debugger;
+            vm.posterImage = $(element)[0].files[0];
+        };
+
+
+
+        vm.LoadUploadPosterVideo = function () {
+            $("#posterVideo").click();
+        }
+        var posterVideo;
+        $scope.AddposterVideo = function (element) {
+            var logoFile = element[0];
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newMediaItemForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        posterVideo = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.posterVideo = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+        }
+
+        $scope.uploadPosterVideoFile = function (element) {
+            debugger;
+            vm.posterVideo = $(element)[0].files[0];
+        };
+
+        function callBackUpload(model) {
+            debugger
+            var updateObj = new PhotoAlbumResource();
+            updateObj.Id = model.id;
+            updateObj.FileUrl = model.data.fileUrl;
+            updateObj.FileKey = model.data.fileKey;
+            updateObj.$UpdateMediaItemVideoUrl().then(
+                function (data, status) {
+                    debugger;
+                    $state.go('mediaItems', { id: $stateParams.id });
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function openUploadDialog(id) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
+                controller: 'uploadVideoController',
+                controllerAs: 'uploadDlCtrl',
+                resolve: {
+                    itemId: function () { return id },
+                    callBackFunction: function () { return callBackUpload }
+                }
+
+            });
+        }
+    }
 }());
 (function () {
     'use strict';
@@ -3323,9 +3496,9 @@
 
     function RoleResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Role/CreateRole', {}, {
-            getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/GetAllRoles', useToken: true },
+            getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/roles', useToken: true, isArray: true },
             getAllActivateRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Roles/GetAllActivateRoles', useToken: true, params: { lang: '@lang' } },
-            getAllPermissions: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/PermessionTree', isArray: true, useToken: true, params: { lang: '@lang' } },
+            getAllPermissions: { method: 'GET', url: appCONSTANTS.API_URL + 'permissions', isArray: true, useToken: true, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/UpdateRole', useToken: true },
             delete: { method: 'DELETE', url: appCONSTANTS.API_URL + 'Role/Delete/:roleId', useToken: true },
@@ -3333,9 +3506,302 @@
             changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/ChangeStatus/:roleId/:status', useToken: true },
 
         })
-    } 
+    }
 }());
 
+(function () {
+    angular
+        .module('home')
+        .factory('UploadChunkResource', ['$resource', 'appCONSTANTS', UploadChunkResource])
+
+    function UploadChunkResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'UploadChunks', {}, {
+            getAllUploadChunks: { method: 'POST', url: appCONSTANTS.API_URL + 'UploadChunks/search', useToken: true, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'PUT', useToken: true },
+            getUploadChunk: { method: 'GET', useToken: true },
+            delete: { method: 'DELETE', useToken: true },
+            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'UploadChunks/ChangeStatus/:id/:status', useToken: true }
+
+        })
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .config(function ($stateProvider, $urlRouterProvider) {
+
+            $stateProvider
+                .state('UploadChunk', {
+                    url: '/UploadChunk',
+                    templateUrl: './app/GlobalAdmin/UploadChunk/templates/UploadChunk.html',
+                    controller: 'UploadChunkController',
+                    'controllerAs': 'UploadChunkCtrl',
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('newUploadChunk', {
+                    url: '/newUploadChunk',
+                    templateUrl: './app/GlobalAdmin/UploadChunk/templates/new.html',
+                    controller: 'createUploadChunkDialogController',
+                    'controllerAs': 'newUploadChunkCtrl', 
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('editUploadChunk', {
+                    url: '/editUploadChunk/:id',
+                    templateUrl: './app/GlobalAdmin/UploadChunk/templates/edit.html',
+                    controller: 'editUploadChunkDialogController',
+                    'controllerAs': 'editUploadChunkCtrl',
+                    resolve: {
+                        UploadChunkByIdPrepService: UploadChunkByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+        });
+
+    UploadChunkPrepService.$inject = ['UploadChunkResource']
+    function UploadChunkPrepService(UploadChunkResource) {
+        return UploadChunkResource.getAllUploadChunks({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+
+    UploadChunkByIdPrepService.$inject = ['UploadChunkResource', '$stateParams']
+    function UploadChunkByIdPrepService(UploadChunkResource, $stateParams) {
+        return UploadChunkResource.getUploadChunk({ id: $stateParams.id }).$promise;
+    }
+
+    AllAwardPrepService.$inject = ['UploadChunkResource']
+    function AllAwardPrepService(UploadChunkResource) {
+        return UploadChunkResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+ 
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+
+        .directive("uploadVideoDirective", function ($http, $stateParams) {
+            return {
+                restrict: 'E',
+                scope: {
+                    itemId: '=id'
+                },
+                templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
+                link: function ($scope, ToastService, itemId) {
+                    $scope.LoadUploadVideo = function () {
+                        $("#file").click();
+                    }
+                    $scope.uploadVideo = function (id) {
+                        $scope.onProgress && $scope.onProgress(0);
+                        debugger
+                        itemId = $stateParams.id
+                        const file = $('#file').get(0).files[0];
+                        $scope.processFile(file);
+                    };
+
+                    const sliceSize = 5 * 1024 * 1024; 
+
+                    $scope.size = 0;
+                    $scope.processFile = function (file) {
+                        let start = 0;
+                        let uploadId = "";
+                        $scope.size = file.size;
+                        const totalChunks = Math.ceil($scope.size / sliceSize);
+                        const chunkIndex = 0;
+                        let end = 0;
+                        start = chunkIndex * sliceSize;
+                        end = start + sliceSize;
+                        $scope.send(file, start, end, chunkIndex, totalChunks, [], uploadId);
+                    };
+                    $scope.slice = function (file, start, end) {
+                        let slice = file.mozSlice ? file.mozSlice : file.webkitSlice ? file.webkitSlice : file.slice ? file.slice : $scope.noop;
+                        return slice.bind(file)(start, end);
+                    };
+                    $scope.noop = function () { };
+                    $scope.send = function (file, start, end, chunkIndex, totalChunks, etags, uploadId) {
+                        if (chunkIndex >= totalChunks) {
+                            return;
+                        }
+                        var reader = new FileReader();
+                        reader.onload = function () {
+                            var dataUrl = reader.result;
+                            var base64 = dataUrl.split(",")[1];
+                            console.log("sending ", file.name, chunkIndex);
+
+                            $scope.uploadChunkApi({ id: itemId, fileName: file.name, uploadId, chunkIndex, totalChunks, chunk: base64, eTags: etags })
+                                .then(
+                                    function (data, status) {
+                                        debugger;
+                                        var a = data;
+                                        if (a.status == 200) {
+                                            if (end < $scope.size) {
+                                                chunkIndex = chunkIndex + 1;
+                                                const newEnd = start + sliceSize * 2;
+                                                const newStart = start + sliceSize;
+                                                const percent = (chunkIndex / totalChunks) * 100;
+                                                $scope.onProgress && $scope.onProgress(percent);
+                                                $scope.send(file, newStart, newEnd, chunkIndex, totalChunks, a.data.eTags, a.data.uploadId);
+                                            } else {
+                                                $scope.onProgress && $scope.onProgress(100);
+                                                ToastService.show("right", "bottom", "fadeInUp", "File uploaded", "success");
+
+                                            }
+                                        } else {
+                                            ToastService.show("right", "bottom", "fadeInUp", a.data.errors, "error");
+                                            console.error("sending error", file.name, chunkIndex, a.data);
+                                        }
+                                    },
+                                    function (data, status) {
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.title, "error");
+                                    }
+                                );
+                        };
+
+                        const slicedPart = $scope.slice(file, start, end);
+                        reader.readAsDataURL(slicedPart);
+                    };
+
+                    $scope.uploadChunkApi = function ({ id, ...data }) {
+
+
+                        return $http({
+                            method: 'POST',
+                            url: `http://localhost:62912/api/test/artwork/${id}/files`,
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            data: data,
+                        });
+                    };
+                    $scope.onProgress = function (evt) {
+                        debugger;
+                        var element = angular.element(document.querySelector('#dvProgress'));
+                        $scope.Progress = Math.round(evt);
+                        element.html('<div style="width: ' + $scope.Progress + '%">' + $scope.Progress + '%</div>');
+                    }
+                }
+            };
+        })
+        .controller('uploadVideoController', ['$uibModalInstance', 'itemId', '$scope', '$http', 'ToastService', 'callBackFunction', uploadVideoController])
+
+    function uploadVideoController($uibModalInstance, itemId, $scope, $http, ToastService, callBackFunction) {
+        var vm = this;
+        $scope.LoadUploadVideo = function () {
+            $("#file").click();
+        }
+        $scope.uploadVideo = function (id) {
+            $scope.onProgress && $scope.onProgress(0);
+            debugger
+            const file = $('#file').get(0).files[0];
+            $scope.processFile(file);
+        };
+
+        const sliceSize = 5 * 1024 * 1024; 
+
+        $scope.size = 0;
+        $scope.processFile = function (file) {
+            let start = 0;
+            let uploadId = "";
+            $scope.size = file.size;
+            const totalChunks = Math.ceil($scope.size / sliceSize);
+            const chunkIndex = 0;
+            let end = 0;
+            start = chunkIndex * sliceSize;
+            end = start + sliceSize;
+            $scope.send(file, start, end, chunkIndex, totalChunks, [], uploadId);
+        };
+        $scope.slice = function (file, start, end) {
+            let slice = file.mozSlice ? file.mozSlice : file.webkitSlice ? file.webkitSlice : file.slice ? file.slice : $scope.noop;
+            return slice.bind(file)(start, end);
+        };
+        $scope.noop = function () { };
+        $scope.send = function (file, start, end, chunkIndex, totalChunks, etags, uploadId) {
+            if (chunkIndex >= totalChunks) {
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function () {
+                var dataUrl = reader.result;
+                var base64 = dataUrl.split(",")[1];
+                console.log("sending ", file.name, chunkIndex);
+
+                $scope.uploadChunkApi({ id: itemId, fileName: file.name, uploadId, chunkIndex, totalChunks, chunk: base64, eTags: etags })
+                    .then(
+                        function (data, status) {
+                            debugger;
+                            var a = data;
+                            if (a.status == 200) {
+                                if (end < $scope.size) {
+                                    chunkIndex = chunkIndex + 1;
+                                    const newEnd = start + sliceSize * 2;
+                                    const newStart = start + sliceSize;
+                                    const percent = (chunkIndex / totalChunks) * 100;
+                                    $scope.onProgress && $scope.onProgress(percent);
+                                    $scope.send(file, newStart, newEnd, chunkIndex, totalChunks, a.data.eTags, a.data.uploadId);
+                                } else {
+                                    $scope.onProgress && $scope.onProgress(100);
+                                    ToastService.show("right", "bottom", "fadeInUp", "File uploaded", "success");
+                                    $uibModalInstance.dismiss();
+                                    data.id = itemId;
+                                    callBackFunction(data);
+                                }
+                            } else {
+                                ToastService.show("right", "bottom", "fadeInUp", a.data.errors, "error");
+                                console.error("sending error", file.name, chunkIndex, a.data);
+                            }
+                        },
+                        function (data, status) {
+                            ToastService.show("right", "bottom", "fadeInUp", data.data.title, "error");
+                        }
+                    );
+            };
+
+            const slicedPart = $scope.slice(file, start, end);
+            reader.readAsDataURL(slicedPart);
+        };
+
+        $scope.uploadChunkApi = function ({ id, ...data }) {
+
+            return $http({
+                method: 'POST',
+                url: `http://localhost:62912/api/albums/mediaItems/${id}/files`,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: data,
+            });
+        };
+        $scope.onProgress = function (evt) {
+            debugger;
+            var element = angular.element(document.querySelector('#dvProgress'));
+            $scope.Progress = Math.round(evt);
+            element.html('<div style="width: ' + $scope.Progress + '%">' + $scope.Progress + '%</div>');
+        }
+        vm.Confirm = function () {
+            callBackFunction(model);
+            $uibModalInstance.dismiss();
+        }
+
+    }
+}());
 (function () {
     'use strict';
 

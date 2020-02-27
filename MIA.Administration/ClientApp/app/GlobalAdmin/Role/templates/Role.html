@@ -1,6 +1,4 @@
-<div id="bold">
-    {{'Role' | translate}}
-</div>
+ 
 <div>
     <!-- <div style="margin-bottom:10px">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go('newRole');"
@@ -9,10 +7,10 @@
 
     </div>   -->
 
-    <div ng-if="RoleList.results.length == 0">
+    <div ng-if="RoleList.length == 0">
         <span>{{'NoRolesAvailable' | translate}}</span>
     </div>
-    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="RoleList.results.length > 0">
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="RoleList.length > 0">
         <div class="table-responsive">
         <table class="table pmd-table table-hover">
             <thead>
@@ -23,8 +21,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="role in RoleList.results">
-                    <td >{{role.titles[selectedLanguage]}}</td>
+                <tr ng-repeat="role in RoleList">
+                    <td >{{role.name}}</td>
                     <!-- <td ng-show="!role.isDefault">
                         <div class="btn-switch" ng-class="{'btn-switch--on':role.isActive}" ng-model="role.isActive"
                             ng-click="RoleCtrl.ChangeStatus(role)">
@@ -36,7 +34,7 @@
 
                     <td >
                         <i class="material-icons md-dark pmd-md cursorPointer font25"
-                            ng-click="$state.go('editRole',{roleId: role.userGroupId});"title="Edit">mode_edit</i>
+                            ng-click="$state.go('editRole',{roleId: role.id});"title="Edit">mode_edit</i>
                         <!-- <i class="material-icons pmd-md deleteButton cursorPointer font25"
                             ng-click="RoleCtrl.openDeleteDialog(role,role.titles[selectedLanguage],role.userGroupId)">delete</i> -->
                     </td>
