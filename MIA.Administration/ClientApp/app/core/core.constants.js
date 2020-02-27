@@ -1,5 +1,5 @@
 (function() {
-  const apiBaseUrl = "http://localhost:62912";
+  const apiBaseUrl = (process.env.NODE_ENV = "production" ? "/" : "http://localhost:62912");
   angular
     .module("core")
     .constant("appCONSTANTS", {
@@ -13,8 +13,8 @@
 
       defaultLanguage: "ar",
       supportedLanguage: {
-        "en": { key: "en", value: "english" },
-        "ar": { key: "ar", value: "arabic" }
+        en: { key: "en", value: "english" },
+        ar: { key: "ar", value: "arabic" }
       }
     })
     .constant("messageTypeEnum", {
