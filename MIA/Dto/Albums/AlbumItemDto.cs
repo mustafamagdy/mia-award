@@ -5,6 +5,7 @@ namespace MIA.Api {
   public class AlbumItemDto : BaseDto {
     public string Id { get; set; }
     public string FileUrl { get; set; }
+    public string PosterUrl { get; set; }
     public int Order { get; set; }
     public MediaType MediaType { get; set; }
     public bool Featured { get; set; }

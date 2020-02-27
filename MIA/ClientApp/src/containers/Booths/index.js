@@ -98,27 +98,31 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
             </div>
           </div>
           <div className="col_right">
-            <div className="tabs_links">
-              <ul>
-                <TabList
-                  activeClassName="active"
-                  activeIndex={activeIndex}
-                  activeTabKey={activeTabKey}
-                  handleActiveTabWithKey={handleActiveTab}
-                >
-                  {tabs.map((t, i) => (
-                    <Tab key={t} tabKey={t}>
-                      <li>
-                        <Trans id={t}>{t}</Trans>
-                      </li>
-                    </Tab>
-                  ))}
-                </TabList>
-              </ul>
-            </div>
+            {!boothBooked && (
+              <div className="tabs_links">
+                <ul>
+                  <TabList
+                    activeClassName="active"
+                    activeIndex={activeIndex}
+                    activeTabKey={activeTabKey}
+                    handleActiveTabWithKey={handleActiveTab}
+                  >
+                    {tabs.map((t, i) => (
+                      <Tab key={t} tabKey={t}>
+                        <li>
+                          <Trans id={t}>{t}</Trans>
+                        </li>
+                      </Tab>
+                    ))}
+                  </TabList>
+                </ul>
+              </div>
+            )}
             <div id="zoom-img" className="tabs_content" />
             <div className="tabs_content">
-              {!boothBooked && (
+              {!!boothBooked ? (
+                <Confirmation active={boothBooked} success={true} />
+              ) : (
                 <>
                   <Info active={activeTabKey == "info"} register={register} booths={booths} />
                   <Details active={activeTabKey == "details"} register={register} />
@@ -134,7 +138,6 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                   />
                 </>
               )}
-              <Confirmation finished={boothBooked} success={true} />
             </div>
           </div>
         </div>
@@ -280,7 +283,7 @@ const Payment = ({ active, register, useOnlinePayment, setPaymentMethod, setPaym
                   <Trans id="choose_receipt_image">Choose receipt image</Trans>
                 </label>
                 <div className="next_step">
-                  <button type="button">
+                  <button type="button" type="submit" form="offline-payment">
                     <Trans id="book_now">Book Now</Trans>
                   </button>
                 </div>
@@ -306,8 +309,9 @@ const Confirmation = ({ active, success, ...props }) => {
   );
 };
 
-const mapStateToProps = ({ home: { booths } }) => ({
-  booths
+const mapStateToProps = ({ home: { booths, boothBooked } }) => ({
+  booths,
+  boothBooked
 });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Booths);
