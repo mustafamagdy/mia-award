@@ -23,6 +23,7 @@ using X.PagedList;
 using AutoMapper.QueryableExtensions;
 using MIA.ORMContext;
 using MIA.Infrastructure;
+using MIA.Exceptions;
 
 namespace MIA.Administration.Api
 {
@@ -71,14 +72,41 @@ namespace MIA.Administration.Api
       var album = await db.Albums.FindAsync(resultDto.Id);
       int order = 1;
       var albumItems = new List<AlbumItem>();
+      string posterKey, posterUrl = string.Empty;
+      //   string posterKey = string.Empty;
       foreach (var file in dto.Files)
       {
         if (file != null)//&& file.Length > 0)
         {
+          //if (file.MediaType == MediaType.Video)
+          //{
+          //  using (var memorySteam = new MemoryStream(file.Poster))
+          //  {
+          //    string validationError = "";
+          //    if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
+          //    {
+          //      return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+          //    }
+
+          //    string posterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, album.Id, file.PosterFileName);
+          //    var posterUrl = await fileManager.UploadFileAsync(memorySteam, posterKey);
+          //    var albumItem = new AlbumItem
+          //    {
+          //      FileKey = file.FileKey,
+          //      FileUrl = file.FileUrl,
+          //      PosterKey = posterKey,
+          //      PosterUrl = posterUrl,
+          //      MediaType = GetMediaType(file.MediaFileName),
+          //      AlbumId = album.Id,
+          //      Order = order++
+          //    };
+          //    albumItems.Add(albumItem);
+          //  };
+          //}
+          //else
+          //{
           using (var memorySteam = new MemoryStream(file.Media))
           {
-            // file.CopyTo(memorySteam);
-
             string validationError = "";
             if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
             {
@@ -88,16 +116,30 @@ namespace MIA.Administration.Api
             string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, album.Id, file.MediaFileName);
             var fileUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
+            using (var memorySteamPoster = new MemoryStream(file.Poster))
+            {
+              string validationPosterError = "";
+              if (memorySteamPoster.ValidateImage(limitOptions.Value, out validationPosterError) == false)
+              {
+                return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+              }
+
+              posterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, album.Id, file.PosterFileName);
+              posterUrl = await fileManager.UploadFileAsync(memorySteamPoster, posterKey);
+            };
             var albumItem = new AlbumItem
             {
               FileKey = fileKey,
               FileUrl = fileUrl,
+              PosterKey = posterKey,
+              PosterUrl = posterUrl,
               MediaType = GetMediaType(file.MediaFileName),
               AlbumId = album.Id,
               Order = order++
             };
             albumItems.Add(albumItem);
           };
+          // }
         }
       }
 
@@ -182,8 +224,10 @@ namespace MIA.Administration.Api
     public async Task<IActionResult> CreateMediaItemsAsync([FromBody] NewMediasDto dto, [FromServices] IAppUnitOfWork db)
     {
       var mediaItem = db.AlbumItems.Where(a => a.Id == dto.AlbumId);
-
+      string filePosterKey = String.Empty;
+      var filePosterUrl = "";
       var maxOrder = mediaItem.DefaultIfEmpty().Max(a => a.Order);
+      var albumItem = new AlbumItem();
       if (dto.Media != null)
       {
         using (var memorySteam = new MemoryStream(dto.Media))
@@ -197,20 +241,66 @@ namespace MIA.Administration.Api
           string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, dto.AlbumId, dto.MediaFileName);
           var fileUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
-          var albumItem = new AlbumItem
+          if (dto.Poster != null)
+          {
+            using (var memorySteamPoster = new MemoryStream(dto.Poster))
+            {
+              string validationPosterError = "";
+              if (memorySteamPoster.ValidateImage(limitOptions.Value, out validationError) == false)
+              {
+                return ValidationError(System.Net.HttpStatusCode.BadRequest, validationPosterError);
+              }
+
+              filePosterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, dto.AlbumId, dto.PosterFileName);
+              filePosterUrl = await fileManager.UploadFileAsync(memorySteamPoster, filePosterKey);
+
+            }
+          }
+
+            albumItem = new AlbumItem
           {
             FileKey = fileKey,
             FileUrl = fileUrl,
+            PosterKey = filePosterKey,
+            PosterUrl = filePosterUrl,
             MediaType = dto.MediaType,
             Featured = dto.Featured,
             AlbumId = dto.AlbumId,
+            Title = dto.Title,
             Order = maxOrder
           };
           db.AlbumItems.Add(albumItem);
 
         };
       }
-      return IfFound(_mapper.Map<PhotoAlbumDto>(mediaItem));
+      else
+      {
+        using (var memorySteam = new MemoryStream(dto.Poster))
+        {
+          string validationError = "";
+          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
+          {
+            return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+          }
+
+          filePosterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, dto.AlbumId, dto.PosterFileName);
+          filePosterUrl  = await fileManager.UploadFileAsync(memorySteam, filePosterKey); 
+
+            albumItem = new AlbumItem
+          { 
+            PosterKey = filePosterKey,
+            PosterUrl = filePosterUrl,
+            MediaType = dto.MediaType,
+            Featured = dto.Featured,
+            AlbumId = dto.AlbumId,
+            Title = dto.Title,
+            Order = maxOrder
+          };
+          db.AlbumItems.Add(albumItem);
+
+        };
+      }
+      return Ok(albumItem);
 
     }
     [HttpDelete("deleteMediaItems")]
@@ -219,11 +309,75 @@ namespace MIA.Administration.Api
       var entity = db.Set<AlbumItem>().FirstOrDefault(a => a.Id == id);
       if (entity == null)
         return NotFound404("record not found");
-
+      //   IS3FileManager.DeleteFileAsync(entity.PosterKey);
       db.Set<AlbumItem>().Remove(entity);
       return IfFound(entity);
 
     }
+    [HttpPut("UpdateMediaItem")]
+    public async Task<IActionResult> UpdateMediaItemAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db)
+    {
+      var mediaItem = await db.AlbumItems.FirstOrDefaultAsync(a => a.Id == dto.Id);
+      mediaItem.Featured = dto.Featured;
+      mediaItem.Title = dto.Title; 
+
+      var entry = db.Set<AlbumItem>().Attach(mediaItem);
+      entry.State = EntityState.Modified;
+      await db.CommitTransactionAsync();
+      return IfFound(_mapper.Map<PhotoAlbumFileDto>(mediaItem));
+    }
+    [HttpPut("UpdateMediaItemVideoUrl")]
+    public async Task<IActionResult> UpdateMediaItemVideoUrlAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db)
+    {
+      var mediaItem = await db.AlbumItems.FirstOrDefaultAsync(a => a.Id == dto.Id); 
+      mediaItem.FileUrl = dto.FileUrl;
+      mediaItem.FileKey = dto.FileKey;
+
+      var entry = db.Set<AlbumItem>().Attach(mediaItem);
+      entry.State = EntityState.Modified;
+      await db.CommitTransactionAsync();
+      return IfFound(_mapper.Map<PhotoAlbumFileDto>(mediaItem));
+    }
+
+    [HttpPost("mediaItems/{id}/files")]
+    public async Task<IActionResult> UploadArtworkFiles(
+      [FromRoute] string id,
+      [FromServices] IAppUnitOfWork db,
+      [FromServices] IS3FileManager fileManager,
+      FileChunkDto dto)
+    {
+      try
+      {
+        var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.ArtWork, id);
+        var result = await fileManager.UploadChunk(tempDir, dto);
+        if (!string.IsNullOrEmpty(result.FinalUrl))
+        {
+          //move file to final directory of the artwork files
+          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, id, dto.FileName);
+          var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
+
+          var mediaFile = new AlbumItem
+          {
+            FileKey = fileKey,
+            FileUrl = fileUrl
+          };
+
+          //TODO: uncomment 
+          return Ok(mediaFile);
+        }
+        else
+        {
+          return Ok(result);
+        }
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Failed to upload file");
+        throw new ApiException(ApiErrorType.FailedToUploadChunkedFile, $"{ex.Message}");
+      }
+    }
   }
 
+
 }
+

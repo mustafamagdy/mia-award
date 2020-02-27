@@ -1,0 +1,11 @@
+{
+  "mia_awards": {
+    "defaults": "MIA Awards",
+    "origin": [
+      [
+        "src/components/Layout/index.js",
+        71
+      ]
+    ]
+  }
+}

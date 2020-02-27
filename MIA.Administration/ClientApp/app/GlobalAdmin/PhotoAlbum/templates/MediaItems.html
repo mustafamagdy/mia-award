@@ -19,20 +19,37 @@
                 <thead>
                     <tr>
                         <th>{{'image' | translate}}</th>
+                        <th>{{'type' | translate}}</th>
+                        <th>{{'featured' | translate}}</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="mediaItems in mediaItemCtrl.mediaItemList">
+                    <tr ng-repeat="mediaItem in mediaItemCtrl.mediaItemList">
 
-                        <td>
-                            <img style="width: 70px;height: 70px;" data-ng-src="{{mediaItems.fileUrl}}" />
+                        <td ng-show="mediaItem.mediaType =='image'">
+                            <img style="width: 70px;height: 70px;" data-ng-src="{{mediaItem.fileUrl}}" />
                         </td>
 
+                        <td ng-show="mediaItem.mediaType =='video'">
+                            <img style="width: 70px;height: 70px;" data-ng-src="{{mediaItem.posterUrl}}" />
+                        </td>
+                        <td>
+                            {{mediaItem.mediaType}}
+                        </td>
+
+                        <td>
+                            <div class="btn-switch" ng-class="{'btn-switch--on':mediaItem.featured}"
+                                ng-click="mediaItemCtrl.ChangeStatus(mediaItem)" ng-model="mediaItem.featured">
+
+                                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':mediaItem.featured}"
+                                    ng-click="mediaItemCtrl.ChangeStatus(mediaItem)" ng-model="mediaItem.featured">
+                                </div>
+                        </td>
                         <td width="30%">
                             <i ng-show="user.PermessionModules['News'].includes('remove')"
                                 class="material-icons pmd-md deleteButton cursorPointer font25"
-                                ng-click="mediaItemCtrl.openDeleteDialog(mediaItems,mediaItems.title[selectedLanguage] ,mediaItems.id)"
+                                ng-click="mediaItemCtrl.openDeleteDialog(mediaItem,mediaItem.title[selectedLanguage] ,mediaItem.id)"
                                 title="Delete">delete</i>
                         </td>
                     </tr>

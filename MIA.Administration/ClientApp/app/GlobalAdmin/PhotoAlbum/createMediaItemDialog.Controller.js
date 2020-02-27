@@ -3,41 +3,55 @@
 
     angular
         .module('home')
-        .controller('createPhotoAlbumDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'PhotoAlbumResource', 'ToastService', '$rootScope', createPhotoAlbumDialogController])
+        .controller('createMediaItemController', ['$uibModal', '$scope', 'blockUI', '$stateParams', '$state', '$http', '$q', 'appCONSTANTS', '$translate',
+            'PhotoAlbumResource', 'ToastService', '$rootScope', createMediaItemController])
 
-    function createPhotoAlbumDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, PhotoAlbumResource,
+    function createMediaItemController($uibModal, $scope, blockUI, $stateParams, $state, $http, $q, appCONSTANTS, $translate, PhotoAlbumResource,
         ToastService, $rootScope) {
         var vm = this;
-        $rootScope.image = null;
-        vm.selectedMediaType = "";
-        vm.posterImage = [];
-        vm.files = [];
         vm.language = appCONSTANTS.supportedLanguage;
+        vm.selectedMediaType = "";
         vm.close = function () {
             $state.go('PhotoAlbum');
         }
 
 
-        vm.AddNewPhotoAlbum = function () {
-            angular.forEach(vm.posterImage, function (value, key) {
-                var splitImage = value.split(',');
+        vm.AddNewMediaItem = function () {
 
-                vm.files.push({
-                    Media: splitImage[1],
-                    MediaFileName: splitImage[0]
-                });
-
-            });
             blockUI.start("Loading...");
             var newObj = new PhotoAlbumResource();
-            newObj.Title = vm.titleDictionary;
-            newObj.Files = vm.files;
-            newObj.$create().then(
+            newObj.Title = vm.title;
+
+            newObj.Featured = vm.isFeatured;
+            newObj.MediaType = vm.selectedMediaType;
+            newObj.AlbumId = $stateParams.id;
+            debugger;
+            if (vm.posterVideo != null) {
+                var splitVideoImage = vm.posterVideo.split(',');
+                newObj.Poster = splitVideoImage[1];
+                newObj.PosterFileName = splitVideoImage[0];
+            }
+            else {
+                var splitImage = vm.posterImage.split(',');
+                newObj.Media = splitImage[1];
+                newObj.MediaFileName = splitImage[0];
+            }
+
+            // newObj.FileKey = splitImage[1];
+            // newObj.FileUrl = splitImage[0];
+
+
+            newObj.$createMediaItem().then(
                 function (data, status) {
                     blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    $state.go('PhotoAlbum');
+                    debugger;
+                    if (data.mediaType == 'image') {
+                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                        $state.go('mediaItems', { id: $stateParams.id });
+
+                    } else {
+                        openUploadDialog(data.id)
+                    }
                 },
                 function (data, status) {
                     blockUI.stop();
@@ -48,47 +62,44 @@
 
         vm.LoadUploadPoster = function () {
             $("#posterImage").click();
+            debugger;
         }
         var posterImage;
         $scope.AddposterImage = function (element) {
+            debugger;
+            var logoFile = element[0];
             var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
-            var logoFile = "";
 
-            angular.forEach(element, function (value, key) {
-                logoFile = value;
-                if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
 
-                    if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
-                        $scope.newPhotoAlbumForm.$dirty = true;
-                        $scope.$apply(function () {
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newMediaItemForm.$dirty = true;
+                    $scope.$apply(function () {
 
-                            posterImage = logoFile;
-                            var reader = new FileReader();
+                        posterImage = logoFile;
+                        var reader = new FileReader();
 
-                            reader.onloadend = function () {
-                                vm.posterImage.push(reader.result);
+                        reader.onloadend = function () {
+                            vm.posterImage = reader.result;
 
-                                $scope.$apply();
-                            };
-                            if (logoFile) {
-                                reader.readAsDataURL(logoFile);
-                            }
-                        })
-                    } else {
-                        $("#logoImage").val('');
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
-                    }
-
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
                 } else {
-                    if (logoFile) {
-                        $("#logoImage").val('');
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
-                    }
-
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
                 }
-            });
 
-            console.log(vm.posterImage);
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
         }
 
         $scope.uploadPosterFile = function (element) {
@@ -96,5 +107,81 @@
             vm.posterImage = $(element)[0].files[0];
         };
 
+
+
+        vm.LoadUploadPosterVideo = function () {
+            $("#posterVideo").click();
+        }
+        var posterVideo;
+        $scope.AddposterVideo = function (element) {
+            var logoFile = element[0];
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newMediaItemForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        posterVideo = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.posterVideo = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+        }
+
+        $scope.uploadPosterVideoFile = function (element) {
+            debugger;
+            vm.posterVideo = $(element)[0].files[0];
+        };
+
+        function callBackUpload(model) {
+            debugger
+            var updateObj = new PhotoAlbumResource();
+            updateObj.Id = model.id;
+            updateObj.FileUrl = model.data.fileUrl;
+            updateObj.FileKey = model.data.fileKey;
+            updateObj.$UpdateMediaItemVideoUrl().then(
+                function (data, status) {
+                    debugger;
+                    $state.go('mediaItems', { id: $stateParams.id });
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function openUploadDialog(id) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
+                controller: 'uploadVideoController',
+                controllerAs: 'uploadDlCtrl',
+                resolve: {
+                    itemId: function () { return id },
+                    callBackFunction: function () { return callBackUpload }
+                }
+
+            });
+        }
     }
 }());

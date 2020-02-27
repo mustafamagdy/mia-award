@@ -1,4 +1,4 @@
-(function() {
+(function () {
   "use strict";
 
   angular
@@ -26,13 +26,13 @@
       blockUI.start("Loading...");
 
       var k = ArtWorkResource.getAllArtWorks({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(
-        function(results) {
+        function (results) {
           $scope.ArtWorkList = results.items;
           $scope.totalCount = results.metadata.totalItemCount;
           console.log($scope.ArtWorkList);
           blockUI.stop();
         },
-        function(data, status) {
+        function (data, status) {
           blockUI.stop();
           ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
         }
@@ -45,78 +45,78 @@
       updateObj.isDeleted = artWork.isDeleted;
 
       updateObj.$update().then(
-        function(data, status) {
+        function (data, status) {
           // if (isDeleted)
           refreshArtWorks();
 
           ToastService.show("right", "bottom", "fadeInUp", $translate.instant("Editeduccessfully"), "success");
           artWork.status = updateObj.status;
         },
-        function(data, status) {
+        function (data, status) {
           ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
         }
       );
     }
-    vm.UpdateArtWork = function(artWork) {
+    vm.UpdateArtWork = function (artWork) {
       change(artWork, false);
     };
 
     function confirmationDelete(model) {
       var updateObj = new ArtWorkResource();
       updateObj.$delete({ id: model.id }).then(
-        function(data, status) {
+        function (data, status) {
           refreshArtWorks();
           ToastService.show("right", "bottom", "fadeInUp", $translate.instant("DeletedSuccessfully"), "success");
         },
-        function(data, status) {
+        function (data, status) {
           ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
         }
       );
     }
-    vm.openDeleteDialog = function(model, name, id) {
+    vm.openDeleteDialog = function (model, name, id) {
       var modalContent = $uibModal.open({
         templateUrl: "./app/core/Delete/templates/ConfirmDeleteDialog.html",
         controller: "confirmDeleteDialogController",
         controllerAs: "deleteDlCtrl",
         resolve: {
-          model: function() {
+          model: function () {
             return model;
           },
-          itemName: function() {
+          itemName: function () {
             return name;
           },
-          itemId: function() {
+          itemId: function () {
             return id;
           },
-          message: function() {
+          message: function () {
             return null;
           },
-          callBackFunction: function() {
+          callBackFunction: function () {
             return confirmationDelete;
           }
         }
       });
     };
-    vm.ChangeStatus = function(model) {
+    vm.ChangeStatus = function (model) {
       var updateObj = new ArtWorkResource();
       updateObj.id = model.id;
       updateObj.title = model.title;
       updateObj.body = model.body;
       updateObj.outdated = model.outdated == true ? false : true;
       updateObj.$update().then(
-        function(data, status) {
+        function (data, status) {
           //  refreshArtWorks();
           ToastService.show("right", "bottom", "fadeInUp", $translate.instant("Editeduccessfully"), "success");
           model.outdated = updateObj.outdated;
         },
-        function(data, status) {
+        function (data, status) {
           ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
         }
       );
       return;
     };
 
-    vm.changePage = function(page) {
+    vm.changePage = function (page) {
       vm.currentPage = page;
       refreshArtWorks();
     };

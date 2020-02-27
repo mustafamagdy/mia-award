@@ -3,6 +3,7 @@ using MIA.Administration.Api;
 using MIA.Administration.Dto.ArtWorkPayment;
 using MIA.Administration.Dto.Award;
 using MIA.Administration.Dto.User;
+using MIA.Dto.Admin;
 using MIA.Models.Entities;
 
 namespace MIA.Administration.MappingProfiles
@@ -67,8 +68,8 @@ namespace MIA.Administration.MappingProfiles
       #region PhotoAlbum
 
 
-      CreateMap<AlbumItem, PhotoAlbumFileDto>() 
-         .ValidateMemberList(MemberList.None);
+      CreateMap<AlbumItem, PhotoAlbumFileDto>().ValidateMemberList(MemberList.None);
+      CreateMap<NewMediasDto, AlbumItem>().ValidateMemberList(MemberList.None);
 
 
       CreateMap<AlbumItem, PhotoAlbumFileDto>()
@@ -152,6 +153,11 @@ namespace MIA.Administration.MappingProfiles
       CreateMap<NewJudgeCommentDto, JudgeComment>().ValidateMemberList(MemberList.None);
 
       #endregion
+
+      //#region Role
+      //CreateMap<Role, RoleDto>().ValidateMemberList(MemberList.None); 
+
+      //#endregion
 
     }
 

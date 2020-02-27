@@ -27,33 +27,7 @@
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
-        }
-        function change(MediaItem, isDeleted) {
-            var updateObj = new PhotoAlbumResource();
-            updateObj.id = MediaItem.id;
-            if (!isDeleted)
-                updateObj.status = (MediaItem.status == true ? false : true);
-            updateObj.isDeleted = MediaItem.isDeleted;
-
-            updateObj.$update().then(
-                function (data, status) {
-                    // if (isDeleted)
-                    refreshMediaItems();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    MediaItem.status = updateObj.status;
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-        vm.UpdateMediaItem = function (MediaItem) {
-            change(MediaItem, false);
-        }
-
+        } 
         function confirmationDelete(model) {
             var obj = new PhotoAlbumResource();
             obj.$deleteMediaItems({ id: model.id }).then(
@@ -83,15 +57,13 @@
         }
         vm.ChangeStatus = function (model) {
             var updateObj = new PhotoAlbumResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
+            updateObj.id = model.id; 
+            updateObj.featured = (model.featured == true ? false : true);
+            updateObj.$updateMediaItem().then(
                 function (data, status) {
                     //  refreshMediaItems();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
+                    model.featured = updateObj.featured;
                 },
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
@@ -105,6 +77,8 @@
             refreshMediaItems();
         }
 
+
+        
     }
 
 })();
