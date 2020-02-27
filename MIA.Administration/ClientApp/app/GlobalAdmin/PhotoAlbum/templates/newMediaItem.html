@@ -89,28 +89,28 @@
                             <div class="form-group pmd-textfield-floating-label-completed">
                                 <span style="color:red">Must upload cover to video</span>
                                 <br>
-                                <input id="posterImage" name="posterImage" style="display: none;"  
-                                    onchange="angular.element(this).scope().AddposterImage(this.files)" type="file"
+                                <input id="posterVideo" name="posterVideo" style="display: none;"  
+                                    onchange="angular.element(this).scope().AddposterVideo(this.files)" type="file"
                                     required>
                                 <button class="btn btn-success btn-xs pull-center" type="button"
-                                    ng-click="newMediaItemCtrl.LoadUploadPoster()">{{'Upload Image' | translate}}</button>
+                                    ng-click="newMediaItemCtrl.LoadUploadPosterVideo()">{{'Upload Image' | translate}}</button>
                                 <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
                                     {{'RecommendedProductImage' | translate}}</span>
-                                <img ng-src="{{newMediaItemCtrl.posterImage}}"
+                                <img ng-src="{{newMediaItemCtrl.posterVideo}}"
                                     style="max-height: 139px;max-width: 423px;">
 
-                                <div ng-messages="newMediaItemForm.posterImage.$error">
-                                    <div ng-if="newMediaItemForm.posterImage.$error.required">
+                                <div ng-messages="newMediaItemForm.posterVideo.$error">
+                                    <div ng-if="newMediaItemForm.posterVideo.$error.required">
                                         {{'requiredErr' | translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group col-lg-4">
+                        <!-- <div class="form-group col-lg-4">
                             <upload-video-directive id='$stateParams.id'></upload-video-directive>
 
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -120,7 +120,7 @@
     </div>
     <div class="pmd-modal-action text-right">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-disabled="newMediaItemForm.$invalid || newMediaItemCtrl.posterImage ==null"
+            ng-disabled="newMediaItemForm.$invalid && (newMediaItemCtrl.posterImage ==null || newMediaItemCtrl.posterVideo ==null)"
             class="btn pmd-ripple-effect btn-primary" type="button"
             ng-click="newMediaItemCtrl.AddNewMediaItem()">{{'saveChangesBtn' | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" type="button"

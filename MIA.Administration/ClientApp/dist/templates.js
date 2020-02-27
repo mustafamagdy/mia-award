@@ -2127,6 +2127,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <thead>\n' +
     '                    <tr>\n' +
     '                        <th>{{\'image\' | translate}}</th>\n' +
+    '                        <th>{{\'type\' | translate}}</th>\n' +
     '                        <th>{{\'featured\' | translate}}</th>\n' +
     '                        <th></th>\n' +
     '                    </tr>\n' +
@@ -2134,9 +2135,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <tbody>\n' +
     '                    <tr ng-repeat="mediaItem in mediaItemCtrl.mediaItemList">\n' +
     '\n' +
-    '                        <td>\n' +
+    '                        <td ng-show="mediaItem.mediaType ==\'image\'">\n' +
     '                            <img style="width: 70px;height: 70px;" data-ng-src="{{mediaItem.fileUrl}}" />\n' +
     '                        </td>\n' +
+    '\n' +
+    '                        <td ng-show="mediaItem.mediaType ==\'video\'">\n' +
+    '                            <img style="width: 70px;height: 70px;" data-ng-src="{{mediaItem.posterUrl}}" />\n' +
+    '                        </td>\n' +
+    '                        <td>\n' +
+    '                            {{mediaItem.mediaType}}\n' +
+    '                        </td>\n' +
+    '\n' +
     '                        <td>\n' +
     '                            <div class="btn-switch" ng-class="{\'btn-switch--on\':mediaItem.featured}"\n' +
     '                                ng-click="mediaItemCtrl.ChangeStatus(mediaItem)" ng-model="mediaItem.featured">\n' +
@@ -2514,28 +2523,28 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <div class="form-group pmd-textfield-floating-label-completed">\n' +
     '                                <span style="color:red">Must upload cover to video</span>\n' +
     '                                <br>\n' +
-    '                                <input id="posterImage" name="posterImage" style="display: none;"  \n' +
-    '                                    onchange="angular.element(this).scope().AddposterImage(this.files)" type="file"\n' +
+    '                                <input id="posterVideo" name="posterVideo" style="display: none;"  \n' +
+    '                                    onchange="angular.element(this).scope().AddposterVideo(this.files)" type="file"\n' +
     '                                    required>\n' +
     '                                <button class="btn btn-success btn-xs pull-center" type="button"\n' +
-    '                                    ng-click="newMediaItemCtrl.LoadUploadPoster()">{{\'Upload Image\' | translate}}</button>\n' +
+    '                                    ng-click="newMediaItemCtrl.LoadUploadPosterVideo()">{{\'Upload Image\' | translate}}</button>\n' +
     '                                <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>\n' +
     '                                    {{\'RecommendedProductImage\' | translate}}</span>\n' +
-    '                                <img ng-src="{{newMediaItemCtrl.posterImage}}"\n' +
+    '                                <img ng-src="{{newMediaItemCtrl.posterVideo}}"\n' +
     '                                    style="max-height: 139px;max-width: 423px;">\n' +
     '\n' +
-    '                                <div ng-messages="newMediaItemForm.posterImage.$error">\n' +
-    '                                    <div ng-if="newMediaItemForm.posterImage.$error.required">\n' +
+    '                                <div ng-messages="newMediaItemForm.posterVideo.$error">\n' +
+    '                                    <div ng-if="newMediaItemForm.posterVideo.$error.required">\n' +
     '                                        {{\'requiredErr\' | translate}}\n' +
     '                                    </div>\n' +
     '                                </div>\n' +
     '                            </div>\n' +
     '                        </div>\n' +
     '\n' +
-    '                        <div class="form-group col-lg-4">\n' +
+    '                        <!-- <div class="form-group col-lg-4">\n' +
     '                            <upload-video-directive id=\'$stateParams.id\'></upload-video-directive>\n' +
     '\n' +
-    '                        </div>\n' +
+    '                        </div> -->\n' +
     '                    </div>\n' +
     '                </div>\n' +
     '\n' +
@@ -2545,7 +2554,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
     '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="newMediaItemForm.$invalid || newMediaItemCtrl.posterImage ==null"\n' +
+    '            ng-disabled="newMediaItemForm.$invalid && (newMediaItemCtrl.posterImage ==null || newMediaItemCtrl.posterVideo ==null)"\n' +
     '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
     '            ng-click="newMediaItemCtrl.AddNewMediaItem()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +

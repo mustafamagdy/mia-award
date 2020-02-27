@@ -19,6 +19,7 @@
                 <thead>
                     <tr>
                         <th>{{'image' | translate}}</th>
+                        <th>{{'type' | translate}}</th>
                         <th>{{'featured' | translate}}</th>
                         <th></th>
                     </tr>
@@ -26,9 +27,17 @@
                 <tbody>
                     <tr ng-repeat="mediaItem in mediaItemCtrl.mediaItemList">
 
-                        <td>
+                        <td ng-show="mediaItem.mediaType =='image'">
                             <img style="width: 70px;height: 70px;" data-ng-src="{{mediaItem.fileUrl}}" />
                         </td>
+
+                        <td ng-show="mediaItem.mediaType =='video'">
+                            <img style="width: 70px;height: 70px;" data-ng-src="{{mediaItem.posterUrl}}" />
+                        </td>
+                        <td>
+                            {{mediaItem.mediaType}}
+                        </td>
+
                         <td>
                             <div class="btn-switch" ng-class="{'btn-switch--on':mediaItem.featured}"
                                 ng-click="mediaItemCtrl.ChangeStatus(mediaItem)" ng-model="mediaItem.featured">
