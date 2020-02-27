@@ -8,6 +8,7 @@
     justify-content: space-between;
     flex-wrap: nowrap;
     .big_show {
+<<<<<<< HEAD
       width: 55%;
       margin: 30px 0;
       order: 2;
@@ -138,11 +139,207 @@
         } /* slide_nav */
       } /* slider_media */
     } /* videos_slider */
+=======
+			width: 55%;
+			margin: 30px 0;
+			order: 2;
+			.imgthumb {
+				overflow: hidden;
+				border-radius: 10px;
+				width: 100%;
+				height: 510px;
+				position: relative;
+				@media(max-width: 1310px){
+					width: 90%;
+					float: right;
+				}
+				@media(max-width: 1010px){
+					width: 85%;
+				}
+				@media(max-width: 991px){
+					width: 100%;
+					float: unset;
+				}
+				img {
+					width: 100%;
+					height: 100%;
+				} /* img */
+			} /* imgthumb */
+		} /* big_show */
+		.videos_slider {
+			width: 40%;
+			margin: 30px 0;
+			order: 1;
+			@media(max-width: 1210px){
+				height: 410px;
+			}
+			@media(max-width: 991px){
+				height: 310px;
+			}
+			@media(max-width: 420px){
+				height: 350px;
+			}
+			.title {
+				display: block;
+				font-size: 35px;
+				text-transform: uppercase;
+				font-family: Montserrat_Bold;
+				margin: 0 auto 20px;
+				background-image: -webkit-linear-gradient(left, #a36d31, #f7e483, #a36d31); /* For Chrome and Safari */
+		    background-image:    -moz-linear-gradient(left, #a36d31, #f7e483, #a36d31); /* For old Fx (3.6 to 15) */
+		    background-image:     -ms-linear-gradient(left, #a36d31, #f7e483, #a36d31); /* For pre-releases of IE 10*/
+		    background-image:      -o-linear-gradient(left, #a36d31, #f7e483, #a36d31); /* For old Opera (11.1 to 12.0) */
+		    background-image:         linear-gradient(to right, #a36d31, #f7e483, #a36d31); /* Standard syntax; must be last */
+    		color:transparent;
+			  -webkit-background-clip: text;
+			  -moz-background-clip: text;
+			  -o-background-clip: text;
+			  background-clip: text;
+			  -webkit-text-fill-color: transparent;
+			  -moz-text-fill-color: transparent;
+			  -o-text-fill-color: transparent;
+			  text-fill-color: transparent;
+			} /* title */
+			.desc {
+				font-size: 15px;
+				line-height: 22px;
+				color: #808080;
+				margin: 0 auto 100px;
+				text-transform: capitalize;
+			} /* desc */
+			.slider_media {
+				display: flex;
+				flex-wrap: nowrap;
+				position: relative;
+
+				.item {
+					position: absolute;
+					top: 0;
+					left: 0;
+					&.current{
+						position: absolute;
+						left: 300px;
+						top: 0;
+						@media(max-width: 1190px){
+							left: 250px;
+						}
+						@media(max-width: 420px){
+							left: 230px;
+						}
+						@media (max-width: 400px) {
+							left: 190px;
+						}
+						@media (max-width: 350px) {
+							left: 160px;
+						}
+					}
+					&.next {
+						display: none;
+					}
+					&.prev {
+						display: block;
+					}
+					&.isAnimate{
+						&.current{
+							transition: 1s ease-in-out;
+							left: 900px;
+							@media(max-width: 991px){
+								left: 1200px;
+							}
+						}
+
+						&:not(.current){
+							transition: 1s ease-in-out;
+							top: 108px;
+							left: 220px;
+							@media(max-width: 1190px){
+								left: 170px;
+							}
+							@media(max-width: 420px){
+								left: 140px;
+							}
+							@media(max-width: 400px){
+								left: 110px;
+							}
+							@media (max-width: 350px) {
+								left: 80px;
+							}
+						}
+					}
+					margin-top: -80px;
+					span {
+						display: none;
+						margin: 0 10% 10px 0;
+						text-align: right;
+						color: #fff;
+						text-transform: uppercase;
+						font-size: 14px;
+						font-family: Montserrat_Bold;
+						i {
+							display: inline-block;
+							font-style: normal;
+							color: #b5883d;
+						}
+					} /* span */
+					.imgthumb {
+						width: 308px;
+						height: 204px;
+						overflow: hidden;
+						border-radius: 10px;
+						@media(max-width: 1090px){
+							width: 270px;
+							height: 170px;
+						}
+						@media(max-width: 991px){
+							width: 308px;
+							height: 204px;
+						}
+						img {
+							width: 100%;
+							height: 100%;
+						} /* img */
+					} /* imgthumb */
+				} /* item */
+
+				.current {
+					margin-top: 0;
+					margin-left: -80px;
+					span {display: block;}
+					//animation-name: nkar;
+					//animation-duration: 1000ms;
+					//@keyframes nkar {
+					//	from{margin-top: -80px; margin-left: 0}
+					//	to{margin-top: 0; margin-left: -80px}
+					//
+					//}
+				} /* current */
+				.slide_nav {
+					position: absolute;
+					right: 0;
+					top: -60px;
+					display: flex;
+					button {
+						height: 40px;
+						width: 30px;
+						line-height: 40px;
+						background: transparent;
+						border: none;
+						padding: 0;
+						font-size: 30px;
+						color: #fff;
+						cursor: pointer;
+						&:hover {color: #c0a176;}
+					} /* button */
+				} /* slide_nav */
+			} /* slider_media */
+		} /* videos_slider */
+>>>>>>> 34c0b46ec37cc120edcf57fdbe195a9ab988dbc9
   } /* container */
 } /* videos_photo */
 
 //**** RTL Style ****//
 body[dir="rtl"] {
+<<<<<<< HEAD
   #videos_photo {
     .container {
       .videos_slider {
@@ -180,5 +377,44 @@ body[dir="rtl"] {
       } /* videos_slider */
     } /* container */
   } /* videos_photo */
+=======
+	#videos_photo {
+		.container {
+			.videos_slider {
+				.title {
+					font-size: 35px;
+					font-family: Tajawal_Bold;
+				}	/* title */
+				.desc {
+					font-size: 16px;
+					line-height: 24px;
+				}	/* desc */
+				.slider_media {
+					.item {						
+						span {
+							font-family: Tajawal_Bold;
+							text-align: left;
+							margin: 0 0 10px 10%;
+						}	/* span */
+						&.current {
+							margin-left: 0;
+							margin-right: -80px;
+						}	/* current */
+					}	/* item */
+					.slide_nav {
+						left: 0;
+						right: auto;
+						button {
+	  					-webkit-transform: rotate(180deg);
+						  -moz-transform: rotate(180deg);
+						  -o-transform: rotate(180deg);
+							transform: rotate(180deg);
+						}	/* button */
+					}	/* slider_nav */
+				}	/* slider_media */
+			}	/* videos_slider */
+		}	/* container */
+	} /* videos_photo */
+>>>>>>> 34c0b46ec37cc120edcf57fdbe195a9ab988dbc9
 }
 //**** RTL Style ****//
