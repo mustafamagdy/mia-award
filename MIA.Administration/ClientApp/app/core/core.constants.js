@@ -1,5 +1,7 @@
 (function() {
-  const apiBaseUrl = (process.env.NODE_ENV = "production" ? "/" : "http://localhost:62912");
+  //process.env.NODE_ENV = "production" ? "/" :
+  // const apiBaseUrl = "http://localhost:62550";
+  const apiBaseUrl = "/";
   angular
     .module("core")
     .constant("appCONSTANTS", {
