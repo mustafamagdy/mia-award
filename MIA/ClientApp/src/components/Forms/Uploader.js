@@ -27,7 +27,6 @@ const Uploader = ({
   }, [file]);
 
   const processFile = file => {
-    debugger;
     let start = 0;
     let uploadId = "";
     size = file.size;

@@ -62,7 +62,7 @@ const TestUpload = props => {
             }}
             file={f}
           >
-            <ProgressBar />
+            <FileDetails file={f} />
           </Uploader>
         ))}
       <br />
@@ -79,5 +79,12 @@ const TestUpload = props => {
     </div>
   );
 };
+
+const FileDetails = ({ progress, file, ...props }) => (
+  <div>
+    <label> {file.name}</label>
+    <ProgressBar progress={progress} />
+  </div>
+);
 
 export default TestUpload;
