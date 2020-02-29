@@ -201,10 +201,10 @@ namespace MIA
 #if (CORS)
         .UseCors(CorsPolicyName.AllowAll)
 #endif
-#if (HttpsEverywhere)
-                .UseIf(!this.env.IsDevelopment(), x => x.UseHsts())
-                .UseIf(!this.env.IsDevelopment(), x => x.UseHttpsRedirection())
-#endif
+//#if (HttpsEverywhere)
+//                .UseIf(!this.env.IsDevelopment(), x => x.UseHsts())
+//                .UseIf(!this.env.IsDevelopment(), x => x.UseHttpsRedirection())
+//#endif
         .UseIf(this.env.IsDevelopment(), x => x.UseDeveloperErrorPages())
         .UseCustomExceptionHandler()
         .UseMiddleware<ImageProxyMiddleware>()
