@@ -1,0 +1,35 @@
+<style>
+	form .progress {
+		line-height: 15px;
+	}
+
+	.progress {
+		display: inline-block;
+		width: 100px;
+		border: 3px groove #ccc;
+	}
+
+	.progress>div {
+		font-size: smaller;
+		background: linear-gradient(90deg, #f7e483, #dbba5a 57%, #a36d31);
+		width: 0%;
+	}
+</style>
+<div class="modal-body">
+	<form class="form-horizontal">
+
+		<button class="btn btn-success btn-xs pull-center" type="button"
+			ng-click="LoadUploadVideo()">{{'Upload Video' | translate}}</button>
+		<input type="file" id="file" style="display: none;" onchange="angular.element(this).scope().uploadVideo()">
+		<br>
+		<div id="dvProgress" class="progress" ng-show="Progress >= 0">
+		</div>
+	</form>
+</div>
+<!--<div class="pmd-modal-action text-right">
+	<button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+		class="btn pmd-ripple-effect btn-primary" type="button"
+		ng-click="uploadVideo(itemId)">{{'saveChangesBtn' | translate}}</button>
+	 <button class="btn pmd-ripple-effect btn-default" type="button"
+		ng-click="newUploadChunkCtrl.close()">{{'DiscardBtn' | translate}}</button>
+</div> -->

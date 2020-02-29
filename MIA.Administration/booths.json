@@ -1,0 +1,39 @@
+﻿[
+  {
+    "Code": "A01",
+    "Area": "3x5 m",
+    "Description": {
+      "ar": "مساحة متوسطة تكفي لمقعدين",
+      "en": "Medium size area, suitable for 2 chairs"
+    },
+    "Price": 1000
+  },
+  {
+    "Code": "A02",
+    "Area": "2x4 m",
+    "Description": {
+      "ar": "مساحة متوسطة تكفي لمقعدين",
+      "en": "Medium size area, suitable for 2 chairs"
+    },
+    "Price": 2000
+  },
+  {
+    "Code": "A03",
+    "Area": "3x5 m",
+    "Description": {
+      "ar": "مساحة متوسطة تكفي لمقعدين",
+      "en": "Medium size area, suitable for 2 chairs"
+    },
+    "Price": 1300
+  },
+  {
+    "Code": "A04",
+    "Area": "6x5 m",
+    "Description": {
+      "ar": "مساحة متوسطة تكفي لمقعدين",
+      "en": "Medium size area, suitable for 2 chairs"
+    },
+    "Price": 2000
+  }
+
+]

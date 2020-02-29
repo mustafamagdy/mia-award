@@ -5,9 +5,9 @@
 
     function RoleResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Role/CreateRole', {}, {
-            getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/GetAllRoles', useToken: true },
+            getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/roles', useToken: true, isArray: true },
             getAllActivateRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Roles/GetAllActivateRoles', useToken: true, params: { lang: '@lang' } },
-            getAllPermissions: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/PermessionTree', isArray: true, useToken: true, params: { lang: '@lang' } },
+            getAllPermissions: { method: 'GET', url: appCONSTANTS.API_URL + 'permissions', isArray: true, useToken: true, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/UpdateRole', useToken: true },
             delete: { method: 'DELETE', url: appCONSTANTS.API_URL + 'Role/Delete/:roleId', useToken: true },
@@ -15,6 +15,6 @@
             changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/ChangeStatus/:roleId/:status', useToken: true },
 
         })
-    } 
+    }
 }());
 

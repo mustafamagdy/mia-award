@@ -34,9 +34,14 @@ const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTraile
                 accept="video/*"
                 message='Upload your trailer'   
                 multiple={false} 
+                className="upload_trailer"
+                iconClass="icofont-plus"
                 style={{ width: '100%', height: '100%' }} />
                 <br/>
                 <UploadDropZone 
+                className="upload_trailer"
+                iconClass="icofont-plus"
+
                 multiple={false}
                 accept="image/*"
                 setFiles={setFiles}

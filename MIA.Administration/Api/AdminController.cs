@@ -21,6 +21,8 @@ namespace MIA.Administration.Api {
 #if (Versioning)
   [ApiVersion("1.0")]
 #endif
+  [Route("api/admin")]
+
   public class AdminController : BaseApiController<AdminController> {
     private readonly IStringLocalizer<AdminController> _locale;
 
@@ -39,13 +41,13 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("roles")]
-    [HasPermission(Permissions.ReadRoles)]
+   // [HasPermission(Permissions.ReadRoles)]
     public IActionResult Roles([FromServices] IAppUnitOfWork db) {
       return IfFound(db.Roles.MapTo<RoleDto>());
     }
 
     [HttpGet("permissions")]
-    [HasPermission(Permissions.ReadPermissions)]
+   // [HasPermission(Permissions.ReadPermissions)]
     public IActionResult ListPermissions() {
       var permissionNames = Enum.GetValues(typeof(Permissions)).Cast<short>();
       var permissions = permissionNames.Select(p => _mapper.Map<PermissionDto>((Permissions)p)).ToList();

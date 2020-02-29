@@ -23,6 +23,7 @@ using System.IO;
 using Amazon;
 using MIA.Api.Base;
 using MIA.Dto.Auth;
+using MIA.Infrastructure;
 
 namespace MIA.Administration.Api {
   /// <summary>
@@ -170,6 +171,54 @@ namespace MIA.Administration.Api {
       }
 
       return Ok();
+    }
+
+
+    [HttpPost("artwork/{id}/files")]
+    public async Task<IActionResult> UploadArtworkFiles(
+      [FromRoute] string id,
+      [FromServices] IAppUnitOfWork db,
+      [FromServices] IS3FileManager fileManager,
+      FileChunkDto dto)
+    {
+      try
+      {
+        var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.ArtWork, id);
+        var result = await fileManager.UploadChunk(tempDir, dto);
+        if (!string.IsNullOrEmpty(result.FinalUrl))
+        {
+          //move file to final directory of the artwork files
+          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, id, dto.FileName);
+          var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
+
+          var mediaFile = new MediaFile
+          {
+            //TODO: uncomment
+            //ArtWorkId = artwork.Id,
+            UploadDate = DateTime.Now.ToUnixTimeSeconds(),
+            FileKey = fileKey,
+            FileUrl = fileUrl
+          };
+
+          //TODO: uncomment
+          //await db.MediaFiles.AddAsync(mediaFile);
+          //var _artwork = await db.ArtWorks.Include(a => a.MediaFiles).FirstOrDefaultAsync(a => a.Id == id);
+          //if (_artwork.MediaFiles.Any() && _artwork.FileCount <= _artwork.MediaFiles.Count) {
+          //  _artwork.UploadComplete = true;
+          //  db.ArtWorks.Update(_artwork);
+          //}
+          return Ok(fileUrl);
+        }
+        else
+        {
+          return Ok(result);
+        }
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Failed to upload file");
+        throw new ApiException(ApiErrorType.FailedToUploadChunkedFile, $"{ex.Message}");
+      }
     }
   }
 
