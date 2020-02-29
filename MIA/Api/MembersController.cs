@@ -456,17 +456,20 @@ namespace MIA.Api
             try
             {
                 //TODO: uncomment
-                //var nominee = await _userResolver.CurrentUserAsync();
-                //var artwork = await db.ArtWorks.FindAsync(id);
-                //if (artwork == null) {
-                //  return NotFound404("Artwork doesn't exist");
-                //}
-                //if (artwork.NomineeId != nominee.Id) {
-                //  return NotFound404("Artwork doesn't belong to you");
-                //}
-                //if (artwork.UploadComplete) {
-                //  return ValidationError(HttpStatusCode.BadRequest, "Files upload complete, waiting for artwork review");
-                //}
+                var nominee = await _userResolver.CurrentUserAsync();
+                var artwork = await db.ArtWorks.FindAsync(id);
+                if (artwork == null)
+                {
+                    return NotFound404("Artwork doesn't exist");
+                }
+                if (artwork.NomineeId != nominee.Id)
+                {
+                    return NotFound404("Artwork doesn't belong to you");
+                }
+                if (artwork.UploadComplete)
+                {
+                    return ValidationError(HttpStatusCode.BadRequest, "Files upload complete, waiting for artwork review");
+                }
 
                 var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.ArtWork, id);
                 var result = await fileManager.UploadChunk(tempDir, dto);
@@ -479,19 +482,20 @@ namespace MIA.Api
                     var mediaFile = new MediaFile
                     {
                         //TODO: uncomment
-                        //ArtWorkId = artwork.Id,
+                        ArtWorkId = artwork.Id,
                         UploadDate = DateTime.Now.ToUnixTimeSeconds(),
                         FileKey = fileKey,
                         FileUrl = fileUrl
                     };
 
                     //TODO: uncomment
-                    //await db.MediaFiles.AddAsync(mediaFile);
-                    //var _artwork = await db.ArtWorks.Include(a => a.MediaFiles).FirstOrDefaultAsync(a => a.Id == id);
-                    //if (_artwork.MediaFiles.Any() && _artwork.FileCount <= _artwork.MediaFiles.Count) {
-                    //  _artwork.UploadComplete = true;
-                    //  db.ArtWorks.Update(_artwork);
-                    //}
+                    await db.MediaFiles.AddAsync(mediaFile);
+                    var _artwork = await db.ArtWorks.Include(a => a.MediaFiles).FirstOrDefaultAsync(a => a.Id == id);
+                    if (_artwork.MediaFiles.Any() && _artwork.FileCount <= _artwork.MediaFiles.Count)
+                    {
+                        _artwork.UploadComplete = true;
+                        db.ArtWorks.Update(_artwork);
+                    }
                     return Ok(fileKey);
                 }
                 else
