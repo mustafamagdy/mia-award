@@ -1,7 +1,21 @@
-import React from "react";
+import React,{ useState } from "react";
+import classNames from "classnames";
+import UploadDropZone from 'components/Forms/UploadDropZone'
 
-const Files = props => (
-  <div className="tab_content tab_upload_videos">
+
+const Preview = ({ meta }) => {
+  const { name, percent, status } = meta
+  return (
+    <span style={{ alignSelf: 'flex-start', margin: '10px 3%', fontFamily: 'Helvetica' }}>
+      {name}, {Math.round(percent)}%, {status}
+    </span>
+  )
+}
+
+const Files = ({active},props) => {
+  const [files, setFiles] = useState([]);
+console.log('Files')
+return  <div className={classNames("tab_content tab_upload_videos", { active })}>
     <div className="uploads_area">
       <div className="top_upload">
         {/* <div className="selection">
@@ -39,14 +53,25 @@ const Files = props => (
       <div className="bottom_upload">
         <div className="upload_input">
           <form action="#">
-            <input type="file" />
+          <UploadDropZone 
+                setFiles={setFiles} 
+                // accept="video/*"
+                className="upload_now"
+                iconClass="icofont-upload-alt"
+                message='Drag files to upload'   
+                multiple={false} 
+                PreviewComponent={Preview}
+                inputContent="Drop Files (Custom Preview)"
+                style={{ width: '100%', height: '100%' }} />
+            {/* <input type="file" />
             <div className="upload_now">
               <i className="icofont-upload-alt"></i>
               <p>Drag files to upload</p>
-            </div>
+            </div> */}
             <span>Choose Files</span>
           </form>
         </div>
+        
         <div className="upload_list">
           <div className="title">Files Upload</div>
           <div className="item">
@@ -213,6 +238,6 @@ const Files = props => (
       </div>
     </div>
   </div>
-);
+};
 
 export default Files;

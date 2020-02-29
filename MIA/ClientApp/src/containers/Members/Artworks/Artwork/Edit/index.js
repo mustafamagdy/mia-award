@@ -28,16 +28,22 @@ const EditArtwork = ({
     }
   }, [id]);
 
+  
   useEffect(() => {
+   
     if (artworkDetails != undefined) {
+      
       const { canUploadFiles } = artworkDetails;
-      if (tabs.indexOf("files") == -1 && canUploadFiles) {
-        tabs.push("files");
+     
+      if (tabs.indexOf("files") === -1 && canUploadFiles) {
+        const t=[...tabs];
+        t.push("files");
+        setTabs(t);
       }
     }
   }, [artworkDetails]);
 
-  const tabs = ["info", "trailer"];
+  const [tabs,setTabs] =useState( ["info", "trailer"]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
 

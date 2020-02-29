@@ -107,7 +107,7 @@ const Artworks = ({ fetchMyArtworks, fetchMyAwards, myAwards, myArtworks, myAwar
         <div className="title">Shows</div>
         <div className="all_shows_area">
           {myArtworks && myArtworks.map((m, i) => {
-            return <Award key={i} artWork={m} />;
+            return <ArtWork key={i} artWork={m} />;
           })}
           <div className="item add_new">
             <div className="upload_area">

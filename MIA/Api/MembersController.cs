@@ -73,8 +73,9 @@ namespace MIA.Api
         public string PosterUrl { get; set; }
         public string TrailerUrl { get; set; }
         public string CoverImageUrl { get; set; }
-        public string Status { get; set; }
-        public string Title { get; set; }
+        public bool UploadComplete { get; set; }
+        public bool AllowFileUpload { get; set; }
+        public LocalizedData Title { get; set; }
     }
 
     public class PaymentWithStatusDto
@@ -137,6 +138,7 @@ namespace MIA.Api
 
 
         [HttpGet("awards")]
+        [Authorize]
         public async Task<IActionResult> Awards([FromServices] IAppUnitOfWork db)
         {
             var nominee = await _userResolver.CurrentUserAsync();
@@ -160,6 +162,7 @@ namespace MIA.Api
         {
             var nominee = await _userResolver.CurrentUserAsync();
             var artworks = db.ArtWorks
+                .Include(a=>a.Award)
               .Where(a => a.NomineeId == nominee.Id)
               .ProjectTo<ArtworkWithStatusDto>(_mapper.ConfigurationProvider)
               .ToArray();
