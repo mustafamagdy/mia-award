@@ -55,7 +55,6 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
       };
     }
 
-    debugger;
     bookBooth(values);
   };
 
@@ -66,7 +65,6 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
   }, [paymentToken]);
 
   const onPayment = values => {
-    debugger;
     processOrder();
   };
 

@@ -53,7 +53,7 @@
           }
 
           /* img */
-          .progress_bar {
+          .horizontal_bar {
             position: absolute;
             height: 5px;
 
@@ -106,7 +106,7 @@
               left: 50%;
             }
           }
-          /* progress_bar */
+          /* horizontal_bar */
         }
 
         /* big_image */
@@ -327,12 +327,12 @@ body[dir="rtl"] {
 
           /* desc */
           .big_image {
-            .progress_bar {
+            .horizontal_bar {
               right: 89%;
               left: auto;
             }
 
-            /* progress_bar */
+            /* horizontal_bar */
           }
 
           /* big_image */
