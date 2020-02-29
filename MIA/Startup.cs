@@ -20,6 +20,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
+using System.Net;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using MIA.Api.Base;
@@ -30,11 +31,13 @@ using MIA.Middlewares.Auth;
 using Microsoft.AspNetCore.HttpOverrides;
 using MIA.Infrastructure;
 
-namespace MIA {
+namespace MIA
+{
   /// <summary>
   /// Startup class for asp.net core Api
   /// </summary>
-  public class Startup {
+  public class Startup
+  {
     private readonly IConfiguration configuration;
     private readonly IHostingEnvironment env;
 
@@ -43,7 +46,8 @@ namespace MIA {
     /// </summary>
     /// <param name="configuration">Used to read configuration from appsettings.json</param>
     /// <param name="hostingEnvironment">Used to configure hosting environment</param>
-    public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment) {
+    public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
+    {
       this.configuration = configuration;
       this.env = hostingEnvironment;
     }
@@ -53,7 +57,8 @@ namespace MIA {
     /// </summary>
     /// <param name="services">service collection to add to</param>
     /// <returns></returns>
-    public IServiceProvider ConfigureServices(IServiceCollection services) {
+    public IServiceProvider ConfigureServices(IServiceCollection services)
+    {
       IServiceProvider provider = services
         .AddSeriLogging()
 #if (ApplicationInsights)
@@ -168,15 +173,17 @@ namespace MIA {
       RoleManager<AppRole> roleManager,
       IS3FileManager fileManager,
       IAppUnitOfWork db,
-      HtmlEncoder encoder) {
+      HtmlEncoder encoder)
+    {
       app
         //Run pending db migrations
         .UpdateDatabase()
 
         //#if (ForwardedHeaders)
         .UseIf(!this.env.IsDevelopment(),
-          x => x.UseForwardedHeaders(new ForwardedHeadersOptions {
-            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+          x => x.UseForwardedHeaders(new ForwardedHeadersOptions
+          {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
           }))
         //#elif (HostFiltering)
 #if (HostFiltering)
@@ -194,9 +201,10 @@ namespace MIA {
 #if (CORS)
         .UseCors(CorsPolicyName.AllowAll)
 #endif
-        //#if (HttpsEverywhere)
-        //        .UseIf(!this.env.IsDevelopment(), x => x.UseHsts())
-        //#endif
+#if (HttpsEverywhere)
+                .UseIf(!this.env.IsDevelopment(), x => x.UseHsts())
+                .UseIf(!this.env.IsDevelopment(), x => x.UseHttpsRedirection())
+#endif
         .UseIf(this.env.IsDevelopment(), x => x.UseDeveloperErrorPages())
         .UseCustomExceptionHandler()
         .UseMiddleware<ImageProxyMiddleware>()
@@ -210,7 +218,8 @@ namespace MIA {
 #endif
 
         .UseMiddleware<AuthTokenManagerMiddleware>()
-        .UseMvc(routes => {
+        .UseMvc(routes =>
+        {
           routes.MapRoute(
               name: "default",
               template: "api/{culture::regex(^[a-z]{{2}}-[A-Za-z]{{4}}$)}/{controller}/{id?}");
@@ -223,11 +232,13 @@ namespace MIA {
 
         .UseStaticFilesWithCacheControl()
         .UseSpaFiles()
-        .UseSpa(spa => {
+        .UseSpa(spa =>
+        {
           spa.Options.SourcePath = env.IsProduction() ? "wwwroot" : "ClientApp";
 
 
-          if (env.IsDevelopment()) {
+          if (env.IsDevelopment())
+          {
             spa.UseReactDevelopmentServer(npmScript: "start");
           }
         });
