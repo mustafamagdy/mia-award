@@ -51,7 +51,6 @@ const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTraile
                       dir={"Artwork"}
                       dirId={artworkId}
                       onProgress={p => {
-                        debugger
                         const indx = progress.findIndex(a => a.key == f.name);
                         if (indx != -1) progress[indx].percent = p;
                         else progress.push({ key: f.name, percent: p });

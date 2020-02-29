@@ -116,7 +116,7 @@ const Intro = ({ ...props }) => {
                   />
                 ))}
               </Swiper>
-              <div className="progress_bar"></div>
+              <div className="horizontal_bar"></div>
             </div>
             <div className="desc">
               <span>{currentItem.title}</span>
