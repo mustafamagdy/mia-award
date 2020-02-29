@@ -66,6 +66,8 @@
                 },
                 headers: { 'Content-Type': undefined }
             },
+            UpdateTrailerVideoUrl: { method: 'PUT', url: appCONSTANTS.API_URL + 'artWorks/UpdateTrailerVideoUrl', useToken: true }
+
         })
     }
 

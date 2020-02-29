@@ -3,10 +3,10 @@
 
     angular
         .module('home')
-        .controller('createArtWorkDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+        .controller('createArtWorkDialogController', ['$uibModal', '$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
             'ArtWorkResource', 'ToastService', '$rootScope', '$localStorage', createArtWorkDialogController])
 
-    function createArtWorkDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
+    function createArtWorkDialogController($uibModal, $scope, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
         ToastService, $rootScope, $localStorage) {
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
@@ -56,7 +56,9 @@
 
 
         vm.AddNewArtWork = function () {
-            var splitImage = vm.posterImage.split(',');
+            var splitPoster = vm.posterImage.split(',');
+            var splitTrailerPoster = vm.trailerPoster.split(',');
+            var splitCover = vm.coverImage.split(',');
             //var splitReciept = vm.receiptImage.split(',');
             // var Payment = {
             //     TransactionNumber: vm.TransactionNumber,
@@ -84,9 +86,14 @@
             // newObj.Receipt = splitReciept[1]; 
             // newObj.ReceiptFileName = receiptImage.type; 
 
-            newObj.Poster = splitImage[1];
-            newObj.PosterFileName = posterImage.type;  
+            newObj.Poster = splitPoster[1];
+            newObj.PosterFileName = posterImage.type;
 
+            newObj.Cover = splitCover[1];
+            newObj.CoverFileName = splitCover[0];
+
+            newObj.TrailerPoster = splitTrailerPoster[1];
+            newObj.TrailerPosterFileName = splitTrailerPoster[0];
 
 
             newObj.$create().then(
@@ -94,13 +101,14 @@
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                     debugger;
+                    openUploadDialog(data.id, 'http://localhost:62912/api/artWorks/artwork/' + data.id + '/files')
 
                     // $rootScope.$broadcast('artWorkId', data.id);
                     // $rootScope.$broadcast('filesCount', data.fileCount);
-                    localStorage.setItem('artWorkId', data.id);
-                    localStorage.setItem('filesCount', data.filesCount);
+                    // localStorage.setItem('artWorkId', data.id);
+                    //localStorage.setItem('filesCount', data.filesCount);
 
-                    $state.go('newArtWorkMedia', { id: data.id });
+                    //  $state.go('newArtWorkMedia', { id: data.id });
                 },
                 function (data, status) {
                     blockUI.stop();
@@ -110,8 +118,40 @@
         }
 
 
+        function callBackUpload(model) {
+            debugger
+            var updateObj = new ArtWorkResource();
+            updateObj.Id = model.id;
+            updateObj.FileUrl = model.data.trailerUrl;
+            updateObj.FileKey = model.data.trailerId;
+            updateObj.$UpdateTrailerVideoUrl().then(
+                function (data, status) {
+                    debugger;
+                    $state.go('ArtWork');
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function openUploadDialog(id, url) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
+                controller: 'uploadVideoController',
+                controllerAs: 'uploadDlCtrl',
+                resolve: {
+                    itemId: function () { return id },
+                    url: function () { return url },
+                    callBackFunction: function () { return callBackUpload }
+                }
+
+            });
+        }
         function refreshNominees() {
             var k = ArtWorkResource.getAllNominees().$promise.then(function (results) {
+                debugger;
                 vm.nomineeList = results;
                 blockUI.stop();
 
@@ -197,6 +237,101 @@
 
 
 
+        vm.LoadUploadTrailerPoster = function () {
+            $("#trailerPoster").click();
+        }
+        var trailerPoster;
+        $scope.AddTrailerPoster = function (element) {
+            var logoFile = element[0];
+
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newArtWorkForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        trailerPoster = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.trailerPoster = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+
+
+        }
+
+        $scope.uploadTrailerPosterFile = function (element) {
+            vm.trailerPoster = $(element)[0].files[0];
+        };
+
+
+
+        vm.LoadUploadCover = function () {
+            $("#coverImage").click();
+        }
+        var coverImage;
+        $scope.AddcoverImage = function (element) {
+            var logoFile = element[0];
+
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newArtWorkForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        coverImage = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.coverImage = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+
+
+        }
+
+        $scope.uploadCoverFile = function (element) {
+            vm.coverImage = $(element)[0].files[0];
+        };
 
 
         vm.LoadUploadreceipt = function () {

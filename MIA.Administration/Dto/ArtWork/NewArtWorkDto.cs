@@ -6,8 +6,10 @@ using MIA.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
-namespace MIA.Administration.Api {
-  public class NewArtWorkDto {
+namespace MIA.Administration.Api
+{
+  public class NewArtWorkDto
+  {
     public LocalizedData Title { get; set; }
     public bool UploadComplete { get; set; }
     public AwardDto Award { get; set; }
@@ -16,13 +18,16 @@ namespace MIA.Administration.Api {
     public string NomineeId { get; set; }
     public ArtWorkPaymentDto Payment { get; set; }
     public string PaymentId { get; set; }
-    public int FileCount { get; set; }
+    //public int FileCount { get; set; }
     public HashSet<MediaFileDto> MediaFiles { get; set; }
     public HashSet<JudgeVoteDto> Votes { get; set; }
     public string PosterFileName { get; set; }
-
     public byte[] Poster { get; set; }
-    public byte[] Video { get; set; }
+    public string CoverFileName { get; set; }
+    public byte[] Cover { get; set; }
+
+    public string TrailerPosterFileName { get; set; }
+    public byte[] TrailerPoster { get; set; }
     public long PostedDate { get; set; }
     public string DateOfRelease { get; set; }
     public string Country { get; set; }

@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    
+
                     <div class="form-group col-lg-4">
                         <label for="first-name">{{'Award' | translate}}</label>
                         <select required style="width:100% !important"
@@ -75,24 +75,31 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-lg-4">
+                    <!-- <div class="form-group col-lg-4">
                         <label for="first-name">{{'FilesCount' | translate}}</label>
                         <input required type="text" class="mat-input form-control" name="fileCount" numbers-only
                             style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
-                            ng-model="newArtWorkCtrl.FileCount" />
-                        <!-- required validation  -->
+                            ng-model="newArtWorkCtrl.FileCount" /> 
                         <div ng-messages="newArtWorkForm.fileCount.$error">
                             <div class="error" ng-if="newArtWorkForm.fileCount.$error.required && 
                                         !newArtWorkForm.fileCount.$pristine">
                                 {{'requiredErr' |  translate}}
-                            </div>
-                            <!-- length validation -->
+                            </div> 
                             <div class="error" ng-if="(newArtWorkForm.fileCount.$error.minlength ||
                                             newArtWorkForm.fileCount.$error.maxlength) 
                                              && !newArtWorkForm.fileCount.newfileCount.$error.required">
                                 {{'PhoneLengthError' |  translate}}
                             </div>
                         </div>
+                    </div>
+                     -->
+
+                    <div class="form-group col-lg-4"> <label for="first-name">{{'Country' | translate}}</label>
+                        <select required style="width:100% !important"
+                            class="form-control select-with-search pmd-select2-tags"
+                            ng-model="newArtWorkCtrl.selectedCountry"
+                            ng-options="group as group.shortName  for group in newArtWorkCtrl.countryList">
+                        </select>
                     </div>
                 </div>
 
@@ -109,12 +116,10 @@
                             class="select-add-tags form-control pmd-select2-tags" ng-model="newArtWorkCtrl.Director">
                         </select>
                     </div>
-
-                    <div class="form-group col-lg-4"> <label for="first-name">{{'Country' | translate}}</label>
-                        <select required style="width:100% !important"
-                            class="form-control select-with-search pmd-select2-tags"
-                            ng-model="newArtWorkCtrl.selectedCountry"
-                            ng-options="group as group.shortName  for group in newArtWorkCtrl.countryList">
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'Crew' | translate}}</label>
+                        <select required style="width:100% !important" multiple
+                            class="select-add-tags form-control pmd-select2-tags" ng-model="newArtWorkCtrl.Crew">
                         </select>
                     </div>
                 </div>
@@ -155,22 +160,17 @@
 
                 </div>
                 <div class="row">
-                    <div class="form-group col-lg-4">
-                        <label for="first-name">{{'Crew' | translate}}</label>
-                        <select required style="width:100% !important" multiple
-                            class="select-add-tags form-control pmd-select2-tags" ng-model="newArtWorkCtrl.Crew">
-                        </select>
-                    </div>
+
 
                     <div class="form-group col-lg-4">
-                        <span style="color:red">*</span> 
+                        <!-- <span style="color:red">*</span> -->
 
                         <input id="posterImage" name="posterImage" style="display: none;"
                             onchange="angular.element(this).scope().AddposterImage(this.files)" type="file" required>
-                        <button class="btn btn-success btn-xs pull-center"
-                            ng-click="newArtWorkCtrl.LoadUploadPoster()">{{'Upload Cover' | translate}}</button>
-                        <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                            {{'RecommendedProductImage' | translate}}</span>
+                        <button class="btn btn-success btn-xs pull-center" type="button"
+                            ng-click="newArtWorkCtrl.LoadUploadPoster()">{{'Upload Poster' | translate}}</button>
+                        <!-- <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                            {{'RecommendedProductImage' | translate}}</span> -->
                         <img ng-src="{{newArtWorkCtrl.posterImage}}" style="max-height: 139px;max-width: 423px;">
                         <div ng-messages="newArtWorkForm.posterImage.$error">
                             <div ng-if="newArtWorkForm.posterImage.$error.required">{{'requiredErr' | translate}}</div>
@@ -179,10 +179,33 @@
                     </div>
 
                     <div class="form-group col-lg-4">
-                        <span style="color:red">*</span>
-                        <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
-                            Trailer</label>
-                        <input id="image" class="hidden" type="file" img-upload ng-model="imageName" name="imageName">
+                        <!-- <span style="color:red">*</span> -->
+
+                        <input id="coverImage" name="coverImage" style="display: none;"
+                            onchange="angular.element(this).scope().AddcoverImage(this.files)" type="file" required>
+                        <button class="btn btn-success btn-xs pull-center" type="button"
+                            ng-click="newArtWorkCtrl.LoadUploadCover()">{{'Upload Cover' | translate}}</button>
+                        <!-- <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                            {{'RecommendedProductImage' | translate}}</span> -->
+                        <img ng-src="{{newArtWorkCtrl.coverImage}}" style="max-height: 139px;max-width: 423px;">
+                        <div ng-messages="newArtWorkForm.coverImage.$error">
+                            <div ng-if="newArtWorkForm.coverImage.$error.required">{{'requiredErr' | translate}}</div>
+                        </div>
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <!-- <span style="color:red">*</span> -->
+
+                        <input id="trailerPoster" name="trailerPoster" style="display: none;"
+                            onchange="angular.element(this).scope().AddTrailerPoster(this.files)" type="file" required>
+                        <button class="btn btn-success btn-xs pull-center" type="button"
+                            ng-click="newArtWorkCtrl.LoadUploadTrailerPoster()">{{'Upload Trailer Poster' | translate}}</button>
+                        <!-- <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                            {{'RecommendedProductImage' | translate}}</span> -->
+                        <img ng-src="{{newArtWorkCtrl.trailerPoster}}" style="max-height: 139px;max-width: 423px;">
+                        <div ng-messages="newArtWorkForm.trailerPoster.$error">
+                            <div ng-if="newArtWorkForm.trailerPoster.$error.required">{{'requiredErr' | translate}}</div>
+                        </div>
 
                     </div>
                 </div>
@@ -198,7 +221,7 @@
                 <!-- <button class="btn pmd-ripple-effect btn-default" type="button"
                     ng-click="newArtWorkCtrl.nextStep()">{{'Next' | translate}}</button> -->
             </div>
-          
+
         </form>
     </div>
 

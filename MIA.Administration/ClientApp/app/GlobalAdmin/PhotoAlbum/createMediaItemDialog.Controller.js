@@ -50,7 +50,7 @@
                         $state.go('mediaItems', { id: $stateParams.id });
 
                     } else {
-                        openUploadDialog(data.id)
+                        openUploadDialog(data.id,'http://localhost:62912/api/albums/mediaItems/${id}/files')
                     }
                 },
                 function (data, status) {
@@ -171,13 +171,14 @@
                 }
             );
         }
-        function openUploadDialog(id) {
+        function openUploadDialog(id,url) {
             var modalContent = $uibModal.open({
                 templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
                 controller: 'uploadVideoController',
                 controllerAs: 'uploadDlCtrl',
                 resolve: {
                     itemId: function () { return id },
+                    url: function () { return url },
                     callBackFunction: function () { return callBackUpload }
                 }
 

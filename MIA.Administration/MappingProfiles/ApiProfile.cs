@@ -108,8 +108,10 @@ namespace MIA.Administration.MappingProfiles
       #endregion
 
       #region ArtWork
-      CreateMap<ArtWork, ArtWorkDto>().ValidateMemberList(MemberList.None)
-            .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment));
+      CreateMap<ArtWork, ArtWorkDto>()
+        //.ForMember(a => a.WinnerAwardFirstPlace, cfg => cfg.Ignore())
+        .ValidateMemberList(MemberList.None)
+        .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment));
 
 
       CreateMap<NewArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None)

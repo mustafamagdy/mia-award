@@ -400,7 +400,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    </div>\n' +
     '                </div>\n' +
     '                <div class="row">\n' +
-    '                    \n' +
+    '\n' +
     '                    <div class="form-group col-lg-4">\n' +
     '                        <label for="first-name">{{\'Award\' | translate}}</label>\n' +
     '                        <select required style="width:100% !important"\n' +
@@ -418,24 +418,31 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        </select>\n' +
     '                    </div>\n' +
     '\n' +
-    '                    <div class="form-group col-lg-4">\n' +
+    '                    <!-- <div class="form-group col-lg-4">\n' +
     '                        <label for="first-name">{{\'FilesCount\' | translate}}</label>\n' +
     '                        <input required type="text" class="mat-input form-control" name="fileCount" numbers-only\n' +
     '                            style="display: inline-block;" ng-minlength="1" ng-maxlength="4"\n' +
-    '                            ng-model="newArtWorkCtrl.FileCount" />\n' +
-    '                        <!-- required validation  -->\n' +
+    '                            ng-model="newArtWorkCtrl.FileCount" /> \n' +
     '                        <div ng-messages="newArtWorkForm.fileCount.$error">\n' +
     '                            <div class="error" ng-if="newArtWorkForm.fileCount.$error.required && \n' +
     '                                        !newArtWorkForm.fileCount.$pristine">\n' +
     '                                {{\'requiredErr\' |  translate}}\n' +
-    '                            </div>\n' +
-    '                            <!-- length validation -->\n' +
+    '                            </div> \n' +
     '                            <div class="error" ng-if="(newArtWorkForm.fileCount.$error.minlength ||\n' +
     '                                            newArtWorkForm.fileCount.$error.maxlength) \n' +
     '                                             && !newArtWorkForm.fileCount.newfileCount.$error.required">\n' +
     '                                {{\'PhoneLengthError\' |  translate}}\n' +
     '                            </div>\n' +
     '                        </div>\n' +
+    '                    </div>\n' +
+    '                     -->\n' +
+    '\n' +
+    '                    <div class="form-group col-lg-4"> <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '                        <select required style="width:100% !important"\n' +
+    '                            class="form-control select-with-search pmd-select2-tags"\n' +
+    '                            ng-model="newArtWorkCtrl.selectedCountry"\n' +
+    '                            ng-options="group as group.shortName  for group in newArtWorkCtrl.countryList">\n' +
+    '                        </select>\n' +
     '                    </div>\n' +
     '                </div>\n' +
     '\n' +
@@ -452,12 +459,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            class="select-add-tags form-control pmd-select2-tags" ng-model="newArtWorkCtrl.Director">\n' +
     '                        </select>\n' +
     '                    </div>\n' +
-    '\n' +
-    '                    <div class="form-group col-lg-4"> <label for="first-name">{{\'Country\' | translate}}</label>\n' +
-    '                        <select required style="width:100% !important"\n' +
-    '                            class="form-control select-with-search pmd-select2-tags"\n' +
-    '                            ng-model="newArtWorkCtrl.selectedCountry"\n' +
-    '                            ng-options="group as group.shortName  for group in newArtWorkCtrl.countryList">\n' +
+    '                    <div class="form-group col-lg-4">\n' +
+    '                        <label for="first-name">{{\'Crew\' | translate}}</label>\n' +
+    '                        <select required style="width:100% !important" multiple\n' +
+    '                            class="select-add-tags form-control pmd-select2-tags" ng-model="newArtWorkCtrl.Crew">\n' +
     '                        </select>\n' +
     '                    </div>\n' +
     '                </div>\n' +
@@ -498,22 +503,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '                </div>\n' +
     '                <div class="row">\n' +
-    '                    <div class="form-group col-lg-4">\n' +
-    '                        <label for="first-name">{{\'Crew\' | translate}}</label>\n' +
-    '                        <select required style="width:100% !important" multiple\n' +
-    '                            class="select-add-tags form-control pmd-select2-tags" ng-model="newArtWorkCtrl.Crew">\n' +
-    '                        </select>\n' +
-    '                    </div>\n' +
+    '\n' +
     '\n' +
     '                    <div class="form-group col-lg-4">\n' +
-    '                        <span style="color:red">*</span> \n' +
+    '                        <!-- <span style="color:red">*</span> -->\n' +
     '\n' +
     '                        <input id="posterImage" name="posterImage" style="display: none;"\n' +
     '                            onchange="angular.element(this).scope().AddposterImage(this.files)" type="file" required>\n' +
-    '                        <button class="btn btn-success btn-xs pull-center"\n' +
-    '                            ng-click="newArtWorkCtrl.LoadUploadPoster()">{{\'Upload Cover\' | translate}}</button>\n' +
-    '                        <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>\n' +
-    '                            {{\'RecommendedProductImage\' | translate}}</span>\n' +
+    '                        <button class="btn btn-success btn-xs pull-center" type="button"\n' +
+    '                            ng-click="newArtWorkCtrl.LoadUploadPoster()">{{\'Upload Poster\' | translate}}</button>\n' +
+    '                        <!-- <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>\n' +
+    '                            {{\'RecommendedProductImage\' | translate}}</span> -->\n' +
     '                        <img ng-src="{{newArtWorkCtrl.posterImage}}" style="max-height: 139px;max-width: 423px;">\n' +
     '                        <div ng-messages="newArtWorkForm.posterImage.$error">\n' +
     '                            <div ng-if="newArtWorkForm.posterImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
@@ -522,10 +522,33 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    </div>\n' +
     '\n' +
     '                    <div class="form-group col-lg-4">\n' +
-    '                        <span style="color:red">*</span>\n' +
-    '                        <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload\n' +
-    '                            Trailer</label>\n' +
-    '                        <input id="image" class="hidden" type="file" img-upload ng-model="imageName" name="imageName">\n' +
+    '                        <!-- <span style="color:red">*</span> -->\n' +
+    '\n' +
+    '                        <input id="coverImage" name="coverImage" style="display: none;"\n' +
+    '                            onchange="angular.element(this).scope().AddcoverImage(this.files)" type="file" required>\n' +
+    '                        <button class="btn btn-success btn-xs pull-center" type="button"\n' +
+    '                            ng-click="newArtWorkCtrl.LoadUploadCover()">{{\'Upload Cover\' | translate}}</button>\n' +
+    '                        <!-- <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>\n' +
+    '                            {{\'RecommendedProductImage\' | translate}}</span> -->\n' +
+    '                        <img ng-src="{{newArtWorkCtrl.coverImage}}" style="max-height: 139px;max-width: 423px;">\n' +
+    '                        <div ng-messages="newArtWorkForm.coverImage.$error">\n' +
+    '                            <div ng-if="newArtWorkForm.coverImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '\n' +
+    '                    </div>\n' +
+    '                    <div class="form-group col-lg-4">\n' +
+    '                        <!-- <span style="color:red">*</span> -->\n' +
+    '\n' +
+    '                        <input id="trailerPoster" name="trailerPoster" style="display: none;"\n' +
+    '                            onchange="angular.element(this).scope().AddTrailerPoster(this.files)" type="file" required>\n' +
+    '                        <button class="btn btn-success btn-xs pull-center" type="button"\n' +
+    '                            ng-click="newArtWorkCtrl.LoadUploadTrailerPoster()">{{\'Upload Trailer Poster\' | translate}}</button>\n' +
+    '                        <!-- <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>\n' +
+    '                            {{\'RecommendedProductImage\' | translate}}</span> -->\n' +
+    '                        <img ng-src="{{newArtWorkCtrl.trailerPoster}}" style="max-height: 139px;max-width: 423px;">\n' +
+    '                        <div ng-messages="newArtWorkForm.trailerPoster.$error">\n' +
+    '                            <div ng-if="newArtWorkForm.trailerPoster.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
+    '                        </div>\n' +
     '\n' +
     '                    </div>\n' +
     '                </div>\n' +
@@ -541,7 +564,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <!-- <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
     '                    ng-click="newArtWorkCtrl.nextStep()">{{\'Next\' | translate}}</button> -->\n' +
     '            </div>\n' +
-    '          \n' +
+    '\n' +
     '        </form>\n' +
     '    </div>\n' +
     '\n' +
