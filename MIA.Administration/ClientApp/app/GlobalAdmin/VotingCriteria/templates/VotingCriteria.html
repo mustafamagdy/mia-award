@@ -1,9 +1,9 @@
 <div>
     <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
         <!-- <div id="bold"> {{'AddNewVotingCriteriaBtn'| translate}} </div> -->
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-click="$state.go('newVotingCriteria');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
-            type="button">
+        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
+        border-radius: 17px;" ng-click="$state.go('newVotingCriteria');"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
             {{'AddNew'| translate}}</button>
     </div>
 
@@ -11,7 +11,11 @@
         <span>{{'NoVotingCriteriasAvailable' | translate}}</span>
     </div>
     <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="VotingCriteriaList.length > 0">
-        <div class="table-responsive">
+        <div class="table-responsive" style="border: 1px solid #21231e;
+        border-radius: 20px;
+        background-color: #0e0e0e;
+        box-shadow: 0 0 10px 5px rgba(0,0,0,.35);
+    ">
             <table class="table pmd-table table-hover">
                 <thead>
                     <tr>
@@ -22,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat ="VotingCriteria in VotingCriteriaList">
+                    <tr ng-repeat="VotingCriteria in VotingCriteriaList">
 
                         <td data-title="code">
                             {{VotingCriteria.code}}
@@ -33,7 +37,7 @@
                         </td>
                         <td data-title="weight">
                             {{VotingCriteria.weight}}
-                        </td> 
+                        </td>
                         <td width="30%">
                             <i ng-show="user.PermessionModules['News'].includes('add_new')"
                                 class="material-icons md-dark pmd-md cursorPointer font25"
@@ -41,10 +45,10 @@
                                 title="Edit">mode_edit</i>
                             <i ng-show="user.PermessionModules['News'].includes('remove')"
                                 class="material-icons pmd-md deleteButton cursorPointer font25"
-                                ng-click="VotingCriteriaCtrl.openDeleteDialog(VotingCriteria,VotingCriteria.description ,VotingCriteria.id)"
+                                ng-click="VotingCriteriaCtrl.openDeleteDialog(VotingCriteria,VotingCriteria.name[selectedLanguage] ,VotingCriteria.id)"
                                 title="Delete">delete</i>
                         </td>
-                    </tr> 
+                    </tr>
                 </tbody>
             </table>
         </div>

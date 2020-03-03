@@ -34,6 +34,21 @@
                     }
 
                 })
+                .state('displayVideo', {
+                    url: '/displayVideo/:id',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/displayVideo.html',
+                    controller: 'DisplayVideoController',
+                    'controllerAs': 'displayVideoCtrl',
+                    resolve: {
+                        MediaFileByIdPrepService: MediaFileByIdPrepService, 
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
         });
 
     JudgeArtWorkPrepService.$inject = ['JudgeArtWorkResource']
@@ -64,5 +79,9 @@
     ArtWorkMediaByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
     function ArtWorkMediaByArtWorkIdPrepService(ArtWorkResource, $stateParams) {
         return ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise;
+    }
+    MediaFileByIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
+    function MediaFileByIdPrepService(JudgeArtWorkResource, $stateParams) {
+        return JudgeArtWorkResource.getMediaFile({ id: $stateParams.id }).$promise;
     }
 }());

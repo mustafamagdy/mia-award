@@ -12,7 +12,8 @@
         vm.JudgeArtWork = ArtWorkByIdPrepService;
         vm.artWorkMedia = ArtWorkMediaByArtWorkIdPrepService;
         vm.votingCriteriaList = [];
-        console.log(vm.JudgeArtWork);
+       debugger;
+        console.log('sdsd',vm.JudgeArtWork);
         refreshVotingCriterias();
         vm.Close = function () {
             $state.go('JudgeArtWork');

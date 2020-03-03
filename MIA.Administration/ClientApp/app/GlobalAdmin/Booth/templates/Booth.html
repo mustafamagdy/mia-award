@@ -1,8 +1,8 @@
 <div>
     <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
-        <!-- <div id="bold"> {{'AddNewBoothBtn'| translate}} </div> -->
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-click="$state.go('newBooth');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
+        border-radius: 17px;" ng-click="$state.go('newBooth');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+            type="button">
             {{'AddNew'| translate}}</button>
     </div>
 
@@ -10,7 +10,11 @@
         <span>{{'NoBoothsAvailable' | translate}}</span>
     </div>
     <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="BoothList.length > 0">
-        <div class="table-responsive">
+        <div class="table-responsive" style="border: 1px solid #21231e;
+        border-radius: 20px;
+        background-color: #0e0e0e;
+        box-shadow: 0 0 10px 5px rgba(0,0,0,.35);
+    ">
             <table class="table pmd-table table-hover">
                 <thead>
                     <tr>
@@ -46,7 +50,7 @@
                                 ng-click="$state.go('editBooth',{id: Booth.id});" title="Edit">mode_edit</i>
                             <i ng-show="user.PermessionModules['News'].includes('remove')"
                                 class="material-icons pmd-md deleteButton cursorPointer font25"
-                                ng-click="BoothCtrl.openDeleteDialog(Booth,Booth.description ,Booth.id)"
+                                ng-click="BoothCtrl.openDeleteDialog(Booth,Booth.description[selectedLanguage] ,Booth.id)"
                                 title="Delete">delete</i>
                         </td>
                     </tr>

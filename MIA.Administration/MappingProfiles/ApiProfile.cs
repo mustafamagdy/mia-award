@@ -96,7 +96,7 @@ namespace MIA.Administration.MappingProfiles
 
       #region Nominee
       CreateMap<Nominee, NomineeDto>().ValidateMemberList(MemberList.None);
-      //   CreateMap<UserDto, Nominee>().ValidateMemberList(MemberList.None);
+         CreateMap<NomineeDto, Nominee>().ValidateMemberList(MemberList.None);
 
       #endregion
 
@@ -128,7 +128,8 @@ namespace MIA.Administration.MappingProfiles
       #region Award
       CreateMap<Award, AwardDto>().ValidateMemberList(MemberList.None)
         .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
-        .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
+        .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description)) 
+
 ;
       CreateMap<Award, AwardDetailsDto>().ValidateMemberList(MemberList.None);
       CreateMap<NewAwardDto, Award>().ValidateMemberList(MemberList.None);
@@ -156,6 +157,12 @@ namespace MIA.Administration.MappingProfiles
 
       #endregion
 
+      #region Judge  
+
+      CreateMap<Judge , JudgeDto>().ValidateMemberList(MemberList.None);
+      CreateMap<JudgeDto, Judge>().ValidateMemberList(MemberList.None);
+
+      #endregion
       //#region Role
       //CreateMap<Role, RoleDto>().ValidateMemberList(MemberList.None); 
 

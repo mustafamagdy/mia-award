@@ -184,7 +184,12 @@ namespace MIA.Administration.Api
       // }
 
     }
-
+    [HttpGet("getMediaFile")]
+    public async Task<IActionResult> GetMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db)
+    {
+      var artWorkItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id== id);
+      return IfFound(_mapper.Map<MediaFile>(artWorkItem));
+    }
     [HttpPost("createMediaFile")]
     public async Task<IActionResult> CreateMediaFile([FromBody] MediaFileDto dto, [FromServices] IAppUnitOfWork db)
     {

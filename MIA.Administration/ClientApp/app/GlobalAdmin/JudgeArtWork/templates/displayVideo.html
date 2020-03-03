@@ -1,0 +1,151 @@
+<style>
+    body {
+        margin: 0;
+    }
+
+    /* player */
+
+    .player video {
+        max-height: 500px;
+         /* max-width: 100%; */
+        display: block;
+    }
+
+    .player .progress {
+        border-radius: 0;
+        margin: 0 0 5px 0;
+        height: 10px;
+    }
+
+    .player .progress-bar {
+        background-color: #9e0b0f;
+    }
+
+    .player .controls {
+        text-align: center;
+        font-size: 2em;
+    }
+
+    .player .controls a {
+        color: #777;
+        cursor: pointer;
+        color: #000;
+        font-size: 1em;
+        margin: 0 10px;
+    }
+
+    .player .controls a:hover {
+        color: #555;
+    }
+
+    .player .controls .glyphicon {
+        vertical-align: middle;
+    }
+
+    /* progress */
+    .progress {
+        height: 20px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    }
+
+    .progress-bar {
+        float: left;
+        width: 0;
+        height: 100%;
+        font-size: 12px;
+        line-height: 20px;
+        color: #fff;
+        text-align: center;
+        background-color: #428bca;
+        -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+        box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+        -webkit-transition: width .6s ease;
+        -o-transition: width .6s ease;
+        transition: width .6s ease;
+    }
+
+    .progress.active .progress-bar,
+    .progress-bar.active {
+        -webkit-animation: progress-bar-stripes 2s linear infinite;
+        -o-animation: progress-bar-stripes 2s linear infinite;
+        animation: progress-bar-stripes 2s linear infinite;
+    }
+
+    .progress-bar[aria-valuenow="1"],
+    .progress-bar[aria-valuenow="2"] {
+        min-width: 30px;
+    }
+
+    .progress-bar[aria-valuenow="0"] {
+        min-width: 30px;
+        color: #777;
+        background-color: transparent;
+        background-image: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+</style>
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-description-text">{{'ViewJudgeArtWork' | translate}}</h2>
+    </div>
+    <div class="modal-body">
+        
+        <player videos='[{"type":"mp4","src":"https://mia-content.s3.amazonaws.com/album/01e22zntqbcbg2nvf6zb8kgdmk/Clock_Face_2Videvo.mov",
+            "poster":"https://mia-content.s3.amazonaws.com/artwork/01dzsa07y34ddsq9g6m11anxmx/image008.png",
+            "captions":"http://www.videojs.com/vtt/captions.vtt"}
+            ,{"type":"webm","src":"http://vjs.zencdn.net/v/oceans.webm"}]' />
+        <form class="form-horizontal" name="viewJudgeArtWorkForm">
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <div ng-repeat="n in [] | range:displayVideoCtrl.totalCount">
+                        <label
+                            for="first-name">{{displayVideoCtrl.votingCriteriaList[n].name[selectedLanguage]}}</label>
+                        <input required type="text" class="mat-input form-control" name="Value" numbers-only
+                            style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
+                            ng-model="displayVideoCtrl.votingCriteria[n]"
+                            ng-change="displayVideoCtrl.changeValue(displayVideoCtrl.votingCriteria[n],n)" required />
+                        <!-- required validation  -->
+                        <div ng-messages="viewJudgeArtWorkForm.Value.$error">
+                            <div class="error" ng-if="viewJudgeArtWorkForm.Value.$error.required && 
+                                        !viewJudgeArtWorkForm.Value.$pristine">
+                                {{'requiredErr' |  translate}}
+                            </div>
+                            <!-- length validation -->
+                            <div class="error" ng-if="(viewJudgeArtWorkForm.Value.$error.minlength ||
+                                            viewJudgeArtWorkForm.Value.$error.maxlength) 
+                                             && !viewJudgeArtWorkForm.Value.newValue.$error.required">
+                                {{'PhoneLengthError' |  translate}}
+                            </div>
+                        </div>
+                        <!-- <input id="{{mediaImage + $index}}" name="{{mediaImage + $index}}" style="display: none;"
+                            onchange="angular.element(this).scope().AddmediaImage(this.files)" type="file" required
+                            file-change handler="fileSelect(files)" ng-repeat="file in displayVideoCtrl.filesCount">
+                        <button class="btn btn-success btn-xs pull-center"
+                            ng-click="displayVideoCtrl.LoadUploadmedia()">{{'Upload Receipt' | translate}}</button>
+
+                        <div ng-messages="viewJudgeArtWorkForm.mediaImage.$error">
+                            <div ng-if="viewJudgeArtWorkForm.mediaImage.$error.required">{{'requiredErr' | translate}}
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+    <div class="pmd-modal-action text-right">
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-disabled="viewJudgeArtWorkForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
+            ng-click="displayVideoCtrl.UpdateJudgeArtWork()">{{'saveChangesBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" type="button"
+            ng-click="displayVideoCtrl.Close()">{{'DiscardBtn' | translate}}</button>
+    </div>
+
+</div>

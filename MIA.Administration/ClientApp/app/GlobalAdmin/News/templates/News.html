@@ -1,12 +1,8 @@
 <div>
-    <div style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
-    border: #494b74 solid 1px;
-    background-color: transparent;
-    color: #494b74;
-    border-radius: 17px;" ng-show="user.PermessionModules['News'].includes('add_new')">
-        <!-- <div id="bold"> {{'AddNewNewsBtn'| translate}} </div> -->
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-click="$state.go('newNews');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+    <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
+        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
+        border-radius: 17px;" ng-click="$state.go('newNews');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+            type="button">
             {{'AddNew'| translate}}</button>
     </div>
 

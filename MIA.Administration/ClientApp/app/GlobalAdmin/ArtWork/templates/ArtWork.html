@@ -1,9 +1,7 @@
 <div>
-    <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')"> 
-        <button
-         style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
-        border-radius: 17px;" 
-        ng-click="$state.go('newArtWork');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+    <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
+        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
+        border-radius: 17px;" ng-click="$state.go('newArtWork');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
             type="button">
             {{'AddNew'| translate}}</button>
     </div>
