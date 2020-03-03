@@ -55,7 +55,7 @@ const ArtWork = ({ artWork, ...props }) => {
   return (
     <div className="item">
       <div className="imgthumb">
-        <a href="#" title="#">
+        <a href={`/members/artwork/${artWork.id}`} title="#">
           <img src="assets/images/show_image.png" />
           <div className="mask">
             <div className="content">
