@@ -89,7 +89,7 @@
                             <div class="form-group pmd-textfield-floating-label-completed">
                                 <span style="color:red">Must upload cover to video</span>
                                 <br>
-                                <input id="posterVideo" name="posterVideo" style="display: none;"  
+                                <input id="posterVideo" name="posterVideo" style="display: none;"
                                     onchange="angular.element(this).scope().AddposterVideo(this.files)" type="file"
                                     required>
                                 <button class="btn btn-success btn-xs pull-center" type="button"
@@ -120,7 +120,7 @@
     </div>
     <div class="pmd-modal-action text-right">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-disabled="newMediaItemForm.$invalid && (newMediaItemCtrl.posterImage ==null || newMediaItemCtrl.posterVideo ==null)"
+            ng-disabled="newMediaItemForm.$invalid"
             class="btn pmd-ripple-effect btn-primary" type="button"
             ng-click="newMediaItemCtrl.AddNewMediaItem()">{{'saveChangesBtn' | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" type="button"

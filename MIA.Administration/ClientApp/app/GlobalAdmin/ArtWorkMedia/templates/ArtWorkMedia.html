@@ -1,0 +1,45 @@
+<div>
+    <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
+        <!-- <div id="bold"> {{'AddNewArtWorkBtn'| translate}} </div> -->
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-click="$state.go('newArtWorkMedia',{id:$stateParams.id});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+            {{'AddNew'| translate}}</button>
+    </div> 
+    <div ng-if="ArtWorkMediaCtrl.mediaItemList.length == null">
+        <span>{{'NoArtWorksAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="ArtWorkMediaCtrl.mediaItemList.length > 0">
+        <div class="table-responsive">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'title' | translate}}</th> 
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="ArtWork in ArtWorkMediaCtrl.mediaItemList">
+                        <td data-title="Name">
+                            {{ArtWork.description   | limitTo : 20}}
+                            {{ArtWork.description.length > 20 ? '...' : ''}}
+                        </td> 
+                        <td width="30%">
+                            <i ng-show="user.PermessionModules['ArtWork'].includes('add_new')"
+                                class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('editArtWork',{id: ArtWork.id});" title="Edit">mode_edit</i>
+                            <i ng-show="user.PermessionModules['News'].includes('remove')"
+                                class="material-icons pmd-md deleteButton cursorPointer font25"
+                                ng-click="ArtWorkMediaCtrl.openDeleteDialog(ArtWork,ArtWork.title[selectedLanguage] ,ArtWork.id)"
+                                title="Delete">delete</i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="ArtWorkMediaCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+        hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

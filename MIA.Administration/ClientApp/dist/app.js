@@ -271,7 +271,7 @@
 
   function ArtWorkController(appCONSTANTS, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
     $(".pmd-sidebar-nav>li>a").removeClass("active");
-    $($(".pmd-sidebar-nav").children()[6].children[0]).addClass("active");
+    $($(".pmd-sidebar-nav").children()[4].children[0]).addClass("active");
     var vm = this;
 
     vm.currentPage = 1;
@@ -429,6 +429,8 @@
                 },
                 headers: { 'Content-Type': undefined }
             },
+            UpdateTrailerVideoUrl: { method: 'PUT', url: appCONSTANTS.API_URL + 'artWorks/UpdateTrailerVideoUrl', useToken: true }
+
         })
     }
 
@@ -522,10 +524,10 @@
 
     angular
         .module('home')
-        .controller('createArtWorkDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+        .controller('createArtWorkDialogController', ['$uibModal', '$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
             'ArtWorkResource', 'ToastService', '$rootScope', '$localStorage', createArtWorkDialogController])
 
-    function createArtWorkDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
+    function createArtWorkDialogController($uibModal, $scope, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
         ToastService, $rootScope, $localStorage) {
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
@@ -573,7 +575,9 @@
 
 
         vm.AddNewArtWork = function () {
-            var splitImage = vm.posterImage.split(',');
+            var splitPoster = vm.posterImage.split(',');
+            var splitTrailerPoster = vm.trailerPoster.split(',');
+            var splitCover = vm.coverImage.split(',');
             blockUI.start("Loading...");
             var newObj = new ArtWorkResource();
             newObj.Title = vm.Title;
@@ -589,9 +593,14 @@
             newObj.Story = vm.Story.join(', ');
             newObj.Crew = vm.Crew.join(', ');
 
-            newObj.Poster = splitImage[1];
-            newObj.PosterFileName = posterImage.type;  
+            newObj.Poster = splitPoster[1];
+            newObj.PosterFileName = posterImage.type;
 
+            newObj.Cover = splitCover[1];
+            newObj.CoverFileName = splitCover[0];
+
+            newObj.TrailerPoster = splitTrailerPoster[1];
+            newObj.TrailerPosterFileName = splitTrailerPoster[0];
 
 
             newObj.$create().then(
@@ -599,11 +608,9 @@
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                     debugger;
+                    openUploadDialog(data.id, apiBaseUrl + '/api/artWorks/artwork/' + data.id + '/files')
 
-                    localStorage.setItem('artWorkId', data.id);
-                    localStorage.setItem('filesCount', data.filesCount);
 
-                    $state.go('newArtWorkMedia', { id: data.id });
                 },
                 function (data, status) {
                     blockUI.stop();
@@ -613,8 +620,40 @@
         }
 
 
+        function callBackUpload(model) {
+            debugger
+            var updateObj = new ArtWorkResource();
+            updateObj.Id = model.id;
+            updateObj.FileUrl = model.data.trailerUrl;
+            updateObj.FileKey = model.data.trailerId;
+            updateObj.$UpdateTrailerVideoUrl().then(
+                function (data, status) {
+                    debugger;
+                    $state.go('ArtWork');
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function openUploadDialog(id, url) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
+                controller: 'uploadVideoController',
+                controllerAs: 'uploadDlCtrl',
+                resolve: {
+                    itemId: function () { return id },
+                    url: function () { return url },
+                    callBackFunction: function () { return callBackUpload }
+                }
+
+            });
+        }
         function refreshNominees() {
             var k = ArtWorkResource.getAllNominees().$promise.then(function (results) {
+                debugger;
                 vm.nomineeList = results;
                 blockUI.stop();
 
@@ -700,6 +739,101 @@
 
 
 
+        vm.LoadUploadTrailerPoster = function () {
+            $("#trailerPoster").click();
+        }
+        var trailerPoster;
+        $scope.AddTrailerPoster = function (element) {
+            var logoFile = element[0];
+
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newArtWorkForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        trailerPoster = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.trailerPoster = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+
+
+        }
+
+        $scope.uploadTrailerPosterFile = function (element) {
+            vm.trailerPoster = $(element)[0].files[0];
+        };
+
+
+
+        vm.LoadUploadCover = function () {
+            $("#coverImage").click();
+        }
+        var coverImage;
+        $scope.AddcoverImage = function (element) {
+            var logoFile = element[0];
+
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newArtWorkForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        coverImage = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.coverImage = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+
+
+        }
+
+        $scope.uploadCoverFile = function (element) {
+            vm.coverImage = $(element)[0].files[0];
+        };
 
 
         vm.LoadUploadreceipt = function () {
@@ -1059,27 +1193,24 @@
 
     angular
         .module('home')
-        .controller('ArtWorkMediaController', ['appCONSTANTS', '$scope', '$translate', 'ArtWorkResource', 'blockUI', '$uibModal',
+        .controller('ArtWorkMediaController', ['appCONSTANTS', '$stateParams', '$scope', '$translate', 'ArtWorkResource', 'blockUI', '$uibModal',
             'ToastService', ArtWorkMediaController]);
 
 
-    function ArtWorkMediaController(appCONSTANTS, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
+    function ArtWorkMediaController(appCONSTANTS, $stateParams, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         var vm = this;
 
         vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS;
-        debugger;
+        vm.appCONSTANTS = appCONSTANTS; 
         refreshArtWorks();
         function refreshArtWorks() {
             blockUI.start("Loading...");
 
-            var k = ArtWorkResource.getAllArtWorks({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
-                debugger;
-                $scope.ArtWorkList = results.items;
-                $scope.totalCount = results.metadata.totalItemCount;
-                console.log($scope.ArtWorkList);
+            var k = ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise.then(function (results) {
+                vm.mediaItemList = results;
+                console.log(vm.mediaItemList);
                 blockUI.stop();
 
             },
@@ -1174,54 +1305,10 @@
 
     function ArtWorkMediaResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'artWorks', {}, {
-            getAllArtWorks: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/search', useToken: true, params: { lang: '@lang' } },
-            getAllNominees: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/nominees', useToken: true, isArray: true, params: { lang: '@lang' } },
-            getAllAwards: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/search', useToken: true, params: { lang: '@lang' } },
-            create: {
-                method: 'POST', useToken: true,
+            createMediaFile: { method: 'POST',url: appCONSTANTS.API_URL + 'artWorks/createMediaFile', useToken: true },
+            UpdateMediaItemVideoUrl: { method: 'PUT', url: appCONSTANTS.API_URL + 'artWorks/UpdateMediaItemVideoUrl', useToken: true }
 
-
-
-            },
-            update: {
-                method: 'PUT', useToken: true,
-                transformRequest: function (data) {
-                    debugger;
-                    if (data === undefined)
-                        return data;
-
-                    var fd = new FormData();
-                    angular.forEach(data, function (value, key) {
-                        if (value instanceof FileList) {
-                            if (value.length == 1) {
-                                fd.append(key, value[0]);
-                            } else {
-                                angular.forEach(value, function (file, index) {
-                                    fd.append(key + '_' + index, file);
-                                });
-                            }
-                        } else {
-                            if (typeof value == "object" && typeof value.size == "number")
-                                fd.append(key, value);
-                            if (typeof value == "object") {
-                                Object.keys(value).forEach(v => {
-                                    fd.append(key, value[v]);
-                                });
-                            }
-                            else
-                                fd.append(key, value);
-
-                        }
-                    });
-                    return fd;
-                },
-                headers: { 'Content-Type': undefined }
-            },
-            getArtWork: { method: 'GET', useToken: true },
-            delete: { method: 'DELETE', useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/ChangeStatus/:id/:status', useToken: true }
-
-        })
+              })
     }
 
 }());
@@ -1302,6 +1389,89 @@
 
     angular
         .module('home')
+        .controller('mediaItemController', ['appCONSTANTS', '$scope', '$translate', 'PhotoAlbumResource', 'blockUI', '$uibModal',
+            'ToastService', '$stateParams', mediaItemController]);
+
+
+    function mediaItemController(appCONSTANTS, $scope, $translate, PhotoAlbumResource, blockUI, $uibModal, ToastService, $stateParams) {
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+        var vm = this;
+        vm.currentPage = 1;
+        vm.appCONSTANTS = appCONSTANTS;
+        refreshMediaItems();
+        function refreshMediaItems() {
+            blockUI.start("Loading...");
+            debugger;
+            var k = PhotoAlbumResource.getMediaItems({ id: $stateParams.id }).$promise.then(function (results) {
+                vm.mediaItemList = results;
+                console.log(vm.mediaItemList);
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+                });
+        } 
+        function confirmationDelete(model) {
+            var obj = new PhotoAlbumResource();
+            obj.$deleteMediaItems({ id: model.id }).then(
+                function (data, status) {
+                    refreshMediaItems();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.openDeleteDialog = function (model, name, id) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+                controller: 'confirmDeleteDialogController',
+                controllerAs: 'deleteDlCtrl',
+                resolve: {
+                    model: function () { return model },
+                    itemName: function () { return name },
+                    itemId: function () { return id },
+                    message: function () { return null },
+                    callBackFunction: function () { return confirmationDelete }
+                }
+
+            });
+        }
+        vm.ChangeStatus = function (model) {
+            var updateObj = new PhotoAlbumResource();
+            updateObj.id = model.id; 
+            updateObj.featured = (model.featured == true ? false : true);
+            updateObj.$updateMediaItem().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    model.featured = updateObj.featured;
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                }
+            );
+            return;
+        }
+
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshMediaItems();
+        }
+
+
+
+            }
+
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
 
         .directive('fileModel', ['$parse', function ($parse) {
             return {
@@ -1340,31 +1510,122 @@
         .filter("range", function () {
             return (x, n) => Array.from({ length: n }, (x, index) => (index));
         })
-        .controller('createArtWorkMediaDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'ArtWorkResource', 'ToastService', 'ArtWorkMediaByArtWorkIdPrepService', createArtWorkMediaDialogController])
+        .controller('createArtWorkMediaDialogController', ['$stateParams', 'blockUI', '$uibModal', '$state', 'appCONSTANTS', '$translate',
+            'ArtWorkResource', 'ArtWorkMediaResource', 'ToastService', 'ArtWorkMediaByArtWorkIdPrepService', createArtWorkMediaDialogController])
 
-    function createArtWorkMediaDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
-        ToastService, ArtWorkMediaByArtWorkIdPrepService) {
+    function createArtWorkMediaDialogController($stateParams, blockUI, $uibModal, $state, appCONSTANTS, $translate, ArtWorkResource,
+        ArtWorkMediaResource, ToastService, ArtWorkMediaByArtWorkIdPrepService) {
         var vm = this;
-        debugger;
-        vm.artWorkMedia = ArtWorkMediaByArtWorkIdPrepService;
-        vm.filesCount = vm.artWorkMedia[0].artWork.fileCount;
-        console.log(vm.artWorkMedia, 'media')
-        vm.filesCounts = [];
+
         vm.language = appCONSTANTS.supportedLanguage;
         vm.close = function () {
-            $state.go('ArtWork');
+            $state.go('ArtWorkMedia', { id: $stateParams.id });
         }
 
-        vm.AddNewArtWork = function () {
+        vm.AddNewArtWorkMedia = function () {
             debugger;
             blockUI.start("Loading...");
-            var newObj = new ArtWorkResource();
-
-            newObj.$create().then(
+            var newObj = new ArtWorkMediaResource();
+            newObj.ArtWorkId = $stateParams.id;
+            newObj.Description = vm.title;
+            newObj.$createMediaFile().then(
                 function (data, status) {
                     blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    openUploadDialog(data.id, apiBaseUrl + '/api/artWorks/artwork/' + data.id + '/files')
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+                }
+            );
+        }
+
+        function callBackUpload(model) {
+            debugger
+            var updateObj = new ArtWorkMediaResource();
+            updateObj.Id = model.id;
+            updateObj.FileUrl = model.data.trailerUrl;
+            updateObj.FileKey = model.data.trailerId;
+            updateObj.$UpdateMediaItemVideoUrl().then(
+                function (data, status) {
+                    debugger;
+                    $state.go('ArtWorkMedia', { id: $stateParams.id });
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function openUploadDialog(id, url) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
+                controller: 'uploadVideoController',
+                controllerAs: 'uploadDlCtrl',
+                resolve: {
+                    itemId: function () { return id },
+                    url: function () { return url },
+                    callBackFunction: function () { return callBackUpload }
+                }
+
+            });
+        }
+
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('createMediaItemController', ['$uibModal', '$scope', 'blockUI', '$stateParams', '$state', '$http', '$q', 'appCONSTANTS', '$translate',
+            'PhotoAlbumResource', 'ToastService', '$rootScope', createMediaItemController])
+
+    function createMediaItemController($uibModal, $scope, blockUI, $stateParams, $state, $http, $q, appCONSTANTS, $translate, PhotoAlbumResource,
+        ToastService, $rootScope) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.selectedMediaType = "";
+        vm.close = function () {
+            $state.go('PhotoAlbum');
+        }
+
+
+        vm.AddNewMediaItem = function () {
+
+            blockUI.start("Loading...");
+            var newObj = new PhotoAlbumResource();
+            newObj.Title = vm.title;
+
+            newObj.Featured = vm.isFeatured;
+            newObj.MediaType = vm.selectedMediaType;
+            newObj.AlbumId = $stateParams.id;
+            debugger;
+            if (vm.posterVideo != null) {
+                var splitVideoImage = vm.posterVideo.split(',');
+                newObj.Poster = splitVideoImage[1];
+                newObj.PosterFileName = splitVideoImage[0];
+            }
+            else {
+                var splitImage = vm.posterImage.split(',');
+                newObj.Media = splitImage[1];
+                newObj.MediaFileName = splitImage[0];
+            }
+
+
+
+            newObj.$createMediaItem().then(
+                function (data, status) {
+                    blockUI.stop();
+                    debugger;
+                    if (data.mediaType == 'image') {
+                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                        $state.go('mediaItems', { id: $stateParams.id });
+
+                    } else {
+                        openUploadDialog(data.id, apiBaseUrl + '/api/albums/mediaItems/' + data.id + '/files')
+                    }
                 },
                 function (data, status) {
                     blockUI.stop();
@@ -1373,7 +1634,130 @@
             );
         }
 
+        vm.LoadUploadPoster = function () {
+            $("#posterImage").click();
+            debugger;
+        }
+        var posterImage;
+        $scope.AddposterImage = function (element) {
+            debugger;
+            var logoFile = element[0];
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
 
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newMediaItemForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        posterImage = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.posterImage = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+        }
+
+        $scope.uploadPosterFile = function (element) {
+            debugger;
+            vm.posterImage = $(element)[0].files[0];
+        };
+
+
+
+        vm.LoadUploadPosterVideo = function () {
+            $("#posterVideo").click();
+        }
+        var posterVideo;
+        $scope.AddposterVideo = function (element) {
+            var logoFile = element[0];
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newMediaItemForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        posterVideo = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.posterVideo = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+        }
+
+        $scope.uploadPosterVideoFile = function (element) {
+            debugger;
+            vm.posterVideo = $(element)[0].files[0];
+        };
+
+        function callBackUpload(model) {
+            debugger
+            var updateObj = new PhotoAlbumResource();
+            updateObj.Id = model.id;
+            updateObj.FileUrl = model.data.fileUrl;
+            updateObj.FileKey = model.data.fileKey;
+            updateObj.$UpdateMediaItemVideoUrl().then(
+                function (data, status) {
+                    debugger;
+                    $state.go('mediaItems', { id: $stateParams.id });
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function openUploadDialog(id, url) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
+                controller: 'uploadVideoController',
+                controllerAs: 'uploadDlCtrl',
+                resolve: {
+                    itemId: function () { return id },
+                    url: function () { return url },
+                    callBackFunction: function () { return callBackUpload }
+                }
+
+            });
+        }
     }
 }());
 (function () {
@@ -1433,7 +1817,7 @@
 
     function AwardController(appCONSTANTS, $scope, $translate, AwardResource, blockUI, $uibModal, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
         var vm = this;
 
         vm.currentPage = 1;
@@ -1719,7 +2103,7 @@
 
     function BoothController(appCONSTANTS, $scope, $translate, BoothResource, blockUI, $uibModal, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
         var vm = this;
 
         vm.currentPage = 1;
@@ -2207,8 +2591,10 @@
 
 
     function NewsController(appCONSTANTS, $scope, $translate, NewsResource, blockUI, $uibModal, ToastService) {
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+
+              $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
+
         var vm = this;
 
         vm.currentPage = 1;
@@ -2650,7 +3036,7 @@
 
     function PhotoAlbumController(appCONSTANTS, $scope, $translate, PhotoAlbumResource, blockUI, $uibModal, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[7].children[0]).addClass("active")
         var vm = this;
 
         vm.currentPage = 1;
@@ -2922,7 +3308,7 @@
                         $state.go('mediaItems', { id: $stateParams.id });
 
                     } else {
-                        openUploadDialog(data.id)
+                        openUploadDialog(data.id, apiBaseUrl + '/api/albums/mediaItems/' + data.id + '/files')
                     }
                 },
                 function (data, status) {
@@ -3043,13 +3429,14 @@
                 }
             );
         }
-        function openUploadDialog(id) {
+        function openUploadDialog(id, url) {
             var modalContent = $uibModal.open({
                 templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
                 controller: 'uploadVideoController',
                 controllerAs: 'uploadDlCtrl',
                 resolve: {
                     itemId: function () { return id },
+                    url: function () { return url },
                     callBackFunction: function () { return callBackUpload }
                 }
 
@@ -3406,7 +3793,7 @@
     function RoleController(blockUI, $scope, $translate, RoleResource, RolePrepService, ToastService, $uibModal) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
 
         blockUI.start("Loading...");
 
@@ -3684,7 +4071,7 @@
 
                         return $http({
                             method: 'POST',
-                            url: `http://localhost:62912/api/test/artwork/${id}/files`,
+                            url: apiBaseUrl + `/api/test/artwork/${id}/files`,
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -3700,9 +4087,9 @@
                 }
             };
         })
-        .controller('uploadVideoController', ['$uibModalInstance', 'itemId', '$scope', '$http', 'ToastService', 'callBackFunction', uploadVideoController])
+        .controller('uploadVideoController', ['$uibModalInstance', 'itemId', 'url', '$scope', '$http', 'ToastService', 'callBackFunction', uploadVideoController])
 
-    function uploadVideoController($uibModalInstance, itemId, $scope, $http, ToastService, callBackFunction) {
+    function uploadVideoController($uibModalInstance, itemId, url, $scope, $http, ToastService, callBackFunction) {
         var vm = this;
         $scope.LoadUploadVideo = function () {
             $("#file").click();
@@ -3779,10 +4166,11 @@
         };
 
         $scope.uploadChunkApi = function ({ id, ...data }) {
+            debugger;
 
             return $http({
                 method: 'POST',
-                url: `http://localhost:62912/api/albums/mediaItems/${id}/files`,
+                url: url, 
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -4687,321 +5075,6 @@
 
     angular
         .module('home')
-        .controller('editBranchFeesController', ['$scope', 'blockUI', '$filter', '$translate',
-            '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
-            , 'branchFeesPrepService' , '$uibModalInstance', 'BranchResource', editBranchFeesController]);
-
-
-    function editBranchFeesController($scope, blockUI, $filter, $translate,
-        $state, $localStorage, authorizationService, appCONSTANTS, ToastService, $stateParams,
-        branchFeesPrepService, $uibModalInstance, BranchResource) {
-
-        $scope.selectedLanguage = $localStorage.language;
-        var Manufacture = this;
-        Manufacture.language = appCONSTANTS.supportedLanguage;
-        blockUI.stop();
-        $scope.branch = branchFeesPrepService[0];
-
-        Manufacture.close = function () {
-            $uibModalInstance.dismiss();
-        }
-
-
-        Manufacture.UpdateFees = function () {
-            var branch = new BranchResource();
-
-                        branch.deliveryCost = $scope.branch.deliveryCost;
-            branch.deliveryPrice = $scope.branch.deliveryPrice;
-            branch.isFees = true;
-            branch.branchId = $scope.branch.branchId;
-
-            branch.$update().then(
-                function (data, status) {
-                    $uibModalInstance.dismiss();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-    }
-
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('settingController', ['$rootScope', 'blockUI', '$scope', '$http', '$filter', '$translate',
-            '$state', '$localStorage',
-            'authorizationService', 'appCONSTANTS',
-            'ToastService', '$stateParams'
-            , '$uibModal', 'settingsPrepService', 'BranchPrepService', 'AddSettingsResource', 'UpdateSettingsResource', settingController]);
-
-
-    function settingController($rootScope, blockUI, $scope, $http, $filter, $translate,
-        $state, $localStorage, authorizationService,
-        appCONSTANTS, ToastService, $stateParams, $uibModal, settingsPrepService
-        , BranchPrepService, AddSettingsResource, UpdateSettingsResource) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[14].children[0]).addClass("active")
-
-
-        var Manufacture = this;
-        $scope.settingsPrepService = settingsPrepService;
-        console.log($scope.settingsPrepService);
-        Manufacture.orderType = {
-            type: 'item'
-        };
-
-        Manufacture.currency;
-        Manufacture.minDays;
-        Manufacture.maxPause;
-        Manufacture.allowPause;
-        Manufacture.allowHistory;
-        Manufacture.programDiscount=$scope.settingsPrepService.programDiscount;
-
-        if ($scope.settingsPrepService.isActive != undefined) {
-            if ($scope.settingsPrepService.isSMS && $scope.settingsPrepService.isMail) {
-                Manufacture.orderType.type = "both"
-            }
-            else if ($scope.settingsPrepService.isSMS) {
-                Manufacture.orderType.type = "sms"
-            }
-            else if ($scope.settingsPrepService.isMail) {
-                Manufacture.orderType.type = "mail"
-            }
-            else {
-                Manufacture.orderType.type = "none"
-            }
-
-        }
-
-
-        $scope.BranchPrepService = BranchPrepService;
-
-        Manufacture.currentPage = 1;
-        $scope.changePage = function (page) {
-            Manufacture.currentPage = page;
-            refreshAreas();
-        }
-
-        Manufacture.UpdateProgram = function (program) {
-            change(program, false);
-        }
-
-
-
-        Manufacture.AddSetting = function () {
-            blockUI.start("Loading...");
-
-            var setting = new AddSettingsResource();
-
-            if (Manufacture.orderType.type == "none") {
-                setting.isSMS = false;
-                setting.isMail = false;
-            }
-            else if (Manufacture.orderType.type == "sms") {
-                setting.isSMS = true;
-                setting.isMail = false;
-            }
-            else if (Manufacture.orderType.type == "mail") {
-                setting.isSMS = false;
-                setting.isMail = true;
-            }
-            else if (Manufacture.orderType.type == "both") {
-                setting.isSMS = true;
-                setting.isMail = true;
-            }
-
-            setting.isDeleted = false;
-            setting.isPause = Manufacture.allowPause;
-
-            if (Manufacture.allowPause == true) {
-                setting.maxPauseDays = Manufacture.maxPause;
-            }
-            else if (Manufacture.allowPause == false) {
-                setting.maxPauseDays = 0;
-            }
-            setting.allowHistory = Manufacture.allowHistory;
-            setting.currencyCode = Manufacture.currency;
-            setting.minNoDaysPerProgram = Manufacture.minDays;
-            setting.isDeleted = false;
-            setting.isActive = true;
-            setting.programDiscount = Manufacture.programDiscount;
-
-            setting.$create().then(
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-        Manufacture.UpdateSetting = function () {
-            blockUI.start("Loading...");
-
-            var setting = new UpdateSettingsResource();
-
-            if (Manufacture.orderType.type == "none") {
-                setting.isSMS = false;
-                setting.isMail = false;
-            }
-            else if (Manufacture.orderType.type == "sms") {
-                setting.isSMS = true;
-                setting.isMail = false;
-            }
-            else if (Manufacture.orderType.type == "mail") {
-                setting.isSMS = false;
-                setting.isMail = true;
-            }
-            else if (Manufacture.orderType.type == "both") {
-                setting.isSMS = true;
-                setting.isMail = true;
-            }
-
-            setting.isDeleted = false;
-            setting.isPause = $scope.settingsPrepService.isPause;
-
-            if (setting.isPause == true) {
-                setting.maxPauseDays = $scope.settingsPrepService.maxPauseDays;
-            }
-            else if (setting.isPause == false) {
-                setting.maxPauseDays = 0;
-            }
-            setting.allowHistory = $scope.settingsPrepService.allowHistory;
-            setting.currencyCode = $scope.settingsPrepService.currencyCode;
-            setting.minNoDaysPerProgram = $scope.settingsPrepService.minNoDaysPerProgram;
-            setting.isDeleted = false;
-            setting.isActive = true;
-            setting.programDiscount = Manufacture.programDiscount;
-
-
-            setting.$update().then(
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-        $scope.EditBranchDialog = function (branchIdd) {
-            blockUI.stop();
-            Manufacture.branch = $scope.BranchPrepService.results.filter(x => x.branchId == branchIdd);
-
-            $uibModal.open({
-                templateUrl: './app/GlobalAdmin/setting/templates/editBranchFees.html',
-                controller: 'editBranchFeesController',
-                controllerAs: 'editBranchFeesCtrl',
-                resolve: {
-                    branchFeesPrepService: function () { return Manufacture.branch; }
-                }
-            });
-        }
-
-        function change(program, isDeleted) {
-
-                        var updateObj = new UpdateProgramResource();
-            updateObj.ProgramId = program.programId;
-            if (!isDeleted)
-                updateObj.isActive = (program.isActive == true ? false : true);
-            updateObj.isDeleted = program.isDeleted;
-
-            updateObj.$update().then(
-                function (data, status) {
-                    if (isDeleted)
-                        refreshPrograms();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    program.isActive = updateObj.isActive;
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-
-        function refreshPrograms() {
-            blockUI.start("Loading...");
-
-            var k = GetProgramResource.gatAllPrograms().$promise.then(function (results) {
-                $scope.programList = results;
-
-                console.log($scope.programList);
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-
-    }
-
-})();
-(function () {
-  angular
-    .module('home')
-    .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
-    .factory('UpdateSettingsResource', ['$resource', 'appCONSTANTS', UpdateSettingsResource])
-    .factory('AddSettingsResource', ['$resource', 'appCONSTANTS', AddSettingsResource])
-    .factory('UpdateBranchFeesResource', ['$resource', 'appCONSTANTS', UpdateBranchFeesResource])
-    ;
-
-
-  function GetSettingsResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
-      getAllSettings: { method: 'GET', useToken: true }
-    })
-  }
-
-  function UpdateSettingsResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Setting/UpdateSetting', {}, {
-      update: { method: 'POST', useToken: true },
-    })
-  }
-
-  function AddSettingsResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Setting/AddSettings', {}, {
-      create: { method: 'POST', useToken: true },
-    })
-  }
-
-  function UpdateBranchFeesResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Branchs/UpdateBranchFees', {}, {
-      updateBranchFees: { method: 'POST', useToken: true },
-    })
-  }
-
-}());
-
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
         .controller('addOperationUserController', ['blockUI', 'UserRoleByIdPrepService','$stateParams', '$translate', '$state', 'UserResource', '$scope', 'ToastService', addOperationUserController]);
 
     function addOperationUserController(blockUI,UserRoleByIdPrepService, $stateParams, $translate, $state, UserResource, $scope, ToastService, ) {
@@ -5875,4 +5948,318 @@
         blockUI.stop();
     }
 
+}());(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editBranchFeesController', ['$scope', 'blockUI', '$filter', '$translate',
+            '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
+            , 'branchFeesPrepService' , '$uibModalInstance', 'BranchResource', editBranchFeesController]);
+
+
+    function editBranchFeesController($scope, blockUI, $filter, $translate,
+        $state, $localStorage, authorizationService, appCONSTANTS, ToastService, $stateParams,
+        branchFeesPrepService, $uibModalInstance, BranchResource) {
+
+        $scope.selectedLanguage = $localStorage.language;
+        var Manufacture = this;
+        Manufacture.language = appCONSTANTS.supportedLanguage;
+        blockUI.stop();
+        $scope.branch = branchFeesPrepService[0];
+
+        Manufacture.close = function () {
+            $uibModalInstance.dismiss();
+        }
+
+
+        Manufacture.UpdateFees = function () {
+            var branch = new BranchResource();
+
+                        branch.deliveryCost = $scope.branch.deliveryCost;
+            branch.deliveryPrice = $scope.branch.deliveryPrice;
+            branch.isFees = true;
+            branch.branchId = $scope.branch.branchId;
+
+            branch.$update().then(
+                function (data, status) {
+                    $uibModalInstance.dismiss();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+    }
+
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('settingController', ['$rootScope', 'blockUI', '$scope', '$http', '$filter', '$translate',
+            '$state', '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', '$stateParams'
+            , '$uibModal', 'settingsPrepService', 'BranchPrepService', 'AddSettingsResource', 'UpdateSettingsResource', settingController]);
+
+
+    function settingController($rootScope, blockUI, $scope, $http, $filter, $translate,
+        $state, $localStorage, authorizationService,
+        appCONSTANTS, ToastService, $stateParams, $uibModal, settingsPrepService
+        , BranchPrepService, AddSettingsResource, UpdateSettingsResource) {
+
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[14].children[0]).addClass("active")
+
+
+        var Manufacture = this;
+        $scope.settingsPrepService = settingsPrepService;
+        console.log($scope.settingsPrepService);
+        Manufacture.orderType = {
+            type: 'item'
+        };
+
+        Manufacture.currency;
+        Manufacture.minDays;
+        Manufacture.maxPause;
+        Manufacture.allowPause;
+        Manufacture.allowHistory;
+        Manufacture.programDiscount=$scope.settingsPrepService.programDiscount;
+
+        if ($scope.settingsPrepService.isActive != undefined) {
+            if ($scope.settingsPrepService.isSMS && $scope.settingsPrepService.isMail) {
+                Manufacture.orderType.type = "both"
+            }
+            else if ($scope.settingsPrepService.isSMS) {
+                Manufacture.orderType.type = "sms"
+            }
+            else if ($scope.settingsPrepService.isMail) {
+                Manufacture.orderType.type = "mail"
+            }
+            else {
+                Manufacture.orderType.type = "none"
+            }
+
+        }
+
+
+        $scope.BranchPrepService = BranchPrepService;
+
+        Manufacture.currentPage = 1;
+        $scope.changePage = function (page) {
+            Manufacture.currentPage = page;
+            refreshAreas();
+        }
+
+        Manufacture.UpdateProgram = function (program) {
+            change(program, false);
+        }
+
+
+
+        Manufacture.AddSetting = function () {
+            blockUI.start("Loading...");
+
+            var setting = new AddSettingsResource();
+
+            if (Manufacture.orderType.type == "none") {
+                setting.isSMS = false;
+                setting.isMail = false;
+            }
+            else if (Manufacture.orderType.type == "sms") {
+                setting.isSMS = true;
+                setting.isMail = false;
+            }
+            else if (Manufacture.orderType.type == "mail") {
+                setting.isSMS = false;
+                setting.isMail = true;
+            }
+            else if (Manufacture.orderType.type == "both") {
+                setting.isSMS = true;
+                setting.isMail = true;
+            }
+
+            setting.isDeleted = false;
+            setting.isPause = Manufacture.allowPause;
+
+            if (Manufacture.allowPause == true) {
+                setting.maxPauseDays = Manufacture.maxPause;
+            }
+            else if (Manufacture.allowPause == false) {
+                setting.maxPauseDays = 0;
+            }
+            setting.allowHistory = Manufacture.allowHistory;
+            setting.currencyCode = Manufacture.currency;
+            setting.minNoDaysPerProgram = Manufacture.minDays;
+            setting.isDeleted = false;
+            setting.isActive = true;
+            setting.programDiscount = Manufacture.programDiscount;
+
+            setting.$create().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+        Manufacture.UpdateSetting = function () {
+            blockUI.start("Loading...");
+
+            var setting = new UpdateSettingsResource();
+
+            if (Manufacture.orderType.type == "none") {
+                setting.isSMS = false;
+                setting.isMail = false;
+            }
+            else if (Manufacture.orderType.type == "sms") {
+                setting.isSMS = true;
+                setting.isMail = false;
+            }
+            else if (Manufacture.orderType.type == "mail") {
+                setting.isSMS = false;
+                setting.isMail = true;
+            }
+            else if (Manufacture.orderType.type == "both") {
+                setting.isSMS = true;
+                setting.isMail = true;
+            }
+
+            setting.isDeleted = false;
+            setting.isPause = $scope.settingsPrepService.isPause;
+
+            if (setting.isPause == true) {
+                setting.maxPauseDays = $scope.settingsPrepService.maxPauseDays;
+            }
+            else if (setting.isPause == false) {
+                setting.maxPauseDays = 0;
+            }
+            setting.allowHistory = $scope.settingsPrepService.allowHistory;
+            setting.currencyCode = $scope.settingsPrepService.currencyCode;
+            setting.minNoDaysPerProgram = $scope.settingsPrepService.minNoDaysPerProgram;
+            setting.isDeleted = false;
+            setting.isActive = true;
+            setting.programDiscount = Manufacture.programDiscount;
+
+
+            setting.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+        $scope.EditBranchDialog = function (branchIdd) {
+            blockUI.stop();
+            Manufacture.branch = $scope.BranchPrepService.results.filter(x => x.branchId == branchIdd);
+
+            $uibModal.open({
+                templateUrl: './app/GlobalAdmin/setting/templates/editBranchFees.html',
+                controller: 'editBranchFeesController',
+                controllerAs: 'editBranchFeesCtrl',
+                resolve: {
+                    branchFeesPrepService: function () { return Manufacture.branch; }
+                }
+            });
+        }
+
+        function change(program, isDeleted) {
+
+                        var updateObj = new UpdateProgramResource();
+            updateObj.ProgramId = program.programId;
+            if (!isDeleted)
+                updateObj.isActive = (program.isActive == true ? false : true);
+            updateObj.isDeleted = program.isDeleted;
+
+            updateObj.$update().then(
+                function (data, status) {
+                    if (isDeleted)
+                        refreshPrograms();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    program.isActive = updateObj.isActive;
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+
+        }
+
+        function refreshPrograms() {
+            blockUI.start("Loading...");
+
+            var k = GetProgramResource.gatAllPrograms().$promise.then(function (results) {
+                $scope.programList = results;
+
+                console.log($scope.programList);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+
+    }
+
+})();
+(function () {
+  angular
+    .module('home')
+    .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
+    .factory('UpdateSettingsResource', ['$resource', 'appCONSTANTS', UpdateSettingsResource])
+    .factory('AddSettingsResource', ['$resource', 'appCONSTANTS', AddSettingsResource])
+    .factory('UpdateBranchFeesResource', ['$resource', 'appCONSTANTS', UpdateBranchFeesResource])
+    ;
+
+
+  function GetSettingsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
+      getAllSettings: { method: 'GET', useToken: true }
+    })
+  }
+
+  function UpdateSettingsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Setting/UpdateSetting', {}, {
+      update: { method: 'POST', useToken: true },
+    })
+  }
+
+  function AddSettingsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Setting/AddSettings', {}, {
+      create: { method: 'POST', useToken: true },
+    })
+  }
+
+  function UpdateBranchFeesResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Branchs/UpdateBranchFees', {}, {
+      updateBranchFees: { method: 'POST', useToken: true },
+    })
+  }
+
 }());
+

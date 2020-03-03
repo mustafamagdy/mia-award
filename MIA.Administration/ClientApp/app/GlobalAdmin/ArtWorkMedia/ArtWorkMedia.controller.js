@@ -3,27 +3,24 @@
 
     angular
         .module('home')
-        .controller('ArtWorkMediaController', ['appCONSTANTS', '$scope', '$translate', 'ArtWorkResource', 'blockUI', '$uibModal',
+        .controller('ArtWorkMediaController', ['appCONSTANTS', '$stateParams', '$scope', '$translate', 'ArtWorkResource', 'blockUI', '$uibModal',
             'ToastService', ArtWorkMediaController]);
 
 
-    function ArtWorkMediaController(appCONSTANTS, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
+    function ArtWorkMediaController(appCONSTANTS, $stateParams, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         var vm = this;
 
         vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS;
-        debugger;
+        vm.appCONSTANTS = appCONSTANTS; 
         refreshArtWorks();
         function refreshArtWorks() {
             blockUI.start("Loading...");
 
-            var k = ArtWorkResource.getAllArtWorks({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
-                debugger;
-                $scope.ArtWorkList = results.items;
-                $scope.totalCount = results.metadata.totalItemCount;
-                console.log($scope.ArtWorkList);
+            var k = ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise.then(function (results) {
+                vm.mediaItemList = results;
+                console.log(vm.mediaItemList);
                 blockUI.stop();
 
             },

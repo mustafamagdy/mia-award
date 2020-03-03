@@ -1,17 +1,10 @@
 (function() {
-  //process.env.NODE_ENV = "production" ? "/" :
-  // const apiBaseUrl = "http://localhost:62550";
-  const apiBaseUrl = "http://admin.miaaward.com";
+  //const apiBaseUrl = "http://localhost:62912";
+  const apiBaseUrl = "http://admin.miaaward.com/";
   angular
     .module("core")
     .constant("appCONSTANTS", {
-      API_URL: `${apiBaseUrl}/api/`,
-      // SIGNAL_URL: `${apiBaseUrl}/signal/order/`,
-
-      // Image_URL: `${apiBaseUrl}/auth`,
-      // Image_URL_ORDER: `${apiBaseUrl}/order`,
-      // Image_URL_GLOBAL: `${apiBaseUrl}/global`,
-      // Image_URL_ACTOR: `${apiBaseUrl}/actor`,
+      API_URL: `${apiBaseUrl}/api/`, 
 
       defaultLanguage: "ar",
       supportedLanguage: {

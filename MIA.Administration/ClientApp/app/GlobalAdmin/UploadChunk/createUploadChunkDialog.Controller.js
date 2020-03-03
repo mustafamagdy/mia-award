@@ -91,7 +91,7 @@
 
                         return $http({
                             method: 'POST',
-                            url: `http://localhost:62912/api/test/artwork/${id}/files`,
+                            url: apiBaseUrl + `/api/test/artwork/${id}/files`,
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -107,9 +107,9 @@
                 }
             };
         })
-        .controller('uploadVideoController', ['$uibModalInstance', 'itemId', '$scope', '$http', 'ToastService', 'callBackFunction', uploadVideoController])
+        .controller('uploadVideoController', ['$uibModalInstance', 'itemId', 'url', '$scope', '$http', 'ToastService', 'callBackFunction', uploadVideoController])
 
-    function uploadVideoController($uibModalInstance, itemId, $scope, $http, ToastService, callBackFunction) {
+    function uploadVideoController($uibModalInstance, itemId, url, $scope, $http, ToastService, callBackFunction) {
         var vm = this;
         $scope.LoadUploadVideo = function () {
             $("#file").click();
@@ -188,10 +188,11 @@
         };
 
         $scope.uploadChunkApi = function ({ id, ...data }) {
+            debugger;
 
             return $http({
                 method: 'POST',
-                url: `http://localhost:62912/api/albums/mediaItems/${id}/files`,
+                url: url, 
                 headers: {
                     'Content-Type': 'application/json'
                 },

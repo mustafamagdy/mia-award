@@ -140,7 +140,7 @@ namespace MIA.ORMContext.Seed {
       for (int i = 0; i < 30; i++) {
         var artwork = new ArtWork {
           AwardId = _faker_en.Random.ArrayElement(awards).Id,
-          FileCount = 3,
+          //FileCount = 3,
           UploadComplete = true,
         };
 
@@ -290,12 +290,12 @@ namespace MIA.ORMContext.Seed {
       UserManager<AppUser> userManager,
       IAppUnitOfWork db) {
 
-      if (await roleManager.FindByNameAsync(Constants.DEMO_ROLE) == null) {
-        await roleManager.CreateAsync(
-          new AppRole {
-            Name = Constants.DEMO_ROLE,
-            NormalizedName = Constants.DEMO_ROLE.ToUpper()
-          });
+      //if (await roleManager.FindByNameAsync(Constants.DEMO_ROLE) == null) {
+      //  await roleManager.CreateAsync(
+      //    new AppRole {
+      //      Name = Constants.DEMO_ROLE,
+      //      NormalizedName = Constants.DEMO_ROLE.ToUpper()
+      //    });
 
         var demoRole = await roleManager.FindByNameAsync(Constants.DEMO_ROLE);
         if (demoRole.Permissions == null) {
@@ -318,7 +318,7 @@ namespace MIA.ORMContext.Seed {
             demoRole.Permissions += (char)m;
           }
         });
-      }
+      //}
 
 
       if (await userManager.FindByNameAsync(Constants.DEMO_USERNAME) == null) {

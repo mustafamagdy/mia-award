@@ -3,43 +3,36 @@
 
     angular
         .module('home')
-        .controller('BoothController', ['appCONSTANTS', '$scope', '$translate', 'BoothResource', 'blockUI', '$uibModal',
-            'ToastService', BoothController]);
+        .controller('mediaItemController', ['appCONSTANTS', '$scope', '$translate', 'PhotoAlbumResource', 'blockUI', '$uibModal',
+            'ToastService', '$stateParams', mediaItemController]);
 
 
-    function BoothController(appCONSTANTS, $scope, $translate, BoothResource, blockUI, $uibModal, ToastService) {
+    function mediaItemController(appCONSTANTS, $scope, $translate, PhotoAlbumResource, blockUI, $uibModal, ToastService, $stateParams) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         var vm = this;
-
         vm.currentPage = 1;
         vm.appCONSTANTS = appCONSTANTS;
-
-        refreshBooths();
-        function refreshBooths() {
+        refreshMediaItems();
+        function refreshMediaItems() {
             blockUI.start("Loading...");
-
-            var k = BoothResource.getAllBooths({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
-                $scope.BoothList = results.items;
-                $scope.totalCount = results.metadata.totalItemCount;
-                console.log($scope.BoothList);
+            debugger;
+            var k = PhotoAlbumResource.getMediaItems({ id: $stateParams.id }).$promise.then(function (results) {
+                vm.mediaItemList = results;
+                console.log(vm.mediaItemList);
                 blockUI.stop();
 
             },
-                function (data, status) { 
-                blockUI.stop();
+                function (data, status) {
+                    blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
-        }
-        vm.showMore = function (element) {
-            $(element.currentTarget).toggleClass("child-table-collapse");
-        }
-        
+        } 
         function confirmationDelete(model) {
-            var updateObj = new BoothResource();
-            updateObj.$delete({ id: model.id }).then(
+            var obj = new PhotoAlbumResource();
+            obj.$deleteMediaItems({ id: model.id }).then(
                 function (data, status) {
-                    refreshBooths();
+                    refreshMediaItems();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
                 },
                 function (data, status) {
@@ -63,16 +56,14 @@
             });
         }
         vm.ChangeStatus = function (model) {
-            var updateObj = new BoothResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
+            var updateObj = new PhotoAlbumResource();
+            updateObj.id = model.id; 
+            updateObj.featured = (model.featured == true ? false : true);
+            updateObj.$updateMediaItem().then(
                 function (data, status) {
-                    //  refreshBooths();
+                    //  refreshMediaItems();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
+                    model.featured = updateObj.featured;
                 },
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
@@ -83,9 +74,11 @@
 
         vm.changePage = function (page) {
             vm.currentPage = page;
-            refreshBooths();
+            refreshMediaItems();
         }
 
+
+        
     }
 
 })();
