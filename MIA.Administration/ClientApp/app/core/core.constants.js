@@ -1,6 +1,6 @@
 (function() {
-  //const apiBaseUrl = "http://localhost:62912";
-  const apiBaseUrl = "http://admin.miaaward.com/";
+  const apiBaseUrl = "http://localhost:62912";
+ // const apiBaseUrl = "http://admin.miaaward.com/";
   angular
     .module("core")
     .constant("appCONSTANTS", {

@@ -490,12 +490,12 @@ namespace MIA.Api
 
                     //TODO: uncomment
                     await db.MediaFiles.AddAsync(mediaFile);
-                    var _artwork = await db.ArtWorks.Include(a => a.MediaFiles).FirstOrDefaultAsync(a => a.Id == id);
-                    if (_artwork.MediaFiles.Any() && _artwork.FileCount <= _artwork.MediaFiles.Count)
-                    {
-                        _artwork.UploadComplete = true;
-                        db.ArtWorks.Update(_artwork);
-                    }
+                    //var _artwork = await db.ArtWorks.Include(a => a.MediaFiles).FirstOrDefaultAsync(a => a.Id == id);
+                    //if (_artwork.MediaFiles.Any() && _artwork.FileCount <= _artwork.MediaFiles.Count)
+                    //{
+                    //    _artwork.UploadComplete = true;
+                    //    db.ArtWorks.Update(_artwork);
+                    //}
                     return Ok(fileKey);
                 }
                 else
