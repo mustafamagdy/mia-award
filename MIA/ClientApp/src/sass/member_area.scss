@@ -1560,24 +1560,7 @@
                     display: flex;
                     flex-wrap: nowrap;
                     margin: 10px auto;
-                    align-items: center;
-                    .progress_bar {
-                      width: 94%;
-                      height: 10px;
-                      background: #3d3d3d;
-                      position: relative;
-                      .progress_inside {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        height: 10px;
-                        background: #e2c764;
-                        [dir="rtl"] & {
-                          left: auto;
-                          right: 0;
-                        } /* rtl */
-                      } /* progress_inside */
-                    } /* progress_bar */
+                    align-items: center;                    
                     .play {
                       margin: 0 0 0 10px;
                       text-align: center;
@@ -1809,3 +1792,21 @@
     } /* member_wrapper */
   } /* container */
 } /* member_area */
+
+.progress_bar {
+  width: 94%;
+  height: 10px;
+  background: #3d3d3d;
+  position: relative;
+  .progress_inside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10px;
+    background: #e2c764;
+    [dir="rtl"] & {
+      left: auto;
+      right: 0;
+    } /* rtl */
+  } /* progress_inside */
+} /* progress_bar */

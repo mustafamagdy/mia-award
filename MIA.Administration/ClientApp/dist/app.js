@@ -513,8 +513,8 @@
     function AllAwardPrepService(ArtWorkResource) {
         return ArtWorkResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
- 
-    ArtWorkPaymentByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
+
+     ArtWorkPaymentByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
     function ArtWorkPaymentByArtWorkIdPrepService(ArtWorkResource, $stateParams) {
         return ArtWorkResource.getPayment({ id: $stateParams.id }).$promise;
     }
@@ -2263,8 +2263,8 @@
     function AllAwardPrepService(BoothResource) {
         return BoothResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
- 
-}());
+
+ }());
 (function () {
     'use strict';
 
@@ -3977,8 +3977,8 @@
     function AllAwardPrepService(UploadChunkResource) {
         return UploadChunkResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
- 
-}());
+
+ }());
 (function () {
     'use strict';
 
@@ -4361,8 +4361,8 @@
     function AllAwardPrepService(VotingCriteriaResource) {
         return VotingCriteriaResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
- 
-}());
+
+ }());
 (function () {
     'use strict';
 

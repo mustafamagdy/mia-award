@@ -10,6 +10,7 @@ import newsApi from "./news";
 import galleryApi from "./gallery";
 import showsApi from "./shows";
 import membersApi from "./members";
+import { history } from "store";
 
 const apiURI = config.useLocalApi ? config.devApiRoot : config.apiRoot;
 const create = (baseURL = apiURI) => {
@@ -38,7 +39,12 @@ const create = (baseURL = apiURI) => {
       delete request.headers["Authorization"];
     }
   });
-
+  api.addResponseTransform(response=>{
+    if(response.status && (response.status===401 ||response.status===403)){
+      localStorage.removeItem("jwtToken");
+      history.push('/')
+    };
+  });
   const app = appApi(api);
   const accounts = accountsApi(api);
   const auth = authApi(api);

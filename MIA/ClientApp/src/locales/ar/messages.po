@@ -33,15 +33,15 @@ msgstr "العنوان"
 msgid "apply_for_award"
 msgstr "قدم أعمالك"
 
-#: src/containers/Home/Awards.js:38
+#: src/containers/Home/Awards.js:29
 msgid "apply_for_your_award"
 msgstr "التقدم للجائزة"
 
-#: src/containers/Home/Awards.js:84
+#: src/containers/Home/Awards.js:108
 msgid "apply_now"
 msgstr "التقدم الآن"
 
-#: src/containers/Booths/index.js:182
+#: src/containers/Booths/index.js:185
 msgid "area"
 msgstr "مساحة"
 
@@ -54,15 +54,15 @@ msgstr "مساحة"
 #~ msgid "awards"
 #~ msgstr "الجوائز"
 
-#: src/containers/Booths/index.js:284
+#: src/containers/Booths/index.js:287
 msgid "book_now"
 msgstr "احجز الان"
 
-#: src/containers/Booths/index.js:300
+#: src/containers/Booths/index.js:303
 msgid "booth_booking_success"
 msgstr ""
 
-#: src/containers/Booths/index.js:303
+#: src/containers/Booths/index.js:306
 msgid "booth_booking_success_msg"
 msgstr ""
 
@@ -74,7 +74,7 @@ msgstr "المعرض"
 msgid "buy_your_ticket"
 msgstr "شراء التذكرة"
 
-#: src/containers/Pages/News/view.js:170
+#: src/containers/Pages/News/view.js:171
 msgid "by"
 msgstr "بواسطة"
 
@@ -97,19 +97,19 @@ msgstr "تغيير كلمة المرور"
 msgid "change_photo"
 msgstr "تغيير الصورة"
 
-#: src/containers/Booths/index.js:280
+#: src/containers/Booths/index.js:283
 msgid "choose_receipt_image"
 msgstr "اختر صورة ايصال الدفع"
 
-#: src/containers/Booths/index.js:219
+#: src/containers/Booths/index.js:222
 msgid "choose_your_payment_method"
 msgstr "اختر طريقة الدفع التى تناسبك"
 
-#: src/containers/Pages/News/view.js:152
+#: src/containers/Pages/News/view.js:153
 msgid "comment_failed"
 msgstr "حدث خطأ، يتعذر إرسال الرسالة."
 
-#: src/containers/Pages/News/view.js:148
+#: src/containers/Pages/News/view.js:149
 msgid "comment_submitted"
 msgstr "تم إرسال تعليقك بنجاح للمراجعة."
 
@@ -182,7 +182,7 @@ msgstr "+971 4 57 2636 6"
 msgid "footer_text"
 msgstr ""
 
-#: src/containers/Pages/Gallery/index.js:185
+#: src/containers/Pages/Gallery/index.js:145
 msgid "gallery"
 msgstr "معرض الصور"
 
@@ -203,7 +203,7 @@ msgstr "التواصل"
 #~ msgid "hijri"
 #~ msgstr "هجري"
 
-#: src/containers/Home/Awards.js:41
+#: src/containers/Home/Awards.js:32
 msgid "home_general_award_text"
 msgstr ""
 
@@ -219,7 +219,7 @@ msgstr "لكي تبقى على علم بآخر مستجدات كل الخصائ�
 #~ msgid "language"
 #~ msgstr "اللغة"
 
-#: src/containers/Home/PhotoAlbum.js:78
+#: src/containers/Home/PhotoAlbum.js:132
 msgid "latest_video"
 msgstr "أحدث الفيديوهات والصور"
 
@@ -243,9 +243,9 @@ msgstr "المشاركون"
 msgid "mia"
 msgstr "MIA"
 
-#: src/components/Layout/Footer.js:40
-#~ msgid "mia_awards"
-#~ msgstr "جوائز MIA"
+#: src/components/Layout/index.js:71
+msgid "mia_awards"
+msgstr "جوائز MIA"
 
 #: src/containers/Home/Awards.js:149
 #~ msgid "movies"
@@ -262,11 +262,11 @@ msgstr "الاسم"
 msgid "new_password"
 msgstr "كلمة المرور الجديدة"
 
-#: src/containers/Pages/News/index.js:146
+#: src/containers/Pages/News/index.js:122
 msgid "news"
 msgstr "الأخبار"
 
-#: src/containers/Home/News.js:71
+#: src/containers/Home/News.js:70
 msgid "news_features"
 msgstr "اهم الاخبار"
 
@@ -274,9 +274,9 @@ msgstr "اهم الاخبار"
 msgid "newsletter"
 msgstr "رسالة إخبارية"
 
-#: src/containers/Booths/index.js:189
-#: src/containers/Booths/index.js:207
-#: src/containers/Home/News.js:133
+#: src/containers/Booths/index.js:192
+#: src/containers/Booths/index.js:210
+#: src/containers/Home/News.js:132
 msgid "next"
 msgstr "التالي"
 
@@ -328,15 +328,15 @@ msgstr "قيِّمنا"
 msgid "our_value_text"
 msgstr "<0><1><2>• الحيادية : :</2><3>نقف بدون انحياز وعلى مسافة واحدة من كل ابناء الوطن العربي</3></1><4><5>• الموضوعية :</5><6>بعيداً عن الاهواء، لدينا آلية واحدة في التعامل مع كل أداء.. ابداعك هو ما يحدد مركزك</6></4><8><9>المصداقية:</9><10>من أساسيات جوهر عملنا أن نزاهتنا هي منهجنا في التقييم</10></8><11><12>• التعزيز :</12><13>تقديم جوائز نوعية عديدة وشهادات تقدير وفق معايير الأداء.</13></11></0>"
 
-#: src/containers/Booths/index.js:246
+#: src/containers/Booths/index.js:249
 msgid "pay_and_continue"
 msgstr "ادفع"
 
-#: src/containers/Booths/index.js:254
+#: src/containers/Booths/index.js:257
 msgid "pay_offline"
 msgstr "ادفع بوسائل اخرى"
 
-#: src/containers/Booths/index.js:224
+#: src/containers/Booths/index.js:227
 msgid "pay_online"
 msgstr "ادفع مباشرة"
 
@@ -361,21 +361,21 @@ msgstr "+971 4 57 2636 8"
 #~ msgid "please_select_checkout_date"
 #~ msgstr "الرجاء تحديد يوم المغادرة."
 
-#: src/containers/Booths/index.js:269
+#: src/containers/Booths/index.js:272
 msgid "please_upload_the_receipt"
 msgstr "ارفق ايصال الدفع"
 
-#: src/containers/Pages/News/view.js:143
+#: src/containers/Pages/News/view.js:144
 msgid "post_comment"
 msgstr "نشر تعليق"
 
-#: src/containers/Pages/News/index.js:118
-#: src/containers/Pages/News/index.js:238
-#: src/containers/Pages/News/view.js:46
+#: src/containers/Pages/News/index.js:92
+#: src/containers/Pages/News/index.js:214
+#: src/containers/Pages/News/view.js:47
 msgid "posted"
 msgstr "تم النشر"
 
-#: src/containers/Home/News.js:117
+#: src/containers/Home/News.js:116
 msgid "prev"
 msgstr "السابق"
 
@@ -403,13 +403,13 @@ msgstr ""
 msgid "quick_links"
 msgstr "ارتباطات سريعة"
 
-#: src/containers/Home/News.js:92
-#: src/containers/Pages/News/index.js:129
+#: src/containers/Home/News.js:91
+#: src/containers/Pages/News/index.js:103
 msgid "read_more"
 msgstr "قراءة المزيد"
 
-#: src/containers/Pages/News/index.js:206
-#: src/containers/Pages/News/index.js:249
+#: src/containers/Pages/News/index.js:182
+#: src/containers/Pages/News/index.js:225
 msgid "read_more_elapsed"
 msgstr "قراءة المزيد.."
 
@@ -417,7 +417,7 @@ msgstr "قراءة المزيد.."
 msgid "recent_shows"
 msgstr "آخر العروض"
 
-#: src/containers/Pages/News/view.js:196
+#: src/containers/Pages/News/view.js:197
 msgid "related_news"
 msgstr "الأخبار المتعلقة"
 
@@ -433,11 +433,11 @@ msgstr "تحديد صورتك"
 msgid "send_message"
 msgstr "إرسال رسالة"
 
-#: src/containers/Pages/News/view.js:30
+#: src/containers/Pages/News/view.js:31
 msgid "share"
 msgstr "مشاركة"
 
-#: src/containers/Home/News.js:123
+#: src/containers/Home/News.js:122
 msgid "show_all"
 msgstr "إظهار الكل"
 
@@ -455,7 +455,7 @@ msgstr "تسجيل الدخول"
 #~ msgid "sports"
 #~ msgstr "الرياضة"
 
-#: src/containers/Home/Awards.js:44
+#: src/containers/Home/Awards.js:40
 msgid "start_from"
 msgstr "البدء من"
 
@@ -483,7 +483,7 @@ msgstr "الشروط والأحكام"
 #~ msgid "ticket_desc"
 #~ msgstr ""
 
-#: src/containers/Home/Awards.js:46
+#: src/containers/Home/Awards.js:42
 msgid "to"
 msgstr "إلى"
 
@@ -509,19 +509,19 @@ msgstr "تحميل الصورة"
 msgid "usd"
 msgstr "USD"
 
-#: src/containers/Home/PhotoAlbum.js:81
+#: src/containers/Home/PhotoAlbum.js:135
 msgid "videos_desc"
 msgstr ""
 
-#: src/containers/Home/Awards.js:106
-#~ msgid "view_all"
-#~ msgstr "عرض الكل"
+#: src/containers/Home/Awards.js:48
+msgid "view_all"
+msgstr "عرض الكل"
 
 #: src/containers/Home/IntroSlider.js:137
 #~ msgid "view_awards"
 #~ msgstr "عرض الجوائز"
 
-#: src/containers/Home/IntroSlider.js:156
+#: src/containers/Home/IntroSlider.js:125
 msgid "view_more"
 msgstr "المزيد"
 

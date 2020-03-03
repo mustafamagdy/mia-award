@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import homeActions from "store/home/actions";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
 import "utils";
+import Swiper from "react-id-swiper";
+import "swiper/css/swiper.css";
 
 const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
   const [allItems, setAllItems] = useState([
@@ -24,8 +26,8 @@ const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
     {
       id: "3",
       title: "Another Hotel",
-      url: "/assets/images/video_image.png",
-      posterUrl: "/assets/images/video_image.png"
+      url: "/assets/images/video_image2.png",
+      posterUrl: "/assets/images/video_image2.png"
     },
     {
       id: "4",
@@ -36,8 +38,8 @@ const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
     {
       id: "5",
       title: "The Big Hotel",
-      url: "/assets/images/video_image.png",
-      posterUrl: "/assets/images/video_image.png"
+      url: "/assets/images/video_image2.png",
+      posterUrl: "/assets/images/video_image2.png"
     },
     {
       id: "6",
@@ -47,8 +49,18 @@ const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
     }
   ]);
   const [activeIndex, setActiveIndex] = useState(1);
-  const [sliderItems, setSliderItems] = useState(allItems.slice(0, 2));
+  const [sliderItems, setSliderItems] = useState(allItems);
   const [currentItem, setCurrentItem] = useState(undefined);
+  const [swiper, setSwiper] = useState(null);
+
+  const paramsBig = {
+    spaceBetween: 0,
+    speed: 1000,
+    loop: true,
+    getSwiper: swiper => {
+      setSwiper(swiper);
+    }
+  };
 
   useEffect(() => {
     fetchMainAlbum();
@@ -58,17 +70,49 @@ const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
     setCurrentItem(sliderItems[1]);
   }, [sliderItems]);
 
+  useEffect(() => {
+    setCurrentItem(sliderItems[activeIndex]);
+  }, [activeIndex]);
+
+  const [isAnimate, setIsAnimate] = useState(false);
+
   const previous = () => {
-    let _a = activeIndex;
-    if (_a < 1) _a = sliderItems.length - 1;
-    else _a = _a - 1;
-    setActiveIndex(_a);
+    if (!isAnimate) {
+      setIsAnimate(true);
+      setTimeout(() => {
+        setIsAnimate(false);
+        let _a = activeIndex;
+        if (_a < 1) _a = sliderItems.length - 1;
+        else _a = _a - 1;
+        setActiveIndex(_a);
+        if (_a === 0) {
+          _a++;
+          setActiveIndex(_a);
+        }
+      }, 1000);
+      if (swiper !== null) {
+        swiper.slidePrev();
+      }
+    }
   };
   const next = () => {
-    let _a = activeIndex;
-    if (_a >= sliderItems.length - 1) _a = 0;
-    else _a = _a + 1;
-    setActiveIndex(_a);
+    if (!isAnimate) {
+      setIsAnimate(true);
+      setTimeout(() => {
+        setIsAnimate(false);
+        let _a = activeIndex;
+        if (_a >= sliderItems.length - 1) _a = 0;
+        else _a = _a + 1;
+        setActiveIndex(_a);
+        if (_a === 0) {
+          _a++;
+          setActiveIndex(_a);
+        }
+      }, 1000);
+      if (swiper !== null) {
+        swiper.slideNext();
+      }
+    }
   };
 
   return currentItem === undefined ? null : (
@@ -76,7 +120,11 @@ const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
       <div className="container">
         <div className="big_show">
           <div className="imgthumb">
-            <img src={currentItem.posterUrl} />
+            <Swiper {...paramsBig}>
+              {allItems.map(item => (
+                <img key={item.id} src={item.posterUrl} />
+              ))}
+            </Swiper>
           </div>
         </div>
         <div className="videos_slider">
@@ -88,14 +136,27 @@ const PhotoAlbum = ({ fetchMainAlbum, albumContents, ...props }) => {
           </div>
           <div className="slider_media">
             {sliderItems.map((s, i) => {
-              const isCurrent = currentItem.id == s.id;
-              const currentItemTitlePart1 = s.title.split(" ")[0];
-              const currentItemTitlePart2 = s.title.split(" ").shift();
+              const isNext = i > activeIndex;
+              const isPrev = i < activeIndex - 1;
+              const isCurrent = currentItem.id === s.id;
+              // const currentItemTitlePart1 = s.title.split(" ")[0];
+              // const currentItemTitlePart2 = s.title.split(" ").shift();
 
               return (
-                <div key={s.id} className={classNames("item", { current: isCurrent })}>
+                <div
+                  key={s.id}
+                  className={classNames(
+                    "item",
+                    { current: isCurrent },
+                    { next: isNext },
+                    { prev: isPrev },
+                    { isAnimate: isAnimate && !isPrev && !isNext },
+                    { aaa: isAnimate }
+                  )}
+                >
                   <span>
-                    {currentItemTitlePart1 && <i>{currentItemTitlePart1}</i>} {currentItemTitlePart2 && currentItemTitlePart2}
+                    {s.title}
+                    {/* {currentItemTitlePart1 && <i>{currentItemTitlePart1}</i>} {currentItemTitlePart2 && currentItemTitlePart2} */}
                   </span>
                   <div className="imgthumb">
                     <img src={s.posterUrl} />

@@ -60,8 +60,8 @@
 
       defaultLanguage: "ar",
       supportedLanguage: {
-        "en": { key: "en", value: "english" },
-        "ar": { key: "ar", value: "arabic" }
+        en: { key: "en", value: "english" },
+        ar: { key: "ar", value: "arabic" }
       }
     })
     .constant("messageTypeEnum", {

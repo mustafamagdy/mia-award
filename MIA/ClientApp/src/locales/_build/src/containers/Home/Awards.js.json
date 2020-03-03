@@ -4,15 +4,16 @@
     "origin": [
       [
         "src/containers/Home/Awards.js",
-        38
+        29
       ]
     ]
   },
   "home_general_award_text": {
+    "defaults": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda aut esse eveniet expedita facere in incidunt iusto nobis pariatur praesentium quia quibusdam quo quod repellendus repudiandae unde, vel veritatis?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias est et inventore, ipsam itaque placeat qui quisquam ratione, repellat repudiandae sequi, tempora temporibus tenetur velit voluptatum. Aliquam ducimus molestias perferendis?",
     "origin": [
       [
         "src/containers/Home/Awards.js",
-        41
+        32
       ]
     ]
   },
@@ -21,7 +22,7 @@
     "origin": [
       [
         "src/containers/Home/Awards.js",
-        44
+        40
       ]
     ]
   },
@@ -29,7 +30,16 @@
     "origin": [
       [
         "src/containers/Home/Awards.js",
-        46
+        42
+      ]
+    ]
+  },
+  "view_all": {
+    "defaults": "view all",
+    "origin": [
+      [
+        "src/containers/Home/Awards.js",
+        48
       ]
     ]
   },
@@ -38,7 +48,7 @@
     "origin": [
       [
         "src/containers/Home/Awards.js",
-        84
+        108
       ]
     ]
   }
