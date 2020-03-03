@@ -57,13 +57,13 @@
             debugger;
             blockUI.start("Loading...");
             var newObj = new ArtWorkMediaResource();
-            newObj.ArtWorkId =  $stateParams.id;
+            newObj.ArtWorkId = $stateParams.id;
             newObj.Description = vm.title;
             newObj.$createMediaFile().then(
                 function (data, status) {
                     blockUI.stop();
-                   //ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    openUploadDialog(data.id, 'http://localhost:62912/api/artWorks/artwork/' + data.id + '/files')
+                    //ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    openUploadDialog(data.id, apiBaseUrl + '/api/artWorks/artwork/' + data.id + '/files')
                 },
                 function (data, status) {
                     blockUI.stop();
@@ -90,7 +90,7 @@
                 }
             );
         }
-        function openUploadDialog(id,url) {
+        function openUploadDialog(id, url) {
             var modalContent = $uibModal.open({
                 templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
                 controller: 'uploadVideoController',

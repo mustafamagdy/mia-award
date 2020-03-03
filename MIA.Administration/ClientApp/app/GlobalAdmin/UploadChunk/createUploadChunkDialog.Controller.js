@@ -91,7 +91,7 @@
 
                         return $http({
                             method: 'POST',
-                            url: `http://localhost:62912/api/test/artwork/${id}/files`,
+                            url: apiBaseUrl + `/api/test/artwork/${id}/files`,
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -192,7 +192,7 @@
 
             return $http({
                 method: 'POST',
-                url: url,//`http://localhost:62912/api/albums/mediaItems/${id}/files`,
+                url: url, 
                 headers: {
                     'Content-Type': 'application/json'
                 },
