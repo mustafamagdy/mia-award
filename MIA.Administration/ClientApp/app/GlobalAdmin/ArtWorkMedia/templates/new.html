@@ -6,60 +6,53 @@
         <form class="form-horizontal" name="newArtWorkMediaForm">
             <div class="row">
                 <div class="form-group col-lg-4">
-                    <div ng-repeat="n in [] | range:newArtWorkMediaCtrl.filesCount">
-                        <!-- 
-                        <div ">
-                            <input type="file" file-model="{{'myFile' + $index}}"/>
-                            <button ng-click="uploadFile('myFile' + $index)">upload me</button>
-                        </div> -->
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" ng-class="{'active':$index == 0}"
-                                ng-repeat="lang in newArtWorkMediaCtrl.language">
-                                <a href="javascript:void(0);" data-target="#{{lang.value}}-n-form" aria-controls="home"
-                                    role="tab" data-toggle="tab">
-                                    <span style="color:red">*</span>{{lang.value | translate}}
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="pmd-card">
-                            <div class="pmd-card-body">
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
-                                        ng-repeat="lang in newArtWorkMediaCtrl.language" id="{{lang.value}}-n-form">
-                                        <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                                            <label for="first-name">{{ 'Title' | translate}} </label>
-                                            <input required News="text" class="mat-input form-control"
-                                                name="title{{lang.value+n+'Name'}}"
-                                                ng-model="newArtWorkMediaCtrl.Title[lang.key]" ng-minlength="3"
-                                                ng-maxlength="255">
-                                            <div ng-messages="newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$error">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" ng-class="{'active':$index == 0}"
+                            ng-repeat="lang in newArtWorkMediaCtrl.language">
+                            <a href="javascript:void(0);" data-target="#{{lang.value}}-n-form" aria-controls="home"
+                                role="tab" data-toggle="tab">
+                                <span style="color:red">*</span>{{lang.value | translate}}
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="pmd-card">
+                        <div class="pmd-card-body">
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
+                                    ng-repeat="lang in newArtWorkMediaCtrl.language" id="{{lang.value}}-n-form">
+                                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                        <label for="first-name">{{ 'Title' | translate}} </label>
+                                        <input required News="text" class="mat-input form-control"
+                                            name="title{{lang.value+n+'Name'}}"
+                                            ng-model="newArtWorkMediaCtrl.Title[lang.key]" ng-minlength="3"
+                                            ng-maxlength="255">
+                                        <div ng-messages="newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$error">
 
-                                                <div class="error ng-binding"
-                                                    ng-show="newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$error.required && !newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$pristine">
-                                                    {{'requiredErr' | translate}}</div>
-                                                <div class="error ng-binding"
-                                                    ng-show="(newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$error.minlength || newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$error.maxlength) && !newArtWorkMediaForm.title{{lang.value+'Name'}}.$error.required">
-                                                    {{'NameLengthError3' | translate}}</div>
-                                            </div>
+                                            <div class="error ng-binding"
+                                                ng-show="newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$error.required && !newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$pristine">
+                                                {{'requiredErr' | translate}}</div>
+                                            <div class="error ng-binding"
+                                                ng-show="(newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$error.minlength || newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$error.maxlength) && !newArtWorkMediaForm.title{{lang.value+'Name'}}.$error.required">
+                                                {{'NameLengthError3' | translate}}</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <input id="{{mediaImage + $index}}" name="{{mediaImage + $index}}" style="display: none;"
-                            onchange="angular.element(this).scope().AddmediaImage(this.files)" type="file" required
-                            file-change handler="fileSelect(files)" ng-repeat="file in newArtWorkMediaCtrl.filesCount">
-                        <button class="btn btn-success btn-xs pull-center"
-                            ng-click="newArtWorkMediaCtrl.LoadUploadmedia()">{{'Upload Video' | translate}}</button>
-
-                        <div ng-messages="newArtWorkMediaForm.mediaImage.$error">
-                            <div ng-if="newArtWorkMediaForm.mediaImage.$error.required">{{'requiredErr' | translate}}
-                            </div>
-                        </div>
                     </div>
+
+                    <!-- <input id="{{mediaImage + $index}}" name="{{mediaImage + $index}}" style="display: none;"
+                        onchange="angular.element(this).scope().AddmediaImage(this.files)" type="file" required
+                        file-change handler="fileSelect(files)" ng-repeat="file in newArtWorkMediaCtrl.filesCount">
+                    <button class="btn btn-success btn-xs pull-center"
+                        ng-click="newArtWorkMediaCtrl.LoadUploadmedia()">{{'Upload Video' | translate}}</button>
+
+                    <div ng-messages="newArtWorkMediaForm.mediaImage.$error">
+                        <div ng-if="newArtWorkMediaForm.mediaImage.$error.required">{{'requiredErr' | translate}}
+                        </div>
+                    </div> -->
                 </div>
 
             </div>
@@ -68,10 +61,9 @@
     </div>
     <div class="pmd-modal-action text-right">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-disabled="newArtWorkMediaForm.$invalid"
-            class="btn pmd-ripple-effect btn-primary" ArtWorkMedia="button"
+            ng-disabled="newArtWorkMediaForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
             ng-click="newArtWorkMediaCtrl.AddNewArtWorkMedia()">{{'saveChangesBtn' | translate}}</button>
-        <button class="btn pmd-ripple-effect btn-default" ArtWorkMedia="button"
+        <button class="btn pmd-ripple-effect btn-default" type="button"
             ng-click="newArtWorkMediaCtrl.close()">{{'DiscardBtn' | translate}}</button>
     </div>
 </div>

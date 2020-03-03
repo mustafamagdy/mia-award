@@ -50,7 +50,7 @@
                         $state.go('mediaItems', { id: $stateParams.id });
 
                     } else {
-                        openUploadDialog(data.id,'http://localhost:62912/api/albums/mediaItems/' + data.id + '/files')
+                        openUploadDialog(data.id,'http://localhost:62912/api/albums/mediaItems/${id}/files')
                     }
                 },
                 function (data, status) {

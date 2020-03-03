@@ -41,44 +41,68 @@
         .filter("range", function () {
             return (x, n) => Array.from({ length: n }, (x, index) => (index));
         })
-        .controller('createArtWorkMediaDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'ArtWorkResource', 'ToastService', 'ArtWorkMediaByArtWorkIdPrepService', createArtWorkMediaDialogController])
+        .controller('createArtWorkMediaDialogController', ['$stateParams', 'blockUI', '$uibModal', '$state', 'appCONSTANTS', '$translate',
+            'ArtWorkResource', 'ArtWorkMediaResource', 'ToastService', 'ArtWorkMediaByArtWorkIdPrepService', createArtWorkMediaDialogController])
 
-    function createArtWorkMediaDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
-        ToastService, ArtWorkMediaByArtWorkIdPrepService) {
+    function createArtWorkMediaDialogController($stateParams, blockUI, $uibModal, $state, appCONSTANTS, $translate, ArtWorkResource,
+        ArtWorkMediaResource, ToastService, ArtWorkMediaByArtWorkIdPrepService) {
         var vm = this;
-        debugger;
-        // vm.artWorkId = localStorage.getItem('artWorkId');
-        // vm.filesCount = localStorage.getItem('filesCount');
-        vm.artWorkMedia = ArtWorkMediaByArtWorkIdPrepService;
-        //  if (vm.artWorkMedia.length < 0) {
-        vm.filesCount = vm.artWorkMedia[0].artWork.fileCount;
-        console.log(vm.artWorkMedia, 'media')
-        vm.filesCounts = [];
-        //  }
+
         vm.language = appCONSTANTS.supportedLanguage;
         vm.close = function () {
-            $state.go('ArtWork');
+            $state.go('ArtWorkMedia', { id: $stateParams.id });
         }
 
-        vm.AddNewArtWork = function () {
+        vm.AddNewArtWorkMedia = function () {
             debugger;
             blockUI.start("Loading...");
-            var newObj = new ArtWorkResource();
-            // newObj.Poster = $scope.file;
-
-            newObj.$create().then(
+            var newObj = new ArtWorkMediaResource();
+            newObj.ArtWorkId =  $stateParams.id;
+            newObj.Description = vm.title;
+            newObj.$createMediaFile().then(
                 function (data, status) {
                     blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                   //ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    openUploadDialog(data.id, 'http://localhost:62912/api/artWorks/artwork/' + data.id + '/files')
                 },
                 function (data, status) {
                     blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.title, "error");
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
                 }
             );
         }
 
+        function callBackUpload(model) {
+            debugger
+            var updateObj = new ArtWorkMediaResource();
+            updateObj.Id = model.id;
+            updateObj.FileUrl = model.data.trailerUrl;
+            updateObj.FileKey = model.data.trailerId;
+            updateObj.$UpdateMediaItemVideoUrl().then(
+                function (data, status) {
+                    debugger;
+                    $state.go('ArtWorkMedia', { id: $stateParams.id });
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function openUploadDialog(id,url) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
+                controller: 'uploadVideoController',
+                controllerAs: 'uploadDlCtrl',
+                resolve: {
+                    itemId: function () { return id },
+                    url: function () { return url },
+                    callBackFunction: function () { return callBackUpload }
+                }
+
+            });
+        }
 
     }
 }());

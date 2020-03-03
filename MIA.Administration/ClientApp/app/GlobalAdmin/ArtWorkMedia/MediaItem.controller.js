@@ -3,64 +3,36 @@
 
     angular
         .module('home')
-        .controller('ArtWorkMediaController', ['appCONSTANTS', '$stateParams', '$scope', '$translate', 'ArtWorkResource', 'blockUI', '$uibModal',
-            'ToastService', ArtWorkMediaController]);
+        .controller('mediaItemController', ['appCONSTANTS', '$scope', '$translate', 'PhotoAlbumResource', 'blockUI', '$uibModal',
+            'ToastService', '$stateParams', mediaItemController]);
 
 
-    function ArtWorkMediaController(appCONSTANTS, $stateParams, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
+    function mediaItemController(appCONSTANTS, $scope, $translate, PhotoAlbumResource, blockUI, $uibModal, ToastService, $stateParams) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         var vm = this;
-
         vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS; 
-        refreshArtWorks();
-        function refreshArtWorks() {
+        vm.appCONSTANTS = appCONSTANTS;
+        refreshMediaItems();
+        function refreshMediaItems() {
             blockUI.start("Loading...");
-
-            var k = ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise.then(function (results) {
+            debugger;
+            var k = PhotoAlbumResource.getMediaItems({ id: $stateParams.id }).$promise.then(function (results) {
                 vm.mediaItemList = results;
                 console.log(vm.mediaItemList);
                 blockUI.stop();
 
             },
                 function (data, status) {
-                    debugger;
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
-        }
-        function change(artWork, isDeleted) {
-            var updateObj = new ArtWorkResource();
-            updateObj.id = artWork.id;
-            if (!isDeleted)
-                updateObj.status = (artWork.status == true ? false : true);
-            updateObj.isDeleted = artWork.isDeleted;
-
-            updateObj.$update().then(
-                function (data, status) {
-                    // if (isDeleted)
-                    refreshArtWorks();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    artWork.status = updateObj.status;
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-        vm.UpdateArtWork = function (artWork) {
-            change(artWork, false);
-        }
-
+        } 
         function confirmationDelete(model) {
-            var updateObj = new ArtWorkResource();
-            updateObj.$delete({ id: model.id }).then(
+            var obj = new PhotoAlbumResource();
+            obj.$deleteMediaItems({ id: model.id }).then(
                 function (data, status) {
-                    refreshArtWorks();
+                    refreshMediaItems();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
                 },
                 function (data, status) {
@@ -84,16 +56,14 @@
             });
         }
         vm.ChangeStatus = function (model) {
-            var updateObj = new ArtWorkResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
+            var updateObj = new PhotoAlbumResource();
+            updateObj.id = model.id; 
+            updateObj.featured = (model.featured == true ? false : true);
+            updateObj.$updateMediaItem().then(
                 function (data, status) {
-                    //  refreshArtWorks();
+                    //  refreshMediaItems();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
+                    model.featured = updateObj.featured;
                 },
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
@@ -104,9 +74,11 @@
 
         vm.changePage = function (page) {
             vm.currentPage = page;
-            refreshArtWorks();
+            refreshMediaItems();
         }
 
+
+        
     }
 
 })();

@@ -76,7 +76,7 @@ namespace MIA.Administration.Api
           {
             return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
           }
-           
+
           coverKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.CoverFileName);
           coverUrl = await fileManager.UploadFileAsync(memorySteam, coverKey);
         }
@@ -166,24 +166,45 @@ namespace MIA.Administration.Api
     [HttpGet("getArtWorkFiles")]
     public async Task<IActionResult> GetArtWorkFilesAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db)
     {
-      var artWork = await db.ArtWorks.FirstOrDefaultAsync(a => a.Id == id);
+      // var artWork = await db.ArtWorks.FirstOrDefaultAsync(a => a.Id == id);
       var artWorkItem = db.MediaFiles.Where(a => a.ArtWorkId == id).ToList();
-      if (!artWorkItem.Any())
-      {
-        var returnMediaList = new List<MediaFileDto>();
-        returnMediaList.Add(new MediaFileDto());
-        returnMediaList[0].ArtWork = _mapper.Map<ArtWorkDto>(artWork);
-        return IfFound(returnMediaList);
-      }
-      else
-      {
-        var returnMediaList = _mapper.Map<List<MediaFileDto>>(artWorkItem);
-        returnMediaList[0].ArtWork = _mapper.Map<ArtWorkDto>(artWork);
-        return IfFound(returnMediaList);
+      //if (!artWorkItem.Any())
+      //{
+      //  var returnMediaList = new List<MediaFileDto>();
+      //  returnMediaList.Add(new MediaFileDto());
+      //  returnMediaList[0].ArtWork = _mapper.Map<ArtWorkDto>(artWork);
+      //  return IfFound(returnMediaList);
+      //}
+      //else
+      //{
+      var returnMediaList = _mapper.Map<List<MediaFileDto>>(artWorkItem);
+      //returnMediaList[0].ArtWork = _mapper.Map<ArtWorkDto>(artWork);
+      return IfFound(returnMediaList);
 
-      }
+      // }
 
     }
+
+    [HttpPost("createMediaFile")]
+    public async Task<IActionResult> CreateMediaFile([FromBody] MediaFileDto dto, [FromServices] IAppUnitOfWork db)
+    {
+      var result = await db.Set<MediaFile>().AddAsync(_mapper.Map<MediaFile>(dto)); 
+      var mediaItem = await db.MediaFiles.FindAsync(result.Entity.Id);
+      return IfFound(_mapper.Map<MediaFile>(mediaItem)); 
+    }
+    [HttpPut("UpdateMediaItemVideoUrl")]
+    public async Task<IActionResult> UpdateMediaItemVideoUrlAsync([FromBody] MediaFileDto dto, [FromServices] IAppUnitOfWork db)
+    {
+      var mediaItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id == dto.Id);
+      mediaItem.FileUrl = dto.FileUrl;
+      mediaItem.FileKey = dto.FileKey;
+
+      var entry = db.Set<MediaFile>().Attach(mediaItem);
+      entry.State = EntityState.Modified;
+      await db.CommitTransactionAsync();
+      return IfFound(_mapper.Map<MediaFileDto>(mediaItem));
+    }
+
     [HttpPost("createPayment")]
     public async Task<IActionResult> SavePaymentAsync([FromForm] NewArtWorkPaymentDto dto, [FromServices] IAppUnitOfWork db)
     {
@@ -277,7 +298,7 @@ namespace MIA.Administration.Api
 
 
 
-      [HttpPut("UpdateTrailerVideoUrl")]
+    [HttpPut("UpdateTrailerVideoUrl")]
     public async Task<IActionResult> UpdateTrailerVideoUrlAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db)
     {
       var artWork = await db.ArtWorks.FirstOrDefaultAsync(a => a.Id == dto.Id);
