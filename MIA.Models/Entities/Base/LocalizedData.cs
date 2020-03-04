@@ -29,6 +29,11 @@ namespace MIA.Models.Entities {
       return new LocalizedData { { Arabic, arabic }, { English, english } };
     }
 
+    public static LocalizedData Same(string value)
+    {
+      return new LocalizedData { { Arabic, value }, { English, value } };
+    }
+
     public bool ArabicContains(string query) {
       return this[Arabic].Contains(query);
     }

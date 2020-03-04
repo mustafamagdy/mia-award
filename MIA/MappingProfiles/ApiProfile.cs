@@ -84,7 +84,7 @@ namespace MIA.MappingProfiles
 
       CreateMap<SubmitArtworkWithDetails, ArtWork>()
         .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
-        .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => a.About))
+        .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => LocalizedData.Same(a.About)))
         .ForMember(a => a.Production, cfg => cfg.MapFrom(a => a.Producers))
         .ForMember(a => a.Director, cfg => cfg.MapFrom(a => a.Directors))
         .ForMember(a => a.Writers, cfg => cfg.MapFrom(a => a.Writers))
