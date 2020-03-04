@@ -63,7 +63,7 @@
                 function (data, status) {
                     blockUI.stop();
                     //ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    openUploadDialog(data.id, apiBaseUrl + '/api/artWorks/artwork/' + data.id + '/files')
+                    openUploadDialog(data.id, appCONSTANTS.API_URL + 'artWorks/artwork/' + data.id + '/files')
                 },
                 function (data, status) {
                     blockUI.stop();

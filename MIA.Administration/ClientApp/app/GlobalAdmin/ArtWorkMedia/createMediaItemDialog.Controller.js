@@ -50,7 +50,7 @@
                         $state.go('mediaItems', { id: $stateParams.id });
 
                     } else {
-                        openUploadDialog(data.id, apiBaseUrl + '/api/albums/mediaItems/' + data.id + '/files')
+                        openUploadDialog(data.id, appCONSTANTS.API_URL + 'albums/mediaItems/' + data.id + '/files')
                     }
                 },
                 function (data, status) {

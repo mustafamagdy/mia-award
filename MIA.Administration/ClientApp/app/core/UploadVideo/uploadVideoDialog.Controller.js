@@ -76,7 +76,7 @@
 		$scope.uploadChunkApi = function ({ id, ...data }) {
 			return $http({
 				method: 'POST',
-				url: apiBaseUrl + `/api/test/artwork/${id}/files`,
+				url: appCONSTANTS.API_URL +  + `/test/artwork/${id}/files`,
 				headers: {
 					'Content-Type': 'application/json'
 				},

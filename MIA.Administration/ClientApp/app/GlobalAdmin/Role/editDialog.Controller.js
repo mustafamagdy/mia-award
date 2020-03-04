@@ -12,7 +12,7 @@
         var vm = this;
 
         vm.selectedModuleList = [];
-        vm.selectedModule = ""; 
+        vm.selectedModule = "";
         vm.language = appCONSTANTS.supportedLanguage;
         vm.permissionList = PermissionPrepService;
         vm.Role = RoleByIdPrepService;
@@ -21,7 +21,7 @@
 
         var i;
         for (i = 0; i < vm.Role.permessionTree.length; i++) {
-            
+
             angular.forEach(vm.Role.permessionTree[i].permessions, function (valueModule, keyModule) {
                 if (valueModule.seclected)
                     vm.selectedPermissions.push(valueModule.permessionId);
@@ -29,7 +29,7 @@
 
         }
         vm.UpdateRole = function () {
-            
+
             blockUI.start("Loading...");
             console.log(vm.Role);
             var updateObj = new RoleResource();

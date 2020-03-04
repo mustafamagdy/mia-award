@@ -41,13 +41,13 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("roles")]
-   // [HasPermission(Permissions.ReadRoles)]
+   // //[HasPermission(Permissions.ReadRoles)]
     public IActionResult Roles([FromServices] IAppUnitOfWork db) {
       return IfFound(db.Roles.MapTo<RoleDto>());
     }
 
     [HttpGet("permissions")]
-   // [HasPermission(Permissions.ReadPermissions)]
+   // //[HasPermission(Permissions.ReadPermissions)]
     public IActionResult ListPermissions() {
       var permissionNames = Enum.GetValues(typeof(Permissions)).Cast<short>();
       var permissions = permissionNames.Select(p => _mapper.Map<PermissionDto>((Permissions)p)).ToList();
@@ -55,7 +55,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("role/{roleName}/permissions")]
-    [HasPermission(Permissions.ReadRolePermissions)]
+    ////[HasPermission(Permissions.ReadRolePermissions)]
     public async Task<IActionResult> ListRolePermissions([FromRoute]string roleName, [FromServices] IAppUnitOfWork db) {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName);
       if (role == null) {
@@ -72,7 +72,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPost("role/{roleName}/permissions/{permissionId}")]
-    [HasPermission(Permissions.ReadRolePermissions)]
+    //[HasPermission(Permissions.ReadRolePermissions)]
     public async Task<IActionResult> AddPermissionToRole([FromRoute] string roleName, [FromRoute]short permissionId,
       [FromServices] IAppUnitOfWork db) {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
@@ -94,7 +94,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpDelete("role/{roleName}/permissions/{permissionId}")]
-    [HasPermission(Permissions.RemoveRolePermissions)]
+    //[HasPermission(Permissions.RemoveRolePermissions)]
     public async Task<IActionResult> RemovePermissionFromRole([FromRoute] string roleName, [FromRoute]short permissionId,
       [FromServices] IAppUnitOfWork db) {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
@@ -117,7 +117,7 @@ namespace MIA.Administration.Api {
 
 
     [HttpPost("role/{roleName}/user/{userId}")]
-    [HasPermission(Permissions.AddUserToRole)]
+    //[HasPermission(Permissions.AddUserToRole)]
     public async Task<IActionResult> AddUserToRole([FromRoute] string roleName, [FromRoute] string userId,
       [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager) {
       var user = await db.Users.FindAsync(userId);
@@ -135,7 +135,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpDelete("role/{roleName}/user/{userId}")]
-    [HasPermission(Permissions.RemoveUserFromRole)]
+    //[HasPermission(Permissions.RemoveUserFromRole)]
     public async Task<IActionResult> RemoveUserToRole([FromRoute] string roleName, [FromRoute] string userId,
       [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager) {
       var user = await db.Users.FindAsync(userId);
@@ -153,7 +153,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("user/{userId}/roles")]
-    [HasPermission(Permissions.ReadUserRoles)]
+    //[HasPermission(Permissions.ReadUserRoles)]
     public async Task<IActionResult> ListUserRoles([FromRoute] string userId, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager) {
       var user = await db.Users.FindAsync(userId);
       if (user == null) {
@@ -164,7 +164,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("role/{roleName}/users")]
-    [HasPermission(Permissions.ReadUserRoles)]
+    //[HasPermission(Permissions.ReadUserRoles)]
     public async Task<IActionResult> ListRoleUsers([FromRoute] string roleName, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager) {
       var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
       if (role == null) {
