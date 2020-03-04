@@ -70,13 +70,13 @@ const ArtWork = ({ artWork, ...props }) => {
                   </>
                 )}
               </LanguageContext.Consumer>
-              <div className="stars">
+              {/* <div className="stars">
                 <i className="icofont-ui-rating"></i>
                 <i className="icofont-ui-rating"></i>
                 <i className="icofont-ui-rating"></i>
                 <i className="icofont-ui-rate-blank"></i>
                 <i className="icofont-ui-rate-blank"></i>
-              </div>
+              </div> */}
             </div>
           </div>
         </a>

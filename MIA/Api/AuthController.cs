@@ -9,14 +9,17 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using MIA.Api.Base;
 using MIA.Dto.Auth;
 using MIA.Middlewares.Auth;
 using MIA.ORMContext.Uow;
+using Newtonsoft.Json;
 
 namespace MIA.Api {
   /// <summary>
@@ -84,7 +87,15 @@ namespace MIA.Api {
         return Forbid403("User is not allowed");
       }
 
-      System.Security.Claims.ClaimsPrincipal res = await claimFactory.CreateAsync(user);
+      ClaimsPrincipal res = await claimFactory.CreateAsync(user);
+      var allClaims = new List<Claim>(res.Claims);
+
+      allClaims.Add(new Claim("id", user.Id));
+      allClaims.Add(new Claim("name", user.UserName));
+      allClaims.Add(new Claim("username", user.UserName));
+      allClaims.Add(new Claim("fullName", user.FullName));
+      allClaims.Add(new Claim("jobTitle", nominee.JobTitle));
+      allClaims.Add(new Claim("address", nominee.Address));
 
       SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecretKey));
       SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -92,7 +103,7 @@ namespace MIA.Api {
       JwtSecurityToken jwtToken = new JwtSecurityToken(
         jwtConfig.Issuer,
         jwtConfig.Audience,
-        res.Claims.ToArray(),
+        allClaims.ToArray(),
         expires: DateTime.Now.AddHours(Math.Abs(jwtConfig.ExpireInHours)),
         signingCredentials: credentials
       );

@@ -33,7 +33,7 @@ const MemberArea = ({ location, match, currentUser, isLoggedIn, logout, ...props
               <Switch>
                 <Route exact path="/members/profile" component={Profile} />
                 <Route path="/members/artwork" component={Artwork} />
-                <Route path="/members" component={Artworks} />
+                <Route exact path="/members" component={Artworks} />
               </Switch>
             </div>
           </div>
