@@ -117,6 +117,7 @@ namespace MIA.MappingProfiles
           .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
           .ForMember(a => a.Directors, cfg => cfg.MapFrom(a => a.Director))
           .ForMember(a => a.Year, cfg => cfg.MapFrom(a => a.DateOfRelease))
+          .ForMember(a => a.Files, cfg => cfg.MapFrom(a => a.MediaFiles))
         .IncludeAllDerived()
         .ValidateMemberList(MemberList.None);
 

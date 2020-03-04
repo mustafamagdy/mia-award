@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import ReactPlayer from "react-player";
-import Uploader from 'components/Forms/Uploader'
+import { Uploader, ProgressBar } from "components/Forms";
 import UploadDropZone from 'components/Forms/UploadDropZone'
 
 const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTrailer, ...props }) => {
@@ -25,9 +25,10 @@ const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTraile
         {!uploadMode ? (
           <TrailerView url={trailerUrl} posterUrl={trailerPosterUrl} setuploadMode={setuploadMode} />
         ) :
-          progress && progress.length > 0 ? (
-            <UploadingProgress progress={progress} />
-          ) : (
+          // progress && progress.length > 0 ? (
+          //   <UploadingProgress progress={progress} />
+          // ) :
+           (
               <>
                 <UploadDropZone 
                 setFiles={setFiles} 
@@ -38,7 +39,7 @@ const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTraile
                 iconClass="icofont-plus"
                 style={{ width: '100%', height: '100%' }} />
                 <br/>
-                <UploadDropZone 
+                {/* <UploadDropZone 
                 className="upload_trailer"
                 iconClass="icofont-plus"
 
@@ -46,7 +47,7 @@ const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTraile
                 accept="image/*"
                 setFiles={setFiles}
                 message='Upload your trailer Poster'  
-                style={{ width: '100%', height: '100%' }} />
+                style={{ width: '100%', height: '100%' }} /> */}
 
                 {files &&
                   files.map(f => {
@@ -62,7 +63,9 @@ const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTraile
                         setProgress([...progress]);
                       }}
                       file={f}
-                    />
+                    >
+                      <FileDetails file={f} />
+                    </Uploader>
                   }
                   )}
                   {trailerUrl && uploadMode &&
@@ -78,14 +81,21 @@ const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTraile
   );
 };
 
-const UploadingProgress = ({ progress, props }) => <div style={{ border: "2px solid red", width: 400, height: 300 }}>
-  {progress &&
-    progress.map(p => (
-      <div key={p.key}>
-        {p.key} => : {p.percent}
-      </div>
-    ))}
-</div>;
+
+const FileDetails = ({ progress, file, ...props }) => (
+  <div>
+    <label> {file.name}</label>
+    <ProgressBar progress={progress} />
+  </div>
+);
+// const UploadingProgress = ({ progress, props }) => <div style={{ border: "2px solid red", width: 400, height: 300 }}>
+//   {progress &&
+//     progress.map(p => (
+//       <div key={p.key}>
+//         {p.key} => : {p.percent}
+//       </div>
+//     ))}
+// </div>;
 
 
 const TrailerView = ({ url, posterUrl, setuploadMode, ...props }) => {
