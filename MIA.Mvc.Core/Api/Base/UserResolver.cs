@@ -1,4 +1,5 @@
-namespace MIA.Api.Base {
+namespace MIA.Api.Base
+{
   using System.Threading.Tasks;
   using MIA.Models.Entities;
   using MIA.ORMContext;
@@ -8,7 +9,8 @@ namespace MIA.Api.Base {
   /// <summary>
   /// Get the current User, Id, and name
   /// </summary>
-  public sealed class UserResolver : IUserResolver {
+  public sealed class UserResolver : IUserResolver
+  {
     private readonly IHttpContextAccessor _context;
     private readonly UserManager<AppUser> _userManager;
 
@@ -17,7 +19,8 @@ namespace MIA.Api.Base {
     /// </summary>
     /// <param name="context"></param>
     /// <param name="userManager"></param>
-    public UserResolver(IHttpContextAccessor context, UserManager<AppUser> userManager) {
+    public UserResolver(IHttpContextAccessor context, UserManager<AppUser> userManager)
+    {
       this._userManager = userManager;
       this._context = context;
     }
@@ -28,12 +31,12 @@ namespace MIA.Api.Base {
     /// <returns></returns>
     public string CurrentUsername() => _context.HttpContext?.User?.Identity?.Name;
 
-   
+
     /// <summary>
     /// Get current logged in user 
     /// </summary>
     /// <returns></returns>
-    public async Task<AppUser> CurrentUserAsync() => await _userManager.FindByNameAsync(CurrentUsername());
+    public async Task<AppUser> CurrentUserAsync() => CurrentUsername() == null ? null : await _userManager.FindByNameAsync(CurrentUsername());
 
   }
 }

@@ -2,9 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using MIA.Authorization.Attributes;
 
-namespace MIA.Authorization.Entities {
-  public enum Permissions : short {
-    NotSet = 0, 
+namespace MIA.Authorization.Entities
+{
+  public enum Permissions : short
+  {
+    NotSet = 0,
 
     [PermissionDescriptor(SystemModules.News, "view", "Can read employees")]
     NewsRead = 10,
@@ -29,7 +31,8 @@ namespace MIA.Authorization.Entities {
     [PermissionDescriptor(SystemModules.Adminstration, "add_user_to_role", "Can read employees data")]
     AddUserToRole,
 
-
+    [PermissionDescriptor(SystemModules.Nominee, "NomineePolicy", "Nominee policy to access all nominee sections")]
+    NomineeAccess = 1000,
 
     [PermissionDescriptor(SystemModules.News, "AccessAll", "This allows the user to access every feature")]
     AccessAll = Int16.MaxValue,

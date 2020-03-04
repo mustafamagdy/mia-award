@@ -70,7 +70,9 @@ namespace MIA.Api {
       [FromServices] UserManager<AppUser> userManager,
       [FromServices] IEmailSender emailSender,
       [FromServices] ITemplateParser templateParser,
-      [FromServices] IApiUrlHelper urlHelper) {
+      [FromServices] IApiUrlHelper urlHelper,
+      [FromServices] IAppUnitOfWork db
+      ) {
       
       Nominee user = signupData.MapTo<Nominee>();
       IdentityResult result = await userManager.CreateAsync(user, signupData.Password);
@@ -94,6 +96,17 @@ namespace MIA.Api {
         
         //add to nominee role
         await userManager.AddToRoleAsync(user, PredefinedRoles.Nominee.ToString());
+
+        //add user module for nominee
+        var allowedModules = new[] { SystemModules.Nominee };
+        var modules = allowedModules[0];
+        for (int i = 1; i < allowedModules.Length; i++)
+        {
+          modules |= allowedModules[i];
+        }
+
+        //adds allowed modules for user
+        await db.UserModules.AddAsync(new UserModule(user.Id, modules));
 
         return Ok();
 

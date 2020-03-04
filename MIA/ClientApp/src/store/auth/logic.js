@@ -8,7 +8,7 @@ export const demoLoginLogic = createLogic({
 
   async process({ getState, action, api }, dispatch, done) {
     try {
-      const res = await api.auth.login({ username: "nominee", password: "nominee@123456.com" });
+      const res = await api.auth.login({ username: "nominee1", password: "nominee@123456.com" });
       if (!res.ok) {
         dispatch({
           type: ActionTypes.LOGIN_FAIL,
