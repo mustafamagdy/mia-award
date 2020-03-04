@@ -7,11 +7,13 @@
             <div class="row">
                 <div class="form-group col-lg-4">
                     <div ng-repeat="n in [] | range:viewJudgeArtWorkCtrl.totalCount">
-                        <label for="first-name">{{viewJudgeArtWorkCtrl.votingCriteriaList[n].name[selectedLanguage]}}</label>
+                        <label
+                            for="first-name">{{viewJudgeArtWorkCtrl.votingCriteriaList[n].name[selectedLanguage]}}</label>
                         <input required type="text" class="mat-input form-control" name="Value" numbers-only
                             style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
                             ng-model="viewJudgeArtWorkCtrl.votingCriteria[n]"
-                            ng-change="viewJudgeArtWorkCtrl.changeValue(viewJudgeArtWorkCtrl.votingCriteria[n],n)" required />
+                            ng-change="viewJudgeArtWorkCtrl.changeValue(viewJudgeArtWorkCtrl.votingCriteria[n],n)"
+                            required />
                         <!-- required validation  -->
                         <div ng-messages="viewJudgeArtWorkForm.Value.$error">
                             <div class="error" ng-if="viewJudgeArtWorkForm.Value.$error.required && 
@@ -58,19 +60,24 @@
             <table class="table pmd-table table-hover">
                 <thead>
                     <tr>
+                        <th>{{'poster' | translate}}</th>
                         <th>{{'description' | translate}}</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="Media in viewJudgeArtWorkCtrl.artWorkMedia">
+                    <tr ng-repeat="media in viewJudgeArtWorkCtrl.artWorkMedia">
 
-                        <td data-title="code">
-                            {{Media.description}}
+                        <td>
+                            <img style="width: 70px;height: 70px;"
+                                data-ng-src="{{viewJudgeArtWorkCtrl.JudgeArtWork.posterUrl}}" />
+                        </td>
+                        <td>
+                            {{media.description}}
                         </td>
                         <td width="30%">
                             <i class="material-icons md-dark pmd-md cursorPointer font25"
-                                ng-click="$state.go('editMedia',{id: Media.id});" title="Edit">mode_edit</i>
+                                ng-click="$state.go('displayVideo',{id: media.id});" title="Edit">mode_edit</i>
                         </td>
                     </tr>
                 </tbody>

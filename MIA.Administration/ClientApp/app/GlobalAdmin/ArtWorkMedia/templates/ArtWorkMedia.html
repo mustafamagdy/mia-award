@@ -1,19 +1,23 @@
 <div>
     <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
-        <!-- <div id="bold"> {{'AddNewArtWorkBtn'| translate}} </div> -->
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-click="$state.go('newArtWorkMedia',{id:$stateParams.id});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
+        border-radius: 17px;" ng-click="$state.go('newArtWorkMedia',{id:$stateParams.id});"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
             {{'AddNew'| translate}}</button>
-    </div> 
+    </div>
     <div ng-if="ArtWorkMediaCtrl.mediaItemList.length == null">
         <span>{{'NoArtWorksAvailable' | translate}}</span>
     </div>
     <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="ArtWorkMediaCtrl.mediaItemList.length > 0">
-        <div class="table-responsive">
+        <div class="table-responsive" style="border: 1px solid #21231e;
+        border-radius: 20px;
+        background-color: #0e0e0e;
+        box-shadow: 0 0 10px 5px rgba(0,0,0,.35);
+    ">
             <table class="table pmd-table table-hover">
                 <thead>
                     <tr>
-                        <th>{{'title' | translate}}</th> 
+                        <th>{{'title' | translate}}</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -22,7 +26,7 @@
                         <td data-title="Name">
                             {{ArtWork.description   | limitTo : 20}}
                             {{ArtWork.description.length > 20 ? '...' : ''}}
-                        </td> 
+                        </td>
                         <td width="30%">
                             <i ng-show="user.PermessionModules['ArtWork'].includes('add_new')"
                                 class="material-icons md-dark pmd-md cursorPointer font25"

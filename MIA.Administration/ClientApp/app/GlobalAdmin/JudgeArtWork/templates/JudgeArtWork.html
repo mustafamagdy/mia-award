@@ -1,11 +1,5 @@
 <div>
-    <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
-        <!-- <div id="bold"> {{'AddNewJudgeArtWorkBtn'| translate}} </div> -->
-        <!-- <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-click="$state.go('newJudgeArtWork');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
-            {{'AddNew'| translate}}</button> -->
-    </div> 
-    <div ng-if="JudgeArtWorkList != []">
+    <div ng-if="JudgeArtWorkList.length == 0">
         <span>{{'NoJudgeArtWorksAvailable' | translate}}</span>
     </div>
     <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="JudgeArtWorkList.length > 0">
@@ -15,7 +9,6 @@
                     <tr>
                         <th>{{'poster' | translate}}</th>
                         <th>{{'title' | translate}}</th>
-                        <th>{{'fileCount' | translate}}</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -27,9 +20,6 @@
                         <td data-title="Name">
                             {{JudgeArtWork.title[selectedLanguage]   | limitTo : 20}}
                             {{JudgeArtWork.title[selectedLanguage].length > 20 ? '...' : ''}}
-                        </td>
-                        <td data-title="uploadComplete">
-                            {{JudgeArtWork.fileCount}}
                         </td>
                         <td>
                             <i class="material-icons md-dark pmd-md cursorPointer font25"

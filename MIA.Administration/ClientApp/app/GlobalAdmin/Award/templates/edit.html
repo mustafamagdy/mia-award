@@ -72,7 +72,7 @@
                         <select required style="width:100% !important"
                             class="form-control select-with-search pmd-select2-tags"
                             ng-model="editAwardCtrl.selectedManager"
-                            ng-options="group as group.firstName +' '+ group.lastName for group in editAwardCtrl.ManagerList">
+                            ng-options="group as group.fullName for group in editAwardCtrl.ManagerList">
                         </select>
 
                     </div>
@@ -82,7 +82,7 @@
                         <select required style="width:100% !important" multiple
                             class="form-control select-with-search pmd-select2-tags"
                             ng-model="editAwardCtrl.selectedJudges"
-                            ng-options="group as group.firstName +' '+ group.lastName  for group in editAwardCtrl.judgesList">
+                            ng-options="group as group.fullName  for group in editAwardCtrl.judgesList">
                         </select>
 
                     </div>

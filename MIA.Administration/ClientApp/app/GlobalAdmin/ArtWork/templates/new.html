@@ -71,7 +71,7 @@
                         <select required style="width:100% !important"
                             class="form-control select-with-search pmd-select2-tags"
                             ng-model="newArtWorkCtrl.selectedNominee"
-                            ng-options="group as group.firstName  for group in newArtWorkCtrl.nomineeList">
+                            ng-options="group as group.fullName  for group in newArtWorkCtrl.nomineeList">
                         </select>
                     </div>
 
@@ -204,7 +204,8 @@
                             {{'RecommendedProductImage' | translate}}</span> -->
                         <img ng-src="{{newArtWorkCtrl.trailerPoster}}" style="max-height: 139px;max-width: 423px;">
                         <div ng-messages="newArtWorkForm.trailerPoster.$error">
-                            <div ng-if="newArtWorkForm.trailerPoster.$error.required">{{'requiredErr' | translate}}</div>
+                            <div ng-if="newArtWorkForm.trailerPoster.$error.required">{{'requiredErr' | translate}}
+                            </div>
                         </div>
 
                     </div>

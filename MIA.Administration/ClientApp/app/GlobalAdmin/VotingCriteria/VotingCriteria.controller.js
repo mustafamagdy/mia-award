@@ -20,21 +20,22 @@
             blockUI.start("Loading...");
 
             var k = VotingCriteriaResource.getAllVotingCriterias({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
+              debugger;
                 $scope.VotingCriteriaList = results.items;
                 $scope.totalCount = results.metadata.totalItemCount;
                 console.log($scope.VotingCriteriaList);
                 blockUI.stop();
 
             },
-                function (data, status) { 
-                blockUI.stop();
+                function (data, status) {
+                    blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
         }
         vm.showMore = function (element) {
             $(element.currentTarget).toggleClass("child-table-collapse");
         }
-        
+
         function confirmationDelete(model) {
             var updateObj = new VotingCriteriaResource();
             updateObj.$delete({ id: model.id }).then(
@@ -70,7 +71,7 @@
             updateObj.outdated = (model.outdated == true ? false : true);
             updateObj.$update().then(
                 function (data, status) {
-                    //  refreshVotingCriterias();
+                    refreshVotingCriterias();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
                     model.outdated = updateObj.outdated;
                 },
