@@ -112,14 +112,6 @@ const Files = ({ files, posterUrl, active, ...props }) => {
         <ol>
           {files &&
             files.map((file, i) => {
-              console.log(file)
-                // <li>
-                //   <span>
-                //     <img src={posterUrl} alt="#" />
-                //     <i>12:20</i>
-                //   </span>
-                //   <p>Episode {i}</p>
-                // </li>
               return  <span onClick={() => handleItemClicked()}>
                 {mediaType == "image" ? (
                   <img src={posterUrl} width='600px' height='300px' />
@@ -147,17 +139,10 @@ const Files = ({ files, posterUrl, active, ...props }) => {
 
 const TrailerView = ({url, posterUrl, setuploadMode, ...props }) => {
   const [mediaType, setmediaType] = useState('image');
-  
-  // useEffect(() => {
-  //   setmediaType(posterUrl && posterUrl !== '' ? 'image' : 'vedio')
-  // }, [posterUrl,url])
 
   const handleItemClicked = () => {
       setmediaType(mediaType == 'image' ? 'vedio' : 'vedio');
   }
-  // const handleUpdateTrailer = () => {
-  //   setuploadMode(true)
-  // }
   return <> <span onClick={() => handleItemClicked()}>
       {mediaType == "image" ? (
         <img src={posterUrl} width='600px' height='300px' />

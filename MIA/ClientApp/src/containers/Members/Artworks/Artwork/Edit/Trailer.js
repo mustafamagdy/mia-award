@@ -25,9 +25,6 @@ const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTraile
         {!uploadMode ? (
           <TrailerView url={trailerUrl} posterUrl={trailerPosterUrl} setuploadMode={setuploadMode} />
         ) :
-          // progress && progress.length > 0 ? (
-          //   <UploadingProgress progress={progress} />
-          // ) :
            (
               <>
                 <UploadDropZone 
@@ -88,14 +85,6 @@ const FileDetails = ({ progress, file, ...props }) => (
     <ProgressBar progress={progress} />
   </div>
 );
-// const UploadingProgress = ({ progress, props }) => <div style={{ border: "2px solid red", width: 400, height: 300 }}>
-//   {progress &&
-//     progress.map(p => (
-//       <div key={p.key}>
-//         {p.key} => : {p.percent}
-//       </div>
-//     ))}
-// </div>;
 
 
 const TrailerView = ({ url, posterUrl, setuploadMode, ...props }) => {
