@@ -9,7 +9,7 @@
                     <div ng-repeat="n in [] | range:viewJudgeArtWorkCtrl.totalCount">
                         <label
                             for="first-name">{{viewJudgeArtWorkCtrl.votingCriteriaList[n].name[selectedLanguage]}}</label>
-                        <input required type="text" class="mat-input form-control" name="Value" numbers-only
+                        <input required type="number" class="mat-input form-control" name="Value" numbers-only
                             style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
                             ng-model="viewJudgeArtWorkCtrl.votingCriteria[n]"
                             ng-change="viewJudgeArtWorkCtrl.changeValue(viewJudgeArtWorkCtrl.votingCriteria[n],n)"

@@ -20,10 +20,8 @@
             blockUI.start("Loading...");
 
             var k = VotingCriteriaResource.getAllVotingCriterias({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
-              debugger;
                 $scope.VotingCriteriaList = results.items;
-                $scope.totalCount = results.metadata.totalItemCount;
-                console.log($scope.VotingCriteriaList);
+                $scope.totalCount = results.metadata.totalItemCount; 
                 blockUI.stop();
 
             },
@@ -62,25 +60,7 @@
                 }
 
             });
-        }
-        vm.ChangeStatus = function (model) {
-            var updateObj = new VotingCriteriaResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
-                function (data, status) {
-                    refreshVotingCriterias();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-            return;
-        }
+        } 
 
         vm.changePage = function (page) {
             vm.currentPage = page;
