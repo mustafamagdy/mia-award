@@ -28,7 +28,6 @@ const UploadingProgress = ({ progress, file, props }) => {
 
 const Files = ({ active, artworkId }, props) => {
   const [files, setFiles] = useState([]);
-  const [progress, setProgress] = useState([]);
   return (
     <div className={classNames("tab_content tab_upload_videos", { active })}>
       <div className="uploads_area">
@@ -41,9 +40,8 @@ const Files = ({ active, artworkId }, props) => {
           <div className="upload_input">
             <form action="#">
               <UploadDropZone
-                progress={progress}
                 setFiles={setFiles}
-                setProgress={setProgress}
+                // setProgress={setProgress}
                 // accept="video/*"
                 className="upload_now"
                 iconClass="icofont-upload-alt"
@@ -66,12 +64,6 @@ const Files = ({ active, artworkId }, props) => {
                     uploadChunkApi={window.api.members.postFileChunk}
                     dir={"Artwork"}
                     dirId={artworkId}
-                    onProgress={p => {
-                      const indx = progress.findIndex(a => a.key == f.name);
-                      if (indx != -1) progress[indx].percent = p;
-                      else progress.push({ key: f.name, percent: p, size: f.size });
-                      setProgress([...progress]);
-                    }}
                     file={f}
                   >
                     {/* <div className="upload_list">
@@ -79,7 +71,7 @@ const Files = ({ active, artworkId }, props) => {
                   <FileDetails file={f}/>
                   
         </div> */}
-                    <UploadingProgress progress={progress} file={f} />
+                    <UploadingProgress file={f} />
                   </Uploader>
                 );
               })}
