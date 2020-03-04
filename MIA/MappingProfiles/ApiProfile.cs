@@ -114,6 +114,9 @@ namespace MIA.MappingProfiles
         .ValidateMemberList(MemberList.None);
 
       CreateMap<ArtWork, ArtworkViewWithFilesDto>()
+          .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
+          .ForMember(a => a.Directors, cfg => cfg.MapFrom(a => a.Director))
+          .ForMember(a => a.Year, cfg => cfg.MapFrom(a => a.DateOfRelease))
         .IncludeAllDerived()
         .ValidateMemberList(MemberList.None);
 

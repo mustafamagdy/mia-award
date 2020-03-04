@@ -1,46 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import UploadDropZone from 'components/Forms/UploadDropZone';
-import Uploader from 'components/Forms/Uploader';
+import { Uploader, ProgressBar } from "components/Forms";
 
 
-const UploadingProgress = ({ progress, size, props }) => {
-  console.log(progress)
+const UploadingProgress = ({ progress, file, props }) => {
   return <>
     {progress &&
       progress.map(p => {
-        console.log(p)
-        debugger;
-        let percent = p.percent / (p.size/1024/1024) * 100;
+        let percent = p.percent / (p.size / 1024 / 1024) * 100;
         return <div className="item" key={p.key}>
 
 
           <div className="name" >
             <span>{p.key}</span>
-            <p>{Math.trunc(p.size/1024/1024)} Mb</p>
+            <p>{Math.trunc(p.size / 1024 / 1024)} Mb</p>
           </div>
           <div className="bar_area">
             <div className="progress_bar">
-              <div className="progress_inside" style={{ width:`${percent}%` }}></div>
+              <div className="progress_inside" style={{ width: `${percent}%` }}></div>
             </div>
-            <div className="play">
+            {/* <div className="play">
               <i className="icofont-ui-play"></i>
             </div>
             <div className="cancel">
               <i className="icofont-close"></i>
-            </div>
+            </div> */}
           </div>
           <div className="progress_number">
-            Uploading <p>{Math.trunc( percent )}%</p> done
+            Uploading <p>{Math.trunc(percent)}%</p> done
       </div>
         </div>
-
-
-        // <div >
-        //   {p.key} => : {p.percent}
-        // </div>
       })}</>
 };
+
+const FileDetails = ({ progress, file, ...props }) => (
+
+  <div className="item" >
+
+
+    <div className="name" >
+      <span>{file.name}</span>
+      {/* <p>{Math.trunc(p.size/1024/1024)} Mb</p> */}
+    </div>
+    <div className="bar_area">
+      <ProgressBar progress={progress} />
+      {/* <div className="play">
+              <i className="icofont-ui-play"></i>
+            </div>
+            <div className="cancel">
+              <i className="icofont-close"></i>
+            </div> */}
+    </div>
+    {/* <div className="progress_number">
+            Uploading <p>{Math.trunc( percent )}%</p> done
+      </div> */}
+  </div>
+
+  // <div>
+  //   <label> {file.name}</label>
+  //   <ProgressBar progress={progress} />
+  // </div>
+);
 
 const Files = ({ active, artworkId }, props) => {
   const [files, setFiles] = useState([]);
@@ -56,7 +77,9 @@ const Files = ({ active, artworkId }, props) => {
         <div className="upload_input">
           <form action="#">
             <UploadDropZone
+              progress={progress}
               setFiles={setFiles}
+              setProgress={setProgress}
               // accept="video/*"
               className="upload_now"
               iconClass="icofont-upload-alt"
@@ -73,14 +96,19 @@ const Files = ({ active, artworkId }, props) => {
                   dir={"Artwork"}
                   dirId={artworkId}
                   onProgress={p => {
-                    debugger
                     const indx = progress.findIndex(a => a.key == f.name);
                     if (indx != -1) progress[indx].percent = p;
                     else progress.push({ key: f.name, percent: p, size: f.size });
                     setProgress([...progress]);
                   }}
                   file={f}
-                />
+                >
+                  {/* <div className="upload_list">
+          <div className="title">Files Upload</div>
+                  <FileDetails file={f}/>
+                  
+        </div> */}
+                </Uploader>
               }
               )}
             <span>Choose Files</span>
