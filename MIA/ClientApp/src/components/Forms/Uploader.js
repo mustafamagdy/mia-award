@@ -79,9 +79,12 @@ const Uploader = ({
     return slice.bind(file)(start, end);
   };
   const noop = () => {};
-  return React.cloneElement(children, {
+  if(children)
+{  return React.cloneElement(children, {
     progress: progress
-  });
+  });}else{
+   return <></>
+  }
 };
 
 export const ProgressBar = ({ progress, ...rest }) => (
