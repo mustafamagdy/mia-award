@@ -81,5 +81,8 @@ export default {
     tw: "https://twitter.com/MIAawardArab",
     in: "https://www.instagram.com/MIAawardarab",
     yt: "https://www.youtube.com/MIAawardarab"
-  }
+  },
+  uploadFileExtension:[
+    "video/mp4"
+  ]
 };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import UploadDropZone from "components/Forms/UploadDropZone";
 import { Uploader, ProgressBar } from "components/Forms";
-
+import config from "config";
 const UploadingProgress = ({ progress, file, props }) => {
   return (
     <div className="item">
@@ -49,6 +49,7 @@ const Files = ({ active, artworkId }, props) => {
                 multiple={true}
                 inputContent="Drop Files (Custom Preview)"
                 style={{ width: "100%", height: "100%" }}
+                extensions={config.uploadFileExtension}
               />
               <span>Choose Files</span>
             </form>
