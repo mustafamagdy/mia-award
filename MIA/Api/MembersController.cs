@@ -116,7 +116,7 @@ namespace MIA.Api
     public string ReceiptFileName { get; set; }
     public byte[] Receipt { get; set; }
 
-    public bool IsOffline => PaymentMethod.ToLower() == "offline";
+    public bool IsOffline => true;//PaymentMethod.ToLower() == "offline";
   }
 
 #if (Versioning)
