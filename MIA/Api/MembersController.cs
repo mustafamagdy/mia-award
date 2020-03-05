@@ -46,6 +46,7 @@ namespace MIA.Api
     public string TrailerPosterUrl { get; set; }
     public string CoverImageUrl { get; set; }
     public bool CanUploadFiles { get; set; }
+    public bool UploadComplete { get; set; }
   }
   public class ArtworkViewWithFilesDto : ArtworkViewDto
   {
@@ -117,6 +118,12 @@ namespace MIA.Api
     public byte[] Receipt { get; set; }
 
     public bool IsOffline => PaymentMethod.ToLower() == "offline";
+  }
+
+  public class PublishArtwork
+  {
+      public string Id { get; set; }
+      public bool Publish { get; set; }
   }
 
 #if (Versioning)
@@ -520,5 +527,25 @@ namespace MIA.Api
       return Ok(_mapper.Map<ArtworkViewWithFilesDto>(artwork));
     }
 
-  }
+    [HttpPut("artwork/{id}/publish")]
+    public async Task<IActionResult> PublishArtwork(
+        [FromBody]PublishArtwork publishArtworkDto,
+        [FromRoute]string id,
+        [FromServices] IAppUnitOfWork db)
+    {
+
+        var nominee = await _userResolver.CurrentUserAsync();
+        var artwork = await db.ArtWorks
+            .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (artwork.NomineeId != nominee.Id)
+            return NotFound404("Artwork doesn't belong to you");
+
+        artwork.UploadComplete = publishArtworkDto.Publish;
+        db.ArtWorks.Update(artwork);
+
+        return Ok();
+    }
+
+    }
 }
