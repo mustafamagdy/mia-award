@@ -68,6 +68,7 @@ namespace MIA.Api
       [FromServices] IAppUnitOfWork db)
     {
       var _result = db.ArtWorks
+                    .Where(a=>a.UploadComplete)
                     .AsQueryable();
 
       _result = _result.Where(a => string.IsNullOrEmpty(query.AwardId) || a.AwardId == query.AwardId);

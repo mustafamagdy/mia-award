@@ -30,7 +30,8 @@ namespace MIA.ORMContext.Uow {
     public DbSet<MediaFile> MediaFiles => base.Context.Set<MediaFile>();
     public DbSet<News> News => base.Context.Set<News>();
     public DbSet<NewsComment> NewsComments => base.Context.Set<NewsComment>();
-
+    public DbSet<ArtworkReview> ArtworkReviews => base.Context.Set<ArtworkReview>();
+    
     //public DbSet<NewsImage> NewsImages => base.Context.Set<NewsImage>();
     public DbSet<Album> Albums => base.Context.Set<Album>();
     public DbSet<TrophyImage> TrophyImages => base.Context.Set<TrophyImage>();

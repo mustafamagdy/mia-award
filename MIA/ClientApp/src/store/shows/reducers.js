@@ -5,7 +5,9 @@ import { ActionTypes } from "./actions";
 const initialState = {
   items: [],
   items_pagination: {},
-  featuredItems: []
+  featuredItems: [],
+  showReviewSuccess: undefined,
+  selectedShow: {}
 };
 
 const fetchFeaturedItemsSuccess = (state, action) => {
@@ -21,7 +23,29 @@ const fetchItemsSuccess = (state, action) => {
   });
 };
 
+const fetchShowDetailsSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.selectedShow = action.payload;
+  });
+};
+
+const postShowReviewSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.selectedShow.reviews = [...state.selectedShow.reviews, action.payload];
+    draft.showReviewSuccess = true;
+  });
+};
+
+const clearReviewSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.showReviewSuccess = undefined;
+  });
+};
+
 export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_FEATURED_ITEMS_SUCCESS]: fetchFeaturedItemsSuccess,
-  [ActionTypes.FETCH_ITEMS_SUCCESS]: fetchItemsSuccess
+  [ActionTypes.FETCH_ITEMS_SUCCESS]: fetchItemsSuccess,
+  [ActionTypes.FETCH_SHOW_DETAILS_SUCCESS]: fetchShowDetailsSuccess,
+  [ActionTypes.POST_SHOW_REVIEW_SUCCESS]: postShowReviewSuccess,
+  [ActionTypes.CLEAR_REVIEW_SUCCESS]: clearReviewSuccess,
 });

@@ -54,11 +54,11 @@ namespace MIA.MappingProfiles
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
-      CreateMap<NewsUserComment, NewsComment>()
+      CreateMap<SubmitUserComment, NewsComment>()
         .ForMember(a => a.News, cfg => cfg.Ignore())
         .ForMember(a => a.NewsId, cfg => cfg.Ignore())
         .ForMember(a => a.Comments, cfg => cfg.MapFrom(a => a.Comment))
-        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => DateTime.Now.ToUniversalTime()))
+        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => DateTime.Now.ToUnixTimeSeconds()))
         .ValidateMemberList(MemberList.None);
 
       CreateMap<Album, MainAlbumDto>()
@@ -81,6 +81,22 @@ namespace MIA.MappingProfiles
         .ForMember(a => a.Last4Digits, cfg => cfg.MapFrom(a => a.Last4Digit))
         .ValidateMemberList(MemberList.None);
 
+      CreateMap<ArtworkReview, UserCommentDto>()
+        .ForMember(a => a.Comment, cfg => cfg.MapFrom(a => a.Comments))
+        .ForMember(a => a.UserFullName, cfg => cfg.MapFrom(a => a.Name))
+        .ForMember(a => a.UserAvatarUrl, cfg => cfg.Ignore())
+        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<SubmitUserComment, ArtworkReview>()
+        .ForMember(a => a.Artwork, cfg => cfg.Ignore())
+        .ForMember(a => a.ArtworkId, cfg => cfg.Ignore())
+        .ForMember(a => a.Comments, cfg => cfg.MapFrom(a => a.Comment))
+        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => DateTime.Now.ToUnixTimeSeconds()))
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<FullArtworkWithCommentsDto, ArtWork>()
+        .ValidateMemberList(MemberList.None);
 
       CreateMap<SubmitArtworkWithDetails, ArtWork>()
         .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
