@@ -95,7 +95,7 @@ namespace MIA.Api {
     [HttpPost("{id}/comment")]
     public async Task<IActionResult> AddComment(
       [FromRoute(Name = "id")] string newsId,
-      [FromBody] NewsUserComment dto,
+      [FromBody] SubmitUserComment dto,
       [FromServices] IAppUnitOfWork db,
       [FromServices] IOptions<AdminOptions> adminOptions
       ) {

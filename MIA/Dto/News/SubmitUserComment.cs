@@ -1,6 +1,6 @@
 ﻿
 namespace MIA.Api {
-  public class NewsUserComment : GoogleReCaptchaModelBase {
+  public class SubmitUserComment : GoogleReCaptchaModelBase {
     public string Name { get; set; }
     public string Email { get; set; }
     public string Title { get; set; }
