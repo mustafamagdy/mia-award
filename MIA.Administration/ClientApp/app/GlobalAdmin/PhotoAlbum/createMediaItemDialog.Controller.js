@@ -44,13 +44,13 @@
             newObj.$createMediaItem().then(
                 function (data, status) {
                     blockUI.stop();
-                    debugger;
                     if (data.mediaType == 'image') {
                         ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                         $state.go('mediaItems', { id: $stateParams.id });
 
                     } else {
-                        openUploadDialog(data.id, apiBaseUrl + '/api/albums/mediaItems/' + data.id + '/files')
+                        debugger;
+                        openUploadDialog(data.id, appCONSTANTS.API_URL + 'albums/mediaItems/' + data.id + '/files')
                     }
                 },
                 function (data, status) {

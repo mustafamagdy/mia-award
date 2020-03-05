@@ -1,27 +1,27 @@
 <style>
-::-webkit-scrollbar {
-  width: 12px;
-}
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888; 
-}
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555; 
-}
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 </style>
 <div class="modal-content">
     <div class="modal-header bordered">
-        <h2 class="pmd-card-title-text">        {{'EditRoleLbl' | translate}}
-            </h2>
+        <h2 class="pmd-card-title-text"> {{'EditRoleLbl' | translate}}
+        </h2>
     </div>
     <div class="modal-body">
         <form class="form-horizontal" name="editRoleForm">
@@ -57,31 +57,31 @@
                                     </div>
                                 </div>
 
-                            </div> 
-                            
-                            <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
-                                <tr ng-repeat-start="module in editRoleCtrl.Role.permessionTree">
-                                    <td><strong>{{module.module.title[selectedLanguage]}}</strong></td>
-                                </tr>
-                                <tr ng-repeat-end ng-repeat="per in module.permessions">
-                                    <td> <input type="checkbox" ng-change="editRoleCtrl.checkPermission(per)"
-                                            ng-model="per.seclected"> </td>
-                                    <td>{{ per.title[selectedLanguage]}}</td>
-                                </tr>
-                            </table> 
                             </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <tr ng-repeat-start="module in editRoleCtrl.Role.permessionTree">
+                                        <td><strong>{{module.module.title[selectedLanguage]}}</strong></td>
+                                    </tr>
+                                    <tr ng-repeat-end ng-repeat="per in module.permessions">
+                                        <td> <input type="checkbox" ng-change="editRoleCtrl.checkPermission(per)"
+                                                ng-model="per.seclected"> </td>
+                                        <td>{{ per.title[selectedLanguage]}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+
                     </div>
-
-
                 </div>
-            </div>
 
         </form>
     </div>
     <div class="pmd-modal-action text-right">
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="editRoleForm.$invalid"
-            class="btn pmd-ripple-effect btn-primary" type="button"
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-disabled="editRoleForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
             ng-click="editRoleCtrl.UpdateRole()">{{'saveChangesBtn' | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" type="button"
             ng-click="editRoleCtrl.Close()">{{'DiscardBtn' | translate}}</button>

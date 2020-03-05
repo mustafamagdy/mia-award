@@ -101,7 +101,7 @@
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                     debugger;
-                    openUploadDialog(data.id, apiBaseUrl + '/api/artWorks/artwork/' + data.id + '/files')
+                    openUploadDialog(data.id, appCONSTANTS.API_URL + 'artWorks/artwork/' + data.id + '/files')
 
                     // $rootScope.$broadcast('artWorkId', data.id);
                     // $rootScope.$broadcast('filesCount', data.fileCount);

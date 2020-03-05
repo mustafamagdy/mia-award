@@ -176,59 +176,59 @@ namespace MIA.Api
       }
 
       PaymentStatus paymentResponse = null;
-      if (!dto.Payment.IsOffline)
-      {
-        try
-        {
-          if (string.IsNullOrEmpty(dto.Payment.SessionId))
-          {
-            var paymentDto = _mapper.Map<PaymentRequest>(dto.Payment);
-            // 10.5$ => 1050 no decimal points (multiply by 100)
-            paymentDto.Amount = (int)(booth.Price * 100);
-            _logger.LogInformation("Request payment start for:" + paymentDto.Amount);
-            paymentResponse = paymentGateway.RequestPayment(paymentDto).Result;
-            if (paymentResponse != null && paymentResponse.IsPending)
-            {
-              return Ok(new
-              {
-                Pending = true,
-                ThreeDsUrl = paymentResponse.ThreeDsUrl
-              });
-            }
-            else if (paymentResponse != null && paymentResponse.IsApproved)
-            {
-              //TODO: uncomment
-              //_logger.LogInformation($"user payment success {nominee.Id}/{nominee.UserName} -> Payment Id: {paymentResponse.PaymentId}");
-            }
-            else if (paymentResponse == null || !paymentResponse.IsApproved)
-            {
-              throw new ApiException(ApiErrorType.UserPaymentFailed, $"Payment approved: {paymentResponse?.IsApproved}");
-            }
-          }
-          else
-          {
-            var paymentDetails = paymentGateway.GetPaymentDetails(dto.Payment.SessionId).Result;
-            if (paymentDetails == null || !paymentDetails.Approved)
-            {
-              throw new ApiException(ApiErrorType.PaymentNotApproved, $"Payment approved: {paymentDetails?.Approved}");
-            }
-            else
-            {
-              paymentResponse = new PaymentStatus
-              {
-                PaymentId = paymentDetails.Id,
-                Status = paymentDetails.Status,
-              };
-            }
-          }
-          _logger.LogInformation("Request payment end");
-        }
-        catch (Exception exPayment)
-        {
-          _logger.LogError(exPayment, "user payment failed");
-          throw new ApiException(ApiErrorType.UserPaymentFailed, exPayment.Message);
-        }
-      }
+      //if (!dto.Payment.IsOffline)
+      //{
+      //  try
+      //  {
+      //    if (string.IsNullOrEmpty(dto.Payment.SessionId))
+      //    {
+      //      var paymentDto = _mapper.Map<PaymentRequest>(dto.Payment);
+      //      // 10.5$ => 1050 no decimal points (multiply by 100)
+      //      paymentDto.Amount = (int)(booth.Price * 100);
+      //      _logger.LogInformation("Request payment start for:" + paymentDto.Amount);
+      //      paymentResponse = paymentGateway.RequestPayment(paymentDto).Result;
+      //      if (paymentResponse != null && paymentResponse.IsPending)
+      //      {
+      //        return Ok(new
+      //        {
+      //          Pending = true,
+      //          ThreeDsUrl = paymentResponse.ThreeDsUrl
+      //        });
+      //      }
+      //      else if (paymentResponse != null && paymentResponse.IsApproved)
+      //      {
+      //        //TODO: uncomment
+      //        //_logger.LogInformation($"user payment success {nominee.Id}/{nominee.UserName} -> Payment Id: {paymentResponse.PaymentId}");
+      //      }
+      //      else if (paymentResponse == null || !paymentResponse.IsApproved)
+      //      {
+      //        throw new ApiException(ApiErrorType.UserPaymentFailed, $"Payment approved: {paymentResponse?.IsApproved}");
+      //      }
+      //    }
+      //    else
+      //    {
+      //      var paymentDetails = paymentGateway.GetPaymentDetails(dto.Payment.SessionId).Result;
+      //      if (paymentDetails == null || !paymentDetails.Approved)
+      //      {
+      //        throw new ApiException(ApiErrorType.PaymentNotApproved, $"Payment approved: {paymentDetails?.Approved}");
+      //      }
+      //      else
+      //      {
+      //        paymentResponse = new PaymentStatus
+      //        {
+      //          PaymentId = paymentDetails.Id,
+      //          Status = paymentDetails.Status,
+      //        };
+      //      }
+      //    }
+      //    _logger.LogInformation("Request payment end");
+      //  }
+      //  catch (Exception exPayment)
+      //  {
+      //    _logger.LogError(exPayment, "user payment failed");
+      //    throw new ApiException(ApiErrorType.UserPaymentFailed, exPayment.Message);
+      //  }
+      //}
 
 
       var boothPurchase = _mapper.Map<BoothPurchase>(dto);

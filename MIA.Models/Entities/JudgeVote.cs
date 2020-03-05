@@ -11,5 +11,6 @@ namespace MIA.Models.Entities {
     public Judge Judge { get; set; }
     public string JudgeId { get; set; }
 
+    //public bool JudgeComplete { get; set; }
   }
 }
