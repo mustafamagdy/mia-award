@@ -51,7 +51,10 @@ const EditArtwork = ({
     setActiveTabKey(tabKey);
     setActiveIndex(tabs.indexOf(tabKey));
   };
-
+if(artworkDetails &&artworkDetails.uploadComplete){
+  console.log(artworkDetails.uploadComplete)
+  history.push('/members')
+}
   return (
     <div className="stage_two">
       <div className="main_tabs">

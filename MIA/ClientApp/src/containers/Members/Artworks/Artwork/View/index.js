@@ -13,6 +13,7 @@ import PaymentView from "./PaymentView";
 const ViewArtwork = ({
   artworkDetails,
   editArtwork,
+  publishArtwork,
   history,
   match: {
     params: { id }
@@ -50,7 +51,7 @@ const ViewArtwork = ({
           </TabList>
         </ul>
       </div>
-      <Info active={activeTabKey == "info"} editArtwork={editArtwork} history={history} details={artworkDetails} />
+      <Info active={activeTabKey == "info"} editArtwork={editArtwork} publish={publishArtwork} history={history} details={artworkDetails} />
       <PaymentView active={activeTabKey == "payment-view"} />
       <Trailer active={activeTabKey == "trailer"} url={artworkDetails?.trailerUrl} posterUrl={artworkDetails?.trailerPosterUrl} />
       <Files active={activeTabKey == "files"} files={artworkDetails?.files} posterUrl={artworkDetails?.trailerPosterUrl} />
@@ -58,7 +59,7 @@ const ViewArtwork = ({
   );
 };
 
-const Info = ({ details, active, editArtwork, history, ...props }) => {
+const Info = ({ details, active, editArtwork, publish, history, ...props }) => {
   console.log(details)
   return <div className={classNames("tab_content tab_info", { active })}>
     <div class="info_show">
@@ -82,13 +83,27 @@ const Info = ({ details, active, editArtwork, history, ...props }) => {
         </li>
       </ul>
     </div>
-    <button
+    <button disabled={details?.uploadComplete}
       onClick={() => {
         editArtwork();
         history.push(`/members/artwork/${details.id}/edit`);
       }}
     >
       edit info
+    </button>
+
+    <button disabled={details?.uploadComplete}
+      onClick={() => {
+        const data = { id: details.id, publish: true };
+        publish(
+          {
+            ...data,
+            id: details.id
+            });
+        history.push(`/members`);
+      }}
+    >
+      publish artwork for review
     </button>
   </div>
 };
@@ -100,70 +115,76 @@ const Trailer = ({ url, posterUrl, active, ...props }) => {
 
 
 const Files = ({ files, posterUrl, active, ...props }) => {
-  const [mediaType, setmediaType] = useState('image');
 
-
-  const handleItemClicked = () => {
-      setmediaType(mediaType == 'image' ? 'vedio' : 'vedio');
-    }
   return <div className={classNames("tab_content tab_files", { active })}>
     <div class="item_show">
       <div class="season_content">
         <ol>
           {files &&
             files.map((file, i) => {
-              return  <span onClick={() => handleItemClicked()}>
-                {mediaType == "image" ? (
-                  <img src={posterUrl} width='600px' height='300px' />
-                ) : (<>
-                  <ReactPlayer
-                    playing
-                     url={file.fileUrl}
-                    className="react-player"
-                    width="100%"
-                    height="100%"
-                    light="https://picsum.photos/200/300"
-                  />
-                  <div className="zoom_image">
-                    <span>
-                      <i className="icofont-ui-zoom-in"></i>
-                    </span>
-                  </div>
-                </>)}</span>
-                })}
-      </ol>
-    </div>
+              return <File posterUrl={posterUrl} file={file}/>
+            })}
+        </ol>
       </div>
-    </div>};
+    </div>
+  </div>
+};
+
+const File=({posterUrl,file,...props})=>{
+  const [mediaType, setmediaType] = useState('image');
 
 
-const TrailerView = ({url, posterUrl, setuploadMode, ...props }) => {
+  const handleItemClicked = () => {
+    setmediaType(mediaType == 'image' ? 'vedio' : 'vedio');
+  }
+  return (<span onClick={() => handleItemClicked()}>
+  {mediaType == "image" ? (
+    <img src={posterUrl} width='200px' height='200px' />
+  ) : (<>
+    <ReactPlayer
+      playing
+      url={file.fileUrl}
+      className="react-player"
+      width="100%"
+      height="100%"
+      light="https://picsum.photos/200/300"
+    />
+    <div className="zoom_image">
+      <span>
+        <i className="icofont-ui-zoom-in"></i>
+      </span>
+    </div>
+  </>)}</span>
+
+  )
+}
+const TrailerView = ({ url, posterUrl, setuploadMode, ...props }) => {
   const [mediaType, setmediaType] = useState('image');
 
   const handleItemClicked = () => {
-      setmediaType(mediaType == 'image' ? 'vedio' : 'vedio');
+    setmediaType(mediaType == 'image' ? 'vedio' : 'vedio');
   }
   return <> <span onClick={() => handleItemClicked()}>
-      {mediaType == "image" ? (
-        <img src={posterUrl} width='600px' height='300px' />
-      ) : (<>
-        <ReactPlayer
-          playing
-          url={url}
-          className="react-player"
-          width="100%"
-          height="100%"
-          light="https://picsum.photos/200/300"
-        />
-        <div className="zoom_image">
-          <span>
-            <i className="icofont-ui-zoom-in"></i>
-          </span>
-        </div>
-      </>)}
-    </span>
-    </>
-    };
-const mapStateToProps = ({members: {artworkDetails, artworkMode} }) => ({artworkDetails, artworkMode});
-const mapDispatchToProps = dispatch => bindActionCreators({...membersActions}, dispatch);
-    export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ViewArtwork));
+    {mediaType == "image" ? (
+      <img src={posterUrl} width='600px' height='300px' />
+    ) : (<>
+      <ReactPlayer
+        playing
+        url={url}
+        className="react-player"
+        width="100%"
+        height="100%"
+        light="https://picsum.photos/200/300"
+      />
+      <div className="zoom_image">
+        <span>
+          <i className="icofont-ui-zoom-in"></i>
+        </span>
+      </div>
+    </>)}
+  </span>
+  </>
+};
+const mapStateToProps = ({ members: { artworkDetails, artworkMode } }) => ({ artworkDetails, artworkMode });
+const mapDispatchToProps = dispatch => bindActionCreators({ ...membersActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ViewArtwork));

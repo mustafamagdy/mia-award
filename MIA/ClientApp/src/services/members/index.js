@@ -7,6 +7,7 @@ export default function(/**@type {ApisauceInstance} */ api) {
   const updateTrailer = ({ id, ...data }) => api.put(`/members/artwork/${id}/trailer`, data);
   const updateCoverImage = ({ id, ...data }) => api.put(`/members/artwork/${id}/cover`, data);
   const postFileChunk = ({ id, ...data }) => api.post(`/members/artwork/${id}/files`, data);
+  const publishArtwork = ({ id, ...data } ) =>api.put(`/members/artwork/${id}/publish`,data);
 
   return {
     members: {
@@ -17,7 +18,8 @@ export default function(/**@type {ApisauceInstance} */ api) {
       fetchArtworkWithDetails,
       updateTrailer,
       updateCoverImage,
-      postFileChunk
+      postFileChunk,
+      publishArtwork
     }
   };
 }
