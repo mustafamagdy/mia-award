@@ -17,14 +17,26 @@ import PaymentForm from "components/PaymentForm";
 
 const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
   useEffect(() => {
+    setLoading(false);
+    if (booths == undefined || booths.length == 0) {
+      setNoMoreBooths(true);
+    } else {
+      setNoMoreBooths(false);
+    }
+  }, [booths]);
+
+  useEffect(() => {
+    setLoading(true);
     fetchBooths();
   }, []);
 
   const tabs = ["info", "details", "payment"];
+  const [loading, setLoading] = useState(false);
+  const [noMoreBooths, setNoMoreBooths] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
-  const [paymentToken, setPaymentToken] = useState(undefined);
-  const [useOnlinePayment, setUseOnlinePayment] = useState(true);
+  // const [paymentToken, setPaymentToken] = useState(undefined);
+  // const [useOnlinePayment, setUseOnlinePayment] = useState(true);
 
   const { register, handleSubmit, getValues, setValue } = useForm();
 
@@ -35,42 +47,42 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
 
   const processOrder = async () => {
     const values = getValues({ nest: true });
-    values.payment.paymentToken = paymentToken;
+    // values.payment.paymentToken = paymentToken;
 
     //parse files to base64
-    if (values.payment.paymentMethod == "offline") {
-      const receipt = await fileToBase64(values.payment.receipt[0].name, values.payment.receipt[0]);
-      values.payment.receiptFileName = values.payment.receipt[0].name;
-      values.payment.receipt = receipt;
-    } else {
-      values.payment.receipt = undefined;
-      values.payment = {
-        paymentMethod: values.payment.paymentMethod,
-        cardHolderName: values.payment.paymentToken.name,
-        cardType: values.payment.paymentToken.card_type,
-        last4Digit: values.payment.paymentToken.last4,
-        cardToken: values.payment.paymentToken.token,
-        currency: "USD",
-        type: values.payment.paymentToken.type
-      };
-    }
+    // if (values.payment.paymentMethod == "offline") {
+    const receipt = await fileToBase64(values.payment.receipt[0].name, values.payment.receipt[0]);
+    values.payment.receiptFileName = values.payment.receipt[0].name;
+    values.payment.receipt = receipt;
+    // } else {
+    //   values.payment.receipt = undefined;
+    //   values.payment = {
+    //     paymentMethod: values.payment.paymentMethod,
+    //     cardHolderName: values.payment.paymentToken.name,
+    //     cardType: values.payment.paymentToken.card_type,
+    //     last4Digit: values.payment.paymentToken.last4,
+    //     cardToken: values.payment.paymentToken.token,
+    //     currency: "USD",
+    //     type: values.payment.paymentToken.type
+    //   };
+    // }
 
     bookBooth(values);
   };
 
-  useEffect(() => {
-    if (paymentToken != undefined) {
-      processOrder();
-    }
-  }, [paymentToken]);
+  // useEffect(() => {
+  //   if (paymentToken != undefined) {
+  //     processOrder();
+  //   }
+  // }, [paymentToken]);
 
   const onPayment = values => {
     processOrder();
   };
 
-  const setPaymentMethod = e => {
-    setUseOnlinePayment(e.target.value == "online");
-  };
+  // const setPaymentMethod = e => {
+  //   setUseOnlinePayment(e.target.value == "online");
+  // };
 
   return (
     <section id="booth_page">
@@ -81,14 +93,15 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
               <ImageZoom
                 portalId="zoom-img"
                 largeImgSrc="assets/images/booth_image.png"
-                imageWidth={540}
-                imageHeight={540}
-                zoomContainerWidth={540}
+                imageWidth={656}
+                imageHeight={175}
+                zoomContainerWidth={500}
+                zoomContainerHeight={500}
                 portalStyle={Object.assign({ ...ImageZoom.defaultPortalStyle }, { top: "140px" })}
-                zoomScale={3}
+                zoomScale={5}
                 responsive={true}
               >
-                <img src="assets/images/booth_image.png" />
+                <img src="assets/images/booth_image_small.png" />
               </ImageZoom>
               {/* <span>
                 <i className="icofont-ui-zoom-in"></i>
@@ -96,47 +109,51 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
             </div>
           </div>
           <div className="col_right">
-            {!boothBooked && (
-              <div className="tabs_links">
-                <ul>
-                  <TabList
-                    activeClassName="active"
-                    activeIndex={activeIndex}
-                    activeTabKey={activeTabKey}
-                    handleActiveTabWithKey={handleActiveTab}
-                  >
-                    {tabs.map((t, i) => (
-                      <Tab key={t} tabKey={t}>
-                        <li>
-                          <Trans id={t}>{t}</Trans>
-                        </li>
-                      </Tab>
-                    ))}
-                  </TabList>
-                </ul>
-              </div>
+            {loading == true ? (
+              <div>Loading ...</div>
+            ) : noMoreBooths == true ? (
+              <div>no more</div>
+            ) : boothBooked == true ? (
+              <Confirmation active={boothBooked} success={true} />
+            ) : (
+              <>
+                <div className="tabs_links">
+                  <ul>
+                    <TabList
+                      activeClassName="active"
+                      activeIndex={activeIndex}
+                      activeTabKey={activeTabKey}
+                      handleActiveTabWithKey={handleActiveTab}
+                    >
+                      {tabs.map((t, i) => (
+                        <Tab key={t} tabKey={t}>
+                          <li>
+                            <Trans id={t}>{t}</Trans>
+                          </li>
+                        </Tab>
+                      ))}
+                    </TabList>
+                  </ul>
+                </div>
+                <div id="zoom-img" className="tabs_content" />
+                <div className="tabs_content">
+                  <>
+                    <Info active={activeTabKey == "info"} register={register} booths={booths} />
+                    <Details active={activeTabKey == "details"} register={register} />
+                    <Payment
+                      active={activeTabKey == "payment"}
+                      // awards={awards}
+                      register={register}
+                      onPayment={handleSubmit(onPayment)}
+                      // setPaymentToken={setPaymentToken}
+                      processOrder={processOrder}
+                      // useOnlinePayment={useOnlinePayment}
+                      // setPaymentMethod={setPaymentMethod}
+                    />
+                  </>
+                </div>
+              </>
             )}
-            <div id="zoom-img" className="tabs_content" />
-            <div className="tabs_content">
-              {!!boothBooked ? (
-                <Confirmation active={boothBooked} success={true} />
-              ) : (
-                <>
-                  <Info active={activeTabKey == "info"} register={register} booths={booths} />
-                  <Details active={activeTabKey == "details"} register={register} />
-                  <Payment
-                    active={activeTabKey == "payment"}
-                    // awards={awards}
-                    register={register}
-                    onPayment={handleSubmit(onPayment)}
-                    setPaymentToken={setPaymentToken}
-                    processOrder={processOrder}
-                    useOnlinePayment={useOnlinePayment}
-                    setPaymentMethod={setPaymentMethod}
-                  />
-                </>
-              )}
-            </div>
           </div>
         </div>
       </div>
@@ -152,15 +169,23 @@ const Info = ({ booths, active, register, ...props }) => {
 
   return (
     <div className={classNames("tab_item info_tab", { active })}>
-      {/* <div className="labels_area">
+      <div className="labels_area">
         <ul>
-          <li className="booth_1">Booth type 1</li>
-          <li className="booth_2">Booth type 2</li>
-          <li className="booth_3">Booth type 3</li>
-          <li className="booth_4">Booth type 4</li>
-          <li className="booth_5">Booth type 5</li>
+          <li className="gold">
+            <Trans id="gold_sposer">Gold Sponser</Trans>
+          </li>
+          <li className="standard">
+            <Trans id="standard">Standard</Trans>
+          </li>
+          <li className="mia">
+            <Trans id="mia">MIA</Trans>
+          </li>
+          <li className="media_industry">
+            <Trans id="media_industry">Media Industry</Trans>
+          </li>
+          {/* <li className="booth_5">Booth type 5</li> */}
         </ul>
-      </div> */}
+      </div>
       <div className="choose_booth">
         <select
           name="boothCode"
@@ -212,14 +237,20 @@ const Details = ({ active, register, ...props }) => {
   );
 };
 
-const Payment = ({ active, register, useOnlinePayment, setPaymentMethod, setPaymentToken, onPayment, ...props }) => {
+const Payment = ({
+  active,
+  register,
+  // useOnlinePayment, setPaymentMethod, setPaymentToken,
+  onPayment,
+  ...props
+}) => {
   return (
     <div className={classNames("tab_item payment_tab", { active })}>
       <div className="paymnets_area">
-        <div className="title">
+        {/* <div className="title">
           <Trans id="choose_your_payment_method">Choose Your Payment Method</Trans>:
-        </div>
-        <div className="choose_area">
+        </div> */}
+        {/* <div className="choose_area">
           <label htmlFor="online">
             <span>
               <Trans id="pay_online">Pay Online</Trans>
@@ -248,9 +279,9 @@ const Payment = ({ active, register, useOnlinePayment, setPaymentMethod, setPaym
               </button>
             </div>
           </BlockUi>
-        </div>
+        </div> */}
         <div className="choose_area">
-          <label htmlFor="offline">
+          {/* <label htmlFor="offline">
             <span>
               <Trans id="pay_offline">Pay Offline</Trans>
             </span>
@@ -264,8 +295,9 @@ const Payment = ({ active, register, useOnlinePayment, setPaymentMethod, setPaym
               checked={!useOnlinePayment}
             />
             <div className="checkmark"></div>
-          </label>
-          <BlockUi tag="div" blocking={useOnlinePayment} className={classNames("pay_offline_form", { move: useOnlinePayment })}>
+          </label> */}
+          {/* <BlockUi tag="div" blocking={useOnlinePayment} className={classNames("pay_offline_form", { move: useOnlinePayment })}> */}
+          <div className="pay_offline_form">
             <p>
               <Trans id="please_upload_the_receipt">
                 please upload the reciept to be approved from the adminstration and confirm your payment
@@ -287,7 +319,8 @@ const Payment = ({ active, register, useOnlinePayment, setPaymentMethod, setPaym
                 </div>
               </div>
             </form>
-          </BlockUi>
+          </div>
+          {/* </BlockUi> */}
         </div>
       </div>
     </div>
