@@ -32,7 +32,7 @@ namespace MIA.Api
     {
       var result = db.ArtWorks
         .Where(a => a.UploadComplete && a.Featured)
-        .ProjectTo<ArtworkViewDto>(_mapper.ConfigurationProvider)
+        .ProjectTo<ArtworkBasicViewDto>(_mapper.ConfigurationProvider)
         .ToArray();
 
       return IfFound(result);
@@ -49,7 +49,7 @@ namespace MIA.Api
       //todo: filtering
 
       var result = _result
-        .ProjectTo<ArtworkViewDto>(_mapper.ConfigurationProvider)
+        .ProjectTo<ArtworkBasicViewDto>(_mapper.ConfigurationProvider)
         .ToPagedList(query);
 
       return IfFound(result);
