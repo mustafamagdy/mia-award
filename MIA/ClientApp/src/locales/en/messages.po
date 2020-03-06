@@ -280,9 +280,6 @@ msgstr "NEWSLETTER"
 msgid "next"
 msgstr "Next"
 
-#: src/containers/Home/RecentShows.js:92
-msgid "no_shows_available_yet"
-msgstr ""
 
 #: src/containers/MyProfile/ChangePassword.js:47
 msgid "old_password"

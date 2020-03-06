@@ -293,12 +293,14 @@ namespace MIA.Api
     public async Task<IActionResult> SendContactUsMessage(
       [FromHeader] string culture,
       [FromBody] ContactUsDto dto,
+      [FromServices] IAppUnitOfWork db,
       [FromServices] IEmailSender emailSender,
       [FromServices] ITemplateParser templateParser,
       [FromServices] IOptions<AdminOptions> adminOptions
       )
     {
-
+      var subject = await db.ContactUsSubjects.FindAsync(dto.Subject);
+      dto.Subject = subject.Name[culture];
       string htmlMessage = await templateParser.LoadAndParse("contact_us", locale: culture, dto);
       await emailSender.SendEmailAsync(adminOptions.Value.ContactUsEmail, _Locale["contact_us"], htmlMessage);
       return Ok();
