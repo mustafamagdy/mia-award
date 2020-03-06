@@ -79,64 +79,68 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
             </div>
             <div className="slider_items">
               <Swiper {...params} getSwiper={setSwiper}>
-                {featuredItems.map((item, i) => (
-                  <div key={item.id} className="item">
-                    <div className="imgthmb">
-                      <img src="/assets/images/news_image.png" />
-                    </div>
-                    <div className="content">
-                      <div className="title">
-                        <span>The blue elephant</span>
-                        <time>Uploaded : 12-05-2020</time>
+                {featuredItems != undefined && featuredItems.length > 0 ? (
+                  featuredItems.map((item, i) => (
+                    <div key={item.id} className="item">
+                      <div className="imgthmb">
+                        <img src="/assets/images/news_image.png" />
                       </div>
-                      <div className="video_item">
-                        <a href="#" title="#">
-                          <img src="/assets/images/shows_item_image.png" />
-                        </a>
-                      </div>
-                      <div className="video_details">
-                        <div className="info_item">
-                          <ul>
-                            <li>
-                              <span>Date of release :</span>
-                              <p>2019</p>
-                            </li>
-                            <li>
-                              <span>Category :</span>
-                              <p>Movie</p>
-                            </li>
-                            <li>
-                              <span>Genre :</span>
-                              <p>Drama</p>
-                            </li>
-                            <li>
-                              <span>Country :</span>
-                              <p>USA</p>
-                            </li>
-                            <li>
-                              <span>posted :</span>
-                              <p>25-02-2020</p>
-                            </li>
-                          </ul>
+                      <div className="content">
+                        <div className="title">
+                          <span>The blue elephant</span>
+                          <time>Uploaded : 12-05-2020</time>
                         </div>
-                        <div className="user_item">
-                          <div className="desc">
-                            <span>User Account</span>
-                            <p>Ahmed Adel</p>
+                        <div className="video_item">
+                          <a href="#" title="#">
+                            <img src="/assets/images/shows_item_image.png" />
+                          </a>
+                        </div>
+                        <div className="video_details">
+                          <div className="info_item">
+                            <ul>
+                              <li>
+                                <span>Date of release :</span>
+                                <p>2019</p>
+                              </li>
+                              <li>
+                                <span>Category :</span>
+                                <p>Movie</p>
+                              </li>
+                              <li>
+                                <span>Genre :</span>
+                                <p>Drama</p>
+                              </li>
+                              <li>
+                                <span>Country :</span>
+                                <p>USA</p>
+                              </li>
+                              <li>
+                                <span>posted :</span>
+                                <p>25-02-2020</p>
+                              </li>
+                            </ul>
                           </div>
-                          <div className="imgthumb">
-                            <img src="/assets/images/comment_user_image.png" />
+                          <div className="user_item">
+                            <div className="desc">
+                              <span>User Account</span>
+                              <p>Ahmed Adel</p>
+                            </div>
+                            <div className="imgthumb">
+                              <img src="/assets/images/comment_user_image.png" />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="more">
-                        <a href="#" title="#">
-                          View
-                        </a>
+                        <div className="more">
+                          <a href="#" title="#">
+                            View
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <div>No Shows Available</div>
+                )}
               </Swiper>
             </div>
             <div className="slider_dots"></div>

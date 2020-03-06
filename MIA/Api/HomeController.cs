@@ -147,8 +147,10 @@ namespace MIA.Api
     [HttpGet("booths")]
     public async Task<IActionResult> Booths([FromServices] IAppUnitOfWork db)
     {
-      return Ok(await db.Booths.Include(a => a.Purchases)
-                        .Where(a => !a.Purchases.Any())
+      return Ok(await db.Booths
+                        .Include(a => a.Purchases)
+                          .ThenInclude(a=>a.Payment)
+                        .Where(a => !a.Purchases.Any() || a.Purchases.Any(a => a.Payment.PaymentStatus == Models.Entities.PaymentStatus.Rejected))
                         .ProjectTo<BoothDto>(_mapper.ConfigurationProvider)
                         .ToArrayAsync());
     }
