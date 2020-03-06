@@ -170,24 +170,24 @@
                         float: right;
                       } /* rtl */
                     } /* before */
-                    &.booth_1 {
+                    &.gold {
                       &:before {
                         background: #f8b72a;
                       }
                     }
-                    &.booth_2 {
+                    &.standard {
                       &:before {
-                        background: #f5b3cf;
+                        background: #ffff00;
                       }
                     }
-                    &.booth_3 {
+                    &.mia {
                       &:before {
-                        background: #9fd7f6;
+                        background: #2776bb;
                       }
                     }
-                    &.booth_4 {
+                    &.media_industry {
                       &:before {
-                        background: #bedfc2;
+                        background: #58ba48;
                       }
                     }
                     &.booth_5 {

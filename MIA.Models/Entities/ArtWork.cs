@@ -17,6 +17,8 @@ namespace MIA.Models.Entities {
     //public int FileCount { get; set; }
     public HashSet<MediaFile> MediaFiles { get; set; }
     public HashSet<JudgeVote> Votes { get; set; }
+    //front end user's reviews (comments)
+    public HashSet<ArtworkReview> Reviews { get; set; }
 
     public Award WinnerAwardFirstPlace { get; set; }
     public string WinnerAwardFirstPlaceId { get; set; }

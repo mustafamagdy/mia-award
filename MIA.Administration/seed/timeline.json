@@ -8,27 +8,27 @@
     "events": [
       {
         "id": 1,
-        "time": "5:00 PM : 12:00 PM",
+        "time": "17:00 : 00:00",
         "title": {
-          "ar": "تسجيل المشاركين وجولة تدشين المعرض",
-          "en": "Participant registration and exhibition launch round"
+          "ar": "تسجيل المشاركين",
+          "en": "Participant registration"
         },
         "brief": {
-          "ar": "  ",
-          "en": "  "
+          "ar": "تسجيل المشاركين وجولة تدشين المعرض",
+          "en": "Participant registration and exhibition launch round"
         },
         "icon": "icofont-ui-calendar"
       },
       {
         "id": 2,
-        "time": "12:00 PM",
+        "time": "00:00",
         "title": {
-          "ar": "نهاية اليوم - غلق المعرض",
-          "en": "End of the day - to close the show"
+          "ar": "نهاية اليوم",
+          "en": "End of the day"
         },
         "brief": {
-          "ar": " ",
-          "en": " "
+          "ar": "نهاية اليوم - غلق المعرض",
+          "en": "End of the day - to close the show"
         },
         "icon": "icofont-ui-calendar"
       }
@@ -43,79 +43,79 @@
     "events": [
       {
         "id": 1,
-        "time": "10:00 AM : 11:00 AM",
+        "time": "10:00 : 11:00",
         "title": {
-          "ar": "بداية اليوم - افتتاح المعرض",
-          "en": "Beginning of the day - opening of the exhibition"
+          "ar": "بداية اليوم ",
+          "en": "Beginning of the day"
         },
         "brief": {
-          "ar": "  ",
-          "en": "  "
+          "ar": "بداية اليوم - افتتاح المعرض",
+          "en": "Beginning of the day - opening of the exhibition"
         },
         "icon": "icofont-ui-calendar"
       },
       {
         "id": 2,
-        "time": "11:00 AM : 02:00 PM",
+        "time": "11:00 : 14:00",
         "title": {
           "ar": "الندوة الأولي ",
           "en": "The first seminar"
         },
         "brief": {
-          "ar": " ",
-          "en": " "
+          "ar": "الندوة الأولي ",
+          "en": "The first seminar"
         },
         "icon": "icofont-ui-calendar"
       },
       {
         "id": 3,
-        "time": "02:00 PM : 04:00 PM",
+        "time": "14:00 : 16:00",
         "title": {
           "ar": "عرض قصة نجاح ",
           "en": "Show a success story"
         },
         "brief": {
-          "ar": " ",
-          "en": " "
+          "ar": "عرض قصة نجاح ",
+          "en": "Show a success story"
         },
         "icon": "icofont-ui-calendar"
       },
       {
         "id": 4,
-        "time": "04:00 PM : 07:00 PM",
+        "time": "16:00 : 19:00",
         "title": {
           "ar": "الندوة الثانية ",
           "en": "The second seminar"
         },
         "brief": {
-          "ar": " ",
-          "en": " "
+          "ar": "الندوة الثانية ",
+          "en": "The second seminar"
         },
         "icon": "icofont-ui-calendar"
       },
       {
         "id": 5,
-        "time": "07:00 PM : 12:00 PM",
+        "time": "19:00 : 00:00",
         "title": {
           "ar": "المعرض",
           "en": "Exhibition"
         },
         "brief": {
-          "ar": " ",
-          "en": " "
+          "ar": "المعرض",
+          "en": "Exhibition"
         },
         "icon": "icofont-ui-calendar"
       },
       {
         "id": 6,
-        "time": "12:00 PM",
+        "time": "00:00",
         "title": {
-          "ar": "نهاية اليوم - غلق المعرض",
-          "en": "End of the day - to close the show"
+          "ar": "نهاية اليوم",
+          "en": "End of the day"
         },
         "brief": {
-          "ar": " ",
-          "en": " "
+          "ar": "نهاية اليوم - غلق المعرض",
+          "en": "End of the day - to close the show"
         },
         "icon": "icofont-ui-calendar"
       }
@@ -130,79 +130,79 @@
     "events": [
       {
         "id": 1,
-        "time": "10:00 AM : 11:00 AM",
+        "time": "10:00 : 11:00",
         "title": {
-          "ar": "بداية اليوم - افتتاح المعرض",
-          "en": "Beginning of the day - opening of the exhibition"
+          "ar": "بداية اليوم",
+          "en": "Beginning of the day"
         },
         "brief": {
-          "ar": "  ",
-          "en": "  "
+          "ar": "بداية اليوم - افتتاح المعرض",
+          "en": "Beginning of the day - opening of the exhibition"
         },
         "icon": "icofont-ui-calendar"
       },
       {
         "id": 2,
-        "time": "11:00 AM : 02:00 PM",
+        "time": "11:00 : 14:00",
         "title": {
           "ar": "الندوة الثالثة ",
           "en": "The third seminar"
         },
         "brief": {
-          "ar": " ",
-          "en": " "
+          "ar": "الندوة الثالثة ",
+          "en": "The third seminar"
         },
         "icon": "icofont-ui-calendar"
       },
       {
         "id": 3,
-        "time": "02:00 PM : 04:00 PM",
+        "time": "14:00 : 16:00",
         "title": {
           "ar": "عرض قصة نجاح مميزه ",
           "en": "Show a great success story"
         },
         "brief": {
-          "ar": " ",
-          "en": " "
+          "ar": "عرض قصة نجاح مميزه ",
+          "en": "Show a great success story"
         },
         "icon": "icofont-ui-calendar"
       },
       {
         "id": 4,
-        "time": "04:00 PM : 07:00 PM",
+        "time": "16:00 : 19:00",
         "title": {
           "ar": "الندوة الرابعة ",
           "en": "The forth seminar"
         },
         "brief": {
-          "ar": " ",
-          "en": " "
+          "ar": "الندوة الرابعة ",
+          "en": "The forth seminar"
         },
         "icon": "icofont-ui-calendar"
       },
       {
         "id": 5,
-        "time": "07:00 PM : 12:00 PM",
+        "time": "19:00 : 00:00",
         "title": {
           "ar": "المعرض",
           "en": "Exhibition"
         },
         "brief": {
-          "ar": " ",
-          "en": " "
+          "ar": "المعرض",
+          "en": "Exhibition"
         },
         "icon": "icofont-ui-calendar"
       },
       {
         "id": 6,
-        "time": "12:00 PM",
+        "time": "00:00",
         "title": {
-          "ar": "نهاية اليوم - غلق المعرض",
-          "en": "End of the day - to close the show"
+          "ar": "نهاية اليوم",
+          "en": "End of the day"
         },
         "brief": {
-          "ar": " ",
-          "en": " "
+          "ar": "نهاية اليوم - غلق المعرض",
+          "en": "End of the day - to close the show"
         },
         "icon": "icofont-ui-calendar"
       }
@@ -217,27 +217,27 @@
     "events": [
       {
         "id": 1,
-        "time": "08:00 PM : 09:00 PM",
+        "time": "20:00 : 21:00",
         "title": {
           "ar": "استقبال الضيوف",
           "en": "Guests reception"
         },
         "brief": {
-          "ar": "  ",
-          "en": "  "
+          "ar": "استقبال الضيوف",
+          "en": "Guests reception"
         },
         "icon": "icofont-ui-calendar"
       },
       {
         "id": 2,
-        "time": "09:00 PM : 12:00 PM",
+        "time": "21:00 : 00:00",
         "title": {
           "ar": "حفل توزيع الجوائز",
           "en": "Awards ceremony"
         },
         "brief": {
-          "ar": "  ",
-          "en": "  "
+          "ar": "حفل توزيع الجوائز",
+          "en": "Awards ceremony"
         },
         "icon": "icofont-ui-calendar"
       }

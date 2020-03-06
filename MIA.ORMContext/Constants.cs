@@ -17,8 +17,8 @@ namespace MIA.ORMContext
     internal const string DEMO_PASSWORD = "demo@123456.com";
     public static readonly string DEMO_ROLE = PredefinedRoles.Demo.ToString();
 
-    internal const string NOMINEE_USERNAME = "nominee";
-    internal const string NOMINEE_EMAIL = "nominee@email.com";
+    internal const string NOMINEE_USERNAME = "nominee1";
+    internal const string NOMINEE_EMAIL = "nominee1@email.com";
     internal const string NOMINEE_PASSWORD = "nominee@123456.com";
     public static readonly string NOMINEE_ROLE = PredefinedRoles.Nominee.ToString();
 

@@ -68,6 +68,7 @@ namespace MIA.Api
       [FromServices] IAppUnitOfWork db)
     {
       var _result = db.ArtWorks
+                    .Where(a => a.UploadComplete)
                     .AsQueryable();
 
       _result = _result.Where(a => string.IsNullOrEmpty(query.AwardId) || a.AwardId == query.AwardId);
@@ -94,7 +95,7 @@ namespace MIA.Api
     }
 
     [HttpGet("sponsors")]
-    public IActionResult Sponsers(
+    public async Task<IActionResult> Sponsers(
       [FromServices] IAppUnitOfWork db)
     {
       //var _result = db.News
@@ -111,7 +112,7 @@ namespace MIA.Api
     }
 
     [HttpPost("newsletter")]
-    public IActionResult SubscribeToNewsLeter(
+    public async Task<IActionResult> SubscribeToNewsLeter(
      [FromBody] NewsLetterDto dto,
      [FromServices] IAppUnitOfWork db)
     {
@@ -129,17 +130,13 @@ namespace MIA.Api
     }
 
     [HttpGet("timeline")]
-    public async Task<IActionResult> TimelineEvents()
+    public async Task<IActionResult> TimelineEvents([FromServices] IAppUnitOfWork db)
     {
-      var filename = "timeline.json";
-      if (System.IO.File.Exists("./" + filename))
+      var timeline = await db.Contents.FirstOrDefaultAsync(a => a.ContentType == ContentType.Program);
+      if (timeline != null)
       {
-        using (StreamReader r = new StreamReader(filename))
-        {
-          string json = r.ReadToEnd();
-          var deserializedItems = JsonConvert.DeserializeObject<dynamic>(json);
-          return Ok(deserializedItems);
-        }
+        var deserializedItems = JsonConvert.DeserializeObject<dynamic>(timeline.Data);
+        return Ok(deserializedItems);
       }
       else
       {
@@ -150,8 +147,10 @@ namespace MIA.Api
     [HttpGet("booths")]
     public async Task<IActionResult> Booths([FromServices] IAppUnitOfWork db)
     {
-      return Ok(await db.Booths.Include(a => a.Purchases)
-                        .Where(a => !a.Purchases.Any())
+      return Ok(await db.Booths
+                        .Include(a => a.Purchases)
+                          .ThenInclude(a=>a.Payment)
+                        .Where(a => !a.Purchases.Any() || a.Purchases.Any(a => a.Payment.PaymentStatus == Models.Entities.PaymentStatus.Rejected))
                         .ProjectTo<BoothDto>(_mapper.ConfigurationProvider)
                         .ToArrayAsync());
     }
@@ -176,59 +175,59 @@ namespace MIA.Api
       }
 
       PaymentStatus paymentResponse = null;
-      if (!dto.Payment.IsOffline)
-      {
-        try
-        {
-          if (string.IsNullOrEmpty(dto.Payment.SessionId))
-          {
-            var paymentDto = _mapper.Map<PaymentRequest>(dto.Payment);
-            // 10.5$ => 1050 no decimal points (multiply by 100)
-            paymentDto.Amount = (int)(booth.Price * 100);
-            _logger.LogInformation("Request payment start for:" + paymentDto.Amount);
-            paymentResponse = paymentGateway.RequestPayment(paymentDto).Result;
-            if (paymentResponse != null && paymentResponse.IsPending)
-            {
-              return Ok(new
-              {
-                Pending = true,
-                ThreeDsUrl = paymentResponse.ThreeDsUrl
-              });
-            }
-            else if (paymentResponse != null && paymentResponse.IsApproved)
-            {
-              //TODO: uncomment
-              //_logger.LogInformation($"user payment success {nominee.Id}/{nominee.UserName} -> Payment Id: {paymentResponse.PaymentId}");
-            }
-            else if (paymentResponse == null || !paymentResponse.IsApproved)
-            {
-              throw new ApiException(ApiErrorType.UserPaymentFailed, $"Payment approved: {paymentResponse?.IsApproved}");
-            }
-          }
-          else
-          {
-            var paymentDetails = paymentGateway.GetPaymentDetails(dto.Payment.SessionId).Result;
-            if (paymentDetails == null || !paymentDetails.Approved)
-            {
-              throw new ApiException(ApiErrorType.PaymentNotApproved, $"Payment approved: {paymentDetails?.Approved}");
-            }
-            else
-            {
-              paymentResponse = new PaymentStatus
-              {
-                PaymentId = paymentDetails.Id,
-                Status = paymentDetails.Status,
-              };
-            }
-          }
-          _logger.LogInformation("Request payment end");
-        }
-        catch (Exception exPayment)
-        {
-          _logger.LogError(exPayment, "user payment failed");
-          throw new ApiException(ApiErrorType.UserPaymentFailed, exPayment.Message);
-        }
-      }
+      //if (!dto.Payment.IsOffline)
+      //{
+      //  try
+      //  {
+      //    if (string.IsNullOrEmpty(dto.Payment.SessionId))
+      //    {
+      //      var paymentDto = _mapper.Map<PaymentRequest>(dto.Payment);
+      //      // 10.5$ => 1050 no decimal points (multiply by 100)
+      //      paymentDto.Amount = (int)(booth.Price * 100);
+      //      _logger.LogInformation("Request payment start for:" + paymentDto.Amount);
+      //      paymentResponse = paymentGateway.RequestPayment(paymentDto).Result;
+      //      if (paymentResponse != null && paymentResponse.IsPending)
+      //      {
+      //        return Ok(new
+      //        {
+      //          Pending = true,
+      //          ThreeDsUrl = paymentResponse.ThreeDsUrl
+      //        });
+      //      }
+      //      else if (paymentResponse != null && paymentResponse.IsApproved)
+      //      {
+      //        //TODO: uncomment
+      //        //_logger.LogInformation($"user payment success {nominee.Id}/{nominee.UserName} -> Payment Id: {paymentResponse.PaymentId}");
+      //      }
+      //      else if (paymentResponse == null || !paymentResponse.IsApproved)
+      //      {
+      //        throw new ApiException(ApiErrorType.UserPaymentFailed, $"Payment approved: {paymentResponse?.IsApproved}");
+      //      }
+      //    }
+      //    else
+      //    {
+      //      var paymentDetails = paymentGateway.GetPaymentDetails(dto.Payment.SessionId).Result;
+      //      if (paymentDetails == null || !paymentDetails.Approved)
+      //      {
+      //        throw new ApiException(ApiErrorType.PaymentNotApproved, $"Payment approved: {paymentDetails?.Approved}");
+      //      }
+      //      else
+      //      {
+      //        paymentResponse = new PaymentStatus
+      //        {
+      //          PaymentId = paymentDetails.Id,
+      //          Status = paymentDetails.Status,
+      //        };
+      //      }
+      //    }
+      //    _logger.LogInformation("Request payment end");
+      //  }
+      //  catch (Exception exPayment)
+      //  {
+      //    _logger.LogError(exPayment, "user payment failed");
+      //    throw new ApiException(ApiErrorType.UserPaymentFailed, exPayment.Message);
+      //  }
+      //}
 
 
       var boothPurchase = _mapper.Map<BoothPurchase>(dto);
@@ -278,7 +277,7 @@ namespace MIA.Api
       }
       catch (Exception ex)
       {
-        _logger.LogError(ex,"Failed to send confirmation email for booth purchase");
+        _logger.LogError(ex, "Failed to send confirmation email for booth purchase");
       }
     }
 
@@ -296,12 +295,14 @@ namespace MIA.Api
     public async Task<IActionResult> SendContactUsMessage(
       [FromHeader] string culture,
       [FromBody] ContactUsDto dto,
+      [FromServices] IAppUnitOfWork db,
       [FromServices] IEmailSender emailSender,
       [FromServices] ITemplateParser templateParser,
       [FromServices] IOptions<AdminOptions> adminOptions
       )
     {
-
+      var subject = await db.ContactUsSubjects.FindAsync(dto.Subject);
+      dto.Subject = subject.Name[culture];
       string htmlMessage = await templateParser.LoadAndParse("contact_us", locale: culture, dto);
       await emailSender.SendEmailAsync(adminOptions.Value.ContactUsEmail, _Locale["contact_us"], htmlMessage);
       return Ok();

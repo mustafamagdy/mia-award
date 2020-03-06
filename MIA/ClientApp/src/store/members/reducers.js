@@ -58,6 +58,12 @@ const switchToView = (state, action) => {
     draft.artworkMode = "view";
   });
 };
+const publishArtwork = (state, action) => {
+  return produce(state, draft => { });
+};
+const publishArtworkSuccess = (state, action) => {
+  return produce(state, draft => { });
+};
 
 export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_MY_AWARDS_SUCCESS]: fetchMyAwardsSuccess,
@@ -69,5 +75,7 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.UPDATE_COVER_IMAGE_SUCCESS]: updateCoverImageSuccess,
   [ActionTypes.POST_FILE_CHUNK_SUCCESS]: postFileChunkSuccess,
   [ActionTypes.EDIT_ARTWORK]: editArtwork,
-  [ActionTypes.SWITCH_TO_VIEW]: switchToView
+  [ActionTypes.SWITCH_TO_VIEW]: switchToView,
+  [ActionTypes.PUBLISH_ARTWORK]: publishArtwork,  
+  [ActionTypes.PUBLISH_ARTWORK_SUCCESS]: publishArtworkSuccess
 });

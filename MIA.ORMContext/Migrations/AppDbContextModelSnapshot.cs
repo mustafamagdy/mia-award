@@ -279,6 +279,32 @@ namespace MIA.ORMContext.Migrations
                     b.ToTable("ArtWorkPayments");
                 });
 
+            modelBuilder.Entity("MIA.Models.Entities.ArtworkReview", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ArtworkId");
+
+                    b.Property<string>("Comments");
+
+                    b.Property<long>("Date");
+
+                    b.Property<string>("Email");
+
+                    b.Property<bool>("IsApproved");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtworkId");
+
+                    b.ToTable("ArtworkReviews");
+                });
+
             modelBuilder.Entity("MIA.Models.Entities.Award", b =>
                 {
                     b.Property<string>("Id")
@@ -380,15 +406,11 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<string>("EmailVerified");
-
                     b.Property<string>("PaymentId");
 
                     b.Property<string>("Phone1");
 
                     b.Property<string>("Phone2");
-
-                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -413,6 +435,20 @@ namespace MIA.ORMContext.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContactUsSubjects");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.Content", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ContentType");
+
+                    b.Property<string>("Data");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contents");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Image", b =>
@@ -803,6 +839,14 @@ namespace MIA.ORMContext.Migrations
                     b.HasOne("MIA.Models.Entities.ArtWork", "ArtWork")
                         .WithOne("Payment")
                         .HasForeignKey("MIA.Models.Entities.ArtWorkPayment", "ArtWorkId");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ArtworkReview", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.ArtWork", "Artwork")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ArtworkId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Award", b =>

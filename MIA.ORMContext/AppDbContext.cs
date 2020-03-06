@@ -6,33 +6,40 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Z.EntityFramework.Plus;
 
-namespace MIA.ORMContext {
-  public class AppDbContext : IdentityDbContext<AppUser, AppRole, string> {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {
+namespace MIA.ORMContext
+{
+  public class AppDbContext : IdentityDbContext<AppUser, AppRole, string>
+  {
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {
 
       ConfigureCaching(options);
       ConfigureAuditing();
 
     }
 
-    private void ConfigureCaching(DbContextOptions<AppDbContext> options) {
+    private void ConfigureCaching(DbContextOptions<AppDbContext> options)
+    {
       // var cacheOptions = new CacheItemPolicy () { SlidingExpiration = TimeSpan.FromMilliseconds (1) };
       // Microsoft.Extensions.Caching.Memory.MemoryCacheOptions opt = new MemoryCacheOptions();
       // QueryCacheManager.Cache. = opt;
     }
 
-    private void ConfigureAuditing() {
+    private void ConfigureAuditing()
+    {
       //turn on if you want to use audit entries, i think this should be optimized first
       //AuditManager.DefaultConfiguration.AutoSavePreAction = (context, audit) =>
       //  (context as AppDbContext)?.AuditEntries.AddRange(audit.Entries);
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
       base.OnConfiguring(optionsBuilder);
 
     }
 
-    protected override void OnModelCreating(ModelBuilder builder) {
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
 
       //Add all entity configuration from assembly
       builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
@@ -66,6 +73,7 @@ namespace MIA.ORMContext {
 
     #endregion
 
+    public DbSet<Content> Contents { get; set; }
     public DbSet<UserImage> UserImages { get; set; }
     public DbSet<Image> Images { get; set; }
     public DbSet<Judge> Judges { get; set; }
@@ -83,6 +91,8 @@ namespace MIA.ORMContext {
     public DbSet<MediaFile> MediaFiles { get; set; }
     public DbSet<News> News { get; set; }
     public DbSet<NewsComment> NewsComments { get; set; }
+    public DbSet<ArtworkReview> ArtworkReviews { get; set; }
+
     //public DbSet<NewsImage> NewsImages { get; set; }
     public DbSet<Album> Albums { get; set; }
     public DbSet<AlbumItem> AlbumItems { get; set; }

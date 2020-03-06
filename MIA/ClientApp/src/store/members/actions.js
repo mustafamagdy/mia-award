@@ -11,7 +11,8 @@ const { Types, Creators } = createActions(
     updateCoverImage: { args: ["payload"], meta: { async: true } },
     postFileChunk: { args: ["payload"], meta: { async: true } },
     editArtwork: {},
-    switchToView: {}
+    switchToView: {},
+    publishArtwork:{args: ["payload"], meta: { async: true } }
   },
   {
     prefix: "@app/members/"

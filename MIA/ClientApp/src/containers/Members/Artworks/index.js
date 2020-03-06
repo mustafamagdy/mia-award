@@ -55,7 +55,7 @@ const ArtWork = ({ artWork, ...props }) => {
   return (
     <div className="item">
       <div className="imgthumb">
-        <a href="#" title="#">
+        <a href={`/members/artwork/${artWork.id}`} title="#">
           <img src="assets/images/show_image.png" />
           <div className="mask">
             <div className="content">
@@ -70,13 +70,13 @@ const ArtWork = ({ artWork, ...props }) => {
                   </>
                 )}
               </LanguageContext.Consumer>
-              <div className="stars">
+              {/* <div className="stars">
                 <i className="icofont-ui-rating"></i>
                 <i className="icofont-ui-rating"></i>
                 <i className="icofont-ui-rating"></i>
                 <i className="icofont-ui-rate-blank"></i>
                 <i className="icofont-ui-rate-blank"></i>
-              </div>
+              </div> */}
             </div>
           </div>
         </a>

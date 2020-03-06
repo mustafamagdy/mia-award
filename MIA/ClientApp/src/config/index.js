@@ -67,9 +67,9 @@ export default {
   ],
   menu: [
     { label: "members", route: "/members" },
-    { label: "about_us", route: "about-us" },
-    { label: "news", route: "news" },
-    { label: "program", route: "timeline" },
+    { label: "about_us", route: "/about-us" },
+    { label: "news", route: "/news" },
+    { label: "program", route: "/timeline" },
     { label: "gallery", route: "/gallery" },
     { label: "shows", route: "/shows" },
     { label: "booths", route: "/booths" },
@@ -81,5 +81,8 @@ export default {
     tw: "https://twitter.com/MIAawardArab",
     in: "https://www.instagram.com/MIAawardarab",
     yt: "https://www.youtube.com/MIAawardarab"
-  }
+  },
+  uploadFileExtension:[
+    "video/mp4"
+  ]
 };

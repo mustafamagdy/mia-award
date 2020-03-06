@@ -15,6 +15,7 @@ const fetchArtworkWithDetailsLogic = generateLogic(apiNamespace, ActionTypes.FET
 const updateTrailerLogic = generateLogic(apiNamespace, ActionTypes.UPDATE_TRAILER);
 const updateCoverImageLogic = generateLogic(apiNamespace, ActionTypes.UPDATE_COVER_IMAGE);
 const postFileChunkLogic = generateLogic(apiNamespace, ActionTypes.POST_FILE_CHUNK);
+const publishArtworkLogic = generateLogic(apiNamespace, ActionTypes.PUBLISH_ARTWORK);
 
 export default [
   fetchMyAwardsLogic,
@@ -24,5 +25,6 @@ export default [
   fetchArtworkWithDetailsLogic,
   updateTrailerLogic,
   updateCoverImageLogic,
-  postFileChunkLogic
+  postFileChunkLogic,
+  publishArtworkLogic
 ];

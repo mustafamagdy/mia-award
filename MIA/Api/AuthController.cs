@@ -9,16 +9,20 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using MIA.Api.Base;
 using MIA.Dto.Auth;
 using MIA.Middlewares.Auth;
 using MIA.ORMContext.Uow;
+using Newtonsoft.Json;
 
-namespace MIA.Api {
+namespace MIA.Api
+{
   /// <summary>
   /// Authentication controller for different identity operations
   /// </summary>
@@ -26,7 +30,8 @@ namespace MIA.Api {
   [ApiVersion("1.0")]
 #endif
   [Route("api/auth")]
-  public class AuthController : BaseApiController<AuthController> {
+  public class AuthController : BaseApiController<AuthController>
+  {
     /// <summary>
     /// 
     /// </summary>
@@ -51,25 +56,30 @@ namespace MIA.Api {
       [FromServices] SignInManager<AppUser> signInManager,
       [FromServices] UserManager<AppUser> userManager,
       [FromServices] IOptions<JwtOptions> jwtOptions,
-      [FromServices] IUserClaimsPrincipalFactory<AppUser> claimFactory) {
+      [FromServices] IUserClaimsPrincipalFactory<AppUser> claimFactory)
+    {
 
       JwtOptions jwtConfig = jwtOptions?.Value;
-      if (jwtConfig == null) {
+      if (jwtConfig == null)
+      {
         throw new ArgumentException("jwt not configured correctly", nameof(jwtOptions));
       }
 
       AppUser user = await userManager.FindByNameAsync(loginData.UserName);
-      if (user == null) {
+      if (user == null)
+      {
         return NotFound404("invalid credentials");
       }
 
       bool canSignIn = await signInManager.CanSignInAsync(user);
-      if (!canSignIn) {
+      if (!canSignIn)
+      {
         return Forbid403("User cannot login");
       }
 
       var nominee = await db.Nominees.FindAsync(user.Id);
-      if (nominee == null) {
+      if (nominee == null)
+      {
         return NotFound404("user is not nominee, or not allowed");
       }
 
@@ -78,13 +88,24 @@ namespace MIA.Api {
         isPersistent: false,
         lockoutOnFailure: false);
 
-      if (signInResult.IsLockedOut) {
+      if (signInResult.IsLockedOut)
+      {
         return Unauthorized401("User is locked");
-      } else if (!signInResult.Succeeded) {
+      }
+      else if (!signInResult.Succeeded)
+      {
         return Forbid403("User is not allowed");
       }
 
-      System.Security.Claims.ClaimsPrincipal res = await claimFactory.CreateAsync(user);
+      ClaimsPrincipal res = await claimFactory.CreateAsync(user);
+      var allClaims = new List<Claim>(res.Claims);
+
+      allClaims.Add(new Claim("id", user.Id));
+      allClaims.Add(new Claim("name", user.UserName));
+      allClaims.Add(new Claim("username", user.UserName));
+      allClaims.Add(new Claim("fullName", user.FullName));
+      allClaims.Add(new Claim("jobTitle", nominee.JobTitle ?? ""));
+      allClaims.Add(new Claim("address", nominee.Address ?? ""));
 
       SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecretKey));
       SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -92,7 +113,7 @@ namespace MIA.Api {
       JwtSecurityToken jwtToken = new JwtSecurityToken(
         jwtConfig.Issuer,
         jwtConfig.Audience,
-        res.Claims.ToArray(),
+        allClaims.ToArray(),
         expires: DateTime.Now.AddHours(Math.Abs(jwtConfig.ExpireInHours)),
         signingCredentials: credentials
       );
@@ -115,9 +136,11 @@ namespace MIA.Api {
     public async Task<IActionResult> Logout(
       [FromHeader] string authorization,
       [FromServices] SignInManager<AppUser> signinManager,
-      [FromServices] IAuthTokenManager tokenManager) {
+      [FromServices] IAuthTokenManager tokenManager)
+    {
 
-      if (string.IsNullOrEmpty(authorization)) {
+      if (string.IsNullOrEmpty(authorization))
+      {
         return ValidationError(new[] { new IdentityError { Code = "TOKEN_NOT_FOUND", Description = "No token provided" } });
       }
 
@@ -134,7 +157,8 @@ namespace MIA.Api {
     /// <returns></returns>
     [HttpPost]
     [SwaggerOperation("Refresh token, and discard the old one")]
-    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest tokenData) {
+    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest tokenData)
+    {
       return await Task.FromResult(Ok("done bardo ya bashaah"));
     }
 

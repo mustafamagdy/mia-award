@@ -32,6 +32,10 @@
           -moz-transition: all 0.2s ease-in-out;
           -o-transition: all 0.2s ease-in-out;
           transition: all 0.2s ease-in-out;
+          .swiper-container {
+            overflow: visible;
+             margin-top: 2%;
+          }
           .item {
             flex-grow: 0;
             flex-shrink: 0;

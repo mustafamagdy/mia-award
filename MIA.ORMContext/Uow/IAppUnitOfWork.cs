@@ -12,6 +12,7 @@ namespace MIA.ORMContext.Uow {
 
     DbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity<string>;
     DbSet<AppUser> Users { get; }
+    DbSet<Content> Contents{ get; }
     DbSet<Judge> Judges { get; }
     DbSet<ContentReviewer> ContentReviewers { get; }
     DbSet<Nominee> Nominees { get; }
@@ -30,6 +31,7 @@ namespace MIA.ORMContext.Uow {
     DbSet<MediaFile> MediaFiles { get; }
     DbSet<News> News { get; }
     DbSet<NewsComment> NewsComments { get; }
+    DbSet<ArtworkReview> ArtworkReviews { get; }
 
     //DbSet<NewsImage> NewsImages { get; }
     DbSet<Album> Albums { get; }
