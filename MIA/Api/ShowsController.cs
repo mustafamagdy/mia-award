@@ -39,7 +39,7 @@ namespace MIA.Api
     }
 
     [HttpPost("filter")]
-    public IActionResult Filtered(
+    public async Task<IActionResult> Filtered(
       [FromBody] ArtworkFilterDto query,
       [FromServices] IAppUnitOfWork db)
     {
@@ -48,9 +48,9 @@ namespace MIA.Api
 
       //todo: filtering
 
-      var result = _result
+      var result = await _result
         .ProjectTo<ArtworkBasicViewDto>(_mapper.ConfigurationProvider)
-        .ToPagedList(query);
+        .ToPagedListAsync(query);
 
       return IfFound(result);
     }

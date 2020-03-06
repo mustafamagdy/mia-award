@@ -95,7 +95,7 @@ namespace MIA.Api
     }
 
     [HttpGet("sponsors")]
-    public IActionResult Sponsers(
+    public async Task<IActionResult> Sponsers(
       [FromServices] IAppUnitOfWork db)
     {
       //var _result = db.News
@@ -112,7 +112,7 @@ namespace MIA.Api
     }
 
     [HttpPost("newsletter")]
-    public IActionResult SubscribeToNewsLeter(
+    public async Task<IActionResult> SubscribeToNewsLeter(
      [FromBody] NewsLetterDto dto,
      [FromServices] IAppUnitOfWork db)
     {
