@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { I18n } from "@lingui/react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import showsActions from "store/shows/actions";
@@ -64,7 +65,7 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
     }
   };
 
-  return (
+  return featuredItems != undefined && featuredItems.length > 0 ? (
     <section id="show_all">
       <div className="show_slider">
         <div className="container">
@@ -79,68 +80,64 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
             </div>
             <div className="slider_items">
               <Swiper {...params} getSwiper={setSwiper}>
-                {featuredItems != undefined && featuredItems.length > 0 ? (
-                  featuredItems.map((item, i) => (
-                    <div key={item.id} className="item">
-                      <div className="imgthmb">
-                        <img src="/assets/images/news_image.png" />
+                {featuredItems.map((item, i) => (
+                  <div key={item.id} className="item">
+                    <div className="imgthmb">
+                      <img src="/assets/images/news_image.png" />
+                    </div>
+                    <div className="content">
+                      <div className="title">
+                        <span>The blue elephant</span>
+                        <time>Uploaded : 12-05-2020</time>
                       </div>
-                      <div className="content">
-                        <div className="title">
-                          <span>The blue elephant</span>
-                          <time>Uploaded : 12-05-2020</time>
+                      <div className="video_item">
+                        <a href="#" title="#">
+                          <img src="/assets/images/shows_item_image.png" />
+                        </a>
+                      </div>
+                      <div className="video_details">
+                        <div className="info_item">
+                          <ul>
+                            <li>
+                              <span>Date of release :</span>
+                              <p>2019</p>
+                            </li>
+                            <li>
+                              <span>Category :</span>
+                              <p>Movie</p>
+                            </li>
+                            <li>
+                              <span>Genre :</span>
+                              <p>Drama</p>
+                            </li>
+                            <li>
+                              <span>Country :</span>
+                              <p>USA</p>
+                            </li>
+                            <li>
+                              <span>posted :</span>
+                              <p>25-02-2020</p>
+                            </li>
+                          </ul>
                         </div>
-                        <div className="video_item">
-                          <a href="#" title="#">
-                            <img src="/assets/images/shows_item_image.png" />
-                          </a>
-                        </div>
-                        <div className="video_details">
-                          <div className="info_item">
-                            <ul>
-                              <li>
-                                <span>Date of release :</span>
-                                <p>2019</p>
-                              </li>
-                              <li>
-                                <span>Category :</span>
-                                <p>Movie</p>
-                              </li>
-                              <li>
-                                <span>Genre :</span>
-                                <p>Drama</p>
-                              </li>
-                              <li>
-                                <span>Country :</span>
-                                <p>USA</p>
-                              </li>
-                              <li>
-                                <span>posted :</span>
-                                <p>25-02-2020</p>
-                              </li>
-                            </ul>
+                        <div className="user_item">
+                          <div className="desc">
+                            <span>User Account</span>
+                            <p>Ahmed Adel</p>
                           </div>
-                          <div className="user_item">
-                            <div className="desc">
-                              <span>User Account</span>
-                              <p>Ahmed Adel</p>
-                            </div>
-                            <div className="imgthumb">
-                              <img src="/assets/images/comment_user_image.png" />
-                            </div>
+                          <div className="imgthumb">
+                            <img src="/assets/images/comment_user_image.png" />
                           </div>
                         </div>
-                        <div className="more">
-                          <a href="#" title="#">
-                            View
-                          </a>
-                        </div>
+                      </div>
+                      <div className="more">
+                        <a href="#" title="#">
+                          View
+                        </a>
                       </div>
                     </div>
-                  ))
-                ) : (
-                  <div>No Shows Available</div>
-                )}
+                  </div>
+                ))}
               </Swiper>
             </div>
             <div className="slider_dots"></div>
@@ -209,6 +206,34 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
             ))}
           </div>
           <Paginator pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section id="show_all">
+      <div className="show_slider">
+        <div className="container">
+          <I18n>
+            {({ i18n }) => {
+              return i18n.language == "ar" ? (
+                <div
+                  className="empty_title"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      "لكل صناع الإعلام في الوطن العربي أنتم على مسافة قريبة من نيل الجائزة الكبرى وتكريمكم بطابع عالمي<br>تحدي يستحق المشاركة، كن على الموعد لتقديم عملك"
+                  }}
+                ></div>
+              ) : (
+                <div
+                  className="empty_title"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      "For all media makers in the Arab world, <br>you are so close to be honoured globally by the Grand Award.<br>A Challenge worth participation.<br>Be on time to present your works."
+                  }}
+                ></div>
+              );
+            }}
+          </I18n>
         </div>
       </div>
     </section>
