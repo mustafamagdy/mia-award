@@ -26,6 +26,11 @@ namespace MIA.ORMContext
     internal const string JUDGE_EMAIL = "judge@email.com";
     internal const string JUDGE_PASSWORD = "judge@123456.com";
     public const string JUDGE_ROLE = "judge";
+    
+    internal const string BOOTH_USERNAME = "Booth";
+    internal const string BOOTH_EMAIL = "Booth@email.com";
+    internal const string BOOTH_PASSWORD = "Booth@123456.com";
+    public static readonly string BOOTH_ROLE = PredefinedRoles.BoothAgent.ToString();
 
     internal const int MAX_50 = 50;
     internal const int MAX_100 = 100;

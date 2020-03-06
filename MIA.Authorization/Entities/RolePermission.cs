@@ -36,6 +36,8 @@ namespace MIA.Authorization.Entities {
     [EnumMember(Value = "judge")]
     Judge,
     [EnumMember(Value = "demo")]
-    Demo
+    Demo,
+    [EnumMember(Value = "booth")]
+    BoothAgent
   }
 }

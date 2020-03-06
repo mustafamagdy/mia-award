@@ -1,5 +1,5 @@
 <div>
-    <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
+    <div style="margin-bottom:10px" ng-show="user.PermessionModules['Booths'].includes('add_new')">
         <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
         border-radius: 17px;" ng-click="$state.go('newBooth');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
             type="button">
@@ -18,25 +18,25 @@
             <table class="table pmd-table table-hover">
                 <thead>
                     <tr>
-                        <th>{{'code' | translate}}</th>
-                        <th>{{'price' | translate}}</th>
-                        <th>{{'description' | translate}}</th>
-                        <th>{{'details' | translate}}</th>
+                        <th style="color: white;">{{'code' | translate}}</th>
+                        <th style="color: white;">{{'price' | translate}}</th>
+                        <th style="color: white;">{{'description' | translate}}</th>
+                        <th style="color: white;">{{'details' | translate}}</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat-start="Booth in BoothList">
 
-                        <td data-title="code">
+                        <td>
                             {{Booth.code}}
                         </td>
-                        <td data-title="code">
+                        <td>
                             {{Booth.price}}
                         </td>
-                        <td data-title="Name">
-                            {{Booth.description[selectedLanguage]  | limitTo : 20}}
-                            {{Booth.description[selectedLanguage].length > 20 ? '...' : ''}}
+                        <td width="60%">
+                            {{Booth.description[selectedLanguage]  | limitTo : 30}}
+                            {{Booth.description[selectedLanguage].length > 30 ? '...' : ''}}
                         </td>
                         <td class="pmd-table-row-action">
                             <span href="javascript:void(0);" ng-if="Booth.boothPurchase.length >0 "
@@ -44,11 +44,16 @@
                                 class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i
                                     class="material-icons md-dark pmd-sm"></i></span>
                         </td>
-                        <td width="30%">
-                            <i ng-show="user.PermessionModules['News'].includes('add_new')"
+                        <td width="20%">
+                            <i ng-show="user.PermessionModules['Booths'].includes('add_new')"
                                 class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('editBooth',{id: Booth.id});" title="Edit">mode_edit</i>
-                            <i ng-show="user.PermessionModules['News'].includes('remove')"
+
+                            <i ng-show="!Booth.hasConfirmedPayment && user.PermessionModules['Booths'].includes('add_new')"
+                                class="material-icons md-dark pmd-md perm_media font25"
+                                ng-click="$state.go('newBoothPayment',{id: Booth.id});" title="payment">payment</i>
+
+                            <i ng-show="user.PermessionModules['Booths'].includes('remove')"
                                 class="material-icons pmd-md deleteButton cursorPointer font25"
                                 ng-click="BoothCtrl.openDeleteDialog(Booth,Booth.description[selectedLanguage] ,Booth.id)"
                                 title="Delete">delete</i>
@@ -56,8 +61,15 @@
                     </tr>
                     <tr ng-repeat-end ng-repeat="purchase in Booth.boothPurchase" ng-show="Booth.show" id="collapse">
                         <td style="width: 10px">{{purchase.contactName}}</td>
-                        <td style="width: 10px">{{purchase.phone1}}</td>
-                        <td style="width: 10px">{{purchase.status}}</td>
+                        <td style="width: 10px">{{purchase.phone1}} - {{purchase.phone2}}</td>
+                        <td style="width: 10px">{{purchase.email}}</td>
+                        <td style="width: 10px">{{purchase.payment.paymentStatus}}</td>
+                        <td style="width: 10px">{{purchase.payment.paymentDate | date:'MM/dd/yyyy'}}</td>
+                        <td style="width: 10px">
+                            <i ng-show=" purchase.payment.paymentStatus != 'rejected' && user.PermessionModules['Booths'].includes('add_new')"
+                                class="material-icons md-dark pmd-md perm_media font25"
+                                ng-click="$state.go('boothPayment',{id: purchase.id});" title="payment">payment</i>
+                        </td>
                     </tr>
                 </tbody>
             </table>
