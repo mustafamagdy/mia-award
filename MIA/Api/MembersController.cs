@@ -38,13 +38,16 @@ namespace MIA.Api
     public string Country { get; set; }
 
   }
-  public class ArtworkViewDto : ArtworkBasiData
+  public class ArtworkBasicViewDto : ArtworkBasiData
   {
     public string Id { get; set; }
     public string PosterUrl { get; set; }
     public string TrailerUrl { get; set; }
     public string TrailerPosterUrl { get; set; }
     public string CoverImageUrl { get; set; }
+  }
+  public class ArtworkViewDto : ArtworkBasicViewDto
+  {
     public bool CanUploadFiles { get; set; }
     public bool UploadComplete { get; set; }
   }

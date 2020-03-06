@@ -123,6 +123,11 @@ namespace MIA.MappingProfiles
         .ForMember(a => a.Year, cfg => cfg.MapFrom(a => a.DateOfRelease))
         .ForMember(a => a.Country, cfg => cfg.MapFrom(a => a.Country))
         .ValidateMemberList(MemberList.None);
+      
+      CreateMap<ArtWork, ArtworkBasicViewDto>()
+        .IncludeAllDerived()
+        .ForMember(a => a.CoverImageUrl, cfg => cfg.MapFrom(a => a.CoverUrl))
+        .ValidateMemberList(MemberList.None);
 
       CreateMap<ArtWork, ArtworkViewDto>()
         .IncludeAllDerived()

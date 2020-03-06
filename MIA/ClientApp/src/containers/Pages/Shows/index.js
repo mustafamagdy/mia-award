@@ -1,23 +1,22 @@
 import React, { useState } from "react";
-import classNames from "classnames";
-import { Trans, t } from "@lingui/macro";
 import { I18n } from "@lingui/react";
+import { Trans } from "@lingui/macro";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import showsActions from "store/shows/actions";
-import { useEffect } from "react";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
 import ReactPlayer from "react-player";
-import Lightbox from "lightbox-react";
+import { useEffect } from "react";
 import Swiper from "react-id-swiper";
 import Paginator from "components/Paginator";
 import "lightbox-react/style.css"; // This only needs to be imported once in your app
 import "swiper/css/swiper.css";
 
-const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount, ...props }) => {
-  const [slides, setSlides] = useState([]);
+const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount }) => {
+  const [] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const [currentItem, setCurrentItem] = useState(undefined);
+  const [] = useState(undefined);
   const [swiper, setSwiper] = useState(null);
 
   const tabs = ["All", "Latest", "Photos", "Videos"];
@@ -29,19 +28,6 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
   useEffect(() => {
     fetchItems({ pageNumber, pageSize: 10, type: tabs[activeTab] });
   }, [pageNumber, activeTab]);
-
-  const handleActiveTab = tab => {
-    setActiveTab(tab);
-    setPageNumber(1);
-  };
-
-  const nextSlide = () => {
-    if (swiper !== null) swiper.slideNext();
-  };
-
-  const prevSlide = () => {
-    if (swiper !== null) swiper.slidePrev();
-  };
 
   const params = {
     effect: "coverflow",
@@ -80,59 +66,80 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
             </div>
             <div className="slider_items">
               <Swiper {...params} getSwiper={setSwiper}>
-                {featuredItems.map((item, i) => (
+                {featuredItems.map(item => (
                   <div key={item.id} className="item">
                     <div className="imgthmb">
-                      <img src="/assets/images/news_image.png" />
+                      <img src={item.posterUrl} />
                     </div>
                     <div className="content">
                       <div className="title">
-                        <span>The blue elephant</span>
-                        <time>Uploaded : 12-05-2020</time>
+                        <span>
+                          <LanguageContext.Consumer>{({ locale }) => item.title[locale.code]}</LanguageContext.Consumer>
+                        </span>
+                        <time>
+                          <Trans id="uploaded">Uploaded</Trans> : {item.uploadedDate}
+                        </time>
                       </div>
                       <div className="video_item">
-                        <a href="#" title="#">
-                          <img src="/assets/images/shows_item_image.png" />
-                        </a>
+                        <ReactPlayer
+                          controls
+                          url={item.trailerUrl}
+                          className="react-player"
+                          width="100%"
+                          height="100%"
+                          light={item.coverImageUrl}
+                        />
                       </div>
                       <div className="video_details">
                         <div className="info_item">
                           <ul>
                             <li>
-                              <span>Date of release :</span>
-                              <p>2019</p>
+                              <span>
+                                <Trans id="release-date">Date of release</Trans> :
+                              </span>
+                              <p>{item.year}</p>
                             </li>
                             <li>
-                              <span>Category :</span>
-                              <p>Movie</p>
+                              <span>
+                                <Trans id="category">Category</Trans> :
+                              </span>
+                              <p>{item.award}</p>
                             </li>
                             <li>
-                              <span>Genre :</span>
-                              <p>Drama</p>
+                              <span>
+                                <Trans id="genre">Genre</Trans> :
+                              </span>
+                              <p>{item.genre}</p>
                             </li>
                             <li>
-                              <span>Country :</span>
-                              <p>USA</p>
+                              <span>
+                                <Trans id="country"> Country</Trans> :
+                              </span>
+                              <p>{item.country}</p>
                             </li>
                             <li>
-                              <span>posted :</span>
-                              <p>25-02-2020</p>
+                              <span>
+                                <Trans id="posted">Posted</Trans> :
+                              </span>
+                              <p>{item.uploadedDate}</p>
                             </li>
                           </ul>
                         </div>
                         <div className="user_item">
                           <div className="desc">
-                            <span>User Account</span>
-                            <p>Ahmed Adel</p>
+                            <span>
+                              <Trans id="user_account">User Account</Trans>
+                            </span>
+                            <p>{item.nomineeName}</p>
                           </div>
                           <div className="imgthumb">
-                            <img src="/assets/images/comment_user_image.png" />
+                            <img src={item.nomineeAvatar} />
                           </div>
                         </div>
                       </div>
                       <div className="more">
-                        <a href="#" title="#">
-                          View
+                        <a href={`/shows/${item.id}`}>
+                          <Trans id="view">View</Trans>
                         </a>
                       </div>
                     </div>
@@ -201,7 +208,7 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
             </button>
           </div>
           <div className="shows_items">
-            {items.map((item, i) => (
+            {items.map(item => (
               <Show key={item.id} show={item} />
             ))}
           </div>
@@ -240,29 +247,21 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
   );
 };
 
-const Show = props => (
+const Show = ({ show }) => (
   <div className="item">
     <div className="imgthumb">
-      <a href="#" title="#">
-        <img src="/assets/images/show_image.png" />
+      <a href={`/shows/${show.id}`}>
+        <img src={show.posterUrl} />
         <div className="mask">
           <div className="content">
-            <p>The blue elephant</p>
+            <p>
+              <LanguageContext.Consumer>{({ locale }) => show.title[locale.code]}</LanguageContext.Consumer>
+            </p>
             {/* <Stars /> */}
           </div>
         </div>
       </a>
     </div>
-  </div>
-);
-
-const Stars = props => (
-  <div className="stars">
-    <i className="icofont-ui-rating"></i>
-    <i className="icofont-ui-rating"></i>
-    <i className="icofont-ui-rating"></i>
-    <i className="icofont-ui-rate-blank"></i>
-    <i className="icofont-ui-rate-blank"></i>
   </div>
 );
 
