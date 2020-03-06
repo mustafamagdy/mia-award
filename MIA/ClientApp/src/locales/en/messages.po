@@ -245,7 +245,7 @@ msgstr "MIA"
 
 #: src/components/Layout/index.js:71
 msgid "mia_awards"
-msgstr "MIA Awards"
+msgstr "MIA Award"
 
 #: src/containers/Home/Awards.js:149
 #~ msgid "movies"

@@ -171,7 +171,6 @@ namespace MIA.ORMContext.Seed
       }
     }
 
-
     private static async Task SeedContactUsMessageSubjectsAsync(IAppUnitOfWork db)
     {
       List<ContactUsSubject> dbItems = db.ContactUsSubjects.ToList();
@@ -292,6 +291,7 @@ namespace MIA.ORMContext.Seed
         db.News.Update(news);
       }
     }
+
     private static async Task SeedDemoGallery(IAppUnitOfWork db, IS3FileManager fileManager)
     {
       var mainAlbum = db.Albums.FirstOrDefault(a => a.MainGallery);
@@ -562,49 +562,53 @@ namespace MIA.ORMContext.Seed
     private static async Task SeedNews(IAppUnitOfWork db, HtmlEncoder encoder, IS3FileManager fileManager)
     {
       List<News> allNews = db.News.ToList();
-      var filename = "./seed/news.json";
+      var filename = "./seed/news/news.json";
       if (File.Exists(filename))
       {
-        if (File.Exists(("./seed/news.png")))
+        using (StreamReader r = new StreamReader(filename))
         {
-          using (StreamReader r = new StreamReader(filename))
+          var newNews = new List<News>();
+          string json = r.ReadToEnd();
+          var listNews = new List<News>();
+          JArray array = JArray.Parse(json);
+          foreach (JToken j in array)
           {
-            var newNews = new List<News>();
-            string json = r.ReadToEnd();
-            var listNews = new List<News>();
-            JArray array = JArray.Parse(json);
-            foreach (JToken j in array)
+            listNews.Add(new News
             {
-              listNews.Add(new News
-              {
-                Date = ((JValue)j["Date"]).Value<long>(),
-                Outdated = ((JValue)j["Outdated"]).Value<bool>(),
-                PosterId = ((JValue)j["PosterId"]).Value<string>(),
-                PosterUrl = ((JValue)j["PosterUrl"]).Value<string>(),
-                Featured = ((JValue)j["Featured"]).Value<bool>(),
-                Category = ((JValue)j["Category"]).Value<string>(),
-                Keywords = ((JValue)j["Keywords"]).Value<string>(),
-                Title = LocalizedData.FromDictionary((JObject)j["Title"]),
-                Body = LocalizedData.FromDictionary((JObject)j["Body"]),
-              });
+              Date = ((JValue)j["Date"]).Value<long>(),
+              Outdated = ((JValue)j["Outdated"]).Value<bool>(),
+              PosterId = ((JValue)j["PosterId"]).Value<string>(),
+              PosterUrl = ((JValue)j["PosterUrl"]).Value<string>(),
+              Featured = ((JValue)j["Featured"]).Value<bool>(),
+              Category = ((JValue)j["Category"]).Value<string>(),
+              Keywords = ((JValue)j["Keywords"]).Value<string>(),
+              Title = LocalizedData.FromDictionary((JObject)j["Title"]),
+              Body = LocalizedData.FromDictionary((JObject)j["Body"]),
+            });
+          }
+
+          foreach (var news in listNews)
+          {
+            var _news = allNews.FirstOrDefault(a => a.Title.InEnglish() == news.Title.InEnglish());
+            if (_news != null) continue;
+
+            var imageFile = "";
+            if (File.Exists($"./seed/news/{news.PosterId}.jpg"))
+            {
+              imageFile = $"./seed/news/{news.PosterId}.jpg";
             }
 
-            foreach (var news in listNews)
+            await db.News.AddAsync(news);
+
+            using (var placeholder_image = new MemoryStream(File.ReadAllBytes(imageFile)))
             {
-              var _news = allNews.FirstOrDefault(a => a.Title.InEnglish() == news.Title.InEnglish());
-              if (_news != null) continue;
-
-              await db.News.AddAsync(news);
-
-              using (var placeholder_image = new MemoryStream(File.ReadAllBytes(("./seed/news.png"))))
-              {
-                var imageKey = fileManager.GenerateFileKeyForResource(ResourceType.News, news.Id, news.Id + ".png");
-                var imageUrl = await fileManager.UploadFileAsync(placeholder_image, imageKey);
-                news.PosterUrl = imageUrl;
-                news.PosterId = imageKey;
-              }
+              var imageKey = fileManager.GenerateFileKeyForResource(ResourceType.News, news.Id, news.Id + ".jpg");
+              var imageUrl = await fileManager.UploadFileAsync(placeholder_image, imageKey);
+              news.PosterUrl = imageUrl;
+              news.PosterId = imageKey;
             }
           }
+
         }
       }
     }

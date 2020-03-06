@@ -68,7 +68,7 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, history, toggleSearchForm,
         <aside className="menu">
           <div className="logo">
             <a href="/">
-              <Trans id="mia_awards">MIA Awards</Trans>
+              <Trans id="mia_awards">MIA Award</Trans>
             </a>
           </div>
           <div className="mainmenu">

@@ -44,9 +44,9 @@ const AwardsSlider = ({ awards, ...props }) => {
             </Trans>
             <i>{config.awardDetails.endDate}</i>
           </time>
-          <a href="#" title="#">
+          {/* <a href="#" title="#">
             <Trans id="view_all">view all</Trans>
-          </a>
+          </a> */}
         </div>
         <div className="award_slider">
           <div className="slides_items">
