@@ -300,7 +300,7 @@ namespace MIA.ORMContext.Seed
         mainAlbum = new Album
         {
           MainGallery = true,
-          Title = LocalizedData.FromBoth("البوم صور كبير جدا", "very large photoo and video gallery"),
+          Title = LocalizedData.FromBoth("البوم صور جوائز ميا", "Mia Award photo album"),
         };
 
         await db.Albums.AddAsync(mainAlbum);
@@ -313,6 +313,10 @@ namespace MIA.ORMContext.Seed
       //skip video posters
       var otherFiles = allFiles.Where(a => !vidFilesWithoutExt.Contains(a.GetFileNameWithoutExt())).ToArray();
       var _listFiles = vidFiles.Concat(otherFiles).ToArray();
+      var allItems = db.AlbumItems.Count();
+      if (allItems == _listFiles.Length) return;
+
+
       foreach (var file in _listFiles)
       {
         var type = file.GetFileExt() == ".mp4" ? MediaType.Video : MediaType.Image;
@@ -330,7 +334,7 @@ namespace MIA.ORMContext.Seed
 
         var item = new AlbumItem
         {
-          Title = LocalizedData.FromBoth(file, file),
+          Title = LocalizedData.FromBoth("اعلام جديد", "New Media"),
           AlbumId = mainAlbum.Id,
           Featured = true,
           DateCreated = DateTime.Now.ToUnixTimeSeconds(),
@@ -342,8 +346,8 @@ namespace MIA.ORMContext.Seed
         };
 
         //avoid adding files again
-        if (db.AlbumItems.FirstOrDefault(a => a.Title != null && a.Title.InEnglish() == item.Title.InEnglish()) != null)
-          continue;
+        //if (db.AlbumItems.FirstOrDefault(a => a.Title != null && a.Title.InEnglish() == item.Title.InEnglish()) != null)
+        //  continue;
 
         await db.AlbumItems.AddAsync(item);
         await db.CommitTransactionAsync();
