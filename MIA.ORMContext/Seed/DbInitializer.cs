@@ -50,7 +50,31 @@ namespace MIA.ORMContext.Seed
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
       await SeedDemoUsers(roleManager, userManager, db);
+      await SeedTimeLine(db);
       await db.CommitTransactionAsync();
+    }
+
+    private static async Task SeedTimeLine(IAppUnitOfWork db)
+    {
+      var filename = "./seed/timeline.json";
+      if (File.Exists(filename))
+      {
+        using (StreamReader r = new StreamReader(filename))
+        {
+          var programContent = db.Contents.FirstOrDefault(a => a.ContentType == ContentType.Program);
+          if (programContent == null)
+          {
+            programContent = new Content();
+            programContent.ContentType = ContentType.Program;
+          }
+
+          programContent.Data = r.ReadToEnd();
+          if (programContent.Id == null)
+          {
+            await db.Contents.AddAsync(programContent);
+          }
+        }
+      }
     }
 
     private static async Task SeedBooths(IAppUnitOfWork db)
@@ -135,7 +159,7 @@ namespace MIA.ORMContext.Seed
           await userManager.AddToRoleAsync(nomineeUser, Constants.NOMINEE_ROLE);
         }
 
-        var allowedModules = new SystemModules[] { SystemModules.Nominee};
+        var allowedModules = new SystemModules[] { SystemModules.Nominee };
         var modules = allowedModules[0];
         for (int i = 1; i < allowedModules.Length; i++)
         {

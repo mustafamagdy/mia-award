@@ -68,7 +68,7 @@ namespace MIA.Api
       [FromServices] IAppUnitOfWork db)
     {
       var _result = db.ArtWorks
-                    .Where(a=>a.UploadComplete)
+                    .Where(a => a.UploadComplete)
                     .AsQueryable();
 
       _result = _result.Where(a => string.IsNullOrEmpty(query.AwardId) || a.AwardId == query.AwardId);
@@ -130,17 +130,13 @@ namespace MIA.Api
     }
 
     [HttpGet("timeline")]
-    public async Task<IActionResult> TimelineEvents()
+    public async Task<IActionResult> TimelineEvents([FromServices] IAppUnitOfWork db)
     {
-      var filename = "timeline.json";
-      if (System.IO.File.Exists("./" + filename))
+      var timeline = await db.Contents.FirstOrDefaultAsync(a => a.ContentType == ContentType.Program);
+      if (timeline != null)
       {
-        using (StreamReader r = new StreamReader(filename))
-        {
-          string json = r.ReadToEnd();
-          var deserializedItems = JsonConvert.DeserializeObject<dynamic>(json);
-          return Ok(deserializedItems);
-        }
+        var deserializedItems = JsonConvert.DeserializeObject<dynamic>(timeline.Data);
+        return Ok(deserializedItems);
       }
       else
       {
@@ -279,7 +275,7 @@ namespace MIA.Api
       }
       catch (Exception ex)
       {
-        _logger.LogError(ex,"Failed to send confirmation email for booth purchase");
+        _logger.LogError(ex, "Failed to send confirmation email for booth purchase");
       }
     }
 
