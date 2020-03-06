@@ -25,7 +25,7 @@ namespace MIA.Api {
     public NewsController(IMapper mapper, [FromServices] ILogger<NewsController> logger) : base(logger, mapper) {
     }
 
-    [HttpPost("")]
+    [HttpPost("list")]
     public async Task<IActionResult> List(
       [FromBody] FullNewsSearch query,
       [FromServices] IAppUnitOfWork db) {
