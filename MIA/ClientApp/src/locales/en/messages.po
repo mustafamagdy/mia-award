@@ -245,7 +245,7 @@ msgstr "MIA"
 
 #: src/components/Layout/index.js:71
 msgid "mia_awards"
-msgstr "MIA Awards"
+msgstr "MIA Award"
 
 #: src/containers/Home/Awards.js:149
 #~ msgid "movies"
@@ -280,9 +280,6 @@ msgstr "NEWSLETTER"
 msgid "next"
 msgstr "Next"
 
-#: src/containers/Home/RecentShows.js:92
-msgid "no_shows_available_yet"
-msgstr ""
 
 #: src/containers/MyProfile/ChangePassword.js:47
 msgid "old_password"

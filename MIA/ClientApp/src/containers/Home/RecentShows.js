@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import classNames from "classnames";
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { I18n } from "@lingui/react";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import homeActions from "store/home/actions";
@@ -88,9 +89,28 @@ const RecentShows = ({ fetchRecentShows, recentShows, categories, countries, gen
             <Pagination pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
           </>
         ) : (
-          <div className="title">
-            <Trans id="no_shows_available_yet">No Shows Available Yet</Trans>
-          </div>
+          // no_shows_available_yet
+          <I18n>
+            {({ i18n }) => {
+              return i18n.language == "ar" ? (
+                <div
+                  className="title"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      "لكل صناع الإعلام في الوطن العربي أنتم على مسافة قريبة من نيل الجائزة الكبرى وتكريمكم بطابع عالمي<br>تحدي يستحق المشاركة، كن على الموعد لتقديم عملك"
+                  }}
+                ></div>
+              ) : (
+                <div
+                  className="title"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      "For all media makers in the Arab world, <br>you are so close to be honoured globally by the Grand Award.<br>A Challenge worth participation.<br>Be on time to present your works."
+                  }}
+                ></div>
+              );
+            }}
+          </I18n>
         )}
       </div>
     </div>

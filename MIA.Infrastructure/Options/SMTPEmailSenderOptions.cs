@@ -14,6 +14,7 @@ namespace MIA.Infrastructure.Options
     public string SenderEmail { get; set; }
     public string SenderDisplayName { get; set; }
     public int Port { get; set; }
+    public bool SSLRequired { get; set; }
 
   }
 }

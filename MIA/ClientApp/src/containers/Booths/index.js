@@ -117,6 +117,7 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
               <Confirmation active={boothBooked} success={true} />
             ) : (
               <>
+                <div id="zoom-img" />
                 <div className="tabs_links">
                   <ul>
                     <TabList
@@ -135,7 +136,6 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                     </TabList>
                   </ul>
                 </div>
-                <div id="zoom-img" className="tabs_content" />
                 <div className="tabs_content">
                   <>
                     <Info active={activeTabKey == "info"} register={register} booths={booths} />

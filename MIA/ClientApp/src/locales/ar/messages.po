@@ -283,6 +283,10 @@ msgstr "التالي"
 #: src/containers/Home/RecentShows.js:92
 msgid "no_shows_available_yet"
 msgstr ""
+"لكل صناع الإعلام في الوطن العربي أنتم على مسافة قريبة من نيل الجائزة الكبرى وتكريمكم بطابع عالمي"
+"<br>"
+"تحدي يستحق المشاركة، كن على الموعد لتقديم عملك"
+
 
 #: src/containers/MyProfile/ChangePassword.js:47
 msgid "old_password"

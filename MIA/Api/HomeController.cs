@@ -68,7 +68,7 @@ namespace MIA.Api
       [FromServices] IAppUnitOfWork db)
     {
       var _result = db.ArtWorks
-                    .Where(a=>a.UploadComplete)
+                    .Where(a => a.UploadComplete)
                     .AsQueryable();
 
       _result = _result.Where(a => string.IsNullOrEmpty(query.AwardId) || a.AwardId == query.AwardId);
@@ -130,17 +130,13 @@ namespace MIA.Api
     }
 
     [HttpGet("timeline")]
-    public async Task<IActionResult> TimelineEvents()
+    public async Task<IActionResult> TimelineEvents([FromServices] IAppUnitOfWork db)
     {
-      var filename = "timeline.json";
-      if (System.IO.File.Exists("./" + filename))
+      var timeline = await db.Contents.FirstOrDefaultAsync(a => a.ContentType == ContentType.Program);
+      if (timeline != null)
       {
-        using (StreamReader r = new StreamReader(filename))
-        {
-          string json = r.ReadToEnd();
-          var deserializedItems = JsonConvert.DeserializeObject<dynamic>(json);
-          return Ok(deserializedItems);
-        }
+        var deserializedItems = JsonConvert.DeserializeObject<dynamic>(timeline.Data);
+        return Ok(deserializedItems);
       }
       else
       {
@@ -151,8 +147,10 @@ namespace MIA.Api
     [HttpGet("booths")]
     public async Task<IActionResult> Booths([FromServices] IAppUnitOfWork db)
     {
-      return Ok(await db.Booths.Include(a => a.Purchases)
-                        .Where(a => !a.Purchases.Any())
+      return Ok(await db.Booths
+                        .Include(a => a.Purchases)
+                          .ThenInclude(a=>a.Payment)
+                        .Where(a => !a.Purchases.Any() || a.Purchases.Any(a => a.Payment.PaymentStatus == Models.Entities.PaymentStatus.Rejected))
                         .ProjectTo<BoothDto>(_mapper.ConfigurationProvider)
                         .ToArrayAsync());
     }
@@ -279,7 +277,7 @@ namespace MIA.Api
       }
       catch (Exception ex)
       {
-        _logger.LogError(ex,"Failed to send confirmation email for booth purchase");
+        _logger.LogError(ex, "Failed to send confirmation email for booth purchase");
       }
     }
 
@@ -297,12 +295,14 @@ namespace MIA.Api
     public async Task<IActionResult> SendContactUsMessage(
       [FromHeader] string culture,
       [FromBody] ContactUsDto dto,
+      [FromServices] IAppUnitOfWork db,
       [FromServices] IEmailSender emailSender,
       [FromServices] ITemplateParser templateParser,
       [FromServices] IOptions<AdminOptions> adminOptions
       )
     {
-
+      var subject = await db.ContactUsSubjects.FindAsync(dto.Subject);
+      dto.Subject = subject.Name[culture];
       string htmlMessage = await templateParser.LoadAndParse("contact_us", locale: culture, dto);
       await emailSender.SendEmailAsync(adminOptions.Value.ContactUsEmail, _Locale["contact_us"], htmlMessage);
       return Ok();

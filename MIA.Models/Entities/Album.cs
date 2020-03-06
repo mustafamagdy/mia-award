@@ -8,5 +8,4 @@ namespace MIA.Models.Entities {
     public LocalizedData Title { get; set; } 
     public List<AlbumItem> MediaItems { get; set; }
   }
-
 }
