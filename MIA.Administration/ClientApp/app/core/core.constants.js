@@ -1,6 +1,6 @@
 (function () {
-  //  const apiBaseUrl = "http://localhost:62912";
-  const apiBaseUrl = "http://admin.miaaward.com/";
+  // const apiBaseUrl = "http://localhost:62912";
+  const apiBaseUrl = "/";
   angular
     .module("core")
     .constant("appCONSTANTS", {
@@ -22,7 +22,7 @@
         { Id: 0, shortName: 'Waiting' },
         { Id: 1, shortName: 'Confirmed' },
         { Id: 2, shortName: 'Rejected' },
-      ]
+      ] 
     })
     .constant("userRolesEnum", {
       GlobalAdmin: "GlobalAdmin"
