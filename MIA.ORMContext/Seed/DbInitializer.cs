@@ -37,21 +37,25 @@ namespace MIA.ORMContext.Seed
     {
 
       await SeedDefaultRoles(roleManager, db);
-      await SeedContactUsMessageSubjectsAsync(db);
-      await SeedAdminRoleAndPermissions(roleManager, db); 
+      await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager);
-      await SeedAwards(db, encoder);
-      await SeedBooths(db);
-      await SeedNews(db, encoder, s3FileManager);
-      await SeedDemoGallery(db, s3FileManager);
-
       //await SeedDemoNews(db, s3FileManager);
       //await SeedDemoArtworks(db, s3FileManager);
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
       await SeedBoothUserAndRoleAsync(roleManager, userManager, db);
-      await SeedDemoUsers(roleManager, userManager, db); 
-      await SeedTimeLine(db);
+      await SeedDemoUsers(roleManager, userManager, db);
+
+      if (Directory.Exists("./seed"))
+      {
+        await SeedContactUsMessageSubjectsAsync(db);
+        await SeedAwards(db, encoder);
+        await SeedBooths(db);
+        await SeedNews(db, encoder, s3FileManager);
+        await SeedDemoGallery(db, s3FileManager);
+        await SeedTimeLine(db);
+      }
+
       await db.CommitTransactionAsync();
     }
 

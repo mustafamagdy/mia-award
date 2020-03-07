@@ -11,13 +11,16 @@ import Swiper from "react-id-swiper";
 import Paginator from "components/Paginator";
 import "lightbox-react/style.css"; // This only needs to be imported once in your app
 import "swiper/css/swiper.css";
+import { useForm } from "react-hook-form";
 
-const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount }) => {
+const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries, generas, years, pageCount }) => {
+  const { register, handleSubmit, reset } = useForm();
   const [] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [] = useState(undefined);
   const [swiper, setSwiper] = useState(null);
+  const [searchQuery, setSearchQuery] = useState({});
 
   const tabs = ["All", "Latest", "Photos", "Videos"];
 
@@ -26,8 +29,12 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
   }, []);
 
   useEffect(() => {
-    fetchItems({ pageNumber, pageSize: 10, type: tabs[activeTab] });
-  }, [pageNumber, activeTab]);
+    fetchItems({ pageNumber, pageSize: 10, type: tabs[activeTab], ...searchQuery });
+  }, [pageNumber, activeTab, searchQuery]);
+
+  const onSubmit = values => {
+    setSearchQuery({ ...values });
+  };
 
   const params = {
     effect: "coverflow",
@@ -154,58 +161,38 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
       <div className="show_blocks">
         <div className="container">
           <div className="search_filter">
-            <input type="text" placeholder="show title" />
-            <select name="" id="">
-              <option value="" selected>
-                2020
-              </option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-            </select>
-            <select name="" id="">
-              <option value="" selected>
-                award category
-              </option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-            </select>
-            <select name="" id="">
-              <option value="" selected>
-                Genre
-              </option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-            </select>
-            <select name="" id="">
-              <option value="" selected>
-                Country
-              </option>
-              <option value="">Country</option>
-              <option value="">Country</option>
-              <option value="">Country</option>
-              <option value="">Country</option>
-            </select>
-            <button type="submit">
-              <i className="icofont-ui-search"></i>
-            </button>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input type="text" ref={register} name="title" placeholder="show title" />
+              <select ref={register} name="year">
+                {generas.map((y, i) => (
+                  <option value={y}>{y}</option>
+                ))}
+              </select>
+              <select ref={register} name="category">
+                {generas.map((c, i) => (
+                  <option value={c}>
+                    <Trans id={c}>{c}</Trans>
+                  </option>
+                ))}
+              </select>
+              <select ref={register} name="genera">
+                {generas.map((g, i) => (
+                  <option value={g}>
+                    <Trans id={g}>{g}</Trans>
+                  </option>
+                ))}
+              </select>
+              <select ref={register} name="country">
+                {countries.map((c, i) => (
+                  <option value={c}>
+                    <Trans id={c}>{c}</Trans>
+                  </option>
+                ))}
+              </select>
+              <button type="submit">
+                <i className="icofont-ui-search"></i>
+              </button>
+            </form>
           </div>
           <div className="shows_items">
             {items.map(item => (
@@ -266,11 +253,12 @@ const Show = ({ show }) => (
 );
 
 const mapStateToProps = ({
+  home: { shows_categories: categories, shows_countries: countries, shows_generas: generas, shows_years: years },
   shows: {
     items,
     featuredItems,
     items_pagination: { pageCount }
   }
-}) => ({ items, featuredItems, pageCount });
+}) => ({ items, featuredItems, pageCount, categories, countries, generas, years });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...showsActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Shows);
