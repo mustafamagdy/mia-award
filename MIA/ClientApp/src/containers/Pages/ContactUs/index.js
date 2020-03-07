@@ -15,16 +15,12 @@ import Map from "components/Map";
 // import "sass/contactus.scss";
 
 const ContactUs = ({
-  fetchContactUsMessageSubjects,
   sendContactUsMessage,
   contactUsMessageSubjects,
   contactUsSuccess,
   contactUsFailed,
   ...props
 }) => {
-  useEffect(() => {
-    fetchContactUsMessageSubjects();
-  }, []);
 
   const { register, handleSubmit, setValue } = useForm({
     validationSchema: Yup.object({

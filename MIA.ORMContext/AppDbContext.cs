@@ -99,6 +99,10 @@ namespace MIA.ORMContext
     public DbSet<TrophyImage> TrophyImages { get; set; }
     public DbSet<VotingCriteria> VotingCriterias { get; set; }
     public DbSet<ContactUsSubject> ContactUsSubjects { get; set; }
+    public DbSet<Country> Countries { get; set; }
+    public DbSet<ProductionYear> ProductionYears { get; set; }
+    public DbSet<ArtworkCategory> ArtworkCategories { get; set; }
+    public DbSet<ArtworkGenre> ArtworkGenres { get; set; }
 
   }
 
