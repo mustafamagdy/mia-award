@@ -1,4 +1,52 @@
-(function () {
+(function() {
+    'use strict';
+
+      angular
+      .module('home')
+      .config(config)
+      .run(runBlock);
+
+      config.$inject = ['ngProgressLiteProvider'];
+    runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
+
+      function config(ngProgressLiteProvider) {
+      ngProgressLiteProvider.settings.speed = 1000;
+
+      }
+
+      function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
+
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+          startProgress();
+      });
+      $transitions.onStart({}, function(transition) {
+        blockUI.start("Loading..."); 
+      });
+      $transitions.onSuccess({}, function(transition) {
+        blockUI.stop();
+      });
+      $transitions.onError({  }, function(transition) {
+        blockUI.stop();
+      });
+      var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
+
+        angular.forEach(routingDoneEvents, function(event) {
+        $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
+          endProgress();
+        });
+      });
+
+        function startProgress() {
+        ngProgressLite.start();
+      }
+
+        function endProgress() {
+        ngProgressLite.done();
+      }
+
+      }
+  })();
+  (function () {
     'use strict';
 
     angular
@@ -205,55 +253,7 @@
         return UserResource.getUserRole({ userId: $stateParams.userId }).$promise;
     }
 
-}());(function() {
-    'use strict';
-
-      angular
-      .module('home')
-      .config(config)
-      .run(runBlock);
-
-      config.$inject = ['ngProgressLiteProvider'];
-    runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
-
-      function config(ngProgressLiteProvider) {
-      ngProgressLiteProvider.settings.speed = 1000;
-
-      }
-
-      function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
-
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-          startProgress();
-      });
-      $transitions.onStart({}, function(transition) {
-        blockUI.start("Loading..."); 
-      });
-      $transitions.onSuccess({}, function(transition) {
-        blockUI.stop();
-      });
-      $transitions.onError({  }, function(transition) {
-        blockUI.stop();
-      });
-      var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
-
-        angular.forEach(routingDoneEvents, function(event) {
-        $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
-          endProgress();
-        });
-      });
-
-        function startProgress() {
-        ngProgressLite.start();
-      }
-
-        function endProgress() {
-        ngProgressLite.done();
-      }
-
-      }
-  })();
-  (function () {
+}());(function () {
   "use strict";
 
   angular
@@ -576,7 +576,6 @@
 
         vm.AddNewArtWork = function () {
             var splitPoster = vm.posterImage.split(',');
-            var splitTrailerPoster = vm.trailerPoster.split(',');
             var splitCover = vm.coverImage.split(',');
             blockUI.start("Loading...");
             var newObj = new ArtWorkResource();
@@ -599,8 +598,6 @@
             newObj.Cover = splitCover[1];
             newObj.CoverFileName = splitCover[0];
 
-            newObj.TrailerPoster = splitTrailerPoster[1];
-            newObj.TrailerPosterFileName = splitTrailerPoster[0];
 
 
             newObj.$create().then(
@@ -1193,11 +1190,11 @@
 
     angular
         .module('home')
-        .controller('ArtWorkMediaController', ['appCONSTANTS', '$stateParams', '$scope', '$translate', 'ArtWorkResource', 'blockUI', '$uibModal',
+        .controller('ArtWorkMediaController', ['appCONSTANTS', '$stateParams', 'ArtWorkMediaResource', '$translate', 'ArtWorkResource', 'blockUI', '$uibModal',
             'ToastService', ArtWorkMediaController]);
 
 
-    function ArtWorkMediaController(appCONSTANTS, $stateParams, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
+    function ArtWorkMediaController(appCONSTANTS, $stateParams, ArtWorkMediaResource, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         var vm = this;
@@ -1220,34 +1217,13 @@
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
         }
-        function change(artWork, isDeleted) {
-            var updateObj = new ArtWorkResource();
-            updateObj.id = artWork.id;
-            if (!isDeleted)
-                updateObj.status = (artWork.status == true ? false : true);
-            updateObj.isDeleted = artWork.isDeleted;
 
-            updateObj.$update().then(
-                function (data, status) {
-                    refreshArtWorks();
 
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    artWork.status = updateObj.status;
+               function confirmationDelete(model) {
+         debugger;
+            var updateObj = new ArtWorkMediaResource();
 
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-        vm.UpdateArtWork = function (artWork) {
-            change(artWork, false);
-        }
-
-        function confirmationDelete(model) {
-            var updateObj = new ArtWorkResource();
-            updateObj.$delete({ id: model.id }).then(
+                        updateObj.$deleteMediaItem({ id: model.id }).then(
                 function (data, status) {
                     refreshArtWorks();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
@@ -1272,25 +1248,9 @@
 
             });
         }
-        vm.ChangeStatus = function (model) {
-            var updateObj = new ArtWorkResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-            return;
-        }
 
-        vm.changePage = function (page) {
+
+                vm.changePage = function (page) {
             vm.currentPage = page;
             refreshArtWorks();
         }
@@ -1306,7 +1266,8 @@
     function ArtWorkMediaResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'artWorks', {}, {
             createMediaFile: { method: 'POST',url: appCONSTANTS.API_URL + 'artWorks/createMediaFile', useToken: true },
-            UpdateMediaItemVideoUrl: { method: 'PUT', url: appCONSTANTS.API_URL + 'artWorks/UpdateMediaItemVideoUrl', useToken: true }
+            UpdateMediaItemVideoUrl: { method: 'PUT', url: appCONSTANTS.API_URL + 'artWorks/UpdateMediaItemVideoUrl', useToken: true },
+            deleteMediaItem: { method: 'DELETE', url: appCONSTANTS.API_URL + 'artWorks/deleteMediaItem', useToken: true },
 
               })
     }
@@ -1467,113 +1428,6 @@
             }
 
 })();
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-
-        .directive('fileModel', ['$parse', function ($parse) {
-            return {
-                restrict: 'A',
-                link: function (scope, element, attrs) {
-                    var model, modelSetter;
-
-                    attrs.$observe('fileModel', function (fileModel) {
-                        model = $parse(attrs.fileModel);
-                        modelSetter = model.assign;
-                    });
-
-                    element.bind('change', function () {
-                        scope.$apply(function () {
-                            modelSetter(scope.$parent, element[0].files[0]);
-                        });
-                    });
-                }
-            };
-        }])
-        .service('fileUpload', ['$http', function ($http) {
-            this.uploadFileToUrl = function (file, uploadUrl) {
-                var fd = new FormData();
-                fd.append('file', file);
-                $http.post(uploadUrl, fd, {
-                    transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
-                })
-                    .success(function () {
-                    })
-                    .error(function () {
-                    });
-            }
-        }])
-
-        .filter("range", function () {
-            return (x, n) => Array.from({ length: n }, (x, index) => (index));
-        })
-        .controller('createArtWorkMediaDialogController', ['$stateParams', 'blockUI', '$uibModal', '$state', 'appCONSTANTS', '$translate',
-            'ArtWorkResource', 'ArtWorkMediaResource', 'ToastService', 'ArtWorkMediaByArtWorkIdPrepService', createArtWorkMediaDialogController])
-
-    function createArtWorkMediaDialogController($stateParams, blockUI, $uibModal, $state, appCONSTANTS, $translate, ArtWorkResource,
-        ArtWorkMediaResource, ToastService, ArtWorkMediaByArtWorkIdPrepService) {
-        var vm = this;
-
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.close = function () {
-            $state.go('ArtWorkMedia', { id: $stateParams.id });
-        }
-
-        vm.AddNewArtWorkMedia = function () {
-            debugger;
-            blockUI.start("Loading...");
-            var newObj = new ArtWorkMediaResource();
-            newObj.ArtWorkId = $stateParams.id;
-            newObj.Description = vm.title;
-            newObj.$createMediaFile().then(
-                function (data, status) {
-                    blockUI.stop();
-                    openUploadDialog(data.id, appCONSTANTS.API_URL + 'artWorks/artwork/' + data.id + '/files')
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
-                }
-            );
-        }
-
-        function callBackUpload(model) {
-            debugger
-            var updateObj = new ArtWorkMediaResource();
-            updateObj.Id = model.id;
-            updateObj.FileUrl = model.data.trailerUrl;
-            updateObj.FileKey = model.data.trailerId;
-            updateObj.$UpdateMediaItemVideoUrl().then(
-                function (data, status) {
-                    debugger;
-                    $state.go('ArtWorkMedia', { id: $stateParams.id });
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        function openUploadDialog(id, url) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
-                controller: 'uploadVideoController',
-                controllerAs: 'uploadDlCtrl',
-                resolve: {
-                    itemId: function () { return id },
-                    url: function () { return url },
-                    callBackFunction: function () { return callBackUpload }
-                }
-
-            });
-        }
-
-    }
-}());
 (function () {
     'use strict';
 
@@ -1758,6 +1612,113 @@
 
             });
         }
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+
+        .directive('fileModel', ['$parse', function ($parse) {
+            return {
+                restrict: 'A',
+                link: function (scope, element, attrs) {
+                    var model, modelSetter;
+
+                    attrs.$observe('fileModel', function (fileModel) {
+                        model = $parse(attrs.fileModel);
+                        modelSetter = model.assign;
+                    });
+
+                    element.bind('change', function () {
+                        scope.$apply(function () {
+                            modelSetter(scope.$parent, element[0].files[0]);
+                        });
+                    });
+                }
+            };
+        }])
+        .service('fileUpload', ['$http', function ($http) {
+            this.uploadFileToUrl = function (file, uploadUrl) {
+                var fd = new FormData();
+                fd.append('file', file);
+                $http.post(uploadUrl, fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function () {
+                    })
+                    .error(function () {
+                    });
+            }
+        }])
+
+        .filter("range", function () {
+            return (x, n) => Array.from({ length: n }, (x, index) => (index));
+        })
+        .controller('createArtWorkMediaDialogController', ['$stateParams', 'blockUI', '$uibModal', '$state', 'appCONSTANTS', '$translate',
+            'ArtWorkResource', 'ArtWorkMediaResource', 'ToastService', 'ArtWorkMediaByArtWorkIdPrepService', createArtWorkMediaDialogController])
+
+    function createArtWorkMediaDialogController($stateParams, blockUI, $uibModal, $state, appCONSTANTS, $translate, ArtWorkResource,
+        ArtWorkMediaResource, ToastService, ArtWorkMediaByArtWorkIdPrepService) {
+        var vm = this;
+
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.close = function () {
+            $state.go('ArtWorkMedia', { id: $stateParams.id });
+        }
+
+        vm.AddNewArtWorkMedia = function () {
+            debugger;
+            blockUI.start("Loading...");
+            var newObj = new ArtWorkMediaResource();
+            newObj.ArtWorkId = $stateParams.id;
+            newObj.Description = vm.title;
+            newObj.$createMediaFile().then(
+                function (data, status) {
+                    blockUI.stop();
+                    openUploadDialog(data.id, appCONSTANTS.API_URL + 'artWorks/artwork/' + data.id + '/files')
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+                }
+            );
+        }
+
+        function callBackUpload(model) {
+            debugger
+            var updateObj = new ArtWorkMediaResource();
+            updateObj.Id = model.id;
+            updateObj.FileUrl = model.data.trailerUrl;
+            updateObj.FileKey = model.data.trailerId;
+            updateObj.$UpdateMediaItemVideoUrl().then(
+                function (data, status) {
+                    debugger;
+                    $state.go('ArtWorkMedia', { id: $stateParams.id });
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function openUploadDialog(id, url) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
+                controller: 'uploadVideoController',
+                controllerAs: 'uploadDlCtrl',
+                resolve: {
+                    itemId: function () { return id },
+                    url: function () { return url },
+                    callBackFunction: function () { return callBackUpload }
+                }
+
+            });
+        }
+
     }
 }());
 (function () {
@@ -2104,8 +2065,7 @@
     function BoothController(appCONSTANTS, $scope, $translate, BoothResource, blockUI, $uibModal, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
-        var vm = this;
-
+        var vm = this; 
         vm.currentPage = 1;
         vm.appCONSTANTS = appCONSTANTS;
 
@@ -2194,8 +2154,10 @@
             update: { method: 'PUT', useToken: true },
             getBooth: { method: 'GET', useToken: true },
             delete: { method: 'DELETE', useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'booths/ChangeStatus/:id/:status', useToken: true }
-
+            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'booths/ChangeStatus/:id/:status', useToken: true },
+            getPayment: { method: 'GET', url: appCONSTANTS.API_URL + 'booths/getPayment?id=:id', useToken: true },
+            updatePayment: { method: 'PUT', url: appCONSTANTS.API_URL + 'booths/updatePayment', useToken: true },
+            createPayment: { method: 'POST', url: appCONSTANTS.API_URL + 'booths/createPayment', useToken: true },
         })
     }
 
@@ -2224,7 +2186,7 @@
                     url: '/newBooth',
                     templateUrl: './app/GlobalAdmin/Booth/templates/new.html',
                     controller: 'createBoothDialogController',
-                    'controllerAs': 'newBoothCtrl', 
+                    'controllerAs': 'newBoothCtrl',
                     data: {
                         permissions: {
                             redirectTo: 'root'
@@ -2240,6 +2202,35 @@
                     resolve: {
                         BoothByIdPrepService: BoothByIdPrepService
                     },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('boothPayment', {
+                    url: '/boothPayment/:id',
+                    templateUrl: './app/GlobalAdmin/Booth/templates/payment.html',
+                    controller: 'boothPaymentDialogController',
+                    'controllerAs': 'boothPaymentCtrl',
+                    resolve: {
+                        BoothPaymentByBoothIdPrepService: BoothPaymentByBoothIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('newBoothPayment', {
+                    url: '/newBoothPayment/:id',
+                    templateUrl: './app/GlobalAdmin/Booth/templates/newBoothPayment.html',
+                    controller: 'newBoothPaymentDialogController',
+                    'controllerAs': 'newBoothPaymentCtrl',
                     data: {
                         permissions: {
                             redirectTo: 'root'
@@ -2263,7 +2254,11 @@
     function AllAwardPrepService(BoothResource) {
         return BoothResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
- 
+
+    BoothPaymentByBoothIdPrepService.$inject = ['BoothResource', '$stateParams']
+    function BoothPaymentByBoothIdPrepService(BoothResource, $stateParams) {
+        return BoothResource.getPayment({ id: $stateParams.id }).$promise;
+    }
 }());
 (function () {
     'use strict';
@@ -2346,6 +2341,238 @@
                 }
             );
         }
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('newBoothPaymentDialogController', ['$scope', 'blockUI', '$http', '$state', '$stateParams', '$translate',
+            'BoothResource', 'ToastService', '$rootScope', 'status', newBoothPaymentDialogController])
+
+    function newBoothPaymentDialogController($scope, blockUI, $http, $state, $stateParams, $translate, BoothResource,
+        ToastService, $rootScope, status) {
+        var vm = this;
+        var receiptImage;
+        vm.statusList = status.StatusList;
+
+        vm.close = function () {
+            $state.go('Booth');
+        }
+
+        $scope.dateIsValid = false;
+        $scope.dateChange = function () {
+            debugger;
+            if ($('#paymentDate').data('date') == null || $('#paymentDate').data('date') == "") {
+                $scope.dateIsValid = false;
+            } else if ($scope.boothPaymentForm.$valid) {
+                $scope.dateIsValid = true;
+            }
+        }
+
+        vm.UpdatePayment = function () {
+            debugger;
+            var fileByte = "";
+            var fileName = "";
+            blockUI.start("Loading...");
+            var newObj = new BoothResource();
+            newObj.ContactName = vm.contactName;
+            newObj.Phone1 = vm.phone1;
+            newObj.Phone2 = vm.phone2;
+            newObj.Email = vm.email;
+            newObj.BoothId = $stateParams.id;
+            if (receiptImage != null) {
+                var splitImage = vm.receiptImage.split(',');
+                fileByte = splitImage[1];
+                fileName = receiptImage.type;
+            }
+
+            var Payment = {
+                TransactionNumber: vm.payment.transactionNumber,
+                Amount: vm.payment.amount,
+                PaymentDate: +new Date($('#paymentDate').val()),
+                PaymentStatus: vm.selectedStatus.Id,
+                Receipt: fileByte,
+                ReceiptFileName: fileName
+            };
+            newObj.Payment = Payment;
+
+            newObj.$createPayment().then(
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('Booth');
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+                }
+            );
+        }
+        vm.LoadUploadreceipt = function () {
+            debugger;
+            $("#receiptImage").click();
+        }
+        $scope.AddreceiptImage = function (element) {
+            debugger;
+            var logoFile = element[0];
+
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.boothPaymentForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        receiptImage = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.receiptImage = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+
+
+        }
+
+        $scope.uploadreceiptFile = function (element) {
+            debugger;
+            vm.receiptImage = $(element)[0].files[0];
+        };
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('boothPaymentDialogController', ['$scope', 'blockUI', '$http', '$state', '$stateParams', '$translate',
+            'BoothResource', 'ToastService', '$rootScope', 'status', 'BoothPaymentByBoothIdPrepService', boothPaymentDialogController])
+
+    function boothPaymentDialogController($scope, blockUI, $http, $state, $stateParams, $translate, BoothResource,
+        ToastService, $rootScope, status, BoothPaymentByBoothIdPrepService) {
+        var vm = this;
+        var receiptImage;
+        debugger;
+        vm.statusList = status.StatusList;
+        vm.boothPayment = BoothPaymentByBoothIdPrepService;
+        console.log(vm.boothPayment);
+
+        if (vm.boothPayment.payment.paymentStatus == 'waiting')
+            vm.selectedStatus = vm.statusList[0];
+        if (vm.boothPayment.payment.paymentStatus == 'confirmed')
+            vm.selectedStatus = vm.statusList[1];
+        if (vm.boothPayment.payment.paymentStatus == 'rejected')
+            vm.selectedStatus = vm.statusList[2];
+
+        vm.receiptImage = vm.boothPayment.payment.receiptUrl;
+        vm.close = function () {
+            $state.go('Booth');
+        }
+
+        $scope.dateIsValid = false;
+        $scope.dateChange = function () {
+            debugger;
+            if ($('#paymentDate').data('date') == null || $('#paymentDate').data('date') == "") {
+                $scope.dateIsValid = false;
+            } else if ($scope.boothPaymentForm.$valid) {
+                $scope.dateIsValid = true;
+            }
+        }
+
+        vm.UpdatePayment = function () {
+            blockUI.start("Loading...");
+            var newObj = new BoothResource();
+            newObj.Id = vm.boothPayment.payment.id;
+            newObj.PaymentStatus = vm.selectedStatus.Id;
+            newObj.TransactionNumber = vm.boothPayment.payment.transactionNumber;
+            newObj.Amount = vm.boothPayment.payment.amount;
+            newObj.PaymentDate = +new Date($('#paymentDate').val());
+            if (receiptImage != null) {
+                var splitImage = vm.receiptImage.split(',');
+                newObj.Receipt = splitImage[1];
+                newObj.ReceiptFileName = receiptImage.type;
+            }
+
+            newObj.$updatePayment().then(
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('Booth');
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.title, "error");
+                }
+            );
+        }
+        vm.LoadUploadreceipt = function () {
+            debugger;
+            $("#receiptImage").click();
+        }
+        $scope.AddreceiptImage = function (element) {
+            debugger;
+            var logoFile = element[0];
+
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.boothPaymentForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        receiptImage = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.receiptImage = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+
+
+        }
+
+        $scope.uploadreceiptFile = function (element) {
+            debugger;
+            vm.receiptImage = $(element)[0].files[0];
+        };
     }
 }());
 (function () {

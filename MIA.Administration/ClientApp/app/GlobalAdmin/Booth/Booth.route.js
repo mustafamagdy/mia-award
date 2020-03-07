@@ -22,7 +22,7 @@
                     url: '/newBooth',
                     templateUrl: './app/GlobalAdmin/Booth/templates/new.html',
                     controller: 'createBoothDialogController',
-                    'controllerAs': 'newBoothCtrl', 
+                    'controllerAs': 'newBoothCtrl',
                     data: {
                         permissions: {
                             redirectTo: 'root'
@@ -38,6 +38,35 @@
                     resolve: {
                         BoothByIdPrepService: BoothByIdPrepService
                     },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('boothPayment', {
+                    url: '/boothPayment/:id',
+                    templateUrl: './app/GlobalAdmin/Booth/templates/payment.html',
+                    controller: 'boothPaymentDialogController',
+                    'controllerAs': 'boothPaymentCtrl',
+                    resolve: {
+                        BoothPaymentByBoothIdPrepService: BoothPaymentByBoothIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('newBoothPayment', {
+                    url: '/newBoothPayment/:id',
+                    templateUrl: './app/GlobalAdmin/Booth/templates/newBoothPayment.html',
+                    controller: 'newBoothPaymentDialogController',
+                    'controllerAs': 'newBoothPaymentCtrl',
                     data: {
                         permissions: {
                             redirectTo: 'root'
@@ -61,5 +90,9 @@
     function AllAwardPrepService(BoothResource) {
         return BoothResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
- 
+
+    BoothPaymentByBoothIdPrepService.$inject = ['BoothResource', '$stateParams']
+    function BoothPaymentByBoothIdPrepService(BoothResource, $stateParams) {
+        return BoothResource.getPayment({ id: $stateParams.id }).$promise;
+    }
 }());

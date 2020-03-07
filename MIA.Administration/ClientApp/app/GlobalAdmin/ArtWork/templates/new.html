@@ -193,30 +193,26 @@
                         </div>
 
                     </div>
-                    <div class="form-group col-lg-4">
-                        <!-- <span style="color:red">*</span> -->
-
+                    <!-- <div class="form-group col-lg-4"> 
                         <input id="trailerPoster" name="trailerPoster" style="display: none;"
                             onchange="angular.element(this).scope().AddTrailerPoster(this.files)" type="file" required>
                         <button class="btn btn-success btn-xs pull-center" type="button"
                             ng-click="newArtWorkCtrl.LoadUploadTrailerPoster()">{{'Upload Trailer Poster' | translate}}</button>
-                        <!-- <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                            {{'RecommendedProductImage' | translate}}</span> -->
-                        <img ng-src="{{newArtWorkCtrl.trailerPoster}}" style="max-height: 139px;max-width: 423px;">
+                         <img ng-src="{{newArtWorkCtrl.trailerPoster}}" style="max-height: 139px;max-width: 423px;">
                         <div ng-messages="newArtWorkForm.trailerPoster.$error">
                             <div ng-if="newArtWorkForm.trailerPoster.$error.required">{{'requiredErr' | translate}}
                             </div>
                         </div>
 
-                    </div>
+                    </div> -->
                 </div>
                 <div class="pmd-modal-action text-right">
                     <button
                         style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
                         ng-disabled="newArtWorkForm.$invalid ||  newArtWorkCtrl.selectedNominee ==null ||  newArtWorkCtrl.selectedAward ==null"
-                        class="btn pmd-ripple-effect btn-primary" ArtWork="button"
+                        class="btn pmd-ripple-effect btn-primary" type="button"
                         ng-click="newArtWorkCtrl.AddNewArtWork()">{{'saveChangesBtn' | translate}}</button>
-                    <button class="btn pmd-ripple-effect btn-default" ArtWork="button"
+                    <button class="btn pmd-ripple-effect btn-default" type="button"
                         ng-click="newArtWorkCtrl.close()">{{'DiscardBtn' | translate}}</button>
                 </div>
                 <!-- <button class="btn pmd-ripple-effect btn-default" type="button"

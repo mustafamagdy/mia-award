@@ -38,7 +38,7 @@ namespace MIA.ORMContext.Seed
 
       await SeedDefaultRoles(roleManager, db);
       await SeedContactUsMessageSubjectsAsync(db);
-      await SeedAdminRoleAndPermissions(roleManager, db);
+      await SeedAdminRoleAndPermissions(roleManager, db); 
       await SeedAdminUserAsync(userManager);
       await SeedAwards(db, encoder);
       await SeedBooths(db);
@@ -49,7 +49,8 @@ namespace MIA.ORMContext.Seed
       //await SeedDemoArtworks(db, s3FileManager);
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
-      await SeedDemoUsers(roleManager, userManager, db);
+      await SeedBoothUserAndRoleAsync(roleManager, userManager, db);
+      await SeedDemoUsers(roleManager, userManager, db); 
       await SeedTimeLine(db);
       await db.CommitTransactionAsync();
     }
@@ -616,6 +617,66 @@ namespace MIA.ORMContext.Seed
         }
       }
     }
+
+
+    private static async Task SeedBoothUserAndRoleAsync(
+      RoleManager<AppRole> roleManager,
+      UserManager<AppUser> userManager,
+      IAppUnitOfWork db)
+    {
+       
+      var boothRole = await roleManager.FindByNameAsync(Constants.BOOTH_ROLE);
+      if (boothRole.Permissions == null)
+      {
+        boothRole.Permissions = "";
+      }
+
+      //(this is an example only)
+      Permissions[] boothPermissions = new Permissions[] {
+          Permissions.BoothAddNew,
+          Permissions.BoothAddNew,
+          Permissions.BoothRemove, 
+          Permissions.BoothPayment, 
+        };
+
+      boothPermissions.ForEach(m => {
+        if (!boothRole.Permissions.Contains((char)m))
+        {
+          boothRole.Permissions += (char)m;
+        }
+      }); 
+
+      if (await userManager.FindByNameAsync(Constants.BOOTH_USERNAME) == null)
+      {
+        AppUser boothUser = new AppUser
+        {
+          FullName = "booth user",
+          Email = Constants.BOOTH_EMAIL,
+          UserName = Constants.BOOTH_USERNAME,
+          NormalizedEmail = Constants.BOOTH_EMAIL.ToUpper(),
+          NormalizedUserName = Constants.BOOTH_USERNAME.ToUpper(),
+        };
+
+        IdentityResult result = await userManager.CreateAsync(boothUser, Constants.BOOTH_PASSWORD);
+        if (result.Succeeded)
+        {
+          await userManager.AddToRoleAsync(boothUser, Constants.BOOTH_ROLE);
+
+          //add allowed modules (this is an example only)
+          var allowedModules = new SystemModules[] { SystemModules.Booths };
+          var modules = allowedModules[0];
+          for (int i = 1; i < allowedModules.Length; i++)
+          {
+            modules |= allowedModules[i];
+          }
+
+          //adds allowed modules for user
+          await db.UserModules.AddAsync(new UserModule(boothUser.Id, modules));
+        }
+      }
+
+    }
+
 
 
   }

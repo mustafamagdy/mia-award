@@ -1,0 +1,205 @@
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-title-text"> {{'update' | translate}} </h2>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="boothPaymentForm">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'contactName' | translate}}</th>
+                        <th>{{'phone1' | translate}}</th>
+                        <th>{{'phone2' | translate}}</th>
+                        <th>{{'email' | translate}}</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+
+                        <td style="width: 10px">
+                            <input type="text" class="mat-input form-control" name="contactName"
+                                style="display: inline-block;" ng-minlength="3" ng-maxlength="50"
+                                ng-model="newBoothPaymentCtrl.contactName" required />
+                            <!-- required validation  -->
+                            <div ng-messages="boothPaymentForm.contactName.$error">
+                                <div class="error" ng-if="boothPaymentForm.contactName.$error.required && 
+                                            !boothPaymentForm.contactName.$pristine">
+                                    {{'requiredErr' |  translate}}
+                                </div>
+                                <!-- length validation -->
+                                <div class="error" ng-if="(boothPaymentForm.contactName.$error.minlength ||
+                                                boothPaymentForm.contactName.$error.maxlength) 
+                                                 && !boothPaymentForm.contactName.newcontactName.$error.required">
+                                    {{'PhoneLengthError' |  translate}}
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 10px">
+                            <input type="text" class="mat-input form-control" name="phone1"
+                                style="display: inline-block;" ng-minlength="1" ng-maxlength="18"
+                                ng-model="newBoothPaymentCtrl.phone1" required />
+                            <!-- required validation  -->
+                            <div ng-messages="boothPaymentForm.phone1.$error">
+                                <div class="error" ng-if="boothPaymentForm.phone1.$error.required && 
+                                            !boothPaymentForm.phone1.$pristine">
+                                    {{'requiredErr' |  translate}}
+                                </div>
+                                <!-- length validation -->
+                                <div class="error" ng-if="(boothPaymentForm.phone1.$error.minlength ||
+                                                boothPaymentForm.phone1.$error.maxlength) 
+                                                 && !boothPaymentForm.phone1.newphone1.$error.required">
+                                    {{'PhoneLengthError' |  translate}}
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 10px">
+                            <input type="text" class="mat-input form-control" name="phone2"
+                                style="display: inline-block;" ng-minlength="1" ng-maxlength="18"
+                                ng-model="newBoothPaymentCtrl.phone2" required />
+                            <!-- required validation  -->
+                            <div ng-messages="boothPaymentForm.phone2.$error">
+                                <div class="error" ng-if="boothPaymentForm.phone2.$error.required && 
+                                        !boothPaymentForm.phone2.$pristine">
+                                    {{'requiredErr' |  translate}}
+                                </div>
+                                <!-- length validation -->
+                                <div class="error" ng-if="(boothPaymentForm.phone2.$error.minlength ||
+                                            boothPaymentForm.phone2.$error.maxlength) 
+                                             && !boothPaymentForm.phone2.newphone2.$error.required">
+                                    {{'PhoneLengthError' |  translate}}
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 10px">
+                            <input required type="text" class="mat-input form-control" name="userEmail"
+                                ng-model="newBoothPaymentCtrl.email"
+                                ng-pattern="/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/">
+                            <span class="error"
+                                ng-show="boothPaymentForm.userEmail.$error.pattern">{{'WrongMail' | translate}}
+                            </span>
+
+                            <div ng-messages="boothPaymentForm.userEmail.$error">
+                                <div class="error"
+                                    ng-if="boothPaymentForm.userEmail.$error.required && !boothPaymentForm.userEmail.$pristine">{{'EmailLengthError'
+                        | translate}}</div>
+                            </div>
+                        </td>
+
+
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            <div class="row">
+                <div class="form-group col-lg-2">
+                    <label for="first-name">{{'Amount' | translate}}</label>
+                    <input required type="text" class="mat-input form-control" name="Amount" numbers-only
+                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
+                        ng-model="newBoothPaymentCtrl.payment.amount" required />
+                    <div ng-messages="boothPaymentForm.Amount.$error">
+                        <div class="error" ng-if="boothPaymentForm.Amount.$error.required && 
+                                        !boothPaymentForm.Amount.$pristine">
+                            {{'requiredErr' |  translate}}
+                        </div>
+                        <!-- length validation -->
+                        <div class="error" ng-if="(boothPaymentForm.Amount.$error.minlength ||
+                                            boothPaymentForm.Amount.$error.maxlength) 
+                                             && !boothPaymentForm.Amount.newAmount.$error.required">
+                            {{'PhoneLengthError' |  translate}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <label><span style="color:red">*</span> {{'TransactionNumber' | translate}}</label>
+                    <input type="text" class="form-control" name="TransactionNumber" style="display: inline-block; "
+                        ng-model="newBoothPaymentCtrl.payment.transactionNumber" required />
+                    <div class="error" ng-messages="boothPaymentForm.TransactionNumber.$error">
+                        <div ng-if="boothPaymentForm.TransactionNumber.$error.required && 
+                            !boothPaymentForm.TransactionNumber.$pristine">{{'requiredErr' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <label><span style="color:red">*</span> {{'PaymentDate' | translate}}</label>
+
+                    <input name="itemDatetime" ng-model="itemDatetime" type="text" id="paymentDate" class="form-control"
+                        ng-change="dateChange();" />
+                    <div ng-messages="boothPaymentForm.paymentDate.$error">
+                        <div
+                            ng-if="boothPaymentForm.paymentDate.$error.required && !boothPaymentForm.paymentDate.$pristine">
+                            {{'paymentDateReqError' | translate}}</div>
+                        <div
+                            ng-if="(boothPaymentForm.paymentDate.$error.minlength || boothPaymentForm.paymentDate.$error.maxlength)">
+                            {{'paymentDateLengthError' | translate}}</div>
+                    </div>
+                    <div class="error" ng-messages="boothPaymentForm.PaymentDate.$error">
+                        <div ng-if="boothPaymentForm.PaymentDate.$error.required && 
+                            !boothPaymentForm.PaymentDate.$pristine">{{'requiredErr' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-4">
+
+                    <div class="form-group col-lg-4">
+                        <label for="first-name">{{'status' | translate}}</label>
+                        <select required style="width:100% !important"
+                            class="form-control select-with-search pmd-select2-tags"
+                            ng-model="newBoothPaymentCtrl.selectedStatus"
+                            ng-options="group as group.shortName  for group in newBoothPaymentCtrl.statusList">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="form-group col-lg-4">
+                    <span style="color:red">*</span>
+
+                    <input id="receiptImage" name="receiptImage" style="display: none;"
+                        onchange="angular.element(this).scope().AddreceiptImage(this.files)" type="file">
+                    <button class="btn btn-success btn-xs pull-center"
+                        ng-click="newBoothPaymentCtrl.LoadUploadreceipt()">{{'Upload Receipt' | translate}}</button>
+                    <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                        {{'RecommendedProductImage' | translate}}</span>
+                    <img ng-src="{{newBoothPaymentCtrl.receiptImage}}" style="max-height: 139px;max-width: 423px;">
+                    <div ng-messages="boothPaymentForm.receiptImage.$error">
+                        <div ng-if="boothPaymentForm.receiptImage.$error.required">{{'requiredErr' | translate}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pmd-modal-action text-right">
+                <button
+                    style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+                    ng-disabled="boothPaymentForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
+                    ng-click="newBoothPaymentCtrl.UpdatePayment()">{{'saveChangesBtn' | translate}}</button>
+                <button class="btn pmd-ripple-effect btn-default" type="button"
+                    ng-click="newBoothPaymentCtrl.close()">{{'DiscardBtn' | translate}}</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap",
+        });
+
+        var today = new Date();
+        today.setDate(today.getDate() + 1)
+
+        $('#paymentDate').datetimepicker({
+            widgetPositioning: { vertical: "bottom" },
+            minDate: today,
+        })
+            .on('dp.change', function (e) {
+                debugger;
+                angular.element(document.getElementById('paymentDate')).scope().dateChange();
+            });
+
+    });
+</script>
