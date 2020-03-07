@@ -39,8 +39,12 @@ namespace MIA.ORMContext.Uow {
     DbSet<TrophyImage> TrophyImages { get; }
     DbSet<VotingCriteria> VotingCriterias { get; }
     DbSet<ContactUsSubject> ContactUsSubjects { get; }
+    DbSet<Country> Countries { get; }
+    DbSet<ProductionYear> ProductionYears { get; }
+    DbSet<ArtworkCategory> ArtworkCategories { get; }
+    DbSet<ArtworkGenre> ArtworkGenres { get; }
 
-    
+
 
   }
 }

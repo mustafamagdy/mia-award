@@ -33,40 +33,42 @@ const RecentShows = ({ fetchRecentShows, recentShows, categories, countries, gen
         <div className="title">
           <Trans id="recent_shows">recent shows</Trans>
         </div>
-        <div className="search_filter">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <input type="text" ref={register} name="title" placeholder="show title" />
-            <select ref={register} name="year">
-              {generas.map((y, i) => (
-                <option value={y}>{y}</option>
-              ))}
-            </select>
-            <select ref={register} name="category">
-              {generas.map((c, i) => (
-                <option value={c}>
-                  <Trans id={c}>{c}</Trans>
-                </option>
-              ))}
-            </select>
-            <select ref={register} name="genera">
-              {generas.map((g, i) => (
-                <option value={g}>
-                  <Trans id={g}>{g}</Trans>
-                </option>
-              ))}
-            </select>
-            <select ref={register} name="country">
-              {countries.map((c, i) => (
-                <option value={c}>
-                  <Trans id={c}>{c}</Trans>
-                </option>
-              ))}
-            </select>
-            <button type="submit">
-              <i className="icofont-ui-search"></i>
-            </button>
-          </form>
-        </div>
+        {recentShows && recentShows.length > 0 && (
+          <div className="search_filter">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input type="text" ref={register} name="title" placeholder="show title" />
+              <select ref={register} name="year">
+                {generas.map((y, i) => (
+                  <option value={y}>{y}</option>
+                ))}
+              </select>
+              <select ref={register} name="category">
+                {generas.map((c, i) => (
+                  <option value={c}>
+                    <Trans id={c}>{c}</Trans>
+                  </option>
+                ))}
+              </select>
+              <select ref={register} name="genera">
+                {generas.map((g, i) => (
+                  <option value={g}>
+                    <Trans id={g}>{g}</Trans>
+                  </option>
+                ))}
+              </select>
+              <select ref={register} name="country">
+                {countries.map((c, i) => (
+                  <option value={c}>
+                    <Trans id={c}>{c}</Trans>
+                  </option>
+                ))}
+              </select>
+              <button type="submit">
+                <i className="icofont-ui-search"></i>
+              </button>
+            </form>
+          </div>
+        )}
         {recentShows && recentShows.length > 0 ? (
           <>
             <div className="shows_items">

@@ -39,6 +39,11 @@ namespace MIA.ORMContext.Uow {
     public DbSet<VotingCriteria> VotingCriterias => base.Context.Set<VotingCriteria>();
     public DbSet<AlbumItem> AlbumItems => base.Context.Set<AlbumItem>();
     public DbSet<ContactUsSubject> ContactUsSubjects => base.Context.Set<ContactUsSubject>();
+    public DbSet<Country> Countries => base.Context.Set<Country>();
+    public DbSet<ProductionYear> ProductionYears => base.Context.Set<ProductionYear>();
+    public DbSet<ArtworkCategory> ArtworkCategories => base.Context.Set<ArtworkCategory>();
+    public DbSet<ArtworkGenre> ArtworkGenres => base.Context.Set<ArtworkGenre>();
+
 
     public TEntity Find<TEntity>(params object[] keys) where TEntity : class => base.Context.Find<TEntity>(keys);
     public void RemoveRange<TEntity>(List<TEntity> entities) where TEntity : class => base.Context.RemoveRange(entities);
