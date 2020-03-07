@@ -1,5 +1,7 @@
-﻿namespace MIA.Models.Entities {
-  public class BoothPurchase : BaseEntity<string> {
+﻿namespace MIA.Models.Entities
+{
+  public class BoothPurchase : BaseEntity<string>
+  {
     public Booth Booth { get; set; }
     public string BoothId { get; set; }
 

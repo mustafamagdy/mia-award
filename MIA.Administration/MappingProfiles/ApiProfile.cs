@@ -2,9 +2,11 @@
 using MIA.Administration.Api;
 using MIA.Administration.Dto.ArtWorkPayment;
 using MIA.Administration.Dto.Award;
+using MIA.Administration.Dto.BoothPayment;
 using MIA.Administration.Dto.User;
 using MIA.Dto.Admin;
 using MIA.Models.Entities;
+using System.Linq;
 
 namespace MIA.Administration.MappingProfiles
 {
@@ -38,16 +40,27 @@ namespace MIA.Administration.MappingProfiles
             //.ForMember(a => a.PosterUrl, cfg => cfg.Ignore()) 
             .ValidateMemberList(MemberList.None);
       #endregion
+
       #region BoothPurchase
+     
+      CreateMap<NewBoothPaymentDto, BoothPayment>().ValidateMemberList(MemberList.None);
       CreateMap<BoothPurchase, BoothPurchaseDto>().ValidateMemberList(MemberList.None);
       CreateMap<NewBoothPurchaseDto, BoothPurchase>().ValidateMemberList(MemberList.None);
       CreateMap<UpdateBoothPurchaseDto, BoothPurchase>().ValidateMemberList(MemberList.None);
 
       #endregion
 
+      #region Booth Payment 
+      CreateMap<BoothPayment, BoothPaymentDto>().ValidateMemberList(MemberList.None);
+      CreateMap<BoothPaymentDto, BoothPayment>().ValidateMemberList(MemberList.None);
+      CreateMap<UpdateBoothPaymentDto, BoothPayment>().ValidateMemberList(MemberList.None);
+
+      #endregion
+
       #region Booth
       CreateMap<Booth, BoothsDto>().ValidateMemberList(MemberList.None)
             .ForMember(a => a.BoothPurchase, cfg => cfg.MapFrom(a => a.Purchases))
+            .ForMember(a => a.HasConfirmedPayment, cfg => cfg.MapFrom(a => a.Purchases.Any(z => z.Payment.PaymentStatus == PaymentStatus.Confirmed)))
         ;
       CreateMap<NewBoothsDto, Booth>().ValidateMemberList(MemberList.None)
             .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
@@ -87,7 +100,7 @@ namespace MIA.Administration.MappingProfiles
       #endregion
 
 
-      #region Payment 
+      #region ArtWork Payment 
       CreateMap<ArtWorkPayment, ArtWorkPaymentDto>().ValidateMemberList(MemberList.None);
       CreateMap<UpdateArtWorkPaymentDto, ArtWorkPayment>().ValidateMemberList(MemberList.None);
 
@@ -96,7 +109,7 @@ namespace MIA.Administration.MappingProfiles
 
       #region Nominee
       CreateMap<Nominee, NomineeDto>().ValidateMemberList(MemberList.None);
-         CreateMap<NomineeDto, Nominee>().ValidateMemberList(MemberList.None);
+      CreateMap<NomineeDto, Nominee>().ValidateMemberList(MemberList.None);
 
       #endregion
 
@@ -128,7 +141,7 @@ namespace MIA.Administration.MappingProfiles
       #region Award
       CreateMap<Award, AwardDto>().ValidateMemberList(MemberList.None)
         .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
-        .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description)) 
+        .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
 
 ;
       CreateMap<Award, AwardDetailsDto>().ValidateMemberList(MemberList.None);
@@ -159,7 +172,7 @@ namespace MIA.Administration.MappingProfiles
 
       #region Judge  
 
-      CreateMap<Judge , JudgeDto>().ValidateMemberList(MemberList.None);
+      CreateMap<Judge, JudgeDto>().ValidateMemberList(MemberList.None);
       CreateMap<JudgeDto, Judge>().ValidateMemberList(MemberList.None);
 
       #endregion

@@ -1,7 +1,11 @@
-﻿using MIA.Models.Entities;
+﻿using MIA.Administration.Dto.BoothPayment;
+using MIA.Models.Entities;
 
-namespace MIA.Administration.Api {
-  public class BoothPurchaseDto {
+namespace MIA.Administration.Api
+{
+  public class BoothPurchaseDto
+  {
+    public string Id { get; set; }
     public BoothsDto Booth { get; set; }
     public string BoothId { get; set; }
 
@@ -12,7 +16,7 @@ namespace MIA.Administration.Api {
     public string EmailVerified { get; set; }
     public PurchaseStatus Status { get; set; }
 
-   // public BoothPayment Payment { get; set; }
+    public BoothPaymentDto Payment { get; set; }
     public string PaymentId { get; set; }
   }
 

@@ -57,7 +57,7 @@
 
         vm.AddNewArtWork = function () {
             var splitPoster = vm.posterImage.split(',');
-            var splitTrailerPoster = vm.trailerPoster.split(',');
+           // var splitTrailerPoster = vm.trailerPoster.split(',');
             var splitCover = vm.coverImage.split(',');
             //var splitReciept = vm.receiptImage.split(',');
             // var Payment = {
@@ -92,8 +92,8 @@
             newObj.Cover = splitCover[1];
             newObj.CoverFileName = splitCover[0];
 
-            newObj.TrailerPoster = splitTrailerPoster[1];
-            newObj.TrailerPosterFileName = splitTrailerPoster[0];
+            // newObj.TrailerPoster = splitTrailerPoster[1];
+            // newObj.TrailerPosterFileName = splitTrailerPoster[0];
 
 
             newObj.$create().then(
