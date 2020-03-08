@@ -24,7 +24,7 @@ const Arwork = ({ artworkDetails, addNewArtwork, awards, artworkMode,history, ..
               <span>Upload show poster</span>
             </form>
           ) : (
-            <img src={artworkDetails && artworkDetails.coverUrl} width={190} height={250} style={{ objectFit: "cover" }} />
+            <img src={artworkDetails && artworkDetails.coverImageUrl} width={190} height={250} style={{ objectFit: "cover" }} />
           )}
         </div>
       </div>

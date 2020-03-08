@@ -53,10 +53,10 @@ const Award = ({ award, ...props }) => {
 const ArtWork = ({ artWork, ...props }) => {
 
   return (
-    <div className="item">
+    <div className="item" >
       <div className="imgthumb">
         <a href={`/members/artwork/${artWork.id}`} title="#">
-          <img src={artWork.coverUrl} />
+          <img src={artWork?.coverUrl} />
           <div className="mask">
             <div className="content">
               <LanguageContext.Consumer>
@@ -107,7 +107,7 @@ const Artworks = ({ fetchMyArtworks, fetchMyAwards, myAwards, myArtworks, myAwar
         <div className="title">Shows</div>
         <div className="all_shows_area">
           {myArtworks && myArtworks.map((m, i) => {
-            return <ArtWork key={i} artWork={m} />;
+            return <ArtWork  artWork={m} key={i} />;
           })}
           <div className="item add_new">
             <div className="upload_area">

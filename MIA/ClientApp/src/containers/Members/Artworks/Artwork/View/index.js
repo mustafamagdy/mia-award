@@ -35,7 +35,6 @@ const ViewArtwork = ({
     setActiveTabKey(tabKey);
     setActiveIndex(tabs.indexOf(tabKey));
   };
-
   return (
     <div className="stage_two">
       <div className="main_tabs">
@@ -52,31 +51,30 @@ const ViewArtwork = ({
         </ul>
       </div>
       <Info active={activeTabKey == "info"} editArtwork={editArtwork} publish={publishArtwork} history={history} details={artworkDetails} />
-      <PaymentView active={activeTabKey == "payment-view"} />
-      <Trailer active={activeTabKey == "trailer"} url={artworkDetails?.trailerUrl} coverUrl={artworkDetails?.coverUrl} />
+      <PaymentView active={activeTabKey == "payment-view"} details={artworkDetails?.payment} />
+      <Trailer active={activeTabKey == "trailer"} url={artworkDetails?.trailerUrl} coverUrl={artworkDetails?.coverImageUrl} />
       <Files active={activeTabKey == "files"} files={artworkDetails?.files} posterUrl={artworkDetails?.posterUrl} />
     </div>
   );
 };
 
 const Info = ({ details, active, editArtwork, publish, history, ...props }) => {
-  console.log(details)
   return <div className={classNames("tab_content tab_info", { active })}>
-    <div class="info_show">
+    <div className="info_show">
       <ul>
         <li><span>Director :</span><p>{details?.directors}</p></li>
         <li><span>Production :</span><p>{details?.producers}</p></li>
-        <li><span>Writers :</span><p>{details?.writers.split(',').map(c => <> {c} <br /></>)}</p></li>
+        <li><span>Writers :</span><p>{details?.writers.split(',').map((c,i) => <span key={i}> {c} <br /></span>)}</p></li>
         <li><span>Story :</span><p>{details?.story}</p></li>
-        <li><span>Stars :</span><p>{details?.stars.split(',').map(c => <> {c} <br /></>)}</p></li>
+        <li><span>Stars :</span><p>{details?.stars.split(',').map((c,i) => <span key={i}> {c} <br /></span>)}</p></li>
         <li>
           <span>Crew :</span>
-          <div class="crew_content">
-            <div class="title">Cast</div>
-            <div class="content">{details?.crew.split(',').map(c => <> {c} <br /></>)}
+          <div className="crew_content">
+            <div className="title">Cast</div>
+            <div className="content">{details?.crew.split(',').map((c,i) => <span key={i}> {c} <br /></span>)}
             </div>
-            <div class="title">D.O.P</div>
-            <div class="content">
+            <div className="title">D.O.P</div>
+            <div className="content">
               {details?.Year}
             </div>
           </div>
@@ -117,12 +115,12 @@ const Trailer = ({ url, coverUrl, active, ...props }) => {
 const Files = ({ files, posterUrl, active, ...props }) => {
 
   return <div className={classNames("tab_content tab_files", { active })}>
-    <div class="item_show">
-      <div class="season_content">
+    <div className="item_show">
+      <div className="season_content">
         <ol>
           {files &&
             files.map((file, i) => {
-              return <File posterUrl={posterUrl} file={file}/>
+              return <File posterUrl={posterUrl} file={file} key={i}/>
             })}
         </ol>
       </div>

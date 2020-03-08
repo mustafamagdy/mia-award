@@ -76,7 +76,7 @@ const EditArtwork = ({
         trailerUrl={artworkDetails && artworkDetails.trailerUrl}
         trailerPosterUrl={artworkDetails && artworkDetails.posterUrl}
         updateTrailer={updateTrailer}
-        coverUrl={artworkDetails?.coverUrl}
+        coverUrl={artworkDetails?.coverImageUrl}
       />
       {artworkDetails && artworkDetails.canUploadFiles && (
         <Files active={activeTabKey == "files"}
