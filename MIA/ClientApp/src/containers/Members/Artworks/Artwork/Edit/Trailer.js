@@ -7,9 +7,10 @@ import ReactPlayer from "react-player";
 import { Uploader, ProgressBar } from "components/Forms";
 import UploadDropZone from 'components/Forms/UploadDropZone'
 
-const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTrailer, ...props }) => {
+const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTrailer,coverUrl, ...props }) => {
 
   const [files, setFiles] = useState([]);
+  const [cover, setCover] = useState([]);
   const [progress, setProgress] = useState([]);
   const [uploadMode, setuploadMode] = useState(!artworkId && !trailerUrl)
   const handleUpdateTrailer = () => {
@@ -23,7 +24,7 @@ const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTraile
     <div className={classNames("tab_content tab_trailer", { active })}>
       <div className="trailer_area">
         {!uploadMode ? (
-          <TrailerView url={trailerUrl} posterUrl={trailerPosterUrl} setuploadMode={setuploadMode} />
+          <TrailerView url={trailerUrl} coverUrl={coverUrl} setuploadMode={setuploadMode} />
         ) :
            (
               <>
@@ -36,21 +37,50 @@ const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTraile
                 iconClass="icofont-plus"
                 style={{ width: '100%', height: '100%' }} />
                 <br/>
-                {/* <UploadDropZone 
+                <UploadDropZone 
                 className="upload_trailer"
                 iconClass="icofont-plus"
 
                 multiple={false}
                 accept="image/*"
                 setFiles={setFiles}
-                message='Upload your trailer Poster'  
-                style={{ width: '100%', height: '100%' }} /> */}
+                message='Upload your Poster'  
+                style={{ width: '100%', height: '100%' }} />
+                
+                <UploadDropZone 
+                className="upload_trailer"
+                iconClass="icofont-plus"
+                multiple={false}
+                accept="image/*"
+                setFiles={setCover}
+                message='Upload your cover image'  
+                style={{ width: '100%', height: '100%' }} />
 
                 {files &&
                   files.map(f => {
                     return <Uploader
                       key={f.name}
                       uploadChunkApi={window.api.members.updateTrailer}
+                      dir={"Artwork"}
+                      dirId={artworkId}
+                      onProgress={p => {
+                        const indx = progress.findIndex(a => a.key == f.name);
+                        if (indx != -1) progress[indx].percent = p;
+                        else progress.push({ key: f.name, percent: p });
+                        setProgress([...progress]);
+                      }}
+                      file={f}
+                    >
+                      <FileDetails file={f} />
+                    </Uploader>
+                  }
+                  )} 
+
+                {cover &&
+                  cover.map(f => {
+                    return <Uploader
+                      key={f.name}
+                      uploadChunkApi={window.api.members.updateCoverImage}
                       dir={"Artwork"}
                       dirId={artworkId}
                       onProgress={p => {
@@ -84,42 +114,28 @@ const FileDetails = ({ progress, file, ...props }) => (
     <label> {file.name}</label>
     <ProgressBar progress={progress} />
   </div>
+
 );
 
 
-const TrailerView = ({ url, posterUrl, setuploadMode, ...props }) => {
-  const [mediaType, setmediaType] = useState('image');
-
-  useEffect(() => {
-    setmediaType(posterUrl && posterUrl !== '' ? 'image' : 'vedio')
-  }, [posterUrl,url])
-
-  const handleItemClicked = () => {
-    setmediaType(mediaType == 'image' ? 'vedio' : 'vedio');
-  }
+const TrailerView = ({ url, coverUrl, setuploadMode, ...props }) => {
   const handleUpdateTrailer = () => {
     setuploadMode(true)
   }
-  return <> <span onClick={() => handleItemClicked()}>
-    {mediaType == "image" ? (
-      <img src={posterUrl} width='600px' height='300px' />
-    ) : (<>
+  return <> 
       <ReactPlayer
         playing
         url={url}
         className="react-player"
         width="100%"
         height="100%"
-        light="https://picsum.photos/200/300"
+        light={coverUrl}
       />
       <div className="zoom_image">
         <span>
           <i className="icofont-ui-zoom-in"></i>
         </span>
       </div>
-    </>)}
-  </span>
-
     <button onClick={() => handleUpdateTrailer()} >Update Trailer</button>
   </>
 };

@@ -51,10 +51,9 @@ const EditArtwork = ({
     setActiveTabKey(tabKey);
     setActiveIndex(tabs.indexOf(tabKey));
   };
-if(artworkDetails &&artworkDetails.uploadComplete){
-  console.log(artworkDetails.uploadComplete)
-  history.push('/members')
-}
+  if (artworkDetails && artworkDetails.uploadComplete) {
+    history.push('/members')
+  }
   return (
     <div className="stage_two">
       <div className="main_tabs">
@@ -75,8 +74,9 @@ if(artworkDetails &&artworkDetails.uploadComplete){
         active={activeTabKey == "trailer"}
         artworkId={artworkDetails && artworkDetails.id}
         trailerUrl={artworkDetails && artworkDetails.trailerUrl}
-        trailerPosterUrl={artworkDetails && artworkDetails.trailerPosterUrl}
+        trailerPosterUrl={artworkDetails && artworkDetails.posterUrl}
         updateTrailer={updateTrailer}
+        coverUrl={artworkDetails?.coverUrl}
       />
       {artworkDetails && artworkDetails.canUploadFiles && (
         <Files active={activeTabKey == "files"}

@@ -53,8 +53,8 @@ const ViewArtwork = ({
       </div>
       <Info active={activeTabKey == "info"} editArtwork={editArtwork} publish={publishArtwork} history={history} details={artworkDetails} />
       <PaymentView active={activeTabKey == "payment-view"} />
-      <Trailer active={activeTabKey == "trailer"} url={artworkDetails?.trailerUrl} posterUrl={artworkDetails?.trailerPosterUrl} />
-      <Files active={activeTabKey == "files"} files={artworkDetails?.files} posterUrl={artworkDetails?.trailerPosterUrl} />
+      <Trailer active={activeTabKey == "trailer"} url={artworkDetails?.trailerUrl} coverUrl={artworkDetails?.coverUrl} />
+      <Files active={activeTabKey == "files"} files={artworkDetails?.files} posterUrl={artworkDetails?.posterUrl} />
     </div>
   );
 };
@@ -107,9 +107,9 @@ const Info = ({ details, active, editArtwork, publish, history, ...props }) => {
     </button>
   </div>
 };
-const Trailer = ({ url, posterUrl, active, ...props }) => {
+const Trailer = ({ url, coverUrl, active, ...props }) => {
   return (<div className={classNames("tab_content tab_trailer", { active })}>
-    <TrailerView url={url} posterUrl={posterUrl} />
+    <TrailerView url={url} coverUrl={coverUrl} />
   </div>)
 }
 
@@ -131,58 +131,44 @@ const Files = ({ files, posterUrl, active, ...props }) => {
 };
 
 const File=({posterUrl,file,...props})=>{
-  const [mediaType, setmediaType] = useState('image');
-
-
-  const handleItemClicked = () => {
-    setmediaType(mediaType == 'image' ? 'vedio' : 'vedio');
-  }
-  return (<span onClick={() => handleItemClicked()}>
-  {mediaType == "image" ? (
-    <img src={posterUrl} width='200px' height='200px' />
-  ) : (<>
+  return (<>
     <ReactPlayer
       playing
       url={file.fileUrl}
       className="react-player"
       width="100%"
       height="100%"
-      light="https://picsum.photos/200/300"
+      light={posterUrl}
     />
     <div className="zoom_image">
       <span>
         <i className="icofont-ui-zoom-in"></i>
       </span>
     </div>
-  </>)}</span>
+  </>
 
   )
 }
-const TrailerView = ({ url, posterUrl, setuploadMode, ...props }) => {
+const TrailerView = ({ url, coverUrl, setuploadMode, ...props }) => {
   const [mediaType, setmediaType] = useState('image');
 
   const handleItemClicked = () => {
     setmediaType(mediaType == 'image' ? 'vedio' : 'vedio');
   }
-  return <> <span onClick={() => handleItemClicked()}>
-    {mediaType == "image" ? (
-      <img src={posterUrl} width='600px' height='300px' />
-    ) : (<>
+  return <> 
       <ReactPlayer
         playing
         url={url}
         className="react-player"
         width="100%"
         height="100%"
-        light="https://picsum.photos/200/300"
+        light={coverUrl}
       />
       <div className="zoom_image">
         <span>
           <i className="icofont-ui-zoom-in"></i>
         </span>
       </div>
-    </>)}
-  </span>
   </>
 };
 const mapStateToProps = ({ members: { artworkDetails, artworkMode } }) => ({ artworkDetails, artworkMode });

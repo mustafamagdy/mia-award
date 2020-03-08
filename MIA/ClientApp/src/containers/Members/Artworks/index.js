@@ -56,7 +56,7 @@ const ArtWork = ({ artWork, ...props }) => {
     <div className="item">
       <div className="imgthumb">
         <a href={`/members/artwork/${artWork.id}`} title="#">
-          <img src="assets/images/show_image.png" />
+          <img src={artWork.coverUrl} />
           <div className="mask">
             <div className="content">
               <LanguageContext.Consumer>
