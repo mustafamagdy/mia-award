@@ -31,22 +31,24 @@ namespace MIA.Authorization.Entities
     [PermissionDescriptor(SystemModules.Adminstration, "add_user_to_role", "Can read employees data")]
     AddUserToRole,
 
+    //Boths
+    [PermissionDescriptor(SystemModules.Booths, "view", "Can read employees")]
+    BoothRead,
+    [PermissionDescriptor(SystemModules.Booths, "add_new", "Can add a new employees item")]
+    BoothAddNew,
+    [PermissionDescriptor(SystemModules.Booths, "remove", "Can read employees data")]
+    BoothRemove,
+    [PermissionDescriptor(SystemModules.Booths, "manage_payments", "Can read employees data")]
+    BoothPayment,
+
+
+
+    //Client side dont move or change, add before this line
     [PermissionDescriptor(SystemModules.Nominee, "NomineePolicy", "Nominee policy to access all nominee sections")]
     NomineeAccess = 1000,
 
     [PermissionDescriptor(SystemModules.News, "AccessAll", "This allows the user to access every feature")]
     AccessAll = Int16.MaxValue,
-
-
-
-    [PermissionDescriptor(SystemModules.Booths, "view", "Can read employees")]
-    BoothRead = 15,
-    [PermissionDescriptor(SystemModules.Booths, "add_new", "Can add a new employees item")]
-    BoothAddNew = 16,
-    [PermissionDescriptor(SystemModules.Booths, "remove", "Can read employees data")]
-    BoothRemove = 17,
-    [PermissionDescriptor(SystemModules.Booths, "remove", "Can read employees data")]
-    BoothPayment= 18,
 
   }
 }
