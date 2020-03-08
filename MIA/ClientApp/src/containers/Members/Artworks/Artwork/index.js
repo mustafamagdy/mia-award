@@ -7,19 +7,24 @@ import AddArtwork from "./AddNew";
 import ViewArtwork from "./View";
 import EditArtwork from "./Edit";
 
-const Arwork = ({ artworkDetails, addNewArtwork, awards, artworkMode, ...props }) => {
+const Arwork = ({ artworkDetails, addNewArtwork, awards, artworkMode,history, ...props }) => {
+  useEffect(() => {
+    if(artworkMode==="view"){
+      history.push(`/members/artwork/${artworkDetails.id}`)
+    }
+  }, [artworkMode])
   return (
     <React.Fragment>
       <div className="upload_poster">
         <div className="upload_area">
-          {artworkMode == "edit" ? (
+          {artworkMode === "edit" ? (
             <form action="#">
               <input type="file" />
               <i className="icofont-plus"></i>
               <span>Upload show poster</span>
             </form>
           ) : (
-            <img src={artworkDetails && artworkDetails.posterUrl} width={190} height={250} style={{ objectFit: "cover" }} />
+            <img src={artworkDetails && artworkDetails.coverImageUrl} width={190} height={250} style={{ objectFit: "cover" }} />
           )}
         </div>
       </div>
