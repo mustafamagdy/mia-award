@@ -32,14 +32,14 @@ namespace MIA.Api
     {
       var result = db.ArtWorks
         .Where(a => a.UploadComplete && a.Featured)
-        .ProjectTo<ArtworkViewDto>(_mapper.ConfigurationProvider)
+        .ProjectTo<ArtworkBasicViewDto>(_mapper.ConfigurationProvider)
         .ToArray();
 
       return IfFound(result);
     }
 
     [HttpPost("filter")]
-    public IActionResult Filtered(
+    public async Task<IActionResult> Filtered(
       [FromBody] ArtworkFilterDto query,
       [FromServices] IAppUnitOfWork db)
     {
@@ -48,9 +48,9 @@ namespace MIA.Api
 
       //todo: filtering
 
-      var result = _result
-        .ProjectTo<ArtworkViewDto>(_mapper.ConfigurationProvider)
-        .ToPagedList(query);
+      var result = await _result
+        .ProjectTo<ArtworkBasicViewDto>(_mapper.ConfigurationProvider)
+        .ToPagedListAsync(query);
 
       return IfFound(result);
     }

@@ -1,23 +1,26 @@
 import React, { useState } from "react";
-import classNames from "classnames";
+import { I18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import showsActions from "store/shows/actions";
-import { useEffect } from "react";
+import { LanguageContext } from "containers/Providers/LanguageProvider";
 import ReactPlayer from "react-player";
-import Lightbox from "lightbox-react";
+import { useEffect } from "react";
 import Swiper from "react-id-swiper";
 import Paginator from "components/Paginator";
 import "lightbox-react/style.css"; // This only needs to be imported once in your app
 import "swiper/css/swiper.css";
+import { useForm } from "react-hook-form";
 
-const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount, ...props }) => {
-  const [slides, setSlides] = useState([]);
+const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries, generas, years, pageCount }) => {
+  const { register, handleSubmit, reset } = useForm();
+  const [] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const [currentItem, setCurrentItem] = useState(undefined);
+  const [] = useState(undefined);
   const [swiper, setSwiper] = useState(null);
+  const [searchQuery, setSearchQuery] = useState({});
 
   const tabs = ["All", "Latest", "Photos", "Videos"];
 
@@ -26,20 +29,11 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
   }, []);
 
   useEffect(() => {
-    fetchItems({ pageNumber, pageSize: 10, type: tabs[activeTab] });
-  }, [pageNumber, activeTab]);
+    fetchItems({ pageNumber, pageSize: 10, type: tabs[activeTab], ...searchQuery });
+  }, [pageNumber, activeTab, searchQuery]);
 
-  const handleActiveTab = tab => {
-    setActiveTab(tab);
-    setPageNumber(1);
-  };
-
-  const nextSlide = () => {
-    if (swiper !== null) swiper.slideNext();
-  };
-
-  const prevSlide = () => {
-    if (swiper !== null) swiper.slidePrev();
+  const onSubmit = values => {
+    setSearchQuery({ ...values });
   };
 
   const params = {
@@ -64,7 +58,7 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
     }
   };
 
-  return (
+  return featuredItems != undefined && featuredItems.length > 0 ? (
     <section id="show_all">
       <div className="show_slider">
         <div className="container">
@@ -79,68 +73,85 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
             </div>
             <div className="slider_items">
               <Swiper {...params} getSwiper={setSwiper}>
-                {featuredItems != undefined && featuredItems.length > 0 ? (
-                  featuredItems.map((item, i) => (
-                    <div key={item.id} className="item">
-                      <div className="imgthmb">
-                        <img src="/assets/images/news_image.png" />
+                {featuredItems.map(item => (
+                  <div key={item.id} className="item">
+                    <div className="imgthmb">
+                      <img src={item.posterUrl} />
+                    </div>
+                    <div className="content">
+                      <div className="title">
+                        <span>
+                          <LanguageContext.Consumer>{({ locale }) => item.title[locale.code]}</LanguageContext.Consumer>
+                        </span>
+                        <time>
+                          <Trans id="uploaded">Uploaded</Trans> : {item.uploadedDate}
+                        </time>
                       </div>
-                      <div className="content">
-                        <div className="title">
-                          <span>The blue elephant</span>
-                          <time>Uploaded : 12-05-2020</time>
+                      <div className="video_item">
+                        <ReactPlayer
+                          controls
+                          url={item.trailerUrl}
+                          className="react-player"
+                          width="100%"
+                          height="100%"
+                          light={item.coverImageUrl}
+                        />
+                      </div>
+                      <div className="video_details">
+                        <div className="info_item">
+                          <ul>
+                            <li>
+                              <span>
+                                <Trans id="release-date">Date of release</Trans> :
+                              </span>
+                              <p>{item.year}</p>
+                            </li>
+                            <li>
+                              <span>
+                                <Trans id="category">Category</Trans> :
+                              </span>
+                              <p>{item.award}</p>
+                            </li>
+                            <li>
+                              <span>
+                                <Trans id="genre">Genre</Trans> :
+                              </span>
+                              <p>{item.genre}</p>
+                            </li>
+                            <li>
+                              <span>
+                                <Trans id="country"> Country</Trans> :
+                              </span>
+                              <p>{item.country}</p>
+                            </li>
+                            <li>
+                              <span>
+                                <Trans id="posted">Posted</Trans> :
+                              </span>
+                              <p>{item.uploadedDate}</p>
+                            </li>
+                          </ul>
                         </div>
-                        <div className="video_item">
-                          <a href="#" title="#">
-                            <img src="/assets/images/shows_item_image.png" />
-                          </a>
-                        </div>
-                        <div className="video_details">
-                          <div className="info_item">
-                            <ul>
-                              <li>
-                                <span>Date of release :</span>
-                                <p>2019</p>
-                              </li>
-                              <li>
-                                <span>Category :</span>
-                                <p>Movie</p>
-                              </li>
-                              <li>
-                                <span>Genre :</span>
-                                <p>Drama</p>
-                              </li>
-                              <li>
-                                <span>Country :</span>
-                                <p>USA</p>
-                              </li>
-                              <li>
-                                <span>posted :</span>
-                                <p>25-02-2020</p>
-                              </li>
-                            </ul>
+                        <div className="user_item">
+                          <div className="desc">
+                            <span>
+                              <Trans id="user_account">User Account</Trans>
+                            </span>
+                            <p>{item.nomineeName}</p>
                           </div>
-                          <div className="user_item">
-                            <div className="desc">
-                              <span>User Account</span>
-                              <p>Ahmed Adel</p>
-                            </div>
-                            <div className="imgthumb">
-                              <img src="/assets/images/comment_user_image.png" />
-                            </div>
+                          <div className="imgthumb">
+                            <img src={item.nomineeAvatar} />
                           </div>
                         </div>
-                        <div className="more">
-                          <a href="#" title="#">
-                            View
-                          </a>
-                        </div>
+                      </div>
+                      <div className="more">
+                        <a href={`/shows/${item.id}`}>
+                          <Trans id="view">View</Trans>
+                        </a>
                       </div>
                     </div>
-                  ))
-                ) : (
-                  <div>No Shows Available</div>
-                )}
+                  </div>
+                ))}
               </Swiper>
             </div>
             <div className="slider_dots"></div>
@@ -150,61 +161,41 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
       <div className="show_blocks">
         <div className="container">
           <div className="search_filter">
-            <input type="text" placeholder="show title" />
-            <select name="" id="">
-              <option value="" selected>
-                2020
-              </option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-              <option value="">2021</option>
-            </select>
-            <select name="" id="">
-              <option value="" selected>
-                award category
-              </option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-            </select>
-            <select name="" id="">
-              <option value="" selected>
-                Genre
-              </option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-              <option value="">drama</option>
-              <option value="">sport</option>
-            </select>
-            <select name="" id="">
-              <option value="" selected>
-                Country
-              </option>
-              <option value="">Country</option>
-              <option value="">Country</option>
-              <option value="">Country</option>
-              <option value="">Country</option>
-            </select>
-            <button type="submit">
-              <i className="icofont-ui-search"></i>
-            </button>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input type="text" ref={register} name="title" placeholder="show title" />
+              <select ref={register} name="year">
+                {generas.map((y, i) => (
+                  <option value={y}>{y}</option>
+                ))}
+              </select>
+              <select ref={register} name="category">
+                {generas.map((c, i) => (
+                  <option value={c}>
+                    <Trans id={c}>{c}</Trans>
+                  </option>
+                ))}
+              </select>
+              <select ref={register} name="genera">
+                {generas.map((g, i) => (
+                  <option value={g}>
+                    <Trans id={g}>{g}</Trans>
+                  </option>
+                ))}
+              </select>
+              <select ref={register} name="country">
+                {countries.map((c, i) => (
+                  <option value={c}>
+                    <Trans id={c}>{c}</Trans>
+                  </option>
+                ))}
+              </select>
+              <button type="submit">
+                <i className="icofont-ui-search"></i>
+              </button>
+            </form>
           </div>
           <div className="shows_items">
-            {items.map((item, i) => (
+            {items.map(item => (
               <Show key={item.id} show={item} />
             ))}
           </div>
@@ -212,17 +203,47 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, pageCount
         </div>
       </div>
     </section>
+  ) : (
+    <section id="show_all">
+      <div className="show_slider">
+        <div className="container">
+          <I18n>
+            {({ i18n }) => {
+              return i18n.language == "ar" ? (
+                <div
+                  className="empty_title"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      "لكل صناع الإعلام في الوطن العربي أنتم على مسافة قريبة من نيل الجائزة الكبرى وتكريمكم بطابع عالمي<br>تحدي يستحق المشاركة، كن على الموعد لتقديم عملك"
+                  }}
+                ></div>
+              ) : (
+                <div
+                  className="empty_title"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      "For all media makers in the Arab world, <br>you are so close to be honoured globally by the Grand Award.<br>A Challenge worth participation.<br>Be on time to present your works."
+                  }}
+                ></div>
+              );
+            }}
+          </I18n>
+        </div>
+      </div>
+    </section>
   );
 };
 
-const Show = props => (
+const Show = ({ show }) => (
   <div className="item">
     <div className="imgthumb">
-      <a href="#" title="#">
-        <img src="/assets/images/show_image.png" />
+      <a href={`/shows/${show.id}`}>
+        <img src={show.posterUrl} />
         <div className="mask">
           <div className="content">
-            <p>The blue elephant</p>
+            <p>
+              <LanguageContext.Consumer>{({ locale }) => show.title[locale.code]}</LanguageContext.Consumer>
+            </p>
             {/* <Stars /> */}
           </div>
         </div>
@@ -231,22 +252,13 @@ const Show = props => (
   </div>
 );
 
-const Stars = props => (
-  <div className="stars">
-    <i className="icofont-ui-rating"></i>
-    <i className="icofont-ui-rating"></i>
-    <i className="icofont-ui-rating"></i>
-    <i className="icofont-ui-rate-blank"></i>
-    <i className="icofont-ui-rate-blank"></i>
-  </div>
-);
-
 const mapStateToProps = ({
+  home: { shows_categories: categories, shows_countries: countries, shows_generas: generas, shows_years: years },
   shows: {
     items,
     featuredItems,
     items_pagination: { pageCount }
   }
-}) => ({ items, featuredItems, pageCount });
+}) => ({ items, featuredItems, pageCount, categories, countries, generas, years });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...showsActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Shows);

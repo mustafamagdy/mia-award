@@ -4,14 +4,16 @@ using MIA.ORMContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MIA.ORMContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200305063413_add-complelteupload-booth")]
+    partial class addcomplelteuploadbooth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,60 +281,6 @@ namespace MIA.ORMContext.Migrations
                     b.ToTable("ArtWorkPayments");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.ArtworkCategory", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Code");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ArtworkCategories");
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.ArtworkGenre", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Code");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ArtworkGenres");
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.ArtworkReview", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ArtworkId");
-
-                    b.Property<string>("Comments");
-
-                    b.Property<long>("Date");
-
-                    b.Property<string>("Email");
-
-                    b.Property<bool>("IsApproved");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Title");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArtworkId");
-
-                    b.ToTable("ArtworkReviews");
-                });
-
             modelBuilder.Entity("MIA.Models.Entities.Award", b =>
                 {
                     b.Property<string>("Id")
@@ -434,11 +382,15 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Email");
 
+                    b.Property<string>("EmailVerified");
+
                     b.Property<string>("PaymentId");
 
                     b.Property<string>("Phone1");
 
                     b.Property<string>("Phone2");
+
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -463,34 +415,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContactUsSubjects");
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.Content", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ContentType");
-
-                    b.Property<string>("Data");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Contents");
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.Country", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Code");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Image", b =>
@@ -653,20 +577,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasIndex("NewsId");
 
                     b.ToTable("NewsComments");
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.ProductionYear", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Code");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductionYears");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.VotingCriteria", b =>
@@ -895,14 +805,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasOne("MIA.Models.Entities.ArtWork", "ArtWork")
                         .WithOne("Payment")
                         .HasForeignKey("MIA.Models.Entities.ArtWorkPayment", "ArtWorkId");
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.ArtworkReview", b =>
-                {
-                    b.HasOne("MIA.Models.Entities.ArtWork", "Artwork")
-                        .WithMany("Reviews")
-                        .HasForeignKey("ArtworkId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Award", b =>

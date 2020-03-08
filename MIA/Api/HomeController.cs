@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MIA.ORMContext;
@@ -40,6 +41,39 @@ namespace MIA.Api
       ) : base(logger, mapper)
     {
       this._Locale = _locale;
+    }
+
+    [HttpGet("metadata")]
+    public async Task<IActionResult> Metadata([FromServices] IAppUnitOfWork db)
+    {
+      var subjects = await db.ContactUsSubjects
+        .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
+        .ToListAsync();
+
+      var artworkCategories = await db.ArtworkCategories
+        .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
+        .ToListAsync();
+
+      var artworkGenres = await db.ArtworkGenres
+        .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
+        .ToListAsync();
+
+      var countries = await db.Countries
+        .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
+        .ToListAsync();
+
+      var productionYears = await db.ProductionYears
+        .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
+        .ToListAsync();
+
+      return Ok(new
+      {
+        ContactUsSubjects = subjects,
+        Categories = artworkCategories,
+        Genres = artworkGenres,
+        Countries = countries,
+        Years = productionYears,
+      });
     }
 
     [HttpGet("awards")]
@@ -95,7 +129,7 @@ namespace MIA.Api
     }
 
     [HttpGet("sponsors")]
-    public IActionResult Sponsers(
+    public async Task<IActionResult> Sponsers(
       [FromServices] IAppUnitOfWork db)
     {
       //var _result = db.News
@@ -112,7 +146,7 @@ namespace MIA.Api
     }
 
     [HttpPost("newsletter")]
-    public IActionResult SubscribeToNewsLeter(
+    public async Task<IActionResult> SubscribeToNewsLeter(
      [FromBody] NewsLetterDto dto,
      [FromServices] IAppUnitOfWork db)
     {
@@ -149,7 +183,7 @@ namespace MIA.Api
     {
       return Ok(await db.Booths
                         .Include(a => a.Purchases)
-                          .ThenInclude(a=>a.Payment)
+                          .ThenInclude(a => a.Payment)
                         .Where(a => !a.Purchases.Any() || a.Purchases.Any(a => a.Payment.PaymentStatus == Models.Entities.PaymentStatus.Rejected))
                         .ProjectTo<BoothDto>(_mapper.ConfigurationProvider)
                         .ToArrayAsync());
@@ -281,15 +315,7 @@ namespace MIA.Api
       }
     }
 
-    [HttpGet("contact-message-subject")]
-    public async Task<IActionResult> ContactUsMessageSubjects([FromServices] IAppUnitOfWork db)
-    {
-      var subjects = await db.ContactUsSubjects
-        .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
-        .ToListAsync();
 
-      return Ok(subjects);
-    }
 
     [HttpPost("send-contactus")]
     public async Task<IActionResult> SendContactUsMessage(

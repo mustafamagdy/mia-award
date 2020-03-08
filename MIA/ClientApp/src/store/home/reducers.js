@@ -3,7 +3,6 @@ import produce from "immer";
 import { ActionTypes } from "./actions";
 
 const initialState = {
-  contactUsMessageSubjects: [],
   news: [],
   awards: [],
   sponsers: [],
@@ -21,6 +20,7 @@ const initialState = {
     hasNextPage: false,
     hasPreviousPage: false
   },
+  contactUsMessageSubjects: [],
   shows_categories: [],
   shows_countries: [],
   shows_generas: [],
@@ -82,12 +82,6 @@ const fetchAwardsSuccess = (state, action) => {
   });
 };
 
-const contactUsMessageSubjectsSuccess = (state, action) => {
-  return produce(state, draft => {
-    draft.contactUsMessageSubjects = [...action.payload];
-  });
-};
-
 const fetchSponsersSuccess = (state, action) => {
   return produce(state, draft => {});
 };
@@ -102,13 +96,23 @@ const bookBoothSuccess = (state, action) => {
   });
 };
 
+const fetchMetadataSuccess = (state, action) => {
+  return produce(state, draft => {
+    draft.contactUsMessageSubjects = [...action.payload.contactUsSubjects];
+    draft.shows_categories = [...action.payload.categories];
+    draft.shows_countries = [...action.payload.countries];
+    draft.shows_generas = [...action.payload.genres];
+    draft.shows_years = [...action.payload.years];
+  });
+};
+
 export const reducer = createReducer(initialState, {
+  [ActionTypes.FETCH_METADATA_SUCCESS]: fetchMetadataSuccess,
   [ActionTypes.FETCH_MAIN_ALBUM_SUCCESS]: fetchMainAlbumSuccess,
   [ActionTypes.FETCH_NEWS_SUCCESS]: fetchNewsSuccess,
   [ActionTypes.FETCH_TIMELINE_SUCCESS]: fetchTimelineSuccess,
   [ActionTypes.FETCH_BOOTHS_SUCCESS]: fetchBoothsSuccess,
   [ActionTypes.FETCH_RECENT_SHOWS_SUCCESS]: fetchRecentShowsSuccess,
-  [ActionTypes.FETCH_CONTACT_US_MESSAGE_SUBJECTS_SUCCESS]: contactUsMessageSubjectsSuccess,
   [ActionTypes.FETCH_AWARDS_SUCCESS]: fetchAwardsSuccess,
   [ActionTypes.FETCH_SPONSERS_SUCCESS]: fetchSponsersSuccess,
   [ActionTypes.FETCH_LATEST_ALBUM_CONTENTS_SUCCESS]: fetchLatestmainAlbumuccess,

@@ -36,5 +36,17 @@ namespace MIA.Authorization.Entities
 
     [PermissionDescriptor(SystemModules.News, "AccessAll", "This allows the user to access every feature")]
     AccessAll = Int16.MaxValue,
+
+
+
+    [PermissionDescriptor(SystemModules.Booths, "view", "Can read employees")]
+    BoothRead = 15,
+    [PermissionDescriptor(SystemModules.Booths, "add_new", "Can add a new employees item")]
+    BoothAddNew = 16,
+    [PermissionDescriptor(SystemModules.Booths, "remove", "Can read employees data")]
+    BoothRemove = 17,
+    [PermissionDescriptor(SystemModules.Booths, "remove", "Can read employees data")]
+    BoothPayment= 18,
+
   }
 }

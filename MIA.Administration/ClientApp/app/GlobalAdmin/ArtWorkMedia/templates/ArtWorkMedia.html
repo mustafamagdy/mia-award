@@ -33,7 +33,7 @@
                                 ng-click="$state.go('editArtWork',{id: ArtWork.id});" title="Edit">mode_edit</i>
                             <i ng-show="user.PermessionModules['News'].includes('remove')"
                                 class="material-icons pmd-md deleteButton cursorPointer font25"
-                                ng-click="ArtWorkMediaCtrl.openDeleteDialog(ArtWork,ArtWork.title[selectedLanguage] ,ArtWork.id)"
+                                ng-click="ArtWorkMediaCtrl.openDeleteDialog(ArtWork,ArtWork.description  ,ArtWork.id)"
                                 title="Delete">delete</i>
                         </td>
                     </tr>

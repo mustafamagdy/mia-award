@@ -157,12 +157,7 @@ namespace MIA.Administration.Api
       var artWorkItem = await db.ArtWorks.FirstOrDefaultAsync(a => a.Id == resultDto.Id);
       return IfFound(_mapper.Map<ArtWorkDto>(artWorkItem));
     }
-    [HttpGet("getPayment")]
-    public async Task<IActionResult> GetPaymentAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db)
-    {
-      var artWorkItem = await db.ArtWorkPayments.FirstOrDefaultAsync(a => a.ArtWorkId == id);
-      return IfFound(_mapper.Map<ArtWorkPaymentDto>(artWorkItem));
-    }
+   
     [HttpGet("getArtWorkFiles")]
     public async Task<IActionResult> GetArtWorkFilesAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db)
     {
@@ -189,6 +184,16 @@ namespace MIA.Administration.Api
     {
       var artWorkItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id== id);
       return IfFound(_mapper.Map<MediaFile>(artWorkItem));
+    }
+    [HttpDelete("deleteMediaItem")]
+    public async Task<IActionResult> DeleteMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db)
+    {
+      var entity = db.Set<MediaFile>().FirstOrDefault(a => a.Id == id);
+      if (entity == null)
+        return NotFound404("record not found");
+
+      db.Set<MediaFile>().Remove(entity); 
+      return Ok();
     }
     [HttpPost("createMediaFile")]
     public async Task<IActionResult> CreateMediaFile([FromBody] MediaFileDto dto, [FromServices] IAppUnitOfWork db)
@@ -256,7 +261,12 @@ namespace MIA.Administration.Api
       return IfFound(_mapper.Map<ArtWorkPaymentDto>(paymentItem));
     }
 
-
+    [HttpGet("getPayment")]
+    public async Task<IActionResult> GetPaymentAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db)
+    {
+      var artWorkItem = await db.ArtWorkPayments.FirstOrDefaultAsync(a => a.ArtWorkId == id);
+      return IfFound(_mapper.Map<ArtWorkPaymentDto>(artWorkItem));
+    }
     [HttpGet("nominees")]
     public async Task<IActionResult> ListOfNominees([FromServices] IAppUnitOfWork db)
     {

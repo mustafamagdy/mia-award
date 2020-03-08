@@ -10,6 +10,7 @@ namespace MIA.Infrastructure {
     Awards,
     ArtWork,
     ArtWrokPayment,
+    BoothPayment,
     Docs
   }
 

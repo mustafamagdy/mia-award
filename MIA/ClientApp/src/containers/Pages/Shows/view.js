@@ -92,9 +92,9 @@ const ShowsView = ({ show, location, fetchShowDetails, postShowReview, commentsS
             </div>
           </div>
           <div className="show_video_show">
-            <a href="#">
+            <span>
               <img src={show.coverUrl} />
-            </a>
+            </span>
           </div>
         </div>
       </div>

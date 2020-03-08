@@ -25,35 +25,35 @@ namespace MIA.Api {
     public NewsController(IMapper mapper, [FromServices] ILogger<NewsController> logger) : base(logger, mapper) {
     }
 
-    [HttpPost("")]
-    public IActionResult List(
+    [HttpPost("list")]
+    public async Task<IActionResult> List(
       [FromBody] FullNewsSearch query,
       [FromServices] IAppUnitOfWork db) {
-      var result = db.News
+      var result = await db.News
         .Where(a => a.Outdated == false &&
             (string.IsNullOrEmpty(query.Category)
             || query.Category.ToLower() == "all"
             || a.Category.ToLower() == query.Category.ToLower()))
         .ProjectTo<FullNewsDto>(_mapper.ConfigurationProvider)
-        .ToPagedList(query);
+        .ToPagedListAsync(query);
 
       return IfFound(result);
     }
 
     [HttpGet("featured")]
-    public IActionResult Featured(
+    public async Task<IActionResult> Featured(
       [FromServices] IAppUnitOfWork db) {
-      var result = db.News
+      var result = await db.News
         .Where(a => a.Featured == true && a.Outdated == false)
         .ProjectTo<FullNewsDto>(_mapper.ConfigurationProvider)
-        .ToArray();
+        .ToArrayAsync();
 
       return IfFound(result);
     }
 
 
     [HttpGet("categories")]
-    public IActionResult Categories() {
+    public async Task<IActionResult> Categories() {
       var categories = Enum.GetNames(typeof(NewsCategory)).Select(a => a.ToLower()).ToArray();
       return IfFound(categories);
     }

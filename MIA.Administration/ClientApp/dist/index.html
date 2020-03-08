@@ -498,7 +498,7 @@
 			</div>
 
 			<div class="navbar-header">
-				<div class="row" ng-show="user.userTypeId == 4">
+				<div class="row" >
 
 
 					<!-- Notifications -->
@@ -513,7 +513,7 @@
 								</select>
 							</div>
 						</div>
-						<span id="clock">{{ clock | date:'HH:mm:ss'}}</span>
+						<!-- <span id="clock">{{ clock | date:'HH:mm:ss'}}</span> -->
 					</div>
 					<!-- End notifications -->
 				</div>
@@ -662,7 +662,7 @@
 					<span class="media-body" style="color: #a38031;">{{'NewsLbl' | translate}}</span>
 				</a>
 			</li>
-			<li ng-show="user.PermissionId.includes('News') ">
+			<li ng-show="user.PermissionId.includes('Booths') ">
 
 				<a class="pmd-ripple-effect" ng-click="$state.go('Booth');">
 					<i class="media-left media-middle">
@@ -678,7 +678,7 @@
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" style="color: #a38031;">{{'BoothLbl' | translate}}</span>
+					<span class="media-body" style="color: #a38031;">{{'Booth' | translate}}</span>
 				</a>
 			</li>
 			<li ng-show="user.PermissionId.includes('News') ">

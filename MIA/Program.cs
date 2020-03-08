@@ -127,10 +127,8 @@ namespace MIA {
           .Enrich.FromLogContext()
           .Enrich.WithExceptionDetails(
              new DestructuringOptionsBuilder()
-                    .WithDefaultDestructurers()
-                    .WithDestructurers(new[] {
-                          new DbUpdateExceptionDestructurer()
-                    }))
+               .WithDefaultDestructurers()
+               .WithDestructurers(new[] { new DbUpdateExceptionDestructurer() }))
           .Enrich.WithProperty("ApplicationName", typeof(Program).Assembly.GetName().Name)
           .Enrich.WithProperty("Environment", env)
           .Enrich.WithMachineName()
@@ -161,6 +159,8 @@ namespace MIA {
         WebHostBuilderContext builderContext,
         KestrelServerOptions options) {
       KestrelServerOptions source = new KestrelServerOptions();
+      options.AddServerHeader = false;
+      
       builderContext.Configuration.GetSection(nameof(ApplicationOptions.Kestrel)).Bind(source);
 
       KestrelServerLimits limits = options.Limits;
@@ -175,6 +175,7 @@ namespace MIA {
       http2.MaxFrameSize = sourceHttp2.MaxFrameSize;
       http2.MaxRequestHeaderFieldSize = sourceHttp2.MaxRequestHeaderFieldSize;
       http2.MaxStreamsPerConnection = sourceHttp2.MaxStreamsPerConnection;
+      
 
       limits.KeepAliveTimeout = sourceLimits.KeepAliveTimeout;
       limits.MaxConcurrentConnections = sourceLimits.MaxConcurrentConnections;
