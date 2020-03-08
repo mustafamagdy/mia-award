@@ -637,7 +637,7 @@ namespace MIA.ORMContext.Seed
 
       //(this is an example only)
       Permissions[] boothPermissions = new Permissions[] {
-          Permissions.BoothAddNew,
+          Permissions.BoothRead,
           Permissions.BoothAddNew,
           Permissions.BoothRemove, 
           Permissions.BoothPayment, 

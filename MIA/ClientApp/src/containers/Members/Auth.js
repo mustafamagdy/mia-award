@@ -11,8 +11,7 @@ import { bindActionCreators } from "redux";
 import { withRouter } from "react-router";
 
 import { Formik, Form } from 'formik';
-
-import FormField from 'components/Forms/Field'
+import { Recaptcha, Field } from "components/Forms";
 import * as Yup from 'yup';
 
 const ResetPasswordForm = ({ switchToLogin, resetPasswordForUser, location, match, ...props }) => {
@@ -52,13 +51,13 @@ const ResetPasswordForm = ({ switchToLogin, resetPasswordForUser, location, matc
         return <Form className="form popup__form" method="post">
           <div className="content">
 
-            <FormField
+            <Field
               type="password"
               className={`form-group__input ${errors.newPassword && touched.newPassword ? "has-error" : ''}`}
               placeholder="newPassword"
               name="newPassword"
             />
-            <FormField
+            <Field
               type="password"
               className={`form-group__input ${errors.confirmPassword && touched.confirmPassword ? "has-error" : ''}`}
               placeholder="confirmPassword"
@@ -142,7 +141,10 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
         jobTitle: '',
         phoneNumber: '',
         companyName: '',
-        password: ''
+        password: '',
+        confirmPassword: '',
+        reCaptchaToken: '',
+        address: ''
       }}
 
       validationSchema={
@@ -156,10 +158,25 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
           companyName: Yup.string()
             .required('Required'),
           password: Yup.string()
+            .required('Required'),
+          confirmPassword: Yup.string()
             .required('Required')
+            .when("password", {
+              is: val => (val && val.length > 0 ? true : false),
+              then: Yup.string().oneOf([Yup.ref("password")], "Both password need to be the same")
+            }),
+          reCaptchaToken: Yup.string().required("reCaptcha is required"),
         })
       }
-      onSubmit={values => {
+      onSubmit={(values, { actions, setFieldValue, setSubmitting }) => {
+
+        setTimeout(function () {
+          setSubmitting(false);
+          setFieldValue("reCaptchaToken", undefined);
+          // this.recaptcha.reset();
+          // history.push("/");
+        }, 1200);
+
         handleSubmit(signUp(values))
       }
       }
@@ -169,15 +186,9 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
         return <Form className="form popup__form" method="post">
           <div className={classNames("tab_item info_tab", { active: signupActiveTab == 0 })}>
             <div className="content">
-              <FormField
-                type="text"
-                className={`form-group__input ${errors.fullName && touched.fullName ? "has-error" : ''}`}
-                placeholder="full name"
 
-                name="fullName"
-              />
-              <span style={{ color: 'crimson' }}>{(errors.fullName && touched.fullName) && errors.fullName} </span>
-              <FormField
+              <label htmlFor='email' >Email</label>
+              <Field
                 type="text"
                 className={`form-group__input ${errors.email && touched.email ? "has-error" : ''}`}
                 placeholder="email"
@@ -185,14 +196,50 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
                 name="email"
               />
               <span style={{ color: 'crimson' }}>{(errors.email && touched.email) && errors.email} </span>
-              <FormField
+
+              <label htmlFor='password' >Password</label>
+              <Field
+                type="password"
+                className={`form-group__input ${errors.password && touched.password ? "has-error" : ''}`}
+                placeholder="password"
+                name="password"
+              />
+              <span style={{ color: 'crimson' }}>{(errors.password && touched.password) && errors.password} </span>
+              <label htmlFor='confirmPassword' >Confirm password</label>
+              <Field
+                type="password"
+                className={`form-group__input ${errors.password && touched.password ? "has-error" : ''}`}
+                placeholder="Confirm password"
+                name="confirmPassword"
+              />
+              <span style={{ color: 'crimson' }}>{(errors.confirmPassword && touched.confirmPassword) && errors.confirmPassword} </span>
+            </div>
+            <Field name="reCaptchaToken" component={Recaptcha} setRecaptcha={recpat => (this.recaptcha = recpat)} />
+            <div className="next_step">
+              <span onClick={() => setSignupActiveTab(1)}>Next</span>
+            </div>
+          </div>
+          <div className={classNames("tab_item upload_tab tab_info", { active: signupActiveTab == 1 })}>
+            <div className="content">
+              <label htmlFor='fullName' >Full name</label>
+              <Field
+                type="text"
+                className={`form-group__input ${errors.fullName && touched.fullName ? "has-error" : ''}`}
+                placeholder="full name"
+
+                name="fullName"
+              />
+              <span style={{ color: 'crimson' }}>{(errors.fullName && touched.fullName) && errors.fullName} </span>
+              <label htmlFor='jobTitle' >Job title</label>
+              <Field
                 type="text"
                 className={`form-group__input ${errors.jobTitle && touched.jobTitle ? "has-error" : ''}`}
                 placeholder="job title"
                 name="jobTitle"
               />
               <span style={{ color: 'crimson' }}>{(errors.jobTitle && touched.jobTitle) && errors.jobTitle} </span>
-              <FormField
+              <label htmlFor='phoneNumber' >Phone number</label>
+              <Field
                 type="text"
                 className={`form-group__input ${errors.phoneNumber && touched.phoneNumber ? "has-error" : ''}`}
                 placeholder="phone number"
@@ -200,7 +247,8 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
                 name="phoneNumber"
               />
               <span style={{ color: 'crimson' }}>{(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber} </span>
-              <FormField
+              <label htmlFor='companyName' >Company name</label>
+              <Field
                 type="text"
                 className={`form-group__input ${errors.companyName && touched.companyName ? "has-error" : ''}`}
                 placeholder="company name"
@@ -208,7 +256,8 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
                 name="companyName"
               />
               <span style={{ color: 'crimson' }}>{(errors.companyName && touched.companyName) && errors.companyName} </span>
-              <FormField
+              <label htmlFor='address' >Address</label>
+              <Field
                 type="text"
                 className={`form-group__input ${errors.address && touched.address ? "has-error" : ''}`}
                 placeholder="address"
@@ -216,19 +265,7 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
                 name="address"
               />
               <span style={{ color: 'crimson' }}>{(errors.address && touched.address) && errors.address} </span>
-              <FormField
-                type="password"
-                className={`form-group__input ${errors.password && touched.password ? "has-error" : ''}`}
-                placeholder="password"
-                name="password"
-              />
-              <span style={{ color: 'crimson' }}>{(errors.password && touched.password) && errors.password} </span>
             </div>
-            <div className="next_step">
-              <span onClick={() => setSignupActiveTab(1)}>Next</span>
-            </div>
-          </div>
-          <div className={classNames("tab_item upload_tab ", { active: signupActiveTab == 1 })}>
             <div className="imgthumb">
               <img src="/assets/images/related_news_image.png" />
               <span>Upload</span>
@@ -276,11 +313,11 @@ const Register = ({ signupActiveTab, setSignupActiveTab, signupUser, ...props })
 };
 
 // let resetPassword =false;
-const Auth = ({location, ...props }) => {
+const Auth = ({ location, ...props }) => {
   const [view, setView] = useState("login");
   const [signupActiveTab, setSignupActiveTab] = useState(0);
-  const [resetPassword,setResetPassword]=useState(false)
-  const signupTabs = ["info", "upload_avatar", "terms_and_conditions"];
+  const [resetPassword, setResetPassword] = useState(false)
+  const signupTabs = ["info", "details", "terms_and_conditions"];
   let { reset } = props
   if (reset && !resetPassword && view != 'reset-password') {
     setView('reset-password')

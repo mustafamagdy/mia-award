@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 
 const UploadDropZone = ({ setFiles, setFile, style, accept, multiple, className, iconClass, message, setProgress, progress,extensions, ...props }) => {
     const onDrop = useCallback(acceptedFiles => {
-        const accFiles=[];
+        let accFiles;
         if(extensions && extensions.length>0){
             acceptedFiles.map(file=>{
                 if(extensions.includes(file.type)){

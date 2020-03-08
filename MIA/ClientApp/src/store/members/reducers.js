@@ -31,7 +31,10 @@ const addNewArtworkSuccess = (state, action) => {
   });
 };
 const saveArtworkInfoSuccess = (state, action) => {
-  return produce(state, draft => { });
+  return produce(state, draft => { 
+    draft.artworkMode = "view";
+    draft.artworkDetails= { ...action.payload };
+  });
 };
 const fetchArtworkWithDetailsSuccess = (state, action) => {
   return produce(state, draft => {

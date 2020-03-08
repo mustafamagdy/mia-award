@@ -18,8 +18,7 @@ const initialState = {
 };
 
 const signupFinished = (state, action) => {
-  store.dispatch(push("/account/checkYourEmail"));
-  return state;
+   return state;
 };
 
 const signupFailed = (state, { payload }) => {
