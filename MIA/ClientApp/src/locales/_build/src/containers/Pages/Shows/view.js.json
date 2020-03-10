@@ -1,0 +1,171 @@
+{
+  "date_of_release": {
+    "defaults": "Date of release",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        54
+      ]
+    ]
+  },
+  "category": {
+    "defaults": "Category",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        60
+      ]
+    ]
+  },
+  "genre": {
+    "defaults": "Genre",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        66
+      ]
+    ]
+  },
+  "country": {
+    "defaults": "Country",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        72
+      ]
+    ]
+  },
+  "posted_date": {
+    "defaults": "Posted",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        78
+      ]
+    ]
+  },
+  "About the show": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        87
+      ]
+    ]
+  },
+  "director": {
+    "defaults": "Director",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        163
+      ]
+    ]
+  },
+  "production": {
+    "defaults": "Production",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        169
+      ]
+    ]
+  },
+  "writers": {
+    "defaults": "Writers",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        175
+      ]
+    ]
+  },
+  "story": {
+    "defaults": "Story",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        181
+      ]
+    ]
+  },
+  "stars": {
+    "defaults": "Stars",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        187
+      ]
+    ]
+  },
+  "crew": {
+    "defaults": "Crew",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        193
+      ]
+    ]
+  },
+  "cast": {
+    "defaults": "Cast",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        197
+      ]
+    ]
+  },
+  "pod": {
+    "defaults": "D.O.P",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        203
+      ]
+    ]
+  },
+  "post_comment": {
+    "defaults": "Post Comment",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        281
+      ]
+    ]
+  },
+  "comment_submitted": {
+    "defaults": "Your comment has been submitted successfully for review",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        286
+      ]
+    ]
+  },
+  "comment_failed": {
+    "defaults": "There is an error, the message could not be sent",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        290
+      ]
+    ]
+  },
+  "by": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        308
+      ]
+    ]
+  },
+  "no_reviews_yet": {
+    "defaults": "No reviews yet",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        317
+      ]
+    ]
+  }
+}
