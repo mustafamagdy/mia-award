@@ -34,15 +34,6 @@
       ]
     ]
   },
-  "view_all": {
-    "defaults": "view all",
-    "origin": [
-      [
-        "src/containers/Home/Awards.js",
-        48
-      ]
-    ]
-  },
   "apply_now": {
     "defaults": "apply now",
     "origin": [

@@ -1,6 +1,6 @@
 {
   "mia_awards": {
-    "defaults": "MIA Awards",
+    "defaults": "MIA Award",
     "origin": [
       [
         "src/components/Layout/index.js",

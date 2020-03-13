@@ -1,10 +1,46 @@
 {
+  "gold_sposer": {
+    "defaults": "Gold Sponser",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        175
+      ]
+    ]
+  },
+  "standard": {
+    "defaults": "Standard",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        178
+      ]
+    ]
+  },
+  "mia": {
+    "defaults": "MIA",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        181
+      ]
+    ]
+  },
+  "media_industry": {
+    "defaults": "Media Industry",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        184
+      ]
+    ]
+  },
   "area": {
     "defaults": "AREA",
     "origin": [
       [
         "src/containers/Booths/index.js",
-        185
+        208
       ]
     ]
   },
@@ -13,47 +49,11 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        192
+        215
       ],
       [
         "src/containers/Booths/index.js",
-        210
-      ]
-    ]
-  },
-  "choose_your_payment_method": {
-    "defaults": "Choose Your Payment Method",
-    "origin": [
-      [
-        "src/containers/Booths/index.js",
-        222
-      ]
-    ]
-  },
-  "pay_online": {
-    "defaults": "Pay Online",
-    "origin": [
-      [
-        "src/containers/Booths/index.js",
-        227
-      ]
-    ]
-  },
-  "pay_and_continue": {
-    "defaults": "Pay & Continue",
-    "origin": [
-      [
-        "src/containers/Booths/index.js",
-        249
-      ]
-    ]
-  },
-  "pay_offline": {
-    "defaults": "Pay Offline",
-    "origin": [
-      [
-        "src/containers/Booths/index.js",
-        257
+        233
       ]
     ]
   },
@@ -62,7 +62,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        272
+        302
       ]
     ]
   },
@@ -71,7 +71,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        283
+        313
       ]
     ]
   },
@@ -80,7 +80,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        287
+        317
       ]
     ]
   },
@@ -89,7 +89,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        303
+        334
       ]
     ]
   },
@@ -98,7 +98,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        306
+        337
       ]
     ]
   }

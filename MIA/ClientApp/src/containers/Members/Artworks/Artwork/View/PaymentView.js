@@ -1,15 +1,32 @@
 import React from "react";
 import classNames from "classnames";
+import { Trans } from "@lingui/macro";
 
 const PaymentView = ({ details, active, ...props }) => {
-  return  <div className="payment_info">
-  <ul>
-    <li><span>Amount :</span><p>{details?.amount}</p></li>
-    <li><span>Date :</span><p>{details?.date}</p></li>
-    <li><span>Is Offline :</span><p>{details?.isOffline}</p></li>
-    <li><span>Status :</span><p>{details?.status}</p></li>
-  </ul>
-</div>;
+  return (
+    <div className={classNames("tab_content tab_payment payment_info", { active })}>
+      <ul>
+        <li>
+          <span>
+            <Trans id="amount">Amount </Trans>:
+          </span>
+          <p>{details?.amount}</p>
+        </li>
+        <li>
+          <span>
+            <Trans id="date">Date </Trans>:
+          </span>
+          <p>{details?.date}</p>
+        </li>
+        <li>
+          <span>
+            <Trans id="status">Status </Trans>:
+          </span>
+          <p>{details?.status}</p>
+        </li>
+      </ul>
+    </div>
+  );
 };
 
 export default PaymentView;

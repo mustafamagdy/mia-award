@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/containers/Pages/Shows/view.js:87
+msgid "About the show"
+msgstr ""
+
 #: src/components/Layout/Footer.js:57
 msgid "about_us"
 msgstr "من نحن"
@@ -21,13 +25,17 @@ msgstr "من نحن"
 msgid "accept_changes"
 msgstr "قبول التغييرات"
 
-#: src/containers/Pages/ContactUs/index.js:60
+#: src/containers/Pages/ContactUs/index.js:56
 msgid "address"
 msgstr "العنوان"
 
 #: src/components/Layout/LanguageSelect.js:65
 #~ msgid "all_languages"
 #~ msgstr "جميع اللغات"
+
+#: src/containers/Members/Artworks/Artwork/View/PaymentView.js:11
+msgid "amount"
+msgstr ""
 
 #: src/containers/Award/index.js:63
 msgid "apply_for_award"
@@ -41,7 +49,7 @@ msgstr "التقدم للجائزة"
 msgid "apply_now"
 msgstr "التقدم الآن"
 
-#: src/containers/Booths/index.js:185
+#: src/containers/Booths/index.js:208
 msgid "area"
 msgstr "مساحة"
 
@@ -54,15 +62,15 @@ msgstr "مساحة"
 #~ msgid "awards"
 #~ msgstr "الجوائز"
 
-#: src/containers/Booths/index.js:287
+#: src/containers/Booths/index.js:317
 msgid "book_now"
 msgstr "احجز الان"
 
-#: src/containers/Booths/index.js:303
+#: src/containers/Booths/index.js:334
 msgid "booth_booking_success"
 msgstr ""
 
-#: src/containers/Booths/index.js:306
+#: src/containers/Booths/index.js:337
 msgid "booth_booking_success_msg"
 msgstr ""
 
@@ -75,6 +83,7 @@ msgid "buy_your_ticket"
 msgstr "شراء التذكرة"
 
 #: src/containers/Pages/News/view.js:171
+#: src/containers/Pages/Shows/view.js:308
 msgid "by"
 msgstr "بواسطة"
 
@@ -85,6 +94,15 @@ msgstr "بالنقر على «أوافق» أو علامة «X» على هذا �
 #: src/containers/MyProfile/index.js:259
 msgid "cancel"
 msgstr "إلغاء"
+
+#: src/containers/Pages/Shows/view.js:197
+msgid "cast"
+msgstr ""
+
+#: src/containers/Pages/Shows/index.js:111
+#: src/containers/Pages/Shows/view.js:60
+msgid "category"
+msgstr ""
 
 #: src/containers/MyProfile/ChangePassword.js:17
 #: src/containers/MyProfile/index.js:222
@@ -97,19 +115,21 @@ msgstr "تغيير كلمة المرور"
 msgid "change_photo"
 msgstr "تغيير الصورة"
 
-#: src/containers/Booths/index.js:283
+#: src/containers/Booths/index.js:313
 msgid "choose_receipt_image"
 msgstr "اختر صورة ايصال الدفع"
 
 #: src/containers/Booths/index.js:222
-msgid "choose_your_payment_method"
-msgstr "اختر طريقة الدفع التى تناسبك"
+#~ msgid "choose_your_payment_method"
+#~ msgstr "اختر طريقة الدفع التى تناسبك"
 
 #: src/containers/Pages/News/view.js:153
+#: src/containers/Pages/Shows/view.js:290
 msgid "comment_failed"
 msgstr "حدث خطأ، يتعذر إرسال الرسالة."
 
 #: src/containers/Pages/News/view.js:149
+#: src/containers/Pages/Shows/view.js:286
 msgid "comment_submitted"
 msgstr "تم إرسال تعليقك بنجاح للمراجعة."
 
@@ -121,15 +141,15 @@ msgstr "تأكيد كلمة المرور"
 msgid "confirm_your_email_first"
 msgstr "التحقق من صحة بريدك الإلكتروني أولاً."
 
-#: src/containers/Pages/ContactUs/index.js:53
+#: src/containers/Pages/ContactUs/index.js:49
 msgid "contact_us"
 msgstr "الاتصال بنا"
 
-#: src/containers/Pages/ContactUs/index.js:169
+#: src/containers/Pages/ContactUs/index.js:165
 msgid "contact_us_message_sent_fail"
 msgstr "حدث خطأ، يتعذر إرسال الرسالة."
 
-#: src/containers/Pages/ContactUs/index.js:164
+#: src/containers/Pages/ContactUs/index.js:160
 msgid "contact_us_message_sent_success"
 msgstr "تم إرسال الرسالة بنجاح."
 
@@ -141,24 +161,38 @@ msgstr "سياسة ملفات تعريف الارتباط"
 msgid "copyright_media_industry"
 msgstr "حقوق النشر© 2020 لشركة جوائز صناعة الإعلام. كافة الحقوق محفوظة"
 
-#: src/containers/Home/RecentShows.js:72
-#~ msgid "country"
-#~ msgstr "الدولة"
+#: src/containers/Pages/Shows/index.js:123
+#: src/containers/Pages/Shows/view.js:72
+msgid "country"
+msgstr "الدولة"
 
 #: src/components/Layout/LoginStatus.js:34
 msgid "create_account"
 msgstr "إنشاء حساب"
 
+#: src/containers/Pages/Shows/view.js:193
+msgid "crew"
+msgstr ""
+
 #: src/containers/Home/Tickets.js:33
+#: src/containers/Members/Artworks/Artwork/View/PaymentView.js:17
 msgid "date"
 msgstr "التاريخ"
 
-#: src/containers/Pages/ContactUs/index.js:63
+#: src/containers/Pages/Shows/view.js:54
+msgid "date_of_release"
+msgstr ""
+
+#: src/containers/Pages/Shows/view.js:163
+msgid "director"
+msgstr ""
+
+#: src/containers/Pages/ContactUs/index.js:59
 msgid "dubai_address"
 msgstr "دبي، مدينة دبي الإعلامية، مبنى رقم 1، الدور الثاني - مكتب رقم 214"
 
 #: src/containers/MyProfile/index.js:155
-#: src/containers/Pages/ContactUs/index.js:90
+#: src/containers/Pages/ContactUs/index.js:86
 msgid "email"
 msgstr "البريد الإلكتروني"
 
@@ -170,11 +204,11 @@ msgstr "تمكين التحرير"
 msgid "failed"
 msgstr "فشل"
 
-#: src/containers/Pages/ContactUs/index.js:81
+#: src/containers/Pages/ContactUs/index.js:77
 msgid "fax"
 msgstr "فاكس"
 
-#: src/containers/Pages/ContactUs/index.js:84
+#: src/containers/Pages/ContactUs/index.js:80
 msgid "fax_1"
 msgstr "+971 4 57 2636 6"
 
@@ -190,13 +224,18 @@ msgstr "معرض الصور"
 msgid "general"
 msgstr "عام"
 
-#: src/containers/Home/RecentShows.js:59
-#~ msgid "genre"
-#~ msgstr "النوع"
+#: src/containers/Pages/Shows/index.js:117
+#: src/containers/Pages/Shows/view.js:66
+msgid "genre"
+msgstr "النوع"
 
-#: src/containers/Pages/ContactUs/index.js:107
+#: src/containers/Pages/ContactUs/index.js:103
 msgid "get_in_touch"
 msgstr "التواصل"
+
+#: src/containers/Booths/index.js:175
+msgid "gold_sposer"
+msgstr ""
 
 #: src/components/Forms/Date/DualCalendar.js:49
 #: src/components/Forms/Date/MonoCalendar.js:39
@@ -219,7 +258,7 @@ msgstr "لكي تبقى على علم بآخر مستجدات كل الخصائ�
 #~ msgid "language"
 #~ msgstr "اللغة"
 
-#: src/containers/Home/PhotoAlbum.js:132
+#: src/containers/Home/PhotoAlbum.js:138
 msgid "latest_video"
 msgstr "أحدث الفيديوهات والصور"
 
@@ -233,11 +272,16 @@ msgstr "تحميل...."
 msgid "logout"
 msgstr "تسجيل الخروج"
 
+#: src/containers/Booths/index.js:184
+msgid "media_industry"
+msgstr ""
+
 #: src/components/Layout/Footer.js:52
 #: src/components/Layout/Footer.js:62
 msgid "members"
 msgstr "المشاركون"
 
+#: src/containers/Booths/index.js:181
 #: src/containers/MyProfile/ChangePassword.js:15
 #: src/containers/MyProfile/ImageUpload.js:54
 msgid "mia"
@@ -274,19 +318,19 @@ msgstr "اهم الاخبار"
 msgid "newsletter"
 msgstr "رسالة إخبارية"
 
-#: src/containers/Booths/index.js:192
-#: src/containers/Booths/index.js:210
+#: src/containers/Booths/index.js:215
+#: src/containers/Booths/index.js:233
 #: src/containers/Home/News.js:132
 msgid "next"
 msgstr "التالي"
 
-#: src/containers/Home/RecentShows.js:92
-msgid "no_shows_available_yet"
+#: src/containers/Pages/Shows/view.js:317
+msgid "no_reviews_yet"
 msgstr ""
-"لكل صناع الإعلام في الوطن العربي أنتم على مسافة قريبة من نيل الجائزة الكبرى وتكريمكم بطابع عالمي"
-"<br>"
-"تحدي يستحق المشاركة، كن على الموعد لتقديم عملك"
 
+#: src/containers/Home/RecentShows.js:92
+#~ msgid "no_shows_available_yet"
+#~ msgstr "لكل صناع الإعلام في الوطن العربي أنتم على مسافة قريبة من نيل الجائزة الكبرى وتكريمكم بطابع عالمي<br>تحدي يستحق المشاركة، كن على الموعد لتقديم عملك"
 
 #: src/containers/MyProfile/ChangePassword.js:47
 msgid "old_password"
@@ -333,27 +377,27 @@ msgid "our_value_text"
 msgstr "<0><1><2>• الحيادية : :</2><3>نقف بدون انحياز وعلى مسافة واحدة من كل ابناء الوطن العربي</3></1><4><5>• الموضوعية :</5><6>بعيداً عن الاهواء، لدينا آلية واحدة في التعامل مع كل أداء.. ابداعك هو ما يحدد مركزك</6></4><8><9>المصداقية:</9><10>من أساسيات جوهر عملنا أن نزاهتنا هي منهجنا في التقييم</10></8><11><12>• التعزيز :</12><13>تقديم جوائز نوعية عديدة وشهادات تقدير وفق معايير الأداء.</13></11></0>"
 
 #: src/containers/Booths/index.js:249
-msgid "pay_and_continue"
-msgstr "ادفع"
+#~ msgid "pay_and_continue"
+#~ msgstr "ادفع"
 
 #: src/containers/Booths/index.js:257
-msgid "pay_offline"
-msgstr "ادفع بوسائل اخرى"
+#~ msgid "pay_offline"
+#~ msgstr "ادفع بوسائل اخرى"
 
 #: src/containers/Booths/index.js:227
-msgid "pay_online"
-msgstr "ادفع مباشرة"
+#~ msgid "pay_online"
+#~ msgstr "ادفع مباشرة"
 
 #: src/containers/MyProfile/index.js:187
-#: src/containers/Pages/ContactUs/index.js:69
+#: src/containers/Pages/ContactUs/index.js:65
 msgid "phone"
 msgstr "الهاتف"
 
-#: src/containers/Pages/ContactUs/index.js:72
+#: src/containers/Pages/ContactUs/index.js:68
 msgid "phone_1"
 msgstr "+971 4 57 2636 7"
 
-#: src/containers/Pages/ContactUs/index.js:75
+#: src/containers/Pages/ContactUs/index.js:71
 msgid "phone_2"
 msgstr "+971 4 57 2636 8"
 
@@ -365,19 +409,29 @@ msgstr "+971 4 57 2636 8"
 #~ msgid "please_select_checkout_date"
 #~ msgstr "الرجاء تحديد يوم المغادرة."
 
-#: src/containers/Booths/index.js:272
+#: src/containers/Booths/index.js:302
 msgid "please_upload_the_receipt"
 msgstr "ارفق ايصال الدفع"
 
+#: src/containers/Pages/Shows/view.js:203
+msgid "pod"
+msgstr ""
+
 #: src/containers/Pages/News/view.js:144
+#: src/containers/Pages/Shows/view.js:281
 msgid "post_comment"
 msgstr "نشر تعليق"
 
 #: src/containers/Pages/News/index.js:92
 #: src/containers/Pages/News/index.js:214
 #: src/containers/Pages/News/view.js:47
+#: src/containers/Pages/Shows/index.js:129
 msgid "posted"
 msgstr "تم النشر"
+
+#: src/containers/Pages/Shows/view.js:78
+msgid "posted_date"
+msgstr ""
 
 #: src/containers/Home/News.js:116
 msgid "prev"
@@ -386,6 +440,10 @@ msgstr "السابق"
 #: src/components/Layout/Footer.js:72
 msgid "privacy_policy"
 msgstr "سياسة الخصوصية"
+
+#: src/containers/Pages/Shows/view.js:169
+msgid "production"
+msgstr ""
 
 #: src/components/Layout/index.js:60
 #~ msgid "program"
@@ -417,13 +475,17 @@ msgstr "قراءة المزيد"
 msgid "read_more_elapsed"
 msgstr "قراءة المزيد.."
 
-#: src/containers/Home/RecentShows.js:33
+#: src/containers/Home/RecentShows.js:34
 msgid "recent_shows"
 msgstr "آخر العروض"
 
 #: src/containers/Pages/News/view.js:197
 msgid "related_news"
 msgstr "الأخبار المتعلقة"
+
+#: src/containers/Pages/Shows/index.js:105
+msgid "release-date"
+msgstr ""
 
 #: src/containers/App/CookieGDPR.js:100
 msgid "review_our_cookie_policy"
@@ -433,7 +495,7 @@ msgstr "استعراض سياسة ملفات تعريف الارتباط"
 msgid "select_your_image"
 msgstr "تحديد صورتك"
 
-#: src/containers/Pages/ContactUs/index.js:160
+#: src/containers/Pages/ContactUs/index.js:156
 msgid "send_message"
 msgstr "إرسال رسالة"
 
@@ -459,11 +521,24 @@ msgstr "تسجيل الدخول"
 #~ msgid "sports"
 #~ msgstr "الرياضة"
 
+#: src/containers/Booths/index.js:178
+msgid "standard"
+msgstr ""
+
+#: src/containers/Pages/Shows/view.js:187
+msgid "stars"
+msgstr ""
+
 #: src/containers/Home/Awards.js:40
 msgid "start_from"
 msgstr "البدء من"
 
+#: src/containers/Members/Artworks/Artwork/View/PaymentView.js:23
+msgid "status"
+msgstr ""
+
 #: src/containers/Pages/AboutUs/index.js:49
+#: src/containers/Pages/Shows/view.js:181
 msgid "story"
 msgstr "القصة"
 
@@ -508,18 +583,30 @@ msgstr "تحميل الصورة الرمزية"
 msgid "upload_image"
 msgstr "تحميل الصورة"
 
+#: src/containers/Pages/Shows/index.js:87
+msgid "uploaded"
+msgstr ""
+
 #: src/containers/Award/index.js:38
 #: src/containers/Members/Artworks/Artwork/AddNew/Payment.js:78
 msgid "usd"
 msgstr "USD"
 
-#: src/containers/Home/PhotoAlbum.js:135
+#: src/containers/Pages/Shows/index.js:138
+msgid "user_account"
+msgstr ""
+
+#: src/containers/Home/PhotoAlbum.js:141
 msgid "videos_desc"
 msgstr ""
 
+#: src/containers/Pages/Shows/index.js:149
+msgid "view"
+msgstr ""
+
 #: src/containers/Home/Awards.js:48
-msgid "view_all"
-msgstr "عرض الكل"
+#~ msgid "view_all"
+#~ msgstr "عرض الكل"
 
 #: src/containers/Home/IntroSlider.js:137
 #~ msgid "view_awards"
@@ -536,3 +623,7 @@ msgstr "نقوم باستخدام ملفات تعريف الارتباط وبع�
 #: src/containers/App/CookieGDPR.js:106
 msgid "what_do_we_use_cookies_for"
 msgstr "فيما تستخدام ملفات تعريف الارتباط؟"
+
+#: src/containers/Pages/Shows/view.js:175
+msgid "writers"
+msgstr ""
