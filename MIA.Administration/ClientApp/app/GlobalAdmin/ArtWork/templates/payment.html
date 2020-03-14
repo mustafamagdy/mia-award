@@ -59,12 +59,27 @@
                 </div>
             </div>
             <div class="row">
- 
+
+                <div class="form-group col-lg-4">
+                    <!-- <label for="first-name">{{'Allow To upload Media' | translate}}</label>
+                    <input type="checkbox" ng-checked="artWorkPaymentCtrl.artWorkPayment.paymentStatus=='confirmed'"
+                        ng-model="artWorkPaymentCtrl.artWorkPayment.paymentStatus"> -->
+
+                    <label for="first-name">{{'status' | translate}}</label>
+                    <select required style="width:100% !important"
+                        class="form-control select-with-search pmd-select2-tags"
+                        ng-model="artWorkPaymentCtrl.selectedStatus"
+                        ng-options="group as group.shortName  for group in artWorkPaymentCtrl.statusList">
+                    </select>
+
+
+                </div>
+
                 <div class="form-group col-lg-4">
                     <span style="color:red">*</span>
 
                     <input id="receiptImage" name="receiptImage" style="display: none;"
-                        onchange="angular.element(this).scope().AddreceiptImage(this.files)" type="file"  >
+                        onchange="angular.element(this).scope().AddreceiptImage(this.files)" type="file">
                     <button class="btn btn-success btn-xs pull-center"
                         ng-click="artWorkPaymentCtrl.LoadUploadreceipt()">{{'Upload Receipt' | translate}}</button>
                     <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
@@ -74,28 +89,14 @@
                         <div ng-if="artWorkPaymentForm.receiptImage.$error.required">{{'requiredErr' | translate}}
                         </div>
                     </div>
-
-                    <!-- <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
-                                Receipt</label>
-                            <input class="hidden" type="file"
-                                onchange="angular.element(this).scope().uploadReceiptFile(this)" ng-model="receipt"
-                                name="receiptName">
-                            <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
-                            <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                                {{'RecommendedProductImage' | translate}}</span> -->
                 </div>
-                <div class="form-group col-lg-4">
-                    <label for="first-name">{{'Allow To upload Media' | translate}}</label>
-                    <input type="checkbox" ng-checked="artWorkPaymentCtrl.artWorkPayment.paymentStatus=='confirmed'"
-                     ng-model="artWorkPaymentCtrl.artWorkPayment.paymentStatus">
-                </div>
-            </div> 
-            <div class="pmd-modal-action text-right">
-                <button ng-show="artWorkPaymentCtrl.artWorkPayment == null"
+            </div>
+            <div class="pmd-modal-action text-right"> <button
+                    ng-show="artWorkPaymentCtrl.artWorkPayment.paymentStatus == 'waiting'"
                     style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
                     ng-disabled="artWorkPaymentForm.$invalid" class="btn pmd-ripple-effect btn-primary" ArtWork="button"
-                    ng-click="artWorkPaymentCtrl.AddNewArtWork()">{{'saveChangesBtn' | translate}}</button>
-                <button ng-show="artWorkPaymentCtrl.artWorkPayment != null"
+                    ng-click="artWorkPaymentCtrl.AddArtWorkPaymet()">{{'saveChangesBtn' | translate}}</button>
+                <button ng-show="artWorkPaymentCtrl.artWorkPayment.paymentStatus != 'waiting'"
                     style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
                     ng-disabled="artWorkPaymentForm.$invalid" class="btn pmd-ripple-effect btn-primary" ArtWork="button"
                     ng-click="artWorkPaymentCtrl.UpdatePayment()">{{'saveChangesBtnupdate' | translate}}</button>

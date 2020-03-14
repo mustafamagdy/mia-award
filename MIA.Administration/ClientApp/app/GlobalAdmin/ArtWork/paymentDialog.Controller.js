@@ -3,16 +3,25 @@
 
     angular
         .module('home')
-        .controller('artWorkPaymentDialogController', ['$scope', 'blockUI', '$http', '$state', '$stateParams', '$translate',
+        .controller('artWorkPaymentDialogController', ['$scope', 'blockUI', 'status', '$state', '$stateParams', '$translate',
             'ArtWorkResource', 'ToastService', '$rootScope', 'ArtWorkPaymentByArtWorkIdPrepService', artWorkPaymentDialogController])
 
-    function artWorkPaymentDialogController($scope, blockUI, $http, $state, $stateParams, $translate, ArtWorkResource,
+    function artWorkPaymentDialogController($scope, blockUI, status, $state, $stateParams, $translate, ArtWorkResource,
         ToastService, $rootScope, ArtWorkPaymentByArtWorkIdPrepService) {
         var vm = this;
         var receiptImage;
+
+        vm.statusList = status.StatusList;
         vm.artWorkPayment = ArtWorkPaymentByArtWorkIdPrepService;
         console.log(vm.artWorkPayment)
-        vm.paymentStatus = 0;
+
+        if (vm.artWorkPayment.paymentStatus == 'waiting')
+            vm.selectedStatus = vm.statusList[0];
+        if (vm.artWorkPayment.paymentStatus == 'confirmed')
+            vm.selectedStatus = vm.statusList[1];
+        if (vm.artWorkPayment.paymentStatus == 'rejected')
+            vm.selectedStatus = vm.statusList[2];
+
         vm.receiptImage = vm.artWorkPayment.receiptUrl;
         vm.close = function () {
             $state.go('ArtWork');
@@ -35,15 +44,25 @@
         };
 
 
-        vm.AddPayment = function () {
+        vm.AddArtWorkPaymet = function () {
+            var fileByte = "";
+            var fileName = "";
+            if (receiptImage != null) {
+                var splitImage = vm.receiptImage.split(',');
+                fileByte = splitImage[1];
+                fileName = receiptImage.type;
+            }
+            
             blockUI.start("Loading...");
+           debugger;
             var newObj = new ArtWorkResource();
             newObj.ArtWorkId = $stateParams.id;// vm.artWorkPayment.ArtWorkId;
-            newObj.PaymentStatus = vm.PaymentStatus == true ? 1 : 0;
-            newObj.TransactionNumber = vm.TransactionNumber;
-            newObj.Amount = vm.Amount;
-            // newObj.PaymentDate = $('#paymentDate').val();
-            newObj.Receipt = receiptImage;
+            newObj.PaymentStatus = vm.selectedStatus.Id;
+            newObj.TransactionNumber = vm.artWorkPayment.transactionNumber;
+            newObj.Amount = vm.artWorkPayment.amount;
+            newObj.PaymentDate = +new Date($('#paymentDate').val());
+            newObj.Receipt = fileByte;
+            newObj.ReceiptFileName = fileName;
 
             newObj.$createPayment().then(
                 function (data, status) {
@@ -59,15 +78,23 @@
         }
 
         vm.UpdatePayment = function () {
+            var fileByte = "";
+            var fileName = "";
+            if (receiptImage != null) {
+                var splitImage = vm.receiptImage.split(',');
+                fileByte = splitImage[1];
+                fileName = receiptImage.type;
+            }
             blockUI.start("Loading...");
             var newObj = new ArtWorkResource();
             newObj.Id = vm.artWorkPayment.id;
-            newObj.ArtWorkId = vm.artWorkPayment.artWorkId;
-            newObj.PaymentStatus = vm.artWorkPayment.paymentStatus == true ? 1 : 0;
+            newObj.ArtWorkId = $stateParams.id;//vm.artWorkPayment.artWorkId;
+            newObj.PaymentStatus = vm.selectedStatus.Id;//vm.artWorkPayment.paymentStatus == true ? 1 : 0;
             newObj.TransactionNumber = vm.artWorkPayment.transactionNumber;
             newObj.Amount = vm.artWorkPayment.amount;
-            // newObj.PaymentDate = $('#paymentDate').val();
-            newObj.Receipt = receiptImage;
+            newObj.PaymentDate = +new Date($('#paymentDate').val());
+            newObj.Receipt = fileByte;
+            newObj.ReceiptFileName = fileName;
 
             newObj.$updatePayment().then(
                 function (data, status) {

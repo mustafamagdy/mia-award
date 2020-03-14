@@ -11,6 +11,7 @@ namespace MIA.Administration.Api {
     public string CriteriaId { get; set; }
     public JudgeDto Judge { get; set; }
     public string JudgeId { get; set; }
+    public bool JudgeComplete { get; set; }
   }
 
 }

@@ -9,7 +9,8 @@ namespace MIA.Administration.Api
     public decimal Weight { get; set; }
     public int Order { get; set; }
     public string Code { get; set; }
-    public int Value { get; set; }
+    //public int Value { get; set; }
+    //public bool JudgeComplete { get; set; }
   }
 
 }

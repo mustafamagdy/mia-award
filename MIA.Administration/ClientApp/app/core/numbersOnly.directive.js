@@ -2,6 +2,24 @@
 angular.module('core')
 
 
+    .directive('numberTest', function () {
+
+        return {
+            link: function (scope, element, attrs) {
+
+                scope.validity = JSON.stringify(element[0].validity, null, '\t');
+
+                element.on('keyup', function () {
+                    scope.$apply(function () {
+                        scope.validity = JSON.stringify(element[0].validity, null, '\t');
+                    })
+                })
+
+            }
+        }
+
+    })
+
     .directive('numbersOnly', function () {
         return {
             require: 'ngModel',

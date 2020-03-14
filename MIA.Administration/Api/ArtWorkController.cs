@@ -65,7 +65,7 @@ namespace MIA.Administration.Api
             return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
           }
 
-          ArtWorksItem.Payment = new ArtWorkPayment();
+          //    ArtWorksItem.Payment = new ArtWorkPayment();
           posterKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.PosterFileName);
           posterUrl = await fileManager.UploadFileAsync(memorySteam, posterKey);
         }
@@ -80,23 +80,23 @@ namespace MIA.Administration.Api
           coverKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.CoverFileName);
           coverUrl = await fileManager.UploadFileAsync(memorySteam, coverKey);
         }
-        using (var memorySteam = new MemoryStream(dto.TrailerPoster))
-        {
-          string validationError = "";
-          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
-          {
-            return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
-          }
+        //using (var memorySteam = new MemoryStream(dto.TrailerPoster))
+        //{
+        //  string validationError = "";
+        //  if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
+        //  {
+        //    return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+        //  }
 
-          trailerPosterKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.TrailerPosterFileName);
-          trailerPosterUrl = await fileManager.UploadFileAsync(memorySteam, trailerPosterKey);
-        }
+        //  trailerPosterKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.TrailerPosterFileName);
+        //  trailerPosterUrl = await fileManager.UploadFileAsync(memorySteam, trailerPosterKey);
+        //}
         ArtWorksItem.PosterUrl = posterUrl;
         ArtWorksItem.PosterId = posterKey;
         ArtWorksItem.CoverUrl = coverUrl;
         ArtWorksItem.CoverId = coverKey;
-        ArtWorksItem.TrailerPosterUrl = trailerPosterUrl;
-        ArtWorksItem.TrailerPosterId = trailerPosterKey;
+        //ArtWorksItem.TrailerPosterUrl = trailerPosterUrl;
+        //ArtWorksItem.TrailerPosterId = trailerPosterKey;
         await db.CommitTransactionAsync();
       }
 
@@ -154,10 +154,10 @@ namespace MIA.Administration.Api
     {
       var result = await base.GetAsync(id, db);
       var resultDto = ((ArtWorkDto)(result as OkObjectResult)?.Value);
-      var artWorkItem = await db.ArtWorks.FirstOrDefaultAsync(a => a.Id == resultDto.Id);
+      var artWorkItem = await db.ArtWorks.Include(i => i.Award).Include(i => i.Nominee).FirstOrDefaultAsync(a => a.Id == resultDto.Id);
       return IfFound(_mapper.Map<ArtWorkDto>(artWorkItem));
     }
-   
+
     [HttpGet("getArtWorkFiles")]
     public async Task<IActionResult> GetArtWorkFilesAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db)
     {
@@ -182,7 +182,7 @@ namespace MIA.Administration.Api
     [HttpGet("getMediaFile")]
     public async Task<IActionResult> GetMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db)
     {
-      var artWorkItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id== id);
+      var artWorkItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id == id);
       return IfFound(_mapper.Map<MediaFile>(artWorkItem));
     }
     [HttpDelete("deleteMediaItem")]
@@ -192,15 +192,15 @@ namespace MIA.Administration.Api
       if (entity == null)
         return NotFound404("record not found");
 
-      db.Set<MediaFile>().Remove(entity); 
+      db.Set<MediaFile>().Remove(entity);
       return Ok();
     }
     [HttpPost("createMediaFile")]
     public async Task<IActionResult> CreateMediaFile([FromBody] MediaFileDto dto, [FromServices] IAppUnitOfWork db)
     {
-      var result = await db.Set<MediaFile>().AddAsync(_mapper.Map<MediaFile>(dto)); 
+      var result = await db.Set<MediaFile>().AddAsync(_mapper.Map<MediaFile>(dto));
       var mediaItem = await db.MediaFiles.FindAsync(result.Entity.Id);
-      return IfFound(_mapper.Map<MediaFile>(mediaItem)); 
+      return IfFound(_mapper.Map<MediaFile>(mediaItem));
     }
     [HttpPut("UpdateMediaItemVideoUrl")]
     public async Task<IActionResult> UpdateMediaItemVideoUrlAsync([FromBody] MediaFileDto dto, [FromServices] IAppUnitOfWork db)
@@ -216,16 +216,48 @@ namespace MIA.Administration.Api
     }
 
     [HttpPost("createPayment")]
-    public async Task<IActionResult> SavePaymentAsync([FromForm] NewArtWorkPaymentDto dto, [FromServices] IAppUnitOfWork db)
+    public async Task<IActionResult> SavePaymentAsync([FromBody] NewArtWorkPaymentDto dto, [FromServices] IAppUnitOfWork db)
     {
-      var result = await db.Set<ArtWorkPayment>().AddAsync(_mapper.Map<ArtWorkPayment>(dto));
-      // var resultDto = (ArtWorkPaymentDto)(result as OkObjectResult)?.Value;
-      var PaymentItem = await db.ArtWorkPayments.FindAsync(result.Entity.Id);
-      return IfFound(_mapper.Map<ArtWorkPaymentDto>(PaymentItem));
+      //var newartwork = new ArtWorkPayment();
+      //newartwork.ArtWorkId = dto.ArtWorkId;
+      //newartwork.Amount = dto.Amount;
+      //newartwork.PaymentDate = dto.PaymentDate;
+      //newartwork.TransactionNumber = dto.TransactionNumber; ;
+
+      //var result = await db.Set<ArtWorkPayment>().AddAsync(newartwork);
+
+      //await db.CommitTransactionAsync();
+
+      var result = await db.ArtWorkPayments.AddAsync(_mapper.Map<ArtWorkPayment>(dto));
+       await db.CommitTransactionAsync();
+      var paymentItem = await db.ArtWorkPayments.FindAsync(result.Entity.Id);
+
+      if (dto.Receipt != null && dto.Receipt.Length > 0)
+      {
+        using (var memorySteam = new MemoryStream(dto.Receipt))
+        {
+          string validationError = "";
+          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
+          {
+            return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+          }
+
+          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWrokPayment, paymentItem.Id, dto.ReceiptFileName);
+          var posterUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
+
+          paymentItem.ReceiptUrl = posterUrl;
+          paymentItem.ReceiptId = fileKey;
+          var entry = db.Set<ArtWorkPayment>().Attach(paymentItem);
+          entry.State = EntityState.Modified;
+          await db.CommitTransactionAsync();
+        }
+      }
+
+      return IfFound(_mapper.Map<ArtWorkPaymentDto>(paymentItem));
     }
 
     [HttpPut("updatePayment")]
-    public async Task<IActionResult> UpdatePaymentAsync([FromForm] UpdateArtWorkPaymentDto dto, [FromServices] IAppUnitOfWork db)
+    public async Task<IActionResult> UpdatePaymentAsync([FromBody] UpdateArtWorkPaymentDto dto, [FromServices] IAppUnitOfWork db)
     {
 
       var paymentItem = await db.ArtWorkPayments.FirstOrDefaultAsync(a => a.Id == dto.Id);
@@ -235,18 +267,16 @@ namespace MIA.Administration.Api
 
       if (dto.Receipt != null && dto.Receipt.Length > 0)
       {
-        using (var memorySteam = new MemoryStream())
+        using (var memorySteam = new MemoryStream(dto.Receipt))
         {
-          dto.Receipt.CopyTo(memorySteam);
-
           string validationError = "";
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
           {
             return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
           }
 
-          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWrokPayment, paymentItem.Id, dto.Receipt.FileName);
-          var posterUrl = await fileManager.UploadFileAsync(dto.Receipt.OpenReadStream(), fileKey);
+          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWrokPayment, paymentItem.Id, dto.ReceiptFileName);
+          var posterUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
           paymentItem.ReceiptUrl = posterUrl;
           paymentItem.ReceiptId = fileKey;
@@ -265,6 +295,10 @@ namespace MIA.Administration.Api
     public async Task<IActionResult> GetPaymentAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db)
     {
       var artWorkItem = await db.ArtWorkPayments.FirstOrDefaultAsync(a => a.ArtWorkId == id);
+      if (artWorkItem == null)
+      {
+        return IfFound(_mapper.Map<ArtWorkPaymentDto>(new ArtWorkPayment()));
+      }
       return IfFound(_mapper.Map<ArtWorkPaymentDto>(artWorkItem));
     }
     [HttpGet("nominees")]

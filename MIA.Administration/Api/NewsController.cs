@@ -48,9 +48,7 @@ namespace MIA.Administration.Api {
       var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
       var newsItem = await db.News.FindAsync(resultDto.Id);
       if (dto.Poster != null && dto.Poster.Length > 0) {
-        using (var memorySteam = new MemoryStream(dto.Poster)) {
-          //dto.Poster.CopyTo(memorySteam);
-
+        using (var memorySteam = new MemoryStream(dto.Poster)) { 
           string validationError = "";
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
             return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
