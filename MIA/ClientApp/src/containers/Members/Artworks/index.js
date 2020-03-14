@@ -122,9 +122,7 @@ const Artworks = ({ fetchMyArtworks, fetchMyAwards, myAwards, myArtworks, myAwar
     </React.Fragment>
   );
 };
-// export default Artworks;
 
-// const mapStateToProps = ({ auth: { currentUser, isLoggedIn } }) => ({ currentUser, isLoggedIn });
 const mapStateToProps = ({ members: { myAwards, myArtworks, myAwardsLoaded, myArtworksLoaded } }) => ({ myAwards, myArtworks, myAwardsLoaded, myArtworksLoaded });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...membersActions, ...authActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Artworks));

@@ -1,0 +1,29 @@
+{
+  "amount": {
+    "defaults": "Amount",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/PaymentView.js",
+        11
+      ]
+    ]
+  },
+  "date": {
+    "defaults": "Date",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/PaymentView.js",
+        17
+      ]
+    ]
+  },
+  "status": {
+    "defaults": "Status",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/PaymentView.js",
+        23
+      ]
+    ]
+  }
+}

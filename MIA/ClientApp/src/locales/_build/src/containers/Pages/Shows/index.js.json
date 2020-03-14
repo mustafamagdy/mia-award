@@ -1,0 +1,74 @@
+{
+  "uploaded": {
+    "defaults": "Uploaded",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        87
+      ]
+    ]
+  },
+  "release-date": {
+    "defaults": "Date of release",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        105
+      ]
+    ]
+  },
+  "category": {
+    "defaults": "Category",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        111
+      ]
+    ]
+  },
+  "genre": {
+    "defaults": "Genre",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        117
+      ]
+    ]
+  },
+  "country": {
+    "defaults": "Country",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        123
+      ]
+    ]
+  },
+  "posted": {
+    "defaults": "Posted",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        129
+      ]
+    ]
+  },
+  "user_account": {
+    "defaults": "User Account",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        138
+      ]
+    ]
+  },
+  "view": {
+    "defaults": "View",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        149
+      ]
+    ]
+  }
+}
