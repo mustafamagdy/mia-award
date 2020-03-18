@@ -1,4 +1,17 @@
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/ConfirmationMessage/templates/ConfirmMessageDialog.html',
+    '<div class="modal-content">\n' +
+    '	<div class="modal-body">{{\'messageConfirmationLbl\' | translate}} ? </div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button"\n' +
+    '			ng-click="messageDlCtrl.Confirm()">{{\'Save\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button"\n' +
+    '			ng-click="messageDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
     '<div class="modal-content">\n' +
     '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
@@ -236,26 +249,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
     '                                    </div>\n' +
     '                                </div>\n' +
-    '                                <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                    <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <textarea required class="mat-input form-control"\n' +
-    '                                        name="showDescription{{lang.value+\'Name\'}}"\n' +
-    '                                        ng-model="editArtWorkCtrl.ArtWork.showDescription[lang.key]" ng-minlength="3"\n' +
-    '                                        ng-maxlength="955"></textarea>\n' +
-    '                                    <div ng-messages="editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                        <div class="error ng-binding"\n' +
-    '                                            ng-show="editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error.required && !editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$pristine">\n' +
-    '                                            {{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div class="error ng-binding"\n' +
-    '                                            ng-show="(editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error.minlength || editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error.maxlength) && !editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div> -->\n' +
     '                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
     '                                    <label for="first-name">{{ \'Body\' | translate}} </label>\n' +
-    '                                    <textarea   class="mat-input form-control"\n' +
-    '                                        name="showDescription{{lang.value+\'Name\'}}"\n' +
+    '                                    <textarea class="mat-input form-control" name="showDescription{{lang.value+\'Name\'}}"\n' +
     '                                        ng-model="editArtWorkCtrl.ArtWork.showDescription[lang.key]" ng-minlength="3"\n' +
     '                                        ng-maxlength="955"></textarea>\n' +
     '                                    <div ng-messages="editArtWorkForm.showDescription{{lang.value+\'Name\'}}.$error">\n' +
@@ -294,24 +290,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        </select>\n' +
     '                    </div>\n' +
     '\n' +
-    '                    <div class="form-group col-lg-4">\n' +
-    '                        <label for="first-name">{{\'FilesCount\' | translate}}</label>\n' +
-    '                        <input required type="text" class="mat-input form-control" name="fileCount" numbers-only\n' +
-    '                            style="display: inline-block;" ng-minlength="1" ng-maxlength="4"\n' +
-    '                            ng-model="editArtWorkCtrl.ArtWork.fileCount" />\n' +
-    '                        <!-- required validation  -->\n' +
-    '                        <div ng-messages="editArtWorkForm.fileCount.$error">\n' +
-    '                            <div class="error" ng-if="editArtWorkForm.fileCount.$error.required && \n' +
-    '                                        !editArtWorkForm.fileCount.$pristine">\n' +
-    '                                {{\'requiredErr\' |  translate}}\n' +
-    '                            </div>\n' +
-    '                            <!-- length validation -->\n' +
-    '                            <div class="error" ng-if="(editArtWorkForm.fileCount.$error.minlength ||\n' +
-    '                                            editArtWorkForm.fileCount.$error.maxlength) \n' +
-    '                                             && !editArtWorkForm.fileCount.newfileCount.$error.required">\n' +
-    '                                {{\'PhoneLengthError\' |  translate}}\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
+    '\n' +
+    '                    <div class="form-group col-lg-4"> <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '                        <select required style="width:100% !important"\n' +
+    '                            class="form-control select-with-search pmd-select2-tags"\n' +
+    '                            ng-model="editArtWorkCtrl.selectedCountry"\n' +
+    '                            ng-options="group as group.shortName  for group in editArtWorkCtrl.countryList">\n' +
+    '                        </select>\n' +
+    '\n' +
     '                    </div>\n' +
     '                </div>\n' +
     '\n' +
@@ -320,36 +306,37 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <label for="first-name">{{\'Production\' | translate}}</label>\n' +
     '                        <select required style="width:100% !important" multiple\n' +
     '                            class="select-add-tags form-control pmd-select2-tags"\n' +
-    '                            ng-model="editArtWorkCtrl.ArtWork.production" > \n' +
+    '                            ng-model="editArtWorkCtrl.ArtWork.production">\n' +
     '\n' +
-    '                        </select> \n' +
-    '                            <!-- ng-options="group for group  in editArtWorkCtrl.productionList"> -->\n' +
+    '                        </select>\n' +
+    '                        <!-- ng-options="group for group  in editArtWorkCtrl.productionList"> -->\n' +
     '\n' +
     '                        {{editArtWorkCtrl.ArtWork.production}}\n' +
     '                    </div>\n' +
     '\n' +
     '                    <div class="form-group col-lg-4"> <label for="first-name">{{\'Director\' | translate}}</label>\n' +
     '                        <select required style="width:100% !important" multiple\n' +
-    '                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.ArtWork.director">\n' +
+    '                            class="select-add-tags form-control pmd-select2-tags"\n' +
+    '                            ng-model="editArtWorkCtrl.ArtWork.director">\n' +
     '                        </select>\n' +
     '                        {{editArtWorkCtrl.ArtWork.director}}\n' +
     '                    </div>\n' +
-    '\n' +
-    '                    <div class="form-group col-lg-4"> <label for="first-name">{{\'Country\' | translate}}</label>\n' +
-    '                        <select required style="width:100% !important"\n' +
-    '                            class="form-control select-with-search pmd-select2-tags"\n' +
-    '                            ng-model="editArtWorkCtrl.selectedCountry"\n' +
-    '                            ng-options="group as group.shortName  for group in editArtWorkCtrl.countryList">\n' +
-    '                        </select> \n' +
-    '\n' +
+    '                    <div class="form-group col-lg-4">\n' +
+    '                        <label for="first-name">{{\'Crew\' | translate}}</label>\n' +
+    '                        <select required style="width:100% !important" multiple\n' +
+    '                            class="select-add-tags form-control pmd-select2-tags"\n' +
+    '                            ng-model="editArtWorkCtrl.ArtWork.crew">\n' +
+    '                        </select>\n' +
     '                    </div>\n' +
+    '\n' +
     '                </div>\n' +
     '\n' +
     '                <div class="row">\n' +
     '                    <div class="form-group col-lg-4">\n' +
     '                        <label for="first-name">{{\'Writers\' | translate}}</label>\n' +
     '                        <select required style="width:100% !important" multiple\n' +
-    '                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.ArtWork.writers">\n' +
+    '                            class="select-add-tags form-control pmd-select2-tags"\n' +
+    '                            ng-model="editArtWorkCtrl.ArtWork.writers">\n' +
     '                        </select>\n' +
     '                    </div>\n' +
     '\n' +
@@ -382,12 +369,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '                </div>\n' +
     '                <div class="row">\n' +
-    '                    <div class="form-group col-lg-4">\n' +
-    '                        <label for="first-name">{{\'Crew\' | translate}}</label>\n' +
-    '                        <select required style="width:100% !important" multiple\n' +
-    '                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.ArtWork.crew">\n' +
-    '                        </select>\n' +
-    '                    </div>\n' +
     '\n' +
     '                    <div class="form-group col-lg-4">\n' +
     '                        <span style="color:red">*</span>\n' +
@@ -415,11 +396,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            </div>\n' +
     '\n' +
     '        </form>\n' +
-    '    </div> \n' +
+    '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
     '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="editArtWorkForm.$invalid "\n' +
-    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-disabled="editArtWorkForm.$invalid " class="btn pmd-ripple-effect btn-primary" type="button"\n' +
     '            ng-click="editArtWorkCtrl.UpdateArtWork()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
     '            ng-click="editArtWorkCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
@@ -763,12 +743,27 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                </div>\n' +
     '            </div>\n' +
     '            <div class="row">\n' +
-    ' \n' +
+    '\n' +
+    '                <div class="form-group col-lg-4">\n' +
+    '                    <!-- <label for="first-name">{{\'Allow To upload Media\' | translate}}</label>\n' +
+    '                    <input type="checkbox" ng-checked="artWorkPaymentCtrl.artWorkPayment.paymentStatus==\'confirmed\'"\n' +
+    '                        ng-model="artWorkPaymentCtrl.artWorkPayment.paymentStatus"> -->\n' +
+    '\n' +
+    '                    <label for="first-name">{{\'status\' | translate}}</label>\n' +
+    '                    <select required style="width:100% !important"\n' +
+    '                        class="form-control select-with-search pmd-select2-tags"\n' +
+    '                        ng-model="artWorkPaymentCtrl.selectedStatus"\n' +
+    '                        ng-options="group as group.shortName  for group in artWorkPaymentCtrl.statusList">\n' +
+    '                    </select>\n' +
+    '\n' +
+    '\n' +
+    '                </div>\n' +
+    '\n' +
     '                <div class="form-group col-lg-4">\n' +
     '                    <span style="color:red">*</span>\n' +
     '\n' +
     '                    <input id="receiptImage" name="receiptImage" style="display: none;"\n' +
-    '                        onchange="angular.element(this).scope().AddreceiptImage(this.files)" type="file"  >\n' +
+    '                        onchange="angular.element(this).scope().AddreceiptImage(this.files)" type="file">\n' +
     '                    <button class="btn btn-success btn-xs pull-center"\n' +
     '                        ng-click="artWorkPaymentCtrl.LoadUploadreceipt()">{{\'Upload Receipt\' | translate}}</button>\n' +
     '                    <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>\n' +
@@ -778,28 +773,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <div ng-if="artWorkPaymentForm.receiptImage.$error.required">{{\'requiredErr\' | translate}}\n' +
     '                        </div>\n' +
     '                    </div>\n' +
-    '\n' +
-    '                    <!-- <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload\n' +
-    '                                Receipt</label>\n' +
-    '                            <input class="hidden" type="file"\n' +
-    '                                onchange="angular.element(this).scope().uploadReceiptFile(this)" ng-model="receipt"\n' +
-    '                                name="receiptName">\n' +
-    '                            <img ng-src="{{image}}" height="100" width="100" ng-show="image" />\n' +
-    '                            <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>\n' +
-    '                                {{\'RecommendedProductImage\' | translate}}</span> -->\n' +
     '                </div>\n' +
-    '                <div class="form-group col-lg-4">\n' +
-    '                    <label for="first-name">{{\'Allow To upload Media\' | translate}}</label>\n' +
-    '                    <input type="checkbox" ng-checked="artWorkPaymentCtrl.artWorkPayment.paymentStatus==\'confirmed\'"\n' +
-    '                     ng-model="artWorkPaymentCtrl.artWorkPayment.paymentStatus">\n' +
-    '                </div>\n' +
-    '            </div> \n' +
-    '            <div class="pmd-modal-action text-right">\n' +
-    '                <button ng-show="artWorkPaymentCtrl.artWorkPayment == null"\n' +
+    '            </div>\n' +
+    '            <div class="pmd-modal-action text-right"> <button\n' +
+    '                    ng-show="artWorkPaymentCtrl.artWorkPayment.paymentStatus == \'waiting\'"\n' +
     '                    style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
     '                    ng-disabled="artWorkPaymentForm.$invalid" class="btn pmd-ripple-effect btn-primary" ArtWork="button"\n' +
-    '                    ng-click="artWorkPaymentCtrl.AddNewArtWork()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '                <button ng-show="artWorkPaymentCtrl.artWorkPayment != null"\n' +
+    '                    ng-click="artWorkPaymentCtrl.AddArtWorkPaymet()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '                <button ng-show="artWorkPaymentCtrl.artWorkPayment.paymentStatus != \'waiting\'"\n' +
     '                    style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
     '                    ng-disabled="artWorkPaymentForm.$invalid" class="btn pmd-ripple-effect btn-primary" ArtWork="button"\n' +
     '                    ng-click="artWorkPaymentCtrl.UpdatePayment()">{{\'saveChangesBtnupdate\' | translate}}</button>\n' +
@@ -835,6 +816,257 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                angular.element(document.getElementById(\'paymentDate\')).scope().dateChange();\n' +
     '            });\n' +
     '\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/ArtWorkMedia.html',
+    '<div>\n' +
+    '    <div style="margin-bottom:10px" ng-show="user.PermessionModules[\'News\'].includes(\'add_new\')">\n' +
+    '        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);\n' +
+    '        border-radius: 17px;" ng-click="$state.go(\'newArtWorkMedia\',{id:$stateParams.id});"\n' +
+    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">\n' +
+    '            {{\'AddNew\'| translate}}</button>\n' +
+    '    </div>\n' +
+    '    <div ng-if="ArtWorkMediaCtrl.mediaItemList.length == null">\n' +
+    '        <span>{{\'NoArtWorksAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="ArtWorkMediaCtrl.mediaItemList.length > 0">\n' +
+    '        <div class="table-responsive" style="border: 1px solid #21231e;\n' +
+    '        border-radius: 20px;\n' +
+    '        background-color: #0e0e0e;\n' +
+    '        box-shadow: 0 0 10px 5px rgba(0,0,0,.35);\n' +
+    '    ">\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th>{{\'title\' | translate}}</th>\n' +
+    '                        <th></th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                    <tr ng-repeat="ArtWork in ArtWorkMediaCtrl.mediaItemList">\n' +
+    '                        <td data-title="Name">\n' +
+    '                            {{ArtWork.description   | limitTo : 20}}\n' +
+    '                            {{ArtWork.description.length > 20 ? \'...\' : \'\'}}\n' +
+    '                        </td>\n' +
+    '                        <td width="30%">\n' +
+    '                            <i ng-show="user.PermessionModules[\'ArtWork\'].includes(\'add_new\')"\n' +
+    '                                class="material-icons md-dark pmd-md cursorPointer font25"\n' +
+    '                                ng-click="$state.go(\'editArtWork\',{id: ArtWork.id});" title="Edit">mode_edit</i>\n' +
+    '                            <i ng-show="user.PermessionModules[\'News\'].includes(\'remove\')"\n' +
+    '                                class="material-icons pmd-md deleteButton cursorPointer font25"\n' +
+    '                                ng-click="ArtWorkMediaCtrl.openDeleteDialog(ArtWork,ArtWork.description  ,ArtWork.id)"\n' +
+    '                                title="Delete">delete</i>\n' +
+    '                        </td>\n' +
+    '                    </tr>\n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '        paging-action="ArtWorkMediaCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
+    '        hide-if-empty="true" disabled-class="hide">\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/edit.html',
+    '<div id="bold">\n' +
+    '    {{\'EditArtWork\' | translate}}\n' +
+    '</div>\n' +
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'ArtWorkLbl\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="editArtWorkForm">\n' +
+    '            <div>\n' +
+    '                <!-- Nav tabs -->\n' +
+    '                <ul class="nav nav-tabs" role="tablist">\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editArtWorkCtrl.language">\n' +
+    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"\n' +
+    '                            data-toggle="tab">\n' +
+    '                            <span style="color:red">*</span> {{lang.value | translate}}\n' +
+    '                        </a>\n' +
+    '                    </li>\n' +
+    '                </ul>\n' +
+    '                <div class="pmd-card">\n' +
+    '                    <div class="pmd-card-body">\n' +
+    '                        <!-- Tab panes -->\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
+    '                                ng-repeat="lang in editArtWorkCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                    <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                    <input required type="text" class="mat-input form-control"\n' +
+    '                                        name="title{{lang.value+\'Name\'}}" ng-model="editArtWorkCtrl.ArtWork.title[lang.key]"\n' +
+    '                                        ng-minlength="3" ng-maxlength="255">\n' +
+    '                                    <div ng-messages="editArtWorkForm.title{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                        <div class="error ng-binding"\n' +
+    '                                            ng-show="editArtWorkForm.title{{lang.value+\'Name\'}}.$error.required && !editArtWorkForm.title{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                            {{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div class="error ng-binding"\n' +
+    '                                            ng-show="(editArtWorkForm.title{{lang.value+\'Name\'}}.$error.minlength || editArtWorkForm.title{{lang.value+\'Name\'}}.$error.maxlength) && !editArtWorkForm.title{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                    <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                    <textarea required type="text" class="mat-input form-control"\n' +
+    '                                        name="body{{lang.value+\'Name\'}}" ng-model="editArtWorkCtrl.ArtWork.body[lang.key]"\n' +
+    '                                        ng-minlength="3" ng-maxlength="955"></textarea>\n' +
+    '                                    <div ng-messages="editArtWorkForm.body{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                        <div class="error ng-binding"\n' +
+    '                                            ng-show="editArtWorkForm.body{{lang.value+\'Name\'}}.$error.required && !editArtWorkForm.body{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                            {{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div class="error ng-binding"\n' +
+    '                                            ng-show="(editArtWorkForm.body{{lang.value+\'Name\'}}.$error.minlength || editArtWorkForm.body{{lang.value+\'Name\'}}.$error.maxlength) && !editArtWorkForm.body{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '\n' +
+    '                            </div>\n' +
+    '\n' +
+    '                            <div class="form-group pmd-textfield-floating-label-completed">\n' +
+    '                                <span style="color:red">*</span>\n' +
+    '                                <label for="image" class="btn btn-success btn-xs pull-center" name="upload"\n' +
+    '                                    Value="">Upload\n' +
+    '                                    Photo</label>\n' +
+    '                                <input id="image" class="hidden" type="file" img-upload ng-model="imageName"\n' +
+    '                                    name="imageName">\n' +
+    '                                <img ng-src="{{image}}" height="100" width="100" ng-show="image" />\n' +
+    '\n' +
+    '                                <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>\n' +
+    '                                    {{\'RecommendedProductImage\' | translate}}</span>\n' +
+    '\n' +
+    '                            </div>\n' +
+    '\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-disabled="editArtWorkForm.$invalid ||  file ==null" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="editArtWorkCtrl.UpdateArtWork()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '            ng-click="editArtWorkCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                // Insert the tag at the end of the results\n' +
+    '                data.push(tag);\n' +
+    '                // console.log(data);\n' +
+    '            }\n' +
+    '        });\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/new.html',
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text"> {{\'AddNewArtWorkMediaBtn\' | translate}} </h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="newArtWorkMediaForm">\n' +
+    '            <div class="row">\n' +
+    '                <div class="form-group col-lg-4">\n' +
+    '                    <!-- Nav tabs -->\n' +
+    '                    <ul class="nav nav-tabs" role="tablist">\n' +
+    '                        <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
+    '                            ng-repeat="lang in newArtWorkMediaCtrl.language">\n' +
+    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-n-form" aria-controls="home"\n' +
+    '                                role="tab" data-toggle="tab">\n' +
+    '                                <span style="color:red">*</span>{{lang.value | translate}}\n' +
+    '                            </a>\n' +
+    '                        </li>\n' +
+    '                    </ul>\n' +
+    '                    <div class="pmd-card">\n' +
+    '                        <div class="pmd-card-body">\n' +
+    '                            <!-- Tab panes -->\n' +
+    '                            <div class="tab-content">\n' +
+    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
+    '                                    ng-repeat="lang in newArtWorkMediaCtrl.language" id="{{lang.value}}-n-form">\n' +
+    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                                        <label for="first-name">{{ \'Title\' | translate}} </label>\n' +
+    '                                        <input required News="text" class="mat-input form-control"\n' +
+    '                                            name="title{{lang.value+n+\'Name\'}}"\n' +
+    '                                            ng-model="newArtWorkMediaCtrl.Title[lang.key]" ng-minlength="3"\n' +
+    '                                            ng-maxlength="255">\n' +
+    '                                        <div ng-messages="newArtWorkMediaForm.title{{lang.value+n+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                            <div class="error ng-binding"\n' +
+    '                                                ng-show="newArtWorkMediaForm.title{{lang.value+n+\'Name\'}}.$error.required && !newArtWorkMediaForm.title{{lang.value+n+\'Name\'}}.$pristine">\n' +
+    '                                                {{\'requiredErr\' | translate}}</div>\n' +
+    '                                            <div class="error ng-binding"\n' +
+    '                                                ng-show="(newArtWorkMediaForm.title{{lang.value+n+\'Name\'}}.$error.minlength || newArtWorkMediaForm.title{{lang.value+n+\'Name\'}}.$error.maxlength) && !newArtWorkMediaForm.title{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                                {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                        </div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <!-- <input id="{{mediaImage + $index}}" name="{{mediaImage + $index}}" style="display: none;"\n' +
+    '                        onchange="angular.element(this).scope().AddmediaImage(this.files)" type="file" required\n' +
+    '                        file-change handler="fileSelect(files)" ng-repeat="file in newArtWorkMediaCtrl.filesCount">\n' +
+    '                    <button class="btn btn-success btn-xs pull-center"\n' +
+    '                        ng-click="newArtWorkMediaCtrl.LoadUploadmedia()">{{\'Upload Video\' | translate}}</button>\n' +
+    '\n' +
+    '                    <div ng-messages="newArtWorkMediaForm.mediaImage.$error">\n' +
+    '                        <div ng-if="newArtWorkMediaForm.mediaImage.$error.required">{{\'requiredErr\' | translate}}\n' +
+    '                        </div>\n' +
+    '                    </div> -->\n' +
+    '                </div>\n' +
+    '\n' +
+    '            </div>\n' +
+    '\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-disabled="newArtWorkMediaForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="newArtWorkMediaCtrl.AddNewArtWorkMedia()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '            ng-click="newArtWorkMediaCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                data.push(tag);\n' +
+    '            }\n' +
+    '        });\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
     '    });\n' +
     '</script>');
 }]);
@@ -1120,257 +1352,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            ng-click="newBoothCtrl.AddNewBooth()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" Booth="button"\n' +
     '            ng-click="newBoothCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-add-tags").select2({\n' +
-    '            tags: true,\n' +
-    '            theme: "bootstrap",\n' +
-    '            insertTag: function (data, tag) {\n' +
-    '                data.push(tag);\n' +
-    '            }\n' +
-    '        });\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/ArtWorkMedia.html',
-    '<div>\n' +
-    '    <div style="margin-bottom:10px" ng-show="user.PermessionModules[\'News\'].includes(\'add_new\')">\n' +
-    '        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);\n' +
-    '        border-radius: 17px;" ng-click="$state.go(\'newArtWorkMedia\',{id:$stateParams.id});"\n' +
-    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">\n' +
-    '            {{\'AddNew\'| translate}}</button>\n' +
-    '    </div>\n' +
-    '    <div ng-if="ArtWorkMediaCtrl.mediaItemList.length == null">\n' +
-    '        <span>{{\'NoArtWorksAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="ArtWorkMediaCtrl.mediaItemList.length > 0">\n' +
-    '        <div class="table-responsive" style="border: 1px solid #21231e;\n' +
-    '        border-radius: 20px;\n' +
-    '        background-color: #0e0e0e;\n' +
-    '        box-shadow: 0 0 10px 5px rgba(0,0,0,.35);\n' +
-    '    ">\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th>{{\'title\' | translate}}</th>\n' +
-    '                        <th></th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat="ArtWork in ArtWorkMediaCtrl.mediaItemList">\n' +
-    '                        <td data-title="Name">\n' +
-    '                            {{ArtWork.description   | limitTo : 20}}\n' +
-    '                            {{ArtWork.description.length > 20 ? \'...\' : \'\'}}\n' +
-    '                        </td>\n' +
-    '                        <td width="30%">\n' +
-    '                            <i ng-show="user.PermessionModules[\'ArtWork\'].includes(\'add_new\')"\n' +
-    '                                class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'editArtWork\',{id: ArtWork.id});" title="Edit">mode_edit</i>\n' +
-    '                            <i ng-show="user.PermessionModules[\'News\'].includes(\'remove\')"\n' +
-    '                                class="material-icons pmd-md deleteButton cursorPointer font25"\n' +
-    '                                ng-click="ArtWorkMediaCtrl.openDeleteDialog(ArtWork,ArtWork.description  ,ArtWork.id)"\n' +
-    '                                title="Delete">delete</i>\n' +
-    '                        </td>\n' +
-    '                    </tr>\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '        paging-action="ArtWorkMediaCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '        hide-if-empty="true" disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/edit.html',
-    '<div id="bold">\n' +
-    '    {{\'EditArtWork\' | translate}}\n' +
-    '</div>\n' +
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text">{{\'ArtWorkLbl\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="editArtWorkForm">\n' +
-    '            <div>\n' +
-    '                <!-- Nav tabs -->\n' +
-    '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editArtWorkCtrl.language">\n' +
-    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"\n' +
-    '                            data-toggle="tab">\n' +
-    '                            <span style="color:red">*</span> {{lang.value | translate}}\n' +
-    '                        </a>\n' +
-    '                    </li>\n' +
-    '                </ul>\n' +
-    '                <div class="pmd-card">\n' +
-    '                    <div class="pmd-card-body">\n' +
-    '                        <!-- Tab panes -->\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
-    '                                ng-repeat="lang in editArtWorkCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                    <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <input required type="text" class="mat-input form-control"\n' +
-    '                                        name="title{{lang.value+\'Name\'}}" ng-model="editArtWorkCtrl.ArtWork.title[lang.key]"\n' +
-    '                                        ng-minlength="3" ng-maxlength="255">\n' +
-    '                                    <div ng-messages="editArtWorkForm.title{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                        <div class="error ng-binding"\n' +
-    '                                            ng-show="editArtWorkForm.title{{lang.value+\'Name\'}}.$error.required && !editArtWorkForm.title{{lang.value+\'Name\'}}.$pristine">\n' +
-    '                                            {{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div class="error ng-binding"\n' +
-    '                                            ng-show="(editArtWorkForm.title{{lang.value+\'Name\'}}.$error.minlength || editArtWorkForm.title{{lang.value+\'Name\'}}.$error.maxlength) && !editArtWorkForm.title{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                    <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <textarea required type="text" class="mat-input form-control"\n' +
-    '                                        name="body{{lang.value+\'Name\'}}" ng-model="editArtWorkCtrl.ArtWork.body[lang.key]"\n' +
-    '                                        ng-minlength="3" ng-maxlength="955"></textarea>\n' +
-    '                                    <div ng-messages="editArtWorkForm.body{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                        <div class="error ng-binding"\n' +
-    '                                            ng-show="editArtWorkForm.body{{lang.value+\'Name\'}}.$error.required && !editArtWorkForm.body{{lang.value+\'Name\'}}.$pristine">\n' +
-    '                                            {{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div class="error ng-binding"\n' +
-    '                                            ng-show="(editArtWorkForm.body{{lang.value+\'Name\'}}.$error.minlength || editArtWorkForm.body{{lang.value+\'Name\'}}.$error.maxlength) && !editArtWorkForm.body{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '\n' +
-    '                            </div>\n' +
-    '\n' +
-    '                            <div class="form-group pmd-textfield-floating-label-completed">\n' +
-    '                                <span style="color:red">*</span>\n' +
-    '                                <label for="image" class="btn btn-success btn-xs pull-center" name="upload"\n' +
-    '                                    Value="">Upload\n' +
-    '                                    Photo</label>\n' +
-    '                                <input id="image" class="hidden" type="file" img-upload ng-model="imageName"\n' +
-    '                                    name="imageName">\n' +
-    '                                <img ng-src="{{image}}" height="100" width="100" ng-show="image" />\n' +
-    '\n' +
-    '                                <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>\n' +
-    '                                    {{\'RecommendedProductImage\' | translate}}</span>\n' +
-    '\n' +
-    '                            </div>\n' +
-    '\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="editArtWorkForm.$invalid ||  file ==null" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="editArtWorkCtrl.UpdateArtWork()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="editArtWorkCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-add-tags").select2({\n' +
-    '            tags: true,\n' +
-    '            theme: "bootstrap",\n' +
-    '            insertTag: function (data, tag) {\n' +
-    '                // Insert the tag at the end of the results\n' +
-    '                data.push(tag);\n' +
-    '                // console.log(data);\n' +
-    '            }\n' +
-    '        });\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/new.html',
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text"> {{\'AddNewArtWorkMediaBtn\' | translate}} </h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="newArtWorkMediaForm">\n' +
-    '            <div class="row">\n' +
-    '                <div class="form-group col-lg-4">\n' +
-    '                    <!-- Nav tabs -->\n' +
-    '                    <ul class="nav nav-tabs" role="tablist">\n' +
-    '                        <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
-    '                            ng-repeat="lang in newArtWorkMediaCtrl.language">\n' +
-    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-n-form" aria-controls="home"\n' +
-    '                                role="tab" data-toggle="tab">\n' +
-    '                                <span style="color:red">*</span>{{lang.value | translate}}\n' +
-    '                            </a>\n' +
-    '                        </li>\n' +
-    '                    </ul>\n' +
-    '                    <div class="pmd-card">\n' +
-    '                        <div class="pmd-card-body">\n' +
-    '                            <!-- Tab panes -->\n' +
-    '                            <div class="tab-content">\n' +
-    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
-    '                                    ng-repeat="lang in newArtWorkMediaCtrl.language" id="{{lang.value}}-n-form">\n' +
-    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                                        <label for="first-name">{{ \'Title\' | translate}} </label>\n' +
-    '                                        <input required News="text" class="mat-input form-control"\n' +
-    '                                            name="title{{lang.value+n+\'Name\'}}"\n' +
-    '                                            ng-model="newArtWorkMediaCtrl.Title[lang.key]" ng-minlength="3"\n' +
-    '                                            ng-maxlength="255">\n' +
-    '                                        <div ng-messages="newArtWorkMediaForm.title{{lang.value+n+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                            <div class="error ng-binding"\n' +
-    '                                                ng-show="newArtWorkMediaForm.title{{lang.value+n+\'Name\'}}.$error.required && !newArtWorkMediaForm.title{{lang.value+n+\'Name\'}}.$pristine">\n' +
-    '                                                {{\'requiredErr\' | translate}}</div>\n' +
-    '                                            <div class="error ng-binding"\n' +
-    '                                                ng-show="(newArtWorkMediaForm.title{{lang.value+n+\'Name\'}}.$error.minlength || newArtWorkMediaForm.title{{lang.value+n+\'Name\'}}.$error.maxlength) && !newArtWorkMediaForm.title{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                                {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                        </div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <!-- <input id="{{mediaImage + $index}}" name="{{mediaImage + $index}}" style="display: none;"\n' +
-    '                        onchange="angular.element(this).scope().AddmediaImage(this.files)" type="file" required\n' +
-    '                        file-change handler="fileSelect(files)" ng-repeat="file in newArtWorkMediaCtrl.filesCount">\n' +
-    '                    <button class="btn btn-success btn-xs pull-center"\n' +
-    '                        ng-click="newArtWorkMediaCtrl.LoadUploadmedia()">{{\'Upload Video\' | translate}}</button>\n' +
-    '\n' +
-    '                    <div ng-messages="newArtWorkMediaForm.mediaImage.$error">\n' +
-    '                        <div ng-if="newArtWorkMediaForm.mediaImage.$error.required">{{\'requiredErr\' | translate}}\n' +
-    '                        </div>\n' +
-    '                    </div> -->\n' +
-    '                </div>\n' +
-    '\n' +
-    '            </div>\n' +
-    '\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="newArtWorkMediaForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="newArtWorkMediaCtrl.AddNewArtWorkMedia()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="newArtWorkMediaCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>\n' +
     '\n' +
@@ -2138,14 +2119,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                </thead>\n' +
     '                <tbody>\n' +
     '                    <tr ng-repeat="JudgeArtWork in JudgeArtWorkList">\n' +
-    '                        <td>\n' +
+    '                        <td style="width: 10%;">\n' +
     '                            <img style="width: 70px;height: 70px;" data-ng-src="{{JudgeArtWork.posterUrl}}" />\n' +
     '                        </td>\n' +
-    '                        <td data-title="Name">\n' +
-    '                            {{JudgeArtWork.title[selectedLanguage]   | limitTo : 20}}\n' +
-    '                            {{JudgeArtWork.title[selectedLanguage].length > 20 ? \'...\' : \'\'}}\n' +
+    '                        <td style="width: 60%;">\n' +
+    '                            {{JudgeArtWork.title[selectedLanguage]   | limitTo : 50}}\n' +
+    '                            {{JudgeArtWork.title[selectedLanguage].length > 50 ? \'...\' : \'\'}}\n' +
     '                        </td>\n' +
-    '                        <td>\n' +
+    '                        <td style="width: 10%;">\n' +
     '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
     '                                ng-click="$state.go(\'viewJudgeArtWork\',{id: JudgeArtWork.id});"\n' +
     '                                title="review art work">rate_review</i>\n' +
@@ -2326,17 +2307,25 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        <h2 class="pmd-card-description-text">{{\'ViewJudgeArtWork\' | translate}}</h2>\n' +
     '    </div>\n' +
     '    <div class="modal-body">\n' +
+    '        <h1 class="text-center">\n' +
+    '            <kbd>\n' +
+    '\n' +
+    '                {{viewJudgeArtWorkCtrl.JudgeArtWork.title[selectedLanguage] | limitTo : 20}}\n' +
+    '                {{viewJudgeArtWorkCtrl.JudgeArtWork.title[selectedLanguage].length > 20 ? \'...\' : \'\'}}\n' +
+    '                :\n' +
+    '                {{viewJudgeArtWorkCtrl.JudgeArtWork.award.title[selectedLanguage]}}\n' +
+    '            </kbd>\n' +
+    '        </h1>\n' +
     '        <form class="form-horizontal" name="viewJudgeArtWorkForm">\n' +
     '            <div class="row">\n' +
     '                <div class="form-group col-lg-4">\n' +
-    '                    <div ng-repeat="n in [] | range:viewJudgeArtWorkCtrl.totalCount">\n' +
-    '                        <label\n' +
-    '                            for="first-name">{{viewJudgeArtWorkCtrl.votingCriteriaList[n].name[selectedLanguage]}}</label>\n' +
-    '                        <input required type="number" class="mat-input form-control" name="Value" numbers-only\n' +
-    '                            style="display: inline-block;" ng-minlength="1" ng-maxlength="4"\n' +
-    '                            ng-model="viewJudgeArtWorkCtrl.votingCriteria[n]"\n' +
-    '                            ng-change="viewJudgeArtWorkCtrl.changeValue(viewJudgeArtWorkCtrl.votingCriteria[n],n)"\n' +
-    '                            required />\n' +
+    '                    <div ng-repeat="n in [] | range:viewJudgeArtWorkCtrl.totalCount"> <label for="first-name">\n' +
+    '                            {{viewJudgeArtWorkCtrl.votingCriteriaList[n].criteria.name[selectedLanguage]}}</label>\n' +
+    '                        <input type="number" class="mat-input form-control" name="Value" style="display: inline-block;"\n' +
+    '                            ng-pattern="/^[1-9]+[0-9]*$/" ng-minlength="1" ng-maxlength="4"\n' +
+    '                            ng-model="viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue"\n' +
+    '                            ng-change="viewJudgeArtWorkCtrl.changeValue(viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue,n)"\n' +
+    '                            ng-readonly="viewJudgeArtWorkCtrl.votingCriteriaList[n].judgeComplete" />\n' +
     '                        <!-- required validation  -->\n' +
     '                        <div ng-messages="viewJudgeArtWorkForm.Value.$error">\n' +
     '                            <div class="error" ng-if="viewJudgeArtWorkForm.Value.$error.required && \n' +
@@ -2350,16 +2339,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                {{\'PhoneLengthError\' |  translate}}\n' +
     '                            </div>\n' +
     '                        </div>\n' +
-    '                        <!-- <input id="{{mediaImage + $index}}" name="{{mediaImage + $index}}" style="display: none;"\n' +
-    '                            onchange="angular.element(this).scope().AddmediaImage(this.files)" type="file" required\n' +
-    '                            file-change handler="fileSelect(files)" ng-repeat="file in viewJudgeArtWorkCtrl.filesCount">\n' +
-    '                        <button class="btn btn-success btn-xs pull-center"\n' +
-    '                            ng-click="viewJudgeArtWorkCtrl.LoadUploadmedia()">{{\'Upload Receipt\' | translate}}</button>\n' +
     '\n' +
-    '                        <div ng-messages="viewJudgeArtWorkForm.mediaImage.$error">\n' +
-    '                            <div ng-if="viewJudgeArtWorkForm.mediaImage.$error.required">{{\'requiredErr\' | translate}}\n' +
-    '                            </div>\n' +
-    '                        </div> -->\n' +
     '                    </div>\n' +
     '                </div>\n' +
     '\n' +
@@ -2370,7 +2350,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    <div class="pmd-modal-action text-right">\n' +
     '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
     '            ng-disabled="viewJudgeArtWorkForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="viewJudgeArtWorkCtrl.UpdateJudgeArtWork()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '            ng-click="viewJudgeArtWorkCtrl.UpdateJudgeArtWork(false)">{{\'judgeComplete\' | translate}}</button>\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-disabled="viewJudgeArtWorkForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="viewJudgeArtWorkCtrl.UpdateJudgeArtWork(false)">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
     '            ng-click="viewJudgeArtWorkCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +

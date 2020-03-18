@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MIA.Attrributes;
+using MIA.Exceptions;
 
 namespace MIA.Filters {
   /// <summary>
@@ -51,6 +52,8 @@ namespace MIA.Filters {
           if (_uow.HasATransaction) {
             _uow.RollbackTransaction();
             _logger.LogError(result.Exception, result.Exception.Message);
+          } else {
+          throw result.Exception;
           }
         } else {
           try {
@@ -64,6 +67,7 @@ namespace MIA.Filters {
       } catch (Exception ex) {
         _uow.RollbackTransaction();
         _logger.LogError(ex, ex.Message);
+        throw ex;
       }
     }
   }

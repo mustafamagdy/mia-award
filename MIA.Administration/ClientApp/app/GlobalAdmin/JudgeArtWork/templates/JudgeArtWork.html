@@ -14,14 +14,14 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="JudgeArtWork in JudgeArtWorkList">
-                        <td>
+                        <td style="width: 10%;">
                             <img style="width: 70px;height: 70px;" data-ng-src="{{JudgeArtWork.posterUrl}}" />
                         </td>
-                        <td data-title="Name">
-                            {{JudgeArtWork.title[selectedLanguage]   | limitTo : 20}}
-                            {{JudgeArtWork.title[selectedLanguage].length > 20 ? '...' : ''}}
+                        <td style="width: 60%;">
+                            {{JudgeArtWork.title[selectedLanguage]   | limitTo : 50}}
+                            {{JudgeArtWork.title[selectedLanguage].length > 50 ? '...' : ''}}
                         </td>
-                        <td>
+                        <td style="width: 10%;">
                             <i class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('viewJudgeArtWork',{id: JudgeArtWork.id});"
                                 title="review art work">rate_review</i>

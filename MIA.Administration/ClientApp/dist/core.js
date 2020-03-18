@@ -51,8 +51,8 @@
       
 }());
 ;(function () {
-  const apiBaseUrl = "http://localhost:62912";
-  // const apiBaseUrl = "http://admin.miaaward.com/";
+  //const apiBaseUrl = "http://localhost:62912";
+  const apiBaseUrl = "/";
   angular
     .module("core")
     .constant("appCONSTANTS", {
@@ -74,7 +74,7 @@
         { Id: 0, shortName: 'Waiting' },
         { Id: 1, shortName: 'Confirmed' },
         { Id: 2, shortName: 'Rejected' },
-      ] 
+      ]
     })
     .constant("userRolesEnum", {
       GlobalAdmin: "GlobalAdmin"
@@ -486,6 +486,7 @@ angular.module('core')
         "Both": "Both",
         "AllowPause": "Allow Pause",
         "deleteConfirmationLbl": "Are you sure you want to delete: ",
+        "messageConfirmationLbl": " Are you sure you want to finish judge on this artwork",
         "deleteBtn": "Delete",
         "cancelBtn": "Cancel",
         "refresh": "Refresh",
@@ -721,7 +722,8 @@ angular.module('core')
         "refresh": "تحديث",
         "deleteBtn": "مسح",
         "cancelBtn": "الغاء",
-        "deleteConfirmationLbl": "هل أنت متأكد من أنك تريد مسح: ",
+        "messageConfirmationLbl": "هل أنت متأكد من أنك تريد مسح: ",
+        "deleteConfirmationLbl": "هل أنت متأكد أنك تريد إنهاء الحكم على هذا العمل الفني ",
         "OnTheWay": "في الطريق",
         "description": "الوصف",
         "Creationdate": "تاريخ الانشاء",
@@ -771,7 +773,7 @@ angular.module('core')
         "ProductsBtn": "عرض منتجات",
         "NoProductAvailable": ".لا يوجد منتاجات",
         "AddProductBtn": "اضف منتج جديد",
-        "ProductAddSuccess": ".تم ادخال منتج بنجاح",
+        "ProductAdd ccess": ".تم ادخال منتج بنجاح",
         "NewProduct": "منتج جديد",
         "UpdateProductLbl": "تحديث المنتج",
         "searchbyProductName" :" بحث باسم المنتج",

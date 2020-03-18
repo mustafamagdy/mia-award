@@ -77,34 +77,7 @@ namespace MIA.Administration.Api
       foreach (var file in dto.Files)
       {
         if (file != null)//&& file.Length > 0)
-        {
-          //if (file.MediaType == MediaType.Video)
-          //{
-          //  using (var memorySteam = new MemoryStream(file.Poster))
-          //  {
-          //    string validationError = "";
-          //    if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
-          //    {
-          //      return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
-          //    }
-
-          //    string posterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, album.Id, file.PosterFileName);
-          //    var posterUrl = await fileManager.UploadFileAsync(memorySteam, posterKey);
-          //    var albumItem = new AlbumItem
-          //    {
-          //      FileKey = file.FileKey,
-          //      FileUrl = file.FileUrl,
-          //      PosterKey = posterKey,
-          //      PosterUrl = posterUrl,
-          //      MediaType = GetMediaType(file.MediaFileName),
-          //      AlbumId = album.Id,
-          //      Order = order++
-          //    };
-          //    albumItems.Add(albumItem);
-          //  };
-          //}
-          //else
-          //{
+        { 
           using (var memorySteam = new MemoryStream(file.Media))
           {
             string validationError = "";
@@ -160,55 +133,7 @@ namespace MIA.Administration.Api
       var album = await db.Albums
         .Include(a => a.MediaItems)
          .FirstOrDefaultAsync(a => a.Id == resultDto.Id);
-
-      //var albumItems = new List<AlbumItem>();
-      //foreach (var file in dto.DeleteFiles)
-      //{
-      //  var mediaItem = album.MediaItems.FirstOrDefault(a => a.FileKey == file);
-      //  if (mediaItem != null)
-      //  {
-      //    await fileManager.DeleteFileAsync(file);
-      //    db.AlbumItems.Remove(mediaItem);
-      //  }
-      //}
-
-      //var maxOrder = album.MediaItems.DefaultIfEmpty().Max(a => a.Order);
-
-      //if (dto.NewFiles != null)
-      //{
-      //  foreach (var file in dto.NewFiles)
-      //  {
-      //    if (file != null)//&& file.Length > 0)
-      //    {
-      //      using (var memorySteam = new MemoryStream(file.Media))
-      //      {
-      //        //  file.CopyTo(memorySteam);
-
-      //        string validationError = "";
-      //        if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
-      //        {
-      //          return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
-      //        }
-
-      //        string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, album.Id, file.MediaFileName);
-      //        var fileUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
-
-      //        var albumItem = new AlbumItem
-      //        {
-      //          FileKey = fileKey,
-      //          FileUrl = fileUrl,
-      //          MediaType = GetMediaType(file.MediaFileName),
-      //          AlbumId = album.Id,
-      //          Order = maxOrder++
-      //        };
-
-      //        albumItems.Add(albumItem);
-      //      };
-      //    }
-      //  }
-      //}
-
-      //  await db.AlbumItems.AddRangeAsync(albumItems);
+       
       return IfFound(_mapper.Map<PhotoAlbumDto>(album));
     }
 

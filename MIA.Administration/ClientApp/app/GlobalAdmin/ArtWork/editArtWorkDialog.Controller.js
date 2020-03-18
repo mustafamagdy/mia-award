@@ -29,11 +29,6 @@
             vm.productionList = vm.ArtWork.production.split(',');
         }
         console.log(vm.ArtWork);
-        // vm.changeProduction = function (group) {
-        //  debugger;
-        //  var dd=$scope.valueee;
-        //     vm.ArtWork.production = vm.selectedProduction;
-        // }
         vm.Close = function () {
             $state.go('ArtWork');
         }
@@ -55,7 +50,7 @@
             updateObj.Writers = vm.ArtWork.writers.join(', ');
             updateObj.Story = vm.ArtWork.story.join(', ');
             updateObj.Crew = vm.ArtWork.crew.join(', ');
- 
+
             if (posterImage != null) {
                 updateObj.Poster = posterImage;
                 updateObj.Video = posterImage;
