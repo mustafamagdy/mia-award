@@ -52,7 +52,7 @@
 }());
 ;(function () {
   //const apiBaseUrl = "http://localhost:62912";
-  const apiBaseUrl = "/";
+  const apiBaseUrl = "";
   angular
     .module("core")
     .constant("appCONSTANTS", {
