@@ -1,124 +1,4 @@
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/ConfirmationMessage/templates/ConfirmMessageDialog.html',
-    '<div class="modal-content">\n' +
-    '	<div class="modal-body">{{\'messageConfirmationLbl\' | translate}} ? </div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button"\n' +
-    '			ng-click="messageDlCtrl.Confirm()">{{\'Save\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button"\n' +
-    '			ng-click="messageDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
-    '<div class="modal-content">\n' +
-    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/UploadVideo/templates/UploadVideoDialog.html',
-    '<style>\n' +
-    '	form .progress {\n' +
-    '		line-height: 15px;\n' +
-    '	}\n' +
-    '\n' +
-    '	.progress {\n' +
-    '		display: inline-block;\n' +
-    '		width: 100px;\n' +
-    '		border: 3px groove #ccc;\n' +
-    '	}\n' +
-    '\n' +
-    '	.progress>div {\n' +
-    '		font-size: smaller;\n' +
-    '		background: linear-gradient(90deg, #f7e483, #dbba5a 57%, #a36d31);\n' +
-    '		width: 0%;\n' +
-    '	}\n' +
-    '</style>\n' +
-    '<div class="modal-body">\n' +
-    '	<form class="form-horizontal">\n' +
-    '\n' +
-    '		<button class="btn btn-success btn-xs pull-center" type="button"\n' +
-    '			ng-click="LoadUploadVideo()">{{\'Upload Video\' | translate}}</button>\n' +
-    '		<input type="file" id="file" style="display: none;" onchange="angular.element(this).scope().uploadVideo()">\n' +
-    '		<br>\n' +
-    '		<div id="dvProgress" class="progress" ng-show="Progress >= 0">\n' +
-    '		</div>\n' +
-    '	</form>\n' +
-    '</div>\n' +
-    '<!--<div class="pmd-modal-action text-right">\n' +
-    '	<button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '		class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '		ng-click="uploadVideo(itemId)">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '	 <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '		ng-click="newUploadChunkCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '</div> -->');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/login/templates/login.html',
-    '<div class="logincard" ng-if="!isLoggedIn()">\n' +
-    '    <div class="pmd-card card-default pmd-z-depth">\n' +
-    '        <div class="login-card">\n' +
-    '            <form ng-submit="submit(username,password)" name="loginForm">\n' +
-    '                <div class="pmd-card-body">\n' +
-    '                    <div class="alert alert-success"> Oh snap! Change a few things up and try submitting again. </div>\n' +
-    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                        <label for="inputError1" class="control-label pmd-input-group-label">User Name</label>\n' +
-    '                        <div class="input-group">\n' +
-    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i>\n' +
-    '                            </div>\n' +
-    '                            <input type="text" class="form-control" id="exampleInputAmount" required name="username"\n' +
-    '                                ng-model="username" ng-change="reset()">\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                        <label for="inputError1" class="control-label pmd-input-group-label">Password</label>\n' +
-    '                        <div class="input-group">\n' +
-    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">lock_outline</i>\n' +
-    '                            </div>\n' +
-    '                            <input required type="password" name="password" ng-model="password" ng-change="reset()"\n' +
-    '                                minlength="6" class="form-control">\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '                <div ng-if="invalidLoginInfo" class="loginFailed">\n' +
-    '                    <span>Incorrect username or password.</span>\n' +
-    '                </div>\n' +
-    '                <div ng-if="inActiveUser" class="loginFailed">\n' +
-    '                    <span>{{errorMessage}}\n' +
-    '                        <!-- / Your Account Is Disabled, Please contact to administrator. -->\n' +
-    '                    </span>\n' +
-    '                </div>\n' +
-    '                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">\n' +
-    '                    <button type="submit" style="\n' +
-    '                      width: 65%;\n' +
-    '    color: #ffffff!important;\n' +
-    '   border-color: #202232;\n' +
-    '    border-radius: 11px;\n' +
-    '    letter-spacing: 1px;\n' +
-    '    font-size: 15px;\n' +
-    '    font-family: \'Montserrat\',Helvetica,Arial,Lucida,sans-serif!important;\n' +
-    '    font-weight: 408!important;\n' +
-    '    text-transform: uppercase!important;\n' +
-    '    background-color: #2a2a30;" class="btn pmd-ripple-effect btn-primary btn-block">Login</button>\n' +
-    '                </div>\n' +
-    '            </form>\n' +
-    '        </div>\n' +
-    '\n' +
-    '\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/ArtWork/templates/ArtWork.html',
     '<div>\n' +
     '    <div style="margin-bottom:10px" ng-show="user.PermessionModules[\'News\'].includes(\'add_new\')">\n' +
@@ -5531,6 +5411,126 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="userRetailerCtrl.totalCount"\n' +
     '        paging-action="userRetailerCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
     '        hide-if-empty="true" disabled-class="hide">\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/ConfirmationMessage/templates/ConfirmMessageDialog.html',
+    '<div class="modal-content">\n' +
+    '	<div class="modal-body">{{\'messageConfirmationLbl\' | translate}} ? </div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button"\n' +
+    '			ng-click="messageDlCtrl.Confirm()">{{\'Save\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button"\n' +
+    '			ng-click="messageDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/UploadVideo/templates/UploadVideoDialog.html',
+    '<style>\n' +
+    '	form .progress {\n' +
+    '		line-height: 15px;\n' +
+    '	}\n' +
+    '\n' +
+    '	.progress {\n' +
+    '		display: inline-block;\n' +
+    '		width: 100px;\n' +
+    '		border: 3px groove #ccc;\n' +
+    '	}\n' +
+    '\n' +
+    '	.progress>div {\n' +
+    '		font-size: smaller;\n' +
+    '		background: linear-gradient(90deg, #f7e483, #dbba5a 57%, #a36d31);\n' +
+    '		width: 0%;\n' +
+    '	}\n' +
+    '</style>\n' +
+    '<div class="modal-body">\n' +
+    '	<form class="form-horizontal">\n' +
+    '\n' +
+    '		<button class="btn btn-success btn-xs pull-center" type="button"\n' +
+    '			ng-click="LoadUploadVideo()">{{\'Upload Video\' | translate}}</button>\n' +
+    '		<input type="file" id="file" style="display: none;" onchange="angular.element(this).scope().uploadVideo()">\n' +
+    '		<br>\n' +
+    '		<div id="dvProgress" class="progress" ng-show="Progress >= 0">\n' +
+    '		</div>\n' +
+    '	</form>\n' +
+    '</div>\n' +
+    '<!--<div class="pmd-modal-action text-right">\n' +
+    '	<button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '		class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '		ng-click="uploadVideo(itemId)">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '	 <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '		ng-click="newUploadChunkCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '</div> -->');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
+    '<div class="modal-content">\n' +
+    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/login/templates/login.html',
+    '<div class="logincard" ng-if="!isLoggedIn()">\n' +
+    '    <div class="pmd-card card-default pmd-z-depth">\n' +
+    '        <div class="login-card">\n' +
+    '            <form ng-submit="submit(username,password)" name="loginForm">\n' +
+    '                <div class="pmd-card-body">\n' +
+    '                    <div class="alert alert-success"> Oh snap! Change a few things up and try submitting again. </div>\n' +
+    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                        <label for="inputError1" class="control-label pmd-input-group-label">User Name</label>\n' +
+    '                        <div class="input-group">\n' +
+    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i>\n' +
+    '                            </div>\n' +
+    '                            <input type="text" class="form-control" id="exampleInputAmount" required name="username"\n' +
+    '                                ng-model="username" ng-change="reset()">\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                        <label for="inputError1" class="control-label pmd-input-group-label">Password</label>\n' +
+    '                        <div class="input-group">\n' +
+    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">lock_outline</i>\n' +
+    '                            </div>\n' +
+    '                            <input required type="password" name="password" ng-model="password" ng-change="reset()"\n' +
+    '                                minlength="6" class="form-control">\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '                <div ng-if="invalidLoginInfo" class="loginFailed">\n' +
+    '                    <span>Incorrect username or password.</span>\n' +
+    '                </div>\n' +
+    '                <div ng-if="inActiveUser" class="loginFailed">\n' +
+    '                    <span>{{errorMessage}}\n' +
+    '                        <!-- / Your Account Is Disabled, Please contact to administrator. -->\n' +
+    '                    </span>\n' +
+    '                </div>\n' +
+    '                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">\n' +
+    '                    <button type="submit" style="\n' +
+    '                      width: 65%;\n' +
+    '    color: #ffffff!important;\n' +
+    '   border-color: #202232;\n' +
+    '    border-radius: 11px;\n' +
+    '    letter-spacing: 1px;\n' +
+    '    font-size: 15px;\n' +
+    '    font-family: \'Montserrat\',Helvetica,Arial,Lucida,sans-serif!important;\n' +
+    '    font-weight: 408!important;\n' +
+    '    text-transform: uppercase!important;\n' +
+    '    background-color: #2a2a30;" class="btn pmd-ripple-effect btn-primary btn-block">Login</button>\n' +
+    '                </div>\n' +
+    '            </form>\n' +
+    '        </div>\n' +
+    '\n' +
+    '\n' +
     '    </div>\n' +
     '</div>');
 }]);
