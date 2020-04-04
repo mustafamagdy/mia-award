@@ -36,6 +36,9 @@ namespace MIA.MappingProfiles {
       CreateMap<SignUpByEmailRequest, Nominee>()
         .IncludeBase<SignUpByEmailRequest, AppUser>();
 
+      CreateMap<AppRole, RoleDto>()
+        .ForMember(a => a.SystemRole, cfg => cfg.Ignore())
+        .ValidateMemberList(MemberList.None);
 
       CreateMap<RoleDto, AppRole>()
         .ValidateMemberList(MemberList.None);

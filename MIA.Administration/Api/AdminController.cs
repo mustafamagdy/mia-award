@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using MIA.Api.Base;
@@ -42,13 +43,19 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("roles")]
-   // //[HasPermission(Permissions.ReadRoles)]
+    // //[HasPermission(Permissions.ReadRoles)]
     public IActionResult Roles([FromServices] IAppUnitOfWork db) {
-      return IfFound(db.Roles.MapTo<RoleDto>());
+      var roles = db.Roles.MapTo<RoleDto>();
+      var systemRoles = Enum.GetNames(typeof(PredefinedRoles)).Select(a=>a.ToLower());
+      var allRoles = roles.Select(a => {
+        a.SystemRole = systemRoles.Contains(a.Name.ToLower());
+        return a;
+      }).ToList();
+      return IfFound(allRoles);
     }
 
     [HttpGet("permissions")]
-   // //[HasPermission(Permissions.ReadPermissions)]
+    // //[HasPermission(Permissions.ReadPermissions)]
     public IActionResult ListPermissions() {
       var permissionNames = Enum.GetValues(typeof(Permissions)).Cast<short>();
       var permissions = permissionNames.Select(p => _mapper.Map<PermissionDto>((Permissions)p)).ToList();
@@ -102,6 +109,10 @@ namespace MIA.Administration.Api {
       if (role == null) {
         return NotFound404("role not found");
       }
+
+      var systemRoles = Enum.GetNames(typeof(PredefinedRoles)).Select(a => a.ToLower());
+      if (systemRoles.Contains(role.Name.ToLower()))
+        return ValidationError(HttpStatusCode.BadRequest, "You cannot remote system roles");
 
       Permissions permission;
       if (!Enum.TryParse(permissionId.ToString(), out permission)) {
