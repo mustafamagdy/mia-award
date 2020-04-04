@@ -4,7 +4,8 @@
     angular
         .module('home')
         .controller('viewJudgeArtWorkController', ['ArtWorkMediaByArtWorkIdPrepService', '$scope', 'blockUI', '$stateParams', '$uibModal', '$state', 'appCONSTANTS', '$translate',
-            'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', viewJudgeArtWorkController])
+            'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', viewJudgeArtWorkController
+        ])
 
     function viewJudgeArtWorkController(ArtWorkMediaByArtWorkIdPrepService, $scope, blockUI, $stateParams, $uibModal, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
         ToastService, ArtWorkByIdPrepService) {
@@ -35,9 +36,6 @@
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
                     blockUI.stop();
-
-                    //  $state.go('JudgeArtWork');
-
                 },
                 function (data, status) {
                     blockUI.stop();
@@ -77,16 +75,27 @@
                 }
             );
         }
-        vm.openMessageDialog = function () { 
+        vm.openMessageDialog = function () {
             var modalContent = $uibModal.open({
                 templateUrl: './app/core/ConfirmationMessage/templates/ConfirmMessageDialog.html',
                 controller: 'confirmMessageDialogController',
                 controllerAs: 'messageDlCtrl',
-                resolve: { 
+                resolve: {
                     callBackFunction: function () { return confirmationMessage }
                 }
 
             });
         }
+        vm.slider = {
+            minValue: 10,
+            maxValue: 90,
+            options: {
+                floor: 0,
+                ceil: 100,
+                step: 10,
+                showTicks: true,
+             
+            }
+        };
     }
 }());

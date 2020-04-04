@@ -1,26 +1,26 @@
 (function() {
-  "use strict";
+    "use strict";
 
-  angular.module("core", [
-    "ngResource",
-    "ui.router",
-    "ngStorage",
-    "permission",
-    "bw.paging",
-    "ui.event",
-    "ngProgressLite",
-    "ui.bootstrap",
-    "pascalprecht.translate",
-    "blockUI",
-    "ui.carousel",
-    "angular.filter",
-    "ncy-angular-breadcrumb",
-    "angular-jwt"
-    // "jwt-decode"
-    // 'base64',
-  ]);
-})();
-;(function() {
+    angular.module("core", [
+        "ngResource",
+        "ui.router",
+        "ngStorage",
+        "permission",
+        "bw.paging",
+        "ui.event",
+        "ngProgressLite",
+        "ui.bootstrap",
+        "pascalprecht.translate",
+        "blockUI",
+        "ui.carousel",
+        "angular.filter",
+        "ncy-angular-breadcrumb",
+        "angular-jwt",
+        "rzSlider"
+        // "jwt-decode"
+        // 'base64',
+    ]);
+})();;(function() {
   "use strict";
   angular.module("home", ["core"]);
 })();
@@ -50,37 +50,42 @@
 
       
 }());
-;(function () {
-  //const apiBaseUrl = "http://localhost:62912";
-  const apiBaseUrl = "";
-  angular
-    .module("core")
-    .constant("appCONSTANTS", {
-      API_URL: `${apiBaseUrl}/api/`,
-
-      defaultLanguage: "ar",
-      supportedLanguage: {
-        en: { key: "en", value: "english" },
-        ar: { key: "ar", value: "arabic" }
-      }
-    })
-    .constant("messageTypeEnum", {
-      success: 0,
-      warning: 1,
-      error: 2
-    })
-    .constant("status", {
-      StatusList: [
-        { Id: 0, shortName: 'Waiting' },
-        { Id: 1, shortName: 'Confirmed' },
-        { Id: 2, shortName: 'Rejected' },
-      ]
-    })
-    .constant("userRolesEnum", {
-      GlobalAdmin: "GlobalAdmin"
-    });
-})();
 ;(function() {
+    const apiBaseUrl = "http://localhost:62912";
+    // const apiBaseUrl = "";
+    angular
+        .module("core")
+        .constant("appCONSTANTS", {
+            API_URL: `${apiBaseUrl}/api/`,
+
+            defaultLanguage: "ar",
+            supportedLanguage: {
+                en: { key: "en", value: "english" },
+                ar: { key: "ar", value: "arabic" }
+            }
+        })
+        .constant("messageTypeEnum", {
+            success: 0,
+            warning: 1,
+            error: 2
+        })
+        .constant("status", {
+            StatusList: [
+                { Id: 0, shortName: 'Waiting' },
+                { Id: 1, shortName: 'Confirmed' },
+                { Id: 2, shortName: 'Rejected' },
+            ]
+        })
+        .constant("awardType", {
+            TypeList: [
+                { Id: 0, shortName: 'Individual' },
+                { Id: 1, shortName: 'Group' }
+            ]
+        })
+        .constant("userRolesEnum", {
+            GlobalAdmin: "GlobalAdmin"
+        });
+})();;(function() {
     'use strict';
 
     angular
