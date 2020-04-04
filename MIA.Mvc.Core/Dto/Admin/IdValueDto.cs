@@ -8,11 +8,4 @@ namespace MIA.Dto.Admin
     public string Name { get; set; }
     public T Id { get; set; }
   }
-
-  public class PermissionDto : BaseResponse { 
-    public short Id { get; set; }
-    public string Group { get; set; }
-    public string Name { get; set; }
-    public SystemModules SystemModule { get; set; }
-  }
 }

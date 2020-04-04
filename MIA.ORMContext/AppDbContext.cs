@@ -66,13 +66,7 @@ namespace MIA.ORMContext
     public DbSet<AuditEntryProperty> AuditEntryProperties { get; set; }
 
     #endregion
-
-    #region Permissions
-
-    public DbSet<UserModule> UserModules { get; set; }
-
-    #endregion
-
+    
     public DbSet<Content> Contents { get; set; }
     public DbSet<UserImage> UserImages { get; set; }
     public DbSet<Image> Images { get; set; }

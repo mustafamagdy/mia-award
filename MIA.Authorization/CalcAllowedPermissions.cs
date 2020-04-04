@@ -26,14 +26,14 @@ namespace MIA.Authorization {
     public string CalcPermissionsForUserAsync(string userId) {
       //This gets all the permissions, with a distinct to remove duplicates
       var permissionsForUser = (
-        from ur in _context.UserRoles
-        join role in _context.Roles on ur.RoleId equals role.Id
-        where ur.UserId == userId
-        select role.PermissionsInRole)
+          from ur in _context.UserRoles
+          join role in _context.Roles on ur.RoleId equals role.Id
+          where ur.UserId == userId
+          select role.PermissionsInRole)
         .SelectMany(x => x).Distinct();
 
       //we get the modules this user is allowed to see
-      var userModules = _context.ModulesForUsers.Find(userId)
+      var userModules = _context.UserModules.Find(userId)
                           ?.AllowedModules ?? SystemModules.Dashboard;
       //Now we remove permissions that are linked to modules that the user has no access to
       var filteredPermissions =

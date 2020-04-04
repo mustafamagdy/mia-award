@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MIA.Api.Base;
+using MIA.Authorization;
 using MIA.Authorization.Attributes;
 using MIA.Authorization.Entities;
 using MIA.Dto.Admin;

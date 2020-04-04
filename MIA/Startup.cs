@@ -110,8 +110,13 @@ namespace MIA
 #if (Swagger && Versioning)
         .AddVersionedApiExplorer(x => x.GroupNameFormat = "'v'VVV") // Version format: 'v'major[.minor][-status]
 #endif
-        //.AddSingleton<IBookingManager, BookingManagerClient>()
-        //.AddSingleton<ISessionManager, SessionManagerClient>()
+
+        .AddAppDbContext(this.configuration)
+        .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
+        .AddIdentityWithJwt(this.env)
+        .AddPermissions()
+
+
         .AddMvcWithOptions()
         .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
         .AddApiExplorer()
@@ -144,10 +149,7 @@ namespace MIA
         .AddSMTPEmailSender(this.configuration)
 #endif
         .AddSpaFiles(this.env)
-        .AddAppDbContext(this.configuration)
-        .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
-        .AddIdentityWithJwt(this.env)
-        .AddPermissions()
+        
         .AddRedis(this.configuration)
         .AddProjectMappers()
         .AddProjectRepositories()

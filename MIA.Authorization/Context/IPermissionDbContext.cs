@@ -17,6 +17,6 @@ namespace MIA.Authorization.Context {
     DbSet<TUserRole> UserRoles { get; set; }
     DbSet<TRole> Roles { get; set; }
 
-    DbSet<UserModule> ModulesForUsers { get; }
+    DbSet<UserModule> UserModules { get; }
   }
 }
