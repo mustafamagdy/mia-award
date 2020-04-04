@@ -4,6 +4,7 @@ using MIA.Authorization.Entities;
 using MIA.Dto.Admin;
 using System;
 using System.ComponentModel.DataAnnotations;
+using MIA.Authorization;
 
 namespace MIA.Mvc.Core {
   public class PermissionTypeConverter : ITypeConverter<Permissions, PermissionDto> {

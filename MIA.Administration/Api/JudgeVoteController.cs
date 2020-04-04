@@ -22,7 +22,7 @@ namespace MIA.Administration.Api
   //[Authorize]
   [EnableCors(CorsPolicyName.AllowAll)]
   [Route("api/judgeVote")]
-  public class JudgeVoteController : BaseCrudController<JudgeVote, JudgeVoteDto, NewJudgeVoteDto, UpdateJudgeVoteDto>
+  public class JudgeVoteController : BaseCrudController<ArtworkJudgeVote, JudgeVoteDto, NewJudgeVoteDto, UpdateJudgeVoteDto>
   {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
@@ -43,7 +43,7 @@ namespace MIA.Administration.Api
     {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((JudgeVoteDto)(result as OkObjectResult)?.Value);
-      var JudgeVoteItem = await db.JudgeVotes.FindAsync(resultDto.Id);
+      var JudgeVoteItem = await db.ArtworkVotes.FindAsync(resultDto.Id);
       return IfFound(_mapper.Map<JudgeVoteDto>(JudgeVoteItem));
 
       //var result = await db.Set<JudgeVote>().AddAsync(_mapper.Map<ArtWorkPayment>(dto)); 
@@ -55,22 +55,22 @@ namespace MIA.Administration.Api
     [HttpPost("submitJudgeVote")]
     public async Task<IActionResult> SubmitJudgeVote([FromBody] UpdateJudgeVoteDto dto, [FromServices] IAppUnitOfWork db)
     {
-      var insertList = new List<JudgeVote>();
+      var insertList = new List<ArtworkJudgeVote>();
 
-      var judgeVoteItems = db.JudgeVotes.Where(a => a.ArtWorkId == dto.ArtWorkId).ToList();
+      var judgeVoteItems = db.ArtworkVotes.Where(a => a.ArtworkId == dto.ArtWorkId).ToList();
       if (judgeVoteItems.Any())
       {
         foreach (var objJudges in judgeVoteItems)
         {
-          var entity = objJudges;// db.Set<JudgeVote>().FirstOrDefault(a => a.ArtWorkId == dto.ArtWorkId);
+          var entity = objJudges;// db.Set<JudgeVote>().FirstOrDefault(a => a.ArtworkId == dto.ArtworkId);
           if (entity != null)
-            db.Set<JudgeVote>().Remove(entity);
+            db.Set<ArtworkJudgeVote>().Remove(entity);
         }
         foreach (var value in dto.CriteriaValues)
         {
-          var judgeObj = new JudgeVote();
+          var judgeObj = new ArtworkJudgeVote();
           judgeObj.JudgeId = dto.JudgeId;
-          judgeObj.ArtWorkId = dto.ArtWorkId;
+          judgeObj.ArtworkId = dto.ArtWorkId;
           judgeObj.CriteriaId = value.Id;
           judgeObj.VotingValue = Convert.ToInt32(value.Value);
           judgeObj.JudgeComplete = dto.JudgeComplete;
@@ -83,16 +83,16 @@ namespace MIA.Administration.Api
       {
         foreach (var value in dto.CriteriaValues)
         {
-          var judgeObj = new JudgeVote();
+          var judgeObj = new ArtworkJudgeVote();
           judgeObj.JudgeId = dto.JudgeId;
-          judgeObj.ArtWorkId = dto.ArtWorkId;
+          judgeObj.ArtworkId = dto.ArtWorkId;
           judgeObj.CriteriaId = value.Id;
           judgeObj.VotingValue = Convert.ToInt32(value.Value);
           judgeObj.JudgeComplete = dto.JudgeComplete;
           insertList.Add(judgeObj);
         }
       }
-      await db.Set<JudgeVote>().AddRangeAsync(_mapper.Map<List<JudgeVote>>(insertList));
+      await db.Set<ArtworkJudgeVote>().AddRangeAsync(_mapper.Map<List<ArtworkJudgeVote>>(insertList));
       await db.CommitTransactionAsync();
 
       return IfFound(_mapper.Map<JudgeVoteDto>(judgeVoteItems));
@@ -101,14 +101,14 @@ namespace MIA.Administration.Api
     {
       var result = await base.GetAsync(id, db);
       var resultDto = ((JudgeVoteDto)(result as OkObjectResult)?.Value);
-      var boothItem = await db.JudgeVotes.FirstOrDefaultAsync(a => a.Id == resultDto.Id);
+      var boothItem = await db.ArtworkVotes.FirstOrDefaultAsync(a => a.Id == resultDto.Id);
       return IfFound(_mapper.Map<JudgeVoteDto>(boothItem));
     }
     [HttpGet("getJudgeVoteCriteriaValues")]
     public async Task<IActionResult> GetJudgeVoteCriteriaValuesAsync(string id, [FromServices] IAppUnitOfWork db)
     {
       List<JudgeVoteDto> returnVotingCriteriaVoteDto = null;
-      var judgeVoting = db.JudgeVotes.Include(c => c.Criteria).Where(a => a.ArtWorkId == id).ToList();
+      var judgeVoting = db.ArtworkVotes.Include(c => c.Criteria).Where(a => a.ArtworkId == id).ToList();
       returnVotingCriteriaVoteDto = _mapper.Map<List<JudgeVoteDto>>(judgeVoting);
       return IfFound(returnVotingCriteriaVoteDto);
 

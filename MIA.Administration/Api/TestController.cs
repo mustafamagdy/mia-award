@@ -194,7 +194,7 @@ namespace MIA.Administration.Api {
           var mediaFile = new MediaFile
           {
             //TODO: uncomment
-            //ArtWorkId = artwork.Id,
+            //ArtworkId = artwork.Id,
             UploadDate = DateTime.Now.ToUnixTimeSeconds(),
             FileKey = fileKey,
             FileUrl = fileUrl

@@ -16,7 +16,6 @@ namespace MIA.ORMContext.Uow {
     DbSet<Judge> Judges { get; }
     DbSet<ContentReviewer> ContentReviewers { get; }
     DbSet<Nominee> Nominees { get; }
-    DbSet<UserModule> UserModules { get; }
     DbSet<Image> Images { get; }
     DbSet<UserImage> UserImages { get; }
     DbSet<ArtWork> ArtWorks { get; }
@@ -27,7 +26,8 @@ namespace MIA.ORMContext.Uow {
     DbSet<BoothPurchase> BoothPurchases { get; }
     DbSet<JudgeAward> JudgeAwards { get; }
     DbSet<JudgeComment> JudgeComments { get; }
-    DbSet<JudgeVote> JudgeVotes { get; }
+    DbSet<ArtworkJudgeVote> ArtworkVotes { get; }
+    DbSet<ContestantJudgeVote> ContestantVotes { get; }
     DbSet<MediaFile> MediaFiles { get; }
     DbSet<News> News { get; }
     DbSet<NewsComment> NewsComments { get; }

@@ -16,6 +16,6 @@ namespace MIA.Administration.Dto.Award {
     public string ManagerId { get; set; }
 
     public List<JudgeAwardDto> JudgeAwards { get; set; }
-    //public HashSet<ArtWork> ArtWorks { get; set; }
+    //public HashSet<VoteOn> ArtWorks { get; set; }
   }
 }

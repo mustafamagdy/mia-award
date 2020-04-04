@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using MIA.Api.Base;
 using MIA.Dto.Admin;
 using MIA.Administration.Api;
+using MIA.Authorization;
 
 namespace MIA.Api {
   /// <summary>

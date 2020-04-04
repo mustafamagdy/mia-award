@@ -8,6 +8,10 @@ namespace MIA.Models.Entities {
     public decimal Weight { get; set; }
     public int Order { get; set; }
 
-    public HashSet<JudgeVote> Votes { get; set; }
+    public Award Award { get; set; }
+    public string AwardId { get; set; }
+
+    public HashSet<ArtworkJudgeVote> ArtworkVotes { get; set; }
+    public HashSet<ContestantJudgeVote> ContestantVotes { get; set; }
   }
 }

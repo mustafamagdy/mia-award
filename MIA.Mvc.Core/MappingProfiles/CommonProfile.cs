@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
+using MIA.Authorization;
 using MIA.Authorization.Entities;
 using MIA.Dto.Admin;
 using MIA.Dto.Auth;

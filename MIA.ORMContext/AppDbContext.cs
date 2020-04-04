@@ -66,13 +66,7 @@ namespace MIA.ORMContext
     public DbSet<AuditEntryProperty> AuditEntryProperties { get; set; }
 
     #endregion
-
-    #region Permissions
-
-    public DbSet<UserModule> UserModules { get; set; }
-
-    #endregion
-
+    
     public DbSet<Content> Contents { get; set; }
     public DbSet<UserImage> UserImages { get; set; }
     public DbSet<Image> Images { get; set; }
@@ -87,7 +81,8 @@ namespace MIA.ORMContext
     public DbSet<BoothPurchase> BoothPurchases { get; set; }
     public DbSet<JudgeAward> JudgeAwards { get; set; }
     public DbSet<JudgeComment> JudgeComments { get; set; }
-    public DbSet<JudgeVote> JudgeVotes { get; set; }
+    public DbSet<ArtworkJudgeVote> ArtworkVotes { get; set; }
+    public DbSet<ContestantJudgeVote> ContestantVotes { get; set; }
     public DbSet<MediaFile> MediaFiles { get; set; }
     public DbSet<News> News { get; set; }
     public DbSet<NewsComment> NewsComments { get; set; }

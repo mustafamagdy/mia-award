@@ -100,7 +100,7 @@ namespace MIA.Administration.MappingProfiles
       #endregion
 
 
-      #region ArtWork Payment 
+      #region VoteOn Payment 
       CreateMap<ArtWorkPayment, ArtWorkPaymentDto>().ValidateMemberList(MemberList.None);
       CreateMap<NewArtWorkPaymentDto, ArtWorkPayment>().ValidateMemberList(MemberList.None);
       CreateMap<UpdateArtWorkPaymentDto, ArtWorkPayment>().ValidateMemberList(MemberList.None);
@@ -121,7 +121,7 @@ namespace MIA.Administration.MappingProfiles
 
       #endregion
 
-      #region ArtWork
+      #region VoteOn
       CreateMap<ArtWork, ArtWorkDto>()
         //.ForMember(a => a.WinnerAwardFirstPlace, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None)
@@ -153,9 +153,9 @@ namespace MIA.Administration.MappingProfiles
 
       #region Judge Vote
 
-      CreateMap<JudgeVote, JudgeVoteDto>().ValidateMemberList(MemberList.None);
-      CreateMap<NewJudgeVoteDto, JudgeVote>().ValidateMemberList(MemberList.None);
-      CreateMap<VotingCriteriaVoteDto, JudgeVote>().ValidateMemberList(MemberList.None);
+      CreateMap<ArtworkJudgeVote, JudgeVoteDto>().ValidateMemberList(MemberList.None);
+      CreateMap<NewJudgeVoteDto, ArtworkJudgeVote>().ValidateMemberList(MemberList.None);
+      CreateMap<VotingCriteriaVoteDto, ArtworkJudgeVote>().ValidateMemberList(MemberList.None);
 
       #endregion
 

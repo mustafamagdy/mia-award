@@ -10,11 +10,14 @@ namespace MIA.Models.Entities {
     public string TrophyImageKey { get; set; }
     public string TrophyImageUrl { get; set; }
 
+    public AwardType AwardType { get; set; }
+
     public Judge Manager { get; set; }
     public string ManagerId { get; set; }
 
     public HashSet<JudgeAward> JudgeAwards { get; set; }
     public HashSet<ArtWork> ArtWorks { get; set; }
+    public HashSet<VotingCriteria> VotingCriterias { get; set; }
 
 
     public ArtWork FirstPlace { get; set; }

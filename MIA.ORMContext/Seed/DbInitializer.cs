@@ -123,7 +123,7 @@ namespace MIA.ORMContext.Seed
       if (await roleManager.FindByNameAsync(Constants.NOMINEE_ROLE) == null)
       {
         await roleManager.CreateAsync(
-          new AppRole
+          new AppRole(Constants.NOMINEE_ROLE)
           {
             Name = Constants.NOMINEE_ROLE,
             NormalizedName = Constants.NOMINEE_ROLE.ToUpper()
@@ -466,7 +466,7 @@ namespace MIA.ORMContext.Seed
       if (await roleManager.FindByNameAsync(Constants.ADMIN_ROLE) == null)
       {
         await roleManager.CreateAsync(
-          new AppRole
+          new AppRole(Constants.ADMIN_ROLE)
           {
             Name = Constants.ADMIN_ROLE,
             NormalizedName = Constants.ADMIN_ROLE.ToUpper()
@@ -494,7 +494,7 @@ namespace MIA.ORMContext.Seed
         if (await roleManager.FindByNameAsync(role.ToString().ToLower()) == null)
         {
           await roleManager.CreateAsync(
-            new AppRole
+            new AppRole(role)
             {
               Name = role.ToString().ToLower(),
               NormalizedName = role.ToString().ToUpper()

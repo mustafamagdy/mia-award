@@ -12,10 +12,15 @@ namespace MIA.Authorization.Entities {
     [Required(AllowEmptyStrings = false)] //A role must have at least one permission in it
     private string _permissionsInRole;
 
+    public AppRole(string description)
+    {
+      Description = description;
+    }
+
     /// <summary>
     /// A human-friendly description of what the Role does
     /// </summary>
-    public string Description { get; private set; }
+    public string Description { get; }
 
     /// <summary>
     /// This returns the list of permissions in this role

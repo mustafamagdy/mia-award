@@ -173,7 +173,7 @@ namespace MIA.ORMContext.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("AppUser");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.ArtWork", b =>
+            modelBuilder.Entity("MIA.Models.Entities.VoteOn", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -204,7 +204,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<decimal>("Amount");
 
-                    b.Property<string>("ArtWorkId");
+                    b.Property<string>("ArtworkId");
 
                     b.Property<long>("PaymentDate");
 
@@ -214,9 +214,9 @@ namespace MIA.ORMContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtWorkId")
+                    b.HasIndex("ArtworkId")
                         .IsUnique()
-                        .HasFilter("[ArtWorkId] IS NOT NULL");
+                        .HasFilter("[ArtworkId] IS NOT NULL");
 
                     b.ToTable("ArtWorkPayments");
                 });
@@ -386,7 +386,7 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ArtWorkId");
+                    b.Property<string>("ArtworkId");
 
                     b.Property<string>("CriteriaId");
 
@@ -396,7 +396,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtWorkId");
+                    b.HasIndex("ArtworkId");
 
                     b.HasIndex("CriteriaId");
 
@@ -410,7 +410,7 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ArtWorkId");
+                    b.Property<string>("ArtworkId");
 
                     b.Property<string>("Description");
 
@@ -418,7 +418,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtWorkId");
+                    b.HasIndex("ArtworkId");
 
                     b.ToTable("MediaFiles");
                 });
@@ -683,7 +683,7 @@ namespace MIA.ORMContext.Migrations
                         .HasForeignKey("AlbumId");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.ArtWork", b =>
+            modelBuilder.Entity("MIA.Models.Entities.VoteOn", b =>
                 {
                     b.HasOne("MIA.Models.Entities.Award", "Award")
                         .WithMany("ArtWorks")
@@ -696,9 +696,9 @@ namespace MIA.ORMContext.Migrations
 
             modelBuilder.Entity("MIA.Models.Entities.ArtWorkPayment", b =>
                 {
-                    b.HasOne("MIA.Models.Entities.ArtWork", "ArtWork")
+                    b.HasOne("MIA.Models.Entities.VoteOn", "VoteOn")
                         .WithOne("Payment")
-                        .HasForeignKey("MIA.Models.Entities.ArtWorkPayment", "ArtWorkId");
+                        .HasForeignKey("MIA.Models.Entities.ArtWorkPayment", "ArtworkId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Award", b =>
@@ -747,9 +747,9 @@ namespace MIA.ORMContext.Migrations
 
             modelBuilder.Entity("MIA.Models.Entities.JudgeVote", b =>
                 {
-                    b.HasOne("MIA.Models.Entities.ArtWork", "ArtWork")
+                    b.HasOne("MIA.Models.Entities.VoteOn", "VoteOn")
                         .WithMany("Votes")
-                        .HasForeignKey("ArtWorkId");
+                        .HasForeignKey("ArtworkId");
 
                     b.HasOne("MIA.Models.Entities.VotingCriteria", "Criteria")
                         .WithMany("Votes")
@@ -762,9 +762,9 @@ namespace MIA.ORMContext.Migrations
 
             modelBuilder.Entity("MIA.Models.Entities.MediaFile", b =>
                 {
-                    b.HasOne("MIA.Models.Entities.ArtWork", "ArtWork")
+                    b.HasOne("MIA.Models.Entities.VoteOn", "VoteOn")
                         .WithMany("MediaFiles")
-                        .HasForeignKey("ArtWorkId");
+                        .HasForeignKey("ArtworkId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.NewsComment", b =>

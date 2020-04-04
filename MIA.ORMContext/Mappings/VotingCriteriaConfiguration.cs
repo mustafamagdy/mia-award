@@ -14,7 +14,9 @@ namespace MIA.ORMContext.Mappings {
         .ValueGeneratedOnAdd();
 
 
-      builder.HasMany(a => a.Votes).WithOne(a => a.Criteria).HasForeignKey(a => a.CriteriaId);
+      builder.HasOne(a => a.Award).WithMany(a => a.VotingCriterias).HasForeignKey(a => a.AwardId);
+      builder.HasMany(a => a.ArtworkVotes).WithOne(a => a.Criteria).HasForeignKey(a => a.CriteriaId);
+      builder.HasMany(a => a.ContestantVotes).WithOne(a => a.Criteria).HasForeignKey(a => a.CriteriaId);
     }
   }
 
