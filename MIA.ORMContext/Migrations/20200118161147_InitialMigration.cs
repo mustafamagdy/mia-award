@@ -531,9 +531,9 @@ namespace MIA.ORMContext.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ArtWorkPayments_ArtWorkId",
                 table: "ArtWorkPayments",
-                column: "ArtWorkId",
+                column: "ArtworkId",
                 unique: true,
-                filter: "[ArtWorkId] IS NOT NULL");
+                filter: "[ArtworkId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ArtWorks_AwardId",
@@ -646,7 +646,7 @@ namespace MIA.ORMContext.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_JudgeVotes_ArtWorkId",
                 table: "JudgeVotes",
-                column: "ArtWorkId");
+                column: "ArtworkId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JudgeVotes_CriteriaId",
@@ -661,7 +661,7 @@ namespace MIA.ORMContext.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_MediaFiles_ArtWorkId",
                 table: "MediaFiles",
-                column: "ArtWorkId");
+                column: "ArtworkId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

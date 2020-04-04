@@ -88,7 +88,7 @@ namespace MIA.Administration.Api
         //    return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
         //  }
 
-        //  trailerPosterKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.TrailerPosterFileName);
+        //  trailerPosterKey = fileManager.GenerateFileKeyForResource(ResourceType.VoteOn, ArtWorksItem.Id, dto.TrailerPosterFileName);
         //  trailerPosterUrl = await fileManager.UploadFileAsync(memorySteam, trailerPosterKey);
         //}
         ArtWorksItem.PosterUrl = posterUrl;
@@ -167,13 +167,13 @@ namespace MIA.Administration.Api
       //{
       //  var returnMediaList = new List<MediaFileDto>();
       //  returnMediaList.Add(new MediaFileDto());
-      //  returnMediaList[0].ArtWork = _mapper.Map<ArtWorkDto>(artWork);
+      //  returnMediaList[0].VoteOn = _mapper.Map<ArtWorkDto>(artWork);
       //  return IfFound(returnMediaList);
       //}
       //else
       //{
       var returnMediaList = _mapper.Map<List<MediaFileDto>>(artWorkItem);
-      //returnMediaList[0].ArtWork = _mapper.Map<ArtWorkDto>(artWork);
+      //returnMediaList[0].VoteOn = _mapper.Map<ArtWorkDto>(artWork);
       return IfFound(returnMediaList);
 
       // }
@@ -219,7 +219,7 @@ namespace MIA.Administration.Api
     public async Task<IActionResult> SavePaymentAsync([FromBody] NewArtWorkPaymentDto dto, [FromServices] IAppUnitOfWork db)
     {
       //var newartwork = new ArtWorkPayment();
-      //newartwork.ArtWorkId = dto.ArtWorkId;
+      //newartwork.ArtworkId = dto.ArtworkId;
       //newartwork.Amount = dto.Amount;
       //newartwork.PaymentDate = dto.PaymentDate;
       //newartwork.TransactionNumber = dto.TransactionNumber; ;

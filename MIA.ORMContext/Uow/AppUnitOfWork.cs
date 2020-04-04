@@ -27,7 +27,8 @@ namespace MIA.ORMContext.Uow {
     public DbSet<BoothPurchase> BoothPurchases => base.Context.Set<BoothPurchase>();
     public DbSet<JudgeAward> JudgeAwards => base.Context.Set<JudgeAward>();
     public DbSet<JudgeComment> JudgeComments => base.Context.Set<JudgeComment>();
-    public DbSet<JudgeVote> JudgeVotes => base.Context.Set<JudgeVote>();
+    public DbSet<ArtworkJudgeVote> ArtworkVotes => base.Context.Set<ArtworkJudgeVote>();
+    public DbSet<ContestantJudgeVote> ContestantVotes => base.Context.Set<ContestantJudgeVote>();
     public DbSet<MediaFile> MediaFiles => base.Context.Set<MediaFile>();
     public DbSet<News> News => base.Context.Set<News>();
     public DbSet<NewsComment> NewsComments => base.Context.Set<NewsComment>();

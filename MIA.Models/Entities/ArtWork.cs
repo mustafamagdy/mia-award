@@ -3,27 +3,21 @@ using System;
 using System.Collections.Generic;
 
 namespace MIA.Models.Entities {
-  public class ArtWork : BaseEntity<string> {
+  public class ArtWork : BaseContestant {
     public LocalizedData Title { get; set; }
     public bool UploadComplete { get; set; }
     public bool AllowFileUpload { get; set; }
     public bool Featured { get; set; }
-    public Award Award { get; set; }
-    public string AwardId { get; set; }
-    public Nominee Nominee { get; set; }
-    public string NomineeId { get; set; }
+  
     public ArtWorkPayment Payment { get; set; }
     public string PaymentId { get; set; }
     //public int FileCount { get; set; }
     public HashSet<MediaFile> MediaFiles { get; set; }
-    public HashSet<JudgeVote> Votes { get; set; }
     //front end user's reviews (comments)
     public HashSet<ArtworkReview> Reviews { get; set; }
 
-    public Award WinnerAwardFirstPlace { get; set; }
-    public string WinnerAwardFirstPlaceId { get; set; }
-    public Award WinnerAwardSecondPlace { get; set; }
-    public string WinnerAwardSecondPlaceId { get; set; }
+    public HashSet<ArtworkJudgeVote> Votes { get; set; }
+
 
     public string PosterId { get; set; }
     public string PosterUrl { get; set; }

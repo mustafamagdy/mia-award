@@ -27,7 +27,8 @@ namespace MIA.ORMContext.Uow {
     DbSet<BoothPurchase> BoothPurchases { get; }
     DbSet<JudgeAward> JudgeAwards { get; }
     DbSet<JudgeComment> JudgeComments { get; }
-    DbSet<JudgeVote> JudgeVotes { get; }
+    DbSet<ArtworkJudgeVote> ArtworkVotes { get; }
+    DbSet<ContestantJudgeVote> ContestantVotes { get; }
     DbSet<MediaFile> MediaFiles { get; }
     DbSet<News> News { get; }
     DbSet<NewsComment> NewsComments { get; }
