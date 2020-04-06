@@ -9,10 +9,8 @@
                     <div class="form-group col-lg-6">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" ng-class="{'active':$index == 0}"
-                                ng-repeat="lang in editAwardCtrl.language">
-                                <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home"
-                                    role="tab" data-toggle="tab">
+                            <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in editAwardCtrl.language">
+                                <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">
                                     <span style="color:red">*</span> {{lang.value | translate}}
                                 </a>
                             </li>
@@ -21,37 +19,26 @@
                             <div class="pmd-card-discription">
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-                                    <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
-                                        ng-repeat="lang in editAwardCtrl.language" id="{{lang.value}}-form">
+                                    <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in editAwardCtrl.language" id="{{lang.value}}-form">
                                         <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
                                             <label for="first-name">{{ lang.value+'Name' | translate}} </label>
-                                            <input required type="text" class="mat-input form-control"
-                                                name="title{{lang.value+'Name'}}"
-                                                ng-model="editAwardCtrl.Award.title[lang.key]" ng-minlength="3"
-                                                ng-maxlength="255">
+                                            <input required type="text" class="mat-input form-control" name="title{{lang.value+'Name'}}" ng-model="editAwardCtrl.Award.title[lang.key]" ng-minlength="3" ng-maxlength="255">
                                             <div ng-messages="editAwardForm.title{{lang.value+'Name'}}.$error">
 
-                                                <div class="error ng-binding"
-                                                    ng-show="editAwardForm.title{{lang.value+'Name'}}.$error.required && !editAwardForm.title{{lang.value+'Name'}}.$pristine">
+                                                <div class="error ng-binding" ng-show="editAwardForm.title{{lang.value+'Name'}}.$error.required && !editAwardForm.title{{lang.value+'Name'}}.$pristine">
                                                     {{'requiredErr' | translate}}</div>
-                                                <div class="error ng-binding"
-                                                    ng-show="(editAwardForm.title{{lang.value+'Name'}}.$error.minlength || editAwardForm.title{{lang.value+'Name'}}.$error.maxlength) && !editAwardForm.title{{lang.value+'Name'}}.$error.required">
+                                                <div class="error ng-binding" ng-show="(editAwardForm.title{{lang.value+'Name'}}.$error.minlength || editAwardForm.title{{lang.value+'Name'}}.$error.maxlength) && !editAwardForm.title{{lang.value+'Name'}}.$error.required">
                                                     {{'NameLengthError3' | translate}}</div>
                                             </div>
                                         </div>
                                         <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
                                             <label for="first-name">{{ lang.value+'Name' | translate}} </label>
-                                            <textarea required type="text" class="mat-input form-control"
-                                                name="description{{lang.value+'Name'}}"
-                                                ng-model="editAwardCtrl.Award.description[lang.key]" ng-minlength="3"
-                                                ng-maxlength="955"></textarea>
+                                            <textarea required type="text" class="mat-input form-control" name="description{{lang.value+'Name'}}" ng-model="editAwardCtrl.Award.description[lang.key]" ng-minlength="3" ng-maxlength="955"></textarea>
                                             <div ng-messages="editAwardForm.description{{lang.value+'Name'}}.$error">
 
-                                                <div class="error ng-binding"
-                                                    ng-show="editAwardForm.description{{lang.value+'Name'}}.$error.required && !editAwardForm.description{{lang.value+'Name'}}.$pristine">
+                                                <div class="error ng-binding" ng-show="editAwardForm.description{{lang.value+'Name'}}.$error.required && !editAwardForm.description{{lang.value+'Name'}}.$pristine">
                                                     {{'requiredErr' | translate}}</div>
-                                                <div class="error ng-binding"
-                                                    ng-show="(editAwardForm.description{{lang.value+'Name'}}.$error.minlength || editAwardForm.description{{lang.value+'Name'}}.$error.maxlength) && !editAwardForm.description{{lang.value+'Name'}}.$error.required">
+                                                <div class="error ng-binding" ng-show="(editAwardForm.description{{lang.value+'Name'}}.$error.minlength || editAwardForm.description{{lang.value+'Name'}}.$error.maxlength) && !editAwardForm.description{{lang.value+'Name'}}.$error.required">
                                                     {{'NameLengthError3' | translate}}</div>
                                             </div>
                                         </div>
@@ -69,42 +56,41 @@
                 <div class="row">
                     <div class="form-group col-lg-6">
                         <label for="first-name">{{'Manager' | translate}}</label>
-                        <select required style="width:100% !important"
-                            class="form-control select-with-search pmd-select2-tags"
-                            ng-model="editAwardCtrl.selectedManager"
-                            ng-options="group as group.fullName for group in editAwardCtrl.ManagerList">
+                        <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags" ng-model="editAwardCtrl.selectedManager" ng-options="group as group.fullName for group in editAwardCtrl.ManagerList">
                         </select>
 
                     </div>
                     <div class="form-group col-lg-6">
 
                         <label for="first-name">{{'Judges' | translate}}</label>
-                        <select required style="width:100% !important" multiple
-                            class="form-control select-with-search pmd-select2-tags"
-                            ng-model="editAwardCtrl.selectedJudges"
-                            ng-options="group as group.fullName  for group in editAwardCtrl.judgesList">
+                        <select required style="width:100% !important" multiple class="form-control select-with-search pmd-select2-tags" ng-model="editAwardCtrl.selectedJudges" ng-options="group as group.fullName  for group in editAwardCtrl.judgesList">
                         </select>
 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label for="first-name">{{'type' | translate}}</label>
+                        <div ng-repeat="awardType in editAwardCtrl.awardTypes" id="radio-{{radius.price}}">
+                            <input type="radio" name="type" ng-checked="awardType.checked" ng-model="editAwardCtrl.selectedType" value="{{awardType.Id}}">{{awardType.shortName}}
+                        </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
     <div class="pmd-modal-action text-right">
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            class="btn pmd-ripple-effect btn-primary" type="button"
-            ng-click="editAwardCtrl.UpdateAward()">{{'saveChangesBtn' | translate}}</button>
-        <button class="btn pmd-ripple-effect btn-default" type="button"
-            ng-click="editAwardCtrl.Close()">{{'DiscardBtn' | translate}}</button>
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-type: 6px;" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editAwardCtrl.UpdateAward()">{{'saveChangesBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editAwardCtrl.Close()">{{'DiscardBtn' | translate}}</button>
     </div>
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         $(".select-add-tags").select2({
             tags: true,
             theme: "bootstrap",
-            insertTag: function (data, tag) {
+            insertTag: function(data, tag) {
                 // Insert the tag at the end of the results
                 data.push(tag);
                 // console.log(data);

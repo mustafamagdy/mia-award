@@ -1978,15 +1978,16 @@
 
     }
 }());
-(function () {
+(function() {
     'use strict';
 
     angular
         .module('home')
-        .controller('editAwardDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
-            'AwardResource', 'ToastService', 'AwardDetailsByAwardIdPrepService', editAwardDialogController])
+        .controller('editAwardDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', 'awardType', '$state', 'appCONSTANTS', '$translate',
+            'AwardResource', 'ToastService', 'AwardDetailsByAwardIdPrepService', editAwardDialogController
+        ])
 
-    function editAwardDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, AwardResource,
+    function editAwardDialogController($rootScope, $scope, blockUI, $filter, awardType, $state, appCONSTANTS, $translate, AwardResource,
         ToastService, AwardDetailsByAwardIdPrepService) {
         var vm = this;
         vm.judgesList = [];
@@ -1995,12 +1996,13 @@
         vm.selectedJudges = [];
         vm.language = appCONSTANTS.supportedLanguage;
         vm.Award = AwardDetailsByAwardIdPrepService;
+        vm.awardTypes = awardType.TypeList;
         console.log(vm.Award);
         refreshJudgess();
-        vm.Close = function () {
+        vm.Close = function() {
             $state.go('Award');
         }
-        vm.UpdateAward = function () {
+        vm.UpdateAward = function() {
             blockUI.start("Loading...");
             debugger;
 
@@ -2011,14 +2013,14 @@
             updateObj.Title = vm.Award.title;
             updateObj.Description = vm.Award.description;
             updateObj.$update().then(
-                function (data, status) {
+                function(data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
                     blockUI.stop();
 
                     $state.go('Award');
 
                 },
-                function (data, status) {
+                function(data, status) {
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
@@ -2026,30 +2028,29 @@
         }
 
         function refreshJudgess() {
-            var k = AwardResource.getAllJudges().$promise.then(function (results) {
-                vm.judgesList = results;
-                vm.ManagerList = results;
-                blockUI.stop();
-                debugger;
-                if (vm.Award.judgeAwards != null) {
-                    var i;
-                    for (i = 0; i < vm.Award.judgeAwards.length; i++) {
-                        var index = vm.judgesList.indexOf($filter('filter')(vm.judgesList, { 'id': vm.Award.judgeAwards[i].judgeId }, true)[0]);
-                        vm.selectedJudges.push(vm.judgesList[index]);
+            var k = AwardResource.getAllJudges().$promise.then(function(results) {
+                    vm.judgesList = results;
+                    vm.ManagerList = results;
+                    blockUI.stop();
+                    debugger;
+                    if (vm.Award.judgeAwards != null) {
+                        var i;
+                        for (i = 0; i < vm.Award.judgeAwards.length; i++) {
+                            var index = vm.judgesList.indexOf($filter('filter')(vm.judgesList, { 'id': vm.Award.judgeAwards[i].judgeId }, true)[0]);
+                            vm.selectedJudges.push(vm.judgesList[index]);
 
+                        }
                     }
-                }
-                var index = vm.ManagerList.indexOf($filter('filter')(vm.ManagerList, { 'id': vm.Award.managerId }, true)[0]);
-                vm.selectedManager = vm.ManagerList[index];
-            },
-                function (data, status) {
+                    var index = vm.ManagerList.indexOf($filter('filter')(vm.ManagerList, { 'id': vm.Award.managerId }, true)[0]);
+                    vm.selectedManager = vm.ManagerList[index];
+                },
+                function(data, status) {
 
                     blockUI.stop();
                 });
         }
     }
-}());
-(function () {
+}());(function () {
     'use strict';
 
     angular
@@ -2842,7 +2843,8 @@
     angular
         .module('home')
         .controller('viewJudgeArtWorkController', ['ArtWorkMediaByArtWorkIdPrepService', '$scope', 'blockUI', '$stateParams', '$uibModal', '$state', 'appCONSTANTS', '$translate',
-            'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', viewJudgeArtWorkController])
+            'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', viewJudgeArtWorkController
+        ])
 
     function viewJudgeArtWorkController(ArtWorkMediaByArtWorkIdPrepService, $scope, blockUI, $stateParams, $uibModal, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
         ToastService, ArtWorkByIdPrepService) {
@@ -2873,8 +2875,6 @@
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
                     blockUI.stop();
-
-
                 },
                 function (data, status) {
                     blockUI.stop();
@@ -2914,20 +2914,30 @@
                 }
             );
         }
-        vm.openMessageDialog = function () { 
+        vm.openMessageDialog = function () {
             var modalContent = $uibModal.open({
                 templateUrl: './app/core/ConfirmationMessage/templates/ConfirmMessageDialog.html',
                 controller: 'confirmMessageDialogController',
                 controllerAs: 'messageDlCtrl',
-                resolve: { 
+                resolve: {
                     callBackFunction: function () { return confirmationMessage }
                 }
 
             });
         }
+        vm.slider = {
+            minValue: 10,
+            maxValue: 90,
+            options: {
+                floor: 0,
+                ceil: 100,
+                step: 10,
+                showTicks: true,
+
+                         }
+        };
     }
-}());
-(function () {
+}());(function () {
     'use strict';
 
     angular

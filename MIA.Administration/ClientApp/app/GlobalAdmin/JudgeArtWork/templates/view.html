@@ -1,3 +1,50 @@
+<style>
+    .custom-slider.rzslider .rz-bar {
+        background: #ffe4d1;
+        height: 2px;
+    }
+
+    .custom-slider.rzslider .rz-selection {
+        background: orange;
+    }
+
+    .custom-slider.rzslider .rz-pointer {
+        width: 8px;
+        height: 16px;
+        top: auto;
+        /* to remove the default positioning */
+        bottom: 0;
+        background-color: #333;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+
+    .custom-slider.rzslider .rz-pointer:after {
+        display: none;
+    }
+
+    .custom-slider.rzslider .rz-bubble {
+        bottom: 14px;
+    }
+
+    .custom-slider.rzslider .rz-limit {
+        font-weight: bold;
+        color: orange;
+    }
+
+    .custom-slider.rzslider .rz-tick {
+        width: 1px;
+        height: 10px;
+        margin-left: 4px;
+        border-radius: 0;
+        background: #ffe4d1;
+        top: -1px;
+    }
+
+    .custom-slider.rzslider .rz-tick.rz-selected {
+        background: orange;
+    }
+</style>
 <div class="modal-content">
     <div class="modal-header bordered">
         <h2 class="pmd-card-description-text">{{'ViewJudgeArtWork' | translate}}</h2>
@@ -17,22 +64,29 @@
                 <div class="form-group col-lg-4">
                     <div ng-repeat="n in [] | range:viewJudgeArtWorkCtrl.totalCount"> <label for="first-name">
                             {{viewJudgeArtWorkCtrl.votingCriteriaList[n].criteria.name[selectedLanguage]}}</label>
-                        <input type="number" class="mat-input form-control" name="Value" style="display: inline-block;"
+                        {{viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue}}
+                        <rzslider class="custom-slider"
+                            rz-slider-model="viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue"
+                            ng-mouseup="viewJudgeArtWorkCtrl.changeValue(viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue,n)"
+                            rz-slider-options="viewJudgeArtWorkCtrl.slider.options"></rzslider>
+
+                        <!-- <input type="number" class="mat-input form-control" name="Value" style="display: inline-block;"
                             ng-pattern="/^[1-9]+[0-9]*$/" ng-minlength="1" ng-maxlength="4"
                             ng-model="viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue"
                             ng-change="viewJudgeArtWorkCtrl.changeValue(viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue,n)"
-                            ng-readonly="viewJudgeArtWorkCtrl.votingCriteriaList[n].judgeComplete" />
+                            ng-readonly="viewJudgeArtWorkCtrl.votingCriteriaList[n].judgeComplete" /> -->
+
                         <!-- required validation  -->
                         <div ng-messages="viewJudgeArtWorkForm.Value.$error">
                             <div class="error" ng-if="viewJudgeArtWorkForm.Value.$error.required && 
                                         !viewJudgeArtWorkForm.Value.$pristine">
-                                {{'requiredErr' |  translate}}
+                                {{'requiredErr' | translate}}
                             </div>
                             <!-- length validation -->
                             <div class="error" ng-if="(viewJudgeArtWorkForm.Value.$error.minlength ||
                                             viewJudgeArtWorkForm.Value.$error.maxlength) 
                                              && !viewJudgeArtWorkForm.Value.newValue.$error.required">
-                                {{'PhoneLengthError' |  translate}}
+                                {{'PhoneLengthError' | translate}}
                             </div>
                         </div>
 

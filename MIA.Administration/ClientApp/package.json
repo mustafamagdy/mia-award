@@ -26,6 +26,7 @@
     "angular-ui-event": "^1.0.0",
     "angular-ui-router": "1.0.0",
     "angular-utils-ui-breadcrumbs": "^0.2.2-1",
+    "angularjs-slider": "^7.0.0",
     "bootstrap": "^3.4.1",
     "bootstrap-toggle": "^2.2.2",
     "canvg": "^1.5.3",
