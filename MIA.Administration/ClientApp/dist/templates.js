@@ -3095,7 +3095,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/Role/templates/Role.html',
-    ' \n' +
     '<div>\n' +
     '    <!-- <div style="margin-bottom:10px">\n' +
     '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go(\'newRole\');"\n' +
@@ -3113,36 +3112,28 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        background-color: #0e0e0e;\n' +
     '        box-shadow: 0 0 10px 5px rgba(0,0,0,.35);\n' +
     '    ">\n' +
-    '        <table class="table pmd-table table-hover">\n' +
-    '            <thead>\n' +
-    '                <tr>\n' +
-    '                    <th style="width: 50%">{{\'Name\' | translate}}</th>\n' +
-    '                    <!-- <th>{{\'Status\' | translate}}</th> -->\n' +
-    '                    <th></th>\n' +
-    '                </tr>\n' +
-    '            </thead>\n' +
-    '            <tbody>\n' +
-    '                <tr ng-repeat="role in RoleList">\n' +
-    '                    <td >{{role.name}}</td>\n' +
-    '                    <!-- <td ng-show="!role.isDefault">\n' +
-    '                        <div class="btn-switch" ng-class="{\'btn-switch--on\':role.isActive}" ng-model="role.isActive"\n' +
-    '                            ng-click="RoleCtrl.ChangeStatus(role)">\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th style="width: 50%">{{\'Name\' | translate}}</th>\n' +
+    '                        <!-- <th>{{\'Status\' | translate}}</th> -->\n' +
+    '                        <th></th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                    <tr ng-repeat="role in RoleList">\n' +
+    '                        <td>{{role.name}}</td> \n' +
     '\n' +
-    '                            <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':role.isActive}"\n' +
-    '                                ng-model="role.isActive" ng-click="RoleCtrl.ChangeStatus(role)">\n' +
-    '                            </div>\n' +
-    '                    </td> -->\n' +
-    '\n' +
-    '                    <td >\n' +
-    '                        <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                            ng-click="$state.go(\'editRole\',{roleId: role.id});"title="Edit">mode_edit</i>\n' +
-    '                        <!-- <i class="material-icons pmd-md deleteButton cursorPointer font25"\n' +
-    '                            ng-click="RoleCtrl.openDeleteDialog(role,role.titles[selectedLanguage],role.userGroupId)">delete</i> -->\n' +
-    '                    </td>\n' +
-    '                </tr>\n' +
-    '            </tbody>\n' +
-    '        </table>\n' +
-    '    </div>\n' +
+    '                        <td>\n' +
+    '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
+    '                                ng-click="$state.go(\'editRole\',{roleId: role.id});" title="Edit">mode_edit</i>\n' +
+    '                            <i ng-show="!role.systemRole" class="material-icons pmd-md deleteButton cursorPointer font25"\n' +
+    '                                ng-click="RoleCtrl.openDeleteDialog(role,role.titles[selectedLanguage],role.userGroupId)">delete</i>\n' +
+    '                        </td>\n' +
+    '                    </tr>\n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
     '    </div>\n' +
     '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
     '        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
@@ -4372,146 +4363,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/user/templates/addOperationUser.html',
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text"> {{\'BasicInfoLbl\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="newUserForm">\n' +
-    '            <div class="row">\n' +
-    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name"><span style="color:red">*</span>{{\'FullName\' | translate}}</label>\n' +
-    '                    <input required type="text" class="mat-input form-control" name="fullName"\n' +
-    '                        ng-model="addOperationUserCtrl.fullName" ng-minlength="3" ng-maxlength="255">\n' +
-    '                    <div ng-messages="newUserForm.fullName.$error" class="error">\n' +
-    '                        <div ng-show="newUserForm.fullName.$error.pattern">{{\'TextOnly\' | translate}}</div>\n' +
-    '                        <div class="error" ng-if="newUserForm.fullName.$error.required && !newUserForm.fullName.$pristine">{{\'NameLengthError\'\n' +
-    '                    | translate}}</div>\n' +
-    '                        <div  class="error" ng-if="(newUserForm.fullName.$error.minlength || newUserForm.fullName.$error.maxlength) ">{{\'NameLengthError3\'\n' +
-    '                    | translate}}</div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                </div>\n' +
-    '\n' +
-    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name"><span style="color:red">*</span>{{\'userName\' | translate}}</label>\n' +
-    '                    <input required type="text" class="mat-input form-control" name="userName"\n' +
-    '                        ng-model="addOperationUserCtrl.userName" ng-minlength="3" ng-maxlength="255">\n' +
-    '                    <div ng-messages="newUserForm.userName.$error">\n' +
-    '                        <div  class="error" ng-show="newUserForm.userName.$error.pattern">{{\'TextOnly\' | translate}}</div>\n' +
-    '                        <div  class="error" ng-if="newUserForm.userName.$error.required && !newUserForm.userName.$pristine">{{\'userName\' |\n' +
-    '                    translate}}</div>\n' +
-    '                        <div  class="error" ng-if="(newUserForm.userName.$error.minlength || newUserForm.userName.$error.maxlength)">{{\'NameLengthError255\'\n' +
-    '                    | translate}}</div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '            <div class="row">\n' +
-    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <label><span style="color:red">*</span>{{\'EmailLbl\' | translate}}</label>\n' +
-    '                    <input required type="text" class="mat-input form-control" name="userEmail"\n' +
-    '                        ng-model="addOperationUserCtrl.email"\n' +
-    '                        ng-pattern="/^\\w+([-+.\']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$/">\n' +
-    '                    <span class="error" ng-show="newUserForm.userEmail.$error.pattern">{{\'WrongMail\' | translate}}\n' +
-    '                    </span>\n' +
-    '\n' +
-    '                    <div ng-messages="newUserForm.userEmail.$error">\n' +
-    '                        <div  class="error" ng-if="newUserForm.userEmail.$error.required && !newUserForm.userEmail.$pristine">{{\'EmailLengthError\'\n' +
-    '                    | translate}}</div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '\n' +
-    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name"><span style="color:red">*</span>{{\'phoneLbl\' | translate}}</label>\n' +
-    '                    <input required type="text" class="mat-input form-control" name="phone" numbers-only\n' +
-    '                        ng-model="addOperationUserCtrl.mobileNumber" ng-minlength="11" ng-maxlength="11">\n' +
-    '                    <div ng-messages="newUserForm.phone.$error">\n' +
-    '                        <div  class="error" ng-if="newUserForm.phone.$error.required && !newUserForm.phone.$pristine">{{\'PhoneReqError\' |\n' +
-    '                    translate}}</div>\n' +
-    '                        <div  class="error" ng-if="(newUserForm.phone.$error.minlength || newUserForm.phone.$error.maxlength)">{{\'PhoneLengthError\'\n' +
-    '                    | translate}}</div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '\n' +
-    '            <div class="row">\n' +
-    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name"><span style="color:red">*</span>{{\'UserPasswordLbl\' | translate}}</label>\n' +
-    '                    <input required type="password" class="mat-input form-control" name="password"\n' +
-    '                        ng-model="addOperationUserCtrl.password" ng-minlength="8" ng-maxlength="25">\n' +
-    '                    <div ng-messages="newUserForm.password.$error">\n' +
-    '                        <div  class="error" ng-if="newUserForm.password.$error.required && !newUserForm.password.$pristine">{{\'requiredErr\' |\n' +
-    '                    translate}}</div>\n' +
-    '                        <div\n' +
-    '                        class="error" ng-if="(newUserForm.password.$error.minlength || newUserForm.password.$error.maxlength) && !newUserForm.password.newPassword.$error.required">\n' +
-    '                            Password\n' +
-    '                            length must be 8-25 char.</div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '\n' +
-    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name"><span style="color:red">*</span>{{\'ConfirmPasswordLbl\' | translate}}</label>\n' +
-    '                    <input required type="password" class="mat-input form-control" name="confirmPassword"\n' +
-    '                        ng-model="confirmPassword" equalto="newUserForm.password">\n' +
-    '                    <div ng-messages="newUserForm.confirmPassword.$error">\n' +
-    '                        <div\n' +
-    '                        class="error" ng-if="newUserForm.confirmPassword.$error.required && !newUserForm.confirmPassword.$pristine">{{\'requiredErr\'\n' +
-    '    | translate}}</div>\n' +
-    '                        <div\n' +
-    '                        class="error"  ng-if="newUserForm.confirmPassword.$error.equalto && !newUserForm.confirmPassword.$error.required">{{\'passworddontmatch\'\n' +
-    '    | translate}}</div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '\n' +
-    '            </div>\n' +
-    ' <div class="table-responsive">\n' +
-    '                        <table class="table table-striped table-bordered">\n' +
-    '                            <tr ng-repeat-start="module in addOperationUserCtrl.Role.permessionTree">\n' +
-    '                                <td><strong>{{module.module.title[selectedLanguage]}}</strong></td>\n' +
-    '                            </tr>\n' +
-    '                            <tr ng-repeat-end ng-repeat="per in module.permessions">\n' +
-    '                                <td> <input type="checkbox" ng-change="addOperationUserCtrl.checkPermission(per)"\n' +
-    '                                        ng-model="per.seclected"> </td>\n' +
-    '                                <td>{{ per.title[selectedLanguage]}}</td>\n' +
-    '                            </tr>\n' +
-    '                        </table> \n' +
-    '                        </div>\n' +
-    '            <!-- \n' +
-    '                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                    <label> {{ \'Role\' | translate}} </label>\n' +
-    '                    <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags"\n' +
-    '                        multiple ng-model="addOperationUserCtrl.selectedUserRoles"\n' +
-    '                        ng-options="role as role.titleDictionary[selectedLanguage] for role in roleList"></select>\n' +
-    '    \n' +
-    '                </div> -->\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="newUserForm.$invalid " class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="addOperationUserCtrl.AddNewUser()">{{\'saveChangesBtn\' |\n' +
-    '            translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="addOperationUserCtrl.close()">{{\'DiscardBtn\' |\n' +
-    '            translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-tags").select2({\n' +
-    '            tags: false,\n' +
-    '            theme: "bootstrap",\n' +
-    '        })\n' +
-    '\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/user/templates/addUser.html',
     '<div class="modal-content">\n' +
     '    <div class="modal-header bordered">\n' +
@@ -4612,22 +4463,22 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    | translate}}</div>\n' +
     '                    </div>\n' +
     '                </div>\n' +
-    '                <div class="col-md-12  form-group pmd-textfield pmd-textfield-floating-label-completed"></div>\n' +
-    '                <div class="table-responsive">\n' +
-    '                        <table class="table table-striped table-bordered">\n' +
-    '                            <tr ng-repeat-start="module in addUserCtrl.Role.permessionTree">\n' +
-    '                                <td><strong>{{module.module.title[selectedLanguage]}}</strong></td>\n' +
-    '                            </tr>\n' +
-    '                            <tr ng-repeat-end ng-repeat="per in module.permessions">\n' +
-    '                                <td> <input type="checkbox" ng-change="addUserCtrl.checkPermission(per)"\n' +
-    '                                        ng-model="per.seclected"> </td>\n' +
-    '                                <td>{{ per.title[selectedLanguage]}}</td>\n' +
-    '                            </tr>\n' +
-    '                        </table> \n' +
-    '                        </div>\n' +
-    '                        </div>\n' +
     '\n' +
     '            </div>\n' +
+    '            <div class="row">\n' +
+    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                    <label for="first-name">{{\'Role\' | translate}}</label>\n' +
+    '                    <select required style="width:100% !important" multiple\n' +
+    '                        class="form-control select-with-search pmd-select2-tags"\n' +
+    '                         ng-model="addUserCtrl.selectedRole" \n' +
+    '                        ng-options="group as group.name  for group in addUserCtrl.roleList">\n' +
+    '                    </select>\n' +
+    '\n' +
+    '\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '\n' +
     '\n' +
     '        </form>\n' +
     '    </div>\n' +
@@ -4639,7 +4490,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="addUserCtrl.close()">{{\'DiscardBtn\' |\n' +
     '            translate}}</button>\n' +
     '    </div>\n' +
-    '</div>');
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '        });\n' +
+    '\n' +
+    '    });\n' +
+    '</script>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -4768,24 +4629,26 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/user/templates/user.html',
-    '<div  id="bold">\n' +
+    '<div id="bold">\n' +
     '    {{\'user\' | translate}}\n' +
     '</div>\n' +
     '<div>\n' +
-    '    <!-- <div style="margin-bottom:10px">\n' +
-    '            <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '                ng-click="$state.go(\'addUser\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '                type="button">{{\'AddUserBtn\' | translate}}</button>\n' +
-    '    \n' +
-    '        </div> -->\n' +
+    '    <div style="margin-bottom:10px">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-click="$state.go(\'addUser\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
+    '            type="button">{{\'AddUserBtn\' | translate}}</button>\n' +
+    '\n' +
+    '    </div>\n' +
     '    <div class="row">\n' +
     '        <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '            <input type="radio" ng-change="userCtrl.changeUserType(1)" ng-model="userCtrl.isChecked" ng-value="1">\n' +
-    '            {{\'Retailer\' | translate}}\n' +
-    '            <input type="radio" ng-change="userCtrl.changeUserType(2)" ng-model="userCtrl.isChecked" ng-value="2">\n' +
-    '            {{\'ManufactureLbl\' | translate}}\n' +
-    '            <input type="radio" ng-change="userCtrl.changeUserType(3)" ng-model="userCtrl.isChecked" ng-value="3">\n' +
-    '            {{\'DistributorLbl\' | translate}}\n' +
+    '\n' +
+    '            <div class="form-group col-lg-4"> <label for="first-name">{{\'Role\' | translate}}</label>\n' +
+    '                <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags"\n' +
+    '                    ng-model="userCtrl.selectedRole" ng-change="userCtrl.changeUserType()"\n' +
+    '                    ng-options="group as group.name  for group in userCtrl.roleList">\n' +
+    '                </select>\n' +
+    '            </div>\n' +
+    '\n' +
     '\n' +
     '        </div>\n' +
     '    </div>\n' +
@@ -4798,76 +4661,27 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            <table class="table pmd-table table-hover">\n' +
     '                <thead>\n' +
     '                    <tr>\n' +
-    '                        <th>{{\'image\' | translate}}</th>\n' +
-    '                        <th>{{\'Account\' | translate}}</th>\n' +
+    '                        <th>{{\'username\' | translate}}</th>\n' +
+    '                        <th>{{\'fullname\' | translate}}</th>\n' +
+    '                        <th>{{\'email\' | translate}}</th>\n' +
+    '                        <th>{{\'gender\' | translate}}</th>\n' +
     '                        <th></th>\n' +
     '                    </tr>\n' +
     '                </thead>\n' +
     '                <tbody>\n' +
-    '                    <tr ng-repeat-start="userObj in userCtrl.userList">\n' +
-    '                        <td width="20%">\n' +
-    '                            <img ng-src="{{appCONSTANTS.Image_URL_ACTOR}}{{userObj.image}}" width="50px" class="avatar">\n' +
-    '                        </td>\n' +
-    '                        <td width="20%">{{userObj.title}}</td>\n' +
+    '                    <tr ng-repeat="userObj in userCtrl.userList">\n' +
     '\n' +
-    '                        <td width="30%">\n' +
-    '                            <button\n' +
-    '                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '                                ng-click="$state.go(\'addUser\',{tenantId : userObj.tenantId,userType:userCtrl.currentTenantType});"\n' +
-    '                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '                                type="button">{{\'AddUserBtn\' | translate}}</button>\n' +
+    '                        <td width="20%">{{userObj.userName}}</td>\n' +
+    '                        <td width="20%">{{userObj.fullName}}</td>\n' +
+    '                        <td width="20%">{{userObj.email}}</td>\n' +
+    '                        <td width="20%">{{userObj.gender}}</td>\n' +
     '\n' +
-    '                        </td>\n' +
-    '                        <td class="pmd-table-row-action">\n' +
-    '                            <span href="javascript:void(0);" ng-if="userObj.users.length >0 "\n' +
-    '                                ng-click="userObj.show=!userObj.show;userCtrl.showMore($event)"\n' +
-    '                                class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i\n' +
-    '                                    class="material-icons md-dark pmd-sm"></i></span>\n' +
-    '                        </td>\n' +
-    '                        <td></td>\n' +
-    '                        <td></td>\n' +
-    '                    </tr>\n' +
-    '\n' +
-    '                    <tr ng-repeat-end ng-repeat="userRow in userObj.users" ng-show="userObj.show" id="collapse">\n' +
-    '                        <td>{{ userRow.userName}}</td>\n' +
-    '                        <td>{{ userRow.email}}</td>\n' +
-    '                        <td>{{ userRow.mobileNumber}}</td>\n' +
-    '                        <td>\n' +
-    '                            <span ng-show="userRow.isMaster">\n' +
-    '                                <img ng-click="userCtrl.ChangeRole(userRow)"\n' +
-    '                                    src="../../../../assets/img/admin.png" alt="admin">\n' +
-    '                            </span>\n' +
-    '                            <span ng-show="!userRow.isMaster">\n' +
-    '                                <img ng-click="userCtrl.ChangeRole(userRow)"\n' +
-    '                                    src="../../../../assets/img/user.png" alt="User">\n' +
-    '                            </span>\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            <div>\n' +
-    '                                <div class="btn-switch" ng-class="{\'btn-switch--on\':userRow.isActive}"\n' +
-    '                                    ng-model="userRow.isActive" ng-click="userCtrl.ChangeStatus(userRow)">\n' +
-    '\n' +
-    '                                    <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':userRow.isActive}"\n' +
-    '                                        ng-model="userRow.isActive" ng-click="userCtrl.ChangeStatus(userRow)">\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                            <div ng-if="user.permessionModules[\'Product\'].includes(12)==false"\n' +
-    '                                title="You don\'t have permssion">\n' +
-    '                                <div class="btn-switch" ng-class="{\'btn-switch--on\':userRow.isActive}"\n' +
-    '                                    ng-model="userRow.isActive">\n' +
-    '\n' +
-    '                                    <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':userRow.isActive}"\n' +
-    '                                        ng-model="userRow.isActive">\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '\n' +
-    '                        </td>\n' +
     '                        <td>\n' +
     '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'editUser\', {userId: userRow.userId,userType:userCtrl.currentTenantType});"title="Edit">mode_edit</i>\n' +
+    '                                ng-click="$state.go(\'editUser\',{userId: userObj.id});" title="Edit">mode_edit</i>\n' +
     '                        </td>\n' +
     '                    </tr>\n' +
+    '\n' +
     '                </tbody>\n' +
     '            </table>\n' +
     '        </div>\n' +
@@ -4882,576 +4696,15 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/user/templates/userDistributer.html',
-    '<div  id="bold">\n' +
-    '        {{\'userDistributer\' | translate}}\n' +
-    '</div>\n' +
-    '<div>\n' +
-    '    <div ng-if="userDistributerCtrl.userList.length == 0">\n' +
-    '        <span>{{\'NouserAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="userDistributerCtrl.userList.length >0">\n' +
-    '\n' +
-    '        <div class="table-responsive">\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th>{{\'image\' | translate}}</th>\n' +
-    '                        <th>{{\'Account\' | translate}}</th>\n' +
-    '                        <th></th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat-start="userObj in userDistributerCtrl.userList">\n' +
-    '                        <td width="20%">\n' +
-    '                            <img ng-src="{{appCONSTANTS.Image_URL_ACTOR}}{{userObj.image}}" width="50px" class="avatar">\n' +
-    '                        </td>\n' +
-    '                        <td width="20%">{{userObj.title}}</td>\n' +
-    '\n' +
-    '                        <td width="30%">\n' +
-    '                            <button\n' +
-    '                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '                                ng-click="$state.go(\'addUser\',{tenantId : userObj.tenantId,userType:3 ,userId :user.id});"\n' +
-    '                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '                                type="button">{{\'AddUserBtn\' | translate}}</button>\n' +
-    '\n' +
-    '\n' +
-    '                        </td>\n' +
-    '                        <td class="pmd-table-row-action">\n' +
-    '                             <span href="javascript:void(0);" ng-if="userObj.users.length >0 "\n' +
-    '                                ng-click="userObj.show=!userObj.show;userDistributerCtrl.showMore($event)"\n' +
-    '                                class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i\n' +
-    '                                    class="material-icons md-dark pmd-sm"></i></span>\n' +
-    '                        </td>\n' +
-    '                        <td></td>\n' +
-    '                        <td></td>\n' +
-    '                    </tr>\n' +
-    '\n' +
-    '                    <tr ng-repeat-end ng-repeat="userRow in userObj.users" ng-show="userObj.show" id="collapse">\n' +
-    '                        <td>{{ userRow.userName}}</td>\n' +
-    '                        <td>{{ userRow.email}}</td>\n' +
-    '                        <td>{{ userRow.mobileNumber}}</td>\n' +
-    '                        <td><span ng-show="userRow.isMaster">\n' +
-    '                                <img ng-click="userDistributerCtrl.ChangeRole(userRow)"\n' +
-    '                                    src="../../../../assets/img/admin.png" alt="admin">\n' +
-    '                            </span>\n' +
-    '                            <span ng-show="!userRow.isMaster">\n' +
-    '                                <img ng-click="userDistributerCtrl.ChangeRole(userRow)"\n' +
-    '                                    src="../../../../assets/img/user.png" alt="User">\n' +
-    '                            </span>\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            <div>\n' +
-    '                                <div class="btn-switch" ng-class="{\'btn-switch--on\':userRow.isActive}"\n' +
-    '                                    ng-model="userRow.isActive" ng-click="userDistributerCtrl.ChangeStatus(userRow)">\n' +
-    '\n' +
-    '                                    <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':userRow.isActive}"\n' +
-    '                                        ng-model="userRow.isActive"\n' +
-    '                                        ng-click="userDistributerCtrl.ChangeStatus(userRow)">\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                            <div ng-if="user.permessionModules[\'Product\'].includes(12)==false"\n' +
-    '                                title="You don\'t have permssion">\n' +
-    '                                <div class="btn-switch" ng-class="{\'btn-switch--on\':userRow.isActive}"\n' +
-    '                                    ng-model="userRow.isActive">\n' +
-    '\n' +
-    '                                    <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':userRow.isActive}"\n' +
-    '                                        ng-model="userRow.isActive">\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'editUser\', {userId: userRow.userId,userType:3});"title="Edit">mode_edit</i>\n' +
-    '                        </td>\n' +
-    '                    </tr>\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
-    '\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="userDistributerCtrl.totalCount"\n' +
-    '        paging-action="userDistributerCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '        hide-if-empty="true" disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/user/templates/userIoa.html',
-    '<div style="margin-bottom:10px">\n' +
-    '    <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '        ng-click="$state.go(\'addOperationUser\',{userType:5});" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '        type="button">{{\'AddBtn\'\n' +
-    '            | translate}}</button>\n' +
-    '\n' +
-    '</div>\n' +
-    '<div>\n' +
-    '    <div ng-if="userIoaCtrl.userList.length == 0">\n' +
-    '        <span>{{\'NouserAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="userIoaCtrl.userList.length >0">\n' +
-    '\n' +
-    '        <div class="table-responsive">\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th>{{\'fullname\' | translate}}</th>\n' +
-    '                        <th>{{\'username\' | translate}}</th>\n' +
-    '                        <th>{{\'mail\' | translate}}</th>\n' +
-    '                        <th>{{\'phone\' | translate}}</th>\n' +
-    '                        <th>{{\'Status\' | translate}}</th>\n' +
-    '                        <th></th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat="userRow in userIoaCtrl.userList">\n' +
-    '                        <td>{{ userRow.fullName}}</td>\n' +
-    '                        <td>{{ userRow.userName}}</td>\n' +
-    '                        <td>{{ userRow.email}}</td>\n' +
-    '                        <td>{{ userRow.mobileNumber}}</td>\n' +
-    '                        <!-- <td> <span ng-show="userRow.isMaster">\n' +
-    '                                        <img ng-click="userIoaCtrl.ChangeRole(userRow)"\n' +
-    '                                            src="../../../../assets/img/admin.png" alt="admin">\n' +
-    '                                    </span> <span ng-show="!userRow.isMaster">\n' +
-    '                                        <img ng-click="userIoaCtrl.ChangeRole(userRow)"\n' +
-    '                                            src="../../../../assets/img/user.png" alt="User">\n' +
-    '                                    </span>\n' +
-    '        \n' +
-    '        \n' +
-    '                                </td> -->\n' +
-    '                        <td>\n' +
-    '                            <div>\n' +
-    '                                <div class="btn-switch" ng-class="{\'btn-switch--on\':userRow.isActive}"\n' +
-    '                                    ng-model="userRow.isActive" ng-click="userIoaCtrl.ChangeStatus(userRow)">\n' +
-    '\n' +
-    '                                    <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':userRow.isActive}"\n' +
-    '                                        ng-model="userRow.isActive" ng-click="userIoaCtrl.ChangeStatus(userRow)">\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                            <div ng-if="user.permessionModules[\'Product\'].includes(12)==false"\n' +
-    '                                title="You don\'t have permssion">\n' +
-    '                                <div class="btn-switch" ng-class="{\'btn-switch--on\':userRow.isActive}"\n' +
-    '                                    ng-model="userRow.isActive">\n' +
-    '\n' +
-    '                                    <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':userRow.isActive}"\n' +
-    '                                        ng-model="userRow.isActive">\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'editUser\', {userId: userRow.userId,userType:2});">mode_edit</i>\n' +
-    '                        </td>\n' +
-    '                    </tr>\n' +
-    '\n' +
-    '\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
-    '\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="userIoaCtrl.totalCount"\n' +
-    '        paging-action="userIoaCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '        hide-if-empty="true" disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/user/templates/userIoo.html',
-    '<div style="margin-bottom:10px">\n' +
-    '    <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '        ng-click="$state.go(\'addOperationUser\',{userType:4,userId:user.id});" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '        type="button">{{\'AddBtn\'\n' +
-    '            | translate}}</button>\n' +
-    '\n' +
-    '</div>\n' +
-    '<div>\n' +
-    '    <div ng-if="userIooCtrl.userList.length == 0">\n' +
-    '        <span>{{\'NouserAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="userIooCtrl.userList.length >0">\n' +
-    '\n' +
-    '        <div class="table-responsive">\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th>{{\'fullname\' | translate}}</th>\n' +
-    '                        <th>{{\'username\' | translate}}</th>\n' +
-    '                        <th>{{\'mail\' | translate}}</th>\n' +
-    '                        <th>{{\'phone\' | translate}}</th>\n' +
-    '                        <th>{{\'Status\' | translate}}</th>\n' +
-    '                        <th></th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat="userRow in userIooCtrl.userList">\n' +
-    '                        <td>{{ userRow.fullName}}</td>\n' +
-    '                        <td>{{ userRow.userName}}</td>\n' +
-    '                        <td>{{ userRow.email}}</td>\n' +
-    '                        <td>{{ userRow.mobileNumber}}</td>\n' +
-    '                        <!-- <td> <span ng-show="userRow.isMaster">\n' +
-    '                                        <img ng-click="userIooCtrl.ChangeRole(userRow)"\n' +
-    '                                            src="../../../../assets/img/admin.png" alt="admin">\n' +
-    '                                    </span> <span ng-show="!userRow.isMaster">\n' +
-    '                                        <img ng-click="userIooCtrl.ChangeRole(userRow)"\n' +
-    '                                            src="../../../../assets/img/user.png" alt="User">\n' +
-    '                                    </span>\n' +
-    '        \n' +
-    '        \n' +
-    '                                </td> -->\n' +
-    '                        <td>\n' +
-    '                            <div>\n' +
-    '                                <div class="btn-switch" ng-class="{\'btn-switch--on\':userRow.isActive}"\n' +
-    '                                    ng-model="userRow.isActive" ng-click="userIooCtrl.ChangeStatus(userRow)">\n' +
-    '\n' +
-    '                                    <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':userRow.isActive}"\n' +
-    '                                        ng-model="userRow.isActive" ng-click="userIooCtrl.ChangeStatus(userRow)">\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                            <div ng-if="user.permessionModules[\'Product\'].includes(12)==false"\n' +
-    '                                title="You don\'t have permssion">\n' +
-    '                                <div class="btn-switch" ng-class="{\'btn-switch--on\':userRow.isActive}"\n' +
-    '                                    ng-model="userRow.isActive">\n' +
-    '\n' +
-    '                                    <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':userRow.isActive}"\n' +
-    '                                        ng-model="userRow.isActive">\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'editUser\', {userId: userRow.userId,userType:2});">mode_edit</i>\n' +
-    '                        </td>\n' +
-    '                    </tr>\n' +
-    '\n' +
-    '\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
-    '\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="userIooCtrl.totalCount"\n' +
-    '        paging-action="userIooCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '        hide-if-empty="true" disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/user/templates/userManufacture.html',
-    '<div id="bold">\n' +
-    '    {{\'userManufacture\' | translate}}\n' +
-    '</div>\n' +
-    '<div ng-show="user.userTypeId == 4 || user.userTypeId ==5">\n' +
-    '\n' +
-    '    <div>\n' +
-    '        <div ng-if="userManufactureCtrl.userList.length == 0">\n' +
-    '            <span>{{\'NouserAvailable\' | translate}}</span>\n' +
-    '        </div>\n' +
-    '        <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="userManufactureCtrl.userList.length >0">\n' +
-    '\n' +
-    '            <div class="table-responsive">\n' +
-    '                <table class="table pmd-table table-hover">\n' +
-    '                    <thead>\n' +
-    '                        <tr>\n' +
-    '                            <th>{{\'image\' | translate}}</th>\n' +
-    '                            <th>{{\'Account\' | translate}}</th>\n' +
-    '                            <th></th>\n' +
-    '                        </tr>\n' +
-    '                    </thead>\n' +
-    '                    <tbody>\n' +
-    '                        <tr ng-repeat-start="userObj in userManufactureCtrl.userList">\n' +
-    '                            <td width="20%">\n' +
-    '                                <img ng-src="{{appCONSTANTS.Image_URL_ACTOR}}{{userObj.image}}" width="50px"\n' +
-    '                                    class="avatar">\n' +
-    '                            </td>\n' +
-    '                            <td width="20%">{{userObj.title}} </td>\n' +
-    '\n' +
-    '                            <td width="30%">\n' +
-    '                                <button\n' +
-    '                                    style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '                                    ng-click="$state.go(\'addUser\',{tenantId : userObj.tenantId,userType:2,userId:user.id});"\n' +
-    '                                    class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '                                    type="button">{{\'AddUserBtn\' | translate}}</button>\n' +
-    '\n' +
-    '\n' +
-    '                            </td>\n' +
-    '                            <td class="pmd-table-row-action">\n' +
-    '                                <span href="javascript:void(0);" ng-if="userObj.users.length >0 "\n' +
-    '                                    ng-click="userObj.show=!userObj.show;userManufactureCtrl.showMore($event)" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect \n' +
-    '                                    btn-default btn-sm child-table-expand direct-expand">\n' +
-    '                                    <i class="material-icons md-dark pmd-sm"></i></span>\n' +
-    '                            </td>\n' +
-    '                            <td></td>\n' +
-    '                            <td></td>\n' +
-    '                        </tr>\n' +
-    '\n' +
-    '                        <tr ng-repeat-end ng-repeat="userRow in userObj.users" ng-show="userObj.show" id="collapse">\n' +
-    '                            <td>{{ userRow.userName}}</td>\n' +
-    '                            <td>{{ userRow.email}}</td>\n' +
-    '                            <td>{{ userRow.mobileNumber}}</td>\n' +
-    '                            <td> <span ng-show="userRow.isMaster">\n' +
-    '                                    <!-- {{user.permessionModules}} -->\n' +
-    '                                    <img ng-click="userManufactureCtrl.ChangeRole(userRow)"\n' +
-    '                                        src="../../../../assets/img/admin.png" alt="admin">\n' +
-    '                                </span> <span ng-show="!userRow.isMaster">\n' +
-    '                                    <img ng-click="userManufactureCtrl.ChangeRole(userRow)"\n' +
-    '                                        src="../../../../assets/img/user.png" alt="User">\n' +
-    '                                </span>\n' +
-    '\n' +
-    '\n' +
-    '                            </td>\n' +
-    '                            <td>\n' +
-    '                                <div>\n' +
-    '                                    <div class="btn-switch" ng-class="{\'btn-switch--on\':userRow.isActive}"\n' +
-    '                                        ng-model="userRow.isActive"\n' +
-    '                                        ng-click="userManufactureCtrl.ChangeStatus(userRow)">\n' +
-    '\n' +
-    '                                        <div class="btn-switch-circle"\n' +
-    '                                            ng-class="{\'btn-switch-circle--on\':userRow.isActive}"\n' +
-    '                                            ng-model="userRow.isActive"\n' +
-    '                                            ng-click="userManufactureCtrl.ChangeStatus(userRow)">\n' +
-    '                                        </div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                                <div ng-if="user.permessionModules[\'Product\'].includes(12)==false"\n' +
-    '                                    title="You don\'t have permssion">\n' +
-    '                                    <div class="btn-switch" ng-class="{\'btn-switch--on\':userRow.isActive}"\n' +
-    '                                        ng-model="userRow.isActive">\n' +
-    '\n' +
-    '                                        <div class="btn-switch-circle"\n' +
-    '                                            ng-class="{\'btn-switch-circle--on\':userRow.isActive}"\n' +
-    '                                            ng-model="userRow.isActive">\n' +
-    '                                        </div>\n' +
-    '                                    </div>\n' +
-    '\n' +
-    '                            </td>\n' +
-    '                            <td>\n' +
-    '                                <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                    ng-click="$state.go(\'editUser\', {userId: userRow.userId,userType:2});"\n' +
-    '                                    title="Edit">mode_edit</i>\n' +
-    '                            </td>\n' +
-    '                        </tr>\n' +
-    '                        <!-- <tr ng-repeat-end class="child-table" ng-show="userObj.show">\n' +
-    '                        {{userObj}}\n' +
-    '                        <div class="direct-child-table">\n' +
-    '                            <table class="table pmd-table table-striped table-sm">\n' +
-    '                                <thead>\n' +
-    '                                    <tr>\n' +
-    '\n' +
-    '                                        <th>{{\'username\' | translate}}</th>\n' +
-    '                                        <th>{{\'email\' |translate}}</th>\n' +
-    '                                        <th>{{\'phone\'|translate}}</th>\n' +
-    '                                    </tr>\n' +
-    '                                </thead>\n' +
-    '                                <tbody>\n' +
-    '                                    <tr ng-repeat="userDetail in userObj.tenant.users">\n' +
-    '\n' +
-    '                                        <td>{{userDetail.username}}</td>\n' +
-    '\n' +
-    '\n' +
-    '                                        <td>{{userDetail.users.email}}</td>\n' +
-    '                                        <td>{{userDetail.users.email}}</td>\n' +
-    '\n' +
-    '                                    </tr>\n' +
-    '\n' +
-    '                                </tbody>\n' +
-    '                            </table>\n' +
-    '                        </div>\n' +
-    '                    </tr> -->\n' +
-    '                    </tbody>\n' +
-    '                </table>\n' +
-    '            </div>\n' +
-    '\n' +
-    '        </div>\n' +
-    '\n' +
-    '        <div style="text-align:center;direction: ltr" paging page="1" page-size="10"\n' +
-    '            total="userManufactureCtrl.totalCount" paging-action="userManufactureCtrl.changePage(page)" flex="nogrow"\n' +
-    '            show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '<div ng-show="user.userTypeId == 2 || user.userTypeId ==7"> \n' +
-    '    <button ng-show="user.permessionModules[\'ManufactureUser\'].includes(94)"\n' +
-    '    style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '        ng-click="$state.go(\'addUser\',{tenantId : user.tenantId,userType:2});"\n' +
-    '        class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddUserBtn\' | translate}}</button>\n' +
-    '\n' +
-    '    <div ng-if="userManufactureCtrl.userList.length == 0">\n' +
-    '        <span>{{\'NouserAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="userManufactureCtrl.userList.length >0">\n' +
-    '\n' +
-    '        <div class="table-responsive">\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th>{{\'fullname\' | translate}}</th>\n' +
-    '                        <th>{{\'username\' | translate}}</th>\n' +
-    '                        <th>{{\'mail\' | translate}}</th>\n' +
-    '                        <th>{{\'phone\' | translate}}</th>\n' +
-    '                        <th></th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat="userRow in userManufactureCtrl.userList">\n' +
-    '                        <td>{{ userRow.userName}}</td>\n' +
-    '                        <td>{{ userRow.fullName}}</td>\n' +
-    '                        <td>{{ userRow.email}}</td>\n' +
-    '                        <td>{{ userRow.mobileNumber}}</td>\n' +
-    '\n' +
-    '                        <td>\n' +
-    '                            <i ng-show="user.permessionModules[\'ManufactureUser\'].includes(97)" class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'editUser\', {userId: userRow.userId,userType:2 ,userId :user.id});"\n' +
-    '                                title="Edit">mode_edit</i>\n' +
-    '                        </td>\n' +
-    '                    </tr>\n' +
-    '\n' +
-    '\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
-    '\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="userManufactureCtrl.totalCount"\n' +
-    '        paging-action="userManufactureCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '        hide-if-empty="true" disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/user/templates/userRetailer.html',
-    '<div  id="bold">\n' +
-    '        {{\'userRetailer\' | translate}}\n' +
-    '</div><div>\n' +
-    '    <div ng-if="userRetailerCtrl.userList.length == 0">\n' +
-    '        <span>{{\'NouserAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="userRetailerCtrl.userList.length >0">\n' +
-    ' \n' +
-    '        <div class="table-responsive">\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th>{{\'image\' | translate}}</th>\n' +
-    '                        <th>{{\'Account\' | translate}}</th>\n' +
-    '                        <th></th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat-start="userObj in userRetailerCtrl.userList">\n' +
-    '                        <td width="20%">\n' +
-    '                            <img ng-src="{{appCONSTANTS.Image_URL_ACTOR}}{{userObj.image}}" width="50px" class="avatar">\n' +
-    '                        </td>\n' +
-    '                        <td width="20%">{{userObj.title}}</td>\n' +
-    '\n' +
-    '                        <td width="30%">\n' +
-    '                            <button\n' +
-    '                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '                                ng-click="$state.go(\'addUser\',{tenantId : userObj.tenantId,userType:1,userId:user.id});"\n' +
-    '                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '                                type="button">{{\'AddUserBtn\' | translate}}</button>\n' +
-    '\n' +
-    '\n' +
-    '                        </td>\n' +
-    '                        <td class="pmd-table-row-action">\n' +
-    '                            <span href="javascript:void(0);" ng-if="userObj.users.length >0 "\n' +
-    '                                ng-click="userObj.show=!userObj.show;userRetailerCtrl.showMore($event)"\n' +
-    '                                class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i\n' +
-    '                                    class="material-icons md-dark pmd-sm"></i></span>\n' +
-    '                        </td>\n' +
-    '                        <td></td>\n' +
-    '                        <td></td>\n' +
-    '                    </tr>\n' +
-    '\n' +
-    '                    <tr ng-repeat-end ng-repeat="userRow in userObj.users" ng-show="userObj.show" id="collapse">\n' +
-    '                        <td>{{ userRow.userName}}</td>\n' +
-    '                        <td>{{ userRow.email}}</td>\n' +
-    '                        <td>{{ userRow.mobileNumber}}</td>\n' +
-    '                        <td> <span ng-show="userRow.isMaster">\n' +
-    '                                <img ng-click="userRetailerCtrl.ChangeRole(userRow)"\n' +
-    '                                    src="../../../../assets/img/admin.png" alt="admin">\n' +
-    '                            </span>\n' +
-    '                            <span ng-show="!userRow.isMaster">\n' +
-    '                                <img ng-click="userRetailerCtrl.ChangeRole(userRow)"\n' +
-    '                                    src="../../../../assets/img/user.png" alt="User">\n' +
-    '                            </span>\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            <div>\n' +
-    '                                <div class="btn-switch" ng-class="{\'btn-switch--on\':userRow.isActive}"\n' +
-    '                                    ng-model="userRow.isActive" ng-click="userRetailerCtrl.ChangeStatus(userRow)">\n' +
-    '\n' +
-    '                                    <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':userRow.isActive}"\n' +
-    '                                        ng-model="userRow.isActive" ng-click="userRetailerCtrl.ChangeStatus(userRow)">\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                            <div ng-if="userRow.permessionModules[\'Product\'].includes(12)==false"\n' +
-    '                                title="You don\'t have permssion">\n' +
-    '                                <div class="btn-switch" ng-class="{\'btn-switch--on\':userRow.isActive}"\n' +
-    '                                    ng-model="userRow.isActive">\n' +
-    '\n' +
-    '                                    <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':userRow.isActive}"\n' +
-    '                                        ng-model="userRow.isActive">\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'editUser\', {userId: userRow.userId,userType:1});"title="Edit">mode_edit</i></td>\n' +
-    '                    </tr>\n' +
-    '                    <!-- <tr ng-repeat-end class="child-table" ng-show="userObj.show">\n' +
-    '                        {{userObj}}\n' +
-    '                        <div class="direct-child-table">\n' +
-    '                            <table class="table pmd-table table-striped table-sm">\n' +
-    '                                <thead>\n' +
-    '                                    <tr>\n' +
-    '\n' +
-    '                                        <th>{{\'username\' | translate}}</th>\n' +
-    '                                        <th>{{\'email\' |translate}}</th>\n' +
-    '                                        <th>{{\'phone\'|translate}}</th>\n' +
-    '                                    </tr>\n' +
-    '                                </thead>\n' +
-    '                                <tbody>\n' +
-    '                                    <tr ng-repeat="userDetail in userObj.tenant.users">\n' +
-    '\n' +
-    '                                        <td>{{userDetail.username}}</td>\n' +
-    '\n' +
-    '\n' +
-    '                                        <td>{{userDetail.users.email}}</td>\n' +
-    '                                        <td>{{userDetail.users.email}}</td>\n' +
-    '\n' +
-    '                                    </tr>\n' +
-    '\n' +
-    '                                </tbody>\n' +
-    '                            </table>\n' +
-    '                        </div>\n' +
-    '                    </tr> -->\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
-    '\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="userRetailerCtrl.totalCount"\n' +
-    '        paging-action="userRetailerCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '        hide-if-empty="true" disabled-class="hide">\n' +
-    '    </div>\n' +
+  $templateCache.put('./app/core/ConfirmationMessage/templates/ConfirmMessageDialog.html',
+    '<div class="modal-content">\n' +
+    '	<div class="modal-body">{{\'messageConfirmationLbl\' | translate}} ? </div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button"\n' +
+    '			ng-click="messageDlCtrl.Confirm()">{{\'Save\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button"\n' +
+    '			ng-click="messageDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
     '</div>');
 }]);
 
@@ -5462,19 +4715,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '	<div class="pmd-modal-action text-right">\n' +
     '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/ConfirmationMessage/templates/ConfirmMessageDialog.html',
-    '<div class="modal-content">\n' +
-    '	<div class="modal-body">{{\'messageConfirmationLbl\' | translate}} ? </div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button"\n' +
-    '			ng-click="messageDlCtrl.Confirm()">{{\'Save\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button"\n' +
-    '			ng-click="messageDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
     '	</div>\n' +
     '</div>');
 }]);

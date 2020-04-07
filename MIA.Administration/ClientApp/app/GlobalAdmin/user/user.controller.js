@@ -4,9 +4,9 @@
     angular
         .module('home')
         .controller('userController', ['blockUI', '$translate', '$state', 'UserResource',
-            'appCONSTANTS', 'ToastService', userController]);
+            'RoleResource', 'ToastService', userController]);
 
-    function userController(blockUI, $translate, $state, UserResource, appCONSTANTS, ToastService) {
+    function userController(blockUI, $translate, $state, UserResource, RoleResource, ToastService) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
@@ -14,8 +14,10 @@
         var vm = this;
         vm.currentTenantType = 0;
         blockUI.start("Loading...");
+        
+        refreshRoles();
         vm.close = function () {
-            
+
             $state.go('users');
         }
 
@@ -39,12 +41,13 @@
         vm.showMore = function (element) {
             $(element.currentTarget).toggleClass("child-table-collapse");
         }
-        vm.changeUserType = function (id) {
+        vm.changeUserType = function () {
             blockUI.start("Loading...");
-            var k = UserResource.getAllUsersByUserType({ userType: id }).$promise.then(function (results) {
-                vm.currentTenantType = id;
-                vm.totalCount = results.totalCount;
-                vm.userList = results.results;
+            var k = UserResource.getAllUsersByUserType({ roleName: vm.selectedRole.name }).$promise.then(function (results) {
+                vm.currentTenantType = vm.selectedRole;
+                
+                vm.totalCount = results.length;
+                vm.userList = results;
                 console.log(vm.userList);
                 blockUI.stop();
             },
@@ -61,7 +64,7 @@
         blockUI.stop();
 
         vm.ChangeStatus = function (model) {
-            
+
             var updateObj = new UserResource();
             updateObj.userId = model.userId;
             updateObj.$changeStatus({ userId: model.userId }).then(
@@ -83,7 +86,7 @@
 
 
         vm.ChangeRole = function (model) {
-            
+
             var updateObj = new UserResource();
             updateObj.userId = model.userId;
             updateObj.userType = 2;
@@ -98,6 +101,19 @@
                 }
             );
             return;
+        }
+
+        function refreshRoles() {
+            var k = RoleResource.getAllActivateRoles().$promise.then(function (results) {
+                
+                vm.roleList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
         }
     }
 

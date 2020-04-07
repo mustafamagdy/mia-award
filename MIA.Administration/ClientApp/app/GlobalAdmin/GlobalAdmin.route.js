@@ -13,23 +13,23 @@
                     'controllerAs': 'userCtrl',
                     data: {
                         permissions: {
-                            only: ['12'],
+                           // only: ['12'],
                             redirectTo: 'root'
                         }
                     }
 
                 })
                 .state('addUser', {
-                    url: '/addUser/:tenantId/:userType/:userId',
+                    url: '/addUser',
                     templateUrl: './app/GlobalAdmin/user/templates/addUser.html',
                     controller: 'addUserController',
                     'controllerAs': 'addUserCtrl',
                     resolve: {
-                        UserRoleByIdPrepService: UserRoleByIdPrepService,
+                      //  UserRoleByIdPrepService: UserRoleByIdPrepService,
                     },
                     data: {
                         permissions: {
-                            only: ['12', '16', '17', '18'],
+                         //   only: ['12', '16', '17', '18'],
                             redirectTo: 'root'
                         }
                     }
@@ -45,7 +45,7 @@
                     },
                     data: {
                         permissions: {
-                            only: ['12', '16', '17', '18', '22', '21'],
+                           // only: ['12', '16', '17', '18', '22', '21'],
                             redirectTo: 'root'
                         }
                     }
@@ -62,7 +62,7 @@
                     },
                     data: {
                         permissions: {
-                            only: ['11'],
+                          //  only: ['11'],
                             redirectTo: 'root'
                         }
                     }
@@ -77,7 +77,7 @@
                     },
                     data: {
                         permissions: {
-                            only: ['11'],
+                          //  only: ['11'],
                             redirectTo: 'root'
                         }
                     }
@@ -94,7 +94,7 @@
                     },
                     data: {
                         permissions: {
-                            only: ['11'],
+                          //  only: ['11'],
                             redirectTo: 'root'
                         }
                     }

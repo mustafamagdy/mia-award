@@ -12,23 +12,20 @@
                     'controllerAs': 'userCtrl',
                     data: {
                         permissions: {
-                            only: ['12'],
                             redirectTo: 'root'
                         }
                     }
 
                 })
                 .state('addUser', {
-                    url: '/addUser/:tenantId/:userType/:userId',
+                    url: '/addUser',
                     templateUrl: './app/GlobalAdmin/user/templates/addUser.html',
                     controller: 'addUserController',
                     'controllerAs': 'addUserCtrl',
                     resolve: {
-                        UserRoleByIdPrepService: UserRoleByIdPrepService,
                     },
                     data: {
                         permissions: {
-                            only: ['12', '16', '17', '18'],
                             redirectTo: 'root'
                         }
                     }
@@ -44,7 +41,6 @@
                     },
                     data: {
                         permissions: {
-                            only: ['12', '16', '17', '18', '22', '21'],
                             redirectTo: 'root'
                         }
                     }
@@ -60,7 +56,6 @@
                     },
                     data: {
                         permissions: {
-                            only: ['11'],
                             redirectTo: 'root'
                         }
                     }
@@ -75,7 +70,6 @@
                     },
                     data: {
                         permissions: {
-                            only: ['11'],
                             redirectTo: 'root'
                         }
                     }
@@ -92,7 +86,6 @@
                     },
                     data: {
                         permissions: {
-                            only: ['11'],
                             redirectTo: 'root'
                         }
                     }
@@ -480,8 +473,8 @@
     function AllAwardPrepService(ArtWorkResource) {
         return ArtWorkResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
- 
-    ArtWorkPaymentByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
+
+     ArtWorkPaymentByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
     function ArtWorkPaymentByArtWorkIdPrepService(ArtWorkResource, $stateParams) {
         return ArtWorkResource.getPayment({ id: $stateParams.id }).$promise;
     }
@@ -4240,7 +4233,7 @@
     function RoleResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Role/CreateRole', {}, {
             getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/roles', useToken: true, isArray: true },
-            getAllActivateRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Roles/GetAllActivateRoles', useToken: true, params: { lang: '@lang' } },
+            getAllActivateRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/roles', useToken: true, isArray: true , params: { lang: '@lang' } },
             getAllPermissions: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/permissions', isArray: true, useToken: true, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/UpdateRole', useToken: true },
@@ -4333,8 +4326,8 @@
     function AllAwardPrepService(UploadChunkResource) {
         return UploadChunkResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
- 
-}());
+
+ }());
 (function () {
     'use strict';
 
@@ -4699,8 +4692,8 @@
     function AllAwardPrepService(VotingCriteriaResource) {
         return VotingCriteriaResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
     }
- 
-}());
+
+ }());
 (function () {
     'use strict';
 
@@ -5728,118 +5721,21 @@
 
     angular
         .module('home')
-        .controller('addOperationUserController', ['blockUI', 'UserRoleByIdPrepService','$stateParams', '$translate', '$state', 'UserResource', '$scope', 'ToastService', addOperationUserController]);
+        .controller('addUserController', ['blockUI', 'RoleResource', '$stateParams', '$translate', '$state', 'UserResource', '$scope', 'ToastService', addUserController]);
 
-    function addOperationUserController(blockUI,UserRoleByIdPrepService, $stateParams, $translate, $state, UserResource, $scope, ToastService, ) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
-
-        var vm = this;
-        vm.selectedTypeId = 0;
-        blockUI.start("Loading...");
-        vm.Role = UserRoleByIdPrepService;
-        console.log(UserRoleByIdPrepService);
-        vm.selectedModuleList = [];
-        vm.selectedModule = ""; 
-        vm.UnSelectedPermissions = [];
-        vm.checkPermission = function (obj) {
-            var checkIfPermissionExist = vm.UnSelectedPermissions.indexOf(obj.permessionId);
-            if (checkIfPermissionExist == -1) {
-                vm.UnSelectedPermissions.push(obj.permessionId);
-            }
-            else {
-                var index = vm.UnSelectedPermissions.indexOf(obj.permessionId);
-                vm.UnSelectedPermissions.splice(index, 1);
-            }
-        }
-        vm.AddNewUser = function () {
-
-                        blockUI.start("Loading...");
-            var newUser = new UserResource();
-            newUser.fullName = vm.fullName;
-            newUser.username = vm.userName;
-            newUser.unSelectedRoles = vm.UnSelectedPermissions;
-            newUser.email = vm.email;
-            newUser.mobileNumber = vm.mobileNumber;
-            newUser.password = vm.password;
-            newUser.$createOperationUser({ userType: $stateParams.userType }).then(
-                function (data, status) {
-                    blockUI.stop();
-                    if (data.message != null)
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                    else {
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
-                        if ($scope.user.userTypeId == 1)
-                            $state.go('RetailerUser');
-                        if ($scope.user.userTypeId == 2)
-                            $state.go('ManufactureUser');
-                        if ($scope.user.userTypeId == 3)
-                            $state.go('DistributerUser');
-                        if ($scope.user.userTypeId == 4)
-                            $state.go('users');
-                        if ($scope.user.userTypeId == 5)
-                            $state.go('IooUser');
-                        if ($scope.user.userTypeId == 255)
-                            $state.go('IoaUser');
-                    }
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-        }
-        vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshUsers();
-        }
-        vm.close = function () {
-            if ($scope.user.userTypeId == 1)
-                $state.go('RetailerUser');
-            if ($scope.user.userTypeId == 2)
-                $state.go('ManufactureUser');
-            if ($scope.user.userTypeId == 3)
-                $state.go('DistributerUser');
-            if ($scope.user.userTypeId == 4)
-                $state.go('users');
-            if ($scope.user.userTypeId == 5)
-                $state.go('IooUser');
-            if ($scope.user.userTypeId == 255)
-                $state.go('IoaUser');
-        }
-        blockUI.stop();
-
-
-
-
-    }
-
-}());(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('addUserController', ['blockUI', 'UserRoleByIdPrepService','$stateParams', '$translate', '$state', 'UserResource', '$scope', 'ToastService', addUserController]);
-
-    function addUserController(blockUI,UserRoleByIdPrepService, $stateParams, $translate, $state, UserResource, $scope, ToastService, ) {
+    function addUserController(blockUI, RoleResource, $stateParams, $translate, $state, UserResource, $scope, ToastService, ) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
 
         var vm = this;
         vm.selectedRoleId = 0;
-        blockUI.start("Loading...");
-        vm.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
-
-        vm.Role = UserRoleByIdPrepService;
-        console.log(UserRoleByIdPrepService);
+        refreshRoles();
+         blockUI.start("Loading...");
+        vm.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/; 
         vm.selectedModuleList = [];
-        vm.selectedModule = ""; 
+        vm.selectedModule = "";
         vm.UnSelectedPermissions = [];
-
 
         vm.checkPermission = function (obj) {
             var checkIfPermissionExist = vm.UnSelectedPermissions.indexOf(obj.permessionId);
@@ -5850,11 +5746,10 @@
                 var index = vm.UnSelectedPermissions.indexOf(obj.permessionId);
                 vm.UnSelectedPermissions.splice(index, 1);
             }
-        }
-        console.log(vm.permissionList);
+        } 
         vm.AddNewUser = function () {
 
-                        blockUI.start("Loading...");
+            blockUI.start("Loading...");
             var newUser = new UserResource();
             newUser.fullName = vm.fullName;
             newUser.username = vm.userName;
@@ -5898,22 +5793,23 @@
             refreshUsers();
         }
         vm.close = function () {
-            if ($scope.user.userTypeId == 1)
-                $state.go('RetailerUser');
-            if ($scope.user.userTypeId == 2)
-                $state.go('ManufactureUser');
-            if ($scope.user.userTypeId == 3)
-                $state.go('DistributerUser');
-            if ($scope.user.userTypeId == 4)
-                $state.go('users');
-            if ($scope.user.userTypeId == 5)
-                $state.go('IooUser');
-            if ($scope.user.userTypeId == 255)
-                $state.go('IoaUser');
+            $state.go('users');
         }
         blockUI.stop();
 
 
+        function refreshRoles() {
+            var k = RoleResource.getAllActivateRoles().$promise.then(function (results) {
+                debugger;
+                vm.roleList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
 
 
     }
@@ -6019,9 +5915,9 @@
     angular
         .module('home')
         .controller('userController', ['blockUI', '$translate', '$state', 'UserResource',
-            'appCONSTANTS', 'ToastService', userController]);
+            'RoleResource', 'ToastService', userController]);
 
-    function userController(blockUI, $translate, $state, UserResource, appCONSTANTS, ToastService) {
+    function userController(blockUI, $translate, $state, UserResource, RoleResource, ToastService) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
@@ -6029,9 +5925,11 @@
         var vm = this;
         vm.currentTenantType = 0;
         blockUI.start("Loading...");
+
+                refreshRoles();
         vm.close = function () {
 
-                        $state.go('users');
+            $state.go('users');
         }
 
 
@@ -6054,12 +5952,13 @@
         vm.showMore = function (element) {
             $(element.currentTarget).toggleClass("child-table-collapse");
         }
-        vm.changeUserType = function (id) {
+        vm.changeUserType = function () {
             blockUI.start("Loading...");
-            var k = UserResource.getAllUsersByUserType({ userType: id }).$promise.then(function (results) {
-                vm.currentTenantType = id;
-                vm.totalCount = results.totalCount;
-                vm.userList = results.results;
+            var k = UserResource.getAllUsersByUserType({ roleName: vm.selectedRole.name }).$promise.then(function (results) {
+                vm.currentTenantType = vm.selectedRole;
+
+                                vm.totalCount = results.length;
+                vm.userList = results;
                 console.log(vm.userList);
                 blockUI.stop();
             },
@@ -6077,7 +5976,7 @@
 
         vm.ChangeStatus = function (model) {
 
-                        var updateObj = new UserResource();
+            var updateObj = new UserResource();
             updateObj.userId = model.userId;
             updateObj.$changeStatus({ userId: model.userId }).then(
                 function (data, status) {
@@ -6099,7 +5998,7 @@
 
         vm.ChangeRole = function (model) {
 
-                        var updateObj = new UserResource();
+            var updateObj = new UserResource();
             updateObj.userId = model.userId;
             updateObj.userType = 2;
             updateObj.$changeRole({ userType: 2, userId: model.userId }).then(
@@ -6114,6 +6013,19 @@
             );
             return;
         }
+
+        function refreshRoles() {
+            var k = RoleResource.getAllActivateRoles().$promise.then(function (results) {
+
+                                vm.roleList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
     }
 
 }());(function () {
@@ -6123,7 +6035,7 @@
 
     function UserResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Account/CreateUser', {}, {
-            getAllUsersByUserType: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetUsers/:userType', useToken: true, params: { lang: '@lang' } },
+            getAllUsersByUserType: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/role/:roleName/users', useToken: true, isArray: true, params: { lang: '@lang' } },
             getAllUsersForManufacture: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetTenantUsers/:tenantId', useToken: true, params: { lang: '@lang' } },
             getAllAdminUsers: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetAdminUsers/:userType', useToken: true, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
@@ -6135,470 +6047,6 @@
             getUserRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/RoleForUser/:userId', useToken: true},
             refreshLogin: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/RefreshLogin', useToken: true },
         })
-    }
-
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('userDistributerController', ['blockUI', '$translate', '$state', 'UserResource',
-            'appCONSTANTS', 'ToastService', userDistributerController]);
-
-    function userDistributerController(blockUI, $translate, $state, UserResource, appCONSTANTS, ToastService) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
-        var vm = this;
-        vm.currentTenantType = 0;
-        blockUI.start("Loading...");
-        vm.close = function () {
-
-                        $state.go('users');
-        }
-
-
-        vm.showMore = function (element) {
-            $(element.currentTarget).toggleClass("child-table-collapse");
-        }
-        refreshUsers()
-        function refreshUsers() {
-            blockUI.start("Loading...");
-            var k = UserResource.getAllUsersByUserType({ userType: 3, page: vm.currentPage }).$promise.then(function (results) {
-
-                vm.totalCount = results.totalCount;
-                vm.userList = results.results;
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-        vm.ChangeStatus = function (model) {
-
-                        var updateObj = new UserResource();
-            updateObj.userId = model.userId;
-            updateObj.$changeStatus({ userId: model.userId }).then(
-                function (data, status) {
-                    if (data.message != null) {
-                        if (data.message == "Optimistic concurrency failure, object has been modified.")
-                            return;
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-
-                    } else {
-                        refreshUsers();
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    }
-                    updateObj.status = model.isActive;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-
-
-        vm.ChangeRole = function (model) {
-
-                        var updateObj = new UserResource();
-            updateObj.userId = model.userId;
-            updateObj.roleId = vm.masterUserId;
-            updateObj.$changeStatus({ userId: model.userId, roleId: vm.masterUserId }).then(
-                function (data, status) {
-                    refreshUsers();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-        vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshUsers();
-        }
-        blockUI.stop();
-    }
-
-}());(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('userIoaController', ['blockUI', '$translate', '$state', 'UserResource',
-            'appCONSTANTS', 'ToastService', userIoaController]);
-
-    function userIoaController(blockUI, $translate, $state, UserResource, appCONSTANTS, ToastService) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
-        var vm = this;
-        vm.currentTenantType = 0;
-        blockUI.start("Loading..."); 
-
-        vm.showMore = function(element)
-        {
-            $(element.currentTarget).toggleClass( "child-table-collapse" );
-        } 
-        refreshUsers();
-        function refreshUsers() {
-            blockUI.start("Loading...");
-            var k = UserResource.getAllAdminUsers({ userType: 5, page: vm.currentPage }).$promise.then(function (results) {
-
-                vm.totalCount = results.totalCount;
-                vm.userList = results.results;
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-        vm.ChangeStatus = function (model) {
-
-                        var updateObj = new UserResource();
-            updateObj.userId = model.userId;
-            updateObj.$changeStatus({ userId: model.userId }).then(
-                function (data, status) {
-                    if (data.message != null){
-                        if (data.message == "Optimistic concurrency failure, object has been modified.")
-                        return;
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-
-                }
-                    else {
-                        refreshUsers();
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    }
-                    updateObj.status = model.isActive;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-
-
-        vm.ChangeRole = function (model) {
-
-                        var updateObj = new UserResource();
-            updateObj.userId = model.userId;
-            updateObj.roleId = vm.masterUserId;
-            updateObj.$changeStatus({ userId: model.userId, roleId: vm.masterUserId  }).then(
-                function (data, status) {
-                    refreshUsers();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-        vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshUsers();
-        }
-        blockUI.stop();
-    }
-
-}());(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('userIooController', ['blockUI', '$translate', '$state', 'UserResource',
-            'appCONSTANTS', 'ToastService', userIooController]);
-
-    function userIooController(blockUI, $translate, $state, UserResource, appCONSTANTS, ToastService) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
-
-        var vm = this;
-        vm.currentTenantType = 0;
-        blockUI.start("Loading...");
-
-
-             vm.showMore = function(element)
-        {
-            $(element.currentTarget).toggleClass( "child-table-collapse" );
-        } 
-        refreshUsers()
-        function refreshUsers() {
-            blockUI.start("Loading...");
-            var k = UserResource.getAllAdminUsers({ userType: 4, page: vm.currentPage }).$promise.then(function (results) {
-
-                vm.totalCount = results.totalCount;
-                vm.userList = results.results;
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-        vm.ChangeStatus = function (model) {
-
-                        var updateObj = new UserResource();
-            updateObj.userId = model.userId;
-            updateObj.$changeStatus({ userId: model.userId }).then(
-                function (data, status) {
-                    if (data.message != null){
-                        if (data.message == "Optimistic concurrency failure, object has been modified.")
-                        return;
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-                    else {
-                        refreshUsers();
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    }
-                    updateObj.status = model.isActive;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-
-
-        vm.ChangeRole = function (model) {
-
-                        var updateObj = new UserResource();
-            updateObj.userId = model.userId;
-            updateObj.roleId = vm.masterUserId;
-            updateObj.$changeStatus({ userId: model.userId, roleId: vm.masterUserId  }).then(
-                function (data, status) {
-                    refreshUsers();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-        vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshUsers();
-        }
-        blockUI.stop();
-    }
-
-}());(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('userManufactureController', ['blockUI', '$translate', '$state', 'UserResource',
-            '$scope', 'ToastService', userManufactureController]);
-
-    function userManufactureController(blockUI, $translate, $state, UserResource, $scope, ToastService) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
-
-                var vm = this;
-        vm.currentTenantType = 0;
-        vm.masterUserId = 0;
-        blockUI.start("Loading...");
-
-                if ($scope.user.userTypeId == 4 || $scope.user.userTypeId == 5)
-            refreshUsers()
-        if ($scope.user.userTypeId == 2 || $scope.user.userTypeId == 7)
-            refreshManufactureUsers($scope.user.tenantId);
-
-
-
-        vm.showMore = function (element) {
-            $(element.currentTarget).toggleClass("child-table-collapse");
-        }
-
-        function refreshUsers() {
-            blockUI.start("Loading...");
-            var k = UserResource.getAllUsersByUserType({ userType: 2, page: vm.currentPage }).$promise.then(function (results) {
-
-                vm.totalCount = results.totalCount;
-                vm.userList = results.results;
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-        function refreshManufactureUsers(tenant) {
-            blockUI.start("Loading...");
-            var k = UserResource.getAllUsersForManufacture({ tenantId: tenant, page: vm.currentPage }).$promise.then(function (results) {
-
-                vm.totalCount = results.totalCount;
-                vm.userList = results.results;
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-        vm.ChangeStatus = function (model) {
-
-                        var updateObj = new UserResource();
-            updateObj.userId = model.userId;
-            updateObj.$changeStatus({ userId: model.userId }).then(
-                function (data, status) {
-                    if (data.message != null){
-                        if (data.message == "Optimistic concurrency failure, object has been modified.")
-                        return;
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error"); 
-                }
-                    else {
-                        refreshUsers();
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    }
-                    updateObj.status = model.isActive;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-
-
-        vm.ChangeRole = function (model) {
-
-                        var updateObj = new UserResource();
-            updateObj.userId = model.userId;
-            updateObj.userType = 2;
-            updateObj.$changeRole({ userType: 2, userId: model.userId }).then(
-                function (data, status) {
-                    refreshUsers();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-        vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshUsers();
-        }
-        blockUI.stop();
-    }
-
-}());(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('userRetailerController', ['blockUI', '$translate', '$state', 'UserResource',
-            'appCONSTANTS', 'ToastService', userRetailerController]);
-
-    function userRetailerController(blockUI, $translate, $state, UserResource, appCONSTANTS, ToastService) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
-
-                var vm = this;
-        vm.currentTenantType = 0;
-        blockUI.start("Loading...");
-        refreshUsers();
-        vm.close = function () {
-
-                        $state.go('users');
-        }
-
-
-        vm.showMore = function (element) {
-            $(element.currentTarget).toggleClass("child-table-collapse");
-        }
-
-        function refreshUsers() {
-            blockUI.start("Loading...");
-            var k = UserResource.getAllUsersByUserType({ userType: 1, page: vm.currentPage }).$promise.then(function (results) {
-
-                vm.totalCount = results.totalCount;
-                vm.userList = results.results;
-                console.log(vm.userList);
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-
-
-        vm.ChangeStatus = function (model) {
-
-                        var updateObj = new UserResource();
-            updateObj.userId = model.userId;
-            updateObj.$changeStatus({ userId: model.userId }).then(
-                function (data, status) {
-                        if (data.message != null){
-                            if (data.message == "Optimistic concurrency failure, object has been modified.")
-                            return;
-                            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                    }
-                    else {
-                        refreshUsers();
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    }
-                    updateObj.status = model.isActive;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-
-
-        vm.ChangeRole = function (model) {
-
-                        var updateObj = new UserResource();
-            updateObj.userId = model.userId;
-            updateObj.roleId = vm.masterUserId;
-            updateObj.$changeStatus({ userId: model.userId, roleId: vm.masterUserId }).then(
-                function (data, status) {
-                    refreshUsers();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-        vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshUsers();
-        }
-        blockUI.stop();
     }
 
 }());

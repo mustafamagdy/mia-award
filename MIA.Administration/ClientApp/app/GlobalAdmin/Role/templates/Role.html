@@ -1,4 +1,3 @@
- 
 <div>
     <!-- <div style="margin-bottom:10px">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go('newRole');"
@@ -16,36 +15,28 @@
         background-color: #0e0e0e;
         box-shadow: 0 0 10px 5px rgba(0,0,0,.35);
     ">
-        <table class="table pmd-table table-hover">
-            <thead>
-                <tr>
-                    <th style="width: 50%">{{'Name' | translate}}</th>
-                    <!-- <th>{{'Status' | translate}}</th> -->
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="role in RoleList">
-                    <td >{{role.name}}</td>
-                    <!-- <td ng-show="!role.isDefault">
-                        <div class="btn-switch" ng-class="{'btn-switch--on':role.isActive}" ng-model="role.isActive"
-                            ng-click="RoleCtrl.ChangeStatus(role)">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 50%">{{'Name' | translate}}</th>
+                        <!-- <th>{{'Status' | translate}}</th> -->
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="role in RoleList">
+                        <td>{{role.name}}</td> 
 
-                            <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':role.isActive}"
-                                ng-model="role.isActive" ng-click="RoleCtrl.ChangeStatus(role)">
-                            </div>
-                    </td> -->
-
-                    <td >
-                        <i class="material-icons md-dark pmd-md cursorPointer font25"
-                            ng-click="$state.go('editRole',{roleId: role.id});"title="Edit">mode_edit</i>
-                        <!-- <i class="material-icons pmd-md deleteButton cursorPointer font25"
-                            ng-click="RoleCtrl.openDeleteDialog(role,role.titles[selectedLanguage],role.userGroupId)">delete</i> -->
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                        <td>
+                            <i class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('editRole',{roleId: role.id});" title="Edit">mode_edit</i>
+                            <i ng-show="!role.systemRole" class="material-icons pmd-md deleteButton cursorPointer font25"
+                                ng-click="RoleCtrl.openDeleteDialog(role,role.titles[selectedLanguage],role.userGroupId)">delete</i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
         paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"

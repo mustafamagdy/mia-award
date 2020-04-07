@@ -178,6 +178,13 @@ namespace MIA.Administration.MappingProfiles
       CreateMap<JudgeDto, Judge>().ValidateMemberList(MemberList.None);
 
       #endregion
+
+      #region ProfileDto  
+
+      CreateMap<AppUser, ProfileDto>().ValidateMemberList(MemberList.None);
+      CreateMap<ProfileDto, AppUser>().ValidateMemberList(MemberList.None);
+
+      #endregion
       //#region Role
       //CreateMap<Role, RoleDto>().ValidateMemberList(MemberList.None); 
 
