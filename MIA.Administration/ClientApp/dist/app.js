@@ -4240,8 +4240,9 @@
             delete: { method: 'DELETE', url: appCONSTANTS.API_URL + 'Role/Delete/:roleId', useToken: true },
             getRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/GetRoleById/:roleId', useToken: true },
             changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/ChangeStatus/:roleId/:status', useToken: true },
+            addUserToRole: { method: 'POST', url: appCONSTANTS.API_URL + 'admin/role/:roleName/user/:userId', useToken: true },
 
-        })
+                   })
     }
 }());
 
@@ -5731,8 +5732,8 @@
         var vm = this;
         vm.selectedRoleId = 0;
         refreshRoles();
-         blockUI.start("Loading...");
-        vm.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/; 
+        blockUI.start("Loading...");
+        vm.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
         vm.selectedModuleList = [];
         vm.selectedModule = "";
         vm.UnSelectedPermissions = [];
@@ -5746,44 +5747,32 @@
                 var index = vm.UnSelectedPermissions.indexOf(obj.permessionId);
                 vm.UnSelectedPermissions.splice(index, 1);
             }
-        } 
+        }
         vm.AddNewUser = function () {
 
             blockUI.start("Loading...");
             var newUser = new UserResource();
             newUser.fullName = vm.fullName;
-            newUser.username = vm.userName;
-            newUser.unSelectedRoles = vm.UnSelectedPermissions;
             newUser.email = vm.email;
-            newUser.mobileNumber = vm.mobileNumber;
+            newUser.phoneNumber = vm.mobileNumber;
             newUser.password = vm.password;
-            newUser.tenantId = $stateParams.tenantId;
-            newUser.userType = $stateParams.userType;
             newUser.$create().then(
                 function (data, status) {
                     blockUI.stop();
-                    if (data.message != null)
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    if (data.id == null)
+                        ToastService.show("right", "bottom", "fadeInUp", data, "error");
                     else {
+                        debugger;
+                        vm.selectedRole.forEach(role => {
+                            addUserToRole(role.name, data.id);
+                        });
                         ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
-                        if ($scope.user.userTypeId == 1)
-                            $state.go('RetailerUser');
-                        if ($scope.user.userTypeId == 2)
-                            $state.go('ManufactureUser');
-                        if ($scope.user.userTypeId == 3)
-                            $state.go('DistributerUser');
-                        if ($scope.user.userTypeId == 4)
-                            $state.go('users');
-                        if ($scope.user.userTypeId == 5)
-                            $state.go('IooUser');
-                        if ($scope.user.userTypeId == 255)
-                            $state.go('IoaUser');
+                        $state.go('users');
                     }
                 },
                 function (data, status) {
                     blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
                 }
             );
         }
@@ -5797,7 +5786,20 @@
         }
         blockUI.stop();
 
+        function addUserToRole(role, userId) {
 
+            var newRole = new RoleResource();
+            newRole.$addUserToRole({ roleName: role, userId: userId }).then(
+                function (data, status) {
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+                }
+            );
+
+
+        }
         function refreshRoles() {
             var k = RoleResource.getAllActivateRoles().$promise.then(function (results) {
                 debugger;
@@ -6034,7 +6036,7 @@
         .factory('UserResource', ['$resource', 'appCONSTANTS', UserResource])
 
     function UserResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Account/CreateUser', {}, {
+        return $resource(appCONSTANTS.API_URL + 'user/CreateByEmail', {}, {
             getAllUsersByUserType: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/role/:roleName/users', useToken: true, isArray: true, params: { lang: '@lang' } },
             getAllUsersForManufacture: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetTenantUsers/:tenantId', useToken: true, params: { lang: '@lang' } },
             getAllAdminUsers: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetAdminUsers/:userType', useToken: true, params: { lang: '@lang' } },

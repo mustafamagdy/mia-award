@@ -86,8 +86,8 @@ namespace MIA.Administration.Api {
               { "fullName", user.FullName}
             });
 
-        await emailSender.SendEmailAsync(user.Email, _Locale["email_confirm_subject"], htmlMessage);
-        return Ok();
+       // await emailSender.SendEmailAsync(user.Email, _Locale["email_confirm_subject"], htmlMessage);
+        return Ok(user);
 
       } else {
         _logger.LogError("Failed to create user ", string.Join(',', result.Errors.Select(x => x.Description)));

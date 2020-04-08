@@ -13,7 +13,8 @@
             delete: { method: 'DELETE', url: appCONSTANTS.API_URL + 'Role/Delete/:roleId', useToken: true },
             getRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/GetRoleById/:roleId', useToken: true },
             changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/ChangeStatus/:roleId/:status', useToken: true },
-
+            addUserToRole: { method: 'POST', url: appCONSTANTS.API_URL + 'admin/role/:roleName/user/:userId', useToken: true },
+           
         })
     }
 }());

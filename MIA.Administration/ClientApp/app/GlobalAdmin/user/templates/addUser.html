@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
-                    <label for="first-name"><span style="color:red">*</span>{{'userName' | translate}}</label>
+                    <!-- <label for="first-name"><span style="color:red">*</span>{{'userName' | translate}}</label>
                     <input required type="text" class="mat-input form-control" name="userName"
                         ng-model="addUserCtrl.userName" ng-minlength="3" ng-maxlength="255">
                     <div ng-messages="newUserForm.userName.$error">
@@ -34,6 +34,16 @@
                         <div class="error"
                             ng-if="(newUserForm.userName.$error.minlength || newUserForm.userName.$error.maxlength)">{{'NameLengthError3'
                     | translate}}</div>
+                    </div> -->
+
+                    <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'Role' | translate}}</label>
+                        <select required style="width:100% !important" multiple
+                            class="form-control select-with-search pmd-select2-tags" ng-model="addUserCtrl.selectedRole"
+                            ng-options="group as group.name  for group in addUserCtrl.roleList">
+                        </select>
+
+
                     </div>
                 </div>
             </div>
@@ -100,16 +110,6 @@
 
             </div>
             <div class="row">
-                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
-                    <label for="first-name">{{'Role' | translate}}</label>
-                    <select required style="width:100% !important" multiple
-                        class="form-control select-with-search pmd-select2-tags"
-                         ng-model="addUserCtrl.selectedRole" 
-                        ng-options="group as group.name  for group in addUserCtrl.roleList">
-                    </select>
-
-
-                </div>
             </div>
 
 

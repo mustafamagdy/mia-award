@@ -13,8 +13,8 @@
         var vm = this;
         vm.selectedRoleId = 0;
         refreshRoles();
-         blockUI.start("Loading...");
-        vm.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/; 
+        blockUI.start("Loading...");
+        vm.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
         vm.selectedModuleList = [];
         vm.selectedModule = "";
         vm.UnSelectedPermissions = [];
@@ -28,44 +28,32 @@
                 var index = vm.UnSelectedPermissions.indexOf(obj.permessionId);
                 vm.UnSelectedPermissions.splice(index, 1);
             }
-        } 
+        }
         vm.AddNewUser = function () {
 
             blockUI.start("Loading...");
             var newUser = new UserResource();
             newUser.fullName = vm.fullName;
-            newUser.username = vm.userName;
-            newUser.unSelectedRoles = vm.UnSelectedPermissions;
             newUser.email = vm.email;
-            newUser.mobileNumber = vm.mobileNumber;
+            newUser.phoneNumber = vm.mobileNumber;
             newUser.password = vm.password;
-            newUser.tenantId = $stateParams.tenantId;
-            newUser.userType = $stateParams.userType;
             newUser.$create().then(
                 function (data, status) {
                     blockUI.stop();
-                    if (data.message != null)
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    if (data.id == null)
+                        ToastService.show("right", "bottom", "fadeInUp", data, "error");
                     else {
+                        debugger;
+                        vm.selectedRole.forEach(role => {
+                            addUserToRole(role.name, data.id);
+                        });
                         ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
-                        if ($scope.user.userTypeId == 1)
-                            $state.go('RetailerUser');
-                        if ($scope.user.userTypeId == 2)
-                            $state.go('ManufactureUser');
-                        if ($scope.user.userTypeId == 3)
-                            $state.go('DistributerUser');
-                        if ($scope.user.userTypeId == 4)
-                            $state.go('users');
-                        if ($scope.user.userTypeId == 5)
-                            $state.go('IooUser');
-                        if ($scope.user.userTypeId == 255)
-                            $state.go('IoaUser');
+                        $state.go('users');
                     }
                 },
                 function (data, status) {
                     blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
                 }
             );
         }
@@ -79,7 +67,20 @@
         }
         blockUI.stop();
 
+        function addUserToRole(role, userId) {
 
+            var newRole = new RoleResource();
+            newRole.$addUserToRole({ roleName: role, userId: userId }).then(
+                function (data, status) {
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+                }
+            );
+
+
+        }
         function refreshRoles() {
             var k = RoleResource.getAllActivateRoles().$promise.then(function (results) {
                 debugger;
