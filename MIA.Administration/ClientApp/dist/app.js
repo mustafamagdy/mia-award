@@ -5786,7 +5786,7 @@
         }
         blockUI.stop();
 
-        function addUserToRole(role, userId) {
+        function addUserToRole(role, userId) { 
 
             var newRole = new RoleResource();
             newRole.$addUserToRole({ roleName: role, userId: userId }).then(
