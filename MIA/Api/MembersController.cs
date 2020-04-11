@@ -187,7 +187,7 @@ namespace MIA.Api
         {
             var nominee = await _userResolver.CurrentUserAsync();
 
-            var awards = await db.Awards
+            var awards = await db.ArtworkAwards
                 .Include(a => a.FirstPlace)
                 .Include(a => a.SecondPlace)
                 .Where(a => a.SecondPlace.NomineeId == nominee.Id || a.FirstPlace.NomineeId == nominee.Id)
@@ -222,7 +222,7 @@ namespace MIA.Api
         {
 
             var nominee = await _userResolver.CurrentUserAsync();
-            var award = await db.Awards.FindAsync(dto.AwardId);
+            var award = await db.ArtworkAwards.FindAsync(dto.AwardId);
 
             PaymentStatus paymentResponse = null;
             if (!dto.Payment.IsOffline)
@@ -314,7 +314,7 @@ namespace MIA.Api
             return Ok(_mapper.Map<ArtworkViewWithFilesDto>(artwork));
         }
 
-        private async Task<ArtWorkPayment> SaveUserPaymentAsync(IS3FileManager fileManager, IAppUnitOfWork db, Award award, string artworkId, SubmitArtworkWithDetails dto, PaymentStatus paymentStatus)
+        private async Task<ArtWorkPayment> SaveUserPaymentAsync(IS3FileManager fileManager, IAppUnitOfWork db, ArtworkAward award, string artworkId, SubmitArtworkWithDetails dto, PaymentStatus paymentStatus)
         {
             var payment = new ArtWorkPayment();
             payment.ArtWorkId = artworkId;

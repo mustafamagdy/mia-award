@@ -75,11 +75,13 @@ namespace MIA.ORMContext
     public DbSet<Nominee> Nominees { get; set; }
     public DbSet<ArtWork> ArtWorks { get; set; }
     public DbSet<ArtWorkPayment> ArtWorkPayments { get; set; }
-    public DbSet<Award> Awards { get; set; }
+    public DbSet<ArtworkAward> ArtworkAwards { get; set; }
+    public DbSet<ContestantAward> ContestantAwards { get; set; }
     public DbSet<Booth> Booths { get; set; }
     public DbSet<BoothPayment> BoothPayments { get; set; }
     public DbSet<BoothPurchase> BoothPurchases { get; set; }
-    public DbSet<JudgeAward> JudgeAwards { get; set; }
+    public DbSet<JudgeArtworkAward> JudgeArtworkAwards { get; set; }
+    public DbSet<JudgeContestantAward> JudgeContestantAwards { get; set; }
     public DbSet<JudgeComment> JudgeComments { get; set; }
     public DbSet<ArtworkJudgeVote> ArtworkVotes { get; set; }
     public DbSet<ContestantJudgeVote> ContestantVotes { get; set; }
@@ -92,7 +94,8 @@ namespace MIA.ORMContext
     public DbSet<Album> Albums { get; set; }
     public DbSet<AlbumItem> AlbumItems { get; set; }
     public DbSet<TrophyImage> TrophyImages { get; set; }
-    public DbSet<VotingCriteria> VotingCriterias { get; set; }
+    public DbSet<ArtworkVotingCriteria> ArtworkVotingCriterias { get; set; }
+    public DbSet<ContestantVotingCriteria> ContestantVotingCriterias { get; set; }
     public DbSet<ContactUsSubject> ContactUsSubjects { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<ProductionYear> ProductionYears { get; set; }

@@ -334,7 +334,7 @@ namespace MIA.Administration.Api
     public async Task<IActionResult> GetJudgeArtWorksAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db)
     {
       var listOfArtWork = new List<ArtWorkDto>();
-      var judgeAward = await db.JudgeAwards.Where(a => a.JudgeId == id).ToListAsync();
+      var judgeAward = await db.JudgeArtworkAwards.Where(a => a.JudgeId == id).ToListAsync();
       foreach (var award in judgeAward)
       {
         var artWork = await db.ArtWorks.FirstOrDefaultAsync(a => a.AwardId == award.AwardId && a.UploadComplete);

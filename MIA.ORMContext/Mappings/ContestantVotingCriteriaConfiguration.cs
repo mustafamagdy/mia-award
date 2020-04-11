@@ -2,11 +2,11 @@
 using MIA.ORMContext.ValueGenerators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
 
-namespace MIA.ORMContext.Mappings {
-  internal class ArtworkVotingCriteriaConfiguration : IEntityTypeConfiguration<ArtworkVotingCriteria> {
-    public void Configure(EntityTypeBuilder<ArtworkVotingCriteria> builder) {
+namespace MIA.ORMContext.Mappings
+{
+  internal class ContestantVotingCriteriaConfiguration : IEntityTypeConfiguration<ContestantVotingCriteria> {
+    public void Configure(EntityTypeBuilder<ContestantVotingCriteria> builder) {
 
       builder.HasKey(x => x.Id);
       builder.Property(x => x.Id)
@@ -15,7 +15,7 @@ namespace MIA.ORMContext.Mappings {
 
 
       builder.HasOne(a => a.Award).WithMany(a => a.VotingCriterias).HasForeignKey(a => a.AwardId);
-      builder.HasMany(a => a.ArtworkVotes).WithOne(a => a.Criteria).HasForeignKey(a => a.CriteriaId);
+      builder.HasMany(a => a.ContestantVotes).WithOne(a => a.Criteria).HasForeignKey(a => a.CriteriaId);
     }
   }
 }

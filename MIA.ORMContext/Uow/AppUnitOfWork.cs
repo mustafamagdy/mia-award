@@ -21,11 +21,13 @@ namespace MIA.ORMContext.Uow {
     public DbSet<Nominee> Nominees => base.Context.Set<Nominee>();
     public DbSet<ArtWork> ArtWorks => base.Context.Set<ArtWork>();
     public DbSet<ArtWorkPayment> ArtWorkPayments => base.Context.Set<ArtWorkPayment>();
-    public DbSet<Award> Awards => base.Context.Set<Award>();
+    public DbSet<ArtworkAward> ArtworkAwards => base.Context.Set<ArtworkAward>();
+    public DbSet<ContestantAward> ContestantAwards => base.Context.Set<ContestantAward>();
     public DbSet<Booth> Booths => base.Context.Set<Booth>();
     public DbSet<BoothPayment> BoothPayments => base.Context.Set<BoothPayment>();
     public DbSet<BoothPurchase> BoothPurchases => base.Context.Set<BoothPurchase>();
-    public DbSet<JudgeAward> JudgeAwards => base.Context.Set<JudgeAward>();
+    public DbSet<JudgeArtworkAward> JudgeArtworkAwards => base.Context.Set<JudgeArtworkAward>();
+    public DbSet<JudgeContestantAward> JudgeContestantAwards => base.Context.Set<JudgeContestantAward>();
     public DbSet<JudgeComment> JudgeComments => base.Context.Set<JudgeComment>();
     public DbSet<ArtworkJudgeVote> ArtworkVotes => base.Context.Set<ArtworkJudgeVote>();
     public DbSet<ContestantJudgeVote> ContestantVotes => base.Context.Set<ContestantJudgeVote>();
@@ -37,7 +39,8 @@ namespace MIA.ORMContext.Uow {
     //public DbSet<NewsImage> NewsImages => base.Context.Set<NewsImage>();
     public DbSet<Album> Albums => base.Context.Set<Album>();
     public DbSet<TrophyImage> TrophyImages => base.Context.Set<TrophyImage>();
-    public DbSet<VotingCriteria> VotingCriterias => base.Context.Set<VotingCriteria>();
+    public DbSet<ArtworkVotingCriteria> ArtworkVotingCriterias => base.Context.Set<ArtworkVotingCriteria>();
+    public DbSet<ContestantVotingCriteria> ContestantVotingCriterias => base.Context.Set<ContestantVotingCriteria>();
     public DbSet<AlbumItem> AlbumItems => base.Context.Set<AlbumItem>();
     public DbSet<ContactUsSubject> ContactUsSubjects => base.Context.Set<ContactUsSubject>();
     public DbSet<Country> Countries => base.Context.Set<Country>();
