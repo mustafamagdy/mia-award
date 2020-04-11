@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MIA.ORMContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200211204636_UsersFields")]
-    partial class UsersFields
+    [Migration("20200411160532_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,19 +50,6 @@ namespace MIA.ORMContext.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-                });
-
-            modelBuilder.Entity("MIA.Authorization.Entities.UserModule", b =>
-                {
-                    b.Property<string>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(100);
-
-                    b.Property<long>("AllowedModules");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("UserModules");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Album", b =>
@@ -173,7 +160,7 @@ namespace MIA.ORMContext.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("AppUser");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.VoteOn", b =>
+            modelBuilder.Entity("MIA.Models.Entities.ArtWork", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -194,7 +181,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Director");
 
-                    b.Property<int>("FileCount");
+                    b.Property<bool>("Featured");
 
                     b.Property<string>("NomineeId");
 
@@ -220,9 +207,17 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("TrailerId");
 
+                    b.Property<string>("TrailerPosterId");
+
+                    b.Property<string>("TrailerPosterUrl");
+
                     b.Property<string>("TrailerUrl");
 
                     b.Property<bool>("UploadComplete");
+
+                    b.Property<string>("WinnerAwardFirstPlaceId");
+
+                    b.Property<string>("WinnerAwardSecondPlaceId");
 
                     b.Property<string>("Writers");
 
@@ -242,7 +237,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<decimal>("Amount");
 
-                    b.Property<string>("ArtworkId");
+                    b.Property<string>("ArtWorkId");
 
                     b.Property<string>("CardHolderName");
 
@@ -266,25 +261,31 @@ namespace MIA.ORMContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtworkId")
+                    b.HasIndex("ArtWorkId")
                         .IsUnique()
-                        .HasFilter("[ArtworkId] IS NOT NULL");
+                        .HasFilter("[ArtWorkId] IS NOT NULL");
 
                     b.ToTable("ArtWorkPayments");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.Award", b =>
+            modelBuilder.Entity("MIA.Models.Entities.ArtworkAward", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("ArtworkFee");
 
+                    b.Property<int>("AwardType");
+
                     b.Property<string>("Code");
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("FirstPlaceArtworkId");
+
                     b.Property<string>("ManagerId");
+
+                    b.Property<string>("SecondPlaceArtworkId");
 
                     b.Property<string>("Title");
 
@@ -294,15 +295,127 @@ namespace MIA.ORMContext.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FirstPlaceArtworkId")
+                        .IsUnique()
+                        .HasFilter("[FirstPlaceArtworkId] IS NOT NULL");
+
                     b.HasIndex("ManagerId");
 
+                    b.HasIndex("SecondPlaceArtworkId")
+                        .IsUnique()
+                        .HasFilter("[SecondPlaceArtworkId] IS NOT NULL");
+
                     b.ToTable("ArtworkAwards");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ArtworkCategory", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ArtworkCategories");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ArtworkGenre", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ArtworkGenres");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ArtworkJudgeVote", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ArtworkId");
+
+                    b.Property<string>("CriteriaId");
+
+                    b.Property<bool>("JudgeComplete");
+
+                    b.Property<string>("JudgeId");
+
+                    b.Property<int>("VotingValue");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtworkId");
+
+                    b.HasIndex("CriteriaId");
+
+                    b.HasIndex("JudgeId");
+
+                    b.ToTable("ArtworkVotes");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ArtworkReview", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ArtworkId");
+
+                    b.Property<string>("Comments");
+
+                    b.Property<long>("Date");
+
+                    b.Property<string>("Email");
+
+                    b.Property<bool>("IsApproved");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtworkId");
+
+                    b.ToTable("ArtworkReviews");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ArtworkVotingCriteria", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AwardId");
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Order");
+
+                    b.Property<decimal>("Weight");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AwardId");
+
+                    b.ToTable("ArtworkVotingCriterias");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Booth", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Area");
 
                     b.Property<string>("Code");
 
@@ -328,13 +441,19 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("CardType");
 
+                    b.Property<bool>("IsOffline");
+
                     b.Property<string>("Last4Digits");
 
                     b.Property<long>("PaymentDate");
 
                     b.Property<string>("PaymentId");
 
-                    b.Property<string>("PaymentStatus");
+                    b.Property<int>("PaymentStatus");
+
+                    b.Property<string>("ReceiptId");
+
+                    b.Property<string>("ReceiptUrl");
 
                     b.Property<string>("TransactionNumber");
 
@@ -354,15 +473,11 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<string>("EmailVerified");
-
                     b.Property<string>("PaymentId");
 
                     b.Property<string>("Phone1");
 
                     b.Property<string>("Phone2");
-
-                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -389,6 +504,146 @@ namespace MIA.ORMContext.Migrations
                     b.ToTable("ContactUsSubjects");
                 });
 
+            modelBuilder.Entity("MIA.Models.Entities.Content", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ContentType");
+
+                    b.Property<string>("Data");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contents");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.Contestant", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AwardId");
+
+                    b.Property<string>("NomineeId");
+
+                    b.Property<string>("WinnerAwardFirstPlaceId");
+
+                    b.Property<string>("WinnerAwardSecondPlaceId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AwardId");
+
+                    b.HasIndex("NomineeId")
+                        .IsUnique()
+                        .HasFilter("[NomineeId] IS NOT NULL");
+
+                    b.ToTable("Contestant");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ContestantAward", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("ArtworkFee");
+
+                    b.Property<int>("AwardType");
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("FirstPlaceContestantId");
+
+                    b.Property<string>("ManagerId");
+
+                    b.Property<string>("SecondPlaceContestantId");
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("TrophyImageKey");
+
+                    b.Property<string>("TrophyImageUrl");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FirstPlaceContestantId")
+                        .IsUnique()
+                        .HasFilter("[FirstPlaceContestantId] IS NOT NULL");
+
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("SecondPlaceContestantId")
+                        .IsUnique()
+                        .HasFilter("[SecondPlaceContestantId] IS NOT NULL");
+
+                    b.ToTable("ContestantAwards");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ContestantJudgeVote", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ContestantId");
+
+                    b.Property<string>("CriteriaId");
+
+                    b.Property<bool>("JudgeComplete");
+
+                    b.Property<string>("JudgeId");
+
+                    b.Property<int>("VotingValue");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContestantId");
+
+                    b.HasIndex("CriteriaId");
+
+                    b.HasIndex("JudgeId");
+
+                    b.ToTable("ContestantVotes");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ContestantVotingCriteria", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AwardId");
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Order");
+
+                    b.Property<decimal>("Weight");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AwardId");
+
+                    b.ToTable("ContestantVotingCriterias");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.Country", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries");
+                });
+
             modelBuilder.Entity("MIA.Models.Entities.Image", b =>
                 {
                     b.Property<string>("Id")
@@ -407,7 +662,7 @@ namespace MIA.ORMContext.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Image");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.JudgeAward", b =>
+            modelBuilder.Entity("MIA.Models.Entities.JudgeArtworkAward", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -447,28 +702,22 @@ namespace MIA.ORMContext.Migrations
                     b.ToTable("JudgeComments");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.JudgeVote", b =>
+            modelBuilder.Entity("MIA.Models.Entities.JudgeContestantAward", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ArtworkId");
-
-                    b.Property<string>("CriteriaId");
+                    b.Property<string>("AwardId");
 
                     b.Property<string>("JudgeId");
 
-                    b.Property<int>("VotingValue");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtworkId");
-
-                    b.HasIndex("CriteriaId");
+                    b.HasIndex("AwardId");
 
                     b.HasIndex("JudgeId");
 
-                    b.ToTable("JudgeVotes");
+                    b.ToTable("JudgeContestantAwards");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.MediaFile", b =>
@@ -476,7 +725,7 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ArtworkId");
+                    b.Property<string>("ArtWorkId");
 
                     b.Property<string>("Description");
 
@@ -488,7 +737,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtworkId");
+                    b.HasIndex("ArtWorkId");
 
                     b.ToTable("MediaFiles");
                 });
@@ -532,6 +781,8 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<long>("Date");
 
+                    b.Property<string>("Email");
+
                     b.Property<bool>("IsApproved");
 
                     b.Property<string>("Name");
@@ -547,7 +798,7 @@ namespace MIA.ORMContext.Migrations
                     b.ToTable("NewsComments");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.VotingCriteria", b =>
+            modelBuilder.Entity("MIA.Models.Entities.ProductionYear", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -556,13 +807,9 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("Order");
-
-                    b.Property<decimal>("Weight");
-
                     b.HasKey("Id");
 
-                    b.ToTable("ArtworkVotingCriterias");
+                    b.ToTable("ProductionYears");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -725,6 +972,8 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("CompanyName");
 
+                    b.Property<string>("ContestantId");
+
                     b.Property<string>("JobTitle");
 
                     b.HasDiscriminator().HasValue("Nominee");
@@ -757,9 +1006,9 @@ namespace MIA.ORMContext.Migrations
                         .HasForeignKey("AlbumId");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.VoteOn", b =>
+            modelBuilder.Entity("MIA.Models.Entities.ArtWork", b =>
                 {
-                    b.HasOne("MIA.Models.Entities.Award", "Award")
+                    b.HasOne("MIA.Models.Entities.ArtworkAward", "Award")
                         .WithMany("ArtWorks")
                         .HasForeignKey("AwardId");
 
@@ -770,16 +1019,54 @@ namespace MIA.ORMContext.Migrations
 
             modelBuilder.Entity("MIA.Models.Entities.ArtWorkPayment", b =>
                 {
-                    b.HasOne("MIA.Models.Entities.VoteOn", "VoteOn")
+                    b.HasOne("MIA.Models.Entities.ArtWork", "ArtWork")
                         .WithOne("Payment")
-                        .HasForeignKey("MIA.Models.Entities.ArtWorkPayment", "ArtworkId");
+                        .HasForeignKey("MIA.Models.Entities.ArtWorkPayment", "ArtWorkId");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.Award", b =>
+            modelBuilder.Entity("MIA.Models.Entities.ArtworkAward", b =>
                 {
+                    b.HasOne("MIA.Models.Entities.ArtWork", "FirstPlace")
+                        .WithOne("WinnerAwardFirstPlace")
+                        .HasForeignKey("MIA.Models.Entities.ArtworkAward", "FirstPlaceArtworkId");
+
                     b.HasOne("MIA.Models.Entities.Judge", "Manager")
                         .WithMany()
                         .HasForeignKey("ManagerId");
+
+                    b.HasOne("MIA.Models.Entities.ArtWork", "SecondPlace")
+                        .WithOne("WinnerAwardSecondPlace")
+                        .HasForeignKey("MIA.Models.Entities.ArtworkAward", "SecondPlaceArtworkId");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ArtworkJudgeVote", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.ArtWork", "ArtWork")
+                        .WithMany("Votes")
+                        .HasForeignKey("ArtworkId");
+
+                    b.HasOne("MIA.Models.Entities.ArtworkVotingCriteria", "Criteria")
+                        .WithMany("ArtworkVotes")
+                        .HasForeignKey("CriteriaId");
+
+                    b.HasOne("MIA.Models.Entities.Judge", "Judge")
+                        .WithMany("ArtworkVotes")
+                        .HasForeignKey("JudgeId");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ArtworkReview", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.ArtWork", "Artwork")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ArtworkId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ArtworkVotingCriteria", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.ArtworkAward", "Award")
+                        .WithMany("VotingCriterias")
+                        .HasForeignKey("AwardId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.BoothPurchase", b =>
@@ -793,9 +1080,57 @@ namespace MIA.ORMContext.Migrations
                         .HasForeignKey("MIA.Models.Entities.BoothPurchase", "PaymentId");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.JudgeAward", b =>
+            modelBuilder.Entity("MIA.Models.Entities.Contestant", b =>
                 {
-                    b.HasOne("MIA.Models.Entities.Award", "Award")
+                    b.HasOne("MIA.Models.Entities.ContestantAward", "Award")
+                        .WithMany("Contestants")
+                        .HasForeignKey("AwardId");
+
+                    b.HasOne("MIA.Models.Entities.Nominee", "Nominee")
+                        .WithOne("Contestant")
+                        .HasForeignKey("MIA.Models.Entities.Contestant", "NomineeId");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ContestantAward", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.Contestant", "FirstPlace")
+                        .WithOne("WinnerAwardFirstPlace")
+                        .HasForeignKey("MIA.Models.Entities.ContestantAward", "FirstPlaceContestantId");
+
+                    b.HasOne("MIA.Models.Entities.Judge", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId");
+
+                    b.HasOne("MIA.Models.Entities.Contestant", "SecondPlace")
+                        .WithOne("WinnerAwardSecondPlace")
+                        .HasForeignKey("MIA.Models.Entities.ContestantAward", "SecondPlaceContestantId");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ContestantJudgeVote", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.Contestant", "Contestant")
+                        .WithMany("Votes")
+                        .HasForeignKey("ContestantId");
+
+                    b.HasOne("MIA.Models.Entities.ContestantVotingCriteria", "Criteria")
+                        .WithMany("ContestantVotes")
+                        .HasForeignKey("CriteriaId");
+
+                    b.HasOne("MIA.Models.Entities.Judge", "Judge")
+                        .WithMany("ContestantVotes")
+                        .HasForeignKey("JudgeId");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ContestantVotingCriteria", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.ContestantAward", "Award")
+                        .WithMany("VotingCriterias")
+                        .HasForeignKey("AwardId");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.JudgeArtworkAward", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.ArtworkAward", "Award")
                         .WithMany("JudgeArtworkAwards")
                         .HasForeignKey("AwardId");
 
@@ -815,26 +1150,22 @@ namespace MIA.ORMContext.Migrations
                         .HasForeignKey("MediaFileId");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.JudgeVote", b =>
+            modelBuilder.Entity("MIA.Models.Entities.JudgeContestantAward", b =>
                 {
-                    b.HasOne("MIA.Models.Entities.VoteOn", "VoteOn")
-                        .WithMany("Votes")
-                        .HasForeignKey("ArtworkId");
-
-                    b.HasOne("MIA.Models.Entities.VotingCriteria", "Criteria")
-                        .WithMany("Votes")
-                        .HasForeignKey("CriteriaId");
+                    b.HasOne("MIA.Models.Entities.ContestantAward", "Award")
+                        .WithMany("JudgeContestantAwards")
+                        .HasForeignKey("AwardId");
 
                     b.HasOne("MIA.Models.Entities.Judge", "Judge")
-                        .WithMany("Votes")
+                        .WithMany("JudgeContestantAwards")
                         .HasForeignKey("JudgeId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.MediaFile", b =>
                 {
-                    b.HasOne("MIA.Models.Entities.VoteOn", "VoteOn")
+                    b.HasOne("MIA.Models.Entities.ArtWork", "ArtWork")
                         .WithMany("MediaFiles")
-                        .HasForeignKey("ArtworkId");
+                        .HasForeignKey("ArtWorkId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.NewsComment", b =>

@@ -50,6 +50,19 @@ namespace MIA.ORMContext.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
+            modelBuilder.Entity("MIA.Authorization.Entities.UserModule", b =>
+                {
+                    b.Property<string>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100);
+
+                    b.Property<long>("AllowedModules");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserModule");
+                });
+
             modelBuilder.Entity("MIA.Models.Entities.Album", b =>
                 {
                     b.Property<string>("Id")

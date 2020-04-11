@@ -2,28 +2,27 @@
 
 namespace MIA.ORMContext.Migrations
 {
-    public partial class ContactSubjects : Migration
+    public partial class AddUserModule : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ContactUsSubjects",
+                name: "UserModule",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
-                    Code = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(maxLength: 100, nullable: false),
+                    AllowedModules = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ContactUsSubjects", x => x.Id);
+                    table.PrimaryKey("PK_UserModule", x => x.UserId);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ContactUsSubjects");
+                name: "UserModule");
         }
     }
 }

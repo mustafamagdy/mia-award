@@ -13,7 +13,7 @@ namespace MIA.ORMContext.Mappings {
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
 
-     
+
 
       builder.HasMany(a => a.MediaItems).WithOne(a => a.Album).HasForeignKey(a => a.AlbumId);
     }
