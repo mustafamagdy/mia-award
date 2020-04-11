@@ -20,5 +20,4 @@ namespace MIA.ORMContext.Mappings {
       builder.HasMany(a => a.MediaFiles).WithOne(a => a.ArtWork).HasForeignKey(a => a.ArtWorkId);
     }
   }
-
 }

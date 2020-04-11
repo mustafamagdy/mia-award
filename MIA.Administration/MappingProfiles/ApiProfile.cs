@@ -72,9 +72,9 @@ namespace MIA.Administration.MappingProfiles
       #endregion
 
       #region VotingCriteria
-      CreateMap<VotingCriteria, VotingCriteriasDto>().ValidateMemberList(MemberList.None);
-      CreateMap<NewVotingCriteriasDto, VotingCriteria>().ValidateMemberList(MemberList.None);
-      CreateMap<UpdateVotingCriteriasDto, VotingCriteria>().ValidateMemberList(MemberList.None);
+      CreateMap<ArtworkVotingCriteria, VotingCriteriasDto>().ValidateMemberList(MemberList.None);
+      CreateMap<NewVotingCriteriasDto, ArtworkVotingCriteria>().ValidateMemberList(MemberList.None);
+      CreateMap<UpdateVotingCriteriasDto, ArtworkVotingCriteria>().ValidateMemberList(MemberList.None);
 
       #endregion
 
@@ -140,14 +140,14 @@ namespace MIA.Administration.MappingProfiles
 
 
       #region Award
-      CreateMap<Award, AwardDto>().ValidateMemberList(MemberList.None)
+      CreateMap<ArtworkAward, AwardDto>().ValidateMemberList(MemberList.None)
         .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
         .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
 
 ;
-      CreateMap<Award, AwardDetailsDto>().ValidateMemberList(MemberList.None);
-      CreateMap<NewAwardDto, Award>().ValidateMemberList(MemberList.None);
-      CreateMap<UpdateAwardDto, Award>().ValidateMemberList(MemberList.None);
+      CreateMap<ArtworkAward, AwardDetailsDto>().ValidateMemberList(MemberList.None);
+      CreateMap<NewAwardDto, ArtworkAward>().ValidateMemberList(MemberList.None);
+      CreateMap<UpdateAwardDto, ArtworkAward>().ValidateMemberList(MemberList.None);
 
       #endregion
 
@@ -161,8 +161,8 @@ namespace MIA.Administration.MappingProfiles
 
       #region Judge Award
 
-      CreateMap<JudgeAward, JudgeAwardDto>().ValidateMemberList(MemberList.None);
-      CreateMap<JudgeAwardDto, JudgeAward>().ValidateMemberList(MemberList.None);
+      CreateMap<JudgeArtworkAward, JudgeAwardDto>().ValidateMemberList(MemberList.None);
+      CreateMap<JudgeAwardDto, JudgeArtworkAward>().ValidateMemberList(MemberList.None);
       #endregion
 
       #region Judge Comment

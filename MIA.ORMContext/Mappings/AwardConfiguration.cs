@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 
 namespace MIA.ORMContext.Mappings {
-  internal class AwardConfiguration : IEntityTypeConfiguration<Award> {
-    public void Configure(EntityTypeBuilder<Award> builder) {
+  internal class ArtworkAwardConfiguration : IEntityTypeConfiguration<ArtworkAward> {
+    public void Configure(EntityTypeBuilder<ArtworkAward> builder) {
 
       builder.HasKey(x => x.Id);
       builder.Property(x => x.Id)
@@ -15,14 +15,13 @@ namespace MIA.ORMContext.Mappings {
 
 
       //builder.HasOne(a => a.Trophy);
-      builder.HasMany(a => a.JudgeAwards).WithOne(a => a.Award).HasForeignKey(a => a.AwardId);
+      builder.HasMany(a => a.JudgeArtworkAwards).WithOne(a => a.Award).HasForeignKey(a => a.AwardId);
       builder.HasOne(a => a.Manager);
       builder.HasMany(a => a.ArtWorks).WithOne(a => a.Award).HasForeignKey(a => a.AwardId);
 
-      builder.HasOne(a => a.FirstPlace).WithOne(a=>a.WinnerAwardFirstPlace).HasForeignKey<Award>(a=>a.FirstPlaceArtworkId);
-      builder.HasOne(a => a.SecondPlace).WithOne(a => a.WinnerAwardSecondPlace).HasForeignKey<Award>(a => a.SecondPlaceArtworkId);
+      builder.HasOne(a => a.FirstPlace).WithOne(a=>a.WinnerAwardFirstPlace).HasForeignKey<ArtworkAward>(a=>a.FirstPlaceArtworkId);
+      builder.HasOne(a => a.SecondPlace).WithOne(a => a.WinnerAwardSecondPlace).HasForeignKey<ArtworkAward>(a => a.SecondPlaceArtworkId);
 
     }
   }
-
 }

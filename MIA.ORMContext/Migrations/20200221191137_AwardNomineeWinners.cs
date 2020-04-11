@@ -8,12 +8,12 @@ namespace MIA.ORMContext.Migrations
         {
             migrationBuilder.AddColumn<string>(
                 name: "FirstPlaceArtworkId",
-                table: "Awards",
+                table: "ArtworkAwards",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "SecondPlaceArtworkId",
-                table: "Awards",
+                table: "ArtworkAwards",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
@@ -28,21 +28,21 @@ namespace MIA.ORMContext.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Awards_FirstPlaceArtworkId",
-                table: "Awards",
+                table: "ArtworkAwards",
                 column: "FirstPlaceArtworkId",
                 unique: true,
                 filter: "[FirstPlaceArtworkId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Awards_SecondPlaceArtworkId",
-                table: "Awards",
+                table: "ArtworkAwards",
                 column: "SecondPlaceArtworkId",
                 unique: true,
                 filter: "[SecondPlaceArtworkId] IS NOT NULL");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Awards_ArtWorks_FirstPlaceArtworkId",
-                table: "Awards",
+                table: "ArtworkAwards",
                 column: "FirstPlaceArtworkId",
                 principalTable: "ArtWorks",
                 principalColumn: "Id",
@@ -50,7 +50,7 @@ namespace MIA.ORMContext.Migrations
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Awards_ArtWorks_SecondPlaceArtworkId",
-                table: "Awards",
+                table: "ArtworkAwards",
                 column: "SecondPlaceArtworkId",
                 principalTable: "ArtWorks",
                 principalColumn: "Id",
@@ -61,27 +61,27 @@ namespace MIA.ORMContext.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_Awards_ArtWorks_FirstPlaceArtworkId",
-                table: "Awards");
+                table: "ArtworkAwards");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Awards_ArtWorks_SecondPlaceArtworkId",
-                table: "Awards");
+                table: "ArtworkAwards");
 
             migrationBuilder.DropIndex(
                 name: "IX_Awards_FirstPlaceArtworkId",
-                table: "Awards");
+                table: "ArtworkAwards");
 
             migrationBuilder.DropIndex(
                 name: "IX_Awards_SecondPlaceArtworkId",
-                table: "Awards");
+                table: "ArtworkAwards");
 
             migrationBuilder.DropColumn(
                 name: "FirstPlaceArtworkId",
-                table: "Awards");
+                table: "ArtworkAwards");
 
             migrationBuilder.DropColumn(
                 name: "SecondPlaceArtworkId",
-                table: "Awards");
+                table: "ArtworkAwards");
 
             migrationBuilder.DropColumn(
                 name: "WinnerAwardFirstPlaceId",

@@ -18,7 +18,7 @@ namespace MIA.Administration.Api
     //[Authorize]
     [EnableCors(CorsPolicyName.AllowAll)]
     [Route("api/votingCriterias")]
-    public class VotingCriteriasController : BaseCrudController<VotingCriteria, VotingCriteriasDto, NewVotingCriteriasDto, UpdateVotingCriteriasDto>
+    public class VotingCriteriasController : BaseCrudController<ArtworkVotingCriteria, VotingCriteriasDto, NewVotingCriteriasDto, UpdateVotingCriteriasDto>
     {
         private readonly IHostingEnvironment env;
         private readonly IOptions<UploadLimits> limitOptions;
@@ -39,7 +39,7 @@ namespace MIA.Administration.Api
         {
             var result = await base.SaveNewAsync(dto, db);
             var resultDto = ((VotingCriteriasDto)(result as OkObjectResult)?.Value);
-            var VotingCriteriasItem = await db.VotingCriterias.FindAsync(resultDto.Id);
+            var VotingCriteriasItem = await db.ArtworkVotingCriterias.FindAsync(resultDto.Id);
             return IfFound(_mapper.Map<VotingCriteriasDto>(VotingCriteriasItem));
         }
 
@@ -47,7 +47,7 @@ namespace MIA.Administration.Api
         {
             var result = await base.UpdateAsync(dto, db);
             var resultDto = ((VotingCriteriasDto)(result as OkObjectResult)?.Value);
-            var VotingCriteriasItem = await db.VotingCriterias.FindAsync(resultDto.Id);
+            var VotingCriteriasItem = await db.ArtworkVotingCriterias.FindAsync(resultDto.Id);
             return IfFound(_mapper.Map<VotingCriteriasDto>(VotingCriteriasItem));
         }
 

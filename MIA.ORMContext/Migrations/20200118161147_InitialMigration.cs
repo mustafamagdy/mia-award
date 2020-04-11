@@ -143,7 +143,7 @@ namespace MIA.ORMContext.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VotingCriterias",
+                name: "ArtworkVotingCriterias",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -347,7 +347,7 @@ namespace MIA.ORMContext.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Awards",
+                name: "ArtworkAwards",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -390,7 +390,7 @@ namespace MIA.ORMContext.Migrations
                     table.ForeignKey(
                         name: "FK_ArtWorks_Awards_AwardId",
                         column: x => x.AwardId,
-                        principalTable: "Awards",
+                        principalTable: "ArtworkAwards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -402,7 +402,7 @@ namespace MIA.ORMContext.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "JudgeAwards",
+                name: "JudgeArtworkAwards",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -415,7 +415,7 @@ namespace MIA.ORMContext.Migrations
                     table.ForeignKey(
                         name: "FK_JudgeAwards_Awards_AwardId",
                         column: x => x.AwardId,
-                        principalTable: "Awards",
+                        principalTable: "ArtworkAwards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -470,7 +470,7 @@ namespace MIA.ORMContext.Migrations
                     table.ForeignKey(
                         name: "FK_JudgeVotes_VotingCriterias_CriteriaId",
                         column: x => x.CriteriaId,
-                        principalTable: "VotingCriterias",
+                        principalTable: "ArtworkVotingCriterias",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -591,12 +591,12 @@ namespace MIA.ORMContext.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Awards_ManagerId",
-                table: "Awards",
+                table: "ArtworkAwards",
                 column: "ManagerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Awards_TrophyId",
-                table: "Awards",
+                table: "ArtworkAwards",
                 column: "TrophyId");
 
             migrationBuilder.CreateIndex(
@@ -625,12 +625,12 @@ namespace MIA.ORMContext.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_JudgeAwards_AwardId",
-                table: "JudgeAwards",
+                table: "JudgeArtworkAwards",
                 column: "AwardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JudgeAwards_JudgeId",
-                table: "JudgeAwards",
+                table: "JudgeArtworkAwards",
                 column: "JudgeId");
 
             migrationBuilder.CreateIndex(
@@ -691,7 +691,7 @@ namespace MIA.ORMContext.Migrations
                 name: "BoothPurchases");
 
             migrationBuilder.DropTable(
-                name: "JudgeAwards");
+                name: "JudgeArtworkAwards");
 
             migrationBuilder.DropTable(
                 name: "JudgeComments");
@@ -721,13 +721,13 @@ namespace MIA.ORMContext.Migrations
                 name: "MediaFiles");
 
             migrationBuilder.DropTable(
-                name: "VotingCriterias");
+                name: "ArtworkVotingCriterias");
 
             migrationBuilder.DropTable(
                 name: "ArtWorks");
 
             migrationBuilder.DropTable(
-                name: "Awards");
+                name: "ArtworkAwards");
 
             migrationBuilder.DropTable(
                 name: "Images");

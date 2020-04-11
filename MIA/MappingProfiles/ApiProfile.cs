@@ -69,7 +69,7 @@ namespace MIA.MappingProfiles
        .ForMember(a => a.DateCreated, cfg => cfg.MapFrom(a => a.DateCreated.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
-      CreateMap<Award, AwardDto>()
+      CreateMap<ArtworkAward, AwardDto>()
         .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.TrophyImageUrl))
         .ValidateMemberList(MemberList.None);
 

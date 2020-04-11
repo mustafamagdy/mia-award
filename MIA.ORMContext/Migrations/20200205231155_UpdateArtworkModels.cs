@@ -33,7 +33,7 @@ namespace MIA.ORMContext.Migrations
 
             migrationBuilder.AddColumn<decimal>(
                 name: "ArtworkFee",
-                table: "Awards",
+                table: "ArtworkAwards",
                 nullable: false,
                 defaultValue: 0m);
 
@@ -98,7 +98,7 @@ namespace MIA.ORMContext.Migrations
 
             migrationBuilder.DropColumn(
                 name: "ArtworkFee",
-                table: "Awards");
+                table: "ArtworkAwards");
 
             migrationBuilder.DropColumn(
                 name: "AllowFileUpload",

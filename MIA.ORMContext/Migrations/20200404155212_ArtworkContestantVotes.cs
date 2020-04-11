@@ -38,12 +38,12 @@ namespace MIA.ORMContext.Migrations
 
             migrationBuilder.AddColumn<string>(
                 name: "AwardId",
-                table: "VotingCriterias",
+                table: "ArtworkVotingCriterias",
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
                 name: "AwardType",
-                table: "Awards",
+                table: "ArtworkAwards",
                 nullable: false,
                 defaultValue: 0);
 
@@ -70,7 +70,7 @@ namespace MIA.ORMContext.Migrations
                     table.ForeignKey(
                         name: "FK_ArtworkVotes_VotingCriterias_CriteriaId",
                         column: x => x.CriteriaId,
-                        principalTable: "VotingCriterias",
+                        principalTable: "ArtworkVotingCriterias",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -97,7 +97,7 @@ namespace MIA.ORMContext.Migrations
                     table.ForeignKey(
                         name: "FK_Contestant_Awards_AwardId",
                         column: x => x.AwardId,
-                        principalTable: "Awards",
+                        principalTable: "ArtworkAwards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -109,13 +109,13 @@ namespace MIA.ORMContext.Migrations
                     table.ForeignKey(
                         name: "FK_Contestant_Awards_WinnerAwardFirstPlaceId",
                         column: x => x.WinnerAwardFirstPlaceId,
-                        principalTable: "Awards",
+                        principalTable: "ArtworkAwards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Contestant_Awards_WinnerAwardSecondPlaceId",
                         column: x => x.WinnerAwardSecondPlaceId,
-                        principalTable: "Awards",
+                        principalTable: "ArtworkAwards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -143,7 +143,7 @@ namespace MIA.ORMContext.Migrations
                     table.ForeignKey(
                         name: "FK_ContestantVotes_VotingCriterias_CriteriaId",
                         column: x => x.CriteriaId,
-                        principalTable: "VotingCriterias",
+                        principalTable: "ArtworkVotingCriterias",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -156,7 +156,7 @@ namespace MIA.ORMContext.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_VotingCriterias_AwardId",
-                table: "VotingCriterias",
+                table: "ArtworkVotingCriterias",
                 column: "AwardId");
 
             migrationBuilder.CreateIndex(
@@ -234,9 +234,9 @@ namespace MIA.ORMContext.Migrations
 
             migrationBuilder.AddForeignKey(
                 name: "FK_VotingCriterias_Awards_AwardId",
-                table: "VotingCriterias",
+                table: "ArtworkVotingCriterias",
                 column: "AwardId",
-                principalTable: "Awards",
+                principalTable: "ArtworkAwards",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -253,7 +253,7 @@ namespace MIA.ORMContext.Migrations
 
             migrationBuilder.DropForeignKey(
                 name: "FK_VotingCriterias_Awards_AwardId",
-                table: "VotingCriterias");
+                table: "ArtworkVotingCriterias");
 
             migrationBuilder.DropTable(
                 name: "ArtworkVotes");
@@ -266,7 +266,7 @@ namespace MIA.ORMContext.Migrations
 
             migrationBuilder.DropIndex(
                 name: "IX_VotingCriterias_AwardId",
-                table: "VotingCriterias");
+                table: "ArtworkVotingCriterias");
 
             migrationBuilder.DropIndex(
                 name: "IX_ArtWorkPayments_ArtWorkId",
@@ -274,11 +274,11 @@ namespace MIA.ORMContext.Migrations
 
             migrationBuilder.DropColumn(
                 name: "AwardId",
-                table: "VotingCriterias");
+                table: "ArtworkVotingCriterias");
 
             migrationBuilder.DropColumn(
                 name: "AwardType",
-                table: "Awards");
+                table: "ArtworkAwards");
 
             migrationBuilder.RenameColumn(
                 name: "ArtWorkId",
@@ -312,7 +312,7 @@ namespace MIA.ORMContext.Migrations
                     table.ForeignKey(
                         name: "FK_JudgeVotes_VotingCriterias_CriteriaId",
                         column: x => x.CriteriaId,
-                        principalTable: "VotingCriterias",
+                        principalTable: "ArtworkVotingCriterias",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(

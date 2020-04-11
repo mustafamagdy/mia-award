@@ -302,7 +302,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.HasIndex("ManagerId");
 
-                    b.ToTable("Awards");
+                    b.ToTable("ArtworkAwards");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Booth", b =>
@@ -428,7 +428,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.HasIndex("JudgeId");
 
-                    b.ToTable("JudgeAwards");
+                    b.ToTable("JudgeArtworkAwards");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.JudgeComment", b =>
@@ -564,7 +564,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VotingCriterias");
+                    b.ToTable("ArtworkVotingCriterias");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -794,11 +794,11 @@ namespace MIA.ORMContext.Migrations
             modelBuilder.Entity("MIA.Models.Entities.JudgeAward", b =>
                 {
                     b.HasOne("MIA.Models.Entities.Award", "Award")
-                        .WithMany("JudgeAwards")
+                        .WithMany("JudgeArtworkAwards")
                         .HasForeignKey("AwardId");
 
                     b.HasOne("MIA.Models.Entities.Judge", "Judge")
-                        .WithMany("JudgeAwards")
+                        .WithMany("JudgeArtworkAwards")
                         .HasForeignKey("JudgeId");
                 });
 

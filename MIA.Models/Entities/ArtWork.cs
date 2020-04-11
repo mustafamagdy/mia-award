@@ -11,7 +11,6 @@ namespace MIA.Models.Entities {
   
     public ArtWorkPayment Payment { get; set; }
     public string PaymentId { get; set; }
-    //public int FileCount { get; set; }
     public HashSet<MediaFile> MediaFiles { get; set; }
     //front end user's reviews (comments)
     public HashSet<ArtworkReview> Reviews { get; set; }
@@ -41,5 +40,14 @@ namespace MIA.Models.Entities {
     public string Stars { get; set; }
     public string Crew { get; set; } 
     public double Rate { get; set; }
+
+    public ArtworkAward Award { get; set; }
+    public string AwardId { get; set; }
+
+    public ArtworkAward WinnerAwardFirstPlace { get; set; }
+    public string WinnerAwardFirstPlaceId { get; set; }
+    public ArtworkAward WinnerAwardSecondPlace { get; set; }
+    public string WinnerAwardSecondPlaceId { get; set; }
+
   }
 }

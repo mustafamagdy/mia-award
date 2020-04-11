@@ -38,7 +38,7 @@ namespace MIA.ORMContext.Seed
 
       await SeedDefaultRoles(roleManager, db);
       await SeedAdminRoleAndPermissions(roleManager, db);
-      await SeedAdminUserAsync(userManager);
+      await SeedAdminUserAsync(userManager, db);
       //await SeedDemoNews(db, s3FileManager);
       //await SeedDemoArtworks(db, s3FileManager);
 
@@ -211,7 +211,7 @@ namespace MIA.ORMContext.Seed
 
       var _faker_en = new Faker("en");
       var _faker_ar = new Faker("ar");
-      var awards = db.Awards.ToArray();
+      var awards = db.ArtworkAwards.ToArray();
       var client = new HttpClient();
 
       for (int i = 0; i < 30; i++)
@@ -508,7 +508,7 @@ namespace MIA.ORMContext.Seed
     /// </summary>
     /// <param name="userManager">Usermanager instance to create default users</param>
     /// <returns></returns>
-    private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager)
+    private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager, IAppUnitOfWork db)
     {
       if (await userManager.FindByNameAsync(Constants.ADMIN_USERNAME) == null)
       {
@@ -525,26 +525,29 @@ namespace MIA.ORMContext.Seed
         if (result.Succeeded)
         {
           await userManager.AddToRoleAsync(admin, Constants.ADMIN_ROLE);
+
+
+          var sys1Mod = new UserModule(admin.Id, SystemModules.Adminstration);
+          await db.UserModules.AddAsync(sys1Mod);
         }
       }
     }
 
     private static async Task SeedAwards(IAppUnitOfWork db, HtmlEncoder encoder)
     {
-      List<Award> awards = db.Awards.ToList();
+      List<ArtworkAward> awards = db.ArtworkAwards.ToList();
       var filename = "./seed/awards.json";
       if (File.Exists(filename))
       {
         using (StreamReader r = new StreamReader(filename))
         {
-          var newAwards = new List<Award>();
+          var newAwards = new List<ArtworkAward>();
           string json = r.ReadToEnd();
-          var listAwards = new List<Award>();
+          var listAwards = new List<ArtworkAward>();
           JArray array = JArray.Parse(json);
           foreach (JToken j in array)
           {
-            listAwards.Add(new Award
-            {
+            listAwards.Add(new ArtworkAward {
               Code = ((JValue)j["Code"]).Value<string>(),
               ArtworkFee = ((JValue)j["ArtworkFee"]).Value<decimal>(),
               TrophyImageKey = ((JValue)j["TrophyImageKey"]).Value<string>(),
@@ -562,7 +565,7 @@ namespace MIA.ORMContext.Seed
           }
           if (newAwards.Any())
           {
-            await db.Awards.AddRangeAsync(newAwards);
+            await db.ArtworkAwards.AddRangeAsync(newAwards);
           }
         }
       }
