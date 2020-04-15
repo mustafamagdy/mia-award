@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/UmrahPlatform/UmrahPlatform.csproj"
+                "${workspaceFolder}/MIA/MIA.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -17,7 +17,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/UmrahPlatform/UmrahPlatform.csproj"
+                "${workspaceFolder}/MIA/MIA.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -28,7 +28,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/UmrahPlatform/UmrahPlatform.csproj"
+                "${workspaceFolder}/MIA/MIA.csproj"
             ],
             "problemMatcher": "$tsc"
         }

@@ -299,6 +299,9 @@ namespace MIA.ORMContext.Seed
 
     private static async Task SeedDemoGallery(IAppUnitOfWork db, IS3FileManager fileManager)
     {
+      var galleryDir = "./seed/gallery";
+      if(!Directory.Exists(galleryDir)) return;
+      
       var mainAlbum = db.Albums.FirstOrDefault(a => a.MainGallery);
       if (mainAlbum == null)
       {
@@ -311,7 +314,6 @@ namespace MIA.ORMContext.Seed
         await db.Albums.AddAsync(mainAlbum);
       }
 
-      var galleryDir = "./seed/gallery";
       var allFiles = Directory.GetFiles(galleryDir);
       var vidFiles = allFiles.Where(a => a.GetFileExt() == ".mp4").ToArray();
       var vidFilesWithoutExt = vidFiles.Select(a => a.GetFileNameWithoutExt()).ToArray();
