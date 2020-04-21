@@ -184,6 +184,8 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<bool>("IllegibleForJudge");
+
                     b.Property<string>("NomineeId");
 
                     b.Property<string>("OnlineChannels");
@@ -384,6 +386,8 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("Code");
 
+                    b.Property<int>("Level");
+
                     b.Property<string>("Name");
 
                     b.Property<int>("Order");
@@ -510,11 +514,15 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("AllowFileUpload");
+
                     b.Property<string>("AwardId");
 
                     b.Property<int>("BroadcastYear");
 
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IllegibleForJudge");
 
                     b.Property<string>("NomineeId");
 
@@ -677,6 +685,8 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("AwardId");
 
                     b.Property<string>("Code");
+
+                    b.Property<int>("Level");
 
                     b.Property<string>("Name");
 

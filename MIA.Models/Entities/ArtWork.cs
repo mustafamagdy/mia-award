@@ -6,8 +6,7 @@ namespace MIA.Models.Entities {
   public class ArtWork : BaseContestant {
 
     public bool UploadComplete { get; set; }
-    public bool AllowFileUpload { get; set; }
-
+   
     public S3File Poster { get; set; }
     public S3File Trailer { get; set; }
     public S3File TrailerPoster { get; set; }

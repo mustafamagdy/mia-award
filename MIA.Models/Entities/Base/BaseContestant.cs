@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace MIA.Models.Entities
-{
-  public abstract class BaseContestant : BaseEntity<string>
-  {
+namespace MIA.Models.Entities {
+  public abstract class BaseContestant : BaseEntity<string> {
     public LocalizedData Title { get; set; }
     public LocalizedData Description { get; set; }
+    public bool IllegibleForJudge { get; set; }
+    public bool AllowFileUpload { get; set; }
+
     public string SiteUrl { get; set; }
     public int ProductionYear { get; set; }
     public int BroadcastYear { get; set; }
