@@ -52,8 +52,8 @@ namespace MIA.Administration.Api {
       var JudgeAwardItem = db.JudgeArtworkAwards.Where(x => x.AwardId == resultDto.Id).ToList();
 
 
-      var deleteJudges = new JudgeArtworkAward[AwardsItem.JudgeArtworkAwards.Count];
-      AwardsItem.JudgeArtworkAwards.CopyTo(deleteJudges, 0);
+      var deleteJudges = new JudgeArtworkAward[AwardsItem.Level2Judges.Count];
+      AwardsItem.Level2Judges.CopyTo(deleteJudges, 0);
 
       foreach (var objJudges in deleteJudges) {
         var entity = db.Set<JudgeArtworkAward>().FirstOrDefault(a => a.Id == objJudges.Id);
@@ -63,8 +63,8 @@ namespace MIA.Administration.Api {
       }
 
       foreach (var roleper in dto.JudgeAwards) {
-        if (AwardsItem.JudgeArtworkAwards.All(x => x.JudgeId != roleper.Id)) {
-          AwardsItem.JudgeArtworkAwards.Add(new JudgeArtworkAward {
+        if (AwardsItem.Level2Judges.All(x => x.JudgeId != roleper.Id)) {
+          AwardsItem.Level2Judges.Add(new JudgeArtworkAward {
             JudgeId = roleper.Id
           });
         }

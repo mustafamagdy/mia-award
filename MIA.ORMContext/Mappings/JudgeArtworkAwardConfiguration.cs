@@ -13,7 +13,7 @@ namespace MIA.ORMContext.Mappings {
         .ValueGeneratedOnAdd();
 
       builder.HasOne(a => a.Judge).WithMany(a => a.JudgeArtworkAwards).HasForeignKey(a => a.JudgeId);
-      builder.HasOne(a => a.Award).WithMany(a => a.JudgeArtworkAwards).HasForeignKey(a => a.AwardId);
+      builder.HasOne(a => a.Award).WithMany(a => a.Level2Judges).HasForeignKey(a => a.AwardId);
 
     }
   }
