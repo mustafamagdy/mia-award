@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MIA.ORMContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200411160532_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20200421164437_InitMigrations")]
+    partial class InitMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,6 +50,19 @@ namespace MIA.ORMContext.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("MIA.Authorization.Entities.UserModule", b =>
+                {
+                    b.Property<string>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100);
+
+                    b.Property<long>("AllowedModules");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserModule");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Album", b =>
@@ -169,57 +182,33 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("AwardId");
 
-                    b.Property<string>("Country");
+                    b.Property<int>("BroadcastYear");
 
-                    b.Property<string>("CoverId");
-
-                    b.Property<string>("CoverUrl");
-
-                    b.Property<string>("Crew");
-
-                    b.Property<string>("DateOfRelease");
-
-                    b.Property<string>("Director");
-
-                    b.Property<bool>("Featured");
+                    b.Property<string>("Description");
 
                     b.Property<string>("NomineeId");
 
+                    b.Property<string>("OnlineChannels");
+
                     b.Property<string>("PaymentId");
 
-                    b.Property<long>("PostedDate");
+                    b.Property<string>("ProductionLicenseAgency");
 
-                    b.Property<string>("PosterId");
+                    b.Property<string>("ProductionLicenseNumber");
 
-                    b.Property<string>("PosterUrl");
+                    b.Property<int>("ProductionYear");
 
-                    b.Property<string>("Production");
-
-                    b.Property<double>("Rate");
-
-                    b.Property<string>("ShowDescription");
-
-                    b.Property<string>("Stars");
-
-                    b.Property<string>("Story");
+                    b.Property<string>("SiteUrl");
 
                     b.Property<string>("Title");
 
-                    b.Property<string>("TrailerId");
-
-                    b.Property<string>("TrailerPosterId");
-
-                    b.Property<string>("TrailerPosterUrl");
-
-                    b.Property<string>("TrailerUrl");
+                    b.Property<string>("TvChannels");
 
                     b.Property<bool>("UploadComplete");
 
                     b.Property<string>("WinnerAwardFirstPlaceId");
 
                     b.Property<string>("WinnerAwardSecondPlaceId");
-
-                    b.Property<string>("Writers");
 
                     b.HasKey("Id");
 
@@ -525,11 +514,35 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("AwardId");
 
+                    b.Property<int>("BroadcastYear");
+
+                    b.Property<string>("Description");
+
                     b.Property<string>("NomineeId");
+
+                    b.Property<string>("OnlineChannels");
+
+                    b.Property<string>("PaymentId");
+
+                    b.Property<string>("ProductionLicenseAgency");
+
+                    b.Property<string>("ProductionLicenseNumber");
+
+                    b.Property<int>("ProductionYear");
+
+                    b.Property<string>("RoleId");
+
+                    b.Property<string>("SiteUrl");
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("TvChannels");
 
                     b.Property<string>("WinnerAwardFirstPlaceId");
 
                     b.Property<string>("WinnerAwardSecondPlaceId");
+
+                    b.Property<int>("YearOfExpereince");
 
                     b.HasKey("Id");
 
@@ -538,6 +551,8 @@ namespace MIA.ORMContext.Migrations
                     b.HasIndex("NomineeId")
                         .IsUnique()
                         .HasFilter("[NomineeId] IS NOT NULL");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Contestant");
                 });
@@ -606,6 +621,54 @@ namespace MIA.ORMContext.Migrations
                     b.HasIndex("JudgeId");
 
                     b.ToTable("ContestantVotes");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ContestantPayment", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("Amount");
+
+                    b.Property<string>("CardHolderName");
+
+                    b.Property<string>("CardType");
+
+                    b.Property<string>("ContestantId");
+
+                    b.Property<bool>("IsOffline");
+
+                    b.Property<string>("Last4Digits");
+
+                    b.Property<long>("PaymentDate");
+
+                    b.Property<string>("PaymentId");
+
+                    b.Property<int>("PaymentStatus");
+
+                    b.Property<string>("ReceiptId");
+
+                    b.Property<string>("ReceiptUrl");
+
+                    b.Property<string>("TransactionNumber");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContestantPayment");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.ContestantRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContestantRole");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.ContestantVotingCriteria", b =>
@@ -1015,6 +1078,78 @@ namespace MIA.ORMContext.Migrations
                     b.HasOne("MIA.Models.Entities.Nominee", "Nominee")
                         .WithMany("ArtWorks")
                         .HasForeignKey("NomineeId");
+
+                    b.OwnsOne("MIA.Models.Entities.S3File", "Cover", b1 =>
+                        {
+                            b1.Property<string>("ArtWorkId");
+
+                            b1.Property<string>("FileKey");
+
+                            b1.Property<string>("FileUrl");
+
+                            b1.HasKey("ArtWorkId");
+
+                            b1.ToTable("ArtWorks");
+
+                            b1.HasOne("MIA.Models.Entities.ArtWork")
+                                .WithOne("Cover")
+                                .HasForeignKey("MIA.Models.Entities.S3File", "ArtWorkId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MIA.Models.Entities.S3File", "Poster", b1 =>
+                        {
+                            b1.Property<string>("ArtWorkId");
+
+                            b1.Property<string>("FileKey");
+
+                            b1.Property<string>("FileUrl");
+
+                            b1.HasKey("ArtWorkId");
+
+                            b1.ToTable("ArtWorks");
+
+                            b1.HasOne("MIA.Models.Entities.ArtWork")
+                                .WithOne("Poster")
+                                .HasForeignKey("MIA.Models.Entities.S3File", "ArtWorkId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MIA.Models.Entities.S3File", "Trailer", b1 =>
+                        {
+                            b1.Property<string>("ArtWorkId");
+
+                            b1.Property<string>("FileKey");
+
+                            b1.Property<string>("FileUrl");
+
+                            b1.HasKey("ArtWorkId");
+
+                            b1.ToTable("ArtWorks");
+
+                            b1.HasOne("MIA.Models.Entities.ArtWork")
+                                .WithOne("Trailer")
+                                .HasForeignKey("MIA.Models.Entities.S3File", "ArtWorkId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MIA.Models.Entities.S3File", "TrailerPoster", b1 =>
+                        {
+                            b1.Property<string>("ArtWorkId");
+
+                            b1.Property<string>("FileKey");
+
+                            b1.Property<string>("FileUrl");
+
+                            b1.HasKey("ArtWorkId");
+
+                            b1.ToTable("ArtWorks");
+
+                            b1.HasOne("MIA.Models.Entities.ArtWork")
+                                .WithOne("TrailerPoster")
+                                .HasForeignKey("MIA.Models.Entities.S3File", "ArtWorkId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.ArtWorkPayment", b =>
@@ -1086,9 +1221,18 @@ namespace MIA.ORMContext.Migrations
                         .WithMany("Contestants")
                         .HasForeignKey("AwardId");
 
+                    b.HasOne("MIA.Models.Entities.ContestantPayment", "Payment")
+                        .WithOne("Contestant")
+                        .HasForeignKey("MIA.Models.Entities.Contestant", "Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("MIA.Models.Entities.Nominee", "Nominee")
                         .WithOne("Contestant")
                         .HasForeignKey("MIA.Models.Entities.Contestant", "NomineeId");
+
+                    b.HasOne("MIA.Models.Entities.ContestantRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.ContestantAward", b =>

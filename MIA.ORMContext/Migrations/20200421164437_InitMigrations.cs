@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MIA.ORMContext.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -177,6 +177,42 @@ namespace MIA.ORMContext.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ContestantPayment",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    TransactionNumber = table.Column<string>(nullable: true),
+                    Amount = table.Column<decimal>(nullable: false),
+                    PaymentDate = table.Column<long>(nullable: false),
+                    PaymentId = table.Column<string>(nullable: true),
+                    Last4Digits = table.Column<string>(nullable: true),
+                    CardHolderName = table.Column<string>(nullable: true),
+                    CardType = table.Column<string>(nullable: true),
+                    PaymentStatus = table.Column<int>(nullable: false),
+                    ReceiptId = table.Column<string>(nullable: true),
+                    ReceiptUrl = table.Column<string>(nullable: true),
+                    IsOffline = table.Column<bool>(nullable: false),
+                    ContestantId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContestantPayment", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContestantRole",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Code = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContestantRole", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Countries",
                 columns: table => new
                 {
@@ -220,6 +256,18 @@ namespace MIA.ORMContext.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductionYears", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserModule",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(maxLength: 100, nullable: false),
+                    AllowedModules = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserModule", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -456,31 +504,27 @@ namespace MIA.ORMContext.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    NomineeId = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    SiteUrl = table.Column<string>(nullable: true),
+                    ProductionYear = table.Column<int>(nullable: false),
+                    BroadcastYear = table.Column<int>(nullable: false),
+                    TvChannels = table.Column<string>(nullable: true),
+                    OnlineChannels = table.Column<string>(nullable: true),
+                    ProductionLicenseNumber = table.Column<string>(nullable: true),
+                    ProductionLicenseAgency = table.Column<string>(nullable: true),
+                    NomineeId = table.Column<string>(nullable: true),
                     UploadComplete = table.Column<bool>(nullable: false),
                     AllowFileUpload = table.Column<bool>(nullable: false),
-                    Featured = table.Column<bool>(nullable: false),
+                    Poster_FileKey = table.Column<string>(nullable: true),
+                    Poster_FileUrl = table.Column<string>(nullable: true),
+                    Trailer_FileKey = table.Column<string>(nullable: true),
+                    Trailer_FileUrl = table.Column<string>(nullable: true),
+                    TrailerPoster_FileKey = table.Column<string>(nullable: true),
+                    TrailerPoster_FileUrl = table.Column<string>(nullable: true),
+                    Cover_FileKey = table.Column<string>(nullable: true),
+                    Cover_FileUrl = table.Column<string>(nullable: true),
                     PaymentId = table.Column<string>(nullable: true),
-                    PosterId = table.Column<string>(nullable: true),
-                    PosterUrl = table.Column<string>(nullable: true),
-                    TrailerId = table.Column<string>(nullable: true),
-                    TrailerUrl = table.Column<string>(nullable: true),
-                    TrailerPosterId = table.Column<string>(nullable: true),
-                    TrailerPosterUrl = table.Column<string>(nullable: true),
-                    CoverId = table.Column<string>(nullable: true),
-                    CoverUrl = table.Column<string>(nullable: true),
-                    PostedDate = table.Column<long>(nullable: false),
-                    DateOfRelease = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: true),
-                    ShowDescription = table.Column<string>(nullable: true),
-                    Director = table.Column<string>(nullable: true),
-                    Production = table.Column<string>(nullable: true),
-                    Writers = table.Column<string>(nullable: true),
-                    Story = table.Column<string>(nullable: true),
-                    Stars = table.Column<string>(nullable: true),
-                    Crew = table.Column<string>(nullable: true),
-                    Rate = table.Column<double>(nullable: false),
                     AwardId = table.Column<string>(nullable: true),
                     WinnerAwardFirstPlaceId = table.Column<string>(nullable: true),
                     WinnerAwardSecondPlaceId = table.Column<string>(nullable: true)
@@ -723,7 +767,19 @@ namespace MIA.ORMContext.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    SiteUrl = table.Column<string>(nullable: true),
+                    ProductionYear = table.Column<int>(nullable: false),
+                    BroadcastYear = table.Column<int>(nullable: false),
+                    TvChannels = table.Column<string>(nullable: true),
+                    OnlineChannels = table.Column<string>(nullable: true),
+                    ProductionLicenseNumber = table.Column<string>(nullable: true),
+                    ProductionLicenseAgency = table.Column<string>(nullable: true),
                     NomineeId = table.Column<string>(nullable: true),
+                    YearOfExpereince = table.Column<int>(nullable: false),
+                    RoleId = table.Column<string>(nullable: true),
+                    PaymentId = table.Column<string>(nullable: true),
                     AwardId = table.Column<string>(nullable: true),
                     WinnerAwardFirstPlaceId = table.Column<string>(nullable: true),
                     WinnerAwardSecondPlaceId = table.Column<string>(nullable: true)
@@ -732,9 +788,21 @@ namespace MIA.ORMContext.Migrations
                 {
                     table.PrimaryKey("PK_Contestant", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Contestant_ContestantPayment_Id",
+                        column: x => x.Id,
+                        principalTable: "ContestantPayment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Contestant_AspNetUsers_NomineeId",
                         column: x => x.NomineeId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Contestant_ContestantRole_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "ContestantRole",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -994,6 +1062,11 @@ namespace MIA.ORMContext.Migrations
                 filter: "[NomineeId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Contestant_RoleId",
+                table: "Contestant",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ContestantAwards_FirstPlaceContestantId",
                 table: "ContestantAwards",
                 column: "FirstPlaceContestantId",
@@ -1188,6 +1261,9 @@ namespace MIA.ORMContext.Migrations
                 name: "ProductionYears");
 
             migrationBuilder.DropTable(
+                name: "UserModule");
+
+            migrationBuilder.DropTable(
                 name: "Albums");
 
             migrationBuilder.DropTable(
@@ -1228,6 +1304,12 @@ namespace MIA.ORMContext.Migrations
 
             migrationBuilder.DropTable(
                 name: "Contestant");
+
+            migrationBuilder.DropTable(
+                name: "ContestantPayment");
+
+            migrationBuilder.DropTable(
+                name: "ContestantRole");
         }
     }
 }

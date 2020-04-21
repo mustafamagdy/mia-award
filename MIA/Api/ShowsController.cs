@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -13,27 +14,24 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace MIA.Api
-{
+namespace MIA.Api {
 #if Versioning
   [ApiVersion("1.0")]
 #endif
   [Route("api/shows")]
-  public class ShowsController : BaseApiController<ShowsController>
-  {
+  public class ShowsController : BaseApiController<ShowsController> {
 
-    public ShowsController(IMapper mapper, [FromServices] ILogger<ShowsController> logger) : base(logger, mapper)
-    {
+    public ShowsController(IMapper mapper, [FromServices] ILogger<ShowsController> logger) : base(logger, mapper) {
     }
 
     [HttpGet("featured")]
     public IActionResult Featured(
-      [FromServices] IAppUnitOfWork db)
-    {
+      [FromServices] IAppUnitOfWork db) {
       var result = db.ArtWorks
-        .Where(a => a.UploadComplete && a.Featured)
+        .Where(a => a.UploadComplete)
         .ProjectTo<ArtworkBasicViewDto>(_mapper.ConfigurationProvider)
-        .ToArray();
+        .ToArray()
+        .Random(20);
 
       return IfFound(result);
     }
@@ -41,8 +39,7 @@ namespace MIA.Api
     [HttpPost("filter")]
     public async Task<IActionResult> Filtered(
       [FromBody] ArtworkFilterDto query,
-      [FromServices] IAppUnitOfWork db)
-    {
+      [FromServices] IAppUnitOfWork db) {
       var _result = db.ArtWorks
         .Where(a => a.UploadComplete);
 
@@ -59,8 +56,7 @@ namespace MIA.Api
     [HttpGet("with-comments/{id}")]
     public async Task<IActionResult> GetWithReviews(
       [FromRoute(Name = "id")] string showId,
-      [FromServices] IAppUnitOfWork db)
-    {
+      [FromServices] IAppUnitOfWork db) {
       var result = await db.ArtWorks
         .Include(a => a.Reviews)
         .Where(a => a.UploadComplete && a.Id == showId)
@@ -82,8 +78,7 @@ namespace MIA.Api
       [FromBody] SubmitUserComment dto,
       [FromServices] IAppUnitOfWork db,
       [FromServices] IOptions<AdminOptions> adminOptions
-    )
-    {
+    ) {
       var comment = _mapper.Map<ArtworkReview>(dto);
       comment.ArtworkId = showId;
       comment.IsApproved = adminOptions.Value.AutoApproveNewsComments;
