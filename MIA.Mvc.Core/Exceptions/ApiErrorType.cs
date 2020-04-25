@@ -10,6 +10,16 @@ namespace MIA.Exceptions {
     InternalError,
     [Error("30", HttpStatusCode.ServiceUnavailable, Message = "Redis server is not found")]
     RedisNotFound,
+    [Error("400", HttpStatusCode.BadGateway, Message = "Bad request")]
+    BadRequest,
+    [Error("401", HttpStatusCode.Unauthorized, Message = "Unauthorized")]
+    Unauthorized,
+    [Error("403", HttpStatusCode.Forbidden, Message = "Forbidden")]
+    Forbidden,
+    [Error("404", HttpStatusCode.NotFound, Message = "No data found")]
+    NotFound,
+    [Error("409", HttpStatusCode.Conflict, Message = "Conflict")]
+    Conflict,
     /////////////////////////////////////////////////////////
 
     ///////////////// Data Validations //////////////////////

@@ -108,11 +108,11 @@ namespace MIA.MappingProfiles
         // .ForMember(a => a.Stars, cfg => cfg.MapFrom(a => a.Stars))
         // .ForMember(a => a.DateOfRelease, cfg => cfg.MapFrom(a => a.Year))
         // .ForMember(a => a.Country, cfg => cfg.MapFrom(a => a.Country))
-        .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
+        .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Title))
         .ForMember(a => a.Payment, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWork, ArtworkBasiData>()
+      CreateMap<ArtWork, ArtworkBasicData>()
         // .ForMember(a => a.About, cfg => cfg.MapFrom(a => a.Description))
         // .ForMember(a => a.Story, cfg => cfg.MapFrom(a => a.Story))
         // .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))

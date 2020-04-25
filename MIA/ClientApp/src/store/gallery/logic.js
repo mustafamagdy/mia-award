@@ -1,8 +1,8 @@
 import { ActionTypes } from "./actions";
-import generateLogic from "utils/genLogic";
+import logic from "utils/genLogic";
 
 const apiNamespace = "gallery";
-const fetchFeaturedItemsLogic = generateLogic(apiNamespace, ActionTypes.FETCH_FEATURED_ITEMS);
-const fetchItemsLogic = generateLogic(apiNamespace, ActionTypes.FETCH_ITEMS);
+const fetchFeaturedItemsLogic = logic(apiNamespace, ActionTypes.FETCH_FEATURED_ITEMS);
+const fetchItemsLogic = logic(apiNamespace, ActionTypes.FETCH_ITEMS);
 
 export default [fetchFeaturedItemsLogic, fetchItemsLogic];

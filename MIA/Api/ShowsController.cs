@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MIA.Api.Base;
+using MIA.Exceptions;
 using MIA.Infrastructure.Options;
 using MIA.Models.Entities;
 using MIA.Models.Entities.Enums;
@@ -63,7 +64,9 @@ namespace MIA.Api {
         .ProjectTo<FullArtworkWithCommentsDto>(_mapper.ConfigurationProvider)
         .FirstOrDefaultAsync();
 
-      if (result == null) return NotFound404("Show not found");
+      if (result == null) {
+        throw new ApiException(ApiErrorType.NotFound, "Show not found");
+      }
 
       //filter not approved comments, this should be using the filter inside inlucde, but it needs work from zzz project
       result.Reviews = result.Reviews.Where(a => a.IsApproved).ToArray();

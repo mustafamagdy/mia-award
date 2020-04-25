@@ -6,8 +6,10 @@ using MIA.Authorization;
 using MIA.Authorization.Entities;
 using MIA.Dto.Admin;
 using MIA.Dto.Auth;
+using MIA.Exceptions;
 using MIA.Models.Entities;
 using MIA.Mvc.Core;
+using Microsoft.AspNetCore.Identity;
 
 namespace MIA.MappingProfiles {
 
@@ -50,6 +52,9 @@ namespace MIA.MappingProfiles {
       CreateMap<KeyValuePair<string, string>, KeyValuePair<string, string>>()
         .ConstructUsing(x => new KeyValuePair<string, string>(x.Key, x.Value));
 
+      CreateMap<IdentityError, ErrorResult>()
+        .ForMember(x => x.PropertyName, conf => conf.MapFrom(x => x.Code))
+        .ForMember(x => x.ErrorMessage, conf => conf.MapFrom(x => x.Description));
 
       CreateMap<AppUser, UserProfileDto>()
          .IncludeAllDerived()

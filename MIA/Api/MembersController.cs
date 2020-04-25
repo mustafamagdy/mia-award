@@ -23,100 +23,6 @@ using MIA.Infrastructure.Options;
 using Microsoft.EntityFrameworkCore;
 
 namespace MIA.Api {
-  public abstract class ArtworkBasiData {
-    public LocalizedData Title { get; set; }
-    public string Description { get; set; }
-    public string Story { get; set; }
-    public string Directors { get; set; }
-    public string Producers { get; set; }
-    public string Writers { get; set; }
-    public string Crew { get; set; }
-    public string Stars { get; set; }
-    public string Year { get; set; }
-    public string Country { get; set; }
-
-  }
-  public class ArtworkBasicViewDto : ArtworkBasiData {
-    public string Id { get; set; }
-    public string PosterUrl { get; set; }
-    public string TrailerUrl { get; set; }
-    public string TrailerPosterUrl { get; set; }
-    public string CoverImageUrl { get; set; }
-  }
-  public class ArtworkViewDto : ArtworkBasicViewDto {
-    public bool CanUploadFiles { get; set; }
-    public bool UploadComplete { get; set; }
-  }
-  public class ArtworkViewWithFilesDto : ArtworkViewDto {
-    public ArtworkFileDto[] Files { get; set; }
-    public PaymentWithStatusDto Payment { get; set; }
-  }
-
-  public class ArtworkFileDto {
-    public string FileUrl { get; set; }
-    public int Size { get; set; }
-  }
-
-  public class AwardWithStatusDto {
-    public string Id { get; set; }
-    public LocalizedData Name { get; set; }
-    public string TrophyUrl { get; set; }
-    public bool Winner { get; set; }
-  }
-
-  public class ArtworkWithStatusDto {
-    public string Id { get; set; }
-    public string PosterUrl { get; set; }
-    public string TrailerUrl { get; set; }
-    public string CoverUrl { get; set; }
-    public bool UploadComplete { get; set; }
-    public bool AllowFileUpload { get; set; }
-    public LocalizedData Title { get; set; }
-  }
-
-  public class PaymentWithStatusDto {
-    public string Id { get; set; }
-    public decimal Amount { get; set; }
-    public string Date { get; set; }
-    public bool IsOffline { get; set; }
-    public string Status { get; set; }
-  }
-
-  public class SubmitArtworkWithDetails : ArtworkBasiData {
-    public LocalizedData Title { get; set; }
-    public string PosterFileName { get; set; }
-    public string CoverImageFileName { get; set; }
-    public byte[] Poster { get; set; }
-    public byte[] CoverImage { get; set; }
-
-    public string AwardId { get; set; }
-    public PaymentDto Payment { get; set; }
-  }
-
-  public class PaymentDto {
-    public string CardHolderName { get; set; }
-    public string CardType { get; set; }
-    public string Last4Digit { get; set; }
-    public string CardToken { get; set; }
-    public string Currency { get; set; }
-    public string SessionId { get; set; }
-    public string Type { get; set; }
-
-    public string PaymentMethod { get; set; }
-    public string ReceiptDate { get; set; }
-    public string ReceiptNumber { get; set; }
-    public decimal ReceiptAmount { get; set; }
-    public string ReceiptFileName { get; set; }
-    public byte[] Receipt { get; set; }
-
-    public bool IsOffline => true;//PaymentMethod.ToLower() == "offline";
-  }
-
-  public class PublishArtwork {
-    public string Id { get; set; }
-    public bool Publish { get; set; }
-  }
-
 #if (Versioning)
     [ApiVersion("1.0")]
 #endif
@@ -144,8 +50,7 @@ namespace MIA.Api {
         .Select(a => new AwardWithStatusDto {
           Id = a.AwardId,
           TrophyUrl = a.Award.TrophyImageUrl,
-          //TODO: this need to be calculated or a flag
-          Winner = false
+          Winner = a.WinnerAwardFirstPlace != null || a.WinnerAwardSecondPlace != null
         })
         .ToArray();
 
@@ -203,94 +108,53 @@ namespace MIA.Api {
 
       var nominee = await _userResolver.CurrentUserAsync();
       var award = await db.ArtworkAwards.FindAsync(dto.AwardId);
-
-      PaymentStatus paymentResponse = null;
-      if (!dto.Payment.IsOffline) {
-        try {
-          if (string.IsNullOrEmpty(dto.Payment.SessionId)) {
-            var paymentDto = _mapper.Map<PaymentRequest>(dto.Payment);
-            // 10.5$ => 1050 no decimal points (multiply by 100)
-            paymentDto.Amount = (int)(award.ArtworkFee * 100);
-            _logger.LogInformation("Request payment start for:" + paymentDto.Amount);
-            paymentResponse = paymentGateway.RequestPayment(paymentDto).Result;
-            if (paymentResponse != null && paymentResponse.IsPending) {
-              return Ok(new {
-                Pending = true,
-                ThreeDsUrl = paymentResponse.ThreeDsUrl
-              });
-            } else if (paymentResponse != null && paymentResponse.IsApproved) {
-
-              //TODO: uncomment
-              //_logger.LogInformation($"user payment success {nominee.Id}/{nominee.UserName} -> Payment Id: {paymentResponse.PaymentId}");
-
-            } else if (paymentResponse == null || !paymentResponse.IsApproved) {
-              throw new ApiException(ApiErrorType.UserPaymentFailed, $"Payment approved: {paymentResponse?.IsApproved}");
-            }
-          } else {
-            var paymentDetails = paymentGateway.GetPaymentDetails(dto.Payment.SessionId).Result;
-            if (paymentDetails == null || !paymentDetails.Approved) {
-              throw new ApiException(ApiErrorType.PaymentNotApproved, $"Payment approved: {paymentDetails?.Approved}");
-            } else {
-              paymentResponse = new PaymentStatus {
-                PaymentId = paymentDetails.Id,
-                Status = paymentDetails.Status,
-              };
-            }
-          }
-          _logger.LogInformation("Request payment end");
-        } catch (Exception exPayment) {
-          _logger.LogError(exPayment, "user payment failed");
-          throw new ApiException(ApiErrorType.UserPaymentFailed, exPayment.Message);
-        }
-      }
-
-
       var artwork = _mapper.Map<ArtWork>(dto);
       artwork.NomineeId = nominee.Id;
-      artwork.AllowFileUpload = !dto.Payment.IsOffline;
+      //all artworks cannot upload files until payment approved
+      artwork.AllowFileUpload = false;
 
       await db.ArtWorks.AddAsync(artwork);
 
-      //save payment
-      var artWorkPayment = await SaveUserPaymentAsync(fileManager, db, award, artwork.Id, dto, paymentResponse);
-
-      if (!string.IsNullOrEmpty(dto.PosterFileName) && dto.Poster != null && dto.Poster.Length > 0) {
-        var posterFileKey = fileManager.GenerateFileKeyForResource(
-          ResourceType.ArtWork,
-          artwork.Id, $"{artwork.Id}_poster." + dto.PosterFileName);
-        artwork.Poster = S3File.FromKeyAndUrl(posterFileKey, await fileManager.UploadFileAsync(dto.Poster, posterFileKey));
-      }
-
-      if (!string.IsNullOrEmpty(dto.CoverImageFileName) && dto.CoverImage != null && dto.CoverImage.Length > 0) {
-        var coverFileKey = fileManager.GenerateFileKeyForResource(
-          ResourceType.ArtWork,
-          artwork.Id, $"{artwork.Id}_cover." + dto.CoverImageFileName);
-        artwork.Cover = S3File.FromKeyAndUrl(coverFileKey, await fileManager.UploadFileAsync(dto.CoverImage, coverFileKey));
-      }
-
-      artwork.Payment = artWorkPayment;
+      artwork.Payment = await SaveUserPaymentAsync(fileManager, db, award, artwork.Id, dto);
+      artwork.Poster = await SaveArtworkPoster(fileManager, artwork.Id, dto);
+      artwork.Cover = await SaveArtworkCoverImage(fileManager, artwork.Id, dto);
 
       return Ok(_mapper.Map<ArtworkViewWithFilesDto>(artwork));
     }
 
-    private async Task<ArtWorkPayment> SaveUserPaymentAsync(IS3FileManager fileManager, IAppUnitOfWork db, ArtworkAward award, string artworkId, SubmitArtworkWithDetails dto, PaymentStatus paymentStatus) {
+    private async Task<S3File> SaveArtworkPoster(IS3FileManager fileManager, string artworkId, SubmitArtworkWithDetails dto) {
+      if (!string.IsNullOrEmpty(dto.PosterFileName) && dto.Poster != null && dto.Poster.Length > 0) {
+        var posterFileKey = fileManager.GenerateFileKeyForResource(
+          ResourceType.ArtWork,
+          artworkId, $"{artworkId}_poster." + dto.PosterFileName);
+        return S3File.FromKeyAndUrl(posterFileKey, await fileManager.UploadFileAsync(dto.Poster, posterFileKey));
+      }
+      return null;
+    }
+
+    private async Task<S3File> SaveArtworkCoverImage(IS3FileManager fileManager, string artworkId, SubmitArtworkWithDetails dto) {
+      if (!string.IsNullOrEmpty(dto.CoverImageFileName) && dto.CoverImage != null && dto.CoverImage.Length > 0) {
+        var coverFileKey = fileManager.GenerateFileKeyForResource(
+          ResourceType.ArtWork,
+          artworkId, $"{artworkId}_cover." + dto.CoverImageFileName);
+        return S3File.FromKeyAndUrl(coverFileKey, await fileManager.UploadFileAsync(dto.CoverImage, coverFileKey));
+      }
+      return null;
+    }
+
+    private async Task<ArtWorkPayment> SaveUserPaymentAsync(IS3FileManager fileManager, IAppUnitOfWork db, ArtworkAward award, string artworkId, SubmitArtworkWithDetails dto) {
       var payment = new ArtWorkPayment();
       payment.ArtWorkId = artworkId;
       payment.Amount = award.ArtworkFee;
-      payment.PaymentId = paymentStatus?.PaymentId;
 
-      payment.IsOffline = dto.Payment.IsOffline;
-      payment.PaymentStatus = dto.Payment.IsOffline ? Models.Entities.PaymentStatus.Waiting : Models.Entities.PaymentStatus.Confirmed;
+      payment.IsOffline = true;
+      payment.PaymentStatus = Models.Entities.PaymentStatus.Waiting;
       payment.PaymentDate = DateTimeOffset.Now.ToUnixTimeSeconds();
 
       await db.ArtWorkPayments.AddAsync(payment);
 
-      if (dto.Payment.IsOffline) {
-        var receiptFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Docs, payment.Id, $"{payment.Id}_receipt." + dto.Payment.ReceiptFileName);
-        payment.ReceiptId = receiptFileKey;
-        payment.ReceiptUrl = await fileManager.UploadFileAsync(dto.Payment.Receipt, receiptFileKey);
-      }
-
+      var receiptFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Docs, payment.Id, $"{payment.Id}_receipt." + dto.Payment.ReceiptFileName);
+      payment.Receipt = S3File.FromKeyAndUrl(receiptFileKey, await fileManager.UploadFileAsync(dto.Payment.Receipt, receiptFileKey));
       return payment;
     }
 
@@ -305,8 +169,10 @@ namespace MIA.Api {
       var nominee = await _userResolver.CurrentUserAsync();
       var artwork = await db.ArtWorks.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
 
-      if (artwork.NomineeId != nominee.Id)
-        return NotFound404("Artwork doesn't belong to you");
+      if (artwork.NomineeId != nominee.Id) {
+        throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
+      }
+
       var updatedArtwork = _mapper.Map<SubmitArtworkWithDetails, ArtWork>(dto, artwork);
       updatedArtwork.Id = id;
       db.ArtWorks.Update(updatedArtwork);
@@ -320,19 +186,14 @@ namespace MIA.Api {
         [FromServices] IAppUnitOfWork db,
         [FromServices] IS3FileManager fileManager,
         FileChunkDto dto) {
-      //var trailerFileKey = fileManager.GenerateFileKeyForResource(
-      //  ResourceType.Artwork,
-      //  artwork.Id, $"{artwork.Id}_trailer." + dto.Trailer.GetFileExt());
-      //artwork.TrailerId = trailerFileKey;
-      //artwork.TrailerUrl = await fileManager.UploadFileAsync(dto.Trailer.OpenReadStream(), trailerFileKey);
       try {
         var nominee = await _userResolver.CurrentUserAsync();
         var artwork = await db.ArtWorks.FindAsync(id);
         if (artwork == null) {
-          return NotFound404("Artwork doesn't exist");
+          throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't exist");
         }
         if (artwork.NomineeId != nominee.Id) {
-          return NotFound404("Artwork doesn't belong to you");
+          throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
         }
 
         var imageExtensions = new[] { ".jpg", ".png" };
@@ -376,10 +237,10 @@ namespace MIA.Api {
       var nominee = await _userResolver.CurrentUserAsync();
       var artwork = await db.ArtWorks.FindAsync(id);
       if (artwork == null) {
-        return NotFound404("Artwork doesn't exist");
+        throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't exist");
       }
       if (artwork.NomineeId != nominee.Id) {
-        return NotFound404("Artwork doesn't belong to you");
+        throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
       }
       var coverFileKey = fileManager.GenerateFileKeyForResource(
         ResourceType.ArtWork,
@@ -399,7 +260,7 @@ namespace MIA.Api {
         .Include(a => a.MediaFiles)
         .FirstOrDefaultAsync(a => a.Id == id);
       if (artwork.NomineeId != nominee.Id)
-        return NotFound404("Artwork doesn't belong to you");
+        throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
 
       return Ok(_mapper.Map<ArtworkViewWithFilesDto>(artwork));
     }
@@ -415,13 +276,15 @@ namespace MIA.Api {
         var nominee = await _userResolver.CurrentUserAsync();
         var artwork = await db.ArtWorks.FindAsync(id);
         if (artwork == null) {
-          return NotFound404("Artwork doesn't exist");
+          throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't exist");
         }
+
         if (artwork.NomineeId != nominee.Id) {
-          return NotFound404("Artwork doesn't belong to you");
+          throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
         }
+
         if (artwork.UploadComplete) {
-          return ValidationError(HttpStatusCode.BadRequest, "Files upload complete, waiting for artwork review");
+          throw new ApiException(ApiErrorType.BadRequest, "Files upload complete, waiting for artwork review");
         }
 
         var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.ArtWork, id);
@@ -439,12 +302,6 @@ namespace MIA.Api {
           };
 
           await db.MediaFiles.AddAsync(mediaFile);
-          //var _artwork = await db.ArtWorks.Include(a => a.MediaFiles).FirstOrDefaultAsync(a => a.Id == id);
-          //if (_artwork.MediaFiles.Any() && _artwork.FileCount <= _artwork.MediaFiles.Count)
-          //{
-          //    _artwork.UploadComplete = true;
-          //    db.ArtWorks.Update(_artwork);
-          //}
           return Ok(fileKey);
         } else {
           return Ok(result);
@@ -465,9 +322,9 @@ namespace MIA.Api {
                             .Include(a => a.MediaFiles)
                             .FirstOrDefaultAsync(a => a.Id == id);
 
-      if (artwork.NomineeId != nominee.Id)
-        return NotFound404("Artwork doesn't belong to you");
-
+      if (artwork.NomineeId != nominee.Id) {
+        throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
+      }
 
       return Ok(_mapper.Map<ArtworkViewWithFilesDto>(artwork));
     }
@@ -482,9 +339,10 @@ namespace MIA.Api {
       var artwork = await db.ArtWorks
           .FirstOrDefaultAsync(a => a.Id == id);
 
-      if (artwork.NomineeId != nominee.Id)
-        return NotFound404("Artwork doesn't belong to you");
-
+      if (artwork.NomineeId != nominee.Id) {
+        throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
+      }
+      
       artwork.UploadComplete = publishArtworkDto.Publish;
       db.ArtWorks.Update(artwork);
 

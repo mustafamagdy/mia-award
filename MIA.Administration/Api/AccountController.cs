@@ -24,6 +24,7 @@ using X.PagedList;
 using MIA.Administration.Middlewares;
 using MIA.Api.Base;
 using MIA.Dto.Auth;
+using MIA.Exceptions;
 
 namespace MIA.Administration.Api {
   /// <summary>
@@ -91,7 +92,7 @@ namespace MIA.Administration.Api {
 
       } else {
         _logger.LogError("Failed to create user ", string.Join(',', result.Errors.Select(x => x.Description)));
-        return ValidationError(result.Errors);
+        throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
       }
     }
 
@@ -132,7 +133,7 @@ namespace MIA.Administration.Api {
           //todo: should we sign in here ?
           return Ok(user.Id);
         } else {
-          return ValidationError(result.Errors);
+          throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
         }
       } else {
         return NotFound(user);
@@ -176,7 +177,7 @@ namespace MIA.Administration.Api {
         await emailSender.SendEmailAsync(user.Email, _Locale["reset_password_request_subject"], htmlMessage);
         return Ok();
       } else {
-        return NotFound404("User doesn't exist");
+        throw new ApiException(ApiErrorType.NotFound, "User doesn't exist");
       }
     }
 
@@ -211,7 +212,7 @@ namespace MIA.Administration.Api {
           await emailSender.SendEmailAsync(user.Email, _Locale["your_password_reset_subject"], htmlMessage);
           return Ok();
         } else {
-          return ValidationError(result.Errors);
+          throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
         }
       } else {
         return NotFound();
@@ -232,7 +233,7 @@ namespace MIA.Administration.Api {
 
       var username = context.HttpContext?.User?.Identity?.Name;
       if (username == null) {
-        return Unauthorized401("Username not found");
+        throw new ApiException(ApiErrorType.Unauthorized, "Username not found");
       }
 
       var user = await userManager.FindByNameAsync(username);
@@ -250,7 +251,7 @@ namespace MIA.Administration.Api {
         await emailSender.SendEmailAsync(user.Email, _Locale["your_password_changed_subject"], htmlMessage);
         return Ok();
       } else {
-        return ValidationError(result.Errors);
+        throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
       }
 
     }
@@ -265,7 +266,7 @@ namespace MIA.Administration.Api {
 
       var username = context.HttpContext?.User?.Identity?.Name;
       if (username == null) {
-        return Unauthorized401("Username not found");
+        throw new ApiException(ApiErrorType.Unauthorized, "Username not found");
       }
 
       var user = await userManager.FindByNameAsync(username);
@@ -289,7 +290,7 @@ namespace MIA.Administration.Api {
 
       var username = context.HttpContext?.User?.Identity?.Name;
       if (username == null) {
-        return Unauthorized401("Username not found");
+        throw new ApiException(ApiErrorType.Unauthorized, "Username not found");
       }
 
       var user = await userManager.FindByNameAsync(username);
@@ -302,7 +303,7 @@ namespace MIA.Administration.Api {
 
           string validationError = "";
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
-            return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
 
           if (avatar == null) {

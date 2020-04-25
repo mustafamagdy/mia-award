@@ -3,6 +3,7 @@ using MIA.Administration.Api.Base;
 using MIA.Administration.Dto.Award;
 using MIA.Administration.Dto.User;
 using MIA.Constants;
+using MIA.Exceptions;
 using MIA.Infrastructure.Options;
 using MIA.Models.Entities;
 using MIA.ORMContext.Uow;
@@ -100,7 +101,7 @@ namespace MIA.Administration.Api {
     public async Task<IActionResult> ListOfJudges([FromServices] IAppUnitOfWork db) {
       var judges = db.Judges;
       if (judges == null) {
-        return NotFound404("judges not found");
+        throw new ApiException(ApiErrorType.NotFound, "judges not found");
       }
       return IfFound(judges.MapTo<JudgeDto>());
     }

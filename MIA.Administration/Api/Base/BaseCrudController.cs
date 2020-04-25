@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Cors;
 using MIA.Constants;
+using MIA.Exceptions;
 
 namespace MIA.Administration.Api.Base {
   /// <summary>
@@ -86,7 +87,7 @@ namespace MIA.Administration.Api.Base {
                      .FirstOrDefault(a => a.Id == dto.Id);
 
       if (entity == null)
-        return NotFound404("record not found");
+        throw new ApiException(ApiErrorType.NotFound, "record not found");
 
       entity = (TEntity)_mapper.Map(dto, entity, typeof(TUpdateDto), typeof(TEntity));
       //_mapper.Map<TEntity>(dto);
@@ -104,7 +105,7 @@ namespace MIA.Administration.Api.Base {
         ) {
       var entity = db.Set<TEntity>().FirstOrDefault(a => a.Id == id);
       if (entity == null)
-        return NotFound404("record not found");
+        throw new ApiException(ApiErrorType.NotFound, "record not found");
 
       db.Set<TEntity>().Remove(entity);
 
@@ -118,7 +119,7 @@ namespace MIA.Administration.Api.Base {
         ) {
       var entity = db.Set<TEntity>().FirstOrDefault(a => a.Id == id);
       if (entity == null)
-        return NotFound404("record not found");
+        throw new ApiException(ApiErrorType.NotFound, "record not found");
 
       return IfFound(_mapper.Map<TDataDto>(entity));
 
@@ -134,7 +135,7 @@ namespace MIA.Administration.Api.Base {
     //                    .AsNoTracking()
     //                    .FirstOrDefault(a => a.Id == id);
     //    if (entity == null)
-    //        return NotFound404("record not found");
+    //        throw new ApiException(ApiErrorType.NotFound,"record not found");
 
     //    entity = (TEntity)_mapper.Map(dto, entity, typeof(TUpdateDto), typeof(TEntity));
     //    _mapper.Map<TEntity>(dto);

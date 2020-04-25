@@ -55,7 +55,7 @@ namespace MIA.Administration.Api {
         using (var memorySteam = new MemoryStream(dto.Poster)) {
           string validationError = "";
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
-            return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
 
           //    ArtWorksItem.Payment = new ArtWorkPayment();
@@ -65,7 +65,7 @@ namespace MIA.Administration.Api {
         using (var memorySteam = new MemoryStream(dto.Cover)) {
           string validationError = "";
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
-            return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
 
           coverKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.CoverFileName);
@@ -90,7 +90,7 @@ namespace MIA.Administration.Api {
         using (var memorySteam = new MemoryStream(dto.Poster)) {
           string validationError = "";
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
-            return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
           if (dto.Receipt != null && dto.Receipt.Length > 0) {
 
@@ -99,8 +99,7 @@ namespace MIA.Administration.Api {
               string fileReceiptKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.ReceiptFileName);
               var ReceiptUrl = await fileManager.UploadFileAsync(memorySteamReciept, fileReceiptKey);
 
-              ArtWorksItem.Payment.ReceiptUrl = ReceiptUrl;
-              ArtWorksItem.Payment.ReceiptId = fileReceiptKey;
+              ArtWorksItem.Payment.Receipt = S3File.FromKeyAndUrl(fileReceiptKey, ReceiptUrl);
             }
           }
           string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.PosterFileName);
@@ -156,7 +155,7 @@ namespace MIA.Administration.Api {
     public async Task<IActionResult> DeleteMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
       var entity = db.Set<MediaFile>().FirstOrDefault(a => a.Id == id);
       if (entity == null)
-        return NotFound404("record not found");
+        throw new ApiException(ApiErrorType.NotFound, "record not found");
 
       db.Set<MediaFile>().Remove(entity);
       return Ok();
@@ -199,14 +198,13 @@ namespace MIA.Administration.Api {
         using (var memorySteam = new MemoryStream(dto.Receipt)) {
           string validationError = "";
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
-            return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
 
           string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWrokPayment, paymentItem.Id, dto.ReceiptFileName);
           var posterUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
-          paymentItem.ReceiptUrl = posterUrl;
-          paymentItem.ReceiptId = fileKey;
+          paymentItem.Receipt = S3File.FromKeyAndUrl(fileKey, posterUrl);
           var entry = db.Set<ArtWorkPayment>().Attach(paymentItem);
           entry.State = EntityState.Modified;
           await db.CommitTransactionAsync();
@@ -221,21 +219,20 @@ namespace MIA.Administration.Api {
 
       var paymentItem = await db.ArtWorkPayments.FirstOrDefaultAsync(a => a.Id == dto.Id);
       if (paymentItem == null)
-        return NotFound404("record not found");
+        throw new ApiException(ApiErrorType.NotFound, "record not found");
       paymentItem = (ArtWorkPayment)_mapper.Map(dto, paymentItem, typeof(UpdateArtWorkPaymentDto), typeof(ArtWorkPayment));
 
       if (dto.Receipt != null && dto.Receipt.Length > 0) {
         using (var memorySteam = new MemoryStream(dto.Receipt)) {
           string validationError = "";
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
-            return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
 
           string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWrokPayment, paymentItem.Id, dto.ReceiptFileName);
           var posterUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
-          paymentItem.ReceiptUrl = posterUrl;
-          paymentItem.ReceiptId = fileKey;
+          paymentItem.Receipt = S3File.FromKeyAndUrl(fileKey, posterUrl);
           var entry = db.Set<ArtWorkPayment>().Attach(paymentItem);
           entry.State = EntityState.Modified;
           await db.CommitTransactionAsync();
@@ -259,7 +256,7 @@ namespace MIA.Administration.Api {
     public async Task<IActionResult> ListOfNominees([FromServices] IAppUnitOfWork db) {
       var nominee = db.Nominees;
       if (nominee == null) {
-        return NotFound404("nominee not found");
+        throw new ApiException(ApiErrorType.NotFound, "nominee not found");
       }
 
       return IfFound(nominee.MapTo<NomineeDto>());

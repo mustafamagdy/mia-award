@@ -23,6 +23,7 @@ using MIA.Authorization.Entities;
 using MIA.ORMContext.Uow;
 using MIA.Dto.Admin;
 using Newtonsoft.Json;
+using MIA.Exceptions;
 
 namespace MIA.Administration.Api {
   /// <summary>
@@ -66,12 +67,12 @@ namespace MIA.Administration.Api {
 
       AppUser user = await userManager.FindByNameAsync(loginData.UserName);
       if (user == null) {
-        return NotFound404("invalid credentials");
+        throw new ApiException(ApiErrorType.NotFound, "invalid credentials");
       }
 
       bool canSignIn = await signInManager.CanSignInAsync(user);
       if (!canSignIn) {
-        return Forbid403("User cannot login");
+        throw new ApiException(ApiErrorType.Forbidden, "User cannot login");
       }
 
       Microsoft.AspNetCore.Identity.SignInResult signInResult = await signInManager.PasswordSignInAsync(user,
@@ -80,9 +81,9 @@ namespace MIA.Administration.Api {
         lockoutOnFailure: false);
 
       if (signInResult.IsLockedOut) {
-        return Unauthorized401("User is locked");
+        throw new ApiException(ApiErrorType.Unauthorized, "User is locked");
       } else if (!signInResult.Succeeded) {
-        return Forbid403("User is not allowed");
+        throw new ApiException(ApiErrorType.Forbidden, "User is not allowed");
       }
 
       var roles = await userManager.GetRolesAsync(user);
@@ -104,9 +105,9 @@ namespace MIA.Administration.Api {
                               .GroupBy(a => a.SystemModule)
                               .ToDictionary(
                                   a => a.Key,
-                                  b => 
+                                  b =>
                                   b.Select(a => string.Join('_', a.Name.ToLower().Split(' '))).ToArray());
-                              
+
 
 
       ClaimsPrincipal res = await claimFactory.CreateAsync(user);
@@ -152,7 +153,7 @@ namespace MIA.Administration.Api {
       [FromServices] IAuthTokenManager tokenManager) {
 
       if (string.IsNullOrEmpty(authorization)) {
-        return ValidationError(new[] { new IdentityError { Code = "TOKEN_NOT_FOUND", Description = "No token provided" } });
+        throw new ApiException(ApiErrorType.BadRequest, "No token provided");
       }
 
       await signinManager.SignOutAsync();

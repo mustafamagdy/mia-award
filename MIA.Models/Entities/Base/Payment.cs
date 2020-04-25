@@ -10,8 +10,7 @@
     public string CardType { get; set; }
 
     public PaymentStatus PaymentStatus { get; set; }
-    public string ReceiptId { get; set; }
-    public string ReceiptUrl { get; set; }
+    public S3File Receipt { get; set; }
     public bool IsOffline { get; set; }
   }
 

@@ -129,12 +129,12 @@ namespace MIA.Administration.MappingProfiles
 
 
       CreateMap<NewArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None)
-            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
+            .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Title))
             .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.ShowDescription))
             .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
             .ForMember(a => a.Nominee, cfg => cfg.MapFrom(a => a.Nominee));
       CreateMap<UpdateArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None)
-            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
+            .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Title))
             .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.ShowDescription));
       #endregion
 
