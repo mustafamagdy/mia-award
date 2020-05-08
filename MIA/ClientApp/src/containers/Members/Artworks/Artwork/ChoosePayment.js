@@ -8,7 +8,15 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 import { I18n } from "@lingui/react";
 import { useEffect } from "react";
 
-const Payment = ({ active, register, awards = [], onPayment, processOrder, setPaymentToken, ...props }) => {
+const ChoosePayment = ({
+  active,
+  register,
+  awards = [],
+  onPayment,
+  processOrder,
+  setPaymentToken,
+  ...props
+}) => {
   const [selectedAward, setSelectedAward] = useState();
   const [awardConfirmed, setAwardConfirmed] = useState(false);
   const [useOnlinePayment, setUseOnlinePayment] = useState(true);
@@ -21,7 +29,7 @@ const Payment = ({ active, register, awards = [], onPayment, processOrder, setPa
     setAwardConfirmed(true);
   };
 
-  const setPaymentMethod = e => {
+  const setPaymentMethod = (e) => {
     setUseOnlinePayment(e.target.value.toLowerCase() == "online");
     // setValue("payment.paymentMethod", e.target.value.toLowerCase());
   };
@@ -29,7 +37,11 @@ const Payment = ({ active, register, awards = [], onPayment, processOrder, setPa
   return (
     <div className={classNames("tab_content tab_payment", { active })}>
       <div className="all_payments_way">
-        <BlockUi tag="div" blocking={awardConfirmed} className={classNames("pay_col_one", { move: awardConfirmed })}>
+        <BlockUi
+          tag="div"
+          blocking={awardConfirmed}
+          className={classNames("pay_col_one", { move: awardConfirmed })}
+        >
           {selectedAward && (
             <>
               <div className="item_top">
@@ -41,28 +53,33 @@ const Payment = ({ active, register, awards = [], onPayment, processOrder, setPa
                     {({ locale }) => (
                       <>
                         <span>
-                          <Trans id={selectedAward.title[locale.code]}>{selectedAward.title[locale.code]}</Trans>
+                          <Trans id={selectedAward.title[locale.code]}>
+                            {selectedAward.title[locale.code]}
+                          </Trans>
                         </span>
-                        <p>you applied for {selectedAward.title[locale.code]} award please confirm to move on to the payment stage</p>
+                        <p>
+                          you applied for {selectedAward.title[locale.code]}{" "}
+                          award please confirm to move on to the payment stage
+                        </p>
 
                         <div className="award_category">
                           <select
                             name="awardId"
                             ref={register}
-                            onChange={a => {
-                              const _award = awards.find(x => x.id == a.target.value);
+                            onChange={(a) => {
+                              const _award = awards.find(
+                                (x) => x.id == a.target.value
+                              );
                               setSelectedAward(_award);
                             }}
                           >
                             <I18n>
                               {({ i18n }) => {
-                                {
-                                  return awards.map((a, i) => (
-                                    <option key={a.id} value={a.id}>
-                                      {i18n._(a.code)}
-                                    </option>
-                                  ));
-                                }
+                                return awards.map((a, i) => (
+                                  <option key={a.id} value={a.id}>
+                                    {i18n._(a.code)}
+                                  </option>
+                                ));
                               }}
                             </I18n>
                           </select>
@@ -84,7 +101,11 @@ const Payment = ({ active, register, awards = [], onPayment, processOrder, setPa
             </>
           )}
         </BlockUi>
-        <BlockUi tag="div" blocking={!awardConfirmed} className={classNames("pay_col_two", { active: awardConfirmed })}>
+        <BlockUi
+          tag="div"
+          blocking={!awardConfirmed}
+          className={classNames("pay_col_two", { active: awardConfirmed })}
+        >
           <label>Choose Your Payment Method :</label>
           <div className="choose_area">
             <label htmlFor="online">
@@ -100,10 +121,16 @@ const Payment = ({ active, register, awards = [], onPayment, processOrder, setPa
               />
               <div className="checkmark"></div>
             </label>
-            <BlockUi tag="div" blocking={!useOnlinePayment} className={classNames("pay_online_form", { move: !useOnlinePayment })}>
+            <BlockUi
+              tag="div"
+              blocking={!useOnlinePayment}
+              className={classNames("pay_online_form", {
+                move: !useOnlinePayment,
+              })}
+            >
               <img src="/assets/images/pay_logo.png" />
               <PaymentForm
-                cardTokenized={token => {
+                cardTokenized={(token) => {
                   setPaymentToken(token);
                 }}
               />
@@ -128,14 +155,43 @@ const Payment = ({ active, register, awards = [], onPayment, processOrder, setPa
               />
               <div className="checkmark"></div>
             </label>
-            <BlockUi tag="div" blocking={useOnlinePayment} className={classNames("pay_offline_form", { move: useOnlinePayment })}>
-              <p>please upload the reciept to be approved from the adminstration and confirm your payment</p>
+            <BlockUi
+              tag="div"
+              blocking={useOnlinePayment}
+              className={classNames("pay_offline_form", {
+                move: useOnlinePayment,
+              })}
+            >
+              <p>
+                please upload the reciept to be approved from the adminstration
+                and confirm your payment
+              </p>
               <form id="offline-payment" onSubmit={onPayment}>
-                <input ref={register} name="payment.receiptAmount" type="text" placeholder="Amount" />
-                <input ref={register} name="payment.receiptNumber" type="text" placeholder="Transaction Number" />
-                <input ref={register} name="payment.receiptDate" type="text" placeholder="Payment Date" />
+                <input
+                  ref={register}
+                  name="payment.receiptAmount"
+                  type="text"
+                  placeholder="Amount"
+                />
+                <input
+                  ref={register}
+                  name="payment.receiptNumber"
+                  type="text"
+                  placeholder="Transaction Number"
+                />
+                <input
+                  ref={register}
+                  name="payment.receiptDate"
+                  type="text"
+                  placeholder="Payment Date"
+                />
                 <div className="confirm">
-                  <input type="file" id="receipt" name="payment.receipt" ref={register} />
+                  <input
+                    type="file"
+                    id="receipt"
+                    name="payment.receipt"
+                    ref={register}
+                  />
                   <label htmlFor="receipt" className="btn-2">
                     Choose receipt image
                   </label>
@@ -152,4 +208,4 @@ const Payment = ({ active, register, awards = [], onPayment, processOrder, setPa
   );
 };
 
-export default Payment;
+export default ChoosePayment;

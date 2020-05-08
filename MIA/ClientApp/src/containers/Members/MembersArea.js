@@ -26,6 +26,7 @@ const MembersArea = ({
           <Switch>
             <Route exact path="/members/profile" component={Profile} />
             <Route path="/members/artwork" component={Artwork} />
+            <Route path="/members/contestant" component={Artwork} />
             <Route exact path="/members" component={Artworks} />
             <Redirect from="*" to="/members" />
           </Switch>

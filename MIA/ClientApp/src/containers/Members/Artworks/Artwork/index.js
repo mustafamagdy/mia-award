@@ -3,16 +3,22 @@ import { connect } from "react-redux";
 import { Switch, Route } from "react-router";
 import membersActions from "store/members/actions";
 import { bindActionCreators } from "redux";
-import AddArtwork from "./AddNew";
-import ViewArtwork from "./View";
-import EditArtwork from "./Edit";
+import ArtworkData from "./ArtworkData";
+import NewArtwork from "./NewArtwork";
 
-const Arwork = ({ artworkDetails, addNewArtwork, awards, artworkMode,history, ...props }) => {
+const Arwork = ({
+  artworkDetails,
+  addNewArtwork,
+  awards,
+  artworkMode,
+  history,
+  ...props
+}) => {
   useEffect(() => {
-    if(artworkMode==="view"){
-      history.push(`/members/artwork/${artworkDetails.id}`)
+    if (artworkMode === "view") {
+      history.push(`/members/artwork/${artworkDetails.id}`);
     }
-  }, [artworkMode])
+  }, [artworkMode]);
   return (
     <React.Fragment>
       <div className="upload_poster">
@@ -24,19 +30,26 @@ const Arwork = ({ artworkDetails, addNewArtwork, awards, artworkMode,history, ..
               <span>Upload show poster</span>
             </form>
           ) : (
-            <img src={artworkDetails && artworkDetails.coverImageUrl} style={{ objectFit: "cover" }} />
+            <img
+              src={artworkDetails && artworkDetails.coverImageUrl}
+              style={{ objectFit: "cover" }}
+            />
           )}
         </div>
       </div>
       <Switch>
-        <Route exact path="/members/artwork" component={AddArtwork} />
-        <Route exact path="/members/artwork/:id" component={ViewArtwork} />
-        <Route exact path="/members/artwork/:id/edit" component={EditArtwork} />
+        <Route exact path="/members/artwork" component={NewArtwork} />
+        <Route exact path="/members/artwork/:id" component={ArtworkData} />
+        <Route exact path="/members/artwork/:id?mode=edit" component={ArtworkData} />
       </Switch>
     </React.Fragment>
   );
 };
 
-const mapStateToProps = ({ home: { awards }, members: { artworkDetails, artworkMode } }) => ({ awards, artworkDetails, artworkMode });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...membersActions }, dispatch);
+const mapStateToProps = ({
+  home: { awards },
+  members: { artworkDetails, artworkMode },
+}) => ({ awards, artworkDetails, artworkMode });
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...membersActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Arwork);

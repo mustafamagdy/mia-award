@@ -74,6 +74,7 @@ namespace MIA.ORMContext
     public DbSet<ContentReviewer> ContentReviewers { get; set; }
     public DbSet<Nominee> Nominees { get; set; }
     public DbSet<ArtWork> ArtWorks { get; set; }
+    public DbSet<Contestant> Contestants { get; set; }
     public DbSet<ArtWorkPayment> ArtWorkPayments { get; set; }
     public DbSet<ArtworkAward> ArtworkAwards { get; set; }
     public DbSet<ContestantAward> ContestantAwards { get; set; }

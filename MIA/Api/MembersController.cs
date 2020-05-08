@@ -50,11 +50,28 @@ namespace MIA.Api {
         .Select(a => new AwardWithStatusDto {
           Id = a.AwardId,
           TrophyUrl = a.Award.TrophyImageUrl,
-          Winner = a.WinnerAwardFirstPlace != null || a.WinnerAwardSecondPlace != null
+          Winner = a.WinnerAwardFirstPlace != null || a.WinnerAwardSecondPlace != null,
+          ArtworkId = a.Id,
+          ProjectName = a.ProjectName,
+          Description = a.Description,
+          PosterUrl = a.Poster.FileUrl
+        })
+        .ToArray();
+      var contestants = db.Contestants
+        .Include(a => a.Award)
+        .Where(a => a.NomineeId == nominee.Id)
+        .Select(a => new AwardWithStatusDto {
+          Id = a.AwardId,
+          TrophyUrl = a.Award.TrophyImageUrl,
+          Winner = a.WinnerAwardFirstPlace != null || a.WinnerAwardSecondPlace != null,
+          ArtworkId = a.Id,
+          ProjectName = a.ProjectName,
+          Description = a.Description,
+          PosterUrl = ""
         })
         .ToArray();
 
-      return Ok(artworks);
+      return Ok(artworks.Union(contestants).ToArray());
     }
 
     [HttpGet("artworks")]
@@ -342,7 +359,7 @@ namespace MIA.Api {
       if (artwork.NomineeId != nominee.Id) {
         throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
       }
-      
+
       artwork.UploadComplete = publishArtworkDto.Publish;
       db.ArtWorks.Update(artwork);
 

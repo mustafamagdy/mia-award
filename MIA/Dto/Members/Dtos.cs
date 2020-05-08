@@ -39,6 +39,11 @@ namespace MIA.Api {
     public LocalizedData Name { get; set; }
     public string TrophyUrl { get; set; }
     public bool Winner { get; set; }
+
+    public string ArtworkId { get; set; }
+    public LocalizedData ProjectName { get; set; }
+    public LocalizedData Description { get; set; }
+    public string PosterUrl { get; set; }
   }
 
   public class ArtworkWithStatusDto {
