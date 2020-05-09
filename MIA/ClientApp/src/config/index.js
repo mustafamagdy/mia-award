@@ -87,6 +87,13 @@ export default {
     yt: "https://www.youtube.com/MIAawardarab",
   },
   uploadFileExtension: ["video/mp4"],
+  MAX_FILE_SIZE: 10485760,
+  UPLOAD_IMAGE_SUPPORTED_FORMATS: [
+    "image/jpg",
+    "image/jpeg",
+    "image/gif",
+    "image/png",
+  ],
   validationRules: {
     allowed_artwork_years: {
       min: 2019,

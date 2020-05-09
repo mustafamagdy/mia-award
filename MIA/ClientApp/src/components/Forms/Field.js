@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { Trans, t } from "@lingui/macro";
 import { I18n } from "@lingui/react";
 import { ErrorMessage } from "components/Forms";
+import FieldFileUpload from "./FieldFileUpload";
 
 const FormField = ({
   name,
@@ -17,14 +18,21 @@ const FormField = ({
   placeholder,
   placeholderKey,
   isCheckbox,
+  isFile,
 
   ...props
 }) => {
+  const isOtherTypes = isCheckbox || isFile;
+
   return (
     <I18n>
       {({ i18n }) =>
-        isCheckbox === true ? (
-          <Field name={name} {...props} />
+        isOtherTypes === true ? (
+          isCheckbox ? (
+            <Field name={name} {...props} />
+          ) : isFile ? (
+            <Field component={FieldFileUpload} name={name} {...props} />
+          ) : undefined
         ) : (
           <div className="form-group">
             <label className="form-group__label" htmlFor={name}>

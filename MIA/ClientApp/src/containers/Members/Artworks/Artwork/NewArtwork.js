@@ -13,7 +13,7 @@ import membersActions from "store/members/actions";
 import { bindActionCreators } from "redux";
 import { fileToBase64 } from "utils";
 
-const NewArtwork = ({ awards, ...props }) => {
+const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
   const [selectedAward, setSelectedAward] = useState();
   useEffect(() => {
     setSelectedAward(awards[0]);
@@ -46,11 +46,13 @@ submmit
         onlineChannels: "",
         ProductionLicenseNumber: "",
         productionLicenseAgency: "",
-        //payment
-        amount: "",
-        receiptNumber: "",
-        receiptDate: "",
-        receiptFile: "",
+        payment: {
+          //payment
+          receiptAmount: 0,
+          receiptNumber: "",
+          receiptDate: "",
+          receiptFile: undefined,
+        },
       }}
       // ref={(r) => setFormRef(r)}
       validationSchema={Yup.object().shape({
@@ -76,14 +78,34 @@ submmit
         onlineChannels: Yup.string().required("Required"),
         ProductionLicenseNumber: Yup.string().required("Required"),
         productionLicenseAgency: Yup.string().required("Required"),
-        amount: Yup.string().required("Required"),
-        receiptNumber: Yup.number().required("Required").min(1).max(100000),
-        receiptDate: Yup.date().required("Required"),
-        receiptFile: Yup.string().required("Required"),
+        payment: Yup.object().shape({
+          receiptAmount: Yup.number().required("Required").min(1).max(100000),
+          receiptNumber: Yup.string().required("Required"),
+          receiptDate: Yup.date().required("Required"),
+          receiptFile: Yup.mixed().required(),
+          // receiptFile: Yup.mixed()
+          //   .test(
+          //     "fileSize",
+          //     "File Size is too large",
+          //     (value) => value.size <= config.MAX_FILE_SIZE
+          //   )
+          //   .test("fileType", "Unsupported File Format", (value) =>
+          //     config.UPLOAD_IMAGE_SUPPORTED_FORMATS.includes(value.type)
+          //   ),
+        }),
       })}
-      onSubmit={(values, actions) => {
+      onSubmit={async (values, actions) => {
         console.log("submit with values", values);
-        // submitForm && submitForm(values);
+        debugger;
+
+        const receipt = await fileToBase64(
+          values.payment.receiptFile.name,
+          values.payment.receiptFile
+        );
+        values.payment.receiptFileName = values.payment.receiptFile.name;
+        values.payment.receipt = receipt;
+
+        addNewArtwork(values);
       }}
     >
       {({
@@ -282,11 +304,14 @@ submmit
                   transdDefaultVal="Amount"
                   hasError={
                     errors &&
-                    errors.amount !== undefined &&
+                    errors.payment &&
+                    errors.payment.receiptAmount !== undefined &&
                     touched &&
-                    touched.amount !== undefined
+                    touched.payment &&
+                    touched.payment.receiptAmount !== undefined
                   }
-                  name="amount"
+                  name="payment.receiptAmount"
+                  type="number"
                 />
               </div>
               <div className="gcell">
@@ -295,11 +320,13 @@ submmit
                   transdDefaultVal="Receipt Number"
                   hasError={
                     errors &&
-                    errors.receiptNumber !== undefined &&
+                    errors.payment &&
+                    errors.payment.receiptNumber !== undefined &&
                     touched &&
-                    touched.receiptNumber !== undefined
+                    touched.payment &&
+                    touched.payment.receiptNumber !== undefined
                   }
-                  name="receiptNumber"
+                  name="payment.receiptNumber"
                 />
               </div>
               <div className="gcell">
@@ -309,24 +336,29 @@ submmit
                   isDate={true}
                   hasError={
                     errors &&
-                    errors.receiptDate !== undefined &&
+                    errors.payment &&
+                    errors.payment.receiptDate !== undefined &&
                     touched &&
-                    touched.receiptDate !== undefined
+                    touched.payment &&
+                    touched.payment.receiptDate !== undefined
                   }
-                  name="receiptDate"
+                  name="payment.receiptDate"
                 />
               </div>
               <div className="gcell">
                 <Field
                   transId="receipt_file"
                   transdDefaultVal="Receipt File"
+                  isFile={true}
                   hasError={
                     errors &&
-                    errors.receiptFile !== undefined &&
+                    errors.payment &&
+                    errors.payment.receiptFile !== undefined &&
                     touched &&
-                    touched.receiptFile !== undefined
+                    touched.payment &&
+                    touched.payment.receiptFile !== undefined
                   }
-                  name="receiptFile"
+                  name="payment.receiptFile"
                 />
               </div>
             </div>

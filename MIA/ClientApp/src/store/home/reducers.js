@@ -21,7 +21,6 @@ const initialState = {
     hasPreviousPage: false
   },
   contactUsMessageSubjects: [],
-  shows_categories: [],
   shows_countries: [],
   shows_generas: [],
   shows_years: [],
@@ -99,7 +98,6 @@ const bookBoothSuccess = (state, action) => {
 const fetchMetadataSuccess = (state, action) => {
   return produce(state, draft => {
     draft.contactUsMessageSubjects = [...action.payload.contactUsSubjects];
-    draft.shows_categories = [...action.payload.categories];
     draft.shows_countries = [...action.payload.countries];
     draft.shows_generas = [...action.payload.genres];
     draft.shows_years = [...action.payload.years];
