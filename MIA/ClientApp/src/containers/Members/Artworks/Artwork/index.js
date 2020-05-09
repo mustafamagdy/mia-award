@@ -5,6 +5,7 @@ import membersActions from "store/members/actions";
 import { bindActionCreators } from "redux";
 import ArtworkData from "./ArtworkData";
 import NewArtwork from "./NewArtwork";
+import ViewArtwork from "./View";
 
 const Arwork = ({
   artworkDetails,
@@ -39,8 +40,8 @@ const Arwork = ({
       </div>
       <Switch>
         <Route exact path="/members/artwork" component={NewArtwork} />
-        <Route exact path="/members/artwork/:id" component={ArtworkData} />
-        <Route exact path="/members/artwork/:id?mode=edit" component={ArtworkData} />
+        <Route exact path="/members/artwork/:id" component={ViewArtwork} />
+        <Route exact path="/members/artwork/:id/edit" component={ArtworkData} />
       </Switch>
     </React.Fragment>
   );

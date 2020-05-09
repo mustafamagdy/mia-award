@@ -13,6 +13,7 @@ namespace MIA.ORMContext.Mappings {
         .ValueGeneratedOnAdd();
 
       builder.HasOne(a => a.Artwork).WithOne(a => a.Payment).HasForeignKey<ArtworkPayment>(a => a.ArtworkId);
+      builder.OwnsOne(a=>a.Receipt);
 
     }
   }

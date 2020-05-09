@@ -121,8 +121,8 @@ namespace MIA.Api {
       await db.Artworks.AddAsync(artwork);
 
       artwork.Payment = await SaveUserPaymentAsync(fileManager, db, award, artwork.Id, dto);
-      artwork.Poster = await SaveArtworkPoster(fileManager, artwork.Id, dto);
-      artwork.Cover = await SaveArtworkCoverImage(fileManager, artwork.Id, dto);
+      artwork.Poster = (await SaveArtworkPoster(fileManager, artwork.Id, dto)) ?? S3File.FromKeyAndUrl("", "");
+      artwork.Cover = (await SaveArtworkCoverImage(fileManager, artwork.Id, dto)) ?? S3File.FromKeyAndUrl("", "");
 
       return Ok(_mapper.Map<ArtworkViewWithFilesDto>(artwork));
     }
@@ -162,6 +162,7 @@ namespace MIA.Api {
 
       var receiptFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Docs, payment.Id, $"{payment.Id}_receipt." + dto.Payment.ReceiptFileName);
       payment.Receipt = S3File.FromKeyAndUrl(receiptFileKey, await fileManager.UploadFileAsync(dto.Payment.Receipt, receiptFileKey));
+      payment.Receipt = payment.Receipt ?? S3File.FromKeyAndUrl("", "");
       return payment;
     }
 

@@ -3,7 +3,13 @@ using System;
 using System.Collections.Generic;
 
 namespace MIA.Models.Entities {
-  public class Artwork : BaseEntity<string>  {
+  public class Artwork : BaseEntity<string> {
+    public Artwork() {
+      Poster = S3File.FromKeyAndUrl("", "");
+      Trailer = S3File.FromKeyAndUrl("", "");
+      TrailerPoster = S3File.FromKeyAndUrl("", "");
+      Cover = S3File.FromKeyAndUrl("", "");
+    }
     public LocalizedData ProjectName { get; set; }
     public LocalizedData Description { get; set; }
     public bool IllegibleForJudge { get; set; }

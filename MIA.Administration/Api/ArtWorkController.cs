@@ -101,7 +101,10 @@ namespace MIA.Administration.Api {
 
               ArtWorksItem.Payment.Receipt = S3File.FromKeyAndUrl(fileReceiptKey, ReceiptUrl);
             }
+          } else {
+            ArtWorksItem.Payment.Receipt = S3File.FromKeyAndUrl("", "");
           }
+
           string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.PosterFileName);
           var posterUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
@@ -209,6 +212,8 @@ namespace MIA.Administration.Api {
           entry.State = EntityState.Modified;
           await db.CommitTransactionAsync();
         }
+      } else {
+        paymentItem.Receipt = S3File.FromKeyAndUrl("", "");
       }
 
       return IfFound(_mapper.Map<ArtWorkPaymentDto>(paymentItem));
@@ -237,6 +242,8 @@ namespace MIA.Administration.Api {
           entry.State = EntityState.Modified;
           await db.CommitTransactionAsync();
         }
+      } else {
+        paymentItem.Receipt = S3File.FromKeyAndUrl("", "");
       }
 
 

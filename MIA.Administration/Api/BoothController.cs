@@ -85,6 +85,8 @@ namespace MIA.Administration.Api {
           paymentItem.Payment.Receipt = S3File.FromKeyAndUrl(fileKey, fileUrl);
 
         }
+      } else {
+        paymentItem.Payment.Receipt = S3File.FromKeyAndUrl("", "");
       }
 
 
@@ -122,6 +124,8 @@ namespace MIA.Administration.Api {
           paymentItem.Receipt = S3File.FromKeyAndUrl(fileKey, fileUrl);
 
         }
+      } else {
+        paymentItem.Receipt = S3File.FromKeyAndUrl("", "");
       }
 
 

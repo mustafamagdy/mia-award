@@ -7,17 +7,6 @@ import { useParams, useLocation } from "react-router";
 
 const ArtworkData = ({ location, details, ...props }) => {
   const { id } = useParams();
-  const query = new URLSearchParams(useLocation().search);
-  const [mode, setMode] = useState("view");
-
-  useEffect(() => {
-    const _mode = query.get("mode");
-    if (_mode == "edit" && id != undefined) {
-      setMode("edit");
-    } else {
-      //todo, error, not valid id for edit
-    }
-  }, [location]);
 
   const validationSchema = Yup.object().shape({});
 

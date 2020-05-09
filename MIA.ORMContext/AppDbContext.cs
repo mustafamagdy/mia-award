@@ -58,6 +58,7 @@ namespace MIA.ORMContext
 
       // set localizedData converter
       builder.UseValueConverterForType<LocalizedData>(new LocalizedDataConverter());
+
     }
 
     #region Auditing
