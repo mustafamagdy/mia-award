@@ -46,11 +46,7 @@ namespace MIA.Api {
         .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
         .ToListAsync();
 
-      var artworkCategories = await db.ArtworkCategories
-        .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
-        .ToListAsync();
-
-      var artworkGenres = await db.ArtworkGenres
+      var artworkGenres = await db.Genres
         .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
         .ToListAsync();
 
@@ -64,7 +60,6 @@ namespace MIA.Api {
 
       return Ok(new {
         ContactUsSubjects = subjects,
-        Categories = artworkCategories,
         Genres = artworkGenres,
         Countries = countries,
         Years = productionYears,
@@ -73,7 +68,7 @@ namespace MIA.Api {
 
     [HttpGet("awards")]
     public async Task<IActionResult> Awards([FromServices] IAppUnitOfWork db) {
-      var result = await db.ArtworkAwards
+      var result = await db.Awards
                           .ProjectTo<AwardDto>(_mapper.ConfigurationProvider)
                           .ToListAsync();
       return Ok(result);
@@ -93,7 +88,7 @@ namespace MIA.Api {
     public async Task<IActionResult> RecentShows(
       [FromBody]RecentShowsSearchDto query,
       [FromServices] IAppUnitOfWork db) {
-      var _result = db.ArtWorks
+      var _result = db.Artworks
                     .Where(a => a.UploadComplete)
                     .AsQueryable();
 

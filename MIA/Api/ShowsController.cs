@@ -28,7 +28,7 @@ namespace MIA.Api {
     [HttpGet("featured")]
     public IActionResult Featured(
       [FromServices] IAppUnitOfWork db) {
-      var result = db.ArtWorks
+      var result = db.Artworks
         .Where(a => a.UploadComplete)
         .ProjectTo<ArtworkBasicViewDto>(_mapper.ConfigurationProvider)
         .ToArray()
@@ -41,7 +41,7 @@ namespace MIA.Api {
     public async Task<IActionResult> Filtered(
       [FromBody] ArtworkFilterDto query,
       [FromServices] IAppUnitOfWork db) {
-      var _result = db.ArtWorks
+      var _result = db.Artworks
         .Where(a => a.UploadComplete);
 
       //todo: filtering
@@ -58,7 +58,7 @@ namespace MIA.Api {
     public async Task<IActionResult> GetWithReviews(
       [FromRoute(Name = "id")] string showId,
       [FromServices] IAppUnitOfWork db) {
-      var result = await db.ArtWorks
+      var result = await db.Artworks
         .Include(a => a.Reviews)
         .Where(a => a.UploadComplete && a.Id == showId)
         .ProjectTo<FullArtworkWithCommentsDto>(_mapper.ConfigurationProvider)

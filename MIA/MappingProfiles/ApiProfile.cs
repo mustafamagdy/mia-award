@@ -69,11 +69,11 @@ namespace MIA.MappingProfiles
        .ForMember(a => a.DateCreated, cfg => cfg.MapFrom(a => a.DateCreated.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtworkAward, AwardDto>()
+      CreateMap<Award, AwardDto>()
         .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.TrophyImageUrl))
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWork, RecentShowsDto>()
+      CreateMap<Artwork, RecentShowsDto>()
         .ValidateMemberList(MemberList.None);
 
       CreateMap<PaymentDto, PaymentRequest>()
@@ -95,10 +95,10 @@ namespace MIA.MappingProfiles
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => DateTime.Now.ToUnixTimeSeconds()))
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<FullArtworkWithCommentsDto, ArtWork>()
+      CreateMap<FullArtworkWithCommentsDto, Artwork>()
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<SubmitArtworkWithDetails, ArtWork>()
+      CreateMap<SubmitArtworkWithDetails, Artwork>()
         .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
         // .ForMember(a => a.Description, cfg => cfg.MapFrom(a => LocalizedData.Same(a.About)))
         // .ForMember(a => a.Production, cfg => cfg.MapFrom(a => a.Producers))
@@ -112,7 +112,7 @@ namespace MIA.MappingProfiles
         .ForMember(a => a.Payment, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWork, ArtworkBasicData>()
+      CreateMap<Artwork, ArtworkBasicData>()
         // .ForMember(a => a.About, cfg => cfg.MapFrom(a => a.Description))
         // .ForMember(a => a.Story, cfg => cfg.MapFrom(a => a.Story))
         // .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
@@ -124,17 +124,17 @@ namespace MIA.MappingProfiles
         // .ForMember(a => a.Country, cfg => cfg.MapFrom(a => a.Country))
         .ValidateMemberList(MemberList.None);
       
-      CreateMap<ArtWork, ArtworkBasicViewDto>()
+      CreateMap<Artwork, ArtworkBasicViewDto>()
         .IncludeAllDerived()
         .ForMember(a => a.CoverImageUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWork, ArtworkViewDto>()
+      CreateMap<Artwork, ArtworkViewDto>()
         .IncludeAllDerived()
         .ForMember(a => a.CanUploadFiles, cfg => cfg.MapFrom(a => a.AllowFileUpload))
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWork, ArtworkViewWithFilesDto>()
+      CreateMap<Artwork, ArtworkViewWithFilesDto>()
           // .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
           // .ForMember(a => a.Directors, cfg => cfg.MapFrom(a => a.Director))
           // .ForMember(a => a.Year, cfg => cfg.MapFrom(a => a.DateOfRelease))
@@ -142,14 +142,14 @@ namespace MIA.MappingProfiles
         .IncludeAllDerived()
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWork, ArtworkWithStatusDto>()
+      CreateMap<Artwork, ArtworkWithStatusDto>()
           //.ForMember(a=>a.TrophyUrl,cfg=>cfg.MapFrom(a=>a.Award.TrophyImageUrl??""))
           .ValidateMemberList(MemberList.None);
 
       CreateMap<MediaFile, ArtworkFileDto>()
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWorkPayment, PaymentWithStatusDto>()
+      CreateMap<ArtworkPayment, PaymentWithStatusDto>()
         .ForMember(a => a.Status, cfg => cfg.MapFrom(a => a.PaymentStatus.ToString()))
         .ForMember(a => a.Amount, cfg => cfg.MapFrom((a => a.Amount)))
         .ForMember(a => a.Date, cfg => cfg.MapFrom((a => a.PaymentDate.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy"))))

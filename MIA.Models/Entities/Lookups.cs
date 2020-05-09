@@ -2,10 +2,9 @@
   public class ContactUsSubject : Lookup { }
   public class Country : Lookup { }
   public class ProductionYear : Lookup { }
-  public class ArtworkCategory : Lookup { }
-  public class ArtworkGenre : Lookup { }
+  public class Genre : Lookup { }
 
-  public class ContestantRole : Lookup {
+  public class ArtworkSubject : Lookup {
     /*
     1.	مذيع 
     2.	مخرج

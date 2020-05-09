@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MIA.ORMContext.Migrations
 {
-    public partial class InitMigrations : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,32 +19,6 @@ namespace MIA.ORMContext.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Albums", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ArtworkCategories",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Code = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArtworkCategories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ArtworkGenres",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Code = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArtworkGenres", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,8 +60,7 @@ namespace MIA.ORMContext.Migrations
                     Address = table.Column<string>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
                     JobTitle = table.Column<string>(nullable: true),
-                    CompanyName = table.Column<string>(nullable: true),
-                    ContestantId = table.Column<string>(nullable: true)
+                    CompanyName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -125,8 +98,8 @@ namespace MIA.ORMContext.Migrations
                     CardHolderName = table.Column<string>(nullable: true),
                     CardType = table.Column<string>(nullable: true),
                     PaymentStatus = table.Column<int>(nullable: false),
-                    ReceiptId = table.Column<string>(nullable: true),
-                    ReceiptUrl = table.Column<string>(nullable: true),
+                    Receipt_FileKey = table.Column<string>(nullable: true),
+                    Receipt_FileUrl = table.Column<string>(nullable: true),
                     IsOffline = table.Column<bool>(nullable: false),
                     BoothPurchaseId = table.Column<string>(nullable: true)
                 },
@@ -177,42 +150,6 @@ namespace MIA.ORMContext.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ContestantPayment",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    TransactionNumber = table.Column<string>(nullable: true),
-                    Amount = table.Column<decimal>(nullable: false),
-                    PaymentDate = table.Column<long>(nullable: false),
-                    PaymentId = table.Column<string>(nullable: true),
-                    Last4Digits = table.Column<string>(nullable: true),
-                    CardHolderName = table.Column<string>(nullable: true),
-                    CardType = table.Column<string>(nullable: true),
-                    PaymentStatus = table.Column<int>(nullable: false),
-                    ReceiptId = table.Column<string>(nullable: true),
-                    ReceiptUrl = table.Column<string>(nullable: true),
-                    IsOffline = table.Column<bool>(nullable: false),
-                    ContestantId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContestantPayment", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ContestantRole",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Code = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContestantRole", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Countries",
                 columns: table => new
                 {
@@ -223,6 +160,19 @@ namespace MIA.ORMContext.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Countries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Generes",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Code = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Generes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -500,11 +450,79 @@ namespace MIA.ORMContext.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArtWorks",
+                name: "ArtworkPayments",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    TransactionNumber = table.Column<string>(nullable: true),
+                    Amount = table.Column<decimal>(nullable: false),
+                    PaymentDate = table.Column<long>(nullable: false),
+                    PaymentId = table.Column<string>(nullable: true),
+                    Last4Digits = table.Column<string>(nullable: true),
+                    CardHolderName = table.Column<string>(nullable: true),
+                    CardType = table.Column<string>(nullable: true),
+                    PaymentStatus = table.Column<int>(nullable: false),
+                    Receipt_FileKey = table.Column<string>(nullable: true),
+                    Receipt_FileUrl = table.Column<string>(nullable: true),
+                    IsOffline = table.Column<bool>(nullable: false),
+                    ArtworkId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArtworkPayments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ArtworkReviews",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
+                    Date = table.Column<long>(nullable: false),
+                    Comments = table.Column<string>(nullable: true),
+                    ArtworkId = table.Column<string>(nullable: true),
+                    IsApproved = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArtworkReviews", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Awards",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Code = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ArtworkFee = table.Column<decimal>(nullable: false),
+                    TrophyImageKey = table.Column<string>(nullable: true),
+                    TrophyImageUrl = table.Column<string>(nullable: true),
+                    AwardType = table.Column<int>(nullable: false),
+                    ManagerId = table.Column<string>(nullable: true),
+                    FirstPlaceId = table.Column<string>(nullable: true),
+                    SecondPlaceId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Awards", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Awards_AspNetUsers_ManagerId",
+                        column: x => x.ManagerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Artworks",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    ProjectName = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     IllegibleForJudge = table.Column<bool>(nullable: false),
                     AllowFileUpload = table.Column<bool>(nullable: false),
@@ -527,14 +545,20 @@ namespace MIA.ORMContext.Migrations
                     Cover_FileUrl = table.Column<string>(nullable: true),
                     PaymentId = table.Column<string>(nullable: true),
                     AwardId = table.Column<string>(nullable: true),
-                    WinnerAwardFirstPlaceId = table.Column<string>(nullable: true),
-                    WinnerAwardSecondPlaceId = table.Column<string>(nullable: true)
+                    FirstPlaceId = table.Column<string>(nullable: true),
+                    SecondPlaceId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArtWorks", x => x.Id);
+                    table.PrimaryKey("PK_Artworks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ArtWorks_AspNetUsers_NomineeId",
+                        name: "FK_Artworks_Awards_AwardId",
+                        column: x => x.AwardId,
+                        principalTable: "Awards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Artworks_AspNetUsers_NomineeId",
                         column: x => x.NomineeId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -542,95 +566,58 @@ namespace MIA.ORMContext.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArtworkAwards",
+                name: "JudgeAwards",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    JudgeId = table.Column<string>(nullable: true),
+                    AwardId = table.Column<string>(nullable: true),
+                    AwardId1 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JudgeAwards", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_JudgeAwards_Awards_AwardId",
+                        column: x => x.AwardId,
+                        principalTable: "Awards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_JudgeAwards_Awards_AwardId1",
+                        column: x => x.AwardId1,
+                        principalTable: "Awards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_JudgeAwards_AspNetUsers_JudgeId",
+                        column: x => x.JudgeId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VotingCriterias",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
                     Code = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    ArtworkFee = table.Column<decimal>(nullable: false),
-                    TrophyImageKey = table.Column<string>(nullable: true),
-                    TrophyImageUrl = table.Column<string>(nullable: true),
-                    AwardType = table.Column<int>(nullable: false),
-                    ManagerId = table.Column<string>(nullable: true),
-                    FirstPlaceArtworkId = table.Column<string>(nullable: true),
-                    SecondPlaceArtworkId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArtworkAwards", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ArtworkAwards_ArtWorks_FirstPlaceArtworkId",
-                        column: x => x.FirstPlaceArtworkId,
-                        principalTable: "ArtWorks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ArtworkAwards_AspNetUsers_ManagerId",
-                        column: x => x.ManagerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ArtworkAwards_ArtWorks_SecondPlaceArtworkId",
-                        column: x => x.SecondPlaceArtworkId,
-                        principalTable: "ArtWorks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ArtWorkPayments",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    TransactionNumber = table.Column<string>(nullable: true),
-                    Amount = table.Column<decimal>(nullable: false),
-                    PaymentDate = table.Column<long>(nullable: false),
-                    PaymentId = table.Column<string>(nullable: true),
-                    Last4Digits = table.Column<string>(nullable: true),
-                    CardHolderName = table.Column<string>(nullable: true),
-                    CardType = table.Column<string>(nullable: true),
-                    PaymentStatus = table.Column<int>(nullable: false),
-                    ReceiptId = table.Column<string>(nullable: true),
-                    ReceiptUrl = table.Column<string>(nullable: true),
-                    IsOffline = table.Column<bool>(nullable: false),
-                    ArtWorkId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArtWorkPayments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ArtWorkPayments_ArtWorks_ArtWorkId",
-                        column: x => x.ArtWorkId,
-                        principalTable: "ArtWorks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ArtworkReviews",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    Date = table.Column<long>(nullable: false),
-                    Comments = table.Column<string>(nullable: true),
-                    ArtworkId = table.Column<string>(nullable: true),
-                    IsApproved = table.Column<bool>(nullable: false)
+                    Level = table.Column<int>(nullable: false),
+                    Weight = table.Column<decimal>(nullable: false),
+                    Order = table.Column<int>(nullable: false),
+                    AwardId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArtworkReviews", x => x.Id);
+                    table.PrimaryKey("PK_VotingCriterias", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ArtworkReviews_ArtWorks_ArtworkId",
-                        column: x => x.ArtworkId,
-                        principalTable: "ArtWorks",
+                        name: "FK_VotingCriterias_Awards_AwardId",
+                        column: x => x.AwardId,
+                        principalTable: "Awards",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -648,62 +635,41 @@ namespace MIA.ORMContext.Migrations
                 {
                     table.PrimaryKey("PK_MediaFiles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MediaFiles_ArtWorks_ArtWorkId",
+                        name: "FK_MediaFiles_Artworks_ArtWorkId",
                         column: x => x.ArtWorkId,
-                        principalTable: "ArtWorks",
+                        principalTable: "Artworks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArtworkVotingCriterias",
+                name: "JudgeVotes",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Code = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Level = table.Column<int>(nullable: false),
-                    Weight = table.Column<decimal>(nullable: false),
-                    Order = table.Column<int>(nullable: false),
-                    AwardId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArtworkVotingCriterias", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ArtworkVotingCriterias_ArtworkAwards_AwardId",
-                        column: x => x.AwardId,
-                        principalTable: "ArtworkAwards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "JudgeArtworkAwards",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
+                    VotingValue = table.Column<int>(nullable: false),
                     JudgeId = table.Column<string>(nullable: true),
-                    AwardId = table.Column<string>(nullable: true),
-                    ArtworkAwardId = table.Column<string>(nullable: true)
+                    JudgeComplete = table.Column<bool>(nullable: false),
+                    CriteriaId = table.Column<string>(nullable: true),
+                    ArtworkId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JudgeArtworkAwards", x => x.Id);
+                    table.PrimaryKey("PK_JudgeVotes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JudgeArtworkAwards_ArtworkAwards_ArtworkAwardId",
-                        column: x => x.ArtworkAwardId,
-                        principalTable: "ArtworkAwards",
+                        name: "FK_JudgeVotes_Artworks_ArtworkId",
+                        column: x => x.ArtworkId,
+                        principalTable: "Artworks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_JudgeArtworkAwards_ArtworkAwards_AwardId",
-                        column: x => x.AwardId,
-                        principalTable: "ArtworkAwards",
+                        name: "FK_JudgeVotes_VotingCriterias_CriteriaId",
+                        column: x => x.CriteriaId,
+                        principalTable: "VotingCriterias",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_JudgeArtworkAwards_AspNetUsers_JudgeId",
+                        name: "FK_JudgeVotes_AspNetUsers_JudgeId",
                         column: x => x.JudgeId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -737,245 +703,17 @@ namespace MIA.ORMContext.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ArtworkVotes",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    VotingValue = table.Column<int>(nullable: false),
-                    JudgeId = table.Column<string>(nullable: true),
-                    JudgeComplete = table.Column<bool>(nullable: false),
-                    CriteriaId = table.Column<string>(nullable: true),
-                    ArtworkId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArtworkVotes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ArtworkVotes_ArtWorks_ArtworkId",
-                        column: x => x.ArtworkId,
-                        principalTable: "ArtWorks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ArtworkVotes_ArtworkVotingCriterias_CriteriaId",
-                        column: x => x.CriteriaId,
-                        principalTable: "ArtworkVotingCriterias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ArtworkVotes_AspNetUsers_JudgeId",
-                        column: x => x.JudgeId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Contestant",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    IllegibleForJudge = table.Column<bool>(nullable: false),
-                    AllowFileUpload = table.Column<bool>(nullable: false),
-                    SiteUrl = table.Column<string>(nullable: true),
-                    ProductionYear = table.Column<int>(nullable: false),
-                    BroadcastYear = table.Column<int>(nullable: false),
-                    TvChannels = table.Column<string>(nullable: true),
-                    OnlineChannels = table.Column<string>(nullable: true),
-                    ProductionLicenseNumber = table.Column<string>(nullable: true),
-                    ProductionLicenseAgency = table.Column<string>(nullable: true),
-                    NomineeId = table.Column<string>(nullable: true),
-                    YearOfExpereince = table.Column<int>(nullable: false),
-                    RoleId = table.Column<string>(nullable: true),
-                    PaymentId = table.Column<string>(nullable: true),
-                    AwardId = table.Column<string>(nullable: true),
-                    WinnerAwardFirstPlaceId = table.Column<string>(nullable: true),
-                    WinnerAwardSecondPlaceId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Contestant", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Contestant_ContestantPayment_Id",
-                        column: x => x.Id,
-                        principalTable: "ContestantPayment",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Contestant_AspNetUsers_NomineeId",
-                        column: x => x.NomineeId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Contestant_ContestantRole_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "ContestantRole",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ContestantAwards",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Code = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    ArtworkFee = table.Column<decimal>(nullable: false),
-                    TrophyImageKey = table.Column<string>(nullable: true),
-                    TrophyImageUrl = table.Column<string>(nullable: true),
-                    AwardType = table.Column<int>(nullable: false),
-                    ManagerId = table.Column<string>(nullable: true),
-                    FirstPlaceContestantId = table.Column<string>(nullable: true),
-                    SecondPlaceContestantId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContestantAwards", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ContestantAwards_Contestant_FirstPlaceContestantId",
-                        column: x => x.FirstPlaceContestantId,
-                        principalTable: "Contestant",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ContestantAwards_AspNetUsers_ManagerId",
-                        column: x => x.ManagerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ContestantAwards_Contestant_SecondPlaceContestantId",
-                        column: x => x.SecondPlaceContestantId,
-                        principalTable: "Contestant",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ContestantVotingCriterias",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Code = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Level = table.Column<int>(nullable: false),
-                    Weight = table.Column<decimal>(nullable: false),
-                    Order = table.Column<int>(nullable: false),
-                    AwardId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContestantVotingCriterias", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ContestantVotingCriterias_ContestantAwards_AwardId",
-                        column: x => x.AwardId,
-                        principalTable: "ContestantAwards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "JudgeContestantAwards",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    JudgeId = table.Column<string>(nullable: true),
-                    AwardId = table.Column<string>(nullable: true),
-                    ContestantAwardId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_JudgeContestantAwards", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_JudgeContestantAwards_ContestantAwards_AwardId",
-                        column: x => x.AwardId,
-                        principalTable: "ContestantAwards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_JudgeContestantAwards_ContestantAwards_ContestantAwardId",
-                        column: x => x.ContestantAwardId,
-                        principalTable: "ContestantAwards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_JudgeContestantAwards_AspNetUsers_JudgeId",
-                        column: x => x.JudgeId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ContestantVotes",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    VotingValue = table.Column<int>(nullable: false),
-                    JudgeId = table.Column<string>(nullable: true),
-                    JudgeComplete = table.Column<bool>(nullable: false),
-                    CriteriaId = table.Column<string>(nullable: true),
-                    ContestantId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContestantVotes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ContestantVotes_Contestant_ContestantId",
-                        column: x => x.ContestantId,
-                        principalTable: "Contestant",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ContestantVotes_ContestantVotingCriterias_CriteriaId",
-                        column: x => x.CriteriaId,
-                        principalTable: "ContestantVotingCriterias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ContestantVotes_AspNetUsers_JudgeId",
-                        column: x => x.JudgeId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AlbumItems_AlbumId",
                 table: "AlbumItems",
                 column: "AlbumId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArtworkAwards_FirstPlaceArtworkId",
-                table: "ArtworkAwards",
-                column: "FirstPlaceArtworkId",
+                name: "IX_ArtworkPayments_ArtworkId",
+                table: "ArtworkPayments",
+                column: "ArtworkId",
                 unique: true,
-                filter: "[FirstPlaceArtworkId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ArtworkAwards_ManagerId",
-                table: "ArtworkAwards",
-                column: "ManagerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ArtworkAwards_SecondPlaceArtworkId",
-                table: "ArtworkAwards",
-                column: "SecondPlaceArtworkId",
-                unique: true,
-                filter: "[SecondPlaceArtworkId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ArtWorkPayments_ArtWorkId",
-                table: "ArtWorkPayments",
-                column: "ArtWorkId",
-                unique: true,
-                filter: "[ArtWorkId] IS NOT NULL");
+                filter: "[ArtworkId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ArtworkReviews_ArtworkId",
@@ -983,34 +721,14 @@ namespace MIA.ORMContext.Migrations
                 column: "ArtworkId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArtWorks_AwardId",
-                table: "ArtWorks",
+                name: "IX_Artworks_AwardId",
+                table: "Artworks",
                 column: "AwardId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArtWorks_NomineeId",
-                table: "ArtWorks",
+                name: "IX_Artworks_NomineeId",
+                table: "Artworks",
                 column: "NomineeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ArtworkVotes_ArtworkId",
-                table: "ArtworkVotes",
-                column: "ArtworkId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ArtworkVotes_CriteriaId",
-                table: "ArtworkVotes",
-                column: "CriteriaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ArtworkVotes_JudgeId",
-                table: "ArtworkVotes",
-                column: "JudgeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ArtworkVotingCriterias_AwardId",
-                table: "ArtworkVotingCriterias",
-                column: "AwardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -1057,6 +775,25 @@ namespace MIA.ORMContext.Migrations
                 column: "AuditEntryID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Awards_FirstPlaceId",
+                table: "Awards",
+                column: "FirstPlaceId",
+                unique: true,
+                filter: "[FirstPlaceId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Awards_ManagerId",
+                table: "Awards",
+                column: "ManagerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Awards_SecondPlaceId",
+                table: "Awards",
+                column: "SecondPlaceId",
+                unique: true,
+                filter: "[SecondPlaceId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BoothPurchases_BoothId",
                 table: "BoothPurchases",
                 column: "BoothId");
@@ -1069,62 +806,6 @@ namespace MIA.ORMContext.Migrations
                 filter: "[PaymentId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contestant_AwardId",
-                table: "Contestant",
-                column: "AwardId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contestant_NomineeId",
-                table: "Contestant",
-                column: "NomineeId",
-                unique: true,
-                filter: "[NomineeId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contestant_RoleId",
-                table: "Contestant",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ContestantAwards_FirstPlaceContestantId",
-                table: "ContestantAwards",
-                column: "FirstPlaceContestantId",
-                unique: true,
-                filter: "[FirstPlaceContestantId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ContestantAwards_ManagerId",
-                table: "ContestantAwards",
-                column: "ManagerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ContestantAwards_SecondPlaceContestantId",
-                table: "ContestantAwards",
-                column: "SecondPlaceContestantId",
-                unique: true,
-                filter: "[SecondPlaceContestantId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ContestantVotes_ContestantId",
-                table: "ContestantVotes",
-                column: "ContestantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ContestantVotes_CriteriaId",
-                table: "ContestantVotes",
-                column: "CriteriaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ContestantVotes_JudgeId",
-                table: "ContestantVotes",
-                column: "JudgeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ContestantVotingCriterias_AwardId",
-                table: "ContestantVotingCriterias",
-                column: "AwardId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Images_UserId",
                 table: "Images",
                 column: "UserId",
@@ -1132,18 +813,18 @@ namespace MIA.ORMContext.Migrations
                 filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JudgeArtworkAwards_ArtworkAwardId",
-                table: "JudgeArtworkAwards",
-                column: "ArtworkAwardId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JudgeArtworkAwards_AwardId",
-                table: "JudgeArtworkAwards",
+                name: "IX_JudgeAwards_AwardId",
+                table: "JudgeAwards",
                 column: "AwardId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JudgeArtworkAwards_JudgeId",
-                table: "JudgeArtworkAwards",
+                name: "IX_JudgeAwards_AwardId1",
+                table: "JudgeAwards",
+                column: "AwardId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JudgeAwards_JudgeId",
+                table: "JudgeAwards",
                 column: "JudgeId");
 
             migrationBuilder.CreateIndex(
@@ -1157,18 +838,18 @@ namespace MIA.ORMContext.Migrations
                 column: "MediaFileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JudgeContestantAwards_AwardId",
-                table: "JudgeContestantAwards",
-                column: "AwardId");
+                name: "IX_JudgeVotes_ArtworkId",
+                table: "JudgeVotes",
+                column: "ArtworkId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JudgeContestantAwards_ContestantAwardId",
-                table: "JudgeContestantAwards",
-                column: "ContestantAwardId");
+                name: "IX_JudgeVotes_CriteriaId",
+                table: "JudgeVotes",
+                column: "CriteriaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JudgeContestantAwards_JudgeId",
-                table: "JudgeContestantAwards",
+                name: "IX_JudgeVotes_JudgeId",
+                table: "JudgeVotes",
                 column: "JudgeId");
 
             migrationBuilder.CreateIndex(
@@ -1181,19 +862,40 @@ namespace MIA.ORMContext.Migrations
                 table: "NewsComments",
                 column: "NewsId");
 
+            migrationBuilder.CreateIndex(
+                name: "IX_VotingCriterias_AwardId",
+                table: "VotingCriterias",
+                column: "AwardId");
+
             migrationBuilder.AddForeignKey(
-                name: "FK_ArtWorks_ArtworkAwards_AwardId",
-                table: "ArtWorks",
-                column: "AwardId",
-                principalTable: "ArtworkAwards",
+                name: "FK_ArtworkPayments_Artworks_ArtworkId",
+                table: "ArtworkPayments",
+                column: "ArtworkId",
+                principalTable: "Artworks",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Contestant_ContestantAwards_AwardId",
-                table: "Contestant",
-                column: "AwardId",
-                principalTable: "ContestantAwards",
+                name: "FK_ArtworkReviews_Artworks_ArtworkId",
+                table: "ArtworkReviews",
+                column: "ArtworkId",
+                principalTable: "Artworks",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Awards_Artworks_FirstPlaceId",
+                table: "Awards",
+                column: "FirstPlaceId",
+                principalTable: "Artworks",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Awards_Artworks_SecondPlaceId",
+                table: "Awards",
+                column: "SecondPlaceId",
+                principalTable: "Artworks",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -1201,42 +903,21 @@ namespace MIA.ORMContext.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_ArtworkAwards_ArtWorks_FirstPlaceArtworkId",
-                table: "ArtworkAwards");
+                name: "FK_Awards_Artworks_FirstPlaceId",
+                table: "Awards");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_ArtworkAwards_ArtWorks_SecondPlaceArtworkId",
-                table: "ArtworkAwards");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Contestant_AspNetUsers_NomineeId",
-                table: "Contestant");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ContestantAwards_AspNetUsers_ManagerId",
-                table: "ContestantAwards");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Contestant_ContestantAwards_AwardId",
-                table: "Contestant");
+                name: "FK_Awards_Artworks_SecondPlaceId",
+                table: "Awards");
 
             migrationBuilder.DropTable(
                 name: "AlbumItems");
 
             migrationBuilder.DropTable(
-                name: "ArtworkCategories");
-
-            migrationBuilder.DropTable(
-                name: "ArtworkGenres");
-
-            migrationBuilder.DropTable(
-                name: "ArtWorkPayments");
+                name: "ArtworkPayments");
 
             migrationBuilder.DropTable(
                 name: "ArtworkReviews");
-
-            migrationBuilder.DropTable(
-                name: "ArtworkVotes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -1266,22 +947,22 @@ namespace MIA.ORMContext.Migrations
                 name: "Contents");
 
             migrationBuilder.DropTable(
-                name: "ContestantVotes");
+                name: "Countries");
 
             migrationBuilder.DropTable(
-                name: "Countries");
+                name: "Generes");
 
             migrationBuilder.DropTable(
                 name: "Images");
 
             migrationBuilder.DropTable(
-                name: "JudgeArtworkAwards");
+                name: "JudgeAwards");
 
             migrationBuilder.DropTable(
                 name: "JudgeComments");
 
             migrationBuilder.DropTable(
-                name: "JudgeContestantAwards");
+                name: "JudgeVotes");
 
             migrationBuilder.DropTable(
                 name: "NewsComments");
@@ -1296,9 +977,6 @@ namespace MIA.ORMContext.Migrations
                 name: "Albums");
 
             migrationBuilder.DropTable(
-                name: "ArtworkVotingCriterias");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -1311,34 +989,22 @@ namespace MIA.ORMContext.Migrations
                 name: "BoothPayments");
 
             migrationBuilder.DropTable(
-                name: "ContestantVotingCriterias");
+                name: "MediaFiles");
 
             migrationBuilder.DropTable(
-                name: "MediaFiles");
+                name: "VotingCriterias");
 
             migrationBuilder.DropTable(
                 name: "News");
 
             migrationBuilder.DropTable(
-                name: "ArtWorks");
+                name: "Artworks");
 
             migrationBuilder.DropTable(
-                name: "ArtworkAwards");
+                name: "Awards");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "ContestantAwards");
-
-            migrationBuilder.DropTable(
-                name: "Contestant");
-
-            migrationBuilder.DropTable(
-                name: "ContestantPayment");
-
-            migrationBuilder.DropTable(
-                name: "ContestantRole");
         }
     }
 }

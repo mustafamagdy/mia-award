@@ -23,7 +23,7 @@ namespace MIA.Administration.Api {
   //[Authorize]
   [EnableCors(CorsPolicyName.AllowAll)]
   [Route("api/ArtworkAwards")]
-  public class AwardsController : BaseCrudController<ArtworkAward, AwardDto, NewAwardDto, UpdateAwardDto> {
+  public class AwardsController : BaseCrudController<Award, AwardDto, NewAwardDto, UpdateAwardDto> {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
 
@@ -41,37 +41,37 @@ namespace MIA.Administration.Api {
     public override async Task<IActionResult> SaveNewAsync([FromBody] NewAwardDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((AwardDto)(result as OkObjectResult)?.Value);
-      var AwardsItem = await db.ArtworkAwards.FindAsync(resultDto.Id);
+      var AwardsItem = await db.Awards.FindAsync(resultDto.Id);
       return IfFound(_mapper.Map<AwardDto>(AwardsItem));
     }
 
     public override async Task<IActionResult> UpdateAsync([FromBody] UpdateAwardDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((AwardDto)(result as OkObjectResult)?.Value);
-      var AwardsItem = await db.ArtworkAwards.FindAsync(resultDto.Id);
+      var AwardsItem = await db.Awards.FindAsync(resultDto.Id);
 
-      var JudgeAwardItem = db.JudgeArtworkAwards.Where(x => x.AwardId == resultDto.Id).ToList();
+      var JudgeAwardItem = db.JudgeAwards.Where(x => x.AwardId == resultDto.Id).ToList();
 
 
-      var deleteJudges = new JudgeArtworkAward[AwardsItem.Level2Judges.Count];
+      var deleteJudges = new JudgeAward[AwardsItem.Level2Judges.Count];
       AwardsItem.Level2Judges.CopyTo(deleteJudges, 0);
 
       foreach (var objJudges in deleteJudges) {
-        var entity = db.Set<JudgeArtworkAward>().FirstOrDefault(a => a.Id == objJudges.Id);
+        var entity = db.Set<JudgeAward>().FirstOrDefault(a => a.Id == objJudges.Id);
         if (entity != null)
           // return NotFound404("record not found"); 
-          db.Set<JudgeArtworkAward>().Remove(entity);
+          db.Set<JudgeAward>().Remove(entity);
       }
 
       foreach (var roleper in dto.JudgeAwards) {
         if (AwardsItem.Level2Judges.All(x => x.JudgeId != roleper.Id)) {
-          AwardsItem.Level2Judges.Add(new JudgeArtworkAward {
+          AwardsItem.Level2Judges.Add(new JudgeAward {
             JudgeId = roleper.Id
           });
         }
       }
 
-      var entry = db.Set<ArtworkAward>().Attach(AwardsItem);
+      var entry = db.Set<Award>().Attach(AwardsItem);
       entry.State = EntityState.Modified;
       await db.CommitTransactionAsync();
 
@@ -81,8 +81,8 @@ namespace MIA.Administration.Api {
     public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
       //var result = await base.GetAsync(id, db); 
       AwardDetailsDto returnAwardDetails = null;
-      var award = await db.ArtworkAwards.FirstOrDefaultAsync(a => a.Id == id);
-      var judgeItems = await db.JudgeArtworkAwards.Where(a => a.AwardId == id).ToListAsync();
+      var award = await db.Awards.FirstOrDefaultAsync(a => a.Id == id);
+      var judgeItems = await db.JudgeAwards.Where(a => a.AwardId == id).ToListAsync();
       if (!judgeItems.Any()) {
         returnAwardDetails = _mapper.Map<AwardDetailsDto>(award);
         return IfFound(returnAwardDetails);

@@ -1,7 +1,7 @@
 ﻿namespace MIA.Models.Entities {
-  public class ArtWorkPayment : Payment {
-    public ArtWork ArtWork { get; set; }
-    public string ArtWorkId { get; set; }
+  public class ArtworkPayment : Payment {
+    public Artwork Artwork { get; set; }
+    public string ArtworkId { get; set; }
    
   }
 

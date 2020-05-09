@@ -44,40 +44,27 @@ namespace MIA.Api {
     [Authorize]
     public async Task<IActionResult> Awards([FromServices] IAppUnitOfWork db) {
       var nominee = await _userResolver.CurrentUserAsync();
-      var artworks = db.ArtWorks
+      var artworks = db.Artworks
         .Include(a => a.Award)
         .Where(a => a.NomineeId == nominee.Id)
         .Select(a => new AwardWithStatusDto {
           Id = a.AwardId,
           TrophyUrl = a.Award.TrophyImageUrl,
-          Winner = a.WinnerAwardFirstPlace != null || a.WinnerAwardSecondPlace != null,
+          Winner = a.FirstPlace != null || a.SecondPlace != null,
           ArtworkId = a.Id,
           ProjectName = a.ProjectName,
           Description = a.Description,
           PosterUrl = a.Poster.FileUrl
         })
         .ToArray();
-      var contestants = db.Contestants
-        .Include(a => a.Award)
-        .Where(a => a.NomineeId == nominee.Id)
-        .Select(a => new AwardWithStatusDto {
-          Id = a.AwardId,
-          TrophyUrl = a.Award.TrophyImageUrl,
-          Winner = a.WinnerAwardFirstPlace != null || a.WinnerAwardSecondPlace != null,
-          ArtworkId = a.Id,
-          ProjectName = a.ProjectName,
-          Description = a.Description,
-          PosterUrl = ""
-        })
-        .ToArray();
 
-      return Ok(artworks.Union(contestants).ToArray());
+      return Ok(artworks);
     }
 
     [HttpGet("artworks")]
     public async Task<IActionResult> Artworks([FromServices] IAppUnitOfWork db) {
       var nominee = await _userResolver.CurrentUserAsync();
-      var artworks = db.ArtWorks
+      var artworks = db.Artworks
           .Include(a => a.Award)
         .Where(a => a.NomineeId == nominee.Id)
         .ProjectTo<ArtworkWithStatusDto>(_mapper.ConfigurationProvider)
@@ -91,7 +78,7 @@ namespace MIA.Api {
     public async Task<IActionResult> MyAwards([FromServices] IAppUnitOfWork db) {
       var nominee = await _userResolver.CurrentUserAsync();
 
-      var awards = await db.ArtworkAwards
+      var awards = await db.Awards
           .Include(a => a.FirstPlace)
           .Include(a => a.SecondPlace)
           .Where(a => a.SecondPlace.NomineeId == nominee.Id || a.FirstPlace.NomineeId == nominee.Id)
@@ -106,8 +93,8 @@ namespace MIA.Api {
     [HttpGet("payments")]
     public async Task<IActionResult> Payments([FromServices] IAppUnitOfWork db) {
       var nominee = await _userResolver.CurrentUserAsync();
-      var artworks = db.ArtWorkPayments
-        .Where(a => a.ArtWork.NomineeId == nominee.Id)
+      var artworks = db.ArtworkPayments
+        .Where(a => a.Artwork.NomineeId == nominee.Id)
         .ProjectTo<PaymentWithStatusDto>(_mapper.ConfigurationProvider)
         .ToArray();
 
@@ -115,22 +102,23 @@ namespace MIA.Api {
     }
 
 
+
     [HttpPost("add-artwork")]
     public async Task<IActionResult> SubmitArtwork(
-      [FromBody] SubmitArtworkWithDetails dto,
-      [FromServices] IPaymentGateway paymentGateway,
-      [FromServices] IAppUnitOfWork db,
-      [FromServices] IOptions<UploadLimits> limitOptions,
-      [FromServices] IS3FileManager fileManager) {
+       [FromBody] SubmitArtworkWithDetails dto,
+       [FromServices] IPaymentGateway paymentGateway,
+       [FromServices] IAppUnitOfWork db,
+       [FromServices] IOptions<UploadLimits> limitOptions,
+       [FromServices] IS3FileManager fileManager) {
 
       var nominee = await _userResolver.CurrentUserAsync();
-      var award = await db.ArtworkAwards.FindAsync(dto.AwardId);
-      var artwork = _mapper.Map<ArtWork>(dto);
+      var award = await db.Awards.FindAsync(dto.AwardId);
+      var artwork = _mapper.Map<Artwork>(dto);
       artwork.NomineeId = nominee.Id;
       //all artworks cannot upload files until payment approved
       artwork.AllowFileUpload = false;
 
-      await db.ArtWorks.AddAsync(artwork);
+      await db.Artworks.AddAsync(artwork);
 
       artwork.Payment = await SaveUserPaymentAsync(fileManager, db, award, artwork.Id, dto);
       artwork.Poster = await SaveArtworkPoster(fileManager, artwork.Id, dto);
@@ -159,16 +147,18 @@ namespace MIA.Api {
       return null;
     }
 
-    private async Task<ArtWorkPayment> SaveUserPaymentAsync(IS3FileManager fileManager, IAppUnitOfWork db, ArtworkAward award, string artworkId, SubmitArtworkWithDetails dto) {
-      var payment = new ArtWorkPayment();
-      payment.ArtWorkId = artworkId;
+    private async Task<ArtworkPayment> SaveUserPaymentAsync(IS3FileManager fileManager,
+    IAppUnitOfWork db, Award award,
+    string artworkId, SubmitArtworkWithDetails dto) {
+      var payment = new ArtworkPayment();
+      payment.ArtworkId = artworkId;
       payment.Amount = award.ArtworkFee;
 
       payment.IsOffline = true;
       payment.PaymentStatus = Models.Entities.PaymentStatus.Waiting;
       payment.PaymentDate = DateTimeOffset.Now.ToUnixTimeSeconds();
 
-      await db.ArtWorkPayments.AddAsync(payment);
+      await db.ArtworkPayments.AddAsync(payment);
 
       var receiptFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Docs, payment.Id, $"{payment.Id}_receipt." + dto.Payment.ReceiptFileName);
       payment.Receipt = S3File.FromKeyAndUrl(receiptFileKey, await fileManager.UploadFileAsync(dto.Payment.Receipt, receiptFileKey));
@@ -184,15 +174,15 @@ namespace MIA.Api {
       [FromServices] IAppUnitOfWork db) {
 
       var nominee = await _userResolver.CurrentUserAsync();
-      var artwork = await db.ArtWorks.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
+      var artwork = await db.Artworks.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
 
       if (artwork.NomineeId != nominee.Id) {
         throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
       }
 
-      var updatedArtwork = _mapper.Map<SubmitArtworkWithDetails, ArtWork>(dto, artwork);
+      var updatedArtwork = _mapper.Map<SubmitArtworkWithDetails, Artwork>(dto, artwork);
       updatedArtwork.Id = id;
-      db.ArtWorks.Update(updatedArtwork);
+      db.Artworks.Update(updatedArtwork);
       return Ok(_mapper.Map<ArtworkViewWithFilesDto>(updatedArtwork));
     }
 
@@ -205,7 +195,7 @@ namespace MIA.Api {
         FileChunkDto dto) {
       try {
         var nominee = await _userResolver.CurrentUserAsync();
-        var artwork = await db.ArtWorks.FindAsync(id);
+        var artwork = await db.Artworks.FindAsync(id);
         if (artwork == null) {
           throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't exist");
         }
@@ -232,7 +222,7 @@ namespace MIA.Api {
           }
           //move file to final directory of the artwork files
 
-          db.ArtWorks.Update(artwork);
+          db.Artworks.Update(artwork);
           return Ok(fileUrl);
         } else {
           return Ok(result);
@@ -252,7 +242,7 @@ namespace MIA.Api {
         FileChunkDto dto
         ) {
       var nominee = await _userResolver.CurrentUserAsync();
-      var artwork = await db.ArtWorks.FindAsync(id);
+      var artwork = await db.Artworks.FindAsync(id);
       if (artwork == null) {
         throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't exist");
       }
@@ -264,7 +254,7 @@ namespace MIA.Api {
         artwork.Id, $"{artwork.Id}_cover." + dto.FileName);
       var fileUrl = await fileManager.UploadFileAsync(dto.Chunk, coverFileKey);
       artwork.Cover = S3File.FromKeyAndUrl(coverFileKey, fileUrl);
-      db.ArtWorks.Update(artwork);
+      db.Artworks.Update(artwork);
       return Ok(fileUrl);
     }
 
@@ -272,7 +262,7 @@ namespace MIA.Api {
     [HttpGet("artwork/{id}")]
     public async Task<IActionResult> GetArtowkrById([FromRoute] string id, [FromServices] IAppUnitOfWork db) {
       var nominee = await _userResolver.CurrentUserAsync();
-      var artwork = await db.ArtWorks
+      var artwork = await db.Artworks
         .Include(a => a.Payment)
         .Include(a => a.MediaFiles)
         .FirstOrDefaultAsync(a => a.Id == id);
@@ -291,7 +281,7 @@ namespace MIA.Api {
       FileChunkDto dto) {
       try {
         var nominee = await _userResolver.CurrentUserAsync();
-        var artwork = await db.ArtWorks.FindAsync(id);
+        var artwork = await db.Artworks.FindAsync(id);
         if (artwork == null) {
           throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't exist");
         }
@@ -335,7 +325,7 @@ namespace MIA.Api {
       [FromServices] IAppUnitOfWork db) {
 
       var nominee = await _userResolver.CurrentUserAsync();
-      var artwork = await db.ArtWorks
+      var artwork = await db.Artworks
                             .Include(a => a.MediaFiles)
                             .FirstOrDefaultAsync(a => a.Id == id);
 
@@ -348,12 +338,12 @@ namespace MIA.Api {
 
     [HttpPut("artwork/{id}/publish")]
     public async Task<IActionResult> PublishArtwork(
-        [FromBody]PublishArtwork publishArtworkDto,
-        [FromRoute]string id,
+        [FromBody] PublishArtwork publishArtworkDto,
+        [FromRoute] string id,
         [FromServices] IAppUnitOfWork db) {
 
       var nominee = await _userResolver.CurrentUserAsync();
-      var artwork = await db.ArtWorks
+      var artwork = await db.Artworks
           .FirstOrDefaultAsync(a => a.Id == id);
 
       if (artwork.NomineeId != nominee.Id) {
@@ -361,7 +351,7 @@ namespace MIA.Api {
       }
 
       artwork.UploadComplete = publishArtworkDto.Publish;
-      db.ArtWorks.Update(artwork);
+      db.Artworks.Update(artwork);
 
       return Ok();
     }

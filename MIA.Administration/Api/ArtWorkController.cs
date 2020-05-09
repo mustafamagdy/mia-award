@@ -28,7 +28,7 @@ namespace MIA.Administration.Api {
   //[Authorize]
   [EnableCors(CorsPolicyName.AllowAll)]
   [Route("api/artWorks")]
-  public class ArtWorksController : BaseCrudController<ArtWork, ArtWorkDto, NewArtWorkDto, UpdateArtWorkDto> {
+  public class ArtWorksController : BaseCrudController<Artwork, ArtWorkDto, NewArtWorkDto, UpdateArtWorkDto> {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
     private readonly IS3FileManager fileManager;
@@ -49,7 +49,7 @@ namespace MIA.Administration.Api {
     public override async Task<IActionResult> SaveNewAsync([FromBody] NewArtWorkDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((ArtWorkDto)(result as OkObjectResult)?.Value);
-      var ArtWorksItem = await db.ArtWorks.FindAsync(resultDto.Id);
+      var ArtWorksItem = await db.Artworks.FindAsync(resultDto.Id);
       string posterKey, posterUrl, coverKey, coverUrl, trailerPosterKey, trailerPosterUrl;
       if (dto.Poster != null && dto.Poster.Length > 0 || dto.Cover != null && dto.Cover.Length > 0 || dto.TrailerPoster != null && dto.TrailerPoster.Length > 0) {
         using (var memorySteam = new MemoryStream(dto.Poster)) {
@@ -84,7 +84,7 @@ namespace MIA.Administration.Api {
     public override async Task<IActionResult> UpdateAsync([FromBody] UpdateArtWorkDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((ArtWorkDto)(result as OkObjectResult)?.Value);
-      var ArtWorksItem = await db.ArtWorks.FindAsync(resultDto.Id);
+      var ArtWorksItem = await db.Artworks.FindAsync(resultDto.Id);
       if (dto.Poster != null && dto.Poster.Length > 0 && dto.Video != null && dto.Video.Length > 0) {
 
         using (var memorySteam = new MemoryStream(dto.Poster)) {
@@ -122,7 +122,7 @@ namespace MIA.Administration.Api {
     public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
       var result = await base.GetAsync(id, db);
       var resultDto = ((ArtWorkDto)(result as OkObjectResult)?.Value);
-      var artWorkItem = await db.ArtWorks.Include(i => i.Award).Include(i => i.Nominee).FirstOrDefaultAsync(a => a.Id == resultDto.Id);
+      var artWorkItem = await db.Artworks.Include(i => i.Award).Include(i => i.Nominee).FirstOrDefaultAsync(a => a.Id == resultDto.Id);
       return IfFound(_mapper.Map<ArtWorkDto>(artWorkItem));
     }
 
@@ -190,9 +190,9 @@ namespace MIA.Administration.Api {
 
       //await db.CommitTransactionAsync();
 
-      var result = await db.ArtWorkPayments.AddAsync(_mapper.Map<ArtWorkPayment>(dto));
+      var result = await db.ArtworkPayments.AddAsync(_mapper.Map<ArtworkPayment>(dto));
       await db.CommitTransactionAsync();
-      var paymentItem = await db.ArtWorkPayments.FindAsync(result.Entity.Id);
+      var paymentItem = await db.ArtworkPayments.FindAsync(result.Entity.Id);
 
       if (dto.Receipt != null && dto.Receipt.Length > 0) {
         using (var memorySteam = new MemoryStream(dto.Receipt)) {
@@ -205,7 +205,7 @@ namespace MIA.Administration.Api {
           var posterUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
           paymentItem.Receipt = S3File.FromKeyAndUrl(fileKey, posterUrl);
-          var entry = db.Set<ArtWorkPayment>().Attach(paymentItem);
+          var entry = db.Set<ArtworkPayment>().Attach(paymentItem);
           entry.State = EntityState.Modified;
           await db.CommitTransactionAsync();
         }
@@ -217,10 +217,10 @@ namespace MIA.Administration.Api {
     [HttpPut("updatePayment")]
     public async Task<IActionResult> UpdatePaymentAsync([FromBody] UpdateArtWorkPaymentDto dto, [FromServices] IAppUnitOfWork db) {
 
-      var paymentItem = await db.ArtWorkPayments.FirstOrDefaultAsync(a => a.Id == dto.Id);
+      var paymentItem = await db.ArtworkPayments.FirstOrDefaultAsync(a => a.Id == dto.Id);
       if (paymentItem == null)
         throw new ApiException(ApiErrorType.NotFound, "record not found");
-      paymentItem = (ArtWorkPayment)_mapper.Map(dto, paymentItem, typeof(UpdateArtWorkPaymentDto), typeof(ArtWorkPayment));
+      paymentItem = (ArtworkPayment)_mapper.Map(dto, paymentItem, typeof(UpdateArtWorkPaymentDto), typeof(ArtworkPayment));
 
       if (dto.Receipt != null && dto.Receipt.Length > 0) {
         using (var memorySteam = new MemoryStream(dto.Receipt)) {
@@ -233,7 +233,7 @@ namespace MIA.Administration.Api {
           var posterUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
           paymentItem.Receipt = S3File.FromKeyAndUrl(fileKey, posterUrl);
-          var entry = db.Set<ArtWorkPayment>().Attach(paymentItem);
+          var entry = db.Set<ArtworkPayment>().Attach(paymentItem);
           entry.State = EntityState.Modified;
           await db.CommitTransactionAsync();
         }
@@ -246,9 +246,9 @@ namespace MIA.Administration.Api {
 
     [HttpGet("getPayment")]
     public async Task<IActionResult> GetPaymentAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
-      var artWorkItem = await db.ArtWorkPayments.FirstOrDefaultAsync(a => a.ArtWorkId == id);
+      var artWorkItem = await db.ArtworkPayments.FirstOrDefaultAsync(a => a.ArtworkId == id);
       if (artWorkItem == null) {
-        return IfFound(_mapper.Map<ArtWorkPaymentDto>(new ArtWorkPayment()));
+        return IfFound(_mapper.Map<ArtWorkPaymentDto>(new ArtworkPayment()));
       }
       return IfFound(_mapper.Map<ArtWorkPaymentDto>(artWorkItem));
     }
@@ -279,9 +279,9 @@ namespace MIA.Administration.Api {
     [HttpPost("getJudgeArtWorks")]
     public async Task<IActionResult> GetJudgeArtWorksAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
       var listOfArtWork = new List<ArtWorkDto>();
-      var judgeAward = await db.JudgeArtworkAwards.Where(a => a.JudgeId == id).ToListAsync();
+      var judgeAward = await db.JudgeAwards.Where(a => a.JudgeId == id).ToListAsync();
       foreach (var award in judgeAward) {
-        var artWork = await db.ArtWorks.FirstOrDefaultAsync(a => a.AwardId == award.AwardId && a.UploadComplete);
+        var artWork = await db.Artworks.FirstOrDefaultAsync(a => a.AwardId == award.AwardId && a.UploadComplete);
         if (artWork != null)
           listOfArtWork.Add(_mapper.Map<ArtWorkDto>(artWork));
       }
@@ -293,10 +293,10 @@ namespace MIA.Administration.Api {
 
     [HttpPut("UpdateTrailerVideoUrl")]
     public async Task<IActionResult> UpdateTrailerVideoUrlAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db) {
-      var artWork = await db.ArtWorks.FirstOrDefaultAsync(a => a.Id == dto.Id);
+      var artWork = await db.Artworks.FirstOrDefaultAsync(a => a.Id == dto.Id);
       artWork.Trailer = S3File.FromKeyAndUrl(dto.FileKey, dto.FileUrl);
 
-      var entry = db.Set<ArtWork>().Attach(artWork);
+      var entry = db.Set<Artwork>().Attach(artWork);
       entry.State = EntityState.Modified;
       await db.CommitTransactionAsync();
       return IfFound(_mapper.Map<ArtWorkDto>(artWork));
@@ -316,7 +316,7 @@ namespace MIA.Administration.Api {
           var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, id, dto.FileName);
           var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
 
-          var mediaFile = new ArtWork {
+          var mediaFile = new Artwork {
             Trailer = S3File.FromKeyAndUrl(fileKey, fileUrl)
           };
 
