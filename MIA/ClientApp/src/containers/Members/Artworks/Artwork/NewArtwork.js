@@ -98,10 +98,7 @@ submmit
         console.log("submit with values", values);
         debugger;
 
-        const receipt = await fileToBase64(
-          values.payment.receiptFile.name,
-          values.payment.receiptFile
-        );
+        const receipt = await fileToBase64(values.payment.receiptFile);
         values.payment.receiptFileName = values.payment.receiptFile.name;
         values.payment.receipt = receipt;
 

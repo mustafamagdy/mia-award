@@ -65,7 +65,6 @@ namespace MIA.Api {
   }
 
   public class SubmitArtworkWithDetails : ArtworkBasicData {
-    public LocalizedData Title { get; set; }
     public string PosterFileName { get; set; }
     public string CoverImageFileName { get; set; }
     public byte[] Poster { get; set; }

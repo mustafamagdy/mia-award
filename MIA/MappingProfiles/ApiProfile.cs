@@ -100,28 +100,10 @@ namespace MIA.MappingProfiles
 
       CreateMap<SubmitArtworkWithDetails, Artwork>()
         .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
-        // .ForMember(a => a.Description, cfg => cfg.MapFrom(a => LocalizedData.Same(a.About)))
-        // .ForMember(a => a.Production, cfg => cfg.MapFrom(a => a.Producers))
-        // .ForMember(a => a.Director, cfg => cfg.MapFrom(a => a.Directors))
-        // .ForMember(a => a.Writers, cfg => cfg.MapFrom(a => a.Writers))
-        // .ForMember(a => a.Crew, cfg => cfg.MapFrom(a => a.Crew))
-        // .ForMember(a => a.Stars, cfg => cfg.MapFrom(a => a.Stars))
-        // .ForMember(a => a.DateOfRelease, cfg => cfg.MapFrom(a => a.Year))
-        // .ForMember(a => a.Country, cfg => cfg.MapFrom(a => a.Country))
-        .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Title))
         .ForMember(a => a.Payment, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None);
 
       CreateMap<Artwork, ArtworkBasicData>()
-        // .ForMember(a => a.About, cfg => cfg.MapFrom(a => a.Description))
-        // .ForMember(a => a.Story, cfg => cfg.MapFrom(a => a.Story))
-        // .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
-        // .ForMember(a => a.Directors, cfg => cfg.MapFrom(a => a.Director))
-        // .ForMember(a => a.Writers, cfg => cfg.MapFrom(a => a.Writers))
-        // .ForMember(a => a.Crew, cfg => cfg.MapFrom(a => a.Crew))
-        // .ForMember(a => a.Stars, cfg => cfg.MapFrom(a => a.Stars))
-        // .ForMember(a => a.Year, cfg => cfg.MapFrom(a => a.DateOfRelease))
-        // .ForMember(a => a.Country, cfg => cfg.MapFrom(a => a.Country))
         .ValidateMemberList(MemberList.None);
       
       CreateMap<Artwork, ArtworkBasicViewDto>()
