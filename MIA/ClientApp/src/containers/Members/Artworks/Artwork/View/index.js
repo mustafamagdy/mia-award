@@ -58,31 +58,40 @@ const ViewArtwork = ({
           </TabList>
         </ul>
       </div>
-      {artwork && (
-        <Info
-          active={activeTabKey == "info"}
-          editArtwork={editArtwork}
-          publish={publishArtwork}
-          history={history}
-          details={artwork}
-          id={id}
-        />
+      {artwork ? (
+        <>
+          <Info
+            active={activeTabKey == "info"}
+            editArtwork={editArtwork}
+            publish={publishArtwork}
+            history={history}
+            details={artwork}
+            id={id}
+          />
+          <PaymentView
+            active={activeTabKey == "payment-view"}
+            details={artwork?.payment}
+          />
+          {artwork.awardType == "artwork" ? (
+            <>
+              {" "}
+              <Trailer
+                active={activeTabKey == "trailer"}
+                url={artwork?.trailerUrl}
+                coverUrl={artwork?.coverImageUrl}
+              />
+              <Files
+                active={activeTabKey == "files"}
+                projectName={artwork?.projectName}
+                files={artwork?.files}
+                posterUrl={artwork?.posterUrl}
+              />
+            </>
+          ) : null}
+        </>
+      ) : (
+        <div> Loading ...</div>
       )}
-      <PaymentView
-        active={activeTabKey == "payment-view"}
-        details={artwork?.payment}
-      />
-      <Trailer
-        active={activeTabKey == "trailer"}
-        url={artwork?.trailerUrl}
-        coverUrl={artwork?.coverImageUrl}
-      />
-      <Files
-        active={activeTabKey == "files"}
-        title={artwork?.title}
-        files={artwork?.files}
-        posterUrl={artwork?.posterUrl}
-      />
     </div>
   );
 };
@@ -90,6 +99,7 @@ const ViewArtwork = ({
 const Info = ({
   id,
   details: {
+    awardType,
     projectName,
     description,
     siteUrl,
@@ -97,7 +107,7 @@ const Info = ({
     broadcastYear,
     tvChannels,
     onlineChannels,
-    ProductionLicenseNumber,
+    productionLicenseNumber,
     productionLicenseAgency,
     uploadComplete,
   },
@@ -176,7 +186,7 @@ const Info = ({
               </Trans>
               :
             </span>
-            <p>{ProductionLicenseNumber}</p>}
+            <p>{productionLicenseNumber}</p>
           </li>
           <li>
             <span>
@@ -185,7 +195,7 @@ const Info = ({
               </Trans>
               :
             </span>
-            <p>{productionLicenseAgency}</p>}
+            <p>{productionLicenseAgency}</p>
           </li>
         </ul>
       </div>
@@ -218,7 +228,7 @@ const Info = ({
 };
 
 const mapStateToProps = ({ members: { artworkDetails, artworkMode } }) => ({
-  artworkDetails,
+  artwork: artworkDetails,
   artworkMode,
 });
 const mapDispatchToProps = (dispatch) =>

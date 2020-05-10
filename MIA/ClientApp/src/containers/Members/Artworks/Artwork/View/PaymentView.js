@@ -4,7 +4,9 @@ import { Trans } from "@lingui/macro";
 
 const PaymentView = ({ details, active, ...props }) => {
   return (
-    <div className={classNames("tab_content tab_payment payment_info", { active })}>
+    <div
+      className={classNames("tab_content tab_payment info_show", { active })}
+    >
       <ul>
         <li>
           <span>

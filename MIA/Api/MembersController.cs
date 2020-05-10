@@ -264,9 +264,11 @@ namespace MIA.Api {
     public async Task<IActionResult> GetArtowkrById([FromRoute] string id, [FromServices] IAppUnitOfWork db) {
       var nominee = await _userResolver.CurrentUserAsync();
       var artwork = await db.Artworks
+        .Include(a=>a.Award)
         .Include(a => a.Payment)
         .Include(a => a.MediaFiles)
         .FirstOrDefaultAsync(a => a.Id == id);
+        
       if (artwork.NomineeId != nominee.Id)
         throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
 

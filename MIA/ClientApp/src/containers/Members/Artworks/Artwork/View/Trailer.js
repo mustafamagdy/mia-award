@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 import classNames from "classnames";
+import { Trans } from "@lingui/macro";
 
 const Trailer = ({ url, coverUrl, active, ...props }) => {
-  return (
+  return url ? (
     <div className={classNames("tab_content tab_trailer", { active })}>
       <TrailerView url={url} coverUrl={coverUrl} />
+    </div>
+  ) : (
+    <div className={classNames("tab_content tab_trailer", { active })}>
+      <p>
+        <Trans id="no_trailer_yet">No trailer uploaded yet</Trans>
+      </p>
     </div>
   );
 };

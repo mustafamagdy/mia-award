@@ -114,6 +114,7 @@ namespace MIA.MappingProfiles
       CreateMap<Artwork, ArtworkViewDto>()
         .IncludeAllDerived()
         .ForMember(a => a.CanUploadFiles, cfg => cfg.MapFrom(a => a.AllowFileUpload))
+        .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.Award.AwardType))
         .ValidateMemberList(MemberList.None);
 
       CreateMap<Artwork, ArtworkViewWithFilesDto>()

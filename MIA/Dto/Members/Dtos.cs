@@ -23,6 +23,7 @@ namespace MIA.Api {
   public class ArtworkViewDto : ArtworkBasicViewDto {
     public bool CanUploadFiles { get; set; }
     public bool UploadComplete { get; set; }
+    public AwardType AwardType { get; set; }
   }
   public class ArtworkViewWithFilesDto : ArtworkViewDto {
     public ArtworkFileDto[] Files { get; set; }
