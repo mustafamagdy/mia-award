@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
 import { Trans } from "@lingui/macro";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
@@ -6,27 +6,46 @@ import classNames from "classnames";
 import { Form, Formik } from "formik";
 import { Field, LocalizedDataField } from "components/Forms";
 import * as Yup from "yup";
+import { connect } from "react-redux";
+import accountsActions from "store/accounts/actions";
+import { bindActionCreators } from "redux";
 
 import "../../sass/bootstrap-grid.scss";
 import { NavLink } from "react-router-dom";
 
-const Profile = ({ userProfile, userAwards, updateUserAvatar, ...props }) => {
+const Profile = ({
+  userProfile,
+  userAwards,
+  fetchUserProfile,
+  updateUserProfile,
+  updateUserAvatar,
+  avatarImageUrl,
+  ...props
+}) => {
   const tabs = ["info", "awards"];
   const [mode, setMode] = useState("view"); //view/edit
   const [mode_avatar, setMode_Avatar] = useState("view"); //view/edit
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
+  const avatarFileRef = useRef(undefined);
+
   const handleActiveTab = (tabKey) => {
     setActiveTabKey(tabKey);
     setActiveIndex(tabs.indexOf(tabKey));
   };
+
+  useEffect(() => {
+    if (userProfile == null || userProfile == undefined) {
+      fetchUserProfile();
+    }
+  }, [userProfile]);
 
   return (
     <div className="profile_area">
       {mode_avatar == "view" ? (
         <div className="edit_profile">
           <div className="imgthumb">
-            <img src={userProfile?.avatarUrl} />
+            <img src={avatarImageUrl} />
           </div>
           <button type="button" onClick={() => setMode_Avatar("edit")}>
             <Trans id="change_avatar">Change Avatar</Trans>
@@ -36,15 +55,29 @@ const Profile = ({ userProfile, userAwards, updateUserAvatar, ...props }) => {
         <div className="edit_profile">
           <div className="imgthumb">
             <label htmlFor="chooseAvatar">
-              <img src={userProfile?.avatarUrl} />
+              <img src={avatarImageUrl} />
             </label>
-            <input type="file" id="chooseAvatar" style={{ display: "none" }} />
+            <input
+              type="file"
+              id="chooseAvatar"
+              ref={avatarFileRef}
+              style={{ display: "none" }}
+            />
           </div>
           <div>
             <button
               type="button"
               onClick={() => {
-                updateUserAvatar && updateUserAvatar();
+                if (
+                  avatarFileRef &&
+                  avatarFileRef.current &&
+                  avatarFileRef.current.files[0]
+                ) {
+                  updateUserAvatar &&
+                    updateUserAvatar({
+                      avatar: avatarFileRef.current.files[0],
+                    });
+                }
                 setMode_Avatar("view");
               }}
             >
@@ -82,11 +115,7 @@ const Profile = ({ userProfile, userAwards, updateUserAvatar, ...props }) => {
             {mode == "edit" ? (
               <div className="container-fluid">
                 <Formik
-                  initialValues={{
-                    fullName: userProfile?.fullName || "",
-                    jobTitle: userProfile?.jobTItle || "",
-                    email: userProfile?.email || "",
-                  }}
+                  initialValues={userProfile}
                   // ref={(r) => setFormRef(r)}
                   validationSchema={Yup.object().shape({
                     fullName: Yup.string().required("Required"),
@@ -94,8 +123,8 @@ const Profile = ({ userProfile, userAwards, updateUserAvatar, ...props }) => {
                     email: Yup.string().required("Required"),
                   })}
                   onSubmit={(values, actions) => {
-                    console.log("submit with values", values);
-                    // submitForm && submitForm(values);
+                    updateUserProfile && updateUserProfile(values);
+                    setMode("info");
                   }}
                 >
                   {({
@@ -207,7 +236,9 @@ const Profile = ({ userProfile, userAwards, updateUserAvatar, ...props }) => {
             })}
           >
             {userAwards ? (
-              userAwards.map((award, i) => <AwardItem key={i} awardAndArtwork={award} />)
+              userAwards.map((award, i) => (
+                <AwardItem key={i} awardAndArtwork={award} />
+              ))
             ) : (
               <div>You didn't win any awards yet</div>
             )}
@@ -251,4 +282,10 @@ const AwardItem = ({ awardAndArtwork, ...props }) => (
   </div>
 );
 
-export default Profile;
+const mapStateToProps = ({ account: { profile, avatarImageUrl } }) => ({
+  userProfile: profile,
+  avatarImageUrl,
+});
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...accountsActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

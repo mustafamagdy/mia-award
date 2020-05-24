@@ -60,6 +60,11 @@ namespace MIA.MappingProfiles {
          .IncludeAllDerived()
          .ValidateMemberList(MemberList.None);
 
+      CreateMap<Nominee, UserProfileDto>()
+         .IncludeAllDerived()
+         .ForMember(x => x.JobTitle, conf => conf.MapFrom(x => x.JobTitle))
+         .ValidateMemberList(MemberList.None);
+
       CreateMap<UpdateUserProfileDto, AppUser>()
            .IncludeAllDerived()
            .ForAllOtherMembers(a => a.Ignore());

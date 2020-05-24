@@ -43,12 +43,12 @@ const Files = ({
         setCurrentitem={setCurrentItem}
       />
 
-      <div className={classNames("tab_content tab_files", { active })}>
-        <div className="item_show">
+      <div className={classNames("tab_content tab_upload_videos", { active })}>
+        {files && files.length > 0 ? (
           <div className="season_content">
-            <ol class="items">
-              {files && files.length > 0 ? (
-                files.map((file, i) => {
+            <div className="item_show">
+              <ol className="items">
+                {files.map((file, i) => {
                   return (
                     <File
                       projectName={projectName}
@@ -61,15 +61,15 @@ const Files = ({
                       }}
                     />
                   );
-                })
-              ) : (
-                <div>
-                  <Trans id="no_files_uploaded">No files uploaded</Trans>
-                </div>
-              )}
-            </ol>
+                })}
+              </ol>
+            </div>
           </div>
-        </div>
+        ) : (
+          <p className="info">
+            <Trans id="no_files_uploaded">No files uploaded</Trans>
+          </p>
+        )}
       </div>
     </>
   );

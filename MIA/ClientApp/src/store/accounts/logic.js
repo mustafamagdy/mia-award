@@ -17,13 +17,17 @@ const resetPasswordLogic = logic(
     dispatch(push({ pathname: "/members", search: "" }));
   }
 );
-const fetchUserProfileDataLogic = logic(
+const fetchUserProfileLogic = logic(
   apiNamespace,
   ActionTypes.FETCH_USER_PROFILE
 );
 const updateUserProfileLogic = logic(
   apiNamespace,
   ActionTypes.UPDATE_USER_PROFILE
+);
+const updateUserAvatarLogic = logic(
+  apiNamespace,
+  ActionTypes.UPDATE_USER_AVATAR
 );
 const changePasswordLogic = logic(apiNamespace, ActionTypes.CHANGE_PASSWORD);
 
@@ -32,7 +36,8 @@ export default [
   verifyEmailLogic,
   forgotPasswordLogic,
   resetPasswordLogic,
-  fetchUserProfileDataLogic,
+  fetchUserProfileLogic,
   changePasswordLogic,
   updateUserProfileLogic,
+  updateUserAvatarLogic,
 ];

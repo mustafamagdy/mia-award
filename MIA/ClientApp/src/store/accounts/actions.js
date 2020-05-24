@@ -8,8 +8,9 @@ const { Types, Creators } = createActions(
     resetPassword: { args: ["payload"], meta: { async: true } },
     resetSignupErrors: {},
     resetForgotPasswordErrors: {},
-    fetchUserProfile: { meta: { async: true } },
+    fetchUserProfile: { args: ["payload"], meta: { async: true } },
     updateUserProfile: { args: ["payload"], meta: { async: true } },
+    updateUserAvatar: { args: ["payload"], meta: { async: true } },
     changePassword: { args: ["payload"], meta: { async: true } },
   },
   {

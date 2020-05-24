@@ -259,6 +259,31 @@ namespace MIA.Api {
       return Ok(fileUrl);
     }
 
+    [HttpPut("artwork/{id}/poster")]
+    [RequestSizeLimit(1024 * 1024 * 30)]
+    public async Task<IActionResult> updatePosterImage(
+        [FromServices] IS3FileManager fileManager,
+        [FromServices] IAppUnitOfWork db,
+        [FromRoute] string id,
+        FileChunkDto dto
+        ) {
+      var nominee = await _userResolver.CurrentUserAsync();
+      var artwork = await db.Artworks.FindAsync(id);
+      if (artwork == null) {
+        throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't exist");
+      }
+      if (artwork.NomineeId != nominee.Id) {
+        throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
+      }
+      var posterFileKey = fileManager.GenerateFileKeyForResource(
+        ResourceType.ArtWork,
+        artwork.Id, $"{artwork.Id}_poster." + dto.FileName);
+      var fileUrl = await fileManager.UploadFileAsync(dto.Chunk, posterFileKey);
+      artwork.Poster = S3File.FromKeyAndUrl(posterFileKey, fileUrl);
+      db.Artworks.Update(artwork);
+      return Ok(fileUrl);
+    }
+
 
     [HttpGet("artwork/{id}")]
     public async Task<IActionResult> GetArtowkrById([FromRoute] string id, [FromServices] IAppUnitOfWork db) {

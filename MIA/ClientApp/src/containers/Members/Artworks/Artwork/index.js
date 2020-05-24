@@ -6,9 +6,10 @@ import { bindActionCreators } from "redux";
 import ArtworkData from "./ArtworkData";
 import NewArtwork from "./NewArtwork";
 import ViewArtwork from "./View";
+import Edit from "./Edit";
 
 const Arwork = ({
-  artworkDetails,
+  artwork,
   addNewArtwork,
   awards,
   artworkMode,
@@ -17,7 +18,7 @@ const Arwork = ({
 }) => {
   useEffect(() => {
     if (artworkMode === "view") {
-      history.push(`/members/artwork/${artworkDetails.id}`);
+      history.push(`/members/artwork/${artwork.id}`);
     }
   }, [artworkMode]);
   return (
@@ -32,8 +33,9 @@ const Arwork = ({
             </form>
           ) : (
             <img
-              src={artworkDetails && artworkDetails.coverImageUrl}
+              src={artwork && artwork.coverImageUrl}
               style={{ objectFit: "cover" }}
+              alt="Cover"
             />
           )}
         </div>
@@ -41,7 +43,7 @@ const Arwork = ({
       <Switch>
         <Route exact path="/members/artwork" component={NewArtwork} />
         <Route exact path="/members/artwork/:id" component={ViewArtwork} />
-        <Route exact path="/members/artwork/:id/edit" component={ArtworkData} />
+        <Route exact path="/members/artwork/:id/edit" component={Edit} />
       </Switch>
     </React.Fragment>
   );
@@ -49,8 +51,8 @@ const Arwork = ({
 
 const mapStateToProps = ({
   home: { awards },
-  members: { artworkDetails, artworkMode },
-}) => ({ awards, artworkDetails, artworkMode });
+  members: { artwork, artworkMode },
+}) => ({ awards, artwork, artworkMode });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...membersActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Arwork);

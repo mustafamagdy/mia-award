@@ -3,16 +3,20 @@ import ReactPlayer from "react-player";
 import classNames from "classnames";
 import { Trans } from "@lingui/macro";
 
-const Trailer = ({ url, coverUrl, active, ...props }) => {
+export const Trailer = ({ url, coverUrl, active, ...props }) => {
   return url ? (
-    <div className={classNames("tab_content tab_trailer", { active })}>
-      <TrailerView url={url} coverUrl={coverUrl} />
-    </div>
+    <TrailerView url={url} coverUrl={coverUrl} />
   ) : (
+    <p className="info">
+      <Trans id="no_trailer_yet">No trailer uploaded yet</Trans>
+    </p>
+  );
+};
+
+const TrailerTab = ({ url, coverUrl, active, ...props }) => {
+  return (
     <div className={classNames("tab_content tab_trailer", { active })}>
-      <p>
-        <Trans id="no_trailer_yet">No trailer uploaded yet</Trans>
-      </p>
+      <Trailer url={url} coverUrl={coverUrl} />
     </div>
   );
 };
@@ -22,16 +26,17 @@ const TrailerView = ({ url, coverUrl, ...props }) => {
     <div className="trailer_area">
       <div className="trailer">
         <ReactPlayer
+          playing
           controls
           url={url}
           className="react-player"
           width="100%"
           height="100%"
-          light={coverUrl}
+          light={encodeURI(coverUrl)}
         />
       </div>
     </div>
   );
 };
 
-export default Trailer;
+export default TrailerTab;

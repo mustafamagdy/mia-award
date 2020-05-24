@@ -9,6 +9,7 @@ const normalizeActionName = (actionName) =>
     .join("");
 
 export const logic = (apiNamespace, actionName, successCb, failCb) => {
+  
   const api_name = normalizeActionName(actionName);
   const logic = createLogic({
     type: actionName,
@@ -42,6 +43,10 @@ export const logic = (apiNamespace, actionName, successCb, failCb) => {
 
 function _validateApi(api, apiNamespace, api_name, action) {
   //todo: validatte api
+  const func = api[apiNamespace][api_name];
+  if(!func) {
+    debugger;
+  }
 }
 
 export default logic;

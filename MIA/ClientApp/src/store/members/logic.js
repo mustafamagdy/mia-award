@@ -14,6 +14,7 @@ const addNewArtworkLogic = logic(apiNamespace, ActionTypes.ADD_NEW_ARTWORK, (dis
 const fetchArtworkWithDetailsLogic = logic(apiNamespace, ActionTypes.FETCH_ARTWORK_WITH_DETAILS);
 const updateTrailerLogic = logic(apiNamespace, ActionTypes.UPDATE_TRAILER);
 const updateCoverImageLogic = logic(apiNamespace, ActionTypes.UPDATE_COVER_IMAGE);
+const updatePosterImageLogic = logic(apiNamespace, ActionTypes.UPDATE_POSTER_IMAGE);
 const postFileChunkLogic = logic(apiNamespace, ActionTypes.POST_FILE_CHUNK);
 const publishArtworkLogic = logic(apiNamespace, ActionTypes.PUBLISH_ARTWORK);
 
@@ -25,6 +26,7 @@ export default [
   fetchArtworkWithDetailsLogic,
   updateTrailerLogic,
   updateCoverImageLogic,
+  updatePosterImageLogic,
   postFileChunkLogic,
   publishArtworkLogic
 ];

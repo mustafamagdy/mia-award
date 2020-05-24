@@ -12,12 +12,6 @@ const UploadingProgress = ({ progress, file, props }) => {
       </div>
       <div className="bar_area">
         <ProgressBar progress={progress} />
-        {/* <div className="play">
-              <i className="icofont-ui-play"></i>
-            </div>
-            <div className="cancel">
-              <i className="icofont-close"></i>
-            </div> */}
       </div>
       <div className="progress_number">
         Uploading <p>{Math.trunc(progress)}%</p> done
@@ -67,16 +61,10 @@ const Files = ({ active, artworkId }, props) => {
                     dirId={artworkId}
                     file={f}
                   >
-                    {/* <div className="upload_list">
-          <div className="title">Files Upload</div>
-                  <FileDetails file={f}/>
-                  
-        </div> */}
                     <UploadingProgress file={f} />
                   </Uploader>
                 );
               })}
-            {/* <UploadingProgress progress={progress} /> */}
           </div>
         </div>
       </div>

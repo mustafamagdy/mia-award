@@ -67,24 +67,27 @@ const ViewArtwork = ({
             history={history}
             details={artwork}
             id={id}
+            key="info"
           />
           <PaymentView
             active={activeTabKey == "payment-view"}
             details={artwork?.payment}
+            key="payment-view"
           />
           {artwork.awardType == "artwork" ? (
             <>
-              {" "}
               <Trailer
                 active={activeTabKey == "trailer"}
                 url={artwork?.trailerUrl}
                 coverUrl={artwork?.coverImageUrl}
+                key="trailer"
               />
               <Files
                 active={activeTabKey == "files"}
                 projectName={artwork?.projectName}
                 files={artwork?.files}
                 posterUrl={artwork?.posterUrl}
+                key="files"
               />
             </>
           ) : null}
@@ -119,7 +122,7 @@ const Info = ({
 }) => {
   return (
     <div className={classNames("tab_content tab_info", { active })}>
-      <div class="info_show">
+      <div className="info_show">
         <ul>
           <li>
             <span>
@@ -156,21 +159,21 @@ const Info = ({
             <p>{broadcastYear}</p>
           </li>
           <li>
-            <div class="crew_content">
-              <div class="title">
+            <div className="crew_content">
+              <div className="title">
                 <Trans id="tv_channels">TV Channels</Trans> :
               </div>
-              <div class="content">
+              <div className="content">
                 {tvChannels.split(",").map((a, i) => (
-                  <>
+                  <React.Fragment key={i}>
                     {a} <br />
-                  </>
+                  </React.Fragment>
                 ))}
               </div>
-              <div class="title">
+              <div className="title">
                 <Trans id="online_channels">Online Channels</Trans> :
               </div>
-              <div class="content">
+              <div className="content">
                 {onlineChannels.split(",").map((a, i) => (
                   <>
                     {a} <br />
@@ -227,8 +230,8 @@ const Info = ({
   );
 };
 
-const mapStateToProps = ({ members: { artworkDetails, artworkMode } }) => ({
-  artwork: artworkDetails,
+const mapStateToProps = ({ members: { artwork, artworkMode } }) => ({
+  artwork,
   artworkMode,
 });
 const mapDispatchToProps = (dispatch) =>
