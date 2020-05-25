@@ -7,12 +7,12 @@ import { bindActionCreators } from "redux";
 import { Trans } from "@lingui/macro";
 
 const MemberSidebar = ({ currentUser, ...props }) => {
-  const { fullName, avatarUrl, address, jobTitle } = currentUser;
+  const { fullName, avatarImageUrl, address, jobTitle } = currentUser;
   return (
     <div className="member_sidebar">
       <div>
         <div className="imgthumb">
-          <img src={avatarUrl} />
+          <img src={avatarImageUrl} />
         </div>
         <div className="username">{fullName}</div>
         <ul>
