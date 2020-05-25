@@ -11,6 +11,9 @@ const saveArtworkInfoLogic = logic(apiNamespace, ActionTypes.SAVE_ARTWORK_INFO, 
 const addNewArtworkLogic = logic(apiNamespace, ActionTypes.ADD_NEW_ARTWORK, (dispatch, res) => {
   dispatch(push(`/members/artwork/${res.id}`));
 });
+const addNewContestantLogic = logic(apiNamespace, ActionTypes.ADD_NEW_CONTESTANT, (dispatch, res) => {
+  dispatch(push(`/members/contestant/${res.id}`));
+});
 const fetchArtworkWithDetailsLogic = logic(apiNamespace, ActionTypes.FETCH_ARTWORK_WITH_DETAILS);
 const updateTrailerLogic = logic(apiNamespace, ActionTypes.UPDATE_TRAILER);
 const updateCoverImageLogic = logic(apiNamespace, ActionTypes.UPDATE_COVER_IMAGE);
@@ -30,5 +33,6 @@ export default [
   updatePosterImageLogic,
   postFileChunkLogic,
   publishArtworkLogic,
-  removeArtworkFileLogic
+  removeArtworkFileLogic,
+  addNewContestantLogic
 ];

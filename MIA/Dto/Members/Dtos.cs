@@ -55,6 +55,7 @@ namespace MIA.Api {
     public string CoverUrl { get; set; }
     public bool UploadComplete { get; set; }
     public bool AllowFileUpload { get; set; }
+    public AwardType AwardType { get; set; }
     public LocalizedData ProjectName { get; set; }
   }
 

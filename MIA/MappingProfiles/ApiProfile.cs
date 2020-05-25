@@ -67,6 +67,7 @@ namespace MIA.MappingProfiles {
        .ValidateMemberList(MemberList.None);
 
       CreateMap<Award, AwardDto>()
+        .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.AwardType))
         .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.TrophyImageUrl))
         .ValidateMemberList(MemberList.None);
 
@@ -120,7 +121,7 @@ namespace MIA.MappingProfiles {
       CreateMap<Artwork, ArtworkViewWithFilesDto>()
           // .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
           // .ForMember(a => a.Directors, cfg => cfg.MapFrom(a => a.Director))
-          // .ForMember(a => a.Year, cfg => cfg.MapFrom(a => a.DateOfRelease))
+          .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.Award.AwardType))
           .ForMember(a => a.Files, cfg => cfg.MapFrom(a => a.MediaFiles))
         .IncludeAllDerived()
         .ValidateMemberList(MemberList.None);
@@ -129,6 +130,7 @@ namespace MIA.MappingProfiles {
           .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
           .ForMember(a => a.CoverUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
           .ForMember(a => a.TrailerUrl, cfg => cfg.MapFrom(a => a.Trailer.FileUrl))
+          .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.Award.AwardType))
           .ValidateMemberList(MemberList.None);
 
       CreateMap<MediaFile, ArtworkFileDto>()

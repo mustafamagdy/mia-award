@@ -54,7 +54,7 @@ namespace MIA.Api {
           ArtworkId = a.Id,
           ProjectName = a.ProjectName,
           Description = a.Description,
-          PosterUrl = a.Poster.FileUrl
+          PosterUrl = a.Poster.FileUrl,
         })
         .ToArray();
 

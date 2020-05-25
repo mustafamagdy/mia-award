@@ -13,7 +13,7 @@ import membersActions from "store/members/actions";
 import { bindActionCreators } from "redux";
 import { fileToBase64 } from "utils";
 
-const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
+const NewContestant = ({ awards, addNewContestant, ...props }) => {
   const [selectedAward, setSelectedAward] = useState();
   useEffect(() => {
     setSelectedAward(awards[0]);
@@ -95,7 +95,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
           values.payment.receiptFileName = values.payment.receiptFile.name;
           values.payment.receipt = receipt;
 
-          addNewArtwork(values);
+          addNewContestant(values);
         }}
       >
         {({
@@ -367,11 +367,9 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
 };
 
 const mapStateToProps = ({ home: { awards } }) => {
-  const _awards = awards.filter((a) => a.awardType == "artwork");
-  return {
-    awards: _awards,
-  };
+  const _awards = awards.filter((a) => a.awardType == "person");
+  return { awards: _awards };
 };
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...membersActions }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(NewArtwork);
+export default connect(mapStateToProps, mapDispatchToProps)(NewContestant);

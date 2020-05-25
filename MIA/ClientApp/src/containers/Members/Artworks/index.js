@@ -5,11 +5,11 @@ import { connect } from "react-redux";
 import membersActions from "store/members/actions";
 import authActions from "store/auth/actions";
 import { bindActionCreators } from "redux";
-import Artwork from "./ArtworkItem";
 import Award from "./Award";
 import { Trans } from "@lingui/macro";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
 import classNames from "classnames";
+import Artwork from "./ArtworkItem";
 
 const Artworks = ({
   fetchMyArtworks,
