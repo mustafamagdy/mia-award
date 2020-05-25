@@ -77,6 +77,7 @@ const Files = ({
 
 const Video = ({ url }) => (
   <ReactPlayer
+    playing
     controls
     url={url}
     className="react-player-lightbox"
@@ -102,7 +103,7 @@ const File = ({
       }}
     >
       <div className="imgthumb">
-        <img src={posterUrl} />
+        <img src={coverUrl} />
         <div className="mask">
           <div className="content">
             <LanguageContext.Consumer>

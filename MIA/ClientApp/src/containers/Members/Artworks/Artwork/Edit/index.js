@@ -93,6 +93,7 @@ const EditArtwork = ({
             <Files
               artworkId={artwork && artwork.id}
               files={artwork && artwork.files}
+              active={activeTabKey === "files"}
             />
           )}
         </>

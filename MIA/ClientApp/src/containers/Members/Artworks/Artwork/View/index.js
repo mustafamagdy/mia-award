@@ -87,6 +87,7 @@ const ViewArtwork = ({
                 projectName={artwork?.projectName}
                 files={artwork?.files}
                 posterUrl={artwork?.posterUrl}
+                coverUrl={artwork?.coverImageUrl}
                 key="files"
               />
             </>

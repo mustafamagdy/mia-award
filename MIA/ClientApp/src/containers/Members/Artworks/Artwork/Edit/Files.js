@@ -25,11 +25,11 @@ const Files = ({ active, artworkId }, props) => {
   return (
     <div className={classNames("tab_content tab_upload_videos", { active })}>
       <div className="uploads_area">
-        <div className="top_upload">
+        {/* <div className="top_upload">
           <div className="submit">
             <button type="submit">Submit</button>
           </div>
-        </div>
+        </div> */}
         <div className="bottom_upload">
           <div className="upload_input">
             <form action="#">
