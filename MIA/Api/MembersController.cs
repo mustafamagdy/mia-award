@@ -101,6 +101,38 @@ namespace MIA.Api {
       return Ok(artworks);
     }
 
+    [HttpPost("add-contestant")]
+    public async Task<IActionResult> SubmitContestant(
+       [FromBody] SubmitArtworkWithDetails dto,
+       [FromServices] IPaymentGateway paymentGateway,
+       [FromServices] IAppUnitOfWork db,
+       [FromServices] IOptions<UploadLimits> limitOptions,
+       [FromServices] IS3FileManager fileManager) {
+
+      var nominee = await _userResolver.CurrentUserAsync();
+      var award = await db.Awards.FindAsync(dto.AwardId);
+      if (award == null) {
+        throw new ApiException(ApiErrorType.BadRequest, "Award is required");
+      }
+
+      if (award.AwardType != AwardType.Person) {
+        throw new ApiException(ApiErrorType.BadRequest, "Selected award is wrong");
+      }
+
+      var contestant = _mapper.Map<Artwork>(dto);
+      contestant.NomineeId = nominee.Id;
+
+      //all artworks cannot upload files until payment approved
+      contestant.AllowFileUpload = false;
+
+      await db.Artworks.AddAsync(contestant);
+
+      contestant.Payment = await SaveUserPaymentAsync(fileManager, db, award, contestant.Id, dto);
+      contestant.Poster = S3File.FromKeyAndUrl("", "");
+      contestant.Cover = S3File.FromKeyAndUrl("", "");
+
+      return Ok(_mapper.Map<ArtworkViewWithFilesDto>(contestant));
+    }
 
 
     [HttpPost("add-artwork")]
@@ -113,6 +145,15 @@ namespace MIA.Api {
 
       var nominee = await _userResolver.CurrentUserAsync();
       var award = await db.Awards.FindAsync(dto.AwardId);
+      if (award == null) {
+        throw new ApiException(ApiErrorType.BadRequest, "Award is required");
+      }
+
+      if (award.AwardType != AwardType.Artwork) {
+        throw new ApiException(ApiErrorType.BadRequest, "Selected award is wrong");
+      }
+
+
       var artwork = _mapper.Map<Artwork>(dto);
       artwork.NomineeId = nominee.Id;
       //all artworks cannot upload files until payment approved
@@ -171,17 +212,22 @@ namespace MIA.Api {
     [Authorize]
     public async Task<IActionResult> UpdateArtwork(
       [FromRoute] string id,
-      [FromBody] SubmitArtworkWithDetails dto,
+      [FromBody] UpdateArtworkWithDetails dto,
       [FromServices] IAppUnitOfWork db) {
 
       var nominee = await _userResolver.CurrentUserAsync();
-      var artwork = await db.Artworks.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
+      var artwork = await db.Artworks
+        .Include(a => a.Award)
+        .Include(a => a.Payment)
+        .Include(a => a.MediaFiles)
+        .AsNoTracking()
+        .FirstOrDefaultAsync(a => a.Id == id);
 
       if (artwork.NomineeId != nominee.Id) {
         throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
       }
 
-      var updatedArtwork = _mapper.Map<SubmitArtworkWithDetails, Artwork>(dto, artwork);
+      var updatedArtwork = _mapper.Map<UpdateArtworkWithDetails, Artwork>(dto, artwork);
       updatedArtwork.Id = id;
       db.Artworks.Update(updatedArtwork);
       return Ok(_mapper.Map<ArtworkViewWithFilesDto>(updatedArtwork));

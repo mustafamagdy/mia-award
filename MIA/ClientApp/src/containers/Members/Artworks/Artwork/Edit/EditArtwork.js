@@ -199,7 +199,7 @@ const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
             </div>
             <div>
               <button className="action" type="submit">
-                Save
+                <Trans id="save">Save</Trans>
               </button>
             </div>
           </Form>

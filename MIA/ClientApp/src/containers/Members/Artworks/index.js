@@ -116,8 +116,20 @@ const Artworks = ({
 };
 
 const mapStateToProps = ({
-  members: { myAwards, myArtworks, myAwardsLoaded, myArtworksLoaded },
-}) => ({ myAwards, myArtworks, myAwardsLoaded, myArtworksLoaded });
+  members: {
+    myAwards,
+    myArtworks,
+    myContestants,
+    myAwardsLoaded,
+    myArtworksLoaded,
+  },
+}) => ({
+  myAwards,
+  myArtworks,
+  myContestants,
+  myAwardsLoaded,
+  myArtworksLoaded,
+});
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...membersActions, ...authActions }, dispatch);
 export default connect(

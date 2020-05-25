@@ -198,7 +198,7 @@ const Info = ({
         disabled={uploadComplete}
         onClick={() => {
           editArtwork();
-          history.push(`/members/artwork/${id}/edit`);
+          history.push(`/members/contestant/${id}/edit`);
         }}
       >
         <Trans id="edit_info">Edit Info</Trans>

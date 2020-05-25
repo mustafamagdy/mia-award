@@ -368,6 +368,14 @@ const NewContestant = ({ awards, addNewContestant, ...props }) => {
 
 const mapStateToProps = ({ home: { awards } }) => {
   const _awards = awards.filter((a) => a.awardType == "person");
+  _awards.unshift({
+    id: "0",
+    code:'choose_award',
+    title: {
+      ar: "اختر الجائزة",
+      en: "Select Award",
+    },
+  });
   return { awards: _awards };
 };
 const mapDispatchToProps = (dispatch) =>

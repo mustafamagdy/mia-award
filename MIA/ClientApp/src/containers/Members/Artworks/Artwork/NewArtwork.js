@@ -368,6 +368,15 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
 
 const mapStateToProps = ({ home: { awards } }) => {
   const _awards = awards.filter((a) => a.awardType == "artwork");
+  _awards.unshift({
+    id: "0",
+    code:'choose_award',
+    title: {
+      ar: "اختر الجائزة",
+      en: "Select Award",
+    },
+  });
+
   return {
     awards: _awards,
   };

@@ -66,6 +66,8 @@ namespace MIA.Api {
     public bool IsOffline { get; set; }
     public string Status { get; set; }
   }
+  
+  public class UpdateArtworkWithDetails : ArtworkBasicData { }
 
   public class SubmitArtworkWithDetails : ArtworkBasicData {
     public string PosterFileName { get; set; }

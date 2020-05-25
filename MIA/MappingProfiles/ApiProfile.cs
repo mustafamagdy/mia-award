@@ -101,6 +101,9 @@ namespace MIA.MappingProfiles {
         .ForMember(a => a.Payment, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None);
 
+      CreateMap<UpdateArtworkWithDetails, Artwork>()
+        .ValidateMemberList(MemberList.None);
+
       CreateMap<Artwork, ArtworkBasicData>()
         .ValidateMemberList(MemberList.None);
 
