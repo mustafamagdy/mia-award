@@ -137,6 +137,7 @@ const Info = ({
     productionLicenseNumber,
     productionLicenseAgency,
     uploadComplete,
+    canUploadFiles,
   },
   active,
   editArtwork,
@@ -237,19 +238,21 @@ const Info = ({
         <Trans id="edit_info">Edit Info</Trans>
       </button>
 
-      <button
-        disabled={uploadComplete}
-        onClick={() => {
-          const data = { id: id, publish: true };
-          publish({
-            ...data,
-            id: id,
-          });
-          history.push(`/members`);
-        }}
-      >
-        <Trans id="send_for_judge">Send for judge</Trans>
-      </button>
+      {canUploadFiles && (
+        <button
+          disabled={uploadComplete}
+          onClick={() => {
+            const data = { id: id, publish: true };
+            publish({
+              ...data,
+              id: id,
+            });
+            history.push(`/members`);
+          }}
+        >
+          <Trans id="send_for_judge">Send for judge</Trans>
+        </button>
+      )}
     </div>
   );
 };
