@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 
 import Artworks from "./Artworks";
 import Artwork from "./Artworks/Artwork";
+import Contestant from "./Artworks/Contestant";
 import MemberSidebar from "./MemberSidebar";
 import Profile from "./Profile";
 
@@ -26,7 +27,7 @@ const MembersArea = ({
           <Switch>
             <Route exact path="/members/profile" component={Profile} />
             <Route path="/members/artwork" component={Artwork} />
-            <Route path="/members/contestant" component={Artwork} />
+            <Route path="/members/contestant" component={Contestant} />
             <Route exact path="/members" component={Artworks} />
             <Redirect from="*" to="/members" />
           </Switch>

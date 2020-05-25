@@ -5,6 +5,7 @@ const { Types, Creators } = createActions(
     fetchMyAwards: { args: [], meta: { async: true } },
     fetchMyArtworks: { args: [], meta: { async: true } },
     addNewArtwork: { args: ["payload"], meta: { async: true } },
+    addNewContestant: { args: ["payload"], meta: { async: true } },
     saveArtworkInfo: { args: ["payload"], meta: { async: true } },
     fetchArtworkWithDetails: { args: ["payload"], meta: { async: true } },
     updateTrailer: { args: ["payload"], meta: { async: true } },

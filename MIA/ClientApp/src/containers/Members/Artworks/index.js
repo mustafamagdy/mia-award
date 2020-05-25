@@ -5,11 +5,11 @@ import { connect } from "react-redux";
 import membersActions from "store/members/actions";
 import authActions from "store/auth/actions";
 import { bindActionCreators } from "redux";
-import Artwork from "./ArtworkItem";
 import Award from "./Award";
 import { Trans } from "@lingui/macro";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
 import classNames from "classnames";
+import Artwork from "./ArtworkItem";
 
 const Artworks = ({
   fetchMyArtworks,
@@ -116,8 +116,20 @@ const Artworks = ({
 };
 
 const mapStateToProps = ({
-  members: { myAwards, myArtworks, myAwardsLoaded, myArtworksLoaded },
-}) => ({ myAwards, myArtworks, myAwardsLoaded, myArtworksLoaded });
+  members: {
+    myAwards,
+    myArtworks,
+    myContestants,
+    myAwardsLoaded,
+    myArtworksLoaded,
+  },
+}) => ({
+  myAwards,
+  myArtworks,
+  myContestants,
+  myAwardsLoaded,
+  myArtworksLoaded,
+});
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...membersActions, ...authActions }, dispatch);
 export default connect(

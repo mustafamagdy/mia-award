@@ -6,7 +6,7 @@ import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import config from "config";
 
-const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
+const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
   return (
     <Formik
       initialValues={artwork}
@@ -209,4 +209,4 @@ const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
   );
 };
 
-export default EditArtworkInfo;
+export default EditContestantInfo;
