@@ -17,6 +17,7 @@ const updateCoverImageLogic = logic(apiNamespace, ActionTypes.UPDATE_COVER_IMAGE
 const updatePosterImageLogic = logic(apiNamespace, ActionTypes.UPDATE_POSTER_IMAGE);
 const postFileChunkLogic = logic(apiNamespace, ActionTypes.POST_FILE_CHUNK);
 const publishArtworkLogic = logic(apiNamespace, ActionTypes.PUBLISH_ARTWORK);
+const removeArtworkFileLogic = logic(apiNamespace, ActionTypes.REMOVE_ARTWORK_FILE);
 
 export default [
   fetchMyAwardsLogic,
@@ -28,5 +29,6 @@ export default [
   updateCoverImageLogic,
   updatePosterImageLogic,
   postFileChunkLogic,
-  publishArtworkLogic
+  publishArtworkLogic,
+  removeArtworkFileLogic
 ];

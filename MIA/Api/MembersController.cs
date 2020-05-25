@@ -187,6 +187,41 @@ namespace MIA.Api {
       return Ok(_mapper.Map<ArtworkViewWithFilesDto>(updatedArtwork));
     }
 
+    [HttpDelete("file/{id}")]
+    [Authorize]
+    public async Task<IActionResult> DeleteFile(
+          [FromRoute] string id,
+          [FromServices] IAppUnitOfWork db,
+          [FromServices] IS3FileManager fileManager
+          ) {
+
+      var nominee = await _userResolver.CurrentUserAsync();
+      var file = db.MediaFiles
+                    .Include(a => a.ArtWork)
+                    .FirstOrDefault(a => a.Id == id);
+
+      if (file == null) {
+        throw new ApiException(ApiErrorType.NotFound, "file is not found");
+      }
+
+      if (file.ArtWork.NomineeId != nominee.Id) {
+        throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
+      }
+
+      if (file.ArtWork.UploadComplete) {
+        throw new ApiException(ApiErrorType.BadRequest, "Files upload complete, waiting for artwork review");
+      }
+
+      if (!file.ArtWork.AllowFileUpload) {
+        throw new ApiException(ApiErrorType.BadRequest, "File upload are not allowed");
+      }
+
+      db.MediaFiles.Remove(file);
+      await fileManager.DeleteFileAsync(file.FileKey);
+
+      return Ok(file.Id);
+    }
+
 
     [HttpPut("artwork/{id}/trailer")]
     [RequestSizeLimit(1024 * 1024 * 30)]
@@ -289,11 +324,11 @@ namespace MIA.Api {
     public async Task<IActionResult> GetArtowkrById([FromRoute] string id, [FromServices] IAppUnitOfWork db) {
       var nominee = await _userResolver.CurrentUserAsync();
       var artwork = await db.Artworks
-        .Include(a=>a.Award)
+        .Include(a => a.Award)
         .Include(a => a.Payment)
         .Include(a => a.MediaFiles)
         .FirstOrDefaultAsync(a => a.Id == id);
-        
+
       if (artwork.NomineeId != nominee.Id)
         throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
 
@@ -320,6 +355,10 @@ namespace MIA.Api {
 
         if (artwork.UploadComplete) {
           throw new ApiException(ApiErrorType.BadRequest, "Files upload complete, waiting for artwork review");
+        }
+
+        if (!artwork.AllowFileUpload) {
+          throw new ApiException(ApiErrorType.BadRequest, "File upload are not allowed");
         }
 
         var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.ArtWork, id);

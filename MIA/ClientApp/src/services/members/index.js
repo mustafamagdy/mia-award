@@ -9,6 +9,7 @@ export default function(/**@type {ApisauceInstance} */ api) {
   const updatePosterImage = ({ id, ...data }) => api.put(`/members/artwork/${id}/POSTER`, data);
   const postFileChunk = ({ id, ...data }) => api.post(`/members/artwork/${id}/files`, data);
   const publishArtwork = ({ id, ...data } ) =>api.put(`/members/artwork/${id}/publish`,data);
+  const removeArtworkFile = ({ id } ) =>api.delete(`/members/file/${id}`);
 
   return {
     members: {
@@ -21,7 +22,8 @@ export default function(/**@type {ApisauceInstance} */ api) {
       updateCoverImage,
       updatePosterImage,
       postFileChunk,
-      publishArtwork
+      publishArtwork,
+      removeArtworkFile
     }
   };
 }

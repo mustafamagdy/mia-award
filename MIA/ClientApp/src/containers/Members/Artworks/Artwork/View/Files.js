@@ -86,34 +86,49 @@ const Video = ({ url }) => (
   />
 );
 
-const File = ({
+export const File = ({
   file,
   coverUrl,
   posterUrl,
   itemClicked,
   projectName,
+  showRemove,
+  removeArtworkFile,
   ...props
 }) => {
   return (
-    <li
-      className="item"
-      key={file.id}
-      onClick={() => {
-        itemClicked && itemClicked(file);
-      }}
-    >
-      <div className="imgthumb">
-        <img src={coverUrl} />
-        <div className="mask">
-          <div className="content">
-            <LanguageContext.Consumer>
-              {({ locale }) => <p>{projectName[locale.code]}</p>}
-            </LanguageContext.Consumer>
-            {/* <Rating rate={show.rating} readonly /> */}
+    <LanguageContext.Consumer>
+      {({ locale }) => (
+        <li
+          className="item"
+          key={file.id}
+          onClick={() => {
+            itemClicked && itemClicked(file);
+          }}
+        >
+          <div className="imgthumb">
+            <img src={coverUrl} alt={projectName[locale.code]} />
+            <div className="mask">
+              <div className="content">
+                <LanguageContext.Consumer>
+                  {({ locale }) => <p>{projectName[locale.code]}</p>}
+                </LanguageContext.Consumer>
+                {/* <Rating rate={show.rating} readonly /> */}
+              </div>
+              {showRemove && (
+                <button
+                  onClick={() => {
+                    removeArtworkFile && removeArtworkFile(file);
+                  }}
+                >
+                  <Trans id="remove_file">Remove file</Trans>
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      </div>
-    </li>
+        </li>
+      )}
+    </LanguageContext.Consumer>
   );
 };
 

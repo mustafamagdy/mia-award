@@ -32,6 +32,7 @@ namespace MIA.Api {
 
   public class ArtworkFileDto {
     public string FileUrl { get; set; }
+    public string Id { get; set; }
     public int Size { get; set; }
   }
 

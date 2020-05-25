@@ -1751,8 +1751,60 @@
                 } /* item */
               } /* upload_list */
             } /* bottom_upload */
+            .item_show {
+              .title {
+                color: #ffffff;
+                font-size: 17px;
+                margin: 10px auto 20px;
+                span {
+                  display: inline-block;
+                  color: #386899;
+                  margin: 0 0 0 5px;
+                } /* span */
+              } /* title */
+              ul {
+                display: flex;
+                flex-wrap: wrap;
+                margin: 0 -15px;
+                li {
+                  padding: 15px;
+                  width: 25%;
+                  cursor: pointer;
+                  .imgthumb {
+                    overflow: hidden;
+                    border-radius: 10px;
+                    // height: 142px;
+                    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.4);
+                    border: 1px solid #21231e;
+                    opacity: 0.4;
+                    -webkit-transition: all 0.2s ease-in-out;
+                    -moz-transition: all 0.2s ease-in-out;
+                    -o-transition: all 0.2s ease-in-out;
+                    transition: all 0.2s ease-in-out;
+                    img {
+                      width: 100%;
+                      height: 100%;
+                    } /* img */
+                  } /* imgthumb */
+                  p {
+                    display: block;
+                    margin: 10px 0;
+                    text-align: center;
+                    font-size: 16px;
+                    color: #fff;
+                    text-transform: capitalize;
+                    opacity: 0.4;
+                    -webkit-transition: all 0.2s ease-in-out;
+                    -moz-transition: all 0.2s ease-in-out;
+                    -o-transition: all 0.2s ease-in-out;
+                    transition: all 0.2s ease-in-out;
+                  } /* p */
+                } /* li */
+              } /* ul */
+            } /* item_show */
           } /* tab_upload_videos */
         } /* tab_content */
+      
       } /* stage_two */
       .profile_area {
         margin: 20px;

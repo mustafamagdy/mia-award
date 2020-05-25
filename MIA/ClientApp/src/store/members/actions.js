@@ -13,7 +13,8 @@ const { Types, Creators } = createActions(
     postFileChunk: { args: ["payload"], meta: { async: true } },
     editArtwork: {},
     switchToView: {},
-    publishArtwork: { args: ["payload"], meta: { async: true } }
+    publishArtwork: { args: ["payload"], meta: { async: true } },
+    removeArtworkFile: { args: ["payload"], meta: { async: true } }
   },
   {
     prefix: "@app/members/"

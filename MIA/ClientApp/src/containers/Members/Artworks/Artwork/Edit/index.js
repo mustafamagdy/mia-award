@@ -19,6 +19,8 @@ const EditArtwork = ({
   match: {
     params: { id },
   },
+  location: { search },
+  removeArtworkFile,
   fetchArtworkWithDetails,
   ...props
 }) => {
@@ -42,14 +44,28 @@ const EditArtwork = ({
         t.push("files");
         setTabs(t);
       }
-
-      setActiveTabKey("info");
     }
-  }, [artwork, tabs]);
+
+    const tabKey = new URLSearchParams(search).get("tabKey");
+    if (tabKey != undefined && tabKey !== activeTabKey) {
+      setActiveTabKey(tabKey);
+      setActiveIndex(tabs.indexOf(tabKey));
+    } else if (tabKey == undefined) {
+      setActiveTabKey("info");
+      setActiveIndex(0);
+    } else if (tabKey == activeTabKey) {
+      setActiveIndex(tabs.indexOf(tabKey));
+    }
+    
+  }, [artwork, tabs, search]);
 
   const handleActiveTab = (tabKey) => {
-    setActiveTabKey(tabKey);
-    setActiveIndex(tabs.indexOf(tabKey));
+    // setActiveTabKey(tabKey);
+    // setActiveIndex(tabs.indexOf(tabKey));
+
+    history.push({
+      search: `?tabKey=${tabKey}`,
+    });
   };
 
   return (
@@ -91,9 +107,9 @@ const EditArtwork = ({
           )}
           {artwork.canUploadFiles && activeTabKey === "files" && (
             <Files
-              artworkId={artwork && artwork.id}
-              files={artwork && artwork.files}
+              artwork={artwork}
               active={activeTabKey === "files"}
+              removeArtworkFile={removeArtworkFile}
             />
           )}
         </>

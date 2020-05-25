@@ -3,6 +3,8 @@ import classNames from "classnames";
 import UploadDropZone from "components/Forms/UploadDropZone";
 import { Uploader, ProgressBar } from "components/Forms";
 import config from "config";
+import { File } from "../View/Files";
+
 const UploadingProgress = ({ progress, file, props }) => {
   return (
     <div className="item">
@@ -20,7 +22,7 @@ const UploadingProgress = ({ progress, file, props }) => {
   );
 };
 
-const Files = ({ active, artworkId }, props) => {
+const Files = ({ active, artwork, removeArtworkFile }, props) => {
   const [files, setFiles] = useState([]);
   return (
     <div className={classNames("tab_content tab_upload_videos", { active })}>
@@ -58,7 +60,7 @@ const Files = ({ active, artworkId }, props) => {
                     key={f.name}
                     uploadChunkApi={window.api.members.postFileChunk}
                     dir={"Artwork"}
-                    dirId={artworkId}
+                    dirId={artwork.id}
                     file={f}
                   >
                     <UploadingProgress file={f} />
@@ -67,6 +69,22 @@ const Files = ({ active, artworkId }, props) => {
               })}
           </div>
         </div>
+      </div>
+      <div className="item_show">
+        <ul className="items">
+          {artwork &&
+            artwork.files.map((f, index) => (
+              <File
+                projectName={artwork.projectName}
+                posterUrl={artwork.posterUrl}
+                coverUrl={artwork.coverImageUrl}
+                file={f}
+                key={index}
+                showRemove
+                removeArtworkFile={removeArtworkFile}
+              />
+            ))}
+        </ul>
       </div>
     </div>
   );

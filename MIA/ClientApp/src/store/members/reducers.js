@@ -72,6 +72,13 @@ const publishArtwork = (state, action) => {
 const publishArtworkSuccess = (state, action) => {
   return produce(state, (draft) => {});
 };
+const removeFileSuccess = (state, action) => {
+  return produce(state, (draft) => {
+    draft.artwork.files = state.artwork.files.filter(
+      (a) => a.id != action.payload
+    );
+  });
+};
 
 export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_MY_AWARDS_SUCCESS]: fetchMyAwardsSuccess,
@@ -87,4 +94,5 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.SWITCH_TO_VIEW]: switchToView,
   [ActionTypes.PUBLISH_ARTWORK]: publishArtwork,
   [ActionTypes.PUBLISH_ARTWORK_SUCCESS]: publishArtworkSuccess,
+  [ActionTypes.REMOVE_ARTWORK_FILE_SUCCESS]: removeFileSuccess,
 });
