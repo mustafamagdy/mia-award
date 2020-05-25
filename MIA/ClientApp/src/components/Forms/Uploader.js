@@ -88,8 +88,8 @@ const Uploader = ({
 };
 
 export const ProgressBar = ({ progress, ...rest }) => (
-  <div class="progress_bar">
-    <div class="progress_inside" style={{ width: `${progress}%` }}></div>
+  <div className="progress_bar">
+    <div className="progress_inside" style={{ width: `${progress}%` }}></div>
   </div>
 );
 

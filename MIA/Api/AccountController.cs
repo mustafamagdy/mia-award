@@ -8,6 +8,7 @@ using AutoMapper;
 using MIA.Api.Base;
 using MIA.Authorization.Entities;
 using MIA.Dto.Auth;
+using MIA.Exceptions;
 using MIA.Infrastructure.Options;
 using MIA.Middlewares;
 using MIA.Models.Entities;
@@ -28,9 +29,6 @@ using X.PagedList;
 
 namespace MIA.Api {
 
-  /// <summary>
-  /// User account operations controller
-  /// </summary>
 #if (Versioning)
   [ApiVersion("1.0")]
 #endif
@@ -38,12 +36,7 @@ namespace MIA.Api {
   public class AccountController : BaseApiController<AccountController> {
     private readonly IStringLocalizer<AccountController> _Locale;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="mapper"></param>
-    /// <param name="logger"></param>
-    /// <param name="_locale"></param>
+
     public AccountController(
       IMapper mapper,
       ILogger<AccountController> logger,
@@ -52,16 +45,6 @@ namespace MIA.Api {
       this._Locale = _locale;
     }
 
-    /// <summary>
-    /// SignUp using email and password
-    /// </summary>
-    /// <param name="culture"></param>
-    /// <param name="signupData"></param>
-    /// <param name="userManager"></param>
-    /// <param name="emailSender"></param>
-    /// <param name="templateParser"></param>
-    /// <param name="urlHelper"></param>
-    /// <returns></returns>
     [HttpPost("nominee")]
     [SwaggerOperation("SignUp using email and password as nominee")]
     public async Task<IActionResult> SignupAsNominee(
@@ -73,7 +56,7 @@ namespace MIA.Api {
       [FromServices] IApiUrlHelper urlHelper,
       [FromServices] IAppUnitOfWork db
       ) {
-      
+
       Nominee user = signupData.MapTo<Nominee>();
       IdentityResult result = await userManager.CreateAsync(user, signupData.Password);
 
@@ -93,15 +76,14 @@ namespace MIA.Api {
 
         //send confirmation email
         await emailSender.SendEmailAsync(user.Email, _Locale["email_confirm_subject"], htmlMessage);
-        
+
         //add to nominee role
         await userManager.AddToRoleAsync(user, PredefinedRoles.Nominee.ToString());
 
         //add user module for nominee
         var allowedModules = new[] { SystemModules.Nominee };
         var modules = allowedModules[0];
-        for (int i = 1; i < allowedModules.Length; i++)
-        {
+        for (int i = 1; i < allowedModules.Length; i++) {
           modules |= allowedModules[i];
         }
 
@@ -112,29 +94,18 @@ namespace MIA.Api {
 
       } else {
         _logger.LogError("Failed to create user ", string.Join(',', result.Errors.Select(x => x.Description)));
-        return ValidationError(result.Errors);
+        throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
       }
     }
 
-    /// <summary>
-    /// SignUp using email and password
-    /// </summary>
-    /// <param name="mobileRequestData"></param>
-    /// <returns></returns>
+
     [HttpPost("mobile")]
     [SwaggerOperation("SignUp using email and password")]
     public async Task<IActionResult> CreateUserByMobile([FromBody] SignUpByMobileRequest mobileRequestData) {
       return Ok(await Task.FromResult("hab3tlk ya m3lm 3la " + mobileRequestData.MobileNumber));
     }
 
-    /// <summary>
-    /// Verify user email using the verification token sent by email
-    /// </summary>
-    /// <param name="culture"></param>
-    /// <param name="userRequest"></param>
-    /// <param name="userManager"></param>
-    /// <param name="emailSender"></param>
-    /// <returns></returns>
+
     [HttpPost("verifyEmail")]
     public async Task<IActionResult> VerifyEmail(
       [FromHeader] string culture,
@@ -155,24 +126,12 @@ namespace MIA.Api {
           await emailSender.SendEmailAsync(user.Email, _Locale["welcome_email_subject"], htmlMessage);
           return Ok(user.Id);
         } else {
-          return ValidationError(result.Errors);
+          throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
         }
       } else {
-        return NotFound(user);
+        throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
     }
-
-    /// <summary>
-    /// Reset password reset email with token
-    /// </summary>
-    /// <param name="culture"></param>
-    /// <param name="forgotPass"></param>
-    /// <param name="userManager"></param>
-    /// <param name="emailSender"></param>
-    /// <param name="templateParser"></param>
-    /// <param name="emailTemplateProvider"></param>
-    /// <param name="urlHelper"></param>
-    /// <returns></returns>
 
     [HttpPost("forgotPassword")]
     public async Task<IActionResult> ForgotPassword(
@@ -200,20 +159,10 @@ namespace MIA.Api {
         await emailSender.SendEmailAsync(user.Email, _Locale["reset_password_request_subject"], htmlMessage);
         return Ok();
       } else {
-        return NotFound404("User doesn't exist");
+        throw new ApiException(ApiErrorType.NotFound, "User doesn't exist");
       }
     }
 
-    /// <summary>
-    /// Reset password for user using token
-    /// </summary>
-    /// <param name="culture"></param>
-    /// <param name="resetPassword"></param>
-    /// <param name="userManager"></param>
-    /// <param name="emailSender"></param>
-    /// <param name="templateParser"></param>
-    /// <param name="emailTemplateProvider"></param>
-    /// <returns></returns>
     [HttpPost("resetPassword")]
     public async Task<IActionResult> ResetPassword(
       [FromHeader] string culture,
@@ -236,10 +185,10 @@ namespace MIA.Api {
           await emailSender.SendEmailAsync(user.Email, _Locale["your_password_reset_subject"], htmlMessage);
           return Ok();
         } else {
-          return ValidationError(result.Errors);
+          throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
         }
       } else {
-        return NotFound();
+        throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
     }
 
@@ -258,7 +207,7 @@ namespace MIA.Api {
 
       var username = context.HttpContext?.User?.Identity?.Name;
       if (username == null) {
-        return Unauthorized401("Username not found");
+        throw new ApiException(ApiErrorType.Unauthorized, "Username not found");
       }
 
       var user = await userManager.FindByNameAsync(username);
@@ -274,7 +223,7 @@ namespace MIA.Api {
         await emailSender.SendEmailAsync(user.Email, _Locale["your_password_changed_subject"], htmlMessage);
         return Ok();
       } else {
-        return ValidationError(result.Errors);
+        throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
       }
 
     }
@@ -290,13 +239,13 @@ namespace MIA.Api {
 
       var username = context.HttpContext?.User?.Identity?.Name;
       if (username == null) {
-        return Unauthorized401("Username not found");
+        throw new ApiException(ApiErrorType.Unauthorized, "Username not found");
       }
 
       var user = await userManager.FindByNameAsync(username);
       var profile = _mapper.Map<UserProfileDto>(user);
       var userAvatar = db.UserImages.FirstOrDefault(a => a.UserId == user.Id);
-      profile.AvatarImageUrl = userAvatar == null ? "" : $"/r/{userAvatar.Id}";
+      profile.AvatarImageUrl = userAvatar == null ? "" : $"/r/{userAvatar.Id}?w=114&h=114&mode=stretch";
 
       return IfFound(profile);
     }
@@ -316,13 +265,16 @@ namespace MIA.Api {
 
       var username = context.HttpContext?.User?.Identity?.Name;
       if (username == null) {
-        return Unauthorized401("Username not found");
+        throw new ApiException(ApiErrorType.Unauthorized, "Username not found");
       }
 
-      var user = await userManager.FindByNameAsync(username);
-      _mapper.Map(dto, user, typeof(UpdateUserProfileDto), typeof(AppUser));
+      Nominee user = (Nominee)await userManager.FindByNameAsync(username);
+      _mapper.Map(dto, user, typeof(UpdateUserProfileDto), typeof(Nominee));
       user.PhoneNumber = dto.PhoneNumber;
       user.FullName = dto.FullName;
+      user.Email = dto.Email;
+      user.JobTitle = dto.JobTitle;
+
 
       UserImage avatar = db.UserImages.FirstOrDefault(a => a.UserId == user.Id);
       if (dto.Avatar != null && dto.Avatar.Length > 0) {
@@ -331,7 +283,7 @@ namespace MIA.Api {
 
           string validationError = "";
           if (ValidateImage(limitOptions.Value, memorySteam, out validationError) == false) {
-            return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
 
           if (avatar == null) {
@@ -356,12 +308,66 @@ namespace MIA.Api {
       await userManager.UpdateAsync(user);
       var result = _mapper.Map<UserProfileDto>(user);
       if (avatar != null) {
-        result.AvatarImageUrl = $"/r/{avatar.Id}";
-      } else {
-        //add placeholder
-        //result.AvatarImageUrl = $"/r/0";
+        result.AvatarImageUrl = $"/r/{avatar.Id}?w=114&h=114&mode=stretch";
+      } 
+
+      return Ok(result);
+    }
+
+
+    [HttpPost("avatar")]
+    [Authorize()]
+    public async Task<IActionResult> UpdateUserAvatar(
+     [FromServices] IHttpContextAccessor context,
+     [FromServices] UserManager<AppUser> userManager,
+     [FromServices] IAppUnitOfWork db,
+     [FromServices] IOptions<UploadLimits> limitOptions,
+     [FromServices] IHostingEnvironment env,
+     [FromForm] UpdateUserAvatarDto dto
+     ) {
+
+      var username = context.HttpContext?.User?.Identity?.Name;
+      if (username == null) {
+        throw new ApiException(ApiErrorType.Unauthorized, "Username not found");
       }
 
+      var user = await userManager.FindByNameAsync(username);
+
+      UserImage avatar = db.UserImages.FirstOrDefault(a => a.UserId == user.Id);
+      if (dto.Avatar != null && dto.Avatar.Length > 0) {
+        using (var memorySteam = new MemoryStream()) {
+          dto.Avatar.CopyTo(memorySteam);
+
+          string validationError = "";
+          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
+            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
+          }
+
+          if (avatar == null) {
+            avatar = new UserImage { UserId = user.Id };
+            await db.UserImages.AddAsync(avatar);
+          }
+          avatar.Data = memorySteam.ToArray();
+          //delete all images in disk with that Id if exists
+          try {
+            var imageDir = Path.Combine(env.WebRootPath, ImageProxyMiddleware.CACHED_IMAGE_DIR);
+            var files = Directory.GetFiles(imageDir, $"{avatar.Id}*");
+            foreach (var file in files) {
+              System.IO.File.Delete(file);
+            }
+          } catch (Exception ex) {
+            _logger.LogError(ex, "Failed to delete user images ");
+          }
+          user.AvatarImage = avatar;
+        }
+      }
+
+      await userManager.UpdateAsync(user);
+      var result = _mapper.Map<UserProfileDto>(user);
+      if (avatar != null) {
+        result.AvatarImageUrl = $"/r/{avatar.Id}?w=114&h=114&mode=stretch";
+      }
+      
       return Ok(result);
     }
 

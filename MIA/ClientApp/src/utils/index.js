@@ -31,9 +31,8 @@ Object.defineProperty(Array.prototype, "chunk", {
   }
 });
 
-export const fileToBase64 = (filename, filepath) => {
+export const fileToBase64 = (fileData) => {
   return new Promise(resolve => {
-    var file = new File([filename], filepath);
     var reader = new FileReader();
     // Read file content on file loaded event
     reader.onload = function(event) {
@@ -43,6 +42,6 @@ export const fileToBase64 = (filename, filepath) => {
     };
 
     // Convert data to base64
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(fileData);
   });
 };

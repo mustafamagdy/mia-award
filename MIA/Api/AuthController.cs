@@ -20,33 +20,17 @@ using MIA.Dto.Auth;
 using MIA.Middlewares.Auth;
 using MIA.ORMContext.Uow;
 using Newtonsoft.Json;
+using MIA.Exceptions;
 
-namespace MIA.Api
-{
-  /// <summary>
-  /// Authentication controller for different identity operations
-  /// </summary>
+namespace MIA.Api {
 #if (Versioning)
   [ApiVersion("1.0")]
 #endif
   [Route("api/auth")]
-  public class AuthController : BaseApiController<AuthController>
-  {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="logger"></param>
+  public class AuthController : BaseApiController<AuthController> {
+
     public AuthController(IMapper mapper, [FromServices] ILogger<AuthController> logger) : base(logger, mapper) { }
 
-    /// <summary>
-    /// Login using username and password
-    /// </summary>
-    /// <param name="userIp"></param>
-    /// <param name="loginData">Login details</param>
-    /// <param name="signInManager"></param>
-    /// <param name="userManager"></param>
-    /// <param name="jwtOptions"></param>
-    /// <returns></returns>
     [HttpPost("login-nominee")]
     [SwaggerOperation("Login user using username and password")]
     public async Task<IActionResult> Login(
@@ -56,31 +40,26 @@ namespace MIA.Api
       [FromServices] SignInManager<AppUser> signInManager,
       [FromServices] UserManager<AppUser> userManager,
       [FromServices] IOptions<JwtOptions> jwtOptions,
-      [FromServices] IUserClaimsPrincipalFactory<AppUser> claimFactory)
-    {
+      [FromServices] IUserClaimsPrincipalFactory<AppUser> claimFactory) {
 
       JwtOptions jwtConfig = jwtOptions?.Value;
-      if (jwtConfig == null)
-      {
+      if (jwtConfig == null) {
         throw new ArgumentException("jwt not configured correctly", nameof(jwtOptions));
       }
 
       AppUser user = await userManager.FindByNameAsync(loginData.UserName);
-      if (user == null)
-      {
-        return NotFound404("invalid credentials");
+      if (user == null) {
+        throw new ApiException(ApiErrorType.NotFound, "invalid credentials");
       }
 
       bool canSignIn = await signInManager.CanSignInAsync(user);
-      if (!canSignIn)
-      {
-        return Forbid403("User cannot login");
+      if (!canSignIn) {
+        throw new ApiException(ApiErrorType.Forbidden, "User cannot login");
       }
 
       var nominee = await db.Nominees.FindAsync(user.Id);
-      if (nominee == null)
-      {
-        return NotFound404("user is not nominee, or not allowed");
+      if (nominee == null) {
+        throw new ApiException(ApiErrorType.NotFound, "user is not nominee, or not allowed");
       }
 
       Microsoft.AspNetCore.Identity.SignInResult signInResult = await signInManager.PasswordSignInAsync(user,
@@ -88,14 +67,13 @@ namespace MIA.Api
         isPersistent: false,
         lockoutOnFailure: false);
 
-      if (signInResult.IsLockedOut)
-      {
-        return Unauthorized401("User is locked");
+      if (signInResult.IsLockedOut) {
+        throw new ApiException(ApiErrorType.Unauthorized, "User is locked");
+      } else if (!signInResult.Succeeded) {
+        throw new ApiException(ApiErrorType.Forbidden, "User is not allowed");
       }
-      else if (!signInResult.Succeeded)
-      {
-        return Forbid403("User is not allowed");
-      }
+
+      var userAvatar = db.UserImages.FirstOrDefault(a => a.UserId == user.Id);
 
       ClaimsPrincipal res = await claimFactory.CreateAsync(user);
       var allClaims = new List<Claim>(res.Claims);
@@ -106,6 +84,7 @@ namespace MIA.Api
       allClaims.Add(new Claim("fullName", user.FullName));
       allClaims.Add(new Claim("jobTitle", nominee.JobTitle ?? ""));
       allClaims.Add(new Claim("address", nominee.Address ?? ""));
+      allClaims.Add(new Claim("avatarImageUrl", userAvatar == null ? "" : $"/r/{userAvatar.Id}?w=114&h=114&mode=stretch"));
 
       SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecretKey));
       SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -119,29 +98,19 @@ namespace MIA.Api
       );
 
       string token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
-      //we don't need to store token, we only store deactivated tokens
 
       return Ok(token);
     }
 
-    /// <summary>
-    /// Logout and deactivate user auth token
-    /// </summary>
-    /// <param name="authorization"></param>
-    /// <param name="signinManager"></param>
-    /// <param name="tokenManager"></param>
-    /// <returns></returns>
     [HttpPost("logout")]
     [Authorize]
     public async Task<IActionResult> Logout(
       [FromHeader] string authorization,
       [FromServices] SignInManager<AppUser> signinManager,
-      [FromServices] IAuthTokenManager tokenManager)
-    {
+      [FromServices] IAuthTokenManager tokenManager) {
 
-      if (string.IsNullOrEmpty(authorization))
-      {
-        return ValidationError(new[] { new IdentityError { Code = "TOKEN_NOT_FOUND", Description = "No token provided" } });
+      if (string.IsNullOrEmpty(authorization)) {
+        throw new ApiException(ApiErrorType.BadRequest, "No token provided");
       }
 
       await signinManager.SignOutAsync();
@@ -150,15 +119,9 @@ namespace MIA.Api
       return Ok();
     }
 
-    /// <summary>
-    /// Refresh token, and discard the old one
-    /// </summary>
-    /// <param name="tokenData"></param>
-    /// <returns></returns>
     [HttpPost]
     [SwaggerOperation("Refresh token, and discard the old one")]
-    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest tokenData)
-    {
+    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest tokenData) {
       return await Task.FromResult(Ok("done bardo ya bashaah"));
     }
 

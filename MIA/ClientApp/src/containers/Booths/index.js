@@ -51,7 +51,7 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
 
     //parse files to base64
     // if (values.payment.paymentMethod == "offline") {
-    const receipt = await fileToBase64(values.payment.receipt[0].name, values.payment.receipt[0]);
+    const receipt = await fileToBase64(values.payment.receipt[0]);
     values.payment.receiptFileName = values.payment.receipt[0].name;
     values.payment.receipt = receipt;
     // } else {

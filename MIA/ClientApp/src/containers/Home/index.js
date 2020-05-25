@@ -28,6 +28,7 @@ import Homepage from "./Homepage";
 import Award from "../Award";
 import Terms from "../Pages/Terms";
 import Policies from "../Pages/Policies";
+import Artworks from "../Members/Artworks";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -41,7 +42,7 @@ class Home extends React.Component {
       <React.Fragment>
         <Switch>
           {/* General website */}
-          <Route path="/test" component={TestUpload} />
+          <Route path="/test" component={Artworks} />
 
           <Route exact path="/" component={Homepage} />
           <Route path="/about-us" component={AboutUs} />
@@ -54,6 +55,7 @@ class Home extends React.Component {
           <Route exact path="/shows" component={Shows} />
           <Route path="/shows/:id" component={ShowsView} />
           <Route path="/award/:id" component={Award} />
+          <Route path="/contestant/:id" component={ShowsView} />
 
           {/* browse media */}
           <Route path="/media" component={MediaBrowser} />
@@ -63,7 +65,6 @@ class Home extends React.Component {
           <Route path="/account/checkYourEmail" component={CheckYourEmail} />
           <Route path="/account/profile" component={Profile} />
           <Route path="/account/confirm" component={ConfirmEmail} />
-          {/* <Route path="/account/resetPassword" component={ResetPasswordByEmail} /> */}
 
           {/* booths */}
           <Route path="/booths" component={Booths} />

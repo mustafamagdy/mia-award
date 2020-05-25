@@ -1,5 +1,5 @@
 import { createLogic } from "redux-logic";
-const normalizeActionName = actionName =>
+const normalizeActionName = (actionName) =>
   actionName
     .toLowerCase()
     .split("/")
@@ -8,7 +8,8 @@ const normalizeActionName = actionName =>
     .map((a, i) => (i > 0 ? a.charAt(0).toUpperCase() + a.substring(1) : a))
     .join("");
 
-export const generateLogic = (apiNamespace, actionName, successCb, failCb) => {
+export const logic = (apiNamespace, actionName, successCb, failCb) => {
+  
   const api_name = normalizeActionName(actionName);
   const logic = createLogic({
     type: actionName,
@@ -16,12 +17,13 @@ export const generateLogic = (apiNamespace, actionName, successCb, failCb) => {
 
     async process({ getState, action, api }, dispatch, done) {
       try {
+        _validateApi(api, apiNamespace, api_name, action);
         const res = await api[apiNamespace][api_name](action.payload);
         if (!res.ok) {
           dispatch({
             type: `${actionName}_FAIL`,
             payload: res.data.Error || res.data.Message || "Unknown Error",
-            error: true
+            error: true,
           });
           failCb && failCb(dispatch);
         } else {
@@ -29,13 +31,22 @@ export const generateLogic = (apiNamespace, actionName, successCb, failCb) => {
           successCb && successCb(dispatch, res.data);
         }
       } catch (err) {
+        console.error("Unhandled error in logic ", err);
         dispatch({ type: `${actionName}_FAIL`, payload: err, error: true });
         failCb && failCb(dispatch);
       }
       done();
-    }
+    },
   });
   return logic;
 };
 
-export default generateLogic;
+function _validateApi(api, apiNamespace, api_name, action) {
+  //todo: validatte api
+  const func = api[apiNamespace][api_name];
+  if(!func) {
+    debugger;
+  }
+}
+
+export default logic;

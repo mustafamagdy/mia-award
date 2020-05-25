@@ -9,7 +9,7 @@ namespace MIA.Models.Entities {
     public string FileKey { get; set; }
     public string FileUrl { get; set; }
 
-    public ArtWork ArtWork { get; set; }
+    public Artwork ArtWork { get; set; }
     public string ArtWorkId { get; set; }
 
     public HashSet<JudgeComment> Comments { get; set; }

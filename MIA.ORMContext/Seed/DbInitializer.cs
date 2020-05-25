@@ -206,24 +206,24 @@ namespace MIA.ORMContext.Seed
 
     private static async Task SeedDemoArtworks(IAppUnitOfWork db, IS3FileManager fileManager)
     {
-      var artworksCount = db.ArtWorks.Count();
+      var artworksCount = db.Artworks.Count();
       if (artworksCount >= 30) return;
 
       var _faker_en = new Faker("en");
       var _faker_ar = new Faker("ar");
-      var awards = db.ArtworkAwards.ToArray();
+      var awards = db.Awards.ToArray();
       var client = new HttpClient();
 
       for (int i = 0; i < 30; i++)
       {
-        var artwork = new ArtWork
+        var artwork = new Artwork
         {
           AwardId = _faker_en.Random.ArrayElement(awards).Id,
           //FileCount = 3,
           UploadComplete = true,
         };
 
-        await db.ArtWorks.AddAsync(artwork);
+        await db.Artworks.AddAsync(artwork);
         var file = await client.GetAsync(_faker_en.Image.PicsumUrl(400, 600));
         var fileStream = await file.Content.ReadAsStreamAsync();
 
@@ -239,7 +239,7 @@ namespace MIA.ORMContext.Seed
         //artwork.TrailerUrl = trailerUrl;
         //artwork.TrailerKey = trailerKey;
 
-        db.ArtWorks.Update(artwork);
+        db.Artworks.Update(artwork);
       }
 
     }
@@ -537,19 +537,19 @@ namespace MIA.ORMContext.Seed
 
     private static async Task SeedAwards(IAppUnitOfWork db, HtmlEncoder encoder)
     {
-      List<ArtworkAward> awards = db.ArtworkAwards.ToList();
+      List<Award> awards = db.Awards.ToList();
       var filename = "./seed/awards.json";
       if (File.Exists(filename))
       {
         using (StreamReader r = new StreamReader(filename))
         {
-          var newAwards = new List<ArtworkAward>();
+          var newAwards = new List<Award>();
           string json = r.ReadToEnd();
-          var listAwards = new List<ArtworkAward>();
+          var listAwards = new List<Award>();
           JArray array = JArray.Parse(json);
           foreach (JToken j in array)
           {
-            listAwards.Add(new ArtworkAward {
+            listAwards.Add(new Award {
               Code = ((JValue)j["Code"]).Value<string>(),
               ArtworkFee = ((JValue)j["ArtworkFee"]).Value<decimal>(),
               TrophyImageKey = ((JValue)j["TrophyImageKey"]).Value<string>(),
@@ -567,7 +567,7 @@ namespace MIA.ORMContext.Seed
           }
           if (newAwards.Any())
           {
-            await db.ArtworkAwards.AddRangeAsync(newAwards);
+            await db.Awards.AddRangeAsync(newAwards);
           }
         }
       }

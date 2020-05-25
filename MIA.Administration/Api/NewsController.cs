@@ -19,6 +19,7 @@ using MIA.Administration.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using MIA.Mvc.Core;
 using MIA.Infrastructure;
+using MIA.Exceptions;
 
 namespace MIA.Administration.Api {
 
@@ -48,10 +49,10 @@ namespace MIA.Administration.Api {
       var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
       var newsItem = await db.News.FindAsync(resultDto.Id);
       if (dto.Poster != null && dto.Poster.Length > 0) {
-        using (var memorySteam = new MemoryStream(dto.Poster)) { 
+        using (var memorySteam = new MemoryStream(dto.Poster)) {
           string validationError = "";
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
-            return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
 
           string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.News, newsItem.Id, dto.PosterFileName);
@@ -76,9 +77,8 @@ namespace MIA.Administration.Api {
 
 
           string validationError = "";
-          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
-          {
-            return ValidationError(System.Net.HttpStatusCode.BadRequest, validationError);
+          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
+            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
           bool isNew = string.IsNullOrEmpty(newsItem.PosterId);
           if (!isNew) {
@@ -102,7 +102,7 @@ namespace MIA.Administration.Api {
       var newsItem = await db.News.FirstOrDefaultAsync(a => a.Id == resultDto.Id);
       return IfFound(_mapper.Map<NewsDto>(newsItem));
     }
-     
+
   }
 
 }

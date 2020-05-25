@@ -6,8 +6,10 @@ export default function(/**@type {ApisauceInstance} */ api) {
   const fetchArtworkWithDetails = id => api.get(`/members/artwork/${id}`);
   const updateTrailer = ({ id, ...data }) => api.put(`/members/artwork/${id}/trailer`, data);
   const updateCoverImage = ({ id, ...data }) => api.put(`/members/artwork/${id}/cover`, data);
+  const updatePosterImage = ({ id, ...data }) => api.put(`/members/artwork/${id}/POSTER`, data);
   const postFileChunk = ({ id, ...data }) => api.post(`/members/artwork/${id}/files`, data);
   const publishArtwork = ({ id, ...data } ) =>api.put(`/members/artwork/${id}/publish`,data);
+  const removeArtworkFile = ({ id } ) =>api.delete(`/members/file/${id}`);
 
   return {
     members: {
@@ -18,8 +20,10 @@ export default function(/**@type {ApisauceInstance} */ api) {
       fetchArtworkWithDetails,
       updateTrailer,
       updateCoverImage,
+      updatePosterImage,
       postFileChunk,
-      publishArtwork
+      publishArtwork,
+      removeArtworkFile
     }
   };
 }

@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 
 namespace MIA.ORMContext.Mappings {
-  internal class ArtworkVotingCriteriaConfiguration : IEntityTypeConfiguration<ArtworkVotingCriteria> {
-    public void Configure(EntityTypeBuilder<ArtworkVotingCriteria> builder) {
+  internal class ArtworkVotingCriteriaConfiguration : IEntityTypeConfiguration<VotingCriteria> {
+    public void Configure(EntityTypeBuilder<VotingCriteria> builder) {
 
       builder.HasKey(x => x.Id);
       builder.Property(x => x.Id)

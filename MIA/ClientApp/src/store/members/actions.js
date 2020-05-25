@@ -9,10 +9,12 @@ const { Types, Creators } = createActions(
     fetchArtworkWithDetails: { args: ["payload"], meta: { async: true } },
     updateTrailer: { args: ["payload"], meta: { async: true } },
     updateCoverImage: { args: ["payload"], meta: { async: true } },
+    updatePosterImage: { args: ["payload"], meta: { async: true } },
     postFileChunk: { args: ["payload"], meta: { async: true } },
     editArtwork: {},
     switchToView: {},
-    publishArtwork: { args: ["payload"], meta: { async: true } }
+    publishArtwork: { args: ["payload"], meta: { async: true } },
+    removeArtworkFile: { args: ["payload"], meta: { async: true } }
   },
   {
     prefix: "@app/members/"

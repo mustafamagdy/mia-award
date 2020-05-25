@@ -40,21 +40,10 @@ namespace MIA.ORMContext.Mappings
         .ValueGeneratedOnAdd();
     }
   }
-  internal class ArtworkCategoryConfiguration : IEntityTypeConfiguration<ArtworkCategory>
+  
+  internal class ArtworkGenreConfiguration : IEntityTypeConfiguration<Genre>
   {
-    public void Configure(EntityTypeBuilder<ArtworkCategory> builder)
-    {
-
-      builder.HasKey(x => x.Id);
-      builder.Property(x => x.Id)
-        .HasValueGenerator<SeqIdValueGenerator>()
-        .ValueGeneratedOnAdd();
-    }
-  }
-
-  internal class ArtworkGenreConfiguration : IEntityTypeConfiguration<ArtworkGenre>
-  {
-    public void Configure(EntityTypeBuilder<ArtworkGenre> builder)
+    public void Configure(EntityTypeBuilder<Genre> builder)
     {
 
       builder.HasKey(x => x.Id);

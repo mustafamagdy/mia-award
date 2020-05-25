@@ -15,9 +15,6 @@ using MIA.Exceptions;
 
 namespace MIA.Middlewares {
 
-  /// <summary>
-  /// Api exception handler middle ware to handle unhandeled exceptions and wrap them in ApiException class
-  /// </summary>
   public class ApiExceptionHandlerMiddleware {
     private readonly RequestDelegate _next;
     private readonly IHostingEnvironment _env;
@@ -55,6 +52,16 @@ namespace MIA.Middlewares {
     public async Task Invoke(HttpContext context) {
       try {
         await _next(context);
+      } catch (ValidationException ex) {
+        var e = new ApiException(ex.Message, ex, ApiErrorType.BadRequest, ex.Errors);
+        context.Response.Clear();
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = (int)e.StatusCode;
+        var json = JsonConvert.SerializeObject(e, _jsonSettings);
+        await context.Response.WriteAsync(json);
+
+        _logger.LogError(ex, "Api error");
+        return;
       } catch (ApiException ex) {
         if (context.Response.HasStarted) {
           _logger.LogWarning("The response has already started, the http status code middleware will not be executed.");
@@ -66,6 +73,8 @@ namespace MIA.Middlewares {
         context.Response.StatusCode = (int)ex.StatusCode;
         var json = JsonConvert.SerializeObject(ex, _jsonSettings);
         await context.Response.WriteAsync(json);
+
+        _logger.LogError(ex, "Api error");
 
         return;
       } catch (Exception ex) {
@@ -79,10 +88,9 @@ namespace MIA.Middlewares {
         }
 
         _logger.LogError(ex, "Unhandled error");
+
         return;
       }
     }
   }
-
-
 }

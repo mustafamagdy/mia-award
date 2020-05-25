@@ -1,104 +1,175 @@
 import React, { useEffect } from "react";
 import classNames from "classnames";
-import { useRef } from "react";
-import { useForm } from "react-hook-form";
 import { useState } from "react";
-import ReactPlayer from "react-player";
 import { Uploader, ProgressBar } from "components/Forms";
-import UploadDropZone from "components/Forms/UploadDropZone";
+import { Trans } from "@lingui/macro";
+import { Trailer as TrailerView } from "../View/Trailer";
 
-const Trailer = ({ active, artworkId, trailerUrl, trailerPosterUrl, updateTrailer, coverUrl, ...props }) => {
-  const [files, setFiles] = useState([]);
-  const [cover, setCover] = useState([]);
+const Trailer = ({
+  active,
+  artworkId,
+  trailerUrl,
+  trailerPosterUrl,
+  updateTrailer,
+  coverUrl,
+  ...props
+}) => {
+  const [trailerFile, setTrailerFile] = useState(undefined);
+  const [coverFile, setCoverFile] = useState(undefined);
+  const [posterFile, setPosterFile] = useState(undefined);
+  const [trailerFileUploaded, setTrailerFileUploaded] = useState(false);
+  const [coverFileUploaded, setCoverFileUploaded] = useState(false);
+  const [posterFileUploaded, setPosterFileUploaded] = useState(false);
   const [progress, setProgress] = useState([]);
-  const [uploadMode, setuploadMode] = useState(!artworkId && !trailerUrl);
+  const [uploadMode, setuploadMode] = useState(false);
   const handleUpdateTrailer = () => {
     setuploadMode(false);
   };
+
   useEffect(() => {
-    setuploadMode(!artworkId && !trailerUrl);
-  }, [artworkId, trailerUrl]);
+    console.log("all files uploaded");
+  }, [trailerFileUploaded, coverFileUploaded, posterFileUploaded]);
 
   return (
     <div className={classNames("tab_content tab_trailer", { active })}>
       <div className="trailer_area">
         {!uploadMode ? (
-          <TrailerView url={trailerUrl} coverUrl={coverUrl} setuploadMode={setuploadMode} />
+          <div style={{ width: "100%" }}>
+            <TrailerView
+              url={trailerUrl}
+              coverUrl={coverUrl}
+              setuploadMode={setuploadMode}
+              uploadMode={uploadMode}
+            />
+            <button
+              onClick={() => {
+                setuploadMode(true);
+              }}
+            >
+              <Trans id="change_trailer">Change trailer</Trans>
+            </button>
+          </div>
         ) : (
-          <>
-            <UploadDropZone
-              setFiles={setFiles}
-              accept="video/*"
-              message="Upload your trailer"
-              multiple={false}
-              className="upload_trailer"
-              iconClass="icofont-plus"
-              style={{ width: "100%", height: "100%" }}
-            />
-            <br />
-            <UploadDropZone
-              className="upload_trailer"
-              iconClass="icofont-plus"
-              multiple={false}
-              accept="image/*"
-              setFiles={setFiles}
-              message="Upload your Poster"
-              style={{ width: "100%", height: "100%" }}
-            />
+          <div>
+            <div>
+              <span>
+                <Trans id="trailer">Trailer</Trans>
+              </span>
+              {trailerFile ? (
+                <Uploader
+                  key={trailerFile.name}
+                  uploadChunkApi={window.api.members.updateTrailer}
+                  dir={"Artwork"}
+                  dirId={artworkId}
+                  onProgress={(p) => {
+                    const indx = progress.findIndex(
+                      (a) => a.key == trailerFile.name
+                    );
+                    if (indx != -1) progress[indx].percent = p;
+                    else progress.push({ key: trailerFile.name, percent: p });
+                    setProgress([...progress]);
+                  }}
+                  onUploadComplete={() => {
+                    setTrailerFileUploaded(true);
+                  }}
+                  file={trailerFile}
+                >
+                  <FileDetails file={trailerFile} />
+                </Uploader>
+              ) : (
+                <input
+                  type="file"
+                  name="trailer"
+                  accept="video/*"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      setTrailerFile(e.target.files[0]);
+                    }
+                  }}
+                />
+              )}
+            </div>
+            <div>
+              <span>
+                <Trans id="cover">Cover</Trans>
+              </span>
+              {coverFile ? (
+                <Uploader
+                  key={coverFile.name}
+                  uploadChunkApi={window.api.members.updateCoverImage}
+                  dir={"Artwork"}
+                  dirId={artworkId}
+                  onProgress={(p) => {
+                    const indx = progress.findIndex(
+                      (a) => a.key == coverFile.name
+                    );
+                    if (indx != -1) progress[indx].percent = p;
+                    else progress.push({ key: coverFile.name, percent: p });
+                    setProgress([...progress]);
+                  }}
+                  onUploadComplete={() => {
+                    setCoverFileUploaded(true);
+                  }}
+                  file={coverFile}
+                >
+                  <FileDetails file={coverFile} />
+                </Uploader>
+              ) : (
+                <input
+                  type="file"
+                  name="coverFile"
+                  accept="image/*"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      setCoverFile(e.target.files[0]);
+                    }
+                  }}
+                />
+              )}
+            </div>
+            <div>
+              <span>
+                <Trans id="poster">Poster</Trans>
+              </span>
+              {posterFile ? (
+                <Uploader
+                  key={posterFile.name}
+                  uploadChunkApi={window.api.members.updatePosterImage}
+                  dir={"Artwork"}
+                  dirId={artworkId}
+                  onProgress={(p) => {
+                    const indx = progress.findIndex(
+                      (a) => a.key == posterFile.name
+                    );
+                    if (indx != -1) progress[indx].percent = p;
+                    else progress.push({ key: posterFile.name, percent: p });
+                    setProgress([...progress]);
+                  }}
+                  onUploadComplete={() => {
+                    setPosterFileUploaded(true);
+                  }}
+                  file={posterFile}
+                >
+                  <FileDetails file={posterFile} />
+                </Uploader>
+              ) : (
+                <input
+                  type="file"
+                  name="posterFile"
+                  accept="image/*"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      setPosterFile(e.target.files[0]);
+                    }
+                  }}
+                />
+              )}
+            </div>
 
-            <UploadDropZone
-              className="upload_trailer"
-              iconClass="icofont-plus"
-              multiple={false}
-              accept="image/*"
-              setFiles={setCover}
-              message="Upload your cover image"
-              style={{ width: "100%", height: "100%" }}
-            />
-
-            {files &&
-              files.map(f => {
-                return (
-                  <Uploader
-                    key={f.name}
-                    uploadChunkApi={window.api.members.updateTrailer}
-                    dir={"Artwork"}
-                    dirId={artworkId}
-                    onProgress={p => {
-                      const indx = progress.findIndex(a => a.key == f.name);
-                      if (indx != -1) progress[indx].percent = p;
-                      else progress.push({ key: f.name, percent: p });
-                      setProgress([...progress]);
-                    }}
-                    file={f}
-                  >
-                    <FileDetails file={f} />
-                  </Uploader>
-                );
-              })}
-
-            {cover &&
-              cover.map(f => {
-                return (
-                  <Uploader
-                    key={f.name}
-                    uploadChunkApi={window.api.members.updateCoverImage}
-                    dir={"Artwork"}
-                    dirId={artworkId}
-                    onProgress={p => {
-                      const indx = progress.findIndex(a => a.key == f.name);
-                      if (indx != -1) progress[indx].percent = p;
-                      else progress.push({ key: f.name, percent: p });
-                      setProgress([...progress]);
-                    }}
-                    file={f}
-                  >
-                    <FileDetails file={f} />
-                  </Uploader>
-                );
-              })}
-            {trailerUrl && uploadMode && <button onClick={handleUpdateTrailer}>Cancel update</button>}
-          </>
+            {uploadMode && (
+              <button onClick={handleUpdateTrailer}>Cancel update</button>
+            )}
+          </div>
         )}
       </div>
     </div>
@@ -111,39 +182,5 @@ const FileDetails = ({ progress, file, ...props }) => (
     <ProgressBar progress={progress} />
   </div>
 );
-
-const TrailerView = ({ url, coverUrl, setuploadMode, ...props }) => {
-  const handleUpdateTrailer = () => {
-    setuploadMode(true);
-  };
-  return (
-    <>
-      <ReactPlayer controls url={url} className="react-player" width="100%" height="100%" light={coverUrl} />
-      <div className="zoom_image">
-        <span>
-          <i className="icofont-ui-zoom-in"></i>
-        </span>
-      </div>
-      <button onClick={() => handleUpdateTrailer()}>Update Trailer</button>
-    </>
-  );
-};
-
-//todo: complete it with switching to progress bar
-const UploadZoneWithProgress = props => {
-  const [files, setFiles] = useState([]);
-
-  return (
-    <UploadDropZone
-      setFiles={setFiles}
-      accept="video/*"
-      message="Upload your trailer"
-      multiple={false}
-      className="upload_trailer"
-      iconClass="icofont-plus"
-      style={{ width: "100%", height: "100%" }}
-    />
-  );
-};
 
 export default Trailer;

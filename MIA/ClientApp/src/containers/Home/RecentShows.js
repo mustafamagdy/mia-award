@@ -10,7 +10,7 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 
 // import "sass/recent_shows.scss";
 
-const RecentShows = ({ fetchRecentShows, recentShows, categories, countries, generas, years, pageCount, ...props }) => {
+const RecentShows = ({ fetchRecentShows, recentShows,  countries, generas, years, pageCount, ...props }) => {
   const { register, handleSubmit, reset } = useForm();
   const [pageNumber, setPageNumber] = useState(1);
   const [searchQuery, setSearchQuery] = useState({});
@@ -40,13 +40,6 @@ const RecentShows = ({ fetchRecentShows, recentShows, categories, countries, gen
               <select ref={register} name="year">
                 {generas.map((y, i) => (
                   <option value={y}>{y}</option>
-                ))}
-              </select>
-              <select ref={register} name="category">
-                {generas.map((c, i) => (
-                  <option value={c}>
-                    <Trans id={c}>{c}</Trans>
-                  </option>
                 ))}
               </select>
               <select ref={register} name="genera">
@@ -149,14 +142,12 @@ const mapStateToProps = ({
   home: {
     recentShows,
     recentShows_pagination: { pageCount },
-    shows_categories: categories,
     shows_countries: countries,
     shows_generas: generas,
     shows_years: years
   }
 }) => ({
   recentShows,
-  categories,
   countries,
   generas,
   years,

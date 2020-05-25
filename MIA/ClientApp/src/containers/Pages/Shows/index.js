@@ -108,12 +108,6 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries
                             </li>
                             <li>
                               <span>
-                                <Trans id="category">Category</Trans> :
-                              </span>
-                              <p>{item.award}</p>
-                            </li>
-                            <li>
-                              <span>
                                 <Trans id="genre">Genre</Trans> :
                               </span>
                               <p>{item.genre}</p>
@@ -166,13 +160,6 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries
               <select ref={register} name="year">
                 {generas.map((y, i) => (
                   <option value={y}>{y}</option>
-                ))}
-              </select>
-              <select ref={register} name="category">
-                {generas.map((c, i) => (
-                  <option value={c}>
-                    <Trans id={c}>{c}</Trans>
-                  </option>
                 ))}
               </select>
               <select ref={register} name="genera">
@@ -253,12 +240,12 @@ const Show = ({ show }) => (
 );
 
 const mapStateToProps = ({
-  home: { shows_categories: categories, shows_countries: countries, shows_generas: generas, shows_years: years },
+  home: {shows_countries: countries, shows_generas: generas, shows_years: years },
   shows: {
     items,
     featuredItems,
     items_pagination: { pageCount }
   }
-}) => ({ items, featuredItems, pageCount, categories, countries, generas, years });
+}) => ({ items, featuredItems, pageCount,  countries, generas, years });
 const mapDispatchToProps = dispatch => bindActionCreators({ ...showsActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Shows);

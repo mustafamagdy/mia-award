@@ -6,87 +6,145 @@ import membersActions from "store/members/actions";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 
-import Info from "./Info";
 import Trailer from "./Trailer";
 import Files from "./Files";
+import EditArtworkInfo from "./EditArtwork";
 
 const EditArtwork = ({
-  artworkDetails,
+  artwork,
   switchToView,
   updateTrailer,
   history,
   saveArtworkInfo,
   match: {
-    params: { id }
+    params: { id },
   },
+  location: { search },
+  removeArtworkFile,
   fetchArtworkWithDetails,
   ...props
 }) => {
+  const [tabs, setTabs] = useState(["info", "trailer"]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeTabKey, setActiveTabKey] = useState("info");
+  const [artworkPosterStyle, setArtworkPosterStyle] = useState({
+    background:
+      "transparent url('/assets/images/poaster.png') scroll no-repeat top center/cover",
+  });
+
   useEffect(() => {
     if (!!id) {
       fetchArtworkWithDetails(id);
     }
   }, [id]);
 
-
   useEffect(() => {
+    if (artwork !== undefined) {
+      const { canUploadFiles, uploadComplete } = artwork;
 
-    if (artworkDetails != undefined) {
-
-      const { canUploadFiles } = artworkDetails;
-
-      if (tabs.indexOf("files") === -1 && canUploadFiles) {
+      //allow upoad files tab only if he can upload files, and files upload didn;t marked as complete
+      if (tabs.indexOf("files") === -1 && canUploadFiles && !uploadComplete) {
         const t = [...tabs];
         t.push("files");
         setTabs(t);
       }
+
+      setArtworkPosterStyle({
+        background: `transparent url('${artwork.posterUrl}') scroll no-repeat top center/cover`,
+      });
     }
-  }, [artworkDetails]);
 
-  const [tabs, setTabs] = useState(["info", "trailer"]);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [activeTabKey, setActiveTabKey] = useState("info");
+    const tabKey = new URLSearchParams(search).get("tabKey");
+    if (tabKey != undefined && tabKey !== activeTabKey) {
+      setActiveTabKey(tabKey);
+      setActiveIndex(tabs.indexOf(tabKey));
+    } else if (tabKey == undefined) {
+      setActiveTabKey("info");
+      setActiveIndex(0);
+    } else if (tabKey == activeTabKey) {
+      setActiveIndex(tabs.indexOf(tabKey));
+    }
+  }, [artwork, tabs, search]);
 
-  const handleActiveTab = tabKey => {
-    setActiveTabKey(tabKey);
-    setActiveIndex(tabs.indexOf(tabKey));
+  const handleActiveTab = (tabKey) => {
+    // setActiveTabKey(tabKey);
+    // setActiveIndex(tabs.indexOf(tabKey));
+
+    history.push({
+      search: `?tabKey=${tabKey}`,
+    });
   };
-  if (artworkDetails && artworkDetails.uploadComplete) {
-    history.push('/members')
-  }
+
   return (
-    <div className="stage_two">
-      <div className="main_tabs">
-        <ul>
-          <TabList activeClassName="active" activeIndex={activeIndex} activeTabKey={activeTabKey} handleActiveTabWithKey={handleActiveTab}>
-            {tabs.map((t, i) => (
-              <Tab key={t} tabKey={t}>
-                <li>
-                  <Trans id={t}>{t}</Trans>
-                </li>
-              </Tab>
-            ))}
-          </TabList>
-        </ul>
+    <React.Fragment>
+      <div className="upload_poster" style={artworkPosterStyle}>
+        <div className="upload_area">
+          <img
+            src={artwork && artwork.coverImageUrl}
+            style={{ objectFit: "cover" }}
+            alt="Cover"
+          />
+        </div>
       </div>
-      <Info active={activeTabKey == "info"} saveArtworkInfo={saveArtworkInfo} details={artworkDetails} />
-      <Trailer
-        active={activeTabKey == "trailer"}
-        artworkId={artworkDetails && artworkDetails.id}
-        trailerUrl={artworkDetails && artworkDetails.trailerUrl}
-        trailerPosterUrl={artworkDetails && artworkDetails.posterUrl}
-        updateTrailer={updateTrailer}
-        coverUrl={artworkDetails?.coverImageUrl}
-      />
-      {artworkDetails && artworkDetails.canUploadFiles && (
-        <Files active={activeTabKey == "files"}
-          artworkId={artworkDetails && artworkDetails.id}
-          files={artworkDetails && artworkDetails.files} />
-      )}
-    </div>
+      <div className="stage_two">
+        <div className="main_tabs">
+          <ul>
+            <TabList
+              activeClassName="active"
+              activeIndex={activeIndex}
+              activeTabKey={activeTabKey}
+              handleActiveTabWithKey={handleActiveTab}
+            >
+              {tabs.map((t, i) => (
+                <Tab key={t} tabKey={t}>
+                  <li>
+                    <Trans id={t}>{t}</Trans>
+                  </li>
+                </Tab>
+              ))}
+            </TabList>
+          </ul>
+        </div>
+        {artwork == undefined ? (
+          <div>loading</div>
+        ) : (
+          <>
+            {activeTabKey === "info" && (
+              <EditArtworkInfo
+                editArtwork={saveArtworkInfo}
+                artwork={artwork}
+              />
+            )}
+            {activeTabKey === "trailer" && (
+              <Trailer
+                active={activeTabKey === "trailer"}
+                artworkId={artwork && artwork.id}
+                trailerUrl={artwork && artwork.trailerUrl}
+                trailerPosterUrl={artwork && artwork.posterUrl}
+                updateTrailer={updateTrailer}
+                coverUrl={artwork?.coverImageUrl}
+              />
+            )}
+            {artwork.canUploadFiles && activeTabKey === "files" && (
+              <Files
+                artwork={artwork}
+                active={activeTabKey === "files"}
+                removeArtworkFile={removeArtworkFile}
+              />
+            )}
+          </>
+        )}
+      </div>
+    </React.Fragment>
   );
 };
 
-const mapStateToProps = ({ members: { artworkDetails, artworkMode } }) => ({ artworkDetails, artworkMode });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...membersActions }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditArtwork));
+const mapStateToProps = ({ members: { artwork } }) => ({
+  artwork,
+});
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...membersActions }, dispatch);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(EditArtwork));

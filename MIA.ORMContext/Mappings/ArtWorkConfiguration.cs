@@ -5,19 +5,25 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 
 namespace MIA.ORMContext.Mappings {
-  internal class ArtWorkConfiguration : IEntityTypeConfiguration<ArtWork> {
-    public void Configure(EntityTypeBuilder<ArtWork> builder) {
+  internal class ArtWorkConfiguration : IEntityTypeConfiguration<Artwork> {
+    public void Configure(EntityTypeBuilder<Artwork> builder) {
 
       builder.HasKey(x => x.Id);
       builder.Property(x => x.Id)
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
 
-     
-      builder.HasOne(a => a.Payment).WithOne(a => a.ArtWork).HasForeignKey<ArtWork>(a => a.AwardId);
-      builder.HasOne(a => a.Award).WithMany(a => a.ArtWorks).HasForeignKey(a => a.AwardId);
-      builder.HasOne(a => a.Nominee).WithMany(a => a.ArtWorks).HasForeignKey(a => a.NomineeId);
+
+      builder.HasOne(a => a.Payment).WithOne(a => a.Artwork).HasForeignKey<Artwork>(a => a.Id);
+      builder.HasOne(a => a.Award).WithMany(a => a.Artworks).HasForeignKey(a => a.AwardId);
+      builder.HasOne(a => a.Nominee).WithMany(a => a.Artworks).HasForeignKey(a => a.NomineeId);
       builder.HasMany(a => a.MediaFiles).WithOne(a => a.ArtWork).HasForeignKey(a => a.ArtWorkId);
+
+      builder.OwnsOne(a => a.Poster);
+      builder.OwnsOne(a => a.Trailer);
+      builder.OwnsOne(a => a.TrailerPoster);
+      builder.OwnsOne(a => a.Cover);
+
     }
   }
 }
