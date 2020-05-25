@@ -27,6 +27,10 @@ const EditArtwork = ({
   const [tabs, setTabs] = useState(["info", "trailer"]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
+  const [artworkPosterStyle, setArtworkPosterStyle] = useState({
+    background:
+      "transparent url('/assets/images/poaster.png') scroll no-repeat top center/cover",
+  });
 
   useEffect(() => {
     if (!!id) {
@@ -44,6 +48,10 @@ const EditArtwork = ({
         t.push("files");
         setTabs(t);
       }
+
+      setArtworkPosterStyle({
+        background: `transparent url('${artwork.posterUrl}') scroll no-repeat top center/cover`,
+      });
     }
 
     const tabKey = new URLSearchParams(search).get("tabKey");
@@ -56,7 +64,6 @@ const EditArtwork = ({
     } else if (tabKey == activeTabKey) {
       setActiveIndex(tabs.indexOf(tabKey));
     }
-    
   }, [artwork, tabs, search]);
 
   const handleActiveTab = (tabKey) => {
@@ -69,52 +76,66 @@ const EditArtwork = ({
   };
 
   return (
-    <div className="stage_two">
-      <div className="main_tabs">
-        <ul>
-          <TabList
-            activeClassName="active"
-            activeIndex={activeIndex}
-            activeTabKey={activeTabKey}
-            handleActiveTabWithKey={handleActiveTab}
-          >
-            {tabs.map((t, i) => (
-              <Tab key={t} tabKey={t}>
-                <li>
-                  <Trans id={t}>{t}</Trans>
-                </li>
-              </Tab>
-            ))}
-          </TabList>
-        </ul>
+    <React.Fragment>
+      <div className="upload_poster" style={artworkPosterStyle}>
+        <div className="upload_area">
+          <img
+            src={artwork && artwork.coverImageUrl}
+            style={{ objectFit: "cover" }}
+            alt="Cover"
+          />
+        </div>
       </div>
-      {artwork == undefined ? (
-        <div>loading</div>
-      ) : (
-        <>
-          {activeTabKey === "info" && (
-            <EditArtworkInfo editArtwork={saveArtworkInfo} artwork={artwork} />
-          )}
-          {activeTabKey === "trailer" && (
-            <Trailer
-              active={activeTabKey === "trailer"}
-              artworkId={artwork && artwork.id}
-              trailerUrl={artwork && artwork.trailerUrl}
-              trailerPosterUrl={artwork && artwork.posterUrl}
-              updateTrailer={updateTrailer}
-              coverUrl={artwork?.coverImageUrl}
-            />
-          )}
-          {artwork.canUploadFiles && activeTabKey === "files" && (
-            <Files
-              artwork={artwork}
-              active={activeTabKey === "files"}
-              removeArtworkFile={removeArtworkFile}
-            />
-          )}
-        </>
-      )}
-    </div>
+      <div className="stage_two">
+        <div className="main_tabs">
+          <ul>
+            <TabList
+              activeClassName="active"
+              activeIndex={activeIndex}
+              activeTabKey={activeTabKey}
+              handleActiveTabWithKey={handleActiveTab}
+            >
+              {tabs.map((t, i) => (
+                <Tab key={t} tabKey={t}>
+                  <li>
+                    <Trans id={t}>{t}</Trans>
+                  </li>
+                </Tab>
+              ))}
+            </TabList>
+          </ul>
+        </div>
+        {artwork == undefined ? (
+          <div>loading</div>
+        ) : (
+          <>
+            {activeTabKey === "info" && (
+              <EditArtworkInfo
+                editArtwork={saveArtworkInfo}
+                artwork={artwork}
+              />
+            )}
+            {activeTabKey === "trailer" && (
+              <Trailer
+                active={activeTabKey === "trailer"}
+                artworkId={artwork && artwork.id}
+                trailerUrl={artwork && artwork.trailerUrl}
+                trailerPosterUrl={artwork && artwork.posterUrl}
+                updateTrailer={updateTrailer}
+                coverUrl={artwork?.coverImageUrl}
+              />
+            )}
+            {artwork.canUploadFiles && activeTabKey === "files" && (
+              <Files
+                artwork={artwork}
+                active={activeTabKey === "files"}
+                removeArtworkFile={removeArtworkFile}
+              />
+            )}
+          </>
+        )}
+      </div>
+    </React.Fragment>
   );
 };
 

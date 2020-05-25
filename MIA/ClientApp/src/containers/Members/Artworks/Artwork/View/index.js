@@ -33,70 +33,93 @@ const ViewArtwork = ({
   const tabs = ["info", "payment-view", "trailer", "files"];
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
+  const [artworkPosterStyle, setArtworkPosterStyle] = useState({
+    background:
+      "transparent url('/assets/images/poaster.png') scroll no-repeat top center/cover",
+  });
+
+  useEffect(() => {
+    if (artwork && artwork.posterUrl) {
+      setArtworkPosterStyle({
+        background: `transparent url('${artwork.posterUrl}') scroll no-repeat top center/cover`,
+      });
+    }
+  }, [artwork]);
 
   const handleActiveTab = (tabKey) => {
     setActiveTabKey(tabKey);
     setActiveIndex(tabs.indexOf(tabKey));
   };
   return (
-    <div className="stage_two">
-      <div className="main_tabs">
-        <ul>
-          <TabList
-            activeClassName="active"
-            activeIndex={activeIndex}
-            activeTabKey={activeTabKey}
-            handleActiveTabWithKey={handleActiveTab}
-          >
-            {tabs.map((t, i) => (
-              <Tab key={t} tabKey={t}>
-                <li>
-                  <Trans id={t}>{t}</Trans>
-                </li>
-              </Tab>
-            ))}
-          </TabList>
-        </ul>
+    <React.Fragment>
+      <div className="upload_poster" style={artworkPosterStyle}>
+        <div className="upload_area">
+          <img
+            src={artwork && artwork.coverImageUrl}
+            style={{ objectFit: "cover" }}
+            alt="Cover"
+          />
+        </div>
       </div>
-      {artwork ? (
-        <>
-          <Info
-            active={activeTabKey == "info"}
-            editArtwork={editArtwork}
-            publish={publishArtwork}
-            history={history}
-            details={artwork}
-            id={id}
-            key="info"
-          />
-          <PaymentView
-            active={activeTabKey == "payment-view"}
-            details={artwork?.payment}
-            key="payment-view"
-          />
-          {artwork.awardType == "artwork" ? (
-            <>
-              <Trailer
-                active={activeTabKey == "trailer"}
-                url={artwork?.trailerUrl}
-                coverUrl={artwork?.coverImageUrl}
-                key="trailer"
-              />
-              <Files
-                active={activeTabKey == "files"}
-                projectName={artwork?.projectName}
-                files={artwork?.files}
-                posterUrl={artwork?.posterUrl}
-                coverUrl={artwork?.coverImageUrl}
-                key="files"
-              />
-            </>
-          ) : null}
-        </>
-      ) : (
-        <div> Loading ...</div>
-      )}
-    </div>
+      <div className="stage_two">
+        <div className="main_tabs">
+          <ul>
+            <TabList
+              activeClassName="active"
+              activeIndex={activeIndex}
+              activeTabKey={activeTabKey}
+              handleActiveTabWithKey={handleActiveTab}
+            >
+              {tabs.map((t, i) => (
+                <Tab key={t} tabKey={t}>
+                  <li>
+                    <Trans id={t}>{t}</Trans>
+                  </li>
+                </Tab>
+              ))}
+            </TabList>
+          </ul>
+        </div>
+        {artwork ? (
+          <>
+            <Info
+              active={activeTabKey == "info"}
+              editArtwork={editArtwork}
+              publish={publishArtwork}
+              history={history}
+              details={artwork}
+              id={id}
+              key="info"
+            />
+            <PaymentView
+              active={activeTabKey == "payment-view"}
+              details={artwork?.payment}
+              key="payment-view"
+            />
+            {artwork.awardType == "artwork" ? (
+              <>
+                <Trailer
+                  active={activeTabKey == "trailer"}
+                  url={artwork?.trailerUrl}
+                  coverUrl={artwork?.coverImageUrl}
+                  key="trailer"
+                />
+                <Files
+                  active={activeTabKey == "files"}
+                  projectName={artwork?.projectName}
+                  files={artwork?.files}
+                  posterUrl={artwork?.posterUrl}
+                  coverUrl={artwork?.coverImageUrl}
+                  key="files"
+                />
+              </>
+            ) : null}
+          </>
+        ) : (
+          <div> Loading ...</div>
+        )}
+      </div>
+    </React.Fragment>
   );
 };
 
