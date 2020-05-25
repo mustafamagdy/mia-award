@@ -359,10 +359,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
   );
 };
 
-const mapStateToProps = ({
-  home: { awards },
-  members: { artwork },
-}) => ({ awards, artwork });
+const mapStateToProps = ({ home: { awards } }) => ({ awards });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...membersActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(NewArtwork);
