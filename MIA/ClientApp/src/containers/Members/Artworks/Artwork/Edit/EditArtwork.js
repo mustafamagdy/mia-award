@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import classNames from "classnames";
 import { Trans, t } from "@lingui/macro";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
 import { Field, LocalizedDataField } from "components/Forms";
-import { I18n } from "@lingui/react";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import config from "config";

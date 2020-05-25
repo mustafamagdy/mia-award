@@ -165,8 +165,8 @@
       width: 78%;
       background: #111111;
       .upload_poster {
-        background: transparent url("/assets/images/poaster.png") scroll
-          no-repeat top center / cover;
+        // background: transparent url("/assets/images/poaster.png") scroll
+        //   no-repeat top center / cover;
         min-height: 405px;
         position: relative;
         display: flex;
@@ -584,7 +584,7 @@
         } /* all_shows_area */
       } /* show_area */
       .stage_two {
-        padding: 0 20px 20px;
+        padding: 30px 20px 20px;
         .main_tabs {
           margin: -20px auto 30px;
           ul {

@@ -5,15 +5,7 @@ import { connect } from "react-redux";
 import membersActions from "store/members/actions";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
-import { LanguageContext } from "containers/Providers/LanguageProvider";
-import { Field, LocalizedDataField } from "components/Forms";
-import { I18n } from "@lingui/react";
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
-import config from "config";
-import classNames from "classnames";
 
-// import EditArtworkInfo from "./EditArtwork";
 import Trailer from "./Trailer";
 import Files from "./Files";
 import EditArtworkInfo from "./EditArtwork";
@@ -41,7 +33,6 @@ const EditArtwork = ({
   }, [id]);
 
   useEffect(() => {
-    console.log("dd", artwork, tabs);
     if (artwork !== undefined) {
       const { canUploadFiles, uploadComplete } = artwork;
 
@@ -60,10 +51,6 @@ const EditArtwork = ({
     setActiveTabKey(tabKey);
     setActiveIndex(tabs.indexOf(tabKey));
   };
-
-  // if (artwork && artwork.uploadComplete) {
-  //   history.push("/members");
-  // }
 
   return (
     <div className="stage_two">

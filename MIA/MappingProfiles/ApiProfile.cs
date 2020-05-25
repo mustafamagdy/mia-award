@@ -4,20 +4,17 @@ using MIA.Models.Entities;
 using System;
 using MIA.Payments;
 
-namespace MIA.MappingProfiles
-{
+namespace MIA.MappingProfiles {
 
   /// <summary>
   /// Auto mapper profile that contain mapping used in Api project
   /// </summary>
-  public class ApiProfile : Profile
-  {
+  public class ApiProfile : Profile {
 
     /// <summary>
     /// Constructor
     /// </summary>
-    public ApiProfile()
-    {
+    public ApiProfile() {
 
       CreateMap<News, NewsDto>()
        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
@@ -105,7 +102,7 @@ namespace MIA.MappingProfiles
 
       CreateMap<Artwork, ArtworkBasicData>()
         .ValidateMemberList(MemberList.None);
-      
+
       CreateMap<Artwork, ArtworkBasicViewDto>()
         .IncludeAllDerived()
         .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
@@ -129,7 +126,9 @@ namespace MIA.MappingProfiles
         .ValidateMemberList(MemberList.None);
 
       CreateMap<Artwork, ArtworkWithStatusDto>()
-          //.ForMember(a=>a.TrophyUrl,cfg=>cfg.MapFrom(a=>a.Award.TrophyImageUrl??""))
+          .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
+          .ForMember(a => a.CoverUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
+          .ForMember(a => a.TrailerUrl, cfg => cfg.MapFrom(a => a.Trailer.FileUrl))
           .ValidateMemberList(MemberList.None);
 
       CreateMap<MediaFile, ArtworkFileDto>()

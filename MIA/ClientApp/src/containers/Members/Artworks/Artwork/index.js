@@ -17,27 +17,32 @@ const Arwork = ({
   ...props
 }) => {
   useEffect(() => {
+    if (artwork && artwork.posterUrl) {
+      setArtworkPosterStyle({
+        background: `transparent url('${artwork.posterUrl}') scroll no-repeat top center/cover`,
+      });
+    }
+  }, [artwork]);
+
+  useEffect(() => {
     if (artworkMode === "view") {
       history.push(`/members/artwork/${artwork.id}`);
     }
   }, [artworkMode]);
+  const [artworkPosterStyle, setArtworkPosterStyle] = useState({
+    background:
+      "transparent url('/assets/images/poaster.png') scroll no-repeat top center/cover",
+  });
+
   return (
     <React.Fragment>
-      <div className="upload_poster">
+      <div className="upload_poster" style={artworkPosterStyle}>
         <div className="upload_area">
-          {artworkMode === "edit" ? (
-            <form action="#">
-              <input type="file" />
-              <i className="icofont-plus"></i>
-              <span>Upload show poster</span>
-            </form>
-          ) : (
-            <img
-              src={artwork && artwork.coverImageUrl}
-              style={{ objectFit: "cover" }}
-              alt="Cover"
-            />
-          )}
+          <img
+            src={artwork && artwork.coverImageUrl}
+            style={{ objectFit: "cover" }}
+            alt="Cover"
+          />
         </div>
       </div>
       <Switch>

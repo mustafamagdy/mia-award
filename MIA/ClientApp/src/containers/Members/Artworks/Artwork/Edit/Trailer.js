@@ -50,113 +50,126 @@ const Trailer = ({
             </button>
           </div>
         ) : (
-          <>
-            {trailerFile ? (
-              <Uploader
-                key={trailerFile.name}
-                uploadChunkApi={window.api.members.updateTrailer}
-                dir={"Artwork"}
-                dirId={artworkId}
-                onProgress={(p) => {
-                  const indx = progress.findIndex(
-                    (a) => a.key == trailerFile.name
-                  );
-                  if (indx != -1) progress[indx].percent = p;
-                  else progress.push({ key: trailerFile.name, percent: p });
-                  setProgress([...progress]);
-                }}
-                onUploadComplete={() => {
-                  setTrailerFileUploaded(true);
-                }}
-                file={trailerFile}
-              >
-                <FileDetails file={trailerFile} />
-              </Uploader>
-            ) : (
-              <input
-                type="file"
-                name="trailer"
-                accept="video/*"
-                onChange={(e) => {
-                  if (e.target.files && e.target.files[0]) {
-                    setTrailerFile(e.target.files[0]);
-                  }
-                }}
-              />
-            )}
-
-            {coverFile ? (
-              <Uploader
-                key={coverFile.name}
-                uploadChunkApi={window.api.members.updateCoverImage}
-                dir={"Artwork"}
-                dirId={artworkId}
-                onProgress={(p) => {
-                  const indx = progress.findIndex(
-                    (a) => a.key == coverFile.name
-                  );
-                  if (indx != -1) progress[indx].percent = p;
-                  else progress.push({ key: coverFile.name, percent: p });
-                  setProgress([...progress]);
-                }}
-                onUploadComplete={() => {
-                  setCoverFileUploaded(true);
-                }}
-                file={coverFile}
-              >
-                <FileDetails file={coverFile} />
-              </Uploader>
-            ) : (
-              <input
-                type="file"
-                name="coverFile"
-                accept="image/*"
-                onChange={(e) => {
-                  if (e.target.files && e.target.files[0]) {
-                    setCoverFile(e.target.files[0]);
-                  }
-                }}
-              />
-            )}
-
-            {posterFile ? (
-              <Uploader
-                key={posterFile.name}
-                uploadChunkApi={window.api.members.updatePosterImage}
-                dir={"Artwork"}
-                dirId={artworkId}
-                onProgress={(p) => {
-                  const indx = progress.findIndex(
-                    (a) => a.key == posterFile.name
-                  );
-                  if (indx != -1) progress[indx].percent = p;
-                  else progress.push({ key: posterFile.name, percent: p });
-                  setProgress([...progress]);
-                }}
-                onUploadComplete={() => {
-                  setPosterFileUploaded(true);
-                }}
-                file={posterFile}
-              >
-                <FileDetails file={posterFile} />
-              </Uploader>
-            ) : (
-              <input
-                type="file"
-                name="posterFile"
-                accept="image/*"
-                onChange={(e) => {
-                  if (e.target.files && e.target.files[0]) {
-                    setPosterFile(e.target.files[0]);
-                  }
-                }}
-              />
-            )}
+          <div>
+            <div>
+              <span>
+                <Trans id="trailer">Trailer</Trans>
+              </span>
+              {trailerFile ? (
+                <Uploader
+                  key={trailerFile.name}
+                  uploadChunkApi={window.api.members.updateTrailer}
+                  dir={"Artwork"}
+                  dirId={artworkId}
+                  onProgress={(p) => {
+                    const indx = progress.findIndex(
+                      (a) => a.key == trailerFile.name
+                    );
+                    if (indx != -1) progress[indx].percent = p;
+                    else progress.push({ key: trailerFile.name, percent: p });
+                    setProgress([...progress]);
+                  }}
+                  onUploadComplete={() => {
+                    setTrailerFileUploaded(true);
+                  }}
+                  file={trailerFile}
+                >
+                  <FileDetails file={trailerFile} />
+                </Uploader>
+              ) : (
+                <input
+                  type="file"
+                  name="trailer"
+                  accept="video/*"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      setTrailerFile(e.target.files[0]);
+                    }
+                  }}
+                />
+              )}
+            </div>
+            <div>
+              <span>
+                <Trans id="cover">Cover</Trans>
+              </span>
+              {coverFile ? (
+                <Uploader
+                  key={coverFile.name}
+                  uploadChunkApi={window.api.members.updateCoverImage}
+                  dir={"Artwork"}
+                  dirId={artworkId}
+                  onProgress={(p) => {
+                    const indx = progress.findIndex(
+                      (a) => a.key == coverFile.name
+                    );
+                    if (indx != -1) progress[indx].percent = p;
+                    else progress.push({ key: coverFile.name, percent: p });
+                    setProgress([...progress]);
+                  }}
+                  onUploadComplete={() => {
+                    setCoverFileUploaded(true);
+                  }}
+                  file={coverFile}
+                >
+                  <FileDetails file={coverFile} />
+                </Uploader>
+              ) : (
+                <input
+                  type="file"
+                  name="coverFile"
+                  accept="image/*"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      setCoverFile(e.target.files[0]);
+                    }
+                  }}
+                />
+              )}
+            </div>
+            <div>
+              <span>
+                <Trans id="poster">Poster</Trans>
+              </span>
+              {posterFile ? (
+                <Uploader
+                  key={posterFile.name}
+                  uploadChunkApi={window.api.members.updatePosterImage}
+                  dir={"Artwork"}
+                  dirId={artworkId}
+                  onProgress={(p) => {
+                    const indx = progress.findIndex(
+                      (a) => a.key == posterFile.name
+                    );
+                    if (indx != -1) progress[indx].percent = p;
+                    else progress.push({ key: posterFile.name, percent: p });
+                    setProgress([...progress]);
+                  }}
+                  onUploadComplete={() => {
+                    setPosterFileUploaded(true);
+                  }}
+                  file={posterFile}
+                >
+                  <FileDetails file={posterFile} />
+                </Uploader>
+              ) : (
+                <input
+                  type="file"
+                  name="posterFile"
+                  accept="image/*"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      setPosterFile(e.target.files[0]);
+                    }
+                  }}
+                />
+              )}
+            </div>
 
             {uploadMode && (
               <button onClick={handleUpdateTrailer}>Cancel update</button>
             )}
-          </>
+          </div>
         )}
       </div>
     </div>

@@ -34,7 +34,13 @@ const Artworks = ({
 
   return (
     <React.Fragment>
-      <div className="upload_poster"></div>
+      <div
+        className="upload_poster"
+        style={{
+          background:
+            "transparent url('/assets/images/poaster.png') scroll no-repeat top center/cover",
+        }}
+      ></div>
       <div className="awards_area">
         <div className="title">Awards</div>
         <div className="all_awards_area">
