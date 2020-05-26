@@ -12,7 +12,7 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 import PaymentView from "./PaymentView";
 
 const ViewArtwork = ({
-  artwork,
+  contestant,
   editArtwork,
   publishArtwork,
   history,
@@ -64,20 +64,20 @@ const ViewArtwork = ({
             </TabList>
           </ul>
         </div>
-        {artwork ? (
+        {contestant ? (
           <>
             <Info
               active={activeTabKey == "info"}
               editArtwork={editArtwork}
               publish={publishArtwork}
               history={history}
-              details={artwork}
+              details={contestant}
               id={id}
               key="info"
             />
             <PaymentView
               active={activeTabKey == "payment-view"}
-              details={artwork?.payment}
+              details={contestant?.payment}
               key="payment-view"
             />
           </>
@@ -225,9 +225,8 @@ const Info = ({
   );
 };
 
-const mapStateToProps = ({ members: { artwork, artworkMode } }) => ({
-  artwork,
-  artworkMode,
+const mapStateToProps = ({ members: { contestant } }) => ({
+  contestant,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...membersActions }, dispatch);
