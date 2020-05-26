@@ -16,7 +16,7 @@ const ArtWork = ({ artWork, ...props }) => {
             >
               <img
                 src={
-                  artWork.awardType == "person"
+                  artWork.awardType == "person" || artWork?.coverUrl == ""
                     ? "assets/images/logo.png"
                     : artWork?.coverUrl
                 }
