@@ -12,14 +12,15 @@ import Paginator from "components/Paginator";
 import "lightbox-react/style.css"; // This only needs to be imported once in your app
 import "swiper/css/swiper.css";
 import { useForm } from "react-hook-form";
+import config from "config";
 
 const Shows = ({
   fetchFeaturedItems,
   fetchItems,
   featuredItems,
   items,
-  countries,
-  generas,
+  // countries,
+  // generas,
   years,
   pageCount,
 }) => {
@@ -31,8 +32,6 @@ const Shows = ({
   const [swiper, setSwiper] = useState(null);
   const [searchQuery, setSearchQuery] = useState({});
 
-  const tabs = ["All", "Latest", "Photos", "Videos"];
-
   useEffect(() => {
     fetchFeaturedItems();
   }, []);
@@ -41,12 +40,12 @@ const Shows = ({
     fetchItems({
       pageNumber,
       pageSize: 10,
-      type: tabs[activeTab],
       ...searchQuery,
     });
   }, [pageNumber, activeTab, searchQuery]);
 
   const onSubmit = (values) => {
+    values.year = values.year == "any_year" ? 0 : values.year;
     setSearchQuery({ ...values });
   };
 
@@ -100,8 +99,8 @@ const Shows = ({
                           </LanguageContext.Consumer>
                         </span>
                         <time>
-                          <Trans id="uploaded">Uploaded</Trans> :{" "}
-                          {item.uploadedDate}
+                          <Trans id="production_year">Production year</Trans> :{" "}
+                          {item.productionYear}
                         </time>
                       </div>
                       <div className="video_item">
@@ -123,25 +122,7 @@ const Shows = ({
                                 <Trans id="release-date">Date of release</Trans>{" "}
                                 :
                               </span>
-                              <p>{item.year}</p>
-                            </li>
-                            <li>
-                              <span>
-                                <Trans id="genre">Genre</Trans> :
-                              </span>
-                              <p>{item.genre}</p>
-                            </li>
-                            <li>
-                              <span>
-                                <Trans id="country"> Country</Trans> :
-                              </span>
-                              <p>{item.country}</p>
-                            </li>
-                            <li>
-                              <span>
-                                <Trans id="posted">Posted</Trans> :
-                              </span>
-                              <p>{item.uploadedDate}</p>
+                              <p>{item.broadcastYear}</p>
                             </li>
                           </ul>
                         </div>
@@ -182,27 +163,30 @@ const Shows = ({
                 type="text"
                 ref={register}
                 name="title"
-                placeholder="show title"
+                placeholder="show name"
               />
-              <select ref={register} name="year">
-                {generas.map((y, i) => (
-                  <option value={y}>{y}</option>
-                ))}
-              </select>
-              <select ref={register} name="genera">
-                {generas.map((g, i) => (
-                  <option value={g}>
-                    <Trans id={g}>{g}</Trans>
-                  </option>
-                ))}
-              </select>
-              <select ref={register} name="country">
-                {countries.map((c, i) => (
-                  <option value={c}>
-                    <Trans id={c}>{c}</Trans>
-                  </option>
-                ))}
-              </select>
+              <I18n>
+                {({ i18n }) => (
+                  <select ref={register} name="year">
+                    {years.map((y, i) => (
+                      <option value={y}>{i18n._(y)}</option>
+                    ))}
+                  </select>
+                )}
+              </I18n>
+
+              <input
+                type="text"
+                ref={register}
+                name="tvchannels"
+                placeholder="Tv Channels"
+              />
+              <input
+                type="text"
+                ref={register}
+                name="onlineChannels"
+                placeholder="Online Channels"
+              />
               <button type="submit">
                 <i className="icofont-ui-search"></i>
               </button>
@@ -273,17 +257,26 @@ const Show = ({ show }) => (
 );
 
 const mapStateToProps = ({
-  home: {
-    shows_countries: countries,
-    shows_generas: generas,
-    shows_years: years,
-  },
+  // home: {
+  //   shows_years: years,
+  // },
   shows: {
     items,
     featuredItems,
     items_pagination: { pageCount },
   },
-}) => ({ items, featuredItems, pageCount, countries, generas, years });
+}) => {
+  const years = [];
+  for (
+    let y = config.validationRules.allowed_artwork_years.min;
+    y <= config.validationRules.allowed_artwork_years.max;
+    y++
+  ) {
+    years.push(y);
+  }
+  years.unshift("any_year");
+  return { items, featuredItems, pageCount, years };
+};
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...showsActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Shows);

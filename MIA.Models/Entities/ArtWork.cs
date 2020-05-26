@@ -12,6 +12,7 @@ namespace MIA.Models.Entities {
     }
     public LocalizedData ProjectName { get; set; }
     public LocalizedData Description { get; set; }
+    //for level 1 judge
     public bool IllegibleForJudge { get; set; }
     public bool AllowFileUpload { get; set; }
 
