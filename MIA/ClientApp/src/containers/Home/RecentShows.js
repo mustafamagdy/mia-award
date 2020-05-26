@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import homeActions from "store/home/actions";
 import { bindActionCreators } from "redux";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
-
+import config from "config";
 // import "sass/recent_shows.scss";
 
 const RecentShows = ({
@@ -22,16 +22,20 @@ const RecentShows = ({
   const { register, handleSubmit, reset } = useForm();
   const [pageNumber, setPageNumber] = useState(1);
   const [searchQuery, setSearchQuery] = useState({});
+  const [usingFilter, setUsingFilter] = useState(false);
 
   useEffect(() => {
     fetchRecentShows({ pageNumber, pageSize: 10, ...searchQuery });
   }, [searchQuery, pageNumber]);
 
   useEffect(() => {
+    setUsingFilter(false);
     fetchRecentShows({ pageNumber, pageSize: 10 });
   }, []);
 
   const onSubmit = (values) => {
+    values.year = values.year == "any_year" ? 0 : values.year;
+    setUsingFilter(true);
     setSearchQuery({ ...values });
   };
 
@@ -41,27 +45,44 @@ const RecentShows = ({
         <div className="title">
           <Trans id="recent_shows">recent shows</Trans>
         </div>
-        {recentShows && recentShows.length > 0 && (
+        {((recentShows && recentShows.length > 0) || usingFilter) && (
           <div className="search_filter">
             <form onSubmit={handleSubmit(onSubmit)}>
               <input
                 type="text"
                 ref={register}
                 name="title"
-                placeholder="show title"
+                placeholder="show name"
               />
-              <select ref={register} name="year">
-                {years.map((y, i) => (
-                  <option value={y}>{y}</option>
-                ))}
-              </select>
+              <I18n>
+                {({ i18n }) => (
+                  <select ref={register} name="year">
+                    {years.map((y, i) => (
+                      <option value={y}>{i18n._(y)}</option>
+                    ))}
+                  </select>
+                )}
+              </I18n>
+
+              <input
+                type="text"
+                ref={register}
+                name="tvchannels"
+                placeholder="Tv Channels"
+              />
+              <input
+                type="text"
+                ref={register}
+                name="onlineChannels"
+                placeholder="Online Channels"
+              />
               <button type="submit">
                 <i className="icofont-ui-search"></i>
               </button>
             </form>
           </div>
         )}
-        {recentShows && recentShows.length > 0 ? (
+        {(recentShows && recentShows.length > 0) || usingFilter ? (
           <>
             <div className="shows_items">
               {recentShows.map((show, i) => (
@@ -158,17 +179,23 @@ const mapStateToProps = ({
   home: {
     recentShows,
     recentShows_pagination: { pageCount },
-    shows_countries: countries,
-    shows_generas: generas,
-    shows_years: years,
   },
-}) => ({
-  recentShows,
-  countries,
-  generas,
-  years,
-  pageCount,
-});
+}) => {
+  const years = [];
+  for (
+    let y = config.validationRules.allowed_artwork_years.min;
+    y <= config.validationRules.allowed_artwork_years.max;
+    y++
+  ) {
+    years.push(y);
+  }
+  years.unshift("any_year");
+  return {
+    recentShows,
+    years,
+    pageCount,
+  };
+};
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...homeActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(RecentShows);
