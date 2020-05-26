@@ -186,6 +186,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                   </div>
                   <div className="row">
                     <LocalizedDataField
+                      isTextArea={true}
                       transId="description"
                       transdDefaultVal="Description"
                       name="description"

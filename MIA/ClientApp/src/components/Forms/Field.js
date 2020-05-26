@@ -19,7 +19,7 @@ const FormField = ({
   placeholderKey,
   isCheckbox,
   isFile,
-
+  isTextArea,
   ...props
 }) => {
   const isOtherTypes = isCheckbox || isFile;
@@ -35,7 +35,10 @@ const FormField = ({
           ) : undefined
         ) : (
           <div className="form-group">
-            <label className="form-group__label col-6 col-md-6 col-sm-12" htmlFor={name}>
+            <label
+              className="form-group__label col-6 col-md-6 col-sm-12"
+              htmlFor={name}
+            >
               <Trans id={transId}> {transdDefaultVal} </Trans>
             </label>
             {showStar && <span className="form-group__required">*</span>}
@@ -50,6 +53,22 @@ const FormField = ({
                 )}
                 {isDate === true ? (
                   <Field name={name} {...props} />
+                ) : isTextArea === true ? (
+                  <Field
+                    name={name}
+                    {...props}
+                    className={classNames(className || "form-group__input", {
+                      " has-error": hasError,
+                    })}
+                    placeholder={
+                      placeholderKey
+                        ? i18n._(placeholderKey)
+                        : placeholder
+                        ? placeholder
+                        : ""
+                    }
+                    component="textarea"
+                  />
                 ) : (
                   <Field
                     name={name}
