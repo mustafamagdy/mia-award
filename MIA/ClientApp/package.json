@@ -95,6 +95,7 @@
     "redux-logic": "^2.1.1",
     "redux-persist": "^6.0.0",
     "reduxsauce": "^1.1.0",
+    "rxjs": "^6.5.5",
     "sanitize.css": "^9.0.0",
     "styled-components": "^4.2.0",
     "swiper": "^5.3.1",

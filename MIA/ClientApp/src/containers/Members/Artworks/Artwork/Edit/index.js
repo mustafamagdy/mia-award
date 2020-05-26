@@ -50,7 +50,9 @@ const EditArtwork = ({
       }
 
       setArtworkPosterStyle({
-        background: `transparent url('${artwork.posterUrl}') scroll no-repeat top center/cover`,
+        background: `transparent url('${
+          artwork.posterUrl || "/assets/images/poaster.png"
+        }') scroll no-repeat top center/cover`,
       });
     }
 
@@ -78,13 +80,15 @@ const EditArtwork = ({
   return (
     <React.Fragment>
       <div className="upload_poster" style={artworkPosterStyle}>
-        <div className="upload_area">
-          <img
-            src={artwork && artwork.coverImageUrl}
-            style={{ objectFit: "cover" }}
-            alt="Cover"
-          />
-        </div>
+        {artwork && artwork.coverImageUrl && (
+          <div className="upload_area">
+            <img
+              src={artwork.coverImageUrl}
+              style={{ objectFit: "cover" }}
+              alt="Cover"
+            />
+          </div>
+        )}
       </div>
       <div className="stage_two">
         <div className="main_tabs">

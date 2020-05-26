@@ -53,13 +53,15 @@ const ViewArtwork = ({
   return (
     <React.Fragment>
       <div className="upload_poster" style={artworkPosterStyle}>
-        <div className="upload_area">
-          <img
-            src={artwork && artwork.coverImageUrl}
-            style={{ objectFit: "cover" }}
-            alt="Cover"
-          />
-        </div>
+        {artwork && artwork.coverImageUrl && (
+          <div className="upload_area">
+            <img
+              src={artwork.coverImageUrl}
+              style={{ objectFit: "cover" }}
+              alt="Cover"
+            />
+          </div>
+        )}
       </div>
       <div className="stage_two">
         <div className="main_tabs">

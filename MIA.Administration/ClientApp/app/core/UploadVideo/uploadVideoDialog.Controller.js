@@ -38,7 +38,6 @@
 			reader.onload = function () {
 				var dataUrl = reader.result;
 				var base64 = dataUrl.split(",")[1];
-				console.log("sending ", file.name, chunkIndex);
 				$scope.uploadChunkApi({ id: itemId, fileName: file.name, uploadId, chunkIndex, totalChunks, chunk: base64, eTags: etags })
 					.then(
 						function (data, status) {
