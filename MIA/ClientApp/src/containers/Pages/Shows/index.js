@@ -13,7 +13,16 @@ import "lightbox-react/style.css"; // This only needs to be imported once in you
 import "swiper/css/swiper.css";
 import { useForm } from "react-hook-form";
 
-const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries, generas, years, pageCount }) => {
+const Shows = ({
+  fetchFeaturedItems,
+  fetchItems,
+  featuredItems,
+  items,
+  countries,
+  generas,
+  years,
+  pageCount,
+}) => {
   const { register, handleSubmit, reset } = useForm();
   const [] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
@@ -29,10 +38,15 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries
   }, []);
 
   useEffect(() => {
-    fetchItems({ pageNumber, pageSize: 10, type: tabs[activeTab], ...searchQuery });
+    fetchItems({
+      pageNumber,
+      pageSize: 10,
+      type: tabs[activeTab],
+      ...searchQuery,
+    });
   }, [pageNumber, activeTab, searchQuery]);
 
-  const onSubmit = values => {
+  const onSubmit = (values) => {
     setSearchQuery({ ...values });
   };
 
@@ -49,13 +63,13 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries
       stretch: 0,
       depth: 100,
       modifier: 1,
-      slideShadows: true
+      slideShadows: true,
     },
     rebuildOnUpdate: true,
     pagination: {
       el: ".slider_dots",
-      clickable: true
-    }
+      clickable: true,
+    },
   };
 
   return featuredItems != undefined && featuredItems.length > 0 ? (
@@ -73,7 +87,7 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries
             </div>
             <div className="slider_items">
               <Swiper {...params} getSwiper={setSwiper}>
-                {featuredItems.map(item => (
+                {featuredItems.map((item) => (
                   <div key={item.id} className="item">
                     <div className="imgthmb">
                       <img src={item.posterUrl} />
@@ -81,14 +95,18 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries
                     <div className="content">
                       <div className="title">
                         <span>
-                          <LanguageContext.Consumer>{({ locale }) => item.title[locale.code]}</LanguageContext.Consumer>
+                          <LanguageContext.Consumer>
+                            {({ locale }) => item.projectName[locale.code]}
+                          </LanguageContext.Consumer>
                         </span>
                         <time>
-                          <Trans id="uploaded">Uploaded</Trans> : {item.uploadedDate}
+                          <Trans id="uploaded">Uploaded</Trans> :{" "}
+                          {item.uploadedDate}
                         </time>
                       </div>
                       <div className="video_item">
                         <ReactPlayer
+                          playing
                           controls
                           url={item.trailerUrl}
                           className="react-player"
@@ -102,7 +120,8 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries
                           <ul>
                             <li>
                               <span>
-                                <Trans id="release-date">Date of release</Trans> :
+                                <Trans id="release-date">Date of release</Trans>{" "}
+                                :
                               </span>
                               <p>{item.year}</p>
                             </li>
@@ -134,7 +153,10 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries
                             <p>{item.nomineeName}</p>
                           </div>
                           <div className="imgthumb">
-                            <img src={item.nomineeAvatar} />
+                            <img
+                              src={`${item.nomineeAvatar}?w=110&h=100&mode=stretch`}
+                              alt={item.nomineeName}
+                            />
                           </div>
                         </div>
                       </div>
@@ -156,7 +178,12 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries
         <div className="container">
           <div className="search_filter">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <input type="text" ref={register} name="title" placeholder="show title" />
+              <input
+                type="text"
+                ref={register}
+                name="title"
+                placeholder="show title"
+              />
               <select ref={register} name="year">
                 {generas.map((y, i) => (
                   <option value={y}>{y}</option>
@@ -182,11 +209,15 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries
             </form>
           </div>
           <div className="shows_items">
-            {items.map(item => (
+            {items.map((item) => (
               <Show key={item.id} show={item} />
             ))}
           </div>
-          <Paginator pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
+          <Paginator
+            pageCount={pageCount}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+          />
         </div>
       </div>
     </section>
@@ -201,7 +232,7 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries
                   className="empty_title"
                   dangerouslySetInnerHTML={{
                     __html:
-                      "لكل صناع الإعلام في الوطن العربي أنتم على مسافة قريبة من نيل الجائزة الكبرى وتكريمكم بطابع عالمي<br>تحدي يستحق المشاركة، كن على الموعد لتقديم عملك"
+                      "لكل صناع الإعلام في الوطن العربي أنتم على مسافة قريبة من نيل الجائزة الكبرى وتكريمكم بطابع عالمي<br>تحدي يستحق المشاركة، كن على الموعد لتقديم عملك",
                   }}
                 ></div>
               ) : (
@@ -209,7 +240,7 @@ const Shows = ({ fetchFeaturedItems, fetchItems, featuredItems, items, countries
                   className="empty_title"
                   dangerouslySetInnerHTML={{
                     __html:
-                      "For all media makers in the Arab world, <br>you are so close to be honoured globally by the Grand Award.<br>A Challenge worth participation.<br>Be on time to present your works."
+                      "For all media makers in the Arab world, <br>you are so close to be honoured globally by the Grand Award.<br>A Challenge worth participation.<br>Be on time to present your works.",
                   }}
                 ></div>
               );
@@ -229,7 +260,9 @@ const Show = ({ show }) => (
         <div className="mask">
           <div className="content">
             <p>
-              <LanguageContext.Consumer>{({ locale }) => show.title[locale.code]}</LanguageContext.Consumer>
+              <LanguageContext.Consumer>
+                {({ locale }) => show.projectName[locale.code]}
+              </LanguageContext.Consumer>
             </p>
             {/* <Stars /> */}
           </div>
@@ -240,12 +273,17 @@ const Show = ({ show }) => (
 );
 
 const mapStateToProps = ({
-  home: {shows_countries: countries, shows_generas: generas, shows_years: years },
+  home: {
+    shows_countries: countries,
+    shows_generas: generas,
+    shows_years: years,
+  },
   shows: {
     items,
     featuredItems,
-    items_pagination: { pageCount }
-  }
-}) => ({ items, featuredItems, pageCount,  countries, generas, years });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...showsActions }, dispatch);
+    items_pagination: { pageCount },
+  },
+}) => ({ items, featuredItems, pageCount, countries, generas, years });
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...showsActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Shows);

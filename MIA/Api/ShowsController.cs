@@ -29,10 +29,11 @@ namespace MIA.Api {
     public IActionResult Featured(
       [FromServices] IAppUnitOfWork db) {
       var result = db.Artworks
+        .Include(a => a.Nominee)
+        .ThenInclude(a => a.AvatarImage)
         .Where(a => a.UploadComplete)
         .ProjectTo<ArtworkBasicViewDto>(_mapper.ConfigurationProvider)
-        .ToArray()
-        .Random(20);
+        .ToArray();
 
       return IfFound(result);
     }
@@ -42,6 +43,8 @@ namespace MIA.Api {
       [FromBody] ArtworkFilterDto query,
       [FromServices] IAppUnitOfWork db) {
       var _result = db.Artworks
+        .Include(a => a.Nominee)
+        .ThenInclude(a => a.AvatarImage)
         .Where(a => a.UploadComplete);
 
       //todo: filtering
@@ -59,6 +62,8 @@ namespace MIA.Api {
       [FromRoute(Name = "id")] string showId,
       [FromServices] IAppUnitOfWork db) {
       var result = await db.Artworks
+        .Include(a => a.Nominee)
+        .ThenInclude(a => a.AvatarImage)
         .Include(a => a.Reviews)
         .Where(a => a.UploadComplete && a.Id == showId)
         .ProjectTo<FullArtworkWithCommentsDto>(_mapper.ConfigurationProvider)

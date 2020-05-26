@@ -3,7 +3,12 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 import ReCAPTCHA from "react-google-recaptcha";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
 import config from "config";
-import { FacebookShareButton, TwitterShareButton, InstapaperShareButton, WhatsappShareButton } from "react-share";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  InstapaperShareButton,
+  WhatsappShareButton,
+} from "react-share";
 import { Trans } from "@lingui/macro";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
@@ -13,7 +18,15 @@ import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import classNames from "classnames";
 
-const ShowsView = ({ show, location, fetchShowDetails, postShowReview, commentsSuccess, clearReviewSuccess, ...props }) => {
+const ShowsView = ({
+  show,
+  location,
+  fetchShowDetails,
+  postShowReview,
+  commentsSuccess,
+  clearReviewSuccess,
+  ...props
+}) => {
   useEffect(() => {
     const id = location.pathname.split("/").pop();
     fetchShowDetails(id);
@@ -22,7 +35,7 @@ const ShowsView = ({ show, location, fetchShowDetails, postShowReview, commentsS
   const tabs = ["info", "reviews"];
   const [activeTab, setActiveTab] = useState(0);
 
-  const handleActiveTab = tab => {
+  const handleActiveTab = (tab) => {
     setActiveTab(tab);
   };
   return show != undefined && !!show.id ? (
@@ -34,12 +47,18 @@ const ShowsView = ({ show, location, fetchShowDetails, postShowReview, commentsS
               <div className="imgthumb">
                 <img src={show.posterUrl} />
                 <div className="mask">
-                  <LanguageContext.Consumer>{({ locale }) => <span>{show.title[locale.code]}</span>}</LanguageContext.Consumer>
+                  <LanguageContext.Consumer>
+                    {({ locale }) => (
+                      <span>{show.projectName[locale.code]}</span>
+                    )}
+                  </LanguageContext.Consumer>
                 </div>
               </div>
               <div className="desc">
                 <div className="name">
-                  <LanguageContext.Consumer>{({ locale }) => show.title[locale.code]}</LanguageContext.Consumer>
+                  <LanguageContext.Consumer>
+                    {({ locale }) => show.projectName[locale.code]}
+                  </LanguageContext.Consumer>
                 </div>
                 {/* <div className="stars">
                 <i className="icofont-ui-rating"></i>
@@ -87,7 +106,9 @@ const ShowsView = ({ show, location, fetchShowDetails, postShowReview, commentsS
                 <Trans> About the show</Trans>
               </span>
               <p>
-                <LanguageContext.Consumer>{({ locale }) => show.showDescription[locale.code]}</LanguageContext.Consumer>
+                <LanguageContext.Consumer>
+                  {({ locale }) => show.description[locale.code]}
+                </LanguageContext.Consumer>
               </p>
             </div>
           </div>
@@ -101,13 +122,25 @@ const ShowsView = ({ show, location, fetchShowDetails, postShowReview, commentsS
       <div className="show_inner_two">
         <div className="container">
           <div className="show_video">
-            <ReactPlayer controls url={show.trailerUrl} className="react-player" width="560" height="315" light={show.coverUrl} />
+            <ReactPlayer
+              playing
+              controls
+              url={show.trailerUrl}
+              className="react-player"
+              width="560"
+              height="315"
+              light={show.coverUrl}
+            />
           </div>
           <div className="show_content">
             <div className="tabs_area">
               <div className="tabs">
                 <ul>
-                  <TabList activeClassName="active" activeIndex={activeTab} handleActiveTab={handleActiveTab}>
+                  <TabList
+                    activeClassName="active"
+                    activeIndex={activeTab}
+                    handleActiveTab={handleActiveTab}
+                  >
                     {tabs.map((t, i) => (
                       <Tab key={i}>
                         <li>
@@ -119,10 +152,18 @@ const ShowsView = ({ show, location, fetchShowDetails, postShowReview, commentsS
                 </ul>
               </div>
               <div className="all_tabs_content">
-                <div className={classNames("item_tabs_content", { active: activeTab == 0 })}>
+                <div
+                  className={classNames("item_tabs_content", {
+                    active: activeTab == 0,
+                  })}
+                >
                   <Info show={show} />
                 </div>
-                <div className={classNames("item_tabs_content", { active: activeTab == 1 })}>
+                <div
+                  className={classNames("item_tabs_content", {
+                    active: activeTab == 1,
+                  })}
+                >
                   <Reviews
                     show={show}
                     postShowReview={postShowReview}
@@ -211,7 +252,13 @@ const Info = ({ show, ...props }) => (
   </div>
 );
 
-const Reviews = ({ show, postShowReview, commentsSuccess, clearReviewSuccess, ...props }) => (
+const Reviews = ({
+  show,
+  postShowReview,
+  commentsSuccess,
+  clearReviewSuccess,
+  ...props
+}) => (
   <div className="item_review">
     <div className="comments_area">
       <Comments comments={show.reviews} />
@@ -225,14 +272,20 @@ const Reviews = ({ show, postShowReview, commentsSuccess, clearReviewSuccess, ..
   </div>
 );
 
-const CommentForm = ({ showId, postShowReview, commentsSuccess, clearReviewSuccess, ...props }) => {
+const CommentForm = ({
+  showId,
+  postShowReview,
+  commentsSuccess,
+  clearReviewSuccess,
+  ...props
+}) => {
   const { register, handleSubmit, reset, setValue } = useForm();
   // let reCaptchaRef = useRef();
 
-  const onSubmit = values => {
+  const onSubmit = (values) => {
     postShowReview({
       ...values,
-      id: showId
+      id: showId,
     });
     setTimeout(() => {
       reset();
@@ -246,11 +299,27 @@ const CommentForm = ({ showId, postShowReview, commentsSuccess, clearReviewSucce
     <div className="comment_form">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="inputs">
-          <input ref={register({ required: true })} name="name" type="text" placeholder="Name" />
-          <input ref={register({ required: true })} name="email" type="email" placeholder="Your Email" />
+          <input
+            ref={register({ required: true })}
+            name="name"
+            type="text"
+            placeholder="Name"
+          />
+          <input
+            ref={register({ required: true })}
+            name="email"
+            type="email"
+            placeholder="Your Email"
+          />
         </div>
         <div className="inputs">
-          <input ref={register({ required: true })} name="title" type="text" placeholder="Comment Title" style={{ flex: 1 }} />
+          <input
+            ref={register({ required: true })}
+            name="title"
+            type="text"
+            placeholder="Comment Title"
+            style={{ flex: 1 }}
+          />
         </div>
         <textarea
           ref={register({ required: true })}
@@ -267,13 +336,13 @@ const CommentForm = ({ showId, postShowReview, commentsSuccess, clearReviewSucce
             register(
               { name: "reCaptchaToken" },
               {
-                validate: value => {
+                validate: (value) => {
                   return !!value;
-                }
+                },
               }
             )
           }
-          onChange={v => {
+          onChange={(v) => {
             setValue("reCaptchaToken", v);
           }}
         />
@@ -283,11 +352,15 @@ const CommentForm = ({ showId, postShowReview, commentsSuccess, clearReviewSucce
         {"  "}
         {commentsSuccess === undefined ? null : commentsSuccess === true ? (
           <div className="msg_success">
-            <Trans id="comment_submitted">Your comment has been submitted successfully for review</Trans>
+            <Trans id="comment_submitted">
+              Your comment has been submitted successfully for review
+            </Trans>
           </div>
         ) : (
           <div className="msg_wrong">
-            <Trans id="comment_failed">There is an error, the message could not be sent</Trans>
+            <Trans id="comment_failed">
+              There is an error, the message could not be sent
+            </Trans>
           </div>
         )}
       </form>
@@ -318,7 +391,7 @@ const Comments = ({ comments, ...props }) =>
     </h2>
   );
 
-const AdsArea = props => (
+const AdsArea = (props) => (
   <>
     <div className="small_banner">
       <a href="#" title="#">
@@ -333,10 +406,14 @@ const AdsArea = props => (
   </>
 );
 
-const mapStateToProps = ({ shows: { selectedShow, commentsSuccess }, router: { location } }) => ({
+const mapStateToProps = ({
+  shows: { selectedShow, commentsSuccess },
+  router: { location },
+}) => ({
   show: selectedShow,
   commentsSuccess,
-  location
+  location,
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...showsActions }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...showsActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ShowsView);
