@@ -112,7 +112,9 @@ const NewContestant = ({ awards, addNewContestant, ...props }) => {
               <div className="pay_col_one">
                 <div className="item_top">
                   <div className="imgthumb">
-                    <img src={selectedAward?.trophyUrl} />
+                    {selectedAward && selectedAward.id != "0" && (
+                      <img src={selectedAward?.trophyUrl} alt="Trophy" />
+                    )}
                   </div>
                   <div className="desc">
                     <LanguageContext.Consumer>
@@ -139,7 +141,11 @@ const NewContestant = ({ awards, addNewContestant, ...props }) => {
                                   (x) => x.id == a.target.value
                                 );
                                 setSelectedAward(_award);
-                                setFieldValue("awardId", _award.id);
+                                if (_award.id == "0") {
+                                  setFieldValue("awardId", undefined);
+                                } else {
+                                  setFieldValue("awardId", _award.id);
+                                }
                               }}
                             >
                               <I18n>
@@ -158,12 +164,14 @@ const NewContestant = ({ awards, addNewContestant, ...props }) => {
                     </LanguageContext.Consumer>
                   </div>
                 </div>
-                <div className="item_bottom">
-                  <div className="price">
-                    {selectedAward?.artworkFee}
-                    <Trans id="usd">USD</Trans>
+                {selectedAward && selectedAward.id != "0" && (
+                  <div className="item_bottom">
+                    <div className="price">
+                      {selectedAward?.artworkFee}
+                      <Trans id="usd">USD</Trans>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
               <div className="pay_col_two">
                 <div className="grid grid--1 grid--sm-2 grid--md-4 grid--space-def grid--hspace-xl grid--inline">
