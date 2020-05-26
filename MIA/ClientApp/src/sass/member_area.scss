@@ -1967,8 +1967,10 @@
           .item {
             padding: 10px;
             width: 25%;
-            height: 190px;
+            height: 220px;
             cursor: pointer;
+            border: 1px solid #21231e;
+            border-radius: 8px;
             img {             
               height: 95%;
               width: 95%;
