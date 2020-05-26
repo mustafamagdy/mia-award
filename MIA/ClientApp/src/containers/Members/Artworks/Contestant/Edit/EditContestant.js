@@ -76,7 +76,7 @@ const EditContestantInfo = ({ contestant, active, editArtwork, ...props }) => {
               </div>
               <div className="item_bottom">
                 <div className="price">
-                  {contestant?.artworkFee}
+                  {contestant?.awardFee}
                   <Trans id="usd">USD</Trans>
                 </div>
               </div>

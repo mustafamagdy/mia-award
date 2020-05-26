@@ -75,7 +75,7 @@ const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
               </div>
               <div className="item_bottom">
                 <div className="price">
-                  {artwork?.artworkFee}
+                  {artwork?.awardFee}
                   <Trans id="usd">USD</Trans>
                 </div>
               </div>
