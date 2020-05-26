@@ -34,7 +34,6 @@ const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
         productionLicenseAgency: Yup.string().required("Required"),
       })}
       onSubmit={async (values, actions) => {
-        debugger;
         editArtwork(values);
       }}
     >

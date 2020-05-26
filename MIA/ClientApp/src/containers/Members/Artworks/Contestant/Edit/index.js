@@ -9,7 +9,7 @@ import { withRouter } from "react-router-dom";
 import EditContestantInfo from "./EditContestant";
 
 const EditArtwork = ({
-  artwork,
+  contestant,
   switchToView,
   updateTrailer,
   history,
@@ -31,7 +31,7 @@ const EditArtwork = ({
     }
   }, [id]);
 
-  useEffect(() => {}, [artwork, tabs]);
+  useEffect(() => {}, [contestant, tabs]);
 
   const handleActiveTab = (tabKey) => {
     setActiveTabKey(tabKey);
@@ -66,14 +66,14 @@ const EditArtwork = ({
             </TabList>
           </ul>
         </div>
-        {artwork == undefined ? (
+        {contestant == undefined ? (
           <div>loading</div>
         ) : (
           <>
             {activeTabKey === "info" && (
               <EditContestantInfo
                 editArtwork={saveArtworkInfo}
-                artwork={artwork}
+                contestant={contestant}
               />
             )}
           </>
@@ -83,8 +83,8 @@ const EditArtwork = ({
   );
 };
 
-const mapStateToProps = ({ members: { artwork } }) => ({
-  artwork,
+const mapStateToProps = ({ members: { contestant } }) => ({
+  contestant,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...membersActions }, dispatch);
