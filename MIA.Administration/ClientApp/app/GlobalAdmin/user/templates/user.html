@@ -1,14 +1,13 @@
-<div id="bold">
-    {{'user' | translate}}
-</div>
+ 
 <div>
-    <div style="margin-bottom:10px">
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-click="$state.go('addUser');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
-            type="button">{{'AddUserBtn' | translate}}</button>
-
-    </div>
     <div class="row">
+        <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
+
+            <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
+            border-radius: 17px;" ng-click="$state.go('addUser');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                type="button">{{'AddUserBtn' | translate}}</button>
+
+        </div>
         <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
 
             <div class="form-group col-lg-4"> <label for="first-name">{{'Role' | translate}}</label>

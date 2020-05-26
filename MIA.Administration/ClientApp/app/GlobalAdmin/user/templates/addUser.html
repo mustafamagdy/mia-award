@@ -126,12 +126,15 @@
     </div>
 </div>
 
+
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".select-add-tags").select2({
-            tags: true,
-            theme: "bootstrap",
+        $(".select-with-search").select2({
+            theme: "bootstrap"
         });
-
+    });
+    $(".select-tags").select2({
+        tags: false,
+        theme: "bootstrap",
     });
 </script>

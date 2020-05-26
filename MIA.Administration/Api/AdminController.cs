@@ -16,7 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
-namespace MIA.Administration.Api {
+namespace MIA.Administration.Api
+{
   /// <summary>
   /// Admin tasks controller
   /// </summary>
@@ -25,7 +26,8 @@ namespace MIA.Administration.Api {
 #endif
   [Route("api/admin")]
 
-  public class AdminController : BaseApiController<AdminController> {
+  public class AdminController : BaseApiController<AdminController>
+  {
     private readonly IStringLocalizer<AdminController> _locale;
 
     /// <summary>
@@ -38,16 +40,19 @@ namespace MIA.Administration.Api {
       IMapper mapper,
       ILogger<AdminController> logger,
       IStringLocalizer<AdminController> locale
-    ) : base(logger, mapper) {
+    ) : base(logger, mapper)
+    {
       this._locale = locale;
     }
 
     [HttpGet("roles")]
     // //[HasPermission(Permissions.ReadRoles)]
-    public IActionResult Roles([FromServices] IAppUnitOfWork db) {
+    public IActionResult Roles([FromServices] IAppUnitOfWork db)
+    {
       var roles = db.Roles.MapTo<RoleDto>();
-      var systemRoles = Enum.GetNames(typeof(PredefinedRoles)).Select(a=>a.ToLower());
-      var allRoles = roles.Select(a => {
+      var systemRoles = Enum.GetNames(typeof(PredefinedRoles)).Select(a => a.ToLower());
+      var allRoles = roles.Select(a =>
+      {
         a.SystemRole = systemRoles.Contains(a.Name.ToLower());
         return a;
       }).ToList();
@@ -56,17 +61,42 @@ namespace MIA.Administration.Api {
 
     [HttpGet("permissions")]
     // //[HasPermission(Permissions.ReadPermissions)]
-    public IActionResult ListPermissions() {
+    public IActionResult ListPermissions()
+    {
       var permissionNames = Enum.GetValues(typeof(Permissions)).Cast<short>();
       var permissions = permissionNames.Select(p => _mapper.Map<PermissionDto>((Permissions)p)).ToList();
       return IfFound(permissions);
     }
 
+    [HttpGet("permissions/module/{moduleName}")]
+    // //[HasPermission(Permissions.ReadPermissions)]
+    public IActionResult ListPermissionsByModule([FromRoute] string moduleName)
+    {
+      Object systemModules;
+      if (!Enum.TryParse(typeof(SystemModules), moduleName, out systemModules))
+      {
+        return NotFound404("moudle not found");
+      }
+      var permissionNames = Enum.GetValues(typeof(Permissions)).Cast<short>();
+      var permissions = permissionNames
+        .Select(p => _mapper.Map<PermissionDto>((Permissions)p))
+        .Where(x => x.SystemModule == (SystemModules)systemModules).ToList();
+      return IfFound(permissions);
+    }
+    [HttpGet("role/modules")]
+    ////[HasPermission(Permissions.ReadRoleModules)]
+    public async Task<IActionResult> ListModules()
+    {
+      var modules = Enum.GetNames(typeof(SystemModules));
+      return IfFound(modules);
+    }
     [HttpGet("role/{roleName}/permissions")]
     ////[HasPermission(Permissions.ReadRolePermissions)]
-    public async Task<IActionResult> ListRolePermissions([FromRoute]string roleName, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> ListRolePermissions([FromRoute]string roleName, [FromServices] IAppUnitOfWork db)
+    {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName);
-      if (role == null) {
+      if (role == null)
+      {
         return NotFound404("role not found");
       }
 
@@ -79,22 +109,41 @@ namespace MIA.Administration.Api {
       return IfFound(rolePermissions);
     }
 
+    [HttpPost("role/createRole/{roleName}")]
+    //[HasPermission(Permissions.ReadRolePermissions)]
+    public async Task<IActionResult> CreateRole([FromRoute] string roleName, RoleManager<AppRole> roleManager, [FromServices] IAppUnitOfWork db)
+    {
+      if (await roleManager.FindByNameAsync(roleName.ToString().ToLower()) == null)
+      {
+        await roleManager.CreateAsync(
+          new AppRole(roleName)
+          {
+            Name = roleName.ToString().ToLower(),
+            NormalizedName = roleName.ToString().ToUpper()
+          });
+      }
+      return Ok();
+    }
     [HttpPost("role/{roleName}/permissions/{permissionId}")]
     //[HasPermission(Permissions.ReadRolePermissions)]
     public async Task<IActionResult> AddPermissionToRole([FromRoute] string roleName, [FromRoute]short permissionId,
-      [FromServices] IAppUnitOfWork db) {
+      [FromServices] IAppUnitOfWork db)
+    {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null) {
+      if (role == null)
+      {
         return NotFound404("role not found");
       }
 
       Permissions permission;
-      if (!Enum.TryParse(permissionId.ToString(), out permission)) {
+      if (!Enum.TryParse(permissionId.ToString(), out permission))
+      {
         return NotFound404("permission not found or not allowed");
       }
 
       var exists = role.Permissions.Contains((char)permission);
-      if (!exists) {
+      if (!exists)
+      {
         role.Permissions += (char)permission;
       }
 
@@ -104,9 +153,11 @@ namespace MIA.Administration.Api {
     [HttpDelete("role/{roleName}/permissions/{permissionId}")]
     //[HasPermission(Permissions.RemoveRolePermissions)]
     public async Task<IActionResult> RemovePermissionFromRole([FromRoute] string roleName, [FromRoute]short permissionId,
-      [FromServices] IAppUnitOfWork db) {
+      [FromServices] IAppUnitOfWork db)
+    {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null) {
+      if (role == null)
+      {
         return NotFound404("role not found");
       }
 
@@ -115,12 +166,14 @@ namespace MIA.Administration.Api {
         return ValidationError(HttpStatusCode.BadRequest, "You cannot remote system roles");
 
       Permissions permission;
-      if (!Enum.TryParse(permissionId.ToString(), out permission)) {
+      if (!Enum.TryParse(permissionId.ToString(), out permission))
+      {
         return NotFound404("permission not found or not allowed");
       }
 
       var exists = role.Permissions.Contains((char)permission);
-      if (exists) {
+      if (exists)
+      {
         role.Permissions.Remove(role.Permissions.IndexOf((char)permission));
       }
 
@@ -131,14 +184,17 @@ namespace MIA.Administration.Api {
     [HttpPost("role/{roleName}/user/{userId}")]
     //[HasPermission(Permissions.AddUserToRole)]
     public async Task<IActionResult> AddUserToRole([FromRoute] string roleName, [FromRoute] string userId,
-      [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager) {
+      [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
+    {
       var user = await db.Users.FindAsync(userId);
-      if (user == null) {
+      if (user == null)
+      {
         return NotFound404("user not found");
       }
 
       var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null) {
+      if (role == null)
+      {
         return NotFound404("role not found");
       }
 
@@ -149,14 +205,17 @@ namespace MIA.Administration.Api {
     [HttpDelete("role/{roleName}/user/{userId}")]
     //[HasPermission(Permissions.RemoveUserFromRole)]
     public async Task<IActionResult> RemoveUserToRole([FromRoute] string roleName, [FromRoute] string userId,
-      [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager) {
+      [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
+    {
       var user = await db.Users.FindAsync(userId);
-      if (user == null) {
+      if (user == null)
+      {
         return NotFound404("user not found");
       }
 
       var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null) {
+      if (role == null)
+      {
         return NotFound404("role not found");
       }
 
@@ -166,9 +225,11 @@ namespace MIA.Administration.Api {
 
     [HttpGet("user/{userId}/roles")]
     //[HasPermission(Permissions.ReadUserRoles)]
-    public async Task<IActionResult> ListUserRoles([FromRoute] string userId, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager) {
+    public async Task<IActionResult> ListUserRoles([FromRoute] string userId, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
+    {
       var user = await db.Users.FindAsync(userId);
-      if (user == null) {
+      if (user == null)
+      {
         return NotFound404("user not found");
       }
       var roles = await userManager.GetRolesAsync(user);
@@ -177,9 +238,11 @@ namespace MIA.Administration.Api {
 
     [HttpGet("role/{roleName}/users")]
     //[HasPermission(Permissions.ReadUserRoles)]
-    public async Task<IActionResult> ListRoleUsers([FromRoute] string roleName, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager) {
+    public async Task<IActionResult> ListRoleUsers([FromRoute] string roleName, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
+    {
       var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null) {
+      if (role == null)
+      {
         return NotFound404("role not found");
       }
       var users = await userManager.GetUsersInRoleAsync(roleName);

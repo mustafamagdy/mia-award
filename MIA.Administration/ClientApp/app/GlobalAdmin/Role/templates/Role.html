@@ -10,11 +10,7 @@
         <span>{{'NoRolesAvailable' | translate}}</span>
     </div>
     <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="RoleList.length > 0">
-        <div class="table-responsive" style="border: 1px solid #21231e;
-        border-radius: 20px;
-        background-color: #0e0e0e;
-        box-shadow: 0 0 10px 5px rgba(0,0,0,.35);
-    ">
+        <div class="table-responsive" >
             <table class="table pmd-table table-hover">
                 <thead>
                     <tr>
@@ -29,7 +25,7 @@
 
                         <td>
                             <i class="material-icons md-dark pmd-md cursorPointer font25"
-                                ng-click="$state.go('editRole',{roleId: role.id});" title="Edit">mode_edit</i>
+                                ng-click="$state.go('editRole',{name: role.name});" title="Edit">mode_edit</i>
                             <i ng-show="!role.systemRole" class="material-icons pmd-md deleteButton cursorPointer font25"
                                 ng-click="RoleCtrl.openDeleteDialog(role,role.titles[selectedLanguage],role.userGroupId)">delete</i>
                         </td>

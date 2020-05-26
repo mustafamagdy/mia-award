@@ -4,38 +4,35 @@
     angular
         .module('home')
         .controller('editRoleDialogController', ['blockUI', '$filter', '$state',
-            'appCONSTANTS', '$translate', 'RoleResource', 'PermissionPrepService', 'ToastService',
+            '$stateParams', '$translate', 'RoleResource', 'PermissionPrepService', 'ModulePrepService', 'ToastService',
             'RoleByIdPrepService', editRoleDialogController])
 
-    function editRoleDialogController(blockUI, $filter, $state, appCONSTANTS, $translate, RoleResource,
-        PermissionPrepService, ToastService, RoleByIdPrepService) {
+    function editRoleDialogController(blockUI, $filter, $state, $stateParams, $translate, RoleResource,
+        PermissionPrepService, ModulePrepService, ToastService, RoleByIdPrepService) {
         var vm = this;
 
-        vm.selectedModuleList = [];
-        vm.selectedModule = "";
-        vm.language = appCONSTANTS.supportedLanguage;
         vm.permissionList = PermissionPrepService;
-        vm.Role = RoleByIdPrepService;
-        console.log(RoleByIdPrepService);
+        vm.moduleList = ModulePrepService;
+        console.log(vm.permissionList);
+        vm.name = $stateParams.name;
+        vm.rolePermissions = RoleByIdPrepService;
         vm.selectedPermissions = [];
+        vm.newSelectedPermissions = [];
+        vm.removedSelectedPermissions = [];
 
         var i;
-        for (i = 0; i < vm.Role.permessionTree.length; i++) {
-
-            angular.forEach(vm.Role.permessionTree[i].permessions, function (valueModule, keyModule) {
-                if (valueModule.seclected)
-                    vm.selectedPermissions.push(valueModule.permessionId);
-            });
-
+        for (i = 0; i < vm.rolePermissions.length; i++) {
+            var indexPerm = vm.permissionList.indexOf($filter('filter')(vm.permissionList, { 'id': vm.rolePermissions[i].id }, true)[0]);
+            vm.selectedPermissions.push(vm.permissionList[indexPerm]);
         }
         vm.UpdateRole = function () {
 
             blockUI.start("Loading...");
-            console.log(vm.Role);
+            console.log(vm.rolePermissions);
             var updateObj = new RoleResource();
-            updateObj.roleId = vm.Role.userGroupId;
+            updateObj.roleId = vm.rolePermissions.userGroupId;
             updateObj.roles = vm.selectedPermissions;
-            updateObj.titles = vm.Role.titles;
+            updateObj.titles = vm.rolePermissions.titles;
             updateObj.$update().then(
                 function (data, status) {
                     blockUI.stop();
@@ -51,7 +48,7 @@
             );
         }
         vm.checkPermission = function (obj) {
-            var checkIfPermissionExist = vm.selectedPermissions.indexOf(obj.permessionId);
+            var checkIfPermissionExist = vm.selectedPermissions.indexOf(obj.id);
             if (checkIfPermissionExist == -1) {
                 vm.selectedPermissions.push(obj.permessionId);
             }
@@ -60,6 +57,27 @@
                 vm.selectedPermissions.splice(index, 1);
             }
         }
+        vm.changePermissionList = function (name) {
+         
+            
+            refreshPermissions(name);
+        }
+
+
+        function refreshPermissions(name) {
+            blockUI.start("Loading..."); 
+            var k = RoleResource.getAllPermissionsByModule({ moduleName: name }).$promise.then(function (results) {
+ 
+                vm.newSelectedPermissions = results;
+                console.log(vm.userList);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
         vm.ChangeSelectedModule = function () {
             angular.forEach(vm.selectedModule, function (value, key) {
                 angular.forEach(value.permessions, function (valuePermission, key1) {

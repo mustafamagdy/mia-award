@@ -84,13 +84,14 @@
 
                 })
                 .state('editRole', {
-                    url: '/editRole/:roleId',
+                    url: '/editRole/:name',
                     templateUrl: './app/GlobalAdmin/Role/templates/edit.html',
                     controller: 'editRoleDialogController',
                     'controllerAs': 'editRoleCtrl',
                     resolve: {
                         RoleByIdPrepService: RoleByIdPrepService,
-                        PermissionPrepService: PermissionPrepService
+                        PermissionPrepService: PermissionPrepService,
+                        ModulePrepService: ModulePrepService
                     },
                     data: {
                         permissions: {
@@ -185,7 +186,7 @@
     }
     RoleByIdPrepService.$inject = ['RoleResource', '$stateParams']
     function RoleByIdPrepService(RoleResource, $stateParams) {
-        return RoleResource.getRole({ roleId: $stateParams.roleId }).$promise;
+        return RoleResource.getRole({ roleName: $stateParams.name }).$promise;
     }
 
     PermissionPrepService.$inject = ['RoleResource']
@@ -193,6 +194,10 @@
         return RoleResource.getAllPermissions().$promise;
     }
 
+    ModulePrepService.$inject = ['RoleResource']
+    function ModulePrepService(RoleResource) {
+        return RoleResource.getAllModules().$promise;
+    }
     /*News */
     NewsPrepService.$inject = ['NewsResource']
     function NewsPrepService(NewsResource) {
@@ -215,7 +220,7 @@
     }
     UserRoleByIdPrepService.$inject = ['UserResource', '$stateParams']
     function UserRoleByIdPrepService(UserResource, $stateParams) {
-        return UserResource.getUserRole({ userId: $stateParams.userId }).$promise;
+        return UserResource.getUserRole({ name: $stateParams.name }).$promise;
     }
 
 }());

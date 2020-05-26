@@ -76,13 +76,14 @@
 
                 })
                 .state('editRole', {
-                    url: '/editRole/:roleId',
+                    url: '/editRole/:name',
                     templateUrl: './app/GlobalAdmin/Role/templates/edit.html',
                     controller: 'editRoleDialogController',
                     'controllerAs': 'editRoleCtrl',
                     resolve: {
                         RoleByIdPrepService: RoleByIdPrepService,
-                        PermissionPrepService: PermissionPrepService
+                        PermissionPrepService: PermissionPrepService,
+                        ModulePrepService: ModulePrepService
                     },
                     data: {
                         permissions: {
@@ -167,7 +168,7 @@
     }
     RoleByIdPrepService.$inject = ['RoleResource', '$stateParams']
     function RoleByIdPrepService(RoleResource, $stateParams) {
-        return RoleResource.getRole({ roleId: $stateParams.roleId }).$promise;
+        return RoleResource.getRole({ roleName: $stateParams.name }).$promise;
     }
 
     PermissionPrepService.$inject = ['RoleResource']
@@ -175,6 +176,10 @@
         return RoleResource.getAllPermissions().$promise;
     }
 
+    ModulePrepService.$inject = ['RoleResource']
+    function ModulePrepService(RoleResource) {
+        return RoleResource.getAllModules().$promise;
+    }
     NewsPrepService.$inject = ['NewsResource']
     function NewsPrepService(NewsResource) {
         return NewsResource.getAllNewss({ pageNumber: 1, pageSize: 10 }).$promise;
@@ -195,7 +200,7 @@
     }
     UserRoleByIdPrepService.$inject = ['UserResource', '$stateParams']
     function UserRoleByIdPrepService(UserResource, $stateParams) {
-        return UserResource.getUserRole({ userId: $stateParams.userId }).$promise;
+        return UserResource.getUserRole({ name: $stateParams.name }).$promise;
     }
 
 }());(function() {
@@ -4053,38 +4058,35 @@
     angular
         .module('home')
         .controller('editRoleDialogController', ['blockUI', '$filter', '$state',
-            'appCONSTANTS', '$translate', 'RoleResource', 'PermissionPrepService', 'ToastService',
+            '$stateParams', '$translate', 'RoleResource', 'PermissionPrepService', 'ModulePrepService', 'ToastService',
             'RoleByIdPrepService', editRoleDialogController])
 
-    function editRoleDialogController(blockUI, $filter, $state, appCONSTANTS, $translate, RoleResource,
-        PermissionPrepService, ToastService, RoleByIdPrepService) {
+    function editRoleDialogController(blockUI, $filter, $state, $stateParams, $translate, RoleResource,
+        PermissionPrepService, ModulePrepService, ToastService, RoleByIdPrepService) {
         var vm = this;
 
-        vm.selectedModuleList = [];
-        vm.selectedModule = "";
-        vm.language = appCONSTANTS.supportedLanguage;
         vm.permissionList = PermissionPrepService;
-        vm.Role = RoleByIdPrepService;
-        console.log(RoleByIdPrepService);
+        vm.moduleList = ModulePrepService;
+        console.log(vm.permissionList);
+        vm.name = $stateParams.name;
+        vm.rolePermissions = RoleByIdPrepService;
         vm.selectedPermissions = [];
+        vm.newSelectedPermissions = [];
+        vm.removedSelectedPermissions = [];
 
         var i;
-        for (i = 0; i < vm.Role.permessionTree.length; i++) {
-
-            angular.forEach(vm.Role.permessionTree[i].permessions, function (valueModule, keyModule) {
-                if (valueModule.seclected)
-                    vm.selectedPermissions.push(valueModule.permessionId);
-            });
-
+        for (i = 0; i < vm.rolePermissions.length; i++) {
+            var indexPerm = vm.permissionList.indexOf($filter('filter')(vm.permissionList, { 'id': vm.rolePermissions[i].id }, true)[0]);
+            vm.selectedPermissions.push(vm.permissionList[indexPerm]);
         }
         vm.UpdateRole = function () {
 
             blockUI.start("Loading...");
-            console.log(vm.Role);
+            console.log(vm.rolePermissions);
             var updateObj = new RoleResource();
-            updateObj.roleId = vm.Role.userGroupId;
+            updateObj.roleId = vm.rolePermissions.userGroupId;
             updateObj.roles = vm.selectedPermissions;
-            updateObj.titles = vm.Role.titles;
+            updateObj.titles = vm.rolePermissions.titles;
             updateObj.$update().then(
                 function (data, status) {
                     blockUI.stop();
@@ -4100,7 +4102,7 @@
             );
         }
         vm.checkPermission = function (obj) {
-            var checkIfPermissionExist = vm.selectedPermissions.indexOf(obj.permessionId);
+            var checkIfPermissionExist = vm.selectedPermissions.indexOf(obj.id);
             if (checkIfPermissionExist == -1) {
                 vm.selectedPermissions.push(obj.permessionId);
             }
@@ -4109,6 +4111,27 @@
                 vm.selectedPermissions.splice(index, 1);
             }
         }
+        vm.changePermissionList = function (name) {
+
+
+                                 refreshPermissions(name);
+        }
+
+
+        function refreshPermissions(name) {
+            blockUI.start("Loading..."); 
+            var k = RoleResource.getAllPermissionsByModule({ moduleName: name }).$promise.then(function (results) {
+
+                 vm.newSelectedPermissions = results;
+                console.log(vm.userList);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
         vm.ChangeSelectedModule = function () {
             angular.forEach(vm.selectedModule, function (value, key) {
                 angular.forEach(value.permessions, function (valuePermission, key1) {
@@ -4233,16 +4256,17 @@
     function RoleResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Role/CreateRole', {}, {
             getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/roles', useToken: true, isArray: true },
-            getAllActivateRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/roles', useToken: true, isArray: true , params: { lang: '@lang' } },
+            getAllActivateRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/roles', useToken: true, isArray: true, params: { lang: '@lang' } },
             getAllPermissions: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/permissions', isArray: true, useToken: true, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/UpdateRole', useToken: true },
+            addPermissionToRole: { method: 'POST', url: appCONSTANTS.API_URL + 'admin/role/:roleName/permissions/:permissionId', useToken: true },
+            removePermissionToRole: { method: 'DELETE', url: appCONSTANTS.API_URL + 'admin/role/:roleName/permissions/:permissionId', useToken: true },
             delete: { method: 'DELETE', url: appCONSTANTS.API_URL + 'Role/Delete/:roleId', useToken: true },
-            getRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/GetRoleById/:roleId', useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Role/ChangeStatus/:roleId/:status', useToken: true },
+            getRole: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/role/:roleName/permissions', useToken: true, isArray: true },
             addUserToRole: { method: 'POST', url: appCONSTANTS.API_URL + 'admin/role/:roleName/user/:userId', useToken: true },
-
-                   })
+            getAllModules: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/role/modules', isArray: true, useToken: true, params: { lang: '@lang' } },
+            getAllPermissionsByModule: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/permissions/module/:moduleName', isArray: true, useToken: true, params: { lang: '@lang' } },
+        })
     }
 }());
 
@@ -5928,7 +5952,7 @@
         vm.currentTenantType = 0;
         blockUI.start("Loading...");
 
-                refreshRoles();
+        refreshRoles();
         vm.close = function () {
 
             $state.go('users');
@@ -5937,10 +5961,11 @@
 
         function refreshUsers() {
             blockUI.start("Loading...");
-            var k = UserResource.getAllUsersByUserType({ userType: vm.currentTenantType, page: vm.currentPage }).$promise.then(function (results) {
+            var k = UserResource.getAllUsersByUserType({ roleName: vm.selectedRole.name }).$promise.then(function (results) {
+                vm.currentTenantType = vm.selectedRole;
 
-                vm.totalCount = results.totalCount;
-                vm.userList = results.results;
+                vm.totalCount = results.length;
+                vm.userList = results;
                 console.log(vm.userList);
                 blockUI.stop();
             },
@@ -5955,19 +5980,7 @@
             $(element.currentTarget).toggleClass("child-table-collapse");
         }
         vm.changeUserType = function () {
-            blockUI.start("Loading...");
-            var k = UserResource.getAllUsersByUserType({ roleName: vm.selectedRole.name }).$promise.then(function (results) {
-                vm.currentTenantType = vm.selectedRole;
-
-                                vm.totalCount = results.length;
-                vm.userList = results;
-                console.log(vm.userList);
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
+            refreshUsers()
         }
         vm.currentPage = 1;
         vm.changePage = function (page) {
@@ -5976,52 +5989,13 @@
         }
         blockUI.stop();
 
-        vm.ChangeStatus = function (model) {
-
-            var updateObj = new UserResource();
-            updateObj.userId = model.userId;
-            updateObj.$changeStatus({ userId: model.userId }).then(
-                function (data, status) {
-                    if (data.message != null)
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                    else {
-                        refreshUsers();
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    }
-                    updateObj.status = model.isActive;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-
-
-        vm.ChangeRole = function (model) {
-
-            var updateObj = new UserResource();
-            updateObj.userId = model.userId;
-            updateObj.userType = 2;
-            updateObj.$changeRole({ userType: 2, userId: model.userId }).then(
-                function (data, status) {
-                    refreshUsers();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            return;
-        }
-
         function refreshRoles() {
             var k = RoleResource.getAllActivateRoles().$promise.then(function (results) {
 
-                                vm.roleList = results;
+                vm.roleList = results;
                 blockUI.stop();
-
+                vm.selectedRole = vm.roleList[0];
+                refreshUsers()
             },
                 function (data, status) {
 

@@ -16,7 +16,8 @@
         "angular.filter",
         "ncy-angular-breadcrumb",
         "angular-jwt",
-        "rzSlider"
+        "rzSlider",
+        "datatables"
         // "jwt-decode"
         // 'base64',
     ]);
