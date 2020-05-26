@@ -70,33 +70,15 @@ const ShowsView = ({
                 <ul>
                   <li>
                     <span>
-                      <Trans id="date_of_release"> Date of release </Trans>:
+                      <Trans id="production_year"> Production year </Trans>:
                     </span>
-                    <p>{show.year}</p>
+                    <p>{show.productionYear}</p>
                   </li>
                   <li>
                     <span>
-                      <Trans id="category"> Category </Trans>:
+                      <Trans id="broadcast_year"> Broadcast year </Trans>:
                     </span>
-                    <p>{show.category}</p>
-                  </li>
-                  <li>
-                    <span>
-                      <Trans id="genre">Genre</Trans>:
-                    </span>
-                    <p>{show.genre}</p>
-                  </li>
-                  <li>
-                    <span>
-                      <Trans id="country">Country</Trans>:
-                    </span>
-                    <p>{show.country}</p>
-                  </li>
-                  <li>
-                    <span>
-                      <Trans id="posted_date">Posted</Trans>:
-                    </span>
-                    <p>{show.postedDate}</p>
+                    <p>{show.broadcastYear}</p>
                   </li>
                 </ul>
               </div>
@@ -114,7 +96,14 @@ const ShowsView = ({
           </div>
           <div className="show_video_show">
             <span>
-              <img src={show.coverUrl} />
+              <LanguageContext.Consumer>
+                {({ locale }) => (
+                  <img
+                    src={show.coverUrl}
+                    alt={show.projectName[locale.code]}
+                  />
+                )}
+              </LanguageContext.Consumer>
             </span>
           </div>
         </div>
@@ -129,7 +118,7 @@ const ShowsView = ({
               className="react-player"
               width="560"
               height="315"
-              light={show.coverUrl}
+              light={encodeURI(show.coverUrl)}
             />
           </div>
           <div className="show_content">
@@ -201,52 +190,35 @@ const Info = ({ show, ...props }) => (
     <ul>
       <li>
         <span>
-          <Trans id="director">Director </Trans>:
+          <Trans id="siteUrl">Site Url </Trans>:
         </span>
-        <SplitNames names={show.director} />
+        <span>{show.siteUrl}</span>
       </li>
       <li>
         <span>
-          <Trans id="production">Production </Trans>:
+          <Trans id="tvChannels">Tv Channels </Trans>:
         </span>
-        <SplitNames names={show.production} />
+        <SplitNames names={show.tvChannels} />
       </li>
       <li>
         <span>
-          <Trans id="writers">Writers </Trans>:
+          <Trans id="onlineChannels">Online Channels </Trans>:
         </span>
-        <SplitNames names={show.writer} />
+        <SplitNames names={show.onlineChannels} />
       </li>
       <li>
         <span>
-          <Trans id="story">Story </Trans>:
+          <Trans id="productionLicenseNumber">Production license number </Trans>
+          :
         </span>
-        <SplitNames names={show.story} />
+        <span>{show.productionLicenseNumber}</span>
       </li>
       <li>
         <span>
-          <Trans id="stars">Stars </Trans>:
+          <Trans id="productionLicenseAgency">Production license agency </Trans>
+          :
         </span>
-        <SplitNames names={show.stars} />
-      </li>
-      <li>
-        <span>
-          <Trans id="crew">Crew </Trans>:
-        </span>
-        <div className="crew_content">
-          <div className="title">
-            <Trans id="cast">Cast</Trans>
-          </div>
-          <div className="content">
-            <SplitNames names={show.cast} />
-          </div>
-          <div className="title">
-            <Trans id="pod">D.O.P</Trans>
-          </div>
-          <div className="content">
-            <SplitNames names={show.pod} />
-          </div>
-        </div>
+        <span>{show.productionLicenseAgency}</span>
       </li>
     </ul>
   </div>
