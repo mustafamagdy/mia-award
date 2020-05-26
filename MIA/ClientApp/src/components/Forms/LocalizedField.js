@@ -9,9 +9,9 @@ const LocalizedDataField = ({
   touched,
   ...props
 }) => (
-  <div>
+  <React.Fragment>
     <Field
-      transId={transId}
+      transId={transId + "_ar"}
       transdDefaultVal={transdDefaultVal}
       hasError={
         errors && errors.ar !== undefined && touched && touched.ar !== undefined
@@ -19,14 +19,14 @@ const LocalizedDataField = ({
       name={`${name}.ar`}
     />
     <Field
-      transId={transId}
+      transId={transId + "_en"}
       transdDefaultVal={transdDefaultVal}
       hasError={
         errors && errors.en !== undefined && touched && touched.en !== undefined
       }
       name={`${name}.en`}
     />
-  </div>
+  </React.Fragment>
 );
 
 export default LocalizedDataField;

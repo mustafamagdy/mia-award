@@ -112,7 +112,7 @@ const EditArtwork = ({
         {artwork == undefined ? (
           <div>loading</div>
         ) : (
-          <>
+          <React.Fragment>
             {activeTabKey === "info" && (
               <EditArtworkInfo
                 editArtwork={saveArtworkInfo}
@@ -136,7 +136,7 @@ const EditArtwork = ({
                 removeArtworkFile={removeArtworkFile}
               />
             )}
-          </>
+          </React.Fragment>
         )}
       </div>
     </React.Fragment>

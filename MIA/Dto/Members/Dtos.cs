@@ -24,6 +24,9 @@ namespace MIA.Api {
     public bool CanUploadFiles { get; set; }
     public bool UploadComplete { get; set; }
     public AwardType AwardType { get; set; }
+    public LocalizedData AwardTitle { get; set;}
+    public decimal AwardFee { get; set;}
+    public string TrophyUrl { get; set;}
   }
   public class ArtworkViewWithFilesDto : ArtworkViewDto {
     public ArtworkFileDto[] Files { get; set; }
@@ -66,7 +69,7 @@ namespace MIA.Api {
     public bool IsOffline { get; set; }
     public string Status { get; set; }
   }
-  
+
   public class UpdateArtworkWithDetails : ArtworkBasicData { }
 
   public class SubmitArtworkWithDetails : ArtworkBasicData {

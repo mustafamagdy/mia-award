@@ -83,7 +83,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
             </div>
             <div className="pay_col_two">
               <div className="grid grid--1 grid--sm-2 grid--md-4 grid--space-def grid--hspace-xl grid--inline">
-                <div className="gcell">
+                <div className="row">
                   <LocalizedDataField
                     transId="project_name"
                     transdDefaultVal="Project Name"
@@ -92,7 +92,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                     touched={touched && touched.projectName}
                   />
                 </div>
-                <div className="gcell">
+                <div className="row">
                   <LocalizedDataField
                     transId="description"
                     transdDefaultVal="Description"
@@ -101,7 +101,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                     touched={touched && touched.description}
                   />
                 </div>
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="site_url"
                     transdDefaultVal="Site Url"
@@ -114,7 +114,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                     name="siteUrl"
                   />
                 </div>
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="production_year"
                     transdDefaultVal="Production Year"
@@ -128,7 +128,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                   />
                 </div>
 
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="broadcast_year"
                     transdDefaultVal="Broadcast Year"
@@ -142,7 +142,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                   />
                 </div>
 
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="tv_channels"
                     transdDefaultVal="Tv Channels"
@@ -156,7 +156,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                   />
                 </div>
 
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="online_channels"
                     transdDefaultVal="Online Channels"
@@ -169,7 +169,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                     name="onlineChannels"
                   />
                 </div>
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="production_license_number"
                     transdDefaultVal="Production License Number"
@@ -182,7 +182,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                     name="productionLicenseNumber"
                   />
                 </div>
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="production_license_agency"
                     transdDefaultVal="Production License Agency"
@@ -198,7 +198,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
               </div>
             </div>
             <div>
-              <button className="action" type="submit">
+              <button className="normal_button" type="submit">
                 <Trans id="save">Save</Trans>
               </button>
             </div>

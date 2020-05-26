@@ -35,11 +35,11 @@ const FormField = ({
           ) : undefined
         ) : (
           <div className="form-group">
-            <label className="form-group__label" htmlFor={name}>
+            <label className="form-group__label col-6 col-md-6 col-sm-12" htmlFor={name}>
               <Trans id={transId}> {transdDefaultVal} </Trans>
             </label>
             {showStar && <span className="form-group__required">*</span>}
-            <div className="form-group__wrap">
+            <div className="form-group__wrap  col-6 col-md-6 col-sm-12">
               <React.Fragment>
                 {svgIconHref && (
                   <div className="form-group__icon">

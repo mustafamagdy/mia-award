@@ -48,24 +48,26 @@ const Artworks = ({
             myAwards.map((m, i) => {
               return <Award key={i} award={m} />;
             })}
-          {myAwards.length === 0 && <div>No awards yet</div>}
+          {myAwards.length === 0 && <p class="info">No awards yet</p>}
         </div>
       </div>
-      <div className="show_area">
-        <TabList
-          activeClassName="active"
-          activeIndex={activeIndex}
-          activeTabKey={activeTabKey}
-          handleActiveTabWithKey={handleActiveTab}
-        >
-          {tabs.map((t, i) => (
-            <Tab key={t} tabKey={t}>
-              <div className="title">
-                <Trans id={t}>{t}</Trans>
-              </div>
-            </Tab>
-          ))}
-        </TabList>
+      <div className="show_area main_tabs">
+        <ul>
+          <TabList
+            activeClassName="active"
+            activeIndex={activeIndex}
+            activeTabKey={activeTabKey}
+            handleActiveTabWithKey={handleActiveTab}
+          >
+            {tabs.map((t, i) => (
+              <Tab key={t} tabKey={t}>
+                <li className="title">
+                  <Trans id={t}>{t}</Trans>
+                </li>
+              </Tab>
+            ))}
+          </TabList>
+        </ul>
         {activeTabKey == "shows" && (
           <div
             className={classNames("all_shows_area", {

@@ -46,6 +46,7 @@ const Files = ({ active, artwork, removeArtworkFile }, props) => {
                 inputContent="Drop Files (Custom Preview)"
                 style={{ width: "100%", height: "100%" }}
                 extensions={config.uploadFileExtension}
+                accept="video/*"
               />
               <span>Choose Files</span>
             </form>
@@ -61,7 +62,7 @@ const Files = ({ active, artwork, removeArtworkFile }, props) => {
                     uploadChunkApi={window.api.members.postFileChunk}
                     dir={"Artwork"}
                     dirId={artwork.id}
-                    file={f}
+                    file={f}                    
                   >
                     <UploadingProgress file={f} />
                   </Uploader>

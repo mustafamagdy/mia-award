@@ -118,6 +118,9 @@ namespace MIA.MappingProfiles {
       CreateMap<Artwork, ArtworkViewDto>()
         .IncludeAllDerived()
         .ForMember(a => a.CanUploadFiles, cfg => cfg.MapFrom(a => a.AllowFileUpload))
+        .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.Award.TrophyImageUrl))
+        .ForMember(a => a.AwardTitle, cfg => cfg.MapFrom(a => a.Award.Title))
+        .ForMember(a => a.AwardFee, cfg => cfg.MapFrom(a => a.Award.ArtworkFee))
         .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.Award.AwardType))
         .ValidateMemberList(MemberList.None);
 

@@ -15,6 +15,7 @@ const FieldFilUplpad = ({
         onChange={(event) => {
           setFieldValue(name, event.currentTarget.files[0]);
         }}
+        {...props}
       />
       <ErrorMessage name={name} hasError={hasError} />
     </>

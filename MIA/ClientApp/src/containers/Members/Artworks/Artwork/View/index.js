@@ -231,6 +231,7 @@ const Info = ({
       </div>
 
       <button
+        className="normal_button"
         disabled={uploadComplete}
         onClick={() => {
           editArtwork();
@@ -242,6 +243,7 @@ const Info = ({
 
       {canUploadFiles && (
         <button
+          className="normal_button"
           disabled={uploadComplete}
           onClick={() => {
             const data = { id: id, publish: true };

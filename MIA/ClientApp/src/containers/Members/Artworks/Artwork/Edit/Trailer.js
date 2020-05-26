@@ -6,6 +6,7 @@ import { Trans } from "@lingui/macro";
 import { Trailer as TrailerView } from "../View/Trailer";
 import { withRouter } from "react-router";
 import { Subject } from "rxjs";
+import { I18n } from "@lingui/react";
 const Trailer = ({
   active,
   artworkId,
@@ -61,13 +62,19 @@ const Trailer = ({
               setuploadMode={setuploadMode}
               uploadMode={uploadMode}
             />
-            <button
-              onClick={() => {
-                setuploadMode(true);
-              }}
-            >
-              <Trans id="change_trailer">Change trailer</Trans>
-            </button>
+            <I18n>
+              {({ i18n }) => (
+                <button
+                  style={{ float: i18n.language == "ar" ? "left" : "right" }}
+                  className="normal_button"
+                  onClick={() => {
+                    setuploadMode(true);
+                  }}
+                >
+                  <Trans id="change_trailer">Change trailer</Trans>
+                </button>
+              )}
+            </I18n>
           </div>
         ) : (
           <div>
@@ -190,7 +197,11 @@ const Trailer = ({
             </div>
 
             {uploadMode && (
-              <button onClick={switchToUploadMode} disabled={uploading}>
+              <button
+                onClick={switchToUploadMode}
+                disabled={uploading}
+                className="normal_button"
+              >
                 <Trans id="finish_and_reload">Finish & Reload</Trans>
               </button>
             )}
