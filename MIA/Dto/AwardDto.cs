@@ -9,6 +9,7 @@ namespace MIA.Api {
     public int Order { get; set; }
     public LocalizedData Description { get; set; }
     public decimal ArtworkFee { get; set; }
+    public AwardType AwardType { get; set; }
   }
 
   public class BoothDto {

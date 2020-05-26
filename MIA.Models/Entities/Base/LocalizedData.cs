@@ -29,8 +29,7 @@ namespace MIA.Models.Entities {
       return new LocalizedData { { Arabic, arabic }, { English, english } };
     }
 
-    public static LocalizedData Same(string value)
-    {
+    public static LocalizedData Same(string value) {
       return new LocalizedData { { Arabic, value }, { English, value } };
     }
 
@@ -53,6 +52,10 @@ namespace MIA.Models.Entities {
       return
         (!this.InArabic().IsNullOrEmpty() && !other.InArabic().IsNullOrEmpty() && this.InArabic() == other.InArabic()) ||
         (!this.InEnglish().IsNullOrEmpty() && !other.InEnglish().IsNullOrEmpty() && this.InEnglish() == other.InEnglish());
+    }
+
+    public bool Contains(string query) {
+      return InArabic().Contains(query) || InEnglish().Contains(query);
     }
 
     public static LocalizedData FromDictionary(Dictionary<string, string> source) {

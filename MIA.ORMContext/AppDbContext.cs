@@ -58,6 +58,7 @@ namespace MIA.ORMContext
 
       // set localizedData converter
       builder.UseValueConverterForType<LocalizedData>(new LocalizedDataConverter());
+
     }
 
     #region Auditing
@@ -73,16 +74,15 @@ namespace MIA.ORMContext
     public DbSet<Judge> Judges { get; set; }
     public DbSet<ContentReviewer> ContentReviewers { get; set; }
     public DbSet<Nominee> Nominees { get; set; }
-    public DbSet<ArtWork> ArtWorks { get; set; }
-    public DbSet<ArtWorkPayment> ArtWorkPayments { get; set; }
+    public DbSet<Artwork> Artworks { get; set; }
+    public DbSet<ArtworkPayment> ArtworkPayments { get; set; }
     public DbSet<Award> Awards { get; set; }
     public DbSet<Booth> Booths { get; set; }
     public DbSet<BoothPayment> BoothPayments { get; set; }
     public DbSet<BoothPurchase> BoothPurchases { get; set; }
     public DbSet<JudgeAward> JudgeAwards { get; set; }
     public DbSet<JudgeComment> JudgeComments { get; set; }
-    public DbSet<ArtworkJudgeVote> ArtworkVotes { get; set; }
-    public DbSet<ContestantJudgeVote> ContestantVotes { get; set; }
+    public DbSet<JudgeVote> JudgeVotes { get; set; }
     public DbSet<MediaFile> MediaFiles { get; set; }
     public DbSet<News> News { get; set; }
     public DbSet<NewsComment> NewsComments { get; set; }
@@ -96,8 +96,7 @@ namespace MIA.ORMContext
     public DbSet<ContactUsSubject> ContactUsSubjects { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<ProductionYear> ProductionYears { get; set; }
-    public DbSet<ArtworkCategory> ArtworkCategories { get; set; }
-    public DbSet<ArtworkGenre> ArtworkGenres { get; set; }
+    public DbSet<Genre> Generes { get; set; }
 
   }
 

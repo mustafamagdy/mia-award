@@ -14,22 +14,23 @@ const initialState = {
   signupErrors: [],
   signupFailed: undefined,
   forgotPasswordErrors: [],
-  forgotPasswordFailed: false
+  forgotPasswordFailed: false,
+  avatarImageUrl: "",
 };
 
 const signupFinished = (state, action) => {
-   return state;
+  return state;
 };
 
 const signupFailed = (state, { payload }) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     draft.signupErrors = payload;
     draft.signupFailed = true;
   });
 };
 
-const verifyEmail = state => {
-  return produce(state, draft => {
+const verifyEmail = (state) => {
+  return produce(state, (draft) => {
     draft.emailVerified = true;
     draft.error = false;
     draft.errors = undefined;
@@ -38,98 +39,99 @@ const verifyEmail = state => {
 };
 
 const verifyEmailFailed = (state, { payload }) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     draft.errors = payload;
     draft.error = true;
     draft.emailVerifing = false;
   });
 };
 
-const forgotPassword = state => {
-  return produce(state, draft => {
+const forgotPassword = (state) => {
+  return produce(state, (draft) => {
     draft.forgotPasswordErrors = [];
     draft.forgotPasswordFailed = false;
   });
 };
 
 const forgotPasswordFailed = (state, { payload }) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     draft.forgotPasswordErrors = payload;
     draft.forgotPasswordFailed = true;
   });
 };
 
-const resetPassword = state => {
-  return produce(state, draft => {
+const resetPassword = (state) => {
+  return produce(state, (draft) => {
     draft.error = false;
     draft.errors = undefined;
   });
 };
 
 const resetPasswordFailed = (state, { payload }) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     draft.errors = payload;
     draft.error = true;
   });
 };
 
-
 const resetSignupErrors = (state, action) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     draft.signupErrors = [];
     draft.signupFailed = false;
   });
 };
 
 const resetForgotPasswordErrors = (state, action) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     draft.forgotPasswordErrors = [];
     draft.forgotPasswordFailed = false;
   });
 };
 
 const fetchUserProfile = (state, action) => {
-  return produce(state, draft => {
-  });
-}
+  return produce(state, (draft) => {});
+};
 const fetchUserProfileSuccess = (state, action) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     draft.profile = action.payload;
+    draft.avatarImageUrl = action.payload.avatarImageUrl;
   });
-}
+};
 const fetchUserProfileFailed = (state, action) => {
-  return produce(state, draft => {
-  });
-}
+  return produce(state, (draft) => {});
+};
 
-const changePassword = state => {
-  return produce(state, draft => {
+const changePassword = (state) => {
+  return produce(state, (draft) => {
     draft.error = false;
     draft.errors = undefined;
   });
 };
 
 const changePasswordFailed = (state, { payload }) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     draft.errors = payload;
     draft.error = true;
   });
 };
 
 const updateUserProfile = (state, action) => {
-  return produce(state, draft => {
-  });
-}
+  return produce(state, (draft) => {});
+};
 
 const updateUserProfileSuccess = (state, action) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     draft.profile = action.payload;
+  });
+};
+const updateUserAvatarSuccess = (state, action) => {
+  return produce(state, (draft) => {
+    draft.avatarImageUrl = action.payload.avatarImageUrl;
   });
 };
 
 const updateUserProfileFailed = (state, { payload }) => {
-  return produce(state, draft => {
-  });
+  return produce(state, (draft) => {});
 };
 
 export const reducer = createReducer(initialState, {
@@ -153,5 +155,7 @@ export const reducer = createReducer(initialState, {
 
   [ActionTypes.UPDATE_USER_PROFILE]: updateUserProfile,
   [ActionTypes.UPDATE_USER_PROFILE_SUCCESS]: updateUserProfileSuccess,
-  [ActionTypes.UPDATE_USER_PROFILE_FAIL]: updateUserProfileFailed
+  [ActionTypes.UPDATE_USER_PROFILE_FAIL]: updateUserProfileFailed,
+
+  [ActionTypes.UPDATE_USER_AVATAR_SUCCESS]: updateUserAvatarSuccess,
 });

@@ -14,6 +14,7 @@ namespace MIA.ORMContext.Mappings {
 
 
       builder.HasOne(a => a.BoothPurchase).WithOne(a => a.Payment).HasForeignKey<BoothPurchase>(a => a.PaymentId);
+      builder.OwnsOne(a=>a.Receipt);
     }
   }
 

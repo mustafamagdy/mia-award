@@ -18,16 +18,15 @@ namespace MIA.ORMContext.Uow {
     DbSet<Nominee> Nominees { get; }
     DbSet<Image> Images { get; }
     DbSet<UserImage> UserImages { get; }
-    DbSet<ArtWork> ArtWorks { get; }
-    DbSet<ArtWorkPayment> ArtWorkPayments { get; }
+    DbSet<Artwork> Artworks { get; }
+    DbSet<ArtworkPayment> ArtworkPayments { get; }
     DbSet<Award> Awards { get; }
     DbSet<Booth> Booths { get; }
     DbSet<BoothPayment> BoothPayments { get; }
     DbSet<BoothPurchase> BoothPurchases { get; }
     DbSet<JudgeAward> JudgeAwards { get; }
     DbSet<JudgeComment> JudgeComments { get; }
-    DbSet<ArtworkJudgeVote> ArtworkVotes { get; }
-    DbSet<ContestantJudgeVote> ContestantVotes { get; }
+    DbSet<JudgeVote> JudgeVotes { get; }
     DbSet<MediaFile> MediaFiles { get; }
     DbSet<News> News { get; }
     DbSet<NewsComment> NewsComments { get; }
@@ -41,8 +40,7 @@ namespace MIA.ORMContext.Uow {
     DbSet<ContactUsSubject> ContactUsSubjects { get; }
     DbSet<Country> Countries { get; }
     DbSet<ProductionYear> ProductionYears { get; }
-    DbSet<ArtworkCategory> ArtworkCategories { get; }
-    DbSet<ArtworkGenre> ArtworkGenres { get; }
+    DbSet<Genre> Genres { get; }
 
 
 

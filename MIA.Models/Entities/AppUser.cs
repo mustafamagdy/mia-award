@@ -14,13 +14,13 @@ namespace MIA.Models.Entities {
   public class Nominee : AppUser {
     public string JobTitle { get; set; }
     public string CompanyName { get; set; }
-    public HashSet<ArtWork> ArtWorks { get; set; }
+    public HashSet<Artwork> Artworks { get; set; }
+   
   }
 
   public class Judge : AppUser {
-    public HashSet<JudgeAward> JudgeAwards { get; set; }
-    public HashSet<ArtworkJudgeVote> ArtworkVotes { get; set; }
-    public HashSet<ContestantJudgeVote> ContestantVotes { get; set; }
+    public HashSet<JudgeAward> JudgekAwards { get; set; }
+    public HashSet<JudgeVote> JudgeVotes { get; set; }
     public HashSet<JudgeComment> Comments { get; set; }
   }
 }

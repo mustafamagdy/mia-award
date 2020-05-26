@@ -3,6 +3,7 @@ using MIA.Administration.Api.Base;
 using MIA.Administration.Dto.Award;
 using MIA.Administration.Dto.User;
 using MIA.Constants;
+using MIA.Exceptions;
 using MIA.Infrastructure.Options;
 using MIA.Models.Entities;
 using MIA.ORMContext.Uow;
@@ -21,7 +22,7 @@ namespace MIA.Administration.Api {
 
   //[Authorize]
   [EnableCors(CorsPolicyName.AllowAll)]
-  [Route("api/Awards")]
+  [Route("api/ArtworkAwards")]
   public class AwardsController : BaseCrudController<Award, AwardDto, NewAwardDto, UpdateAwardDto> {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
@@ -52,8 +53,8 @@ namespace MIA.Administration.Api {
       var JudgeAwardItem = db.JudgeAwards.Where(x => x.AwardId == resultDto.Id).ToList();
 
 
-      var deleteJudges = new JudgeAward[AwardsItem.JudgeAwards.Count];
-      AwardsItem.JudgeAwards.CopyTo(deleteJudges, 0);
+      var deleteJudges = new JudgeAward[AwardsItem.Level2Judges.Count];
+      AwardsItem.Level2Judges.CopyTo(deleteJudges, 0);
 
       foreach (var objJudges in deleteJudges) {
         var entity = db.Set<JudgeAward>().FirstOrDefault(a => a.Id == objJudges.Id);
@@ -63,8 +64,8 @@ namespace MIA.Administration.Api {
       }
 
       foreach (var roleper in dto.JudgeAwards) {
-        if (AwardsItem.JudgeAwards.All(x => x.JudgeId != roleper.Id)) {
-          AwardsItem.JudgeAwards.Add(new JudgeAward {
+        if (AwardsItem.Level2Judges.All(x => x.JudgeId != roleper.Id)) {
+          AwardsItem.Level2Judges.Add(new JudgeAward {
             JudgeId = roleper.Id
           });
         }
@@ -100,7 +101,7 @@ namespace MIA.Administration.Api {
     public async Task<IActionResult> ListOfJudges([FromServices] IAppUnitOfWork db) {
       var judges = db.Judges;
       if (judges == null) {
-        return NotFound404("judges not found");
+        throw new ApiException(ApiErrorType.NotFound, "judges not found");
       }
       return IfFound(judges.MapTo<JudgeDto>());
     }

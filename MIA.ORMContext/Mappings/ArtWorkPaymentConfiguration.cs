@@ -4,15 +4,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MIA.ORMContext.Mappings {
-  internal class ArtWorkPaymentConfiguration : IEntityTypeConfiguration<ArtWorkPayment> {
-    public void Configure(EntityTypeBuilder<ArtWorkPayment> builder) {
+  internal class ArtWorkPaymentConfiguration : IEntityTypeConfiguration<ArtworkPayment> {
+    public void Configure(EntityTypeBuilder<ArtworkPayment> builder) {
 
       builder.HasKey(x => x.Id);
       builder.Property(x => x.Id)
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
 
-      builder.HasOne(a => a.ArtWork).WithOne(a => a.Payment).HasForeignKey<ArtWorkPayment>(a => a.ArtWorkId);
+      builder.HasOne(a => a.Artwork).WithOne(a => a.Payment).HasForeignKey<ArtworkPayment>(a => a.ArtworkId);
+      builder.OwnsOne(a=>a.Receipt);
 
     }
   }

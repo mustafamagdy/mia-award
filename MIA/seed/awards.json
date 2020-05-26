@@ -1,6 +1,7 @@
 ﻿[
   {
     "Code": "drama",
+    "AwardType":"Artwork",
     "Title": {
       "ar": "MIA دراما",
       "en": "MIA Drama"
@@ -15,6 +16,7 @@
   },
   {
     "Code": "documentary",
+    "AwardType":"Artwork",
     "Title": {
       "ar": "MIA وثائقي",
       "en": "MIA Documentary"
@@ -30,6 +32,7 @@
 
   {
     "Code": "sports",
+    "AwardType":"Artwork",
     "Title": {
       "ar": "MIA رياضة",
       "en": "MIA Sports"
@@ -44,6 +47,7 @@
   },
   {
     "Code": "comedy",
+    "AwardType":"Artwork",
     "Title": {
       "ar": "MIA كوميدي",
       "en": "MIA Comedy"
@@ -58,6 +62,7 @@
   },
   {
     "Code": "political",
+    "AwardType":"Artwork",
     "Title": {
       "ar": "MIA سياسة",
       "en": "MIA Political"
@@ -72,6 +77,7 @@
   },
   {
     "Code": "economic",
+    "AwardType":"Artwork",
     "Title": {
       "ar": "MIA اقتصاد",
       "en": "MIA Economic"
@@ -86,6 +92,7 @@
   },
   {
     "Code": "talkshow",
+    "AwardType":"Artwork",
     "Title": {
       "ar": "MIA حوار",
       "en": "MIA Talk Show"
@@ -100,6 +107,7 @@
   },
   {
     "Code": "competition",
+    "AwardType":"Artwork",
     "Title": {
       "ar": "MIA مسابقات",
       "en": "MIA Game Show"
@@ -114,6 +122,7 @@
   },
   {
     "Code": "human",
+    "AwardType":"Artwork",
     "Title": {
       "ar": "MIA إنساني",
       "en": "MIA Humanitarian Show"
@@ -121,6 +130,21 @@
     "Description": {
       "ar": "تمنح لجنة تحكيم جائزة MIA لأفضل عمل إنساني ؛ جائزة ذهبية للمرتبة الأولى وجائزة فضية للمرتبة الثانية",
       "en": "The jury will grant MIA Award for Best Humanitarian Show a golden award for the first place and a silver one for the second place."
+    },
+    "ArtworkFee": 100,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+  },
+  {
+    "Code": "test1",
+    "AwardType":"Person",
+    "Title": {
+      "ar": "الكبير اوي",
+      "en": "The big boss"
+    },
+    "Description": {
+      "ar": "احسن واحد",
+      "en": "The best one"
     },
     "ArtworkFee": 100,
     "TrophyImageKey": "awards/trophy/award.png",

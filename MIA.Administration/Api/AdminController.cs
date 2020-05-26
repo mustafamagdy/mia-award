@@ -8,6 +8,7 @@ using MIA.Authorization;
 using MIA.Authorization.Attributes;
 using MIA.Authorization.Entities;
 using MIA.Dto.Admin;
+using MIA.Exceptions;
 using MIA.Models.Entities;
 using MIA.ORMContext.Uow;
 using Microsoft.AspNetCore.Identity;
@@ -95,9 +96,8 @@ namespace MIA.Administration.Api
     public async Task<IActionResult> ListRolePermissions([FromRoute]string roleName, [FromServices] IAppUnitOfWork db)
     {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName);
-      if (role == null)
-      {
-        return NotFound404("role not found");
+      if (role == null) {
+        throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
       var rolePermissions = db.Roles
@@ -130,15 +130,13 @@ namespace MIA.Administration.Api
       [FromServices] IAppUnitOfWork db)
     {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null)
-      {
-        return NotFound404("role not found");
+      if (role == null) {
+        throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
       Permissions permission;
-      if (!Enum.TryParse(permissionId.ToString(), out permission))
-      {
-        return NotFound404("permission not found or not allowed");
+      if (!Enum.TryParse(permissionId.ToString(), out permission)) {
+        throw new ApiException(ApiErrorType.NotFound, "permission not found or not allowed");
       }
 
       var exists = role.Permissions.Contains((char)permission);
@@ -156,19 +154,17 @@ namespace MIA.Administration.Api
       [FromServices] IAppUnitOfWork db)
     {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null)
-      {
-        return NotFound404("role not found");
+      if (role == null) {
+        throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
       var systemRoles = Enum.GetNames(typeof(PredefinedRoles)).Select(a => a.ToLower());
       if (systemRoles.Contains(role.Name.ToLower()))
-        return ValidationError(HttpStatusCode.BadRequest, "You cannot remote system roles");
+        throw new ApiException(ApiErrorType.BadRequest, "You cannot remote system roles");
 
       Permissions permission;
-      if (!Enum.TryParse(permissionId.ToString(), out permission))
-      {
-        return NotFound404("permission not found or not allowed");
+      if (!Enum.TryParse(permissionId.ToString(), out permission)) {
+        throw new ApiException(ApiErrorType.NotFound, "permission not found or not allowed");
       }
 
       var exists = role.Permissions.Contains((char)permission);
@@ -187,15 +183,13 @@ namespace MIA.Administration.Api
       [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
     {
       var user = await db.Users.FindAsync(userId);
-      if (user == null)
-      {
-        return NotFound404("user not found");
+      if (user == null) {
+        throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
 
       var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null)
-      {
-        return NotFound404("role not found");
+      if (role == null) {
+        throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
       await userManager.AddToRoleAsync(user, roleName);
@@ -208,15 +202,13 @@ namespace MIA.Administration.Api
       [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
     {
       var user = await db.Users.FindAsync(userId);
-      if (user == null)
-      {
-        return NotFound404("user not found");
+      if (user == null) {
+        throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
 
       var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null)
-      {
-        return NotFound404("role not found");
+      if (role == null) {
+        throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
       await userManager.RemoveFromRoleAsync(user, roleName);
@@ -228,9 +220,8 @@ namespace MIA.Administration.Api
     public async Task<IActionResult> ListUserRoles([FromRoute] string userId, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
     {
       var user = await db.Users.FindAsync(userId);
-      if (user == null)
-      {
-        return NotFound404("user not found");
+      if (user == null) {
+        throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
       var roles = await userManager.GetRolesAsync(user);
       return IfFound(roles);
@@ -241,9 +232,8 @@ namespace MIA.Administration.Api
     public async Task<IActionResult> ListRoleUsers([FromRoute] string roleName, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
     {
       var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null)
-      {
-        return NotFound404("role not found");
+      if (role == null) {
+        throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
       var users = await userManager.GetUsersInRoleAsync(roleName);
 

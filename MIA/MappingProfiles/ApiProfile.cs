@@ -4,20 +4,17 @@ using MIA.Models.Entities;
 using System;
 using MIA.Payments;
 
-namespace MIA.MappingProfiles
-{
+namespace MIA.MappingProfiles {
 
   /// <summary>
   /// Auto mapper profile that contain mapping used in Api project
   /// </summary>
-  public class ApiProfile : Profile
-  {
+  public class ApiProfile : Profile {
 
     /// <summary>
     /// Constructor
     /// </summary>
-    public ApiProfile()
-    {
+    public ApiProfile() {
 
       CreateMap<News, NewsDto>()
        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
@@ -70,10 +67,11 @@ namespace MIA.MappingProfiles
        .ValidateMemberList(MemberList.None);
 
       CreateMap<Award, AwardDto>()
+        .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.AwardType))
         .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.TrophyImageUrl))
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWork, RecentShowsDto>()
+      CreateMap<Artwork, RecentShowsDto>()
         .ValidateMemberList(MemberList.None);
 
       CreateMap<PaymentDto, PaymentRequest>()
@@ -95,61 +93,53 @@ namespace MIA.MappingProfiles
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => DateTime.Now.ToUnixTimeSeconds()))
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<FullArtworkWithCommentsDto, ArtWork>()
+      CreateMap<FullArtworkWithCommentsDto, Artwork>()
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<SubmitArtworkWithDetails, ArtWork>()
+      CreateMap<SubmitArtworkWithDetails, Artwork>()
         .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
-        .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => LocalizedData.Same(a.About)))
-        .ForMember(a => a.Production, cfg => cfg.MapFrom(a => a.Producers))
-        .ForMember(a => a.Director, cfg => cfg.MapFrom(a => a.Directors))
-        .ForMember(a => a.Writers, cfg => cfg.MapFrom(a => a.Writers))
-        .ForMember(a => a.Crew, cfg => cfg.MapFrom(a => a.Crew))
-        .ForMember(a => a.Stars, cfg => cfg.MapFrom(a => a.Stars))
-        .ForMember(a => a.DateOfRelease, cfg => cfg.MapFrom(a => a.Year))
-        .ForMember(a => a.Country, cfg => cfg.MapFrom(a => a.Country))
-        .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
         .ForMember(a => a.Payment, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWork, ArtworkBasiData>()
-        .ForMember(a => a.About, cfg => cfg.MapFrom(a => a.ShowDescription))
-        .ForMember(a => a.Story, cfg => cfg.MapFrom(a => a.Story))
-        .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
-        .ForMember(a => a.Directors, cfg => cfg.MapFrom(a => a.Director))
-        .ForMember(a => a.Writers, cfg => cfg.MapFrom(a => a.Writers))
-        .ForMember(a => a.Crew, cfg => cfg.MapFrom(a => a.Crew))
-        .ForMember(a => a.Stars, cfg => cfg.MapFrom(a => a.Stars))
-        .ForMember(a => a.Year, cfg => cfg.MapFrom(a => a.DateOfRelease))
-        .ForMember(a => a.Country, cfg => cfg.MapFrom(a => a.Country))
-        .ValidateMemberList(MemberList.None);
-      
-      CreateMap<ArtWork, ArtworkBasicViewDto>()
-        .IncludeAllDerived()
-        .ForMember(a => a.CoverImageUrl, cfg => cfg.MapFrom(a => a.CoverUrl))
+      CreateMap<UpdateArtworkWithDetails, Artwork>()
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWork, ArtworkViewDto>()
+      CreateMap<Artwork, ArtworkBasicData>()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<Artwork, ArtworkBasicViewDto>()
+        .IncludeAllDerived()
+        .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
+        .ForMember(a => a.TrailerPosterUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
+        .ForMember(a => a.CoverImageUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
+        .ForMember(a => a.TrailerUrl, cfg => cfg.MapFrom(a => a.Trailer.FileUrl))
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<Artwork, ArtworkViewDto>()
         .IncludeAllDerived()
         .ForMember(a => a.CanUploadFiles, cfg => cfg.MapFrom(a => a.AllowFileUpload))
+        .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.Award.AwardType))
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWork, ArtworkViewWithFilesDto>()
-          .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
-          .ForMember(a => a.Directors, cfg => cfg.MapFrom(a => a.Director))
-          .ForMember(a => a.Year, cfg => cfg.MapFrom(a => a.DateOfRelease))
+      CreateMap<Artwork, ArtworkViewWithFilesDto>()
+          // .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
+          // .ForMember(a => a.Directors, cfg => cfg.MapFrom(a => a.Director))
+          .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.Award.AwardType))
           .ForMember(a => a.Files, cfg => cfg.MapFrom(a => a.MediaFiles))
         .IncludeAllDerived()
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWork, ArtworkWithStatusDto>()
-          //.ForMember(a=>a.TrophyUrl,cfg=>cfg.MapFrom(a=>a.Award.TrophyImageUrl??""))
+      CreateMap<Artwork, ArtworkWithStatusDto>()
+          .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
+          .ForMember(a => a.CoverUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
+          .ForMember(a => a.TrailerUrl, cfg => cfg.MapFrom(a => a.Trailer.FileUrl))
+          .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.Award.AwardType))
           .ValidateMemberList(MemberList.None);
 
       CreateMap<MediaFile, ArtworkFileDto>()
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<ArtWorkPayment, PaymentWithStatusDto>()
+      CreateMap<ArtworkPayment, PaymentWithStatusDto>()
         .ForMember(a => a.Status, cfg => cfg.MapFrom(a => a.PaymentStatus.ToString()))
         .ForMember(a => a.Amount, cfg => cfg.MapFrom((a => a.Amount)))
         .ForMember(a => a.Date, cfg => cfg.MapFrom((a => a.PaymentDate.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy"))))

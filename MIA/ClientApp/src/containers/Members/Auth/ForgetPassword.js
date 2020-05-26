@@ -1,0 +1,34 @@
+import React from "react";
+import { Formik, Form } from "formik";
+import { Recaptcha, Field } from "components/Forms";
+import * as Yup from "yup";
+import { useForm } from "react-hook-form";
+import classNames from "classnames";
+
+
+const ForgetPasswordForm = ({
+  switchToLogin,
+  forgetPasswordForUser,
+  ...props
+}) => {
+  const { register, handleSubmit } = useForm();
+  const forgetPassword = (values) => {
+    forgetPasswordForUser(values);
+  };
+
+  return (
+    <form id="login-form" onSubmit={handleSubmit(forgetPassword)}>
+      <input ref={register} name="email" type="text" placeholder="email" />
+      <div className="submit_area">
+        <div className="resset">
+          <label className="action" onClick={switchToLogin}>
+            Login ?
+          </label>
+        </div>
+        <button type="submit">Reset Password</button>
+      </div>
+    </form>
+  );
+};
+
+export default ForgetPasswordForm;

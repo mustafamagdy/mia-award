@@ -101,9 +101,9 @@ namespace MIA.Administration.MappingProfiles
 
 
       #region VoteOn Payment 
-      CreateMap<ArtWorkPayment, ArtWorkPaymentDto>().ValidateMemberList(MemberList.None);
-      CreateMap<NewArtWorkPaymentDto, ArtWorkPayment>().ValidateMemberList(MemberList.None);
-      CreateMap<UpdateArtWorkPaymentDto, ArtWorkPayment>().ValidateMemberList(MemberList.None);
+      CreateMap<ArtworkPayment, ArtWorkPaymentDto>().ValidateMemberList(MemberList.None);
+      CreateMap<NewArtWorkPaymentDto, ArtworkPayment>().ValidateMemberList(MemberList.None);
+      CreateMap<UpdateArtWorkPaymentDto, ArtworkPayment>().ValidateMemberList(MemberList.None);
 
       #endregion
 
@@ -122,20 +122,20 @@ namespace MIA.Administration.MappingProfiles
       #endregion
 
       #region VoteOn
-      CreateMap<ArtWork, ArtWorkDto>()
+      CreateMap<Artwork, ArtWorkDto>()
         //.ForMember(a => a.WinnerAwardFirstPlace, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None)
         .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment));
 
 
-      CreateMap<NewArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None)
-            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
-            .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => a.ShowDescription))
+      CreateMap<NewArtWorkDto, Artwork>().ValidateMemberList(MemberList.None)
+            .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Title))
+            .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.ShowDescription))
             .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
             .ForMember(a => a.Nominee, cfg => cfg.MapFrom(a => a.Nominee));
-      CreateMap<UpdateArtWorkDto, ArtWork>().ValidateMemberList(MemberList.None)
-            .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
-            .ForMember(a => a.ShowDescription, cfg => cfg.MapFrom(a => a.ShowDescription));
+      CreateMap<UpdateArtWorkDto, Artwork>().ValidateMemberList(MemberList.None)
+            .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Title))
+            .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.ShowDescription));
       #endregion
 
 
@@ -153,9 +153,9 @@ namespace MIA.Administration.MappingProfiles
 
       #region Judge Vote
 
-      CreateMap<ArtworkJudgeVote, JudgeVoteDto>().ValidateMemberList(MemberList.None);
-      CreateMap<NewJudgeVoteDto, ArtworkJudgeVote>().ValidateMemberList(MemberList.None);
-      CreateMap<VotingCriteriaVoteDto, ArtworkJudgeVote>().ValidateMemberList(MemberList.None);
+      CreateMap<JudgeVote, JudgeVoteDto>().ValidateMemberList(MemberList.None);
+      CreateMap<NewJudgeVoteDto, JudgeVote>().ValidateMemberList(MemberList.None);
+      CreateMap<VotingCriteriaVoteDto, JudgeVote>().ValidateMemberList(MemberList.None);
 
       #endregion
 
