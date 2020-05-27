@@ -46,9 +46,8 @@ const Uploader = ({
     reader.onload = function() {
       var dataUrl = reader.result;
       var base64 = dataUrl.split(",")[1];
-      console.log("sending ", file.name, chunkIndex);
       uploadChunkApi({ dir, id: dirId, fileName: file.name, uploadId, chunkIndex, totalChunks, chunk: base64, eTags: etags }).then(a => {
-        console.log(a);
+        // console.log(a);
         if (a.ok) {
           if (end < size) {
             chunkIndex = chunkIndex + 1;

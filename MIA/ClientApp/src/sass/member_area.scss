@@ -251,7 +251,7 @@
         } /* imgthumb */
       } /* poster_area */
       .awards_area {
-        padding: 0 20px 20px;
+        padding: 0 20px 40px;
         .title {
           font-size: 18px;
           font-family: Montserrat_Bold;
@@ -283,6 +283,10 @@
           background: #181818;
           border-radius: 10px;
           padding: 20px 0;
+          p.info {
+            flex: 1;
+            justify-content: center;
+          }
           .award_col {
             width: 25%;
             padding: 0 15px;
@@ -498,6 +502,11 @@
               .mask {
                 background: transparent url("/assets/images/mask_bg.png") scroll
                   no-repeat center 50%;
+
+                &:hover {
+                  background: none;
+                }
+
                 position: absolute;
                 bottom: 0;
                 padding: 10px;
@@ -573,6 +582,7 @@
                   color: #808080;
                   text-transform: capitalize;
                   font-size: 17px;
+                  text-align: center;
                 } /* span */
                 a {
                   color: #fff;
@@ -585,61 +595,6 @@
       } /* show_area */
       .stage_two {
         padding: 30px 20px 20px;
-        .main_tabs {
-          margin: -20px auto 30px;
-          ul {
-            border-bottom: 1px solid #212121;
-            display: flex;
-            flex-wrap: wrap;
-            li {
-              font-size: 15px;
-              font-family: Montserrat_Bold;
-              color: #808080;
-              cursor: pointer;
-              padding: 0 0 20px 0;
-              margin: 0 60px 0 0;
-              position: relative;
-              -webkit-transition: all 0.2s ease-in-out;
-              -moz-transition: all 0.2s ease-in-out;
-              -o-transition: all 0.2s ease-in-out;
-              transition: all 0.2s ease-in-out;
-              [dir="rtl"] & {
-                margin: 0 0 0 60px;
-                font-size: 15px;
-                font-family: Tajawal_Bold;
-              } /* rtl */
-              &::after {
-                content: "";
-                width: 0;
-                position: absolute;
-                bottom: -1px;
-                left: 0;
-                height: 3px;
-                background: #808080;
-                -webkit-transition: all 0.2s ease-in-out;
-                -moz-transition: all 0.2s ease-in-out;
-                -o-transition: all 0.2s ease-in-out;
-                transition: all 0.2s ease-in-out;
-                [dir="rtl"] & {
-                  right: 0;
-                  left: auto;
-                } /* rtl */
-              } /* after */
-              &:hover {
-                &::after {
-                  width: 100%;
-                }
-              } /* hover */
-              &.active {
-                color: #e9c785;
-                &::after {
-                  background: #e9c785;
-                  width: 100%;
-                } /* after */
-              } /* active */
-            } /* li */
-          } /* ul */
-        } /* main_tabs */
         .tab_content {
           display: none;
           &.active {
@@ -1804,7 +1759,6 @@
             } /* item_show */
           } /* tab_upload_videos */
         } /* tab_content */
-      
       } /* stage_two */
       .profile_area {
         margin: 20px;
@@ -2013,9 +1967,11 @@
           .item {
             padding: 10px;
             width: 25%;
-            height: 190px;
+            height: 220px;
             cursor: pointer;
-            img {
+            border: 1px solid #21231e;
+            border-radius: 8px;
+            img {             
               height: 95%;
               width: 95%;
               object-fit: cover;
@@ -2118,3 +2074,59 @@
 .form-group__label {
   color: wheat;
 }
+
+.main_tabs {
+  margin: -20px auto 30px;
+  ul {
+    border-bottom: 1px solid #212121;
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      font-size: 15px;
+      font-family: Montserrat_Bold;
+      color: #808080;
+      cursor: pointer;
+      padding: 0 0 20px 0;
+      margin: 0 60px 0 0;
+      position: relative;
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+      [dir="rtl"] & {
+        margin: 0 0 0 60px;
+        font-size: 15px;
+        font-family: Tajawal_Bold;
+      } /* rtl */
+      &::after {
+        content: "";
+        width: 0;
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        height: 3px;
+        background: #808080;
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+        [dir="rtl"] & {
+          right: 0;
+          left: auto;
+        } /* rtl */
+      } /* after */
+      &:hover {
+        &::after {
+          width: 100%;
+        }
+      } /* hover */
+      &.active {
+        color: #e9c785;
+        &::after {
+          background: #e9c785;
+          width: 100%;
+        } /* after */
+      } /* active */
+    } /* li */
+  } /* ul */
+} /* main_tabs */

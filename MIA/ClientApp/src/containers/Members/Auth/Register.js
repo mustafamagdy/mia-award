@@ -235,7 +235,7 @@ const Register = ({
                 </label>
                 <div className="next_step">
                   <button
-                    className="action"
+                    className="normal_button"
                     type="submit"
                     disabled={!acceptTerms}
                   >

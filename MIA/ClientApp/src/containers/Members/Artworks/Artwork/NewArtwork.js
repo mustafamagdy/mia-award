@@ -108,11 +108,13 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
           ...props
         }) => {
           return (
-            <Form noValidate>
+            <Form noValidate className="info_form">
               <div className="pay_col_one">
                 <div className="item_top">
                   <div className="imgthumb">
-                    <img src={selectedAward?.trophyUrl} />
+                    {selectedAward && selectedAward.id != "0" && (
+                      <img src={selectedAward?.trophyUrl} alt="Trophy" />
+                    )}
                   </div>
                   <div className="desc">
                     <LanguageContext.Consumer>
@@ -139,7 +141,11 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                                   (x) => x.id == a.target.value
                                 );
                                 setSelectedAward(_award);
-                                setFieldValue("awardId", _award.id);
+                                if (_award.id == "0") {
+                                  setFieldValue("awardId", undefined);
+                                } else {
+                                  setFieldValue("awardId", _award.id);
+                                }
                               }}
                             >
                               <I18n>
@@ -158,16 +164,18 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                     </LanguageContext.Consumer>
                   </div>
                 </div>
-                <div className="item_bottom">
-                  <div className="price">
-                    {selectedAward?.artworkFee}
-                    <Trans id="usd">USD</Trans>
+                {selectedAward && selectedAward.id != "0" && (
+                  <div className="item_bottom">
+                    <div className="price">
+                      {selectedAward?.artworkFee}
+                      <Trans id="usd">USD</Trans>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
               <div className="pay_col_two">
                 <div className="grid grid--1 grid--sm-2 grid--md-4 grid--space-def grid--hspace-xl grid--inline">
-                  <div className="gcell">
+                  <div className="row">
                     <LocalizedDataField
                       transId="project_name"
                       transdDefaultVal="Project Name"
@@ -176,7 +184,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                       touched={touched && touched.projectName}
                     />
                   </div>
-                  <div className="gcell">
+                  <div className="row">
                     <LocalizedDataField
                       transId="description"
                       transdDefaultVal="Description"
@@ -185,7 +193,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                       touched={touched && touched.description}
                     />
                   </div>
-                  <div className="gcell">
+                  <div className="row">
                     <Field
                       transId="site_url"
                       transdDefaultVal="Site Url"
@@ -198,7 +206,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                       name="siteUrl"
                     />
                   </div>
-                  <div className="gcell">
+                  <div className="row">
                     <Field
                       transId="production_year"
                       transdDefaultVal="Production Year"
@@ -212,7 +220,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                     />
                   </div>
 
-                  <div className="gcell">
+                  <div className="row">
                     <Field
                       transId="broadcast_year"
                       transdDefaultVal="Broadcast Year"
@@ -226,7 +234,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                     />
                   </div>
 
-                  <div className="gcell">
+                  <div className="row">
                     <Field
                       transId="tv_channels"
                       transdDefaultVal="Tv Channels"
@@ -240,7 +248,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                     />
                   </div>
 
-                  <div className="gcell">
+                  <div className="row">
                     <Field
                       transId="online_channels"
                       transdDefaultVal="Online Channels"
@@ -253,7 +261,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                       name="onlineChannels"
                     />
                   </div>
-                  <div className="gcell">
+                  <div className="row">
                     <Field
                       transId="production_license_number"
                       transdDefaultVal="Production License Number"
@@ -266,7 +274,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                       name="ProductionLicenseNumber"
                     />
                   </div>
-                  <div className="gcell">
+                  <div className="row">
                     <Field
                       transId="production_license_agency"
                       transdDefaultVal="Production License Agency"
@@ -280,83 +288,84 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                     />
                   </div>
                 </div>
-              </div>
-              <div className="payment_form">
-                <p>
-                  <Trans id="please_upload_payment_receipt">
-                    please upload the reciept to be approved from the
-                    adminstration and confirm your payment
-                  </Trans>
-                </p>
+                <div className="payment_form">
+                  <p>
+                    <Trans id="please_upload_payment_receipt">
+                      please upload the reciept to be approved from the
+                      adminstration and confirm your payment
+                    </Trans>
+                  </p>
 
-                <div className="gcell">
-                  <Field
-                    transId="amount"
-                    transdDefaultVal="Amount"
-                    hasError={
-                      errors &&
-                      errors.payment &&
-                      errors.payment.receiptAmount !== undefined &&
-                      touched &&
-                      touched.payment &&
-                      touched.payment.receiptAmount !== undefined
-                    }
-                    name="payment.receiptAmount"
-                    type="number"
-                  />
+                  <div className="row">
+                    <Field
+                      transId="amount"
+                      transdDefaultVal="Amount"
+                      hasError={
+                        errors &&
+                        errors.payment &&
+                        errors.payment.receiptAmount !== undefined &&
+                        touched &&
+                        touched.payment &&
+                        touched.payment.receiptAmount !== undefined
+                      }
+                      name="payment.receiptAmount"
+                      type="number"
+                    />
+                  </div>
+                  <div className="row">
+                    <Field
+                      transId="receipt_number"
+                      transdDefaultVal="Receipt Number"
+                      hasError={
+                        errors &&
+                        errors.payment &&
+                        errors.payment.receiptNumber !== undefined &&
+                        touched &&
+                        touched.payment &&
+                        touched.payment.receiptNumber !== undefined
+                      }
+                      name="payment.receiptNumber"
+                    />
+                  </div>
+                  <div className="row">
+                    <Field
+                      transId="receipt_date"
+                      transdDefaultVal="Receipt Date"
+                      isDate={true}
+                      hasError={
+                        errors &&
+                        errors.payment &&
+                        errors.payment.receiptDate !== undefined &&
+                        touched &&
+                        touched.payment &&
+                        touched.payment.receiptDate !== undefined
+                      }
+                      name="payment.receiptDate"
+                    />
+                  </div>
+                  <div className="row">
+                    <Field
+                      transId="receipt_file"
+                      transdDefaultVal="Receipt File"
+                      isFile={true}
+                      hasError={
+                        errors &&
+                        errors.payment &&
+                        errors.payment.receiptFile !== undefined &&
+                        touched &&
+                        touched.payment &&
+                        touched.payment.receiptFile !== undefined
+                      }
+                      name="payment.receiptFile"
+                      accept="image/*"
+                    />
+                  </div>
+                  <div className="row">
+                    <button className="normal_button" type="submit">
+                      <Trans id="save">Save</Trans>
+                    </button>
+                  </div>
                 </div>
-                <div className="gcell">
-                  <Field
-                    transId="receipt_number"
-                    transdDefaultVal="Receipt Number"
-                    hasError={
-                      errors &&
-                      errors.payment &&
-                      errors.payment.receiptNumber !== undefined &&
-                      touched &&
-                      touched.payment &&
-                      touched.payment.receiptNumber !== undefined
-                    }
-                    name="payment.receiptNumber"
-                  />
-                </div>
-                <div className="gcell">
-                  <Field
-                    transId="receipt_date"
-                    transdDefaultVal="Receipt Date"
-                    isDate={true}
-                    hasError={
-                      errors &&
-                      errors.payment &&
-                      errors.payment.receiptDate !== undefined &&
-                      touched &&
-                      touched.payment &&
-                      touched.payment.receiptDate !== undefined
-                    }
-                    name="payment.receiptDate"
-                  />
-                </div>
-                <div className="gcell">
-                  <Field
-                    transId="receipt_file"
-                    transdDefaultVal="Receipt File"
-                    isFile={true}
-                    hasError={
-                      errors &&
-                      errors.payment &&
-                      errors.payment.receiptFile !== undefined &&
-                      touched &&
-                      touched.payment &&
-                      touched.payment.receiptFile !== undefined
-                    }
-                    name="payment.receiptFile"
-                  />
-                </div>
-              </div>
-              <div>
-                <button className="action" type="submit">
-                  Save
-                </button>
               </div>
             </Form>
           );
@@ -370,7 +379,7 @@ const mapStateToProps = ({ home: { awards } }) => {
   const _awards = awards.filter((a) => a.awardType == "artwork");
   _awards.unshift({
     id: "0",
-    code:'choose_award',
+    code: "choose_award",
     title: {
       ar: "اختر الجائزة",
       en: "Select Award",

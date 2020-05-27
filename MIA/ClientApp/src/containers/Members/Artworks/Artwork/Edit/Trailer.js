@@ -4,7 +4,9 @@ import { useState } from "react";
 import { Uploader, ProgressBar } from "components/Forms";
 import { Trans } from "@lingui/macro";
 import { Trailer as TrailerView } from "../View/Trailer";
-
+import { withRouter } from "react-router";
+import { Subject } from "rxjs";
+import { I18n } from "@lingui/react";
 const Trailer = ({
   active,
   artworkId,
@@ -12,23 +14,42 @@ const Trailer = ({
   trailerPosterUrl,
   updateTrailer,
   coverUrl,
+  location,
+  history,
   ...props
 }) => {
   const [trailerFile, setTrailerFile] = useState(undefined);
   const [coverFile, setCoverFile] = useState(undefined);
   const [posterFile, setPosterFile] = useState(undefined);
-  const [trailerFileUploaded, setTrailerFileUploaded] = useState(false);
-  const [coverFileUploaded, setCoverFileUploaded] = useState(false);
-  const [posterFileUploaded, setPosterFileUploaded] = useState(false);
+  // const [trailerFileUploaded, setTrailerFileUploaded] = useState(false);
+  // const [coverFileUploaded, setCoverFileUploaded] = useState(false);
+  // const [posterFileUploaded, setPosterFileUploaded] = useState(false);
   const [progress, setProgress] = useState([]);
   const [uploadMode, setuploadMode] = useState(false);
-  const handleUpdateTrailer = () => {
+
+  const [uploading, setUploading] = useState(false);
+  const uploads$ = new Subject();
+  let uploadCounter = 0;
+  const sub = uploads$.asObservable().subscribe((v) => {
+    uploadCounter += v;
+    if (uploadCounter > 0) {
+      setUploading(true);
+    } else {
+      setUploading(false);
+    }
+  });
+
+  const switchToUploadMode = () => {
+    if (sub) {
+      sub.unsubscribe();
+    }
     setuploadMode(false);
+    window.location.reload(false);
   };
 
-  useEffect(() => {
-    console.log("all files uploaded");
-  }, [trailerFileUploaded, coverFileUploaded, posterFileUploaded]);
+  // useEffect(() => {
+  //   console.log("all files uploaded");
+  // }, [trailerFileUploaded, coverFileUploaded, posterFileUploaded]);
 
   return (
     <div className={classNames("tab_content tab_trailer", { active })}>
@@ -41,13 +62,19 @@ const Trailer = ({
               setuploadMode={setuploadMode}
               uploadMode={uploadMode}
             />
-            <button
-              onClick={() => {
-                setuploadMode(true);
-              }}
-            >
-              <Trans id="change_trailer">Change trailer</Trans>
-            </button>
+            <I18n>
+              {({ i18n }) => (
+                <button
+                  style={{ float: i18n.language == "ar" ? "left" : "right" }}
+                  className="normal_button"
+                  onClick={() => {
+                    setuploadMode(true);
+                  }}
+                >
+                  <Trans id="change_trailer">Change trailer</Trans>
+                </button>
+              )}
+            </I18n>
           </div>
         ) : (
           <div>
@@ -70,7 +97,7 @@ const Trailer = ({
                     setProgress([...progress]);
                   }}
                   onUploadComplete={() => {
-                    setTrailerFileUploaded(true);
+                    uploads$.next(-1);
                   }}
                   file={trailerFile}
                 >
@@ -84,6 +111,7 @@ const Trailer = ({
                   onChange={(e) => {
                     if (e.target.files && e.target.files[0]) {
                       setTrailerFile(e.target.files[0]);
+                      uploads$.next(1);
                     }
                   }}
                 />
@@ -108,7 +136,7 @@ const Trailer = ({
                     setProgress([...progress]);
                   }}
                   onUploadComplete={() => {
-                    setCoverFileUploaded(true);
+                    uploads$.next(-1);
                   }}
                   file={coverFile}
                 >
@@ -122,6 +150,7 @@ const Trailer = ({
                   onChange={(e) => {
                     if (e.target.files && e.target.files[0]) {
                       setCoverFile(e.target.files[0]);
+                      uploads$.next(1);
                     }
                   }}
                 />
@@ -146,7 +175,7 @@ const Trailer = ({
                     setProgress([...progress]);
                   }}
                   onUploadComplete={() => {
-                    setPosterFileUploaded(true);
+                    uploads$.next(-1);
                   }}
                   file={posterFile}
                 >
@@ -160,6 +189,7 @@ const Trailer = ({
                   onChange={(e) => {
                     if (e.target.files && e.target.files[0]) {
                       setPosterFile(e.target.files[0]);
+                      uploads$.next(1);
                     }
                   }}
                 />
@@ -167,7 +197,13 @@ const Trailer = ({
             </div>
 
             {uploadMode && (
-              <button onClick={handleUpdateTrailer}>Cancel update</button>
+              <button
+                onClick={switchToUploadMode}
+                disabled={uploading}
+                className="normal_button"
+              >
+                <Trans id="finish_and_reload">Finish & Reload</Trans>
+              </button>
             )}
           </div>
         )}
@@ -183,4 +219,4 @@ const FileDetails = ({ progress, file, ...props }) => (
   </div>
 );
 
-export default Trailer;
+export default withRouter(Trailer);

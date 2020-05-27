@@ -4,6 +4,9 @@ import Lightbox from "lightbox-react";
 import classNames from "classnames";
 import ReactPlayer from "react-player";
 import { Trans } from "@lingui/macro";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { I18n } from "@lingui/react";
 
 const Files = ({
   files,
@@ -107,22 +110,42 @@ export const File = ({
           }}
         >
           <div className="imgthumb">
-            <img src={coverUrl} alt={projectName[locale.code]} />
+            <img
+              src={coverUrl == "" ? "/assets/images/logo.png" : coverUrl}
+              alt={projectName[locale.code]}
+            />
             <div className="mask">
               <div className="content">
-                <LanguageContext.Consumer>
-                  {({ locale }) => <p>{projectName[locale.code]}</p>}
-                </LanguageContext.Consumer>
+                <p>{projectName[locale.code]}</p>
                 {/* <Rating rate={show.rating} readonly /> */}
               </div>
               {showRemove && (
-                <button
-                  onClick={() => {
-                    removeArtworkFile && removeArtworkFile(file);
-                  }}
-                >
-                  <Trans id="remove_file">Remove file</Trans>
-                </button>
+                <I18n>
+                  {({ i18n }) => (
+                    <button
+                      onClick={async () => {
+                        confirmAlert({
+                          title: i18n._("confirm_delete"),
+                          message: i18n._("are_you_sure_to_delete"),
+                          buttons: [
+                            {
+                              label: i18n._("yes"),
+                              onClick: () => {
+                                removeArtworkFile && removeArtworkFile(file);
+                              },
+                            },
+                            {
+                              label: i18n._("no"),
+                              onClick: () => {},
+                            },
+                          ],
+                        });
+                      }}
+                    >
+                      <Trans id="remove_file">Remove file</Trans>
+                    </button>
+                  )}
+                </I18n>
               )}
             </div>
           </div>

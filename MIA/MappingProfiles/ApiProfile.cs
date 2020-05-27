@@ -72,6 +72,7 @@ namespace MIA.MappingProfiles {
         .ValidateMemberList(MemberList.None);
 
       CreateMap<Artwork, RecentShowsDto>()
+       .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
         .ValidateMemberList(MemberList.None);
 
       CreateMap<PaymentDto, PaymentRequest>()
@@ -93,7 +94,10 @@ namespace MIA.MappingProfiles {
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => DateTime.Now.ToUnixTimeSeconds()))
         .ValidateMemberList(MemberList.None);
 
-      CreateMap<FullArtworkWithCommentsDto, Artwork>()
+      CreateMap<Artwork, FullArtworkWithCommentsDto>()
+       .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
+        .ForMember(a => a.CoverUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
+        .ForMember(a => a.TrailerUrl, cfg => cfg.MapFrom(a => a.Trailer.FileUrl))
         .ValidateMemberList(MemberList.None);
 
       CreateMap<SubmitArtworkWithDetails, Artwork>()
@@ -113,11 +117,15 @@ namespace MIA.MappingProfiles {
         .ForMember(a => a.TrailerPosterUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
         .ForMember(a => a.CoverImageUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
         .ForMember(a => a.TrailerUrl, cfg => cfg.MapFrom(a => a.Trailer.FileUrl))
+        .ForMember(a => a.NomineeAvatar, cfg => cfg.MapFrom(a => a.Nominee.AvatarImage.Imageurl))
         .ValidateMemberList(MemberList.None);
 
       CreateMap<Artwork, ArtworkViewDto>()
         .IncludeAllDerived()
         .ForMember(a => a.CanUploadFiles, cfg => cfg.MapFrom(a => a.AllowFileUpload))
+        .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.Award.TrophyImageUrl))
+        .ForMember(a => a.AwardTitle, cfg => cfg.MapFrom(a => a.Award.Title))
+        .ForMember(a => a.AwardFee, cfg => cfg.MapFrom(a => a.Award.ArtworkFee))
         .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.Award.AwardType))
         .ValidateMemberList(MemberList.None);
 

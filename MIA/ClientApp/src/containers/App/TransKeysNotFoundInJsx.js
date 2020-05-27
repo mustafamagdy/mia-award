@@ -8,6 +8,7 @@ class TransKeysNotFoundInJsx extends React.Component {
         <Trans id="general"></Trans>
         <Trans id="booths"></Trans>
         <Trans id="shows"></Trans>
+        <Trans id="any_year"></Trans>
       </div>
     );
   }

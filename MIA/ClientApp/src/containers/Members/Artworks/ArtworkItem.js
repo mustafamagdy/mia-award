@@ -3,20 +3,27 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 
 const ArtWork = ({ artWork, ...props }) => {
   return (
-    <div className="item">
-      <div className="imgthumb">
-        <a
-          href={
-            artWork.awardType == "person"
-              ? `/members/contestant/${artWork.id}`
-              : `/members/artwork/${artWork.id}`
-          }
-        >
-          <img src={artWork?.coverUrl} />
-          <div className="mask">
-            <div className="content">
-              <LanguageContext.Consumer>
-                {({ locale }) => (
+    <LanguageContext.Consumer>
+      {({ locale }) => (
+        <div className="item">
+          <div className="imgthumb">
+            <a
+              href={
+                artWork.awardType == "person"
+                  ? `/members/contestant/${artWork.id}`
+                  : `/members/artwork/${artWork.id}`
+              }
+            >
+              <img
+                src={
+                  artWork.awardType == "person" || artWork?.coverUrl == ""
+                    ? "assets/images/logo.png"
+                    : artWork?.coverUrl
+                }
+                alt={artWork.projectName[locale.code]}
+              />
+              <div className="mask">
+                <div className="content">
                   <>
                     <p
                       dangerouslySetInnerHTML={{
@@ -24,13 +31,13 @@ const ArtWork = ({ artWork, ...props }) => {
                       }}
                     ></p>
                   </>
-                )}
-              </LanguageContext.Consumer>
-            </div>
+                </div>
+              </div>
+            </a>
           </div>
-        </a>
-      </div>
-    </div>
+        </div>
+      )}
+    </LanguageContext.Consumer>
   );
 };
 

@@ -9,7 +9,7 @@ const initialState = {
   myArtworksLoaded: false,
   artwork: undefined,
   artworkMode: "add", //add, view, edit
-  myContestant: [],
+  myContestants: [],
   contestant: undefined,
   contestantMode: "add", //add, view, edit
 };
@@ -25,7 +25,7 @@ const fetchMyArtworksSuccess = (state, action) => {
     draft.myArtworksLoaded = true;
     const artworks = action.payload.filter((a) => a.awardType == "artwork");
     const contestants = action.payload.filter((a) => a.awardType == "person");
-    
+
     draft.myArtworks = [...artworks];
     draft.myContestants = [...contestants];
   });
@@ -52,8 +52,27 @@ const saveArtworkInfoSuccess = (state, action) => {
 };
 const fetchArtworkWithDetailsSuccess = (state, action) => {
   return produce(state, (draft) => {
-    draft.artwork = { ...action.payload };
-    draft.myArtworks = [...state.myArtworks, action.payload];
+    if (action.payload.awardType == "person") {
+      draft.contestant = { ...action.payload };
+      const indx = state.myContestants.findIndex(
+        (a) => a.id == action.payload.id
+      );
+      if (indx == -1) {
+        draft.myContestants = [...state.myContestants, action.payload];
+      } else {
+        draft.myContestants[indx] = action.payload;
+      }
+    } else {
+      draft.artwork = { ...action.payload };
+      const indx = state.myArtworks.findIndex(
+        (a) => a.id == action.payload.id
+      );
+      if (indx == -1) {
+        draft.myArtworks = [...state.myArtworks, action.payload];
+      } else {
+        draft.myArtworks[indx] = action.payload;
+      }
+    }
   });
 };
 const updateTrailerSuccess = (state, action) => {

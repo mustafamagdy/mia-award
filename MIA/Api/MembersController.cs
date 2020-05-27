@@ -227,6 +227,10 @@ namespace MIA.Api {
         throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
       }
 
+      if (artwork.UploadComplete) {
+        throw new ApiException(ApiErrorType.BadRequest, "Artwork has been submitted to judge");
+      }
+
       var updatedArtwork = _mapper.Map<UpdateArtworkWithDetails, Artwork>(dto, artwork);
       updatedArtwork.Id = id;
       db.Artworks.Update(updatedArtwork);
@@ -281,8 +285,13 @@ namespace MIA.Api {
         if (artwork == null) {
           throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't exist");
         }
+
         if (artwork.NomineeId != nominee.Id) {
           throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
+        }
+
+        if (artwork.UploadComplete) {
+          throw new ApiException(ApiErrorType.BadRequest, "Artwork has been submitted to judge");
         }
 
         var imageExtensions = new[] { ".jpg", ".png" };
@@ -331,6 +340,11 @@ namespace MIA.Api {
       if (artwork.NomineeId != nominee.Id) {
         throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
       }
+
+      if (artwork.UploadComplete) {
+        throw new ApiException(ApiErrorType.BadRequest, "Artwork has been submitted to judge");
+      }
+
       var coverFileKey = fileManager.GenerateFileKeyForResource(
         ResourceType.ArtWork,
         artwork.Id, $"{artwork.Id}_cover." + dto.FileName);
@@ -353,9 +367,15 @@ namespace MIA.Api {
       if (artwork == null) {
         throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't exist");
       }
+      
       if (artwork.NomineeId != nominee.Id) {
         throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
       }
+
+      if (artwork.UploadComplete) {
+        throw new ApiException(ApiErrorType.BadRequest, "Artwork has been submitted to judge");
+      }
+
       var posterFileKey = fileManager.GenerateFileKeyForResource(
         ResourceType.ArtWork,
         artwork.Id, $"{artwork.Id}_poster." + dto.FileName);
@@ -461,6 +481,10 @@ namespace MIA.Api {
 
       if (artwork.NomineeId != nominee.Id) {
         throw new ApiException(ApiErrorType.NotFound, "Artwork doesn't belong to you");
+      }
+
+      if (artwork.UploadComplete) {
+        throw new ApiException(ApiErrorType.BadRequest, "Artwork has been submitted to judge");
       }
 
       artwork.UploadComplete = publishArtworkDto.Publish;
