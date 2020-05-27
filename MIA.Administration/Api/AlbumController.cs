@@ -91,10 +91,8 @@ namespace MIA.Administration.Api {
               posterUrl = await fileManager.UploadFileAsync(memorySteamPoster, posterKey);
             };
             var albumItem = new AlbumItem {
-              FileKey = fileKey,
-              FileUrl = fileUrl,
-              PosterKey = posterKey,
-              PosterUrl = posterUrl,
+              File = S3File.FromKeyAndUrl(fileKey, fileUrl),
+              Poster = S3File.FromKeyAndUrl(posterKey, posterUrl),
               MediaType = GetMediaType(file.MediaFileName),
               AlbumId = album.Id,
               Order = order++
@@ -162,10 +160,8 @@ namespace MIA.Administration.Api {
           }
 
           albumItem = new AlbumItem {
-            FileKey = fileKey,
-            FileUrl = fileUrl,
-            PosterKey = filePosterKey,
-            PosterUrl = filePosterUrl,
+            File = S3File.FromKeyAndUrl(fileKey, fileUrl),
+            Poster = S3File.FromKeyAndUrl(filePosterKey, filePosterUrl),
             MediaType = dto.MediaType,
             Featured = dto.Featured,
             AlbumId = dto.AlbumId,
@@ -186,8 +182,7 @@ namespace MIA.Administration.Api {
           filePosterUrl = await fileManager.UploadFileAsync(memorySteam, filePosterKey);
 
           albumItem = new AlbumItem {
-            PosterKey = filePosterKey,
-            PosterUrl = filePosterUrl,
+            Poster = S3File.FromKeyAndUrl(filePosterKey, filePosterUrl),
             MediaType = dto.MediaType,
             Featured = dto.Featured,
             AlbumId = dto.AlbumId,
@@ -225,8 +220,7 @@ namespace MIA.Administration.Api {
     [HttpPut("UpdateMediaItemVideoUrl")]
     public async Task<IActionResult> UpdateMediaItemVideoUrlAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db) {
       var mediaItem = await db.AlbumItems.FirstOrDefaultAsync(a => a.Id == dto.Id);
-      mediaItem.FileUrl = dto.FileUrl;
-      mediaItem.FileKey = dto.FileKey;
+      mediaItem.File = S3File.FromKeyAndUrl(dto.FileUrl, dto.FileKey);
 
       var entry = db.Set<AlbumItem>().Attach(mediaItem);
       entry.State = EntityState.Modified;
@@ -249,8 +243,7 @@ namespace MIA.Administration.Api {
           var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
 
           var mediaFile = new AlbumItem {
-            FileKey = fileKey,
-            FileUrl = fileUrl
+            File = S3File.FromKeyAndUrl(fileKey, fileUrl)
           };
 
           //TODO: uncomment 

@@ -14,8 +14,6 @@ namespace MIA.ORMContext.Mappings {
         .ValueGeneratedOnAdd();
 
 
-      builder.Property(a => a.PosterUrl).HasMaxLength(1000);
-      builder.Property(a => a.PosterId).HasMaxLength(1000);
       builder.Property(a => a.Date).IsRequired();
 
       builder.HasMany(a => a.Comments).WithOne(a => a.News).HasForeignKey(a => a.NewsId).OnDelete(DeleteBehavior.Cascade);

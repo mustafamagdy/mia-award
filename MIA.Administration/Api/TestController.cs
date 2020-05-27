@@ -59,7 +59,7 @@ namespace MIA.Administration.Api {
         .ToPagedList(2, 5)
       );
 
-            
+
     }
 
     /// <summary>
@@ -121,7 +121,7 @@ namespace MIA.Administration.Api {
 
     [HttpGet("gen-email/{templatename}/{cultureCode}")]
     public async Task<IActionResult> GenerateEmail(
-      [FromRoute]string templatename, [FromRoute]string cultureCode,
+      [FromRoute] string templatename, [FromRoute] string cultureCode,
       [FromBody] Dictionary<string, string> data,
       [FromServices] ICultureEmailTemplateProvider emailTemplateProvider) {
 
@@ -179,25 +179,20 @@ namespace MIA.Administration.Api {
       [FromRoute] string id,
       [FromServices] IAppUnitOfWork db,
       [FromServices] IS3FileManager fileManager,
-      FileChunkDto dto)
-    {
-      try
-      {
+      FileChunkDto dto) {
+      try {
         var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.ArtWork, id);
         var result = await fileManager.UploadChunk(tempDir, dto);
-        if (!string.IsNullOrEmpty(result.FinalUrl))
-        {
+        if (!string.IsNullOrEmpty(result.FinalUrl)) {
           //move file to final directory of the artwork files
           var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, id, dto.FileName);
           var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
 
-          var mediaFile = new MediaFile
-          {
+          var mediaFile = new MediaFile {
             //TODO: uncomment
             //ArtworkId = artwork.Id,
             UploadDate = DateTime.Now.ToUnixTimeSeconds(),
-            FileKey = fileKey,
-            FileUrl = fileUrl
+            File = S3File.FromKeyAndUrl(fileKey, fileUrl)
           };
 
           //TODO: uncomment
@@ -208,14 +203,10 @@ namespace MIA.Administration.Api {
           //  db.ArtWorks.Update(_artwork);
           //}
           return Ok(fileUrl);
-        }
-        else
-        {
+        } else {
           return Ok(result);
         }
-      }
-      catch (Exception ex)
-      {
+      } catch (Exception ex) {
         _logger.LogError(ex, "Failed to upload file");
         throw new ApiException(ApiErrorType.FailedToUploadChunkedFile, $"{ex.Message}");
       }
@@ -226,4 +217,4 @@ namespace MIA.Administration.Api {
     public string Name { get; set; }
     public int Age { get; set; }
   }
-  }
+}

@@ -17,6 +17,7 @@ const LocalizedDataField = ({
         errors && errors.ar !== undefined && touched && touched.ar !== undefined
       }
       name={`${name}.ar`}
+      {...props}
     />
     <Field
       transId={transId + "_en"}
@@ -25,6 +26,7 @@ const LocalizedDataField = ({
         errors && errors.en !== undefined && touched && touched.en !== undefined
       }
       name={`${name}.en`}
+      {...props}
     />
   </React.Fragment>
 );
