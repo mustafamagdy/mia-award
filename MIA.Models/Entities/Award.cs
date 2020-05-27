@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
 
-namespace MIA.Models.Entities
-{
+namespace MIA.Models.Entities {
   public class Award : BaseEntity<string> {
+    public Award() {
+      Trophy = S3File.FromKeyAndUrl("", "");
+    }
+    
     public string Code { get; set; }
     public LocalizedData Title { get; set; }
     public LocalizedData Description { get; set; }
     public decimal ArtworkFee { get; set; }
-    public string TrophyImageKey { get; set; }
-    public string TrophyImageUrl { get; set; }
+    public S3File Trophy { get; set; }
 
     public AwardType AwardType { get; set; }
 

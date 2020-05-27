@@ -172,8 +172,7 @@ namespace MIA.Administration.Api {
     [HttpPut("UpdateMediaItemVideoUrl")]
     public async Task<IActionResult> UpdateMediaItemVideoUrlAsync([FromBody] MediaFileDto dto, [FromServices] IAppUnitOfWork db) {
       var mediaItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id == dto.Id);
-      mediaItem.FileUrl = dto.FileUrl;
-      mediaItem.FileKey = dto.FileKey;
+      mediaItem.File = S3File.FromKeyAndUrl(dto.FileKey, dto.FileUrl);
 
       var entry = db.Set<MediaFile>().Attach(mediaItem);
       entry.State = EntityState.Modified;

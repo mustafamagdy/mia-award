@@ -17,8 +17,10 @@ namespace MIA.MappingProfiles {
     public ApiProfile() {
 
       CreateMap<News, NewsDto>()
+       .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
-       .ValidateMemberList(MemberList.None);
+       .ValidateMemberList(MemberList.None)
+       .IncludeAllDerived();
 
       CreateMap<Lookup, LocalizedLookupDto>()
        .IncludeAllDerived()
@@ -37,6 +39,7 @@ namespace MIA.MappingProfiles {
        .ValidateMemberList(MemberList.None);
 
       CreateMap<News, RelatedNewsDto>()
+        .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
        .ValidateMemberList(MemberList.None);
 
       CreateMap<News, FullNewsWithCommentsDto>()
@@ -63,12 +66,14 @@ namespace MIA.MappingProfiles {
         .ValidateMemberList(MemberList.None);
 
       CreateMap<AlbumItem, AlbumItemDto>()
+       .ForMember(a => a.FileUrl, cfg => cfg.MapFrom(a => a.File.FileUrl))
+       .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
        .ForMember(a => a.DateCreated, cfg => cfg.MapFrom(a => a.DateCreated.LocalDateTimeFromSeconds().ToString("dd-MM-yyyy")))
        .ValidateMemberList(MemberList.None);
 
       CreateMap<Award, AwardDto>()
         .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.AwardType))
-        .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.TrophyImageUrl))
+        .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.Trophy.FileUrl))
         .ValidateMemberList(MemberList.None);
 
       CreateMap<Artwork, RecentShowsDto>()
@@ -123,7 +128,7 @@ namespace MIA.MappingProfiles {
       CreateMap<Artwork, ArtworkViewDto>()
         .IncludeAllDerived()
         .ForMember(a => a.CanUploadFiles, cfg => cfg.MapFrom(a => a.AllowFileUpload))
-        .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.Award.TrophyImageUrl))
+        .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.Award.Trophy.FileUrl))
         .ForMember(a => a.AwardTitle, cfg => cfg.MapFrom(a => a.Award.Title))
         .ForMember(a => a.AwardFee, cfg => cfg.MapFrom(a => a.Award.ArtworkFee))
         .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.Award.AwardType))
@@ -145,6 +150,7 @@ namespace MIA.MappingProfiles {
           .ValidateMemberList(MemberList.None);
 
       CreateMap<MediaFile, ArtworkFileDto>()
+          .ForMember(a => a.FileUrl, cfg => cfg.MapFrom(a => a.File.FileUrl))
         .ValidateMemberList(MemberList.None);
 
       CreateMap<ArtworkPayment, PaymentWithStatusDto>()

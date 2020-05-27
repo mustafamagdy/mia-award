@@ -231,7 +231,7 @@ namespace MIA.ORMContext.Seed {
           Date = _faker_en.Date.Past().ToUnixTimeSeconds(),
           Category = _faker_en.Random.ArrayElement(categories),
           Outdated = _faker_en.Random.Bool(),
-          PosterUrl = "",
+          Poster = S3File.FromKeyAndUrl("", ""),
           Featured = _faker_ar.Random.Bool(),
           Comments = Enumerable.Range(0, _faker_en.Random.Number(10)).Select(a => new NewsComment {
             Comments = _faker_ar.Lorem.Paragraph(),
@@ -253,8 +253,7 @@ namespace MIA.ORMContext.Seed {
         var imageKey = fileManager.GenerateFileKeyForResource(ResourceType.News, news.Id, news.Id + ".jpg");
         var imageUrl = await fileManager.UploadFileAsync(fileStream, imageKey);
 
-        news.PosterUrl = imageUrl;
-        news.PosterId = imageKey;
+        news.Poster = S3File.FromKeyAndUrl(imageKey, imageUrl);
 
         db.News.Update(news);
       }
@@ -301,10 +300,8 @@ namespace MIA.ORMContext.Seed {
           Featured = true,
           DateCreated = DateTime.Now.ToUnixTimeSeconds(),
           MediaType = type,
-          FileKey = "",
-          FileUrl = "",
-          PosterKey = "",
-          PosterUrl = ""
+          File = S3File.FromKeyAndUrl("", ""),
+          Poster = S3File.FromKeyAndUrl("", "")
         };
 
         //avoid adding files again
@@ -320,16 +317,14 @@ namespace MIA.ORMContext.Seed {
           var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + url.GetFileExt());
           var fileUrl = await fileManager.UploadFileAsync(sFile, fileKey);
 
-          item.FileUrl = fileUrl;
-          item.FileKey = fileKey;
+          item.File = S3File.FromKeyAndUrl(fileKey, fileUrl);
         }
         if (type == MediaType.Video) {
           using (var sFile = new FileStream(posterUrl, FileMode.Open)) {
             var posterFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + posterUrl.GetFileExt());
             var posterFileUrl = await fileManager.UploadFileAsync(sFile, posterFileKey);
 
-            item.PosterUrl = posterFileUrl;
-            item.PosterKey = posterFileKey;
+            item.Poster = S3File.FromKeyAndUrl(posterFileKey, posterFileUrl);
           }
         }
 
@@ -480,8 +475,7 @@ namespace MIA.ORMContext.Seed {
               Code = ((JValue)j["Code"]).Value<string>(),
               AwardType = (AwardType)Enum.Parse(typeof(AwardType), ((JValue)j["AwardType"]).Value<string>()),
               ArtworkFee = ((JValue)j["ArtworkFee"]).Value<decimal>(),
-              TrophyImageKey = ((JValue)j["TrophyImageKey"]).Value<string>(),
-              TrophyImageUrl = ((JValue)j["TrophyImageUrl"]).Value<string>(),
+              Trophy = S3File.FromKeyAndUrl(((JValue)j["TrophyImageKey"]).Value<string>(), ((JValue)j["TrophyImageUrl"]).Value<string>()),
               Title = LocalizedData.FromDictionary((JObject)j["Title"]),
               Description = LocalizedData.FromDictionary((JObject)j["Description"]),
             });
@@ -512,8 +506,7 @@ namespace MIA.ORMContext.Seed {
             listNews.Add(new News {
               Date = ((JValue)j["Date"]).Value<long>(),
               Outdated = ((JValue)j["Outdated"]).Value<bool>(),
-              PosterId = ((JValue)j["PosterId"]).Value<string>(),
-              PosterUrl = ((JValue)j["PosterUrl"]).Value<string>(),
+              Poster = S3File.FromKeyAndUrl(((JValue)j["PosterId"]).Value<string>(), ((JValue)j["PosterUrl"]).Value<string>()),
               Featured = ((JValue)j["Featured"]).Value<bool>(),
               Category = ((JValue)j["Category"]).Value<string>(),
               Keywords = ((JValue)j["Keywords"]).Value<string>(),
@@ -527,8 +520,8 @@ namespace MIA.ORMContext.Seed {
             if (_news != null) continue;
 
             var imageFile = "";
-            if (File.Exists($"./seed/news/{news.PosterId}.jpg")) {
-              imageFile = $"./seed/news/{news.PosterId}.jpg";
+            if (File.Exists($"./seed/news/{news.Poster.FileKey}.jpg")) {
+              imageFile = $"./seed/news/{news.Poster.FileKey}.jpg";
             }
 
             await db.News.AddAsync(news);
@@ -536,8 +529,7 @@ namespace MIA.ORMContext.Seed {
             using (var placeholder_image = new MemoryStream(File.ReadAllBytes(imageFile))) {
               var imageKey = fileManager.GenerateFileKeyForResource(ResourceType.News, news.Id, news.Id + ".jpg");
               var imageUrl = await fileManager.UploadFileAsync(placeholder_image, imageKey);
-              news.PosterUrl = imageUrl;
-              news.PosterId = imageKey;
+              news.Poster = S3File.FromKeyAndUrl(imageKey, imageUrl);
             }
           }
 
