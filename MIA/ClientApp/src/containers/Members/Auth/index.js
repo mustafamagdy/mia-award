@@ -14,13 +14,12 @@ import ForgetPasswordForm from "./ForgetPassword";
 import ResetPasswordForm from "./ResetPassword";
 import Register from "./Register";
 
-
 // let resetPassword =false;
 const Auth = ({ location, ...props }) => {
   const [view, setView] = useState("login");
   const [signupActiveTab, setSignupActiveTab] = useState(0);
   const [resetPassword, setResetPassword] = useState(false);
-  const signupTabs = ["info", "details", "terms_and_conditions"];
+  const signupTabs = ["info", "terms_and_conditions"];
   let { reset } = props;
   if (reset && !resetPassword && view != "reset-password") {
     setView("reset-password");
@@ -75,7 +74,7 @@ const Auth = ({ location, ...props }) => {
               active: view == "signup",
             })}
           >
-            <div>
+            <div className="content_div">
               <ul>
                 <TabList
                   activeClassName="active"
