@@ -31,9 +31,17 @@ namespace MIA.MappingProfiles {
        .ValidateMemberList(MemberList.None);
 
       CreateMap<BoothPurchaseDto, BoothPurchase>()
+        .ForMember(a => a.CompanyLogo, cfg => cfg.Ignore())
         .ForMember(a => a.Payment, cfg => cfg.Ignore())
         .ForMember(a => a.PaymentId, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None);
+
+      CreateMap<MIA.Models.Entities.PaymentStatus, PurchaseStatus>()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<BoothPurchase, BoothPurchaseResponseDto>()
+        .ValidateMemberList(MemberList.None);
+
 
       CreateMap<Booth, BoothDto>()
        .ValidateMemberList(MemberList.None);

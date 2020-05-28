@@ -12,7 +12,7 @@ const fetchRecentShowsLogic = logic(apiNamespace, ActionTypes.FETCH_RECENT_SHOWS
 const sendContactUsMessageLogic = logic(apiNamespace, ActionTypes.SEND_CONTACT_US_MESSAGE);
 const bookBoothLogic = logic(apiNamespace, ActionTypes.BOOK_BOOTH, (dispatch, res) => {
   //update booth list again
-  dispatch(ActionTypes.FETCH_BOOTHS);
+  dispatch(ActionTypes.fetchBooths());
 });
 
 export default [

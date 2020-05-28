@@ -1,6 +1,8 @@
-﻿namespace MIA.Api
+﻿using MIA.Models.Entities;
+
+namespace MIA.Api
 {
   public class BoothPurchaseResponseDto {
-    public string Status { get; set; }
+    public PurchaseStatus Status { get; set; }
   }
 }
