@@ -42,6 +42,13 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
     setActiveIndex(tabs.indexOf(tabKey));
   };
 
+  const nextStep = () => {
+    const activeTab = tabs[activeIndex + 1];
+    if (activeTab) {
+      handleActiveTab(activeTab);
+    }
+  };
+
   return (
     <section id="booth_page">
       <div className="container">
@@ -114,6 +121,12 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                       cellPhone1: "",
                       cellPhone2: "",
                       email: "",
+                      extraDetails: "",
+                      companyFieldOfBusiness: "",
+                      screenOption: false,
+                      printingOption: false,
+                      agreeOnTerms: false,
+
                       payment: {
                         receiptAmount: 0,
                         receiptNumber: "",
@@ -128,6 +141,7 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                       contactPersonTitle: Yup.string().required("Required"),
                       cellPhone1: Yup.string().required("Required"),
                       email: Yup.string().required("Required"),
+                      agreeOnTerms: Yup.bool().required("Required"),
                       payment: Yup.object().shape({
                         receiptAmount: Yup.number()
                           .required("Required")
@@ -175,11 +189,13 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                             touched={touched}
                             active={activeTabKey == "info"}
                             booths={booths}
+                            nextStep={nextStep}
                           />
                           <Details
                             errors={errors}
                             touched={touched}
                             active={activeTabKey == "details"}
+                            nextStep={nextStep}
                           />
                           <Payment
                             errors={errors}
@@ -429,6 +445,48 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
             accept="image/*"
           />
         </div>
+        <div className="row">
+          <Field
+            transId="extraDetails"
+            transdDefaultVal="Extra Details"
+            hasError={
+              errors &&
+              errors.extraDetails !== undefined &&
+              touched &&
+              touched.extraDetails !== undefined
+            }
+            name="extraDetails"
+          />
+        </div>
+        <div className="row">
+          <Field
+            transId="companyFieldOfBusiness"
+            transdDefaultVal="Line of business"
+            hasError={
+              errors &&
+              errors.companyFieldOfBusiness !== undefined &&
+              touched &&
+              touched.companyFieldOfBusiness !== undefined
+            }
+            name="companyFieldOfBusiness"
+          />
+        </div>
+        <div className="row">
+          <Field
+            isCheckbox={true}
+            transId="screenOption"
+            transdDefaultVal={'40" Screen for 3 days'}
+            name="screenOption"
+          />
+        </div>
+        <div className="row">
+          <Field
+            isCheckbox={true}
+            transId="printingOption"
+            transdDefaultVal={"Printing the logo (vinyl sticker) "}
+            name="printingOption"
+          />
+        </div>
       </div>
       <div className="next_step">
         <button type="button" onClick={nextStep}>
@@ -517,11 +575,22 @@ const Payment = ({ active, errors, touched, nextStep, ...props }) => {
               <label htmlFor="receipt" className="btn-2">
                 <Trans id="choose_receipt_image">Choose receipt image</Trans>
               </label>
-              <div className="next_step">
-                <button type="submit">
-                  <Trans id="book_now">Book Now</Trans>
-                </button>
-              </div>
+            </div>
+            <div className="row">
+              <Field
+                isCheckbox={true}
+                transId="agreeOnTerms"
+                transdDefaultVal={"Agree on "}
+                name="agreeOnTerms"
+              />
+              <a href="/booth-terms" target="_blank">
+                <Trans id="terms_and_conditions">terms and conditions</Trans>
+              </a>
+            </div>
+            <div className="next_step">
+              <button type="submit">
+                <Trans id="book_now">Book Now</Trans>
+              </button>
             </div>
           </div>
         </div>

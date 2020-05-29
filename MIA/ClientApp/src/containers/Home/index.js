@@ -29,6 +29,7 @@ import Award from "../Award";
 import Terms from "../Pages/Terms";
 import Policies from "../Pages/Policies";
 import Artworks from "../Members/Artworks";
+import BoothTermsAndConditions from "../Pages/BoothTermsAndConditions";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -75,6 +76,7 @@ class Home extends React.Component {
           {/* terms and conditions */}
           <Route path="/terms" component={Terms} />
           <Route path="/policies" component={Policies} />
+          <Route path="/booth-terms" component={BoothTermsAndConditions} />
 
           <Redirect from="*" to="/" />
         </Switch>
