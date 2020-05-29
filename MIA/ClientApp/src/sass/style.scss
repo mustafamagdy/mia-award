@@ -507,3 +507,70 @@ input.has-error {
 .react-confirm-alert-overlay {
   background: rgba(51, 50, 50, 0.9);
 }
+
+.container {
+  width: 1440px;
+  margin: 0 auto;
+  padding: 161px 25px 60px;
+  overflow: hidden;
+  position: relative;
+  z-index: 4;
+  .header {
+    color: #f1f1f1;
+    font-size: 22px;
+    line-height: 26px;
+    width: 90%;
+    margin: 0 auto;
+    margin-left: -5px;
+    padding-bottom: 20px;
+    font-weight: bold;
+    [dir="rtl"] & {
+      margin-left: 0px;
+      margin-right: -5px;
+    }
+  }
+  .item {
+    margin: 0 auto 50px;
+    .content {
+      color: #f1f1f1;
+      font-size: 16px;
+      line-height: 26px;
+      width: 90%;
+      margin: 0 auto;
+      li {
+        margin: 0 auto 10px;
+      }
+    } /* content */
+  } /* item */
+} /* container */
+
+table.info {
+  margin: 20px auto;
+  border: 1px solid #c2a672;
+  font-size: 16pt;
+  color: #c2a672;
+
+  thead {
+    border: 1px solid #c2a672;
+    background-color: #c2a672;
+    color: black;
+    tr {
+      border: 1px solid #c2a672;
+      td {
+        padding: 5px;
+        border: 1px solid #c2a672;
+      }
+    }
+  }
+
+  tbody {
+    border: 1px solid #c2a672;
+    tr {
+      border: 1px solid #c2a672;
+      td {
+        padding: 5px;
+        border: 1px solid #c2a672;
+      }
+    }
+  }
+}
