@@ -12,7 +12,14 @@ const MemberSidebar = ({ currentUser, ...props }) => {
     <div className="member_sidebar">
       <div>
         <div className="imgthumb">
-          <img src={avatarImageUrl} />
+          <img
+            src={
+              avatarImageUrl == ""
+                ? "/assets/images/user_avatar.png"
+                : avatarImageUrl
+            }
+            alt={fullName}
+          />
         </div>
         <div className="username">{fullName}</div>
         <ul>

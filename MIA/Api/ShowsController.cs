@@ -29,12 +29,14 @@ namespace MIA.Api {
     public IActionResult Featured(
       [FromServices] IAppUnitOfWork db) {
       var result = db.Artworks
-        .Where(a => a.UploadComplete)
+        .Include(a => a.Award)
+        .Include(a => a.Nominee)
+        .ThenInclude(a => a.AvatarImage)
+        .Where(a => a.UploadComplete && a.Award.AwardType == AwardType.Artwork)
         .ProjectTo<ArtworkBasicViewDto>(_mapper.ConfigurationProvider)
-        .ToArray()
-        .Random(20);
+        .ToArray();
 
-      return IfFound(result);
+      return Ok(result);
     }
 
     [HttpPost("filter")]
@@ -42,15 +44,29 @@ namespace MIA.Api {
       [FromBody] ArtworkFilterDto query,
       [FromServices] IAppUnitOfWork db) {
       var _result = db.Artworks
-        .Where(a => a.UploadComplete);
+        .Include(a => a.Award)
+        .Include(a => a.Nominee)
+        .ThenInclude(a => a.AvatarImage)
+        .Where(a => a.UploadComplete && a.Award.AwardType == AwardType.Artwork);
 
       //todo: filtering
+      if (query.Year > 0)
+        _result = _result.Where(a => a.BroadcastYear == query.Year || a.ProductionYear == query.Year);
+
+      if (query.Title != null && query.Title.Trim() != "")
+        _result = _result.Where(a => a.ProjectName.Contains(query.Title));
+
+      if (query.TvChannels != null && query.TvChannels.Trim() != "")
+        _result = _result.Where(a => a.TvChannels.Contains(query.Title));
+
+      if (query.OnlineChannels != null && query.OnlineChannels.Trim() != "")
+        _result = _result.Where(a => a.OnlineChannels.Contains(query.Title));
 
       var result = await _result
         .ProjectTo<ArtworkBasicViewDto>(_mapper.ConfigurationProvider)
         .ToPagedListAsync(query);
 
-      return IfFound(result);
+      return Ok(result);
     }
 
 
@@ -59,8 +75,11 @@ namespace MIA.Api {
       [FromRoute(Name = "id")] string showId,
       [FromServices] IAppUnitOfWork db) {
       var result = await db.Artworks
+        .Include(a => a.Award)
+        .Include(a => a.Nominee)
+        .ThenInclude(a => a.AvatarImage)
         .Include(a => a.Reviews)
-        .Where(a => a.UploadComplete && a.Id == showId)
+        .Where(a => a.UploadComplete && a.Award.AwardType == AwardType.Artwork && a.Id == showId)
         .ProjectTo<FullArtworkWithCommentsDto>(_mapper.ConfigurationProvider)
         .FirstOrDefaultAsync();
 
@@ -71,7 +90,7 @@ namespace MIA.Api {
       //filter not approved comments, this should be using the filter inside inlucde, but it needs work from zzz project
       result.Reviews = result.Reviews.Where(a => a.IsApproved).ToArray();
 
-      return IfFound(result);
+      return Ok(result);
     }
 
 

@@ -86,16 +86,24 @@ namespace MIA.Api {
 
     [HttpPost("recent-shows")]
     public async Task<IActionResult> RecentShows(
-      [FromBody]RecentShowsSearchDto query,
+      [FromBody] ArtworkFilterDto query,
       [FromServices] IAppUnitOfWork db) {
       var _result = db.Artworks
                     .Where(a => a.UploadComplete)
                     .AsQueryable();
 
-      _result = _result.Where(a => string.IsNullOrEmpty(query.AwardId) || a.AwardId == query.AwardId);
-      //_result = _result.Where(a => string.IsNullOrEmpty(query.CountryId) || a.CountryId == query.CountryId);
-      //_result = _result.Where(a => query.Year == null || a.Year == query.Year);
-      _result = _result.Where(a => string.IsNullOrEmpty(query.Title) || a.ProjectName.Contains(query.Title));
+      //todo: filtering
+      if (query.Year > 0)
+        _result = _result.Where(a => a.BroadcastYear == query.Year || a.ProductionYear == query.Year);
+
+      if (query.Title != null && query.Title.Trim() != "")
+        _result = _result.Where(a => a.ProjectName.Contains(query.Title));
+
+      if (query.TvChannels != null && query.TvChannels.Trim() != "")
+        _result = _result.Where(a => a.TvChannels.Contains(query.Title));
+
+      if (query.OnlineChannels != null && query.OnlineChannels.Trim() != "")
+        _result = _result.Where(a => a.OnlineChannels.Contains(query.Title));
 
       var result = await _result
                 .ProjectTo<RecentShowsDto>(_mapper.ConfigurationProvider)
@@ -190,6 +198,9 @@ namespace MIA.Api {
 
       var boothPurchase = _mapper.Map<BoothPurchase>(dto);
       boothPurchase.BoothId = booth.Id;
+      var companyLogoFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Docs, boothPurchase.Id, $"{boothPurchase.Id}_companyLogo." + dto.CompanyLogoFileExt);
+      boothPurchase.CompanyLogo = S3File.FromKeyAndUrl(companyLogoFileKey, await fileManager.UploadFileAsync(dto.CompanyLogo, companyLogoFileKey));
+
       await db.BoothPurchases.AddAsync(boothPurchase);
 
       //save payment
@@ -198,7 +209,6 @@ namespace MIA.Api {
 
       //send confirmation email
       await SendBoothPurchaseConfirmationEmail(culture, templateParser, emailSender, booth, dto);
-
       return Ok(_mapper.Map<BoothPurchaseResponseDto>(boothPurchase));
     }
 

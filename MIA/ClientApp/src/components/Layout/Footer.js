@@ -58,8 +58,8 @@ const Footer = props => {
                   </a>
                 </li>
                 <li>
-                  <a href="/members">
-                    <Trans id="members">Members</Trans>
+                  <a href="/timeline">
+                    <Trans id="program">Program</Trans>
                   </a>
                 </li>
                 <li>

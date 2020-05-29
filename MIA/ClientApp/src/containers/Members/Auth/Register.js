@@ -4,6 +4,7 @@ import { Recaptcha, Field } from "components/Forms";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import classNames from "classnames";
+import { Trans } from "@lingui/macro";
 
 const Register = ({
   signupActiveTab,
@@ -24,7 +25,6 @@ const Register = ({
         email: "",
         jobTitle: "",
         phoneNumber: "",
-        companyName: "",
         password: "",
         confirmPassword: "",
         reCaptchaToken: "",
@@ -34,7 +34,6 @@ const Register = ({
         fullName: Yup.string().required("Required"),
         email: Yup.string().required("Required"),
         phoneNumber: Yup.string().required("Required"),
-        companyName: Yup.string().required("Required"),
         password: Yup.string().required("Required"),
         confirmPassword: Yup.string()
           .required("Required")
@@ -66,181 +65,105 @@ const Register = ({
                 active: signupActiveTab == 0,
               })}
             >
-              <div className="content">
-                <label htmlFor="email">Email</label>
+              <div className="fields">
                 <Field
                   type="text"
-                  className={`form-group__input ${
-                    errors.email && touched.email ? "has-error" : ""
-                  }`}
                   placeholder="email"
                   name="email"
+                  transId="email"
+                  transdDefaultVal="Email"
+                  errors={errors && errors.email}
+                  touched={touched && touched.email}
                 />
-                <span style={{ color: "crimson" }}>
-                  {errors.email && touched.email && errors.email}{" "}
-                </span>
-
-                <label htmlFor="password">Password</label>
                 <Field
                   type="password"
-                  className={`form-group__input ${
-                    errors.password && touched.password ? "has-error" : ""
-                  }`}
                   placeholder="password"
                   name="password"
+                  transId="password"
+                  transdDefaultVal="Password"
+                  errors={errors && errors.password}
+                  touched={touched && touched.password}
                 />
-                <span style={{ color: "crimson" }}>
-                  {errors.password && touched.password && errors.password}{" "}
-                </span>
-                <label htmlFor="confirmPassword">Confirm password</label>
                 <Field
                   type="password"
-                  className={`form-group__input ${
-                    errors.password && touched.password ? "has-error" : ""
-                  }`}
-                  placeholder="Confirm password"
+                  placeholder="Confirm Password"
                   name="confirmPassword"
+                  transId="confirmPassword"
+                  transdDefaultVal="Confirm Password"
+                  errors={errors && errors.confirmPassword}
+                  touched={touched && touched.confirmPassword}
                 />
-                <span style={{ color: "crimson" }}>
-                  {errors.confirmPassword &&
-                    touched.confirmPassword &&
-                    errors.confirmPassword}{" "}
-                </span>
+                <Field
+                  placeholder="Full name"
+                  name="fullName"
+                  transId="fullName"
+                  transdDefaultVal="Full name"
+                  errors={errors && errors.fullName}
+                  touched={touched && touched.fullName}
+                />
+                <Field
+                  placeholder="Job title"
+                  name="jobTitle"
+                  transId="jobTitle"
+                  transdDefaultVal="Job title"
+                  errors={errors && errors.jobTitle}
+                  touched={touched && touched.jobTitle}
+                />
+                <Field
+                  placeholder="Phone number"
+                  name="phoneNumber"
+                  transId="phoneNumber"
+                  transdDefaultVal="Phone number"
+                  errors={errors && errors.phoneNumber}
+                  touched={touched && touched.phoneNumber}
+                />
+                <Field
+                  name="reCaptchaToken"
+                  component={Recaptcha}
+                  setRecaptcha={(recpat) => (this.recaptcha = recpat)}
+                />
+                <div className="next_step">
+                  <span onClick={() => setSignupActiveTab(1)}>Next</span>
+                </div>
               </div>
-              <Field
-                name="reCaptchaToken"
-                component={Recaptcha}
-                setRecaptcha={(recpat) => (this.recaptcha = recpat)}
-              />
-              <div className="next_step">
-                <span onClick={() => setSignupActiveTab(1)}>Next</span>
+              <div className="avatar">
+                <div className="imgthumb">
+                  <img src="/assets/images/user_avatar.png" alt="" />
+                  <span>Upload</span>
+                  <input name="avatar" ref={register} type="file" />
+                </div>
               </div>
             </div>
+
             <div
-              className={classNames("tab_item upload_tab tab_info", {
+              className={classNames("tab_item term_tab", {
                 active: signupActiveTab == 1,
               })}
             >
               <div className="content">
-                <label htmlFor="fullName">Full name</label>
-                <Field
-                  type="text"
-                  className={`form-group__input ${
-                    errors.fullName && touched.fullName ? "has-error" : ""
-                  }`}
-                  placeholder="full name"
-                  name="fullName"
-                />
-                <span style={{ color: "crimson" }}>
-                  {errors.fullName && touched.fullName && errors.fullName}{" "}
-                </span>
-                <label htmlFor="jobTitle">Job title</label>
-                <Field
-                  type="text"
-                  className={`form-group__input ${
-                    errors.jobTitle && touched.jobTitle ? "has-error" : ""
-                  }`}
-                  placeholder="job title"
-                  name="jobTitle"
-                />
-                <span style={{ color: "crimson" }}>
-                  {errors.jobTitle && touched.jobTitle && errors.jobTitle}{" "}
-                </span>
-                <label htmlFor="phoneNumber">Phone number</label>
-                <Field
-                  type="text"
-                  className={`form-group__input ${
-                    errors.phoneNumber && touched.phoneNumber ? "has-error" : ""
-                  }`}
-                  placeholder="phone number"
-                  name="phoneNumber"
-                />
-                <span style={{ color: "crimson" }}>
-                  {errors.phoneNumber &&
-                    touched.phoneNumber &&
-                    errors.phoneNumber}{" "}
-                </span>
-                <label htmlFor="companyName">Company name</label>
-                <Field
-                  type="text"
-                  className={`form-group__input ${
-                    errors.companyName && touched.companyName ? "has-error" : ""
-                  }`}
-                  placeholder="company name"
-                  name="companyName"
-                />
-                <span style={{ color: "crimson" }}>
-                  {errors.companyName &&
-                    touched.companyName &&
-                    errors.companyName}{" "}
-                </span>
-                <label htmlFor="address">Address</label>
-                <Field
-                  type="text"
-                  className={`form-group__input ${
-                    errors.address && touched.address ? "has-error" : ""
-                  }`}
-                  placeholder="address"
-                  name="address"
-                />
-                <span style={{ color: "crimson" }}>
-                  {errors.address && touched.address && errors.address}{" "}
-                </span>
-              </div>
-              <div className="imgthumb">
-                <img src="/assets/images/related_news_image.png" />
-                <span>Upload</span>
-                <input name="avatar" ref={register} type="file" />
-              </div>
-              <div className="next_step">
-                <span onClick={() => setSignupActiveTab(2)}>Next</span>
-              </div>
-            </div>
-            <div
-              className={classNames("tab_item term_tab", {
-                active: signupActiveTab == 2,
-              })}
-            >
-              <div className="content">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and
-                typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy text ever since the 1500s, when an unknown
-                printer took a galley of type and scrambled it to make a type
-                specimen book. It has survived not only five centuries, but also
-                the leap into electronic typesetting, remaining essentially
-                unchanged. It was popularised in the 1960s with the release of
-                Letraset sheets containing Lorem Ipsum passages, and more
-                recently with desktop publishing software like Aldus PageMaker
-                including versions of Lorem Ipsum.
-              </div>
-              <div className="checkbox">
-                <input
-                  type="checkbox"
-                  className="custom-control-input"
-                  id="chkAccept"
-                  value={acceptTerms}
-                  onChange={(e) => setAcceptTerms(e.target.checked)}
-                />
-                <label className="custom-control-label" htmlFor="chkAccept">
-                  Accept Terms & Conditions
-                </label>
-                <div className="next_step">
-                  <button
-                    className="action"
-                    type="submit"
-                    disabled={!acceptTerms}
-                  >
-                    Register
-                  </button>
+                <div className="terms">
+                  <Trans id="signup_terms"></Trans>
+                </div>
+                <div className="checkbox">
+                  <input
+                    type="checkbox"
+                    className="custom-control-input"
+                    id="chkAccept"
+                    value={acceptTerms}
+                    onChange={(e) => setAcceptTerms(e.target.checked)}
+                  />
+                  <label className="custom-control-label" htmlFor="chkAccept">
+                    <Trans id="accept_terms">Accept Terms & Conditions</Trans>
+                  </label>
+                  <div className="next_step">
+                    <button
+                      className="normal_button"
+                      type="submit"
+                      disabled={!acceptTerms}
+                    >
+                      <Trans id="register">Register</Trans>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

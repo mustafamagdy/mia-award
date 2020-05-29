@@ -8,25 +8,23 @@ using MIA.Dto.Admin;
 using MIA.Models.Entities;
 using System.Linq;
 
-namespace MIA.Administration.MappingProfiles
-{
+namespace MIA.Administration.MappingProfiles {
 
   /// <summary>
   /// Auto mapper profile that contain mapping used in Api project
   /// </summary>
-  public class ApiProfile : Profile
-  {
+  public class ApiProfile : Profile {
 
     /// <summary>
     /// Constructor
     /// </summary>
-    public ApiProfile()
-    {
+    public ApiProfile() {
 
       #region News
 
       CreateMap<News, NewsDto>()
         //.ForMember(a => a.ImageUrl, cfg => cfg.MapFrom(a => a.Image != null ? a.Image.Imageurl : ""))
+        .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
         .ValidateMemberList(MemberList.None);
       CreateMap<NewNewsDto, News>()
             .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
@@ -42,7 +40,7 @@ namespace MIA.Administration.MappingProfiles
       #endregion
 
       #region BoothPurchase
-     
+
       CreateMap<NewBoothPaymentDto, BoothPayment>().ValidateMemberList(MemberList.None);
       CreateMap<BoothPurchase, BoothPurchaseDto>().ValidateMemberList(MemberList.None);
       CreateMap<NewBoothPurchaseDto, BoothPurchase>().ValidateMemberList(MemberList.None);
@@ -51,7 +49,9 @@ namespace MIA.Administration.MappingProfiles
       #endregion
 
       #region Booth Payment 
-      CreateMap<BoothPayment, BoothPaymentDto>().ValidateMemberList(MemberList.None);
+      CreateMap<BoothPayment, BoothPaymentDto>()
+        .ForMember(a => a.ReceiptUrl, cfg => cfg.MapFrom(a => a.Receipt.FileUrl))
+      .ValidateMemberList(MemberList.None);
       CreateMap<BoothPaymentDto, BoothPayment>().ValidateMemberList(MemberList.None);
       CreateMap<UpdateBoothPaymentDto, BoothPayment>().ValidateMemberList(MemberList.None);
 
@@ -86,8 +86,8 @@ namespace MIA.Administration.MappingProfiles
 
 
       CreateMap<AlbumItem, PhotoAlbumFileDto>()
-         .ForMember(a => a.FileKey, cfg => cfg.MapFrom(a => a.FileKey))
-         .ForMember(a => a.FileUrl, cfg => cfg.MapFrom(a => a.FileUrl))
+         .ForMember(a => a.FileKey, cfg => cfg.MapFrom(a => a.File.FileKey))
+         .ForMember(a => a.FileUrl, cfg => cfg.MapFrom(a => a.File.FileUrl))
          .ValidateMemberList(MemberList.None);
 
       CreateMap<Album, PhotoAlbumDto>()
@@ -101,7 +101,9 @@ namespace MIA.Administration.MappingProfiles
 
 
       #region VoteOn Payment 
-      CreateMap<ArtworkPayment, ArtWorkPaymentDto>().ValidateMemberList(MemberList.None);
+      CreateMap<ArtworkPayment, ArtWorkPaymentDto>()
+        .ForMember(a => a.ReceiptUrl, cfg => cfg.MapFrom(a => a.Receipt.FileUrl))
+      .ValidateMemberList(MemberList.None);
       CreateMap<NewArtWorkPaymentDto, ArtworkPayment>().ValidateMemberList(MemberList.None);
       CreateMap<UpdateArtWorkPaymentDto, ArtworkPayment>().ValidateMemberList(MemberList.None);
 
@@ -116,7 +118,10 @@ namespace MIA.Administration.MappingProfiles
 
 
       #region Media File
-      CreateMap<MediaFile, MediaFileDto>().ValidateMemberList(MemberList.None);
+      CreateMap<MediaFile, MediaFileDto>()
+        .ForMember(a => a.FileKey, cfg => cfg.MapFrom(a => a.File.FileKey))
+        .ForMember(a => a.FileUrl, cfg => cfg.MapFrom(a => a.File.FileUrl))
+      .ValidateMemberList(MemberList.None);
       CreateMap<MediaFileDto, MediaFile>().ValidateMemberList(MemberList.None);
 
       #endregion
@@ -124,6 +129,10 @@ namespace MIA.Administration.MappingProfiles
       #region VoteOn
       CreateMap<Artwork, ArtWorkDto>()
         //.ForMember(a => a.WinnerAwardFirstPlace, cfg => cfg.Ignore())
+        .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
+        .ForMember(a => a.TrailerPosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
+        .ForMember(a => a.TrailerUrl, cfg => cfg.MapFrom(a => a.Trailer.FileUrl))
+        .ForMember(a => a.CoverUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
         .ValidateMemberList(MemberList.None)
         .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment));
 

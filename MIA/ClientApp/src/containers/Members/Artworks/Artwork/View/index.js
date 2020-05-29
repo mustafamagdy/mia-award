@@ -8,6 +8,9 @@ import { withRouter } from "react-router-dom";
 import classNames from "classnames";
 import "lightbox-react/style.css"; // This only needs to be imported once in your app
 import { LanguageContext } from "containers/Providers/LanguageProvider";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { I18n } from "@lingui/react";
 
 import PaymentView from "./PaymentView";
 import Files from "./Files";
@@ -53,13 +56,15 @@ const ViewArtwork = ({
   return (
     <React.Fragment>
       <div className="upload_poster" style={artworkPosterStyle}>
-        <div className="upload_area">
-          <img
-            src={artwork && artwork.coverImageUrl}
-            style={{ objectFit: "cover" }}
-            alt="Cover"
-          />
-        </div>
+        {artwork && artwork.coverImageUrl && (
+          <div className="upload_area">
+            <img
+              src={artwork.coverImageUrl}
+              style={{ objectFit: "cover" }}
+              alt="Cover"
+            />
+          </div>
+        )}
       </div>
       <div className="stage_two">
         <div className="main_tabs">
@@ -229,6 +234,7 @@ const Info = ({
       </div>
 
       <button
+        className="normal_button"
         disabled={uploadComplete}
         onClick={() => {
           editArtwork();
@@ -239,19 +245,38 @@ const Info = ({
       </button>
 
       {canUploadFiles && (
-        <button
-          disabled={uploadComplete}
-          onClick={() => {
-            const data = { id: id, publish: true };
-            publish({
-              ...data,
-              id: id,
-            });
-            history.push(`/members`);
-          }}
-        >
-          <Trans id="send_for_judge">Send for judge</Trans>
-        </button>
+        <I18n>
+          {({ i18n }) => (
+            <button
+              className="normal_button"
+              onClick={async () => {
+                confirmAlert({
+                  title: i18n._("confirm_send_to_judge"),
+                  message: i18n._("are_you_sure_to_send_to_judge"),
+                  buttons: [
+                    {
+                      label: i18n._("send"),
+                      onClick: () => {
+                        const data = { id: id, publish: true };
+                        publish({
+                          ...data,
+                          id: id,
+                        });
+                        history.push(`/members`);
+                      },
+                    },
+                    {
+                      label: i18n._("no_wait"),
+                      onClick: () => {},
+                    },
+                  ],
+                });
+              }}
+            >
+              <Trans id="send_for_judge">Send for judge</Trans>
+            </button>
+          )}
+        </I18n>
       )}
     </div>
   );

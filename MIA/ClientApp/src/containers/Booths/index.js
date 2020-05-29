@@ -9,11 +9,10 @@ import { bindActionCreators } from "redux";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { fileToBase64 } from "utils";
-import { withRouter } from "react-router-dom";
 import { ImageZoom } from "react-simple-image-zoom";
-import { Dropdown } from "components/Forms";
-import BlockUi from "react-block-ui";
-import PaymentForm from "components/PaymentForm";
+import { Form, Formik } from "formik";
+import { Field, LocalizedDataField } from "components/Forms";
+import config from "config";
 
 const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
   useEffect(() => {
@@ -38,51 +37,10 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
   // const [paymentToken, setPaymentToken] = useState(undefined);
   // const [useOnlinePayment, setUseOnlinePayment] = useState(true);
 
-  const { register, handleSubmit, getValues, setValue } = useForm();
-
-  const handleActiveTab = tabKey => {
+  const handleActiveTab = (tabKey) => {
     setActiveTabKey(tabKey);
     setActiveIndex(tabs.indexOf(tabKey));
   };
-
-  const processOrder = async () => {
-    const values = getValues({ nest: true });
-    // values.payment.paymentToken = paymentToken;
-
-    //parse files to base64
-    // if (values.payment.paymentMethod == "offline") {
-    const receipt = await fileToBase64(values.payment.receipt[0]);
-    values.payment.receiptFileName = values.payment.receipt[0].name;
-    values.payment.receipt = receipt;
-    // } else {
-    //   values.payment.receipt = undefined;
-    //   values.payment = {
-    //     paymentMethod: values.payment.paymentMethod,
-    //     cardHolderName: values.payment.paymentToken.name,
-    //     cardType: values.payment.paymentToken.card_type,
-    //     last4Digit: values.payment.paymentToken.last4,
-    //     cardToken: values.payment.paymentToken.token,
-    //     currency: "USD",
-    //     type: values.payment.paymentToken.type
-    //   };
-    // }
-
-    bookBooth(values);
-  };
-
-  // useEffect(() => {
-  //   if (paymentToken != undefined) {
-  //     processOrder();
-  //   }
-  // }, [paymentToken]);
-
-  const onPayment = values => {
-    processOrder();
-  };
-
-  // const setPaymentMethod = e => {
-  //   setUseOnlinePayment(e.target.value == "online");
-  // };
 
   return (
     <section id="booth_page">
@@ -97,11 +55,14 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                 imageHeight={175}
                 zoomContainerWidth={500}
                 zoomContainerHeight={500}
-                portalStyle={Object.assign({ ...ImageZoom.defaultPortalStyle }, { top: "140px" })}
+                portalStyle={Object.assign(
+                  { ...ImageZoom.defaultPortalStyle },
+                  { top: "140px" }
+                )}
                 zoomScale={5}
                 responsive={true}
               >
-                <img src="assets/images/booth_image_small.png" />
+                <img src="assets/images/booth_image_small.png" alt="" />
               </ImageZoom>
               {/* <span>
                 <i className="icofont-ui-zoom-in"></i>
@@ -112,7 +73,9 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
             {loading == true ? (
               <div>Loading ...</div>
             ) : noMoreBooths == true ? (
-              <div>no more</div>
+              <div className="no_more_booths">
+                <Trans id="sold_out">Soldout</Trans>
+              </div>
             ) : boothBooked == true ? (
               <Confirmation active={boothBooked} success={true} />
             ) : (
@@ -137,20 +100,96 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                   </ul>
                 </div>
                 <div className="tabs_content">
-                  <>
-                    <Info active={activeTabKey == "info"} register={register} booths={booths} />
-                    <Details active={activeTabKey == "details"} register={register} />
-                    <Payment
-                      active={activeTabKey == "payment"}
-                      // awards={awards}
-                      register={register}
-                      onPayment={handleSubmit(onPayment)}
-                      // setPaymentToken={setPaymentToken}
-                      processOrder={processOrder}
-                      // useOnlinePayment={useOnlinePayment}
-                      // setPaymentMethod={setPaymentMethod}
-                    />
-                  </>
+                  <Formik
+                    initialValues={{
+                      boothCode: "",
+                      companyName: "",
+                      nationality: "",
+                      address: "",
+                      phone: "",
+                      fax: "",
+                      websiteUrl: "",
+                      contactPersonName: "",
+                      contactPersonTitle: "",
+                      cellPhone1: "",
+                      cellPhone2: "",
+                      email: "",
+                      payment: {
+                        receiptAmount: 0,
+                        receiptNumber: "",
+                        receiptDate: "",
+                      },
+                    }}
+                    validationSchema={Yup.object().shape({
+                      boothCode: Yup.string().required("Required"),
+                      address: Yup.string().required("Required"),
+                      phone: Yup.string().required("Required"),
+                      contactPersonName: Yup.string().required("Required"),
+                      contactPersonTitle: Yup.string().required("Required"),
+                      cellPhone1: Yup.string().required("Required"),
+                      email: Yup.string().required("Required"),
+                      payment: Yup.object().shape({
+                        receiptAmount: Yup.number()
+                          .required("Required")
+                          .min(1)
+                          .max(100000),
+                        receiptNumber: Yup.string().required("Required"),
+                        receiptDate: Yup.date().required("Required"),
+                        receiptFile: Yup.mixed().required(),
+                      }),
+                    })}
+                    onSubmit={async (values, actions) => {
+                      const companyLogo = await fileToBase64(
+                        values.companyLogo
+                      );
+                      const companyFileName = values.companyLogo.name;
+                      const lastIndxOfdot = companyFileName.lastIndexOf(".");
+                      const ext = companyFileName.substring(lastIndxOfdot + 1);
+                      values.CompanyLogoFileExt = ext;
+                      values.companyLogo = companyLogo;
+
+                      const receipt = await fileToBase64(
+                        values.payment.receiptFile
+                      );
+                      values.payment.receiptFileName =
+                        values.payment.receiptFile.name;
+                      values.payment.receipt = receipt;
+
+                      bookBooth(values);
+                    }}
+                  >
+                    {({
+                      values,
+                      isSubmitting,
+                      setFieldValue,
+                      errors,
+                      isValid,
+                      touched,
+                      ...props
+                    }) => {
+                      return (
+                        <Form noValidate className="info_form">
+                          <Info
+                            setFieldValue={setFieldValue}
+                            errors={errors}
+                            touched={touched}
+                            active={activeTabKey == "info"}
+                            booths={booths}
+                          />
+                          <Details
+                            errors={errors}
+                            touched={touched}
+                            active={activeTabKey == "details"}
+                          />
+                          <Payment
+                            errors={errors}
+                            touched={touched}
+                            active={activeTabKey == "payment"}
+                          />
+                        </Form>
+                      );
+                    }}
+                  </Formik>
                 </div>
               </>
             )}
@@ -161,7 +200,7 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
   );
 };
 
-const Info = ({ booths, active, register, ...props }) => {
+const Info = ({ booths, active, nextStep, setFieldValue, ...props }) => {
   const [selectedBooth, setSelectedBooth] = useState(undefined);
   useEffect(() => {
     setSelectedBooth(booths[0]);
@@ -189,14 +228,18 @@ const Info = ({ booths, active, register, ...props }) => {
       <div className="choose_booth">
         <select
           name="boothCode"
-          ref={register}
-          onChange={e => {
-            const _b = booths.find(a => a.code == e.target.value);
+          onChange={(e) => {
+            const _b = booths.find((a) => a.code == e.target.value);
             setSelectedBooth(_b);
+            setFieldValue("boothCode", e.target.value);
           }}
         >
-          {booths.map(a => (
-            <option key={a.code} value={a.code} selected={selectedBooth && a.code == selectedBooth.code}>
+          {booths.map((a) => (
+            <option
+              key={a.code}
+              value={a.code}
+              selected={selectedBooth && a.code == selectedBooth.code}
+            >
               {a.code}
             </option>
           ))}
@@ -208,10 +251,14 @@ const Info = ({ booths, active, register, ...props }) => {
         <Trans id="area">AREA</Trans>: {selectedBooth && selectedBooth.area}
       </div>
       <LanguageContext.Consumer>
-        {({ locale }) => <div className="content">{selectedBooth && selectedBooth.description[locale.code]}</div>}
+        {({ locale }) => (
+          <div className="content">
+            {selectedBooth && selectedBooth.description[locale.code]}
+          </div>
+        )}
       </LanguageContext.Consumer>
       <div className="next_step">
-        <button type="button">
+        <button type="button" onClick={nextStep}>
           <Trans id="next">Next</Trans>
         </button>
       </div>
@@ -219,17 +266,172 @@ const Info = ({ booths, active, register, ...props }) => {
   );
 };
 
-const Details = ({ active, register, ...props }) => {
+const Details = ({ active, errors, touched, nextStep, ...props }) => {
   return (
     <div className={classNames("tab_item info_tab", { active })}>
       <div className="choose_booth">
-        <input ref={register} name="contactName" />
-        <input ref={register} name="phone1" />
-        <input ref={register} name="phone2" />
-        <input ref={register} name="email" />
+        cellPhone1 cellPhone2 email
+        <div className="row">
+          <Field
+            transId="companyName"
+            transdDefaultVal="Company Name"
+            hasError={
+              errors &&
+              errors.companyName !== undefined &&
+              touched &&
+              touched.companyName !== undefined
+            }
+            name="companyName"
+          />
+        </div>
+        <div className="row">
+          <Field
+            transId="nationality"
+            transdDefaultVal="Nationality"
+            hasError={
+              errors &&
+              errors.nationality !== undefined &&
+              touched &&
+              touched.nationality !== undefined
+            }
+            name="nationality"
+          />
+        </div>
+        <div className="row">
+          <Field
+            transId="address"
+            transdDefaultVal="Address"
+            hasError={
+              errors &&
+              errors.address !== undefined &&
+              touched &&
+              touched.address !== undefined
+            }
+            name="address"
+          />
+        </div>
+        <div className="row">
+          <Field
+            transId="phone"
+            transdDefaultVal="Phone number"
+            hasError={
+              errors &&
+              errors.phone !== undefined &&
+              touched &&
+              touched.phone !== undefined
+            }
+            name="phone"
+          />
+        </div>
+        <div className="row">
+          <Field
+            transId="fax"
+            transdDefaultVal="Fax"
+            hasError={
+              errors &&
+              errors.fax !== undefined &&
+              touched &&
+              touched.fax !== undefined
+            }
+            name="fax"
+          />
+        </div>
+        <div className="row">
+          <Field
+            transId="websiteUrl"
+            transdDefaultVal="Website Url"
+            hasError={
+              errors &&
+              errors.websiteUrl !== undefined &&
+              touched &&
+              touched.websiteUrl !== undefined
+            }
+            name="websiteUrl"
+          />
+        </div>
+        <div className="row">
+          <Field
+            transId="contactPersonName"
+            transdDefaultVal="Contact Person"
+            hasError={
+              errors &&
+              errors.contactPersonName !== undefined &&
+              touched &&
+              touched.contactPersonName !== undefined
+            }
+            name="contactPersonName"
+          />
+        </div>
+        <div className="row">
+          <Field
+            transId="contactPersonTitle"
+            transdDefaultVal="Contact Person Title"
+            hasError={
+              errors &&
+              errors.contactPersonTitle !== undefined &&
+              touched &&
+              touched.contactPersonTitle !== undefined
+            }
+            name="contactPersonTitle"
+          />
+        </div>
+        <div className="row">
+          <Field
+            transId="cellPhone1"
+            transdDefaultVal="Cellphone 1"
+            hasError={
+              errors &&
+              errors.cellPhone1 !== undefined &&
+              touched &&
+              touched.cellPhone1 !== undefined
+            }
+            name="cellPhone1"
+          />
+        </div>
+        <div className="row">
+          <Field
+            transId="cellPhone2"
+            transdDefaultVal="Cellphone 2"
+            hasError={
+              errors &&
+              errors.cellPhone2 !== undefined &&
+              touched &&
+              touched.cellPhone2 !== undefined
+            }
+            name="cellPhone2"
+          />
+        </div>
+        <div className="row">
+          <Field
+            transId="email"
+            transdDefaultVal="Email"
+            hasError={
+              errors &&
+              errors.email !== undefined &&
+              touched &&
+              touched.email !== undefined
+            }
+            name="email"
+          />
+        </div>
+        <div className="row">
+          <Field
+            transId="company_logo"
+            transdDefaultVal="Company Logo"
+            isFile={true}
+            hasError={
+              errors &&
+              errors.companyLogo !== undefined &&
+              touched &&
+              touched.companyLogo !== undefined
+            }
+            name="companyLogo"
+            accept="image/*"
+          />
+        </div>
       </div>
       <div className="next_step">
-        <button type="button">
+        <button type="button" onClick={nextStep}>
           <Trans id="next">Next</Trans>
         </button>
       </div>
@@ -237,90 +439,91 @@ const Details = ({ active, register, ...props }) => {
   );
 };
 
-const Payment = ({
-  active,
-  register,
-  // useOnlinePayment, setPaymentMethod, setPaymentToken,
-  onPayment,
-  ...props
-}) => {
+const Payment = ({ active, errors, touched, nextStep, ...props }) => {
   return (
     <div className={classNames("tab_item payment_tab", { active })}>
       <div className="paymnets_area">
-        {/* <div className="title">
-          <Trans id="choose_your_payment_method">Choose Your Payment Method</Trans>:
-        </div> */}
-        {/* <div className="choose_area">
-          <label htmlFor="online">
-            <span>
-              <Trans id="pay_online">Pay Online</Trans>
-            </span>
-            <input
-              ref={register}
-              type="radio"
-              id="online"
-              value="online"
-              name="payment.paymentMethod"
-              onChange={setPaymentMethod}
-              checked={!!useOnlinePayment}
-            />
-            <div className="checkmark"></div>
-          </label>
-          <BlockUi tag="div" blocking={!useOnlinePayment} className={classNames("pay_online_form", { move: !useOnlinePayment })}>
-            <img src="/assets/images/pay_logo.png" />
-            <PaymentForm
-              cardTokenized={token => {
-                setPaymentToken(token);
-              }}
-            />
-            <div className="next_step">
-              <button id="pay-button" type="submit" form="payment-form">
-                <Trans id="pay_and_continue">Pay & Continue</Trans>
-              </button>
-            </div>
-          </BlockUi>
-        </div> */}
         <div className="choose_area">
-          {/* <label htmlFor="offline">
-            <span>
-              <Trans id="pay_offline">Pay Offline</Trans>
-            </span>
-            <input
-              ref={register}
-              type="radio"
-              id="offline"
-              value="offline"
-              name="payment.paymentMethod"
-              onChange={setPaymentMethod}
-              checked={!useOnlinePayment}
-            />
-            <div className="checkmark"></div>
-          </label> */}
-          {/* <BlockUi tag="div" blocking={useOnlinePayment} className={classNames("pay_offline_form", { move: useOnlinePayment })}> */}
           <div className="pay_offline_form">
             <p>
               <Trans id="please_upload_the_receipt">
-                please upload the reciept to be approved from the adminstration and confirm your payment
+                please upload the reciept to be approved from the adminstration
+                and confirm your payment
               </Trans>
             </p>
-            <form id="offline-payment" onSubmit={onPayment}>
-              <input ref={register} name="payment.receiptAmount" type="text" placeholder="Amount" />
-              <input ref={register} name="payment.receiptNumber" type="text" placeholder="Transaction Number" />
-              <input ref={register} name="payment.receiptDate" type="text" placeholder="Payment Date" />
-              <div className="confirm">
-                <input type="file" id="receipt" name="payment.receipt" ref={register} />
-                <label htmlFor="receipt" className="btn-2">
-                  <Trans id="choose_receipt_image">Choose receipt image</Trans>
-                </label>
-                <div className="next_step">
-                  <button type="button" type="submit" form="offline-payment">
-                    <Trans id="book_now">Book Now</Trans>
-                  </button>
-                </div>
+            <div className="row">
+              <Field
+                transId="amount"
+                transdDefaultVal="Amount"
+                hasError={
+                  errors &&
+                  errors.payment &&
+                  errors.payment.receiptAmount !== undefined &&
+                  touched &&
+                  touched.payment &&
+                  touched.payment.receiptAmount !== undefined
+                }
+                name="payment.receiptAmount"
+                type="number"
+              />
+            </div>
+            <div className="row">
+              <Field
+                transId="receipt_number"
+                transdDefaultVal="Receipt Number"
+                hasError={
+                  errors &&
+                  errors.payment &&
+                  errors.payment.receiptNumber !== undefined &&
+                  touched &&
+                  touched.payment &&
+                  touched.payment.receiptNumber !== undefined
+                }
+                name="payment.receiptNumber"
+              />
+            </div>
+            <div className="row">
+              <Field
+                transId="receipt_date"
+                transdDefaultVal="Receipt Date"
+                isDate={true}
+                hasError={
+                  errors &&
+                  errors.payment &&
+                  errors.payment.receiptDate !== undefined &&
+                  touched &&
+                  touched.payment &&
+                  touched.payment.receiptDate !== undefined
+                }
+                name="payment.receiptDate"
+              />
+            </div>
+            <div className="row">
+              <Field
+                transId="receipt_file"
+                transdDefaultVal="Receipt File"
+                isFile={true}
+                hasError={
+                  errors &&
+                  errors.payment &&
+                  errors.payment.receiptFile !== undefined &&
+                  touched &&
+                  touched.payment &&
+                  touched.payment.receiptFile !== undefined
+                }
+                name="payment.receiptFile"
+                accept="image/*"
+              />
+              <label htmlFor="receipt" className="btn-2">
+                <Trans id="choose_receipt_image">Choose receipt image</Trans>
+              </label>
+              <div className="next_step">
+                <button type="submit">
+                  <Trans id="book_now">Book Now</Trans>
+                </button>
               </div>
-            </form>
+            </div>
           </div>
-          {/* </BlockUi> */}
         </div>
       </div>
     </div>
@@ -334,7 +537,9 @@ const Confirmation = ({ active, success, ...props }) => {
         <Trans id="booth_booking_success">Booking successfull</Trans>
       </div>
       <div className="content">
-        <Trans id="booth_booking_success_msg">Thank you please contact us @123456</Trans>
+        <Trans id="booth_booking_success_msg">
+          Thank you please contact us @123456
+        </Trans>
       </div>
     </div>
   );
@@ -342,7 +547,8 @@ const Confirmation = ({ active, success, ...props }) => {
 
 const mapStateToProps = ({ home: { booths, boothBooked } }) => ({
   booths,
-  boothBooked
+  boothBooked,
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...homeActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Booths);

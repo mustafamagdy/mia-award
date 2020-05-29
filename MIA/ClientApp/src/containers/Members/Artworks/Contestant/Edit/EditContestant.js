@@ -6,10 +6,10 @@ import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import config from "config";
 
-const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
+const EditContestantInfo = ({ contestant, active, editArtwork, ...props }) => {
   return (
     <Formik
-      initialValues={artwork}
+      initialValues={contestant}
       validationSchema={Yup.object().shape({
         projectName: Yup.object().shape({
           ar: Yup.string().required("Required"),
@@ -34,7 +34,6 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
         productionLicenseAgency: Yup.string().required("Required"),
       })}
       onSubmit={async (values, actions) => {
-        debugger;
         editArtwork(values);
       }}
     >
@@ -48,25 +47,26 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
         ...props
       }) => {
         return (
-          <Form noValidate>
+          <Form noValidate className="info_form">
             <div className="pay_col_one">
               <div className="item_top">
                 <div className="imgthumb">
-                  <img src={artwork?.award?.trophyUrl} alt="Award" />
+                  <img src={contestant?.trophyUrl} alt="Award" />
                 </div>
                 <div className="desc">
                   <LanguageContext.Consumer>
                     {({ locale }) => (
                       <>
                         <span>
-                          <Trans id={artwork?.award?.title[locale.code]}>
-                            {artwork?.award?.title[locale.code]}
+                          <Trans id={contestant?.awardTitle[locale.code]}>
+                            {contestant?.awardTitle[locale.code]}
                           </Trans>
                         </span>
                         <p>
                           <Trans id="you_applied_for_award_x">
-                            you applied for {artwork?.award?.title[locale.code]}{" "}
-                            award please confirm to move on to the payment stage
+                            you applied for{" "}
+                            {contestant?.awardTitle[locale.code]} award please
+                            confirm to move on to the payment stage
                           </Trans>
                         </p>
                       </>
@@ -76,14 +76,14 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
               </div>
               <div className="item_bottom">
                 <div className="price">
-                  {artwork?.award?.artworkFee}
+                  {contestant?.awardFee}
                   <Trans id="usd">USD</Trans>
                 </div>
               </div>
             </div>
             <div className="pay_col_two">
               <div className="grid grid--1 grid--sm-2 grid--md-4 grid--space-def grid--hspace-xl grid--inline">
-                <div className="gcell">
+                <div className="row">
                   <LocalizedDataField
                     transId="project_name"
                     transdDefaultVal="Project Name"
@@ -92,7 +92,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                     touched={touched && touched.projectName}
                   />
                 </div>
-                <div className="gcell">
+                <div className="row">
                   <LocalizedDataField
                     transId="description"
                     transdDefaultVal="Description"
@@ -101,7 +101,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                     touched={touched && touched.description}
                   />
                 </div>
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="site_url"
                     transdDefaultVal="Site Url"
@@ -114,7 +114,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                     name="siteUrl"
                   />
                 </div>
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="production_year"
                     transdDefaultVal="Production Year"
@@ -128,7 +128,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                   />
                 </div>
 
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="broadcast_year"
                     transdDefaultVal="Broadcast Year"
@@ -142,7 +142,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                   />
                 </div>
 
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="tv_channels"
                     transdDefaultVal="Tv Channels"
@@ -156,7 +156,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                   />
                 </div>
 
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="online_channels"
                     transdDefaultVal="Online Channels"
@@ -169,7 +169,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                     name="onlineChannels"
                   />
                 </div>
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="production_license_number"
                     transdDefaultVal="Production License Number"
@@ -182,7 +182,7 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                     name="productionLicenseNumber"
                   />
                 </div>
-                <div className="gcell">
+                <div className="row">
                   <Field
                     transId="production_license_agency"
                     transdDefaultVal="Production License Agency"
@@ -195,12 +195,12 @@ const EditContestantInfo = ({ artwork, active, editArtwork, ...props }) => {
                     name="productionLicenseAgency"
                   />
                 </div>
+                <div className="row">
+                  <button className="normal_button" type="submit">
+                    <Trans id="save">Save</Trans>
+                  </button>
+                </div>
               </div>
-            </div>
-            <div>
-              <button className="action" type="submit">
-                <Trans id="save">Save</Trans>
-              </button>
             </div>
           </Form>
         );

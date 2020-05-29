@@ -4,14 +4,16 @@ using MIA.ORMContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MIA.ORMContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200527105525_FixS3fileMissing")]
+    partial class FixS3fileMissing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -360,39 +362,17 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
-
                     b.Property<string>("BoothId");
 
-                    b.Property<string>("CellPhone1");
-
-                    b.Property<string>("CellPhone2");
-
-                    b.Property<string>("CompanyFieldOfBusiness");
-
-                    b.Property<string>("CompanyName");
-
-                    b.Property<string>("ContactPersonName");
-
-                    b.Property<string>("ContactPersonTitle");
+                    b.Property<string>("ContactName");
 
                     b.Property<string>("Email");
 
-                    b.Property<string>("ExtraDetails");
-
-                    b.Property<string>("Fax");
-
-                    b.Property<string>("Nationality");
-
                     b.Property<string>("PaymentId");
 
-                    b.Property<string>("Phone");
+                    b.Property<string>("Phone1");
 
-                    b.Property<bool>("PrintingOption");
-
-                    b.Property<bool>("ScreenOption");
-
-                    b.Property<string>("WebsiteUrl");
+                    b.Property<string>("Phone2");
 
                     b.HasKey("Id");
 
@@ -1062,24 +1042,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasOne("MIA.Models.Entities.BoothPayment", "Payment")
                         .WithOne("BoothPurchase")
                         .HasForeignKey("MIA.Models.Entities.BoothPurchase", "PaymentId");
-
-                    b.OwnsOne("MIA.Models.Entities.S3File", "CompanyLogo", b1 =>
-                        {
-                            b1.Property<string>("BoothPurchaseId");
-
-                            b1.Property<string>("FileKey");
-
-                            b1.Property<string>("FileUrl");
-
-                            b1.HasKey("BoothPurchaseId");
-
-                            b1.ToTable("BoothPurchases");
-
-                            b1.HasOne("MIA.Models.Entities.BoothPurchase")
-                                .WithOne("CompanyLogo")
-                                .HasForeignKey("MIA.Models.Entities.S3File", "BoothPurchaseId")
-                                .OnDelete(DeleteBehavior.Cascade);
-                        });
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.JudgeAward", b =>

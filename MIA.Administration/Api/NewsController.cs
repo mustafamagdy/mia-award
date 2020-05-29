@@ -58,8 +58,7 @@ namespace MIA.Administration.Api {
           string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.News, newsItem.Id, dto.PosterFileName);
           var posterUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
-          newsItem.PosterUrl = posterUrl;
-          newsItem.PosterId = fileKey;
+          newsItem.Poster = S3File.FromKeyAndUrl(fileKey, posterUrl);
 
           await db.CommitTransactionAsync();
         }
@@ -80,16 +79,15 @@ namespace MIA.Administration.Api {
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
             throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
-          bool isNew = string.IsNullOrEmpty(newsItem.PosterId);
+          bool isNew = string.IsNullOrEmpty(newsItem.Poster.FileKey);
           if (!isNew) {
-            await fileManager.DeleteFileAsync(newsItem.PosterId);
+            await fileManager.DeleteFileAsync(newsItem.Poster.FileKey);
           }
 
           string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.News, newsItem.Id, dto.PosterFileName);
           var posterUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
-          newsItem.PosterUrl = posterUrl;
-          newsItem.PosterId = fileKey;
+          newsItem.Poster = S3File.FromKeyAndUrl(fileKey, posterUrl);
         }
       }
 
