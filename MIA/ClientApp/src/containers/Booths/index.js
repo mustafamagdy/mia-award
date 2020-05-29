@@ -42,6 +42,13 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
     setActiveIndex(tabs.indexOf(tabKey));
   };
 
+  const nextStep = () => {
+    const activeTab = tabs[activeIndex + 1];
+    if (activeTab) {
+      handleActiveTab(activeTab);
+    }
+  };
+
   return (
     <section id="booth_page">
       <div className="container">
@@ -114,6 +121,11 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                       cellPhone1: "",
                       cellPhone2: "",
                       email: "",
+                      extraDetails: "",
+                      companyFieldOfBusiness: "",
+                      screenOption: false,
+                      printingOption: false,
+
                       payment: {
                         receiptAmount: 0,
                         receiptNumber: "",
@@ -175,11 +187,13 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                             touched={touched}
                             active={activeTabKey == "info"}
                             booths={booths}
+                            nextStep={nextStep}
                           />
                           <Details
                             errors={errors}
                             touched={touched}
                             active={activeTabKey == "details"}
+                            nextStep={nextStep}
                           />
                           <Payment
                             errors={errors}
