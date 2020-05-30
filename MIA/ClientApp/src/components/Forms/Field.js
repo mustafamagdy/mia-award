@@ -29,7 +29,10 @@ const FormField = ({
       {({ i18n }) =>
         isOtherTypes === true ? (
           isCheckbox ? (
-            <Field name={name} {...props} />
+            <label className="form-group__label col-6 col-md-6 col-sm-12">
+              <Field name={name} {...props} type="checkbox" />
+              <Trans id={transId}> {transdDefaultVal} </Trans>
+            </label>
           ) : isFile ? (
             <Field component={FieldFileUpload} name={name} {...props} />
           ) : undefined
