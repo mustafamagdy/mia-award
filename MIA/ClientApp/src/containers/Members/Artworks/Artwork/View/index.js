@@ -106,7 +106,7 @@ const ViewArtwork = ({
                 <Trailer
                   active={activeTabKey == "trailer"}
                   url={artwork?.trailerUrl}
-                  coverUrl={artwork?.coverImageUrl}
+                  coverUrl={encodeURI(artwork?.coverImageUrl)}
                   key="trailer"
                 />
                 <Files
@@ -114,7 +114,7 @@ const ViewArtwork = ({
                   projectName={artwork?.projectName}
                   files={artwork?.files}
                   posterUrl={artwork?.posterUrl}
-                  coverUrl={artwork?.coverImageUrl}
+                  coverUrl={encodeURI(artwork?.coverImageUrl)}
                   key="files"
                 />
               </>

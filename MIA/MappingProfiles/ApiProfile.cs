@@ -128,7 +128,7 @@ namespace MIA.MappingProfiles {
         .IncludeAllDerived()
         .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
         .ForMember(a => a.TrailerPosterUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
-        .ForMember(a => a.CoverImageUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
+        .ForMember(a => a.CoverUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
         .ForMember(a => a.TrailerUrl, cfg => cfg.MapFrom(a => a.Trailer.FileUrl))
         .ForMember(a => a.NomineeAvatar, cfg => cfg.MapFrom(a => a.Nominee.AvatarImage.Imageurl))
         .ValidateMemberList(MemberList.None);

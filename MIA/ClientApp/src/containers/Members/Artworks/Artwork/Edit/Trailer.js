@@ -52,7 +52,7 @@ const Trailer = ({
             <TrailerView
               url={trailerUrl}
               coverUrl={
-                coverUrl == "" ? "/assets/images/poaster.png" : coverUrl
+                coverUrl == "" ? "/assets/images/poaster.png" : encodeURI(coverUrl)
               }
               setuploadMode={setuploadMode}
               uploadMode={uploadMode}

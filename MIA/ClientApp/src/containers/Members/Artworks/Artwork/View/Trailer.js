@@ -5,7 +5,7 @@ import { Trans } from "@lingui/macro";
 
 export const Trailer = ({ url, coverUrl, active, ...props }) => {
   return url ? (
-    <TrailerView url={url} coverUrl={coverUrl} />
+    <TrailerView url={url} coverUrl={encodeURI(coverUrl)} />
   ) : (
     <p className="info">
       <Trans id="no_trailer_yet">No trailer uploaded yet</Trans>
@@ -16,7 +16,7 @@ export const Trailer = ({ url, coverUrl, active, ...props }) => {
 const TrailerTab = ({ url, coverUrl, active, ...props }) => {
   return (
     <div className={classNames("tab_content tab_trailer", { active })}>
-      <Trailer url={url} coverUrl={coverUrl} />
+      <Trailer url={url} coverUrl={encodeURI(coverUrl)} />
     </div>
   );
 };
