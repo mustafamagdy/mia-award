@@ -99,7 +99,7 @@ const ShowsView = ({
               <LanguageContext.Consumer>
                 {({ locale }) => (
                   <img
-                    src={show.coverUrl}
+                    src={encodeURI(show.coverUrl)}
                     alt={show.projectName[locale.code]}
                   />
                 )}

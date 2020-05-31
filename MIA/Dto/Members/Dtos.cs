@@ -18,7 +18,7 @@ namespace MIA.Api {
     public string PosterUrl { get; set; }
     public string TrailerUrl { get; set; }
     public string TrailerPosterUrl { get; set; }
-    public string CoverImageUrl { get; set; }
+    public string CoverUrl { get; set; }
     public string NomineeAvatar { get; set; }
   }
   public class ArtworkViewDto : ArtworkBasicViewDto {

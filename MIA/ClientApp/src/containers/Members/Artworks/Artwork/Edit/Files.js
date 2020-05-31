@@ -62,7 +62,7 @@ const Files = ({ active, artwork, removeArtworkFile }, props) => {
                     uploadChunkApi={window.api.members.postFileChunk}
                     dir={"Artwork"}
                     dirId={artwork.id}
-                    file={f}                    
+                    file={f}
                   >
                     <UploadingProgress file={f} />
                   </Uploader>
@@ -78,7 +78,7 @@ const Files = ({ active, artwork, removeArtworkFile }, props) => {
               <File
                 projectName={artwork.projectName}
                 posterUrl={artwork.posterUrl}
-                coverUrl={artwork.coverImageUrl}
+                coverUrl={encodeURI(artwork.coverImageUrl)}
                 file={f}
                 key={index}
                 showRemove
