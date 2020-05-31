@@ -12,7 +12,7 @@ const LocalizedDataField = ({
   <React.Fragment>
     <Field
       transId={transId + "_ar"}
-      transdDefaultVal={transdDefaultVal}
+      transdDefaultVal={`${transdDefaultVal} (ar)`}
       hasError={
         errors && errors.ar !== undefined && touched && touched.ar !== undefined
       }
@@ -21,7 +21,7 @@ const LocalizedDataField = ({
     />
     <Field
       transId={transId + "_en"}
-      transdDefaultVal={transdDefaultVal}
+      transdDefaultVal={`${transdDefaultVal} (en)`}
       hasError={
         errors && errors.en !== undefined && touched && touched.en !== undefined
       }

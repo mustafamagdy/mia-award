@@ -353,7 +353,7 @@ p.info {
 }
 
 .pay_col_one {
-  width: 45%;
+  width: 65%;
   padding: 20px;
   background: #111111;
   border-radius: 4px;
@@ -475,7 +475,7 @@ p.info {
   } /* item_bottom */
 } /* pay_col_one */
 .pay_col_two {
-  width: 45%;
+  // width: 45%;
   padding: 20px;
   background: #111111;
   border-radius: 4px;
@@ -574,3 +574,97 @@ table.info {
     }
   }
 }
+
+.form-group {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: baseline;
+  .form-group__checkbox {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  input[type="checkbox"] {
+    width: 25px;
+  }
+  label {
+    display: block;
+    color: #808080;
+    font-size: 14px;
+    margin: 0 auto 5px;
+    text-transform: capitalize;
+    &.has-error {
+      color: red;
+      font-size: x-small;
+      padding-left: 8px;
+    }
+  } /* label */
+  select {
+    background: #141414 url("/assets/images/arrow.png") scroll no-repeat 100%
+      center;
+    color: #fff;
+    border: 1px solid #ccbc93;
+    border-radius: 4px;
+    padding: 0 50px 0 5px;
+    font-size: 13px;
+    height: 40px;
+    min-width: 200px;
+    margin: 0 5px;
+    font-family: Montserrat_Bold;
+    text-transform: capitalize;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    [dir="rtl"] & {
+      background: #141414 url("/assets/images/arrow_rtl.png") scroll no-repeat 0
+        center;
+      padding: 0 5px 0 50px;
+      font-family: Tajawal_Bold;
+    } /* rtl */
+  } /* select */
+  input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid #ccbc93;
+    height: 40px;
+    color: #fff;
+    padding: 5px;
+    font-family: Montserrat_Medium;
+    font-size: 15px;
+    margin: 5px;
+    [dir="rtl"] & {
+      font-family: Tajawal_Medium;
+    } /* rtl */
+  } /* input */
+  input[type="file"] {
+    border: none;
+    margin-left: 20px;
+    [dir="rtl"] & {
+      margin-left: 0px;
+      margin-right: 20px;
+    }
+  }
+  textarea {
+    width: 100%;
+    background: transparent;
+    border: 1px solid #ccbc93;
+    height: 40px;
+    color: #fff;
+    padding: 5px;
+    font-family: Montserrat_Medium;
+    font-size: 15px;
+    margin: 5px;
+    height: 100px;
+    [dir="rtl"] & {
+      font-family: Tajawal_Medium;
+    } /* rtl */
+  } /* textarea */
+  .info {
+    color: #c2a672;
+    font-size: 13px;
+  }
+} /* form-group */

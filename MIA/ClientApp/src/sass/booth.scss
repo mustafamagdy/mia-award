@@ -1,6 +1,7 @@
 @import "./variables.scss";
 #booth_page {
-  background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
+  background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center
+    center;
   position: relative;
   &::after {
     content: "Book A \A Booth";
@@ -145,6 +146,7 @@
               display: block;
             }
             &.info_tab {
+              width: 100%;
               .labels_area {
                 margin: 0 auto 30px;
                 ul {
@@ -201,7 +203,8 @@
               .choose_booth {
                 margin: 0 auto 30px;
                 select {
-                  background: #000000 url("/assets/images/booth_arrow.png") scroll no-repeat 100% center;
+                  background: #000000 url("/assets/images/booth_arrow.png")
+                    scroll no-repeat 100% center;
                   color: #808080;
                   border: 1px solid #ccbc93;
                   border-radius: 3px;
@@ -217,7 +220,8 @@
                   -o-appearance: none;
                   appearance: none;
                   [dir="rtl"] & {
-                    background: #000000 url("/assets/images/booth_arrow.png") scroll no-repeat 0 center;
+                    background: #000000 url("/assets/images/booth_arrow.png")
+                      scroll no-repeat 0 center;
                     font-family: Tajawal_Medium;
                     margin: 0 0 0 10px;
                     padding: 0 5px 0 30px;
@@ -261,7 +265,12 @@
               display: flex;
               justify-content: flex-end;
               button {
-                background: -moz-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
+                background: -moz-linear-gradient(
+                  0deg,
+                  #f7e483 0%,
+                  #dbba5a 57%,
+                  #a36d31 100%
+                );
                 background: -webkit-gradient(
                   linear,
                   left top,
@@ -270,10 +279,30 @@
                   color-stop(57%, #dbba5a),
                   color-stop(100%, #a36d31)
                 );
-                background: -webkit-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
-                background: -o-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
-                background: -ms-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
-                background: linear-gradient(90deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
+                background: -webkit-linear-gradient(
+                  0deg,
+                  #f7e483 0%,
+                  #dbba5a 57%,
+                  #a36d31 100%
+                );
+                background: -o-linear-gradient(
+                  0deg,
+                  #f7e483 0%,
+                  #dbba5a 57%,
+                  #a36d31 100%
+                );
+                background: -ms-linear-gradient(
+                  0deg,
+                  #f7e483 0%,
+                  #dbba5a 57%,
+                  #a36d31 100%
+                );
+                background: linear-gradient(
+                  90deg,
+                  #f7e483 0%,
+                  #dbba5a 57%,
+                  #a36d31 100%
+                );
                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7e483', endColorstr='#a36d31',GradientType=1 );
                 height: 45px;
                 padding: 0 25px;
@@ -309,6 +338,11 @@
               } /* title */
               .choose_area {
                 .pay_offline_form {
+                  text-align: left;
+                  [dir="rtl"] & {
+                    text-align: right;
+                  } /* rtl */
+
                   &.move {
                     filter: blur(4px);
                   } /* move */

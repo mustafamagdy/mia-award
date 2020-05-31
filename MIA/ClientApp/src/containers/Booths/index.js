@@ -286,7 +286,6 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
   return (
     <div className={classNames("tab_item info_tab", { active })}>
       <div className="choose_booth">
-        cellPhone1 cellPhone2 email
         <div className="row">
           <Field
             transId="companyName"
@@ -503,7 +502,7 @@ const Payment = ({ active, errors, touched, nextStep, ...props }) => {
       <div className="paymnets_area">
         <div className="choose_area">
           <div className="pay_offline_form">
-            <p>
+            <p className="info">
               <Trans id="please_upload_the_receipt">
                 please upload the reciept to be approved from the adminstration
                 and confirm your payment
@@ -572,20 +571,14 @@ const Payment = ({ active, errors, touched, nextStep, ...props }) => {
                 name="payment.receiptFile"
                 accept="image/*"
               />
-              <label htmlFor="receipt" className="btn-2">
-                <Trans id="choose_receipt_image">Choose receipt image</Trans>
-              </label>
             </div>
             <div className="row">
-              <Field
-                isCheckbox={true}
-                transId="agreeOnTerms"
-                transdDefaultVal={"Agree on "}
-                name="agreeOnTerms"
-              />
-              <a href="/booth-terms" target="_blank">
-                <Trans id="terms_and_conditions">terms and conditions</Trans>
-              </a>
+              <Field isCheckbox={true} name="agreeOnTerms">
+                <Trans id="agreeOnTerms">Agree on</Trans>{" "}
+                <a href="/booth-terms" target="_blank">
+                  <Trans id="terms_and_conditions">terms and conditions</Trans>
+                </a>
+              </Field>
             </div>
             <div className="next_step">
               <button type="submit">
