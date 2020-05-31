@@ -1155,7 +1155,8 @@
             }
             .trailer_area {
               display: flex;
-              justify-content: space-around;
+              flex-direction: column;
+              // justify-content: space-around;
               flex-wrap: wrap;
               margin: 0 -20px;
               align-items: center;
@@ -1961,7 +1962,6 @@
   } /* progress_inside */
 } /* progress_bar */
 
-
 .main_tabs {
   margin: -20px auto 30px;
   ul {
@@ -2017,3 +2017,11 @@
     } /* li */
   } /* ul */
 } /* main_tabs */
+
+.trailer_section {
+  width: 100%;
+  display: flex;  
+  .item {
+    
+  }
+}

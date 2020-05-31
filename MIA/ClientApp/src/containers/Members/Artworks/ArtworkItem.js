@@ -16,9 +16,9 @@ const ArtWork = ({ artWork, ...props }) => {
             >
               <img
                 src={
-                  artWork.awardType == "person" || artWork?.coverUrl == ""
+                  artWork.awardType == "person" || artWork?.coverImageUrl == ""
                     ? "assets/images/logo.png"
-                    : artWork?.coverUrl
+                    : artWork?.coverImageUrl
                 }
                 alt={artWork.projectName[locale.code]}
               />
