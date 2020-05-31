@@ -290,7 +290,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                   </div>
                 </div>
                 <div className="payment_form">
-                  <p>
+                  <p className="info">
                     <Trans id="please_upload_payment_receipt">
                       please upload the reciept to be approved from the
                       adminstration and confirm your payment
