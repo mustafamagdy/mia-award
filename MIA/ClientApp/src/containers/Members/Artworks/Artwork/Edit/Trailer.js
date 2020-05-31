@@ -57,19 +57,15 @@ const Trailer = ({
               setuploadMode={setuploadMode}
               uploadMode={uploadMode}
             />
-            <I18n>
-              {({ i18n }) => (
-                <button
-                  style={{ alignSelf: "flex-start" }}
-                  className="normal_button"
-                  onClick={() => {
-                    setuploadMode(true);
-                  }}
-                >
-                  <Trans id="change_trailer">Change trailer</Trans>
-                </button>
-              )}
-            </I18n>
+            <button
+              style={{ alignSelf: "flex-start" }}
+              className="normal_button"
+              onClick={() => {
+                setuploadMode(true);
+              }}
+            >
+              <Trans id="change_trailer">Change trailer</Trans>
+            </button>
           </div>
         ) : (
           <>
@@ -203,18 +199,14 @@ const Trailer = ({
             </div>
 
             {uploadMode && (
-              <I18n>
-                {({ i18n }) => (
-                  <button
-                    style={{ alignSelf: "flex-start" }}
-                    onClick={switchToUploadMode}
-                    disabled={uploading}
-                    className="normal_button"
-                  >
-                    <Trans id="finish_and_reload">Finish & Reload</Trans>
-                  </button>
-                )}
-              </I18n>
+              <button
+                style={{ alignSelf: "flex-start" }}
+                onClick={switchToUploadMode}
+                disabled={uploading}
+                className="normal_button"
+              >
+                <Trans id="finish_and_reload">Finish & Reload</Trans>
+              </button>
             )}
           </>
         )}
