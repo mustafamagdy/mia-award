@@ -28,8 +28,15 @@ export const logic = (apiNamespace, actionName, successCb, failCb) => {
             payload: _errorMsg,
             error: true,
           });
-          failCb && failCb(dispatch);
-          toast.error(_errorMsg);
+          if (failCb) {
+            failCb(dispatch, res.data);
+          } else {
+            if (res.data && res.data.errorCode == "404") {
+              toast.error("No data found");
+            } else {
+              toast.error(_errorMsg);
+            }
+          }
         } else {
           dispatch({ type: `${actionName}_SUCCESS`, payload: res.data });
           successCb && successCb(dispatch, res.data);
