@@ -15,8 +15,11 @@ import Layout from "components/Layout";
 import Home from "containers/Home";
 import LanguageProvider from "containers/Providers/LanguageProvider";
 import TransKeysNotFoundInJsx from "./TransKeysNotFoundInJsx";
+import { ToastContainer } from "react-toastify";
+import { I18n } from "@lingui/react";
 
 import "sass/style.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 history.listen((location, action) => {
   //todo: use this for query string sync
@@ -35,6 +38,24 @@ class App extends React.Component {
             <Layout>
               <TransKeysNotFoundInJsx />
               <Home />
+              <I18n>
+                {({ i18n }) => {
+                  const rtl = i18n.language == "ar";
+                  return (
+                    <ToastContainer
+                      position="bottom-right"
+                      autoClose={5000}
+                      hideProgressBar={false}
+                      newestOnTop={false}
+                      closeOnClick
+                      rtl={rtl}
+                      pauseOnFocusLoss
+                      draggable
+                      pauseOnHover
+                    />
+                  );
+                }}
+              </I18n>
               {/*
                    <UserContext.Consumer>
                     {({
@@ -98,8 +119,8 @@ try {
   //get user ip on every page refresh
   axios
     .get("https://api.ipify.org")
-    .then(res => localStorage.setItem("userIp", res.data))
-    .catch(err => {
+    .then((res) => localStorage.setItem("userIp", res.data))
+    .catch((err) => {
       console.log("Failed to resolve IP");
     });
 

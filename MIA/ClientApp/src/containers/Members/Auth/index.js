@@ -52,7 +52,6 @@ const Auth = ({ location, ...props }) => {
               <LoginForm
                 switchResetPassword={() => setView("forget-password")}
                 loginUser={props.login}
-                demoLogin={props.demoLogin}
               />
             )}
             {view == "forget-password" && (

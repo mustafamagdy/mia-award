@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import classNames from "classnames";
 
-const LoginForm = ({ switchResetPassword, loginUser, demoLogin, props }) => {
+const LoginForm = ({ switchResetPassword, loginUser, props }) => {
   const { register, handleSubmit } = useForm();
 
   const login = (values) => {
@@ -33,7 +33,12 @@ const LoginForm = ({ switchResetPassword, loginUser, demoLogin, props }) => {
         <button form="login-form" type="submit">
           Sign in
         </button>
-        <button type="button" onClick={() => demoLogin()}>
+        <button
+          type="button"
+          onClick={() =>
+            loginUser({ username: "nominee1", password: "nominee@123456.com" })
+          }
+        >
           demo-login
         </button>
       </div>
