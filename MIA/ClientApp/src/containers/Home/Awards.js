@@ -29,11 +29,7 @@ const AwardsSlider = ({ awards, ...props }) => {
             <Trans id="apply_for_your_award">apply for your award</Trans>
           </span>
           <p>
-            <Trans id="home_general_award_text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda aut esse eveniet expedita facere in incidunt
-              iusto nobis pariatur praesentium quia quibusdam quo quod repellendus repudiandae unde, vel veritatis?Lorem ipsum dolor sit
-              amet, consectetur adipisicing elit. Alias est et inventore, ipsam itaque placeat qui quisquam ratione, repellat repudiandae
-              sequi, tempora temporibus tenetur velit voluptatum. Aliquam ducimus molestias perferendis?
+            <Trans id="home_general_award_text">             
             </Trans>
           </p>
           <time>

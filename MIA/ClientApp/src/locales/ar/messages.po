@@ -325,7 +325,7 @@ msgstr ""
 
 #: src/containers/Home/Awards.js:32
 msgid "home_general_award_text"
-msgstr ""
+msgstr "انطلاقاً من احترامنا لكل التوجهات و الأذواق ، فقد حرصت MIA على جمع كل أنواع الأعمال الإعلامية وحصرها في ثلاث فئات، وتقدم MIA جوائزها المطلية بالذهب الخالص تحفيزاً للمتنافسين على تقديم أفضل ما لديهم، وفيما يلي فئات الجائزة"
 
 #: src/containers/App/CookieGDPR.js:126
 msgid "i_accept"
