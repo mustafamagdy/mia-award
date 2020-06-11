@@ -1,0 +1,52 @@
+{
+  "no_files_uploaded": {
+    "defaults": "No files uploaded",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/Files.js",
+        73
+      ]
+    ]
+  },
+  "confirm_delete": {
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/Files.js",
+        130
+      ]
+    ]
+  },
+  "are_you_sure_to_delete": {
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/Files.js",
+        131
+      ]
+    ]
+  },
+  "yes": {
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/Files.js",
+        134
+      ]
+    ]
+  },
+  "no": {
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/Files.js",
+        140
+      ]
+    ]
+  },
+  "remove_file": {
+    "defaults": "Remove file",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/Files.js",
+        147
+      ]
+    ]
+  }
+}

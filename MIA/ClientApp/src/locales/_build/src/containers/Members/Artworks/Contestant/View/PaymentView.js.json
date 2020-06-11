@@ -3,7 +3,7 @@
     "defaults": "Amount",
     "origin": [
       [
-        "src/containers/Members/Artworks/Artwork/View/PaymentView.js",
+        "src/containers/Members/Artworks/Contestant/View/PaymentView.js",
         13
       ]
     ]
@@ -12,7 +12,7 @@
     "defaults": "Date",
     "origin": [
       [
-        "src/containers/Members/Artworks/Artwork/View/PaymentView.js",
+        "src/containers/Members/Artworks/Contestant/View/PaymentView.js",
         19
       ]
     ]
@@ -21,7 +21,7 @@
     "defaults": "Status",
     "origin": [
       [
-        "src/containers/Members/Artworks/Artwork/View/PaymentView.js",
+        "src/containers/Members/Artworks/Contestant/View/PaymentView.js",
         25
       ]
     ]

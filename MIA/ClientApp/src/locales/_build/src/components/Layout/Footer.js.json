@@ -23,10 +23,6 @@
       [
         "src/components/Layout/Footer.js",
         52
-      ],
-      [
-        "src/components/Layout/Footer.js",
-        62
       ]
     ]
   },
@@ -39,6 +35,15 @@
       ]
     ]
   },
+  "program": {
+    "defaults": "Program",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        62
+      ]
+    ]
+  },
   "terms_conditions": {
     "defaults": "Terms & Conditions",
     "origin": [
@@ -48,21 +53,12 @@
       ]
     ]
   },
-  "privacy_policy": {
-    "defaults": "Privacy & Policy",
-    "origin": [
-      [
-        "src/components/Layout/Footer.js",
-        72
-      ]
-    ]
-  },
   "newsletter": {
     "defaults": "NEWSLETTER",
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        79
+        74
       ]
     ]
   },
@@ -71,7 +67,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        82
+        77
       ]
     ]
   },
@@ -80,7 +76,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        97
+        92
       ]
     ]
   }

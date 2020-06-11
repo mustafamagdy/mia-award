@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/containers/Pages/Shows/view.js:87
+#: src/containers/Pages/Shows/view.js:88
 msgid "About the show"
 msgstr ""
 
@@ -25,16 +25,37 @@ msgstr "About Us"
 msgid "accept_changes"
 msgstr "Accept changes"
 
+#: src/containers/Members/Auth/Register.js:156
+msgid "accept_terms"
+msgstr ""
+
+#: src/containers/Members/Artworks/index.js:108
+msgid "add_new_contestant"
+msgstr ""
+
+#: src/containers/Members/Artworks/index.js:86
+msgid "add_new_show"
+msgstr ""
+
 #: src/containers/Pages/ContactUs/index.js:56
 msgid "address"
 msgstr "Address"
+
+#: src/containers/Booths/index.js:577
+msgid "agreeOnTerms"
+msgstr ""
 
 #: src/components/Layout/LanguageSelect.js:65
 #~ msgid "all_languages"
 #~ msgstr "All Languages"
 
-#: src/containers/Members/Artworks/Artwork/View/PaymentView.js:11
+#: src/containers/Members/Artworks/Artwork/View/PaymentView.js:13
+#: src/containers/Members/Artworks/Contestant/View/PaymentView.js:13
 msgid "amount"
+msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:11
+msgid "any_year"
 msgstr ""
 
 #: src/containers/Award/index.js:63
@@ -49,7 +70,15 @@ msgstr "Apply For Your Award"
 msgid "apply_now"
 msgstr "Apply Now"
 
-#: src/containers/Booths/index.js:208
+#: src/containers/Members/Artworks/Artwork/View/Files.js:131
+msgid "are_you_sure_to_delete"
+msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:255
+msgid "are_you_sure_to_send_to_judge"
+msgstr ""
+
+#: src/containers/Booths/index.js:267
 msgid "area"
 msgstr "Area"
 
@@ -62,15 +91,15 @@ msgstr "Area"
 #~ msgid "awards"
 #~ msgstr "Awards"
 
-#: src/containers/Booths/index.js:317
+#: src/containers/Booths/index.js:585
 msgid "book_now"
 msgstr "Book now"
 
-#: src/containers/Booths/index.js:334
+#: src/containers/Booths/index.js:599
 msgid "booth_booking_success"
 msgstr ""
 
-#: src/containers/Booths/index.js:337
+#: src/containers/Booths/index.js:602
 msgid "booth_booking_success_msg"
 msgstr ""
 
@@ -78,12 +107,18 @@ msgstr ""
 msgid "booths"
 msgstr "Booths"
 
-#: src/containers/Home/Tickets.js:39
+#: src/containers/Members/Artworks/Artwork/View/index.js:187
+#: src/containers/Members/Artworks/Contestant/View/index.js:148
+#: src/containers/Pages/Shows/view.js:79
+msgid "broadcast_year"
+msgstr ""
+
+#: src/containers/Home/Tickets.js:41
 msgid "buy_your_ticket"
 msgstr "Buy Your Ticket"
 
 #: src/containers/Pages/News/view.js:171
-#: src/containers/Pages/Shows/view.js:308
+#: src/containers/Pages/Shows/view.js:353
 msgid "by"
 msgstr "By"
 
@@ -91,17 +126,23 @@ msgstr "By"
 msgid "by_clicking_you_accept"
 msgstr "By clicking «I Accept» or «X» on this banner, or using our site, you consent to the use of cookies unless you have disabled them."
 
+#: src/containers/Members/Profile.js:87
+#: src/containers/Members/Profile.js:195
 #: src/containers/MyProfile/index.js:259
 msgid "cancel"
 msgstr "Cancel"
 
 #: src/containers/Pages/Shows/view.js:197
-msgid "cast"
-msgstr ""
+#~ msgid "cast"
+#~ msgstr ""
 
 #: src/containers/Pages/Shows/index.js:111
 #: src/containers/Pages/Shows/view.js:60
-msgid "category"
+#~ msgid "category"
+#~ msgstr ""
+
+#: src/containers/Members/Profile.js:51
+msgid "change_avatar"
 msgstr ""
 
 #: src/containers/MyProfile/ChangePassword.js:17
@@ -115,27 +156,39 @@ msgstr "Change Password"
 msgid "change_photo"
 msgstr "Change Photo"
 
+#: src/containers/Members/Artworks/Artwork/Edit/Trailer.js:67
+msgid "change_trailer"
+msgstr ""
+
 #: src/containers/Booths/index.js:313
-msgid "choose_receipt_image"
-msgstr "Choose receipt image"
+#~ msgid "choose_receipt_image"
+#~ msgstr "Choose receipt image"
 
 #: src/containers/Booths/index.js:222
 #~ msgid "choose_your_payment_method"
 #~ msgstr "Choose payment method"
 
 #: src/containers/Pages/News/view.js:153
-#: src/containers/Pages/Shows/view.js:290
+#: src/containers/Pages/Shows/view.js:333
 msgid "comment_failed"
 msgstr "There was an error, the message could not be sent."
 
 #: src/containers/Pages/News/view.js:149
-#: src/containers/Pages/Shows/view.js:286
+#: src/containers/Pages/Shows/view.js:327
 msgid "comment_submitted"
 msgstr "Your comment has been submitted successfully for review."
+
+#: src/containers/Members/Artworks/Artwork/View/Files.js:130
+msgid "confirm_delete"
+msgstr ""
 
 #: src/containers/MyProfile/ChangePassword.js:83
 msgid "confirm_password"
 msgstr "Confirm Password"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:254
+msgid "confirm_send_to_judge"
+msgstr ""
 
 #: src/containers/User/CheckYourEmail.js:9
 msgid "confirm_your_email_first"
@@ -157,40 +210,60 @@ msgstr "The message was sent successfully."
 msgid "cookie_policy"
 msgstr "Cookies Policy"
 
-#: src/components/Layout/Footer.js:97
+#: src/components/Layout/Footer.js:92
 msgid "copyright_media_industry"
 msgstr "Copyright© 2020 Media Industry Awards. All rights reserved."
 
 #: src/containers/Pages/Shows/index.js:123
 #: src/containers/Pages/Shows/view.js:72
-msgid "country"
-msgstr "Country"
+#~ msgid "country"
+#~ msgstr "Country"
+
+#: src/containers/Members/Artworks/Artwork/Edit/Trailer.js:141
+msgid "cover"
+msgstr ""
 
 #: src/components/Layout/LoginStatus.js:34
 msgid "create_account"
 msgstr "Create Account"
 
 #: src/containers/Pages/Shows/view.js:193
-msgid "crew"
-msgstr ""
+#~ msgid "crew"
+#~ msgstr ""
 
-#: src/containers/Home/Tickets.js:33
-#: src/containers/Members/Artworks/Artwork/View/PaymentView.js:17
+#: src/containers/Home/Tickets.js:35
+#: src/containers/Members/Artworks/Artwork/View/PaymentView.js:19
+#: src/containers/Members/Artworks/Contestant/View/PaymentView.js:19
 msgid "date"
 msgstr "Date"
 
 #: src/containers/Pages/Shows/view.js:54
-msgid "date_of_release"
+#~ msgid "date_of_release"
+#~ msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:167
+#: src/containers/Members/Artworks/Contestant/View/index.js:128
+msgid "description"
 msgstr ""
 
 #: src/containers/Pages/Shows/view.js:163
-msgid "director"
-msgstr ""
+#~ msgid "director"
+#~ msgstr ""
 
 #: src/containers/Pages/ContactUs/index.js:59
 msgid "dubai_address"
 msgstr "Dubai, Dubai Media City, Building No. 1, Second Floor - Office No. 214"
 
+#: src/containers/Members/Artworks/Artwork/View/index.js:244
+#: src/containers/Members/Artworks/Contestant/View/index.js:205
+msgid "edit_info"
+msgstr ""
+
+#: src/containers/Members/Profile.js:225
+msgid "edit_profile"
+msgstr ""
+
+#: src/containers/Members/Profile.js:219
 #: src/containers/MyProfile/index.js:155
 #: src/containers/Pages/ContactUs/index.js:86
 msgid "email"
@@ -212,8 +285,16 @@ msgstr "Fax"
 msgid "fax_1"
 msgstr "+971 4 57 2636 6"
 
+#: src/containers/Members/Artworks/Artwork/Edit/Trailer.js:208
+msgid "finish_and_reload"
+msgstr ""
+
 #: src/components/Layout/Footer.js:37
 msgid "footer_text"
+msgstr ""
+
+#: src/containers/Members/Profile.js:207
+msgid "full_name"
 msgstr ""
 
 #: src/containers/Pages/Gallery/index.js:145
@@ -226,14 +307,14 @@ msgstr "General"
 
 #: src/containers/Pages/Shows/index.js:117
 #: src/containers/Pages/Shows/view.js:66
-msgid "genre"
-msgstr "Genre"
+#~ msgid "genre"
+#~ msgstr "Genre"
 
 #: src/containers/Pages/ContactUs/index.js:103
 msgid "get_in_touch"
 msgstr "Get In Touch"
 
-#: src/containers/Booths/index.js:175
+#: src/containers/Booths/index.js:230
 msgid "gold_sposer"
 msgstr ""
 
@@ -250,15 +331,19 @@ msgstr ""
 msgid "i_accept"
 msgstr "I Accept"
 
-#: src/components/Layout/Footer.js:82
+#: src/components/Layout/Footer.js:77
 msgid "if_you_want_to_keep_updated"
 msgstr "If you want to stay updated about all new properties, enter your email and we will send you the latest updates."
+
+#: src/containers/Members/Profile.js:213
+msgid "job_title"
+msgstr ""
 
 #: src/components/Layout/LanguageSelect.js:44
 #~ msgid "language"
 #~ msgstr "Language"
 
-#: src/containers/Home/PhotoAlbum.js:138
+#: src/containers/Home/PhotoAlbum.js:111
 msgid "latest_video"
 msgstr "Latest Videos & Photos"
 
@@ -268,20 +353,40 @@ msgstr "Latest Videos & Photos"
 msgid "loading"
 msgstr "Loading...."
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:14
+msgid "location1_description"
+msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:13
+msgid "location1_title"
+msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:16
+msgid "location2_description"
+msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:15
+msgid "location2_title"
+msgstr ""
+
 #: src/components/Layout/LoginStatus.js:14
+#: src/containers/Members/MemberSidebar.js:43
 msgid "logout"
 msgstr "Logout"
 
-#: src/containers/Booths/index.js:184
+#: src/containers/Booths/index.js:239
 msgid "media_industry"
 msgstr ""
 
+#: src/containers/Members/MemberSidebar.js:29
+msgid "member_home"
+msgstr ""
+
 #: src/components/Layout/Footer.js:52
-#: src/components/Layout/Footer.js:62
 msgid "members"
 msgstr "Members"
 
-#: src/containers/Booths/index.js:181
+#: src/containers/Booths/index.js:236
 #: src/containers/MyProfile/ChangePassword.js:15
 #: src/containers/MyProfile/ImageUpload.js:54
 msgid "mia"
@@ -314,23 +419,48 @@ msgstr "News"
 msgid "news_features"
 msgstr "News Features"
 
-#: src/components/Layout/Footer.js:79
+#: src/components/Layout/Footer.js:74
 msgid "newsletter"
 msgstr "NEWSLETTER"
 
-#: src/containers/Booths/index.js:215
-#: src/containers/Booths/index.js:233
+#: src/containers/Booths/index.js:278
+#: src/containers/Booths/index.js:492
 #: src/containers/Home/News.js:132
 msgid "next"
 msgstr "Next"
 
-#: src/containers/Pages/Shows/view.js:317
+#: src/containers/Members/Artworks/Artwork/View/Files.js:140
+msgid "no"
+msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/Files.js:73
+msgid "no_files_uploaded"
+msgstr ""
+
+#: src/containers/Pages/Shows/view.js:362
 msgid "no_reviews_yet"
+msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/Trailer.js:11
+msgid "no_trailer_yet"
+msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:269
+msgid "no_wait"
 msgstr ""
 
 #: src/containers/MyProfile/ChangePassword.js:47
 msgid "old_password"
 msgstr "Old Password"
+
+#: src/containers/Pages/Shows/view.js:205
+msgid "onlineChannels"
+msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:204
+#: src/containers/Members/Artworks/Contestant/View/index.js:165
+msgid "online_channels"
+msgstr ""
 
 #: src/containers/Pages/AboutUs/index.js:189
 msgid "our_awards"
@@ -405,28 +535,36 @@ msgstr "+971 4 57 2636 8"
 #~ msgid "please_select_checkout_date"
 #~ msgstr "Please select check-out day."
 
-#: src/containers/Booths/index.js:302
+#: src/containers/Members/Artworks/Artwork/NewArtwork.js:294
+#: src/containers/Members/Artworks/Contestant/NewContestant.js:293
+msgid "please_upload_payment_receipt"
+msgstr ""
+
+#: src/containers/Booths/index.js:506
 msgid "please_upload_the_receipt"
 msgstr "Please upload payment receipt"
 
 #: src/containers/Pages/Shows/view.js:203
-msgid "pod"
-msgstr ""
+#~ msgid "pod"
+#~ msgstr ""
 
 #: src/containers/Pages/News/view.js:144
-#: src/containers/Pages/Shows/view.js:281
+#: src/containers/Pages/Shows/view.js:322
 msgid "post_comment"
 msgstr "Post A Comment"
 
 #: src/containers/Pages/News/index.js:92
 #: src/containers/Pages/News/index.js:214
 #: src/containers/Pages/News/view.js:47
-#: src/containers/Pages/Shows/index.js:129
 msgid "posted"
 msgstr "Posted"
 
 #: src/containers/Pages/Shows/view.js:78
-msgid "posted_date"
+#~ msgid "posted_date"
+#~ msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/Edit/Trailer.js:183
+msgid "poster"
 msgstr ""
 
 #: src/containers/Home/News.js:116
@@ -434,16 +572,45 @@ msgid "prev"
 msgstr "Prev"
 
 #: src/components/Layout/Footer.js:72
-msgid "privacy_policy"
-msgstr "Privacy Policy"
+#~ msgid "privacy_policy"
+#~ msgstr "Privacy Policy"
 
 #: src/containers/Pages/Shows/view.js:169
-msgid "production"
+#~ msgid "production"
+#~ msgstr ""
+
+#: src/containers/Pages/Shows/view.js:218
+msgid "productionLicenseAgency"
 msgstr ""
 
-#: src/components/Layout/index.js:60
-#~ msgid "program"
-#~ msgstr "Program"
+#: src/containers/Pages/Shows/view.js:211
+msgid "productionLicenseNumber"
+msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:226
+#: src/containers/Members/Artworks/Contestant/View/index.js:187
+msgid "production_license_agency"
+msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:217
+#: src/containers/Members/Artworks/Contestant/View/index.js:178
+msgid "production_license_number"
+msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:181
+#: src/containers/Members/Artworks/Contestant/View/index.js:142
+#: src/containers/Pages/Shows/index.js:102
+#: src/containers/Pages/Shows/view.js:73
+msgid "production_year"
+msgstr ""
+
+#: src/containers/Members/MemberSidebar.js:35
+msgid "profile"
+msgstr ""
+
+#: src/components/Layout/Footer.js:62
+msgid "program"
+msgstr "Program"
 
 #: src/containers/Timeline/index.js:28
 msgid "program_schedule"
@@ -456,6 +623,11 @@ msgstr ""
 #: src/components/Layout/Header.js:63
 #~ msgid "programs"
 #~ msgstr "Programs"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:159
+#: src/containers/Members/Artworks/Contestant/View/index.js:120
+msgid "project_name"
+msgstr ""
 
 #: src/components/Layout/Footer.js:47
 msgid "quick_links"
@@ -471,25 +643,51 @@ msgstr "Read More"
 msgid "read_more_elapsed"
 msgstr "Read More.."
 
-#: src/containers/Home/RecentShows.js:34
+#: src/containers/Home/RecentShows.js:46
 msgid "recent_shows"
 msgstr "Recent Shows"
+
+#: src/containers/Members/Auth/Register.js:164
+msgid "register"
+msgstr ""
 
 #: src/containers/Pages/News/view.js:197
 msgid "related_news"
 msgstr "Related News"
 
-#: src/containers/Pages/Shows/index.js:105
+#: src/containers/Pages/Shows/index.js:122
 msgid "release-date"
+msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/Files.js:147
+msgid "remove_file"
 msgstr ""
 
 #: src/containers/App/CookieGDPR.js:100
 msgid "review_our_cookie_policy"
 msgstr "Review Our Cookie Policy"
 
+#: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:198
+#: src/containers/Members/Artworks/Artwork/NewArtwork.js:366
+#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:200
+#: src/containers/Members/Artworks/Contestant/NewContestant.js:365
+#: src/containers/Members/Profile.js:84
+#: src/containers/Members/Profile.js:188
+msgid "save"
+msgstr ""
+
 #: src/containers/MyProfile/ImageUpload.js:63
 msgid "select_your_image"
 msgstr "Select Your Image"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:258
+msgid "send"
+msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:276
+#: src/containers/Members/Artworks/Contestant/View/index.js:221
+msgid "send_for_judge"
+msgstr ""
 
 #: src/containers/Pages/ContactUs/index.js:156
 msgid "send_message"
@@ -511,30 +709,44 @@ msgstr "Shows"
 msgid "sign_in"
 msgstr "Sign In"
 
+#: src/containers/Members/Auth/Register.js:145
+msgid "signup_terms"
+msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:175
+#: src/containers/Members/Artworks/Contestant/View/index.js:136
+#: src/containers/Pages/Shows/view.js:193
+msgid "siteUrl"
+msgstr ""
+
+#: src/containers/Booths/index.js:84
+msgid "sold_out"
+msgstr ""
+
 #: src/containers/Home/Awards.js:62
 #: src/containers/Home/Awards.js:93
 #: src/containers/Home/Awards.js:129
 #~ msgid "sports"
 #~ msgstr "Sports"
 
-#: src/containers/Booths/index.js:178
+#: src/containers/Booths/index.js:233
 msgid "standard"
 msgstr ""
 
 #: src/containers/Pages/Shows/view.js:187
-msgid "stars"
-msgstr ""
+#~ msgid "stars"
+#~ msgstr ""
 
 #: src/containers/Home/Awards.js:40
 msgid "start_from"
 msgstr "Starts From"
 
-#: src/containers/Members/Artworks/Artwork/View/PaymentView.js:23
+#: src/containers/Members/Artworks/Artwork/View/PaymentView.js:25
+#: src/containers/Members/Artworks/Contestant/View/PaymentView.js:25
 msgid "status"
 msgstr ""
 
 #: src/containers/Pages/AboutUs/index.js:49
-#: src/containers/Pages/Shows/view.js:181
 msgid "story"
 msgstr "Story"
 
@@ -549,6 +761,10 @@ msgstr "Submit"
 #: src/components/Layout/LanguageSelect.js:50
 #~ msgid "suggested_languages"
 #~ msgstr "Suggested Languages"
+
+#: src/containers/Booths/index.js:579
+msgid "terms_and_conditions"
+msgstr ""
 
 #: src/components/Layout/Footer.js:67
 msgid "terms_conditions"
@@ -567,6 +783,19 @@ msgstr "To"
 #~ msgid "today"
 #~ msgstr "Today"
 
+#: src/containers/Members/Artworks/Artwork/Edit/Trailer.js:99
+msgid "trailer"
+msgstr ""
+
+#: src/containers/Pages/Shows/view.js:199
+msgid "tvChannels"
+msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:194
+#: src/containers/Members/Artworks/Contestant/View/index.js:155
+msgid "tv_channels"
+msgstr ""
+
 #: src/containers/MyProfile/index.js:264
 msgid "update"
 msgstr "Update"
@@ -580,23 +809,28 @@ msgid "upload_image"
 msgstr "Upload Image"
 
 #: src/containers/Pages/Shows/index.js:87
-msgid "uploaded"
-msgstr ""
+#~ msgid "uploaded"
+#~ msgstr ""
 
 #: src/containers/Award/index.js:38
-#: src/containers/Members/Artworks/Artwork/AddNew/Payment.js:78
+#: src/containers/Members/Artworks/Artwork/ChoosePayment.js:95
+#: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:79
+#: src/containers/Members/Artworks/Artwork/NewArtwork.js:171
+#: src/containers/Members/Artworks/Contestant/ChoosePayment.js:95
+#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:80
+#: src/containers/Members/Artworks/Contestant/NewContestant.js:171
 msgid "usd"
 msgstr "USD"
 
-#: src/containers/Pages/Shows/index.js:138
+#: src/containers/Pages/Shows/index.js:132
 msgid "user_account"
 msgstr ""
 
-#: src/containers/Home/PhotoAlbum.js:141
+#: src/containers/Home/PhotoAlbum.js:114
 msgid "videos_desc"
 msgstr ""
 
-#: src/containers/Pages/Shows/index.js:149
+#: src/containers/Pages/Shows/index.js:146
 msgid "view"
 msgstr ""
 
@@ -604,11 +838,15 @@ msgstr ""
 #~ msgid "view_all"
 #~ msgstr "View All"
 
+#: src/containers/Members/Artworks/Award.js:39
+msgid "view_award"
+msgstr ""
+
 #: src/containers/Home/IntroSlider.js:137
 #~ msgid "view_awards"
 #~ msgstr "View Awards"
 
-#: src/containers/Home/IntroSlider.js:125
+#: src/containers/Home/IntroSlider.js:142
 msgid "view_more"
 msgstr "View more"
 
@@ -621,5 +859,16 @@ msgid "what_do_we_use_cookies_for"
 msgstr "What do we use cookies for?"
 
 #: src/containers/Pages/Shows/view.js:175
-msgid "writers"
+#~ msgid "writers"
+#~ msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/Files.js:134
+msgid "yes"
+msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:66
+#: src/containers/Members/Artworks/Artwork/NewArtwork.js:129
+#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:66
+#: src/containers/Members/Artworks/Contestant/NewContestant.js:129
+msgid "you_applied_for_award_x"
 msgstr ""

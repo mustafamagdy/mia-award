@@ -99,7 +99,7 @@ const Shows = ({
                           </LanguageContext.Consumer>
                         </span>
                         <time>
-                          <Trans id="production_year">Production year</Trans> :{" "}
+                          <Trans id="production_year">Production Year</Trans> :{" "}
                           {item.productionYear}
                         </time>
                       </div>

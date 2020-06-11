@@ -1,0 +1,11 @@
+{
+  "view_award": {
+    "defaults": "view award",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Award.js",
+        39
+      ]
+    ]
+  }
+}

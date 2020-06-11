@@ -1,10 +1,10 @@
 {
-  "uploaded": {
-    "defaults": "Uploaded",
+  "production_year": {
+    "defaults": "Production Year",
     "origin": [
       [
         "src/containers/Pages/Shows/index.js",
-        87
+        102
       ]
     ]
   },
@@ -13,43 +13,7 @@
     "origin": [
       [
         "src/containers/Pages/Shows/index.js",
-        105
-      ]
-    ]
-  },
-  "category": {
-    "defaults": "Category",
-    "origin": [
-      [
-        "src/containers/Pages/Shows/index.js",
-        111
-      ]
-    ]
-  },
-  "genre": {
-    "defaults": "Genre",
-    "origin": [
-      [
-        "src/containers/Pages/Shows/index.js",
-        117
-      ]
-    ]
-  },
-  "country": {
-    "defaults": "Country",
-    "origin": [
-      [
-        "src/containers/Pages/Shows/index.js",
-        123
-      ]
-    ]
-  },
-  "posted": {
-    "defaults": "Posted",
-    "origin": [
-      [
-        "src/containers/Pages/Shows/index.js",
-        129
+        122
       ]
     ]
   },
@@ -58,7 +22,7 @@
     "origin": [
       [
         "src/containers/Pages/Shows/index.js",
-        138
+        132
       ]
     ]
   },
@@ -67,7 +31,7 @@
     "origin": [
       [
         "src/containers/Pages/Shows/index.js",
-        149
+        146
       ]
     ]
   }

@@ -1,0 +1,73 @@
+{
+  "change_avatar": {
+    "defaults": "Change Avatar",
+    "origin": [
+      [
+        "src/containers/Members/Profile.js",
+        51
+      ]
+    ]
+  },
+  "save": {
+    "defaults": "Save",
+    "origin": [
+      [
+        "src/containers/Members/Profile.js",
+        84
+      ],
+      [
+        "src/containers/Members/Profile.js",
+        188
+      ]
+    ]
+  },
+  "cancel": {
+    "defaults": "Cancel",
+    "origin": [
+      [
+        "src/containers/Members/Profile.js",
+        87
+      ],
+      [
+        "src/containers/Members/Profile.js",
+        195
+      ]
+    ]
+  },
+  "full_name": {
+    "defaults": "Full Name",
+    "origin": [
+      [
+        "src/containers/Members/Profile.js",
+        207
+      ]
+    ]
+  },
+  "job_title": {
+    "defaults": "Job Title",
+    "origin": [
+      [
+        "src/containers/Members/Profile.js",
+        213
+      ]
+    ]
+  },
+  "email": {
+    "defaults": "EMail",
+    "origin": [
+      [
+        "src/containers/Members/Profile.js",
+        219
+      ]
+    ]
+  },
+  "edit_profile": {
+    "defaults": "Edit profile",
+    "origin": [
+      [
+        "src/containers/Members/Profile.js",
+        225
+      ]
+    ]
+  }
+}

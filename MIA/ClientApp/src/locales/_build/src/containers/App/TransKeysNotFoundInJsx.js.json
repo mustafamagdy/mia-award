@@ -22,5 +22,45 @@
         10
       ]
     ]
+  },
+  "any_year": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        11
+      ]
+    ]
+  },
+  "location1_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        13
+      ]
+    ]
+  },
+  "location1_description": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        14
+      ]
+    ]
+  },
+  "location2_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        15
+      ]
+    ]
+  },
+  "location2_description": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        16
+      ]
+    ]
   }
 }

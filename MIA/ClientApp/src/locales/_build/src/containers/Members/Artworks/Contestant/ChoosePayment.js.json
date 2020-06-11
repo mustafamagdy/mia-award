@@ -1,0 +1,11 @@
+{
+  "usd": {
+    "defaults": "USD",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Contestant/ChoosePayment.js",
+        95
+      ]
+    ]
+  }
+}

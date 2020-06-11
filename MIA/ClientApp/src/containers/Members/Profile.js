@@ -172,7 +172,7 @@ const Profile = ({
                           <div className="col-12">
                             <Field
                               transId="email"
-                              transdDefaultVal="Email"
+                              transdDefaultVal="EMail"
                               hasError={
                                 errors &&
                                 errors.email !== undefined &&
@@ -216,7 +216,7 @@ const Profile = ({
                 </div>
                 <div className="row">
                   <div className="col-4">
-                    <Trans id="email">Email</Trans>
+                    <Trans id="email">EMail</Trans>
                   </div>
                   <div className="col-12">{userProfile?.email}</div>
                 </div>

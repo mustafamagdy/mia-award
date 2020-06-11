@@ -1,0 +1,28 @@
+{
+  "signup_terms": {
+    "origin": [
+      [
+        "src/containers/Members/Auth/Register.js",
+        145
+      ]
+    ]
+  },
+  "accept_terms": {
+    "defaults": "Accept Terms & Conditions",
+    "origin": [
+      [
+        "src/containers/Members/Auth/Register.js",
+        156
+      ]
+    ]
+  },
+  "register": {
+    "defaults": "Register",
+    "origin": [
+      [
+        "src/containers/Members/Auth/Register.js",
+        164
+      ]
+    ]
+  }
+}

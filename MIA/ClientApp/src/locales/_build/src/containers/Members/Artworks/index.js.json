@@ -1,0 +1,20 @@
+{
+  "add_new_show": {
+    "defaults": "add new show",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/index.js",
+        86
+      ]
+    ]
+  },
+  "add_new_contestant": {
+    "defaults": "apply for contestant",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/index.js",
+        108
+      ]
+    ]
+  }
+}
