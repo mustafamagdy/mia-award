@@ -67,11 +67,6 @@ const Footer = props => {
                     <Trans id="terms_conditions">Terms & Conditions</Trans>
                   </a>
                 </li>
-                <li>
-                  <a href="/policies">
-                    <Trans id="privacy_policy">Privacy & Policy</Trans>
-                  </a>
-                </li>
               </ul>
             </div>
             <div className="news_letter">
