@@ -23,6 +23,7 @@ export default {
       long: 55.155664,
     },
   },
+  tickets_enabled: false,
   tickets: [
     {
       locationId: 1,

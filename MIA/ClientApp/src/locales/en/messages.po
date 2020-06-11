@@ -17,7 +17,7 @@ msgstr ""
 msgid "About the show"
 msgstr ""
 
-#: src/components/Layout/Footer.js:57
+#: src/components/Layout/Footer.js:52
 msgid "about_us"
 msgstr "About Us"
 
@@ -210,7 +210,7 @@ msgstr "The message was sent successfully."
 msgid "cookie_policy"
 msgstr "Cookies Policy"
 
-#: src/components/Layout/Footer.js:92
+#: src/components/Layout/Footer.js:101
 msgid "copyright_media_industry"
 msgstr "Copyright© 2020 Media Industry Awards. All rights reserved."
 
@@ -331,7 +331,7 @@ msgstr ""
 msgid "i_accept"
 msgstr "I Accept"
 
-#: src/components/Layout/Footer.js:77
+#: src/components/Layout/Footer.js:72
 msgid "if_you_want_to_keep_updated"
 msgstr "If you want to stay updated about all new properties, enter your email and we will send you the latest updates."
 
@@ -382,7 +382,7 @@ msgstr ""
 msgid "member_home"
 msgstr ""
 
-#: src/components/Layout/Footer.js:52
+#: src/components/Layout/Footer.js:47
 msgid "members"
 msgstr "Members"
 
@@ -419,7 +419,7 @@ msgstr "News"
 msgid "news_features"
 msgstr "News Features"
 
-#: src/components/Layout/Footer.js:74
+#: src/components/Layout/Footer.js:69
 msgid "newsletter"
 msgstr "NEWSLETTER"
 
@@ -608,7 +608,7 @@ msgstr ""
 msgid "profile"
 msgstr ""
 
-#: src/components/Layout/Footer.js:62
+#: src/components/Layout/Footer.js:57
 msgid "program"
 msgstr "Program"
 
@@ -629,7 +629,7 @@ msgstr ""
 msgid "project_name"
 msgstr ""
 
-#: src/components/Layout/Footer.js:47
+#: src/components/Layout/Footer.js:42
 msgid "quick_links"
 msgstr "QUICK LINKS"
 
@@ -719,6 +719,45 @@ msgstr ""
 msgid "siteUrl"
 msgstr ""
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:19
+msgid "slide1_text"
+msgstr "The MIA award ceremony and activities start from Dubai Media City, and the award will be held at the 'Opera Dubai ', the first creative front for arts, culture and music for the city of Dubai, where the Opera House Theater is one of the most important destinations for those interested in culture and arts not only at the level of the Arab world but also on the whole world"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:18
+msgid "slide1_title"
+msgstr "Opera"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:21
+msgid "slide2_text"
+msgstr "Based on our belief in the value of integrity as an essential element for the success of the Award, we developed a complete vision and an electronic judging plan characterized by credibility, professionalism and confidentiality at the same time, supervised by prominent academics, artists and professionals in this sector from various Arab countries to evaluate and select the works that will receive the MIA Award, under the direct supervision of the Supreme Award Committee."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:20
+msgid "slide2_title"
+msgstr "Judge"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:23
+msgid "slide3_text"
+msgstr "Compassion, sympathy and mercy are significant moral values representing noble human and cultural principles with profound impact on social life."
+"One cannot forget the role of compassion in creating the spirit of solidarity, joint liability and engagement between people. Compassion is one of the reasons behind social engagement as advocated by our religion, to be united and coherent supporting each other. MIA Award has chosen to honor charitable works as humanitarian support under the topic “Social Compassion”, based on the belief in the necessity of enhancing human dimensions, spreading the spirit of compassion and concerted humanitarian efforts in all works in the various sectors, being an essential element and one of the top manifestations of Arab unity."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:22
+msgid "slide3_title"
+msgstr "MIA Compassion "
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:25
+msgid "slide4_text"
+msgstr "Events held within the scope of the Award program:"
+"Workshops to develop professional technical and technological capabilities.
+Specialized seminars by expert professional media makers and Arab stars.
+Presenting unique success stories.
+A special market serving production companies and digital and TV platforms, including the latest engineering and technological systems in media and TV production industry.
+Live interviews and discussion of important issues (Live broadcast)
+"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:24
+msgid "slide4_title"
+msgstr "Workshops"
+
 #: src/containers/Booths/index.js:84
 msgid "sold_out"
 msgstr ""
@@ -766,7 +805,7 @@ msgstr "Submit"
 msgid "terms_and_conditions"
 msgstr ""
 
-#: src/components/Layout/Footer.js:67
+#: src/components/Layout/Footer.js:62
 msgid "terms_conditions"
 msgstr "Terms & Conditions"
 
@@ -846,7 +885,7 @@ msgstr ""
 #~ msgid "view_awards"
 #~ msgstr "View Awards"
 
-#: src/containers/Home/IntroSlider.js:142
+#: src/containers/Home/IntroSlider.js:130
 msgid "view_more"
 msgstr "View more"
 

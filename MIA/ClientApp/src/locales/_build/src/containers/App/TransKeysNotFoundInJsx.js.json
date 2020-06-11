@@ -62,5 +62,69 @@
         16
       ]
     ]
+  },
+  "slide1_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        18
+      ]
+    ]
+  },
+  "slide1_text": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        19
+      ]
+    ]
+  },
+  "slide2_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        20
+      ]
+    ]
+  },
+  "slide2_text": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        21
+      ]
+    ]
+  },
+  "slide3_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        22
+      ]
+    ]
+  },
+  "slide3_text": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        23
+      ]
+    ]
+  },
+  "slide4_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        24
+      ]
+    ]
+  },
+  "slide4_text": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        25
+      ]
+    ]
   }
 }

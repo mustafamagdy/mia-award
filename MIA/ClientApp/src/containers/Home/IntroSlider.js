@@ -10,49 +10,33 @@ const Intro = ({ ...props }) => {
     {
       key: 1,
       keyText: "01",
-      title: "slider Title 01",
-      text: `01 - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-      dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
-      book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
-      unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-      recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
+      titleKey: "slide1_title",
+      textKey: "slide1_text",
       bigImgPath: "assets/images/dubai.jpg",
-      nextImagePath: "assets/images/burg_khalifa.jpg",
+      nextImagePath: "assets/images/Mia_Jury$.jpg",
     },
     {
       key: 2,
       keyText: "02",
-      title: "slider Title 02",
-      text: `02 - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-      dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
-      book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
-      unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-      recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
-      bigImgPath: "assets/images/burg_khalifa.jpg",
-      nextImagePath: "assets/images/Mia_Jury$.jpg",
+      titleKey: "slide2_title",
+      textKey: "slide2_text",
+      bigImgPath: "assets/images/Mia_Jury$.jpg",
+      nextImagePath: "assets/images/compassion.jpg",
     },
     {
       key: 3,
       keyText: "03",
-      title: "slider Title 03",
-      text: `03 - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-      dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
-      book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
-      unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-      recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
-      bigImgPath: "assets/images/Mia_Jury$.jpg",
-      nextImagePath: "assets/images/ger.jpg",
+      titleKey: "slide3_title",
+      textKey: "slide3_text",
+      bigImgPath: "assets/images/compassion.jpg",
+      nextImagePath: "assets/images/workshops.jpg",
     },
     {
       key: 4,
       keyText: "04",
-      title: "slider Title 04",
-      text: `04 - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-      dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
-      book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
-      unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-      recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
-      bigImgPath: "assets/images/ger.jpg",
+      titleKey: "slide4_title",
+      textKey: "slide4_text",
+      bigImgPath: "assets/images/workshops.jpg",
       nextImagePath: "assets/images/dubai.jpg",
     },
   ]);
@@ -136,8 +120,12 @@ const Intro = ({ ...props }) => {
                   <div className="horizontal_bar"></div>
                 </div>
                 <div className="desc">
-                  <span>{currentItem.title}</span>
-                  <p>{currentItem.text}</p>
+                  <span>
+                    <Trans id={currentItem.titleKey}></Trans>
+                  </span>
+                  <p>
+                    <Trans id={currentItem.textKey}></Trans>
+                  </p>
                   <a href="/timeline">
                     <Trans id="view_more">view more</Trans>
                   </a>
