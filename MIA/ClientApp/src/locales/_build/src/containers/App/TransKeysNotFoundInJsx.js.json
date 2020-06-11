@@ -126,5 +126,85 @@
         25
       ]
     ]
+  },
+  "about_tab_content_awards": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        27
+      ]
+    ]
+  },
+  "about_tab_content_mia_contestant": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        28
+      ]
+    ]
+  },
+  "about_tab_content_mia_honor": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        29
+      ]
+    ]
+  },
+  "about_tab_content_judge": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        30
+      ]
+    ]
+  },
+  "about_tab_content_conpatitors": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        31
+      ]
+    ]
+  },
+  "awards": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        33
+      ]
+    ]
+  },
+  "mia_contestant": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        34
+      ]
+    ]
+  },
+  "mia_honor": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        35
+      ]
+    ]
+  },
+  "judge": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        36
+      ]
+    ]
+  },
+  "conpatitors": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        37
+      ]
+    ]
   }
 }
