@@ -43,7 +43,7 @@ class App extends React.Component {
                   const rtl = i18n.language == "ar";
                   return (
                     <ToastContainer
-                      position="bottom-right"
+                      position={rtl ? "bottom-left" : "bottom-right"}
                       autoClose={5000}
                       hideProgressBar={false}
                       newestOnTop={false}
