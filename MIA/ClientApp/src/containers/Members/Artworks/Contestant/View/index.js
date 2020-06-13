@@ -133,7 +133,7 @@ const Info = ({
           </li>
           <li>
             <span>
-              <Trans id="siteUrl">Site URL</Trans> :
+              <Trans id="siteUrl">Site Url</Trans> :
             </span>
             <p>{siteUrl}</p>
           </li>

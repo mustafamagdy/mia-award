@@ -48,7 +48,7 @@ const Files = ({ active, artwork, removeArtworkFile }, props) => {
                 extensions={config.uploadFileExtension}
                 accept="video/*"
               />
-              <span>Choose Files</span>
+              {/* <span>Choose Files</span> */}
             </form>
           </div>
 

@@ -2,10 +2,9 @@ import { createActions } from "utils/reduxsauce";
 
 const { Types, Creators } = createActions(
   {
-    login: { args: ["loginRequest"], meta: { async: true } },
-    logout: { args: ["token"], meta: { async: true } },
+    login: { args: ["payload"], meta: { async: true } },
+    logout: { args: ["payload"], meta: { async: true } },
     setAuthToken: { args: ["token"], meta: { async: false } },
-    demoLogin: {},
     resetSigninErrors: {},
     closeSigninModal: {},
     openSigninModal: {},

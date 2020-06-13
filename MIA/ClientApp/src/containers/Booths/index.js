@@ -7,11 +7,11 @@ import { connect } from "react-redux";
 import homeActions from "store/home/actions";
 import { bindActionCreators } from "redux";
 import * as Yup from "yup";
-import { useForm } from "react-hook-form";
 import { fileToBase64 } from "utils";
 import { ImageZoom } from "react-simple-image-zoom";
+
 import { Form, Formik } from "formik";
-import { Field, LocalizedDataField } from "components/Forms";
+import { Field, ErrorMessage, LocalizedDataField } from "components/Forms";
 import config from "config";
 
 const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
@@ -69,25 +69,30 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                 zoomScale={5}
                 responsive={true}
               >
-                <img src="assets/images/booth_image_small.png" alt="" />
+                <img
+                  src="assets/images/booth_image_small.png"
+                  alt=""
+                  width="100%"
+                />
               </ImageZoom>
+
               {/* <span>
                 <i className="icofont-ui-zoom-in"></i>
               </span> */}
             </div>
+            <div id="zoom-img" style={{ position: "relative" }} />
           </div>
           <div className="col_right">
             {loading == true ? (
               <div>Loading ...</div>
             ) : noMoreBooths == true ? (
               <div className="no_more_booths">
-                <Trans id="sold_out">Soldout</Trans>
+                <Trans id="booth_sold_out">Soldout</Trans>
               </div>
             ) : boothBooked == true ? (
               <Confirmation active={boothBooked} success={true} />
             ) : (
               <>
-                <div id="zoom-img" />
                 <div className="tabs_links">
                   <ul>
                     <TabList
@@ -149,18 +154,22 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                           .max(100000),
                         receiptNumber: Yup.string().required("Required"),
                         receiptDate: Yup.date().required("Required"),
-                        receiptFile: Yup.mixed().required(),
+                        receiptFile: Yup.mixed().required("Required"),
                       }),
                     })}
                     onSubmit={async (values, actions) => {
-                      const companyLogo = await fileToBase64(
-                        values.companyLogo
-                      );
-                      const companyFileName = values.companyLogo.name;
-                      const lastIndxOfdot = companyFileName.lastIndexOf(".");
-                      const ext = companyFileName.substring(lastIndxOfdot + 1);
-                      values.CompanyLogoFileExt = ext;
-                      values.companyLogo = companyLogo;
+                      if (values.companyLogo !== undefined) {
+                        const companyLogo = await fileToBase64(
+                          values.companyLogo
+                        );
+                        const companyFileName = values.companyLogo.name;
+                        const lastIndxOfdot = companyFileName.lastIndexOf(".");
+                        const ext = companyFileName.substring(
+                          lastIndxOfdot + 1
+                        );
+                        values.CompanyLogoFileExt = ext;
+                        values.companyLogo = companyLogo;
+                      }
 
                       const receipt = await fileToBase64(
                         values.payment.receiptFile
@@ -216,10 +225,18 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
   );
 };
 
-const Info = ({ booths, active, nextStep, setFieldValue, ...props }) => {
+const Info = ({
+  booths,
+  active,
+  nextStep,
+  setFieldValue,
+  errors,
+  touched,
+  ...props
+}) => {
   const [selectedBooth, setSelectedBooth] = useState(undefined);
   useEffect(() => {
-    setSelectedBooth(booths[0]);
+    // setSelectedBooth(booths[0]);
   }, [booths]);
 
   return (
@@ -250,7 +267,7 @@ const Info = ({ booths, active, nextStep, setFieldValue, ...props }) => {
             setFieldValue("boothCode", e.target.value);
           }}
         >
-          {booths.map((a) => (
+          {[{ code: "" }, ...booths].map((a) => (
             <option
               key={a.code}
               value={a.code}
@@ -260,19 +277,32 @@ const Info = ({ booths, active, nextStep, setFieldValue, ...props }) => {
             </option>
           ))}
         </select>
-
+        <ErrorMessage
+          name="boothCode"
+          hasError={
+            touched &&
+            touched.boothCode !== undefined &&
+            errors &&
+            errors.boothCode !== undefined
+          }
+        />
         {selectedBooth && <span>{selectedBooth.price} USD</span>}
       </div>
-      <div className="title">
-        <Trans id="area">AREA</Trans>: {selectedBooth && selectedBooth.area}
-      </div>
-      <LanguageContext.Consumer>
-        {({ locale }) => (
-          <div className="content">
-            {selectedBooth && selectedBooth.description[locale.code]}
+      {selectedBooth && (
+        <>
+          <div className="title">
+            <Trans id="area">AREA</Trans>: {selectedBooth && selectedBooth.area}
           </div>
-        )}
-      </LanguageContext.Consumer>
+          <LanguageContext.Consumer>
+            {({ locale }) => (
+              <div className="content">
+                {selectedBooth && selectedBooth.description[locale.code]}
+              </div>
+            )}
+          </LanguageContext.Consumer>
+        </>
+      )}
+
       <div className="next_step">
         <button type="button" onClick={nextStep}>
           <Trans id="next">Next</Trans>
@@ -563,10 +593,7 @@ const Payment = ({ active, errors, touched, nextStep, ...props }) => {
                 hasError={
                   errors &&
                   errors.payment &&
-                  errors.payment.receiptFile !== undefined &&
-                  touched &&
-                  touched.payment &&
-                  touched.payment.receiptFile !== undefined
+                  errors.payment.receiptFile !== undefined
                 }
                 name="payment.receiptFile"
                 accept="image/*"

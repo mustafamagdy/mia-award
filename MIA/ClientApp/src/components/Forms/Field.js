@@ -44,7 +44,12 @@ const FormField = ({
               <label className="form-group__label col-6 col-md-6 col-sm-12">
                 <Trans id={transId}> {transdDefaultVal} </Trans>
               </label>
-              <Field component={FieldFileUpload} name={name} {...props} />
+              <Field
+                component={FieldFileUpload}
+                name={name}
+                {...props}
+                hasError={hasError}
+              />
             </div>
           ) : undefined
         ) : (

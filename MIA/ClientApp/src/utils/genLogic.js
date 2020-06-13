@@ -1,4 +1,6 @@
 import { createLogic } from "redux-logic";
+import { toast } from "react-toastify";
+
 const normalizeActionName = (actionName) =>
   actionName
     .toLowerCase()
@@ -9,7 +11,6 @@ const normalizeActionName = (actionName) =>
     .join("");
 
 export const logic = (apiNamespace, actionName, successCb, failCb) => {
-  
   const api_name = normalizeActionName(actionName);
   const logic = createLogic({
     type: actionName,
@@ -20,12 +21,22 @@ export const logic = (apiNamespace, actionName, successCb, failCb) => {
         _validateApi(api, apiNamespace, api_name, action);
         const res = await api[apiNamespace][api_name](action.payload);
         if (!res.ok) {
+          const _errorMsg =
+            res.data.Error || res.data.Message || "Unknown Error";
           dispatch({
             type: `${actionName}_FAIL`,
-            payload: res.data.Error || res.data.Message || "Unknown Error",
+            payload: _errorMsg,
             error: true,
           });
-          failCb && failCb(dispatch);
+          if (failCb) {
+            failCb(dispatch, res.data);
+          } else {
+            if (res.data && res.data.errorCode == "404") {
+              toast.error("No data found");
+            } else {
+              toast.error(_errorMsg);
+            }
+          }
         } else {
           dispatch({ type: `${actionName}_SUCCESS`, payload: res.data });
           successCb && successCb(dispatch, res.data);
@@ -44,7 +55,7 @@ export const logic = (apiNamespace, actionName, successCb, failCb) => {
 function _validateApi(api, apiNamespace, api_name, action) {
   //todo: validatte api
   const func = api[apiNamespace][api_name];
-  if(!func) {
+  if (!func) {
     debugger;
   }
 }

@@ -3,9 +3,9 @@ import Tilt from "react-parallax-tilt";
 import { Trans } from "@lingui/macro";
 import { useState } from "react";
 import Map from "components/Map";
-import config from 'config'
+import config from "config";
 
-const Tickets = props => {  
+const Tickets = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const previous = () => {
     let _a = activeIndex;
@@ -25,7 +25,9 @@ const Tickets = props => {
         <div className="container">
           <div className="ticket_txt">
             <p>
-              <Trans id={config.tickets[activeIndex].descriptionKey}>{config.tickets[activeIndex].description}</Trans>
+              <Trans id={config.tickets[activeIndex].descriptionKey}>
+                {config.tickets[activeIndex].description}
+              </Trans>
             </p>
             <ul>
               {config.tickets[activeIndex].dates.map((d, i) => (
@@ -42,7 +44,7 @@ const Tickets = props => {
           </div>
           <div className="ticket_imgthumb">
             <Tilt reset={true}>
-              <img src="/assets/images/tickets_img.png" />
+              <img src="/assets/images/tickets_img.png" alt=""/>
             </Tilt>
           </div>
         </div>
@@ -54,7 +56,9 @@ const Tickets = props => {
             <i className="icofont-simple-left"></i>
           </button>
           <span>
-            <Trans id={config.tickets[activeIndex].titleKey}>{config.tickets[activeIndex].title}</Trans>
+            <Trans id={config.tickets[activeIndex].titleKey}>
+              {config.tickets[activeIndex].title}
+            </Trans>
           </span>
           <button type="button" className="arrow_next" onClick={next}>
             <i className="icofont-simple-right"></i>

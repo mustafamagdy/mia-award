@@ -78,6 +78,12 @@
         @media (min-width: 320px) and (max-width: 767px) {
           width: 100%;
         }
+        .no_more_booths {
+          display: block;
+          font-size: 32pt;
+          color: #dbba5a;
+          text-align: center;
+        }
         .tabs_links {
           ul {
             border-bottom: 1px solid #212121;
@@ -470,16 +476,17 @@
             } /* payment_tab */
             &.confirmation_tab {
               .title {
-                font-size: 40px;
+                display: block;
+                font-size: 15px;
+                color: #c0a176;
                 text-align: center;
-                text-transform: uppercase;
-                margin: 0 auto 10px;
-                color: #808080;
+                font-weight: bold;
               } /* title */
               .content {
-                font-size: 13px;
-                color: #808080;
-                line-height: 21px;
+                display: block;
+                font-size: 15px;
+                color: #c0a176;
+                text-align: center;
               } /* content */
             } /* confirmation_tab */
           } /* tab_item */

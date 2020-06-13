@@ -178,7 +178,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("FirstPlaceId");
 
-                    b.Property<bool>("IllegibleForJudge");
+                    b.Property<bool?>("IllegibleForJudge");
 
                     b.Property<string>("NomineeId");
 
@@ -925,6 +925,24 @@ namespace MIA.ORMContext.Migrations
 
                             b1.HasOne("MIA.Models.Entities.Artwork")
                                 .WithOne("Poster")
+                                .HasForeignKey("MIA.Models.Entities.S3File", "ArtworkId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MIA.Models.Entities.S3File", "Resume", b1 =>
+                        {
+                            b1.Property<string>("ArtworkId");
+
+                            b1.Property<string>("FileKey");
+
+                            b1.Property<string>("FileUrl");
+
+                            b1.HasKey("ArtworkId");
+
+                            b1.ToTable("Artworks");
+
+                            b1.HasOne("MIA.Models.Entities.Artwork")
+                                .WithOne("Resume")
                                 .HasForeignKey("MIA.Models.Entities.S3File", "ArtworkId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });

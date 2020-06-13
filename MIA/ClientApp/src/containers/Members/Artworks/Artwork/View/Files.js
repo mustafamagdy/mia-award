@@ -112,7 +112,7 @@ export const File = ({
           <div className="imgthumb">
             <img
               src={
-                coverUrl == "" ? "/assets/images/logo.png" : encodeURI(coverUrl)
+                posterUrl == "" ? "/assets/images/logo.png" : encodeURI(posterUrl)
               }
               alt={projectName[locale.code]}
             />

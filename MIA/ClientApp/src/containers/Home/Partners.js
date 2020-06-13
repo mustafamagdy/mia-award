@@ -10,14 +10,14 @@ import Swiper from "react-id-swiper";
 const Partners = props => {
   const [partners, setPartners] = useState([
     { key: "1", img: "partner_img_1" },
-    { key: "2", img: "partner_img_3" },
-    { key: "3", img: "partner_img_2" },
-    { key: "4", img: "partner_img_4" },
-    { key: "5", img: "partner_img_3" },
-    { key: "6", img: "partner_img_4" },
-    { key: "7", img: "partner_img_1" },
-    { key: "8", img: "partner_img_3" },
-    { key: "9", img: "partner_img_2" }
+    // { key: "2", img: "partner_img_3" },
+    // { key: "3", img: "partner_img_2" },
+    // { key: "4", img: "partner_img_4" },
+    // { key: "5", img: "partner_img_3" },
+    // { key: "6", img: "partner_img_4" },
+    // { key: "7", img: "partner_img_1" },
+    // { key: "8", img: "partner_img_3" },
+    // { key: "9", img: "partner_img_2" }
   ]);
   const params = {
     spaceBetween: 20,

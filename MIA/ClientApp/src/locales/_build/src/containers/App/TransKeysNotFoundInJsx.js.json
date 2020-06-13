@@ -22,5 +22,189 @@
         10
       ]
     ]
+  },
+  "any_year": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        11
+      ]
+    ]
+  },
+  "location1_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        13
+      ]
+    ]
+  },
+  "location1_description": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        14
+      ]
+    ]
+  },
+  "location2_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        15
+      ]
+    ]
+  },
+  "location2_description": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        16
+      ]
+    ]
+  },
+  "slide1_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        18
+      ]
+    ]
+  },
+  "slide1_text": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        19
+      ]
+    ]
+  },
+  "slide2_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        20
+      ]
+    ]
+  },
+  "slide2_text": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        21
+      ]
+    ]
+  },
+  "slide3_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        22
+      ]
+    ]
+  },
+  "slide3_text": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        23
+      ]
+    ]
+  },
+  "slide4_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        24
+      ]
+    ]
+  },
+  "slide4_text": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        25
+      ]
+    ]
+  },
+  "about_tab_content_awards": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        27
+      ]
+    ]
+  },
+  "about_tab_content_mia_contestant": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        28
+      ]
+    ]
+  },
+  "about_tab_content_mia_honor": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        29
+      ]
+    ]
+  },
+  "about_tab_content_judge": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        30
+      ]
+    ]
+  },
+  "about_tab_content_conpatitors": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        31
+      ]
+    ]
+  },
+  "awards": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        33
+      ]
+    ]
+  },
+  "mia_contestant": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        34
+      ]
+    ]
+  },
+  "mia_honor": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        35
+      ]
+    ]
+  },
+  "judge": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        36
+      ]
+    ]
+  },
+  "conpatitors": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        37
+      ]
+    ]
   }
 }
