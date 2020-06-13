@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { fileToBase64 } from "utils";
 import { ImageZoom } from "react-simple-image-zoom";
+
 import { Form, Formik } from "formik";
 import { Field, LocalizedDataField } from "components/Forms";
 import config from "config";
@@ -69,12 +70,18 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                 zoomScale={5}
                 responsive={true}
               >
-                <img src="assets/images/booth_image_small.png" alt="" />
+                <img
+                  src="assets/images/booth_image_small.png"
+                  alt=""
+                  width="100%"
+                />
               </ImageZoom>
+
               {/* <span>
                 <i className="icofont-ui-zoom-in"></i>
               </span> */}
             </div>
+            <div id="zoom-img" style={{ position: "relative" }} />
           </div>
           <div className="col_right">
             {loading == true ? (
@@ -87,7 +94,6 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
               <Confirmation active={boothBooked} success={true} />
             ) : (
               <>
-                <div id="zoom-img" />
                 <div className="tabs_links">
                   <ul>
                     <TabList
