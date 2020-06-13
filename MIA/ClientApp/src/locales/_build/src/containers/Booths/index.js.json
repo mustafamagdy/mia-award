@@ -1,10 +1,10 @@
 {
-  "sold_out": {
+  "booth_sold_out": {
     "defaults": "Soldout",
     "origin": [
       [
         "src/containers/Booths/index.js",
-        84
+        90
       ]
     ]
   },
@@ -13,7 +13,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        230
+        247
       ]
     ]
   },
@@ -22,7 +22,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        233
+        250
       ]
     ]
   },
@@ -31,7 +31,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        236
+        253
       ]
     ]
   },
@@ -40,7 +40,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        239
+        256
       ]
     ]
   },
@@ -49,7 +49,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        267
+        294
       ]
     ]
   },
@@ -58,11 +58,11 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        278
+        308
       ],
       [
         "src/containers/Booths/index.js",
-        492
+        522
       ]
     ]
   },
@@ -71,7 +71,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        506
+        536
       ]
     ]
   },
@@ -80,7 +80,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        577
+        604
       ]
     ]
   },
@@ -89,7 +89,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        579
+        606
       ]
     ]
   },
@@ -98,7 +98,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        585
+        612
       ]
     ]
   },
@@ -107,7 +107,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        599
+        626
       ]
     ]
   },
@@ -116,7 +116,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        602
+        629
       ]
     ]
   }

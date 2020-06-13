@@ -198,8 +198,10 @@ namespace MIA.Api {
 
       var boothPurchase = _mapper.Map<BoothPurchase>(dto);
       boothPurchase.BoothId = booth.Id;
-      var companyLogoFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Docs, boothPurchase.Id, $"{boothPurchase.Id}_companyLogo." + dto.CompanyLogoFileExt);
-      boothPurchase.CompanyLogo = S3File.FromKeyAndUrl(companyLogoFileKey, await fileManager.UploadFileAsync(dto.CompanyLogo, companyLogoFileKey));
+      if (dto.CompanyLogo != null && dto.CompanyLogoFileExt != null) {
+        var companyLogoFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Docs, boothPurchase.Id, $"{boothPurchase.Id}_companyLogo." + dto.CompanyLogoFileExt);
+        boothPurchase.CompanyLogo = S3File.FromKeyAndUrl(companyLogoFileKey, await fileManager.UploadFileAsync(dto.CompanyLogo, companyLogoFileKey));
+      }
 
       await db.BoothPurchases.AddAsync(boothPurchase);
 

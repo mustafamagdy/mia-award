@@ -87,7 +87,7 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
               <div>Loading ...</div>
             ) : noMoreBooths == true ? (
               <div className="no_more_booths">
-                <Trans id="sold_out">Soldout</Trans>
+                <Trans id="booth_sold_out">Soldout</Trans>
               </div>
             ) : boothBooked == true ? (
               <Confirmation active={boothBooked} success={true} />
