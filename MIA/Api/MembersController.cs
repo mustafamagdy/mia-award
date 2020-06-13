@@ -201,7 +201,7 @@ namespace MIA.Api {
 
       await db.ArtworkPayments.AddAsync(payment);
 
-      var receiptFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Docs, payment.Id, $"{payment.Id}_receipt." + dto.Payment.ReceiptFileName);
+      var receiptFileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWrokPayment, artworkId, $"{payment.Id}_receipt" + dto.Payment.ReceiptFileName.GetFileExt());
       payment.Receipt = S3File.FromKeyAndUrl(receiptFileKey, await fileManager.UploadFileAsync(dto.Payment.Receipt, receiptFileKey));
       payment.Receipt = payment.Receipt ?? S3File.FromKeyAndUrl("", "");
       return payment;
@@ -300,7 +300,7 @@ namespace MIA.Api {
         var result = await fileManager.UploadChunk(tempDir, dto);
         if (!string.IsNullOrEmpty(result.FinalUrl)) {
           var isPoster = imageExtensions.Any(a => dto.FileName.Contains(a));
-          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, artwork.Id, isPoster ? $"{artwork.Id}_trailer_poster" : $"{artwork.Id}_trailer." + dto.FileName.GetFileExt());
+          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, artwork.Id, isPoster ? $"{artwork.Id}_trailer_poster" : $"{artwork.Id}_trailer" + dto.FileName.GetFileExt());
 
           var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
           //if file is image the it will be a poster 

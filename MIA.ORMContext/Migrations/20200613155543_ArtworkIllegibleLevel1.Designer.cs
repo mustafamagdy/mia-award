@@ -4,14 +4,16 @@ using MIA.ORMContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MIA.ORMContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200613155543_ArtworkIllegibleLevel1")]
+    partial class ArtworkIllegibleLevel1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -925,24 +927,6 @@ namespace MIA.ORMContext.Migrations
 
                             b1.HasOne("MIA.Models.Entities.Artwork")
                                 .WithOne("Poster")
-                                .HasForeignKey("MIA.Models.Entities.S3File", "ArtworkId")
-                                .OnDelete(DeleteBehavior.Cascade);
-                        });
-
-                    b.OwnsOne("MIA.Models.Entities.S3File", "Resume", b1 =>
-                        {
-                            b1.Property<string>("ArtworkId");
-
-                            b1.Property<string>("FileKey");
-
-                            b1.Property<string>("FileUrl");
-
-                            b1.HasKey("ArtworkId");
-
-                            b1.ToTable("Artworks");
-
-                            b1.HasOne("MIA.Models.Entities.Artwork")
-                                .WithOne("Resume")
                                 .HasForeignKey("MIA.Models.Entities.S3File", "ArtworkId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });

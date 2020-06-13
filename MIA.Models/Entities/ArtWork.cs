@@ -13,9 +13,8 @@ namespace MIA.Models.Entities {
     public LocalizedData ProjectName { get; set; }
     public LocalizedData Description { get; set; }
 
-    //todo make this nullable
     //for level 1 judge
-    public bool IllegibleForJudge { get; set; }
+    public bool? IllegibleForJudge { get; set; }
     public bool AllowFileUpload { get; set; }
 
     public string SiteUrl { get; set; }
@@ -36,6 +35,7 @@ namespace MIA.Models.Entities {
     public S3File TrailerPoster { get; set; }
     public S3File Cover { get; set; }
 
+    public S3File Resume { get; set; }
 
     public ArtworkPayment Payment { get; set; }
     public string PaymentId { get; set; }
