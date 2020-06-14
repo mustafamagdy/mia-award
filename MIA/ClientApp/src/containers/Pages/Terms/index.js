@@ -4,173 +4,324 @@ import { I18n } from "@lingui/react";
 const English = () => (
   <div className="container">
     <p className="header">Terms and Conditions:</p>
+    <p className="sub-header">
+      This is the privacy policy and terms of use of our website "MIA AWARD"
+      with all its details, from content, services, and design. please read
+      these terms carefully, if you continue browsing this site, this is
+      implicit approval of the terms and conditions contained in it, on your
+      behalf, or on behalf of any company or other legal entity that you
+      represent using the site.
+      <br />
+      <br />
+      You must adhere to the conditions. If you do not agree to the terms set
+      forth or referred to in the terms you cannot continue to use this site.
+    </p>
+    <p className="item-title">Website Terms and Privacy Policy:</p>
 
     <div className="item">
       <p className="content">
-        1. All companies wishing to participate in the exhibition should provide
-        detailed information about the company’s activity by sending the
-        completed participation form.
+        1. This site is owned and managed by Media Industry Company (represented
+        by "we" and "our").
       </p>
     </div>
     <div className="item">
       <p className="content">
-        2. The participation of the companies in the exhibition is limited to
-        displaying audio-visual media products and their accessories to avoid
-        fines by the competent entities, which the participant will fully bear
-        without any liabilities on the organizing company.
+        2. According to the conditions, these terms, “you”, “your”, and “user”
+        refer to the individual using the site
       </p>
     </div>
     <div className="item">
       <p className="content">
-        3. All participating companies are required to pay an amount of AED
-        2,000 as insurance in the event of any damages incurred to the
-        exhibition, subject to increase in case of violating the contract
-        conditions.
+        3. You must be 18 years of age or older to create / use a new account on
+        the site.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        4. All companies wishing to participate in the exhibition shall pay 50%
-        of the toblel amount in advance, provided that the remaining amount will
-        be paid one week before the start of MIA Award events.
+        4. This site is designed for information and personal use only. You are
+        not entitled to use it for other purposes under any circumstances,
+        whether transfer or imitation, since that constitutes a violation of the
+        use of terms.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        5. Full compliance with the exhibition regulations.
+        5. Transferring or imitating any of the contents of this website is a
+        violation of copyright and applicable trademark laws.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        6. Placing the exhibits inside the booths of the contracted organization
-        only, and in an appropriate manner during the official dates and hours
-        of the exhibition.
+        6. The company that owns this site reserves the right to make changes,
+        updates or modifications to the site and its contents at any time and
+        for any reason without notice, and If you object to any of these
+        changes, you can stop entering the site and browsing its contents or any
+        part of it.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        7. Adherence to the deadlines for moving-in the exhibits into the
-        exhibition hall, as well as the deadlines for moving-out.
+        7. you agree to be bound by the terms and conditions of purchase to
+        obtain any of the services for which fees may be imposed, for example,
+        to pay all amounts when due, and to comply with all laws and
+        restrictions related to the availability of prices, products, or
+        services, You must be fully responsible for all fees, taxes, and
+        evaluations are due to your use of the site.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        8. The participant shall be responsible for the booth contents during
-        the official working hours of the exhibition, as well as on the days of
-        setup/teardown.
+        8. The site and the services available through it may contain links to
+        other "third-party" websites, including (without limitation) social
+        media programs, if you access those third-party websites, you may be
+        subject to their terms and conditions plus other policies.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        9. Participants are not entitled to display their exhibits or set-up
-        their booths in a manner blocking the view of the neighbouring booths.
+        9. The " MIA AWARD" site is not responsible for the links it contains
+        that lead to other websites, as it does not necessarily agree with the
+        content of those sites and does not contribute to its preparation or
+        editing, nor does it sponsor or support it. No person, company or
+        website may quote any part of this website or any of its pages in any
+        way.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        10. The audio-visual devices are prohibited if they are used in a manner
-        that violates the public systems and regulations.
+        10. Modification of conditions: in whole or in part, We have the right
+        to change, amend or add to the conditions, at any time according to what
+        we see appropriate, and these changes will be effective when publishing
+        on the site, you are supposed to review the conditions periodically to
+        make sure that you are aware of any changes have occurred to the terms
+        and conditions that apply to you. For your information, we will notify
+        you of the main changes that may occur to these conditions by posting a
+        note on the site or by any other means.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        11. Maintaining the cleanliness of the exhibition venue and facilities.
+        11. You understand and agree that the information, details, and
+        descriptions shown on this site, including details about participation
+        costs for the award, category lists, products, and services may change
+        from time to time. Consequently, this website may not always contain
+        updated information, but most of this information is up to date,
+        including details and descriptions related to our services.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        12. The participant is not entitled to display any advertisement
-        belonging to any other organization without paying advertising fees for
-        each such advertisement.
+        12. User privacy: Your use and access to this site are subject to our
+        privacy policy, which includes among its terms that, continuing to
+        browse our site or use our services in any way, forcing you to agree to
+        a legal contract between us based on these terms, So, to register and
+        run for the award through this website, we will collect some personal
+        information about you after you disclose it to the site, and by doing so
+        you give us approval to collect, process and store that personal
+        information for the purposes mentioned in the privacy policy and the
+        terms of the award.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        13. The participant is not entitled to move-out of the space allocated
-        to him by the organizing committee before the termination of the period
-        stipulated in the booking slip and the exhibitor or his representative
-        must be continuously present during the exhibition period.
+        13. If, God forbid, it turns out that there is an actual violation of
+        these conditions or the site has been used in a way that may cause us
+        any harm, we have the right to suspend or terminate any account you have
+        created on the site, at any time without notice or any liability
+        whatsoever.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        14. The participant is not allowed to withdraw from the exhibition or
-        leave his space vacant for any reason during the exhibition operation
-        period and the period determined for him.
+        14. You agree that we may use your device data to make the site
+        available for any digital applications related to it. The site may use
+        the data received and obtained from your electronic device, so the user
+        has a responsibility to maintain the electronic devices used to enter
+        and use the site
       </p>
     </div>
     <div className="item">
       <p className="content">
-        15. The participant will be considered to have completely waived his
-        space in the exhibition agreed upon in the contract concluded between
-        the two parties, to the First Party, and he shall not be entitled to
-        claim the amount paid at the beginning of the contract period, in case
-        the Second Party fails to attend at the time agreed upon to use the
-        space.
+        15. Only you responsible for any additional charges for the use of your
+        device, including without limitation, access fees, and data transmission
+        via the Internet and wireless network.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        16. The participant will be considered to have completely waived his
-        space in the exhibition agreed upon in the contract concluded between
-        the two parties, to the First Party, and he shall not be entitled to
-        claim the amount paid at the beginning of the contract period nor the
-        insurance in case of violation of any of the contract conditions.
+        16. You agree to use this site and its contents and to abide by these
+        terms and all applicable laws and also agree not to misuse it or harm
+        others, over and above, You agree that you have, and will not encourage
+        or provide assistance to, any third party, or do any of the following:
+        <ul>
+          <li>
+            A-Engage in activities that harm or impede the work and performance
+            of the site.
+          </li>
+          <li>
+            B-Counterfeit your identity, impersonate others, or any illegal act
+            with the account, user, device, system, or network connected to the
+            site
+          </li>
+          <li>
+            C-Using the site for any unlawful purpose, publishing, advertising,
+            copying, storing, backing up or distributing any illegal files or
+            data.
+          </li>
+          <li>
+            D-Using the site in a way that leads to excessive use of internet
+            packages Compared to our limit.
+          </li>
+          <li>
+            E-Use automated means to access the site for any purpose, or use
+            this site to publish, advertise, copy, store, back up or distribute
+            materials that contain viruses, malicious programs, or any other
+            similar programs that could corrupt the site work or people's
+            devices and property.
+          </li>
+        </ul>
       </p>
     </div>
     <div className="item">
       <p className="content">
-        17. The participant will not be entitled to lease all or part of his
-        booth to third parties.
+        17. Media Industry company owns the rights to the " MIA AWARD" site,
+        patents, trademarks, copyrights, and intellectual property rights that
+        may be protected by national and international laws, as well as other
+        treaties and laws, Except as expressly provided by these terms, we do
+        not give you any licenses for this intellectual property by providing
+        the site to you. All rights reserved and are not granted to you by us.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        18. The organizer is entitled to reject any booking and return the full
-        booking fees without giving any reasons.
+        18. Public Responses: Media Industry company is free to use any
+        comments, suggestions, or recommendations, including those relating to
+        amendments, enhancements, and improvements, (“Feedback”) that you
+        provide to us, without obligation By submitting your feedback to us, you
+        agree to give the Media Industry company permanent permission worldwide,
+        irrevocable to use your notes for any purpose, including the
+        incorporation of any feedback as stated on the site.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        19. Payments must be made to: Media Industry FZ-LLC:
+        19. Complaints, Copyright: If you believe that any of the content or
+        ideas we have on this site have been copied to our site in a manner that
+        constitutes a violation of copyright, you should contact our copyright
+        agent with a written notice specifying the details of the violation. the
+        notice must contain The following information:
+        <ul>
+          <li>A- A description of the work that violates copyright.</li>
+          <li>
+            B- A description of the specific section that infringes copyright
+            with a detailed description of its location on our website.
+          </li>
+          <li>C- Your home address, phone number, and email address.</li>
+          <li>
+            D- A written statement from you that the person in possession of the
+            disputed work is not authorized by the copyright owner or his agent,
+            or the law.
+          </li>
+          <li>
+            E- Subject to liability, a statement by you shall be sent to us
+            assuring that the above notice is correct and that you are the
+            copyright owner or authorized to act on his behalf.
+          </li>
+          <li>
+            H- Signature of the copyright owner or the person authorized to act
+            on his behalf.
+          </li>
+        </ul>
       </p>
     </div>
-    <table className="info">
-      <thead>
-        <tr>
-          <td>Swift Code</td>
-          <td>IBAN</td>
-          <td>Account number</td>
-          <td>Currency</td>
-          <td>Account title</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>EBILAEAD</td>
-          <td>AE050260001015658556801</td>
-          <td>1015658556801</td>
-          <td>AED</td>
-          <td>Media Industry FZ-LLC</td>
-        </tr>
-        <tr>
-          <td>EBILAEAD</td>
-          <td>AE130260001025658556802</td>
-          <td>1025658556802</td>
-          <td>USD</td>
-          <td>Media Industry FZ-LLC</td>
-        </tr>
-      </tbody>
-    </table>
+
     <div className="item">
       <p className="content">
-        20. Any booking will not be valid until confirmed by the organizer.
+        20. you are responsible for maintaining your password and user ID to
+        enter this site at any time, report us at info@MediaIndustry if you
+        suspect that the password or user ID is at risk. You are the only
+        responsible for any unauthorized use of this website by password and
+        user ID.
       </p>
     </div>
     <div className="item">
       <p className="content">
-        21. The trademark may only be printed by the exhibition organizer at the
-        prices specified above and not by the participants.
+        21. Third-party websites, products, and services: The site may contain
+        features and functions related to third-party sites, and some of them
+        may offer products or services, So we are not responsible for these
+        sites and the most important that we do not monitor or endorse them, as
+        well, we are not directly or indirectly responsible for any damage and
+        loss resulting from your use or dependence on any of these sites, and in
+        case you use any of them, it will be at your own risk. You may also be
+        subject to terms and conditions related to these "third-party websites".
+        and any terms and conditions are only between you and that third party.
+      </p>
+    </div>
+    <div className="item">
+      <p className="content">
+        22. Compensations: There are several parties that may incur the
+        consequences resulting from your incorrect access to the site or any
+        violation of the conditions, therefore, we have the exclusive right to
+        control and defense matter that is subject in one way or another to
+        compensation by you, in which case you have to cooperate with us in
+        confirming the regulations Defense available. This clause remains in
+        effect regardless of any termination or cancellation of your access to
+        the site. We will provide you with written notice of these demands or
+        the request that is subject to the obligation to compensate us to the
+        fullest extent permitted by law, You agree to indemnify and protect our
+        office managers, administrators, employees, authorized persons,
+        authorized site designers and inherited assignees from and against any
+        and all claims, procedures, obligations, damages, losses, costs,
+        expenses, and fees (including the fees and costs of lawyers abroad).
+      </p>
+    </div>
+    <div className="item">
+      <p className="content">
+        23. Electronic communications and notices: From time to time, we may
+        need to communicate with you regarding the conditions of the website or
+        other issues related to your nomination, participation, hosting or
+        inviting you for any occasions, and we can also provide you with
+        information via the e-mail, you entered when you opened your account
+        with us. So you agree to receive emails from us for these purposes. if
+        you do not agree to receive site notifications by e-mail, you are
+        prohibited from using the site. it is our responsibility to make sure
+        that the notifications are sent via e-mail to you, so in any way we
+        consider that you have received them, we do not bear any responsibility
+        for the e-mails or messages that are filtered, intercepted, lost, or not
+        received.
+      </p>
+    </div>
+    <div className="item">
+      <p className="content">
+        24. Electronic communications and notices: From time to time, we may
+        need to communicate with you regarding the conditions of the website or
+        other issues related to your nomination, participation, hosting or
+        inviting you for any occasions, and we can also provide you with
+        information via the e-mail, you entered when you opened your account
+        with us. So you agree to receive emails from us for these purposes. if
+        you do not agree to receive site notifications by e-mail, you are
+        prohibited from using the site. it is our responsibility to make sure
+        that the notifications are sent via e-mail to you, so in any way we
+        consider that you have received them, we do not bear any responsibility
+        for the e-mails or messages that are filtered, intercepted, lost, or not
+        received.
+      </p>
+    </div>
+    <div className="item">
+      <p className="content">
+        25. You agree that all disclosures, notices, agreements, and other
+        communications you receive from us meet the legal requirements for these
+        written communications. Some systems may be required to enter and
+        maintain these communications, so they are at your own risk.
+      </p>
+    </div>
+    <div className="item">
+      <p className="content">
+        26. According to the conditions, in the event of force majeure, we will
+        not be responsible to you for any delay, interruption or any performance
+        failure including natural disasters, wars, riots, health outbreaks,
+        terrorist activities, explosions, fires, strikes, labor disputes,
+        government decrees, and other actions beyond our control.
       </p>
     </div>
   </div>
