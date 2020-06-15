@@ -87,21 +87,11 @@ var paths = {
         './node_modules/angular-jwt/dist/angular-jwt.min.js',
         // './node_modules/jwt-decode/build/jwt-decode.min.js',
         './assets/js/angular-block-ui.min.js',
-        './assets/js/signalr.js'
+        './assets/js/signalr.js',
+        // './node_modules/angular-datatables/dist/angular-datatables.min.js'
 
-    ],
-    //  sass: {
-    //    main: './src/assets/scss/app.scss',
-    //    mainRTL: './src/assets/scss/app-rtl.scss',
-    //    loadPaths: [
-    //      './src/assets/scss/*.scss',
-    //      './bower_components/lumx/dist/scss/',
-    //      './bower_components/bourbon/app/assets/stylesheets/',
-    //      './bower_components/mdi/scss'
-    //    ]
-    //  },
-    css: [
-        //'./node_modules/angular-material/angular-material.css',
+    ], 
+    css: [ 
         './node_modules/propellerkit/dist/css/bootstrap.min.css',
         './node_modules/propellerkit/dist/css/propeller.min.css',
         './node_modules/select2/dist/css/select2.min.css',
@@ -111,6 +101,7 @@ var paths = {
         './node_modules/ngprogress-lite/ngprogress-lite.css',
         './node_modules/nvd3/build/nv.d3.min.css',
         './node_modules/angular-ui-carousel/dist/ui-carousel.min.css',
+        './node_modules/angular-datatables/dist/css/angular-datatables.css'
 
     ],
     cssAR: [
@@ -123,6 +114,7 @@ var paths = {
         './node_modules/ngprogress-lite/ngprogress-lite.css',
         './node_modules/nvd3/build/nv.d3.min.css',
         './node_modules/angular-ui-carousel/dist/ui-carousel.min.css',
+        './node_modules/angular-datatables/dist/css/angular-datatables.css'
 
     ],
     templates: [

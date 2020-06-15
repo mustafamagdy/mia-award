@@ -14,8 +14,12 @@ namespace MIA.Administration.Dto.Award {
     public string TrophyId { get; set; }
     public JudgeDto Manager { get; set; }
     public string ManagerId { get; set; }
+    public string TrophyUrl { get; set; }
+    public AwardType AwardType { get; set; }
 
-    public List<JudgeAwardDto> JudgeAwards { get; set; }
+    public List<JudgeAwardDto> Level1Judges { get; set; }
+    public List<JudgeAwardDto> Level2Judges { get; set; }
+    // public List<JudgeAwardDto> JudgeAwards { get; set; }
     //public HashSet<VoteOn> ArtWorks { get; set; }
   }
 }

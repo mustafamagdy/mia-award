@@ -10,13 +10,15 @@
         ToastService, VotingCriteriaByIdPrepService) {
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
-        vm.VotingCriteria = VotingCriteriaByIdPrepService; 
+        vm.VotingCriteria = VotingCriteriaByIdPrepService;
+        debugger;
+        vm.selectedVotingLevel = vm.VotingCriteria.level;
         console.log(vm.VotingCriteria);
 
         vm.Close = function () {
             $state.go('VotingCriteria');
         }
-        vm.UpdateVotingCriteria = function () { 
+        vm.UpdateVotingCriteria = function () {
             blockUI.start("Loading...");
             debugger;
 
@@ -24,7 +26,8 @@
             updateObj.Id = vm.VotingCriteria.id;
             updateObj.name = vm.VotingCriteria.name;
             updateObj.Code = vm.VotingCriteria.code;
-            updateObj.Weight= vm.VotingCriteria.weight; 
+            updateObj.Weight = vm.VotingCriteria.weight;
+            updateObj.Level = vm.selectedVotingLevel;
             updateObj.$update().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");

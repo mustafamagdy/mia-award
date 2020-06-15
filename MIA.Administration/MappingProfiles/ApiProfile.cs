@@ -8,17 +8,20 @@ using MIA.Dto.Admin;
 using MIA.Models.Entities;
 using System.Linq;
 
-namespace MIA.Administration.MappingProfiles {
+namespace MIA.Administration.MappingProfiles
+{
 
   /// <summary>
   /// Auto mapper profile that contain mapping used in Api project
   /// </summary>
-  public class ApiProfile : Profile {
+  public class ApiProfile : Profile
+  {
 
     /// <summary>
     /// Constructor
     /// </summary>
-    public ApiProfile() {
+    public ApiProfile()
+    {
 
       #region News
 
@@ -26,6 +29,7 @@ namespace MIA.Administration.MappingProfiles {
         //.ForMember(a => a.ImageUrl, cfg => cfg.MapFrom(a => a.Image != null ? a.Image.Imageurl : ""))
         .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
         .ValidateMemberList(MemberList.None);
+
       CreateMap<NewNewsDto, News>()
             .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
             .ForMember(a => a.Body, cfg => cfg.MapFrom(a => a.Body))
@@ -99,7 +103,6 @@ namespace MIA.Administration.MappingProfiles {
 
       #endregion
 
-
       #region VoteOn Payment 
       CreateMap<ArtworkPayment, ArtWorkPaymentDto>()
         .ForMember(a => a.ReceiptUrl, cfg => cfg.MapFrom(a => a.Receipt.FileUrl))
@@ -109,13 +112,11 @@ namespace MIA.Administration.MappingProfiles {
 
       #endregion
 
-
       #region Nominee
       CreateMap<Nominee, NomineeDto>().ValidateMemberList(MemberList.None);
       CreateMap<NomineeDto, Nominee>().ValidateMemberList(MemberList.None);
 
       #endregion
-
 
       #region Media File
       CreateMap<MediaFile, MediaFileDto>()
@@ -128,23 +129,28 @@ namespace MIA.Administration.MappingProfiles {
 
       #region VoteOn
       CreateMap<Artwork, ArtWorkDto>()
-        //.ForMember(a => a.WinnerAwardFirstPlace, cfg => cfg.Ignore())
+            //.ForMember(a => a.WinnerAwardFirstPlace, cfg => cfg.Ignore())
+            .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.ProjectName))
+            .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
         .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
         .ForMember(a => a.TrailerPosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
         .ForMember(a => a.TrailerUrl, cfg => cfg.MapFrom(a => a.Trailer.FileUrl))
         .ForMember(a => a.CoverUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
         .ValidateMemberList(MemberList.None)
-        .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment));
+        .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
+        .ForMember(a => a.FileCount, cfg => cfg.MapFrom(a => a.MediaFiles.Count));
 
 
       CreateMap<NewArtWorkDto, Artwork>().ValidateMemberList(MemberList.None)
-            .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Title))
-            .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.ShowDescription))
+            .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.ProjectName))
+            .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
             .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
-            .ForMember(a => a.Nominee, cfg => cfg.MapFrom(a => a.Nominee));
+            .ForMember(a => a.Nominee, cfg => cfg.MapFrom(a => a.Nominee))
+            .ForMember(a => a.Award, cfg => cfg.MapFrom(a => a.Award));
+
       CreateMap<UpdateArtWorkDto, Artwork>().ValidateMemberList(MemberList.None)
-            .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Title))
-            .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.ShowDescription));
+            .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.ProjectName))
+            .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description));
       #endregion
 
 
@@ -152,9 +158,11 @@ namespace MIA.Administration.MappingProfiles {
       CreateMap<Award, AwardDto>().ValidateMemberList(MemberList.None)
         .ForMember(a => a.Title, cfg => cfg.MapFrom(a => a.Title))
         .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
+        .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.Trophy.FileUrl))
+        .ForMember(a => a.Manager, cfg => cfg.MapFrom(a => a.Manager));
 
-;
-      CreateMap<Award, AwardDetailsDto>().ValidateMemberList(MemberList.None);
+      CreateMap<Award, AwardDetailsDto>().ValidateMemberList(MemberList.None)
+        .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.Trophy.FileUrl));
       CreateMap<NewAwardDto, Award>().ValidateMemberList(MemberList.None);
       CreateMap<UpdateAwardDto, Award>().ValidateMemberList(MemberList.None);
 
@@ -183,7 +191,9 @@ namespace MIA.Administration.MappingProfiles {
 
       #region Judge  
 
-      CreateMap<Judge, JudgeDto>().ValidateMemberList(MemberList.None);
+      CreateMap<Judge, JudgeDto>()
+        .IncludeBase<AppUser, UserDto>()
+        .ValidateMemberList(MemberList.None);
       CreateMap<JudgeDto, Judge>().ValidateMemberList(MemberList.None);
 
       #endregion
@@ -192,6 +202,15 @@ namespace MIA.Administration.MappingProfiles {
 
       CreateMap<AppUser, ProfileDto>().ValidateMemberList(MemberList.None);
       CreateMap<ProfileDto, AppUser>().ValidateMemberList(MemberList.None);
+
+      #endregion
+      #region UserDto  
+
+      CreateMap<AppUser, UserDto>()
+        .ForMember(a => a.AvatarImage, n => n.MapFrom(a => a.AvatarImage.Imageurl))
+        .ValidateMemberList(MemberList.None)
+        .IncludeAllDerived();
+      CreateMap<UserDto, AppUser>().ValidateMemberList(MemberList.None);
 
       #endregion
       //#region Role

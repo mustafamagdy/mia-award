@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header bordered">
-        <h2 class="pmd-card-title-text"> {{'AddNewArtWorkMediaBtn' | translate}} </h2>
+        <h2 class="pmd-card-description-text"> {{'AddNewArtWorkMediaBtn' | translate}} </h2>
     </div>
     <div class="modal-body">
         <form class="form-horizontal" name="newArtWorkMediaForm">
@@ -23,18 +23,18 @@
                                 <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
                                     ng-repeat="lang in newArtWorkMediaCtrl.language" id="{{lang.value}}-n-form">
                                     <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                                        <label for="first-name">{{ 'Title' | translate}} </label>
+                                        <label for="first-name">{{ 'Description' | translate}} </label>
                                         <input required News="text" class="mat-input form-control"
-                                            name="title{{lang.value+n+'Name'}}"
-                                            ng-model="newArtWorkMediaCtrl.Title[lang.key]" ng-minlength="3"
+                                            name="description{{lang.value+n+'Name'}}"
+                                            ng-model="newArtWorkMediaCtrl.Description[lang.key]" ng-minlength="3"
                                             ng-maxlength="255">
-                                        <div ng-messages="newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$error">
+                                        <div ng-messages="newArtWorkMediaForm.description{{lang.value+n+'Name'}}.$error">
 
                                             <div class="error ng-binding"
-                                                ng-show="newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$error.required && !newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$pristine">
+                                                ng-show="newArtWorkMediaForm.description{{lang.value+n+'Name'}}.$error.required && !newArtWorkMediaForm.description{{lang.value+n+'Name'}}.$pristine">
                                                 {{'requiredErr' | translate}}</div>
                                             <div class="error ng-binding"
-                                                ng-show="(newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$error.minlength || newArtWorkMediaForm.title{{lang.value+n+'Name'}}.$error.maxlength) && !newArtWorkMediaForm.title{{lang.value+'Name'}}.$error.required">
+                                                ng-show="(newArtWorkMediaForm.description{{lang.value+n+'Name'}}.$error.minlength || newArtWorkMediaForm.description{{lang.value+n+'Name'}}.$error.maxlength) && !newArtWorkMediaForm.description{{lang.value+'Name'}}.$error.required">
                                                 {{'NameLengthError3' | translate}}</div>
                                         </div>
                                     </div>

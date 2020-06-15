@@ -3,6 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using MIA.Administration.Api.Base;
 using MIA.Api.Base;
 using MIA.Authorization;
 using MIA.Authorization.Attributes;
@@ -10,12 +12,14 @@ using MIA.Authorization.Entities;
 using MIA.Dto.Admin;
 using MIA.Exceptions;
 using MIA.Models.Entities;
+using MIA.ORMContext;
 using MIA.ORMContext.Uow;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using X.PagedList;
 
 namespace MIA.Administration.Api
 {
@@ -60,13 +64,18 @@ namespace MIA.Administration.Api
       return IfFound(allRoles);
     }
 
-    [HttpGet("permissions")]
+    [HttpPost("permissions")]
     // //[HasPermission(Permissions.ReadPermissions)]
-    public IActionResult ListPermissions()
+    public IActionResult ListPermissions(BaseSearchDto dto)
     {
       var permissionNames = Enum.GetValues(typeof(Permissions)).Cast<short>();
-      var permissions = permissionNames.Select(p => _mapper.Map<PermissionDto>((Permissions)p)).ToList();
+      var permissions = permissionNames.Select(p => _mapper.Map<PermissionDto>((Permissions)p)).ToPagedList(dto);
+      //var result = permissions
+      //              .ProjectTo<PermissionDto>(_mapper.ConfigurationProvider)
+      //              .ToPagedList(dto);
+
       return IfFound(permissions);
+      //return IfFound(permissions);
     }
 
     [HttpGet("permissions/module/{moduleName}")]
@@ -76,7 +85,7 @@ namespace MIA.Administration.Api
       Object systemModules;
       if (!Enum.TryParse(typeof(SystemModules), moduleName, out systemModules))
       {
-        return NotFound404("moudle not found");
+        throw new ApiException(ApiErrorType.NotFound, "moudle not found");
       }
       var permissionNames = Enum.GetValues(typeof(Permissions)).Cast<short>();
       var permissions = permissionNames

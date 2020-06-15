@@ -90,8 +90,8 @@
                     'controllerAs': 'editRoleCtrl',
                     resolve: {
                         RoleByIdPrepService: RoleByIdPrepService,
-                        PermissionPrepService: PermissionPrepService,
-                        ModulePrepService: ModulePrepService
+                        // PermissionPrepService: PermissionPrepService,
+                        // ModulePrepService: ModulePrepService
                     },
                     data: {
                         permissions: {

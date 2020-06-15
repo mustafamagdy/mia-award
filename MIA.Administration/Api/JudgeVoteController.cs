@@ -108,12 +108,20 @@ namespace MIA.Administration.Api
     public async Task<IActionResult> GetJudgeVoteCriteriaValuesAsync(string id, [FromServices] IAppUnitOfWork db)
     {
       List<JudgeVoteDto> returnVotingCriteriaVoteDto = null;
-      var judgeVoting = db.JudgeVotes.Include(c => c.Criteria).Where(a => a.ArtworkId == id).ToList();
+      var judgeVoting = db.JudgeVotes.Where(a => a.ArtworkId == id).ToList();
       returnVotingCriteriaVoteDto = _mapper.Map<List<JudgeVoteDto>>(judgeVoting);
       return IfFound(returnVotingCriteriaVoteDto);
 
     }
+    //[HttpGet("getJudgeVoteCriteriaValues")]
+    //public async Task<IActionResult> GetJudgeVoteCriteriaValuesAsync(string id, [FromServices] IAppUnitOfWork db)
+    //{
+    //  List<JudgeVoteDto> returnVotingCriteriaVoteDto = null;
+    //  var judgeVoting = db.JudgeVotes.Where(a => a.ArtworkId == id).ToList();
+    //  returnVotingCriteriaVoteDto = _mapper.Map<List<JudgeVoteDto>>(judgeVoting);
+    //  return IfFound(returnVotingCriteriaVoteDto);
 
+    //}
   }
 
 }

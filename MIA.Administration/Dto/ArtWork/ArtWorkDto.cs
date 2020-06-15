@@ -10,11 +10,12 @@ namespace MIA.Administration.Api
   {
     public string Id { get; set; }
 
+    public LocalizedData ProjectName { get; set; }
+    public LocalizedData Description { get; set; }
     public string PosterUrl { get; set; }
     public string TrailerUrl { get; set; }
     public string CoverUrl { get; set; }
-    public string TrailerPosterUrl { get; set; }
-    public LocalizedData Title { get; set; }
+    public string TrailerPosterUrl { get; set; } 
     public bool UploadComplete { get; set; }
     public bool AllowFileUpload { get; set; }
     public bool Featured { get; set; }
@@ -24,18 +25,16 @@ namespace MIA.Administration.Api
     public string NomineeId { get; set; } 
     public string PaymentId { get; set; } 
     public ArtWorkPaymentDto Payment { get; set; }
-    //public double Rate { get; set; }
 
-    public string DateOfRelease { get; set; }
-    public string Country { get; set; }
-    public LocalizedData ShowDescription { get; set; }
-    public string Director { get; set; }
-    public string Production { get; set; }
-    public string Writers { get; set; }
-    public string Story { get; set; }
-    public string Stars { get; set; }
-    public string Crew { get; set; }
+    public string SiteUrl { get; set; }
+    public int ProductionYear { get; set; }
+    public int BroadcastYear { get; set; }
+    public string TvChannels { get; set; }
+    public string OnlineChannels { get; set; }
+    public string ProductionLicenseNumber { get; set; }
+    public string ProductionLicenseAgency { get; set; }
 
+    public int FileCount { get; set; }
     // public HashSet<MediaFileDto> MediaFiles { get; set; }
     //public HashSet<JudgeVoteDto> Votes { get; set; }
     //public AwardDto WinnerAwardFirstPlace { get; set; }

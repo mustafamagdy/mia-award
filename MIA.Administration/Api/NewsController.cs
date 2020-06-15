@@ -48,8 +48,8 @@ namespace MIA.Administration.Api {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
       var newsItem = await db.News.FindAsync(resultDto.Id);
-      if (dto.Poster != null && dto.Poster.Length > 0) {
-        using (var memorySteam = new MemoryStream(dto.Poster)) {
+      if (dto.PosterByte != null && dto.PosterByte.Length > 0) {
+        using (var memorySteam = new MemoryStream(dto.PosterByte)) {
           string validationError = "";
           if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
             throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
@@ -71,8 +71,8 @@ namespace MIA.Administration.Api {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
       var newsItem = await db.News.FirstOrDefaultAsync(a => a.Id == resultDto.Id);
-      if (dto.Poster != null && dto.Poster.Length > 0) {
-        using (var memorySteam = new MemoryStream(dto.Poster)) {
+      if (dto.PosterByte != null && dto.PosterByte.Length > 0) {
+        using (var memorySteam = new MemoryStream(dto.PosterByte)) {
 
 
           string validationError = "";

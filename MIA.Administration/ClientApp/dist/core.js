@@ -17,7 +17,7 @@
         "ncy-angular-breadcrumb",
         "angular-jwt",
         "rzSlider",
-        "datatables"
+        // "datatables"
         // "jwt-decode"
         // 'base64',
     ]);
@@ -51,7 +51,7 @@
 
       
 }());
-;(function() {
+;(function () {
     const apiBaseUrl = "http://localhost:62912";
     // const apiBaseUrl = "";
     angular
@@ -79,8 +79,8 @@
         })
         .constant("awardType", {
             TypeList: [
-                { Id: 0, shortName: 'Individual' },
-                { Id: 1, shortName: 'Group' }
+                { Id: 1, shortName: 'Person' },
+                { Id: 0, shortName: 'Artwork' }
             ]
         })
         .constant("userRolesEnum", {
@@ -360,9 +360,9 @@ angular.module('core')
         "Rejected": "Rejected by",
         "DetailsBtn": "View details",
         "AssignedBtn": "Assigned to",
-        "CreateMap":"Create Map",
+        "CreateMap": "Create Map",
         "NewsLbl": "News",
-        "isBasic" :"isBasic",
+        "isBasic": "isBasic",
         "NoContactTypeAvailable": "No Contact Type Available",
         "selectTech": "Select Technacian",
         "ApproveBtn": "Approve",
@@ -391,7 +391,7 @@ angular.module('core')
         "EditCountry": "Edit Country",
         "Country": "Country",
         "EditGovernrate": "Edit Governrate",
-        "selectedManufacture":"you must select Manufacture",
+        "selectedManufacture": "you must select Manufacture",
         "NoGovernratesAvailable": "No Governrates Available",
         "NewGovernrate": "New Governrate",
         "Governrate": "Governrate",
@@ -459,15 +459,15 @@ angular.module('core')
         "Pickup": "Pickup",
         "OrderType": "Order Type",
         "SelectAddress": "Select Address",
-        "search":"search",
-        "searchbyRetailerName" : " search by Retailer Name",
-        "SearchbyOrderNo":"Search by Order No",
-        "SearchbyBasketNo":"Search by Basket No",
+        "search": "search",
+        "searchbyRetailerName": " search by Retailer Name",
+        "SearchbyOrderNo": "Search by Order No",
+        "SearchbyBasketNo": "Search by Basket No",
         "BaiscInfo": "Baisc Info",
         "Summary": "Summary",
         "orderPickDateTime": "Order Date Time",
         "Settings": "Settings",
-        "searchbyProductName" :" search by Product Name",
+        "searchbyProductName": " search by Product Name",
         "Total": "Total",
         "AddNew": "Add New",
         "costlbl": "cost",
@@ -533,7 +533,7 @@ angular.module('core')
         "mobileNo": "Mobile No. ",
         "Title": "Title",
         "AddtoTable": "Add To Table",
-        "goBack":"go Back",
+        "goBack": "go Back",
         "ContactType": "Contact Type",
         "NewContactType": "New Contact Type",
         "EditContactType": "Edit Contact Type",
@@ -552,13 +552,13 @@ angular.module('core')
         "CompanyLogo": "Company logo",
         "NoDistributorssAvailable": "No Distributers Available",
         "Zone": "Zone",
-        "EGP":"EGP",
+        "EGP": "EGP",
         "ZoneRelationLbl": "Zone",
         "ZoneDetails": "Zone Details",
         "ZoneRelation": "Zone Relation",
         "ListOfProduct": "List Of Product",
         "Addtotable": "Add to table",
-        "UploadPhoto" : "Upload  Photo",
+        "UploadPhoto": "Upload  Photo",
         "ContactInformation": "Contact Information",
         "commercialInformation": "commercial Information",
         "CreateZoneRelation": "Create Zone Relation",
@@ -566,7 +566,7 @@ angular.module('core')
         "ListOfRetailer": "List Of Retailer",
         "Selcted": "Selected",
         "UnSelcted": "UnSelected",
-        "FullName":"FullName",
+        "FullName": "FullName",
         "ChooseDistributer": "Choose Distributer",
         "ChooseRetailer": "Choose Retailer",
         "ChooseProduct": "Choose Product",
@@ -581,7 +581,7 @@ angular.module('core')
         "editProductDetails": "edit Product Details",
         "Region": "Region",
         "EditRoleLbl": "Edit Role",
-        "searchbyGovernrateName":" search by Governrate Name",
+        "searchbyGovernrateName": " search by Governrate Name",
         "EditSKU": "Edit SKU",
         "NoSKUsAvailable": "No SKUs Available",
         "DistributorZones": "Distributer Zones",
@@ -593,11 +593,18 @@ angular.module('core')
         "Quantity": "Quantity",
         "ForwordSelected": "Forword Selected",
         "CancelSelected": "Cancel Selected",
-        "logout":"logout",
-        "NameError":"Name Required! ",
+        "logout": "logout",
+        "NameError": "Name Required! ",
 
         "logout": "logout",
         "OrderDetails": "Order Details",
+        ////////////////////////////////////////////
+
+        "ArtWork": "Art Work",
+        "Award": "Award",
+        "VotingCriteria": "Voting Criteria",
+        "PhotoAlbum": "Photo Album",
+
       }
       var ar_translations = {
         "OrderDetails": "تفاصيل الطلب",
@@ -616,11 +623,11 @@ angular.module('core')
         "userRetailer": "مستخدم المحل",
         "EditSKU": " تعديل وحده ضيط المتجر",
         "EditRoleLbl": "تعديل المحل",
-        "goBack":"رجوع",
+        "goBack": "رجوع",
         "Regions": "مناطق",
         "Region": "المنطقه",
         "editProductDetails": "تعديل تفاصيل المنتج",
-        "searchbyGovernrateName":" بحث باسم الاقليم",
+        "searchbyGovernrateName": " بحث باسم الاقليم",
         "NewManufactureL": "اسم مصنع جديد",
         "NewDistributor": "اسم موزع جديد",
         "EditDistributor": " تعديل اسم الموزع ",
@@ -638,17 +645,17 @@ angular.module('core')
         "ChooseProduct": "اختيار منتج",
         "All Orders": "كل الطلبات",
         "Manufacture Orders": "طلبان المصنع",
-        "addyouraddresshere" : "اضافه عنوانك",
-        "searchbyRetailerName" : " بحث باسم المحل",
-        "SearchbyOrderNo":"بحث برقم الطلب",
-        "SearchbyBasketNo":"بحث برقم السله",
-        "EGP":"جنيه مصري",
+        "addyouraddresshere": "اضافه عنوانك",
+        "searchbyRetailerName": " بحث باسم المحل",
+        "SearchbyOrderNo": "بحث برقم الطلب",
+        "SearchbyBasketNo": "بحث برقم السله",
+        "EGP": "جنيه مصري",
         "IOA": "اداره العمليات",
         "ChooseRetailer": "اختيار محل",
         "ChooseDistributer": "اختيار موزع",
         "Selcted": "المحدد",
         "UnSelcted": "غير المحدد",
-        "isBasic" :"رئيسي",
+        "isBasic": "رئيسي",
         "ListOfRetailer": "قائمه المحلات",
         "EditZoneRelation": "تعديل منطقه التوزيع",
         "CreateZoneRelation": "انشاء منطقه التوزيع",
@@ -671,7 +678,7 @@ angular.module('core')
         "NoSKUsAvailable": "لا يوجد مناطق متاحه",
         "NewSKU": "وحده ضبط المتجر جديده",
         "basic": "الاساسيه",
-        "selectedManufacture":"يجب اختيار مصنع",
+        "selectedManufacture": "يجب اختيار مصنع",
         "ManufactureLbl": "المصنع",
         "EditManufactureL": "تعديل المصنع",
         "DistributorLbl": "الموزع",
@@ -679,10 +686,10 @@ angular.module('core')
         "RetailerLbl": "المحل",
         "Retailer": "المحل",
         "SKU": "وحده ضبط المتجر",
-        "CreateMap":"اضافه خريطه",
+        "CreateMap": "اضافه خريطه",
         "Choose_Manufacture": "اختيار المصنع",
         "Regnumber": "الرقم الارضي ",
-        "search":"بحث",
+        "search": "بحث",
         "taxnumber": "رقم الفاكس",
         "EMail": "الايميل",
         "mobileNo": "رقم الموبيل  ",
@@ -704,10 +711,10 @@ angular.module('core')
         "VillageLbl": "القريه",
         "First": "الاول",
         "NotvalidLbl": "غير صحيح ",
-        "addyouraddresshere" : "اضافه عنوانك",
+        "addyouraddresshere": "اضافه عنوانك",
         "RequiredLbl": "مطلوب !",
         "NameError": "الاسم مطلوب",
-        "UploadPhoto" : "تنزيل صوره",
+        "UploadPhoto": "تنزيل صوره",
         "GovernateLbl": "المحافظه",
         "infoLbl": "ِالعنوان و معلومات الموقع",
         "ManfactureLbl": "مصنع",
@@ -782,8 +789,8 @@ angular.module('core')
         "ProductAdd ccess": ".تم ادخال منتج بنجاح",
         "NewProduct": "منتج جديد",
         "UpdateProductLbl": "تحديث المنتج",
-        "searchbyProductName" :" بحث باسم المنتج",
-        "FullName":"الاسم بالكامل",
+        "searchbyProductName": " بحث باسم المنتج",
+        "FullName": "الاسم بالكامل",
         "Pricelbl": "السعر",
         "ProductDeleteSuccess": ".تم حذف المنتج بنجاح",
         "from0to100": "النسبه من 0 الي 100",
@@ -870,7 +877,7 @@ angular.module('core')
         "englishName": "الاسم انجليزي",
         "arabicName": "الاسم عربي",
         "english": "انجليزي",
-        "arabic": "عربي",  
+        "arabic": "عربي",
         "View": "عرض",
         "Answers": "الأجوبة",
         "noAnswersLbl": "لا يوجد اجوبة",
@@ -933,6 +940,15 @@ angular.module('core')
         "UploadImageBtn": "اختار الصوره",
         "SelectNews": "أختار قسم",
         "addProductBtn": "أضف منتج",
+
+
+        //////////////////////
+
+        "ArtWork": "العروض",
+        "Award": "الجوائز",
+        "VotingCriteria": "معايير التصويت",
+        "PhotoAlbum": "إلبوم الصور",
+
       }
       $translateProvider.translations('en', en_translations);
 
@@ -1413,7 +1429,8 @@ angular.module('core')
     }
 
     function authenticaionFailed(res) {
-      ToastService.show("right", "bottom", "fadeInUp", res.data.title, "error");
+    debugger;
+      ToastService.show("right", "bottom", "fadeInUp", res.data.errorMessage, "error");
       // data.data = null;
       res.status = "-1";
       res.statusText = "";

@@ -1,5 +1,5 @@
 <div>
-    <div style="margin-bottom:10px" ng-show="user.PermessionModules['News'].includes('add_new')">
+    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes('News.add_new')">
         <!-- <div id="bold"> {{'AddNewVotingCriteriaBtn'| translate}} </div> -->
         <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
         border-radius: 17px;" ng-click="$state.go('newVotingCriteria');"
@@ -11,17 +11,14 @@
         <span>{{'NoVotingCriteriasAvailable' | translate}}</span>
     </div>
     <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="VotingCriteriaList.length > 0">
-        <div class="table-responsive" style="border: 1px solid #21231e;
-        border-radius: 20px;
-        background-color: #0e0e0e;
-        box-shadow: 0 0 10px 5px rgba(0,0,0,.35);
-    ">
+        <div class="table-responsive">
             <table class="table pmd-table table-hover">
                 <thead>
                     <tr>
                         <th>{{'code' | translate}}</th>
                         <th>{{'name' | translate}}</th>
                         <th>{{'weight' | translate}}</th>
+                        <th>{{'level' | translate}}</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -38,8 +35,11 @@
                         <td data-title="weight">
                             {{VotingCriteria.weight}}
                         </td>
+                        <td data-title="level">
+                            {{VotingCriteria.level}}
+                        </td>
                         <td width="30%">
-                            <i ng-show="user.PermessionModules['News'].includes('add_new')"
+                            <i ng-show="user.PermessionModules.includes('News.add_new')"
                                 class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('editVotingCriteria',{id: VotingCriteria.id});"
                                 title="Edit">mode_edit</i>

@@ -3,18 +3,19 @@
 
     angular
         .module('home')
-        .controller('AwardController', ['appCONSTANTS', '$scope', '$translate', 'AwardResource', 'blockUI', '$uibModal',
+        .controller('AwardController', ['appCONSTANTS', '$scope', '$translate', 'awardType', 'AwardResource', 'blockUI', '$uibModal',
             'ToastService', AwardController]);
 
 
-    function AwardController(appCONSTANTS, $scope, $translate, AwardResource, blockUI, $uibModal, ToastService) {
+    function AwardController(appCONSTANTS, $scope, $translate, awardType, AwardResource, blockUI, $uibModal, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
         var vm = this;
 
         vm.currentPage = 1;
         vm.appCONSTANTS = appCONSTANTS;
-
+        vm.awardTypes = awardType.TypeList;
+        vm.selectedType = vm.awardTypes[1];
         refreshAwards();
         function refreshAwards() {
             blockUI.start("Loading...");
@@ -26,66 +27,35 @@
                 blockUI.stop();
 
             },
-                function (data, status) { 
-                blockUI.stop();
+                function (data, status) {
+                    blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
         }
-        vm.showMore = function (element) {
-            $(element.currentTarget).toggleClass("child-table-collapse");
-        }
-        
-        function confirmationDelete(model) {
-            var updateObj = new AwardResource();
-            updateObj.$delete({ id: model.id }).then(
-                function (data, status) {
-                    refreshAwards();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
 
-            });
-        }
-        vm.ChangeStatus = function (model) {
-            var updateObj = new AwardResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
-                function (data, status) {
-                    //  refreshAwards();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-            return;
-        }
 
         vm.changePage = function (page) {
             vm.currentPage = page;
             refreshAwards();
         }
+        vm.changeAwardType = function () {
+            refreshAwardsByType();
+        }
+        function refreshAwardsByType() {
+            blockUI.start("Loading...");
 
+            debugger;
+            var k = AwardResource.getAllAwards({ awardType: vm.selectedType.Id,pageNumber: vm.currentPage, pageSize: 10  }).$promise.then(function (results) {
+                $scope.AwardList = results.items;
+                $scope.totalCount = results.metadata.totalItemCount;
+                console.log($scope.AwardList);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
     }
 
 })();

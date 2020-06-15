@@ -17,7 +17,7 @@
         refreshJudgeArtWorks();
         function refreshJudgeArtWorks() {
             blockUI.start("Loading..."); 
-
+debugger;
             var k = JudgeArtWorkResource.getJudgeArtWorks({ id: $scope.user.id }, null).$promise.then(function (results) {
                
                 $scope.JudgeArtWorkList = results;

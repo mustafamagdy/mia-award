@@ -34,7 +34,7 @@
         },
         function (data, status) {
           blockUI.stop();
-          ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+         // ToastService.show("right", "bottom", "fadeInUp", data.data.errorMessage, "error");
         }
       );
     }

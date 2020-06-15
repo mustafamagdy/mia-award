@@ -82,8 +82,6 @@
                     'controllerAs': 'editRoleCtrl',
                     resolve: {
                         RoleByIdPrepService: RoleByIdPrepService,
-                        PermissionPrepService: PermissionPrepService,
-                        ModulePrepService: ModulePrepService
                     },
                     data: {
                         permissions: {
@@ -287,7 +285,6 @@
         },
         function (data, status) {
           blockUI.stop();
-          ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
         }
       );
     }
@@ -500,39 +497,19 @@
         vm.nomineeList = [];
         vm.countryList = [];
         vm.selectedAward = "";
-        vm.selectedNominee = "";
-        vm.selectedCountry = "";
-        vm.PaymentStatus = 0;
         vm.showStepOne = true;
         vm.showStepTwo = false;
-        vm.receipt = "";
-
+        vm.yearsList = [2019, 2020];
+        vm.selectedProductionYear = vm.yearsList[0];
+        vm.selectedBroadcastYear = vm.yearsList[0];
         refreshAwards();
         refreshNominees();
-        refreshCountries();
 
         vm.close = function () {
             $state.go('ArtWork');
         }
 
-        vm.nextStep = function () {
-            vm.showStepOne = false;
-            vm.showStepTwo = true;
-        }
 
-        vm.perviousStep = function () {
-            vm.showStepOne = true;
-            vm.showStepTwo = false;
-        }
-        $scope.dateIsValid = false;
-        $scope.dateChange = function () {
-            debugger;
-            if ($('#paymentDate').data('date') == null || $('#paymentDate').data('date') == "") {
-                $scope.dateIsValid = false;
-            } else if ($scope.newArtWorkForm.$valid) {
-                $scope.dateIsValid = true;
-            }
-        }
         $scope.uploadReceiptFile = function (element) {
             debugger;
             vm.receipt = $(element)[0].files[0];
@@ -540,29 +517,37 @@
 
 
         vm.AddNewArtWork = function () {
-            var splitPoster = vm.posterImage.split(',');
-            var splitCover = vm.coverImage.split(',');
+            debugger;
+            if (vm.selectedAward.awardType == 'artwork') {
+                var splitPoster = vm.posterImage.split(',');
+                var splitCover = vm.coverImage.split(',');
+            }
             blockUI.start("Loading...");
             var newObj = new ArtWorkResource();
-            newObj.Title = vm.Title;
+            newObj.ProjectName = vm.ProjectName;
+            newObj.Description = vm.Description;
+
             newObj.AwardId = vm.selectedAward.id;
             newObj.NomineeId = vm.selectedNominee.id;
-            newObj.FileCount = vm.FileCount;
-            newObj.DateOfRelease = vm.DateOfRelease;
-            newObj.Country = vm.selectedCountry.shortName;
-            newObj.ShowDescription = vm.ShowDescription;
-            newObj.Director = vm.Director.join(', ');
-            newObj.Production = vm.Production.join(', ');
-            newObj.Writers = vm.Writers.join(', ');
-            newObj.Story = vm.Story.join(', ');
-            newObj.Crew = vm.Crew.join(', ');
+            newObj.IsArtwork = false;
 
-            newObj.Poster = splitPoster[1];
-            newObj.PosterFileName = posterImage.type;
+            newObj.OnlineChannels = vm.OnlineChannels.join(', ');
+            newObj.TvChannels = vm.TvChannels.join(', ');
 
-            newObj.Cover = splitCover[1];
-            newObj.CoverFileName = splitCover[0];
+            newObj.SiteUrl = vm.SiteUrl;
+            newObj.ProductionYear = vm.selectedProductionYear;
+            newObj.BroadcastYear = vm.selectedBroadcastYear;
+            newObj.ProductionLicenseNumber = vm.ProductionLicenseNumber;
+            newObj.ProductionLicenseAgency = vm.ProductionLicenseAgency;
 
+            if (vm.selectedAward.awardType == 'artwork') {
+                newObj.PosterByte = splitPoster[1];
+                newObj.PosterFileName = posterImage.type;
+
+                newObj.CoverByte = splitCover[1];
+                newObj.CoverFileName = splitCover[0];
+                newObj.IsArtwork = true;
+            }
 
 
             newObj.$create().then(
@@ -570,8 +555,10 @@
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                     debugger;
-                    openUploadDialog(data.id, appCONSTANTS.API_URL + 'artWorks/artwork/' + data.id + '/files')
-
+                    if (vm.selectedAward.awardType == 'artwork')
+                        openUploadDialog(data.id, appCONSTANTS.API_URL + 'artWorks/artwork/' + data.id + '/files')
+                    else
+                        $state.go('ArtWork'); 
 
                 },
                 function (data, status) {
@@ -617,6 +604,7 @@
             var k = ArtWorkResource.getAllNominees().$promise.then(function (results) {
                 debugger;
                 vm.nomineeList = results;
+                vm.selectedNominee = vm.nomineeList[0];
                 blockUI.stop();
 
             },
@@ -631,6 +619,8 @@
 
                 vm.awardList = results.items;
                 vm.totalCount = results.metadata.totalItemCount;
+                vm.selectedAward = vm.awardList[0];
+                console.log(vm.awardList);
                 blockUI.stop();
 
             },
@@ -641,16 +631,7 @@
         }
 
 
-        function refreshCountries() {
-            var k = ArtWorkResource.getAllCountries().$promise.then(function (results) {
-                vm.countryList = results;
-                blockUI.stop();
 
-            },
-                function (data, status) {
-                    blockUI.stop();
-                });
-        }
 
         vm.LoadUploadPoster = function () {
             $("#posterImage").click();
@@ -860,7 +841,6 @@
 
         refreshAwards();
         refreshNominees();
-        refreshCountries();
         var posterImage;
         var vm = this;
         vm.awardList = [];
@@ -869,38 +849,61 @@
         vm.productionList = [];
         vm.selectedAward = "";
         vm.selectedNominee = "";
-        vm.selectedCountry = "";
         vm.language = appCONSTANTS.supportedLanguage;
         vm.ArtWork = ArtWorkByIdPrepService;
         vm.selectedProduction = null;
         vm.posterImage = vm.ArtWork.posterUrl;
-        if (vm.ArtWork.production.indexOf(',') != -1) {
-            vm.productionList = vm.ArtWork.production.split(',');
-        }
+        vm.coverImage = vm.ArtWork.coverUrl;
+
+        vm.yearsList = [2019, 2020];
+        debugger;
+        vm.selectedProductionYear = vm.ArtWork.productionYear;
+        vm.selectedBroadcastYear = vm.ArtWork.broadcastYear;
+        vm.IsArtwork = false;
+        if (vm.ArtWork.award.awardType == 'artwork')
+            vm.IsArtwork = true;
         console.log(vm.ArtWork);
+
         vm.Close = function () {
             $state.go('ArtWork');
         }
         vm.UpdateArtWork = function () {
             blockUI.start("Loading...");
             debugger;
+            if (vm.ArtWork.award.awardType == 'artwork') {
+                var splitPoster = vm.posterImage.split(',');
+                var splitCover = vm.coverImage.split(',');
+            }
 
             var updateObj = new ArtWorkResource();
             updateObj.Id = vm.ArtWork.id;
-            updateObj.Title = vm.ArtWork.title;
-            updateObj.AwardId = vm.selectedAward.id;
-            updateObj.NomineeId = vm.selectedNominee.id;
-            updateObj.FileCount = vm.ArtWork.fileCount;
-            updateObj.DateOfRelease = vm.ArtWork.dateOfRelease;
-            updateObj.Country = vm.selectedCountry.shortName;
-            updateObj.ShowDescription = vm.ArtWork.showDescription;
-            updateObj.Director = vm.ArtWork.director.join(', ');
-            updateObj.Production = vm.ArtWork.production.join(', ');
-            updateObj.Writers = vm.ArtWork.writers.join(', ');
-            updateObj.Story = vm.ArtWork.story.join(', ');
-            updateObj.Crew = vm.ArtWork.crew.join(', ');
+            updateObj.ProjectName = vm.ArtWork.projectName;
+            updateObj.Description = vm.ArtWork.description;
+            updateObj.AwardId = vm.ArtWork.award.id;
 
+
+            updateObj.NomineeId = vm.selectedNominee.id;
+            updateObj.IsArtwork = vm.IsArtwork;
+
+            updateObj.OnlineChannels = vm.ArtWork.onlineChannels.join(', ');
+            updateObj.TvChannels = vm.ArtWork.tvChannels.join(', ');
+
+            updateObj.SiteUrl = vm.ArtWork.siteUrl;
+            updateObj.ProductionYear = vm.selectedProductionYear;
+            updateObj.BroadcastYear = vm.selectedBroadcastYear;
+            updateObj.ProductionLicenseNumber = vm.ArtWork.productionLicenseNumber;
+            updateObj.ProductionLicenseAgency = vm.ArtWork.productionLicenseAgency;
             if (posterImage != null) {
+
+                if (vm.IsArtwork) {
+                    updateObj.PosterByte = splitPoster[1];
+                    updateObj.PosterFileName = posterImage.type;
+
+                    updateObj.CoverByte = splitCover[1];
+                    updateObj.CoverFileName = splitCover[0];
+                    updateObj.IsArtwork = true;
+                }
+
                 updateObj.Poster = posterImage;
                 updateObj.Video = posterImage;
 
@@ -948,22 +951,6 @@
             },
                 function (data, status) {
 
-                    blockUI.stop();
-                });
-        }
-
-
-        function refreshCountries() {
-            var k = ArtWorkResource.getAllCountries().$promise.then(function (results) {
-                vm.countryList = results;
-                blockUI.stop();
-
-                var indexRate = vm.countryList.indexOf($filter('filter')(vm.countryList, { 'shortName': vm.ArtWork.country }, true)[0]);
-                vm.selectedCountry = vm.countryList[indexRate];
-
-
-            },
-                function (data, status) {
                     blockUI.stop();
                 });
         }
@@ -1019,6 +1006,56 @@
 
 
 
+
+        vm.LoadUploadCover = function () {
+            debugger
+            $("#coverImage").click();
+        }
+        $scope.AddcoverImage = function (element) {
+            var logoFile = element[0];
+            debugger
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.editArtWorkForm.$dirty = true;
+                    $scope.$apply(function () {
+
+                        coverImage = logoFile;
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            vm.coverImage = reader.result;
+
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
+
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
+
+
+        }
+
+        $scope.uploadCoverFile = function (element) {
+            debugger;
+            vm.coverImage = $(element)[0].files[0];
+        };
+
+
     }
 }());
 (function () {
@@ -1037,7 +1074,7 @@
         vm.statusList = status.StatusList;
         vm.artWorkPayment = ArtWorkPaymentByArtWorkIdPrepService;
         console.log(vm.artWorkPayment)
-
+        vm.CheckIsUpdate = angular.copy(vm.artWorkPayment.amount);
         if (vm.artWorkPayment.paymentStatus == 'waiting')
             vm.selectedStatus = vm.statusList[0];
         if (vm.artWorkPayment.paymentStatus == 'confirmed')
@@ -1074,15 +1111,15 @@
                 fileName = receiptImage.type;
             }
 
-                        blockUI.start("Loading...");
-           debugger;
+            blockUI.start("Loading...");
+            debugger;
             var newObj = new ArtWorkResource();
             newObj.ArtWorkId = $stateParams.id;
             newObj.PaymentStatus = vm.selectedStatus.Id;
             newObj.TransactionNumber = vm.artWorkPayment.transactionNumber;
             newObj.Amount = vm.artWorkPayment.amount;
             newObj.PaymentDate = +new Date($('#paymentDate').val());
-            newObj.Receipt = fileByte;
+            newObj.ReceiptByte = fileByte;
             newObj.ReceiptFileName = fileName;
 
             newObj.$createPayment().then(
@@ -1189,8 +1226,8 @@
 
 
     function ArtWorkMediaController(appCONSTANTS, $stateParams, ArtWorkMediaResource, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+        $(".pmd-sidebar-nav>li>a").removeClass("active");
+        $($(".pmd-sidebar-nav").children()[4].children[0]).addClass("active");
         var vm = this;
 
         vm.currentPage = 1;
@@ -1668,7 +1705,7 @@
             blockUI.start("Loading...");
             var newObj = new ArtWorkMediaResource();
             newObj.ArtWorkId = $stateParams.id;
-            newObj.Description = vm.title;
+            newObj.Description ="سيي";
             newObj.$createMediaFile().then(
                 function (data, status) {
                     blockUI.stop();
@@ -1685,8 +1722,8 @@
             debugger
             var updateObj = new ArtWorkMediaResource();
             updateObj.Id = model.id;
-            updateObj.FileUrl = model.data.trailerUrl;
-            updateObj.FileKey = model.data.trailerId;
+            updateObj.FileUrl = model.data.FileUrl;
+            updateObj.FileKey = model.data.FileKey;
             updateObj.$UpdateMediaItemVideoUrl().then(
                 function (data, status) {
                     debugger;
@@ -1766,18 +1803,19 @@
 
     angular
         .module('home')
-        .controller('AwardController', ['appCONSTANTS', '$scope', '$translate', 'AwardResource', 'blockUI', '$uibModal',
+        .controller('AwardController', ['appCONSTANTS', '$scope', '$translate', 'awardType', 'AwardResource', 'blockUI', '$uibModal',
             'ToastService', AwardController]);
 
 
-    function AwardController(appCONSTANTS, $scope, $translate, AwardResource, blockUI, $uibModal, ToastService) {
+    function AwardController(appCONSTANTS, $scope, $translate, awardType, AwardResource, blockUI, $uibModal, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
         var vm = this;
 
         vm.currentPage = 1;
         vm.appCONSTANTS = appCONSTANTS;
-
+        vm.awardTypes = awardType.TypeList;
+        vm.selectedType = vm.awardTypes[1];
         refreshAwards();
         function refreshAwards() {
             blockUI.start("Loading...");
@@ -1789,65 +1827,35 @@
                 blockUI.stop();
 
             },
-                function (data, status) { 
-                blockUI.stop();
+                function (data, status) {
+                    blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
         }
-        vm.showMore = function (element) {
-            $(element.currentTarget).toggleClass("child-table-collapse");
-        }
 
-                function confirmationDelete(model) {
-            var updateObj = new AwardResource();
-            updateObj.$delete({ id: model.id }).then(
-                function (data, status) {
-                    refreshAwards();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        }
-        vm.ChangeStatus = function (model) {
-            var updateObj = new AwardResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-            return;
-        }
 
         vm.changePage = function (page) {
             vm.currentPage = page;
             refreshAwards();
         }
+        vm.changeAwardType = function () {
+            refreshAwardsByType();
+        }
+        function refreshAwardsByType() {
+            blockUI.start("Loading...");
 
+            debugger;
+            var k = AwardResource.getAllAwards({ awardType: vm.selectedType.Id,pageNumber: vm.currentPage, pageSize: 10  }).$promise.then(function (results) {
+                $scope.AwardList = results.items;
+                $scope.totalCount = results.metadata.totalItemCount;
+                console.log($scope.AwardList);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
     }
 
 })();
@@ -1858,7 +1866,8 @@
 
     function AwardResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Awards', {}, {
-            getAllAwards: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/search', useToken: true, params: { lang: '@lang' } },
+            getAllAwards: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/awardsByType', useToken: true, params: { lang: '@lang' } },
+            getAllAwardsByType: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/awardsByType', useToken: true, params: { lang: '@lang' } },
             getAllJudges: { method: 'GET', url: appCONSTANTS.API_URL + 'Awards/judges', useToken: true, isArray: true, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'PUT', useToken: true },
@@ -1976,7 +1985,7 @@
 
     }
 }());
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -1988,67 +1997,166 @@
     function editAwardDialogController($rootScope, $scope, blockUI, $filter, awardType, $state, appCONSTANTS, $translate, AwardResource,
         ToastService, AwardDetailsByAwardIdPrepService) {
         var vm = this;
-        vm.judgesList = [];
+        vm.judgesLevel1List = [];
+        vm.judgesLevel2List = [];
         vm.ManagerList = [];
         vm.selectedManager = "";
-        vm.selectedJudges = [];
+        vm.selectedJudgesLevel1 = [];
+        vm.selectedJudgesLevel2 = [];
+        vm.RemoveLevel1Judges = [];
+        vm.RemoveLevel2Judges = [];
         vm.language = appCONSTANTS.supportedLanguage;
         vm.Award = AwardDetailsByAwardIdPrepService;
         vm.awardTypes = awardType.TypeList;
+        vm.trophyImage = vm.Award.trophyUrl;
+
+        vm.addLevel1Judges = [];
+        vm.addLevel2Judges = [];
+        vm.removeLevel1Judges = [];
+        vm.removeLevel2Judges = [];
+
         console.log(vm.Award);
         refreshJudgess();
-        vm.Close = function() {
+
+        vm.Close = function () {
             $state.go('Award');
         }
-        vm.UpdateAward = function() {
+        vm.UpdateAward = function () {
             blockUI.start("Loading...");
             debugger;
+            for (let index = 0; index < vm.selectedJudgesLevel1.length; index++) {
+                const element = vm.selectedJudgesLevel1[index];
+                if (element.isSelected) {
+                    vm.addLevel1Judges.push({
+                        AwardId: vm.Award.id,
+                        JudgeId: element.id
+                    })
+                }
+            }
 
+            for (let index = 0; index < vm.selectedJudgesLevel2.length; index++) {
+                const element = vm.selectedJudgesLevel2[index];
+                if (element.isSelected) {
+                    vm.addLevel2Judges.push({
+                        AwardId: vm.Award.id,
+                        JudgeId: element.id
+                    })
+                }
+            }
+
+            for (let index = 0; index < vm.RemoveLevel1Judges.length; index++) {
+                const element = vm.RemoveLevel1Judges[index];
+                vm.removeLevel1Judges.push({
+                    AwardId: vm.Award.id,
+                    JudgeId: element.id
+                })
+            }
+            for (let index = 0; index < vm.RemoveLevel2Judges.length; index++) {
+                const element = vm.RemoveLevel2Judges[index];
+                vm.removeLevel2Judges.push({
+                    AwardId: vm.Award.id,
+                    JudgeId: element.id
+                })
+            }
             var updateObj = new AwardResource();
             updateObj.Id = vm.Award.id;
             updateObj.ManagerId = vm.selectedManager.id;
-            updateObj.JudgeAwards = vm.selectedJudges;
+            updateObj.AddLevel1Judges = vm.addLevel1Judges;
+            updateObj.AddLevel2Judges = vm.addLevel2Judges;
+            updateObj.RemoveLevel1Judges = vm.removeLevel1Judges;
+            updateObj.RemoveLevel2Judges = vm.removeLevel2Judges;
             updateObj.Title = vm.Award.title;
             updateObj.Description = vm.Award.description;
             updateObj.$update().then(
-                function(data, status) {
+                function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
                     blockUI.stop();
 
                     $state.go('Award');
 
                 },
-                function(data, status) {
+                function (data, status) {
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }
 
-        function refreshJudgess() {
-            var k = AwardResource.getAllJudges().$promise.then(function(results) {
-                    vm.judgesList = results;
-                    vm.ManagerList = results;
-                    blockUI.stop();
-                    debugger;
-                    if (vm.Award.judgeAwards != null) {
-                        var i;
-                        for (i = 0; i < vm.Award.judgeAwards.length; i++) {
-                            var index = vm.judgesList.indexOf($filter('filter')(vm.judgesList, { 'id': vm.Award.judgeAwards[i].judgeId }, true)[0]);
-                            vm.selectedJudges.push(vm.judgesList[index]);
 
-                        }
+        vm.selectJudgeLevel1 = function (user) {
+            debugger;
+            const userFromAdmins = this.selectedJudgesLevel1.find(b => b.id == user.id)
+            if (user.isSelected && userFromAdmins == null) {
+                this.selectedJudgesLevel1.push(user);
+
+            } else {
+                this.selectedJudgesLevel1.splice(this.selectedJudgesLevel1.indexOf(user), 1);
+                this.RemoveLevel1Judges.push(user);
+            }
+        }
+        vm.selectAllJudgeLevel1 = function (isselectAllJudgeLevel1) {
+            this.selectedJudgesLevel1 = [];
+            this.RemoveLevel1Judges = [];
+            this.judgesLevel1List.map(x => x.isSelected = isselectAllJudgeLevel1);
+            if (isselectAllJudgeLevel1) {
+                this.selectedJudgesLevel1.push(...this.judgesLevel1List);
+            } else {
+                this.RemoveLevel1Judges.push(...this.judgesLevel1List);
+            }
+        }
+
+        vm.selectJudgeLevel2 = function (user) {
+            const userFromAdmins = this.selectedJudgesLevel2.find(b => b.id == user.id)
+            if (user.isSelected && userFromAdmins == null) {
+                this.selectedJudgesLevel2.push(user);
+            } else {
+                this.selectedJudgesLevel2.splice(this.selectedJudgesLevel2.indexOf(user), 1);
+                this.RemoveLevel2Judges.push(user);
+            }
+        }
+        vm.selectAllJudgeLevel2 = function (isselectAllJudgeLevel2) {
+            this.selectedJudgesLevel2 = [];
+            this.judgesLevel2List.map(x => x.isSelected = isselectAllJudgeLevel2);
+            if (isselectAllJudgeLevel2) {
+                this.selectedJudgesLevel2.push(...this.judgesLevel2List);
+            } else {
+                this.RemoveLevel2Judges.push(...this.judgesLevel2List);
+            }
+        }
+
+
+        function refreshJudgess() {
+            var k = AwardResource.getAllJudges().$promise.then(function (results) {
+                vm.judgesLevel1List = angular.copy(results); 
+                vm.judgesLevel2List = angular.copy(results);;
+                vm.ManagerList = angular.copy(results);;
+                blockUI.stop();
+                debugger;
+                if (vm.Award.level1Judges != null) {
+                    var i;
+                    for (i = 0; i < vm.Award.level1Judges.length; i++) {
+                        var index = vm.judgesLevel1List.indexOf($filter('filter')(vm.judgesLevel1List, { 'id': vm.Award.level1Judges[i].judgeId }, true)[0]);
+                        vm.judgesLevel1List[index].isSelected = true;
                     }
-                    var index = vm.ManagerList.indexOf($filter('filter')(vm.ManagerList, { 'id': vm.Award.managerId }, true)[0]);
-                    vm.selectedManager = vm.ManagerList[index];
-                },
-                function(data, status) {
+                }
+                if (vm.Award.level2Judges != null) {
+                    var i;
+                    for (i = 0; i < vm.Award.level2Judges.length; i++) {
+                        var index = vm.judgesLevel2List.indexOf($filter('filter')(vm.judgesLevel2List, { 'id': vm.Award.level2Judges[i].judgeId }, true)[0]);
+                        vm.judgesLevel2List[index].isSelected = true;
+                    }
+                }
+                var index = vm.ManagerList.indexOf($filter('filter')(vm.ManagerList, { 'id': vm.Award.managerId }, true)[0]);
+                vm.selectedManager = vm.ManagerList[index];
+            },
+                function (data, status) {
 
                     blockUI.stop();
                 });
         }
     }
-}());(function () {
+}());
+(function () {
     'use strict';
 
     angular
@@ -2660,7 +2768,7 @@
         refreshJudgeArtWorks();
         function refreshJudgeArtWorks() {
             blockUI.start("Loading..."); 
-
+debugger;
             var k = JudgeArtWorkResource.getJudgeArtWorks({ id: $scope.user.id }, null).$promise.then(function (results) {
 
                                $scope.JudgeArtWorkList = results;
@@ -2940,13 +3048,113 @@
 
     angular
         .module('home')
+        .controller('viewJudgeArtWorkController', ['ArtWorkMediaByArtWorkIdPrepService', '$scope', 'blockUI', '$stateParams', '$uibModal', '$state', 'appCONSTANTS', '$translate',
+            'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', viewJudgeArtWorkController
+        ])
+
+    function viewJudgeArtWorkController(ArtWorkMediaByArtWorkIdPrepService, $scope, blockUI, $stateParams, $uibModal, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
+        ToastService, ArtWorkByIdPrepService) {
+        var vm = this;
+        vm.JudgeArtWork = ArtWorkByIdPrepService;
+        vm.artWorkMedia = ArtWorkMediaByArtWorkIdPrepService;
+        vm.votingCriteriaList = [];
+        console.log('sdsd', vm.JudgeArtWork);
+        refreshVotingCriterias();
+        vm.Close = function () {
+            $state.go('JudgeArtWork');
+        }
+        vm.changeValue = function (value, index) {
+            debugger;
+            vm.votingCriteriaList[index].value = value;
+
+        }
+        vm.UpdateJudgeArtWork = function (judgeComplete) {
+            blockUI.start("Loading...");
+
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.Id = vm.JudgeArtWork.id;
+            updateObj.ArtWorkId = vm.JudgeArtWork.id;
+            updateObj.JudgeId = $scope.user.id;
+            updateObj.CriteriaValues = vm.votingCriteriaList;
+            updateObj.JudgeComplete = judgeComplete;
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    blockUI.stop();
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+        function refreshVotingCriterias() {
+            var k = JudgeArtWorkResource.getJudgeVoteCriteriaValues({ id: $stateParams.id }).$promise.then(function (results) {
+                vm.votingCriteriaList = results;
+                console.log(vm.votingCriteriaList);
+                vm.totalCount = results.length;
+                blockUI.stop();
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
+
+        function confirmationMessage() {
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.Id = vm.JudgeArtWork.id;
+            updateObj.ArtWorkId = vm.JudgeArtWork.id;
+            updateObj.JudgeId = $scope.user.id;
+            updateObj.CriteriaValues = vm.votingCriteriaList;
+            updateObj.JudgeComplete = true;
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    blockUI.stop();
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.openMessageDialog = function () {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/ConfirmationMessage/templates/ConfirmMessageDialog.html',
+                controller: 'confirmMessageDialogController',
+                controllerAs: 'messageDlCtrl',
+                resolve: {
+                    callBackFunction: function () { return confirmationMessage }
+                }
+
+            });
+        }
+        vm.slider = {
+            minValue: 10,
+            maxValue: 90,
+            options: {
+                floor: 0,
+                ceil: 100,
+                step: 10,
+                showTicks: true,
+
+                         }
+        };
+    }
+}());(function () {
+    'use strict';
+
+    angular
+        .module('home')
         .controller('NewsController', ['appCONSTANTS', '$scope', '$translate', 'NewsResource', 'blockUI', '$uibModal',
             'ToastService', NewsController]);
 
 
     function NewsController(appCONSTANTS, $scope, $translate, NewsResource, blockUI, $uibModal, ToastService) {
 
-              $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
 
         var vm = this;
@@ -2967,9 +3175,8 @@
 
             },
                 function (data, status) {
-                debugger;
-                blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+                    debugger;
+                    blockUI.stop();
                 });
         }
         function change(news, isDeleted) {
@@ -3135,7 +3342,7 @@
             var newObj = new NewsResource();
             newObj.Title = vm.titleDictionary;
             newObj.Body = vm.bodyDictionary; 
-            newObj.Poster = splitImage[1];
+            newObj.PosterByte = splitImage[1];
             newObj.PosterFileName = posterImage.type;
             newObj.$create().then(
                 function (data, status) {
@@ -3213,7 +3420,7 @@
         var posterImage;
         vm.language = appCONSTANTS.supportedLanguage;
         vm.News = NewsByIdPrepService;
-        vm.posterImage= vm.News.posterUrl;
+        vm.posterImage = vm.News.posterUrl;
         console.log(vm.News);
 
         vm.Close = function () {
@@ -3228,9 +3435,9 @@
             updateObj.Id = vm.News.id;
             updateObj.title = vm.News.title;
             updateObj.body = vm.News.body;
-            if ( posterImage != null) {
+            if (posterImage != null) {
 
-                updateObj.Poster = splitImage[1];
+                updateObj.PosterByte = splitImage[1];
                 updateObj.PosterFileName = posterImage.type;
             }
             updateObj.$update().then(
@@ -3307,7 +3514,7 @@
 
     function mediaItemController(appCONSTANTS, $scope, $translate, PhotoAlbumResource, blockUI, $uibModal, ToastService, $stateParams) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[7].children[0]).addClass("active")
         var vm = this;
         vm.currentPage = 1;
         vm.appCONSTANTS = appCONSTANTS;
@@ -4058,33 +4265,27 @@
     angular
         .module('home')
         .controller('editRoleDialogController', ['blockUI', '$filter', '$state',
-            '$stateParams', '$translate', 'RoleResource', 'PermissionPrepService', 'ModulePrepService', 'ToastService',
+            '$stateParams', '$translate', 'RoleResource', 'ToastService',
             'RoleByIdPrepService', editRoleDialogController])
 
-    function editRoleDialogController(blockUI, $filter, $state, $stateParams, $translate, RoleResource,
-        PermissionPrepService, ModulePrepService, ToastService, RoleByIdPrepService) {
+    function editRoleDialogController(blockUI, $filter, $state, $stateParams, $translate, RoleResource, ToastService, RoleByIdPrepService) {
         var vm = this;
 
-        vm.permissionList = PermissionPrepService;
-        vm.moduleList = ModulePrepService;
         console.log(vm.permissionList);
         vm.name = $stateParams.name;
         vm.rolePermissions = RoleByIdPrepService;
         vm.selectedPermissions = [];
         vm.newSelectedPermissions = [];
         vm.removedSelectedPermissions = [];
+        vm.currentPage = 1;
+        permissionList();
 
-        var i;
-        for (i = 0; i < vm.rolePermissions.length; i++) {
-            var indexPerm = vm.permissionList.indexOf($filter('filter')(vm.permissionList, { 'id': vm.rolePermissions[i].id }, true)[0]);
-            vm.selectedPermissions.push(vm.permissionList[indexPerm]);
-        }
         vm.UpdateRole = function () {
 
             blockUI.start("Loading...");
             console.log(vm.rolePermissions);
             var updateObj = new RoleResource();
-            updateObj.roleId = vm.rolePermissions.userGroupId;
+            updateObj.roleId = vm.rolePermissions.objGroupId;
             updateObj.roles = vm.selectedPermissions;
             updateObj.titles = vm.rolePermissions.titles;
             updateObj.$update().then(
@@ -4112,29 +4313,13 @@
             }
         }
         vm.changePermissionList = function (name) {
-
-
-                                 refreshPermissions(name);
-        }
-
-
-        function refreshPermissions(name) {
-            blockUI.start("Loading..."); 
-            var k = RoleResource.getAllPermissionsByModule({ moduleName: name }).$promise.then(function (results) {
-
-                 vm.newSelectedPermissions = results;
-                console.log(vm.userList);
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
+            refreshPermissions(name);
         }
 
         vm.ChangeSelectedModule = function () {
             angular.forEach(vm.selectedModule, function (value, key) {
                 angular.forEach(value.permessions, function (valuePermission, key1) {
+                    debugger;
                     if (vm.selectedModuleList != 0) {
                         if (!vm.selectedModuleList.includes(valuePermission)) {
                             vm.selectedModuleList.push(valuePermission);
@@ -4147,6 +4332,66 @@
                 });
             });
 
+        }
+
+        vm.selectPermission = function (obj) {
+            debugger;
+            const objPermission = this.selectedPermission.find(b => b.id == obj.id)
+            if (obj.isSelected && objPermission == null) {
+                this.selectedPermission.push(obj);
+            } else {
+                this.selectedPermission.splice(this.selectedPermission.indexOf(obj), 1);
+                this.RemoveLevel1Judges.push(obj);
+            }
+        }
+        vm.selectAllPermission = function (isselectAllJudgeLevel1) {
+            this.selectedPermission = [];
+            this.RemoveLevel1Judges = [];
+            this.newSelectedPermissions.map(x => x.isSelected = isselectAllJudgeLevel1);
+            if (isselectAllJudgeLevel1) {
+                this.selectedPermission.push(...this.newSelectedPermissions);
+            } else {
+                this.RemoveLevel1Judges.push(...this.newSelectedPermissions);
+            }
+        }
+
+
+        function refreshPermissions(name) {
+            blockUI.start("Loading...");
+            var k = RoleResource.getAllPermissionsByModule({ moduleName: name }).$promise.then(function (results) {
+                debugger;
+                if (vm.newSelectedPermissions.length != 0)
+                    vm.newSelectedPermissions.push(results);
+                else
+                    vm.newSelectedPermissions = results;
+
+                console.log(vm.objList);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+        function permissionList() {  
+            blockUI.start("Loading...");
+            var k = RoleResource.getAllPermissions({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
+                vm.newSelectedPermissions = results.items;
+                vm.totalCount = results.metadata.totalItemCount;
+
+                console.log(vm.objList);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            permissionList();
         }
         vm.Close = function () {
             $state.go('Role');
@@ -4257,7 +4502,7 @@
         return $resource(appCONSTANTS.API_URL + 'Role/CreateRole', {}, {
             getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/roles', useToken: true, isArray: true },
             getAllActivateRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/roles', useToken: true, isArray: true, params: { lang: '@lang' } },
-            getAllPermissions: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/permissions', isArray: true, useToken: true, params: { lang: '@lang' } },
+            getAllPermissions: { method: 'POST', url: appCONSTANTS.API_URL + 'admin/permissions', useToken: true, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             addPermissionToRole: { method: 'POST', url: appCONSTANTS.API_URL + 'admin/role/:roleName/permissions/:permissionId', useToken: true },
             removePermissionToRole: { method: 'DELETE', url: appCONSTANTS.API_URL + 'admin/role/:roleName/permissions/:permissionId', useToken: true },
@@ -4405,7 +4650,6 @@
                         reader.onload = function () {
                             var dataUrl = reader.result;
                             var base64 = dataUrl.split(",")[1];
-                            console.log("sending ", file.name, chunkIndex);
 
                             $scope.uploadChunkApi({ id: itemId, fileName: file.name, uploadId, chunkIndex, totalChunks, chunk: base64, eTags: etags })
                                 .then(
@@ -4502,7 +4746,6 @@
             reader.onload = function () {
                 var dataUrl = reader.result;
                 var base64 = dataUrl.split(",")[1];
-                console.log("sending ", file.name, chunkIndex);
 
                 $scope.uploadChunkApi({ id: itemId, fileName: file.name, uploadId, chunkIndex, totalChunks, chunk: base64, eTags: etags })
                     .then(
@@ -4593,7 +4836,6 @@
             },
                 function (data, status) {
                     blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
         }
         vm.showMore = function (element) {
@@ -4742,6 +4984,7 @@
             newObj.Name = vm.Name;
             newObj.Code = vm.Code; 
             newObj.Weight= vm.Weight;
+            newObj.Level= vm.selectedVotingLevel;
             newObj.$create().then(
                 function (data, status) {
                     blockUI.stop();
@@ -4769,13 +5012,15 @@
         ToastService, VotingCriteriaByIdPrepService) {
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
-        vm.VotingCriteria = VotingCriteriaByIdPrepService; 
+        vm.VotingCriteria = VotingCriteriaByIdPrepService;
+        debugger;
+        vm.selectedVotingLevel = vm.VotingCriteria.level;
         console.log(vm.VotingCriteria);
 
         vm.Close = function () {
             $state.go('VotingCriteria');
         }
-        vm.UpdateVotingCriteria = function () { 
+        vm.UpdateVotingCriteria = function () {
             blockUI.start("Loading...");
             debugger;
 
@@ -4783,7 +5028,8 @@
             updateObj.Id = vm.VotingCriteria.id;
             updateObj.name = vm.VotingCriteria.name;
             updateObj.Code = vm.VotingCriteria.code;
-            updateObj.Weight= vm.VotingCriteria.weight; 
+            updateObj.Weight = vm.VotingCriteria.weight;
+            updateObj.Level = vm.selectedVotingLevel;
             updateObj.$update().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
@@ -5946,7 +6192,7 @@
     function userController(blockUI, $translate, $state, UserResource, RoleResource, ToastService) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
 
         var vm = this;
         vm.currentTenantType = 0;

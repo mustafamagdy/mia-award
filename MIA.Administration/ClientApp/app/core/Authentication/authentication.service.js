@@ -33,7 +33,8 @@
     }
 
     function authenticaionFailed(res) {
-      ToastService.show("right", "bottom", "fadeInUp", res.data.title, "error");
+    debugger;
+      ToastService.show("right", "bottom", "fadeInUp", res.data.errorMessage, "error");
       // data.data = null;
       res.status = "-1";
       res.statusText = "";

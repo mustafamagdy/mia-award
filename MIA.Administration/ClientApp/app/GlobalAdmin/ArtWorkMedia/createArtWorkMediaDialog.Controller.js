@@ -58,7 +58,7 @@
             blockUI.start("Loading...");
             var newObj = new ArtWorkMediaResource();
             newObj.ArtWorkId = $stateParams.id;
-            newObj.Description = vm.title;
+            newObj.Description ="سيي";// vm.Description;
             newObj.$createMediaFile().then(
                 function (data, status) {
                     blockUI.stop();
@@ -76,8 +76,8 @@
             debugger
             var updateObj = new ArtWorkMediaResource();
             updateObj.Id = model.id;
-            updateObj.FileUrl = model.data.trailerUrl;
-            updateObj.FileKey = model.data.trailerId;
+            updateObj.FileUrl = model.data.FileUrl;
+            updateObj.FileKey = model.data.FileKey;
             updateObj.$UpdateMediaItemVideoUrl().then(
                 function (data, status) {
                     debugger;

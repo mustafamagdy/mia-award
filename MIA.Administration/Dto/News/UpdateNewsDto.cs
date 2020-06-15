@@ -7,14 +7,19 @@ namespace MIA.Administration.Api
 {
   public class UpdateNewsDto : IUpdateDto
   {
+    public UpdateNewsDto()
+    {
+      Poster = S3File.FromKeyAndUrl("", "");
+    }
     public string Id { get; set; }
     public LocalizedData Title { get; set; }
     public LocalizedData Body { get; set; }
-    public byte[] Poster { get; set; }
+    public byte[] PosterByte { get; set; }
     public string PosterFileName { get; set; }
 
     public long Date { get; set; }
     public bool Outdated { get; set; }
+    public S3File Poster  { get; set; }
   }
 
 }

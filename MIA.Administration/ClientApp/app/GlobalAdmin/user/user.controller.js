@@ -9,7 +9,7 @@
     function userController(blockUI, $translate, $state, UserResource, RoleResource, ToastService) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
 
         var vm = this;
         vm.currentTenantType = 0;

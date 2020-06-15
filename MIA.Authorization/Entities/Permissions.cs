@@ -41,7 +41,9 @@ namespace MIA.Authorization.Entities
     [PermissionDescriptor(SystemModules.Booths, "manage_payments", "Can read employees data")]
     BoothPayment,
 
-
+    //Judge
+    [PermissionDescriptor(SystemModules.Judge, "list_judge_artwork", "Can read employees data")]
+    JudgeArtworkList,
 
     //Client side dont move or change, add before this line
     [PermissionDescriptor(SystemModules.Nominee, "NomineePolicy", "Nominee policy to access all nominee sections")]

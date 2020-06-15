@@ -57,6 +57,9 @@ namespace MIA.Authorization {
       identity.AddClaim(new Claim("userModules", userModules));
       //identity.AddClaim(new Claim("userPermissions", JsonConvert.SerializeObject(roleGroupedPermissions)));
       identity.AddClaim(new Claim("userPermissions", JsonConvert.SerializeObject(rolePermissions)));
+      identity.AddClaim(new Claim("PermissionId", userModules));
+      identity.AddClaim(new Claim("PermessionModules", JsonConvert.SerializeObject(rolePermissions)));
+      
 
       var permCalc = new CalcAllowedPermissions(_extraAuthDbContext);
       var permissions = permCalc.CalcPermissionsForUserAsync(userId);

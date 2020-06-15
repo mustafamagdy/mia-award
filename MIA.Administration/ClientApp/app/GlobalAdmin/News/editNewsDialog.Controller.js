@@ -12,7 +12,7 @@
         var posterImage;
         vm.language = appCONSTANTS.supportedLanguage;
         vm.News = NewsByIdPrepService;
-        vm.posterImage= vm.News.posterUrl;
+        vm.posterImage = vm.News.posterUrl;
         console.log(vm.News);
 
         vm.Close = function () {
@@ -27,12 +27,12 @@
             updateObj.Id = vm.News.id;
             updateObj.title = vm.News.title;
             updateObj.body = vm.News.body;
-            if ( posterImage != null) {
+            if (posterImage != null) {
                 // updateObj.image = splitImage[1];
                 // updateObj.imageContentType = $rootScope.imageType;
                 // updateObj.Poster = $scope.file;
 
-                updateObj.Poster = splitImage[1];
+                updateObj.PosterByte = splitImage[1];
                 updateObj.PosterFileName = posterImage.type;
             }
             updateObj.$update().then(

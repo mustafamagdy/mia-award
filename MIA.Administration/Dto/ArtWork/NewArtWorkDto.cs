@@ -10,35 +10,46 @@ namespace MIA.Administration.Api
 {
   public class NewArtWorkDto
   {
-    public LocalizedData Title { get; set; }
-    public bool UploadComplete { get; set; }
+    public NewArtWorkDto()
+    {
+      Poster = S3File.FromKeyAndUrl("", "");
+      Trailer = S3File.FromKeyAndUrl("", "");
+      TrailerPoster = S3File.FromKeyAndUrl("", "");
+      Cover = S3File.FromKeyAndUrl("", "");
+    }
+    public LocalizedData ProjectName { get; set; }
+    public LocalizedData Description { get; set; }
     public AwardDto Award { get; set; }
     public string AwardId { get; set; }
     public NomineeDto Nominee { get; set; }
     public string NomineeId { get; set; }
     public ArtWorkPaymentDto Payment { get; set; }
-    public string PaymentId { get; set; }
-    //public int FileCount { get; set; }
+    public string PaymentId { get; set; } 
     public HashSet<MediaFileDto> MediaFiles { get; set; }
-    public HashSet<JudgeVoteDto> Votes { get; set; }
+    public HashSet<JudgeVoteDto> Votes { get; set; } 
+    public long PostedDate { get; set; }
+    public string SiteUrl { get; set; }
+    public int ProductionYear { get; set; }
+    public int BroadcastYear { get; set; }
+    public string TvChannels { get; set; }
+    public string OnlineChannels { get; set; }
+    public string ProductionLicenseNumber { get; set; }
+    public string ProductionLicenseAgency { get; set; }
+
+
     public string PosterFileName { get; set; }
-    public byte[] Poster { get; set; }
+    public byte[] PosterByte { get; set; }
+
     public string CoverFileName { get; set; }
-    public byte[] Cover { get; set; }
+    public byte[] CoverByte { get; set; }
 
     public string TrailerPosterFileName { get; set; }
-    public byte[] TrailerPoster { get; set; }
-    public long PostedDate { get; set; }
-    public string DateOfRelease { get; set; }
-    public string Country { get; set; }
-    public LocalizedData ShowDescription { get; set; }
-    public string Director { get; set; }
-    public string Production { get; set; }
-    public string Writers { get; set; }
-    public string Story { get; set; }
-    public string Stars { get; set; }
-    public string Crew { get; set; }
+    public byte[] TrailerPosterByte { get; set; }
 
+    public S3File Poster { get; set; }
+    public S3File Trailer { get; set; }
+    public S3File TrailerPoster { get; set; }
+    public S3File Cover { get; set; }
     public PaymentStatus PaymentStatus { get; set; }
     public byte[] Receipt { get; set; }
     public string ReceiptFileName { get; set; }
@@ -46,6 +57,7 @@ namespace MIA.Administration.Api
     public string TransactionNumber { get; set; }
     public decimal Amount { get; set; }
     public long PaymentDate { get; set; }
+    public bool IsArtwork { get; set; }
   }
 
 }

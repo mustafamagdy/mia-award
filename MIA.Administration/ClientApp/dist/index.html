@@ -487,20 +487,15 @@
                     <img src="./assets/img/iOrdrat.png" style="width: 72px;" id="logo" data-height-percentage="84"
                         data-actual-height="198" />
                 </a>
-
-
             </div>
-
             <div class="navbar-header">
                 <div class="row">
-
-
                     <!-- Notifications -->
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 dropdown notification icons pmd-dropdown">
+                    <div class="form-group col-lg-4 language-direciton"  class="language-direciton">
                         <div style="padding-top:10px;">
                             <div class="input-field">
-                                <select class="select-simple form-control" style="color:#6c7293!important;"
-                                    ng-model="selectedLanguage" ng-change="changeLanguage(selectedLanguage)">
+                                <select class="select-simple form-control" ng-model="selectedLanguage"
+                                    ng-change="changeLanguage(selectedLanguage)">
                                     <option ng-selected="selectedLanguage == item.id" style="color:#6c7293 !important;"
                                         ng-repeat="item in languages" ng-value="item.id">{{item.label | translate}}
                                     </option>
@@ -585,7 +580,7 @@
                         <img ng-src="./assets/img/admin.png" style="border-radius: 50%;">
                     </div>
                     <div class="media-body media-middle" ng-cloak style="color: #a38031;">
-                        {{user.name}}
+                        {{user.FullName}}
                         <div style="font-size: 12px">
                             <span ng-if="user.userTypeId == 4">{{'Tech' | translate}}</span>
                         </div>
@@ -690,7 +685,7 @@
                             </g>
                         </svg>
                     </i>
-                    <span class="media-body" style="color: #a38031;">{{'ArtWorkLbl' | translate}}</span>
+                    <span class="media-body" style="color: #a38031;">{{'ArtWork' | translate}}</span>
                 </a>
             </li>
 
@@ -710,7 +705,7 @@
                             </g>
                         </svg>
                     </i>
-                    <span class="media-body" style="color: #a38031;">{{'AwardLbl' | translate}}</span>
+                    <span class="media-body" style="color: #a38031;">{{'Award' | translate}}</span>
                 </a>
             </li>
             <li ng-show="user.PermissionId.includes('News') ">
@@ -729,7 +724,7 @@
                             </g>
                         </svg>
                     </i>
-                    <span class="media-body" style="color: #a38031;">{{'VotingCriteriaLbl' | translate}}</span>
+                    <span class="media-body" style="color: #a38031;">{{'VotingCriteria' | translate}}</span>
                 </a>
             </li>
             <li ng-show="user.PermissionId.includes('News') ">
@@ -747,11 +742,11 @@
                             </g>
                         </svg>
                     </i>
-                    <span class="media-body" style="color: #a38031;">{{'PhotoAlbumLbl' | translate}}</span>
+                    <span class="media-body" style="color: #a38031;">{{'PhotoAlbum' | translate}}</span>
                 </a>
             </li>
 
-            <li ng-show="user.PermissionId.includes('Dashboard') ">
+            <li ng-show="user.PermissionId.includes('Judge') ">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('JudgeArtWork');">
                     <i class="media-left media-middle">
@@ -899,6 +894,8 @@
     </script>
 
     <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
+
+
 </body>
 
 </html>

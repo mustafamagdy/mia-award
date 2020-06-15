@@ -18,8 +18,8 @@
                             <img style="width: 70px;height: 70px;" data-ng-src="{{JudgeArtWork.posterUrl}}" />
                         </td>
                         <td style="width: 60%;">
-                            {{JudgeArtWork.title[selectedLanguage]   | limitTo : 50}}
-                            {{JudgeArtWork.title[selectedLanguage].length > 50 ? '...' : ''}}
+                            {{JudgeArtWork.projectName[selectedLanguage]   | limitTo : 50}}
+                            {{JudgeArtWork.projectName[selectedLanguage].length > 50 ? '...' : ''}}
                         </td>
                         <td style="width: 10%;">
                             <i class="material-icons md-dark pmd-md cursorPointer font25"
@@ -37,4 +37,5 @@
         paging-action="JudgeArtWorkCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
         hide-if-empty="true" disabled-class="hide">
     </div>
+
 </div>

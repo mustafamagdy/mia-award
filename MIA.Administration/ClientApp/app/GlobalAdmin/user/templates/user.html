@@ -1,18 +1,19 @@
- 
 <div>
     <div class="row">
         <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
 
             <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
-            border-radius: 17px;" ng-click="$state.go('addUser');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+            border-radius: 17px;" ng-click="$state.go('addUser');"
+                class="btn pmd-ripple-effect btn-primary pmd-z-depth"
                 type="button">{{'AddUserBtn' | translate}}</button>
 
         </div>
         <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
 
             <div class="form-group col-lg-4"> <label for="first-name">{{'Role' | translate}}</label>
-                <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags"
-                    ng-model="userCtrl.selectedRole" ng-change="userCtrl.changeUserType()"
+                <select required style="width:100% !important;color:#6c7293!important;"
+                    class="form-control select-with-search pmd-select2-tags" ng-model="userCtrl.selectedRole"
+                    ng-change="userCtrl.changeUserType()"
                     ng-options="group as group.name  for group in userCtrl.roleList">
                 </select>
             </div>
@@ -61,3 +62,16 @@
         hide-if-empty="true" disabled-class="hide">
     </div>
 </div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-with-search").select2({
+            theme: "bootstrap"
+        });
+    });
+    $(".select-tags").select2({
+        tags: false,
+        theme: "bootstrap",
+    });
+</script>

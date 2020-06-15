@@ -21,6 +21,7 @@
             newObj.Name = vm.Name;
             newObj.Code = vm.Code; 
             newObj.Weight= vm.Weight;
+            newObj.Level= vm.selectedVotingLevel;
             newObj.$create().then(
                 function (data, status) {
                     blockUI.stop();

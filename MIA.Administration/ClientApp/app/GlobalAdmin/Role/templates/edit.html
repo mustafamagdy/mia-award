@@ -55,33 +55,49 @@
 
             </div>
             <div class="row">
-                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
+                <div class="col-md-8  form-group pmd-textfield pmd-textfield-floating-label-completed">
                     <div ng-if="editRoleCtrl.newSelectedPermissions.length == 0">
                         <span>{{'NoRolesAvailable' | translate}}</span>
                     </div>
-                    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="editRoleCtrl.newSelectedPermissions.length > 0">
-                        <div class="table-responsive" >
+
+                    <div class="pmd-card pmd-z-depth pmd-card-custom-view"
+                        ng-if="editRoleCtrl.newSelectedPermissions.length > 0">
+                        <div class="table-responsive">
                             <table class="table pmd-table table-hover">
                                 <thead>
                                     <tr>
-                                        <th style="width: 50%">{{'Name' | translate}}</th>
-                                        <!-- <th>{{'Status' | translate}}</th> -->
-                                        <th></th>
+                                        <th style="width:1%">
+                                            <input type="checkbox"
+                                                ng-checked="editRoleCtrl.selectedPermission.length == editRoleCtrl.newSelectedPermissions.length"
+                                                value="editRoleCtrl.selectedPermission.length == editRoleCtrl.newSelectedPermissions.length"
+                                                ng-click="editRoleCtrl.selectAllPermission($event.target.checked)"
+                                                id="selectAllPermission">
+                                        </th>
+                                        <th style="width: 30%">{{'Name' | translate}}</th>
+                                        <th style="width: 20%">{{'Module' | translate}}</th>
+                                        <th style="width: 50%">{{'Description' | translate}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="perm in editRoleCtrl.newSelectedPermissions">
-                                        <td>{{perm.name}}</td> 
-                 
+                                        <td> <input type="checkbox" id="perm-{{perm.id}}" value="perm" name="perm"
+                                                ng-change="editRoleCtrl.selectPermission(perm)"
+                                                ng-model="perm.isSelected" id="perm.id"></td>
+
+                                        <td>{{perm.name}}</td>
+                                        <td>{{perm.systemModule}}</td>
+                                        <td>{{perm.description}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                  
                     <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
-                        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
-                        disabled-class="hide">
+                        paging-action="editRoleCtrl.changePage(page)" flex="nogrow" show-prev-next="true"
+                        show-first-last="true" hide-if-empty="true" disabled-class="hide">
                     </div>
+                    
                 </div>
             </div>
         </form>

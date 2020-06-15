@@ -17,7 +17,7 @@
         "ncy-angular-breadcrumb",
         "angular-jwt",
         "rzSlider",
-        "datatables"
+        // "datatables"
         // "jwt-decode"
         // 'base64',
     ]);
