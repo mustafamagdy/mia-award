@@ -1,0 +1,11 @@
+{
+  "no_trailer_yet": {
+    "defaults": "No trailer uploaded yet",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/Trailer.js",
+        11
+      ]
+    ]
+  }
+}

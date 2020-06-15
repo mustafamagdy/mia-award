@@ -66,6 +66,13 @@ const Register = ({
               })}
             >
               <div className="fields">
+                <div className="avatar">
+                  <div className="imgthumb">
+                    <img src="/assets/images/user_avatar.png" alt="" />
+                    <span>Upload</span>
+                    <input name="avatar" ref={register} type="file" />
+                  </div>
+                </div>
                 <Field
                   type="text"
                   placeholder="email"
@@ -124,13 +131,6 @@ const Register = ({
                 />
                 <div className="next_step">
                   <span onClick={() => setSignupActiveTab(1)}>Next</span>
-                </div>
-              </div>
-              <div className="avatar">
-                <div className="imgthumb">
-                  <img src="/assets/images/user_avatar.png" alt="" />
-                  <span>Upload</span>
-                  <input name="avatar" ref={register} type="file" />
                 </div>
               </div>
             </div>

@@ -32,7 +32,7 @@ const TrailerView = ({ url, coverUrl, ...props }) => {
           className="react-player"
           width="100%"
           height="100%"
-          light={encodeURI(coverUrl)}
+          light={coverUrl}
         />
       </div>
     </div>

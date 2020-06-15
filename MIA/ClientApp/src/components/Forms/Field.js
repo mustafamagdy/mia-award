@@ -20,6 +20,7 @@ const FormField = ({
   isCheckbox,
   isFile,
   isTextArea,
+  children,
   ...props
 }) => {
   const isOtherTypes = isCheckbox || isFile;
@@ -29,12 +30,27 @@ const FormField = ({
       {({ i18n }) =>
         isOtherTypes === true ? (
           isCheckbox ? (
-            <label className="form-group__label col-6 col-md-6 col-sm-12">
-              <Field name={name} {...props} type="checkbox" />
-              <Trans id={transId}> {transdDefaultVal} </Trans>
-            </label>
+            <div className="form-group">
+              <label className="form-group__checkbox">
+                <Field name={name} {...props} type="checkbox" />
+                <Trans id={transId}> {transdDefaultVal} </Trans>
+                {children && (
+                  <label style={{ margin: "auto" }}>{children}</label>
+                )}
+              </label>
+            </div>
           ) : isFile ? (
-            <Field component={FieldFileUpload} name={name} {...props} />
+            <div className="form-group">
+              <label className="form-group__label col-6 col-md-6 col-sm-12">
+                <Trans id={transId}> {transdDefaultVal} </Trans>
+              </label>
+              <Field
+                component={FieldFileUpload}
+                name={name}
+                {...props}
+                hasError={hasError}
+              />
+            </div>
           ) : undefined
         ) : (
           <div className="form-group">

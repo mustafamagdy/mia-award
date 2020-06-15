@@ -56,7 +56,7 @@ const Files = ({
                     <File
                       projectName={projectName}
                       posterUrl={posterUrl}
-                      coverUrl={coverUrl}
+                      coverUrl={encodeURI(coverUrl)}
                       file={file}
                       key={i}
                       itemClicked={(f) => {
@@ -111,7 +111,9 @@ export const File = ({
         >
           <div className="imgthumb">
             <img
-              src={coverUrl == "" ? "/assets/images/logo.png" : coverUrl}
+              src={
+                posterUrl == "" ? "/assets/images/logo.png" : encodeURI(posterUrl)
+              }
               alt={projectName[locale.code]}
             />
             <div className="mask">

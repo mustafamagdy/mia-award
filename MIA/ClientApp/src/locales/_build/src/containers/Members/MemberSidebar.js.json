@@ -1,0 +1,29 @@
+{
+  "member_home": {
+    "defaults": "Member Home",
+    "origin": [
+      [
+        "src/containers/Members/MemberSidebar.js",
+        29
+      ]
+    ]
+  },
+  "profile": {
+    "defaults": "Profile",
+    "origin": [
+      [
+        "src/containers/Members/MemberSidebar.js",
+        35
+      ]
+    ]
+  },
+  "logout": {
+    "defaults": "Logout",
+    "origin": [
+      [
+        "src/containers/Members/MemberSidebar.js",
+        43
+      ]
+    ]
+  }
+}

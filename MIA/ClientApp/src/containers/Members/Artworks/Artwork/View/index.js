@@ -56,10 +56,10 @@ const ViewArtwork = ({
   return (
     <React.Fragment>
       <div className="upload_poster" style={artworkPosterStyle}>
-        {artwork && artwork.coverImageUrl && (
+        {artwork && artwork.coverUrl && (
           <div className="upload_area">
             <img
-              src={artwork.coverImageUrl}
+              src={artwork.coverUrl}
               style={{ objectFit: "cover" }}
               alt="Cover"
             />
@@ -106,7 +106,7 @@ const ViewArtwork = ({
                 <Trailer
                   active={activeTabKey == "trailer"}
                   url={artwork?.trailerUrl}
-                  coverUrl={artwork?.coverImageUrl}
+                  coverUrl={encodeURI(artwork?.coverUrl)}
                   key="trailer"
                 />
                 <Files
@@ -114,7 +114,7 @@ const ViewArtwork = ({
                   projectName={artwork?.projectName}
                   files={artwork?.files}
                   posterUrl={artwork?.posterUrl}
-                  coverUrl={artwork?.coverImageUrl}
+                  coverUrl={encodeURI(artwork?.coverUrl)}
                   key="files"
                 />
               </>
@@ -172,7 +172,7 @@ const Info = ({
           </li>
           <li>
             <span>
-              <Trans id="siteUrl">Site URL</Trans> :
+              <Trans id="siteUrl">Site Url</Trans> :
             </span>
             <p>{siteUrl}</p>
           </li>

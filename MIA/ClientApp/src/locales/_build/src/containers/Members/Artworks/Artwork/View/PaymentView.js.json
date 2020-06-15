@@ -4,7 +4,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/PaymentView.js",
-        11
+        13
       ]
     ]
   },
@@ -13,7 +13,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/PaymentView.js",
-        17
+        19
       ]
     ]
   },
@@ -22,7 +22,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/PaymentView.js",
-        23
+        25
       ]
     ]
   }

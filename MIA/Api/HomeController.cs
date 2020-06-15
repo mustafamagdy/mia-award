@@ -198,8 +198,10 @@ namespace MIA.Api {
 
       var boothPurchase = _mapper.Map<BoothPurchase>(dto);
       boothPurchase.BoothId = booth.Id;
-      var companyLogoFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Docs, boothPurchase.Id, $"{boothPurchase.Id}_companyLogo." + dto.CompanyLogoFileExt);
-      boothPurchase.CompanyLogo = S3File.FromKeyAndUrl(companyLogoFileKey, await fileManager.UploadFileAsync(dto.CompanyLogo, companyLogoFileKey));
+      if (dto.CompanyLogo != null && dto.CompanyLogoFileExt != null) {
+        var companyLogoFileKey = fileManager.GenerateFileKeyForResource(ResourceType.BoothPayment, boothPurchase.Id, $"{boothPurchase.Id}_companyLogo." + dto.CompanyLogoFileExt);
+        boothPurchase.CompanyLogo = S3File.FromKeyAndUrl(companyLogoFileKey, await fileManager.UploadFileAsync(dto.CompanyLogo, companyLogoFileKey));
+      }
 
       await db.BoothPurchases.AddAsync(boothPurchase);
 
@@ -221,7 +223,7 @@ namespace MIA.Api {
 
       await db.BoothPayments.AddAsync(payment);
 
-      var receiptFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Docs, payment.Id, $"{payment.Id}_receipt." + dto.Payment.ReceiptFileName);
+      var receiptFileKey = fileManager.GenerateFileKeyForResource(ResourceType.BoothPayment, payment.Id, $"{payment.Id}_receipt" + dto.Payment.ReceiptFileName.GetFileExt());
       payment.Receipt = S3File.FromKeyAndUrl(receiptFileKey, await fileManager.UploadFileAsync(dto.Payment.Receipt, receiptFileKey));
 
       return payment;

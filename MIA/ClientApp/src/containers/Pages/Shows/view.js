@@ -70,13 +70,13 @@ const ShowsView = ({
                 <ul>
                   <li>
                     <span>
-                      <Trans id="production_year"> Production year </Trans>:
+                      <Trans id="production_year"> Production Year </Trans>:
                     </span>
                     <p>{show.productionYear}</p>
                   </li>
                   <li>
                     <span>
-                      <Trans id="broadcast_year"> Broadcast year </Trans>:
+                      <Trans id="broadcast_year"> Broadcast Year </Trans>:
                     </span>
                     <p>{show.broadcastYear}</p>
                   </li>
@@ -99,7 +99,7 @@ const ShowsView = ({
               <LanguageContext.Consumer>
                 {({ locale }) => (
                   <img
-                    src={show.coverUrl}
+                    src={encodeURI(show.coverUrl)}
                     alt={show.projectName[locale.code]}
                   />
                 )}

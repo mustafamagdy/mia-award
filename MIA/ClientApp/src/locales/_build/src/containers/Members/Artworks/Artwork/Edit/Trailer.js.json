@@ -1,0 +1,47 @@
+{
+  "change_trailer": {
+    "defaults": "Change trailer",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/Edit/Trailer.js",
+        67
+      ]
+    ]
+  },
+  "trailer": {
+    "defaults": "Trailer",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/Edit/Trailer.js",
+        99
+      ]
+    ]
+  },
+  "cover": {
+    "defaults": "Cover",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/Edit/Trailer.js",
+        141
+      ]
+    ]
+  },
+  "poster": {
+    "defaults": "Poster",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/Edit/Trailer.js",
+        183
+      ]
+    ]
+  },
+  "finish_and_reload": {
+    "defaults": "Finish & Reload",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/Edit/Trailer.js",
+        208
+      ]
+    ]
+  }
+}

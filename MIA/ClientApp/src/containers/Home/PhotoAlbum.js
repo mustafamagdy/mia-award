@@ -10,44 +10,7 @@ import Swiper from "react-id-swiper";
 import "swiper/css/swiper.css";
 
 const PhotoAlbum = ({ fetchMainAlbum, mainAlbum, ...props }) => {
-  const [allItems, setAllItems] = useState([
-    // {
-    //   id: "1",
-    //   title: "Dubai Opera",
-    //   url: "/assets/images/video_image2.png",
-    //   posterUrl: "/assets/images/video_image2.png"
-    // },
-    // {
-    //   id: "2",
-    //   title: "Medan Hotel",
-    //   url: "/assets/images/video_image.png",
-    //   posterUrl: "/assets/images/video_image.png"
-    // },
-    // {
-    //   id: "3",
-    //   title: "Another Hotel",
-    //   url: "/assets/images/video_image2.png",
-    //   posterUrl: "/assets/images/video_image2.png"
-    // },
-    // {
-    //   id: "4",
-    //   title: "Place With Name",
-    //   url: "/assets/images/video_image.png",
-    //   posterUrl: "/assets/images/video_image.png"
-    // },
-    // {
-    //   id: "5",
-    //   title: "The Big Hotel",
-    //   url: "/assets/images/video_image2.png",
-    //   posterUrl: "/assets/images/video_image2.png"
-    // },
-    // {
-    //   id: "6",
-    //   title: "Event",
-    //   url: "/assets/images/video_image.png",
-    //   posterUrl: "/assets/images/video_image.png"
-    // }
-  ]);
+  const [allItems, setAllItems] = useState([]);
   const [activeIndex, setActiveIndex] = useState(1);
   const [sliderItems, setSliderItems] = useState(allItems);
   const [currentItem, setCurrentItem] = useState(undefined);
@@ -57,13 +20,17 @@ const PhotoAlbum = ({ fetchMainAlbum, mainAlbum, ...props }) => {
     spaceBetween: 0,
     speed: 1000,
     loop: true,
-    getSwiper: swiper => {
+    getSwiper: (swiper) => {
       setSwiper(swiper);
-    }
+    },
   };
 
   useEffect(() => {
-    if (mainAlbum != undefined && mainAlbum.items && mainAlbum.items.length > 0) {
+    if (
+      mainAlbum != undefined &&
+      mainAlbum.items &&
+      mainAlbum.items.length > 0
+    ) {
       setAllItems(mainAlbum.items);
       setSliderItems(mainAlbum.items);
     } else {
@@ -88,7 +55,7 @@ const PhotoAlbum = ({ fetchMainAlbum, mainAlbum, ...props }) => {
       setTimeout(() => {
         setIsAnimate(false);
         let _a = activeIndex;
-        if (_a < 1) _a = sliderItems.length - 1;
+        if (_a <= 1) _a = sliderItems.length - 1;
         else _a = _a - 1;
         setActiveIndex(_a);
         if (_a === 0) {
@@ -127,8 +94,14 @@ const PhotoAlbum = ({ fetchMainAlbum, mainAlbum, ...props }) => {
         <div className="big_show">
           <div className="imgthumb">
             <Swiper {...paramsBig}>
-              {allItems.map(item => (
-                <img key={item.id} src={item.mediaType == "image" ? item.fileUrl : item.posterUrl} />
+              {allItems.map((item) => (
+                <img
+                  key={item.id}
+                  src={
+                    item.mediaType == "image" ? item.fileUrl : item.posterUrl
+                  }
+                  alt=""
+                />
               ))}
             </Swiper>
           </div>
@@ -163,16 +136,22 @@ const PhotoAlbum = ({ fetchMainAlbum, mainAlbum, ...props }) => {
                       const _title = s.title[locale.code];
                       const currentItemTitlePart1 = _title.split(" ")[0];
                       const currentItemTitlePart2 = _title.split(" ").pop();
-                      
+
                       return (
                         <span>
-                          {currentItemTitlePart1 && <i>{currentItemTitlePart1}</i>} {currentItemTitlePart2 && currentItemTitlePart2}
+                          {currentItemTitlePart1 && (
+                            <i>{currentItemTitlePart1}</i>
+                          )}{" "}
+                          {currentItemTitlePart2 && currentItemTitlePart2}
                         </span>
                       );
                     }}
                   </LanguageContext.Consumer>
                   <div className="imgthumb">
-                    <img src={s.mediaType == "image" ? s.fileUrl : s.posterUrl} />
+                    <img
+                      src={s.mediaType == "image" ? s.fileUrl : s.posterUrl}
+                      alt=""
+                    />
                   </div>
                 </div>
               );
@@ -193,5 +172,6 @@ const PhotoAlbum = ({ fetchMainAlbum, mainAlbum, ...props }) => {
 };
 
 const mapStateToProps = ({ home: { mainAlbum } }) => ({ mainAlbum });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...homeActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(PhotoAlbum);

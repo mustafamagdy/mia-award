@@ -10,6 +10,7 @@ import Tickets from "./Tickets";
 import Intro from "./IntroSlider";
 import PhotoAlbum from "./PhotoAlbum";
 import RecentShows from "./RecentShows";
+import config from "config";
 
 class HomePage extends React.Component {
   render() {
@@ -20,7 +21,7 @@ class HomePage extends React.Component {
           <AwardsSlider />
           <PhotoAlbum />
           <RecentShows />
-          <Tickets />
+          {config.tickets_enabled && <Tickets />}
           <News />
           <Partners />
         </section>
@@ -28,5 +29,6 @@ class HomePage extends React.Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => bindActionCreators({ ...globalActions }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...globalActions }, dispatch);
 export default connect(null, mapDispatchToProps)(HomePage);
