@@ -164,6 +164,8 @@ namespace MIA.Api {
       artwork.Payment = await SaveUserPaymentAsync(fileManager, db, award, artwork.Id, dto);
       artwork.Poster = (await SaveArtworkPoster(fileManager, artwork.Id, dto)) ?? S3File.FromKeyAndUrl("", "");
       artwork.Cover = (await SaveArtworkCoverImage(fileManager, artwork.Id, dto)) ?? S3File.FromKeyAndUrl("", "");
+      //todo
+      artwork.Resume = S3File.FromKeyAndUrl("", "");
 
       return Ok(_mapper.Map<ArtworkViewWithFilesDto>(artwork));
     }
