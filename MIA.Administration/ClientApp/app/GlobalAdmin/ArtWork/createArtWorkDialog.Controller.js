@@ -133,8 +133,8 @@
             debugger
             var updateObj = new ArtWorkResource();
             updateObj.Id = model.id;
-            updateObj.FileUrl = model.data.trailerUrl;
-            updateObj.FileKey = model.data.trailerId;
+            updateObj.FileUrl = model.data.trailer.fileUrl;
+            updateObj.FileKey = model.data.trailer.fileKey;
             updateObj.$UpdateTrailerVideoUrl().then(
                 function (data, status) {
                     debugger;

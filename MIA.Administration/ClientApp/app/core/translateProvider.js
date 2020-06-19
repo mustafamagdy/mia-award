@@ -342,6 +342,9 @@
         "Award": "Award",
         "VotingCriteria": "Voting Criteria",
         "PhotoAlbum": "Photo Album",
+        "DisplayEposides": "Display Eposides",
+        "StartJudge": "Start judging",
+        "JudgeArtWorkLbl": "Judging ArtWork",
 
       }
       var ar_translations = {
@@ -686,7 +689,9 @@
         "Award": "الجوائز",
         "VotingCriteria": "معايير التصويت",
         "PhotoAlbum": "إلبوم الصور",
-
+        "DisplayEposides": "عرض الحلقات",
+        "StartJudge": "إبدأ التحكيم",
+        "JudgeArtWorkLbl": "القاضي الفني",
       }
       $translateProvider.translations('en', en_translations);
 

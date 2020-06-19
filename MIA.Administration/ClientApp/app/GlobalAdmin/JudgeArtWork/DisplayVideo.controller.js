@@ -63,7 +63,45 @@
         vm.currentPage = 1;
         vm.appCONSTANTS = appCONSTANTS;
         vm.mediaFile = MediaFileByIdPrepService;
-        console.log('viedo', MediaFileByIdPrepService);
+        console.log('viedo', vm.mediaFile);
+        refreshComments();
+        vm.Close = function () {
+            $state.go('JudgeArtWork');
+        }
+        vm.submitComment = function () {
+            blockUI.start("Loading...");
+
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.MediaFileId = vm.mediaFile.id;
+            updateObj.JudgeId = $scope.user.id;
+            updateObj.MediaTime = vm.time;
+            updateObj.Comments = vm.comment;
+            updateObj.$postComment().then(
+                function (data, status) {
+                    refreshComments();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    blockUI.stop();
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+
+        function refreshComments() {
+            var k = JudgeArtWorkResource.getCommetsListByMedia({ id: vm.mediaFile.id }).$promise.then(function (results) {
+                vm.commentsList = results;
+                console.log(vm.commentsList);
+                vm.totalCount = results.length;
+                blockUI.stop();
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
 
 
     }

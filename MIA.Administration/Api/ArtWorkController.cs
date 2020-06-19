@@ -333,9 +333,9 @@ namespace MIA.Administration.Api
       var judgeAward = await db.JudgeAwards.Where(a => a.JudgeId == id).ToListAsync();
       foreach (var award in judgeAward)
       {
-        var artWork = await db.Artworks.FirstOrDefaultAsync(a => a.AwardId == award.AwardId && a.UploadComplete);
+        var artWork = await db.Artworks.Where(a => a.AwardId == award.AwardId && a.UploadComplete).ToListAsync();
         if (artWork != null)
-          listOfArtWork.Add(_mapper.Map<ArtWorkDto>(artWork));
+          listOfArtWork.AddRange(_mapper.Map<List<ArtWorkDto>>(artWork));
       }
       return IfFound(listOfArtWork);
 

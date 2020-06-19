@@ -2140,47 +2140,91 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/JudgeArtWork/templates/JudgeArtWork.html',
-    '<div>\n' +
-    '    <div ng-if="JudgeArtWorkList.length == 0">\n' +
-    '        <span>{{\'NoJudgeArtWorksAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="JudgeArtWorkList.length > 0">\n' +
-    '        <div class="table-responsive">\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th>{{\'poster\' | translate}}</th>\n' +
-    '                        <th>{{\'title\' | translate}}</th>\n' +
-    '                        <th></th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat="JudgeArtWork in JudgeArtWorkList">\n' +
-    '                        <td style="width: 10%;">\n' +
-    '                            <img style="width: 70px;height: 70px;" data-ng-src="{{JudgeArtWork.posterUrl}}" />\n' +
-    '                        </td>\n' +
-    '                        <td style="width: 60%;">\n' +
-    '                            {{JudgeArtWork.projectName[selectedLanguage]   | limitTo : 50}}\n' +
-    '                            {{JudgeArtWork.projectName[selectedLanguage].length > 50 ? \'...\' : \'\'}}\n' +
-    '                        </td>\n' +
-    '                        <td style="width: 10%;">\n' +
-    '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'viewJudgeArtWork\',{id: JudgeArtWork.id});"\n' +
-    '                                title="review art work">rate_review</i>\n' +
+    '<div ng-if="JudgeArtWorkList.length == 0" class="empty-item">\n' +
+    '    <span>{{\'NoJudgeArtWorksAvailable\' | translate}}</span>\n' +
+    '</div>\n' +
+    '<!-- <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="JudgeArtWorkList.length > 0">\n' +
+    '    <div class="table-responsive">\n' +
+    '        <table class="table pmd-table table-hover">\n' +
+    '            <thead>\n' +
+    '                <tr>\n' +
+    '                    <th>{{\'poster\' | translate}}</th>\n' +
+    '                    <th>{{\'title\' | translate}}</th>\n' +
+    '                    <th></th>\n' +
+    '                </tr>\n' +
+    '            </thead>\n' +
+    '            <tbody>\n' +
+    '                <tr ng-repeat="JudgeArtWork in JudgeArtWorkList">\n' +
+    '                    <td style="width: 10%;">\n' +
+    '                        <img style="width: 70px;height: 70px;" data-ng-src="{{JudgeArtWork.posterUrl}}" />\n' +
+    '                    </td>\n' +
+    '                    <td style="width: 60%;">\n' +
+    '                        {{JudgeArtWork.projectName[selectedLanguage]   | limitTo : 50}}\n' +
+    '                        {{JudgeArtWork.projectName[selectedLanguage].length > 50 ? \'...\' : \'\'}}\n' +
+    '                    </td>\n' +
+    '                    <td style="width: 10%;">\n' +
+    '                        <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
+    '                            ng-click="$state.go(\'viewJudgeArtWork\',{id: JudgeArtWork.id});"\n' +
+    '                            title="review art work">rate_review</i>\n' +
     '\n' +
-    '                        </td>\n' +
-    '                    </tr>\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
+    '                    </td>\n' +
+    '                </tr>\n' +
+    '            </tbody>\n' +
+    '        </table>\n' +
     '    </div>\n' +
+    '</div> -->\n' +
     '\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '        paging-action="JudgeArtWorkCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '        hide-if-empty="true" disabled-class="hide">\n' +
-    '    </div>\n' +
     '\n' +
-    '</div>');
+    '\n' +
+    '<div id="recent_shows">\n' +
+    '    <div class="container">\n' +
+    '\n' +
+    '        <div class="shows_items" ng-if="JudgeArtWorkList.length > 0">\n' +
+    '            <div class="item" ng-repeat="JudgeArtWork in JudgeArtWorkList">\n' +
+    '                <div class="imgthumb">\n' +
+    '                    <a ng-click="$state.go(\'artWorkDetails\',{id: JudgeArtWork.id});" title="{{JudgeArtWork.projectName[selectedLanguage]}}">\n' +
+    '                        <img data-ng-src="{{JudgeArtWork.posterUrl}}">\n' +
+    '                        <div class="mask">\n' +
+    '                            <div class="content">\n' +
+    '                                <p> {{JudgeArtWork.projectName[selectedLanguage]   | limitTo : 50}}\n' +
+    '                                    {{JudgeArtWork.projectName[selectedLanguage].length > 50 ? \'...\' : \'\'}}</p>\n' +
+    '                                <div class="stars">\n' +
+    '                                    <i class="icofont-ui-rating"></i>\n' +
+    '                                    <i class="icofont-ui-rating"></i>\n' +
+    '                                    <i class="icofont-ui-rating"></i>\n' +
+    '                                    <i class="icofont-ui-rate-blank"></i>\n' +
+    '                                    <i class="icofont-ui-rate-blank"></i>\n' +
+    '                                </div><!-- end stars -->\n' +
+    '                            </div><!-- end content -->\n' +
+    '                        </div><!-- end mask -->\n' +
+    '                    </a>\n' +
+    '                </div><!-- end imgthumb -->\n' +
+    '            </div><!-- end item -->\n' +
+    '\n' +
+    '        </div><!-- end shows_items -->\n' +
+    '        <div class="paginations">\n' +
+    '\n' +
+    '            <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '                paging-action="JudgeArtWorkCtrl.changePage(page)" flex="nogrow" show-prev-next="true"\n' +
+    '                show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '            </div>\n' +
+    '            <!-- <ul>\n' +
+    '                <li><span>1</span></li>\n' +
+    '                <li><span>2</span></li>\n' +
+    '                <li><span>3</span></li>\n' +
+    '                <li><span>4</span></li>\n' +
+    '                <li class="current"><span>5</span></li>\n' +
+    '                <li><span>6</span></li>\n' +
+    '                <li><span>7</span></li>\n' +
+    '                <li><span>8</span></li>\n' +
+    '                <li><span>9</span></li>\n' +
+    '                <li><span>10</span></li>\n' +
+    '                <li><span>11</span></li>\n' +
+    '                <li><span>12</span></li>\n' +
+    '            </ul> -->\n' +
+    '        </div><!-- end paginations -->\n' +
+    '    </div><!-- end container -->\n' +
+    '</div><!-- End recent_shows -->');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -2232,107 +2276,175 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        background: orange;\n' +
     '    }\n' +
     '</style>\n' +
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-description-text">{{\'ViewJudgeArtWork\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <h1 class="text-center">\n' +
-    '            <kbd>\n' +
-    '\n' +
-    '                {{viewJudgeArtWorkCtrl.JudgeArtWork.projectName[selectedLanguage] | limitTo : 20}}\n' +
-    '                {{viewJudgeArtWorkCtrl.JudgeArtWork.projectName[selectedLanguage].length > 20 ? \'...\' : \'\'}}\n' +
-    '                :\n' +
-    '                {{viewJudgeArtWorkCtrl.JudgeArtWork.award.projectName[selectedLanguage]}}\n' +
-    '            </kbd>\n' +
-    '        </h1>\n' +
-    '        <form class="form-horizontal" name="viewJudgeArtWorkForm">\n' +
-    '            <div class="row">\n' +
-    '                <div class="form-group col-lg-4">\n' +
-    '                    <div ng-repeat="n in [] | range:viewJudgeArtWorkCtrl.totalCount"> <label for="first-name">\n' +
-    '                            {{viewJudgeArtWorkCtrl.votingCriteriaList[n].criteria.name[selectedLanguage]}}</label>\n' +
-    '                        {{viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue}}\n' +
-    '                        <rzslider class="custom-slider"\n' +
-    '                            rz-slider-model="viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue"\n' +
-    '                            ng-mouseup="viewJudgeArtWorkCtrl.changeValue(viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue,n)"\n' +
-    '                            rz-slider-options="viewJudgeArtWorkCtrl.slider.options"></rzslider>\n' +
-    '\n' +
-    '                        <!-- <input type="number" class="mat-input form-control" name="Value" style="display: inline-block;"\n' +
-    '                            ng-pattern="/^[1-9]+[0-9]*$/" ng-minlength="1" ng-maxlength="4"\n' +
-    '                            ng-model="viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue"\n' +
-    '                            ng-change="viewJudgeArtWorkCtrl.changeValue(viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue,n)"\n' +
-    '                            ng-readonly="viewJudgeArtWorkCtrl.votingCriteriaList[n].judgeComplete" /> -->\n' +
-    '\n' +
-    '                        <!-- required validation  -->\n' +
-    '                        <div ng-messages="viewJudgeArtWorkForm.Value.$error">\n' +
-    '                            <div class="error" ng-if="viewJudgeArtWorkForm.Value.$error.required && \n' +
-    '                                        !viewJudgeArtWorkForm.Value.$pristine">\n' +
-    '                                {{\'requiredErr\' | translate}}\n' +
-    '                            </div>\n' +
-    '                            <!-- length validation -->\n' +
-    '                            <div class="error" ng-if="(viewJudgeArtWorkForm.Value.$error.minlength ||\n' +
-    '                                            viewJudgeArtWorkForm.Value.$error.maxlength) \n' +
-    '                                             && !viewJudgeArtWorkForm.Value.newValue.$error.required">\n' +
-    '                                {{\'PhoneLengthError\' | translate}}\n' +
-    '                            </div>\n' +
+    '<section id="show_inner">\n' +
+    '    <div class="show_inner_one">\n' +
+    '        <div class="container">\n' +
+    '            <div class="show_info">\n' +
+    '                <div class="show_details">\n' +
+    '                    <div class="imgthumb">\n' +
+    '                        <img data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.posterUrl}}">\n' +
+    '                        <div class="mask">\n' +
+    '                            <span>{{judgeArtWorkDetailsCtrl.JudgeArtWork.projectName[selectedLanguage] }}</span>\n' +
     '                        </div>\n' +
-    '\n' +
+    '                    </div><!-- end imgthumb -->\n' +
+    '                    <div class="desc">\n' +
+    '                        <div class="name">{{judgeArtWorkDetailsCtrl.JudgeArtWork.projectName[selectedLanguage] }}\n' +
+    '                        </div>\n' +
+    '                        <div class="stars">\n' +
+    '                            <i class="icofont-ui-rating"></i>\n' +
+    '                            <i class="icofont-ui-rating"></i>\n' +
+    '                            <i class="icofont-ui-rating"></i>\n' +
+    '                            <i class="icofont-ui-rate-blank"></i>\n' +
+    '                            <i class="icofont-ui-rate-blank"></i>\n' +
+    '                        </div><!-- end stars -->\n' +
+    '                        <ul>\n' +
+    '                            <li><span>{{\'productionLicenseAgency\'| translate}} :</span>\n' +
+    '                                <p>{{judgeArtWorkDetailsCtrl.JudgeArtWork.productionLicenseAgency}}</p>\n' +
+    '                            </li>\n' +
+    '                            <li><span>{{\'productionLicenseNumber\'| translate}} :</span>\n' +
+    '                                <p>{{judgeArtWorkDetailsCtrl.JudgeArtWork.productionLicenseNumber}}</p>\n' +
+    '                            </li>\n' +
+    '                            <li><span>{{\'siteUrl\'| translate}} :</span>\n' +
+    '                                <p>{{judgeArtWorkDetailsCtrl.JudgeArtWork.siteUrl}}</p>\n' +
+    '                            </li>\n' +
+    '                            <li><span>{{\'onlineChannels\'| translate}} :</span>\n' +
+    '                                <p>{{judgeArtWorkDetailsCtrl.JudgeArtWork.onlineChannels}}</p>\n' +
+    '                            </li>\n' +
+    '                            <li><span>{{\'tvChannels\'| translate}} :</span>\n' +
+    '                                <p>{{judgeArtWorkDetailsCtrl.JudgeArtWork.tvChannels}}</p>\n' +
+    '                            </li>\n' +
+    '                        </ul>\n' +
+    '                    </div><!-- end desc -->\n' +
+    '                </div><!-- end show_details -->\n' +
+    '                <div class="about_show">\n' +
+    '                    <span>About the show</span>\n' +
+    '                    <p> {{judgeArtWorkDetailsCtrl.JudgeArtWork.description[selectedLanguage] }}</p>\n' +
+    '                </div><!-- end about_show -->\n' +
+    '            </div><!-- end show_info -->\n' +
+    '            <div class="show_video_show">\n' +
+    '                <span>\n' +
+    '                    <img data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.coverUrl}}">\n' +
+    '                </span>\n' +
+    '                <div class="row">\n' +
+    '                    <div class="form-group col-lg-6">\n' +
+    '                        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);\n' +
+    '                    border-radius: 17px;" ng-click="judgeArtWorkDetailsCtrl.showMedia()"\n' +
+    '                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">\n' +
+    '                            {{\'DisplayEposides\'| translate}}</button>\n' +
+    '                    </div>\n' +
+    '                    <div class="form-group col-lg-6">\n' +
+    '                        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);\n' +
+    '                    border-radius: 17px;" ng-click="judgeArtWorkDetailsCtrl.showJudging()"\n' +
+    '                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">\n' +
+    '                            {{\'StartJudge\'| translate}}</button>\n' +
     '                    </div>\n' +
     '                </div>\n' +
+    '            </div><!-- end show_video_show -->\n' +
+    '        </div><!-- end container -->\n' +
+    '    </div><!-- end show_inner_one -->\n' +
     '\n' +
-    '            </div>\n' +
     '\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="viewJudgeArtWorkForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="viewJudgeArtWorkCtrl.UpdateJudgeArtWork(false)">{{\'judgeComplete\' | translate}}</button>\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="viewJudgeArtWorkForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="viewJudgeArtWorkCtrl.UpdateJudgeArtWork(false)">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="viewJudgeArtWorkCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
+    '    <div class="show_inner_two" ng-show="judgeArtWorkDetailsCtrl.showMediaList">\n' +
+    '        <div class="container">\n' +
+    '            <div class="show_video">\n' +
+    '                <!-- <iframe width="560" height="315" data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.trailerUrl}}"\n' +
+    '                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"\n' +
+    '                    allowfullscreen></iframe> -->\n' +
     '\n' +
-    '    <div ng-if="viewJudgeArtWorkCtrl.artWorkMedia.length == null">\n' +
-    '        <span>{{\'NoMediasAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="viewJudgeArtWorkCtrl.artWorkMedia.length > 0">\n' +
-    '        <div class="table-responsive">\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th>{{\'poster\' | translate}}</th>\n' +
-    '                        <th>{{\'description\' | translate}}</th>\n' +
-    '                        <th></th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat="media in viewJudgeArtWorkCtrl.artWorkMedia">\n' +
+    '                <iframe class="youtube-player" type="text/html" width="640" height="385"\n' +
+    '                    ng-src="{{trustSrc(judgeArtWorkDetailsCtrl.JudgeArtWork.trailerUrl)}}"\n' +
+    '                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\n' +
+    '                    frameborder="0">\n' +
+    '                </iframe>\n' +
     '\n' +
-    '                        <td>\n' +
-    '                            <img style="width: 70px;height: 70px;"\n' +
-    '                                data-ng-src="{{viewJudgeArtWorkCtrl.JudgeArtWork.posterUrl}}" />\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            {{media.description}}\n' +
-    '                        </td>\n' +
-    '                        <td width="30%">\n' +
-    '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'displayVideo\',{id: media.id});" title="Edit">mode_edit</i>\n' +
-    '                        </td>\n' +
-    '                    </tr>\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
+    '            </div><!-- end show_video -->\n' +
+    '            <div class="show_content">\n' +
+    '                <div class="tabs_area">\n' +
+    '                    <div class="tabs">\n' +
+    '                        <!-- to show tab content please add class "active" to "li" element -->\n' +
+    '                        <ul>\n' +
     '\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '        paging-action="viewJudgeArtWorkCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '        hide-if-empty="true" disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</div>');
+    '                            <li class="active">Show</li>\n' +
+    '\n' +
+    '                        </ul><!-- end ul -->\n' +
+    '                    </div><!-- end tabs -->\n' +
+    '                    <div class="all_tabs_content">\n' +
+    '                        <!-- to show tab content please add class "active" to "item_tabs_content" element -->\n' +
+    '\n' +
+    '                        <div class="item_tabs_content active">\n' +
+    '                            <div class="item_show">\n' +
+    '                                <div class="season_content">\n' +
+    '                                    <ol>\n' +
+    '                                        <li ng-repeat=" mediaItem in judgeArtWorkDetailsCtrl.mediaItemList">\n' +
+    '                                            <span ng-click="$state.go(\'displayVideo\',{id: mediaItem.id});">\n' +
+    '                                                <img data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.posterUrl}}">\n' +
+    '                                            </span>\n' +
+    '                                        </li>\n' +
+    '\n' +
+    '                                    </ol>\n' +
+    '                                </div><!-- end season_content -->\n' +
+    '                            </div><!-- end item_show -->\n' +
+    '                        </div><!-- end item_tabs_content -->\n' +
+    '                    </div><!-- end all_tabs_content -->\n' +
+    '                </div><!-- end tabs_area -->\n' +
+    '\n' +
+    '            </div><!-- end show_content -->\n' +
+    '        </div><!-- end container -->\n' +
+    '    </div><!-- end show_inner_two -->\n' +
+    '    <div class="show_inner_two" ng-show="judgeArtWorkDetailsCtrl.showCriteriaList">\n' +
+    '        <div class="container">\n' +
+    '            <div class="show_content">\n' +
+    '                <div class="tabs_area">\n' +
+    '                    <div class="tabs">\n' +
+    '                        <!-- to show tab content please add class "active" to "li" element -->\n' +
+    '                        <ul>\n' +
+    '\n' +
+    '                            <li class="active">{{\'VotingCriteria\'| translate}}</li>\n' +
+    '\n' +
+    '                        </ul><!-- end ul -->\n' +
+    '                    </div><!-- end tabs -->\n' +
+    '                    <div class="all_tabs_content">\n' +
+    '                        <!-- to show tab content please add class "active" to "item_tabs_content" element -->\n' +
+    '                        <form class="form-horizontal" name="viewJudgeArtWorkForm">\n' +
+    '\n' +
+    '                            <div class="item_tabs_content active">\n' +
+    '                                <div class="item_show">\n' +
+    '                                    <div class="season_content"\n' +
+    '                                        ng-repeat="critiera in judgeArtWorkDetailsCtrl.votingCriteriaList">\n' +
+    '\n' +
+    '                                        <span> {{critiera.name[selectedLanguage]}}</span>\n' +
+    '\n' +
+    '                                        <rzslider class="custom-slider" rz-slider-model="critiera.votingValue"\n' +
+    '                                            name="critiera+$index"\n' +
+    '                                            ng-mouseup="judgeArtWorkDetailsCtrl.changeValue(critiera.votingValue,$index)"\n' +
+    '                                            rz-slider-options="judgeArtWorkDetailsCtrl.slider.options"></rzslider>\n' +
+    '\n' +
+    '                                    </div><!-- end season_content -->\n' +
+    '                                </div><!-- end item_show -->\n' +
+    '                            </div><!-- end item_tabs_content -->\n' +
+    '\n' +
+    '                            <div class="pmd-modal-action text-right">\n' +
+    '                                <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);\n' +
+    '                                border-radius: 17px;" ng-disabled="viewJudgeArtWorkForm.$invalid"\n' +
+    '                                    class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '                                    ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)">{{\'judgeComplete\' | translate}}</button>\n' +
+    '                                <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);\n' +
+    '                                border-radius: 17px;" ng-disabled="viewJudgeArtWorkForm.$invalid"\n' +
+    '                                    class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '                                    ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '                                <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '                                    ng-click="judgeArtWorkDetailsCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '                            </div>\n' +
+    '\n' +
+    '                        </form>\n' +
+    '                    </div><!-- end all_tabs_content -->\n' +
+    '                </div><!-- end tabs_area -->\n' +
+    '\n' +
+    '            </div><!-- end show_content -->\n' +
+    '        </div><!-- end container -->\n' +
+    '    </div><!-- end show_inner_two -->\n' +
+    '\n' +
+    '</section><!-- End show_inner -->');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -2346,7 +2458,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '    .player video {\n' +
     '        max-height: 500px;\n' +
-    '         /* max-width: 100%; */\n' +
+    '        /* max-width: 100%; */\n' +
     '        display: block;\n' +
     '    }\n' +
     '\n' +
@@ -2429,65 +2541,93 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        box-shadow: none;\n' +
     '    }\n' +
     '</style>\n' +
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-description-text">{{\'ViewJudgeArtWork\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        \n' +
-    '        <player videos=\'[{"type":"mp4","src":"https://mia-content.s3.amazonaws.com/album/01e22zntqbcbg2nvf6zb8kgdmk/Clock_Face_2Videvo.mov",\n' +
+    '\n' +
+    '<section id="show_inner">\n' +
+    '    <div class="show_inner_one">\n' +
+    '        <div class="container">\n' +
+    '            <player videos=\'[{"type":"mp4","src":"https://mia-content.s3.amazonaws.com/album/01e22zntqbcbg2nvf6zb8kgdmk/Clock_Face_2Videvo.mov",\n' +
     '            "poster":"https://mia-content.s3.amazonaws.com/artwork/01dzsa07y34ddsq9g6m11anxmx/image008.png",\n' +
     '            "captions":"http://www.videojs.com/vtt/captions.vtt"}\n' +
     '            ,{"type":"webm","src":"http://vjs.zencdn.net/v/oceans.webm"}]\' />\n' +
-    '        <form class="form-horizontal" name="viewJudgeArtWorkForm">\n' +
-    '            <div class="row">\n' +
-    '                <div class="form-group col-lg-4">\n' +
-    '                    <div ng-repeat="n in [] | range:displayVideoCtrl.totalCount">\n' +
-    '                        <label\n' +
-    '                            for="first-name">{{displayVideoCtrl.votingCriteriaList[n].name[selectedLanguage]}}</label>\n' +
-    '                        <input required type="text" class="mat-input form-control" name="Value" numbers-only\n' +
-    '                            style="display: inline-block;" ng-minlength="1" ng-maxlength="4"\n' +
-    '                            ng-model="displayVideoCtrl.votingCriteria[n]"\n' +
-    '                            ng-change="displayVideoCtrl.changeValue(displayVideoCtrl.votingCriteria[n],n)" required />\n' +
-    '                        <!-- required validation  -->\n' +
-    '                        <div ng-messages="viewJudgeArtWorkForm.Value.$error">\n' +
-    '                            <div class="error" ng-if="viewJudgeArtWorkForm.Value.$error.required && \n' +
-    '                                        !viewJudgeArtWorkForm.Value.$pristine">\n' +
-    '                                {{\'requiredErr\' |  translate}}\n' +
-    '                            </div>\n' +
-    '                            <!-- length validation -->\n' +
-    '                            <div class="error" ng-if="(viewJudgeArtWorkForm.Value.$error.minlength ||\n' +
-    '                                            viewJudgeArtWorkForm.Value.$error.maxlength) \n' +
-    '                                             && !viewJudgeArtWorkForm.Value.newValue.$error.required">\n' +
-    '                                {{\'PhoneLengthError\' |  translate}}\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                        <!-- <input id="{{mediaImage + $index}}" name="{{mediaImage + $index}}" style="display: none;"\n' +
-    '                            onchange="angular.element(this).scope().AddmediaImage(this.files)" type="file" required\n' +
-    '                            file-change handler="fileSelect(files)" ng-repeat="file in displayVideoCtrl.filesCount">\n' +
-    '                        <button class="btn btn-success btn-xs pull-center"\n' +
-    '                            ng-click="displayVideoCtrl.LoadUploadmedia()">{{\'Upload Receipt\' | translate}}</button>\n' +
-    '\n' +
-    '                        <div ng-messages="viewJudgeArtWorkForm.mediaImage.$error">\n' +
-    '                            <div ng-if="viewJudgeArtWorkForm.mediaImage.$error.required">{{\'requiredErr\' | translate}}\n' +
-    '                            </div>\n' +
-    '                        </div> -->\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '\n' +
-    '            </div>\n' +
-    '\n' +
-    '        </form>\n' +
+    '        </div>\n' +
     '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="viewJudgeArtWorkForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="displayVideoCtrl.UpdateJudgeArtWork()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="displayVideoCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
+    '    <div class="show_inner_two">\n' +
+    '        <div class="container">\n' +
+    '            <div class="show_content">\n' +
+    '                <div class="tabs_area">\n' +
+    '                    <div class="tabs">\n' +
+    '                        <!-- to show tab content please add class "active" to "li" element -->\n' +
+    '                        <ul>\n' +
+    '                            <li class="active">{{\'comments\'| translate}}</li>\n' +
+    '                        </ul><!-- end ul -->\n' +
+    '                    </div><!-- end tabs -->\n' +
+    '                    <div class="all_tabs_content">\n' +
+    '                        <!-- to show tab content please add class "active" to "item_tabs_content" element -->\n' +
     '\n' +
-    '</div>');
+    '                        <div class="item_tabs_content active">\n' +
+    '                            <div class="item_review">\n' +
+    '                                <div class="review_section">\n' +
+    '                                    <div class="review_status">\n' +
+    '                                        <i class="icofont-ui-rating"></i>\n' +
+    '                                        <div class="desc">\n' +
+    '\n' +
+    '                                            <p>{{displayVideoCtrl.commentsList.length}} {{\'comments\'| translate}}</p>\n' +
+    '                                        </div><!-- end desc -->\n' +
+    '                                    </div><!-- end review_status -->\n' +
+    '                                </div><!-- end review_section -->\n' +
+    '                                <div class="comments_area">\n' +
+    '                                    <div class="item" ng-repeat="comment in displayVideoCtrl.commentsList">\n' +
+    '                                        <div class="user_info">\n' +
+    '                                            <!-- <div class="imgthumb"><img src="assets/images/comment_user_image.png"\n' +
+    '                                                    alt="#"></div> -->\n' +
+    '                                            <div class="details">\n' +
+    '                                                <!-- <span>{{comment.judge.fullName}}</span> -->\n' +
+    '                                                <p>{{comment.mediaTime}} <a>{{comment.judge.fullName}}</a></p>\n' +
+    '                                            </div><!-- end details -->\n' +
+    '                                        </div><!-- end user_info -->\n' +
+    '                                        <div class="comment_content">\n' +
+    '                                            {{comment.comments}}\n' +
+    '                                        </div><!-- end comment_content -->\n' +
+    '                                    </div><!-- end item -->\n' +
+    '\n' +
+    '                                </div><!-- end comments_area -->\n' +
+    '                                <div class="comment_form">\n' +
+    '                                    <form name="formVideoComment">\n' +
+    '                                        <div class="inputs">\n' +
+    '                                            <input required type="text" placeholder="time"\n' +
+    '                                                ng-model="displayVideoCtrl.time">\n' +
+    '\n' +
+    '                                        </div><!-- end inputs -->\n' +
+    '                                        <textarea name="comment" cols="30" rows="10" required\n' +
+    '                                            placeholder="Type here your Comment"\n' +
+    '                                            ng-model="displayVideoCtrl.comment"></textarea>\n' +
+    '\n' +
+    '                                        <div ng-messages="formVideoComment.comment.$error">\n' +
+    '                                            <div class="error" ng-if="formVideoComment.comment.$error.required && \n' +
+    '                                                                        !formVideoComment.comment.$pristine">\n' +
+    '                                                {{\'requiredErr\' |  translate}}\n' +
+    '                                            </div>\n' +
+    '                                        </div>\n' +
+    '                                        <button type="button" ng-disabled="formVideoComment.$invalid"\n' +
+    '                                            ng-click="displayVideoCtrl.submitComment()">{{\'PostComment\' | translate}}</button>\n' +
+    '\n' +
+    '                                        <button type="button"\n' +
+    '                                            ng-click="displayVideoCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '                                    </form>\n' +
+    '                                </div><!-- end comment_form -->\n' +
+    '                            </div><!-- end item_review -->\n' +
+    '                        </div><!-- end item_tabs_content -->\n' +
+    '\n' +
+    '                    </div><!-- end all_tabs_content -->\n' +
+    '                </div><!-- end tabs_area -->\n' +
+    '\n' +
+    '            </div><!-- end show_content -->\n' +
+    '        </div><!-- end container -->\n' +
+    '    </div><!-- end show_inner_two -->\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '</section>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -2955,6 +3095,275 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Role/templates/Role.html',
+    '<div>\n' +
+    '    <!-- <div style="margin-bottom:10px">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go(\'newRole\');"\n' +
+    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddBtn\'\n' +
+    '            | translate}}</button>\n' +
+    '\n' +
+    '    </div>   -->\n' +
+    '\n' +
+    '    <div ng-if="RoleList.length == 0">\n' +
+    '        <span>{{\'NoRolesAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="RoleList.length > 0">\n' +
+    '        <div class="table-responsive" >\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th style="width: 50%">{{\'Name\' | translate}}</th>\n' +
+    '                        <!-- <th>{{\'Status\' | translate}}</th> -->\n' +
+    '                        <th></th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                    <tr ng-repeat="role in RoleList">\n' +
+    '                        <td>{{role.name}}</td> \n' +
+    '\n' +
+    '                        <td>\n' +
+    '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
+    '                                ng-click="$state.go(\'editRole\',{name: role.name});" title="Edit">mode_edit</i>\n' +
+    '                            <i ng-show="!role.systemRole" class="material-icons pmd-md deleteButton cursorPointer font25"\n' +
+    '                                ng-click="RoleCtrl.openDeleteDialog(role,role.titles[selectedLanguage],role.userGroupId)">delete</i>\n' +
+    '                        </td>\n' +
+    '                    </tr>\n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
+    '        disabled-class="hide">\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Role/templates/edit.html',
+    '<style>\n' +
+    '    ::-webkit-scrollbar {\n' +
+    '        width: 12px;\n' +
+    '    }\n' +
+    '\n' +
+    '    /* Track */\n' +
+    '    ::-webkit-scrollbar-track {\n' +
+    '        background: #f1f1f1;\n' +
+    '    }\n' +
+    '\n' +
+    '    /* Handle */\n' +
+    '    ::-webkit-scrollbar-thumb {\n' +
+    '        background: #888;\n' +
+    '    }\n' +
+    '\n' +
+    '    /* Handle on hover */\n' +
+    '    ::-webkit-scrollbar-thumb:hover {\n' +
+    '        background: #555;\n' +
+    '    }\n' +
+    '</style>\n' +
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text"> {{\'EditRoleLbl\' | translate}}\n' +
+    '        </h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="editRoleForm">\n' +
+    '            <div class="row">\n' +
+    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                    <label for="first-name"><span style="color:red">*</span>{{\'name\' | translate}}</label>\n' +
+    '                    <input required type="text" class="mat-input form-control" name="roleName"\n' +
+    '                        ng-model="editRoleCtrl.name" ng-minlength="3" ng-maxlength="255">\n' +
+    '                    <div ng-messages="editRoleForm.roleName.$error" class="error">\n' +
+    '                        <div class="error" ng-show="editRoleForm.roleName.$error.pattern">{{\'TextOnly\' | translate}}\n' +
+    '                        </div>\n' +
+    '                        <div class="error"\n' +
+    '                            ng-if="editRoleForm.roleName.$error.required && !editRoleForm.roleName.$pristine">{{\'NameLengthError3\'\n' +
+    '                    | translate}}</div>\n' +
+    '                        <div class="error"\n' +
+    '                            ng-if="(editRoleForm.roleName.$error.minlength || editRoleForm.roleName.$error.maxlength) ">{{\'NameLengthError3\'\n' +
+    '                    | translate}}</div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '            <div class="row">\n' +
+    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                    <label for="first-name">{{\'Modules\' | translate}}</label>\n' +
+    '                    <select required style="width:100% !important" multiple\n' +
+    '                        class="form-control select-with-search pmd-select2-tags" ng-model="editRoleCtrl.selectedModule"\n' +
+    '                        ng-change="editRoleCtrl.changePermissionList(editRoleCtrl.selectedModule)"\n' +
+    '                        ng-options=" group as group for group in editRoleCtrl.moduleList">\n' +
+    '                    </select>\n' +
+    '\n' +
+    '                </div>\n' +
+    '\n' +
+    '            </div>\n' +
+    '            <div class="row">\n' +
+    '                <div class="col-md-8  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                    <div ng-if="editRoleCtrl.newSelectedPermissions.length == 0">\n' +
+    '                        <span>{{\'NoRolesAvailable\' | translate}}</span>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="pmd-card pmd-z-depth pmd-card-custom-view"\n' +
+    '                        ng-if="editRoleCtrl.newSelectedPermissions.length > 0">\n' +
+    '                        <div class="table-responsive">\n' +
+    '                            <table class="table pmd-table table-hover">\n' +
+    '                                <thead>\n' +
+    '                                    <tr>\n' +
+    '                                        <th style="width:1%">\n' +
+    '                                            <input type="checkbox"\n' +
+    '                                                ng-checked="editRoleCtrl.selectedPermission.length == editRoleCtrl.newSelectedPermissions.length"\n' +
+    '                                                value="editRoleCtrl.selectedPermission.length == editRoleCtrl.newSelectedPermissions.length"\n' +
+    '                                                ng-click="editRoleCtrl.selectAllPermission($event.target.checked)"\n' +
+    '                                                id="selectAllPermission">\n' +
+    '                                        </th>\n' +
+    '                                        <th style="width: 30%">{{\'Name\' | translate}}</th>\n' +
+    '                                        <th style="width: 20%">{{\'Module\' | translate}}</th>\n' +
+    '                                        <th style="width: 50%">{{\'Description\' | translate}}</th>\n' +
+    '                                    </tr>\n' +
+    '                                </thead>\n' +
+    '                                <tbody>\n' +
+    '                                    <tr ng-repeat="perm in editRoleCtrl.newSelectedPermissions">\n' +
+    '                                        <td> <input type="checkbox" id="perm-{{perm.id}}" value="perm" name="perm"\n' +
+    '                                                ng-change="editRoleCtrl.selectPermission(perm)"\n' +
+    '                                                ng-model="perm.isSelected" id="perm.id"></td>\n' +
+    '\n' +
+    '                                        <td>{{perm.name}}</td>\n' +
+    '                                        <td>{{perm.systemModule}}</td>\n' +
+    '                                        <td>{{perm.description}}</td>\n' +
+    '                                    </tr>\n' +
+    '                                </tbody>\n' +
+    '                            </table>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                  \n' +
+    '                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '                        paging-action="editRoleCtrl.changePage(page)" flex="nogrow" show-prev-next="true"\n' +
+    '                        show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '                    </div>\n' +
+    '                    \n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-disabled="editRoleForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="editRoleCtrl.UpdateRole()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '            ng-click="editRoleCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '    $(".select-tags").select2({\n' +
+    '        tags: false,\n' +
+    '        theme: "bootstrap",\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Role/templates/new.html',
+    '\n' +
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'NewRoleLbl\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="newRoleForm">\n' +
+    '            <div>\n' +
+    '                <!-- Nav tabs -->\n' +
+    '                <ul class="nav nav-tabs" role="tablist">\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newRoleCtrl.language">\n' +
+    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"\n' +
+    '                            data-toggle="tab">\n' +
+    '                            <span style="color:red">*</span> {{lang.value | translate}}\n' +
+    '                        </a>\n' +
+    '                    </li>\n' +
+    '                </ul>\n' +
+    '                <div class="pmd-card">\n' +
+    '                    <div class="pmd-card-body">\n' +
+    '                        <!-- Tab panes -->\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
+    '                                ng-repeat="lang in newRoleCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                                    <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                    <input required type="text" class="mat-input form-control"\n' +
+    '                                        name="titles{{lang.value+\'Name\'}}"\n' +
+    '                                        ng-model="newRoleCtrl.titles[lang.key]" ng-minlength="3"\n' +
+    '                                        ng-maxlength="255">\n' +
+    '                                    <div ng-messages="newRoleForm.titles{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                        <div\n' +
+    '                                            ng-show="newRoleForm.titles{{lang.value+\'Name\'}}.$error.required && !newRoleForm.titles{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                            {{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div\n' +
+    '                                            ng-show="(newRoleForm.titles{{lang.value+\'Name\'}}.$error.minlength || newRoleForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !newRoleForm.titles{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '\n' +
+    '\n' +
+    '                            </div>\n' +
+    '                            <div\n' +
+    '                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                <label for="first-name">{{\'Module\' | translate}}</label>\n' +
+    '                                <select required style="width:100% !important"\n' +
+    '                                    class="form-control select-with-search pmd-select2-tags" multiple\n' +
+    '                                    ng-model="newRoleCtrl.selectedModule"\n' +
+    '                                    ng-change="newRoleCtrl.ChangeSelectedModule()"\n' +
+    '                                    ng-options="group as group.module.title[selectedLanguage] for group in permissionList">\n' +
+    '                                </select>\n' +
+    '                            </div>\n' +
+    '                            <div\n' +
+    '                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                <label for="first-name">{{\'Permission\' | translate}}</label>\n' +
+    '                                <select required style="width:100% !important"\n' +
+    '                                    class="form-control select-with-search pmd-select2-tags" multiple\n' +
+    '                                    ng-model="newRoleCtrl.selectedPermissions" ng-options="group.permessionId as group.title[selectedLanguage]\n' +
+    '                                     for group in newRoleCtrl.selectedModuleList">\n' +
+    '                                </select>\n' +
+    '                            </div>\n' +
+    '                          \n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="newRoleForm.$invalid"\n' +
+    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="newRoleCtrl.AddNewRole()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '            ng-click="$state.go(\'Role\');">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '    $(".select-tags").select2({\n' +
+    '        tags: false,\n' +
+    '        theme: "bootstrap",\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/PhotoAlbum/templates/MediaItems.html',
     '<div>\n' +
     '    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes(\'News.add_new\')">\n' +
@@ -3403,275 +3812,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            ng-click="newMediaItemCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Role/templates/Role.html',
-    '<div>\n' +
-    '    <!-- <div style="margin-bottom:10px">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go(\'newRole\');"\n' +
-    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddBtn\'\n' +
-    '            | translate}}</button>\n' +
-    '\n' +
-    '    </div>   -->\n' +
-    '\n' +
-    '    <div ng-if="RoleList.length == 0">\n' +
-    '        <span>{{\'NoRolesAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="RoleList.length > 0">\n' +
-    '        <div class="table-responsive" >\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th style="width: 50%">{{\'Name\' | translate}}</th>\n' +
-    '                        <!-- <th>{{\'Status\' | translate}}</th> -->\n' +
-    '                        <th></th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat="role in RoleList">\n' +
-    '                        <td>{{role.name}}</td> \n' +
-    '\n' +
-    '                        <td>\n' +
-    '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'editRole\',{name: role.name});" title="Edit">mode_edit</i>\n' +
-    '                            <i ng-show="!role.systemRole" class="material-icons pmd-md deleteButton cursorPointer font25"\n' +
-    '                                ng-click="RoleCtrl.openDeleteDialog(role,role.titles[selectedLanguage],role.userGroupId)">delete</i>\n' +
-    '                        </td>\n' +
-    '                    </tr>\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
-    '        disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Role/templates/edit.html',
-    '<style>\n' +
-    '    ::-webkit-scrollbar {\n' +
-    '        width: 12px;\n' +
-    '    }\n' +
-    '\n' +
-    '    /* Track */\n' +
-    '    ::-webkit-scrollbar-track {\n' +
-    '        background: #f1f1f1;\n' +
-    '    }\n' +
-    '\n' +
-    '    /* Handle */\n' +
-    '    ::-webkit-scrollbar-thumb {\n' +
-    '        background: #888;\n' +
-    '    }\n' +
-    '\n' +
-    '    /* Handle on hover */\n' +
-    '    ::-webkit-scrollbar-thumb:hover {\n' +
-    '        background: #555;\n' +
-    '    }\n' +
-    '</style>\n' +
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text"> {{\'EditRoleLbl\' | translate}}\n' +
-    '        </h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="editRoleForm">\n' +
-    '            <div class="row">\n' +
-    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name"><span style="color:red">*</span>{{\'name\' | translate}}</label>\n' +
-    '                    <input required type="text" class="mat-input form-control" name="roleName"\n' +
-    '                        ng-model="editRoleCtrl.name" ng-minlength="3" ng-maxlength="255">\n' +
-    '                    <div ng-messages="editRoleForm.roleName.$error" class="error">\n' +
-    '                        <div class="error" ng-show="editRoleForm.roleName.$error.pattern">{{\'TextOnly\' | translate}}\n' +
-    '                        </div>\n' +
-    '                        <div class="error"\n' +
-    '                            ng-if="editRoleForm.roleName.$error.required && !editRoleForm.roleName.$pristine">{{\'NameLengthError3\'\n' +
-    '                    | translate}}</div>\n' +
-    '                        <div class="error"\n' +
-    '                            ng-if="(editRoleForm.roleName.$error.minlength || editRoleForm.roleName.$error.maxlength) ">{{\'NameLengthError3\'\n' +
-    '                    | translate}}</div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '            <div class="row">\n' +
-    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name">{{\'Modules\' | translate}}</label>\n' +
-    '                    <select required style="width:100% !important" multiple\n' +
-    '                        class="form-control select-with-search pmd-select2-tags" ng-model="editRoleCtrl.selectedModule"\n' +
-    '                        ng-change="editRoleCtrl.changePermissionList(editRoleCtrl.selectedModule)"\n' +
-    '                        ng-options=" group as group for group in editRoleCtrl.moduleList">\n' +
-    '                    </select>\n' +
-    '\n' +
-    '                </div>\n' +
-    '\n' +
-    '            </div>\n' +
-    '            <div class="row">\n' +
-    '                <div class="col-md-8  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <div ng-if="editRoleCtrl.newSelectedPermissions.length == 0">\n' +
-    '                        <span>{{\'NoRolesAvailable\' | translate}}</span>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div class="pmd-card pmd-z-depth pmd-card-custom-view"\n' +
-    '                        ng-if="editRoleCtrl.newSelectedPermissions.length > 0">\n' +
-    '                        <div class="table-responsive">\n' +
-    '                            <table class="table pmd-table table-hover">\n' +
-    '                                <thead>\n' +
-    '                                    <tr>\n' +
-    '                                        <th style="width:1%">\n' +
-    '                                            <input type="checkbox"\n' +
-    '                                                ng-checked="editRoleCtrl.selectedPermission.length == editRoleCtrl.newSelectedPermissions.length"\n' +
-    '                                                value="editRoleCtrl.selectedPermission.length == editRoleCtrl.newSelectedPermissions.length"\n' +
-    '                                                ng-click="editRoleCtrl.selectAllPermission($event.target.checked)"\n' +
-    '                                                id="selectAllPermission">\n' +
-    '                                        </th>\n' +
-    '                                        <th style="width: 30%">{{\'Name\' | translate}}</th>\n' +
-    '                                        <th style="width: 20%">{{\'Module\' | translate}}</th>\n' +
-    '                                        <th style="width: 50%">{{\'Description\' | translate}}</th>\n' +
-    '                                    </tr>\n' +
-    '                                </thead>\n' +
-    '                                <tbody>\n' +
-    '                                    <tr ng-repeat="perm in editRoleCtrl.newSelectedPermissions">\n' +
-    '                                        <td> <input type="checkbox" id="perm-{{perm.id}}" value="perm" name="perm"\n' +
-    '                                                ng-change="editRoleCtrl.selectPermission(perm)"\n' +
-    '                                                ng-model="perm.isSelected" id="perm.id"></td>\n' +
-    '\n' +
-    '                                        <td>{{perm.name}}</td>\n' +
-    '                                        <td>{{perm.systemModule}}</td>\n' +
-    '                                        <td>{{perm.description}}</td>\n' +
-    '                                    </tr>\n' +
-    '                                </tbody>\n' +
-    '                            </table>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                  \n' +
-    '                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '                        paging-action="editRoleCtrl.changePage(page)" flex="nogrow" show-prev-next="true"\n' +
-    '                        show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
-    '                    </div>\n' +
-    '                    \n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="editRoleForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="editRoleCtrl.UpdateRole()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="editRoleCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '    $(".select-tags").select2({\n' +
-    '        tags: false,\n' +
-    '        theme: "bootstrap",\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Role/templates/new.html',
-    '\n' +
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text">{{\'NewRoleLbl\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="newRoleForm">\n' +
-    '            <div>\n' +
-    '                <!-- Nav tabs -->\n' +
-    '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newRoleCtrl.language">\n' +
-    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"\n' +
-    '                            data-toggle="tab">\n' +
-    '                            <span style="color:red">*</span> {{lang.value | translate}}\n' +
-    '                        </a>\n' +
-    '                    </li>\n' +
-    '                </ul>\n' +
-    '                <div class="pmd-card">\n' +
-    '                    <div class="pmd-card-body">\n' +
-    '                        <!-- Tab panes -->\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
-    '                                ng-repeat="lang in newRoleCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                                    <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <input required type="text" class="mat-input form-control"\n' +
-    '                                        name="titles{{lang.value+\'Name\'}}"\n' +
-    '                                        ng-model="newRoleCtrl.titles[lang.key]" ng-minlength="3"\n' +
-    '                                        ng-maxlength="255">\n' +
-    '                                    <div ng-messages="newRoleForm.titles{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                        <div\n' +
-    '                                            ng-show="newRoleForm.titles{{lang.value+\'Name\'}}.$error.required && !newRoleForm.titles{{lang.value+\'Name\'}}.$pristine">\n' +
-    '                                            {{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div\n' +
-    '                                            ng-show="(newRoleForm.titles{{lang.value+\'Name\'}}.$error.minlength || newRoleForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !newRoleForm.titles{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '\n' +
-    '\n' +
-    '                            </div>\n' +
-    '                            <div\n' +
-    '                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                <label for="first-name">{{\'Module\' | translate}}</label>\n' +
-    '                                <select required style="width:100% !important"\n' +
-    '                                    class="form-control select-with-search pmd-select2-tags" multiple\n' +
-    '                                    ng-model="newRoleCtrl.selectedModule"\n' +
-    '                                    ng-change="newRoleCtrl.ChangeSelectedModule()"\n' +
-    '                                    ng-options="group as group.module.title[selectedLanguage] for group in permissionList">\n' +
-    '                                </select>\n' +
-    '                            </div>\n' +
-    '                            <div\n' +
-    '                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                <label for="first-name">{{\'Permission\' | translate}}</label>\n' +
-    '                                <select required style="width:100% !important"\n' +
-    '                                    class="form-control select-with-search pmd-select2-tags" multiple\n' +
-    '                                    ng-model="newRoleCtrl.selectedPermissions" ng-options="group.permessionId as group.title[selectedLanguage]\n' +
-    '                                     for group in newRoleCtrl.selectedModuleList">\n' +
-    '                                </select>\n' +
-    '                            </div>\n' +
-    '                          \n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="newRoleForm.$invalid"\n' +
-    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="newRoleCtrl.AddNewRole()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="$state.go(\'Role\');">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '    $(".select-tags").select2({\n' +
-    '        tags: false,\n' +
-    '        theme: "bootstrap",\n' +
-    '    });\n' +
-    '</script>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -5086,17 +5226,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
-    '<div class="modal-content">\n' +
-    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/core/UploadVideo/templates/UploadVideoDialog.html',
     '<style>\n' +
     '	form .progress {\n' +
@@ -5133,6 +5262,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '	 <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
     '		ng-click="newUploadChunkCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '</div> -->');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
+    '<div class="modal-content">\n' +
+    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {

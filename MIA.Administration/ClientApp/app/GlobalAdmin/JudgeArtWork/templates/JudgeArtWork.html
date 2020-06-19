@@ -1,41 +1,85 @@
-<div>
-    <div ng-if="JudgeArtWorkList.length == 0">
-        <span>{{'NoJudgeArtWorksAvailable' | translate}}</span>
-    </div>
-    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="JudgeArtWorkList.length > 0">
-        <div class="table-responsive">
-            <table class="table pmd-table table-hover">
-                <thead>
-                    <tr>
-                        <th>{{'poster' | translate}}</th>
-                        <th>{{'title' | translate}}</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="JudgeArtWork in JudgeArtWorkList">
-                        <td style="width: 10%;">
-                            <img style="width: 70px;height: 70px;" data-ng-src="{{JudgeArtWork.posterUrl}}" />
-                        </td>
-                        <td style="width: 60%;">
-                            {{JudgeArtWork.projectName[selectedLanguage]   | limitTo : 50}}
-                            {{JudgeArtWork.projectName[selectedLanguage].length > 50 ? '...' : ''}}
-                        </td>
-                        <td style="width: 10%;">
-                            <i class="material-icons md-dark pmd-md cursorPointer font25"
-                                ng-click="$state.go('viewJudgeArtWork',{id: JudgeArtWork.id});"
-                                title="review art work">rate_review</i>
-
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
-        paging-action="JudgeArtWorkCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
-        hide-if-empty="true" disabled-class="hide">
-    </div>
-
+<div ng-if="JudgeArtWorkList.length == 0" class="empty-item">
+    <span>{{'NoJudgeArtWorksAvailable' | translate}}</span>
 </div>
+<!-- <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="JudgeArtWorkList.length > 0">
+    <div class="table-responsive">
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'poster' | translate}}</th>
+                    <th>{{'title' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="JudgeArtWork in JudgeArtWorkList">
+                    <td style="width: 10%;">
+                        <img style="width: 70px;height: 70px;" data-ng-src="{{JudgeArtWork.posterUrl}}" />
+                    </td>
+                    <td style="width: 60%;">
+                        {{JudgeArtWork.projectName[selectedLanguage]   | limitTo : 50}}
+                        {{JudgeArtWork.projectName[selectedLanguage].length > 50 ? '...' : ''}}
+                    </td>
+                    <td style="width: 10%;">
+                        <i class="material-icons md-dark pmd-md cursorPointer font25"
+                            ng-click="$state.go('viewJudgeArtWork',{id: JudgeArtWork.id});"
+                            title="review art work">rate_review</i>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div> -->
+
+
+
+<div id="recent_shows">
+    <div class="container">
+
+        <div class="shows_items" ng-if="JudgeArtWorkList.length > 0">
+            <div class="item" ng-repeat="JudgeArtWork in JudgeArtWorkList">
+                <div class="imgthumb">
+                    <a ng-click="$state.go('artWorkDetails',{id: JudgeArtWork.id});" title="{{JudgeArtWork.projectName[selectedLanguage]}}">
+                        <img data-ng-src="{{JudgeArtWork.posterUrl}}">
+                        <div class="mask">
+                            <div class="content">
+                                <p> {{JudgeArtWork.projectName[selectedLanguage]   | limitTo : 50}}
+                                    {{JudgeArtWork.projectName[selectedLanguage].length > 50 ? '...' : ''}}</p>
+                                <div class="stars">
+                                    <i class="icofont-ui-rating"></i>
+                                    <i class="icofont-ui-rating"></i>
+                                    <i class="icofont-ui-rating"></i>
+                                    <i class="icofont-ui-rate-blank"></i>
+                                    <i class="icofont-ui-rate-blank"></i>
+                                </div><!-- end stars -->
+                            </div><!-- end content -->
+                        </div><!-- end mask -->
+                    </a>
+                </div><!-- end imgthumb -->
+            </div><!-- end item -->
+
+        </div><!-- end shows_items -->
+        <div class="paginations">
+
+            <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+                paging-action="JudgeArtWorkCtrl.changePage(page)" flex="nogrow" show-prev-next="true"
+                show-first-last="true" hide-if-empty="true" disabled-class="hide">
+            </div>
+            <!-- <ul>
+                <li><span>1</span></li>
+                <li><span>2</span></li>
+                <li><span>3</span></li>
+                <li><span>4</span></li>
+                <li class="current"><span>5</span></li>
+                <li><span>6</span></li>
+                <li><span>7</span></li>
+                <li><span>8</span></li>
+                <li><span>9</span></li>
+                <li><span>10</span></li>
+                <li><span>11</span></li>
+                <li><span>12</span></li>
+            </ul> -->
+        </div><!-- end paginations -->
+    </div><!-- end container -->
+</div><!-- End recent_shows -->

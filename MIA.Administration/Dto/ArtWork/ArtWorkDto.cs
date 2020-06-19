@@ -25,6 +25,7 @@ namespace MIA.Administration.Api
     public string NomineeId { get; set; } 
     public string PaymentId { get; set; } 
     public ArtWorkPaymentDto Payment { get; set; }
+    public bool? IllegibleForJudge { get; set; }
 
     public string SiteUrl { get; set; }
     public int ProductionYear { get; set; }

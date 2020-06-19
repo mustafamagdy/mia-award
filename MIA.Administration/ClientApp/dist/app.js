@@ -1,4 +1,52 @@
-(function () {
+(function() {
+    'use strict';
+
+      angular
+      .module('home')
+      .config(config)
+      .run(runBlock);
+
+      config.$inject = ['ngProgressLiteProvider'];
+    runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
+
+      function config(ngProgressLiteProvider) {
+      ngProgressLiteProvider.settings.speed = 1000;
+
+      }
+
+      function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
+
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+          startProgress();
+      });
+      $transitions.onStart({}, function(transition) {
+        blockUI.start("Loading..."); 
+      });
+      $transitions.onSuccess({}, function(transition) {
+        blockUI.stop();
+      });
+      $transitions.onError({  }, function(transition) {
+        blockUI.stop();
+      });
+      var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
+
+        angular.forEach(routingDoneEvents, function(event) {
+        $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
+          endProgress();
+        });
+      });
+
+        function startProgress() {
+        ngProgressLite.start();
+      }
+
+        function endProgress() {
+        ngProgressLite.done();
+      }
+
+      }
+  })();
+  (function () {
     'use strict';
 
     angular
@@ -201,55 +249,7 @@
         return UserResource.getUserRole({ name: $stateParams.name }).$promise;
     }
 
-}());(function() {
-    'use strict';
-
-      angular
-      .module('home')
-      .config(config)
-      .run(runBlock);
-
-      config.$inject = ['ngProgressLiteProvider'];
-    runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
-
-      function config(ngProgressLiteProvider) {
-      ngProgressLiteProvider.settings.speed = 1000;
-
-      }
-
-      function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
-
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-          startProgress();
-      });
-      $transitions.onStart({}, function(transition) {
-        blockUI.start("Loading..."); 
-      });
-      $transitions.onSuccess({}, function(transition) {
-        blockUI.stop();
-      });
-      $transitions.onError({  }, function(transition) {
-        blockUI.stop();
-      });
-      var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
-
-        angular.forEach(routingDoneEvents, function(event) {
-        $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
-          endProgress();
-        });
-      });
-
-        function startProgress() {
-        ngProgressLite.start();
-      }
-
-        function endProgress() {
-        ngProgressLite.done();
-      }
-
-      }
-  })();
-  (function () {
+}());(function () {
   "use strict";
 
   angular
@@ -573,8 +573,8 @@
             debugger
             var updateObj = new ArtWorkResource();
             updateObj.Id = model.id;
-            updateObj.FileUrl = model.data.trailerUrl;
-            updateObj.FileKey = model.data.trailerId;
+            updateObj.FileUrl = model.data.trailer.fileUrl;
+            updateObj.FileKey = model.data.trailer.fileKey;
             updateObj.$UpdateTrailerVideoUrl().then(
                 function (data, status) {
                     debugger;
@@ -2683,471 +2683,6 @@
 
     angular
         .module('home')
-        .directive('player', ['$sce', function ($sce) {
-            'use strict';
-            return {
-                restrict: 'E',
-                scope: {
-                    videos: '='
-                },
-                link: function (scope, element, attrs) {
-                    var video = element.find('video');
-                    element.addClass('player');
-                    scope.playing = false;
-                    scope.trustSrc = function (src) {
-                        return $sce.trustAsResourceUrl(src);
-                    }
-
-                    video.on('timeupdate', function (e) {
-                        scope.$apply(function () {
-                            scope.percent = (video[0].currentTime / video[0].duration) * 100;
-                        });
-                    });
-
-                    scope.frame = function (num) {
-                        if (video[0].readyState !== 0) {
-                            video[0].currentTime += num;
-                        }
-                    };
-
-                    scope.toggle = function () {
-                        if (video[0].paused === true) {
-                            video[0].play();
-                            scope.playing = true;
-                        } else {
-                            video[0].pause();
-                            scope.playing = false;
-                        }
-                    };
-                },
-                template: '<video preload="none" poster="{{ trustSrc(videos[0].poster) }}">' +
-                    '<source ng-repeat="item in videos" ng-src="{{ trustSrc(item.src) }}" type="video/{{ item.type }}" />' +
-                    '<track kind="captions" ng-src="{{ trustSrc(videos[0].captions) }}" srclang="en" label="English" />' +
-                    '</video>' +
-                    '<progressbar value="percent" max="100"></progressbar>' +
-                    '<div class="controls noselect">' +
-                    '<a ng-click="frame(-0.04)">&lt;</a>' +
-                    '<a ng-click="toggle()"> <span ng-show="!playing">&#9654;</span><span ng-show="playing">&#9616;&#9616;</span> </a>' +
-                    '<a ng-click="frame(0.04)">&gt;</a>' +
-                    '</div>'
-            };
-        }])
-        .controller('DisplayVideoController', ['appCONSTANTS', 'MediaFileByIdPrepService', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$uibModal',
-            'ToastService', '$stateParams', DisplayVideoController]);
-
-
-    function DisplayVideoController(appCONSTANTS, MediaFileByIdPrepService, $scope, $translate, JudgeArtWorkResource, blockUI, $uibModal, ToastService, $stateParams) {
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
-        var vm = this;
-        vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS;
-        vm.mediaFile = MediaFileByIdPrepService;
-        console.log('viedo', MediaFileByIdPrepService);
-
-
-    }
-
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('JudgeArtWorkController', ['appCONSTANTS', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$uibModal',
-            'ToastService', '$stateParams', JudgeArtWorkController]);
-
-
-    function JudgeArtWorkController(appCONSTANTS, $scope, $translate, JudgeArtWorkResource, blockUI, $uibModal, ToastService, $stateParams) {
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
-        var vm = this;
-        vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS;
-
-        refreshJudgeArtWorks();
-        function refreshJudgeArtWorks() {
-            blockUI.start("Loading..."); 
-debugger;
-            var k = JudgeArtWorkResource.getJudgeArtWorks({ id: $scope.user.id }, null).$promise.then(function (results) {
-
-                               $scope.JudgeArtWorkList = results;
-                console.log($scope.JudgeArtWorkList);
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
-                });
-        }
-        vm.showMore = function (element) {
-            $(element.currentTarget).toggleClass("child-table-collapse");
-        }
-
-        function confirmationDelete(model) {
-            var updateObj = new JudgeArtWorkResource();
-            updateObj.$delete({ id: model.id }).then(
-                function (data, status) {
-                    refreshJudgeArtWorks();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        }
-        vm.ChangeStatus = function (model) {
-            var updateObj = new JudgeArtWorkResource();
-            updateObj.id = model.id;
-            updateObj.title = model.title;
-            updateObj.body = model.body;
-            updateObj.outdated = (model.outdated == true ? false : true);
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    model.outdated = updateObj.outdated;
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-            return;
-        }
-
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshJudgeArtWorks();
-        }
-
-    }
-
-})();
-(function () {
-    angular
-        .module('home')
-        .factory('JudgeArtWorkResource', ['$resource', 'appCONSTANTS', JudgeArtWorkResource])
-
-    function JudgeArtWorkResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'judgeVote', {}, {
-            getAllVotingCriterias: { method: 'POST', url: appCONSTANTS.API_URL + 'votingCriterias/search', useToken: true, params: { lang: '@lang' } },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'judgeVote/submitJudgeVote', useToken: true },
-            getJudgeArtWork: { method: 'GET', useToken: true },
-            delete: { method: 'DELETE', useToken: true },
-            getJudgeArtWorks: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/getJudgeArtWorks?id=:id', isArray: true, useToken: true },
-            getMediaFile: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/getMediaFile?id=:id', useToken: true },
-            getJudgeVoteCriteriaValues: { method: 'GET', url: appCONSTANTS.API_URL + 'judgeVote/getJudgeVoteCriteriaValues?id=:id', isArray: true, useToken: true }
-        })
-    }
-
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .config(function ($stateProvider, $urlRouterProvider) {
-
-            $stateProvider
-                .state('JudgeArtWork', {
-                    url: '/JudgeArtWork',
-                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/JudgeArtWork.html',
-                    controller: 'JudgeArtWorkController',
-                    'controllerAs': 'JudgeArtWorkCtrl', 
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('viewJudgeArtWork', {
-                    url: '/viewJudgeArtWork/:id',
-                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/view.html',
-                    controller: 'viewJudgeArtWorkController',
-                    'controllerAs': 'viewJudgeArtWorkCtrl',
-                    resolve: {
-                        ArtWorkByIdPrepService: ArtWorkByIdPrepService,
-                        ArtWorkMediaByArtWorkIdPrepService: ArtWorkMediaByArtWorkIdPrepService
-                    },
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('displayVideo', {
-                    url: '/displayVideo/:id',
-                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/displayVideo.html',
-                    controller: 'DisplayVideoController',
-                    'controllerAs': 'displayVideoCtrl',
-                    resolve: {
-                        MediaFileByIdPrepService: MediaFileByIdPrepService, 
-                    },
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-        });
-
-    JudgeArtWorkPrepService.$inject = ['JudgeArtWorkResource']
-    function JudgeArtWorkPrepService(JudgeArtWorkResource) {
-        return JudgeArtWorkResource.getAllJudgeArtWorks({ pageNumber: 1, pageSize: 10 }).$promise;
-    }
-
-    JudgeArtWorkByIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
-    function JudgeArtWorkByIdPrepService(JudgeArtWorkResource, $stateParams) {
-        return JudgeArtWorkResource.getJudgeArtWork({ id: $stateParams.id }).$promise;
-    }
-
-    AllJudgeArtWorkPrepService.$inject = ['JudgeArtWorkResource']
-    function AllJudgeArtWorkPrepService(JudgeArtWorkResource) {
-        return JudgeArtWorkResource.getAllJudgeArtWorks({ pageNumber: 1, pageSize: 10 }).$promise;
-    }
-
-    JudgeArtWorkDetailsByArtWorkIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
-    function JudgeArtWorkDetailsByArtWorkIdPrepService(JudgeArtWorkResource, $stateParams) {
-        return JudgeArtWorkResource.getJudgeArtWorkDetails({ id: $stateParams.id }).$promise;
-    }
-
-    ArtWorkByIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
-    function ArtWorkByIdPrepService(ArtWorkResource, $stateParams) {
-        return ArtWorkResource.getArtWork({ id: $stateParams.id }).$promise;
-    }
-
-    ArtWorkMediaByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
-    function ArtWorkMediaByArtWorkIdPrepService(ArtWorkResource, $stateParams) {
-        return ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise;
-    }
-    MediaFileByIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
-    function MediaFileByIdPrepService(JudgeArtWorkResource, $stateParams) {
-        return JudgeArtWorkResource.getMediaFile({ id: $stateParams.id }).$promise;
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('viewJudgeArtWorkController', ['ArtWorkMediaByArtWorkIdPrepService', '$scope', 'blockUI', '$stateParams', '$uibModal', '$state', 'appCONSTANTS', '$translate',
-            'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', viewJudgeArtWorkController
-        ])
-
-    function viewJudgeArtWorkController(ArtWorkMediaByArtWorkIdPrepService, $scope, blockUI, $stateParams, $uibModal, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
-        ToastService, ArtWorkByIdPrepService) {
-        var vm = this;
-        vm.JudgeArtWork = ArtWorkByIdPrepService;
-        vm.artWorkMedia = ArtWorkMediaByArtWorkIdPrepService;
-        vm.votingCriteriaList = [];
-        console.log('sdsd', vm.JudgeArtWork);
-        refreshVotingCriterias();
-        vm.Close = function () {
-            $state.go('JudgeArtWork');
-        }
-        vm.changeValue = function (value, index) {
-            debugger;
-            vm.votingCriteriaList[index].value = value;
-
-        }
-        vm.UpdateJudgeArtWork = function (judgeComplete) {
-            blockUI.start("Loading...");
-
-            var updateObj = new JudgeArtWorkResource();
-            updateObj.Id = vm.JudgeArtWork.id;
-            updateObj.ArtWorkId = vm.JudgeArtWork.id;
-            updateObj.JudgeId = $scope.user.id;
-            updateObj.CriteriaValues = vm.votingCriteriaList;
-            updateObj.JudgeComplete = judgeComplete;
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    blockUI.stop();
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-        function refreshVotingCriterias() {
-            var k = JudgeArtWorkResource.getJudgeVoteCriteriaValues({ id: $stateParams.id }).$promise.then(function (results) {
-                vm.votingCriteriaList = results;
-                console.log(vm.votingCriteriaList);
-                vm.totalCount = results.length;
-                blockUI.stop();
-            },
-                function (data, status) {
-
-                    blockUI.stop();
-                });
-        }
-
-        function confirmationMessage() {
-            var updateObj = new JudgeArtWorkResource();
-            updateObj.Id = vm.JudgeArtWork.id;
-            updateObj.ArtWorkId = vm.JudgeArtWork.id;
-            updateObj.JudgeId = $scope.user.id;
-            updateObj.CriteriaValues = vm.votingCriteriaList;
-            updateObj.JudgeComplete = true;
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    blockUI.stop();
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.openMessageDialog = function () {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/ConfirmationMessage/templates/ConfirmMessageDialog.html',
-                controller: 'confirmMessageDialogController',
-                controllerAs: 'messageDlCtrl',
-                resolve: {
-                    callBackFunction: function () { return confirmationMessage }
-                }
-
-            });
-        }
-        vm.slider = {
-            minValue: 10,
-            maxValue: 90,
-            options: {
-                floor: 0,
-                ceil: 100,
-                step: 10,
-                showTicks: true,
-
-                         }
-        };
-    }
-}());(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('viewJudgeArtWorkController', ['ArtWorkMediaByArtWorkIdPrepService', '$scope', 'blockUI', '$stateParams', '$uibModal', '$state', 'appCONSTANTS', '$translate',
-            'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', viewJudgeArtWorkController
-        ])
-
-    function viewJudgeArtWorkController(ArtWorkMediaByArtWorkIdPrepService, $scope, blockUI, $stateParams, $uibModal, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
-        ToastService, ArtWorkByIdPrepService) {
-        var vm = this;
-        vm.JudgeArtWork = ArtWorkByIdPrepService;
-        vm.artWorkMedia = ArtWorkMediaByArtWorkIdPrepService;
-        vm.votingCriteriaList = [];
-        console.log('sdsd', vm.JudgeArtWork);
-        refreshVotingCriterias();
-        vm.Close = function () {
-            $state.go('JudgeArtWork');
-        }
-        vm.changeValue = function (value, index) {
-            debugger;
-            vm.votingCriteriaList[index].value = value;
-
-        }
-        vm.UpdateJudgeArtWork = function (judgeComplete) {
-            blockUI.start("Loading...");
-
-            var updateObj = new JudgeArtWorkResource();
-            updateObj.Id = vm.JudgeArtWork.id;
-            updateObj.ArtWorkId = vm.JudgeArtWork.id;
-            updateObj.JudgeId = $scope.user.id;
-            updateObj.CriteriaValues = vm.votingCriteriaList;
-            updateObj.JudgeComplete = judgeComplete;
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    blockUI.stop();
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-        function refreshVotingCriterias() {
-            var k = JudgeArtWorkResource.getJudgeVoteCriteriaValues({ id: $stateParams.id }).$promise.then(function (results) {
-                vm.votingCriteriaList = results;
-                console.log(vm.votingCriteriaList);
-                vm.totalCount = results.length;
-                blockUI.stop();
-            },
-                function (data, status) {
-
-                    blockUI.stop();
-                });
-        }
-
-        function confirmationMessage() {
-            var updateObj = new JudgeArtWorkResource();
-            updateObj.Id = vm.JudgeArtWork.id;
-            updateObj.ArtWorkId = vm.JudgeArtWork.id;
-            updateObj.JudgeId = $scope.user.id;
-            updateObj.CriteriaValues = vm.votingCriteriaList;
-            updateObj.JudgeComplete = true;
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    blockUI.stop();
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.openMessageDialog = function () {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/ConfirmationMessage/templates/ConfirmMessageDialog.html',
-                controller: 'confirmMessageDialogController',
-                controllerAs: 'messageDlCtrl',
-                resolve: {
-                    callBackFunction: function () { return confirmationMessage }
-                }
-
-            });
-        }
-        vm.slider = {
-            minValue: 10,
-            maxValue: 90,
-            options: {
-                floor: 0,
-                ceil: 100,
-                step: 10,
-                showTicks: true,
-
-                         }
-        };
-    }
-}());(function () {
-    'use strict';
-
-    angular
-        .module('home')
         .controller('NewsController', ['appCONSTANTS', '$scope', '$translate', 'NewsResource', 'blockUI', '$uibModal',
             'ToastService', NewsController]);
 
@@ -4516,6 +4051,532 @@ debugger;
 }());
 
 (function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .directive('player', ['$sce', function ($sce) {
+            'use strict';
+            return {
+                restrict: 'E',
+                scope: {
+                    videos: '='
+                },
+                link: function (scope, element, attrs) {
+                    var video = element.find('video');
+                    element.addClass('player');
+                    scope.playing = false;
+                    scope.trustSrc = function (src) {
+                        return $sce.trustAsResourceUrl(src);
+                    }
+
+                    video.on('timeupdate', function (e) {
+                        scope.$apply(function () {
+                            scope.percent = (video[0].currentTime / video[0].duration) * 100;
+                        });
+                    });
+
+                    scope.frame = function (num) {
+                        if (video[0].readyState !== 0) {
+                            video[0].currentTime += num;
+                        }
+                    };
+
+                    scope.toggle = function () {
+                        if (video[0].paused === true) {
+                            video[0].play();
+                            scope.playing = true;
+                        } else {
+                            video[0].pause();
+                            scope.playing = false;
+                        }
+                    };
+                },
+                template: '<video preload="none" poster="{{ trustSrc(videos[0].poster) }}">' +
+                    '<source ng-repeat="item in videos" ng-src="{{ trustSrc(item.src) }}" type="video/{{ item.type }}" />' +
+                    '<track kind="captions" ng-src="{{ trustSrc(videos[0].captions) }}" srclang="en" label="English" />' +
+                    '</video>' +
+                    '<progressbar value="percent" max="100"></progressbar>' +
+                    '<div class="controls noselect">' +
+                    '<a ng-click="frame(-0.04)">&lt;</a>' +
+                    '<a ng-click="toggle()"> <span ng-show="!playing">&#9654;</span><span ng-show="playing">&#9616;&#9616;</span> </a>' +
+                    '<a ng-click="frame(0.04)">&gt;</a>' +
+                    '</div>'
+            };
+        }])
+        .controller('DisplayVideoController', ['appCONSTANTS', 'MediaFileByIdPrepService', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$uibModal',
+            'ToastService', '$stateParams', DisplayVideoController]);
+
+
+    function DisplayVideoController(appCONSTANTS, MediaFileByIdPrepService, $scope, $translate, JudgeArtWorkResource, blockUI, $uibModal, ToastService, $stateParams) {
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+        var vm = this;
+        vm.currentPage = 1;
+        vm.appCONSTANTS = appCONSTANTS;
+        vm.mediaFile = MediaFileByIdPrepService;
+        console.log('viedo', vm.mediaFile);
+        refreshComments();
+        vm.Close = function () {
+            $state.go('JudgeArtWork');
+        }
+        vm.submitComment = function () {
+            blockUI.start("Loading...");
+
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.MediaFileId = vm.mediaFile.id;
+            updateObj.JudgeId = $scope.user.id;
+            updateObj.MediaTime = vm.time;
+            updateObj.Comments = vm.comment;
+            updateObj.$postComment().then(
+                function (data, status) {
+                    refreshComments();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    blockUI.stop();
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+
+        function refreshComments() {
+            var k = JudgeArtWorkResource.getCommetsListByMedia({ id: vm.mediaFile.id }).$promise.then(function (results) {
+                vm.commentsList = results;
+                console.log(vm.commentsList);
+                vm.totalCount = results.length;
+                blockUI.stop();
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
+
+
+    }
+
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('JudgeArtWorkController', ['appCONSTANTS', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$uibModal',
+            'ToastService', '$stateParams', JudgeArtWorkController]);
+
+
+    function JudgeArtWorkController(appCONSTANTS, $scope, $translate, JudgeArtWorkResource, blockUI, $uibModal, ToastService, $stateParams) {
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+        var vm = this;
+        vm.currentPage = 1;
+        vm.appCONSTANTS = appCONSTANTS;
+
+        refreshJudgeArtWorks();
+        function refreshJudgeArtWorks() {
+            blockUI.start("Loading..."); 
+debugger;
+            var k = JudgeArtWorkResource.getJudgeArtWorks({ id: $scope.user.id }, null).$promise.then(function (results) {
+
+                               $scope.JudgeArtWorkList = results;
+                console.log($scope.JudgeArtWorkList);
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+                });
+        }
+        vm.showMore = function (element) {
+            $(element.currentTarget).toggleClass("child-table-collapse");
+        }
+
+        function confirmationDelete(model) {
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.$delete({ id: model.id }).then(
+                function (data, status) {
+                    refreshJudgeArtWorks();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.openDeleteDialog = function (model, name, id) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+                controller: 'confirmDeleteDialogController',
+                controllerAs: 'deleteDlCtrl',
+                resolve: {
+                    model: function () { return model },
+                    itemName: function () { return name },
+                    itemId: function () { return id },
+                    message: function () { return null },
+                    callBackFunction: function () { return confirmationDelete }
+                }
+
+            });
+        }
+        vm.ChangeStatus = function (model) {
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.id = model.id;
+            updateObj.title = model.title;
+            updateObj.body = model.body;
+            updateObj.outdated = (model.outdated == true ? false : true);
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    model.outdated = updateObj.outdated;
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                }
+            );
+            return;
+        }
+
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshJudgeArtWorks();
+        }
+
+    }
+
+})();
+(function () {
+    angular
+        .module('home')
+        .factory('JudgeArtWorkResource', ['$resource', 'appCONSTANTS', JudgeArtWorkResource])
+
+    function JudgeArtWorkResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'judgeVote', {}, {
+            getAllVotingCriterias: { method: 'POST', url: appCONSTANTS.API_URL + 'votingCriterias/search', useToken: true, params: { lang: '@lang' } },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'judgeVote/submitJudgeVote', useToken: true },
+            getJudgeArtWork: { method: 'GET', useToken: true },
+            delete: { method: 'DELETE', useToken: true },
+            getJudgeArtWorks: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/getJudgeArtWorks?id=:id', isArray: true, useToken: true },
+            getMediaFile: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/getMediaFile?id=:id', useToken: true },
+            getJudgeVoteCriteriaValues: { method: 'GET', url: appCONSTANTS.API_URL + 'judgeVote/getJudgeVoteCriteriaValues?id=:id', isArray: true, useToken: true },
+            getCriteriaByLevel: { method: 'GET', url: appCONSTANTS.API_URL + 'judgeVote/getCriteriaByLevel?level=:level', isArray: true, useToken: true },
+
+            postComment: { method: 'POST', url: appCONSTANTS.API_URL + 'judgeVote/submitJudgeComment', useToken: true },
+            getCommetsListByMedia: { method: 'GET', url: appCONSTANTS.API_URL + 'judgeVote/getCommetsListByMedia?id=:id', isArray: true, useToken: true }
+        })
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .config(function ($stateProvider, $urlRouterProvider) {
+
+            $stateProvider
+                .state('JudgeArtWork', {
+                    url: '/JudgeArtWork',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/JudgeArtWork.html',
+                    controller: 'JudgeArtWorkController',
+                    'controllerAs': 'JudgeArtWorkCtrl',
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('viewJudgeArtWork', {
+                    url: '/viewJudgeArtWork/:id',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/view.html',
+                    controller: 'viewJudgeArtWorkController',
+                    'controllerAs': 'viewJudgeArtWorkCtrl',
+                    resolve: {
+                        ArtWorkByIdPrepService: ArtWorkByIdPrepService,
+                        ArtWorkMediaByArtWorkIdPrepService: ArtWorkMediaByArtWorkIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('displayVideo', {
+                    url: '/displayVideo/:id',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/displayVideo.html',
+                    controller: 'DisplayVideoController',
+                    'controllerAs': 'displayVideoCtrl',
+                    resolve: {
+                        MediaFileByIdPrepService: MediaFileByIdPrepService,
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('artWorkDetails', {
+                    url: '/artWorkDetails/:id',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/artworkdetails.html',
+                    controller: 'judgeArtWorkDetailsController',
+                    'controllerAs': 'judgeArtWorkDetailsCtrl',
+                    resolve: {
+                        ArtWorkByIdPrepService: ArtWorkByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+        });
+
+    JudgeArtWorkPrepService.$inject = ['JudgeArtWorkResource']
+    function JudgeArtWorkPrepService(JudgeArtWorkResource) {
+        return JudgeArtWorkResource.getAllJudgeArtWorks({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+
+    JudgeArtWorkByIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
+    function JudgeArtWorkByIdPrepService(JudgeArtWorkResource, $stateParams) {
+        return JudgeArtWorkResource.getJudgeArtWork({ id: $stateParams.id }).$promise;
+    }
+
+    AllJudgeArtWorkPrepService.$inject = ['JudgeArtWorkResource']
+    function AllJudgeArtWorkPrepService(JudgeArtWorkResource) {
+        return JudgeArtWorkResource.getAllJudgeArtWorks({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+
+    JudgeArtWorkDetailsByArtWorkIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
+    function JudgeArtWorkDetailsByArtWorkIdPrepService(JudgeArtWorkResource, $stateParams) {
+        return JudgeArtWorkResource.getJudgeArtWorkDetails({ id: $stateParams.id }).$promise;
+    }
+
+    ArtWorkByIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
+    function ArtWorkByIdPrepService(ArtWorkResource, $stateParams) {
+        return ArtWorkResource.getArtWork({ id: $stateParams.id }).$promise;
+    }
+
+    ArtWorkMediaByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
+    function ArtWorkMediaByArtWorkIdPrepService(ArtWorkResource, $stateParams) {
+        return ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise;
+    }
+    MediaFileByIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
+    function MediaFileByIdPrepService(JudgeArtWorkResource, $stateParams) {
+        return JudgeArtWorkResource.getMediaFile({ id: $stateParams.id }).$promise;
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('judgeArtWorkDetailsController', ['$sce','$scope', 'blockUI', '$stateParams', 'ArtWorkResource', '$state', 'appCONSTANTS', '$translate',
+            'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', judgeArtWorkDetailsController
+        ])
+
+    function judgeArtWorkDetailsController($sce,$scope, blockUI, $stateParams, ArtWorkResource, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
+        ToastService, ArtWorkByIdPrepService) {
+        var vm = this;
+        vm.showMediaList = false;
+        vm.showCriteriaList = false;
+        vm.JudgeArtWork = ArtWorkByIdPrepService;
+        vm.artWorkLevel = 0;
+        console.log(vm.JudgeArtWork);
+        vm.Close = function () {
+            $state.go('JudgeArtWork');
+        }
+        $scope.trustSrc = function(src) {
+            return $sce.trustAsResourceUrl(src);
+          }
+        vm.showMedia = function () {
+            vm.showMediaList = !vm.showMediaList;
+            vm.showCriteriaList = false;
+
+            getArtWorkMediaList();
+        }
+        vm.showJudging = function () {
+            vm.showCriteriaList = !vm.showCriteriaList;
+            vm.showMediaList = false;
+
+            if (vm.JudgeArtWork.illegibleForJudge)
+                vm.artWorkLevel = 1;
+            debugger
+            getVotingCriterias();
+        }
+
+        vm.changeValue = function (value, index) {
+            debugger;
+            vm.votingCriteriaList[index].value = value;
+
+        }
+        vm.UpdateJudgeArtWork = function (judgeComplete) {
+            blockUI.start("Loading...");
+
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.Id = vm.JudgeArtWork.id;
+            updateObj.ArtWorkId = vm.JudgeArtWork.id;
+            updateObj.JudgeId = $scope.user.id;
+            updateObj.CriteriaValues = vm.votingCriteriaList;
+            updateObj.JudgeComplete = judgeComplete;
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    blockUI.stop();
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.slider = {
+            minValue: 10,
+            maxValue: 90,
+            options: {
+                floor: 0,
+                ceil: 100,
+                step: 10,
+                showTicks: true,
+
+            }
+        };
+        function getArtWorkMediaList() {
+            blockUI.start("Loading...");
+
+            var k = ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise.then(function (results) {
+                vm.mediaItemList = results;
+                blockUI.stop();
+            },
+                function (data, status) {
+                    debugger;
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+                });
+        }
+
+        function getVotingCriterias() {
+            var k = JudgeArtWorkResource.getCriteriaByLevel({ level: vm.artWorkLevel }).$promise.then(function (results) {
+                vm.votingCriteriaList = results;
+                console.log(vm.votingCriteriaList);
+                vm.totalCount = results.length;
+                blockUI.stop();
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
+
+    }
+}());(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('viewJudgeArtWorkController', ['ArtWorkMediaByArtWorkIdPrepService', '$scope', 'blockUI', '$stateParams', '$uibModal', '$state', 'appCONSTANTS', '$translate',
+            'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', viewJudgeArtWorkController
+        ])
+
+    function viewJudgeArtWorkController(ArtWorkMediaByArtWorkIdPrepService, $scope, blockUI, $stateParams, $uibModal, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
+        ToastService, ArtWorkByIdPrepService) {
+        var vm = this;
+        vm.JudgeArtWork = ArtWorkByIdPrepService;
+        vm.artWorkMedia = ArtWorkMediaByArtWorkIdPrepService;
+        vm.votingCriteriaList = [];
+        console.log('sdsd', vm.JudgeArtWork);
+        refreshVotingCriterias();
+        vm.Close = function () {
+            $state.go('JudgeArtWork');
+        }
+        vm.changeValue = function (value, index) {
+            debugger;
+            vm.votingCriteriaList[index].value = value;
+
+        }
+        vm.UpdateJudgeArtWork = function (judgeComplete) {
+            blockUI.start("Loading...");
+
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.Id = vm.JudgeArtWork.id;
+            updateObj.ArtWorkId = vm.JudgeArtWork.id;
+            updateObj.JudgeId = $scope.user.id;
+            updateObj.CriteriaValues = vm.votingCriteriaList;
+            updateObj.JudgeComplete = judgeComplete;
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    blockUI.stop();
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+        function refreshVotingCriterias() {
+            var k = JudgeArtWorkResource.getJudgeVoteCriteriaValues({ id: $stateParams.id }).$promise.then(function (results) {
+                vm.votingCriteriaList = results;
+                console.log(vm.votingCriteriaList);
+                vm.totalCount = results.length;
+                blockUI.stop();
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
+
+        function confirmationMessage() {
+            var updateObj = new JudgeArtWorkResource();
+            updateObj.Id = vm.JudgeArtWork.id;
+            updateObj.ArtWorkId = vm.JudgeArtWork.id;
+            updateObj.JudgeId = $scope.user.id;
+            updateObj.CriteriaValues = vm.votingCriteriaList;
+            updateObj.JudgeComplete = true;
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    blockUI.stop();
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.openMessageDialog = function () {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/ConfirmationMessage/templates/ConfirmMessageDialog.html',
+                controller: 'confirmMessageDialogController',
+                controllerAs: 'messageDlCtrl',
+                resolve: {
+                    callBackFunction: function () { return confirmationMessage }
+                }
+
+            });
+        }
+        vm.slider = {
+            minValue: 10,
+            maxValue: 90,
+            options: {
+                floor: 0,
+                ceil: 100,
+                step: 10,
+                showTicks: true,
+
+                         }
+        };
+    }
+}());(function () {
     angular
         .module('home')
         .factory('UploadChunkResource', ['$resource', 'appCONSTANTS', UploadChunkResource])

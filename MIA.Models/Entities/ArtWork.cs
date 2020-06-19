@@ -9,6 +9,7 @@ namespace MIA.Models.Entities {
       Trailer = S3File.FromKeyAndUrl("", "");
       TrailerPoster = S3File.FromKeyAndUrl("", "");
       Cover = S3File.FromKeyAndUrl("", "");
+      Resume = S3File.FromKeyAndUrl("", "");
     }
     public LocalizedData ProjectName { get; set; }
     public LocalizedData Description { get; set; }
