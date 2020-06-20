@@ -6,7 +6,7 @@
 
 	function uploadVideoDialogController(itemId, callBackFunction) {
 		$scope.uploadVideo = function () {
-	debugger
+			debugger
 			const file = $('#file').get(0).files[0];
 			$scope.processFile(file);
 		};
@@ -75,7 +75,7 @@
 		$scope.uploadChunkApi = function ({ id, ...data }) {
 			return $http({
 				method: 'POST',
-				url: appCONSTANTS.API_URL +  + `/test/artwork/${id}/files`,
+				url: appCONSTANTS.API_URL + + `/test/artwork/${id}/files`,
 				headers: {
 					'Content-Type': 'application/json'
 				},

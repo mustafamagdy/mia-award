@@ -1,0 +1,92 @@
+<style>
+    form .progress {
+        line-height: 15px;
+    }
+
+    .progress {
+        display: inline-block;
+        width: 100px;
+        border: 3px groove #ccc;
+    }
+
+    .progress>div {
+        font-size: smaller;
+        background: linear-gradient(90deg, #f7e483, #dbba5a 57%, #a36d31);
+        width: 0%;
+    }
+</style>
+<section id="member_area">
+    <div class="container">
+
+        <div class="member_wrapper">
+            <div class="poster_area">
+                <div class="bg_cover" style="background-image: url({{MultiFilesCtrl.artWork.coverUrl}});"></div>
+                <div class="imgthumb">
+                    <img src="{{MultiFilesCtrl.artWork.posterUrl}}" alt="#">
+                </div><!-- end imgthumb -->
+            </div><!-- end poster_area -->
+            <div class="stage_two">
+                <div class="main_tabs">
+                    <ul>
+                        <li class="active">Upload</li>
+                    </ul>
+                </div><!-- end main_tabs -->
+                <div class="tab_content tab_upload_videos">
+                    <div class="uploads_area">
+                        <div class="top_upload">
+
+                            <div class="submit">
+                                <button type="submit" ng-click="uploadFiles()"
+                                    ng-disabled="files == null">Submit</button>
+                            </div><!-- end submit -->
+                        </div><!-- end top_upload -->
+                        <div class="bottom_upload">
+                            <div class="upload_input">
+                                <!-- <input type="file" id="file" multiple
+                                        onchange="angular.element(this).scope().uploadVideo()"> -->
+
+                                <input type="file" id="file" name="file" multiple
+                                    onchange="angular.element(this).scope().getFileDetails(this)" />
+
+                                <div class="upload_now">
+                                    <i class="icofont-upload-alt"></i>
+                                    <p>Drag files to upload</p>
+                                </div><!-- end upload_now -->
+                                <span>Choose Files</span>
+                            </div><!-- end upload_input -->
+                            <div class="upload_list">
+
+                                <div class="title">Files Upload</div>
+                                <div class="item" ng-repeat="file in files">
+                                    <div class="name">
+                                        <span>Episode {{$index+1}}</span>
+                                        <p>{{file.size/1024/1024|number:2}} mb</p>
+                                    </div><!-- end name -->
+                                    <div class="bar_area">
+                                        <div id="dvProgress" class="progress" ng-show="Progress >= 0">
+                                        </div>
+                                        <div class="progress_bar">
+                                            <div id="'dvProgress'+'{{file.size}}'" class="progress_inside"
+                                                ng-show="Progress  >= 0">
+                                            </div>
+                                            <!-- <div class="progress_inside" style="width: 10%;"></div> -->
+                                        </div>
+                                        <div class="play"> <button type="button" class="btn btn-success btn-xs"
+                                                ng-click="uploadSingleFile(file)"
+                                                ng-disabled="file.isReady || file.isUploading || file.isSuccess">
+                                                <span class="glyphicon glyphicon-upload"></span> Upload
+                                            </button><i class="icofont-ui-play"></i></div>
+                                        <div class="cancel"><i class="icofont-close"></i></div>
+                                    </div><!-- end bar_area -->
+                                    <div class="progress_number">
+                                        Uploading <p>{{Progress}}%</p> done
+                                    </div><!-- end progress_number -->
+                                </div><!-- end item -->
+                            </div><!-- end upload_list -->
+                        </div><!-- end bottom_upload -->
+                    </div><!-- end uploads_area -->
+                </div><!-- end tab_upload_videos -->
+            </div><!-- end stage_two -->
+        </div><!-- end member_wrapper -->
+    </div><!-- end container -->
+</section><!-- End member_area -->

@@ -68,7 +68,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '                            <i ng-show="user.PermessionModules.includes(\'News.add_new\') && ArtWork.award.awardType ==\'artwork\'  "\n' +
     '                                class="material-icons md-dark pmd-md perm_media font25"\n' +
-    '                                ng-click="$state.go(\'ArtWorkMedia\',{id: ArtWork.id});" title="media">perm_media</i>\n' +
+    '                                ng-click="$state.go(\'MultiFiles\',{id: ArtWork.id});" title="media">perm_media</i>\n' +
     '\n' +
     '                            <!-- <i ng-show="user.PermessionModules.includes(\'News.add_new\')"\n' +
     '                                class="material-icons md-dark pmd-md cursorPointer font25"\n' +
@@ -782,51 +782,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        paging-action="ArtWorkMediaCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
     '        hide-if-empty="true" disabled-class="hide">\n' +
     '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '<div>\n' +
-    '\n' +
-    '    <div class="stage_two">\n' +
-    '\n' +
-    '        <div>\n' +
-    '            <div>\n' +
-    '                <div>\n' +
-    '                    <div class="submit">\n' +
-    '                        <button type="submit">Submit</button>\n' +
-    '                    </div><!-- end submit -->\n' +
-    '                </div><!-- end top_upload -->\n' +
-    '                <div>\n' +
-    '                    <div>\n' +
-    '                        <form action="#">\n' +
-    '                            <input type="file">\n' +
-    '                            <span>Choose Files</span>\n' +
-    '                        </form>\n' +
-    '                    </div><!-- end upload_input -->\n' +
-    '                    <div>\n' +
-    '                        <div>Files Upload</div>\n' +
-    '                        <div>\n' +
-    '                            <div>\n' +
-    '                                <span>Episode 1</span>\n' +
-    '                                <p>95.8 mb</p>\n' +
-    '                            </div><!-- end name -->\n' +
-    '                            <div class="bar_area">\n' +
-    '                                <div class="progress_bar">\n' +
-    '                                    <div class="progress_inside" style="width: 10%;"></div>\n' +
-    '                                </div>\n' +
-    '                                <div class="play"><i class="icofont-ui-play"></i></div>\n' +
-    '                                <div class="cancel"><i class="icofont-close"></i></div>\n' +
-    '                            </div><!-- end bar_area -->\n' +
-    '                            <div class="progress_number">\n' +
-    '                                Uploading <p>20%</p> done\n' +
-    '                            </div><!-- end progress_number -->\n' +
-    '                        </div><!-- end item -->\n' +
-    '                        <!-- end item -->\n' +
-    '                    </div><!-- end upload_list -->\n' +
-    '                </div><!-- end bottom_upload -->\n' +
-    '            </div><!-- end uploads_area -->\n' +
-    '        </div><!-- end tab_upload_videos -->\n' +
-    '    </div><!-- end stage_two -->\n' +
-    '</div><!-- end member_wrapper -->');
+    '</div> \n' +
+    '');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -1025,6 +982,102 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        });\n' +
     '    });\n' +
     '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/uploadMultiFiles.html',
+    '<style>\n' +
+    '    form .progress {\n' +
+    '        line-height: 15px;\n' +
+    '    }\n' +
+    '\n' +
+    '    .progress {\n' +
+    '        display: inline-block;\n' +
+    '        width: 100px;\n' +
+    '        border: 3px groove #ccc;\n' +
+    '    }\n' +
+    '\n' +
+    '    .progress>div {\n' +
+    '        font-size: smaller;\n' +
+    '        background: linear-gradient(90deg, #f7e483, #dbba5a 57%, #a36d31);\n' +
+    '        width: 0%;\n' +
+    '    }\n' +
+    '</style>\n' +
+    '<section id="member_area">\n' +
+    '    <div class="container">\n' +
+    '\n' +
+    '        <div class="member_wrapper">\n' +
+    '            <div class="poster_area">\n' +
+    '                <div class="bg_cover" style="background-image: url({{MultiFilesCtrl.artWork.coverUrl}});"></div>\n' +
+    '                <div class="imgthumb">\n' +
+    '                    <img src="{{MultiFilesCtrl.artWork.posterUrl}}" alt="#">\n' +
+    '                </div><!-- end imgthumb -->\n' +
+    '            </div><!-- end poster_area -->\n' +
+    '            <div class="stage_two">\n' +
+    '                <div class="main_tabs">\n' +
+    '                    <ul>\n' +
+    '                        <li class="active">Upload</li>\n' +
+    '                    </ul>\n' +
+    '                </div><!-- end main_tabs -->\n' +
+    '                <div class="tab_content tab_upload_videos">\n' +
+    '                    <div class="uploads_area">\n' +
+    '                        <div class="top_upload">\n' +
+    '\n' +
+    '                            <div class="submit">\n' +
+    '                                <button type="submit" ng-click="uploadFiles()"\n' +
+    '                                    ng-disabled="files == null">Submit</button>\n' +
+    '                            </div><!-- end submit -->\n' +
+    '                        </div><!-- end top_upload -->\n' +
+    '                        <div class="bottom_upload">\n' +
+    '                            <div class="upload_input">\n' +
+    '                                <!-- <input type="file" id="file" multiple\n' +
+    '                                        onchange="angular.element(this).scope().uploadVideo()"> -->\n' +
+    '\n' +
+    '                                <input type="file" id="file" name="file" multiple\n' +
+    '                                    onchange="angular.element(this).scope().getFileDetails(this)" />\n' +
+    '\n' +
+    '                                <div class="upload_now">\n' +
+    '                                    <i class="icofont-upload-alt"></i>\n' +
+    '                                    <p>Drag files to upload</p>\n' +
+    '                                </div><!-- end upload_now -->\n' +
+    '                                <span>Choose Files</span>\n' +
+    '                            </div><!-- end upload_input -->\n' +
+    '                            <div class="upload_list">\n' +
+    '\n' +
+    '                                <div class="title">Files Upload</div>\n' +
+    '                                <div class="item" ng-repeat="file in files">\n' +
+    '                                    <div class="name">\n' +
+    '                                        <span>Episode {{$index+1}}</span>\n' +
+    '                                        <p>{{file.size/1024/1024|number:2}} mb</p>\n' +
+    '                                    </div><!-- end name -->\n' +
+    '                                    <div class="bar_area">\n' +
+    '                                        <div id="dvProgress" class="progress" ng-show="Progress >= 0">\n' +
+    '                                        </div>\n' +
+    '                                        <div class="progress_bar">\n' +
+    '                                            <div id="\'dvProgress\'+\'{{file.size}}\'" class="progress_inside"\n' +
+    '                                                ng-show="Progress  >= 0">\n' +
+    '                                            </div>\n' +
+    '                                            <!-- <div class="progress_inside" style="width: 10%;"></div> -->\n' +
+    '                                        </div>\n' +
+    '                                        <div class="play"> <button type="button" class="btn btn-success btn-xs"\n' +
+    '                                                ng-click="uploadSingleFile(file)"\n' +
+    '                                                ng-disabled="file.isReady || file.isUploading || file.isSuccess">\n' +
+    '                                                <span class="glyphicon glyphicon-upload"></span> Upload\n' +
+    '                                            </button><i class="icofont-ui-play"></i></div>\n' +
+    '                                        <div class="cancel"><i class="icofont-close"></i></div>\n' +
+    '                                    </div><!-- end bar_area -->\n' +
+    '                                    <div class="progress_number">\n' +
+    '                                        Uploading <p>{{Progress}}%</p> done\n' +
+    '                                    </div><!-- end progress_number -->\n' +
+    '                                </div><!-- end item -->\n' +
+    '                            </div><!-- end upload_list -->\n' +
+    '                        </div><!-- end bottom_upload -->\n' +
+    '                    </div><!-- end uploads_area -->\n' +
+    '                </div><!-- end tab_upload_videos -->\n' +
+    '            </div><!-- end stage_two -->\n' +
+    '        </div><!-- end member_wrapper -->\n' +
+    '    </div><!-- end container -->\n' +
+    '</section><!-- End member_area -->');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -3095,275 +3148,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Role/templates/Role.html',
-    '<div>\n' +
-    '    <!-- <div style="margin-bottom:10px">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go(\'newRole\');"\n' +
-    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddBtn\'\n' +
-    '            | translate}}</button>\n' +
-    '\n' +
-    '    </div>   -->\n' +
-    '\n' +
-    '    <div ng-if="RoleList.length == 0">\n' +
-    '        <span>{{\'NoRolesAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="RoleList.length > 0">\n' +
-    '        <div class="table-responsive" >\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th style="width: 50%">{{\'Name\' | translate}}</th>\n' +
-    '                        <!-- <th>{{\'Status\' | translate}}</th> -->\n' +
-    '                        <th></th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat="role in RoleList">\n' +
-    '                        <td>{{role.name}}</td> \n' +
-    '\n' +
-    '                        <td>\n' +
-    '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'editRole\',{name: role.name});" title="Edit">mode_edit</i>\n' +
-    '                            <i ng-show="!role.systemRole" class="material-icons pmd-md deleteButton cursorPointer font25"\n' +
-    '                                ng-click="RoleCtrl.openDeleteDialog(role,role.titles[selectedLanguage],role.userGroupId)">delete</i>\n' +
-    '                        </td>\n' +
-    '                    </tr>\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
-    '        disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Role/templates/edit.html',
-    '<style>\n' +
-    '    ::-webkit-scrollbar {\n' +
-    '        width: 12px;\n' +
-    '    }\n' +
-    '\n' +
-    '    /* Track */\n' +
-    '    ::-webkit-scrollbar-track {\n' +
-    '        background: #f1f1f1;\n' +
-    '    }\n' +
-    '\n' +
-    '    /* Handle */\n' +
-    '    ::-webkit-scrollbar-thumb {\n' +
-    '        background: #888;\n' +
-    '    }\n' +
-    '\n' +
-    '    /* Handle on hover */\n' +
-    '    ::-webkit-scrollbar-thumb:hover {\n' +
-    '        background: #555;\n' +
-    '    }\n' +
-    '</style>\n' +
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text"> {{\'EditRoleLbl\' | translate}}\n' +
-    '        </h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="editRoleForm">\n' +
-    '            <div class="row">\n' +
-    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name"><span style="color:red">*</span>{{\'name\' | translate}}</label>\n' +
-    '                    <input required type="text" class="mat-input form-control" name="roleName"\n' +
-    '                        ng-model="editRoleCtrl.name" ng-minlength="3" ng-maxlength="255">\n' +
-    '                    <div ng-messages="editRoleForm.roleName.$error" class="error">\n' +
-    '                        <div class="error" ng-show="editRoleForm.roleName.$error.pattern">{{\'TextOnly\' | translate}}\n' +
-    '                        </div>\n' +
-    '                        <div class="error"\n' +
-    '                            ng-if="editRoleForm.roleName.$error.required && !editRoleForm.roleName.$pristine">{{\'NameLengthError3\'\n' +
-    '                    | translate}}</div>\n' +
-    '                        <div class="error"\n' +
-    '                            ng-if="(editRoleForm.roleName.$error.minlength || editRoleForm.roleName.$error.maxlength) ">{{\'NameLengthError3\'\n' +
-    '                    | translate}}</div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '            <div class="row">\n' +
-    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name">{{\'Modules\' | translate}}</label>\n' +
-    '                    <select required style="width:100% !important" multiple\n' +
-    '                        class="form-control select-with-search pmd-select2-tags" ng-model="editRoleCtrl.selectedModule"\n' +
-    '                        ng-change="editRoleCtrl.changePermissionList(editRoleCtrl.selectedModule)"\n' +
-    '                        ng-options=" group as group for group in editRoleCtrl.moduleList">\n' +
-    '                    </select>\n' +
-    '\n' +
-    '                </div>\n' +
-    '\n' +
-    '            </div>\n' +
-    '            <div class="row">\n' +
-    '                <div class="col-md-8  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                    <div ng-if="editRoleCtrl.newSelectedPermissions.length == 0">\n' +
-    '                        <span>{{\'NoRolesAvailable\' | translate}}</span>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div class="pmd-card pmd-z-depth pmd-card-custom-view"\n' +
-    '                        ng-if="editRoleCtrl.newSelectedPermissions.length > 0">\n' +
-    '                        <div class="table-responsive">\n' +
-    '                            <table class="table pmd-table table-hover">\n' +
-    '                                <thead>\n' +
-    '                                    <tr>\n' +
-    '                                        <th style="width:1%">\n' +
-    '                                            <input type="checkbox"\n' +
-    '                                                ng-checked="editRoleCtrl.selectedPermission.length == editRoleCtrl.newSelectedPermissions.length"\n' +
-    '                                                value="editRoleCtrl.selectedPermission.length == editRoleCtrl.newSelectedPermissions.length"\n' +
-    '                                                ng-click="editRoleCtrl.selectAllPermission($event.target.checked)"\n' +
-    '                                                id="selectAllPermission">\n' +
-    '                                        </th>\n' +
-    '                                        <th style="width: 30%">{{\'Name\' | translate}}</th>\n' +
-    '                                        <th style="width: 20%">{{\'Module\' | translate}}</th>\n' +
-    '                                        <th style="width: 50%">{{\'Description\' | translate}}</th>\n' +
-    '                                    </tr>\n' +
-    '                                </thead>\n' +
-    '                                <tbody>\n' +
-    '                                    <tr ng-repeat="perm in editRoleCtrl.newSelectedPermissions">\n' +
-    '                                        <td> <input type="checkbox" id="perm-{{perm.id}}" value="perm" name="perm"\n' +
-    '                                                ng-change="editRoleCtrl.selectPermission(perm)"\n' +
-    '                                                ng-model="perm.isSelected" id="perm.id"></td>\n' +
-    '\n' +
-    '                                        <td>{{perm.name}}</td>\n' +
-    '                                        <td>{{perm.systemModule}}</td>\n' +
-    '                                        <td>{{perm.description}}</td>\n' +
-    '                                    </tr>\n' +
-    '                                </tbody>\n' +
-    '                            </table>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                  \n' +
-    '                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '                        paging-action="editRoleCtrl.changePage(page)" flex="nogrow" show-prev-next="true"\n' +
-    '                        show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
-    '                    </div>\n' +
-    '                    \n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="editRoleForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="editRoleCtrl.UpdateRole()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="editRoleCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '    $(".select-tags").select2({\n' +
-    '        tags: false,\n' +
-    '        theme: "bootstrap",\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Role/templates/new.html',
-    '\n' +
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text">{{\'NewRoleLbl\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="newRoleForm">\n' +
-    '            <div>\n' +
-    '                <!-- Nav tabs -->\n' +
-    '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newRoleCtrl.language">\n' +
-    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"\n' +
-    '                            data-toggle="tab">\n' +
-    '                            <span style="color:red">*</span> {{lang.value | translate}}\n' +
-    '                        </a>\n' +
-    '                    </li>\n' +
-    '                </ul>\n' +
-    '                <div class="pmd-card">\n' +
-    '                    <div class="pmd-card-body">\n' +
-    '                        <!-- Tab panes -->\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
-    '                                ng-repeat="lang in newRoleCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                                    <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <input required type="text" class="mat-input form-control"\n' +
-    '                                        name="titles{{lang.value+\'Name\'}}"\n' +
-    '                                        ng-model="newRoleCtrl.titles[lang.key]" ng-minlength="3"\n' +
-    '                                        ng-maxlength="255">\n' +
-    '                                    <div ng-messages="newRoleForm.titles{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                        <div\n' +
-    '                                            ng-show="newRoleForm.titles{{lang.value+\'Name\'}}.$error.required && !newRoleForm.titles{{lang.value+\'Name\'}}.$pristine">\n' +
-    '                                            {{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div\n' +
-    '                                            ng-show="(newRoleForm.titles{{lang.value+\'Name\'}}.$error.minlength || newRoleForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !newRoleForm.titles{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '\n' +
-    '\n' +
-    '                            </div>\n' +
-    '                            <div\n' +
-    '                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                <label for="first-name">{{\'Module\' | translate}}</label>\n' +
-    '                                <select required style="width:100% !important"\n' +
-    '                                    class="form-control select-with-search pmd-select2-tags" multiple\n' +
-    '                                    ng-model="newRoleCtrl.selectedModule"\n' +
-    '                                    ng-change="newRoleCtrl.ChangeSelectedModule()"\n' +
-    '                                    ng-options="group as group.module.title[selectedLanguage] for group in permissionList">\n' +
-    '                                </select>\n' +
-    '                            </div>\n' +
-    '                            <div\n' +
-    '                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                <label for="first-name">{{\'Permission\' | translate}}</label>\n' +
-    '                                <select required style="width:100% !important"\n' +
-    '                                    class="form-control select-with-search pmd-select2-tags" multiple\n' +
-    '                                    ng-model="newRoleCtrl.selectedPermissions" ng-options="group.permessionId as group.title[selectedLanguage]\n' +
-    '                                     for group in newRoleCtrl.selectedModuleList">\n' +
-    '                                </select>\n' +
-    '                            </div>\n' +
-    '                          \n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="newRoleForm.$invalid"\n' +
-    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="newRoleCtrl.AddNewRole()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="$state.go(\'Role\');">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '    $(".select-tags").select2({\n' +
-    '        tags: false,\n' +
-    '        theme: "bootstrap",\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/PhotoAlbum/templates/MediaItems.html',
     '<div>\n' +
     '    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes(\'News.add_new\')">\n' +
@@ -3812,6 +3596,275 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            ng-click="newMediaItemCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Role/templates/Role.html',
+    '<div>\n' +
+    '    <!-- <div style="margin-bottom:10px">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="$state.go(\'newRole\');"\n' +
+    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddBtn\'\n' +
+    '            | translate}}</button>\n' +
+    '\n' +
+    '    </div>   -->\n' +
+    '\n' +
+    '    <div ng-if="RoleList.length == 0">\n' +
+    '        <span>{{\'NoRolesAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="RoleList.length > 0">\n' +
+    '        <div class="table-responsive" >\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th style="width: 50%">{{\'Name\' | translate}}</th>\n' +
+    '                        <!-- <th>{{\'Status\' | translate}}</th> -->\n' +
+    '                        <th></th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                    <tr ng-repeat="role in RoleList">\n' +
+    '                        <td>{{role.name}}</td> \n' +
+    '\n' +
+    '                        <td>\n' +
+    '                            <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
+    '                                ng-click="$state.go(\'editRole\',{name: role.name});" title="Edit">mode_edit</i>\n' +
+    '                            <i ng-show="!role.systemRole" class="material-icons pmd-md deleteButton cursorPointer font25"\n' +
+    '                                ng-click="RoleCtrl.openDeleteDialog(role,role.titles[selectedLanguage],role.userGroupId)">delete</i>\n' +
+    '                        </td>\n' +
+    '                    </tr>\n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
+    '        disabled-class="hide">\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Role/templates/edit.html',
+    '<style>\n' +
+    '    ::-webkit-scrollbar {\n' +
+    '        width: 12px;\n' +
+    '    }\n' +
+    '\n' +
+    '    /* Track */\n' +
+    '    ::-webkit-scrollbar-track {\n' +
+    '        background: #f1f1f1;\n' +
+    '    }\n' +
+    '\n' +
+    '    /* Handle */\n' +
+    '    ::-webkit-scrollbar-thumb {\n' +
+    '        background: #888;\n' +
+    '    }\n' +
+    '\n' +
+    '    /* Handle on hover */\n' +
+    '    ::-webkit-scrollbar-thumb:hover {\n' +
+    '        background: #555;\n' +
+    '    }\n' +
+    '</style>\n' +
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text"> {{\'EditRoleLbl\' | translate}}\n' +
+    '        </h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="editRoleForm">\n' +
+    '            <div class="row">\n' +
+    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                    <label for="first-name"><span style="color:red">*</span>{{\'name\' | translate}}</label>\n' +
+    '                    <input required type="text" class="mat-input form-control" name="roleName"\n' +
+    '                        ng-model="editRoleCtrl.name" ng-minlength="3" ng-maxlength="255">\n' +
+    '                    <div ng-messages="editRoleForm.roleName.$error" class="error">\n' +
+    '                        <div class="error" ng-show="editRoleForm.roleName.$error.pattern">{{\'TextOnly\' | translate}}\n' +
+    '                        </div>\n' +
+    '                        <div class="error"\n' +
+    '                            ng-if="editRoleForm.roleName.$error.required && !editRoleForm.roleName.$pristine">{{\'NameLengthError3\'\n' +
+    '                    | translate}}</div>\n' +
+    '                        <div class="error"\n' +
+    '                            ng-if="(editRoleForm.roleName.$error.minlength || editRoleForm.roleName.$error.maxlength) ">{{\'NameLengthError3\'\n' +
+    '                    | translate}}</div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '            <div class="row">\n' +
+    '                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                    <label for="first-name">{{\'Modules\' | translate}}</label>\n' +
+    '                    <select required style="width:100% !important" multiple\n' +
+    '                        class="form-control select-with-search pmd-select2-tags" ng-model="editRoleCtrl.selectedModule"\n' +
+    '                        ng-change="editRoleCtrl.changePermissionList(editRoleCtrl.selectedModule)"\n' +
+    '                        ng-options=" group as group for group in editRoleCtrl.moduleList">\n' +
+    '                    </select>\n' +
+    '\n' +
+    '                </div>\n' +
+    '\n' +
+    '            </div>\n' +
+    '            <div class="row">\n' +
+    '                <div class="col-md-8  form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                    <div ng-if="editRoleCtrl.newSelectedPermissions.length == 0">\n' +
+    '                        <span>{{\'NoRolesAvailable\' | translate}}</span>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="pmd-card pmd-z-depth pmd-card-custom-view"\n' +
+    '                        ng-if="editRoleCtrl.newSelectedPermissions.length > 0">\n' +
+    '                        <div class="table-responsive">\n' +
+    '                            <table class="table pmd-table table-hover">\n' +
+    '                                <thead>\n' +
+    '                                    <tr>\n' +
+    '                                        <th style="width:1%">\n' +
+    '                                            <input type="checkbox"\n' +
+    '                                                ng-checked="editRoleCtrl.selectedPermission.length == editRoleCtrl.newSelectedPermissions.length"\n' +
+    '                                                value="editRoleCtrl.selectedPermission.length == editRoleCtrl.newSelectedPermissions.length"\n' +
+    '                                                ng-click="editRoleCtrl.selectAllPermission($event.target.checked)"\n' +
+    '                                                id="selectAllPermission">\n' +
+    '                                        </th>\n' +
+    '                                        <th style="width: 30%">{{\'Name\' | translate}}</th>\n' +
+    '                                        <th style="width: 20%">{{\'Module\' | translate}}</th>\n' +
+    '                                        <th style="width: 50%">{{\'Description\' | translate}}</th>\n' +
+    '                                    </tr>\n' +
+    '                                </thead>\n' +
+    '                                <tbody>\n' +
+    '                                    <tr ng-repeat="perm in editRoleCtrl.newSelectedPermissions">\n' +
+    '                                        <td> <input type="checkbox" id="perm-{{perm.id}}" value="perm" name="perm"\n' +
+    '                                                ng-change="editRoleCtrl.selectPermission(perm)"\n' +
+    '                                                ng-model="perm.isSelected" id="perm.id"></td>\n' +
+    '\n' +
+    '                                        <td>{{perm.name}}</td>\n' +
+    '                                        <td>{{perm.systemModule}}</td>\n' +
+    '                                        <td>{{perm.description}}</td>\n' +
+    '                                    </tr>\n' +
+    '                                </tbody>\n' +
+    '                            </table>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                  \n' +
+    '                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '                        paging-action="editRoleCtrl.changePage(page)" flex="nogrow" show-prev-next="true"\n' +
+    '                        show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '                    </div>\n' +
+    '                    \n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-disabled="editRoleForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="editRoleCtrl.UpdateRole()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '            ng-click="editRoleCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '    $(".select-tags").select2({\n' +
+    '        tags: false,\n' +
+    '        theme: "bootstrap",\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Role/templates/new.html',
+    '\n' +
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'NewRoleLbl\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="newRoleForm">\n' +
+    '            <div>\n' +
+    '                <!-- Nav tabs -->\n' +
+    '                <ul class="nav nav-tabs" role="tablist">\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newRoleCtrl.language">\n' +
+    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"\n' +
+    '                            data-toggle="tab">\n' +
+    '                            <span style="color:red">*</span> {{lang.value | translate}}\n' +
+    '                        </a>\n' +
+    '                    </li>\n' +
+    '                </ul>\n' +
+    '                <div class="pmd-card">\n' +
+    '                    <div class="pmd-card-body">\n' +
+    '                        <!-- Tab panes -->\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
+    '                                ng-repeat="lang in newRoleCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                                    <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                    <input required type="text" class="mat-input form-control"\n' +
+    '                                        name="titles{{lang.value+\'Name\'}}"\n' +
+    '                                        ng-model="newRoleCtrl.titles[lang.key]" ng-minlength="3"\n' +
+    '                                        ng-maxlength="255">\n' +
+    '                                    <div ng-messages="newRoleForm.titles{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                        <div\n' +
+    '                                            ng-show="newRoleForm.titles{{lang.value+\'Name\'}}.$error.required && !newRoleForm.titles{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                            {{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div\n' +
+    '                                            ng-show="(newRoleForm.titles{{lang.value+\'Name\'}}.$error.minlength || newRoleForm.titles{{lang.value+\'Name\'}}.$error.maxlength) && !newRoleForm.titles{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                            {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '\n' +
+    '\n' +
+    '                            </div>\n' +
+    '                            <div\n' +
+    '                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                <label for="first-name">{{\'Module\' | translate}}</label>\n' +
+    '                                <select required style="width:100% !important"\n' +
+    '                                    class="form-control select-with-search pmd-select2-tags" multiple\n' +
+    '                                    ng-model="newRoleCtrl.selectedModule"\n' +
+    '                                    ng-change="newRoleCtrl.ChangeSelectedModule()"\n' +
+    '                                    ng-options="group as group.module.title[selectedLanguage] for group in permissionList">\n' +
+    '                                </select>\n' +
+    '                            </div>\n' +
+    '                            <div\n' +
+    '                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                <label for="first-name">{{\'Permission\' | translate}}</label>\n' +
+    '                                <select required style="width:100% !important"\n' +
+    '                                    class="form-control select-with-search pmd-select2-tags" multiple\n' +
+    '                                    ng-model="newRoleCtrl.selectedPermissions" ng-options="group.permessionId as group.title[selectedLanguage]\n' +
+    '                                     for group in newRoleCtrl.selectedModuleList">\n' +
+    '                                </select>\n' +
+    '                            </div>\n' +
+    '                          \n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-disabled="newRoleForm.$invalid"\n' +
+    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="newRoleCtrl.AddNewRole()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '            ng-click="$state.go(\'Role\');">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '    $(".select-tags").select2({\n' +
+    '        tags: false,\n' +
+    '        theme: "bootstrap",\n' +
+    '    });\n' +
+    '</script>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -5226,6 +5279,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
+    '<div class="modal-content">\n' +
+    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/core/UploadVideo/templates/UploadVideoDialog.html',
     '<style>\n' +
     '	form .progress {\n' +
@@ -5262,17 +5326,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '	 <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
     '		ng-click="newUploadChunkCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '</div> -->');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
-    '<div class="modal-content">\n' +
-    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {

@@ -17,6 +17,19 @@
                         }
                     }
 
+                }).state('MultiFiles', {
+                    url: '/MultiFiles/:id',
+                    templateUrl: './app/GlobalAdmin/ArtWorkMedia/templates/uploadMultiFiles.html',
+                    controller: 'MultiFilesController',
+                    'controllerAs': 'MultiFilesCtrl',
+                    resolve: {
+                        ArtWorkByIdPrepService: ArtWorkByIdPrepService
+                    }, data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
                 })
                 .state('newArtWorkMedia', {
                     url: '/newArtWorkMedia/:id',
@@ -68,5 +81,9 @@
     ArtWorkMediaByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
     function ArtWorkMediaByArtWorkIdPrepService(ArtWorkResource, $stateParams) {
         return ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise;
+    }
+    ArtWorkByIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
+    function ArtWorkByIdPrepService(ArtWorkResource, $stateParams) {
+        return ArtWorkResource.getArtWork({ id: $stateParams.id }).$promise;
     }
 }());
