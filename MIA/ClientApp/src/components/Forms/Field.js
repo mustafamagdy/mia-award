@@ -27,8 +27,8 @@ const FormField = ({
 
   return (
     <I18n>
-      {({ i18n }) =>
-        isOtherTypes === true ? (
+      {({ i18n }) => {
+        return isOtherTypes === true ? (
           isCheckbox ? (
             <div className="form-group">
               <label className="form-group__checkbox">
@@ -108,8 +108,8 @@ const FormField = ({
               <ErrorMessage name={name} hasError={hasError} />
             </div>
           </div>
-        )
-      }
+        );
+      }}
     </I18n>
   );
 };

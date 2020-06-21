@@ -62,7 +62,7 @@
     ]
   },
   "if_you_want_to_keep_updated": {
-    "defaults": "if you want to keep updated with all new properties enter your mail and we will send you latest updates",
+    "defaults": "Are you interested, enter your email address and we will keep you updated",
     "origin": [
       [
         "src/components/Layout/Footer.js",
@@ -75,7 +75,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        101
+        100
       ]
     ]
   }

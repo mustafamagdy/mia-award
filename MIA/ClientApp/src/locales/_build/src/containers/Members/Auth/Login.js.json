@@ -1,0 +1,20 @@
+{
+  "forget_password": {
+    "defaults": "Forgot password",
+    "origin": [
+      [
+        "src/containers/Members/Auth/Login.js",
+        31
+      ]
+    ]
+  },
+  "signin": {
+    "defaults": "Sign in",
+    "origin": [
+      [
+        "src/containers/Members/Auth/Login.js",
+        35
+      ]
+    ]
+  }
+}

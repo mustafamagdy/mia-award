@@ -206,5 +206,61 @@
         37
       ]
     ]
+  },
+  "username": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        39
+      ]
+    ]
+  },
+  "password": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        40
+      ]
+    ]
+  },
+  "confirmPassword": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        41
+      ]
+    ]
+  },
+  "fullName": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        42
+      ]
+    ]
+  },
+  "phoneNumber": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        43
+      ]
+    ]
+  },
+  "info": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        44
+      ]
+    ]
+  },
+  "about_awards": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        45
+      ]
+    ]
   }
 }

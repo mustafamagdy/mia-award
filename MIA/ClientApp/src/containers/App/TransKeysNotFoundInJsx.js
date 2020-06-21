@@ -35,6 +35,15 @@ class TransKeysNotFoundInJsx extends React.Component {
         <Trans id="mia_honor"></Trans>
         <Trans id="judge"></Trans>
         <Trans id="conpatitors"></Trans>
+
+        <Trans id="username"></Trans>
+        <Trans id="password"></Trans>
+        <Trans id="confirmPassword"></Trans>
+        <Trans id="fullName"></Trans>
+        <Trans id="phoneNumber"></Trans>
+        <Trans id="info"></Trans>
+        <Trans id="about_awards"></Trans>
+
       </div>
     );
   }

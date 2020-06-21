@@ -1,0 +1,78 @@
+{
+  "signin": {
+    "defaults": "Sign in",
+    "origin": [
+      [
+        "src/containers/Members/Auth/index.js",
+        46
+      ],
+      [
+        "src/containers/Members/Auth/index.js",
+        107
+      ]
+    ]
+  },
+  "forget_password": {
+    "defaults": "Forgot password",
+    "origin": [
+      [
+        "src/containers/Members/Auth/index.js",
+        48
+      ]
+    ]
+  },
+  "reset_password": {
+    "defaults": "Reset Password",
+    "origin": [
+      [
+        "src/containers/Members/Auth/index.js",
+        50
+      ]
+    ]
+  },
+  "login_to_your_account": {
+    "defaults": "Login to your account to view your uploaded artworks",
+    "origin": [
+      [
+        "src/containers/Members/Auth/index.js",
+        110
+      ]
+    ]
+  },
+  "login": {
+    "defaults": "Login",
+    "origin": [
+      [
+        "src/containers/Members/Auth/index.js",
+        115
+      ]
+    ]
+  },
+  "signup": {
+    "defaults": "Sign Up",
+    "origin": [
+      [
+        "src/containers/Members/Auth/index.js",
+        121
+      ]
+    ]
+  },
+  "signup_text": {
+    "defaults": "In order to apply for any award you need be a member in our website and follow all our policies. please signup to start your way to the awards",
+    "origin": [
+      [
+        "src/containers/Members/Auth/index.js",
+        125
+      ]
+    ]
+  },
+  "register": {
+    "defaults": "Register",
+    "origin": [
+      [
+        "src/containers/Members/Auth/index.js",
+        132
+      ]
+    ]
+  }
+}

@@ -70,8 +70,7 @@ const Footer = (props) => {
               </div>
               <p>
                 <Trans id="if_you_want_to_keep_updated">
-                  if you want to keep updated with all new properties enter your
-                  mail and we will send you latest updates
+                 Are you interested, enter your email address and we will keep you updated
                 </Trans>
               </p>
               <form onSubmit={handleSubmit(onSubmit)}>

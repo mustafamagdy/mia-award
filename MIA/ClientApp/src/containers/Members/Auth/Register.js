@@ -69,7 +69,9 @@ const Register = ({
                 <div className="avatar">
                   <div className="imgthumb">
                     <img src="/assets/images/user_avatar.png" alt="" />
-                    <span>Upload</span>
+                    <span>
+                      <Trans id="upload">Upload</Trans>
+                    </span>
                     <input name="avatar" ref={register} type="file" />
                   </div>
                 </div>
@@ -78,6 +80,7 @@ const Register = ({
                   placeholder="email"
                   name="email"
                   transId="email"
+                  placeholderKey="email"
                   transdDefaultVal="Email"
                   errors={errors && errors.email}
                   touched={touched && touched.email}
@@ -87,6 +90,7 @@ const Register = ({
                   placeholder="password"
                   name="password"
                   transId="password"
+                  placeholderKey="password"
                   transdDefaultVal="Password"
                   errors={errors && errors.password}
                   touched={touched && touched.password}
@@ -96,6 +100,7 @@ const Register = ({
                   placeholder="Confirm Password"
                   name="confirmPassword"
                   transId="confirmPassword"
+                  placeholderKey="confirmPassword"
                   transdDefaultVal="Confirm Password"
                   errors={errors && errors.confirmPassword}
                   touched={touched && touched.confirmPassword}
@@ -104,6 +109,7 @@ const Register = ({
                   placeholder="Full name"
                   name="fullName"
                   transId="fullName"
+                  placeholderKey="fullName"
                   transdDefaultVal="Full name"
                   errors={errors && errors.fullName}
                   touched={touched && touched.fullName}
@@ -112,6 +118,7 @@ const Register = ({
                   placeholder="Job title"
                   name="jobTitle"
                   transId="jobTitle"
+                  placeholderKey="jobTitle"
                   transdDefaultVal="Job title"
                   errors={errors && errors.jobTitle}
                   touched={touched && touched.jobTitle}
@@ -120,6 +127,7 @@ const Register = ({
                   placeholder="Phone number"
                   name="phoneNumber"
                   transId="phoneNumber"
+                  placeholderKey="phoneNumber"
                   transdDefaultVal="Phone number"
                   errors={errors && errors.phoneNumber}
                   touched={touched && touched.phoneNumber}
@@ -130,7 +138,9 @@ const Register = ({
                   setRecaptcha={(recpat) => (this.recaptcha = recpat)}
                 />
                 <div className="next_step">
-                  <span onClick={() => setSignupActiveTab(1)}>Next</span>
+                  <span onClick={() => setSignupActiveTab(1)}>
+                    <Trans id="next">Next</Trans>
+                  </span>
                 </div>
               </div>
             </div>
