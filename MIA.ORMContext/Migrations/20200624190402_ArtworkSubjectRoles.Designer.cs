@@ -4,14 +4,16 @@ using MIA.ORMContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MIA.ORMContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200624190402_ArtworkSubjectRoles")]
+    partial class ArtworkSubjectRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,8 +176,6 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<int>("BroadcastYear");
 
-                    b.Property<string>("CategoryId");
-
                     b.Property<string>("Description");
 
                     b.Property<string>("FirstPlaceId");
@@ -207,8 +207,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AwardId");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("NomineeId");
 
@@ -906,10 +904,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasOne("MIA.Models.Entities.Award", "Award")
                         .WithMany("Artworks")
                         .HasForeignKey("AwardId");
-
-                    b.HasOne("MIA.Models.Entities.Genre", "Category")
-                        .WithMany("Artworks")
-                        .HasForeignKey("CategoryId");
 
                     b.HasOne("MIA.Models.Entities.Nominee", "Nominee")
                         .WithMany("Artworks")

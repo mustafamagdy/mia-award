@@ -12,7 +12,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { I18n } from "@lingui/react";
 
-import PaymentView from "./PaymentView";
+// import PaymentView from "./PaymentView";
 import Files from "./Files";
 import Trailer from "./Trailer";
 
@@ -33,7 +33,12 @@ const ViewArtwork = ({
     }
   }, [id]);
 
-  const tabs = ["info", "payment-view", "trailer", "files"];
+  const tabs = [
+    "info",
+    // "payment-view",
+    "trailer",
+    "files",
+  ];
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
   const [artworkPosterStyle, setArtworkPosterStyle] = useState({
@@ -96,11 +101,11 @@ const ViewArtwork = ({
               id={id}
               key="info"
             />
-            <PaymentView
+            {/* <PaymentView
               active={activeTabKey == "payment-view"}
               details={artwork?.payment}
               key="payment-view"
-            />
+            /> */}
             {artwork.awardType == "artwork" ? (
               <>
                 <Trailer

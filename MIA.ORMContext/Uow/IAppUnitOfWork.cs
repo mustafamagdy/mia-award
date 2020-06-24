@@ -41,7 +41,7 @@ namespace MIA.ORMContext.Uow {
     DbSet<Country> Countries { get; }
     DbSet<ProductionYear> ProductionYears { get; }
     DbSet<Genre> Genres { get; }
-
+    DbSet<ArtworkSubject> ArtworkSubjects { get; }
 
 
   }

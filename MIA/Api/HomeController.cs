@@ -58,11 +58,16 @@ namespace MIA.Api {
         .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
         .ToListAsync();
 
+      var artworkSubjects = await db.ArtworkSubjects
+        .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
+        .ToListAsync();
+
       return Ok(new {
         ContactUsSubjects = subjects,
         Genres = artworkGenres,
         Countries = countries,
         Years = productionYears,
+        ArtworkSubjectRoles = artworkSubjects
       });
     }
 

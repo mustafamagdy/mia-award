@@ -25,9 +25,9 @@ namespace MIA.Api {
     public bool CanUploadFiles { get; set; }
     public bool UploadComplete { get; set; }
     public AwardType AwardType { get; set; }
-    public LocalizedData AwardTitle { get; set;}
-    public decimal AwardFee { get; set;}
-    public string TrophyUrl { get; set;}
+    public LocalizedData AwardTitle { get; set; }
+    public decimal AwardFee { get; set; }
+    public string TrophyUrl { get; set; }
   }
   public class ArtworkViewWithFilesDto : ArtworkViewDto {
     public ArtworkFileDto[] Files { get; set; }
@@ -79,8 +79,22 @@ namespace MIA.Api {
     public byte[] Poster { get; set; }
     public byte[] CoverImage { get; set; }
 
+    public string ResumeFileName { get; set; }
+    public byte[] Resume { get; set; }
+    public string YourRoleId { get; set; }
+
+    public string File1FileName { get; set; }
+    public byte[] File1 { get; set; }
+    public string File2FileName { get; set; }
+    public byte[] File2 { get; set; }
+    public string File3FileName { get; set; }
+    public byte[] File3 { get; set; }
+
     public string AwardId { get; set; }
-    public PaymentDto Payment { get; set; }
+    //Genre
+    public string CategoryId { get; set; }
+
+    // public PaymentDto Payment { get; set; }
   }
 
   public class PaymentDto {
@@ -96,6 +110,7 @@ namespace MIA.Api {
     public string ReceiptDate { get; set; }
     public string ReceiptNumber { get; set; }
     public decimal ReceiptAmount { get; set; }
+
     public string ReceiptFileName { get; set; }
     public byte[] Receipt { get; set; }
 

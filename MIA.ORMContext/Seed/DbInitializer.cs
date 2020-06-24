@@ -46,6 +46,8 @@ namespace MIA.ORMContext.Seed {
       if (Directory.Exists("./seed")) {
         await SeedContactUsMessageSubjectsAsync(db);
         await SeedAwards(db, encoder);
+        await SeedGenres(db);
+        await SeedArtowrkSubjectRole(db);
         await SeedBooths(db);
         await SeedNews(db, encoder, s3FileManager);
         await SeedDemoGallery(db, s3FileManager);
@@ -457,6 +459,62 @@ namespace MIA.ORMContext.Seed {
 
           var sys1Mod = new UserModule(admin.Id, SystemModules.Adminstration);
           await db.UserModules.AddAsync(sys1Mod);
+        }
+      }
+    }
+
+    private static async Task SeedGenres(IAppUnitOfWork db) {
+      List<Genre> genres = db.Genres.ToList();
+      var filename = "./seed/genres.json";
+      if (File.Exists(filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
+          var newGenre = new List<Genre>();
+          string json = r.ReadToEnd();
+          var listGenres = new List<Genre>();
+          JArray array = JArray.Parse(json);
+          foreach (JToken j in array) {
+            listGenres.Add(new Genre {
+              Code = ((JValue)j["Code"]).Value<string>(),
+              Name = LocalizedData.FromDictionary((JObject)j["Name"]),
+            });
+          }
+
+          foreach (var genre in listGenres) {
+            var _genre = genres.FirstOrDefault(a => a.Code == genre.Code);
+            if (_genre != null) continue;
+            newGenre.Add(genre);
+          }
+          if (newGenre.Any()) {
+            await db.Genres.AddRangeAsync(newGenre);
+          }
+        }
+      }
+    }
+
+    private static async Task SeedArtowrkSubjectRole(IAppUnitOfWork db) {
+      List<ArtworkSubject> genres = db.ArtworkSubjects.ToList();
+      var filename = "./seed/artworkSubjectRoles.json";
+      if (File.Exists(filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
+          var newGenre = new List<ArtworkSubject>();
+          string json = r.ReadToEnd();
+          var listGenres = new List<ArtworkSubject>();
+          JArray array = JArray.Parse(json);
+          foreach (JToken j in array) {
+            listGenres.Add(new ArtworkSubject {
+              Code = ((JValue)j["Code"]).Value<string>(),
+              Name = LocalizedData.FromDictionary((JObject)j["Name"]),
+            });
+          }
+
+          foreach (var genre in listGenres) {
+            var _subject = genres.FirstOrDefault(a => a.Code == genre.Code);
+            if (_subject != null) continue;
+            newGenre.Add(genre);
+          }
+          if (newGenre.Any()) {
+            await db.ArtworkSubjects.AddRangeAsync(newGenre);
+          }
         }
       }
     }

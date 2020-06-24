@@ -42,13 +42,18 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
           onlineChannels: "",
           ProductionLicenseNumber: "",
           productionLicenseAgency: "",
-          payment: {
-            //payment
-            receiptAmount: 0,
-            receiptNumber: "",
-            receiptDate: "",
-            receiptFile: undefined,
-          },
+          file1: undefined,
+          file2: undefined,
+          file3: undefined,
+          resume: undefined,
+
+          // payment: {
+          //   //payment
+          //   receiptAmount: 0,
+          //   receiptNumber: "",
+          //   receiptDate: "",
+          //   receiptFile: undefined,
+          // },
         }}
         // ref={(r) => setFormRef(r)}
         validationSchema={Yup.object().shape({
@@ -74,26 +79,43 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
           onlineChannels: Yup.string().required("Required"),
           ProductionLicenseNumber: Yup.string().required("Required"),
           productionLicenseAgency: Yup.string().required("Required"),
-          payment: Yup.object().shape({
-            receiptAmount: Yup.number().required("Required").min(1).max(100000),
-            receiptNumber: Yup.string().required("Required"),
-            receiptDate: Yup.date().required("Required"),
-            receiptFile: Yup.mixed().required(),
-            // receiptFile: Yup.mixed()
-            //   .test(
-            //     "fileSize",
-            //     "File Size is too large",
-            //     (value) => value.size <= config.MAX_FILE_SIZE
-            //   )
-            //   .test("fileType", "Unsupported File Format", (value) =>
-            //     config.UPLOAD_IMAGE_SUPPORTED_FORMATS.includes(value.type)
-            //   ),
-          }),
+          file1: Yup.mixed().required("File is required"),
+          file2: Yup.mixed().required("File is required"),
+          file3: Yup.mixed().required("File is required"),
+          // resume: Yup.mixed().required(),
+
+          // payment: Yup.object().shape({
+          //   receiptAmount: Yup.number().required("Required").min(1).max(100000),
+          //   receiptNumber: Yup.string().required("Required"),
+          //   receiptDate: Yup.date().required("Required"),
+          //   receiptFile: Yup.mixed().required(),
+          //   // receiptFile: Yup.mixed()
+          //   //   .test(
+          //   //     "fileSize",
+          //   //     "File Size is too large",
+          //   //     (value) => value.size <= config.MAX_FILE_SIZE
+          //   //   )
+          //   //   .test("fileType", "Unsupported File Format", (value) =>
+          //   //     config.UPLOAD_IMAGE_SUPPORTED_FORMATS.includes(value.type)
+          //   //   ),
+          // }),
         })}
         onSubmit={async (values, actions) => {
-          const receipt = await fileToBase64(values.payment.receiptFile);
-          values.payment.receiptFileName = values.payment.receiptFile.name;
-          values.payment.receipt = receipt;
+          // const receipt = await fileToBase64(values.payment.receiptFile);
+          // values.payment.receiptFileName = values.payment.receiptFile.name;
+          // values.payment.receipt = receipt;
+
+          const file1 = await fileToBase64(values.file1);
+          values.file1FileName = values.file1.name;
+          values.file1 = file1;
+
+          const file2 = await fileToBase64(values.file2);
+          values.file2FileName = values.file2.name;
+          values.file2 = file2;
+
+          const file3 = await fileToBase64(values.file3);
+          values.file3FileName = values.file3.name;
+          values.file3 = file3;
 
           addNewArtwork(values);
         }}
@@ -128,8 +150,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                           <p>
                             <Trans id="you_applied_for_award_x">
                               you applied for{" "}
-                              {selectedAward?.title[locale.code]} award please
-                              confirm to move on to the payment stage
+                              {selectedAward?.title[locale.code]} award.
                             </Trans>
                           </p>
 
@@ -164,14 +185,14 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                     </LanguageContext.Consumer>
                   </div>
                 </div>
-                {selectedAward && selectedAward.id != "0" && (
+                {/* {selectedAward && selectedAward.id != "0" && (
                   <div className="item_bottom">
                     <div className="price">
                       {selectedAward?.artworkFee}
                       <Trans id="usd">USD</Trans>
                     </div>
                   </div>
-                )}
+                )} */}
               </div>
               <div className="pay_col_two">
                 <div className="grid grid--1 grid--sm-2 grid--md-4 grid--space-def grid--hspace-xl grid--inline">
@@ -288,9 +309,71 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                       name="productionLicenseAgency"
                     />
                   </div>
+                  {selectedAward && selectedAward.awardType == "person" && (
+                    <div className="row">
+                      <Field
+                        transId="resume"
+                        transdDefaultVal="Resume"
+                        isFile={true}
+                        hasError={
+                          errors &&
+                          errors.resume !== undefined &&
+                          touched &&
+                          touched.resume !== undefined
+                        }
+                        name="resume"
+                        accept="image/*"
+                      />
+                    </div>
+                  )}
+                  <div className="row">
+                    <Field
+                      transId="file1"
+                      transdDefaultVal="File 1"
+                      isFile={true}
+                      hasError={
+                        errors &&
+                        errors.file1 !== undefined &&
+                        touched &&
+                        touched.file1 !== undefined
+                      }
+                      name="file1"
+                      accept="image/*"
+                    />
+                  </div>
+                  <div className="row">
+                    <Field
+                      transId="file2"
+                      transdDefaultVal="File 2"
+                      isFile={true}
+                      hasError={
+                        errors &&
+                        errors.file2 !== undefined &&
+                        touched &&
+                        touched.file2 !== undefined
+                      }
+                      name="file2"
+                      accept="image/*"
+                    />
+                  </div>
+                  <div className="row">
+                    <Field
+                      transId="file3"
+                      transdDefaultVal="File 3"
+                      isFile={true}
+                      hasError={
+                        errors &&
+                        errors.file3 !== undefined &&
+                        touched &&
+                        touched.file3 !== undefined
+                      }
+                      name="file3"
+                      accept="image/*"
+                    />
+                  </div>
                 </div>
                 <div className="payment_form">
-                  <p className="info">
+                  {/* <p className="info">
                     <Trans id="please_upload_payment_receipt">
                       please upload the reciept to be approved from the
                       adminstration and confirm your payment
@@ -361,6 +444,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                       accept="image/*"
                     />
                   </div>
+                  */}
                   <div className="row">
                     <button className="normal_button" type="submit">
                       <Trans id="save">Save</Trans>
@@ -376,7 +460,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
   );
 };
 
-const mapStateToProps = ({ home: { awards } }) => {
+const mapStateToProps = ({ home: { awards, genres, artworkSubjectRoles } }) => {
   const _awards = awards.filter((a) => a.awardType == "artwork");
   _awards.unshift({
     id: "0",
@@ -389,6 +473,8 @@ const mapStateToProps = ({ home: { awards } }) => {
 
   return {
     awards: _awards,
+    genres,
+    artworkSubjectRoles,
   };
 };
 const mapDispatchToProps = (dispatch) =>

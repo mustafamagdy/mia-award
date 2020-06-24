@@ -4,14 +4,16 @@ using MIA.ORMContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MIA.ORMContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200623163442_RemovePaymentForArtwork")]
+    partial class RemovePaymentForArtwork
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,8 +176,6 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<int>("BroadcastYear");
 
-                    b.Property<string>("CategoryId");
-
                     b.Property<string>("Description");
 
                     b.Property<string>("FirstPlaceId");
@@ -202,17 +202,11 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<bool>("UploadComplete");
 
-                    b.Property<string>("YourRoleId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AwardId");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("NomineeId");
-
-                    b.HasIndex("YourRoleId");
 
                     b.ToTable("Artworks");
                 });
@@ -273,20 +267,6 @@ namespace MIA.ORMContext.Migrations
                     b.HasIndex("ArtworkId");
 
                     b.ToTable("ArtworkReviews");
-                });
-
-            modelBuilder.Entity("MIA.Models.Entities.ArtworkSubject", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Code");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ArtworkSubjects");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Award", b =>
@@ -476,7 +456,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Generes");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Image", b =>
@@ -907,17 +887,9 @@ namespace MIA.ORMContext.Migrations
                         .WithMany("Artworks")
                         .HasForeignKey("AwardId");
 
-                    b.HasOne("MIA.Models.Entities.Genre", "Category")
-                        .WithMany("Artworks")
-                        .HasForeignKey("CategoryId");
-
                     b.HasOne("MIA.Models.Entities.Nominee", "Nominee")
                         .WithMany("Artworks")
                         .HasForeignKey("NomineeId");
-
-                    b.HasOne("MIA.Models.Entities.ArtworkSubject", "YourRole")
-                        .WithMany("Artworks")
-                        .HasForeignKey("YourRoleId");
 
                     b.OwnsOne("MIA.Models.Entities.S3File", "Cover", b1 =>
                         {

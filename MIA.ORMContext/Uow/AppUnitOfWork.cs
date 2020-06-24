@@ -42,6 +42,7 @@ namespace MIA.ORMContext.Uow {
     public DbSet<Country> Countries => base.Context.Set<Country>();
     public DbSet<ProductionYear> ProductionYears => base.Context.Set<ProductionYear>();
     public DbSet<Genre> Genres => base.Context.Set<Genre>();
+    public DbSet<ArtworkSubject> ArtworkSubjects => base.Context.Set<ArtworkSubject>();
 
 
     public TEntity Find<TEntity>(params object[] keys) where TEntity : class => base.Context.Find<TEntity>(keys);

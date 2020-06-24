@@ -134,13 +134,14 @@ namespace MIA.Administration.MappingProfiles {
         .ForMember(a => a.TrailerUrl, cfg => cfg.MapFrom(a => a.Trailer.FileUrl))
         .ForMember(a => a.CoverUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
         .ValidateMemberList(MemberList.None)
-        .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment));
+        // .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
+        ;
 
 
       CreateMap<NewArtWorkDto, Artwork>().ValidateMemberList(MemberList.None)
             .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Title))
             .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.ShowDescription))
-            .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
+            // .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
             .ForMember(a => a.Nominee, cfg => cfg.MapFrom(a => a.Nominee));
       CreateMap<UpdateArtWorkDto, Artwork>().ValidateMemberList(MemberList.None)
             .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Title))

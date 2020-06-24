@@ -127,7 +127,7 @@ namespace MIA.Api {
 
       await db.Artworks.AddAsync(contestant);
 
-      contestant.Payment = await SaveUserPaymentAsync(fileManager, db, award, contestant.Id, dto);
+      // contestant.Payment = await SaveUserPaymentAsync(fileManager, db, award, contestant.Id, dto);
       contestant.Poster = S3File.FromKeyAndUrl("", "");
       contestant.Cover = S3File.FromKeyAndUrl("", "");
 
@@ -161,11 +161,22 @@ namespace MIA.Api {
 
       await db.Artworks.AddAsync(artwork);
 
-      artwork.Payment = await SaveUserPaymentAsync(fileManager, db, award, artwork.Id, dto);
+      // artwork.Payment = await SaveUserPaymentAsync(fileManager, db, award, artwork.Id, dto);
       artwork.Poster = (await SaveArtworkPoster(fileManager, artwork.Id, dto)) ?? S3File.FromKeyAndUrl("", "");
       artwork.Cover = (await SaveArtworkCoverImage(fileManager, artwork.Id, dto)) ?? S3File.FromKeyAndUrl("", "");
-      //todo
-      artwork.Resume = S3File.FromKeyAndUrl("", "");
+
+      if (award.AwardType == AwardType.Person) {
+        artwork.Resume = (await SaveContestantResume(fileManager, artwork.Id, dto)) ?? S3File.FromKeyAndUrl("", "");
+        if (!string.IsNullOrEmpty(dto.YourRoleId) && (await db.ArtworkSubjects.FirstOrDefaultAsync(a => a.Id == dto.YourRoleId) != null)) {
+          artwork.YourRoleId = dto.YourRoleId;
+        }
+      } else {
+        artwork.Resume = S3File.FromKeyAndUrl("", "");
+      }
+
+      artwork.File1 = (await SaveArtworkAttachmentFile(fileManager, artwork.Id, dto.File1, dto.File1FileName, "File1")) ?? S3File.FromKeyAndUrl("", "");
+      artwork.File2 = (await SaveArtworkAttachmentFile(fileManager, artwork.Id, dto.File2, dto.File2FileName, "File2")) ?? S3File.FromKeyAndUrl("", "");
+      artwork.File3 = (await SaveArtworkAttachmentFile(fileManager, artwork.Id, dto.File3, dto.File3FileName, "File3")) ?? S3File.FromKeyAndUrl("", "");
 
       return Ok(_mapper.Map<ArtworkViewWithFilesDto>(artwork));
     }
@@ -176,6 +187,28 @@ namespace MIA.Api {
           ResourceType.ArtWork,
           artworkId, $"{artworkId}_poster" + dto.PosterFileName.GetFileExt());
         return S3File.FromKeyAndUrl(posterFileKey, await fileManager.UploadFileAsync(dto.Poster, posterFileKey));
+      }
+      return null;
+    }
+
+    private async Task<S3File> SaveContestantResume(IS3FileManager fileManager,
+     string artworkId, SubmitArtworkWithDetails dto) {
+      if (!string.IsNullOrEmpty(dto.ResumeFileName) && dto.Resume != null && dto.Resume.Length > 0) {
+        var resumeFileKey = fileManager.GenerateFileKeyForResource(
+          ResourceType.ArtWork,
+          artworkId, $"{artworkId}_resume" + dto.ResumeFileName.GetFileExt());
+        return S3File.FromKeyAndUrl(resumeFileKey, await fileManager.UploadFileAsync(dto.Resume, resumeFileKey));
+      }
+      return null;
+    }
+
+    private async Task<S3File> SaveArtworkAttachmentFile(IS3FileManager fileManager, string artworkId,
+     byte[] file, string fileName, string fileBusinessName) {
+      if (!string.IsNullOrEmpty(fileName) && file != null && file.Length > 0) {
+        var fileKey = fileManager.GenerateFileKeyForResource(
+          ResourceType.ArtWork,
+          artworkId, $"{artworkId}_{fileBusinessName}" + fileName.GetFileExt());
+        return S3File.FromKeyAndUrl(fileKey, await fileManager.UploadFileAsync(file, fileKey));
       }
       return null;
     }
@@ -193,20 +226,21 @@ namespace MIA.Api {
     private async Task<ArtworkPayment> SaveUserPaymentAsync(IS3FileManager fileManager,
     IAppUnitOfWork db, Award award,
     string artworkId, SubmitArtworkWithDetails dto) {
-      var payment = new ArtworkPayment();
-      payment.ArtworkId = artworkId;
-      payment.Amount = award.ArtworkFee;
+      // var payment = new ArtworkPayment();
+      // payment.ArtworkId = artworkId;
+      // payment.Amount = award.ArtworkFee;
 
-      payment.IsOffline = true;
-      payment.PaymentStatus = Models.Entities.PaymentStatus.Waiting;
-      payment.PaymentDate = DateTimeOffset.Now.ToUnixTimeSeconds();
+      // payment.IsOffline = true;
+      // payment.PaymentStatus = Models.Entities.PaymentStatus.Waiting;
+      // payment.PaymentDate = DateTimeOffset.Now.ToUnixTimeSeconds();
 
-      await db.ArtworkPayments.AddAsync(payment);
+      // await db.ArtworkPayments.AddAsync(payment);
 
-      var receiptFileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWrokPayment, artworkId, $"{payment.Id}_receipt" + dto.Payment.ReceiptFileName.GetFileExt());
-      payment.Receipt = S3File.FromKeyAndUrl(receiptFileKey, await fileManager.UploadFileAsync(dto.Payment.Receipt, receiptFileKey));
-      payment.Receipt = payment.Receipt ?? S3File.FromKeyAndUrl("", "");
-      return payment;
+      // var receiptFileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWrokPayment, artworkId, $"{payment.Id}_receipt" + dto.Payment.ReceiptFileName.GetFileExt());
+      // payment.Receipt = S3File.FromKeyAndUrl(receiptFileKey, await fileManager.UploadFileAsync(dto.Payment.Receipt, receiptFileKey));
+      // payment.Receipt = payment.Receipt ?? S3File.FromKeyAndUrl("", "");
+      // return payment;
+      return null;
     }
 
 
@@ -220,7 +254,7 @@ namespace MIA.Api {
       var nominee = await _userResolver.CurrentUserAsync();
       var artwork = await db.Artworks
         .Include(a => a.Award)
-        .Include(a => a.Payment)
+        // .Include(a => a.Payment)
         .Include(a => a.MediaFiles)
         .AsNoTracking()
         .FirstOrDefaultAsync(a => a.Id == id);
@@ -393,7 +427,7 @@ namespace MIA.Api {
       var nominee = await _userResolver.CurrentUserAsync();
       var artwork = await db.Artworks
         .Include(a => a.Award)
-        .Include(a => a.Payment)
+        // .Include(a => a.Payment)
         .Include(a => a.MediaFiles)
         .FirstOrDefaultAsync(a => a.Id == id);
 
