@@ -1,6 +1,6 @@
 {
   "you_applied_for_award_x": {
-    "defaults": "you applied for {0} award please confirm to move on to the payment stage",
+    "defaults": "you applied for {0} award.",
     "origin": [
       [
         "src/containers/Members/Artworks/Contestant/NewContestant.js",
@@ -13,7 +13,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Contestant/NewContestant.js",
-        171
+        170
       ]
     ]
   },
@@ -22,7 +22,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Contestant/NewContestant.js",
-        293
+        292
       ]
     ]
   },
@@ -31,7 +31,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Contestant/NewContestant.js",
-        365
+        364
       ]
     ]
   }

@@ -12,8 +12,9 @@ import { connect } from "react-redux";
 import membersActions from "store/members/actions";
 import { bindActionCreators } from "redux";
 import { fileToBase64 } from "utils";
+import LocalizedDropdown from "../../../../components/Forms/LocalizedDropdown";
 
-const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
+const NewArtwork = ({ awards, addNewArtwork, genres, ...props }) => {
   const [selectedAward, setSelectedAward] = useState();
   useEffect(() => {
     setSelectedAward(awards[0]);
@@ -36,6 +37,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
           projectName: { en: "", ar: "" },
           description: { en: "", ar: "" },
           siteUrl: "",
+          genre: "",
           productionYear: "",
           broadcastYear: "",
           tvChannels: "",
@@ -67,6 +69,7 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
             en: Yup.string().required("Required"),
           }),
           siteUrl: Yup.string().required("Required"),
+          genre: Yup.string().required("Required"),
           productionYear: Yup.number()
             .required("Required")
             .min(config.validationRules.allowed_artwork_years.min)
@@ -79,9 +82,9 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
           onlineChannels: Yup.string().required("Required"),
           ProductionLicenseNumber: Yup.string().required("Required"),
           productionLicenseAgency: Yup.string().required("Required"),
-          file1: Yup.mixed().required("File is required"),
-          file2: Yup.mixed().required("File is required"),
-          file3: Yup.mixed().required("File is required"),
+          file1: Yup.mixed().required("File_is_required"),
+          file2: Yup.mixed().required("File_is_required"),
+          file3: Yup.mixed().required("File_is_required"),
           // resume: Yup.mixed().required(),
 
           // payment: Yup.object().shape({
@@ -213,6 +216,24 @@ const NewArtwork = ({ awards, addNewArtwork, ...props }) => {
                       name="description"
                       errors={errors && errors.description}
                       touched={touched && touched.description}
+                    />
+                  </div>
+                  <div className="row">
+                    <Field
+                      transId="genre"
+                      transdDefaultVal="Genre"
+                      hasError={
+                        errors &&
+                        errors.genre !== undefined &&
+                        touched &&
+                        touched.genre !== undefined
+                      }
+                      name="genre"
+                      component={LocalizedDropdown}
+                      options={genres}
+                      labelProp="name"
+                      valueProp="id"
+                      emptyValue={{ en: "Select Genre", ar: "اخر نوع المشروع" }}
                     />
                   </div>
                   <div className="row">

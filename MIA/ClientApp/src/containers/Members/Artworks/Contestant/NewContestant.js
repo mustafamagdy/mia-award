@@ -128,8 +128,7 @@ const NewContestant = ({ awards, addNewContestant, ...props }) => {
                           <p>
                             <Trans id="you_applied_for_award_x">
                               you applied for{" "}
-                              {selectedAward?.title[locale.code]} award please
-                              confirm to move on to the payment stage
+                              {selectedAward?.title[locale.code]} award.
                             </Trans>
                           </p>
 

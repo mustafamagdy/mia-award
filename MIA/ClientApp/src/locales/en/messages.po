@@ -17,27 +17,35 @@ msgstr ""
 msgid "About the show"
 msgstr "About the show"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:45
+#: src/containers/App/TransKeysNotFoundInJsx.js:41
+msgid "File_is_required"
+msgstr "File is required"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:40
+msgid "Required"
+msgstr "This field is required"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:49
 msgid "about_awards"
 msgstr "Awards"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:27
+#: src/containers/App/TransKeysNotFoundInJsx.js:28
 msgid "about_tab_content_awards"
 msgstr "Awards"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:31
+#: src/containers/App/TransKeysNotFoundInJsx.js:32
 msgid "about_tab_content_conpatitors"
 msgstr "Compatitors"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:30
+#: src/containers/App/TransKeysNotFoundInJsx.js:31
 msgid "about_tab_content_judge"
 msgstr "Judge"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:28
+#: src/containers/App/TransKeysNotFoundInJsx.js:29
 msgid "about_tab_content_mia_contestant"
 msgstr "Contestants"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:29
+#: src/containers/App/TransKeysNotFoundInJsx.js:30
 msgid "about_tab_content_mia_honor"
 msgstr "MIA Honor"
 
@@ -98,7 +106,7 @@ msgstr "Apply Now"
 msgid "are_you_sure_to_delete"
 msgstr "Are you sure you want to delete this item?"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:255
+#: src/containers/Members/Artworks/Artwork/View/index.js:260
 msgid "are_you_sure_to_send_to_judge"
 msgstr "Are you sure you want to send your data to judge, this cannot be undo?"
 
@@ -110,7 +118,7 @@ msgstr "Area"
 #~ msgid "award_category"
 #~ msgstr "Awards Category"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:33
+#: src/containers/App/TransKeysNotFoundInJsx.js:34
 msgid "awards"
 msgstr "Awards"
 
@@ -134,7 +142,7 @@ msgstr "All booths have been sold out"
 msgid "booths"
 msgstr "Booths"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:187
+#: src/containers/Members/Artworks/Artwork/View/index.js:192
 #: src/containers/Members/Artworks/Contestant/View/index.js:148
 #: src/containers/Pages/Shows/view.js:79
 msgid "broadcast_year"
@@ -205,7 +213,7 @@ msgstr "There was an error, the message could not be sent."
 msgid "comment_submitted"
 msgstr "Your comment has been submitted successfully for review."
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:41
+#: src/containers/App/TransKeysNotFoundInJsx.js:45
 msgid "confirmPassword"
 msgstr "Confirm Password"
 
@@ -217,7 +225,7 @@ msgstr "Confirm"
 msgid "confirm_password"
 msgstr "Confirm Password"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:254
+#: src/containers/Members/Artworks/Artwork/View/index.js:259
 msgid "confirm_send_to_judge"
 msgstr "Confirm?"
 
@@ -225,7 +233,7 @@ msgstr "Confirm?"
 msgid "confirm_your_email_first"
 msgstr "Confirm Your Email First"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:37
+#: src/containers/App/TransKeysNotFoundInJsx.js:38
 msgid "conpatitors"
 msgstr "Compatitors"
 
@@ -276,7 +284,7 @@ msgstr "Date"
 #~ msgid "date_of_release"
 #~ msgstr ""
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:167
+#: src/containers/Members/Artworks/Artwork/View/index.js:172
 #: src/containers/Members/Artworks/Contestant/View/index.js:128
 msgid "description"
 msgstr "Description"
@@ -289,7 +297,7 @@ msgstr "Description"
 msgid "dubai_address"
 msgstr "Dubai, Dubai Media City, Building No. 1, Second Floor - Office No. 214"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:244
+#: src/containers/Members/Artworks/Artwork/View/index.js:249
 #: src/containers/Members/Artworks/Contestant/View/index.js:205
 msgid "edit_info"
 msgstr "Edit Info"
@@ -333,7 +341,7 @@ msgstr "جائزة عربية جديدة في طرحها مختصة في محت�
 msgid "forget_password"
 msgstr "Forgot Password"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:42
+#: src/containers/App/TransKeysNotFoundInJsx.js:46
 msgid "fullName"
 msgstr "Full name"
 
@@ -379,7 +387,7 @@ msgstr "I Accept"
 msgid "if_you_want_to_keep_updated"
 msgstr "Are you interested, enter your email address and we will keep you updated"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:44
+#: src/containers/App/TransKeysNotFoundInJsx.js:48
 msgid "info"
 msgstr "Basic Info"
 
@@ -387,7 +395,7 @@ msgstr "Basic Info"
 msgid "job_title"
 msgstr "Job Title"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:36
+#: src/containers/App/TransKeysNotFoundInJsx.js:37
 msgid "judge"
 msgstr "Judge"
 
@@ -405,19 +413,19 @@ msgstr "Latest Videos & Photos"
 msgid "loading"
 msgstr "Loading...."
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:14
+#: src/containers/App/TransKeysNotFoundInJsx.js:15
 msgid "location1_description"
 msgstr ""
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:13
+#: src/containers/App/TransKeysNotFoundInJsx.js:14
 msgid "location1_title"
 msgstr ""
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:16
+#: src/containers/App/TransKeysNotFoundInJsx.js:17
 msgid "location2_description"
 msgstr ""
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:15
+#: src/containers/App/TransKeysNotFoundInJsx.js:16
 msgid "location2_title"
 msgstr ""
 
@@ -458,11 +466,11 @@ msgstr "MIA"
 msgid "mia_awards"
 msgstr "MIA Award"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:34
+#: src/containers/App/TransKeysNotFoundInJsx.js:35
 msgid "mia_contestant"
 msgstr "MIA Contestant"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:35
+#: src/containers/App/TransKeysNotFoundInJsx.js:36
 msgid "mia_honor"
 msgstr "MIA Honor"
 
@@ -516,7 +524,7 @@ msgstr "No reviews yet"
 msgid "no_trailer_yet"
 msgstr "No trailer uploaded yet"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:269
+#: src/containers/Members/Artworks/Artwork/View/index.js:274
 msgid "no_wait"
 msgstr "No wait .."
 
@@ -528,7 +536,7 @@ msgstr "Old Password"
 msgid "onlineChannels"
 msgstr "Online channels"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:204
+#: src/containers/Members/Artworks/Artwork/View/index.js:209
 #: src/containers/Members/Artworks/Contestant/View/index.js:165
 msgid "online_channels"
 msgstr "Online channels"
@@ -573,7 +581,7 @@ msgstr "our Values"
 msgid "our_value_text"
 msgstr "<0><1><2>• Impartiality: :</2><3>We stand without bias and at the same distance from all the people of the Arab world</3></1><4><5>• Objectivity:</5><6>Away from whims, we have a single mechanism for judging all performances. Your creativity is the one factor that determines your status.</6></4><8><9>Credibility:</9><10>The basic essence of our work is that the method of assessment is based on our integrity.</10></8><11><12>• Promotion:</12><13>We provide multiple quality awards and certificates of merit according to performance standards.</13></11></0>"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:40
+#: src/containers/App/TransKeysNotFoundInJsx.js:44
 msgid "password"
 msgstr "Password"
 
@@ -594,7 +602,7 @@ msgstr "Password"
 msgid "phone"
 msgstr "Phone"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:43
+#: src/containers/App/TransKeysNotFoundInJsx.js:47
 msgid "phoneNumber"
 msgstr "Phone number"
 
@@ -614,8 +622,7 @@ msgstr "+971 4 57 2636 8"
 #~ msgid "please_select_checkout_date"
 #~ msgstr "Please select check-out day."
 
-#: src/containers/Members/Artworks/Artwork/NewArtwork.js:294
-#: src/containers/Members/Artworks/Contestant/NewContestant.js:293
+#: src/containers/Members/Artworks/Contestant/NewContestant.js:292
 msgid "please_upload_payment_receipt"
 msgstr "Please upload payment receipt"
 
@@ -666,17 +673,17 @@ msgstr "License agency"
 msgid "productionLicenseNumber"
 msgstr "License number"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:226
+#: src/containers/Members/Artworks/Artwork/View/index.js:231
 #: src/containers/Members/Artworks/Contestant/View/index.js:187
 msgid "production_license_agency"
 msgstr "License agency"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:217
+#: src/containers/Members/Artworks/Artwork/View/index.js:222
 #: src/containers/Members/Artworks/Contestant/View/index.js:178
 msgid "production_license_number"
 msgstr "License number"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:181
+#: src/containers/Members/Artworks/Artwork/View/index.js:186
 #: src/containers/Members/Artworks/Contestant/View/index.js:142
 #: src/containers/Pages/Shows/index.js:102
 #: src/containers/Pages/Shows/view.js:73
@@ -703,7 +710,7 @@ msgstr ""
 #~ msgid "programs"
 #~ msgstr "Programs"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:159
+#: src/containers/Members/Artworks/Artwork/View/index.js:164
 #: src/containers/Members/Artworks/Contestant/View/index.js:120
 msgid "project_name"
 msgstr "Project name"
@@ -754,23 +761,27 @@ msgid "review_our_cookie_policy"
 msgstr "Review Our Cookie Policy"
 
 #: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:198
-#: src/containers/Members/Artworks/Artwork/NewArtwork.js:366
-#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:200
-#: src/containers/Members/Artworks/Contestant/NewContestant.js:365
+#: src/containers/Members/Artworks/Artwork/NewArtwork.js:471
+#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:199
+#: src/containers/Members/Artworks/Contestant/NewContestant.js:364
 #: src/containers/Members/Profile.js:84
 #: src/containers/Members/Profile.js:188
 msgid "save"
 msgstr "Save"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:12
+msgid "select_an_option"
+msgstr ""
+
 #: src/containers/MyProfile/ImageUpload.js:63
 msgid "select_your_image"
 msgstr "Select Your Image"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:258
+#: src/containers/Members/Artworks/Artwork/View/index.js:263
 msgid "send"
 msgstr "Send"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:276
+#: src/containers/Members/Artworks/Artwork/View/index.js:281
 #: src/containers/Members/Artworks/Contestant/View/index.js:221
 msgid "send_for_judge"
 msgstr "Send to judge"
@@ -813,41 +824,41 @@ msgstr "Terms and Conditions"
 msgid "signup_text"
 msgstr " In order to apply for any award you need be a member in our website and follow all our policies. please signup to start your way to the awards"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:175
+#: src/containers/Members/Artworks/Artwork/View/index.js:180
 #: src/containers/Members/Artworks/Contestant/View/index.js:136
 #: src/containers/Pages/Shows/view.js:193
 msgid "siteUrl"
 msgstr "Site url"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:19
+#: src/containers/App/TransKeysNotFoundInJsx.js:20
 msgid "slide1_text"
 msgstr "The MIA award ceremony and activities start from Dubai Media City, and the award will be held at the 'Opera Dubai ', the first creative front for arts, culture and music for the city of Dubai, where the Opera House Theater is one of the most important destinations for those interested in culture and arts not only at the level of the Arab world but also on the whole world"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:18
+#: src/containers/App/TransKeysNotFoundInJsx.js:19
 msgid "slide1_title"
 msgstr "Opera"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:21
+#: src/containers/App/TransKeysNotFoundInJsx.js:22
 msgid "slide2_text"
 msgstr "Based on our belief in the value of integrity as an essential element for the success of the Award, we developed a complete vision and an electronic judging plan characterized by credibility, professionalism and confidentiality at the same time, supervised by prominent academics, artists and professionals in this sector from various Arab countries to evaluate and select the works that will receive the MIA Award, under the direct supervision of the Supreme Award Committee."
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:20
+#: src/containers/App/TransKeysNotFoundInJsx.js:21
 msgid "slide2_title"
 msgstr "Judge"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:23
+#: src/containers/App/TransKeysNotFoundInJsx.js:24
 msgid "slide3_text"
 msgstr "Compassion, sympathy and mercy are significant moral values representing noble human and cultural principles with profound impact on social life.One cannot forget the role of compassion in creating the spirit of solidarity, joint liability and engagement between people. Compassion is one of the reasons behind social engagement as advocated by our religion, to be united and coherent supporting each other. MIA Award has chosen to honor charitable works as humanitarian support under the topic “Social Compassion”, based on the belief in the necessity of enhancing human dimensions, spreading the spirit of compassion and concerted humanitarian efforts in all works in the various sectors, being an essential element and one of the top manifestations of Arab unity."
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:22
+#: src/containers/App/TransKeysNotFoundInJsx.js:23
 msgid "slide3_title"
 msgstr "MIA Compassion "
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:25
+#: src/containers/App/TransKeysNotFoundInJsx.js:26
 msgid "slide4_text"
 msgstr "Events held within the scope of the Award program:Workshops to develop professional technical and technological capabilities.Specialized seminars by expert professional media makers and Arab stars.Presenting unique success stories.A special market serving production companies and digital and TV platforms, including the latest engineering and technological systems in media and TV production industry.Live interviews and discussion of important issues (Live broadcast)"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:24
+#: src/containers/App/TransKeysNotFoundInJsx.js:25
 msgid "slide4_title"
 msgstr "Workshops"
 
@@ -923,7 +934,7 @@ msgstr "Trailer"
 msgid "tvChannels"
 msgstr "TV Channels"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:194
+#: src/containers/Members/Artworks/Artwork/View/index.js:199
 #: src/containers/Members/Artworks/Contestant/View/index.js:155
 msgid "tv_channels"
 msgstr "TV Channels"
@@ -951,10 +962,9 @@ msgstr "Upload Image"
 #: src/containers/Award/index.js:38
 #: src/containers/Members/Artworks/Artwork/ChoosePayment.js:95
 #: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:79
-#: src/containers/Members/Artworks/Artwork/NewArtwork.js:171
 #: src/containers/Members/Artworks/Contestant/ChoosePayment.js:95
-#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:80
-#: src/containers/Members/Artworks/Contestant/NewContestant.js:171
+#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:79
+#: src/containers/Members/Artworks/Contestant/NewContestant.js:170
 msgid "usd"
 msgstr "USD"
 
@@ -962,7 +972,7 @@ msgstr "USD"
 msgid "user_account"
 msgstr "User account"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:39
+#: src/containers/App/TransKeysNotFoundInJsx.js:43
 msgid "username"
 msgstr "Username"
 
@@ -1007,7 +1017,7 @@ msgid "yes"
 msgstr "Yes"
 
 #: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:66
-#: src/containers/Members/Artworks/Artwork/NewArtwork.js:129
+#: src/containers/Members/Artworks/Artwork/NewArtwork.js:154
 #: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:66
 #: src/containers/Members/Artworks/Contestant/NewContestant.js:129
 msgid "you_applied_for_award_x"

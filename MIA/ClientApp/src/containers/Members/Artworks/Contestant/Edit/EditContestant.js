@@ -65,8 +65,7 @@ const EditContestantInfo = ({ contestant, active, editArtwork, ...props }) => {
                         <p>
                           <Trans id="you_applied_for_award_x">
                             you applied for{" "}
-                            {contestant?.awardTitle[locale.code]} award please
-                            confirm to move on to the payment stage
+                            {contestant?.awardTitle[locale.code]} award.
                           </Trans>
                         </p>
                       </>

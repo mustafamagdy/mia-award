@@ -17,27 +17,35 @@ msgstr ""
 msgid "About the show"
 msgstr "عن العمل"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:45
+#: src/containers/App/TransKeysNotFoundInJsx.js:41
+msgid "File_is_required"
+msgstr "الملف مطلوب"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:40
+msgid "Required"
+msgstr "هذا الحقل مطلوب"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:49
 msgid "about_awards"
 msgstr "Mia   للبرامج المرئية"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:27
+#: src/containers/App/TransKeysNotFoundInJsx.js:28
 msgid "about_tab_content_awards"
 msgstr "1. mia 'لأفضل برنامج شخصي '<br> 2. mia 'لأفضل برنامج مقابلات'<br> 3. mia 'لأفضل برنامج مناظرات'<br> 4. mia 'لأفضل ندوة تلفزيونية'<br> 5. mia 'لأفضل برنامج جماهيري '<br> 6. mia 'لأفضل مجلة تلفزيونية'<br> 7. mia 'لأفضل إنتاج وثائقي'<br> 8. mia 'لأفضل برنامج مسابقات'<br> 9. mia 'لأفضل تغطية ميدانية'<br> 10. mia 'لأفضل عمل درامي'"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:31
+#: src/containers/App/TransKeysNotFoundInJsx.js:32
 msgid "about_tab_content_conpatitors"
 msgstr "تحرص جائزة MIA  على تحفيز شركات الإنتاج والعاملين عليها على تطوير المحتوى الإعلامي الإيجابي المؤثر إذ يتم اختيار أفضل الأعمال والمشاركات من جميع الدول العربية وتسليط الضوء عليها، ويمكن للمتسابقين تقديم الأعمال من خلال موقع الجائزة ودفع رسوم التسجيل لمن تنطبق عليهم الشروط والمعايير من جميع الدول العربية سواء كانوا أفراد أو هيئات حكومية أو مؤسسات فردية أو قنوات فضائية أو منصات رقمية، ويحق لجائزة MIA التصـرف في العمل بمجرد رفعه على موقع الجائزة دون أي مسؤولية قانونية لحقوق الملكية الفكرية."
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:30
+#: src/containers/App/TransKeysNotFoundInJsx.js:31
 msgid "about_tab_content_judge"
 msgstr "إيماناً منا بقيمة النزاهة باعتبارها عنصراً أساسياً لنجاح الجائزة؛ فقد وضعنا رؤية كاملة وخطة تحكيم إلكترونية تتسم بالمصداقية والمهنية والسرية في آن واحد , يقف عليها نخبة من الأكاديميين والفنانين والمهنيين المحترفين في هذا القطاع من مختلف الدول العربية لتقييم واختيار محتوى الأعمال الفائزة بجوائز الـ MIA  تحت إشراف مباشر من اللجنة العليا للجائزة."
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:28
+#: src/containers/App/TransKeysNotFoundInJsx.js:29
 msgid "about_tab_content_mia_contestant"
 msgstr "1. mia 'لأفضل مذيع'. <br> 2. mia 'لأفضل مخرج' <br>3. mia 'لأفضل معد ومنتج' <br>4. mia 'لأفضل كاتب سيناريو' <br>5. mia 'لأفضل مصور' <br/>6. mia 'لأفضل موسيقى' <br>7. mia 'لأفضل برومو' <br>"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:29
+#: src/containers/App/TransKeysNotFoundInJsx.js:30
 msgid "about_tab_content_mia_honor"
 msgstr "وهي جائزة رفيعة المستوى ستُمنح بصفة تقديرية للأشخاص أو المؤسسات الإعلامية الذين قدموا أعمالا استثنائية."
 
@@ -98,7 +106,7 @@ msgstr "التقدم الآن"
 msgid "are_you_sure_to_delete"
 msgstr "هل أنت متأكد من حذف هذا العنصر؟"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:255
+#: src/containers/Members/Artworks/Artwork/View/index.js:260
 msgid "are_you_sure_to_send_to_judge"
 msgstr "هل أنت متأكد من ارسال العمل الى التحكيم، لا يمكنك الرجوع في هذه الخطوة؟"
 
@@ -110,7 +118,7 @@ msgstr "مساحة"
 #~ msgid "award_category"
 #~ msgstr "فئة الجائزة"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:33
+#: src/containers/App/TransKeysNotFoundInJsx.js:34
 msgid "awards"
 msgstr "الجوائز"
 
@@ -134,7 +142,7 @@ msgstr "تم حجز جميع المعارض"
 msgid "booths"
 msgstr "المعرض"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:187
+#: src/containers/Members/Artworks/Artwork/View/index.js:192
 #: src/containers/Members/Artworks/Contestant/View/index.js:148
 #: src/containers/Pages/Shows/view.js:79
 msgid "broadcast_year"
@@ -205,7 +213,7 @@ msgstr "حدث خطأ، يتعذر إرسال الرسالة."
 msgid "comment_submitted"
 msgstr "تم إرسال تعليقك بنجاح للمراجعة."
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:41
+#: src/containers/App/TransKeysNotFoundInJsx.js:45
 msgid "confirmPassword"
 msgstr "تأكيد كلمة المرور"
 
@@ -217,7 +225,7 @@ msgstr "تأكيد"
 msgid "confirm_password"
 msgstr "تأكيد كلمة المرور"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:254
+#: src/containers/Members/Artworks/Artwork/View/index.js:259
 msgid "confirm_send_to_judge"
 msgstr "تأكيد"
 
@@ -225,7 +233,7 @@ msgstr "تأكيد"
 msgid "confirm_your_email_first"
 msgstr "التحقق من صحة بريدك الإلكتروني أولاً."
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:37
+#: src/containers/App/TransKeysNotFoundInJsx.js:38
 msgid "conpatitors"
 msgstr "المتسابقون"
 
@@ -276,7 +284,7 @@ msgstr "التاريخ"
 #~ msgid "date_of_release"
 #~ msgstr ""
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:167
+#: src/containers/Members/Artworks/Artwork/View/index.js:172
 #: src/containers/Members/Artworks/Contestant/View/index.js:128
 msgid "description"
 msgstr "الوصف"
@@ -289,7 +297,7 @@ msgstr "الوصف"
 msgid "dubai_address"
 msgstr "دبي، مدينة دبي الإعلامية، مبنى رقم 1، الدور الثاني - مكتب رقم 214"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:244
+#: src/containers/Members/Artworks/Artwork/View/index.js:249
 #: src/containers/Members/Artworks/Contestant/View/index.js:205
 msgid "edit_info"
 msgstr "تعديل المعلومات"
@@ -333,7 +341,7 @@ msgstr "جائزة عربية جديدة في طرحها مختصة في محت�
 msgid "forget_password"
 msgstr "نسيت كلمة المرور"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:42
+#: src/containers/App/TransKeysNotFoundInJsx.js:46
 msgid "fullName"
 msgstr "الاسم بالكامل"
 
@@ -379,7 +387,7 @@ msgstr "أوافق"
 msgid "if_you_want_to_keep_updated"
 msgstr "هل انت مهتم بآخر المستجدات ؟ ضع بريدك الإلكتروني"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:44
+#: src/containers/App/TransKeysNotFoundInJsx.js:48
 msgid "info"
 msgstr "معلومات اساسية"
 
@@ -387,7 +395,7 @@ msgstr "معلومات اساسية"
 msgid "job_title"
 msgstr "الوظيفة"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:36
+#: src/containers/App/TransKeysNotFoundInJsx.js:37
 msgid "judge"
 msgstr "التحكيم"
 
@@ -405,19 +413,19 @@ msgstr "أحدث الفيديوهات والصور"
 msgid "loading"
 msgstr "تحميل...."
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:14
+#: src/containers/App/TransKeysNotFoundInJsx.js:15
 msgid "location1_description"
 msgstr "ورش عمل لتطوير القدرات المهنية الفنية والتقنيةندوات متخصصة يلقيها خبراء و محترفون من صناع الإعلام ونجوم الفن العربيعرض قصص نجاح مميزةسوق خاص لخدمة شركات الإنتاج والمنصات الرقمية، والتلفزيونية ، إذ يضم أحدث النظم الهندسية والتقنية في مجال صناعة الإعلام والإنتاج التلفزيونيلقاءات حية و مناقشة القضايا الهامة (بث مباشر)كل هذا وأكثر ضمن فعاليات جائزة MIA award  حيث ستتمكن من لقاء نجوم الاعلام في الوطن العربي ضمن فعاليات الجائزة عبر شراء التذاكر التي ستتيح لك الدخول و الاستفادة من هذه الفعاليات "
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:13
+#: src/containers/App/TransKeysNotFoundInJsx.js:14
 msgid "location1_title"
 msgstr ""
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:16
+#: src/containers/App/TransKeysNotFoundInJsx.js:17
 msgid "location2_description"
 msgstr "ورش عمل لتطوير القدرات المهنية الفنية والتقنيةندوات متخصصة يلقيها خبراء و محترفون من صناع الإعلام ونجوم الفن العربيعرض قصص نجاح مميزةسوق خاص لخدمة شركات الإنتاج والمنصات الرقمية، والتلفزيونية ، إذ يضم أحدث النظم الهندسية والتقنية في مجال صناعة الإعلام والإنتاج التلفزيونيلقاءات حية و مناقشة القضايا الهامة (بث مباشر)كل هذا وأكثر ضمن فعاليات جائزة MIA award  حيث ستتمكن من لقاء نجوم الاعلام في الوطن العربي ضمن فعاليات الجائزة عبر شراء التذاكر التي ستتيح لك الدخول و الاستفادة من هذه الفعاليات "
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:15
+#: src/containers/App/TransKeysNotFoundInJsx.js:16
 msgid "location2_title"
 msgstr ""
 
@@ -458,11 +466,11 @@ msgstr "MIA"
 msgid "mia_awards"
 msgstr "جوائز MIA"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:34
+#: src/containers/App/TransKeysNotFoundInJsx.js:35
 msgid "mia_contestant"
 msgstr "MIA الافراد"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:35
+#: src/containers/App/TransKeysNotFoundInJsx.js:36
 msgid "mia_honor"
 msgstr "MIA التقديرية"
 
@@ -520,7 +528,7 @@ msgstr "لم يتم عمل تقييم "
 msgid "no_trailer_yet"
 msgstr "لم يتم رفع العرض المختصر بعد"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:269
+#: src/containers/Members/Artworks/Artwork/View/index.js:274
 msgid "no_wait"
 msgstr "لا انتظر ..."
 
@@ -532,7 +540,7 @@ msgstr "كلمة المرور القديمة"
 msgid "onlineChannels"
 msgstr "القنوات الرقمية"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:204
+#: src/containers/Members/Artworks/Artwork/View/index.js:209
 #: src/containers/Members/Artworks/Contestant/View/index.js:165
 msgid "online_channels"
 msgstr "القنوات الرقمية"
@@ -577,7 +585,7 @@ msgstr "قيِّمنا"
 msgid "our_value_text"
 msgstr "<0><1><2>• الحيادية : :</2><3>نقف بدون انحياز وعلى مسافة واحدة من كل ابناء الوطن العربي</3></1><4><5>• الموضوعية :</5><6>بعيداً عن الاهواء، لدينا آلية واحدة في التعامل مع كل أداء.. ابداعك هو ما يحدد مركزك</6></4><8><9>المصداقية:</9><10>من أساسيات جوهر عملنا أن نزاهتنا هي منهجنا في التقييم</10></8><11><12>• التعزيز :</12><13>تقديم جوائز نوعية عديدة وشهادات تقدير وفق معايير الأداء.</13></11></0>"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:40
+#: src/containers/App/TransKeysNotFoundInJsx.js:44
 msgid "password"
 msgstr "كلمة المرور"
 
@@ -598,7 +606,7 @@ msgstr "كلمة المرور"
 msgid "phone"
 msgstr "الهاتف"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:43
+#: src/containers/App/TransKeysNotFoundInJsx.js:47
 msgid "phoneNumber"
 msgstr "رقم الهاتف"
 
@@ -618,8 +626,7 @@ msgstr "+971 4 57 2636 8"
 #~ msgid "please_select_checkout_date"
 #~ msgstr "الرجاء تحديد يوم المغادرة."
 
-#: src/containers/Members/Artworks/Artwork/NewArtwork.js:294
-#: src/containers/Members/Artworks/Contestant/NewContestant.js:293
+#: src/containers/Members/Artworks/Contestant/NewContestant.js:292
 msgid "please_upload_payment_receipt"
 msgstr "من فضلك أرفق ايصال الدفع"
 
@@ -670,17 +677,17 @@ msgstr "جهة رخصة الانتاج"
 msgid "productionLicenseNumber"
 msgstr "رقم رخصة الانتاج"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:226
+#: src/containers/Members/Artworks/Artwork/View/index.js:231
 #: src/containers/Members/Artworks/Contestant/View/index.js:187
 msgid "production_license_agency"
 msgstr "جهة رخصة الانتاج"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:217
+#: src/containers/Members/Artworks/Artwork/View/index.js:222
 #: src/containers/Members/Artworks/Contestant/View/index.js:178
 msgid "production_license_number"
 msgstr "رقم رخصة الانتاج"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:181
+#: src/containers/Members/Artworks/Artwork/View/index.js:186
 #: src/containers/Members/Artworks/Contestant/View/index.js:142
 #: src/containers/Pages/Shows/index.js:102
 #: src/containers/Pages/Shows/view.js:73
@@ -707,7 +714,7 @@ msgstr ""
 #~ msgid "programs"
 #~ msgstr "البرامج"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:159
+#: src/containers/Members/Artworks/Artwork/View/index.js:164
 #: src/containers/Members/Artworks/Contestant/View/index.js:120
 msgid "project_name"
 msgstr "اسم المشروع"
@@ -758,23 +765,27 @@ msgid "review_our_cookie_policy"
 msgstr "استعراض سياسة ملفات تعريف الارتباط"
 
 #: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:198
-#: src/containers/Members/Artworks/Artwork/NewArtwork.js:366
-#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:200
-#: src/containers/Members/Artworks/Contestant/NewContestant.js:365
+#: src/containers/Members/Artworks/Artwork/NewArtwork.js:471
+#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:199
+#: src/containers/Members/Artworks/Contestant/NewContestant.js:364
 #: src/containers/Members/Profile.js:84
 #: src/containers/Members/Profile.js:188
 msgid "save"
 msgstr "حفظ"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:12
+msgid "select_an_option"
+msgstr ""
+
 #: src/containers/MyProfile/ImageUpload.js:63
 msgid "select_your_image"
 msgstr "تحديد صورتك"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:258
+#: src/containers/Members/Artworks/Artwork/View/index.js:263
 msgid "send"
 msgstr "ارسال"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:276
+#: src/containers/Members/Artworks/Artwork/View/index.js:281
 #: src/containers/Members/Artworks/Contestant/View/index.js:221
 msgid "send_for_judge"
 msgstr "ارسال الى التحيكم"
@@ -817,41 +828,41 @@ msgstr "الشروط والاحكام"
 msgid "signup_text"
 msgstr "لكي تتمكن من التقديم في الجوائز المختلفة ، يجب عليك اولا ان تتماشى مع قواعد التقديم في الموقع ، قم بانشاء حسابك الان لتبدأ في  تقديم أعمالك"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:175
+#: src/containers/Members/Artworks/Artwork/View/index.js:180
 #: src/containers/Members/Artworks/Contestant/View/index.js:136
 #: src/containers/Pages/Shows/view.js:193
 msgid "siteUrl"
 msgstr "عنوان الموقع"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:19
+#: src/containers/App/TransKeysNotFoundInJsx.js:20
 msgid "slide1_text"
 msgstr "ينطلق حفل وفعاليات جائزة MIA  من مدينة دبي للإعلام، وتقام الجائزة في 'مسرح دار الأوبرا' الواجهة الابداعية الأولى للفنون والثقافة والموسيقى لمدينة دبي حيث يعد مسرح دار الاوبرا احد أهم الوجهات للمهتمين بالثقافة و الفنون ليس على مستوى الوطن العربي فحسب بل على مستوى العالم أجمع"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:18
+#: src/containers/App/TransKeysNotFoundInJsx.js:19
 msgid "slide1_title"
 msgstr "الاوبرا"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:21
+#: src/containers/App/TransKeysNotFoundInJsx.js:22
 msgid "slide2_text"
 msgstr "إيماناً منا بقيمة النزاهة باعتبارها عنصراً أساسياً لنجاح الجائزة؛ فقد وضعنا رؤية كاملة وخطة تحكيم إلكترونية تتسم بالمصداقية والمهنية والسرية في آن واحد , يقف عليها نخبة من الأكاديميين والفنانين والمهنيين المحترفين في هذا القطاع من مختلف الدول العربية لتقييم واختيار محتوى الأعمال الفائزة بجوائز الـ MIA  تحت إشراف مباشر من اللجنة العليا للجائزة."
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:20
+#: src/containers/App/TransKeysNotFoundInJsx.js:21
 msgid "slide2_title"
 msgstr "التحكيم "
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:23
+#: src/containers/App/TransKeysNotFoundInJsx.js:24
 msgid "slide3_text"
 msgstr "التراحم والتعاطف والتحلي بصفة الرحمة قيمة أخلاقية عظيمة فهي مبدأ من المبادئ الإنسانية السامية وسمة حضارية نبيلة لها الأثر البالغ في الحياة الاجتماعية، ولا ننسى دورها الكبير في إشاعة روح التضامن والتكافل والترابط بين الناس، وهو من أهم أسباب الترابط الاجتماعي الذي أوصى به ديننا بأن نكون كالبنيان الواحد في تماسكه وتلاحمه، يشد بعضه بعضا، وقد اختارت MIA  تكريم الأعمال الخيرية كدعم إنساني من خلال موضوع (التراحم الاجتماعي) .إيماناً منها بضرورة السعي لتعزيز البعد الإنساني وبث روح التراحم وتضافر الجهود الانسانية في كافة الأعمال بشتى القطاعات كون ذلك عنصر أساسي ومن أهم مظاهر الوحدة العربية ."
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:22
+#: src/containers/App/TransKeysNotFoundInJsx.js:23
 msgid "slide3_title"
 msgstr "تراحم MIA"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:25
+#: src/containers/App/TransKeysNotFoundInJsx.js:26
 msgid "slide4_text"
 msgstr "يقام ضمن برنامج الجائزةورش عمل لتطوير القدرات المهنية الفنية والتقنية.ندوات متخصصة يلقيها خبراء و محترفون من صناع الإعلام ونجوم الفن العربي.عرض قصص نجاح مميزة.سوق خاص لخدمة شركات الإنتاج والمنصات الرقمية، والتلفزيونية ، إذ يضم أحدث النظم الهندسية والتقنية في مجال صناعة الإعلام والإنتاج المرئي.لقاءات حية و مناقشة القضايا الهامة (بث مباشر)"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:24
+#: src/containers/App/TransKeysNotFoundInJsx.js:25
 msgid "slide4_title"
 msgstr "ورش العمل "
 
@@ -927,7 +938,7 @@ msgstr "عرض قصير"
 msgid "tvChannels"
 msgstr "القنوات التلفيزيونية"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:194
+#: src/containers/Members/Artworks/Artwork/View/index.js:199
 #: src/containers/Members/Artworks/Contestant/View/index.js:155
 msgid "tv_channels"
 msgstr "القنوات التلفيزيونية"
@@ -955,10 +966,9 @@ msgstr "تحميل الصورة"
 #: src/containers/Award/index.js:38
 #: src/containers/Members/Artworks/Artwork/ChoosePayment.js:95
 #: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:79
-#: src/containers/Members/Artworks/Artwork/NewArtwork.js:171
 #: src/containers/Members/Artworks/Contestant/ChoosePayment.js:95
-#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:80
-#: src/containers/Members/Artworks/Contestant/NewContestant.js:171
+#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:79
+#: src/containers/Members/Artworks/Contestant/NewContestant.js:170
 msgid "usd"
 msgstr "USD"
 
@@ -966,7 +976,7 @@ msgstr "USD"
 msgid "user_account"
 msgstr "حساب المستخدم"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:39
+#: src/containers/App/TransKeysNotFoundInJsx.js:43
 msgid "username"
 msgstr "اسم المستخدم"
 
@@ -1011,7 +1021,7 @@ msgid "yes"
 msgstr "نعم"
 
 #: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:66
-#: src/containers/Members/Artworks/Artwork/NewArtwork.js:129
+#: src/containers/Members/Artworks/Artwork/NewArtwork.js:154
 #: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:66
 #: src/containers/Members/Artworks/Contestant/NewContestant.js:129
 msgid "you_applied_for_award_x"

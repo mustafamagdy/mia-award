@@ -3,41 +3,46 @@ import { PropTypes } from "prop-types";
 import { I18n } from "@lingui/react";
 
 class LocalizedDropdown extends React.PureComponent {
-  state = { dropdownOpen: false, selectedOption: undefined };
-  toggleDropdown = () =>
-    this.setState({ dropdownOpen: !this.state.dropdownOpen });
   render() {
-    const { dropdownOpen } = this.state;
-    const { labelProp = "label" } = this.props;
+    const {
+      field: { name },
+      form: { setFieldValue },
+      labelProp = "label",
+      valueProp = "id",
+      options,
+      selectCb,
+      emptyValue,
+    } = this.props;
+    if (emptyValue && options.some((a) => a[valueProp] == "0") == false) {
+      options.unshift({
+        [valueProp]: "0",
+        [labelProp]: emptyValue,
+      });
+    }
+
     return (
-      <I18n>
-        {({ i18n }) => (
-          <div className="contacts-select">
-            <div
-              className={`select-drop ${dropdownOpen ? "open" : ""}`}
-              onClick={this.toggleDropdown}
-            >
-              <span className="select-drop__text">
-                {this.state.selectedOption
-                  ? this.state.selectedOption.label
-                  : i18n._("select_an_option")}
-              </span>
-              <div className="select-drop__results">
-                {this.props.options &&
-                  this.props.options.map((option) => (
-                    <span
-                      key={option.value}
-                      onClick={() => this.setState({ selectedOption: option })}
-                      className="select-drop__results-item"
-                    >
-                      {option[labelProp][i18n.language]}
-                    </span>
-                  ))}
-              </div>
-            </div>
-          </div>
-        )}
-      </I18n>
+      <select
+        name={name}
+        onChange={(a) => {
+          const _item = options.find((x) => x[valueProp] == a.target.value);
+          selectCb && selectCb(_item);
+          if (_item[valueProp] == "0") {
+            setFieldValue(name, undefined);
+          } else {
+            setFieldValue(name, _item[valueProp]);
+          }
+        }}
+      >
+        <I18n>
+          {({ i18n }) => {
+            return options.map((a, i) => (
+              <option key={a[valueProp]} value={a[valueProp]}>
+                {a[labelProp][i18n.language] || a[labelProp]}
+              </option>
+            ));
+          }}
+        </I18n>
+      </select>
     );
   }
 }

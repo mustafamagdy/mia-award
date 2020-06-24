@@ -24,7 +24,6 @@ const FormField = ({
   ...props
 }) => {
   const isOtherTypes = isCheckbox || isFile;
-
   return (
     <I18n>
       {({ i18n }) => {
@@ -55,13 +54,13 @@ const FormField = ({
         ) : (
           <div className="form-group">
             <label
-              className="form-group__label col-6 col-md-6 col-sm-12"
+              className="form-group__label col-4 col-md-4 col-sm-12"
               htmlFor={name}
             >
               <Trans id={transId}> {transdDefaultVal} </Trans>
             </label>
             {showStar && <span className="form-group__required">*</span>}
-            <div className="form-group__wrap  col-6 col-md-6 col-sm-12">
+            <div className="form-group__wrap  col-8 col-md-8 col-sm-12">
               <React.Fragment>
                 {svgIconHref && (
                   <div className="form-group__icon">
