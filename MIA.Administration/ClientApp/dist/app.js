@@ -531,8 +531,9 @@
             newObj.NomineeId = vm.selectedNominee.id;
             newObj.IsArtwork = false;
 
-            newObj.OnlineChannels = vm.OnlineChannels.join(', ');
-            newObj.TvChannels = vm.TvChannels.join(', ');
+
+            newObj.OnlineChannels = vm.OnlineChannels;
+            newObj.TvChannels = vm.TvChannels;
 
             newObj.SiteUrl = vm.SiteUrl;
             newObj.ProductionYear = vm.selectedProductionYear;
@@ -554,11 +555,7 @@
                 function (data, status) {
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    debugger;
-                    if (vm.selectedAward.awardType == 'artwork')
-                        openUploadDialog(data.id, appCONSTANTS.API_URL + 'artWorks/artwork/' + data.id + '/files')
-                    else
-                        $state.go('ArtWork'); 
+                    $state.go('ArtWork');
 
                 },
                 function (data, status) {
@@ -845,27 +842,39 @@
         var vm = this;
         vm.awardList = [];
         vm.nomineeList = [];
-        vm.countryList = [];
         vm.productionList = [];
         vm.selectedAward = "";
         vm.selectedNominee = "";
         vm.language = appCONSTANTS.supportedLanguage;
         vm.ArtWork = ArtWorkByIdPrepService;
-        vm.selectedProduction = null;
+        vm.selectedProduction = [];
         vm.posterImage = vm.ArtWork.posterUrl;
         vm.coverImage = vm.ArtWork.coverUrl;
 
         vm.yearsList = [2019, 2020];
-        debugger;
         vm.selectedProductionYear = vm.ArtWork.productionYear;
         vm.selectedBroadcastYear = vm.ArtWork.broadcastYear;
         vm.IsArtwork = false;
+
+        this.tab = 1;
+
+        this.setTab = function (tabId) {
+            this.tab = tabId;
+        };
+
+        this.isSet = function (tabId) {
+            return this.tab === tabId;
+        };
         if (vm.ArtWork.award.awardType == 'artwork')
             vm.IsArtwork = true;
         console.log(vm.ArtWork);
 
         vm.Close = function () {
             $state.go('ArtWork');
+        }
+        vm.chnagein = function (ddd) {
+            debugger;
+
         }
         vm.UpdateArtWork = function () {
             blockUI.start("Loading...");
@@ -885,9 +894,8 @@
             updateObj.NomineeId = vm.selectedNominee.id;
             updateObj.IsArtwork = vm.IsArtwork;
 
-            updateObj.OnlineChannels = vm.ArtWork.onlineChannels.join(', ');
-            updateObj.TvChannels = vm.ArtWork.tvChannels.join(', ');
-
+            updateObj.OnlineChannels = vm.ArtWork.onlineChannels;
+            updateObj.TvChannels = vm.ArtWork.tvChannels;
             updateObj.SiteUrl = vm.ArtWork.siteUrl;
             updateObj.ProductionYear = vm.selectedProductionYear;
             updateObj.BroadcastYear = vm.selectedBroadcastYear;
@@ -923,6 +931,16 @@
                 }
             );
         }
+        $scope.getFileDetails = function (e) {
+            $scope.files = [];
+            $scope.$apply(function () {
+
+                for (var i = 0; i < e.files.length; i++) {
+                    $scope.files.push(e.files[i])
+                }
+
+            });
+        };
 
         function refreshNominees() {
             var k = ArtWorkResource.getAllNominees().$promise.then(function (results) {
@@ -1055,7 +1073,10 @@
             vm.coverImage = $(element)[0].files[0];
         };
 
-
+        vm.LoadUploadTrailler = function () {
+            debugger
+            $("#traillerUploder").click();
+        }
     }
 }());
 (function () {
@@ -1323,14 +1344,28 @@
                         }
                     }
 
-                }).state('MultiFiles', {
+                })
+                .state('MultiFiles', {
                     url: '/MultiFiles/:id',
                     templateUrl: './app/GlobalAdmin/ArtWorkMedia/templates/uploadMultiFiles.html',
-                    controller: 'MultiFilesController',
-                    'controllerAs': 'MultiFilesCtrl',
+                    controller: 'UploadMultiFilesController',
+                    'controllerAs': 'UploadMultiFilesCtrl',
                     resolve: {
-                        ArtWorkByIdPrepService: ArtWorkByIdPrepService
+                        ArtWorkByIdPrepService: ArtWorkByIdPrepService,
+                        ArtWorkMediaByArtWorkIdPrepService: ArtWorkMediaByArtWorkIdPrepService
                     }, data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('uploader', {
+                    url: '/uploader',
+                    templateUrl: './app/GlobalAdmin/ArtWorkMedia/templates/uploder-directive.html',
+                    controller: 'UploaderController',
+                    controllerAs: 'UploaderCtrl',
+                      data: {
                         permissions: {
                             redirectTo: 'root'
                         }
@@ -1391,6 +1426,128 @@
     ArtWorkByIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
     function ArtWorkByIdPrepService(ArtWorkResource, $stateParams) {
         return ArtWorkResource.getArtWork({ id: $stateParams.id }).$promise;
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .directive('getWidth', function () {
+            return {
+                restrict: "A",
+                link: function (scope, element, attrs) {
+                    attrs.$observe('rowHeight', function (value) {
+                        $(element).css('width', value + "%");
+                    });
+                }
+            }
+        })
+        .controller('UploaderController', ['$scope', '$translate', 'blockUI', '$http', 'appCONSTANTS', 'ArtWorkMediaResource', 'ToastService', UploaderController])
+
+    function UploaderController($scope, $translate, blockUI, $http, appCONSTANTS,
+        ArtWorkMediaResource, ToastService) {
+        var vm = this;
+        const sliceSize = 5 * 1024 * 1024; 
+        var url;
+        vm.Progress = 0;
+        vm.size = 0;
+        $scope.init = function (obj, id) {
+        debugger;
+            processFile(obj, id);
+        };
+
+        function processFile(file, itemId) {
+            url = appCONSTANTS.API_URL + 'artWorks/artwork/' + itemId + '/files'; let start = 0;
+            let uploadId = "";
+            vm.size = file.size;
+            const totalChunks = Math.ceil(vm.size / sliceSize);
+            const chunkIndex = 0;
+            let end = 0;
+            start = chunkIndex * sliceSize;
+            end = start + sliceSize;
+            send(itemId, file, start, end, chunkIndex, totalChunks, [], uploadId);
+        };
+        function slice(file, start, end) {
+            let slice = file.mozSlice ? file.mozSlice : file.webkitSlice ? file.webkitSlice : file.slice ? file.slice : this.noop;
+            return slice.bind(file)(start, end);
+        };
+        this.noop = function () { };
+        function send(itemId, file, start, end, chunkIndex, totalChunks, etags, uploadId) {
+            if (chunkIndex >= totalChunks) {
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function () {
+                var dataUrl = reader.result;
+                var base64 = dataUrl.split(",")[1];
+
+                uploadChunkApi({ id: itemId, fileName: file.name, uploadId, chunkIndex, totalChunks, chunk: base64, eTags: etags })
+                    .then(
+                        function (data, status) {
+                            var a = data;
+                            if (a.status == 200) {
+                                if (end < vm.size) {
+                                    chunkIndex = chunkIndex + 1;
+                                    const newEnd = start + sliceSize * 2;
+                                    const newStart = start + sliceSize;
+                                    debugger;
+                                    const percent = (chunkIndex / totalChunks) * 100;
+                                    onProgress && onProgress(percent);
+                                    send(itemId, file, newStart, newEnd, chunkIndex, totalChunks, a.data.eTags, a.data.uploadId);
+                                } else {
+                                    debugger;
+
+                                    onProgress(100);
+                                    data.id = itemId;
+                                    callBackUpload(data);
+                                }
+                            } else {
+                                ToastService.show("right", "bottom", "fadeInUp", a.data.errors, "error");
+                                console.error("sending error", file.name, chunkIndex, a.data);
+                            }
+                        },
+                        function (data, status) {
+                            ToastService.show("right", "bottom", "fadeInUp", data, "error");
+                        }
+                    );
+            };
+
+            const slicedPart = slice(file, start, end);
+            reader.readAsDataURL(slicedPart);
+        };
+
+        function uploadChunkApi({ id, ...data }) {
+            return $http({
+                method: 'POST',
+                url: url,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: data,
+            });
+        };
+        function onProgress(evt) {
+            vm.Progress = Math.round(evt);
+        }
+        function onUploadComplete(evt) {
+            callBackUpload(model);
+        }
+        function callBackUpload(model) {
+            debugger
+            var addObj = new ArtWorkMediaResource();
+            addObj.ArtWorkId = model.id;
+            addObj.FileUrl = model.data.trailer.fileUrl;
+            addObj.FileKey = model.data.trailer.fileKey;
+            addObj.$createMediaFile().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Fileuploaded'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
     }
 }());
 (function () {
@@ -1668,41 +1825,7 @@
     angular
         .module('home')
 
-        .directive('fileModel', ['$parse', function ($parse) {
-            return {
-                restrict: 'A',
-                link: function (scope, element, attrs) {
-                    var model, modelSetter;
-
-                    attrs.$observe('fileModel', function (fileModel) {
-                        model = $parse(attrs.fileModel);
-                        modelSetter = model.assign;
-                    });
-
-                    element.bind('change', function () {
-                        scope.$apply(function () {
-                            modelSetter(scope.$parent, element[0].files[0]);
-                        });
-                    });
-                }
-            };
-        }])
-        .service('fileUpload', ['$http', function ($http) {
-            this.uploadFileToUrl = function (file, uploadUrl) {
-                var fd = new FormData();
-                fd.append('file', file);
-                $http.post(uploadUrl, fd, {
-                    transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
-                })
-                    .success(function () {
-                    })
-                    .error(function () {
-                    });
-            }
-        }])
-
-        .filter("range", function () {
+         .filter("range", function () {
             return (x, n) => Array.from({ length: n }, (x, index) => (index));
         })
         .controller('createArtWorkMediaDialogController', ['$stateParams', 'blockUI', '$uibModal', '$state', 'appCONSTANTS', '$translate',
@@ -1821,40 +1944,6 @@
     angular
         .module('home')
 
-        .directive('fileModel', ['$parse', function ($parse) {
-            return {
-                restrict: 'A',
-                link: function (scope, element, attrs) {
-                    var model, modelSetter;
-
-                    attrs.$observe('fileModel', function (fileModel) {
-                        model = $parse(attrs.fileModel);
-                        modelSetter = model.assign;
-                    });
-
-                    element.bind('change', function () {
-                        scope.$apply(function () {
-                            modelSetter(scope.$parent, element[0].files[0]);
-                        });
-                    });
-                }
-            };
-        }])
-        .service('fileUpload', ['$http', function ($http) {
-            this.uploadFileToUrl = function (file, uploadUrl) {
-                var fd = new FormData();
-                fd.append('file', file);
-                $http.post(uploadUrl, fd, {
-                    transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
-                })
-                    .success(function () {
-                    })
-                    .error(function () {
-                    });
-            }
-        }])
-
         .filter("range", function () {
             return (x, n) => Array.from({ length: n }, (x, index) => (index));
         })
@@ -1887,21 +1976,17 @@
                 return size.toFixed(2) + ' Tb';
             };
         })
-        .controller('MultiFilesController', ['$scope', '$stateParams', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'ArtWorkByIdPrepService', 'ArtWorkMediaResource', 'ToastService', MultiFilesController])
+        .controller('UploadMultiFilesController', ['$scope', '$stateParams', 'blockUI', '$translate', '$state', 'appCONSTANTS',
+            'ArtWorkResource', 'ArtWorkByIdPrepService', 'ArtWorkMediaResource', 'ArtWorkMediaByArtWorkIdPrepService', '$uibModal','ToastService', UploadMultiFilesController])
 
-    function MultiFilesController($scope, $stateParams, blockUI, $http, $state, appCONSTANTS, $translate, ArtWorkByIdPrepService,
-        ArtWorkMediaResource, ToastService) {
+    function UploadMultiFilesController($scope, $stateParams, blockUI, $translate, $state, appCONSTANTS, ArtWorkResource, ArtWorkByIdPrepService,
+        ArtWorkMediaResource, ArtWorkMediaByArtWorkIdPrepService,$uibModal,  ToastService) {
         var vm = this;
-        vm.errordata = 0;
         vm.language = appCONSTANTS.supportedLanguage;
         vm.artWork = ArtWorkByIdPrepService;
-        console.log(vm.artWork);
-        var url = appCONSTANTS.API_URL + 'artWorks/artwork/' + vm.artWork.id + '/files';
-
+        vm.artWorkFiles = ArtWorkMediaByArtWorkIdPrepService;
 
         $scope.getFileDetails = function (e) {
-            debugger;
             $scope.files = [];
             $scope.$apply(function () {
 
@@ -1911,117 +1996,67 @@
 
             });
         };
-        $scope.uploadSingleFile = function (file) {
-            debugger;
 
-            $scope.processFile(file);
+        vm.removeFile = function (id) {
 
+            var updateObj = new ArtWorkMediaResource();
 
-
-        }
-        $scope.uploadFiles = function () {
-            debugger;
-
-            var data = new FormData();
-            for (var i in $scope.files) {
-                $scope.processFile($scope.files[i]);
-            }
-
-
-        }
-
-
-
-
-
-
-        const sliceSize = 5 * 1024 * 1024; 
-
-        $scope.size = 0;
-        $scope.processFile = function (file) {
-            let start = 0;
-            let uploadId = "";
-            $scope.size = file.size;
-            const totalChunks = Math.ceil($scope.size / sliceSize);
-            const chunkIndex = 0;
-            let end = 0;
-            start = chunkIndex * sliceSize;
-            end = start + sliceSize;
-            $scope.send(file, start, end, chunkIndex, totalChunks, [], uploadId);
-        };
-        $scope.slice = function (file, start, end) {
-            let slice = file.mozSlice ? file.mozSlice : file.webkitSlice ? file.webkitSlice : file.slice ? file.slice : $scope.noop;
-            return slice.bind(file)(start, end);
-        };
-        $scope.noop = function () { };
-        $scope.send = function (file, start, end, chunkIndex, totalChunks, etags, uploadId) {
-            if (chunkIndex >= totalChunks) {
-                return;
-            }
-            var reader = new FileReader();
-            reader.onload = function () {
-                var dataUrl = reader.result;
-                var base64 = dataUrl.split(",")[1];
-
-                $scope.uploadChunkApi({ id: vm.artWork.id, fileName: file.name, uploadId, chunkIndex, totalChunks, chunk: base64, eTags: etags })
-                    .then(
-                        function (data, status) {
-                            debugger;
-                            var a = data;
-                            if (a.status == 200) {
-                                if (end < $scope.size) {
-                                    chunkIndex = chunkIndex + 1;
-                                    const newEnd = start + sliceSize * 2;
-                                    const newStart = start + sliceSize;
-                                    const percent = (chunkIndex / totalChunks) * 100;
-                                    $scope.onProgress && $scope.onProgress(percent,file.size);
-                                    $scope.send(file, newStart, newEnd, chunkIndex, totalChunks, a.data.eTags, a.data.uploadId);
-                                } else {
-                                    $scope.onProgress && $scope.onProgress(100,file.size);
-                                    ToastService.show("right", "bottom", "fadeInUp", "File uploaded", "success");
-                                    $uibModalInstance.dismiss();
-                                    data.id = itemId;
-                                    callBackFunction(data);
-                                }
-                            } else {
-                                ToastService.show("right", "bottom", "fadeInUp", a.data.errors, "error");
-                                console.error("sending error", file.name, chunkIndex, a.data);
-                            }
-                        },
-                        function (data, status) {
-                            ToastService.show("right", "bottom", "fadeInUp", data.data.title, "error");
-                        }
-                    );
-            };
-
-            const slicedPart = $scope.slice(file, start, end);
-            reader.readAsDataURL(slicedPart);
-        };
-
-        $scope.uploadChunkApi = function ({ id, ...data }) {
-            debugger;
-
-            return $http({
-                method: 'POST',
-                url: url,
-                headers: {
-                    'Content-Type': 'application/json'
+            updateObj.$deleteMediaItem({ id: id }).then(
+                function (data, status) {
+                    refreshArtWorkFiles();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
                 },
-                data: data,
-            });
-        };
-        $scope.onProgress = function (evt, size) {
-            debugger;
-            var element = angular.element(document.querySelector('#dvProgress' + size));
-            $scope.Progress = Math.round(evt);
-            element.html('<div style="width: ' + $scope.Progress + '%">' + $scope.Progress + '%</div>');
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
         }
-        vm.Confirm = function () {
-            callBackFunction(model);
-            $uibModalInstance.dismiss();
+        function confirmationDelete(model) {
+debugger
+            var updateObj = new ArtWorkMediaResource();
+
+            updateObj.$deleteMediaItem({ id: model.id }).then(
+                function (data, status) {
+                    refreshArtWorkFiles();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.openDeleteDialog = function (model, name, id) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+                controller: 'confirmDeleteDialogController',
+                controllerAs: 'deleteDlCtrl',
+                resolve: {
+                    model: function () { return model },
+                    itemName: function () { return name },
+                    itemId: function () { return id },
+                    message: function () { return null },
+                    callBackFunction: function () { return confirmationDelete }
+                }
+
+            });
         }
         vm.close = function () {
             $state.go('ArtWorkMedia', { id: $stateParams.id });
+        }
+        function refreshArtWorkFiles() {
+            blockUI.start("Loading...");
+
+            var k = ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise.then(function (results) {
+                debugger;
+                vm.artWorkFiles = results;
+                console.log(vm.artWorkFiles); blockUI.stop();
+
+            },
+                function (data, status) {
+                    debugger;
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+                });
         }
     }
 }());
@@ -2959,11 +2994,11 @@
                     '</div>'
             };
         }])
-        .controller('DisplayVideoController', ['appCONSTANTS', 'MediaFileByIdPrepService', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$uibModal',
+        .controller('DisplayVideoController', ['appCONSTANTS', 'MediaFileByIdPrepService', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$state',
             'ToastService', '$stateParams', DisplayVideoController]);
 
 
-    function DisplayVideoController(appCONSTANTS, MediaFileByIdPrepService, $scope, $translate, JudgeArtWorkResource, blockUI, $uibModal, ToastService, $stateParams) {
+    function DisplayVideoController(appCONSTANTS, MediaFileByIdPrepService, $scope, $translate, JudgeArtWorkResource, blockUI, $state, ToastService, $stateParams) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         var vm = this;
@@ -3233,11 +3268,11 @@ debugger;
 
     angular
         .module('home')
-        .controller('judgeArtWorkDetailsController', ['$sce','$scope', 'blockUI', '$stateParams', 'ArtWorkResource', '$state', 'appCONSTANTS', '$translate',
+        .controller('judgeArtWorkDetailsController', ['$sce', '$scope', 'blockUI', '$stateParams', 'ArtWorkResource', '$state', 'appCONSTANTS', '$translate',
             'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', judgeArtWorkDetailsController
         ])
 
-    function judgeArtWorkDetailsController($sce,$scope, blockUI, $stateParams, ArtWorkResource, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
+    function judgeArtWorkDetailsController($sce, $scope, blockUI, $stateParams, ArtWorkResource, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
         ToastService, ArtWorkByIdPrepService) {
         var vm = this;
         vm.showMediaList = false;
@@ -3245,12 +3280,15 @@ debugger;
         vm.JudgeArtWork = ArtWorkByIdPrepService;
         vm.artWorkLevel = 0;
         console.log(vm.JudgeArtWork);
+        vm.votingCriteriaList = [{
+            votingValue: 0
+        }]
         vm.Close = function () {
             $state.go('JudgeArtWork');
         }
-        $scope.trustSrc = function(src) {
+        $scope.trustSrc = function (src) {
             return $sce.trustAsResourceUrl(src);
-          }
+        }
         vm.showMedia = function () {
             vm.showMediaList = !vm.showMediaList;
             vm.showCriteriaList = false;
@@ -3263,7 +3301,6 @@ debugger;
 
             if (vm.JudgeArtWork.illegibleForJudge)
                 vm.artWorkLevel = 1;
-            debugger
             getVotingCriterias();
         }
 
@@ -3293,7 +3330,7 @@ debugger;
             );
         }
         vm.slider = {
-            minValue: 10,
+            votingValue: 10,
             maxValue: 90,
             options: {
                 floor: 0,
@@ -3320,6 +3357,10 @@ debugger;
         function getVotingCriterias() {
             var k = JudgeArtWorkResource.getCriteriaByLevel({ level: vm.artWorkLevel }).$promise.then(function (results) {
                 vm.votingCriteriaList = results;
+                for (let index = 0; index < vm.votingCriteriaList.length; index++) {
+                    const element = vm.votingCriteriaList[index];element.votingValue=0;
+                    element.votingValue=0;
+                }
                 console.log(vm.votingCriteriaList);
                 vm.totalCount = results.length;
                 blockUI.stop();
@@ -4558,8 +4599,6 @@ debugger;
 
     function editRoleDialogController(blockUI, $filter, $state, $stateParams, $translate, RoleResource, ToastService, RoleByIdPrepService) {
         var vm = this;
-
-        console.log(vm.permissionList);
         vm.name = $stateParams.name;
         vm.rolePermissions = RoleByIdPrepService;
         vm.selectedPermissions = [];
@@ -4567,108 +4606,79 @@ debugger;
         vm.removedSelectedPermissions = [];
         vm.currentPage = 1;
         permissionList();
+        console.log('rolePermissions', vm.rolePermissions);
 
-        vm.UpdateRole = function () {
 
-            blockUI.start("Loading...");
-            console.log(vm.rolePermissions);
-            var updateObj = new RoleResource();
-            updateObj.roleId = vm.rolePermissions.objGroupId;
-            updateObj.roles = vm.selectedPermissions;
-            updateObj.titles = vm.rolePermissions.titles;
-            updateObj.$update().then(
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    $state.go('Role');
 
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.checkPermission = function (obj) {
-            var checkIfPermissionExist = vm.selectedPermissions.indexOf(obj.id);
-            if (checkIfPermissionExist == -1) {
-                vm.selectedPermissions.push(obj.permessionId);
-            }
-            else {
-                var index = vm.selectedPermissions.indexOf(obj.permessionId);
-                vm.selectedPermissions.splice(index, 1);
-            }
-        }
-        vm.changePermissionList = function (name) {
-            refreshPermissions(name);
-        }
-
-        vm.ChangeSelectedModule = function () {
-            angular.forEach(vm.selectedModule, function (value, key) {
-                angular.forEach(value.permessions, function (valuePermission, key1) {
-                    debugger;
-                    if (vm.selectedModuleList != 0) {
-                        if (!vm.selectedModuleList.includes(valuePermission)) {
-                            vm.selectedModuleList.push(valuePermission);
-                        }
-
-                    }
-                    else
-                        vm.selectedModuleList.push(valuePermission);
-
-                });
-            });
-
-        }
 
         vm.selectPermission = function (obj) {
-            debugger;
-            const objPermission = this.selectedPermission.find(b => b.id == obj.id)
+            const objPermission = this.selectedPermissions.find(b => b.id == obj.id)
             if (obj.isSelected && objPermission == null) {
-                this.selectedPermission.push(obj);
+                this.selectedPermissions.push(obj);
+                addPermissionToRole(obj.id);
             } else {
-                this.selectedPermission.splice(this.selectedPermission.indexOf(obj), 1);
-                this.RemoveLevel1Judges.push(obj);
+                this.selectedPermissions.splice(this.selectedPermissions.indexOf(obj), 1);
+                this.removedSelectedPermissions.push(obj);
+                removePermissionToRole(obj.id);
             }
         }
         vm.selectAllPermission = function (isselectAllJudgeLevel1) {
-            this.selectedPermission = [];
+            this.selectedPermissions = [];
             this.RemoveLevel1Judges = [];
             this.newSelectedPermissions.map(x => x.isSelected = isselectAllJudgeLevel1);
             if (isselectAllJudgeLevel1) {
-                this.selectedPermission.push(...this.newSelectedPermissions);
+                this.selectedPermissions.push(...this.newSelectedPermissions);
             } else {
                 this.RemoveLevel1Judges.push(...this.newSelectedPermissions);
             }
         }
 
-
-        function refreshPermissions(name) {
+        function addPermissionToRole(permId) {
             blockUI.start("Loading...");
-            var k = RoleResource.getAllPermissionsByModule({ moduleName: name }).$promise.then(function (results) {
-                debugger;
-                if (vm.newSelectedPermissions.length != 0)
-                    vm.newSelectedPermissions.push(results);
-                else
-                    vm.newSelectedPermissions = results;
+            var updateObj = new RoleResource();
 
-                console.log(vm.objList);
-                blockUI.stop();
-            },
+            updateObj.$addPermissionToRole({ roleName: vm.name, permissionId: permId }).then(
                 function (data, status) {
                     blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                },
+                function (data, status) {
+
+                    debugger; blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.errorMessage, "error");
+                }
+            );
         }
 
-        function permissionList() {  
+        function removePermissionToRole(permId) {
             blockUI.start("Loading...");
-            var k = RoleResource.getAllPermissions({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
+            var updateObj = new RoleResource();
+
+            updateObj.$removePermissionToRole({ roleName: vm.name, permissionId: permId }).then(
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.errorMessage, "error");
+                }
+            );
+        }
+
+        function permissionList() {
+            blockUI.start("Loading...");
+            var k = RoleResource.getAllPermissions({ pageNumber: vm.currentPage, pageSize: 1000 }).$promise.then(function (results) {
                 vm.newSelectedPermissions = results.items;
                 vm.totalCount = results.metadata.totalItemCount;
+                var i;
+                for (i = 0; i < vm.rolePermissions.length; i++) {
 
-                console.log(vm.objList);
+                    var indexPerm = vm.newSelectedPermissions.indexOf($filter('filter')(vm.newSelectedPermissions, { 'id': vm.rolePermissions[i].id }, true)[0]);
+                    vm.newSelectedPermissions[indexPerm].isSelected = true;
+                    vm.selectedPermissions.push(vm.newSelectedPermissions[indexPerm]);
+                }
+                console.log('permissionList', vm.newSelectedPermissions);
                 blockUI.stop();
             },
                 function (data, status) {
@@ -4684,6 +4694,10 @@ debugger;
         vm.Close = function () {
             $state.go('Role');
         }
+
+
+
+
     }
 }());
 (function () {
@@ -4791,14 +4805,18 @@ debugger;
             getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/roles', useToken: true, isArray: true },
             getAllActivateRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/roles', useToken: true, isArray: true, params: { lang: '@lang' } },
             getAllPermissions: { method: 'POST', url: appCONSTANTS.API_URL + 'admin/permissions', useToken: true, params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
             addPermissionToRole: { method: 'POST', url: appCONSTANTS.API_URL + 'admin/role/:roleName/permissions/:permissionId', useToken: true },
             removePermissionToRole: { method: 'DELETE', url: appCONSTANTS.API_URL + 'admin/role/:roleName/permissions/:permissionId', useToken: true },
-            delete: { method: 'DELETE', url: appCONSTANTS.API_URL + 'Role/Delete/:roleId', useToken: true },
+
             getRole: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/role/:roleName/permissions', useToken: true, isArray: true },
             addUserToRole: { method: 'POST', url: appCONSTANTS.API_URL + 'admin/role/:roleName/user/:userId', useToken: true },
             getAllModules: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/role/modules', isArray: true, useToken: true, params: { lang: '@lang' } },
             getAllPermissionsByModule: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/permissions/module/:moduleName', isArray: true, useToken: true, params: { lang: '@lang' } },
+
+
+            create: { method: 'POST', useToken: true },
+            delete: { method: 'DELETE', url: appCONSTANTS.API_URL + 'Role/Delete/:roleId', useToken: true },
+
         })
     }
 }());

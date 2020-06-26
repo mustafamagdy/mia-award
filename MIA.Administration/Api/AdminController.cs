@@ -105,7 +105,8 @@ namespace MIA.Administration.Api
     public async Task<IActionResult> ListRolePermissions([FromRoute]string roleName, [FromServices] IAppUnitOfWork db)
     {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName);
-      if (role == null) {
+      if (role == null)
+      {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
@@ -139,19 +140,28 @@ namespace MIA.Administration.Api
       [FromServices] IAppUnitOfWork db)
     {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null) {
+      if (role == null)
+      {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
       Permissions permission;
-      if (!Enum.TryParse(permissionId.ToString(), out permission)) {
+      if (!Enum.TryParse(permissionId.ToString(), out permission))
+      {
         throw new ApiException(ApiErrorType.NotFound, "permission not found or not allowed");
       }
-
-      var exists = role.Permissions.Contains((char)permission);
-      if (!exists)
+      //check if the role doesn't have any permsion
+      if (role.Permissions != null)
       {
-        role.Permissions += (char)permission;
+        var exists = role.Permissions.Contains((char)permission);
+        if (!exists)
+        {
+          role.Permissions += (char)permission;
+        }
+      }
+      else
+      {
+
       }
 
       return Ok(role);
@@ -163,7 +173,8 @@ namespace MIA.Administration.Api
       [FromServices] IAppUnitOfWork db)
     {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null) {
+      if (role == null)
+      {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
@@ -172,7 +183,8 @@ namespace MIA.Administration.Api
         throw new ApiException(ApiErrorType.BadRequest, "You cannot remote system roles");
 
       Permissions permission;
-      if (!Enum.TryParse(permissionId.ToString(), out permission)) {
+      if (!Enum.TryParse(permissionId.ToString(), out permission))
+      {
         throw new ApiException(ApiErrorType.NotFound, "permission not found or not allowed");
       }
 
@@ -192,12 +204,14 @@ namespace MIA.Administration.Api
       [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
     {
       var user = await db.Users.FindAsync(userId);
-      if (user == null) {
+      if (user == null)
+      {
         throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
 
       var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null) {
+      if (role == null)
+      {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
@@ -211,12 +225,14 @@ namespace MIA.Administration.Api
       [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
     {
       var user = await db.Users.FindAsync(userId);
-      if (user == null) {
+      if (user == null)
+      {
         throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
 
       var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null) {
+      if (role == null)
+      {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
@@ -229,7 +245,8 @@ namespace MIA.Administration.Api
     public async Task<IActionResult> ListUserRoles([FromRoute] string userId, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
     {
       var user = await db.Users.FindAsync(userId);
-      if (user == null) {
+      if (user == null)
+      {
         throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
       var roles = await userManager.GetRolesAsync(user);
@@ -241,7 +258,8 @@ namespace MIA.Administration.Api
     public async Task<IActionResult> ListRoleUsers([FromRoute] string roleName, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
     {
       var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null) {
+      if (role == null)
+      {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
       var users = await userManager.GetUsersInRoleAsync(roleName);

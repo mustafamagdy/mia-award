@@ -1066,7 +1066,7 @@ angular.module('core')
 			$uibModalInstance.dismiss();
 		}
 
-		vm.Confirm = function () {
+		vm.Confirm = function () { 
 			callBackFunction(model);
 			$uibModalInstance.dismiss();
 		}

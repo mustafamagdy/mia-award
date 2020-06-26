@@ -14,8 +14,6 @@
         vm.nomineeList = [];
         vm.countryList = [];
         vm.selectedAward = "";
-        //vm.selectedCountry = "";
-        // vm.PaymentStatus = 0;
         vm.showStepOne = true;
         vm.showStepTwo = false;
         //vm.receipt = "";
@@ -79,8 +77,11 @@
             newObj.NomineeId = vm.selectedNominee.id;
             newObj.IsArtwork = false;
 
-            newObj.OnlineChannels = vm.OnlineChannels.join(', ');
-            newObj.TvChannels = vm.TvChannels.join(', ');
+            // newObj.OnlineChannels = vm.OnlineChannels.join(', ');
+            // newObj.TvChannels = vm.TvChannels.join(', ');
+
+            newObj.OnlineChannels = vm.OnlineChannels;
+            newObj.TvChannels = vm.TvChannels;
 
             newObj.SiteUrl = vm.SiteUrl;
             newObj.ProductionYear = vm.selectedProductionYear;
@@ -114,11 +115,11 @@
                 function (data, status) {
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    debugger;
-                    if (vm.selectedAward.awardType == 'artwork')
-                        openUploadDialog(data.id, appCONSTANTS.API_URL + 'artWorks/artwork/' + data.id + '/files')
-                    else
-                        $state.go('ArtWork'); 
+                    // debugger;
+                    // if (vm.selectedAward.awardType == 'artwork')
+                    //     openUploadDialog(data.id, appCONSTANTS.API_URL + 'artWorks/artwork/' + data.id + '/files')
+                    // else
+                    $state.go('ArtWork');
 
                 },
                 function (data, status) {

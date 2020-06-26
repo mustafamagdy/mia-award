@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
                     <label for="first-name"><span style="color:red">*</span>{{'name' | translate}}</label>
-                    <input required type="text" class="mat-input form-control" name="roleName"
+                    <input required type="text" class="mat-input form-control" name="roleName" readonly
                         ng-model="editRoleCtrl.name" ng-minlength="3" ng-maxlength="255">
                     <div ng-messages="editRoleForm.roleName.$error" class="error">
                         <div class="error" ng-show="editRoleForm.roleName.$error.pattern">{{'TextOnly' | translate}}
@@ -43,13 +43,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
-                    <label for="first-name">{{'Modules' | translate}}</label>
-                    <select required style="width:100% !important" multiple
+
+                <div class="col-md-6  form-group   pmd-textfield-floating-label-completed">
+                    <label for="first-name">{{'Search' | translate}}</label>
+                    <input class="mat-input form-control" name="search" ng-model="searchText">
+                    <!-- <select required style="width:100% !important" multiple
                         class="form-control select-with-search pmd-select2-tags" ng-model="editRoleCtrl.selectedModule"
                         ng-change="editRoleCtrl.changePermissionList(editRoleCtrl.selectedModule)"
                         ng-options=" group as group for group in editRoleCtrl.moduleList">
-                    </select>
+                    </select> -->
 
                 </div>
 
@@ -67,11 +69,11 @@
                                 <thead>
                                     <tr>
                                         <th style="width:1%">
-                                            <input type="checkbox"
+                                            <!-- <input type="checkbox"
                                                 ng-checked="editRoleCtrl.selectedPermission.length == editRoleCtrl.newSelectedPermissions.length"
                                                 value="editRoleCtrl.selectedPermission.length == editRoleCtrl.newSelectedPermissions.length"
                                                 ng-click="editRoleCtrl.selectAllPermission($event.target.checked)"
-                                                id="selectAllPermission">
+                                                id="selectAllPermission"> -->
                                         </th>
                                         <th style="width: 30%">{{'Name' | translate}}</th>
                                         <th style="width: 20%">{{'Module' | translate}}</th>
@@ -79,7 +81,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="perm in editRoleCtrl.newSelectedPermissions">
+                                    <tr
+                                        ng-repeat="perm in editRoleCtrl.newSelectedPermissions | filter : {'name':searchText}">
                                         <td> <input type="checkbox" id="perm-{{perm.id}}" value="perm" name="perm"
                                                 ng-change="editRoleCtrl.selectPermission(perm)"
                                                 ng-model="perm.isSelected" id="perm.id"></td>
@@ -92,23 +95,23 @@
                             </table>
                         </div>
                     </div>
-                  
+
                     <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
                         paging-action="editRoleCtrl.changePage(page)" flex="nogrow" show-prev-next="true"
                         show-first-last="true" hide-if-empty="true" disabled-class="hide">
                     </div>
-                    
+
                 </div>
             </div>
         </form>
     </div>
-    <div class="pmd-modal-action text-right">
+    <!-- <div class="pmd-modal-action text-right">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
             ng-disabled="editRoleForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
             ng-click="editRoleCtrl.UpdateRole()">{{'saveChangesBtn' | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" type="button"
             ng-click="editRoleCtrl.Close()">{{'DiscardBtn' | translate}}</button>
-    </div>
+    </div> -->
 </div>
 
 

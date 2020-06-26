@@ -5,7 +5,7 @@
     }
 
     .custom-slider.rzslider .rz-selection {
-        background: orange;
+        background: gold;
     }
 
     .custom-slider.rzslider .rz-pointer {
@@ -37,8 +37,12 @@
         height: 10px;
         margin-left: 4px;
         border-radius: 0;
-        background: #ffe4d1;
+        background: #dbba5a;
         top: -1px;
+    }
+
+    .custom-slider.rzslider .rz-tick ul li {
+     padding: 1px !important; 
     }
 
     .custom-slider.rzslider .rz-tick.rz-selected {
@@ -96,15 +100,11 @@
                 </span>
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
-                    border-radius: 17px;" ng-click="judgeArtWorkDetailsCtrl.showMedia()"
-                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+                        <button class="buttonGold" ng-click="judgeArtWorkDetailsCtrl.showMedia()" type="button">
                             {{'DisplayEposides'| translate}}</button>
                     </div>
                     <div class="form-group col-lg-6">
-                        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
-                    border-radius: 17px;" ng-click="judgeArtWorkDetailsCtrl.showJudging()"
-                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+                        <button class="buttonGold" ng-click="judgeArtWorkDetailsCtrl.showJudging()" type="button">
                             {{'StartJudge'| translate}}</button>
                     </div>
                 </div>
@@ -178,6 +178,7 @@
 
                             <div class="item_tabs_content active">
                                 <div class="item_show">
+
                                     <div class="season_content"
                                         ng-repeat="critiera in judgeArtWorkDetailsCtrl.votingCriteriaList">
 
@@ -193,13 +194,9 @@
                             </div><!-- end item_tabs_content -->
 
                             <div class="pmd-modal-action text-right">
-                                <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
-                                border-radius: 17px;" ng-disabled="viewJudgeArtWorkForm.$invalid"
-                                    class="btn pmd-ripple-effect btn-primary" type="button"
+                                <button ng-disabled="viewJudgeArtWorkForm.$invalid" class="buttonGold" type="button"
                                     ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)">{{'judgeComplete' | translate}}</button>
-                                <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
-                                border-radius: 17px;" ng-disabled="viewJudgeArtWorkForm.$invalid"
-                                    class="btn pmd-ripple-effect btn-primary" type="button"
+                                <button ng-disabled="viewJudgeArtWorkForm.$invalid" class="buttonGold" type="button"
                                     ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)">{{'saveChangesBtn' | translate}}</button>
                                 <button class="btn pmd-ripple-effect btn-default" type="button"
                                     ng-click="judgeArtWorkDetailsCtrl.Close()">{{'DiscardBtn' | translate}}</button>

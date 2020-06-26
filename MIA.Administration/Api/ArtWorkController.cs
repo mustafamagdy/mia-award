@@ -189,6 +189,7 @@ namespace MIA.Administration.Api
     [HttpPost("createMediaFile")]
     public async Task<IActionResult> CreateMediaFile([FromBody] MediaFileDto dto, [FromServices] IAppUnitOfWork db)
     {
+      dto.File = S3File.FromKeyAndUrl(dto.FileKey, dto.FileUrl);
       var result = await db.Set<MediaFile>().AddAsync(_mapper.Map<MediaFile>(dto));
       var mediaItem = await db.MediaFiles.FindAsync(result.Entity.Id);
       return IfFound(_mapper.Map<MediaFile>(mediaItem));

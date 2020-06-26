@@ -15,27 +15,40 @@
         var vm = this;
         vm.awardList = [];
         vm.nomineeList = [];
-        vm.countryList = [];
+        // vm.countryList = [];
         vm.productionList = [];
         vm.selectedAward = "";
         vm.selectedNominee = "";
         vm.language = appCONSTANTS.supportedLanguage;
         vm.ArtWork = ArtWorkByIdPrepService;
-        vm.selectedProduction = null;//vm.ArtWork.production; 
+        vm.selectedProduction = [];
         vm.posterImage = vm.ArtWork.posterUrl;
         vm.coverImage = vm.ArtWork.coverUrl;
 
         vm.yearsList = [2019, 2020];
-        debugger;
         vm.selectedProductionYear = vm.ArtWork.productionYear;// vm.yearsList[0];
         vm.selectedBroadcastYear = vm.ArtWork.broadcastYear;// vm.yearsList[0];
         vm.IsArtwork = false;
+
+        this.tab = 1;
+
+        this.setTab = function (tabId) {
+            this.tab = tabId;
+        };
+
+        this.isSet = function (tabId) {
+            return this.tab === tabId;
+        };
         if (vm.ArtWork.award.awardType == 'artwork')
             vm.IsArtwork = true;
         console.log(vm.ArtWork);
 
         vm.Close = function () {
             $state.go('ArtWork');
+        }
+        vm.chnagein = function (ddd) {
+            debugger;
+
         }
         vm.UpdateArtWork = function () {
             blockUI.start("Loading...");
@@ -55,9 +68,10 @@
             updateObj.NomineeId = vm.selectedNominee.id;
             updateObj.IsArtwork = vm.IsArtwork;
 
-            updateObj.OnlineChannels = vm.ArtWork.onlineChannels.join(', ');
-            updateObj.TvChannels = vm.ArtWork.tvChannels.join(', ');
-
+            // updateObj.OnlineChannels = vm.ArtWork.onlineChannels.join(', ');
+            // updateObj.TvChannels = vm.ArtWork.tvChannels.join(', ');
+            updateObj.OnlineChannels = vm.ArtWork.onlineChannels;
+            updateObj.TvChannels = vm.ArtWork.tvChannels;
             updateObj.SiteUrl = vm.ArtWork.siteUrl;
             updateObj.ProductionYear = vm.selectedProductionYear;
             updateObj.BroadcastYear = vm.selectedBroadcastYear;
@@ -95,6 +109,16 @@
                 }
             );
         }
+        $scope.getFileDetails = function (e) {
+            $scope.files = [];
+            $scope.$apply(function () {
+
+                for (var i = 0; i < e.files.length; i++) {
+                    $scope.files.push(e.files[i])
+                }
+
+            });
+        };
 
         function refreshNominees() {
             var k = ArtWorkResource.getAllNominees().$promise.then(function (results) {
@@ -227,6 +251,9 @@
             vm.coverImage = $(element)[0].files[0];
         };
 
-
+        vm.LoadUploadTrailler = function () {
+            debugger
+            $("#traillerUploder").click();
+        }
     }
 }());

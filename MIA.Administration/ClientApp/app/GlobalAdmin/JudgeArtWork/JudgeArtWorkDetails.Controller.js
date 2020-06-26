@@ -3,11 +3,11 @@
 
     angular
         .module('home')
-        .controller('judgeArtWorkDetailsController', ['$sce','$scope', 'blockUI', '$stateParams', 'ArtWorkResource', '$state', 'appCONSTANTS', '$translate',
+        .controller('judgeArtWorkDetailsController', ['$sce', '$scope', 'blockUI', '$stateParams', 'ArtWorkResource', '$state', 'appCONSTANTS', '$translate',
             'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', judgeArtWorkDetailsController
         ])
 
-    function judgeArtWorkDetailsController($sce,$scope, blockUI, $stateParams, ArtWorkResource, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
+    function judgeArtWorkDetailsController($sce, $scope, blockUI, $stateParams, ArtWorkResource, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
         ToastService, ArtWorkByIdPrepService) {
         var vm = this;
         vm.showMediaList = false;
@@ -15,12 +15,15 @@
         vm.JudgeArtWork = ArtWorkByIdPrepService;
         vm.artWorkLevel = 0;
         console.log(vm.JudgeArtWork);
+        vm.votingCriteriaList = [{
+            votingValue: 0
+        }]
         vm.Close = function () {
             $state.go('JudgeArtWork');
         }
-        $scope.trustSrc = function(src) {
+        $scope.trustSrc = function (src) {
             return $sce.trustAsResourceUrl(src);
-          }
+        }
         vm.showMedia = function () {
             vm.showMediaList = !vm.showMediaList;
             vm.showCriteriaList = false;
@@ -33,7 +36,6 @@
 
             if (vm.JudgeArtWork.illegibleForJudge)
                 vm.artWorkLevel = 1;
-            debugger
             getVotingCriterias();
         }
 
@@ -63,7 +65,7 @@
             );
         }
         vm.slider = {
-            minValue: 10,
+            votingValue: 10,
             maxValue: 90,
             options: {
                 floor: 0,
@@ -91,6 +93,10 @@
         function getVotingCriterias() {
             var k = JudgeArtWorkResource.getCriteriaByLevel({ level: vm.artWorkLevel }).$promise.then(function (results) {
                 vm.votingCriteriaList = results;
+                for (let index = 0; index < vm.votingCriteriaList.length; index++) {
+                    const element = vm.votingCriteriaList[index];element.votingValue=0;
+                    element.votingValue=0;
+                }
                 console.log(vm.votingCriteriaList);
                 vm.totalCount = results.length;
                 blockUI.stop();

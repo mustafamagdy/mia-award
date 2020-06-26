@@ -17,6 +17,20 @@
     <link href="/assets/styles.css" />
     <!-- <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet"> -->
     <style>
+        .buttonGold {
+            background: linear-gradient(90deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e483', endColorstr='#a36d31', GradientType=1);
+            height: 31px;
+            /* padding: 2px 25px; */
+            border-radius: 10px;
+            font-family: Montserrat_Medium;
+            border: none;
+            font-size: 12px;
+            color: #0c0c0c;
+            cursor: pointer;
+            margin: 1%;
+        }
+
         .waiting {
             color: #F27878;
         }
@@ -491,7 +505,7 @@
             <div class="navbar-header">
                 <div class="row">
                     <!-- Notifications -->
-                    <div class="form-group col-lg-4 language-direciton"  class="language-direciton">
+                    <div class="form-group col-lg-4 language-direciton" class="language-direciton">
                         <div style="padding-top:10px;">
                             <div class="input-field">
                                 <select class="select-simple form-control" ng-model="selectedLanguage"

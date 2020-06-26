@@ -3,174 +3,276 @@
         <h2 class="pmd-card-title-text">{{'EditArtWork' | translate}}</h2>
     </div>
     <div class="modal-body">
-        <form class="form-horizontal" name="editArtWorkForm">
-            <div class="row">
-                <div class="form-group col-lg-4">
-                    <label for="first-name">{{'Award' | translate}}</label>
-                    <select style="width:100% !important" class="form-control select-with-search pmd-select2-tags"
-                        ng-model="editArtWorkCtrl.selectedAward" disabled
-                        ng-options="group as group.title[selectedLanguage]  for group in editArtWorkCtrl.awardList">
-                    </select>
-                </div>
-            </div>
-            <div>
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" ng-class="{'active':$index == 0}"
-                        ng-repeat="lang in editArtWorkCtrl.language">
-                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
-                            data-toggle="tab">
-                            <span style="color:red">*</span> {{lang.value | translate}}
-                        </a>
-                    </li>
-                </ul>
-                <div class="pmd-card">
-                    <div class="pmd-card-body">
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
-                                ng-repeat="lang in editArtWorkCtrl.language" id="{{lang.value}}-form">
-                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
-                                    <label for="first-name">{{ lang.value+'Name' | translate}} </label>
-                                    <input required type="text" class="mat-input form-control"
-                                        name="ProjectName{{lang.value+'Name'}}"
-                                        ng-model="editArtWorkCtrl.ArtWork.projectName[lang.key]" ng-minlength="3"
-                                        ng-maxlength="255">
-                                    <div ng-messages="editArtWorkForm.ProjectName{{lang.value+'Name'}}.$error">
 
-                                        <div class="error ng-binding"
-                                            ng-show="editArtWorkForm.ProjectName{{lang.value+'Name'}}.$error.required && !editArtWorkForm.ProjectName{{lang.value+'Name'}}.$pristine">
-                                            {{'requiredErr' | translate}}</div>
-                                        <div class="error ng-binding"
-                                            ng-show="(editArtWorkForm.ProjectName{{lang.value+'Name'}}.$error.minlength || editArtWorkForm.ProjectName{{lang.value+'Name'}}.$error.maxlength) && !editArtWorkForm.ProjectName{{lang.value+'Name'}}.$error.required">
-                                            {{'NameLengthError3' | translate}}</div>
-                                    </div>
-                                </div>
-                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
-                                    <label for="first-name">{{ 'Description' | translate}} </label>
-                                    <textarea class="mat-input form-control" name="Description{{lang.value+'Name'}}"
-                                        ng-model="editArtWorkCtrl.ArtWork.description[lang.key]" ng-minlength="3"
-                                        ng-maxlength="955"></textarea>
-                                    <div ng-messages="editArtWorkForm.Description{{lang.value+'Name'}}.$error">
+        <ul class="nav nav-pills">
+            <li ng-class="{active:tab.isSet(1)}">
+                <a href ng-click="editArtWorkCtrl.setTab(1)">
+                    info
+                </a>
+            </li>
+            <li ng-class="{active:tab.isSet(2)}">
+                <a href ng-click="editArtWorkCtrl.setTab(2)">
+                    upload
+                </a>
+            </li>
+        </ul> 
+        <div class="tab-content">
 
-                                        <div class="error ng-binding"
-                                            ng-show="editArtWorkForm.Description{{lang.value+'Name'}}.$error.required && !editArtWorkForm.Description{{lang.value+'Name'}}.$pristine">
-                                            {{'requiredErr' | translate}}</div>
-                                        <div class="error ng-binding"
-                                            ng-show="(editArtWorkForm.Description{{lang.value+'Name'}}.$error.minlength || editArtWorkForm.Description{{lang.value+'Name'}}.$error.maxlength) && !editArtWorkForm.Description{{lang.value+'Name'}}.$error.required">
-                                            {{'NameLengthError3' | translate}}</div>
+
+            <div ng-show="editArtWorkCtrl.isSet(1)">
+                <form class="form-horizontal" name="editArtWorkForm">
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <label for="first-name">{{'Award' | translate}}</label>
+                            <select style="width:100% !important"
+                                class="form-control select-with-search pmd-select2-tags"
+                                ng-model="editArtWorkCtrl.selectedAward" disabled
+                                ng-options="group as group.title[selectedLanguage]  for group in editArtWorkCtrl.awardList">
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" ng-class="{'active':$index == 0}"
+                                ng-repeat="lang in editArtWorkCtrl.language">
+                                <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home"
+                                    role="tab" data-toggle="tab">
+                                    <span style="color:red">*</span> {{lang.value | translate}}
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="pmd-card">
+                            <div class="pmd-card-body">
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
+                                        ng-repeat="lang in editArtWorkCtrl.language" id="{{lang.value}}-form">
+                                        <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
+                                            <label for="first-name">{{ lang.value+'Name' | translate}} </label>
+                                            <input required type="text" class="mat-input form-control"
+                                                name="ProjectName{{lang.value+'Name'}}"
+                                                ng-model="editArtWorkCtrl.ArtWork.projectName[lang.key]"
+                                                ng-minlength="3" ng-maxlength="255">
+                                            <div ng-messages="editArtWorkForm.ProjectName{{lang.value+'Name'}}.$error">
+
+                                                <div class="error ng-binding"
+                                                    ng-show="editArtWorkForm.ProjectName{{lang.value+'Name'}}.$error.required && !editArtWorkForm.ProjectName{{lang.value+'Name'}}.$pristine">
+                                                    {{'requiredErr' | translate}}</div>
+                                                <div class="error ng-binding"
+                                                    ng-show="(editArtWorkForm.ProjectName{{lang.value+'Name'}}.$error.minlength || editArtWorkForm.ProjectName{{lang.value+'Name'}}.$error.maxlength) && !editArtWorkForm.ProjectName{{lang.value+'Name'}}.$error.required">
+                                                    {{'NameLengthError3' | translate}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
+                                            <label for="first-name">{{ 'Description' | translate}} </label>
+                                            <textarea class="mat-input form-control"
+                                                name="Description{{lang.value+'Name'}}"
+                                                ng-model="editArtWorkCtrl.ArtWork.description[lang.key]"
+                                                ng-minlength="3" ng-maxlength="955"></textarea>
+                                            <div ng-messages="editArtWorkForm.Description{{lang.value+'Name'}}.$error">
+
+                                                <div class="error ng-binding"
+                                                    ng-show="editArtWorkForm.Description{{lang.value+'Name'}}.$error.required && !editArtWorkForm.Description{{lang.value+'Name'}}.$pristine">
+                                                    {{'requiredErr' | translate}}</div>
+                                                <div class="error ng-binding"
+                                                    ng-show="(editArtWorkForm.Description{{lang.value+'Name'}}.$error.minlength || editArtWorkForm.Description{{lang.value+'Name'}}.$error.maxlength) && !editArtWorkForm.Description{{lang.value+'Name'}}.$error.required">
+                                                    {{'NameLengthError3' | translate}}</div>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
 
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="form-group col-lg-4"> <label for="first-name">{{'Nominee' | translate}}</label>
+                                <select required style="width:100% !important"
+                                    class="form-control select-with-search pmd-select2-tags"
+                                    ng-model="editArtWorkCtrl.selectedNominee"
+                                    ng-options="group as group.fullName  for group in editArtWorkCtrl.nomineeList">
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="first-name">{{'ProductionYear' | translate}}</label>
+                                <select required style="width:100% !important"
+                                    class="select-add-tags form-control pmd-select2-tags"
+                                    ng-model="editArtWorkCtrl.selectedProductionYear"
+                                    ng-options="group as group  for group in editArtWorkCtrl.yearsList">
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="first-name">{{'BroadcastYear' | translate}}</label>
+                                <select required style="width:100% !important"
+                                    class="select-add-tags form-control pmd-select2-tags"
+                                    ng-model="editArtWorkCtrl.selectedBroadcastYear"
+                                    ng-options="group as group  for group in editArtWorkCtrl.yearsList">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-lg-4">
+                                <label for="first-name">{{'SiteUrl' | translate}}</label>
+                                <input type="url" ng-model="editArtWorkCtrl.ArtWork.siteUrl" name="siteUrl" required
+                                    class=" form-control " />
+                                <!-- <span style="color:red" ng-show="newArtWorkForm.siteUrl.$error.required"> 
+                                    You Can't Leave This Field Empty</span> -->
+
+                                <span style="color:red" ng-show="newArtWorkForm.siteUrl.$error.url">
+                                    Sorry Not a Valid URL, Don't Forget to Use http://</span>
+                            </div>
+
+                            <div class="form-group col-lg-4">
+                                <label for="first-name">{{'ProductionLicenseNumber' | translate}}</label>
+                                <input type="text" ng-model="editArtWorkCtrl.ArtWork.productionLicenseNumber"
+                                    name="productionLicenseNumber" required class=" form-control " />
+                            </div>
+
+                            <div class="form-group col-lg-4">
+                                <label for="first-name">{{'ProductionLicenseAgency' | translate}}</label>
+                                <input type="text" ng-model="editArtWorkCtrl.ArtWork.productionLicenseAgency"
+                                    name="productionLicenseAgency" required class=" form-control " />
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="form-group col-lg-4">
+                                <label for="first-name">{{'TvChannels' | translate}}</label>
+
+                                <select required style="width:100% !important" multiple
+                                    class="select-add-tags form-control pmd-select2-tags"
+                                    ng-model="editArtWorkCtrl.ArtWork.tvChannels"
+                                    ng-change="chnagein(editArtWorkCtrl.ArtWork.tvChannels)"
+                                    ng-options="group as group  for group in editArtWorkCtrl.selectedProduction">
+                                </select>
+                            </div>
+
+                            <div class="form-group col-lg-4"> <label
+                                    for="first-name">{{'OnlineChannels' | translate}}</label>
+                                <select required style="width:100% !important" multiple
+                                    class="select-add-tags form-control pmd-select2-tags"
+                                    ng-model="editArtWorkCtrl.ArtWork.onlineChannels">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="editArtWorkCtrl.ArtWork.award.awardType == 'artwork'">
+
+                            <div class="form-group col-lg-4">
+                                <span style="color:red">*</span>
+                                <input id="posterImage" name="posterImage" style="display: none;"
+                                    onchange="angular.element(this).scope().AddposterImage(this.files)" type="file"
+                                    required>
+                                <button class="btn btn-success btn-xs pull-center"
+                                    ng-click="editArtWorkCtrl.LoadUploadPoster()">{{'Upload Poster' | translate}}</button>
+                                <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                                    {{'RecommendedProductImage' | translate}}</span>
+                                <img ng-src="{{editArtWorkCtrl.posterImage}}"
+                                    style="max-height: 139px;max-width: 423px;">
+                                <div ng-messages="editArtWorkForm.posterImage.$error">
+                                    <div ng-if="editArtWorkForm.posterImage.$error.required">
+                                        {{'requiredErr' | translate}}</div>
+                                </div>
+
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <span style="color:red">*</span>
+                                <input id="coverImage" name="coverImage" style="display: none;"
+                                    onchange="angular.element(this).scope().AddcoverImage(this.files)" type="file"
+                                    required>
+                                <button class="btn btn-success btn-xs pull-center"
+                                    ng-click="editArtWorkCtrl.LoadUploadCover()">{{'Upload Cover' | translate}}</button>
+                                <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                                    {{'RecommendedProductImage' | translate}}</span>
+                                <img ng-src="{{editArtWorkCtrl.coverImage}}"
+                                    style="max-height: 139px;max-width: 423px;">
+                                <div ng-messages="editArtWorkForm.coverImage.$error">
+                                    <div ng-if="editArtWorkForm.coverImage.$error.required">
+                                        {{'requiredErr' | translate}}</div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 
-
-                </div>
-
-                <div class="row">
-
-                    <div class="form-group col-lg-4"> <label for="first-name">{{'Nominee' | translate}}</label>
-                        <select required style="width:100% !important"
-                            class="form-control select-with-search pmd-select2-tags"
-                            ng-model="editArtWorkCtrl.selectedNominee"
-                            ng-options="group as group.fullName  for group in editArtWorkCtrl.nomineeList">
-                        </select>
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <label for="first-name">{{'ProductionYear' | translate}}</label>
-                        <select required style="width:100% !important"
-                            class="select-add-tags form-control pmd-select2-tags"
-                            ng-model="editArtWorkCtrl.selectedProductionYear"
-                            ng-options="group as group  for group in editArtWorkCtrl.yearsList">
-                        </select>
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <label for="first-name">{{'BroadcastYear' | translate}}</label>
-                        <select required style="width:100% !important"
-                            class="select-add-tags form-control pmd-select2-tags"
-                            ng-model="editArtWorkCtrl.selectedBroadcastYear"
-                            ng-options="group as group  for group in editArtWorkCtrl.yearsList">
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-lg-4">
-                        <label for="first-name">{{'SiteUrl' | translate}}</label>
-                        <input type="url" ng-model="editArtWorkCtrl.ArtWork.siteUrl" name="siteUrl" required
-                            class=" form-control " />
-                        <!-- <span style="color:red" ng-show="newArtWorkForm.siteUrl.$error.required"> 
-                            You Can't Leave This Field Empty</span> -->
-
-                        <span style="color:red" ng-show="newArtWorkForm.siteUrl.$error.url">
-                            Sorry Not a Valid URL, Don't Forget to Use http://</span>
-                    </div>
-
-                    <div class="form-group col-lg-4">
-                        <label for="first-name">{{'ProductionLicenseNumber' | translate}}</label>
-                        <input type="text" ng-model="editArtWorkCtrl.ArtWork.productionLicenseNumber"
-                            name="productionLicenseNumber" required class=" form-control " /> 
-                    </div>
-
-                    <div class="form-group col-lg-4">
-                        <label for="first-name">{{'ProductionLicenseAgency' | translate}}</label>
-                        <input type="text" ng-model="editArtWorkCtrl.ArtWork.productionLicenseAgency"
-                            name="productionLicenseAgency" required class=" form-control " />
-                    </div>
-                </div>
-
-                <div class="row">
-                    
-                    <div class="form-group col-lg-4">
-                        <label for="first-name">{{'TvChannels' | translate}}</label>
-                        <select required style="width:100% !important" multiple
-                            class="select-add-tags form-control pmd-select2-tags" ng-model="editArtWorkCtrl.ArtWork.tvChannels">
-                        </select>
-                    </div>
-
-                    <div class="form-group col-lg-4"> <label for="first-name">{{'OnlineChannels' | translate}}</label>
-                        <select required style="width:100% !important" multiple
-                            class="select-add-tags form-control pmd-select2-tags"
-                            ng-model="editArtWorkCtrl.ArtWork.onlineChannels">
-                        </select>
-                    </div>
-                </div> 
-                <div class="row" ng-show="editArtWorkCtrl.ArtWork.award.awardType == 'artwork'">
-
-                    <div class="form-group col-lg-4">
-                        <span style="color:red">*</span>
-                        <input id="posterImage" name="posterImage" style="display: none;"
-                            onchange="angular.element(this).scope().AddposterImage(this.files)" type="file" required>
-                        <button class="btn btn-success btn-xs pull-center"
-                            ng-click="editArtWorkCtrl.LoadUploadPoster()">{{'Upload Poster' | translate}}</button>
-                        <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                            {{'RecommendedProductImage' | translate}}</span>
-                        <img ng-src="{{editArtWorkCtrl.posterImage}}" style="max-height: 139px;max-width: 423px;">
-                        <div ng-messages="editArtWorkForm.posterImage.$error">
-                            <div ng-if="editArtWorkForm.posterImage.$error.required">{{'requiredErr' | translate}}</div>
-                        </div>
-
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <span style="color:red">*</span>
-                        <input id="coverImage" name="coverImage" style="display: none;"
-                            onchange="angular.element(this).scope().AddcoverImage(this.files)" type="file" required>
-                        <button class="btn btn-success btn-xs pull-center"
-                            ng-click="editArtWorkCtrl.LoadUploadCover()">{{'Upload Cover' | translate}}</button>
-                        <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                            {{'RecommendedProductImage' | translate}}</span>
-                        <img ng-src="{{editArtWorkCtrl.coverImage}}" style="max-height: 139px;max-width: 423px;">
-                        <div ng-messages="editArtWorkForm.coverImage.$error">
-                            <div ng-if="editArtWorkForm.coverImage.$error.required">{{'requiredErr' | translate}}</div>
-                        </div>
-
-                    </div>
-                </div>
+                </form>
             </div>
+            <div ng-show="editArtWorkCtrl.isSet(2)">
 
-        </form>
+                <div class="bottom_upload">
+                    <div class="upload_input">
+                        <input type="file" id="traillerUploder" name="file" style="display: none;"
+                            onchange="angular.element(this).scope().getFileDetails(this)" />
+                        <button class="buttonGold"
+                            ng-click="editArtWorkCtrl.LoadUploadTrailler()">{{'Upload Poster' | translate}}</button>
+
+                        <!-- <span>Choose Files</span> -->
+                    </div><!-- end upload_input -->
+                    <div style="    padding: 10px;
+                    border: 1px solid #21231e;
+                    /* background: #101010; */
+                    overflow: auto;
+                    max-height: 380px;
+                    scrollbar-width: thin;
+                    scrollbar-color: #aaa49f #272727;
+                    width: 65%;">
+
+                        <div style=" display: block;
+                        margin: 0 auto 30px;
+                        font-family: Montserrat_Bold;
+                        font-size: 18px;
+                        color: #ebca8a;">Files Upload</div>
+                        <div style=" border-bottom: 1px solid #21231e;
+                        margin: 0 auto 20px;
+                        padding: 0 0 20px;" ng-repeat="file in files">
+
+                            <div ng-controller="UploaderController  as UploaderCtrl"
+                                data-ng-init="init(file,$stateParams.id)">
+                                <div style=" display: flex;
+                                align-items: center;
+                                justify-content: flex-start;">
+                                    <span style=" display: block;
+                                    font-family: Montserrat_Bold;
+                                    color: #ebca8a;
+                                    font-size: 14px;
+                                    margin: 0 30px 0 0;">{{file.name}}</span>
+                                    <p>{{file.size/1024/1024|number:2}} mb</p>
+                                </div><!-- end name -->
+                                <div style=" display: flex;
+                                flex-wrap: nowrap;
+                                margin: 10px auto;
+                                align-items: center;">
+                                    <div style="width: 94%;
+                                    height: 10px;
+                                    background: #3d3d3d;
+                                    position: relative;">
+                                        <div style="  position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        height: 10px;
+                                        background: #e2c764;" get-width row-height="{{UploaderCtrl.Progress}}">
+                                        </div>
+                                    </div>
+                                </div><!-- end bar_area -->
+                                <div style="  display: block;
+                                font-size: 13px;
+                                color: #808080;">
+                                    Uploading <p id="progNumber">{{UploaderCtrl.Progress}} %</p> done
+                                </div><!-- end progress_number -->
+
+                            </div>
+                        </div><!-- end item -->
+                    </div><!-- end upload_list -->
+                </div><!-- end bottom_upload -->
+            </div>
+        </div>
+
+
     </div>
     <div class="pmd-modal-action text-right">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"

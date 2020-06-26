@@ -52,11 +52,11 @@
                     '</div>'
             };
         }])
-        .controller('DisplayVideoController', ['appCONSTANTS', 'MediaFileByIdPrepService', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$uibModal',
+        .controller('DisplayVideoController', ['appCONSTANTS', 'MediaFileByIdPrepService', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$state',
             'ToastService', '$stateParams', DisplayVideoController]);
 
 
-    function DisplayVideoController(appCONSTANTS, MediaFileByIdPrepService, $scope, $translate, JudgeArtWorkResource, blockUI, $uibModal, ToastService, $stateParams) {
+    function DisplayVideoController(appCONSTANTS, MediaFileByIdPrepService, $scope, $translate, JudgeArtWorkResource, blockUI, $state, ToastService, $stateParams) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         var vm = this;

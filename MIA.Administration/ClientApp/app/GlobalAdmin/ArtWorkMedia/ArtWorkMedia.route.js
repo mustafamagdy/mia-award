@@ -17,14 +17,28 @@
                         }
                     }
 
-                }).state('MultiFiles', {
+                })
+                .state('MultiFiles', {
                     url: '/MultiFiles/:id',
                     templateUrl: './app/GlobalAdmin/ArtWorkMedia/templates/uploadMultiFiles.html',
-                    controller: 'MultiFilesController',
-                    'controllerAs': 'MultiFilesCtrl',
+                    controller: 'UploadMultiFilesController',
+                    'controllerAs': 'UploadMultiFilesCtrl',
                     resolve: {
-                        ArtWorkByIdPrepService: ArtWorkByIdPrepService
+                        ArtWorkByIdPrepService: ArtWorkByIdPrepService,
+                        ArtWorkMediaByArtWorkIdPrepService: ArtWorkMediaByArtWorkIdPrepService
                     }, data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('uploader', {
+                    url: '/uploader',
+                    templateUrl: './app/GlobalAdmin/ArtWorkMedia/templates/uploder-directive.html',
+                    controller: 'UploaderController',
+                    controllerAs: 'UploaderCtrl',
+                      data: {
                         permissions: {
                             redirectTo: 'root'
                         }
