@@ -73,7 +73,7 @@ msgstr "اضافة عمل"
 msgid "address"
 msgstr "العنوان"
 
-#: src/containers/Booths/index.js:604
+#: src/containers/Booths/index.js:626
 msgid "agreeOnTerms"
 msgstr "الموافقة على الشروط"
 
@@ -110,7 +110,7 @@ msgstr "هل أنت متأكد من حذف هذا العنصر؟"
 msgid "are_you_sure_to_send_to_judge"
 msgstr "هل أنت متأكد من ارسال العمل الى التحكيم، لا يمكنك الرجوع في هذه الخطوة؟"
 
-#: src/containers/Booths/index.js:294
+#: src/containers/Booths/index.js:316
 msgid "area"
 msgstr "مساحة"
 
@@ -122,19 +122,19 @@ msgstr "مساحة"
 msgid "awards"
 msgstr "الجوائز"
 
-#: src/containers/Booths/index.js:612
+#: src/containers/Booths/index.js:634
 msgid "book_now"
 msgstr "احجز الان"
 
-#: src/containers/Booths/index.js:626
+#: src/containers/Booths/index.js:648
 msgid "booth_booking_success"
 msgstr "تم بنجاح"
 
-#: src/containers/Booths/index.js:629
+#: src/containers/Booths/index.js:651
 msgid "booth_booking_success_msg"
 msgstr "تم حجز المعرض بنجاح، سيتواصل معك فريقنا لاستكمال خطوات الحجز"
 
-#: src/containers/Booths/index.js:90
+#: src/containers/Booths/index.js:97
 msgid "booth_sold_out"
 msgstr "تم حجز جميع المعارض"
 
@@ -176,6 +176,14 @@ msgstr "إلغاء"
 #~ msgid "category"
 #~ msgstr ""
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:58
+msgid "cellPhone1"
+msgstr "التليفون المحمول "
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:59
+msgid "cellPhone2"
+msgstr "تليفون محمول أخر "
+
 #: src/containers/Members/Profile.js:51
 msgid "change_avatar"
 msgstr "تعديل الصورة"
@@ -213,6 +221,18 @@ msgstr "حدث خطأ، يتعذر إرسال الرسالة."
 msgid "comment_submitted"
 msgstr "تم إرسال تعليقك بنجاح للمراجعة."
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:62
+msgid "companyFieldOfBusiness"
+msgstr "منطقة النشاط"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:53
+msgid "companyName"
+msgstr "اسم الشركة"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:60
+msgid "company_logo"
+msgstr "شعار الشركة"
+
 #: src/containers/App/TransKeysNotFoundInJsx.js:45
 msgid "confirmPassword"
 msgstr "تأكيد كلمة المرور"
@@ -237,6 +257,14 @@ msgstr "التحقق من صحة بريدك الإلكتروني أولاً."
 msgid "conpatitors"
 msgstr "المتسابقون"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:56
+msgid "contactPersonName"
+msgstr "الشخص الذي يمكن الاتصال به"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:57
+msgid "contactPersonTitle"
+msgstr "الوظيفة "
+
 #: src/containers/Pages/ContactUs/index.js:49
 msgid "contact_us"
 msgstr "الاتصال بنا"
@@ -255,7 +283,7 @@ msgstr "سياسة ملفات تعريف الارتباط"
 
 #: src/components/Layout/Footer.js:100
 msgid "copyright_media_industry"
-msgstr "حقوق النشر© 2020 لشركة جوائز صناعة الإعلام. كافة الحقوق محفوظة"
+msgstr "حقوق النشر© 2020 لشركة صناعة الإعلام. كافة الحقوق محفوظة"
 
 #: src/containers/Pages/Shows/index.js:123
 #: src/containers/Pages/Shows/view.js:72
@@ -289,6 +317,10 @@ msgstr "التاريخ"
 msgid "description"
 msgstr "الوصف"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:51
+msgid "details"
+msgstr "تفاصيل"
+
 #: src/containers/Pages/Shows/view.js:163
 #~ msgid "director"
 #~ msgstr ""
@@ -315,6 +347,10 @@ msgstr "البريد الإلكتروني"
 #: src/containers/MyProfile/index.js:248
 msgid "enable_edit"
 msgstr "تمكين التحرير"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:61
+msgid "extraDetails"
+msgstr "تفاصيل العارضين"
 
 #: src/containers/User/ConfirmEmail.js:18
 msgid "failed"
@@ -366,7 +402,7 @@ msgstr "عام"
 msgid "get_in_touch"
 msgstr "التواصل"
 
-#: src/containers/Booths/index.js:247
+#: src/containers/Booths/index.js:256
 msgid "gold_sposer"
 msgstr "راعي ذهبي"
 
@@ -390,6 +426,10 @@ msgstr "هل انت مهتم بآخر المستجدات ؟ ضع بريدك ال
 #: src/containers/App/TransKeysNotFoundInJsx.js:48
 msgid "info"
 msgstr "معلومات اساسية"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:68
+msgid "jobTitle"
+msgstr "الوظيفة"
 
 #: src/containers/Members/Profile.js:213
 msgid "job_title"
@@ -444,7 +484,7 @@ msgstr "ادخل الى حسابك لتتمكن من اضافة قائمة اع�
 msgid "logout"
 msgstr "تسجيل الخروج"
 
-#: src/containers/Booths/index.js:256
+#: src/containers/Booths/index.js:265
 msgid "media_industry"
 msgstr "Media Industry"
 
@@ -456,7 +496,7 @@ msgstr "المشتركون"
 msgid "members"
 msgstr "المشاركون"
 
-#: src/containers/Booths/index.js:253
+#: src/containers/Booths/index.js:262
 #: src/containers/MyProfile/ChangePassword.js:15
 #: src/containers/MyProfile/ImageUpload.js:54
 msgid "mia"
@@ -485,6 +525,10 @@ msgstr "MIA التقديرية"
 msgid "name"
 msgstr "الاسم"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:54
+msgid "nationality"
+msgstr "الجنسية"
+
 #: src/containers/MyProfile/ChangePassword.js:65
 msgid "new_password"
 msgstr "كلمة المرور الجديدة"
@@ -501,8 +545,8 @@ msgstr "اهم الاخبار"
 msgid "newsletter"
 msgstr "رسالة إخبارية"
 
-#: src/containers/Booths/index.js:308
-#: src/containers/Booths/index.js:522
+#: src/containers/Booths/index.js:330
+#: src/containers/Booths/index.js:544
 #: src/containers/Home/News.js:132
 #: src/containers/Members/Auth/Register.js:142
 msgid "next"
@@ -601,6 +645,10 @@ msgstr "كلمة المرور"
 #~ msgid "pay_online"
 #~ msgstr "ادفع مباشرة"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:52
+msgid "payment"
+msgstr "الدفع"
+
 #: src/containers/MyProfile/index.js:187
 #: src/containers/Pages/ContactUs/index.js:65
 msgid "phone"
@@ -630,7 +678,7 @@ msgstr "+971 4 57 2636 8"
 msgid "please_upload_payment_receipt"
 msgstr "من فضلك أرفق ايصال الدفع"
 
-#: src/containers/Booths/index.js:536
+#: src/containers/Booths/index.js:558
 msgid "please_upload_the_receipt"
 msgstr "ارفق ايصال الدفع"
 
@@ -660,6 +708,10 @@ msgstr "ملصق العمل"
 #: src/containers/Home/News.js:116
 msgid "prev"
 msgstr "السابق"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:64
+msgid "printingOption"
+msgstr "طباعة العلامة التجارية (ملصق فينيل) سعر المتر المربع شاملاً التثبيت: 350 درهم"
 
 #: src/components/Layout/Footer.js:72
 #~ msgid "privacy_policy"
@@ -733,6 +785,18 @@ msgstr "قراءة المزيد"
 msgid "read_more_elapsed"
 msgstr "قراءة المزيد.."
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:66
+msgid "receipt_date"
+msgstr "تاريخ الايصال"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:67
+msgid "receipt_file"
+msgstr "صورة الايصال"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:65
+msgid "receipt_number"
+msgstr "رقم الايصال"
+
 #: src/containers/Home/RecentShows.js:46
 msgid "recent_shows"
 msgstr "آخر العروض"
@@ -773,9 +837,13 @@ msgstr "استعراض سياسة ملفات تعريف الارتباط"
 msgid "save"
 msgstr "حفظ"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:63
+msgid "screenOption"
+msgstr "شاشة مقاس ٤٠ انش مقابل ١٠٠٠ درهم لمده ٣ أيام"
+
 #: src/containers/App/TransKeysNotFoundInJsx.js:12
 msgid "select_an_option"
-msgstr ""
+msgstr "اختر من القائمة"
 
 #: src/containers/MyProfile/ImageUpload.js:63
 msgid "select_your_image"
@@ -876,7 +944,7 @@ msgstr "ورش العمل "
 #~ msgid "sports"
 #~ msgstr "الرياضة"
 
-#: src/containers/Booths/index.js:250
+#: src/containers/Booths/index.js:259
 msgid "standard"
 msgstr "قياسية"
 
@@ -909,7 +977,7 @@ msgstr "إرسال"
 #~ msgid "suggested_languages"
 #~ msgstr "اللغات المقترحة"
 
-#: src/containers/Booths/index.js:606
+#: src/containers/Booths/index.js:628
 msgid "terms_and_conditions"
 msgstr "الشروط والاحكام"
 
@@ -963,12 +1031,7 @@ msgstr "تحميل الصورة"
 #~ msgid "uploaded"
 #~ msgstr ""
 
-#: src/containers/Award/index.js:38
-#: src/containers/Members/Artworks/Artwork/ChoosePayment.js:95
-#: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:79
 #: src/containers/Members/Artworks/Contestant/ChoosePayment.js:95
-#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:79
-#: src/containers/Members/Artworks/Contestant/NewContestant.js:170
 msgid "usd"
 msgstr "USD"
 
@@ -1007,6 +1070,10 @@ msgstr "المزيد"
 #: src/containers/App/CookieGDPR.js:110
 msgid "we_use_cookies_and_similar_technology"
 msgstr "نقوم باستخدام ملفات تعريف الارتباط وبعض التقنيات المشابهة للتعرف على زياراتك المتكررة للموقع وتفضيلاتك فيه، ولقياس مدى فعالية الحملات الدعائية ولتحليل نسبة استخدام الموقع. لمعرفة المزيد حول ملفات تعريف الارتباط، بما في ذلك كيفية تعطيلها، يمكنك استعراض"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:55
+msgid "websiteUrl"
+msgstr "موقع الكتروني "
 
 #: src/containers/App/CookieGDPR.js:106
 msgid "what_do_we_use_cookies_for"

@@ -346,6 +346,9 @@ p.info {
   cursor: pointer;
   transition: all 0s ease-in-out;
   line-height: 40px;
+  [dir="rtl"] & {
+    font-family: Tajawal_Bold;
+  } /* rtl */
 }
 
 .info_form {

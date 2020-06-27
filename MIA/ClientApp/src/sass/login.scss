@@ -240,6 +240,11 @@
               } /* active */
             } /* li */
           } /* ul */
+          .next_step {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+          }
         } /* div */
         .tabs_content {
           height: 100%;

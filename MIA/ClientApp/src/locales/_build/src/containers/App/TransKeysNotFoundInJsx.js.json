@@ -286,5 +286,149 @@
         49
       ]
     ]
+  },
+  "details": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        51
+      ]
+    ]
+  },
+  "payment": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        52
+      ]
+    ]
+  },
+  "companyName": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        53
+      ]
+    ]
+  },
+  "nationality": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        54
+      ]
+    ]
+  },
+  "websiteUrl": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        55
+      ]
+    ]
+  },
+  "contactPersonName": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        56
+      ]
+    ]
+  },
+  "contactPersonTitle": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        57
+      ]
+    ]
+  },
+  "cellPhone1": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        58
+      ]
+    ]
+  },
+  "cellPhone2": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        59
+      ]
+    ]
+  },
+  "company_logo": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        60
+      ]
+    ]
+  },
+  "extraDetails": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        61
+      ]
+    ]
+  },
+  "companyFieldOfBusiness": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        62
+      ]
+    ]
+  },
+  "screenOption": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        63
+      ]
+    ]
+  },
+  "printingOption": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        64
+      ]
+    ]
+  },
+  "receipt_number": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        65
+      ]
+    ]
+  },
+  "receipt_date": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        66
+      ]
+    ]
+  },
+  "receipt_file": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        67
+      ]
+    ]
+  },
+  "jobTitle": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        68
+      ]
+    ]
   }
 }

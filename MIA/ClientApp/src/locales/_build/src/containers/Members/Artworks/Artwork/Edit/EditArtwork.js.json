@@ -8,15 +8,6 @@
       ]
     ]
   },
-  "usd": {
-    "defaults": "USD",
-    "origin": [
-      [
-        "src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js",
-        79
-      ]
-    ]
-  },
   "save": {
     "defaults": "Save",
     "origin": [

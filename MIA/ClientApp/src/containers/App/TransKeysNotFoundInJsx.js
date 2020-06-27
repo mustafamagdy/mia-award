@@ -48,6 +48,25 @@ class TransKeysNotFoundInJsx extends React.Component {
         <Trans id="info"></Trans>
         <Trans id="about_awards"></Trans>
 
+        <Trans id="details"></Trans>
+        <Trans id="payment"></Trans>
+        <Trans id="companyName"></Trans>
+        <Trans id="nationality"></Trans>
+        <Trans id="websiteUrl"></Trans>
+        <Trans id="contactPersonName"></Trans>
+        <Trans id="contactPersonTitle"></Trans>
+        <Trans id="cellPhone1"></Trans>
+        <Trans id="cellPhone2"></Trans>
+        <Trans id="company_logo"></Trans>
+        <Trans id="extraDetails"></Trans>
+        <Trans id="companyFieldOfBusiness"></Trans>
+        <Trans id="screenOption"></Trans>
+        <Trans id="printingOption"></Trans>
+        <Trans id="receipt_number"></Trans>
+        <Trans id="receipt_date"></Trans>
+        <Trans id="receipt_file"></Trans>
+        <Trans id="jobTitle"></Trans>
+
       </div>
     );
   }

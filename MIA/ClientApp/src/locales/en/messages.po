@@ -73,7 +73,7 @@ msgstr "Add New Show"
 msgid "address"
 msgstr "Address"
 
-#: src/containers/Booths/index.js:604
+#: src/containers/Booths/index.js:626
 msgid "agreeOnTerms"
 msgstr "Agree on"
 
@@ -110,7 +110,7 @@ msgstr "Are you sure you want to delete this item?"
 msgid "are_you_sure_to_send_to_judge"
 msgstr "Are you sure you want to send your data to judge, this cannot be undo?"
 
-#: src/containers/Booths/index.js:294
+#: src/containers/Booths/index.js:316
 msgid "area"
 msgstr "Area"
 
@@ -122,19 +122,19 @@ msgstr "Area"
 msgid "awards"
 msgstr "Awards"
 
-#: src/containers/Booths/index.js:612
+#: src/containers/Booths/index.js:634
 msgid "book_now"
 msgstr "Book now"
 
-#: src/containers/Booths/index.js:626
+#: src/containers/Booths/index.js:648
 msgid "booth_booking_success"
 msgstr "Success"
 
-#: src/containers/Booths/index.js:629
+#: src/containers/Booths/index.js:651
 msgid "booth_booking_success_msg"
 msgstr "Booth has been successfuly booked, our team will contact you soon complete the process"
 
-#: src/containers/Booths/index.js:90
+#: src/containers/Booths/index.js:97
 msgid "booth_sold_out"
 msgstr "All booths have been sold out"
 
@@ -176,6 +176,14 @@ msgstr "Cancel"
 #~ msgid "category"
 #~ msgstr ""
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:58
+msgid "cellPhone1"
+msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:59
+msgid "cellPhone2"
+msgstr ""
+
 #: src/containers/Members/Profile.js:51
 msgid "change_avatar"
 msgstr "Change Avatar"
@@ -213,6 +221,18 @@ msgstr "There was an error, the message could not be sent."
 msgid "comment_submitted"
 msgstr "Your comment has been submitted successfully for review."
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:62
+msgid "companyFieldOfBusiness"
+msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:53
+msgid "companyName"
+msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:60
+msgid "company_logo"
+msgstr ""
+
 #: src/containers/App/TransKeysNotFoundInJsx.js:45
 msgid "confirmPassword"
 msgstr "Confirm Password"
@@ -237,6 +257,14 @@ msgstr "Confirm Your Email First"
 msgid "conpatitors"
 msgstr "Compatitors"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:56
+msgid "contactPersonName"
+msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:57
+msgid "contactPersonTitle"
+msgstr ""
+
 #: src/containers/Pages/ContactUs/index.js:49
 msgid "contact_us"
 msgstr "Contact Us"
@@ -255,7 +283,7 @@ msgstr "Cookies Policy"
 
 #: src/components/Layout/Footer.js:100
 msgid "copyright_media_industry"
-msgstr "Copyright© 2020 Media Industry Awards. All rights reserved."
+msgstr "Copyright© 2020 Media Industry FZ-LLC. All rights reserved."
 
 #: src/containers/Pages/Shows/index.js:123
 #: src/containers/Pages/Shows/view.js:72
@@ -289,6 +317,10 @@ msgstr "Date"
 msgid "description"
 msgstr "Description"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:51
+msgid "details"
+msgstr ""
+
 #: src/containers/Pages/Shows/view.js:163
 #~ msgid "director"
 #~ msgstr ""
@@ -315,6 +347,10 @@ msgstr "E-Mail"
 #: src/containers/MyProfile/index.js:248
 msgid "enable_edit"
 msgstr "Enable Edit"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:61
+msgid "extraDetails"
+msgstr ""
 
 #: src/containers/User/ConfirmEmail.js:18
 msgid "failed"
@@ -366,7 +402,7 @@ msgstr "General"
 msgid "get_in_touch"
 msgstr "Get In Touch"
 
-#: src/containers/Booths/index.js:247
+#: src/containers/Booths/index.js:256
 msgid "gold_sposer"
 msgstr "Gold Sponser"
 
@@ -390,6 +426,10 @@ msgstr "Are you interested, enter your email address and we will keep you update
 #: src/containers/App/TransKeysNotFoundInJsx.js:48
 msgid "info"
 msgstr "Basic Info"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:68
+msgid "jobTitle"
+msgstr "Job Title"
 
 #: src/containers/Members/Profile.js:213
 msgid "job_title"
@@ -444,7 +484,7 @@ msgstr "Login to your account to view your uploaded artworks"
 msgid "logout"
 msgstr "Logout"
 
-#: src/containers/Booths/index.js:256
+#: src/containers/Booths/index.js:265
 msgid "media_industry"
 msgstr "Media Industry"
 
@@ -456,7 +496,7 @@ msgstr "Members"
 msgid "members"
 msgstr "Members"
 
-#: src/containers/Booths/index.js:253
+#: src/containers/Booths/index.js:262
 #: src/containers/MyProfile/ChangePassword.js:15
 #: src/containers/MyProfile/ImageUpload.js:54
 msgid "mia"
@@ -485,6 +525,10 @@ msgstr "MIA Honor"
 msgid "name"
 msgstr "Name"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:54
+msgid "nationality"
+msgstr ""
+
 #: src/containers/MyProfile/ChangePassword.js:65
 msgid "new_password"
 msgstr "New password"
@@ -501,8 +545,8 @@ msgstr "News Features"
 msgid "newsletter"
 msgstr "NEWSLETTER"
 
-#: src/containers/Booths/index.js:308
-#: src/containers/Booths/index.js:522
+#: src/containers/Booths/index.js:330
+#: src/containers/Booths/index.js:544
 #: src/containers/Home/News.js:132
 #: src/containers/Members/Auth/Register.js:142
 msgid "next"
@@ -597,6 +641,10 @@ msgstr "Password"
 #~ msgid "pay_online"
 #~ msgstr "Pay Online"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:52
+msgid "payment"
+msgstr ""
+
 #: src/containers/MyProfile/index.js:187
 #: src/containers/Pages/ContactUs/index.js:65
 msgid "phone"
@@ -626,7 +674,7 @@ msgstr "+971 4 57 2636 8"
 msgid "please_upload_payment_receipt"
 msgstr "Please upload payment receipt"
 
-#: src/containers/Booths/index.js:536
+#: src/containers/Booths/index.js:558
 msgid "please_upload_the_receipt"
 msgstr "Please upload payment receipt"
 
@@ -656,6 +704,10 @@ msgstr "Poster"
 #: src/containers/Home/News.js:116
 msgid "prev"
 msgstr "Prev"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:64
+msgid "printingOption"
+msgstr ""
 
 #: src/components/Layout/Footer.js:72
 #~ msgid "privacy_policy"
@@ -729,6 +781,18 @@ msgstr "Read More"
 msgid "read_more_elapsed"
 msgstr "Read More.."
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:66
+msgid "receipt_date"
+msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:67
+msgid "receipt_file"
+msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:65
+msgid "receipt_number"
+msgstr ""
+
 #: src/containers/Home/RecentShows.js:46
 msgid "recent_shows"
 msgstr "Recent Shows"
@@ -768,6 +832,10 @@ msgstr "Review Our Cookie Policy"
 #: src/containers/Members/Profile.js:188
 msgid "save"
 msgstr "Save"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:63
+msgid "screenOption"
+msgstr ""
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:12
 msgid "select_an_option"
@@ -872,7 +940,7 @@ msgstr "Workshops"
 #~ msgid "sports"
 #~ msgstr "Sports"
 
-#: src/containers/Booths/index.js:250
+#: src/containers/Booths/index.js:259
 msgid "standard"
 msgstr "Standard"
 
@@ -905,7 +973,7 @@ msgstr "Submit"
 #~ msgid "suggested_languages"
 #~ msgstr "Suggested Languages"
 
-#: src/containers/Booths/index.js:606
+#: src/containers/Booths/index.js:628
 msgid "terms_and_conditions"
 msgstr "Terms and Conditions"
 
@@ -959,12 +1027,7 @@ msgstr "Upload Image"
 #~ msgid "uploaded"
 #~ msgstr ""
 
-#: src/containers/Award/index.js:38
-#: src/containers/Members/Artworks/Artwork/ChoosePayment.js:95
-#: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:79
 #: src/containers/Members/Artworks/Contestant/ChoosePayment.js:95
-#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:79
-#: src/containers/Members/Artworks/Contestant/NewContestant.js:170
 msgid "usd"
 msgstr "USD"
 
@@ -1003,6 +1066,10 @@ msgstr "View more"
 #: src/containers/App/CookieGDPR.js:110
 msgid "we_use_cookies_and_similar_technology"
 msgstr "We use cookies and similar technologies to recognize your repeated visits and preferences; to measure the affectiveness of publicity campaigns and to analyze traffic. To learn more about cookies, including how to disable them, view our"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:55
+msgid "websiteUrl"
+msgstr ""
 
 #: src/containers/App/CookieGDPR.js:106
 msgid "what_do_we_use_cookies_for"

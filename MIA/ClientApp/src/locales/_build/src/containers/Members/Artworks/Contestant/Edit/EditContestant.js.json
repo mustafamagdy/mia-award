@@ -8,15 +8,6 @@
       ]
     ]
   },
-  "usd": {
-    "defaults": "USD",
-    "origin": [
-      [
-        "src/containers/Members/Artworks/Contestant/Edit/EditContestant.js",
-        79
-      ]
-    ]
-  },
   "save": {
     "defaults": "Save",
     "origin": [
