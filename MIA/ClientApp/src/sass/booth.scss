@@ -476,11 +476,14 @@
             } /* payment_tab */
             &.confirmation_tab {
               .title {
-                display: block;
-                font-size: 15px;
-                color: #c0a176;
-                text-align: center;
-                font-weight: bold;
+                font-size: 22px;
+                font-family: Montserrat_Bold;
+                margin: 0 auto 10px;
+                color: #bfa36c;
+                text-transform: capitalize;
+                [dir="rtl"] & {
+                  font-family: Tajawal_Bold;
+                } /* rtl */
               } /* title */
               .content {
                 display: block;

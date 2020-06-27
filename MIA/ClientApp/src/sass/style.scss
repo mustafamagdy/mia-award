@@ -508,7 +508,6 @@ input.has-error {
   background: rgba(51, 50, 50, 0.9);
 }
 
-
 .container {
   width: 1440px;
   margin: 0 auto;
@@ -702,3 +701,22 @@ table.info {
     font-size: 13px;
   }
 } /* form-group */
+
+.confirmation_tab {
+  .title {
+    font-size: 22px;
+    font-family: Montserrat_Bold;
+    margin: 0 auto 10px;
+    color: #bfa36c;
+    text-transform: capitalize;
+    [dir="rtl"] & {
+      font-family: Tajawal_Bold;
+    } /* rtl */
+  } /* title */
+  .content {
+    display: block;
+    font-size: 15px;
+    color: #c0a176;
+    text-align: center;
+  } /* content */
+} /* confirmation_tab */
