@@ -430,5 +430,77 @@
         68
       ]
     ]
+  },
+  "project_name_ar": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        70
+      ]
+    ]
+  },
+  "project_name_en": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        71
+      ]
+    ]
+  },
+  "description_ar": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        72
+      ]
+    ]
+  },
+  "description_en": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        73
+      ]
+    ]
+  },
+  "site_url": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        74
+      ]
+    ]
+  },
+  "file1": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        76
+      ]
+    ]
+  },
+  "file2": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        77
+      ]
+    ]
+  },
+  "file3": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        78
+      ]
+    ]
+  },
+  "choose_award": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        80
+      ]
+    ]
   }
 }

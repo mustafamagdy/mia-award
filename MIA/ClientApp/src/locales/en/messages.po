@@ -57,7 +57,7 @@ msgstr "About Us"
 msgid "accept_changes"
 msgstr "Accept changes"
 
-#: src/containers/Members/Auth/Register.js:166
+#: src/containers/Members/Auth/Register.js:200
 msgid "accept_terms"
 msgstr "Accept terms"
 
@@ -178,11 +178,11 @@ msgstr "Cancel"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:58
 msgid "cellPhone1"
-msgstr ""
+msgstr "Phone 1"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:59
 msgid "cellPhone2"
-msgstr ""
+msgstr "Phone 2"
 
 #: src/containers/Members/Profile.js:51
 msgid "change_avatar"
@@ -202,6 +202,10 @@ msgstr "Change Photo"
 #: src/containers/Members/Artworks/Artwork/Edit/Trailer.js:67
 msgid "change_trailer"
 msgstr "Change Trailer"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:80
+msgid "choose_award"
+msgstr "Choose Award"
 
 #: src/containers/Booths/index.js:313
 #~ msgid "choose_receipt_image"
@@ -223,15 +227,15 @@ msgstr "Your comment has been submitted successfully for review."
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:62
 msgid "companyFieldOfBusiness"
-msgstr ""
+msgstr "Line of business"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:53
 msgid "companyName"
-msgstr ""
+msgstr "Company Name"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:60
 msgid "company_logo"
-msgstr ""
+msgstr "Company Logo"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:45
 msgid "confirmPassword"
@@ -259,11 +263,11 @@ msgstr "Compatitors"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:56
 msgid "contactPersonName"
-msgstr ""
+msgstr "Contact Person"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:57
 msgid "contactPersonTitle"
-msgstr ""
+msgstr "Job Title"
 
 #: src/containers/Pages/ContactUs/index.js:49
 msgid "contact_us"
@@ -317,9 +321,17 @@ msgstr "Date"
 msgid "description"
 msgstr "Description"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:72
+msgid "description_ar"
+msgstr "Description(ar)"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:73
+msgid "description_en"
+msgstr "Description(en)"
+
 #: src/containers/App/TransKeysNotFoundInJsx.js:51
 msgid "details"
-msgstr ""
+msgstr "Details"
 
 #: src/containers/Pages/Shows/view.js:163
 #~ msgid "director"
@@ -350,7 +362,7 @@ msgstr "Enable Edit"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:61
 msgid "extraDetails"
-msgstr ""
+msgstr "Extra Details"
 
 #: src/containers/User/ConfirmEmail.js:18
 msgid "failed"
@@ -364,6 +376,18 @@ msgstr "Fax"
 msgid "fax_1"
 msgstr "+971 4 57 2636 6"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:76
+msgid "file1"
+msgstr "File #1"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:77
+msgid "file2"
+msgstr "File #2"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:78
+msgid "file3"
+msgstr "File #3"
+
 #: src/containers/Members/Artworks/Artwork/Edit/Trailer.js:208
 msgid "finish_and_reload"
 msgstr "Finish & Reload"
@@ -373,7 +397,7 @@ msgid "footer_text"
 msgstr "جائزة عربية جديدة في طرحها مختصة في محتوى الإعلام المرئي ، تعقد بدار الأوبرا في دبي في 15 شهر ديسمبر من عام 2020م بمشاركة 22 دولة عربية، وتهدف الجائزة في دورتها الأولى إلى عرض مجموعة مميزة من الأعمال  المرئية التلفزيونية و الرقمية للجمهور الشغوف بها والمتحمس لمتابعتها، كما تسعى لإيجاد نوع من التواصل الفعال بين كل من الجمهور والمنتجين والفنيين عبر فعالياتها، واكتشاف المواهب الشابة، بالإضافة إلى تعزيز روح التعاون والتبادل الثقافي والرقي بصناعة الفن المرئي التلفزيوني والرقمي في العالم العربي، وتقديم رؤى جديدة لما تحتاجه أسواق الإنتاج العربي من أفكار جديدة ومهمة لتكون رافداً قوياً يسهم في تطوير الأعمال المرئية العربية لتخطي حدود المحيط العربي والوصول إلى العالمية."
 
 #: src/containers/Members/Auth/index.js:48
-#: src/containers/Members/Auth/Login.js:31
+#: src/containers/Members/Auth/Login.js:62
 msgid "forget_password"
 msgstr "Forgot Password"
 
@@ -527,7 +551,7 @@ msgstr "Name"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:54
 msgid "nationality"
-msgstr ""
+msgstr "Nationality"
 
 #: src/containers/MyProfile/ChangePassword.js:65
 msgid "new_password"
@@ -548,7 +572,7 @@ msgstr "NEWSLETTER"
 #: src/containers/Booths/index.js:330
 #: src/containers/Booths/index.js:544
 #: src/containers/Home/News.js:132
-#: src/containers/Members/Auth/Register.js:142
+#: src/containers/Members/Auth/Register.js:176
 msgid "next"
 msgstr "Next"
 
@@ -643,7 +667,7 @@ msgstr "Password"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:52
 msgid "payment"
-msgstr ""
+msgstr "Payment"
 
 #: src/containers/MyProfile/index.js:187
 #: src/containers/Pages/ContactUs/index.js:65
@@ -707,7 +731,7 @@ msgstr "Prev"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:64
 msgid "printingOption"
-msgstr ""
+msgstr "________"
 
 #: src/components/Layout/Footer.js:72
 #~ msgid "privacy_policy"
@@ -767,6 +791,14 @@ msgstr ""
 msgid "project_name"
 msgstr "Project name"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:70
+msgid "project_name_ar"
+msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:71
+msgid "project_name_en"
+msgstr "Project Name(en)"
+
 #: src/components/Layout/Footer.js:42
 msgid "quick_links"
 msgstr "QUICK LINKS"
@@ -783,22 +815,22 @@ msgstr "Read More.."
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:66
 msgid "receipt_date"
-msgstr ""
+msgstr "Receipt Date"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:67
 msgid "receipt_file"
-msgstr ""
+msgstr "Receipt File"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:65
 msgid "receipt_number"
-msgstr ""
+msgstr "Receipt Number"
 
 #: src/containers/Home/RecentShows.js:46
 msgid "recent_shows"
 msgstr "Recent Shows"
 
 #: src/containers/Members/Auth/index.js:132
-#: src/containers/Members/Auth/Register.js:174
+#: src/containers/Members/Auth/Register.js:208
 msgid "register"
 msgstr "Register"
 
@@ -835,11 +867,11 @@ msgstr "Save"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:63
 msgid "screenOption"
-msgstr ""
+msgstr "_______"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:12
 msgid "select_an_option"
-msgstr ""
+msgstr "Select value"
 
 #: src/containers/MyProfile/ImageUpload.js:63
 msgid "select_your_image"
@@ -876,7 +908,7 @@ msgstr "Sign In"
 
 #: src/containers/Members/Auth/index.js:46
 #: src/containers/Members/Auth/index.js:107
-#: src/containers/Members/Auth/Login.js:35
+#: src/containers/Members/Auth/Login.js:66
 msgid "signin"
 msgstr "Sign in"
 
@@ -884,7 +916,7 @@ msgstr "Sign in"
 msgid "signup"
 msgstr "Signup"
 
-#: src/containers/Members/Auth/Register.js:155
+#: src/containers/Members/Auth/Register.js:189
 msgid "signup_terms"
 msgstr "Terms and Conditions"
 
@@ -897,6 +929,10 @@ msgstr " In order to apply for any award you need be a member in our website and
 #: src/containers/Pages/Shows/view.js:193
 msgid "siteUrl"
 msgstr "Site url"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:74
+msgid "site_url"
+msgstr "Site Url"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:20
 msgid "slide1_text"
@@ -1011,7 +1047,7 @@ msgstr "TV Channels"
 msgid "update"
 msgstr "Update"
 
-#: src/containers/Members/Auth/Register.js:73
+#: src/containers/Members/Auth/Register.js:71
 msgid "upload"
 msgstr "Upload"
 
@@ -1069,7 +1105,7 @@ msgstr "We use cookies and similar technologies to recognize your repeated visit
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:55
 msgid "websiteUrl"
-msgstr ""
+msgstr "Website Url"
 
 #: src/containers/App/CookieGDPR.js:106
 msgid "what_do_we_use_cookies_for"

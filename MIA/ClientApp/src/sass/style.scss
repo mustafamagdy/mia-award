@@ -631,6 +631,7 @@ table.info {
     font-size: 14px;
     margin: 0 auto 5px;
     text-transform: capitalize;
+    align-self: center;
     &.has-error {
       color: red;
       font-size: x-small;

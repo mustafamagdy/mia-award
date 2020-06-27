@@ -57,7 +57,7 @@ msgstr "من نحن"
 msgid "accept_changes"
 msgstr "قبول التغييرات"
 
-#: src/containers/Members/Auth/Register.js:166
+#: src/containers/Members/Auth/Register.js:200
 msgid "accept_terms"
 msgstr "أوافق على الشروط"
 
@@ -203,6 +203,10 @@ msgstr "تغيير الصورة"
 msgid "change_trailer"
 msgstr "تعديل عرض العمل المختصر"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:80
+msgid "choose_award"
+msgstr "اخر الجائزة"
+
 #: src/containers/Booths/index.js:313
 #~ msgid "choose_receipt_image"
 #~ msgstr "اختر صورة ايصال الدفع"
@@ -317,6 +321,14 @@ msgstr "التاريخ"
 msgid "description"
 msgstr "الوصف"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:72
+msgid "description_ar"
+msgstr "الوصف (عربي)"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:73
+msgid "description_en"
+msgstr "الوصف (English)"
+
 #: src/containers/App/TransKeysNotFoundInJsx.js:51
 msgid "details"
 msgstr "تفاصيل"
@@ -364,6 +376,18 @@ msgstr "فاكس"
 msgid "fax_1"
 msgstr "+971 4 57 2636 6"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:76
+msgid "file1"
+msgstr "ملف #1"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:77
+msgid "file2"
+msgstr "ملف #2"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:78
+msgid "file3"
+msgstr "ملف #3"
+
 #: src/containers/Members/Artworks/Artwork/Edit/Trailer.js:208
 msgid "finish_and_reload"
 msgstr "الانتهاء واعادة التعحميل"
@@ -373,7 +397,7 @@ msgid "footer_text"
 msgstr "جائزة عربية جديدة في طرحها مختصة في محتوى الإعلام المرئي ، تعقد بدار الأوبرا في دبي في 15 شهر ديسمبر من عام 2020م بمشاركة 22 دولة عربية، وتهدف الجائزة في دورتها الأولى إلى عرض مجموعة مميزة من الأعمال  المرئية التلفزيونية و الرقمية للجمهور الشغوف بها والمتحمس لمتابعتها، كما تسعى لإيجاد نوع من التواصل الفعال بين كل من الجمهور والمنتجين والفنيين عبر فعالياتها، واكتشاف المواهب الشابة، بالإضافة إلى تعزيز روح التعاون والتبادل الثقافي والرقي بصناعة الفن المرئي التلفزيوني والرقمي في العالم العربي، وتقديم رؤى جديدة لما تحتاجه أسواق الإنتاج العربي من أفكار جديدة ومهمة لتكون رافداً قوياً يسهم في تطوير الأعمال المرئية العربية لتخطي حدود المحيط العربي والوصول إلى العالمية."
 
 #: src/containers/Members/Auth/index.js:48
-#: src/containers/Members/Auth/Login.js:31
+#: src/containers/Members/Auth/Login.js:62
 msgid "forget_password"
 msgstr "نسيت كلمة المرور"
 
@@ -548,7 +572,7 @@ msgstr "رسالة إخبارية"
 #: src/containers/Booths/index.js:330
 #: src/containers/Booths/index.js:544
 #: src/containers/Home/News.js:132
-#: src/containers/Members/Auth/Register.js:142
+#: src/containers/Members/Auth/Register.js:176
 msgid "next"
 msgstr "التالي"
 
@@ -771,6 +795,14 @@ msgstr ""
 msgid "project_name"
 msgstr "اسم المشروع"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:70
+msgid "project_name_ar"
+msgstr "اسم المشروع (عربي)"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:71
+msgid "project_name_en"
+msgstr "اسم المشروع (English)"
+
 #: src/components/Layout/Footer.js:42
 msgid "quick_links"
 msgstr "ارتباطات سريعة"
@@ -802,7 +834,7 @@ msgid "recent_shows"
 msgstr "آخر العروض"
 
 #: src/containers/Members/Auth/index.js:132
-#: src/containers/Members/Auth/Register.js:174
+#: src/containers/Members/Auth/Register.js:208
 msgid "register"
 msgstr "انشاء حساب"
 
@@ -880,7 +912,7 @@ msgstr "تسجيل الدخول"
 
 #: src/containers/Members/Auth/index.js:46
 #: src/containers/Members/Auth/index.js:107
-#: src/containers/Members/Auth/Login.js:35
+#: src/containers/Members/Auth/Login.js:66
 msgid "signin"
 msgstr "دخول مستخدم"
 
@@ -888,7 +920,7 @@ msgstr "دخول مستخدم"
 msgid "signup"
 msgstr "تسجيل حساب جديد"
 
-#: src/containers/Members/Auth/Register.js:155
+#: src/containers/Members/Auth/Register.js:189
 msgid "signup_terms"
 msgstr "الشروط والاحكام"
 
@@ -901,6 +933,10 @@ msgstr "لكي تتمكن من التقديم في الجوائز المختلف
 #: src/containers/Pages/Shows/view.js:193
 msgid "siteUrl"
 msgstr "عنوان الموقع"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:74
+msgid "site_url"
+msgstr "الموقع الالكتروني"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:20
 msgid "slide1_text"
@@ -1015,7 +1051,7 @@ msgstr "القنوات التلفيزيونية"
 msgid "update"
 msgstr "تحديث"
 
-#: src/containers/Members/Auth/Register.js:73
+#: src/containers/Members/Auth/Register.js:71
 msgid "upload"
 msgstr "ارفاق"
 
