@@ -30,6 +30,9 @@ namespace MIA.Models.Entities {
 
     public bool UploadComplete { get; set; }
 
+    public Genre Category { get; set; }
+    public string CategoryId { get; set; }
+
     public S3File Poster { get; set; }
     public S3File Trailer { get; set; }
     public S3File TrailerPoster { get; set; }
@@ -37,8 +40,16 @@ namespace MIA.Models.Entities {
 
     public S3File Resume { get; set; }
 
-    public ArtworkPayment Payment { get; set; }
-    public string PaymentId { get; set; }
+    public ArtworkSubject YourRole { get; set; }
+    public string YourRoleId { get; set; }
+
+
+    public S3File File1 { get; set; }
+    public S3File File2 { get; set; }
+    public S3File File3 { get; set; }
+
+    // public ArtworkPayment Payment { get; set; }
+    // public string PaymentId { get; set; }
     public Award Award { get; set; }
     public string AwardId { get; set; }
 

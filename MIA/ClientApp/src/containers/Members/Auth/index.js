@@ -42,11 +42,13 @@ const Auth = ({ location, ...props }) => {
               <img src="/assets/images/logo_login.png" />
             </div>
             <span>
-              {view == "login"
-                ? "Sign in"
-                : view == "forget-password"
-                ? "Forgot password?"
-                : "Reset password"}
+              {view == "login" ? (
+                <Trans id="signin">Sign in</Trans>
+              ) : view == "forget-password" ? (
+                <Trans id="forget_password">Forgot password</Trans>
+              ) : (
+                <Trans id="reset_password">Reset Password</Trans>
+              )}
             </span>
             {view == "login" && (
               <LoginForm
@@ -101,22 +103,33 @@ const Auth = ({ location, ...props }) => {
           <div className="signup_block">
             {view == "signup" ? (
               <>
-                <span className="title">Sign In</span>
-                <p>Login to your account to view your uploaded artworks</p>
+                <span className="title">
+                  <Trans id="signin">Sign in</Trans>
+                </span>
+                <p>
+                  <Trans id="login_to_your_account">
+                    Login to your account to view your uploaded artworks
+                  </Trans>
+                </p>
                 <span className="action" onClick={() => setView("login")}>
-                  Login
+                  <Trans id="login">Login</Trans>
                 </span>
               </>
             ) : (
               <>
-                <span className="title">Sign Up</span>
+                <span className="title">
+                  <Trans id="signup">Sign Up</Trans>
+                </span>
                 <p>
-                  In order to apply for any award you need be a member in our
-                  website and follow all our policies. please signup to start
-                  your way to the awards
+                  {" "}
+                  <Trans id="signup_text">
+                    In order to apply for any award you need be a member in our
+                    website and follow all our policies. please signup to start
+                    your way to the awards
+                  </Trans>
                 </p>
                 <span className="action" onClick={() => setView("signup")}>
-                  Register
+                  <Trans id="register">Register</Trans>
                 </span>
               </>
             )}

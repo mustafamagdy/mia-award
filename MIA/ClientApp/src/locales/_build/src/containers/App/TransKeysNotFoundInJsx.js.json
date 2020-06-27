@@ -31,15 +31,15 @@
       ]
     ]
   },
-  "location1_title": {
+  "select_an_option": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
-        13
+        12
       ]
     ]
   },
-  "location1_description": {
+  "location1_title": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -47,7 +47,7 @@
       ]
     ]
   },
-  "location2_title": {
+  "location1_description": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -55,7 +55,7 @@
       ]
     ]
   },
-  "location2_description": {
+  "location2_title": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -63,15 +63,15 @@
       ]
     ]
   },
-  "slide1_title": {
+  "location2_description": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
-        18
+        17
       ]
     ]
   },
-  "slide1_text": {
+  "slide1_title": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -79,7 +79,7 @@
       ]
     ]
   },
-  "slide2_title": {
+  "slide1_text": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -87,7 +87,7 @@
       ]
     ]
   },
-  "slide2_text": {
+  "slide2_title": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -95,7 +95,7 @@
       ]
     ]
   },
-  "slide3_title": {
+  "slide2_text": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -103,7 +103,7 @@
       ]
     ]
   },
-  "slide3_text": {
+  "slide3_title": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -111,7 +111,7 @@
       ]
     ]
   },
-  "slide4_title": {
+  "slide3_text": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -119,7 +119,7 @@
       ]
     ]
   },
-  "slide4_text": {
+  "slide4_title": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -127,15 +127,15 @@
       ]
     ]
   },
-  "about_tab_content_awards": {
+  "slide4_text": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
-        27
+        26
       ]
     ]
   },
-  "about_tab_content_mia_contestant": {
+  "about_tab_content_awards": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -143,7 +143,7 @@
       ]
     ]
   },
-  "about_tab_content_mia_honor": {
+  "about_tab_content_mia_contestant": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -151,7 +151,7 @@
       ]
     ]
   },
-  "about_tab_content_judge": {
+  "about_tab_content_mia_honor": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -159,7 +159,7 @@
       ]
     ]
   },
-  "about_tab_content_conpatitors": {
+  "about_tab_content_judge": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -167,15 +167,15 @@
       ]
     ]
   },
-  "awards": {
+  "about_tab_content_conpatitors": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
-        33
+        32
       ]
     ]
   },
-  "mia_contestant": {
+  "awards": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -183,7 +183,7 @@
       ]
     ]
   },
-  "mia_honor": {
+  "mia_contestant": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -191,7 +191,7 @@
       ]
     ]
   },
-  "judge": {
+  "mia_honor": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
@@ -199,11 +199,307 @@
       ]
     ]
   },
-  "conpatitors": {
+  "judge": {
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
         37
+      ]
+    ]
+  },
+  "conpatitors": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        38
+      ]
+    ]
+  },
+  "Required": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        40
+      ]
+    ]
+  },
+  "File_is_required": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        41
+      ]
+    ]
+  },
+  "username": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        43
+      ]
+    ]
+  },
+  "password": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        44
+      ]
+    ]
+  },
+  "confirmPassword": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        45
+      ]
+    ]
+  },
+  "fullName": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        46
+      ]
+    ]
+  },
+  "phoneNumber": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        47
+      ]
+    ]
+  },
+  "info": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        48
+      ]
+    ]
+  },
+  "about_awards": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        49
+      ]
+    ]
+  },
+  "details": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        51
+      ]
+    ]
+  },
+  "payment": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        52
+      ]
+    ]
+  },
+  "companyName": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        53
+      ]
+    ]
+  },
+  "nationality": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        54
+      ]
+    ]
+  },
+  "websiteUrl": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        55
+      ]
+    ]
+  },
+  "contactPersonName": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        56
+      ]
+    ]
+  },
+  "contactPersonTitle": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        57
+      ]
+    ]
+  },
+  "cellPhone1": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        58
+      ]
+    ]
+  },
+  "cellPhone2": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        59
+      ]
+    ]
+  },
+  "company_logo": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        60
+      ]
+    ]
+  },
+  "extraDetails": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        61
+      ]
+    ]
+  },
+  "companyFieldOfBusiness": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        62
+      ]
+    ]
+  },
+  "screenOption": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        63
+      ]
+    ]
+  },
+  "printingOption": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        64
+      ]
+    ]
+  },
+  "receipt_number": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        65
+      ]
+    ]
+  },
+  "receipt_date": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        66
+      ]
+    ]
+  },
+  "receipt_file": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        67
+      ]
+    ]
+  },
+  "jobTitle": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        68
+      ]
+    ]
+  },
+  "project_name_ar": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        70
+      ]
+    ]
+  },
+  "project_name_en": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        71
+      ]
+    ]
+  },
+  "description_ar": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        72
+      ]
+    ]
+  },
+  "description_en": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        73
+      ]
+    ]
+  },
+  "site_url": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        74
+      ]
+    ]
+  },
+  "file1": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        76
+      ]
+    ]
+  },
+  "file2": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        77
+      ]
+    ]
+  },
+  "file3": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        78
+      ]
+    ]
+  },
+  "choose_award": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        80
       ]
     ]
   }

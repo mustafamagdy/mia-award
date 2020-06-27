@@ -115,7 +115,7 @@ namespace MIA.MappingProfiles {
 
       CreateMap<SubmitArtworkWithDetails, Artwork>()
         .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
-        .ForMember(a => a.Payment, cfg => cfg.Ignore())
+        // .ForMember(a => a.Payment, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None);
 
       CreateMap<UpdateArtworkWithDetails, Artwork>()

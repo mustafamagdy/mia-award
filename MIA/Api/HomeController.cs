@@ -58,11 +58,16 @@ namespace MIA.Api {
         .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
         .ToListAsync();
 
+      var artworkSubjects = await db.ArtworkSubjects
+        .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
+        .ToListAsync();
+
       return Ok(new {
         ContactUsSubjects = subjects,
         Genres = artworkGenres,
         Countries = countries,
         Years = productionYears,
+        ArtworkSubjectRoles = artworkSubjects
       });
     }
 
@@ -171,8 +176,9 @@ namespace MIA.Api {
       return Ok(await db.Booths
                         .Include(a => a.Purchases)
                           .ThenInclude(a => a.Payment)
-                        .Where(a => !a.Purchases.Any() || a.Purchases.Any(a => a.Payment.PaymentStatus == Models.Entities.PaymentStatus.Rejected))
+                        .Where(a => a.Sellable && (!a.Purchases.Any() || a.Purchases.Any(a => a.Payment.PaymentStatus == Models.Entities.PaymentStatus.Rejected)))
                         .ProjectTo<BoothDto>(_mapper.ConfigurationProvider)
+                        .OrderBy(a => a.Code)
                         .ToArrayAsync());
     }
 

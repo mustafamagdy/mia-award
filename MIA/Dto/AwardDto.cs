@@ -14,6 +14,7 @@ namespace MIA.Api {
 
   public class BoothDto {
     public string Code { get; set; }
+    public string Area { get; set; }
     public LocalizedData Description { get; set; }
     public decimal Price { get; set; }
   }

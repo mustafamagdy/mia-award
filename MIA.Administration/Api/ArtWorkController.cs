@@ -99,10 +99,10 @@ namespace MIA.Administration.Api {
               string fileReceiptKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.ReceiptFileName);
               var ReceiptUrl = await fileManager.UploadFileAsync(memorySteamReciept, fileReceiptKey);
 
-              ArtWorksItem.Payment.Receipt = S3File.FromKeyAndUrl(fileReceiptKey, ReceiptUrl);
+              // ArtWorksItem.Payment.Receipt = S3File.FromKeyAndUrl(fileReceiptKey, ReceiptUrl);
             }
           } else {
-            ArtWorksItem.Payment.Receipt = S3File.FromKeyAndUrl("", "");
+            // ArtWorksItem.Payment.Receipt = S3File.FromKeyAndUrl("", "");
           }
 
           string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.PosterFileName);

@@ -9,7 +9,7 @@ import { I18n } from "@lingui/react";
 const AboutUs = (props) => {
   const [awardsTabs] = useState([
     {
-      titlleKey: "awards",
+      titlleKey: "about_awards",
       contentKey: `about_tab_content_awards`,
     },
     {

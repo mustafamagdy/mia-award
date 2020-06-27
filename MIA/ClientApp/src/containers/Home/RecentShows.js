@@ -58,7 +58,9 @@ const RecentShows = ({
                 {({ i18n }) => (
                   <select ref={register} name="year">
                     {years.map((y, i) => (
-                      <option value={y}>{i18n._(y)}</option>
+                      <option key={i} value={y}>
+                        {i18n._(y)}
+                      </option>
                     ))}
                   </select>
                 )}

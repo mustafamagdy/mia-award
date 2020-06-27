@@ -65,7 +65,7 @@ const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
                         <p>
                           <Trans id="you_applied_for_award_x">
                             you applied for {artwork?.awardTitle[locale.code]}{" "}
-                            award please confirm to move on to the payment stage
+                            award.
                           </Trans>
                         </p>
                       </>
@@ -73,12 +73,12 @@ const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
                   </LanguageContext.Consumer>
                 </div>
               </div>
-              <div className="item_bottom">
+              {/* <div className="item_bottom">
                 <div className="price">
                   {artwork?.awardFee}
-                  <Trans id="usd">USD</Trans>
+                  {currency}
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="pay_col_two container-fluid ">
               <div className="">

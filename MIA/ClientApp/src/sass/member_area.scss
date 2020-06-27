@@ -666,6 +666,7 @@
             .next_step {
               display: flex;
               justify-content: flex-end;
+             
               span {
                 height: 40px;
                 line-height: 40px;
@@ -2020,8 +2021,7 @@
 
 .trailer_section {
   width: 100%;
-  display: flex;  
+  display: flex;
   .item {
-    
   }
 }

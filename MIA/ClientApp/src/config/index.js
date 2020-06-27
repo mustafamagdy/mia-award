@@ -71,8 +71,8 @@ export default {
     },
   ],
   menu: [
-    { label: "members", route: "/members" },
     { label: "about_us", route: "/about-us" },
+    { label: "members", route: "/members" },
     { label: "news", route: "/news" },
     { label: "program", route: "/timeline" },
     { label: "gallery", route: "/gallery" },
@@ -100,5 +100,8 @@ export default {
       min: 2019,
       max: 2020,
     },
+  },
+  files: {
+    booth_pdf: "/assets/files/exhibition final.pdf",
   },
 };
