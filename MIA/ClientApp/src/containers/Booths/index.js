@@ -14,7 +14,14 @@ import { Form, Formik } from "formik";
 import { Field, ErrorMessage, LocalizedDataField } from "components/Forms";
 import config from "config";
 
-const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
+const Booths = ({
+  currency,
+  fetchBooths,
+  booths,
+  boothBooked,
+  bookBooth,
+  ...props
+}) => {
   useEffect(() => {
     setLoading(false);
     if (booths == undefined || booths.length == 0) {
@@ -193,6 +200,7 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                       return (
                         <Form noValidate className="info_form">
                           <Info
+                            currency={currency}
                             setFieldValue={setFieldValue}
                             errors={errors}
                             touched={touched}
@@ -232,6 +240,7 @@ const Info = ({
   setFieldValue,
   errors,
   touched,
+  currency,
   ...props
 }) => {
   const [selectedBooth, setSelectedBooth] = useState(undefined);
@@ -286,7 +295,11 @@ const Info = ({
             errors.boothCode !== undefined
           }
         />
-        {selectedBooth && <span>{selectedBooth.price} USD</span>}
+        {selectedBooth && (
+          <span>
+            {selectedBooth.price} {currency}
+          </span>
+        )}
       </div>
       {selectedBooth && (
         <>
@@ -634,7 +647,11 @@ const Confirmation = ({ active, success, ...props }) => {
   );
 };
 
-const mapStateToProps = ({ home: { booths, boothBooked } }) => ({
+const mapStateToProps = ({
+  global: { currency },
+  home: { booths, boothBooked },
+}) => ({
+  currency,
   booths,
   boothBooked,
 });

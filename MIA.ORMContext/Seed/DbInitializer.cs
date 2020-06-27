@@ -79,27 +79,38 @@ namespace MIA.ORMContext.Seed {
       List<Booth> booths = db.Booths.ToList();
       var filename = "./seed/booths.json";
       if (File.Exists(filename)) {
+        var listBooths = new List<Booth>();
+
         using (StreamReader r = new StreamReader(filename)) {
-          var newBooth = new List<Booth>();
           string json = r.ReadToEnd();
-          var listBooths = new List<Booth>();
           JArray array = JArray.Parse(json);
           foreach (JToken j in array) {
-            listBooths.Add(new Booth {
+            var boothType = new {
               Code = ((JValue)j["Code"]).Value<string>(),
+              Start = ((JValue)j["Start"]).Value<int>(),
+              End = ((JValue)j["End"]).Value<int>(),
+              Area = ((JValue)j["Area"]).Value<string>(),
               Price = ((JValue)j["Price"]).Value<decimal>(),
+              Currency = ((JValue)j["Currency"]).Value<string>(),
+              Sellable = ((JValue)j["Sellable"]).Value<bool>(),
               Description = LocalizedData.FromDictionary((JObject)j["Description"]),
-            });
+            };
+
+            var countOfBooths = db.Booths.Count(a => a.Code.StartsWith(boothType.Code));
+            if (countOfBooths == 0) {
+              for (int i = 1; i <= ((boothType.End - boothType.Start) + 1); i++) {
+                listBooths.Add(new Booth {
+                  Code = $"{boothType.Code}{i.ToString("#00")}",
+                  Area = boothType.Area,
+                  Price = boothType.Price,
+                  Description = boothType.Description,
+                  Sellable = boothType.Sellable
+                });
+              }
+            }
           }
 
-          foreach (var booth in listBooths) {
-            var _booth = booths.FirstOrDefault(a => a.Code == booth.Code);
-            if (_booth != null) continue;
-            newBooth.Add(booth);
-          }
-          if (newBooth.Any()) {
-            await db.Booths.AddRangeAsync(newBooth);
-          }
+          await db.Booths.AddRangeAsync(listBooths);
         }
       }
     }

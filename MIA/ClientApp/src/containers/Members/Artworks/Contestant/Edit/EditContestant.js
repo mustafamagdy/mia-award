@@ -73,12 +73,12 @@ const EditContestantInfo = ({ contestant, active, editArtwork, ...props }) => {
                   </LanguageContext.Consumer>
                 </div>
               </div>
-              <div className="item_bottom">
+              {/* <div className="item_bottom">
                 <div className="price">
                   {contestant?.awardFee}
                   <Trans id="usd">USD</Trans>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="pay_col_two">
               <div className="grid grid--1 grid--sm-2 grid--md-4 grid--space-def grid--hspace-xl grid--inline">

@@ -6,7 +6,7 @@ import { Trans } from "@lingui/macro";
 import homeActions from "store/home/actions";
 import { useState } from "react";
 
-const Award = ({ location, awards, props }) => {
+const Award = ({ location, awards, currency, props }) => {
   useEffect(() => {
     const _id = location.pathname.split("/").pop();
     setAwardId(_id);
@@ -15,7 +15,7 @@ const Award = ({ location, awards, props }) => {
 
   useEffect(() => {
     console.log("id ", awardId);
-    setAward(awards.find(a => a.id == awardId));
+    setAward(awards.find((a) => a.id == awardId));
   }, [awardId, awards]);
 
   const [awardId, setAwardId] = useState(undefined);
@@ -35,13 +35,13 @@ const Award = ({ location, awards, props }) => {
                   <div className="title">
                     <span>{award.title[locale.code]}</span>
                     <span>
-                      {award.artworkFee} <Trans id="usd">USD</Trans>
+                      {award.artworkFee} {currency}
                     </span>
                   </div>
                   <div
                     className="desc"
                     dangerouslySetInnerHTML={{
-                      __html: award.description[locale.code]
+                      __html: award.description[locale.code],
                     }}
                   ></div>
                   <div className="download">
@@ -73,9 +73,15 @@ const Award = ({ location, awards, props }) => {
   );
 };
 
-const mapStateToProps = ({ home: { awards }, router: { location } }) => ({
+const mapStateToProps = ({
+  global: { currency },
+  home: { awards },
+  router: { location },
+}) => ({
+  currency,
   awards,
-  location
+  location,
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...homeActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Award);

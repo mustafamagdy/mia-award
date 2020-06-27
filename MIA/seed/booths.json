@@ -1,39 +1,41 @@
 ﻿[
   {
-    "Code": "A01",
-    "Area": "3x5 m",
+    "Code": "A",
+    "Start": 301,
+    "End": 337,
+    "Area": "2.5m x 2.5m",
+    "Price": 8000,
+    "Currency": "AED",
+    "Sellable": true,
     "Description": {
-      "ar": "مساحة متوسطة تكفي لمقعدين",
-      "en": "Medium size area, suitable for 2 chairs"
-    },
-    "Price": 1000
+      "en": "Booths & Exit",
+      "ar": "Booths & Exit"
+    }
   },
   {
-    "Code": "A02",
-    "Area": "2x4 m",
+    "Code": "B",
+    "Start": 201,
+    "End": 291,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": false,
     "Description": {
-      "ar": "مساحة متوسطة تكفي لمقعدين",
-      "en": "Medium size area, suitable for 2 chairs"
-    },
-    "Price": 2000
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
   },
   {
-    "Code": "A03",
-    "Area": "3x5 m",
+    "Code": "C",
+    "Start": 101,
+    "End": 125,
+    "Area": "2.5m x 2.5m",
+    "Price": 15000,
+    "Currency": "AED",
+    "Sellable": true,
     "Description": {
-      "ar": "مساحة متوسطة تكفي لمقعدين",
-      "en": "Medium size area, suitable for 2 chairs"
-    },
-    "Price": 1300
-  },
-  {
-    "Code": "A04",
-    "Area": "6x5 m",
-    "Description": {
-      "ar": "مساحة متوسطة تكفي لمقعدين",
-      "en": "Medium size area, suitable for 2 chairs"
-    },
-    "Price": 2000
+      "en": "Registration Hall, Media Booths, Wall of fame",
+      "ar": "Registration Hall, Media Booths, Wall of fame"
+    }
   }
-
 ]

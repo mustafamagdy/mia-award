@@ -73,12 +73,12 @@ const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
                   </LanguageContext.Consumer>
                 </div>
               </div>
-              <div className="item_bottom">
+              {/* <div className="item_bottom">
                 <div className="price">
                   {artwork?.awardFee}
-                  <Trans id="usd">USD</Trans>
+                  {currency}
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="pay_col_two container-fluid ">
               <div className="">
