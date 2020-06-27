@@ -7,6 +7,7 @@ const initialState = {
   awards: [],
   sponsers: [],
   timeline: [],
+  sponsers: [],
   booths: [],
   mainAlbum: {
     /*
@@ -38,6 +39,12 @@ const fetchBoothsSuccess = (state, action) => {
 const fetchTimelineSuccess = (state, action) => {
   return produce(state, (draft) => {
     draft.timeline = [...action.payload];
+  });
+};
+
+const fetchSponsersSuccess = (state, action) => {
+  return produce(state, (draft) => {
+    draft.sponsers = [...action.payload];
   });
 };
 
@@ -82,10 +89,6 @@ const fetchAwardsSuccess = (state, action) => {
   });
 };
 
-const fetchSponsersSuccess = (state, action) => {
-  return produce(state, (draft) => {});
-};
-
 const fetchLatestmainAlbumuccess = (state, action) => {
   return produce(state, (draft) => {});
 };
@@ -111,10 +114,10 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_MAIN_ALBUM_SUCCESS]: fetchMainAlbumSuccess,
   [ActionTypes.FETCH_NEWS_SUCCESS]: fetchNewsSuccess,
   [ActionTypes.FETCH_TIMELINE_SUCCESS]: fetchTimelineSuccess,
+  [ActionTypes.FETCH_SPONSERS_SUCCESS]: fetchSponsersSuccess,
   [ActionTypes.FETCH_BOOTHS_SUCCESS]: fetchBoothsSuccess,
   [ActionTypes.FETCH_RECENT_SHOWS_SUCCESS]: fetchRecentShowsSuccess,
   [ActionTypes.FETCH_AWARDS_SUCCESS]: fetchAwardsSuccess,
-  [ActionTypes.FETCH_SPONSERS_SUCCESS]: fetchSponsersSuccess,
   [ActionTypes.FETCH_LATEST_ALBUM_CONTENTS_SUCCESS]: fetchLatestmainAlbumuccess,
   [ActionTypes.SEND_CONTACT_US_MESSAGE_SUCCESS]: sendContactUsMessageSuccess,
   [ActionTypes.SEND_CONTACT_US_MESSAGE_FAIL]: sendContactUsMessageFailed,

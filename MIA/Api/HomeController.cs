@@ -127,22 +127,6 @@ namespace MIA.Api {
       return Ok(result);
     }
 
-    [HttpGet("sponsors")]
-    public async Task<IActionResult> Sponsers(
-      [FromServices] IAppUnitOfWork db) {
-      //var _result = db.News
-      //  .Include(a => a.Image)
-      //  .AsQueryable();
-
-      //var result = _result
-      //  .ProjectTo<NewsDto>(_mapper.ConfigurationProvider)
-      //  .ToPagedList(query);
-
-      //return Ok(result);
-
-      return Ok();
-    }
-
     [HttpPost("newsletter")]
     public async Task<IActionResult> SubscribeToNewsLeter(
      [FromBody] NewsLetterDto dto,
@@ -165,6 +149,17 @@ namespace MIA.Api {
       var timeline = await db.Contents.FirstOrDefaultAsync(a => a.ContentType == ContentType.Program);
       if (timeline != null) {
         var deserializedItems = JsonConvert.DeserializeObject<dynamic>(timeline.Data);
+        return Ok(deserializedItems);
+      } else {
+        return NoContent();
+      }
+    }
+
+    [HttpGet("sponsers")]
+    public async Task<IActionResult> GetSponsers([FromServices] IAppUnitOfWork db) {
+      var sponsers = await db.Contents.FirstOrDefaultAsync(a => a.ContentType == ContentType.Sponsers);
+      if (sponsers != null) {
+        var deserializedItems = JsonConvert.DeserializeObject<dynamic>(sponsers.Data);
         return Ok(deserializedItems);
       } else {
         return NoContent();

@@ -281,7 +281,7 @@ const AboutUs = (props) => {
           </div>
         </div>
       </section>
-      <Partners />
+      <Partners/>
     </React.Fragment>
   );
 };

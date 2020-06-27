@@ -35,6 +35,7 @@ class Home extends React.Component {
     this.props.fetchAwards();
     this.props.fetchMainAlbum();
     this.props.fetchMetadata();
+    this.props.fetchSponsers();
   }
 
   render() {
