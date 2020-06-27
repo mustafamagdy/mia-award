@@ -251,7 +251,7 @@ msgstr "تأكيد"
 
 #: src/containers/User/CheckYourEmail.js:9
 msgid "confirm_your_email_first"
-msgstr "التحقق من صحة بريدك الإلكتروني أولاً."
+msgstr "تم انشاء حسابك بنجاح، برجاء تحقق من بريدك الالكتروني."
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:38
 msgid "conpatitors"

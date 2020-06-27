@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import { Recaptcha, Field } from "components/Forms";
 import * as Yup from "yup";
-import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import { Trans } from "@lingui/macro";
 
@@ -13,7 +12,6 @@ const Register = ({
   ...props
 }) => {
   const [acceptTerms, setAcceptTerms] = useState(false);
-  const { register, handleSubmit } = useForm();
   const signUp = (values) => {
     signupUser(values);
   };
@@ -54,7 +52,7 @@ const Register = ({
           // history.push("/");
         }, 1200);
 
-        handleSubmit(signUp(values));
+        signUp(values);
       }}
     >
       {({ values, errors, touched, isSubmitting, formik }) => {
@@ -72,7 +70,7 @@ const Register = ({
                     <span>
                       <Trans id="upload">Upload</Trans>
                     </span>
-                    <input name="avatar" ref={register} type="file" />
+                    <input name="avatar" type="file" />
                   </div>
                 </div>
                 <Field
@@ -83,7 +81,13 @@ const Register = ({
                   placeholderKey="email"
                   transdDefaultVal="Email"
                   errors={errors && errors.email}
-                  touched={touched && touched.email}
+                  touched={touched || (touched && touched.email)}
+                  hasError={
+                    touched &&
+                    touched.email !== undefined &&
+                    errors &&
+                    errors.email !== undefined
+                  }
                 />
                 <Field
                   type="password"
@@ -93,7 +97,13 @@ const Register = ({
                   placeholderKey="password"
                   transdDefaultVal="Password"
                   errors={errors && errors.password}
-                  touched={touched && touched.password}
+                  touched={touched || (touched && touched.password)}
+                  hasError={
+                    touched &&
+                    touched.password !== undefined &&
+                    errors &&
+                    errors.password !== undefined
+                  }
                 />
                 <Field
                   type="password"
@@ -103,7 +113,13 @@ const Register = ({
                   placeholderKey="confirmPassword"
                   transdDefaultVal="Confirm Password"
                   errors={errors && errors.confirmPassword}
-                  touched={touched && touched.confirmPassword}
+                  touched={touched || (touched && touched.confirmPassword)}
+                  hasError={
+                    touched &&
+                    touched.confirmPassword !== undefined &&
+                    errors &&
+                    errors.confirmPassword !== undefined
+                  }
                 />
                 <Field
                   placeholder="Full name"
@@ -112,7 +128,13 @@ const Register = ({
                   placeholderKey="fullName"
                   transdDefaultVal="Full name"
                   errors={errors && errors.fullName}
-                  touched={touched && touched.fullName}
+                  touched={touched || (touched && touched.fullName)}
+                  hasError={
+                    touched &&
+                    touched.fullName !== undefined &&
+                    errors &&
+                    errors.fullName !== undefined
+                  }
                 />
                 <Field
                   placeholder="Job title"
@@ -121,7 +143,13 @@ const Register = ({
                   placeholderKey="jobTitle"
                   transdDefaultVal="Job title"
                   errors={errors && errors.jobTitle}
-                  touched={touched && touched.jobTitle}
+                  touched={touched || (touched && touched.jobTitle)}
+                  hasError={
+                    touched &&
+                    touched.jobTitle !== undefined &&
+                    errors &&
+                    errors.jobTitle !== undefined
+                  }
                 />
                 <Field
                   placeholder="Phone number"
@@ -130,7 +158,13 @@ const Register = ({
                   placeholderKey="phoneNumber"
                   transdDefaultVal="Phone number"
                   errors={errors && errors.phoneNumber}
-                  touched={touched && touched.phoneNumber}
+                  touched={touched || (touched && touched.phoneNumber)}
+                  hasError={
+                    touched &&
+                    touched.phoneNumber !== undefined &&
+                    errors &&
+                    errors.phoneNumber !== undefined
+                  }
                 />
                 <Field
                   name="reCaptchaToken"

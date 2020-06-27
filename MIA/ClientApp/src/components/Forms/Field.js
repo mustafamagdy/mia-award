@@ -21,6 +21,8 @@ const FormField = ({
   isFile,
   isTextArea,
   children,
+  noLabel,
+  formGroupWrapClasses,
   ...props
 }) => {
   const isOtherTypes = isCheckbox || isFile;
@@ -53,14 +55,21 @@ const FormField = ({
           ) : undefined
         ) : (
           <div className="form-group">
-            <label
-              className="form-group__label col-4 col-md-4 col-sm-12"
-              htmlFor={name}
-            >
-              <Trans id={transId}> {transdDefaultVal} </Trans>
-            </label>
+            {noLabel !== true && (
+              <label
+                className="form-group__label col-4 col-md-4 col-sm-12"
+                htmlFor={name}
+              >
+                <Trans id={transId}> {transdDefaultVal} </Trans>
+              </label>
+            )}
             {showStar && <span className="form-group__required">*</span>}
-            <div className="form-group__wrap  col-8 col-md-8 col-sm-12">
+            <div
+              className={
+                formGroupWrapClasses ||
+                "form-group__wrap  col-8 col-md-8 col-sm-12"
+              }
+            >
               <React.Fragment>
                 {svgIconHref && (
                   <div className="form-group__icon">

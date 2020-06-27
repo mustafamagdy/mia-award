@@ -723,3 +723,16 @@ table.info {
     text-align: center;
   } /* content */
 } /* confirmation_tab */
+
+.container {
+  .main-title {
+    font-size: 32px;
+    font-family: Montserrat_Bold;
+    margin: 0 auto 10px;
+    color: #bfa36c;
+    text-transform: capitalize;
+    [dir="rtl"] & {
+      font-family: Tajawal_Bold;
+    } /* rtl */
+  }
+}
