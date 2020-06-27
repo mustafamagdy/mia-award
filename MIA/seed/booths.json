@@ -14,12 +14,38 @@
   },
   {
     "Code": "B",
-    "Start": 201,
-    "End": 291,
+    "Start": 206,
+    "End": 287,
     "Area": "2.5m x 2.5m",
     "Price": 12000,
     "Currency": "AED",
     "Sellable": false,
+    "Description": {
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
+  },
+  {
+    "Code": "B",
+    "Start": 201,
+    "End": 205,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": true,
+    "Description": {
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
+  },
+  {
+    "Code": "B",
+    "Start": 288,
+    "End": 291,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": true,
     "Description": {
       "en": "Middle area",
       "ar": "Middle area"

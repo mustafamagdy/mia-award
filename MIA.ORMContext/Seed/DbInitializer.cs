@@ -98,9 +98,9 @@ namespace MIA.ORMContext.Seed {
 
             var countOfBooths = db.Booths.Count(a => a.Code.StartsWith(boothType.Code));
             if (countOfBooths == 0) {
-              for (int i = 1; i <= ((boothType.End - boothType.Start) + 1); i++) {
+              for (int i = boothType.Start; i <= boothType.End; i++) {
                 listBooths.Add(new Booth {
-                  Code = $"{boothType.Code}{i.ToString("#00")}",
+                  Code = $"{boothType.Code}{i.ToString("#000")}",
                   Area = boothType.Area,
                   Price = boothType.Price,
                   Description = boothType.Description,

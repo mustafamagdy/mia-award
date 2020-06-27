@@ -101,4 +101,7 @@ export default {
       max: 2020,
     },
   },
+  files: {
+    booth_pdf: "/assets/files/exhibition final.pdf",
+  },
 };

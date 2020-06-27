@@ -295,11 +295,20 @@ const Info = ({
             errors.boothCode !== undefined
           }
         />
+
         {selectedBooth && (
           <span>
             {selectedBooth.price} {currency}
           </span>
         )}
+        <div className="download">
+          <a href={config.files.booth_pdf} target="_blank">
+            <img src="/assets/images/pdf_icon.png" alt="" />
+          </a>
+          {/* <a href="#">
+            <img src="/assets/images/pdf_icon.png" />
+          </a> */}
+        </div>
       </div>
       {selectedBooth && (
         <>

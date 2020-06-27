@@ -208,6 +208,9 @@
               } /* labels_area */
               .choose_booth {
                 margin: 0 auto 30px;
+                .booth_data {
+                  display: flex;
+                }
                 select {
                   background: #000000 url("/assets/images/booth_arrow.png")
                     scroll no-repeat 100% center;
@@ -250,6 +253,14 @@
                     text-align: center;
                   }
                 } /* span */
+                .download {
+                  display: flex;
+                  margin: 0 auto 20px;
+                  a {
+                    display: inline-block;
+                    margin: 5px 15px 5px 0;
+                  } /* a */
+                } /* download */
               } /* choose_booth */
               .title {
                 font-size: 22px;
