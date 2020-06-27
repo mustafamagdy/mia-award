@@ -3,6 +3,7 @@ export default function(/**@type {ApisauceInstance} */ api) {
   const fetchMetadata = () => api.get("home/metadata");
   const fetchNews = () => api.get("home/latest-news");
   const fetchTimeline = () => api.get("home/timeline");
+  const fetchSponsers = () => api.get("home/sponsers");
   const fetchBooths = () => api.get("home/booths");
   const fetchAwards = () => api.get("home/awards");
   const fetchRecentShows = (query = {}) => api.post("home/recent-shows", query);
@@ -15,6 +16,7 @@ export default function(/**@type {ApisauceInstance} */ api) {
       fetchMainAlbum,
       fetchNews,
       fetchTimeline,
+      fetchSponsers,
       fetchBooths,
       fetchAwards,
       fetchRecentShows,

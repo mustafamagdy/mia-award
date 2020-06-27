@@ -6,19 +6,10 @@ import "utils";
 
 import "sass/partners.scss";
 import Swiper from "react-id-swiper";
+import { I18n } from "@lingui/react";
+import { connect } from "react-redux";
 
-const Partners = props => {
-  const [partners, setPartners] = useState([
-    { key: "1", img: "partner_img_1" },
-    // { key: "2", img: "partner_img_3" },
-    // { key: "3", img: "partner_img_2" },
-    // { key: "4", img: "partner_img_4" },
-    // { key: "5", img: "partner_img_3" },
-    // { key: "6", img: "partner_img_4" },
-    // { key: "7", img: "partner_img_1" },
-    // { key: "8", img: "partner_img_3" },
-    // { key: "9", img: "partner_img_2" }
-  ]);
+const Partners = ({ sponsers, ...props }) => {
   const params = {
     spaceBetween: 20,
     slidesPerView: 1,
@@ -27,34 +18,40 @@ const Partners = props => {
     loop: true,
     autoplay: {
       delay: 2500,
-      disableOnInteraction: false
+      disableOnInteraction: false,
     },
     pagination: {
       el: ".swiper-pagination",
-      clickable: true
+      clickable: true,
     },
     breakpoints: {
       480: {
         spaceBetween: 30,
         slidesPerView: 4,
-        slidesPerGroup: 4
-      }
-    }
+        slidesPerGroup: 4,
+      },
+    },
   };
 
   return (
     <div id="partners">
       <div className="container">
-        <Swiper {...params}>
-          {partners.map(partner => (
-            <div key={partner.key}>
-              <img src={`assets/images/${partner.img}.png`} />
-            </div>
-          ))}
-        </Swiper>
+        <I18n>
+          {({ i18n }) => (
+            <Swiper {...params}>
+              {sponsers.map((sponser) => (
+                <div key={sponser.id} className="partnerItem">
+                  <img src={sponser.logo} alt={sponser.name[i18n.language]} />
+                  <label>{sponser.sponserType[i18n.language]}</label>
+                </div>
+              ))}
+            </Swiper>
+          )}
+        </I18n>
       </div>
     </div>
   );
 };
 
-export default Partners;
+const mapStateToProps = ({ home: { sponsers } }) => ({ sponsers });
+export default connect(mapStateToProps, null)(Partners);

@@ -52,6 +52,7 @@ namespace MIA.ORMContext.Seed {
         await SeedNews(db, encoder, s3FileManager);
         await SeedDemoGallery(db, s3FileManager);
         await SeedTimeLine(db);
+        await SeedSponsers(db);
       }
 
       await db.CommitTransactionAsync();
@@ -70,6 +71,23 @@ namespace MIA.ORMContext.Seed {
           programContent.Data = r.ReadToEnd();
           if (programContent.Id == null) {
             await db.Contents.AddAsync(programContent);
+          }
+        }
+      }
+    }
+    private static async Task SeedSponsers(IAppUnitOfWork db) {
+      var filename = "./seed/sponsers.json";
+      if (File.Exists(filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
+          var sponserContent = db.Contents.FirstOrDefault(a => a.ContentType == ContentType.Sponsers);
+          if (sponserContent == null) {
+            sponserContent = new Content();
+            sponserContent.ContentType = ContentType.Sponsers;
+          }
+
+          sponserContent.Data = r.ReadToEnd();
+          if (sponserContent.Id == null) {
+            await db.Contents.AddAsync(sponserContent);
           }
         }
       }

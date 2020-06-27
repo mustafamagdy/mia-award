@@ -1,0 +1,14 @@
+﻿[
+  {
+    "id": "1",
+    "logo": "/assets/files/rotana.png",
+    "name": {
+      "en": "Rotana",
+      "ar": "روتانا"
+    },
+    "sponserType": {
+      "en": "Media Sponser",
+      "ar": "راعي اعلامي"
+    }
+  }
+]
