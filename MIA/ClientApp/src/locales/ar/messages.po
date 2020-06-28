@@ -203,7 +203,7 @@ msgstr "تغيير الصورة"
 msgid "change_trailer"
 msgstr "تعديل عرض العمل المختصر"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:80
+#: src/containers/App/TransKeysNotFoundInJsx.js:81
 msgid "choose_award"
 msgstr "اخر الجائزة"
 
@@ -392,6 +392,10 @@ msgstr "ملف #3"
 msgid "finish_and_reload"
 msgstr "الانتهاء واعادة التعحميل"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:83
+msgid "first_day"
+msgstr "اليوم الاول"
+
 #: src/components/Layout/Footer.js:37
 msgid "footer_text"
 msgstr "الاعلام العربي واقع جديد"
@@ -400,6 +404,10 @@ msgstr "الاعلام العربي واقع جديد"
 #: src/containers/Members/Auth/Login.js:62
 msgid "forget_password"
 msgstr "نسيت كلمة المرور"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:86
+msgid "forth_day"
+msgstr "اليوم الرابع"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:46
 msgid "fullName"
@@ -873,6 +881,10 @@ msgstr "حفظ"
 msgid "screenOption"
 msgstr "شاشة مقاس ٤٠ انش مقابل ١٠٠٠ درهم لمده ٣ أيام"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:84
+msgid "second_day"
+msgstr "اليوم الثاني"
+
 #: src/containers/App/TransKeysNotFoundInJsx.js:12
 msgid "select_an_option"
 msgstr "اختر من القائمة"
@@ -1020,6 +1032,10 @@ msgstr "الشروط والاحكام"
 #: src/components/Layout/Footer.js:62
 msgid "terms_conditions"
 msgstr "الشروط والأحكام"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:85
+msgid "third_day"
+msgstr "اليوم الثالث"
 
 #: src/containers/Home/Tickets.js:15
 #~ msgid "ticket_desc"

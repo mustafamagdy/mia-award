@@ -203,7 +203,7 @@ msgstr "Change Photo"
 msgid "change_trailer"
 msgstr "Change Trailer"
 
-#: src/containers/App/TransKeysNotFoundInJsx.js:80
+#: src/containers/App/TransKeysNotFoundInJsx.js:81
 msgid "choose_award"
 msgstr "Choose Award"
 
@@ -392,6 +392,10 @@ msgstr "File #3"
 msgid "finish_and_reload"
 msgstr "Finish & Reload"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:83
+msgid "first_day"
+msgstr "First Day"
+
 #: src/components/Layout/Footer.js:37
 msgid "footer_text"
 msgstr "الاعلام العربي واقع جديد"
@@ -400,6 +404,10 @@ msgstr "الاعلام العربي واقع جديد"
 #: src/containers/Members/Auth/Login.js:62
 msgid "forget_password"
 msgstr "Forgot Password"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:86
+msgid "forth_day"
+msgstr "Fourth Day"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:46
 msgid "fullName"
@@ -793,7 +801,7 @@ msgstr "Project name"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:70
 msgid "project_name_ar"
-msgstr ""
+msgstr "Project Name(ar)"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:71
 msgid "project_name_en"
@@ -868,6 +876,10 @@ msgstr "Save"
 #: src/containers/App/TransKeysNotFoundInJsx.js:63
 msgid "screenOption"
 msgstr "_______"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:84
+msgid "second_day"
+msgstr "Second Day"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:12
 msgid "select_an_option"
@@ -1016,6 +1028,10 @@ msgstr "Terms and Conditions"
 #: src/components/Layout/Footer.js:62
 msgid "terms_conditions"
 msgstr "Terms & Conditions"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:85
+msgid "third_day"
+msgstr "Third Day"
 
 #: src/containers/Home/Tickets.js:15
 #~ msgid "ticket_desc"

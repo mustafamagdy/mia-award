@@ -1,6 +1,8 @@
 ﻿[
   {
     "id": "1",
+    "code": "first_day",
+    "ticketIndex": 0,
     "day": {
       "ar": "اليوم الاول  (فندق الميدان) 12-12-2020",
       "en": "The first day (Al-Maydan Hotel) 12-12-2020"
@@ -49,6 +51,8 @@
   },
   {
     "id": "2",
+    "code": "second_day",
+    "ticketIndex": 0,
     "day": {
       "ar": "اليوم الثاني (فندق الميدان) 13-12-2020",
       "en": "The second day (Al-Maydan Hotel) 13-12-2020"
@@ -136,6 +140,8 @@
   },
   {
     "id": "3",
+    "code": "third_day",
+    "ticketIndex": 0,
     "day": {
       "ar": "اليوم الثالث (فندق الميدان) 14-12-2020",
       "en": "The third day (Al-Maydan Hotel) 14-12-2020"
@@ -223,6 +229,8 @@
   },
   {
     "id": "4",
+    "code": "forth_day",
+    "ticketIndex": 1,
     "day": {
       "ar": "اليوم الرابع  (دار الأوبرا) 15-12-2020",
       "en": "The forth day (Opera House) 15-12-2020"

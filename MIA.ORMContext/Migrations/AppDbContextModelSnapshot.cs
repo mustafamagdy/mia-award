@@ -306,6 +306,8 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("ManagerId");
 
+                    b.Property<int>("Order");
+
                     b.Property<string>("SecondPlaceId");
 
                     b.Property<string>("Title");

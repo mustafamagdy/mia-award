@@ -499,7 +499,39 @@
     "origin": [
       [
         "src/containers/App/TransKeysNotFoundInJsx.js",
-        80
+        81
+      ]
+    ]
+  },
+  "first_day": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        83
+      ]
+    ]
+  },
+  "second_day": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        84
+      ]
+    ]
+  },
+  "third_day": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        85
+      ]
+    ]
+  },
+  "forth_day": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        86
       ]
     ]
   }

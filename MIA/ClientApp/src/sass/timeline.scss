@@ -1,8 +1,9 @@
 @import "./variables.scss";
 #timeline_page {
-	background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
-	position: relative;
-	&::after {
+  background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center
+    center;
+  position: relative;
+  &::after {
     content: "program \A schedule";
     position: absolute;
     left: 50px;
@@ -19,13 +20,13 @@
       right: 50px;
       left: auto;
     } /* rtl */
-	} /* after */
+  } /* after */
   .container {
-		width: 1442px;
-		margin: 0 auto;
-		padding: 161px 25px 60px;
-		overflow: hidden;
-		position: relative;
+    width: 1442px;
+    margin: 0 auto;
+    padding: 161px 25px 60px;
+    overflow: hidden;
+    position: relative;
     z-index: 4;
     min-height: 90vh;
     @media (min-width: 320px) and (max-width: 767px) {
@@ -118,8 +119,12 @@
             &:checked {
               + .checkmark {
                 background-color: #333333;
-                &:after {display: block;}
-                + span {color: #b59870;}
+                &:after {
+                  display: block;
+                }
+                + span {
+                  color: #b59870;
+                }
               } /* checkmark */
             } /* checked */
           } /* input */
@@ -152,9 +157,17 @@
             } /* after */
           } /* checkmark */
           &:hover {
-            .checkmark {background-color: #333;}
+            .checkmark {
+              background-color: #333;
+            }
           } /* hover */
         } /* label */
+        .map-container {
+          height: 300px;
+          .map {
+            height: 100%;
+          }
+        }
       } /* left_col */
       .right_col {
         width: 50%;
@@ -184,7 +197,7 @@
             position: relative;
             margin: 0 auto;
             &::after {
-              content: '';
+              content: "";
               position: absolute;
               width: 3px;
               background-color: #ccbc93;
@@ -269,7 +282,9 @@
                 line-height: 18px;
                 color: #443f33;
               } /* p */
-              &.timeleft {left: 0;}
+              &.timeleft {
+                left: 0;
+              }
               &.timeright {
                 left: 50%;
                 padding: 15px 0 15px 40px;
