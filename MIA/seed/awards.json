@@ -12,7 +12,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 2
   },
   {
     "Code": "interview",
@@ -27,7 +28,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 1
   },
 
   {
@@ -43,7 +45,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 3
   },
   {
     "Code": "seminar",
@@ -58,7 +61,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 4
   },
   {
     "Code": "popular-show",
@@ -73,7 +77,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 5
   },
   {
     "Code": "magazine",
@@ -88,7 +93,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 6
   },
   {
     "Code": "documentary",
@@ -103,7 +109,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 7
   },
   {
     "Code": "competition",
@@ -118,7 +125,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 8
   },
   {
     "Code": "field-coverage",
@@ -133,7 +141,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 9
   },
   {
     "Code": "drama",
@@ -148,14 +157,15 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 10
   },
   {
-    "Code": "presenter",
+    "Code": "presenter-male",
     "AwardType": "Person",
     "Title": {
       "ar": "جائزة أفضل مذيع ",
-      "en": "MIA for best presenter"
+      "en": "MIA for best male presenter"
     },
     "Description": {
       "ar": "",
@@ -163,7 +173,24 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 13
+  },
+  {
+    "Code": "presenter-female",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل مذيعة ",
+      "en": "MIA for best female presenter"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 14
   },
   {
     "Code": "presenter",
@@ -178,7 +205,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 15
   },
   {
     "Code": "producer",
@@ -193,7 +221,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 16
   },
   {
     "Code": "screenwriter",
@@ -208,7 +237,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 17
   },
   {
     "Code": "camera-operator",
@@ -223,7 +253,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 18
   },
   {
     "Code": "music",
@@ -238,7 +269,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 19
   },
   {
     "Code": "promo",
@@ -253,7 +285,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 20
   },
   {
     "Code": "acter",
@@ -268,7 +301,8 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 11
   },
   {
     "Code": "actress",
@@ -283,6 +317,7 @@
     },
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 12
   }
 ]

@@ -74,6 +74,7 @@ namespace MIA.Api {
     [HttpGet("awards")]
     public async Task<IActionResult> Awards([FromServices] IAppUnitOfWork db) {
       var result = await db.Awards
+                          .OrderBy(a=>a.Order)
                           .ProjectTo<AwardDto>(_mapper.ConfigurationProvider)
                           .ToListAsync();
       return Ok(result);

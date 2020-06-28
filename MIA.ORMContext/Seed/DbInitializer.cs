@@ -563,6 +563,7 @@ namespace MIA.ORMContext.Seed {
               AwardType = (AwardType)Enum.Parse(typeof(AwardType), ((JValue)j["AwardType"]).Value<string>()),
               ArtworkFee = ((JValue)j["ArtworkFee"]).Value<decimal>(),
               Trophy = S3File.FromKeyAndUrl(((JValue)j["TrophyImageKey"]).Value<string>(), ((JValue)j["TrophyImageUrl"]).Value<string>()),
+              Order = ((JValue)j["Order"]).Value<int>(),
               Title = LocalizedData.FromDictionary((JObject)j["Title"]),
               Description = LocalizedData.FromDictionary((JObject)j["Description"]),
             });
