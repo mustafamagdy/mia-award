@@ -2,6 +2,7 @@
 {
   public enum ContentType
   {
-    Program
+    Program,
+    Sponsers
   }
 }

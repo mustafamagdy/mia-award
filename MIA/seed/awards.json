@@ -1,153 +1,323 @@
 ﻿[
   {
-    "Code": "drama",
-    "AwardType":"Artwork",
+    "Code": "talk-show",
+    "AwardType": "Artwork",
     "Title": {
-      "ar": "MIA دراما",
-      "en": "MIA Drama"
+      "ar": "جائزة أفضل برامج مقابلات",
+      "en": "MIA for best talk-show"
     },
     "Description": {
-      "ar": "تمنح لجنة تحكيم جائزة MIA لأفضل عمل درامي؛ جائزة ذهبية للمرتبة الأولى وجائزة فضية للمرتبة الثانية",
-      "en": "The jury will grant MIA Award for Best Drama Series a golden award for the first place and a silver one for the second place."
+      "ar": "",
+      "en": ""
     },
-    "ArtworkFee": 200,
+    "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 2
   },
   {
-    "Code": "documentary",
-    "AwardType":"Artwork",
+    "Code": "interview",
+    "AwardType": "Artwork",
     "Title": {
-      "ar": "MIA وثائقي",
-      "en": "MIA Documentary"
+      "ar": "جائزة أفضل برنامج شخصي",
+      "en": "MIA for best interview program"
     },
     "Description": {
-      "ar": "تمنح لجنة تحكيم جائزة MIA لأفضل عمل وثائقي ؛ جائزة ذهبية للمرتبة الأولى وجائزة فضية للمرتبة الثانية",
-      "en": "The jury will grant MIA Award for Best Documentary Series a golden award for the first place and a silver one for the second place."
+      "ar": "",
+      "en": ""
     },
-    "ArtworkFee": 200,
+    "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 1
   },
 
   {
-    "Code": "sports",
-    "AwardType":"Artwork",
+    "Code": "debate",
+    "AwardType": "Artwork",
     "Title": {
-      "ar": "MIA رياضة",
-      "en": "MIA Sports"
+      "ar": "جائزة أفضل برامج مناظرات",
+      "en": "MIA for best debate program"
     },
     "Description": {
-      "ar": "تمنح لجنة تحكيم جائزة MIA لأفضل عمل رياضي ؛ جائزة ذهبية للمرتبة الأولى وجائزة فضية للمرتبة الثانية",
-      "en": "The jury will grant MIA Award for Best Sports TV Show a golden award for the first place and a silver one for the second place."
+      "ar": "",
+      "en": ""
     },
-    "ArtworkFee": 200,
+    "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 3
   },
   {
-    "Code": "comedy",
-    "AwardType":"Artwork",
+    "Code": "seminar",
+    "AwardType": "Artwork",
     "Title": {
-      "ar": "MIA كوميدي",
-      "en": "MIA Comedy"
+      "ar": "جائزة أفضل ندوة تلفزيونية",
+      "en": "MIA for best TV seminar"
     },
     "Description": {
-      "ar": "تمنح لجنة تحكيم جائزة MIA لأفضل عمل كوميدي ؛ جائزة ذهبية للمرتبة الأولى وجائزة فضية للمرتبة الثانية",
-      "en": "The jury will grant MIA Award for Best Comedy Series a golden award for the first place and a silver one for the second place."
+      "ar": "",
+      "en": ""
     },
-    "ArtworkFee": 200,
+    "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 4
   },
   {
-    "Code": "political",
-    "AwardType":"Artwork",
+    "Code": "popular-show",
+    "AwardType": "Artwork",
     "Title": {
-      "ar": "MIA سياسة",
-      "en": "MIA Political"
+      "ar": "جائزة أفضل برنامج جماهيري",
+      "en": "MIA for most popular show"
     },
     "Description": {
-      "ar": "تمنح لجنة تحكيم جائزة MIA لأفضل عمل سياسي ؛ جائزة ذهبية للمرتبة الأولى وجائزة فضية للمرتبة الثانية",
-      "en": "The jury will grant MIA Award for Best Political TV Show a golden award for the first place and a silver one for the second place."
+      "ar": "",
+      "en": ""
     },
-    "ArtworkFee": 200,
+    "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 5
   },
   {
-    "Code": "economic",
-    "AwardType":"Artwork",
+    "Code": "magazine",
+    "AwardType": "Artwork",
     "Title": {
-      "ar": "MIA اقتصاد",
-      "en": "MIA Economic"
+      "ar": "جائزة أفضل مجلة تلفزيونية",
+      "en": "MIA for best TV magazine"
     },
     "Description": {
-      "ar": "تمنح لجنة تحكيم جائزة MIA لأفضل عمل اقتصادي ؛ جائزة ذهبية للمرتبة الأولى وجائزة فضية للمرتبة الثانية",
-      "en": "The jury will grant MIA Award for Best Economic TV Show a golden award for the first place and a silver one for the second place."
+      "ar": "",
+      "en": ""
     },
-    "ArtworkFee": 350,
+    "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 6
   },
   {
-    "Code": "talkshow",
-    "AwardType":"Artwork",
+    "Code": "documentary",
+    "AwardType": "Artwork",
     "Title": {
-      "ar": "MIA حوار",
-      "en": "MIA Talk Show"
+      "ar": "جائزة أفضل إنتاج وثائقي",
+      "en": "MIA for best documentary production"
     },
     "Description": {
-      "ar": "تمنح لجنة تحكيم جائزة MIA لأفضل عمل حواري ؛ جائزة ذهبية للمرتبة الأولى وجائزة فضية للمرتبة الثانية",
-      "en": "The jury will grant MIA Award for Best Talk Show a golden award for the first place and a silver one for the second place."
+      "ar": "",
+      "en": ""
     },
-    "ArtworkFee": 250,
+    "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 7
   },
   {
     "Code": "competition",
-    "AwardType":"Artwork",
+    "AwardType": "Artwork",
     "Title": {
-      "ar": "MIA مسابقات",
-      "en": "MIA Game Show"
+      "ar": "جائزة أفضل برنامج مسابقات",
+      "en": "MIA for best competition program"
     },
     "Description": {
-      "ar": "تمنح لجنة تحكيم جائزة MIA لأفضل عمل مسابقات ؛ جائزة ذهبية للمرتبة الأولى وجائزة فضية للمرتبة الثانية",
-      "en": "The jury will grant MIA Award for Best Game Show a golden award for the first place and a silver one for the second place."
+      "ar": "",
+      "en": ""
     },
-    "ArtworkFee": 500,
+    "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 8
   },
   {
-    "Code": "human",
-    "AwardType":"Artwork",
+    "Code": "field-coverage",
+    "AwardType": "Artwork",
     "Title": {
-      "ar": "MIA إنساني",
-      "en": "MIA Humanitarian Show"
+      "ar": "جائزة أفضل تغطية ميدانية",
+      "en": "MIA for best field coverage"
     },
     "Description": {
-      "ar": "تمنح لجنة تحكيم جائزة MIA لأفضل عمل إنساني ؛ جائزة ذهبية للمرتبة الأولى وجائزة فضية للمرتبة الثانية",
-      "en": "The jury will grant MIA Award for Best Humanitarian Show a golden award for the first place and a silver one for the second place."
+      "ar": "",
+      "en": ""
     },
-    "ArtworkFee": 100,
+    "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 9
   },
   {
-    "Code": "test1",
-    "AwardType":"Person",
+    "Code": "drama",
+    "AwardType": "Artwork",
     "Title": {
-      "ar": "الكبير اوي",
-      "en": "The big boss"
+      "ar": "جائزة أفضل عمل درامي",
+      "en": "MIA for best drama"
     },
     "Description": {
-      "ar": "احسن واحد",
-      "en": "The best one"
+      "ar": "",
+      "en": ""
     },
-    "ArtworkFee": 100,
+    "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png"
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 10
+  },
+  {
+    "Code": "presenter-male",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل مذيع ",
+      "en": "MIA for best male presenter"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 13
+  },
+  {
+    "Code": "presenter-female",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل مذيعة ",
+      "en": "MIA for best female presenter"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 14
+  },
+  {
+    "Code": "presenter",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل مخرج",
+      "en": "MIA for best director"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 15
+  },
+  {
+    "Code": "producer",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل معد ومنتج",
+      "en": "MIA for best devisor and producer"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 16
+  },
+  {
+    "Code": "screenwriter",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل كاتب سينارو",
+      "en": "MIA for best screenwriter"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 17
+  },
+  {
+    "Code": "camera-operator",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل مصور",
+      "en": "MIA for best camera operator"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 18
+  },
+  {
+    "Code": "music",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل موسيقى",
+      "en": "MIA for best music"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 19
+  },
+  {
+    "Code": "promo",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل برومو",
+      "en": "MIA for best promo"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 20
+  },
+  {
+    "Code": "acter",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة آفضل ممثل",
+      "en": "MIA for best acter"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 11
+  },
+  {
+    "Code": "actress",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل ممثلة",
+      "en": "MIA for best actress"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 12
   }
 ]

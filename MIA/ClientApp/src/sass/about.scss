@@ -1,7 +1,8 @@
 @import "./variables.scss";
 #about_us {
   .about_txt {
-    background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
+    background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat
+      center center;
     position: relative;
     &::after {
       content: "About \A Us";
@@ -56,7 +57,8 @@
     } /* container */
   } /* about_txt */
   .our_value {
-    background: #141414 url("/assets/images/our_value_bg.png") scroll no-repeat 0 top;
+    background: #141414 url("/assets/images/our_value_bg.png") scroll no-repeat
+      0 top;
     position: relative;
     border-top: 1px solid #21231e;
     border-bottom: 1px solid #21231e;
@@ -113,7 +115,8 @@
     } /* container */
   } /* our_value */
   .our_events {
-    background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
+    background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat
+      center center;
     position: relative;
     .container {
       width: 1440px;
@@ -131,7 +134,8 @@
           margin: 0 auto 100px;
         } /* icon */
         .txt_area {
-          background: transparent url("/assets/images/event_dots_bg.png") repeat scroll center center;
+          background: transparent url("/assets/images/event_dots_bg.png") repeat
+            scroll center center;
           position: relative;
           .inside_txt_area {
             padding: 30px 20px;
@@ -184,7 +188,8 @@
     } /* container */
   } /* our_events */
   .our_awards {
-    background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
+    background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat
+      center center;
     position: relative;
     .container {
       width: 1440px;
@@ -200,7 +205,8 @@
         position: relative;
         &::after {
           content: "";
-          background: transparent url("/assets/images/event_dots_bg.png") repeat scroll center center;
+          background: transparent url("/assets/images/event_dots_bg.png") repeat
+            scroll center center;
           position: absolute;
           bottom: -10%;
           right: -70%;
@@ -292,6 +298,14 @@
               display: none;
               &.active {
                 display: block;
+              }
+
+              ul.items {
+                display: block;
+                li.item {
+                  margin: 0px auto;
+                  padding: 0px 5px;
+                }
               }
             } /* tab_content */
           } /* inside_txt_area */

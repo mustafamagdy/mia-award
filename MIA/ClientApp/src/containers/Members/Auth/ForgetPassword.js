@@ -4,6 +4,7 @@ import { Recaptcha, Field } from "components/Forms";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import classNames from "classnames";
+import { Trans } from "@lingui/macro";
 
 
 const ForgetPasswordForm = ({
@@ -22,10 +23,10 @@ const ForgetPasswordForm = ({
       <div className="submit_area">
         <div className="resset">
           <label className="action" onClick={switchToLogin}>
-            Login ?
+          <Trans id="login">Login</Trans> ?
           </label>
         </div>
-        <button type="submit">Reset Password</button>
+        <button type="submit"><Trans id="reset_password">Reset Password</Trans></button>
       </div>
     </form>
   );

@@ -346,6 +346,9 @@ p.info {
   cursor: pointer;
   transition: all 0s ease-in-out;
   line-height: 40px;
+  [dir="rtl"] & {
+    font-family: Tajawal_Bold;
+  } /* rtl */
 }
 
 .info_form {
@@ -508,7 +511,6 @@ input.has-error {
   background: rgba(51, 50, 50, 0.9);
 }
 
-
 .container {
   width: 1440px;
   margin: 0 auto;
@@ -629,6 +631,7 @@ table.info {
     font-size: 14px;
     margin: 0 auto 5px;
     text-transform: capitalize;
+    align-self: center;
     &.has-error {
       color: red;
       font-size: x-small;
@@ -636,6 +639,7 @@ table.info {
     }
   } /* label */
   select {
+    width: 100%;
     background: #141414 url("/assets/images/arrow.png") scroll no-repeat 100%
       center;
     color: #fff;
@@ -701,3 +705,35 @@ table.info {
     font-size: 13px;
   }
 } /* form-group */
+
+.confirmation_tab {
+  .title {
+    font-size: 22px;
+    font-family: Montserrat_Bold;
+    margin: 0 auto 10px;
+    color: #bfa36c;
+    text-transform: capitalize;
+    [dir="rtl"] & {
+      font-family: Tajawal_Bold;
+    } /* rtl */
+  } /* title */
+  .content {
+    display: block;
+    font-size: 15px;
+    color: #c0a176;
+    text-align: center;
+  } /* content */
+} /* confirmation_tab */
+
+.container {
+  .main-title {
+    font-size: 32px;
+    font-family: Montserrat_Bold;
+    margin: 0 auto 10px;
+    color: #bfa36c;
+    text-transform: capitalize;
+    [dir="rtl"] & {
+      font-family: Tajawal_Bold;
+    } /* rtl */
+  }
+}

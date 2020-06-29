@@ -4,7 +4,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        90
+        97
       ]
     ]
   },
@@ -13,7 +13,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        247
+        256
       ]
     ]
   },
@@ -22,7 +22,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        250
+        259
       ]
     ]
   },
@@ -31,7 +31,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        253
+        262
       ]
     ]
   },
@@ -40,7 +40,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        256
+        265
       ]
     ]
   },
@@ -49,7 +49,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        294
+        316
       ]
     ]
   },
@@ -58,11 +58,11 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        308
+        330
       ],
       [
         "src/containers/Booths/index.js",
-        522
+        544
       ]
     ]
   },
@@ -71,7 +71,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        536
+        558
       ]
     ]
   },
@@ -80,7 +80,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        604
+        626
       ]
     ]
   },
@@ -89,7 +89,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        606
+        628
       ]
     ]
   },
@@ -98,7 +98,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        612
+        634
       ]
     ]
   },
@@ -107,7 +107,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        626
+        648
       ]
     ]
   },
@@ -116,7 +116,7 @@
     "origin": [
       [
         "src/containers/Booths/index.js",
-        629
+        651
       ]
     ]
   }

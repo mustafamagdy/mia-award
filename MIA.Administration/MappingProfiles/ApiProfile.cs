@@ -137,14 +137,14 @@ namespace MIA.Administration.MappingProfiles
         .ForMember(a => a.TrailerUrl, cfg => cfg.MapFrom(a => a.Trailer.FileUrl))
         .ForMember(a => a.CoverUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
         .ValidateMemberList(MemberList.None)
-        .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
+        //.ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
         .ForMember(a => a.FileCount, cfg => cfg.MapFrom(a => a.MediaFiles.Count));
 
 
       CreateMap<NewArtWorkDto, Artwork>().ValidateMemberList(MemberList.None)
             .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.ProjectName))
             .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
-            .ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
+            //.ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
             .ForMember(a => a.Nominee, cfg => cfg.MapFrom(a => a.Nominee))
             .ForMember(a => a.Award, cfg => cfg.MapFrom(a => a.Award));
 

@@ -9,12 +9,20 @@ import { bindActionCreators } from "redux";
 import * as Yup from "yup";
 import { fileToBase64 } from "utils";
 import { ImageZoom } from "react-simple-image-zoom";
+import ReactPlayer from "react-player";
 
 import { Form, Formik } from "formik";
 import { Field, ErrorMessage, LocalizedDataField } from "components/Forms";
 import config from "config";
 
-const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
+const Booths = ({
+  currency,
+  fetchBooths,
+  booths,
+  boothBooked,
+  bookBooth,
+  ...props
+}) => {
   useEffect(() => {
     setLoading(false);
     if (booths == undefined || booths.length == 0) {
@@ -34,6 +42,7 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
   const [noMoreBooths, setNoMoreBooths] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
+  const [selectedBooth, setSelectedBooth] = useState(undefined);
   // const [paymentToken, setPaymentToken] = useState(undefined);
   // const [useOnlinePayment, setUseOnlinePayment] = useState(true);
 
@@ -81,6 +90,11 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
               </span> */}
             </div>
             <div id="zoom-img" style={{ position: "relative" }} />
+            {selectedBooth && (
+              <div className="booth_vide">
+                <Booth3DView boothType={selectedBooth.code[0].toLowerCase()} />
+              </div>
+            )}
           </div>
           <div className="col_right">
             {loading == true ? (
@@ -193,6 +207,9 @@ const Booths = ({ fetchBooths, booths, boothBooked, bookBooth, ...props }) => {
                       return (
                         <Form noValidate className="info_form">
                           <Info
+                            selectedBooth={selectedBooth}
+                            setSelectedBooth={setSelectedBooth}
+                            currency={currency}
                             setFieldValue={setFieldValue}
                             errors={errors}
                             touched={touched}
@@ -232,9 +249,11 @@ const Info = ({
   setFieldValue,
   errors,
   touched,
+  currency,
+  setSelectedBooth,
+  selectedBooth,
   ...props
 }) => {
-  const [selectedBooth, setSelectedBooth] = useState(undefined);
   useEffect(() => {
     // setSelectedBooth(booths[0]);
   }, [booths]);
@@ -286,7 +305,20 @@ const Info = ({
             errors.boothCode !== undefined
           }
         />
-        {selectedBooth && <span>{selectedBooth.price} USD</span>}
+
+        {selectedBooth && (
+          <span>
+            {selectedBooth.price} {currency}
+          </span>
+        )}
+        <div className="download">
+          <a href={config.files.booth_pdf} target="_blank">
+            <img src="/assets/images/pdf_icon.png" alt="" />
+          </a>
+          {/* <a href="#">
+            <img src="/assets/images/pdf_icon.png" />
+          </a> */}
+        </div>
       </div>
       {selectedBooth && (
         <>
@@ -634,7 +666,21 @@ const Confirmation = ({ active, success, ...props }) => {
   );
 };
 
-const mapStateToProps = ({ home: { booths, boothBooked } }) => ({
+const Booth3DView = ({ boothType, ...props }) => (
+  <ReactPlayer
+    playing
+    url={`/assets/files/booth_${boothType}.mp4`}
+    className="react-player"
+    width="100%"
+    height="100%"
+  />
+);
+
+const mapStateToProps = ({
+  global: { currency },
+  home: { booths, boothBooked },
+}) => ({
+  currency,
   booths,
   boothBooked,
 });

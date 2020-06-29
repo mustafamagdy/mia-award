@@ -36,7 +36,7 @@
       padding: 100px 15px 60px;
     }
     .login_area {
-      height: 650px;
+      height: 700px;
       width: 80%;
       background: #0e0e0e;
       display: flex;
@@ -240,6 +240,11 @@
               } /* active */
             } /* li */
           } /* ul */
+          .next_step {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+          }
         } /* div */
         .tabs_content {
           height: 100%;

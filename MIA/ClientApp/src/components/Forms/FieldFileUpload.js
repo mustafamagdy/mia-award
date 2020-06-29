@@ -8,7 +8,6 @@ const FieldFilUplpad = ({
   hasError,
   ...props
 }) => {
-  console.log(name, hasError, errors, errors[name]);
   return (
     <div className="form-group__wrap  col-6 col-md-6 col-sm-12">
       <input

@@ -9,6 +9,7 @@ class TransKeysNotFoundInJsx extends React.Component {
         <Trans id="booths"></Trans>
         <Trans id="shows"></Trans>
         <Trans id="any_year"></Trans>
+        <Trans id="select_an_option"></Trans>
 
         <Trans id="location1_title"></Trans>
         <Trans id="location1_description"></Trans>
@@ -35,6 +36,55 @@ class TransKeysNotFoundInJsx extends React.Component {
         <Trans id="mia_honor"></Trans>
         <Trans id="judge"></Trans>
         <Trans id="conpatitors"></Trans>
+
+        <Trans id="Required"></Trans>
+        <Trans id="File_is_required"></Trans>
+
+        <Trans id="username"></Trans>
+        <Trans id="password"></Trans>
+        <Trans id="confirmPassword"></Trans>
+        <Trans id="fullName"></Trans>
+        <Trans id="phoneNumber"></Trans>
+        <Trans id="info"></Trans>
+        <Trans id="about_awards"></Trans>
+
+        <Trans id="details"></Trans>
+        <Trans id="payment"></Trans>
+        <Trans id="companyName"></Trans>
+        <Trans id="nationality"></Trans>
+        <Trans id="websiteUrl"></Trans>
+        <Trans id="contactPersonName"></Trans>
+        <Trans id="contactPersonTitle"></Trans>
+        <Trans id="cellPhone1"></Trans>
+        <Trans id="cellPhone2"></Trans>
+        <Trans id="company_logo"></Trans>
+        <Trans id="extraDetails"></Trans>
+        <Trans id="companyFieldOfBusiness"></Trans>
+        <Trans id="screenOption"></Trans>
+        <Trans id="printingOption"></Trans>
+        <Trans id="receipt_number"></Trans>
+        <Trans id="receipt_date"></Trans>
+        <Trans id="receipt_file"></Trans>
+        <Trans id="jobTitle"></Trans>
+        
+        <Trans id="project_name_ar"></Trans>
+        <Trans id="project_name_en"></Trans>
+        <Trans id="description_ar"></Trans>
+        <Trans id="description_en"></Trans>
+        <Trans id="site_url"></Trans>
+
+        <Trans id="file1"></Trans>
+        <Trans id="file2"></Trans>
+        <Trans id="file3"></Trans>
+        
+        
+        <Trans id="choose_award"></Trans>
+        
+        <Trans id="first_day"></Trans>
+        <Trans id="second_day"></Trans>
+        <Trans id="third_day"></Trans>
+        <Trans id="forth_day"></Trans>
+
       </div>
     );
   }

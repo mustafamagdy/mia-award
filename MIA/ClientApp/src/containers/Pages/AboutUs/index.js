@@ -3,13 +3,14 @@ import { Trans } from "@lingui/macro";
 import Partners from "../../Home/Partners";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
 import { I18n } from "@lingui/react";
+import { connect } from "react-redux";
 
 // import "sass/about.scss";
 
-const AboutUs = (props) => {
+const AboutUs = ({ awards, ...props }) => {
   const [awardsTabs] = useState([
     {
-      titlleKey: "awards",
+      titlleKey: "about_awards",
       contentKey: `about_tab_content_awards`,
     },
     {
@@ -262,14 +263,24 @@ const AboutUs = (props) => {
                       >
                         {awardsTabs.map((t, i) => (
                           <TabPane>
-                            <div
-                              className="tab_content"
-                              dangerouslySetInnerHTML={{
-                                __html: i18n._(
-                                  awardsTabs[activeTab].contentKey
-                                ),
-                              }}
-                            ></div>
+                            {t.titlleKey == "about_awards" ? (
+                              <div className="tab_content">
+                                <Awards awards={awards} type="artwork" />
+                              </div>
+                            ) : t.titlleKey == "mia_contestant" ? (
+                              <div className="tab_content">
+                                <Awards awards={awards} type="person" />
+                              </div>
+                            ) : (
+                              <div
+                                className="tab_content"
+                                dangerouslySetInnerHTML={{
+                                  __html: i18n._(
+                                    awardsTabs[activeTab].contentKey
+                                  ),
+                                }}
+                              ></div>
+                            )}
                           </TabPane>
                         ))}
                       </TabPanels>
@@ -286,4 +297,22 @@ const AboutUs = (props) => {
   );
 };
 
-export default AboutUs;
+const Awards = ({ type, awards, ...props }) => {
+  const _awards = awards.filter((a) => a.awardType == type);
+  return (
+    <I18n>
+      {({ i18n }) => (
+        <ul className="items">
+          {_awards.map((a, i) => (
+            <li className="item" key={i}>
+              • {a.title[i18n.language]}
+            </li>
+          ))}
+        </ul>
+      )}
+    </I18n>
+  );
+};
+
+const mapStateToProps = ({ home: { awards } }) => ({ awards });
+export default connect(mapStateToProps)(AboutUs);

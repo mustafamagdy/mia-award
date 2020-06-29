@@ -5,12 +5,14 @@ namespace MIA.Models.Entities {
     public Award() {
       Trophy = S3File.FromKeyAndUrl("", "");
     }
-    
+
     public string Code { get; set; }
     public LocalizedData Title { get; set; }
     public LocalizedData Description { get; set; }
     public decimal ArtworkFee { get; set; }
     public S3File Trophy { get; set; }
+
+    public int Order { get; set; }
 
     public AwardType AwardType { get; set; }
 

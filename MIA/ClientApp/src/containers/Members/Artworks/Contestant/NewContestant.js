@@ -128,8 +128,7 @@ const NewContestant = ({ awards, addNewContestant, ...props }) => {
                           <p>
                             <Trans id="you_applied_for_award_x">
                               you applied for{" "}
-                              {selectedAward?.title[locale.code]} award please
-                              confirm to move on to the payment stage
+                              {selectedAward?.title[locale.code]} award.
                             </Trans>
                           </p>
 
@@ -164,14 +163,14 @@ const NewContestant = ({ awards, addNewContestant, ...props }) => {
                     </LanguageContext.Consumer>
                   </div>
                 </div>
-                {selectedAward && selectedAward.id != "0" && (
+                {/* {selectedAward && selectedAward.id != "0" && (
                   <div className="item_bottom">
                     <div className="price">
                       {selectedAward?.artworkFee}
                       <Trans id="usd">USD</Trans>
                     </div>
                   </div>
-                )}
+                )} */}
               </div>
               <div className="pay_col_two">
                 <div className="grid grid--1 grid--sm-2 grid--md-4 grid--space-def grid--hspace-xl grid--inline">

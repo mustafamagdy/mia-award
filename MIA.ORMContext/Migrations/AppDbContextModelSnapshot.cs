@@ -174,6 +174,8 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<int>("BroadcastYear");
 
+                    b.Property<string>("CategoryId");
+
                     b.Property<string>("Description");
 
                     b.Property<string>("FirstPlaceId");
@@ -183,8 +185,6 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("NomineeId");
 
                     b.Property<string>("OnlineChannels");
-
-                    b.Property<string>("PaymentId");
 
                     b.Property<string>("ProductionLicenseAgency");
 
@@ -202,11 +202,17 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<bool>("UploadComplete");
 
+                    b.Property<string>("YourRoleId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AwardId");
 
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("NomineeId");
+
+                    b.HasIndex("YourRoleId");
 
                     b.ToTable("Artworks");
                 });
@@ -238,9 +244,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtworkId")
-                        .IsUnique()
-                        .HasFilter("[ArtworkId] IS NOT NULL");
+                    b.HasIndex("ArtworkId");
 
                     b.ToTable("ArtworkPayments");
                 });
@@ -271,6 +275,20 @@ namespace MIA.ORMContext.Migrations
                     b.ToTable("ArtworkReviews");
                 });
 
+            modelBuilder.Entity("MIA.Models.Entities.ArtworkSubject", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ArtworkSubjects");
+                });
+
             modelBuilder.Entity("MIA.Models.Entities.Award", b =>
                 {
                     b.Property<string>("Id")
@@ -287,6 +305,8 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("FirstPlaceId");
 
                     b.Property<string>("ManagerId");
+
+                    b.Property<int>("Order");
 
                     b.Property<string>("SecondPlaceId");
 
@@ -319,6 +339,8 @@ namespace MIA.ORMContext.Migrations
                     b.Property<string>("Description");
 
                     b.Property<decimal>("Price");
+
+                    b.Property<bool>("Sellable");
 
                     b.HasKey("Id");
 
@@ -458,7 +480,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Generes");
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.Image", b =>
@@ -889,9 +911,17 @@ namespace MIA.ORMContext.Migrations
                         .WithMany("Artworks")
                         .HasForeignKey("AwardId");
 
+                    b.HasOne("MIA.Models.Entities.Genre", "Category")
+                        .WithMany("Artworks")
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("MIA.Models.Entities.Nominee", "Nominee")
                         .WithMany("Artworks")
                         .HasForeignKey("NomineeId");
+
+                    b.HasOne("MIA.Models.Entities.ArtworkSubject", "YourRole")
+                        .WithMany("Artworks")
+                        .HasForeignKey("YourRoleId");
 
                     b.OwnsOne("MIA.Models.Entities.S3File", "Cover", b1 =>
                         {
@@ -907,6 +937,60 @@ namespace MIA.ORMContext.Migrations
 
                             b1.HasOne("MIA.Models.Entities.Artwork")
                                 .WithOne("Cover")
+                                .HasForeignKey("MIA.Models.Entities.S3File", "ArtworkId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MIA.Models.Entities.S3File", "File1", b1 =>
+                        {
+                            b1.Property<string>("ArtworkId");
+
+                            b1.Property<string>("FileKey");
+
+                            b1.Property<string>("FileUrl");
+
+                            b1.HasKey("ArtworkId");
+
+                            b1.ToTable("Artworks");
+
+                            b1.HasOne("MIA.Models.Entities.Artwork")
+                                .WithOne("File1")
+                                .HasForeignKey("MIA.Models.Entities.S3File", "ArtworkId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MIA.Models.Entities.S3File", "File2", b1 =>
+                        {
+                            b1.Property<string>("ArtworkId");
+
+                            b1.Property<string>("FileKey");
+
+                            b1.Property<string>("FileUrl");
+
+                            b1.HasKey("ArtworkId");
+
+                            b1.ToTable("Artworks");
+
+                            b1.HasOne("MIA.Models.Entities.Artwork")
+                                .WithOne("File2")
+                                .HasForeignKey("MIA.Models.Entities.S3File", "ArtworkId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MIA.Models.Entities.S3File", "File3", b1 =>
+                        {
+                            b1.Property<string>("ArtworkId");
+
+                            b1.Property<string>("FileKey");
+
+                            b1.Property<string>("FileUrl");
+
+                            b1.HasKey("ArtworkId");
+
+                            b1.ToTable("Artworks");
+
+                            b1.HasOne("MIA.Models.Entities.Artwork")
+                                .WithOne("File3")
                                 .HasForeignKey("MIA.Models.Entities.S3File", "ArtworkId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
@@ -987,8 +1071,8 @@ namespace MIA.ORMContext.Migrations
             modelBuilder.Entity("MIA.Models.Entities.ArtworkPayment", b =>
                 {
                     b.HasOne("MIA.Models.Entities.Artwork", "Artwork")
-                        .WithOne("Payment")
-                        .HasForeignKey("MIA.Models.Entities.ArtworkPayment", "ArtworkId");
+                        .WithMany()
+                        .HasForeignKey("ArtworkId");
 
                     b.OwnsOne("MIA.Models.Entities.S3File", "Receipt", b1 =>
                         {

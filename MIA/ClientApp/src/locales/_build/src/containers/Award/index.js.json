@@ -1,13 +1,4 @@
 {
-  "usd": {
-    "defaults": "USD",
-    "origin": [
-      [
-        "src/containers/Award/index.js",
-        38
-      ]
-    ]
-  },
   "apply_for_award": {
     "defaults": "APPLY FOR AWARD",
     "origin": [

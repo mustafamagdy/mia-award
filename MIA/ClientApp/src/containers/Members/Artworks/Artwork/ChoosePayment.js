@@ -15,6 +15,7 @@ const ChoosePayment = ({
   onPayment,
   processOrder,
   setPaymentToken,
+  currency,
   ...props
 }) => {
   const [selectedAward, setSelectedAward] = useState();
@@ -92,7 +93,7 @@ const ChoosePayment = ({
               <div className="item_bottom">
                 <div className="price">
                   {selectedAward.artworkFee}
-                  <Trans id="usd">USD</Trans>
+                  {currency}
                 </div>
                 <div className="confirm">
                   <span onClick={selectAward}>Confirm</span>

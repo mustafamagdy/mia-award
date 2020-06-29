@@ -1,0 +1,10 @@
+﻿[
+  {"Code": "1", "Name": {"ar": "مذيع  ","en": "broadcaster \\ interviewer"} },
+  {"Code": "2", "Name": {"ar": "مخرج ","en": "Director"} },
+  {"Code": "3", "Name": {"ar": "معد ومنتج ","en": "Producer"} },
+  {"Code": "4", "Name": {"ar": "كاتب سينارو ","en": "Scriptwriter"} },
+  {"Code": "5", "Name": {"ar": "مصور ","en": "Photographer\\cameraman"} },
+  {"Code": "6", "Name": {"ar": "مبتكر قوالب  ","en": "templates creator"} },
+  {"Code": "7", "Name": {"ar": "موسيقى ","en": "Music"} },
+  {"Code": "8", "Name": {"ar": "مصمم برومو ","en": "Promo designer"} },
+]

@@ -58,17 +58,23 @@ namespace MIA.Api {
         .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
         .ToListAsync();
 
+      var artworkSubjects = await db.ArtworkSubjects
+        .ProjectTo<LocalizedLookupDto>(_mapper.ConfigurationProvider)
+        .ToListAsync();
+
       return Ok(new {
         ContactUsSubjects = subjects,
         Genres = artworkGenres,
         Countries = countries,
         Years = productionYears,
+        ArtworkSubjectRoles = artworkSubjects
       });
     }
 
     [HttpGet("awards")]
     public async Task<IActionResult> Awards([FromServices] IAppUnitOfWork db) {
       var result = await db.Awards
+                          .OrderBy(a=>a.Order)
                           .ProjectTo<AwardDto>(_mapper.ConfigurationProvider)
                           .ToListAsync();
       return Ok(result);
@@ -122,22 +128,6 @@ namespace MIA.Api {
       return Ok(result);
     }
 
-    [HttpGet("sponsors")]
-    public async Task<IActionResult> Sponsers(
-      [FromServices] IAppUnitOfWork db) {
-      //var _result = db.News
-      //  .Include(a => a.Image)
-      //  .AsQueryable();
-
-      //var result = _result
-      //  .ProjectTo<NewsDto>(_mapper.ConfigurationProvider)
-      //  .ToPagedList(query);
-
-      //return Ok(result);
-
-      return Ok();
-    }
-
     [HttpPost("newsletter")]
     public async Task<IActionResult> SubscribeToNewsLeter(
      [FromBody] NewsLetterDto dto,
@@ -166,13 +156,25 @@ namespace MIA.Api {
       }
     }
 
+    [HttpGet("sponsers")]
+    public async Task<IActionResult> GetSponsers([FromServices] IAppUnitOfWork db) {
+      var sponsers = await db.Contents.FirstOrDefaultAsync(a => a.ContentType == ContentType.Sponsers);
+      if (sponsers != null) {
+        var deserializedItems = JsonConvert.DeserializeObject<dynamic>(sponsers.Data);
+        return Ok(deserializedItems);
+      } else {
+        return NoContent();
+      }
+    }
+
     [HttpGet("booths")]
     public async Task<IActionResult> Booths([FromServices] IAppUnitOfWork db) {
       return Ok(await db.Booths
                         .Include(a => a.Purchases)
                           .ThenInclude(a => a.Payment)
-                        .Where(a => !a.Purchases.Any() || a.Purchases.Any(a => a.Payment.PaymentStatus == Models.Entities.PaymentStatus.Rejected))
+                        .Where(a => a.Sellable && (!a.Purchases.Any() || a.Purchases.Any(a => a.Payment.PaymentStatus == Models.Entities.PaymentStatus.Rejected)))
                         .ProjectTo<BoothDto>(_mapper.ConfigurationProvider)
+                        .OrderBy(a => a.Code)
                         .ToArrayAsync());
     }
 

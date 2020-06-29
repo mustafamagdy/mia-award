@@ -96,7 +96,8 @@ namespace MIA.ORMContext
     public DbSet<ContactUsSubject> ContactUsSubjects { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<ProductionYear> ProductionYears { get; set; }
-    public DbSet<Genre> Generes { get; set; }
+    public DbSet<Genre> Genres { get; set; }
+    public DbSet<ArtworkSubject> ArtworkSubjects { get; set; }
 
   }
 

@@ -1,14 +1,16 @@
 ﻿[
   {
     "id": "1",
+    "code": "first_day",
+    "ticketIndex": 0,
     "day": {
-      "ar": "اليوم الاول  (فندق الميدان) 25-09-2020",
-      "en": "The first day (Al-Maidan Hotel) 25-09-2020"
+      "ar": "اليوم الاول  (فندق الميدان) 12-12-2020",
+      "en": "The first day (Al-Maydan Hotel) 12-12-2020"
     },
     "events": [
       {
         "id": 1,
-        "time": "17:00 : 00:00",
+        "time": "17:00 : 18:00",
         "title": {
           "ar": "تسجيل المشاركين",
           "en": "Participant registration"
@@ -21,6 +23,19 @@
       },
       {
         "id": 2,
+        "time": "18:00 : 00:00",
+        "title": {
+          "ar": "المعرض",
+          "en": "Exhibition"
+        },
+        "brief": {
+          "ar": "المعرض - افتتاح المعرض",
+          "en": "Exhibition - opening of exhibition"
+        },
+        "icon": "icofont-ui-calendar"
+      },
+      {
+        "id": 3,
         "time": "00:00",
         "title": {
           "ar": "نهاية اليوم",
@@ -36,9 +51,11 @@
   },
   {
     "id": "2",
+    "code": "second_day",
+    "ticketIndex": 0,
     "day": {
-      "ar": "اليوم الثاني (فندق الميدان) 26-09-2020",
-      "en": "The second day (Al-Maidan Hotel) 26-09-2020"
+      "ar": "اليوم الثاني (فندق الميدان) 13-12-2020",
+      "en": "The second day (Al-Maydan Hotel) 13-12-2020"
     },
     "events": [
       {
@@ -46,11 +63,11 @@
         "time": "10:00 : 11:00",
         "title": {
           "ar": "بداية اليوم ",
-          "en": "Beginning of the day"
+          "en": "Kick-off day"
         },
         "brief": {
-          "ar": "بداية اليوم - افتتاح المعرض",
-          "en": "Beginning of the day - opening of the exhibition"
+          "ar": "بداية اليوم",
+          "en": "Kick-off day"
         },
         "icon": "icofont-ui-calendar"
       },
@@ -59,11 +76,11 @@
         "time": "11:00 : 14:00",
         "title": {
           "ar": "الندوة الأولي ",
-          "en": "The first seminar"
+          "en": "1st Symposium"
         },
         "brief": {
           "ar": "الندوة الأولي ",
-          "en": "The first seminar"
+          "en": "1st Symposium"
         },
         "icon": "icofont-ui-calendar"
       },
@@ -72,11 +89,11 @@
         "time": "14:00 : 16:00",
         "title": {
           "ar": "عرض قصة نجاح ",
-          "en": "Show a success story"
+          "en": "Presentation of unique success story"
         },
         "brief": {
           "ar": "عرض قصة نجاح ",
-          "en": "Show a success story"
+          "en": "Presentation of unique success story"
         },
         "icon": "icofont-ui-calendar"
       },
@@ -85,11 +102,11 @@
         "time": "16:00 : 19:00",
         "title": {
           "ar": "الندوة الثانية ",
-          "en": "The second seminar"
+          "en": "1nd Symposium"
         },
         "brief": {
           "ar": "الندوة الثانية ",
-          "en": "The second seminar"
+          "en": "1nd Symposium"
         },
         "icon": "icofont-ui-calendar"
       },
@@ -123,9 +140,11 @@
   },
   {
     "id": "3",
+    "code": "third_day",
+    "ticketIndex": 0,
     "day": {
-      "ar": "اليوم الثالث (فندق الميدان) 27-09-2020",
-      "en": "The third day (Al-Maidan Hotel) 27-09-2020"
+      "ar": "اليوم الثالث (فندق الميدان) 14-12-2020",
+      "en": "The third day (Al-Maydan Hotel) 14-12-2020"
     },
     "events": [
       {
@@ -133,11 +152,11 @@
         "time": "10:00 : 11:00",
         "title": {
           "ar": "بداية اليوم",
-          "en": "Beginning of the day"
+          "en": "Kick-off day"
         },
         "brief": {
-          "ar": "بداية اليوم - افتتاح المعرض",
-          "en": "Beginning of the day - opening of the exhibition"
+          "ar": "بداية اليوم",
+          "en": "Kick-off day"
         },
         "icon": "icofont-ui-calendar"
       },
@@ -146,11 +165,11 @@
         "time": "11:00 : 14:00",
         "title": {
           "ar": "الندوة الثالثة ",
-          "en": "The third seminar"
+          "en": "3rd Symposium"
         },
         "brief": {
           "ar": "الندوة الثالثة ",
-          "en": "The third seminar"
+          "en": "3rd Symposium"
         },
         "icon": "icofont-ui-calendar"
       },
@@ -159,11 +178,11 @@
         "time": "14:00 : 16:00",
         "title": {
           "ar": "عرض قصة نجاح مميزه ",
-          "en": "Show a great success story"
+          "en": "Presentation of unique success story"
         },
         "brief": {
           "ar": "عرض قصة نجاح مميزه ",
-          "en": "Show a great success story"
+          "en": "Presentation of unique success story"
         },
         "icon": "icofont-ui-calendar"
       },
@@ -172,11 +191,11 @@
         "time": "16:00 : 19:00",
         "title": {
           "ar": "الندوة الرابعة ",
-          "en": "The forth seminar"
+          "en": "4th Symposium"
         },
         "brief": {
           "ar": "الندوة الرابعة ",
-          "en": "The forth seminar"
+          "en": "4th Symposium"
         },
         "icon": "icofont-ui-calendar"
       },
@@ -210,9 +229,11 @@
   },
   {
     "id": "4",
+    "code": "forth_day",
+    "ticketIndex": 1,
     "day": {
-      "ar": "اليوم الرابع  (دار الأوبرا) 28-09-2020",
-      "en": "The forth day (Opera House) 28-09-2020"
+      "ar": "اليوم الرابع  (دار الأوبرا) 15-12-2020",
+      "en": "The forth day (Opera House) 15-12-2020"
     },
     "events": [
       {
@@ -233,11 +254,24 @@
         "time": "21:00 : 00:00",
         "title": {
           "ar": "حفل توزيع الجوائز",
-          "en": "Awards ceremony"
+          "en": "Awards Ceremony"
         },
         "brief": {
           "ar": "حفل توزيع الجوائز",
-          "en": "Awards ceremony"
+          "en": "Awards Ceremony"
+        },
+        "icon": "icofont-ui-calendar"
+      },
+      {
+        "id": 2,
+        "time": "00:00",
+        "title": {
+          "ar": "الاغلاق",
+          "en": "Closing"
+        },
+        "brief": {
+          "ar": "الاغلاق",
+          "en": "Closing"
         },
         "icon": "icofont-ui-calendar"
       }

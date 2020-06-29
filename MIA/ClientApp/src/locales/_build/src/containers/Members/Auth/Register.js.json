@@ -1,9 +1,27 @@
 {
+  "upload": {
+    "defaults": "Upload",
+    "origin": [
+      [
+        "src/containers/Members/Auth/Register.js",
+        71
+      ]
+    ]
+  },
+  "next": {
+    "defaults": "Next",
+    "origin": [
+      [
+        "src/containers/Members/Auth/Register.js",
+        176
+      ]
+    ]
+  },
   "signup_terms": {
     "origin": [
       [
         "src/containers/Members/Auth/Register.js",
-        145
+        189
       ]
     ]
   },
@@ -12,7 +30,7 @@
     "origin": [
       [
         "src/containers/Members/Auth/Register.js",
-        156
+        200
       ]
     ]
   },
@@ -21,7 +39,7 @@
     "origin": [
       [
         "src/containers/Members/Auth/Register.js",
-        164
+        208
       ]
     ]
   }
