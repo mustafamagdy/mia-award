@@ -1,10 +1,9 @@
- 
 <div class="modal-content">
     <div class="modal-header bordered">
         <h2 class="pmd-card-description-text">{{'EditVotingCriteria' | translate}}</h2>
     </div>
     <div class="modal-body">
-        <form class="form-horizontal" name="editVotingCriteriaForm"> 
+        <form class="form-horizontal" name="editVotingCriteriaForm">
             <div class="row">
                 <!-- Nav tabs -->
                 <div class="form-group col-lg-6">
@@ -27,8 +26,8 @@
                                         <label for="first-name">{{ lang.value+'Name' | translate}} </label>
                                         <textarea required type="text" class="mat-input form-control"
                                             name="name{{lang.value+'Name'}}"
-                                            ng-model="editVotingCriteriaCtrl.VotingCriteria.name[lang.key]" ng-minlength="3"
-                                            ng-maxlength="255"></textarea>
+                                            ng-model="editVotingCriteriaCtrl.VotingCriteria.name[lang.key]"
+                                            ng-minlength="3" ng-maxlength="255"></textarea>
                                         <div ng-messages="editVotingCriteriaForm.name{{lang.value+'Name'}}.$error">
 
                                             <div class="error ng-binding"
@@ -38,7 +37,7 @@
                                                 ng-show="(editVotingCriteriaForm.name{{lang.value+'Name'}}.$error.minlength || editVotingCriteriaForm.name{{lang.value+'Name'}}.$error.maxlength) && !editVotingCriteriaForm.name{{lang.value+'Name'}}.$error.required">
                                                 {{'NameLengthError3' | translate}}</div>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
 
                             </div>
@@ -47,6 +46,9 @@
 
                     </div>
                 </div>
+
+            </div>
+            <div class="row">
                 <div class="form-group col-lg-3">
                     <label for="first-name">{{'Code' | translate}}</label>
                     <input required type="text" class="mat-input form-control" name="Code" numbers-only
@@ -55,13 +57,13 @@
                     <!-- required validation  -->
                     <div ng-messages="editVotingCriteriaForm.Code.$error">
                         <div class="error" ng-if="editVotingCriteriaForm.Code.$error.required && 
-                                    !editVotingCriteriaForm.Code.$pristine">
+                        !editVotingCriteriaForm.Code.$pristine">
                             {{'requiredErr' |  translate}}
                         </div>
                         <!-- length validation -->
                         <div class="error" ng-if="(editVotingCriteriaForm.Code.$error.minlength ||
-                                        editVotingCriteriaForm.Code.$error.maxlength) 
-                                         && !editVotingCriteriaForm.Code.newCode.$error.required">
+                            editVotingCriteriaForm.Code.$error.maxlength) 
+                             && !editVotingCriteriaForm.Code.newCode.$error.required">
                             {{'PhoneLengthError' |  translate}}
                         </div>
                     </div>
@@ -74,24 +76,36 @@
                     <!-- required validation  -->
                     <div ng-messages="editVotingCriteriaForm.Weight.$error">
                         <div class="error" ng-if="editVotingCriteriaForm.Weight.$error.required && 
-                                    !editVotingCriteriaForm.Weight.$pristine">
+                        !editVotingCriteriaForm.Weight.$pristine">
                             {{'requiredErr' |  translate}}
                         </div>
                         <!-- length validation -->
                         <div class="error" ng-if="(editVotingCriteriaForm.Weight.$error.minlength ||
-                                        editVotingCriteriaForm.Weight.$error.maxlength) 
-                                         && !editVotingCriteriaForm.Weight.newPrice.$error.required">
+                            editVotingCriteriaForm.Weight.$error.maxlength) 
+                             && !editVotingCriteriaForm.Weight.newPrice.$error.required">
                             {{'PhoneLengthError' |  translate}}
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <label>
+                        <input type="radio" name="level" ng-model="editVotingCriteriaForm.selectedVotingLevel" value="level1">
+                        level1
+                    </label>
+                    <label>
+                        <input type="radio" name="level" ng-model="editVotingCriteriaForm.selectedVotingLevel" value="level2">
+                        level2
+                    </label>
 
+                </div>
+            </div>
         </form>
     </div>
     <div class="pmd-modal-action text-right">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-             class="btn pmd-ripple-effect btn-primary" type="button"
+            class="btn pmd-ripple-effect btn-primary" type="button"
             ng-click="editVotingCriteriaCtrl.UpdateVotingCriteria()">{{'saveChangesBtn' | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" type="button"
             ng-click="editVotingCriteriaCtrl.Close()">{{'DiscardBtn' | translate}}</button>

@@ -1,0 +1,133 @@
+<style>
+    form .progress {
+        line-height: 15px;
+    }
+
+    .progress {
+        display: inline-block;
+        width: 100px;
+        border: 3px groove #ccc;
+    }
+
+    .progress>div {
+        font-size: smaller;
+        background: linear-gradient(90deg, #f7e483, #dbba5a 57%, #a36d31);
+        width: 0%;
+    }
+</style>
+<section id="member_area">
+    <div class="container">
+
+        <div class="member_wrapper">
+            <div class="poster_area">
+                <div class="bg_cover" style="background-image: url({{UploadMultiFilesCtrl.artWork.coverUrl}});"></div>
+                <div class="imgthumb">
+                    <img src="{{UploadMultiFilesCtrl.artWork.posterUrl}}" alt="#">
+                </div><!-- end imgthumb -->
+            </div><!-- end poster_area -->
+            <div class="stage_two">
+                <div class="main_tabs">
+                    <ul>
+                        <li class="active">Upload</li>
+                    </ul>
+                </div><!-- end main_tabs -->
+                <div class="all_tabs_content">
+                    <div class="tab_content tab_upload_videos active">
+                        <div class="uploads_area">
+                            <div class="top_upload">
+                            </div><!-- end top_upload -->
+                            <div class="bottom_upload">
+                                <div class="upload_input">
+                                    <input type="file" id="file" name="file" multiple
+                                        onchange="angular.element(this).scope().getFileDetails(this)" />
+
+                                    <div class="upload_now">
+                                        <i class="icofont-upload-alt"></i>
+                                        <p>Drag files to upload</p>
+                                    </div><!-- end upload_now -->
+                                    <!-- <span>Choose Files</span> -->
+                                </div><!-- end upload_input -->
+                                <div class="upload_list">
+
+                                    <div class="title">Files Upload</div>
+                                    <div class="item" ng-repeat="file in files">
+
+                                        <div ng-controller="UploaderController  as UploaderCtrl"
+                                            data-ng-init="init(file,$stateParams.id)">
+                                            <div class="name">
+                                                <span>{{file.name}}</span>
+                                                <p>{{file.size/1024/1024|number:2}} mb</p>
+                                            </div><!-- end name -->
+                                            <div class="bar_area">
+                                                <div class="progress_bar">
+                                                    <div class="progress_inside" get-width
+                                                        row-height="{{UploaderCtrl.Progress}}">
+                                                    </div>
+                                                </div>
+                                            </div><!-- end bar_area -->
+                                            <div class="progress_number">
+                                                Uploading <p id="progNumber">{{UploaderCtrl.Progress}} %</p> done
+                                            </div><!-- end progress_number -->
+
+                                        </div>
+                                    </div><!-- end item -->
+                                </div><!-- end upload_list -->
+                            </div><!-- end bottom_upload -->
+                        </div><!-- end uploads_area -->
+                    </div><!-- end tab_upload_videos --> 
+                </div>
+
+            </div><!-- end stage_two -->
+            <br>
+            <div class="stage_two">
+                <div class="main_tabs">
+                    <ul>
+                        <li class="active">show</li>
+                    </ul>
+                </div><!-- end main_tabs -->
+
+                <div class="item_tabs_content ">
+                    <div class="item_show">
+
+                        <div class="season_content">
+                            <ol>
+                                <li ng-repeat="mediaFile in UploadMultiFilesCtrl.artWorkFiles">
+                                    <span>
+                                        <img src="{{UploadMultiFilesCtrl.artWork.posterUrl}}" alt="#">
+
+                                    </span>
+                                    <div class="row">
+
+                                        <div class="form-group col-lg-6">
+
+                                            <button type="button" style="    background: linear-gradient(90deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
+                                                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7e483', endColorstr='#a36d31',GradientType=1 );
+                                                height: 31px;
+                                                /* padding: 2px 25px; */
+                                                border-radius: 10px;
+                                                font-family: Montserrat_Medium;
+                                                border: none;
+                                                font-size: 12px;
+                                                color: #0c0c0c;
+                                                cursor: pointer;
+                                                margin: 7%;"
+                                                ng-click="UploadMultiFilesCtrl.openDeleteDialog(mediaFile,'' ,mediaFile.id) ">{{'remove' | translate}}</button>
+                                                  </div>
+
+                                        <div class="form-group col-lg-6">
+                                            <p>Episode {{$index+1}}</p>
+                                        </div>
+                                    </div>
+
+                                </li>
+
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- end main_tabs -->
+        </div><!-- end member_wrapper -->
+    </div><!-- end container -->
+
+</section>

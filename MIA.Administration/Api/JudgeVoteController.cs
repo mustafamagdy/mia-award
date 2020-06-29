@@ -66,36 +66,30 @@ namespace MIA.Administration.Api
           if (entity != null)
             db.Set<JudgeVote>().Remove(entity);
         }
-        foreach (var value in dto.CriteriaValues)
-        {
-          var judgeObj = new JudgeVote();
-          judgeObj.JudgeId = dto.JudgeId;
-          judgeObj.ArtworkId = dto.ArtWorkId;
-          judgeObj.CriteriaId = value.Id;
-          judgeObj.VotingValue = Convert.ToInt32(value.Value);
-          judgeObj.JudgeComplete = dto.JudgeComplete;
-          insertList.Add(judgeObj);
-        }
-
-
       }
-      else
+
+      foreach (var value in dto.CriteriaValues)
       {
-        foreach (var value in dto.CriteriaValues)
-        {
-          var judgeObj = new JudgeVote();
-          judgeObj.JudgeId = dto.JudgeId;
-          judgeObj.ArtworkId = dto.ArtWorkId;
-          judgeObj.CriteriaId = value.Id;
-          judgeObj.VotingValue = Convert.ToInt32(value.Value);
-          judgeObj.JudgeComplete = dto.JudgeComplete;
-          insertList.Add(judgeObj);
-        }
+        var judgeObj = new JudgeVote();
+        judgeObj.JudgeId = dto.JudgeId;
+        judgeObj.ArtworkId = dto.ArtWorkId;
+        judgeObj.CriteriaId = value.Id;
+        judgeObj.VotingValue = Convert.ToInt32(value.Value);
+        judgeObj.JudgeComplete = dto.JudgeComplete;
+        insertList.Add(judgeObj);
       }
       await db.Set<JudgeVote>().AddRangeAsync(_mapper.Map<List<JudgeVote>>(insertList));
+      if (dto.JudgeComplete)
+      {
+        var getArtwork = db.Artworks.Where(a => a.Id == dto.ArtWorkId).FirstOrDefault();
+        getArtwork.IllegibleForJudge = true;
+        var entry = db.Set<Artwork>().Attach(getArtwork);
+        entry.State = EntityState.Modified;
+      }
+
       await db.CommitTransactionAsync();
 
-      return IfFound(_mapper.Map<JudgeVoteDto>(judgeVoteItems));
+      return Ok();
     }
     public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db)
     {
@@ -108,10 +102,47 @@ namespace MIA.Administration.Api
     public async Task<IActionResult> GetJudgeVoteCriteriaValuesAsync(string id, [FromServices] IAppUnitOfWork db)
     {
       List<JudgeVoteDto> returnVotingCriteriaVoteDto = null;
-      var judgeVoting = db.JudgeVotes.Include(c => c.Criteria).Where(a => a.ArtworkId == id).ToList();
+      var judgeVoting = db.JudgeVotes.Where(a => a.ArtworkId == id).ToList();
       returnVotingCriteriaVoteDto = _mapper.Map<List<JudgeVoteDto>>(judgeVoting);
       return IfFound(returnVotingCriteriaVoteDto);
 
+    }
+    [HttpGet("getCriteriaByLevel")]
+    public async Task<IActionResult> GetCriteriaBylevelAsync(VotingLevel level, [FromServices] IAppUnitOfWork db)
+    {
+      List<VotingCriteriasDto> votingCriteriaDto = null;
+      var getCriteriaList = db.VotingCriterias.Where(c => c.Level == level).ToList();
+      votingCriteriaDto = _mapper.Map<List<VotingCriteriasDto>>(getCriteriaList);
+      return IfFound(votingCriteriaDto);
+
+    }
+
+    [HttpGet("getCommetsListByMedia")]
+    public async Task<IActionResult> GetCommetsListByMediaAsync(string id, [FromServices] IAppUnitOfWork db)
+    {
+      List<JudgeCommentDto> judgeCommentDtoto = null;
+      var getCommetnsList = db.JudgeComments.
+        Include(j=>j.Judge).
+        Where(c => c.MediaFileId == id).
+        OrderByDescending(x=>x.Id).
+        ToList();
+      judgeCommentDtoto = _mapper.Map<List<JudgeCommentDto>>(getCommetnsList);
+      return IfFound(judgeCommentDtoto);
+
+    }
+
+    [HttpPost("submitJudgeComment")]
+    public async Task<IActionResult> SubmitJudgeComment([FromBody] NewJudgeCommentDto dto, [FromServices] IAppUnitOfWork db)
+    {
+      var judgeObj = new JudgeComment();
+      judgeObj.JudgeId = dto.JudgeId;
+      judgeObj.MediaFileId = dto.MediaFileId;
+      judgeObj.MediaTime = dto.MediaTime;
+      judgeObj.Comments = dto.Comments;
+      await db.Set<JudgeComment>().AddAsync(_mapper.Map<JudgeComment>(judgeObj));
+      await db.CommitTransactionAsync();
+
+      return Ok();
     }
 
   }

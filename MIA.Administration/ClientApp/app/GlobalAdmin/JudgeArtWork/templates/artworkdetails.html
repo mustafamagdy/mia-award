@@ -1,0 +1,213 @@
+<style>
+    .custom-slider.rzslider .rz-bar {
+        background: #ffe4d1;
+        height: 2px;
+    }
+
+    .custom-slider.rzslider .rz-selection {
+        background: gold;
+    }
+
+    .custom-slider.rzslider .rz-pointer {
+        width: 8px;
+        height: 16px;
+        top: auto;
+        /* to remove the default positioning */
+        bottom: 0;
+        background-color: #333;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+
+    .custom-slider.rzslider .rz-pointer:after {
+        display: none;
+    }
+
+    .custom-slider.rzslider .rz-bubble {
+        bottom: 14px;
+    }
+
+    .custom-slider.rzslider .rz-limit {
+        font-weight: bold;
+        color: orange;
+    }
+
+    .custom-slider.rzslider .rz-tick {
+        width: 1px;
+        height: 10px;
+        margin-left: 4px;
+        border-radius: 0;
+        background: #dbba5a;
+        top: -1px;
+    }
+
+    .custom-slider.rzslider .rz-tick ul li {
+     padding: 1px !important; 
+    }
+
+    .custom-slider.rzslider .rz-tick.rz-selected {
+        background: orange;
+    }
+</style>
+<section id="show_inner">
+    <div class="show_inner_one">
+        <div class="container">
+            <div class="show_info">
+                <div class="show_details">
+                    <div class="imgthumb">
+                        <img data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.posterUrl}}">
+                        <div class="mask">
+                            <span>{{judgeArtWorkDetailsCtrl.JudgeArtWork.projectName[selectedLanguage] }}</span>
+                        </div>
+                    </div><!-- end imgthumb -->
+                    <div class="desc">
+                        <div class="name">{{judgeArtWorkDetailsCtrl.JudgeArtWork.projectName[selectedLanguage] }}
+                        </div>
+                        <div class="stars">
+                            <i class="icofont-ui-rating"></i>
+                            <i class="icofont-ui-rating"></i>
+                            <i class="icofont-ui-rating"></i>
+                            <i class="icofont-ui-rate-blank"></i>
+                            <i class="icofont-ui-rate-blank"></i>
+                        </div><!-- end stars -->
+                        <ul>
+                            <li><span>{{'productionLicenseAgency'| translate}} :</span>
+                                <p>{{judgeArtWorkDetailsCtrl.JudgeArtWork.productionLicenseAgency}}</p>
+                            </li>
+                            <li><span>{{'productionLicenseNumber'| translate}} :</span>
+                                <p>{{judgeArtWorkDetailsCtrl.JudgeArtWork.productionLicenseNumber}}</p>
+                            </li>
+                            <li><span>{{'siteUrl'| translate}} :</span>
+                                <p>{{judgeArtWorkDetailsCtrl.JudgeArtWork.siteUrl}}</p>
+                            </li>
+                            <li><span>{{'onlineChannels'| translate}} :</span>
+                                <p>{{judgeArtWorkDetailsCtrl.JudgeArtWork.onlineChannels}}</p>
+                            </li>
+                            <li><span>{{'tvChannels'| translate}} :</span>
+                                <p>{{judgeArtWorkDetailsCtrl.JudgeArtWork.tvChannels}}</p>
+                            </li>
+                        </ul>
+                    </div><!-- end desc -->
+                </div><!-- end show_details -->
+                <div class="about_show">
+                    <span>About the show</span>
+                    <p> {{judgeArtWorkDetailsCtrl.JudgeArtWork.description[selectedLanguage] }}</p>
+                </div><!-- end about_show -->
+            </div><!-- end show_info -->
+            <div class="show_video_show">
+                <span>
+                    <img data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.coverUrl}}">
+                </span>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <button class="buttonGold" ng-click="judgeArtWorkDetailsCtrl.showMedia()" type="button">
+                            {{'DisplayEposides'| translate}}</button>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <button class="buttonGold" ng-click="judgeArtWorkDetailsCtrl.showJudging()" type="button">
+                            {{'StartJudge'| translate}}</button>
+                    </div>
+                </div>
+            </div><!-- end show_video_show -->
+        </div><!-- end container -->
+    </div><!-- end show_inner_one -->
+
+
+    <div class="show_inner_two" ng-show="judgeArtWorkDetailsCtrl.showMediaList">
+        <div class="container">
+            <div class="show_video">
+                <!-- <iframe width="560" height="315" data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.trailerUrl}}"
+                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe> -->
+
+                <iframe class="youtube-player" type="text/html" width="640" height="385"
+                    ng-src="{{trustSrc(judgeArtWorkDetailsCtrl.JudgeArtWork.trailerUrl)}}"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+                    frameborder="0">
+                </iframe>
+
+            </div><!-- end show_video -->
+            <div class="show_content">
+                <div class="tabs_area">
+                    <div class="tabs">
+                        <!-- to show tab content please add class "active" to "li" element -->
+                        <ul>
+
+                            <li class="active">Show</li>
+
+                        </ul><!-- end ul -->
+                    </div><!-- end tabs -->
+                    <div class="all_tabs_content">
+                        <!-- to show tab content please add class "active" to "item_tabs_content" element -->
+
+                        <div class="item_tabs_content active">
+                            <div class="item_show">
+                                <div class="season_content">
+                                    <ol>
+                                        <li ng-repeat=" mediaItem in judgeArtWorkDetailsCtrl.mediaItemList">
+                                            <span ng-click="$state.go('displayVideo',{id: mediaItem.id});">
+                                                <img data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.posterUrl}}">
+                                            </span>
+                                        </li>
+
+                                    </ol>
+                                </div><!-- end season_content -->
+                            </div><!-- end item_show -->
+                        </div><!-- end item_tabs_content -->
+                    </div><!-- end all_tabs_content -->
+                </div><!-- end tabs_area -->
+
+            </div><!-- end show_content -->
+        </div><!-- end container -->
+    </div><!-- end show_inner_two -->
+    <div class="show_inner_two" ng-show="judgeArtWorkDetailsCtrl.showCriteriaList">
+        <div class="container">
+            <div class="show_content">
+                <div class="tabs_area">
+                    <div class="tabs">
+                        <!-- to show tab content please add class "active" to "li" element -->
+                        <ul>
+
+                            <li class="active">{{'VotingCriteria'| translate}}</li>
+
+                        </ul><!-- end ul -->
+                    </div><!-- end tabs -->
+                    <div class="all_tabs_content">
+                        <!-- to show tab content please add class "active" to "item_tabs_content" element -->
+                        <form class="form-horizontal" name="viewJudgeArtWorkForm">
+
+                            <div class="item_tabs_content active">
+                                <div class="item_show">
+
+                                    <div class="season_content"
+                                        ng-repeat="critiera in judgeArtWorkDetailsCtrl.votingCriteriaList">
+
+                                        <span> {{critiera.name[selectedLanguage]}}</span>
+
+                                        <rzslider class="custom-slider" rz-slider-model="critiera.votingValue"
+                                            name="critiera+$index"
+                                            ng-mouseup="judgeArtWorkDetailsCtrl.changeValue(critiera.votingValue,$index)"
+                                            rz-slider-options="judgeArtWorkDetailsCtrl.slider.options"></rzslider>
+
+                                    </div><!-- end season_content -->
+                                </div><!-- end item_show -->
+                            </div><!-- end item_tabs_content -->
+
+                            <div class="pmd-modal-action text-right">
+                                <button ng-disabled="viewJudgeArtWorkForm.$invalid" class="buttonGold" type="button"
+                                    ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)">{{'judgeComplete' | translate}}</button>
+                                <button ng-disabled="viewJudgeArtWorkForm.$invalid" class="buttonGold" type="button"
+                                    ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)">{{'saveChangesBtn' | translate}}</button>
+                                <button class="btn pmd-ripple-effect btn-default" type="button"
+                                    ng-click="judgeArtWorkDetailsCtrl.Close()">{{'DiscardBtn' | translate}}</button>
+                            </div>
+
+                        </form>
+                    </div><!-- end all_tabs_content -->
+                </div><!-- end tabs_area -->
+
+            </div><!-- end show_content -->
+        </div><!-- end container -->
+    </div><!-- end show_inner_two -->
+
+</section><!-- End show_inner -->

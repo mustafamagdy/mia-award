@@ -17,18 +17,33 @@
     <link href="/assets/styles.css" />
     <!-- <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet"> -->
     <style>
+        .buttonGold {
+            background: linear-gradient(90deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e483', endColorstr='#a36d31', GradientType=1);
+            height: 31px;
+            /* padding: 2px 25px; */
+            border-radius: 10px;
+            font-family: Montserrat_Medium;
+            border: none;
+            font-size: 12px;
+            color: #0c0c0c;
+            cursor: pointer;
+            margin: 1%;
+        }
+
         .waiting {
             color: #F27878;
         }
+
         /* fallback */
-        
+
         @font-face {
             font-family: 'Material Icons';
             font-style: normal;
             font-weight: 400;
             src: url(https://fonts.gstatic.com/s/materialicons/v48/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
         }
-        
+
         .material-icons {
             font-family: 'Material Icons';
             font-weight: normal;
@@ -43,8 +58,9 @@
             direction: ltr;
             -webkit-font-smoothing: antialiased;
         }
+
         /* arabic */
-        
+
         @font-face {
             font-family: 'Cairo';
             font-style: normal;
@@ -53,8 +69,9 @@
             src: local('Cairo'), local('Cairo-Regular'), url(https://fonts.gstatic.com/s/cairo/v6/SLXGc1nY6HkvalIkTpu0xg.woff2) format('woff2');
             unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC;
         }
+
         /* latin-ext */
-        
+
         @font-face {
             font-family: 'Cairo';
             font-style: normal;
@@ -63,8 +80,9 @@
             src: local('Cairo'), local('Cairo-Regular'), url(https://fonts.gstatic.com/s/cairo/v6/SLXGc1nY6HkvalIvTpu0xg.woff2) format('woff2');
             unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
         }
+
         /* latin */
-        
+
         @font-face {
             font-family: 'Cairo';
             font-style: normal;
@@ -73,11 +91,11 @@
             src: local('Cairo'), local('Cairo-Regular'), url(https://fonts.gstatic.com/s/cairo/v6/SLXGc1nY6HkvalIhTps.woff2) format('woff2');
             unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
         }
-        
+
         .error {
             color: red;
         }
-        
+
         .btn-switch {
             position: relative;
             display: block;
@@ -88,7 +106,7 @@
             border: 2px solid #F27878;
             border-radius: 40px;
         }
-        
+
         .btn-switch-circle {
             position: absolute;
             top: -1px;
@@ -99,17 +117,17 @@
             background-color: #fff;
             border-radius: 40px;
         }
-        
+
         .btn-switch--on {
             background-color: #80CDBE;
             border: 2px solid #80CDBE;
         }
-        
+
         .btn-switch-circle--on {
             left: auto;
             right: -1px;
         }
-        
+
         .loader {
             position: fixed;
             z-index: 1090;
@@ -117,7 +135,7 @@
             width: 100vw;
             background-color: #070707;
         }
-        
+
         .loader-content {
             height: 200px;
             width: 200px;
@@ -132,11 +150,11 @@
             overflow: hidden;
             box-shadow: inset 0px 0px 10px 4px rgba(0, 0, 0, 0.3), inset 0px 0px 5px 0px #202232;
         }
-        
+
         td.ng-binding {
             width: 18%;
         }
-        
+
         .loader-content:after {
             content: 'iOrderat';
             font-size: 20px;
@@ -155,7 +173,7 @@
             padding-bottom: 18px;
             animation: bg 3s linear infinite;
         }
-        
+
         .truck {
             height: 110px;
             width: 150px;
@@ -164,7 +182,7 @@
             left: calc(50% + 10px);
             transform: translateX(-50%);
         }
-        
+
         .truck>.truck-container {
             background: rgb(175, 189, 195);
             background: -moz-linear-gradient(-45deg, rgba(175, 189, 195, 1) 0%, rgba(175, 189, 195, 1) 50%, rgba(143, 163, 173, 1) 51%, rgba(143, 163, 173, 1) 100%);
@@ -178,7 +196,7 @@
             left: 10px;
             animation: container 0.4s linear infinite;
         }
-        
+
         .truck>.glases {
             background: #202232;
             background: -moz-linear-gradient(-45deg, #202232, #202232, #494b74 52%, #494b74 100%);
@@ -195,7 +213,7 @@
             border-top-right-radius: 6px;
             animation: updown-half 0.4s linear infinite;
         }
-        
+
         .truck>.glases:after {
             content: '';
             display: block;
@@ -210,7 +228,7 @@
             border-bottom-left-radius: 0px;
             border-top-left-radius: 0px;
         }
-        
+
         .truck>.glases:before {
             content: '';
             display: block;
@@ -222,7 +240,7 @@
             bottom: 0px;
             border-top-right-radius: 4px;
         }
-        
+
         .truck>.bonet {
             background-color: #494b74;
             position: absolute;
@@ -233,7 +251,7 @@
             z-index: -1;
             animation: updown 0.4s linear infinite;
         }
-        
+
         .truck>.bonet:after {
             content: '';
             display: block;
@@ -249,7 +267,7 @@
             bottom: 2px;
             border-top-left-radius: 4px;
         }
-        
+
         .truck>.base {
             position: absolute;
             background-color: #445A64;
@@ -260,7 +278,7 @@
             left: 14px;
             animation: updown 0.4s linear infinite;
         }
-        
+
         .truck>.base:before {
             content: '';
             display: block;
@@ -272,7 +290,7 @@
             bottom: 0px;
             border-bottom-left-radius: 4px;
         }
-        
+
         .truck>.base:after {
             content: '';
             display: block;
@@ -285,7 +303,7 @@
             border-bottom-right-radius: 4px;
             z-index: -1;
         }
-        
+
         .truck>.base-aux {
             width: 82px;
             height: 8px;
@@ -296,15 +314,15 @@
             border-bottom-right-radius: 4px;
             animation: updown 0.4s linear infinite;
         }
-        
+
         .truck>.wheel-back {
             left: 20px
         }
-        
+
         .truck>.wheel-front {
             left: 95px;
         }
-        
+
         .truck>.wheel-back,
         .truck>.wheel-front {
             border-radius: 100%;
@@ -319,7 +337,7 @@
             width: 22px;
             animation: spin 0.6s linear infinite;
         }
-        
+
         .truck>.wheel-back:before,
         .truck>.wheel-front:before {
             content: '';
@@ -335,29 +353,32 @@
             height: 12px;
             width: 12px;
         }
-        
+
         @keyframes spin {
             50% {
                 top: 81px;
             }
+
             100% {
                 transform: rotate(360deg);
             }
         }
-        
+
         @keyframes container {
             30% {
                 transform: rotate(1deg);
             }
+
             50% {
                 top: 11px;
             }
+
             70% {
                 top: 10px;
                 transform: rotate(-1deg);
             }
         }
-        
+
         .truck>.smoke {
             position: absolute;
             background-color: #AFBDC3;
@@ -369,7 +390,7 @@
             animation: fade 0.4s linear infinite;
             opacity: 0;
         }
-        
+
         .truck>.smoke:after {
             content: '';
             position: absolute;
@@ -380,7 +401,7 @@
             top: -4px;
             left: 4px;
         }
-        
+
         .truck>.smoke:before {
             content: '';
             position: absolute;
@@ -391,48 +412,54 @@
             top: -2px;
             left: 0px;
         }
-        
+
         @keyframes fade {
             30% {
                 opacity: 0.3;
                 left: 7px;
             }
+
             50% {
                 opacity: 0.5;
                 left: 6px;
             }
+
             70% {
                 opacity: 0.1;
                 left: 4px;
             }
+
             90% {
                 opacity: 0.4;
                 left: 2px;
             }
         }
-        
+
         @keyframes bg {
             from {
                 background-position-x: 0px;
             }
+
             to {
                 background-position-x: -400px;
             }
         }
-        
+
         @keyframes updown {
             50% {
                 transform: translateY(-20%);
             }
+
             70% {
                 transform: translateY(-10%);
             }
         }
-        
+
         @keyframes updown-half {
             50% {
                 transform: translateY(-10%);
             }
+
             70% {
                 transform: translateY(-5%);
             }
@@ -465,30 +492,28 @@
 
         <div class="container-fluid" style="background-color: black;">
             <div class="pull-right navigation">
-                <a href="javascript:void(0);" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left margin-r8 pmd-sidebar-toggle">
+                <a href="javascript:void(0);"
+                    class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left margin-r8 pmd-sidebar-toggle">
                     <!-- <i class="material-icons">menu</i> -->
                     <i class="material-icons md-light">menu</i>
                 </a>
                 <a href="index.html" class="navbar-brand">
-                    <img src="./assets/img/iOrdrat.png" style="width: 72px;" id="logo" data-height-percentage="84" data-actual-height="198" />
+                    <img src="./assets/img/iOrdrat.png" style="width: 72px;" id="logo" data-height-percentage="84"
+                        data-actual-height="198" />
                 </a>
-
-
             </div>
-
             <div class="navbar-header">
                 <div class="row">
-
-
                     <!-- Notifications -->
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 dropdown notification icons pmd-dropdown">
+                    <div class="form-group col-lg-4 language-direciton" class="language-direciton">
                         <div style="padding-top:10px;">
                             <div class="input-field">
-                                <select class="select-simple form-control" style="color:#6c7293!important;" ng-model="selectedLanguage" ng-change="changeLanguage(selectedLanguage)">
-									<option ng-selected="selectedLanguage == item.id" style="color:#6c7293 !important;"
-										ng-repeat="item in languages" ng-value="item.id">{{item.label | translate}}
-									</option>
-								</select>
+                                <select class="select-simple form-control" ng-model="selectedLanguage"
+                                    ng-change="changeLanguage(selectedLanguage)">
+                                    <option ng-selected="selectedLanguage == item.id" style="color:#6c7293 !important;"
+                                        ng-repeat="item in languages" ng-value="item.id">{{item.label | translate}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <!-- <span id="clock">{{ clock | date:'HH:mm:ss'}}</span> -->
@@ -502,21 +527,22 @@
                             <ul class="nav navbar-nav navbar-right" id="left">
 
                                 <li class="dropdown">
-                                    <a class="dropdown-toggle" style="background-color: transparent !important;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <a class="dropdown-toggle" style="background-color: transparent !important;"
+                                        data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                         <i class="ion-ios-bell-outline">
-											<svg xmlns="http://www.w3.org/2000/svg"
-												xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
-												viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-													<path
-														d="M17,12 L18.5,12 C19.3284271,12 20,12.6715729 20,13.5 C20,14.3284271 19.3284271,15 18.5,15 L5.5,15 C4.67157288,15 4,14.3284271 4,13.5 C4,12.6715729 4.67157288,12 5.5,12 L7,12 L7.5582739,6.97553494 C7.80974924,4.71225688 9.72279394,3 12,3 C14.2772061,3 16.1902508,4.71225688 16.4417261,6.97553494 L17,12 Z"
-														id="Combined-Shape" fill="#494b74" />
-													<rect id="Rectangle-23" fill="#494b74" opacity="0.3" x="10" y="16"
-														width="4" height="4" rx="2" />
-												</g>
-											</svg>
-											<span class="badge">{{totalCount}} </span>
-										</i>
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <path
+                                                        d="M17,12 L18.5,12 C19.3284271,12 20,12.6715729 20,13.5 C20,14.3284271 19.3284271,15 18.5,15 L5.5,15 C4.67157288,15 4,14.3284271 4,13.5 C4,12.6715729 4.67157288,12 5.5,12 L7,12 L7.5582739,6.97553494 C7.80974924,4.71225688 9.72279394,3 12,3 C14.2772061,3 16.1902508,4.71225688 16.4417261,6.97553494 L17,12 Z"
+                                                        id="Combined-Shape" fill="#a38031" />
+                                                    <rect id="Rectangle-23" fill="#a38031" opacity="0.3" x="10" y="16"
+                                                        width="4" height="4" rx="2" />
+                                                </g>
+                                            </svg>
+                                            <span class="badge">{{totalCount}} </span>
+                                        </i>
 
                                     </a>
                                     <ul class="dropdown-menu animated" id="notification">
@@ -524,7 +550,7 @@
                                             <a class="list-group-item active" ng-click="openOrder(Order.orderId);">
                                                 <h4 class="list-group-item-heading">{{Order.orderNo}}
                                                     <span id="spanPrice">{{Order.totalPrice}}<sub>
-															{{'EGP' | translate}}</sub></span>
+                                                            {{'EGP' | translate}}</sub></span>
                                                 </h4>
                                                 <p class="list-group-item-text">
                                                     {{Order.retailer.name}}-{{Order.retailer.code}}</p>
@@ -533,7 +559,8 @@
                                         </div>
 
                                         <a class="list-group-item" ng-click="$state.go('OrdersM');">
-                                            <h4 style="text-align: center;cursor: pointer;" class="list-group-item-heading">see more!
+                                            <h4 style="text-align: center;cursor: pointer;"
+                                                class="list-group-item-heading">see more!
                                             </h4>
                                         </a>
                                     </ul>
@@ -567,31 +594,32 @@
                         <img ng-src="./assets/img/admin.png" style="border-radius: 50%;">
                     </div>
                     <div class="media-body media-middle" ng-cloak style="color: #a38031;">
-                        {{user.name}}
+                        {{user.FullName}}
                         <div style="font-size: 12px">
                             <span ng-if="user.userTypeId == 4">{{'Tech' | translate}}</span>
                         </div>
                     </div>
                     <div class="media-right media-middle" title="logout">
-                        <span style="color: #494b74;" ng-click="logout()" class="btn-user dropdown-toggle media" data-sidebar="true" aria-expandedhref="javascript:void(0);">
-							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-								width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-								<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-									<rect id="bound" x="0" y="0" width="24" height="24" />
-									<path
-										d="M14.0069431,7.00607258 C13.4546584,7.00607258 13.0069431,6.55855153 13.0069431,6.00650634 C13.0069431,5.45446114 13.4546584,5.00694009 14.0069431,5.00694009 L15.0069431,5.00694009 C17.2160821,5.00694009 19.0069431,6.7970243 19.0069431,9.00520507 L19.0069431,15.001735 C19.0069431,17.2099158 17.2160821,19 15.0069431,19 L3.00694311,19 C0.797804106,19 -0.993056895,17.2099158 -0.993056895,15.001735 L-0.993056895,8.99826498 C-0.993056895,6.7900842 0.797804106,5 3.00694311,5 L4.00694793,5 C4.55923268,5 5.00694793,5.44752105 5.00694793,5.99956624 C5.00694793,6.55161144 4.55923268,6.99913249 4.00694793,6.99913249 L3.00694311,6.99913249 C1.90237361,6.99913249 1.00694311,7.89417459 1.00694311,8.99826498 L1.00694311,15.001735 C1.00694311,16.1058254 1.90237361,17.0008675 3.00694311,17.0008675 L15.0069431,17.0008675 C16.1115126,17.0008675 17.0069431,16.1058254 17.0069431,15.001735 L17.0069431,9.00520507 C17.0069431,7.90111468 16.1115126,7.00607258 15.0069431,7.00607258 L14.0069431,7.00607258 Z"
-										id="Path-103" fill="#a38031" fill-rule="nonzero" opacity="0.3"
-										transform="translate(9.006943, 12.000000) scale(-1, 1) rotate(-90.000000) translate(-9.006943, -12.000000) " />
-									<rect id="Rectangle" fill="white" opacity="0.3"
-										transform="translate(14.000000, 12.000000) rotate(-270.000000) translate(-14.000000, -12.000000) "
-										x="13" y="6" width="2" height="12" rx="1" />
-									<path
-										d="M21.7928932,9.79289322 C22.1834175,9.40236893 22.8165825,9.40236893 23.2071068,9.79289322 C23.5976311,10.1834175 23.5976311,10.8165825 23.2071068,11.2071068 L20.2071068,14.2071068 C19.8165825,14.5976311 19.1834175,14.5976311 18.7928932,14.2071068 L15.7928932,11.2071068 C15.4023689,10.8165825 15.4023689,10.1834175 15.7928932,9.79289322 C16.1834175,9.40236893 16.8165825,9.40236893 17.2071068,9.79289322 L19.5,12.0857864 L21.7928932,9.79289322 Z"
-										id="Path-104" fill="#a38031" fill-rule="nonzero"
-										transform="translate(19.500000, 12.000000) rotate(-90.000000) translate(-19.500000, -12.000000) " />
-								</g>
-							</svg>
-						</span>
+                        <span style="color: #a38031;" ng-click="logout()" class="btn-user dropdown-toggle media"
+                            data-sidebar="true" aria-expandedhref="javascript:void(0);">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect id="bound" x="0" y="0" width="24" height="24" />
+                                    <path
+                                        d="M14.0069431,7.00607258 C13.4546584,7.00607258 13.0069431,6.55855153 13.0069431,6.00650634 C13.0069431,5.45446114 13.4546584,5.00694009 14.0069431,5.00694009 L15.0069431,5.00694009 C17.2160821,5.00694009 19.0069431,6.7970243 19.0069431,9.00520507 L19.0069431,15.001735 C19.0069431,17.2099158 17.2160821,19 15.0069431,19 L3.00694311,19 C0.797804106,19 -0.993056895,17.2099158 -0.993056895,15.001735 L-0.993056895,8.99826498 C-0.993056895,6.7900842 0.797804106,5 3.00694311,5 L4.00694793,5 C4.55923268,5 5.00694793,5.44752105 5.00694793,5.99956624 C5.00694793,6.55161144 4.55923268,6.99913249 4.00694793,6.99913249 L3.00694311,6.99913249 C1.90237361,6.99913249 1.00694311,7.89417459 1.00694311,8.99826498 L1.00694311,15.001735 C1.00694311,16.1058254 1.90237361,17.0008675 3.00694311,17.0008675 L15.0069431,17.0008675 C16.1115126,17.0008675 17.0069431,16.1058254 17.0069431,15.001735 L17.0069431,9.00520507 C17.0069431,7.90111468 16.1115126,7.00607258 15.0069431,7.00607258 L14.0069431,7.00607258 Z"
+                                        id="Path-103" fill="#a38031" fill-rule="nonzero" opacity="0.3"
+                                        transform="translate(9.006943, 12.000000) scale(-1, 1) rotate(-90.000000) translate(-9.006943, -12.000000) " />
+                                    <rect id="Rectangle" fill="white" opacity="0.3"
+                                        transform="translate(14.000000, 12.000000) rotate(-270.000000) translate(-14.000000, -12.000000) "
+                                        x="13" y="6" width="2" height="12" rx="1" />
+                                    <path
+                                        d="M21.7928932,9.79289322 C22.1834175,9.40236893 22.8165825,9.40236893 23.2071068,9.79289322 C23.5976311,10.1834175 23.5976311,10.8165825 23.2071068,11.2071068 L20.2071068,14.2071068 C19.8165825,14.5976311 19.1834175,14.5976311 18.7928932,14.2071068 L15.7928932,11.2071068 C15.4023689,10.8165825 15.4023689,10.1834175 15.7928932,9.79289322 C16.1834175,9.40236893 16.8165825,9.40236893 17.2071068,9.79289322 L19.5,12.0857864 L21.7928932,9.79289322 Z"
+                                        id="Path-104" fill="#a38031" fill-rule="nonzero"
+                                        transform="translate(19.500000, 12.000000) rotate(-90.000000) translate(-19.500000, -12.000000) " />
+                                </g>
+                            </svg>
+                        </span>
 
                     </div>
                 </a>
@@ -602,17 +630,17 @@
                 <a class="pmd-ripple-effect" ng-click="$state.go('Role');">
                     <i class="media-left media-middle">
 
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
-								<path
-									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
-									id="Combined-Shape" fill="#a38031"></path>
-								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
-									height="16" rx="1"></rect>
-							</g>
-						</svg> </i>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                                <path
+                                    d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+                                    id="Combined-Shape" fill="#a38031"></path>
+                                <rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+                                    height="16" rx="1"></rect>
+                            </g>
+                        </svg> </i>
                     <span class="media-body" style="color: #a38031;">{{'Role' | translate}}</span>
                 </a>
             </li>
@@ -622,18 +650,18 @@
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('News');">
                     <i class="media-left media-middle">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
-								<path
-									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
-									id="Combined-Shape" fill="#a38031"></path>
-								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
-									height="16" rx="1"></rect>
-							</g>
-						</svg>
-					</i>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                                <path
+                                    d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+                                    id="Combined-Shape" fill="#a38031"></path>
+                                <rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+                                    height="16" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </i>
                     <span class="media-body" style="color: #a38031;">{{'NewsLbl' | translate}}</span>
                 </a>
             </li>
@@ -641,37 +669,37 @@
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('Booth');">
                     <i class="media-left media-middle">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
-								<path
-									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
-									id="Combined-Shape" fill="#a38031"></path>
-								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
-									height="16" rx="1"></rect>
-							</g>
-						</svg>
-					</i>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                                <path
+                                    d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+                                    id="Combined-Shape" fill="#a38031"></path>
+                                <rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+                                    height="16" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </i>
                     <span class="media-body" style="color: #a38031;">{{'Booth' | translate}}</span>
                 </a>
             </li>
             <li ng-show="user.PermissionId.includes('News') ">
                 <a class="pmd-ripple-effect" ng-click="$state.go('ArtWork');">
                     <i class="media-left media-middle">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
-								<path
-									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
-									id="Combined-Shape" fill="#a38031"></path>
-								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
-									height="16" rx="1"></rect>
-							</g>
-						</svg>
-					</i>
-                    <span class="media-body" style="color: #a38031;">{{'ArtWorkLbl' | translate}}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                                <path
+                                    d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+                                    id="Combined-Shape" fill="#a38031"></path>
+                                <rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+                                    height="16" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </i>
+                    <span class="media-body" style="color: #a38031;">{{'ArtWork' | translate}}</span>
                 </a>
             </li>
 
@@ -679,132 +707,135 @@
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('Award');">
                     <i class="media-left media-middle">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
-								<path
-									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
-									id="Combined-Shape" fill="#a38031"></path>
-								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
-									height="16" rx="1"></rect>
-							</g>
-						</svg>
-					</i>
-                    <span class="media-body" style="color: #a38031;">{{'AwardLbl' | translate}}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                                <path
+                                    d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+                                    id="Combined-Shape" fill="#a38031"></path>
+                                <rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+                                    height="16" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </i>
+                    <span class="media-body" style="color: #a38031;">{{'Award' | translate}}</span>
                 </a>
             </li>
             <li ng-show="user.PermissionId.includes('News') ">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('VotingCriteria');">
                     <i class="media-left media-middle">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
-								<path
-									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
-									id="Combined-Shape" fill="#a38031"></path>
-								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
-									height="16" rx="1"></rect>
-							</g>
-						</svg>
-					</i>
-                    <span class="media-body" style="color: #a38031;">{{'VotingCriteriaLbl' | translate}}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                                <path
+                                    d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+                                    id="Combined-Shape" fill="#a38031"></path>
+                                <rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+                                    height="16" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </i>
+                    <span class="media-body" style="color: #a38031;">{{'VotingCriteria' | translate}}</span>
                 </a>
             </li>
             <li ng-show="user.PermissionId.includes('News') ">
                 <a class="pmd-ripple-effect" ng-click="$state.go('PhotoAlbum');">
                     <i class="media-left media-middle">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
-								<path
-									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
-									id="Combined-Shape" fill="#a38031"></path>
-								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
-									height="16" rx="1"></rect>
-							</g>
-						</svg>
-					</i>
-                    <span class="media-body" style="color: #a38031;">{{'PhotoAlbumLbl' | translate}}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                                <path
+                                    d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+                                    id="Combined-Shape" fill="#a38031"></path>
+                                <rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+                                    height="16" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </i>
+                    <span class="media-body" style="color: #a38031;">{{'PhotoAlbum' | translate}}</span>
                 </a>
             </li>
 
-            <li ng-show="user.PermissionId.includes('Dashboard') ">
+            <li ng-show="user.PermissionId.includes('Judge') ">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('JudgeArtWork');">
                     <i class="media-left media-middle">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
-								<path
-									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
-									id="Combined-Shape" fill="#a38031"></path>
-								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
-									height="16" rx="1"></rect>
-							</g>
-						</svg>
-					</i>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                                <path
+                                    d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+                                    id="Combined-Shape" fill="#a38031"></path>
+                                <rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+                                    height="16" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </i>
                     <span class="media-body" style="color: #a38031;">{{'JudgeArtWorkLbl' | translate}}</span>
                 </a>
             </li>
 
 
             <!-- user -->
-            <li class="dropdown pmd-dropdown visible-xs visible-md visible-sm visible-lg" ng-show="user.PermissionId.includes('usere') ">
-                <a data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" aria-expandedhref="javascript:void(0);" class="pmd-ripple-effect">
+            <li class="dropdown pmd-dropdown visible-xs visible-md visible-sm visible-lg"
+                ng-show="user.PermissionId.includes('News') ">
+                <a data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true"
+                    aria-expandedhref="javascript:void(0);" class="pmd-ripple-effect">
                     <i class="media-left media-middle">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect id="bound" x="0" y="0" width="24" height="24"></rect>
-								<path
-									d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
-									id="Combined-Shape" fill="#a38031"></path>
-								<rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
-									height="16" rx="1"></rect>
-							</g>
-						</svg>
-					</i>
-                    <span class="media-body">{{'user' | translate}}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                                <path
+                                    d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+                                    id="Combined-Shape" fill="#a38031"></path>
+                                <rect id="Rectangle-7-Copy-2" fill="#a38031" opacity="0.3" x="2" y="4" width="5"
+                                    height="16" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </i>
+                    <span class="media-body" style="color: #a38031;">{{'user' | translate}}</span>
                     <div class="media-right media-middle">
                         <i class="dic-more-vert dic"></i>
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<polygon id="Shape" points="0 0 24 0 24 24 0 24" />
-								<path
-									d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
-									id="Path-94" fill="#494b74" fill-rule="nonzero"
-									transform="translate(12.000003, 11.999999) rotate(-270.000000) translate(-12.000003, -11.999999) " />
-							</g>
-						</svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <polygon id="Shape" points="0 0 24 0 24 24 0 24" />
+                                <path
+                                    d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+                                    id="Path-94" fill="#a38031" fill-rule="nonzero"
+                                    transform="translate(12.000003, 11.999999) rotate(-270.000000) translate(-12.000003, -11.999999) " />
+                            </g>
+                        </svg>
                     </div>
                 </a>
-                <!-- 
-				<ul class="dropdown-menu" style="opacity: 1;">
-					<li ng-show="user.PermissionId.split(';').includes('12') ">
-						<a class="pmd-ripple-effect" ng-click="$state.go('users');"
-							style="background-color: transparent;" data-toggle="dropdown"
-							class="btn-user dropdown-toggle media" data-sidebar="true"
-							aria-expandedhref="javascript:void(0);">
-							<span class="media-body">
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-									width="15px" height="15px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										<rect id="bound" x="0" y="0" width="24" height="24" />
-										<path
-											d="M12,16 C14.209139,16 16,14.209139 16,12 C16,9.790861 14.209139,8 12,8 C9.790861,8 8,9.790861 8,12 C8,14.209139 9.790861,16 12,16 Z M12,20 C7.581722,20 4,16.418278 4,12 C4,7.581722 7.581722,4 12,4 C16.418278,4 20,7.581722 20,12 C20,16.418278 16.418278,20 12,20 Z"
-											id="Oval-6" fill="#494b74" fill-rule="nonzero" />
-									</g>
-								</svg>
-								{{'All' | translate}}
-							</span>
-						</a>
-					</li>
-					<li ng-show="user.PermissionId.split(';').includes('16') ">
+
+                <ul class="dropdown-menu" style="opacity: 1;">
+                    <li ng-show="user.PermissionId.includes('News') ">
+                        <a class="pmd-ripple-effect" ng-click="$state.go('users');"
+                            style="background-color: transparent;" data-toggle="dropdown"
+                            class="btn-user dropdown-toggle media" data-sidebar="true"
+                            aria-expandedhref="javascript:void(0);">
+                            <span class="media-body" style="color: #a38031;">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="15px" height="15px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect id="bound" x="0" y="0" width="24" height="24" />
+                                        <path
+                                            d="M12,16 C14.209139,16 16,14.209139 16,12 C16,9.790861 14.209139,8 12,8 C9.790861,8 8,9.790861 8,12 C8,14.209139 9.790861,16 12,16 Z M12,20 C7.581722,20 4,16.418278 4,12 C4,7.581722 7.581722,4 12,4 C16.418278,4 20,7.581722 20,12 C20,16.418278 16.418278,20 12,20 Z"
+                                            id="Oval-6" fill="#a38031" fill-rule="nonzero" />
+                                    </g>
+                                </svg>
+                                {{'All' | translate}}
+                            </span>
+                        </a>
+                    </li>
+                    <!-- 	<li ng-show="user.PermissionId.split(';').includes('16') ">
 						<a class="pmd-ripple-effect" ng-click="$state.go('DistributerUser');"
 							style="background-color: transparent;" data-toggle="dropdown"
 							class="btn-user dropdown-toggle media" data-sidebar="true"
@@ -841,27 +872,27 @@
     <script src="app.js?v=%MD5%"></script>
     <script src="templates.js?v=%MD5%"></script>
     <script type="text/javascript">
-        window.onload = function() {
-            setTimeout(function() {
+        window.onload = function () {
+            setTimeout(function () {
                 var loader = document.getElementsByClassName("loader")[0];
                 loader.className = "loader fadeout";
-                setTimeout(function() {
+                setTimeout(function () {
                     loader.style.display = "none"
                 })
             }, 1000)
         }
-        $(document).on("click", function(event) {
+        $(document).on("click", function (event) {
             var $trigger = $("#collapsse");
             if ($trigger !== event.target && !$trigger.has(event.target).length) {
                 $("#collapse-menu").slideUp("fast");
             }
         });
-        $("li.dropdown").click(function() {
+        $("li.dropdown").click(function () {
             $("#notification").toggleClass('bounceIn');
         })
 
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $(".select-with-search").select2({
                 theme: "bootstrap"
             });
@@ -877,6 +908,8 @@
     </script>
 
     <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
+
+
 </body>
 
 </html>

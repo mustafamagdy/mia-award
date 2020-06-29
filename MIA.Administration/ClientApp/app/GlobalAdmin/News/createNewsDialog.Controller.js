@@ -70,7 +70,7 @@
             var newObj = new NewsResource();
             newObj.Title = vm.titleDictionary;
             newObj.Body = vm.bodyDictionary; 
-            newObj.Poster = splitImage[1];
+            newObj.PosterByte = splitImage[1];
             newObj.PosterFileName = posterImage.type;
             newObj.$create().then(
                 function (data, status) {

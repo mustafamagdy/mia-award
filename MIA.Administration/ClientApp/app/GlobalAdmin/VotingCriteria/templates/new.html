@@ -3,7 +3,7 @@
         <h2 class="pmd-card-title-text"> {{'AddNewVotingCriteriaBtn' | translate}} </h2>
     </div>
     <div class="modal-body">
-        <form class="form-horizontal" name="newVotingCriteriaForm"> 
+        <form class="form-horizontal" name="newVotingCriteriaForm">
             <div class="row">
                 <div class="form-group col-lg-6">
                     <ul class="nav nav-tabs" role="tablist">
@@ -43,11 +43,15 @@
                         </div>
                     </div>
                 </div>
+
+
+            </div>
+            <div class="row">
                 <div class="form-group col-lg-3">
                     <label for="first-name">{{'Code' | translate}}</label>
                     <input required type="text" class="mat-input form-control" name="Code" numbers-only
-                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4" ng-model="newVotingCriteriaCtrl.Code"
-                        required />
+                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
+                        ng-model="newVotingCriteriaCtrl.Code" required />
                     <!-- required validation  -->
                     <div ng-messages="newVotingCriteriaForm.Code.$error">
                         <div class="error" ng-if="newVotingCriteriaForm.Code.$error.required && 
@@ -65,8 +69,8 @@
                 <div class="form-group col-lg-3">
                     <label for="first-name">{{'Weight' | translate}}</label>
                     <input required type="text" class="mat-input form-control" name="Weight" numbers-only
-                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4" ng-model="newVotingCriteriaCtrl.Weight"
-                        required />
+                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
+                        ng-model="newVotingCriteriaCtrl.Weight" required />
                     <!-- required validation  -->
                     <div ng-messages="newVotingCriteriaForm.Weight.$error">
                         <div class="error" ng-if="newVotingCriteriaForm.Weight.$error.required && 
@@ -81,13 +85,27 @@
                         </div>
                     </div>
                 </div>
- 
+
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <label>
+                        <input type="radio" ng-model="newVotingCriteriaCtrl.selectedVotingLevel" value="Level1">
+                        Level1
+                    </label>
+                    <label>
+                        <input type="radio" ng-model="newVotingCriteriaCtrl.selectedVotingLevel" value="Level2">
+                        Level2
+                    </label>
+
+                </div>
             </div>
         </form>
     </div>
     <div class="pmd-modal-action text-right">
         <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-disabled="newVotingCriteriaForm.$invalid" class="btn pmd-ripple-effect btn-primary" VotingCriteria="button"
+            ng-disabled="newVotingCriteriaForm.$invalid" class="btn pmd-ripple-effect btn-primary"
+            VotingCriteria="button"
             ng-click="newVotingCriteriaCtrl.AddNewVotingCriteria()">{{'saveChangesBtn' | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" VotingCriteria="button"
             ng-click="newVotingCriteriaCtrl.close()">{{'DiscardBtn' | translate}}</button>

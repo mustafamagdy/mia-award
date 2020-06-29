@@ -14,7 +14,7 @@
         vm.statusList = status.StatusList;
         vm.artWorkPayment = ArtWorkPaymentByArtWorkIdPrepService;
         console.log(vm.artWorkPayment)
-
+        vm.CheckIsUpdate = angular.copy(vm.artWorkPayment.amount);
         if (vm.artWorkPayment.paymentStatus == 'waiting')
             vm.selectedStatus = vm.statusList[0];
         if (vm.artWorkPayment.paymentStatus == 'confirmed')
@@ -52,16 +52,16 @@
                 fileByte = splitImage[1];
                 fileName = receiptImage.type;
             }
-            
+
             blockUI.start("Loading...");
-           debugger;
+            debugger;
             var newObj = new ArtWorkResource();
             newObj.ArtWorkId = $stateParams.id;// vm.artWorkPayment.ArtWorkId;
             newObj.PaymentStatus = vm.selectedStatus.Id;
             newObj.TransactionNumber = vm.artWorkPayment.transactionNumber;
             newObj.Amount = vm.artWorkPayment.amount;
             newObj.PaymentDate = +new Date($('#paymentDate').val());
-            newObj.Receipt = fileByte;
+            newObj.ReceiptByte = fileByte;
             newObj.ReceiptFileName = fileName;
 
             newObj.$createPayment().then(

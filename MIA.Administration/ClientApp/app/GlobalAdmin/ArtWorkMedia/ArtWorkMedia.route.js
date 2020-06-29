@@ -18,6 +18,33 @@
                     }
 
                 })
+                .state('MultiFiles', {
+                    url: '/MultiFiles/:id',
+                    templateUrl: './app/GlobalAdmin/ArtWorkMedia/templates/uploadMultiFiles.html',
+                    controller: 'UploadMultiFilesController',
+                    'controllerAs': 'UploadMultiFilesCtrl',
+                    resolve: {
+                        ArtWorkByIdPrepService: ArtWorkByIdPrepService,
+                        ArtWorkMediaByArtWorkIdPrepService: ArtWorkMediaByArtWorkIdPrepService
+                    }, data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('uploader', {
+                    url: '/uploader',
+                    templateUrl: './app/GlobalAdmin/ArtWorkMedia/templates/uploder-directive.html',
+                    controller: 'UploaderController',
+                    controllerAs: 'UploaderCtrl',
+                      data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
                 .state('newArtWorkMedia', {
                     url: '/newArtWorkMedia/:id',
                     templateUrl: './app/GlobalAdmin/ArtWorkMedia/templates/new.html',
@@ -68,5 +95,9 @@
     ArtWorkMediaByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
     function ArtWorkMediaByArtWorkIdPrepService(ArtWorkResource, $stateParams) {
         return ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise;
+    }
+    ArtWorkByIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
+    function ArtWorkByIdPrepService(ArtWorkResource, $stateParams) {
+        return ArtWorkResource.getArtWork({ id: $stateParams.id }).$promise;
     }
 }());

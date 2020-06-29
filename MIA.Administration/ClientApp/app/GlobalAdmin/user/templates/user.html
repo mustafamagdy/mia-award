@@ -1,21 +1,23 @@
-<div  id="bold">
-    {{'user' | translate}}
-</div>
 <div>
-    <!-- <div style="margin-bottom:10px">
-            <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-                ng-click="$state.go('addUser');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
-                type="button">{{'AddUserBtn' | translate}}</button>
-    
-        </div> -->
     <div class="row">
         <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
-            <input type="radio" ng-change="userCtrl.changeUserType(1)" ng-model="userCtrl.isChecked" ng-value="1">
-            {{'Retailer' | translate}}
-            <input type="radio" ng-change="userCtrl.changeUserType(2)" ng-model="userCtrl.isChecked" ng-value="2">
-            {{'ManufactureLbl' | translate}}
-            <input type="radio" ng-change="userCtrl.changeUserType(3)" ng-model="userCtrl.isChecked" ng-value="3">
-            {{'DistributorLbl' | translate}}
+
+            <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
+            border-radius: 17px;" ng-click="$state.go('addUser');"
+                class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                type="button">{{'AddUserBtn' | translate}}</button>
+
+        </div>
+        <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
+
+            <div class="form-group col-lg-4"> <label for="first-name">{{'Role' | translate}}</label>
+                <select required style="width:100% !important;color:#6c7293!important;"
+                    class="form-control select-with-search pmd-select2-tags" ng-model="userCtrl.selectedRole"
+                    ng-change="userCtrl.changeUserType()"
+                    ng-options="group as group.name  for group in userCtrl.roleList">
+                </select>
+            </div>
+
 
         </div>
     </div>
@@ -28,76 +30,27 @@
             <table class="table pmd-table table-hover">
                 <thead>
                     <tr>
-                        <th>{{'image' | translate}}</th>
-                        <th>{{'Account' | translate}}</th>
+                        <th>{{'username' | translate}}</th>
+                        <th>{{'fullname' | translate}}</th>
+                        <th>{{'email' | translate}}</th>
+                        <th>{{'gender' | translate}}</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat-start="userObj in userCtrl.userList">
-                        <td width="20%">
-                            <img ng-src="{{appCONSTANTS.Image_URL_ACTOR}}{{userObj.image}}" width="50px" class="avatar">
-                        </td>
-                        <td width="20%">{{userObj.title}}</td>
+                    <tr ng-repeat="userObj in userCtrl.userList">
 
-                        <td width="30%">
-                            <button
-                                style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-                                ng-click="$state.go('addUser',{tenantId : userObj.tenantId,userType:userCtrl.currentTenantType});"
-                                class="btn pmd-ripple-effect btn-primary pmd-z-depth"
-                                type="button">{{'AddUserBtn' | translate}}</button>
+                        <td width="20%">{{userObj.userName}}</td>
+                        <td width="20%">{{userObj.fullName}}</td>
+                        <td width="20%">{{userObj.email}}</td>
+                        <td width="20%">{{userObj.gender}}</td>
 
-                        </td>
-                        <td class="pmd-table-row-action">
-                            <span href="javascript:void(0);" ng-if="userObj.users.length >0 "
-                                ng-click="userObj.show=!userObj.show;userCtrl.showMore($event)"
-                                class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i
-                                    class="material-icons md-dark pmd-sm"></i></span>
-                        </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr ng-repeat-end ng-repeat="userRow in userObj.users" ng-show="userObj.show" id="collapse">
-                        <td>{{ userRow.userName}}</td>
-                        <td>{{ userRow.email}}</td>
-                        <td>{{ userRow.mobileNumber}}</td>
-                        <td>
-                            <span ng-show="userRow.isMaster">
-                                <img ng-click="userCtrl.ChangeRole(userRow)"
-                                    src="../../../../assets/img/admin.png" alt="admin">
-                            </span>
-                            <span ng-show="!userRow.isMaster">
-                                <img ng-click="userCtrl.ChangeRole(userRow)"
-                                    src="../../../../assets/img/user.png" alt="User">
-                            </span>
-                        </td>
-                        <td>
-                            <div>
-                                <div class="btn-switch" ng-class="{'btn-switch--on':userRow.isActive}"
-                                    ng-model="userRow.isActive" ng-click="userCtrl.ChangeStatus(userRow)">
-
-                                    <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':userRow.isActive}"
-                                        ng-model="userRow.isActive" ng-click="userCtrl.ChangeStatus(userRow)">
-                                    </div>
-                                </div>
-                            </div>
-                            <div ng-if="user.permessionModules['Product'].includes(12)==false"
-                                title="You don't have permssion">
-                                <div class="btn-switch" ng-class="{'btn-switch--on':userRow.isActive}"
-                                    ng-model="userRow.isActive">
-
-                                    <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':userRow.isActive}"
-                                        ng-model="userRow.isActive">
-                                    </div>
-                                </div>
-
-                        </td>
                         <td>
                             <i class="material-icons md-dark pmd-md cursorPointer font25"
-                                ng-click="$state.go('editUser', {userId: userRow.userId,userType:userCtrl.currentTenantType});"title="Edit">mode_edit</i>
+                                ng-click="$state.go('editUser',{userId: userObj.id});" title="Edit">mode_edit</i>
                         </td>
                     </tr>
+
                 </tbody>
             </table>
         </div>
@@ -109,3 +62,16 @@
         hide-if-empty="true" disabled-class="hide">
     </div>
 </div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-with-search").select2({
+            theme: "bootstrap"
+        });
+    });
+    $(".select-tags").select2({
+        tags: false,
+        theme: "bootstrap",
+    });
+</script>

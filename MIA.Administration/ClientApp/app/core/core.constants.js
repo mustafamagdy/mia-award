@@ -1,6 +1,6 @@
-(function() {
-    const apiBaseUrl = "http://localhost:62912";
-    // const apiBaseUrl = "";
+(function () {
+    //const apiBaseUrl = "http://localhost:62912";
+     const apiBaseUrl = "";
     angular
         .module("core")
         .constant("appCONSTANTS", {
@@ -26,8 +26,8 @@
         })
         .constant("awardType", {
             TypeList: [
-                { Id: 0, shortName: 'Individual' },
-                { Id: 1, shortName: 'Group' }
+                { Id: 1, shortName: 'Person' },
+                { Id: 0, shortName: 'Artwork' }
             ]
         })
         .constant("userRolesEnum", {

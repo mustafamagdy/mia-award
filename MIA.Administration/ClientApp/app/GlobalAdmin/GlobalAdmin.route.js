@@ -13,23 +13,23 @@
                     'controllerAs': 'userCtrl',
                     data: {
                         permissions: {
-                            only: ['12'],
+                           // only: ['12'],
                             redirectTo: 'root'
                         }
                     }
 
                 })
                 .state('addUser', {
-                    url: '/addUser/:tenantId/:userType/:userId',
+                    url: '/addUser',
                     templateUrl: './app/GlobalAdmin/user/templates/addUser.html',
                     controller: 'addUserController',
                     'controllerAs': 'addUserCtrl',
                     resolve: {
-                        UserRoleByIdPrepService: UserRoleByIdPrepService,
+                      //  UserRoleByIdPrepService: UserRoleByIdPrepService,
                     },
                     data: {
                         permissions: {
-                            only: ['12', '16', '17', '18'],
+                         //   only: ['12', '16', '17', '18'],
                             redirectTo: 'root'
                         }
                     }
@@ -45,7 +45,7 @@
                     },
                     data: {
                         permissions: {
-                            only: ['12', '16', '17', '18', '22', '21'],
+                           // only: ['12', '16', '17', '18', '22', '21'],
                             redirectTo: 'root'
                         }
                     }
@@ -62,7 +62,7 @@
                     },
                     data: {
                         permissions: {
-                            only: ['11'],
+                          //  only: ['11'],
                             redirectTo: 'root'
                         }
                     }
@@ -77,24 +77,25 @@
                     },
                     data: {
                         permissions: {
-                            only: ['11'],
+                          //  only: ['11'],
                             redirectTo: 'root'
                         }
                     }
 
                 })
                 .state('editRole', {
-                    url: '/editRole/:roleId',
+                    url: '/editRole/:name',
                     templateUrl: './app/GlobalAdmin/Role/templates/edit.html',
                     controller: 'editRoleDialogController',
                     'controllerAs': 'editRoleCtrl',
                     resolve: {
                         RoleByIdPrepService: RoleByIdPrepService,
-                        PermissionPrepService: PermissionPrepService
+                        // PermissionPrepService: PermissionPrepService,
+                        // ModulePrepService: ModulePrepService
                     },
                     data: {
                         permissions: {
-                            only: ['11'],
+                          //  only: ['11'],
                             redirectTo: 'root'
                         }
                     }
@@ -185,7 +186,7 @@
     }
     RoleByIdPrepService.$inject = ['RoleResource', '$stateParams']
     function RoleByIdPrepService(RoleResource, $stateParams) {
-        return RoleResource.getRole({ roleId: $stateParams.roleId }).$promise;
+        return RoleResource.getRole({ roleName: $stateParams.name }).$promise;
     }
 
     PermissionPrepService.$inject = ['RoleResource']
@@ -193,6 +194,10 @@
         return RoleResource.getAllPermissions().$promise;
     }
 
+    ModulePrepService.$inject = ['RoleResource']
+    function ModulePrepService(RoleResource) {
+        return RoleResource.getAllModules().$promise;
+    }
     /*News */
     NewsPrepService.$inject = ['NewsResource']
     function NewsPrepService(NewsResource) {
@@ -215,7 +220,7 @@
     }
     UserRoleByIdPrepService.$inject = ['UserResource', '$stateParams']
     function UserRoleByIdPrepService(UserResource, $stateParams) {
-        return UserResource.getUserRole({ userId: $stateParams.userId }).$promise;
+        return UserResource.getUserRole({ name: $stateParams.name }).$promise;
     }
 
 }());

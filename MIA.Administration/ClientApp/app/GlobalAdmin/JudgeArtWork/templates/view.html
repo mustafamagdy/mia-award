@@ -53,10 +53,10 @@
         <h1 class="text-center">
             <kbd>
 
-                {{viewJudgeArtWorkCtrl.JudgeArtWork.title[selectedLanguage] | limitTo : 20}}
-                {{viewJudgeArtWorkCtrl.JudgeArtWork.title[selectedLanguage].length > 20 ? '...' : ''}}
+                {{viewJudgeArtWorkCtrl.JudgeArtWork.projectName[selectedLanguage] | limitTo : 20}}
+                {{viewJudgeArtWorkCtrl.JudgeArtWork.projectName[selectedLanguage].length > 20 ? '...' : ''}}
                 :
-                {{viewJudgeArtWorkCtrl.JudgeArtWork.award.title[selectedLanguage]}}
+                {{viewJudgeArtWorkCtrl.JudgeArtWork.award.projectName[selectedLanguage]}}
             </kbd>
         </h1>
         <form class="form-horizontal" name="viewJudgeArtWorkForm">

@@ -8,7 +8,8 @@ namespace MIA.Authorization {
   public class PermissionDto {
     public short Id { get; set; }
     public string Group { get; set; }
-    public string Name { get; set; }
+    public string Name { get; set; } 
+    public string Description { get; set; }
     public SystemModules SystemModule { get; set; }
   }
 }

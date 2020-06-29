@@ -8,7 +8,7 @@
 
 
     function NewsController(appCONSTANTS, $scope, $translate, NewsResource, blockUI, $uibModal, ToastService) {
-      
+
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
 
@@ -30,9 +30,9 @@
 
             },
                 function (data, status) {
-                debugger;
-                blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+                    debugger;
+                    blockUI.stop();
+                   //s ToastService.show("right", "bottom", "fadeInUp", data.data.errorMessage, "error");
                 });
         }
         function change(news, isDeleted) {

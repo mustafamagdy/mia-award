@@ -7,7 +7,7 @@
 
     .player video {
         max-height: 500px;
-         /* max-width: 100%; */
+        /* max-width: 100%; */
         display: block;
     }
 
@@ -90,62 +90,90 @@
         box-shadow: none;
     }
 </style>
-<div class="modal-content">
-    <div class="modal-header bordered">
-        <h2 class="pmd-card-description-text">{{'ViewJudgeArtWork' | translate}}</h2>
-    </div>
-    <div class="modal-body">
-        
-        <player videos='[{"type":"mp4","src":"https://mia-content.s3.amazonaws.com/album/01e22zntqbcbg2nvf6zb8kgdmk/Clock_Face_2Videvo.mov",
+
+<section id="show_inner">
+    <div class="show_inner_one">
+        <div class="container">
+            <player videos='[{"type":"mp4","src":"https://mia-content.s3.amazonaws.com/album/01e22zntqbcbg2nvf6zb8kgdmk/Clock_Face_2Videvo.mov",
             "poster":"https://mia-content.s3.amazonaws.com/artwork/01dzsa07y34ddsq9g6m11anxmx/image008.png",
             "captions":"http://www.videojs.com/vtt/captions.vtt"}
             ,{"type":"webm","src":"http://vjs.zencdn.net/v/oceans.webm"}]' />
-        <form class="form-horizontal" name="viewJudgeArtWorkForm">
-            <div class="row">
-                <div class="form-group col-lg-4">
-                    <div ng-repeat="n in [] | range:displayVideoCtrl.totalCount">
-                        <label
-                            for="first-name">{{displayVideoCtrl.votingCriteriaList[n].name[selectedLanguage]}}</label>
-                        <input required type="text" class="mat-input form-control" name="Value" numbers-only
-                            style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
-                            ng-model="displayVideoCtrl.votingCriteria[n]"
-                            ng-change="displayVideoCtrl.changeValue(displayVideoCtrl.votingCriteria[n],n)" required />
-                        <!-- required validation  -->
-                        <div ng-messages="viewJudgeArtWorkForm.Value.$error">
-                            <div class="error" ng-if="viewJudgeArtWorkForm.Value.$error.required && 
-                                        !viewJudgeArtWorkForm.Value.$pristine">
-                                {{'requiredErr' |  translate}}
-                            </div>
-                            <!-- length validation -->
-                            <div class="error" ng-if="(viewJudgeArtWorkForm.Value.$error.minlength ||
-                                            viewJudgeArtWorkForm.Value.$error.maxlength) 
-                                             && !viewJudgeArtWorkForm.Value.newValue.$error.required">
-                                {{'PhoneLengthError' |  translate}}
-                            </div>
-                        </div>
-                        <!-- <input id="{{mediaImage + $index}}" name="{{mediaImage + $index}}" style="display: none;"
-                            onchange="angular.element(this).scope().AddmediaImage(this.files)" type="file" required
-                            file-change handler="fileSelect(files)" ng-repeat="file in displayVideoCtrl.filesCount">
-                        <button class="btn btn-success btn-xs pull-center"
-                            ng-click="displayVideoCtrl.LoadUploadmedia()">{{'Upload Receipt' | translate}}</button>
-
-                        <div ng-messages="viewJudgeArtWorkForm.mediaImage.$error">
-                            <div ng-if="viewJudgeArtWorkForm.mediaImage.$error.required">{{'requiredErr' | translate}}
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
-
-            </div>
-
-        </form>
+        </div>
     </div>
-    <div class="pmd-modal-action text-right">
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-disabled="viewJudgeArtWorkForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
-            ng-click="displayVideoCtrl.UpdateJudgeArtWork()">{{'saveChangesBtn' | translate}}</button>
-        <button class="btn pmd-ripple-effect btn-default" type="button"
-            ng-click="displayVideoCtrl.Close()">{{'DiscardBtn' | translate}}</button>
-    </div>
+    <div class="show_inner_two">
+        <div class="container">
+            <div class="show_content">
+                <div class="tabs_area">
+                    <div class="tabs">
+                        <!-- to show tab content please add class "active" to "li" element -->
+                        <ul>
+                            <li class="active">{{'comments'| translate}}</li>
+                        </ul><!-- end ul -->
+                    </div><!-- end tabs -->
+                    <div class="all_tabs_content">
+                        <!-- to show tab content please add class "active" to "item_tabs_content" element -->
 
-</div>
+                        <div class="item_tabs_content active">
+                            <div class="item_review">
+                                <div class="review_section">
+                                    <div class="review_status">
+                                        <i class="icofont-ui-rating"></i>
+                                        <div class="desc">
+
+                                            <p>{{displayVideoCtrl.commentsList.length}} {{'comments'| translate}}</p>
+                                        </div><!-- end desc -->
+                                    </div><!-- end review_status -->
+                                </div><!-- end review_section -->
+                                <div class="comments_area">
+                                    <div class="item" ng-repeat="comment in displayVideoCtrl.commentsList">
+                                        <div class="user_info">
+                                            <!-- <div class="imgthumb"><img src="assets/images/comment_user_image.png"
+                                                    alt="#"></div> -->
+                                            <div class="details">
+                                                <!-- <span>{{comment.judge.fullName}}</span> -->
+                                                <p>{{comment.mediaTime}} <a>{{comment.judge.fullName}}</a></p>
+                                            </div><!-- end details -->
+                                        </div><!-- end user_info -->
+                                        <div class="comment_content">
+                                            {{comment.comments}}
+                                        </div><!-- end comment_content -->
+                                    </div><!-- end item -->
+
+                                </div><!-- end comments_area -->
+                                <div class="comment_form">
+                                    <form name="formVideoComment">
+                                        <div class="inputs">
+                                            <input required type="text" placeholder="time"
+                                                ng-model="displayVideoCtrl.time">
+
+                                        </div><!-- end inputs -->
+                                        <textarea name="comment" cols="30" rows="10" required
+                                            placeholder="Type here your Comment"
+                                            ng-model="displayVideoCtrl.comment"></textarea>
+
+                                        <div ng-messages="formVideoComment.comment.$error">
+                                            <div class="error" ng-if="formVideoComment.comment.$error.required && 
+                                                                        !formVideoComment.comment.$pristine">
+                                                {{'requiredErr' |  translate}}
+                                            </div>
+                                        </div>
+                                        <button type="button" ng-disabled="formVideoComment.$invalid"
+                                            ng-click="displayVideoCtrl.submitComment()">{{'PostComment' | translate}}</button>
+
+                                        <button type="button"
+                                            ng-click="displayVideoCtrl.Close()">{{'DiscardBtn' | translate}}</button>
+                                    </form>
+                                </div><!-- end comment_form -->
+                            </div><!-- end item_review -->
+                        </div><!-- end item_tabs_content -->
+
+                    </div><!-- end all_tabs_content -->
+                </div><!-- end tabs_area -->
+
+            </div><!-- end show_content -->
+        </div><!-- end container -->
+    </div><!-- end show_inner_two -->
+
+
+
+</section>

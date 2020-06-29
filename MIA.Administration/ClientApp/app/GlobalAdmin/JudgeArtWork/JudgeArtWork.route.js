@@ -10,7 +10,7 @@
                     url: '/JudgeArtWork',
                     templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/JudgeArtWork.html',
                     controller: 'JudgeArtWorkController',
-                    'controllerAs': 'JudgeArtWorkCtrl', 
+                    'controllerAs': 'JudgeArtWorkCtrl',
                     data: {
                         permissions: {
                             redirectTo: 'root'
@@ -40,7 +40,7 @@
                     controller: 'DisplayVideoController',
                     'controllerAs': 'displayVideoCtrl',
                     resolve: {
-                        MediaFileByIdPrepService: MediaFileByIdPrepService, 
+                        MediaFileByIdPrepService: MediaFileByIdPrepService,
                     },
                     data: {
                         permissions: {
@@ -49,6 +49,22 @@
                     }
 
                 })
+                .state('artWorkDetails', {
+                    url: '/artWorkDetails/:id',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/artworkdetails.html',
+                    controller: 'judgeArtWorkDetailsController',
+                    'controllerAs': 'judgeArtWorkDetailsCtrl',
+                    resolve: {
+                        ArtWorkByIdPrepService: ArtWorkByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
         });
 
     JudgeArtWorkPrepService.$inject = ['JudgeArtWorkResource']

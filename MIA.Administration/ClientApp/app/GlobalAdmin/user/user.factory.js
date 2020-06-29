@@ -4,8 +4,8 @@
         .factory('UserResource', ['$resource', 'appCONSTANTS', UserResource])
 
     function UserResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Account/CreateUser', {}, {
-            getAllUsersByUserType: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetUsers/:userType', useToken: true, params: { lang: '@lang' } },
+        return $resource(appCONSTANTS.API_URL + 'user/CreateByEmail', {}, {
+            getAllUsersByUserType: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/role/:roleName/users', useToken: true, isArray: true, params: { lang: '@lang' } },
             getAllUsersForManufacture: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetTenantUsers/:tenantId', useToken: true, params: { lang: '@lang' } },
             getAllAdminUsers: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetAdminUsers/:userType', useToken: true, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },

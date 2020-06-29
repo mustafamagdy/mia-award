@@ -95,31 +95,10 @@ namespace MIA.Administration.Api {
         .AllowedModules.ToString()).Split(","));
 
 
-      var allRolePermissions = db.Roles
-                              .Where(x => roles.Contains(x.Name))
-                              .SelectMany(x => x.PermissionsInRole)
-                              .AsEnumerable()
-                              .MapTo<PermissionDto>();
-
-      var rolePermissions = allRolePermissions
-                              .GroupBy(a => a.SystemModule)
-                              .ToDictionary(
-                                  a => a.Key,
-                                  b =>
-                                  b.Select(a => string.Join('_', a.Name.ToLower().Split(' '))).ToArray());
-
-
 
       ClaimsPrincipal res = await claimFactory.CreateAsync(user);
       var allClaims = new List<Claim>(res.Claims);
-
-      allClaims.Add(new Claim("id", user.Id));
-      allClaims.Add(new Claim("name", user.UserName));
-      allClaims.Add(new Claim("username", user.UserName));
       allClaims.Add(new Claim("FullName", user.FullName));
-      allClaims.Add(new Claim("roles", string.Join(",", roles)));
-      allClaims.Add(new Claim("PermissionId", userModules));
-      allClaims.Add(new Claim("PermessionModules", JsonConvert.SerializeObject(rolePermissions)));
 
       SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecretKey));
       SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

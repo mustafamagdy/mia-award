@@ -48,45 +48,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group col-lg-3">
-                    <label for="first-name">{{'Code' | translate}}</label>
-                    <input required type="text" class="mat-input form-control" name="Code" numbers-only
-                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
-                        ng-model="newBoothCtrl.Code" required />
-                    <!-- required validation  -->
-                    <div ng-messages="newBoothForm.Code.$error">
-                        <div class="error" ng-if="newBoothForm.Code.$error.required && 
-                                    !newBoothForm.Code.$pristine">
-                            {{'requiredErr' |  translate}}
-                        </div>
-                        <!-- length validation -->
-                        <div class="error" ng-if="(newBoothForm.Code.$error.minlength ||
-                                        newBoothForm.Code.$error.maxlength) 
-                                         && !newBoothForm.Code.newCode.$error.required">
-                            {{'PhoneLengthError' |  translate}}
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group col-lg-3">
-                    <label for="first-name">{{'Price' | translate}}</label>
-                    <input required type="text" class="mat-input form-control" name="Price" numbers-only
-                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
-                        ng-model="newBoothCtrl.Price" required />
-                    <!-- required validation  -->
-                    <div ng-messages="newBoothForm.Price.$error">
-                        <div class="error" ng-if="newBoothForm.Price.$error.required && 
-                                    !newBoothForm.Price.$pristine">
-                            {{'requiredErr' |  translate}}
-                        </div>
-                        <!-- length validation -->
-                        <div class="error" ng-if="(newBoothForm.Price.$error.minlength ||
-                                        newBoothForm.Price.$error.maxlength) 
-                                         && !newBoothForm.Price.newPrice.$error.required">
-                            {{'PhoneLengthError' |  translate}}
-                        </div>
-                    </div>
-                </div>
+                </div> 
             </div>
         </form>
     </div>

@@ -16,9 +16,11 @@ namespace MIA.Mvc.Core {
       if (moduleAttribute != null) {
         dto.Name = moduleAttribute.Name;
         dto.SystemModule = moduleAttribute.SystemModule;
+        dto.Description = moduleAttribute.Description;
       } else {
         dto.Name = source.ToString();
         dto.SystemModule = SystemModules.Dashboard;
+        dto.Description = "";
       }
 
       return dto;
