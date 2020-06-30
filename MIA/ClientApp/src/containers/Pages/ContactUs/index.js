@@ -10,6 +10,7 @@ import homeActions from "store/home/actions";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
 import * as Yup from "yup";
 import Map from "components/Map";
+import { I18n } from "@lingui/react";
 
 // import {} from 'react-redux'
 // import "sass/contactus.scss";
@@ -21,23 +22,17 @@ const ContactUs = ({
   contactUsFailed,
   ...props
 }) => {
-
   const { register, handleSubmit, setValue } = useForm({
     validationSchema: Yup.object({
       name: Yup.string().required(),
-      email: Yup.string()
-        .email()
-        .required(),
+      email: Yup.string().email().required(),
       phone: Yup.string().required(),
       subject: Yup.string().required(),
-      message: Yup.string()
-        .required()
-        .min(100)
-        .max(4000)
-    })
+      message: Yup.string().required().min(100).max(4000),
+    }),
   });
 
-  const onSubmit = values => {
+  const onSubmit = (values) => {
     sendContactUsMessage(values);
   };
 
@@ -56,7 +51,10 @@ const ContactUs = ({
                   <Trans id="address">Address</Trans>
                 </span>
                 <p>
-                  <Trans id="dubai_address">Dubai, Dubai Media City, Building No. 1, Second Floor - Office No. 214</Trans>
+                  <Trans id="dubai_address">
+                    Dubai, Dubai Media City, Building No. 1, Second Floor -
+                    Office No. 214
+                  </Trans>
                 </p>
               </div>
               <div className="item">
@@ -103,69 +101,95 @@ const ContactUs = ({
             <Trans id="get_in_touch">Get In Touch</Trans>
           </div>
           <div className="content">
-            <form className="form_contact" onSubmit={handleSubmit(onSubmit)}>
-              <div className="item">
-                <input ref={register} name="name" type="text" placeholder="Name*" />
-              </div>
-              <div className="item">
-                <input ref={register} name="email" type="email" placeholder="E-mail*" />
-              </div>
-              <div className="item">
-                <input ref={register} name="phone" type="number" placeholder="Phone" />
-              </div>
-              <div className="item">
-                <LanguageContext.Consumer>
-                  {({ locale }) => (
-                    <select key={locale.code} ref={register} name="subject">
-                      {contactUsMessageSubjects.map((c, i) => (
-                        <option key={c.name[locale.code]} value={c.id}>
-                          {c.name[locale.code]}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                </LanguageContext.Consumer>
-              </div>
-              <textarea
-                ref={register}
-                name="message"
-                id=""
-                cols="30"
-                rows="10"
-                placeholder="Type here your Comment (100 character minimum)"
-              ></textarea>
-              <ReCAPTCHA
-                className="captcha_item"
-                theme="dark"
-                sitekey={config.reCaptchaKey}
-                ref={() =>
-                  register(
-                    { name: "reCaptchaToken" },
-                    {
-                      validate: value => {
-                        return !!value;
-                      }
+            <I18n>
+              {({ i18n }) => (
+                <form
+                  className="form_contact"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
+                  <div className="item">
+                    <input
+                      ref={register}
+                      name="name"
+                      type="text"
+                      placeholder={i18n._("name")}
+                    />
+                  </div>
+                  <div className="item">
+                    <input
+                      ref={register}
+                      name="email"
+                      type="email"
+                      placeholder={i18n._("email*")}
+                    />
+                  </div>
+                  <div className="item">
+                    <input
+                      ref={register}
+                      name="phone"
+                      type="number"
+                      placeholder={i18n._("phone")}
+                    />
+                  </div>
+                  <div className="item">
+                    <LanguageContext.Consumer>
+                      {({ locale }) => (
+                        <select key={locale.code} ref={register} name="subject">
+                          {contactUsMessageSubjects.map((c, i) => (
+                            <option key={c.name[locale.code]} value={c.id}>
+                              {c.name[locale.code]}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    </LanguageContext.Consumer>
+                  </div>
+                  <textarea
+                    ref={register}
+                    name="message"
+                    id=""
+                    cols="30"
+                    rows="10"
+                    placeholder={i18n._("type_your_comment")}
+                  ></textarea>
+                  <ReCAPTCHA
+                    className="captcha_item"
+                    theme="dark"
+                    sitekey={config.reCaptchaKey}
+                    ref={() =>
+                      register(
+                        { name: "reCaptchaToken" },
+                        {
+                          validate: (value) => {
+                            return !!value;
+                          },
+                        }
+                      )
                     }
-                  )
-                }
-                onChange={v => {
-                  setValue("reCaptchaToken", v);
-                }}
-              />
-              <button type="submit">
-                <Trans id="send_message">Send Message</Trans>
-              </button>
-              {contactUsSuccess && (
-                <div className="msg_success">
-                  <Trans id="contact_us_message_sent_success">The message was sent successfully</Trans>
-                </div>
+                    onChange={(v) => {
+                      setValue("reCaptchaToken", v);
+                    }}
+                  />
+                  <button type="submit">
+                    <Trans id="send_message">Send Message</Trans>
+                  </button>
+                  {contactUsSuccess && (
+                    <div className="msg_success">
+                      <Trans id="contact_us_message_sent_success">
+                        The message was sent successfully
+                      </Trans>
+                    </div>
+                  )}
+                  {contactUsFailed && (
+                    <div className="msg_wrong">
+                      <Trans id="contact_us_message_sent_fail">
+                        There is an error, the message could not be sent
+                      </Trans>
+                    </div>
+                  )}
+                </form>
               )}
-              {contactUsFailed && (
-                <div className="msg_wrong">
-                  <Trans id="contact_us_message_sent_fail">There is an error, the message could not be sent</Trans>
-                </div>
-              )}
-            </form>
+            </I18n>
           </div>
         </div>
       </div>
@@ -173,10 +197,13 @@ const ContactUs = ({
   );
 };
 
-const mapStateToProps = ({ home: { contactUsMessageSubjects, contactUsSuccess, contactUsFailed } }) => ({
+const mapStateToProps = ({
+  home: { contactUsMessageSubjects, contactUsSuccess, contactUsFailed },
+}) => ({
   contactUsMessageSubjects,
   contactUsSuccess,
-  contactUsFailed
+  contactUsFailed,
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...homeActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ContactUs);

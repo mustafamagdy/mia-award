@@ -4,7 +4,7 @@
     "origin": [
       [
         "src/containers/Pages/ContactUs/index.js",
-        49
+        44
       ]
     ]
   },
@@ -13,7 +13,7 @@
     "origin": [
       [
         "src/containers/Pages/ContactUs/index.js",
-        56
+        51
       ]
     ]
   },
@@ -22,7 +22,7 @@
     "origin": [
       [
         "src/containers/Pages/ContactUs/index.js",
-        59
+        54
       ]
     ]
   },
@@ -31,7 +31,11 @@
     "origin": [
       [
         "src/containers/Pages/ContactUs/index.js",
-        65
+        63
+      ],
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        131
       ]
     ]
   },
@@ -40,7 +44,7 @@
     "origin": [
       [
         "src/containers/Pages/ContactUs/index.js",
-        68
+        66
       ]
     ]
   },
@@ -49,7 +53,7 @@
     "origin": [
       [
         "src/containers/Pages/ContactUs/index.js",
-        71
+        69
       ]
     ]
   },
@@ -58,7 +62,7 @@
     "origin": [
       [
         "src/containers/Pages/ContactUs/index.js",
-        77
+        75
       ]
     ]
   },
@@ -67,7 +71,7 @@
     "origin": [
       [
         "src/containers/Pages/ContactUs/index.js",
-        80
+        78
       ]
     ]
   },
@@ -76,7 +80,7 @@
     "origin": [
       [
         "src/containers/Pages/ContactUs/index.js",
-        86
+        84
       ]
     ]
   },
@@ -85,7 +89,31 @@
     "origin": [
       [
         "src/containers/Pages/ContactUs/index.js",
-        103
+        101
+      ]
+    ]
+  },
+  "name": {
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        115
+      ]
+    ]
+  },
+  "email*": {
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        123
+      ]
+    ]
+  },
+  "type_your_comment": {
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        153
       ]
     ]
   },
@@ -94,7 +122,7 @@
     "origin": [
       [
         "src/containers/Pages/ContactUs/index.js",
-        156
+        174
       ]
     ]
   },
@@ -103,7 +131,7 @@
     "origin": [
       [
         "src/containers/Pages/ContactUs/index.js",
-        160
+        178
       ]
     ]
   },
@@ -112,7 +140,7 @@
     "origin": [
       [
         "src/containers/Pages/ContactUs/index.js",
-        165
+        185
       ]
     ]
   }

@@ -666,7 +666,7 @@
             .next_step {
               display: flex;
               justify-content: flex-end;
-             
+
               span {
                 height: 40px;
                 line-height: 40px;
@@ -1422,6 +1422,11 @@
                     text-transform: capitalize;
                     font-size: 18px;
                   } /* p */
+
+                  .hint {
+                    font-size: 10px;
+                    color: #ebca8a;
+                  }
                 } /* upload_now */
                 span {
                   background: -moz-linear-gradient(

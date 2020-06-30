@@ -1,10 +1,18 @@
 {
+  "search...": {
+    "origin": [
+      [
+        "src/components/Layout/index.js",
+        52
+      ]
+    ]
+  },
   "mia_awards": {
     "defaults": "MIA Award",
     "origin": [
       [
         "src/components/Layout/index.js",
-        71
+        98
       ]
     ]
   }

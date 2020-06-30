@@ -9,10 +9,23 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 import ReCAPTCHA from "react-google-recaptcha";
 import config from "config";
 import { useRef } from "react";
-import { FacebookShareButton, TwitterShareButton, InstapaperShareButton, WhatsappShareButton } from "react-share";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  InstapaperShareButton,
+  WhatsappShareButton,
+} from "react-share";
+import { I18n } from "@lingui/react";
 
-
-const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, commentsSuccess, clearCommentSuccess, ...props }) => {
+const NewsView = ({
+  newsItem,
+  location,
+  fetchNewsItem,
+  postNewsComment,
+  commentsSuccess,
+  clearCommentSuccess,
+  ...props
+}) => {
   useEffect(() => {
     const id = location.pathname.split("/").pop();
     fetchNewsItem(id);
@@ -53,13 +66,13 @@ const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, comments
                 <div
                   className="title"
                   dangerouslySetInnerHTML={{
-                    __html: newsItem.title[locale.code]
+                    __html: newsItem.title[locale.code],
                   }}
                 ></div>
                 <div
                   className="content"
                   dangerouslySetInnerHTML={{
-                    __html: newsItem.body[locale.code]
+                    __html: newsItem.body[locale.code],
                   }}
                 ></div>
               </>
@@ -88,14 +101,20 @@ const NewsView = ({ newsItem, location, fetchNewsItem, postNewsComment, comments
   );
 };
 
-const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuccess, ...props }) => {
+const CommentForm = ({
+  newsId,
+  postNewsComment,
+  commentsSuccess,
+  clearCommentSuccess,
+  ...props
+}) => {
   const { register, handleSubmit, reset, setValue } = useForm();
   // let reCaptchaRef = useRef();
 
-  const onSubmit = values => {
+  const onSubmit = (values) => {
     postNewsComment({
       ...values,
-      id: newsId
+      id: newsId,
     });
     setTimeout(() => {
       reset();
@@ -107,53 +126,77 @@ const CommentForm = ({ newsId, postNewsComment, commentsSuccess, clearCommentSuc
 
   return (
     <div className="comment_form">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="inputs">
-          <input ref={register({ required: true })} name="name" type="text" placeholder="Name" />
-          <input ref={register({ required: true })} name="email" type="email" placeholder="Your Email" />
-        </div>
-        <div className="inputs">
-          <input ref={register({ required: true })} name="title" type="text" placeholder="Comment Title" style={{ flex: 1 }} />
-        </div>
-        <textarea
-          ref={register({ required: true })}
-          name="comment"
-          id=""
-          cols="30"
-          rows="10"
-          placeholder="Type here your Comment"
-        ></textarea>
-        <ReCAPTCHA
-          theme="dark"
-          sitekey={config.reCaptchaKey}
-          ref={() =>
-            register(
-              { name: "reCaptchaToken" },
-              {
-                validate: value => {
-                  return !!value;
-                }
+      <I18n>
+        {({ i18n }) => (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="inputs">
+              <input
+                ref={register({ required: true })}
+                name="name"
+                type="text"
+                placeholder={i18n._("name")}
+              />
+              <input
+                ref={register({ required: true })}
+                name="email"
+                type="email"
+                placeholder={i18n._("your_email")}
+              />
+            </div>
+            <div className="inputs">
+              <input
+                ref={register({ required: true })}
+                name="title"
+                type="text"
+                placeholder={i18n._("comment_title")}
+                style={{ flex: 1 }}
+              />
+            </div>
+            <textarea
+              ref={register({ required: true })}
+              name="comment"
+              id=""
+              cols="30"
+              rows="10"
+              placeholder={i18n._("type_here_your_comment")}
+            ></textarea>
+            <ReCAPTCHA
+              theme="dark"
+              sitekey={config.reCaptchaKey}
+              ref={() =>
+                register(
+                  { name: "reCaptchaToken" },
+                  {
+                    validate: (value) => {
+                      return !!value;
+                    },
+                  }
+                )
               }
-            )
-          }
-          onChange={v => {
-            setValue("reCaptchaToken", v);
-          }}
-        />
-        <button type="submit">
-          <Trans id="post_comment">Post Comment</Trans>
-        </button>
-        {"  "}
-        {commentsSuccess === undefined ? null : commentsSuccess === true ? (
-          <div className="msg_success">
-            <Trans id="comment_submitted">Your comment has been submitted successfully for review</Trans>
-          </div>
-        ) : (
-          <div className="msg_wrong">
-            <Trans id="comment_failed">There is an error, the message could not be sent</Trans>
-          </div>
+              onChange={(v) => {
+                setValue("reCaptchaToken", v);
+              }}
+            />
+            <button type="submit">
+              <Trans id="post_comment">Post Comment</Trans>
+            </button>
+            {"  "}
+            {commentsSuccess === undefined ? null : commentsSuccess === true ? (
+              <div className="msg_success">
+                <Trans id="comment_submitted">
+                  Your comment has been submitted successfully for review
+                </Trans>
+              </div>
+            ) : (
+              <div className="msg_wrong">
+                <Trans id="comment_failed">
+                  There is an error, the message could not be sent
+                </Trans>
+              </div>
+            )}
+          </form>
         )}
-      </form>
+      </I18n>
     </div>
   );
 };
@@ -176,7 +219,7 @@ const Comments = ({ comments, ...props }) =>
     </div>
   ));
 
-const AdsArea = props => (
+const AdsArea = (props) => (
   <>
     <div className="small_banner">
       <a href="#" title="#">
@@ -197,7 +240,7 @@ const RelatedNews = ({ relatedNews, ...props }) => (
       <Trans id="related_news">Related News</Trans>
     </div>
     {relatedNews &&
-      relatedNews.map(n => (
+      relatedNews.map((n) => (
         <div key={n.id} className="item">
           <a href={`/news/${n.id}`}>
             <img src={n.posterUrl} />
@@ -207,11 +250,15 @@ const RelatedNews = ({ relatedNews, ...props }) => (
   </div>
 );
 
-const mapStateToProps = ({ news: { newsItem, postNewsComment, commentsSuccess }, router: { location } }) => ({
+const mapStateToProps = ({
+  news: { newsItem, postNewsComment, commentsSuccess },
+  router: { location },
+}) => ({
   newsItem,
   postNewsComment,
   commentsSuccess,
-  location
+  location,
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...newsActions }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...newsActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(NewsView);

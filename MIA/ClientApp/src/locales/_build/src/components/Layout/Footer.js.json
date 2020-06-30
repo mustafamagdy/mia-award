@@ -3,7 +3,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        37
+        36
       ]
     ]
   },
@@ -12,7 +12,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        42
+        41
       ]
     ]
   },
@@ -21,7 +21,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        47
+        46
       ]
     ]
   },
@@ -30,7 +30,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        52
+        51
       ]
     ]
   },
@@ -39,7 +39,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        57
+        56
       ]
     ]
   },
@@ -48,7 +48,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        62
+        61
       ]
     ]
   },
@@ -57,7 +57,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        69
+        68
       ]
     ]
   },
@@ -66,7 +66,15 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        72
+        71
+      ]
+    ]
+  },
+  "email": {
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        83
       ]
     ]
   },
@@ -75,7 +83,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        100
+        104
       ]
     ]
   }

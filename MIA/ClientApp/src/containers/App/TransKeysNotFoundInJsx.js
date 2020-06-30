@@ -84,6 +84,17 @@ class TransKeysNotFoundInJsx extends React.Component {
         <Trans id="second_day"></Trans>
         <Trans id="third_day"></Trans>
         <Trans id="forth_day"></Trans>
+        <Trans id="min_size"></Trans>
+        <Trans id="mb"></Trans>
+        <Trans id="search...">Search ...</Trans>
+        <Trans id="show_name"></Trans>
+        <Trans id="newPassword"></Trans>
+        <Trans id="confirmPassword"></Trans>
+        <Trans id="type_your_comment">Type here your comment (100 character minimum)</Trans>
+        <Trans id="your_email"></Trans>
+        <Trans id="type_here_your_comment">Type here your comment</Trans>
+        <Trans id="comment_title">Comment title</Trans>
+        <Trans id="your_email">Your email</Trans>
 
       </div>
     );

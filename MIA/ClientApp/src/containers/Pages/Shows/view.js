@@ -17,6 +17,7 @@ import { bindActionCreators } from "redux";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import classNames from "classnames";
+import { I18n } from "@lingui/react";
 
 const ShowsView = ({
   show,
@@ -269,73 +270,77 @@ const CommentForm = ({
 
   return (
     <div className="comment_form">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="inputs">
-          <input
-            ref={register({ required: true })}
-            name="name"
-            type="text"
-            placeholder="Name"
-          />
-          <input
-            ref={register({ required: true })}
-            name="email"
-            type="email"
-            placeholder="Your Email"
-          />
-        </div>
-        <div className="inputs">
-          <input
-            ref={register({ required: true })}
-            name="title"
-            type="text"
-            placeholder="Comment Title"
-            style={{ flex: 1 }}
-          />
-        </div>
-        <textarea
-          ref={register({ required: true })}
-          name="comment"
-          id=""
-          cols="30"
-          rows="10"
-          placeholder="Type here your Comment"
-        ></textarea>
-        <ReCAPTCHA
-          theme="dark"
-          sitekey={config.reCaptchaKey}
-          ref={() =>
-            register(
-              { name: "reCaptchaToken" },
-              {
-                validate: (value) => {
-                  return !!value;
-                },
+      <I18n>
+        {({ i18n }) => (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="inputs">
+              <input
+                ref={register({ required: true })}
+                name="name"
+                type="text"
+                placeholder={i18n._("name")}
+              />
+              <input
+                ref={register({ required: true })}
+                name="email"
+                type="email"
+                placeholder={i18n._("your_email")}
+              />
+            </div>
+            <div className="inputs">
+              <input
+                ref={register({ required: true })}
+                name="title"
+                type="text"
+                placeholder={i18n._("comment_title")}
+                style={{ flex: 1 }}
+              />
+            </div>
+            <textarea
+              ref={register({ required: true })}
+              name="comment"
+              id=""
+              cols="30"
+              rows="10"
+              placeholder={i18n._("type_here_your_comment")}
+            ></textarea>
+            <ReCAPTCHA
+              theme="dark"
+              sitekey={config.reCaptchaKey}
+              ref={() =>
+                register(
+                  { name: "reCaptchaToken" },
+                  {
+                    validate: (value) => {
+                      return !!value;
+                    },
+                  }
+                )
               }
-            )
-          }
-          onChange={(v) => {
-            setValue("reCaptchaToken", v);
-          }}
-        />
-        <button type="submit">
-          <Trans id="post_comment">Post Comment</Trans>
-        </button>
-        {"  "}
-        {commentsSuccess === undefined ? null : commentsSuccess === true ? (
-          <div className="msg_success">
-            <Trans id="comment_submitted">
-              Your comment has been submitted successfully for review
-            </Trans>
-          </div>
-        ) : (
-          <div className="msg_wrong">
-            <Trans id="comment_failed">
-              There is an error, the message could not be sent
-            </Trans>
-          </div>
+              onChange={(v) => {
+                setValue("reCaptchaToken", v);
+              }}
+            />
+            <button type="submit">
+              <Trans id="post_comment">Post Comment</Trans>
+            </button>
+            {"  "}
+            {commentsSuccess === undefined ? null : commentsSuccess === true ? (
+              <div className="msg_success">
+                <Trans id="comment_submitted">
+                  Your comment has been submitted successfully for review
+                </Trans>
+              </div>
+            ) : (
+              <div className="msg_wrong">
+                <Trans id="comment_failed">
+                  There is an error, the message could not be sent
+                </Trans>
+              </div>
+            )}
+          </form>
         )}
-      </form>
+      </I18n>
     </div>
   );
 };
