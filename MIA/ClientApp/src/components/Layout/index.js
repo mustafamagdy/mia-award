@@ -1,4 +1,10 @@
-import React, { Fragment, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
+import React, {
+  Fragment,
+  useEffect,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import UserProvider from "containers/Providers/UserProvider";
@@ -11,14 +17,20 @@ import { useForm } from "react-hook-form";
 import config from "config";
 import { withRouter } from "react-router";
 import { useOnClickOutside } from "hooks";
-import { FacebookShareButton, TwitterShareButton, InstapaperShareButton, WhatsappShareButton } from "react-share";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  InstapaperShareButton,
+  WhatsappShareButton,
+} from "react-share";
+import { I18n } from "@lingui/react";
 
 const SearchForm = forwardRef(({ history, hideAndReset }, ref) => {
   const { register, handleSubmit, reset } = useForm();
   const overlayRef = useRef();
   useOnClickOutside(overlayRef, () => hideAndReset());
 
-  const onSearch = q => {
+  const onSearch = (q) => {
     hideAndReset();
     history.push("/shows/?q=" + q.search);
   };
@@ -26,23 +38,38 @@ const SearchForm = forwardRef(({ history, hideAndReset }, ref) => {
   useImperativeHandle(ref, () => ({
     reset() {
       reset();
-    }
+    },
   }));
 
   return (
-    <form onSubmit={handleSubmit(onSearch)} ref={overlayRef}>
-      <input type="text" name="search" ref={register} placeholder="Search ..." />
-      <button type="submit">
-        <i className="icofont-ui-search"></i>
-      </button>
-    </form>
+    <I18n>
+      {({ i18n }) => (
+        <form onSubmit={handleSubmit(onSearch)} ref={overlayRef}>
+          <input
+            type="text"
+            name="search"
+            ref={register}
+            placeholder={i18n._("search...")}
+          />
+          <button type="submit">
+            <i className="icofont-ui-search"></i>
+          </button>
+        </form>
+      )}
+    </I18n>
   );
 });
 
-const Layout = ({ toggleShareSidebar, searchFormOpen, history, toggleSearchForm, ...props }) => {
+const Layout = ({
+  toggleShareSidebar,
+  searchFormOpen,
+  history,
+  toggleSearchForm,
+  ...props
+}) => {
   const searchFormRef = useRef();
 
-  const dismissDlgs = event => {
+  const dismissDlgs = (event) => {
     if (event.keyCode === 27 && searchFormOpen === true) {
       hideAndReset();
     }
@@ -84,7 +111,11 @@ const Layout = ({ toggleShareSidebar, searchFormOpen, history, toggleSearchForm,
           </div>
         </aside>
         <div id="search_modal" className="search_modal">
-          <SearchForm ref={searchFormRef} history={history} hideAndReset={hideAndReset} />
+          <SearchForm
+            ref={searchFormRef}
+            history={history}
+            hideAndReset={hideAndReset}
+          />
         </div>
         <ShareSidebar toggleShareSidebar={toggleShareSidebar} />
         <Sidebar />
@@ -130,6 +161,9 @@ const ShareSidebar = ({ toggleShareSidebar, ...props }) => {
   );
 };
 
-const mapStateToProps = ({ global: { searchFormOpen } }) => ({ searchFormOpen });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
+const mapStateToProps = ({ global: { searchFormOpen } }) => ({
+  searchFormOpen,
+});
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...appActions }, dispatch);
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout));

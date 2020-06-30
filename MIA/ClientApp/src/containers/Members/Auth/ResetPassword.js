@@ -2,7 +2,6 @@ import React from "react";
 import { Formik, Form } from "formik";
 import { Recaptcha, Field } from "components/Forms";
 import * as Yup from "yup";
-import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import { Trans } from "@lingui/macro";
 
@@ -13,7 +12,6 @@ const ResetPasswordForm = ({
   match,
   ...props
 }) => {
-  const { register, handleSubmit } = useForm();
   const resetPassword = (values) => {
     resetPasswordForUser(values);
   };
@@ -34,7 +32,7 @@ const ResetPasswordForm = ({
         confirmPassword: Yup.string().required("Required"),
       })}
       onSubmit={(values) => {
-        handleSubmit(resetPassword(values));
+        resetPassword(values);
       }}
     >
       {({ values, errors, touched, isSubmitting, formik }) => {
@@ -46,7 +44,7 @@ const ResetPasswordForm = ({
                 className={`form-group__input ${
                   errors.newPassword && touched.newPassword ? "has-error" : ""
                 }`}
-                placeholder="newPassword"
+                placeholderKey="newPassword"
                 name="newPassword"
               />
               <Field
@@ -56,17 +54,19 @@ const ResetPasswordForm = ({
                     ? "has-error"
                     : ""
                 }`}
-                placeholder="confirmPassword"
+                placeholderKey="confirmPassword"
                 name="confirmPassword"
               />
             </div>
             <div className="submit_area">
               <div className="resset">
                 <label className="action" onClick={switchToLogin}>
-                <Trans id="login">Login</Trans> ?
+                  <Trans id="login">Login</Trans> ?
                 </label>
               </div>
-              <button type="submit"><Trans id="reset_password">Reset Password</Trans></button>
+              <button type="submit">
+                <Trans id="reset_password">Reset Password</Trans>
+              </button>
             </div>
           </Form>
         );

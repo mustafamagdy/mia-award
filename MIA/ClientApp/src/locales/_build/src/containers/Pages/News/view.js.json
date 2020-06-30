@@ -4,7 +4,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        31
+        44
       ]
     ]
   },
@@ -13,7 +13,39 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        47
+        60
+      ]
+    ]
+  },
+  "name": {
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        137
+      ]
+    ]
+  },
+  "your_email": {
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        143
+      ]
+    ]
+  },
+  "comment_title": {
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        151
+      ]
+    ]
+  },
+  "type_here_your_comment": {
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        161
       ]
     ]
   },
@@ -22,7 +54,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        144
+        181
       ]
     ]
   },
@@ -31,7 +63,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        149
+        186
       ]
     ]
   },
@@ -40,7 +72,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        153
+        192
       ]
     ]
   },
@@ -48,7 +80,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        171
+        214
       ]
     ]
   },
@@ -57,7 +89,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        197
+        240
       ]
     ]
   }

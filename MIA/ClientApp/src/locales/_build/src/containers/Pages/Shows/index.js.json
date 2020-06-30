@@ -34,5 +34,29 @@
         146
       ]
     ]
+  },
+  "show_name": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        168
+      ]
+    ]
+  },
+  "tv_channels": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        184
+      ]
+    ]
+  },
+  "online_channels": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        190
+      ]
+    ]
   }
 }

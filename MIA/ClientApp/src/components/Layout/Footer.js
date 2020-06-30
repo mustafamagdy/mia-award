@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Trans } from "@lingui/macro";
+import { I18n } from "@lingui/react";
 
 import "sass/footer.scss";
 
@@ -68,20 +69,25 @@ const Footer = (props) => {
               </div>
               <p>
                 <Trans id="if_you_want_to_keep_updated">
-                 Are you interested, enter your email address and we will keep you updated
+                  Are you interested, enter your email address and we will keep
+                  you updated
                 </Trans>
               </p>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <input
-                  type="text"
-                  name="email"
-                  ref={register({ required: true })}
-                  placeholder="Email"
-                />
-                <button type="submit">
-                  <i className="icofont-send-mail"></i>
-                </button>
-              </form>
+              <I18n>
+                {({ i18n }) => (
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <input
+                      type="text"
+                      name="email"
+                      ref={register({ required: true })}
+                      placeholder={i18n._("email")}
+                    />
+                    <button type="submit">
+                      <i className="icofont-send-mail"></i>
+                    </button>
+                  </form>
+                )}
+              </I18n>
               {submitSuccess && (
                 <div className="msg_success">
                   The message was sent successfully
