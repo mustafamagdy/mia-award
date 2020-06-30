@@ -491,7 +491,7 @@ msgstr "ورش عمل لتطوير القدرات المهنية الفنية و
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:14
 msgid "location1_title"
-msgstr ""
+msgstr "فندق الميدان"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:17
 msgid "location2_description"
@@ -499,7 +499,7 @@ msgstr "ورش عمل لتطوير القدرات المهنية الفنية و
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:16
 msgid "location2_title"
-msgstr ""
+msgstr "مسرح دار الاوبرا"
 
 #: src/containers/Members/Auth/ForgetPassword.js:26
 #: src/containers/Members/Auth/index.js:115

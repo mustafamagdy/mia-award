@@ -55,8 +55,22 @@ const Timeline = ({ timeline, fetchTimeline, props }) => {
                 }
               </LanguageContext.Consumer>
             </div>
-            <div className="map-container">
-              {selectedDay && (
+            {selectedDay && (
+              <div className="map-container">
+                <p className="address">
+                  <i className="icofont-google-map item-icon"></i> {" "}
+                  <span>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={config.tickets[selectedDay.ticketIndex].mapRef}
+                    >
+                      <Trans
+                        id={config.tickets[selectedDay.ticketIndex].titleKey}
+                      ></Trans>
+                    </a>
+                  </span>
+                </p>
                 <Map
                   lat={config.tickets[selectedDay.ticketIndex].location.lat}
                   long={config.tickets[selectedDay.ticketIndex].location.long}
@@ -65,8 +79,8 @@ const Timeline = ({ timeline, fetchTimeline, props }) => {
                     config.tickets[selectedDay.ticketIndex].location.landMarker,
                   ]}
                 />
-              )}
-            </div>
+              </div>
+            )}
           </div>
           <div className="right_col">
             <div className="schedule">

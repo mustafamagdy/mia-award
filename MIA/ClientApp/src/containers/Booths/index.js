@@ -668,6 +668,7 @@ const Confirmation = ({ active, success, ...props }) => {
 
 const Booth3DView = ({ boothType, ...props }) => (
   <ReactPlayer
+    loop
     playing
     url={`/assets/files/booth_${boothType}.mp4`}
     className="react-player"

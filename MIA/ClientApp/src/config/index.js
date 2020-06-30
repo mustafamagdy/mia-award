@@ -25,32 +25,10 @@ export default {
   },
   tickets_enabled: false,
   tickets: [
+   
     {
       locationId: 1,
-      location: {
-        lat: 25.1948729,
-        long: 55.2654525,
-        zoom: 15.76,
-        landMarker: {
-          id: "1",
-          icon: "./assets/images/markers/marker.svg",
-          name: "Dubai opera",
-          lat: 25.1948729,
-          long: 55.2654525,
-        },
-      },
-      titleKey: "location1_title",
-      title: "Dubai opera",
-      descriptionKey: "location1_description",
-      description: `TEXT_DEEEDED_HERE`,
-      dates: [
-        { date: "20-05-2020" },
-        { date: "21-05-2020" },
-        { date: "22-05-2020" },
-      ],
-    },
-    {
-      locationId: 2,
+      mapRef:"https://www.google.com/maps/search/Al-Maydan%20Hotel",
       location: {
         lat: 25.1559204,
         long: 55.2977487,
@@ -68,6 +46,31 @@ export default {
       descriptionKey: "location1_description",
       description: `TEXT_DEEEDED_HERE`,
       dates: [{ date: "29-05-2020" }, { date: "30-05-2020" }],
+    },
+    {
+      locationId: 2,
+      mapRef:"https://www.google.com/maps/search/Dubai+Opera",      
+      location: {
+        lat: 25.1948729,
+        long: 55.2654525,
+        zoom: 15.76,
+        landMarker: {
+          id: "1",
+          icon: "./assets/images/markers/marker.svg",
+          name: "Dubai opera",
+          lat: 25.1948729,
+          long: 55.2654525,
+        },
+      },
+      titleKey: "location2_title",
+      title: "Dubai opera",
+      descriptionKey: "location2_description",
+      description: `TEXT_DEEEDED_HERE`,
+      dates: [
+        { date: "20-05-2020" },
+        { date: "21-05-2020" },
+        { date: "22-05-2020" },
+      ],
     },
   ],
   menu: [
