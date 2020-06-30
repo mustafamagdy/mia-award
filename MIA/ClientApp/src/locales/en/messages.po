@@ -255,7 +255,7 @@ msgstr "Confirm?"
 
 #: src/containers/User/CheckYourEmail.js:9
 msgid "confirm_your_email_first"
-msgstr "Confirm Your Email First"
+msgstr "Your account has been created, please check your email for confirmation."
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:38
 msgid "conpatitors"

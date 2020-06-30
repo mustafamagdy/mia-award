@@ -78,7 +78,7 @@ const Files = ({ active, artwork, removeArtworkFile }, props) => {
               <File
                 projectName={artwork.projectName}
                 posterUrl={artwork.posterUrl}
-                coverUrl={encodeURI(artwork.coverImageUrl)}
+                coverUrl={encodeURI(artwork.coverUrl)}
                 file={f}
                 key={index}
                 showRemove

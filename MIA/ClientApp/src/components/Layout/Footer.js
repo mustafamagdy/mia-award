@@ -10,8 +10,6 @@ const Footer = (props) => {
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = (data) => {
     //TODO: submit form for news letter
-    console.log("newsletter ", data);
-
     setSubmitSuccess(true);
 
     setTimeout(() => {

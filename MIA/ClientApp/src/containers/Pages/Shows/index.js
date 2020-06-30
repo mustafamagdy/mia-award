@@ -111,7 +111,7 @@ const Shows = ({
                           className="react-player"
                           width="100%"
                           height="100%"
-                          light={encodeURI(item.coverImageUrl)}
+                          light={encodeURI(item.coverUrl)}
                         />
                       </div>
                       <div className="video_details">

@@ -16,7 +16,7 @@ class Recaptcha extends React.PureComponent {
         ref={e => this.setState({ captcha: e })}
         sitekey={config.reCaptchaKey}
         render="explicit"
-        theme="light"
+        theme="dark"
         onChange={value => {
           setFieldValue(name, value);
         }}

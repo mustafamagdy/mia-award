@@ -115,6 +115,12 @@ namespace MIA.MappingProfiles {
 
       CreateMap<SubmitArtworkWithDetails, Artwork>()
         .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
+        .ForMember(a => a.Poster, cfg => cfg.Ignore())
+        .ForMember(a => a.Trailer, cfg => cfg.Ignore())
+        .ForMember(a => a.Resume, cfg => cfg.Ignore())
+        .ForMember(a => a.File1, cfg => cfg.Ignore())
+        .ForMember(a => a.File2, cfg => cfg.Ignore())
+        .ForMember(a => a.File3, cfg => cfg.Ignore())
         // .ForMember(a => a.Payment, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None);
 

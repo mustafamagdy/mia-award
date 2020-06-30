@@ -80,10 +80,10 @@ const EditArtwork = ({
   return (
     <React.Fragment>
       <div className="upload_poster" style={artworkPosterStyle}>
-        {artwork && artwork.coverImageUrl && (
+        {artwork && artwork.coverUrl && (
           <div className="upload_area">
             <img
-              src={artwork.coverImageUrl}
+              src={artwork.coverUrl}
               style={{ objectFit: "cover" }}
               alt="Cover"
             />
@@ -126,7 +126,7 @@ const EditArtwork = ({
                 trailerUrl={artwork && artwork.trailerUrl}
                 trailerPosterUrl={artwork && artwork.posterUrl}
                 updateTrailer={updateTrailer}
-                coverUrl={encodeURI(artwork?.coverImageUrl)}
+                coverUrl={encodeURI(artwork?.coverUrl)}
               />
             )}
             {artwork.canUploadFiles && activeTabKey === "files" && (
