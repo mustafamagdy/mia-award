@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import { Trans } from "@lingui/macro";
 
 const UploadDropZone = ({
   setFiles,
@@ -13,6 +14,7 @@ const UploadDropZone = ({
   setProgress,
   progress,
   extensions,
+  minSize,
   ...props
 }) => {
   const onDrop = useCallback((acceptedFiles) => {
@@ -25,6 +27,17 @@ const UploadDropZone = ({
       });
     } else {
       accFiles = [...acceptedFiles];
+    }
+
+    const _filteredSizes = [];
+    if (minSize) {
+      accFiles.map((f) => {
+        if (f.size >= minSize * 1024 * 1024) {
+          _filteredSizes.push(f);
+        }
+      });
+
+      accFiles = [..._filteredSizes];
     }
 
     setFiles(accFiles);
@@ -46,6 +59,12 @@ const UploadDropZone = ({
       <input {...getInputProps()} />
       <i className={iconClass}></i>
       <p>{message}</p>
+      {minSize && (
+        <div className="hint">
+          <Trans id="min_size">File minimum size: </Trans>
+          {minSize} <Trans id="mb">MB</Trans>
+        </div>
+      )}
     </div>
   );
 };

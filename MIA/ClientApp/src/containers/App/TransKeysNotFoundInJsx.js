@@ -84,6 +84,8 @@ class TransKeysNotFoundInJsx extends React.Component {
         <Trans id="second_day"></Trans>
         <Trans id="third_day"></Trans>
         <Trans id="forth_day"></Trans>
+        <Trans id="min_size"></Trans>
+        <Trans id="mb"></Trans>
 
       </div>
     );

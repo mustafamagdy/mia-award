@@ -249,7 +249,7 @@ const Info = ({
         <Trans id="edit_info">Edit Info</Trans>
       </button>
 
-      {canUploadFiles && (
+      {canUploadFiles && !uploadComplete && (
         <I18n>
           {({ i18n }) => (
             <button

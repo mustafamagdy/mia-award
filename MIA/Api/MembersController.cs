@@ -476,7 +476,9 @@ namespace MIA.Api {
             File = S3File.FromKeyAndUrl(fileKey, fileUrl)
           };
 
-          await db.MediaFiles.AddAsync(mediaFile);
+          if (await db.MediaFiles.FirstOrDefaultAsync(a => a.ArtWorkId == artwork.Id && a.File.FileKey == fileKey) == null) {
+            await db.MediaFiles.AddAsync(mediaFile);
+          }
           return Ok(fileKey);
         } else {
           return Ok(result);
