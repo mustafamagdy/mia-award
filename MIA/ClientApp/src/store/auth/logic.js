@@ -9,7 +9,7 @@ export const loginLogic = logic(
   ActionTypes.LOGIN,
   (dispatch) => dispatch(push("/members")),
   (dispatch, res) => {
-    if (res && res.errorCode == "404") {
+    if (res && (res.errorCode == "404" || res.errorCode  == "403")) {
       toast.error(`Login failed`);
     }
   }
