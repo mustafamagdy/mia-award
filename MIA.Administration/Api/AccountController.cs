@@ -87,7 +87,7 @@ namespace MIA.Administration.Api {
               { "fullName", user.FullName}
             });
 
-       // await emailSender.SendEmailAsync(user.Email, _Locale["email_confirm_subject"], htmlMessage);
+        // await emailSender.SendEmailAsync(user.Email, _Locale.Get(culture,"email_confirm_subject"), htmlMessage);
         return Ok(user);
 
       } else {
@@ -174,7 +174,7 @@ namespace MIA.Administration.Api {
               { "fullName", user.FullName}
             });
 
-        await emailSender.SendEmailAsync(user.Email, _Locale["reset_password_request_subject"], htmlMessage);
+        await emailSender.SendEmailAsync(user.Email, _Locale.Get(culture, "reset_password_request_subject"), htmlMessage);
         return Ok();
       } else {
         throw new ApiException(ApiErrorType.NotFound, "User doesn't exist");
@@ -209,7 +209,7 @@ namespace MIA.Administration.Api {
               new Dictionary<string, string> { { "fullName", user.FullName }
               });
 
-          await emailSender.SendEmailAsync(user.Email, _Locale["your_password_reset_subject"], htmlMessage);
+          await emailSender.SendEmailAsync(user.Email, _Locale.Get(culture, "your_password_reset_subject"), htmlMessage);
           return Ok();
         } else {
           throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
@@ -248,7 +248,7 @@ namespace MIA.Administration.Api {
             new Dictionary<string, string> { { "fullName", user.FullName }
             });
 
-        await emailSender.SendEmailAsync(user.Email, _Locale["your_password_changed_subject"], htmlMessage);
+        await emailSender.SendEmailAsync(user.Email, _Locale.Get(culture, "your_password_changed_subject"), htmlMessage);
         return Ok();
       } else {
         throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());

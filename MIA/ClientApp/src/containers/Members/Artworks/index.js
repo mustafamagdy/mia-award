@@ -11,7 +11,7 @@ import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
 import classNames from "classnames";
 import Artwork from "./ArtworkItem";
 
-const Artworks = ({
+const MembersDashboard = ({
   fetchMyArtworks,
   fetchMyAwards,
   myAwards,
@@ -48,7 +48,7 @@ const Artworks = ({
             myAwards.map((m, i) => {
               return <Award key={i} award={m} />;
             })}
-          {myAwards.length === 0 && <p class="info">No awards yet</p>}
+          {myAwards.length === 0 && <p className="info">No awards yet</p>}
         </div>
       </div>
       <div className="show_area main_tabs">
@@ -137,4 +137,4 @@ const mapDispatchToProps = (dispatch) =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(Artworks));
+)(withRouter(MembersDashboard));

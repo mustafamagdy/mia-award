@@ -5,35 +5,51 @@ import { Field, LocalizedDataField } from "components/Forms";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import config from "config";
+import { fileToBase64 } from "utils";
 
 const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
   return (
     <Formik
       initialValues={artwork}
-      validationSchema={Yup.object().shape({
-        projectName: Yup.object().shape({
-          ar: Yup.string().required("Required"),
-          en: Yup.string().required("Required"),
-        }),
-        description: Yup.object().shape({
-          ar: Yup.string().required("Required"),
-          en: Yup.string().required("Required"),
-        }),
-        siteUrl: Yup.string().required("Required"),
-        productionYear: Yup.number()
-          .required("Required")
-          .min(config.validationRules.allowed_artwork_years.min)
-          .max(config.validationRules.allowed_artwork_years.max),
-        broadcastYear: Yup.number()
-          .required("Required")
-          .min(config.validationRules.allowed_artwork_years.min)
-          .max(config.validationRules.allowed_artwork_years.max),
-        tvChannels: Yup.string().required("Required"),
-        onlineChannels: Yup.string().required("Required"),
-        productionLicenseNumber: Yup.string().required("Required"),
-        productionLicenseAgency: Yup.string().required("Required"),
-      })}
+      validationSchema={() =>
+        Yup.object().shape({
+          projectName: Yup.object().shape({
+            ar: Yup.string().required("Required"),
+            en: Yup.string().required("Required"),
+          }),
+          description: Yup.object().shape({
+            ar: Yup.string().required("Required"),
+            en: Yup.string().required("Required"),
+          }),
+          siteUrl: Yup.string()
+            .required("Required")
+            .matches(config.validationRules.url, "not_valid_url"),
+          productionYear: Yup.number()
+            .required("Required")
+            .min(config.validationRules.allowed_artwork_years.min)
+            .max(config.validationRules.allowed_artwork_years.max),
+          broadcastYear: Yup.number()
+            .required("Required")
+            .min(config.validationRules.allowed_artwork_years.min)
+            .max(config.validationRules.allowed_artwork_years.max),
+          tvChannels: Yup.string().required("Required"),
+          onlineChannels: Yup.string().required("Required"),
+          productionLicenseNumber: Yup.string().required("Required"),
+          productionLicenseAgency: Yup.string().required("Required"),
+          //props special for contestant
+          resume:
+            artwork.awardType == "person"
+              ? Yup.mixed().required("File_is_required")
+              : null,
+        })
+      }
       onSubmit={async (values, actions) => {
+        if (artwork.awardType == "person") {
+          const resume = await fileToBase64(values.resume);
+          values.resumeFileName = values.resume.name;
+          values.resume = resume;
+        }
+
         editArtwork(values);
       }}
     >
@@ -192,7 +208,23 @@ const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
                     name="productionLicenseAgency"
                   />
                 </div>
-
+                {artwork.awardType == "person" && (
+                  <div className="row">
+                    <Field
+                      transId="resume"
+                      transdDefaultVal="Resume"
+                      isFile={true}
+                      hasError={
+                        errors &&
+                        errors.resume !== undefined &&
+                        touched &&
+                        touched.resume !== undefined
+                      }
+                      name="resume"
+                      accept="image/*"
+                    />
+                  </div>
+                )}
                 <div className="row">
                   <button className="normal_button" type="submit">
                     <Trans id="save">Save</Trans>

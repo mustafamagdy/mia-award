@@ -120,7 +120,9 @@ const Profile = ({
                   validationSchema={Yup.object().shape({
                     fullName: Yup.string().required("Required"),
                     jobTitle: Yup.string().required("Required"),
-                    email: Yup.string().required("Required"),
+                    email: Yup.string()
+                      .required("Required")
+                      .email("not_valid_email"),
                   })}
                   onSubmit={(values, actions) => {
                     updateUserProfile && updateUserProfile(values);

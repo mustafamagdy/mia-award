@@ -118,12 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="email_confirm_subject" xml:space="preserve">
-    <value>Confirm your email</value>
+    <value>تحقق البريد الالكتروني</value>
   </data>
   <data name="reset_password_request_subject" xml:space="preserve">
-    <value>Reset password</value>
+    <value>طلب اعادة تعيين كلمة المرور</value>
+  </data>
+  <data name="welcome_email_subject" xml:space="preserve">
+    <value>مرحبا بك</value>
+  </data>
+  <data name="your_password_changed_subject" xml:space="preserve">
+    <value>تم تغيير كلمة المرور</value>
   </data>
   <data name="your_password_reset_subject" xml:space="preserve">
-    <value>Your password has been reset</value>
+    <value>تم اعادة تعيين كلمة المرور</value>
   </data>
 </root>

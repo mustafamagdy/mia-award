@@ -155,11 +155,23 @@ const Booths = ({
                     validationSchema={Yup.object().shape({
                       boothCode: Yup.string().required("Required"),
                       address: Yup.string().required("Required"),
-                      phone: Yup.string().required("Required"),
+                      phone: Yup.string()
+                        .required("Required")
+                        .matches(
+                          config.validationRules.phoneExp,
+                          "phone_number_is_not_valid"
+                        ),
                       contactPersonName: Yup.string().required("Required"),
                       contactPersonTitle: Yup.string().required("Required"),
-                      cellPhone1: Yup.string().required("Required"),
-                      email: Yup.string().required("Required"),
+                      cellPhone1: Yup.string()
+                        .required("Required")
+                        .matches(
+                          config.validationRules.phoneExp,
+                          "phone_number_is_not_valid"
+                        ),
+                      email: Yup.string()
+                        .required("Required")
+                        .email("not_valid_email"),
                       agreeOnTerms: Yup.bool().required("Required"),
                       payment: Yup.object().shape({
                         receiptAmount: Yup.number()

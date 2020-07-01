@@ -4,6 +4,7 @@ import { Recaptcha, Field } from "components/Forms";
 import * as Yup from "yup";
 import classNames from "classnames";
 import { Trans } from "@lingui/macro";
+import config from 'config'
 
 const Register = ({
   signupActiveTab,
@@ -30,8 +31,12 @@ const Register = ({
       }}
       validationSchema={Yup.object().shape({
         fullName: Yup.string().required("Required"),
-        email: Yup.string().required("Required"),
-        phoneNumber: Yup.string().required("Required"),
+        email: Yup.string().required("Required").email("not_valid_email"),
+        phoneNumber: Yup.string().required("Required")
+        .matches(
+          config.validationRules.phoneExp,
+          "phone_number_is_not_valid"
+        ),
         password: Yup.string().required("Required"),
         confirmPassword: Yup.string()
           .required("Required")
@@ -39,7 +44,7 @@ const Register = ({
             is: (val) => (val && val.length > 0 ? true : false),
             then: Yup.string().oneOf(
               [Yup.ref("password")],
-              "Both password need to be the same"
+              "booth_password_must_match"
             ),
           }),
         reCaptchaToken: Yup.string().required("reCaptcha is required"),

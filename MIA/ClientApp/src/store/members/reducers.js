@@ -32,16 +32,15 @@ const fetchMyArtworksSuccess = (state, action) => {
 };
 const addNewArtworkSuccess = (state, action) => {
   return produce(state, (draft) => {
-    draft.artwork = { ...action.payload };
-    draft.myArtworks = [...state.myArtworks, action.payload];
-    draft.artworkMode = "view";
-  });
-};
-const addNewContestantSuccess = (state, action) => {
-  return produce(state, (draft) => {
-    draft.contestant = { ...action.payload };
-    draft.myContestants = [...state.myContestants, action.payload];
-    draft.contestantMode = "view";
+    if (action.payload.awardType == "person") {
+      draft.contestant = { ...action.payload };
+      draft.myContestants = [...state.myContestants, action.payload];
+      draft.contestantMode = "view";
+    } else {
+      draft.artwork = { ...action.payload };
+      draft.myArtworks = [...state.myArtworks, action.payload];
+      draft.artworkMode = "view";
+    }
   });
 };
 const saveArtworkInfoSuccess = (state, action) => {
@@ -64,9 +63,7 @@ const fetchArtworkWithDetailsSuccess = (state, action) => {
       }
     } else {
       draft.artwork = { ...action.payload };
-      const indx = state.myArtworks.findIndex(
-        (a) => a.id == action.payload.id
-      );
+      const indx = state.myArtworks.findIndex((a) => a.id == action.payload.id);
       if (indx == -1) {
         draft.myArtworks = [...state.myArtworks, action.payload];
       } else {
@@ -117,7 +114,6 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_MY_AWARDS_SUCCESS]: fetchMyAwardsSuccess,
   [ActionTypes.FETCH_MY_ARTWORKS_SUCCESS]: fetchMyArtworksSuccess,
   [ActionTypes.ADD_NEW_ARTWORK_SUCCESS]: addNewArtworkSuccess,
-  [ActionTypes.ADD_NEW_CONTESTANT_SUCCESS]: addNewContestantSuccess,
   [ActionTypes.SAVE_ARTWORK_INFO_SUCCESS]: saveArtworkInfoSuccess,
   [ActionTypes.FETCH_ARTWORK_WITH_DETAILS_SUCCESS]: fetchArtworkWithDetailsSuccess,
   [ActionTypes.UPDATE_TRAILER_SUCCESS]: updateTrailerSuccess,

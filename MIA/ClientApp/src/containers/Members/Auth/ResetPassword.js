@@ -29,7 +29,15 @@ const ResetPasswordForm = ({
       }}
       validationSchema={Yup.object().shape({
         newPassword: Yup.string().required("Required"),
-        confirmPassword: Yup.string().required("Required"),
+        confirmPassword: Yup.string()
+          .required("Required")
+          .when("newPassword", {
+            is: (val) => (val && val.length > 0 ? true : false),
+            then: Yup.string().oneOf(
+              [Yup.ref("newPassword")],
+              "booth_password_must_match"
+            ),
+          }),
       })}
       onSubmit={(values) => {
         resetPassword(values);

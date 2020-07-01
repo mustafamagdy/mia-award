@@ -234,7 +234,7 @@ namespace MIA.Api {
     private async Task SendBoothPurchaseConfirmationEmail(string culture, ITemplateParser templateParser, IEmailSender emailSender, Booth booth, BoothPurchaseDto dto) {
       try {
         string htmlMessage = await templateParser.LoadAndParse("booth_purchase_confirmation", locale: culture, dto);
-        await emailSender.SendEmailAsync(dto.Email, _Locale["booth_purchase_confirmation"], htmlMessage);
+        await emailSender.SendEmailAsync(dto.Email, _Locale.Get(culture, "booth_purchase_confirmation"), htmlMessage);
       } catch (Exception ex) {
         _logger.LogError(ex, "Failed to send confirmation email for booth purchase");
       }
@@ -252,7 +252,7 @@ namespace MIA.Api {
       var subject = await db.ContactUsSubjects.FindAsync(dto.Subject);
       dto.Subject = subject.Name[culture];
       string htmlMessage = await templateParser.LoadAndParse("contact_us", locale: culture, dto);
-      await emailSender.SendEmailAsync(adminOptions.Value.ContactUsEmail, _Locale["contact_us"], htmlMessage);
+      await emailSender.SendEmailAsync(adminOptions.Value.ContactUsEmail, _Locale.Get(culture, "contact_us"), htmlMessage);
       return Ok();
     }
 

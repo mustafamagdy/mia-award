@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -75,7 +76,7 @@ namespace MIA.Api {
         });
 
         //send confirmation email
-        await emailSender.SendEmailAsync(user.Email, _Locale["email_confirm_subject"], htmlMessage);
+        await emailSender.SendEmailAsync(user.Email, _Locale.Get(culture, "email_confirm_subject"), htmlMessage);
 
         //add to nominee role
         await userManager.AddToRoleAsync(user, PredefinedRoles.Nominee.ToString());
@@ -123,7 +124,7 @@ namespace MIA.Api {
             FullName = user.FullName
           });
 
-          await emailSender.SendEmailAsync(user.Email, _Locale["welcome_email_subject"], htmlMessage);
+          await emailSender.SendEmailAsync(user.Email, _Locale.Get(culture, "welcome_email_subject"), htmlMessage);
           return Ok(user.Id);
         } else {
           throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
@@ -156,7 +157,7 @@ namespace MIA.Api {
           FullName = user.FullName
         });
 
-        await emailSender.SendEmailAsync(user.Email, _Locale["reset_password_request_subject"], htmlMessage);
+        await emailSender.SendEmailAsync(user.Email, _Locale.Get(culture, "reset_password_request_subject"), htmlMessage);
         return Ok();
       } else {
         throw new ApiException(ApiErrorType.NotFound, "User doesn't exist");
@@ -182,7 +183,7 @@ namespace MIA.Api {
             FullName = user.FullName
           });
 
-          await emailSender.SendEmailAsync(user.Email, _Locale["your_password_reset_subject"], htmlMessage);
+          await emailSender.SendEmailAsync(user.Email, _Locale.Get(culture, "your_password_reset_subject"), htmlMessage);
           return Ok();
         } else {
           throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
@@ -220,7 +221,7 @@ namespace MIA.Api {
           FullName = user.FullName
         });
 
-        await emailSender.SendEmailAsync(user.Email, _Locale["your_password_changed_subject"], htmlMessage);
+        await emailSender.SendEmailAsync(user.Email, _Locale.Get(culture, "your_password_changed_subject"), htmlMessage);
         return Ok();
       } else {
         throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
@@ -309,7 +310,7 @@ namespace MIA.Api {
       var result = _mapper.Map<UserProfileDto>(user);
       if (avatar != null) {
         result.AvatarImageUrl = $"/r/{avatar.Id}?w=114&h=114&mode=stretch";
-      } 
+      }
 
       return Ok(result);
     }
@@ -367,7 +368,7 @@ namespace MIA.Api {
       if (avatar != null) {
         result.AvatarImageUrl = $"/r/{avatar.Id}?w=114&h=114&mode=stretch";
       }
-      
+
       return Ok(result);
     }
 
