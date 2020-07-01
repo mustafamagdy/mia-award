@@ -68,7 +68,9 @@ const NewArtwork = ({ awards, addNewArtwork, genres, ...props }) => {
             ar: Yup.string().required("Required"),
             en: Yup.string().required("Required"),
           }),
-          siteUrl: Yup.string().required("Required"),
+          siteUrl: Yup.string()
+            .required("Required")
+            .matches(config.validationRules.url, "not_valid_url"),
           genre: Yup.string().required("Required"),
           productionYear: Yup.number()
             .required("Required")

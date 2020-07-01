@@ -19,7 +19,8 @@ const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
           ar: Yup.string().required("Required"),
           en: Yup.string().required("Required"),
         }),
-        siteUrl: Yup.string().required("Required"),
+        siteUrl: Yup.string().required("Required")
+        .matches(config.validationRules.url, "not_valid_url"),
         productionYear: Yup.number()
           .required("Required")
           .min(config.validationRules.allowed_artwork_years.min)

@@ -25,10 +25,9 @@ export default {
   },
   tickets_enabled: false,
   tickets: [
-   
     {
       locationId: 1,
-      mapRef:"https://www.google.com/maps/search/Al-Maydan%20Hotel",
+      mapRef: "https://www.google.com/maps/search/Al-Maydan%20Hotel",
       location: {
         lat: 25.1559204,
         long: 55.2977487,
@@ -49,7 +48,7 @@ export default {
     },
     {
       locationId: 2,
-      mapRef:"https://www.google.com/maps/search/Dubai+Opera",      
+      mapRef: "https://www.google.com/maps/search/Dubai+Opera",
       location: {
         lat: 25.1948729,
         long: 55.2654525,
@@ -103,6 +102,8 @@ export default {
       min: 2019,
       max: 2020,
     },
+    phoneExp: /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
+    url: /^((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
   },
   files: {
     booth_pdf: "/assets/files/exhibition final.pdf",

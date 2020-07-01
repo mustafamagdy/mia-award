@@ -12,7 +12,13 @@ const ForgetPasswordForm = ({
   forgetPasswordForUser,
   ...props
 }) => {
-  const { register, handleSubmit } = useForm();
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required("Required").email("not_valid_email"),
+  });
+
+  const { register, handleSubmit } = useForm({
+    validationSchema: validationSchema,
+  });
   const forgetPassword = (values) => {
     forgetPasswordForUser(values);
   };

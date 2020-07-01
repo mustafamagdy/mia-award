@@ -24,11 +24,11 @@ const ContactUs = ({
 }) => {
   const { register, handleSubmit, setValue } = useForm({
     validationSchema: Yup.object({
-      name: Yup.string().required(),
-      email: Yup.string().email().required(),
-      phone: Yup.string().required(),
-      subject: Yup.string().required(),
-      message: Yup.string().required().min(100).max(4000),
+      name: Yup.string().required("required"),
+      email: Yup.string().email("not_valid_email").required("required"),
+      phone: Yup.string().required("required"),
+      subject: Yup.string().required("required"),
+      message: Yup.string().required("required").min(100).max(4000),
     }),
   });
 

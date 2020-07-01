@@ -95,6 +95,10 @@ class TransKeysNotFoundInJsx extends React.Component {
         <Trans id="type_here_your_comment">Type here your comment</Trans>
         <Trans id="comment_title">Comment title</Trans>
         <Trans id="your_email">Your email</Trans>
+        <Trans id="phone_number_is_not_valid"></Trans>
+        <Trans id="not_valid_email"></Trans>
+        <Trans id="not_valid_url"></Trans>
+        <Trans id="booth_password_must_match">Both password need to be the same</Trans>
 
       </div>
     );
