@@ -265,11 +265,11 @@ const AboutUs = ({ awards, ...props }) => {
                           <TabPane>
                             {t.titlleKey == "about_awards" ? (
                               <div className="tab_content">
-                                <Awards awards={awards} type="artwork" />
+                                <Awards awards={awards} awardType="artwork" />
                               </div>
                             ) : t.titlleKey == "mia_contestant" ? (
                               <div className="tab_content">
-                                <Awards awards={awards} type="person" />
+                                <Awards awards={awards} awardType="person" />
                               </div>
                             ) : (
                               <div

@@ -17,7 +17,7 @@ import Files from "./Files";
 import Trailer from "./Trailer";
 
 const ViewArtwork = ({
-  artwork,
+  item,
   editArtwork,
   publishArtwork,
   history,
@@ -33,12 +33,7 @@ const ViewArtwork = ({
     }
   }, [id]);
 
-  const tabs = [
-    "info",
-    // "payment-view",
-    "trailer",
-    "files",
-  ];
+  const [tabs, setTabs] = useState(["info" /* "payment-view",*/]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
   const [artworkPosterStyle, setArtworkPosterStyle] = useState({
@@ -47,12 +42,16 @@ const ViewArtwork = ({
   });
 
   useEffect(() => {
-    if (artwork && artwork.posterUrl) {
+    if (item && item.posterUrl) {
       setArtworkPosterStyle({
-        background: `transparent url('${artwork.posterUrl}') scroll no-repeat top center/cover`,
+        background: `transparent url('${item.posterUrl}') scroll no-repeat top center/cover`,
       });
     }
-  }, [artwork]);
+
+    if (item && item.awardType == "artwork") {
+      setTabs(["info", "trailer", "files"]);
+    }
+  }, [item]);
 
   const handleActiveTab = (tabKey) => {
     setActiveTabKey(tabKey);
@@ -61,10 +60,10 @@ const ViewArtwork = ({
   return (
     <React.Fragment>
       <div className="upload_poster" style={artworkPosterStyle}>
-        {artwork && artwork.coverUrl && (
+        {item && item.coverUrl && (
           <div className="upload_area">
             <img
-              src={artwork.coverUrl}
+              src={item.coverUrl}
               style={{ objectFit: "cover" }}
               alt="Cover"
             />
@@ -90,14 +89,14 @@ const ViewArtwork = ({
             </TabList>
           </ul>
         </div>
-        {artwork ? (
+        {item ? (
           <>
             <Info
               active={activeTabKey == "info"}
               editArtwork={editArtwork}
               publish={publishArtwork}
               history={history}
-              details={artwork}
+              details={item}
               id={id}
               key="info"
             />
@@ -106,20 +105,20 @@ const ViewArtwork = ({
               details={artwork?.payment}
               key="payment-view"
             /> */}
-            {artwork.awardType == "artwork" ? (
+            {item.awardType == "artwork" ? (
               <>
                 <Trailer
                   active={activeTabKey == "trailer"}
-                  url={artwork?.trailerUrl}
-                  coverUrl={encodeURI(artwork?.coverUrl)}
+                  url={item?.trailerUrl}
+                  coverUrl={encodeURI(item?.coverUrl)}
                   key="trailer"
                 />
                 <Files
                   active={activeTabKey == "files"}
-                  projectName={artwork?.projectName}
-                  files={artwork?.files}
-                  posterUrl={artwork?.posterUrl}
-                  coverUrl={encodeURI(artwork?.coverUrl)}
+                  projectName={item?.projectName}
+                  files={item?.files}
+                  posterUrl={item?.posterUrl}
+                  coverUrl={encodeURI(item?.coverUrl)}
                   key="files"
                 />
               </>
@@ -243,7 +242,11 @@ const Info = ({
         disabled={uploadComplete}
         onClick={() => {
           editArtwork();
-          history.push(`/members/artwork/${id}/edit`);
+          if (awardType == "artwork") {
+            history.push(`/members/artwork/${id}/edit`);
+          } else {
+            history.push(`/members/contestant/${id}/edit`);
+          }
         }}
       >
         <Trans id="edit_info">Edit Info</Trans>
@@ -287,10 +290,24 @@ const Info = ({
   );
 };
 
-const mapStateToProps = ({ members: { artwork, artworkMode } }) => ({
-  artwork,
-  artworkMode,
-});
+const mapStateToProps = (
+  { members: { artwork, contestant, artworkMode, contestantMode } },
+  compProps
+) => {
+  let _item, _itemMode;
+  if (compProps.awardType == "person") {
+    _item = contestant;
+    _itemMode = contestantMode;
+  } else {
+    _item = artwork;
+    _itemMode = artworkMode;
+  }
+
+  return {
+    item: _item,
+    itemMode: _itemMode,
+  };
+};
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...membersActions }, dispatch);
 export default connect(
