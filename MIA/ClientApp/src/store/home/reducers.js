@@ -28,6 +28,7 @@ const initialState = {
   shows_years: [],
   contactUsSuccess: false,
   contactUsFailed: false,
+  newsLetterSuccess: undefined,
 };
 
 const fetchBoothsSuccess = (state, action) => {
@@ -98,6 +99,23 @@ const bookBoothSuccess = (state, action) => {
     draft.boothBooked = true;
   });
 };
+const sendNewsletterSuccess = (state, action) => {
+  return produce(state, (draft) => {
+    draft.newsLetterSuccess = true;
+  });
+};
+
+const sendNewsletterFailed = (state, action) => {
+  return produce(state, (draft) => {
+    draft.newsLetterSuccess = false;
+  });
+};
+
+const resetNewsletterSuccess = (state, action) => {
+  return produce(state, (draft) => {
+    draft.newsLetterSuccess = undefined;
+  });
+};
 
 const fetchMetadataSuccess = (state, action) => {
   return produce(state, (draft) => {
@@ -122,4 +140,7 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.SEND_CONTACT_US_MESSAGE_SUCCESS]: sendContactUsMessageSuccess,
   [ActionTypes.SEND_CONTACT_US_MESSAGE_FAIL]: sendContactUsMessageFailed,
   [ActionTypes.BOOK_BOOTH_SUCCESS]: bookBoothSuccess,
+  [ActionTypes.SEND_NEWSLETTER_SUCCESS]: sendNewsletterSuccess,
+  [ActionTypes.SEND_NEWSLETTER_FAIL]: sendNewsletterFailed,
+  [ActionTypes.RESET_NEWS_LETTER_SUCCESS]: resetNewsletterSuccess,
 });

@@ -1,25 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Trans } from "@lingui/macro";
 import { I18n } from "@lingui/react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import homeActions from "store/home/actions";
 
 import "sass/footer.scss";
 
-const Footer = (props) => {
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitFailed, setSubmitFailed] = useState(false);
+const Footer = ({
+  sendNewsletter,
+  newsLetterSuccess = undefined,
+  resetNewsLetterSuccess,
+  ...props
+}) => {
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = (data) => {
-    //TODO: submit form for news letter
-    setSubmitSuccess(true);
+    sendNewsletter(data);
+  };
 
-    setTimeout(() => {
+  useEffect(() => {
+    if (newsLetterSuccess === true || newsLetterSuccess === false) {
       reset();
       setTimeout(() => {
-        setSubmitSuccess(false);
+        resetNewsLetterSuccess();
       }, 2000);
-    }, 1000);
-  };
+    }
+  }, [newsLetterSuccess]);
 
   return (
     <React.Fragment>
@@ -88,14 +95,19 @@ const Footer = (props) => {
                   </form>
                 )}
               </I18n>
-              {submitSuccess && (
+              {newsLetterSuccess === true && (
                 <div className="msg_success">
-                  The message was sent successfully
+                  <Trans id="newsletter_success">
+                    You have successfully subscribed to the newsletter
+                  </Trans>
                 </div>
               )}
-              {submitFailed && (
+              {newsLetterSuccess === false && (
                 <div className="msg_wrong">
-                  There is an error, the message could not be sent
+                  <Trans id="newsletter_failed">
+                    There is an error, subscription failed. Please try again
+                    later
+                  </Trans>
                 </div>
               )}{" "}
             </div>
@@ -111,4 +123,11 @@ const Footer = (props) => {
   );
 };
 
-export default Footer;
+const mapStateToProps = (
+  { home: { sendNewsletter, newsLetterSuccess, resetNewsLetterSuccess } },
+  ownProps
+) => ({ sendNewsletter, newsLetterSuccess, resetNewsLetterSuccess });
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...homeActions }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);

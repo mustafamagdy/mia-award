@@ -120,4 +120,7 @@
   <data name="booth_purchase_confirmation" xml:space="preserve">
     <value>تم حجز المعرض لك</value>
   </data>
+  <data name="newsletter_sub" xml:space="preserve">
+    <value>اضافة مستخدم الى القائمة البريدية</value>
+  </data>
 </root>

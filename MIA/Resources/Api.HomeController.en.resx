@@ -120,4 +120,7 @@
   <data name="booth_purchase_confirmation" xml:space="preserve">
     <value>Booth has been booked</value>
   </data>
+  <data name="newsletter_sub" xml:space="preserve">
+    <value>User newsletter subscription</value>
+  </data>
 </root>

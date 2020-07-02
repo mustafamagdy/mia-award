@@ -15,6 +15,7 @@ const bookBoothLogic = logic(apiNamespace, ActionTypes.BOOK_BOOTH, (dispatch, re
   //update booth list again
   dispatch(ActionTypes.fetchBooths());
 });
+const sendNewsletterLogic = logic(apiNamespace, ActionTypes.SEND_NEWSLETTER);
 
 export default [
   fetchMetadataLogic,
@@ -26,5 +27,6 @@ export default [
   fetchAwardsLogic,
   fetchRecentShowsLogic,
   sendContactUsMessageLogic,
-  bookBoothLogic
+  bookBoothLogic,
+  sendNewsletterLogic
 ];
