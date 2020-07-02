@@ -101,40 +101,6 @@ namespace MIA.Api {
       return Ok(artworks);
     }
 
-    [HttpPost("add-contestant")]
-    public async Task<IActionResult> SubmitContestant(
-       [FromBody] SubmitArtworkWithDetails dto,
-       [FromServices] IPaymentGateway paymentGateway,
-       [FromServices] IAppUnitOfWork db,
-       [FromServices] IOptions<UploadLimits> limitOptions,
-       [FromServices] IS3FileManager fileManager) {
-
-      var nominee = await _userResolver.CurrentUserAsync();
-      var award = await db.Awards.FindAsync(dto.AwardId);
-      if (award == null) {
-        throw new ApiException(ApiErrorType.BadRequest, "Award is required");
-      }
-
-      if (award.AwardType != AwardType.Person) {
-        throw new ApiException(ApiErrorType.BadRequest, "Selected award is wrong");
-      }
-
-      var contestant = _mapper.Map<Artwork>(dto);
-      contestant.NomineeId = nominee.Id;
-
-      //all artworks cannot upload files until payment approved
-      contestant.AllowFileUpload = false;
-
-      await db.Artworks.AddAsync(contestant);
-
-      // contestant.Payment = await SaveUserPaymentAsync(fileManager, db, award, contestant.Id, dto);
-      contestant.Poster = S3File.FromKeyAndUrl("", "");
-      contestant.Cover = S3File.FromKeyAndUrl("", "");
-
-      return Ok(_mapper.Map<ArtworkViewWithFilesDto>(contestant));
-    }
-
-
     [HttpPost("add-artwork")]
     public async Task<IActionResult> SubmitArtwork(
        [FromBody] SubmitArtworkWithDetails dto,
@@ -149,10 +115,6 @@ namespace MIA.Api {
         throw new ApiException(ApiErrorType.BadRequest, "Award is required");
       }
 
-      if (award.AwardType != AwardType.Artwork) {
-        throw new ApiException(ApiErrorType.BadRequest, "Selected award is wrong");
-      }
-
 
       var artwork = _mapper.Map<Artwork>(dto);
       artwork.NomineeId = nominee.Id;
@@ -161,19 +123,23 @@ namespace MIA.Api {
 
       await db.Artworks.AddAsync(artwork);
 
-      // artwork.Payment = await SaveUserPaymentAsync(fileManager, db, award, artwork.Id, dto);
-      artwork.Poster = (await SaveArtworkPoster(fileManager, artwork.Id, dto)) ?? S3File.FromKeyAndUrl("", "");
-      artwork.Cover = (await SaveArtworkCoverImage(fileManager, artwork.Id, dto)) ?? S3File.FromKeyAndUrl("", "");
-
       if (award.AwardType == AwardType.Person) {
-        artwork.Resume = (await SaveContestantResume(fileManager, artwork.Id, dto)) ?? S3File.FromKeyAndUrl("", "");
+        artwork.Resume = (await SaveResume(fileManager, artwork.Id, dto)) ?? S3File.FromKeyAndUrl("", "");
         if (!string.IsNullOrEmpty(dto.YourRoleId) && (await db.ArtworkSubjects.FirstOrDefaultAsync(a => a.Id == dto.YourRoleId) != null)) {
           artwork.YourRoleId = dto.YourRoleId;
         }
+
+        artwork.Poster = S3File.FromKeyAndUrl("", "");
+        artwork.Cover = S3File.FromKeyAndUrl("", "");
+
       } else {
         artwork.Resume = S3File.FromKeyAndUrl("", "");
+
+        artwork.Poster = (await SaveArtworkPoster(fileManager, artwork.Id, dto)) ?? S3File.FromKeyAndUrl("", "");
+        artwork.Cover = (await SaveArtworkCoverImage(fileManager, artwork.Id, dto)) ?? S3File.FromKeyAndUrl("", "");
       }
 
+      // artwork.Payment = await SaveUserPaymentAsync(fileManager, db, award, artwork.Id, dto);
       artwork.File1 = (await SaveArtworkAttachmentFile(fileManager, artwork.Id, dto.File1, dto.File1FileName, "File1")) ?? S3File.FromKeyAndUrl("", "");
       artwork.File2 = (await SaveArtworkAttachmentFile(fileManager, artwork.Id, dto.File2, dto.File2FileName, "File2")) ?? S3File.FromKeyAndUrl("", "");
       artwork.File3 = (await SaveArtworkAttachmentFile(fileManager, artwork.Id, dto.File3, dto.File3FileName, "File3")) ?? S3File.FromKeyAndUrl("", "");
@@ -191,7 +157,7 @@ namespace MIA.Api {
       return null;
     }
 
-    private async Task<S3File> SaveContestantResume(IS3FileManager fileManager,
+    private async Task<S3File> SaveResume(IS3FileManager fileManager,
      string artworkId, SubmitArtworkWithDetails dto) {
       if (!string.IsNullOrEmpty(dto.ResumeFileName) && dto.Resume != null && dto.Resume.Length > 0) {
         var resumeFileKey = fileManager.GenerateFileKeyForResource(
@@ -476,7 +442,9 @@ namespace MIA.Api {
             File = S3File.FromKeyAndUrl(fileKey, fileUrl)
           };
 
-          await db.MediaFiles.AddAsync(mediaFile);
+          if (await db.MediaFiles.FirstOrDefaultAsync(a => a.ArtWorkId == artwork.Id && a.File.FileKey == fileKey) == null) {
+            await db.MediaFiles.AddAsync(mediaFile);
+          }
           return Ok(fileKey);
         } else {
           return Ok(result);

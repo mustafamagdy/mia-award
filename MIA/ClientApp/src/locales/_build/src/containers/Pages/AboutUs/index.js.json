@@ -1,109 +1,65 @@
 {
-  "story": {
-    "defaults": "Story",
+  "our_story": {
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        45
+        157
       ]
     ]
   },
-  "story_text": {
-    "defaults": "The Arab media passes during the past decades a lot of challenges and the lack of representation of the Arab reality with the correct representation, despite the presence of a large investment in the field of media in all its forms, but it lacks concerted efforts between investors and production companies. Art making and Arab business production by being the link between the investor and the producer in order to transfer the Arab \"television\" reality to the right path by creating an award for visual media, believing that the competition will create rich and distinctive content that will affect its audience. Dowries and recipients in the Arab world",
+  "mia_2020": {
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        48
+        168
       ]
     ]
   },
   "our_message": {
-    "defaults": "Our Message",
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        65
-      ]
-    ]
-  },
-  "our_message_text": {
-    "defaults": "Recent studies have proven the importance of television content in our daily lives and its influence on changing values ​​and cultural awareness in any society. It is for this importance that our message was launched from the slogan of our slogan (Arab media is a new reality) to raise the level of quality content in Arab television production and make this award an Arab platform that honors and meets all the distinguished and creative in this field, during which new ideas converge and lead to a knowledge and technical product that Arab societies benefit from and confront with it Its various future challenges",
-    "origin": [
-      [
-        "src/containers/Pages/AboutUs/index.js",
-        68
+        179
       ]
     ]
   },
   "our_goal": {
-    "defaults": "Our Goal",
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        85
-      ]
-    ]
-  },
-  "our_goal_text": {
-    "defaults": "<0><1>• Upgrading the taste of the Arab person in its various segments, and presenting new future visions that contribute to advancing the future of Arab TV production.</1><2>• Activating and stimulating the TV content industry and raising the level of Arab production and promoting it to international ranks</2><3>• Finding an opportunity for integration, interaction and the convergence of multiple cultures in order to integrate the Arab identity, so that we can together create a brilliant future With One Power and Promising Generations</3><4>• Increasing the communication between the young talents in the Arab world and the elite producers and technicians working in the field and providing the greatest degree of integration between the productive sectors and between the media organizations and TV channels</4><5>• Discover new talents and show distinguished ones to the limelight</5><6>• Appreciating and honoring the creators and accomplished people throughout the Arab world by evaluating their work, knowing the opinions of the specialists about it and celebrating its best.</6></0>",
-    "origin": [
-      [
-        "src/containers/Pages/AboutUs/index.js",
-        88
+        190
       ]
     ]
   },
   "our_value": {
-    "defaults": "our value",
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        133
-      ]
-    ]
-  },
-  "our_value_text": {
-    "defaults": "<0><1><2>• Neutrality :</2><3>We stand without siding and one distance from all the people of the Arab world</3></1><4><5>• Objectivity :</5><6>Away from the whims, one mechanism in dealing with each performance. <7/> Your creativity determines your position</6></4><8><9>• Credibility :</9><10>One of the basic principles of our work .. Our integrity is our method in our evaluation</10></8><11><12>• Enhancement :</12><13>Providing numerous quality awards and discretionary seals according to performance criteria</13></11></0>",
-    "origin": [
-      [
-        "src/containers/Pages/AboutUs/index.js",
-        137
+        211
       ]
     ]
   },
   "our_events": {
-    "defaults": "Our Events",
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        182
-      ]
-    ]
-  },
-  "our_events_text": {
-    "defaults": "<0><1>• Workshops to develop technical and technical professional capabilities</1><2>• Specialized seminars, to be hosted by experts and professionals from the media makers and Arab art stars</2><3>• View distinctive success stories</3><4>• Market for the most recent engineering and technical systems in the field of media and television production</4><5>• TV interviews discussing important issues (live broadcast)</5></0>",
-    "origin": [
-      [
-        "src/containers/Pages/AboutUs/index.js",
-        184
+        243
       ]
     ]
   },
   "our_awards": {
-    "defaults": "Our Awards",
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        227
+        282
       ]
     ]
   },
   "our_awards_text": {
-    "defaults": "The Arab Media Makers Award (MIA 2020), which is judged among contestants electronically, aims to measure the quality of the level of influence of the content of TV works on the lifestyle, audience thinking and impact by sorting the participating works according to specific conditions and criteria by the jury, and we have dedicated to each Category of the competition is three gold, silver and bronze prizes distributed to the winners with appreciation certificates",
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        230
+        286
       ]
     ]
   }

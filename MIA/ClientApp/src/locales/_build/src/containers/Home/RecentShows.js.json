@@ -7,5 +7,29 @@
         46
       ]
     ]
+  },
+  "show_name": {
+    "origin": [
+      [
+        "src/containers/Home/RecentShows.js",
+        57
+      ]
+    ]
+  },
+  "tv_channels": {
+    "origin": [
+      [
+        "src/containers/Home/RecentShows.js",
+        70
+      ]
+    ]
+  },
+  "online_channels": {
+    "origin": [
+      [
+        "src/containers/Home/RecentShows.js",
+        76
+      ]
+    ]
   }
 }

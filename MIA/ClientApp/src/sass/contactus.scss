@@ -202,6 +202,9 @@
               background: #141414;
               color: #fff;
               font-size: 16px;
+              [dir="rtl"] & {
+                font-family: Tajawal_Medium;
+              } /* rtl */
             } /* input */
             select {
               background: #141414 url("/assets/images/arrow2.png") scroll no-repeat 100% center;
@@ -220,6 +223,7 @@
               [dir="rtl"] & {
 								background: #141414 url("/assets/images/arrow2_rtl.png") scroll no-repeat 0 center;
 								padding: 0 10px 0 59px;
+                font-family: Tajawal_Medium;
 							} /* rtl */
             } /* select */
           } /* item */
@@ -233,6 +237,9 @@
             font-size: 16px;
             color: #fff;
             margin: 10px;
+            [dir="rtl"] & {
+              font-family: Tajawal_Medium;
+            } /* rtl */
           } /* textarea */
           .captcha_item {
             margin: 10px;

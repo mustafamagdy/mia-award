@@ -111,7 +111,7 @@ const Shows = ({
                           className="react-player"
                           width="100%"
                           height="100%"
-                          light={encodeURI(item.coverImageUrl)}
+                          light={encodeURI(item.coverUrl)}
                         />
                       </div>
                       <div className="video_details">
@@ -158,39 +158,43 @@ const Shows = ({
       <div className="show_blocks">
         <div className="container">
           <div className="search_filter">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <input
-                type="text"
-                ref={register}
-                name="title"
-                placeholder="show name"
-              />
-              <I18n>
-                {({ i18n }) => (
-                  <select ref={register} name="year">
-                    {years.map((y, i) => (
-                      <option value={y}>{i18n._(y)}</option>
-                    ))}
-                  </select>
-                )}
-              </I18n>
+            <I18n>
+              {({ i18n }) => (
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <input
+                    type="text"
+                    ref={register}
+                    name="title"
+                    placeholder={i18n._("show_name")}
+                  />
+                  <I18n>
+                    {({ i18n }) => (
+                      <select ref={register} name="year">
+                        {years.map((y, i) => (
+                          <option value={y}>{i18n._(y)}</option>
+                        ))}
+                      </select>
+                    )}
+                  </I18n>
 
-              <input
-                type="text"
-                ref={register}
-                name="tvchannels"
-                placeholder="Tv Channels"
-              />
-              <input
-                type="text"
-                ref={register}
-                name="onlineChannels"
-                placeholder="Online Channels"
-              />
-              <button type="submit">
-                <i className="icofont-ui-search"></i>
-              </button>
-            </form>
+                  <input
+                    type="text"
+                    ref={register}
+                    name="tvchannels"
+                    placeholder={i18n._("tv_channels")}
+                  />
+                  <input
+                    type="text"
+                    ref={register}
+                    name="onlineChannels"
+                    placeholder={i18n._("online_channels")}
+                  />
+                  <button type="submit">
+                    <i className="icofont-ui-search"></i>
+                  </button>
+                </form>
+              )}
+            </I18n>
           </div>
           <div className="shows_items">
             {items.map((item) => (

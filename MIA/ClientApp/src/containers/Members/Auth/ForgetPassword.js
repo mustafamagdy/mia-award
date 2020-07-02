@@ -5,30 +5,47 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import { Trans } from "@lingui/macro";
-
+import { I18n } from "@lingui/react";
 
 const ForgetPasswordForm = ({
   switchToLogin,
   forgetPasswordForUser,
   ...props
 }) => {
-  const { register, handleSubmit } = useForm();
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required("Required").email("not_valid_email"),
+  });
+
+  const { register, handleSubmit } = useForm({
+    validationSchema: validationSchema,
+  });
   const forgetPassword = (values) => {
     forgetPasswordForUser(values);
   };
 
   return (
-    <form id="login-form" onSubmit={handleSubmit(forgetPassword)}>
-      <input ref={register} name="email" type="text" placeholder="email" />
-      <div className="submit_area">
-        <div className="resset">
-          <label className="action" onClick={switchToLogin}>
-          <Trans id="login">Login</Trans> ?
-          </label>
-        </div>
-        <button type="submit"><Trans id="reset_password">Reset Password</Trans></button>
-      </div>
-    </form>
+    <I18n>
+      {({ i18n }) => (
+        <form id="login-form" onSubmit={handleSubmit(forgetPassword)}>
+          <input
+            ref={register}
+            name="email"
+            type="text"
+            placeholder={i18n._("email")}
+          />
+          <div className="submit_area">
+            <div className="resset">
+              <label className="action" onClick={switchToLogin}>
+                <Trans id="login">Login</Trans> ?
+              </label>
+            </div>
+            <button type="submit">
+              <Trans id="reset_password">Reset Password</Trans>
+            </button>
+          </div>
+        </form>
+      )}
+    </I18n>
   );
 };
 

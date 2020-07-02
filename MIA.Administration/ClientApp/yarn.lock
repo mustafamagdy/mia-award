@@ -167,6 +167,21 @@ angular-clipboard@^1.5.0:
   resolved "https://registry.yarnpkg.com/angular-clipboard/-/angular-clipboard-1.7.0.tgz#9621a6ce66eab1ea9549aa8bfb3b71352307554f"
   integrity sha512-4/eg3zZw1MJpIsMc+mWzeVNyWBu8YWpXPTdmbgyPRp/6f0xB6I3XR2iC6Mb4mg/5E9q6exCd0sX2yiIsw+ZLJw==
 
+angular-datatables@^0.6.2:
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/angular-datatables/-/angular-datatables-0.6.4.tgz#370f3d000dc7f025bb10f4be13424123731d664f"
+  integrity sha512-c+pODkVd18ZKyJ1RJeu+uqV4IviEAG+a0OgXLDRdDRyqfREEGdi02wg0f3u79+CpjY8vYRGYv36MsAuQf6SQyA==
+  dependencies:
+    angular ">=1.7.0"
+    datatables.net "^1.10.11"
+    datatables.net-dt "^1.10.11"
+    jquery ">=1.11.0"
+
+angular-jwt@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/angular-jwt/-/angular-jwt-0.1.11.tgz#a72b7583c7cf2f2d7acda169a4114141c83f9c91"
+  integrity sha512-793dv5vXOXaW5/cweMd+sqSf9dPhbazDya3szTVOQ84MDEj1nYLJrixBBa7WNtZeMqz7ylWX7djnFgqLjEWcHw==
+
 angular-mocks@^1.4.9:
   version "1.7.9"
   resolved "https://registry.yarnpkg.com/angular-mocks/-/angular-mocks-1.7.9.tgz#0a3b7e28b9a493b4e3010ed2b0f69a68e9b4f79b"
@@ -181,10 +196,10 @@ angular-nvd3@^1.0.9:
     d3 "^3.3"
     nvd3 "^1.7.1"
 
-angular-paging@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/angular-paging/-/angular-paging-2.2.2.tgz#702f574d6d140690035eac64395fe311f7987fbb"
-  integrity sha1-cC9XTW0UBpADXqxkOV/jEfeYf7s=
+angular-paging@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/angular-paging/-/angular-paging-2.2.1.tgz#8090864f71bc4c9b89307b02ab02afb205983c43"
+  integrity sha1-gJCGT3G8TJuJMHsCqwKvsgWYPEM=
 
 angular-permission@^2.3.4:
   version "2.3.8"
@@ -234,6 +249,16 @@ angular-utils-ui-breadcrumbs@^0.2.2-1:
   version "1.7.9"
   resolved "https://registry.yarnpkg.com/angular/-/angular-1.7.9.tgz#e52616e8701c17724c3c238cfe4f9446fd570bc4"
   integrity sha512-5se7ZpcOtu0MBFlzGv5dsM1quQDoDeUTwZrWjGtTNA7O88cD8TEk5IEKCTDa3uECV9XnvKREVUr7du1ACiWGFQ==
+
+angular@>=1.7.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/angular/-/angular-1.8.0.tgz#b1ec179887869215cab6dfd0df2e42caa65b1b51"
+  integrity sha512-VdaMx+Qk0Skla7B5gw77a8hzlcOakwF8mjlW13DpIWIDlfqwAbSSLfd8N/qZnzEmQF4jC4iofInd3gE7vL8ZZg==
+
+angularjs-slider@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/angularjs-slider/-/angularjs-slider-7.0.0.tgz#418f828e25daeb3a738f2cc2257072c5721f2e67"
+  integrity sha512-qNWPARWEktSthHj0/SAMVhy+3AIRnyVCXRK58gXT+3uRORXu/3QJ2L9MjCZvA9yeZxFceEYMOrtK8sSsTKobUw==
 
 ansi-colors@^1.0.1:
   version "1.1.0"
@@ -1713,6 +1738,21 @@ dashdash@^1.12.0:
   integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
   dependencies:
     assert-plus "^1.0.0"
+
+datatables.net-dt@^1.10.11:
+  version "1.10.21"
+  resolved "https://registry.yarnpkg.com/datatables.net-dt/-/datatables.net-dt-1.10.21.tgz#2a3bb65bbb39362a36e75b989da7d08bc1fb4313"
+  integrity sha512-P89PgkhVCB6shP0CbigmB1Z812yfdfhvAbUdg08mLuF7tuvLFPQC9F+WIV30Hj9mgMsPALWAEJEYAA3aJjuqIA==
+  dependencies:
+    datatables.net "1.10.21"
+    jquery ">=1.7"
+
+datatables.net@1.10.21, datatables.net@^1.10.11:
+  version "1.10.21"
+  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-1.10.21.tgz#f1d35c8e5c3eb7f5caef39e80cd5b836a8c77103"
+  integrity sha512-/bSZtxmf3GTpYcvEmwZ8q26I1yhSx8qklR2B+s1K8+/51UW/zc2zTYwJMqr/Z+iCYixAc00ildj4g2x0Qamolw==
+  dependencies:
+    jquery ">=1.7"
 
 dateformat@^1.0.7-1.2.3:
   version "1.0.12"
@@ -4514,6 +4554,11 @@ jpegtran-bin@~0.2.0:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
   integrity sha512-36+AdBzCL+y6qjw5Tx7HgzeGCzC81MDDgaUP8ld2zhx58HdqXGoBd+tHdrBMiyjGQs0Hxs/MLZTu/eHNJJuWPw==
+
+jquery@>=1.11.0, jquery@>=1.7:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
+  integrity sha512-XwIBPqcMn57FxfT+Go5pzySnm4KWkT1Tv7gjrpT1srtf8Weynl6R273VJ5GjkRb51IzMp5nbaPjJXMWeju2MKg==
 
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.5.1"

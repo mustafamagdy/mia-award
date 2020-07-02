@@ -3,6 +3,7 @@ using MIA.Api;
 using MIA.Models.Entities;
 using System;
 using MIA.Payments;
+using System.Collections.Generic;
 
 namespace MIA.MappingProfiles {
 
@@ -115,6 +116,12 @@ namespace MIA.MappingProfiles {
 
       CreateMap<SubmitArtworkWithDetails, Artwork>()
         .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
+        .ForMember(a => a.Poster, cfg => cfg.Ignore())
+        .ForMember(a => a.Trailer, cfg => cfg.Ignore())
+        .ForMember(a => a.Resume, cfg => cfg.Ignore())
+        .ForMember(a => a.File1, cfg => cfg.Ignore())
+        .ForMember(a => a.File2, cfg => cfg.Ignore())
+        .ForMember(a => a.File3, cfg => cfg.Ignore())
         // .ForMember(a => a.Payment, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None);
 
@@ -146,7 +153,7 @@ namespace MIA.MappingProfiles {
           // .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
           // .ForMember(a => a.Directors, cfg => cfg.MapFrom(a => a.Director))
           .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.Award.AwardType))
-          .ForMember(a => a.Files, cfg => cfg.MapFrom(a => a.MediaFiles))
+          .ForMember(a => a.Files, cfg => cfg.MapFrom(a => a.MediaFiles == null ? new HashSet<MediaFile>() : a.MediaFiles))
         .IncludeAllDerived()
         .ValidateMemberList(MemberList.None);
 

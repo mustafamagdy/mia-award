@@ -22,15 +22,24 @@ const EditArtwork = ({
   location: { search },
   removeArtworkFile,
   fetchArtworkWithDetails,
+  type,
   ...props
 }) => {
-  const [tabs, setTabs] = useState(["info", "trailer"]);
+  const [tabs, setTabs] = useState(["info"]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
   const [artworkPosterStyle, setArtworkPosterStyle] = useState({
     background:
       "transparent url('/assets/images/poaster.png') scroll no-repeat top center/cover",
   });
+
+  useEffect(() => {
+    if (type && type == "artwork") {
+      setTabs(["info", "trailer"]);
+    } else {
+      setTabs(["info"]);
+    }
+  }, [type]);
 
   useEffect(() => {
     if (!!id) {
@@ -43,7 +52,12 @@ const EditArtwork = ({
       const { canUploadFiles, uploadComplete } = artwork;
 
       //allow upoad files tab only if he can upload files, and files upload didn;t marked as complete
-      if (tabs.indexOf("files") === -1 && canUploadFiles && !uploadComplete) {
+      if (
+        tabs.indexOf("files") === -1 &&
+        canUploadFiles &&
+        !uploadComplete &&
+        type == "artwork"
+      ) {
         const t = [...tabs];
         t.push("files");
         setTabs(t);
@@ -80,10 +94,10 @@ const EditArtwork = ({
   return (
     <React.Fragment>
       <div className="upload_poster" style={artworkPosterStyle}>
-        {artwork && artwork.coverImageUrl && (
+        {artwork && artwork.coverUrl && (
           <div className="upload_area">
             <img
-              src={artwork.coverImageUrl}
+              src={artwork.coverUrl}
               style={{ objectFit: "cover" }}
               alt="Cover"
             />
@@ -126,16 +140,19 @@ const EditArtwork = ({
                 trailerUrl={artwork && artwork.trailerUrl}
                 trailerPosterUrl={artwork && artwork.posterUrl}
                 updateTrailer={updateTrailer}
-                coverUrl={encodeURI(artwork?.coverImageUrl)}
+                coverUrl={encodeURI(artwork?.coverUrl)}
               />
             )}
-            {artwork.canUploadFiles && activeTabKey === "files" && (
-              <Files
-                artwork={artwork}
-                active={activeTabKey === "files"}
-                removeArtworkFile={removeArtworkFile}
-              />
-            )}
+            {artwork.canUploadFiles &&
+              activeTabKey === "files" &&
+              type ==
+                "artwork"(
+                  <Files
+                    artwork={artwork}
+                    active={activeTabKey === "files"}
+                    removeArtworkFile={removeArtworkFile}
+                  />
+                )}
           </React.Fragment>
         )}
       </div>

@@ -1,10 +1,28 @@
 {
+  "awards": {
+    "defaults": "Awards",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/index.js",
+        45
+      ]
+    ]
+  },
+  "no_awards_yet": {
+    "defaults": "No awards yet",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/index.js",
+        53
+      ]
+    ]
+  },
   "add_new_show": {
     "defaults": "add new show",
     "origin": [
       [
         "src/containers/Members/Artworks/index.js",
-        86
+        90
       ]
     ]
   },
@@ -13,7 +31,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/index.js",
-        108
+        112
       ]
     ]
   }

@@ -20,16 +20,14 @@ const addNewArtworkLogic = logic(
   apiNamespace,
   ActionTypes.ADD_NEW_ARTWORK,
   (dispatch, res) => {
-    dispatch(push(`/members/artwork/${res.id}`));
+    if (res.awardType == "person") {
+      dispatch(push(`/members/contestant/${res.id}`));
+    } else {
+      dispatch(push(`/members/artwork/${res.id}`));
+    }
   }
 );
-const addNewContestantLogic = logic(
-  apiNamespace,
-  ActionTypes.ADD_NEW_CONTESTANT,
-  (dispatch, res) => {
-    dispatch(push(`/members/contestant/${res.id}`));
-  }
-);
+
 const fetchArtworkWithDetailsLogic = logic(
   apiNamespace,
   ActionTypes.FETCH_ARTWORK_WITH_DETAILS
@@ -62,5 +60,4 @@ export default [
   postFileChunkLogic,
   publishArtworkLogic,
   removeArtworkFileLogic,
-  addNewContestantLogic,
 ];

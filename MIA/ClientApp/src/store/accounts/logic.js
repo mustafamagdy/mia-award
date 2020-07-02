@@ -1,6 +1,7 @@
 import { ActionTypes } from "./actions";
 import { ActionTypes as Authactions } from "../auth/actions";
 import { push } from "connected-react-router";
+import { toast } from "react-toastify";
 
 import logic from "utils/genLogic";
 
@@ -9,7 +10,13 @@ const signupLogic = logic(apiNamespace, ActionTypes.SIGNUP, (dispatch) => {
   dispatch(push("/account/checkYourEmail"));
 });
 const verifyEmailLogic = logic(apiNamespace, ActionTypes.VERIFY_EMAIL);
-const forgotPasswordLogic = logic(apiNamespace, ActionTypes.FORGOT_PASSWORD);
+const forgotPasswordLogic = logic(
+  apiNamespace,
+  ActionTypes.FORGOT_PASSWORD,
+  (dispatch) => {
+    toast.success(`An email has been sent to you`);
+  }
+);
 const resetPasswordLogic = logic(
   apiNamespace,
   ActionTypes.RESET_PASSWORD,

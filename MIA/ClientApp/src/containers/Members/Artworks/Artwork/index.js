@@ -11,9 +11,12 @@ const Arwork = ({ awards, history, ...props }) => {
   return (
     <React.Fragment>
       <Switch>
-        <Route exact path="/members/artwork" component={NewArtwork} />
-        <Route exact path="/members/artwork/:id" component={ViewArtwork} />
-        <Route exact path="/members/artwork/:id/edit" component={Edit} />
+        <Route exact path="/members/artwork" render={props=> <NewArtwork {...props} awardType="artwork"/>} />
+        <Route exact path="/members/artwork/:id" render={props=> <ViewArtwork {...props} awardType="artwork"/>} />
+        <Route exact path="/members/artwork/:id/edit" render={props=> <Edit {...props} awardType="artwork"/>} />
+        <Route exact path="/members/contestant" render={props=> <NewArtwork {...props} awardType="person"/>} />
+        <Route exact path="/members/contestant/:id" render={props=> <ViewArtwork {...props} awardType="person"/>} />
+        <Route exact path="/members/contestant/:id/edit" render={props=> <Edit {...props} awardType="person"/>} />
       </Switch>
     </React.Fragment>
   );

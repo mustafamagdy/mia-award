@@ -11,7 +11,7 @@ namespace MIA.Extensions {
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
-    public static IServiceCollection AddLocalization(this IServiceCollection services) {
+    public static IServiceCollection AddCustomLocalization(this IServiceCollection services) {
       return services.AddLocalization(options => options.ResourcesPath = "Resources");
     }
 

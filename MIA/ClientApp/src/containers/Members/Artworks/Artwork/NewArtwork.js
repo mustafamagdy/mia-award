@@ -14,7 +14,7 @@ import { bindActionCreators } from "redux";
 import { fileToBase64 } from "utils";
 import LocalizedDropdown from "../../../../components/Forms/LocalizedDropdown";
 
-const NewArtwork = ({ awards, addNewArtwork, genres, ...props }) => {
+const NewArtwork = ({ awards, awardType, addNewArtwork, genres, ...props }) => {
   const [selectedAward, setSelectedAward] = useState();
   useEffect(() => {
     setSelectedAward(awards[0]);
@@ -58,55 +58,65 @@ const NewArtwork = ({ awards, addNewArtwork, genres, ...props }) => {
           // },
         }}
         // ref={(r) => setFormRef(r)}
-        validationSchema={Yup.object().shape({
-          awardId: Yup.string().required("Required"),
-          projectName: Yup.object().shape({
-            ar: Yup.string().required("Required"),
-            en: Yup.string().required("Required"),
-          }),
-          description: Yup.object().shape({
-            ar: Yup.string().required("Required"),
-            en: Yup.string().required("Required"),
-          }),
-          siteUrl: Yup.string().required("Required"),
-          genre: Yup.string().required("Required"),
-          productionYear: Yup.number()
-            .required("Required")
-            .min(config.validationRules.allowed_artwork_years.min)
-            .max(config.validationRules.allowed_artwork_years.max),
-          broadcastYear: Yup.number()
-            .required("Required")
-            .min(config.validationRules.allowed_artwork_years.min)
-            .max(config.validationRules.allowed_artwork_years.max),
-          tvChannels: Yup.string().required("Required"),
-          onlineChannels: Yup.string().required("Required"),
-          ProductionLicenseNumber: Yup.string().required("Required"),
-          productionLicenseAgency: Yup.string().required("Required"),
-          file1: Yup.mixed().required("File_is_required"),
-          file2: Yup.mixed().required("File_is_required"),
-          file3: Yup.mixed().required("File_is_required"),
-          // resume: Yup.mixed().required(),
+        validationSchema={(awardType) =>
+          Yup.object().shape({
+            awardId: Yup.string().required("Required"),
+            projectName: Yup.object().shape({
+              ar: Yup.string().required("Required"),
+              en: Yup.string().required("Required"),
+            }),
+            description: Yup.object().shape({
+              ar: Yup.string().required("Required"),
+              en: Yup.string().required("Required"),
+            }),
+            siteUrl: Yup.string()
+              .required("Required")
+              .matches(config.validationRules.url, "not_valid_url"),
+            genre: Yup.string().required("Required"),
+            productionYear: Yup.number()
+              .required("Required")
+              .min(config.validationRules.allowed_artwork_years.min)
+              .max(config.validationRules.allowed_artwork_years.max),
+            broadcastYear: Yup.number()
+              .required("Required")
+              .min(config.validationRules.allowed_artwork_years.min)
+              .max(config.validationRules.allowed_artwork_years.max),
+            tvChannels: Yup.string().required("Required"),
+            onlineChannels: Yup.string().required("Required"),
+            ProductionLicenseNumber: Yup.string().required("Required"),
+            productionLicenseAgency: Yup.string().required("Required"),
+            file1: Yup.mixed().required("File_is_required"),
+            file2: Yup.mixed().required("File_is_required"),
+            file3: Yup.mixed().required("File_is_required"),
+            resume: awardType == "person" ? Yup.mixed().required() : null,
 
-          // payment: Yup.object().shape({
-          //   receiptAmount: Yup.number().required("Required").min(1).max(100000),
-          //   receiptNumber: Yup.string().required("Required"),
-          //   receiptDate: Yup.date().required("Required"),
-          //   receiptFile: Yup.mixed().required(),
-          //   // receiptFile: Yup.mixed()
-          //   //   .test(
-          //   //     "fileSize",
-          //   //     "File Size is too large",
-          //   //     (value) => value.size <= config.MAX_FILE_SIZE
-          //   //   )
-          //   //   .test("fileType", "Unsupported File Format", (value) =>
-          //   //     config.UPLOAD_IMAGE_SUPPORTED_FORMATS.includes(value.type)
-          //   //   ),
-          // }),
-        })}
+            // payment: Yup.object().shape({
+            //   receiptAmount: Yup.number().required("Required").min(1).max(100000),
+            //   receiptNumber: Yup.string().required("Required"),
+            //   receiptDate: Yup.date().required("Required"),
+            //   receiptFile: Yup.mixed().required(),
+            //   // receiptFile: Yup.mixed()
+            //   //   .test(
+            //   //     "fileSize",
+            //   //     "File Size is too large",
+            //   //     (value) => value.size <= config.MAX_FILE_SIZE
+            //   //   )
+            //   //   .test("fileType", "Unsupported File Format", (value) =>
+            //   //     config.UPLOAD_IMAGE_SUPPORTED_FORMATS.includes(value.type)
+            //   //   ),
+            // }),
+          })
+        }
         onSubmit={async (values, actions) => {
           // const receipt = await fileToBase64(values.payment.receiptFile);
           // values.payment.receiptFileName = values.payment.receiptFile.name;
           // values.payment.receipt = receipt;
+
+          if (awardType == "person") {
+            const resume = await fileToBase64(values.resume);
+            values.resumeFileName = values.resume.name;
+            values.resume = resume;
+          }
 
           const file1 = await fileToBase64(values.file1);
           values.file1FileName = values.file1.name;
@@ -330,7 +340,7 @@ const NewArtwork = ({ awards, addNewArtwork, genres, ...props }) => {
                       name="productionLicenseAgency"
                     />
                   </div>
-                  {selectedAward && selectedAward.awardType == "person" && (
+                  {awardType == "person" && (
                     <div className="row">
                       <Field
                         transId="resume"
@@ -481,8 +491,11 @@ const NewArtwork = ({ awards, addNewArtwork, genres, ...props }) => {
   );
 };
 
-const mapStateToProps = ({ home: { awards, genres, artworkSubjectRoles } }) => {
-  const _awards = awards.filter((a) => a.awardType == "artwork");
+const mapStateToProps = (
+  { home: { awards, genres, artworkSubjectRoles } },
+  compProps
+) => {
+  const _awards = awards.filter((a) => a.awardType == compProps.awardType);
   _awards.unshift({
     id: "0",
     code: "choose_award",

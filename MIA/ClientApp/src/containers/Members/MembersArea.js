@@ -5,9 +5,8 @@ import membersActions from "store/members/actions";
 import authActions from "store/auth/actions";
 import { bindActionCreators } from "redux";
 
-import Artworks from "./Artworks";
+import MembersDashboard from "./Artworks";
 import Artwork from "./Artworks/Artwork";
-import Contestant from "./Artworks/Contestant";
 import MemberSidebar from "./MemberSidebar";
 import Profile from "./Profile";
 
@@ -26,9 +25,15 @@ const MembersArea = ({
         <div className="member_wrapper">
           <Switch>
             <Route exact path="/members/profile" component={Profile} />
-            <Route path="/members/artwork" component={Artwork} />
-            <Route path="/members/contestant" component={Contestant} />
-            <Route exact path="/members" component={Artworks} />
+            <Route
+              path="/members/artwork"
+              render={(props) => <Artwork {...props} awardType="artwork" />}
+            />
+            <Route
+              path="/members/contestant"
+              render={(props) => <Artwork {...props} awardType="person" />}
+            />
+            <Route exact path="/members" component={MembersDashboard} />
             <Redirect from="*" to="/members" />
           </Switch>
         </div>

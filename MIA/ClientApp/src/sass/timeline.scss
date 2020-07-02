@@ -164,6 +164,20 @@
         } /* label */
         .map-container {
           height: 300px;
+          p.address {
+            font-size: 21px;
+            text-align: center;
+            display: block;
+            position: relative;
+            color: #ccbc93;
+            a {
+              text-transform: capitalize;
+              color: #b59870;
+              &:visited {
+                color: #b59870;
+              }
+            }
+          }
           .map {
             height: 100%;
           }

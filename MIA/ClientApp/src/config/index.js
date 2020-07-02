@@ -6,8 +6,8 @@ export default {
   apiRoot: "/api",
   devApiRoot: "/api",
   awardDetails: {
-    startDate: "01-01-2020",
-    endDate: "31-12-2020",
+    startDate: "12-12-2020",
+    endDate: "15-12-2020",
   },
   reCaptchaKey: "6LfQxtIUAAAAAJyXHUzzKShDXhpzF_TZgpVSN7P0",
   paymentPublicKey: "pk_test_3aa743f7-9a44-4254-9334-7a2c03150753",
@@ -27,30 +27,7 @@ export default {
   tickets: [
     {
       locationId: 1,
-      location: {
-        lat: 25.1948729,
-        long: 55.2654525,
-        zoom: 15.76,
-        landMarker: {
-          id: "1",
-          icon: "./assets/images/markers/marker.svg",
-          name: "Dubai opera",
-          lat: 25.1948729,
-          long: 55.2654525,
-        },
-      },
-      titleKey: "location1_title",
-      title: "Dubai opera",
-      descriptionKey: "location1_description",
-      description: `TEXT_DEEEDED_HERE`,
-      dates: [
-        { date: "20-05-2020" },
-        { date: "21-05-2020" },
-        { date: "22-05-2020" },
-      ],
-    },
-    {
-      locationId: 2,
+      mapRef: "https://www.google.com/maps/search/Al-Maydan%20Hotel",
       location: {
         lat: 25.1559204,
         long: 55.2977487,
@@ -68,6 +45,31 @@ export default {
       descriptionKey: "location1_description",
       description: `TEXT_DEEEDED_HERE`,
       dates: [{ date: "29-05-2020" }, { date: "30-05-2020" }],
+    },
+    {
+      locationId: 2,
+      mapRef: "https://www.google.com/maps/search/Dubai+Opera",
+      location: {
+        lat: 25.1948729,
+        long: 55.2654525,
+        zoom: 15.76,
+        landMarker: {
+          id: "1",
+          icon: "./assets/images/markers/marker.svg",
+          name: "Dubai opera",
+          lat: 25.1948729,
+          long: 55.2654525,
+        },
+      },
+      titleKey: "location2_title",
+      title: "Dubai opera",
+      descriptionKey: "location2_description",
+      description: `TEXT_DEEEDED_HERE`,
+      dates: [
+        { date: "20-05-2020" },
+        { date: "21-05-2020" },
+        { date: "22-05-2020" },
+      ],
     },
   ],
   menu: [
@@ -100,6 +102,8 @@ export default {
       min: 2019,
       max: 2020,
     },
+    phoneExp: /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
+    url: /^((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
   },
   files: {
     booth_pdf: "/assets/files/exhibition final.pdf",

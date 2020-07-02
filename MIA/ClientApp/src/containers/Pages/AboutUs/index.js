@@ -11,11 +11,9 @@ const AboutUs = ({ awards, ...props }) => {
   const [awardsTabs] = useState([
     {
       titlleKey: "about_awards",
-      contentKey: `about_tab_content_awards`,
     },
     {
       titlleKey: "mia_contestant",
-      contentKey: `about_tab_content_mia_contestant`,
     },
     {
       titlleKey: "mia_honor",
@@ -30,246 +28,292 @@ const AboutUs = ({ awards, ...props }) => {
       contentKey: `about_tab_content_conpatitors`,
     },
   ]);
-
+  const content = {
+    ourStory: {
+      en:
+        "In view of the great challenges that our Arab media has faced during the past decades and the underrepresentation of Arab reality in spite of the massive investments in the media sector in various respects, the media community realized the need for joint efforts between investors and production companies to put an end to this deficiency. This idea was adopted by Media Industry Company, a leading media company, by launching the MIA AWARD. This program focuses on visual content to increase competition, develop the content of Arab artistic works production industry and become the link between the investor and the producer in order to properly develop the visual and digital Arab reality. Competition evidently creates rich and distinct content that better reflects the Arab world’s public and audience.",
+      ar:
+        "نظراً لما مر به إعلامنا العربي خلال العقود الماضية من تحديات كبيرة، وعدم تمثيل للواقع العربي بالشكل الصحيح بالرغم من وجود استثمار كبير في مجال الإعلام من نواح مختلفة، برزت الحاجة في الوسط الإعلامي إلى تضافر الجهود بين المستثمرين وشركات الإنتاج لوضع حد لهذا النقص، وهو ما تبنته شركة صناعة الإعلام باعتبارها شركة رائدة  في مجال الإعلام من خلال تدشين MIA AWARD، وهي جائزة تهتم بالمحتوى المرئي لرفع مستوى التنافس وتطوير محتوى صناعة الفن و إنتاج الأعمال العربية، وبأن تكون حلقة الوصل بين المستثمر والمنتج لتطوير الواقع العربي “المرئي التلفزيوني والرقمي” بالشكل الصحيح، وليس بخاف على الجميع بأن المنافسة ستصنع محتوى ثريا ومميزا ينعكس أثره على جموع الجماهير والمتلقين في الوطن العربي.  ",
+    },
+    mia2020: {
+      en:
+        "With the participation of 21 Arab countries<br/>A new Arab Award specialized in visual media that will be launched in Dubai Opera in 15 December 2020, with the participation of 22 Arab countries. <br />In its first round, the Award aims to present a distinguished set of television and digital works to eager and enthusiastic audiences. The Award also seeks to create a kind of effective communication between the public, producers and technicians through its events. The Award also seeks to discover young talents, along with enhancing the spirit of cooperation, cultural exchange and advancement in the television and digital art industry in the Arab world, presenting new visions for the Arab production market needs; such as new and important ideas that strongly support and contribute to the development of Arab television productions enabling them to cross Arab borders and go global.",
+      ar:
+        "انطلقت رسالتنا من وحي شعارنا (الإعلام العربي واقع جديد) لرفع مستوى جودة المحتوى في الإنتاج العربي المرئي وجعل هذه الجائزة منصة عربية يكرم ويلتقي فيها كل المميزين والمبدعين في هذا المجال لتتلاقى من خلالها الأفكار الجديدة وتؤدي إلى نتاج معرفي وتقني تستفيد منه المجتمعات العربية وتواجه به تحدياتها المستقبلية المختلفة .",
+    },
+    ourMessage: {
+      en:
+        "<b>An Arab award going global</b><br /><br />The MIA AWARD which upholds the slogan: “Arab Media: New Realities”, is a manifestation of a distinct cultural and intellectual event, one of a kind in its field, as it helps strengthen links and exchange expertise between Arab innovators to achieve further intellectual creativity and stimulate the marketing of media production through a common Arab art market. The Award will also help examine the latest developments in communication technology through an exhibition accompanying the Award, in which devices and equipment that contribute to the development of all types of visual media production will be displayed, highlighting Arab productions and allowing outreach and dissemination of their contents to the largest segment of viewers.",
+      ar:
+        "<b>بمشاركة ٢١ دولة عربية </b><br />جائزة عربية جديدة في طرحها مختصة في محتوى الإعلام المرئي ، تعقد بدار الأوبرا في دبي في 15 شهر ديسمبر من عام 2020م بمشاركة 22 دولة عربية، وتهدف الجائزة في دورتها الأولى إلى عرض مجموعة مميزة من الأعمال  المرئية التلفزيونية و الرقمية للجمهور الشغوف بها والمتحمس لمتابعتها، كما تسعى لإيجاد نوع من التواصل الفعال بين كل من الجمهور والمنتجين والفنيين عبر فعالياتها، واكتشاف المواهب الشابة، بالإضافة إلى تعزيز روح التعاون والتبادل الثقافي والرقي بصناعة الفن المرئي التلفزيوني والرقمي في العالم العربي، وتقديم رؤى جديدة لما تحتاجه أسواق الإنتاج العربي من أفكار جديدة ومهمة لتكون رافداً قوياً يسهم في تطوير الأعمال المرئية العربية لتخطي حدود المحيط العربي والوصول إلى العالمية.",
+    },
+    ourGoal: [
+      {
+        en:
+          "Refining the taste of the Arab individual from all segments and introducing new future visions that contribute to the advancement of Arab television production, also activating and motivating the television industry and raising the standard of Arab production to reach international levels. ",
+        ar:
+          "الارتقاء بذائقة الإنسان العربي بمختلف شرائحه، وتقديم رؤى مستقبلية جديدة تسهم في رقي مستقبل الإنتاج المرئي العربي . وتنشيط وتحفيز صناعة المحتوى المرئي ورفع مستوى الإنتاج العربي والرقي به إلى مصاف عالمية.",
+      },
+      {
+        en:
+          "Creating an opportunity for integration, interaction and multi-cultural convergence to reunify the Arab identity, so that together we create a bright future “with one power and promising generations”",
+        ar:
+          "إيجاد فرصة للإندماج والتفاعل وتقارب الثقافات المتعددة من أجل لم شمل الهوية العربية  لنصنع معاً مستقبل باهر  بقوة واحدة وأجيال واعدة ",
+      },
+      {
+        en:
+          "Increasing communication between young talents in the Arab world and prominent producers and technicians active in the field and offering greater cooperation between the production sectors and between media organizations, TV channels and digital platforms.",
+        ar:
+          "زيادة التواصل بين المواهب الشابة في العالم العربي ونخبة من المنتجين والفنيين العاملين في المجال وتوفير أكبر قدر من التعاون بين القطاعات الانتاجية وبين الهيئات الإعلامية والقنوات التلفزيونية و المنصات الرقمية.",
+      },
+      {
+        en:
+          "Discovering new talents and highlighting the distinguished ones.   ",
+        ar: "اكتشاف المواهب الجديدة وإظهار المتميز منها إلى الأضواء.",
+      },
+      {
+        en:
+          "Appreciating and honoring the innovators and achievers across the Arab world by assessing their works, learning about professional opinions about them and celebrating the best.",
+        ar:
+          "تقدير وتكريم المبدعين والمنجزين في أرجاء الوطن العربي من خلال تقييم أعمالهم ومعرفة آراء المختصين حيالها والاحتفال بأفضلها .",
+      },
+    ],
+    ourValues: [
+      {
+        title: { en: "Fairness", ar: "الحيادية" },
+        content: {
+          en: "We treat all the people of the Arab world equally and fairly.  ",
+          ar: "نقف بدون انحياز وعلى مسافة واحدة من كل أبناء الوطن العربي.",
+        },
+      },
+      {
+        title: { en: "Objectivity", ar: "الموضوعية" },
+        content: {
+          en:
+            "Independently of anybody’s whim, we depend on one unified mechanism in dealing with every performance your creativity determines your position.",
+          ar:
+            "بعيدًا عن الأهواء نعتمد آلية موحدة في التعامل مع كل أداء.. إبداعك هو من يحدد مركزك.",
+        },
+      },
+      {
+        title: { en: "Credibility", ar: "المصداقية" },
+        content: {
+          en:
+            "One of the basic elements of our work ... integrity and professionalism represent our approach in evaluating the participating works.",
+          ar:
+            "من اساسيات جوهر عملنا, فالنزاهة والمهنية هي منهجنا في تقييم الأعمال المشاركة.",
+        },
+      },
+    ],
+    ourEvents: {
+      header: {
+        en: "Events held within the scope of the Award program:",
+        ar: "يقام ضمن برنامج الجائزة",
+      },
+      items: [
+        {
+          en:
+            "1.	Workshops to develop professional technical and technological capabilities.",
+          ar: "1.	ورش عمل لتطوير القدرات المهنية الفنية والتقنية.",
+        },
+        {
+          en:
+            "2.	Specialized seminars by expert professional media makers and Arab stars. ",
+          ar:
+            "2.	ندوات متخصصة يلقيها خبراء و محترفون من صناع الإعلام ونجوم الفن العربي.",
+        },
+        {
+          en: "3.	Presenting unique success stories.",
+          ar: "3.	عرض قصص نجاح مميزة.",
+        },
+        {
+          en:
+            "4.	A special market serving production companies and digital and TV platforms, including the latest engineering and technological systems in media and TV production industry.",
+          ar:
+            "4.	سوق خاص لخدمة شركات الإنتاج والمنصات الرقمية، والتلفزيونية ، إذ يضم أحدث النظم الهندسية والتقنية في مجال صناعة الإعلام والإنتاج المرئي.",
+        },
+        {
+          en:
+            "5.	Live interviews and discussion of important issues (Live broadcast)",
+          ar: "5.	لقاءات حية و مناقشة القضايا الهامة (بث مباشر(",
+        },
+      ],
+    },
+  };
   const [activeTab, setActiveTab] = useState(0);
   const handleActiveTab = (tab) => {
     setActiveTab(tab);
   };
 
   return (
-    <React.Fragment>
-      <section id="about_us">
-        <div className="about_txt">
-          <div className="container">
-            <div className="item">
-              <div className="title">
-                <Trans id="story">Story</Trans>
-              </div>
-              <div className="content">
-                <Trans id="story_text">
-                  The Arab media passes during the past decades a lot of
-                  challenges and the lack of representation of the Arab reality
-                  with the correct representation, despite the presence of a
-                  large investment in the field of media in all its forms, but
-                  it lacks concerted efforts between investors and production
-                  companies. Art making and Arab business production by being
-                  the link between the investor and the producer in order to
-                  transfer the Arab "television" reality to the right path by
-                  creating an award for visual media, believing that the
-                  competition will create rich and distinctive content that will
-                  affect its audience. Dowries and recipients in the Arab world
-                </Trans>
-              </div>
-            </div>
-            <div className="item">
-              <div className="title">
-                <Trans id="our_message">Our Message</Trans>
-              </div>
-              <div className="content">
-                <Trans id="our_message_text">
-                  Recent studies have proven the importance of television
-                  content in our daily lives and its influence on changing
-                  values ​​and cultural awareness in any society. It is for this
-                  importance that our message was launched from the slogan of
-                  our slogan (Arab media is a new reality) to raise the level of
-                  quality content in Arab television production and make this
-                  award an Arab platform that honors and meets all the
-                  distinguished and creative in this field, during which new
-                  ideas converge and lead to a knowledge and technical product
-                  that Arab societies benefit from and confront with it Its
-                  various future challenges
-                </Trans>
-              </div>
-            </div>
-            <div className="item">
-              <div className="title">
-                <Trans id="our_goal">Our Goal</Trans>
-              </div>
-              <div className="content">
-                <Trans id="our_goal_text">
-                  <ul>
-                    <li>
-                      • Upgrading the taste of the Arab person in its various
-                      segments, and presenting new future visions that
-                      contribute to advancing the future of Arab TV production.
-                    </li>
-                    <li>
-                      • Activating and stimulating the TV content industry and
-                      raising the level of Arab production and promoting it to
-                      international ranks
-                    </li>
-                    <li>
-                      • Finding an opportunity for integration, interaction and
-                      the convergence of multiple cultures in order to integrate
-                      the Arab identity, so that we can together create a
-                      brilliant future With One Power and Promising Generations
-                    </li>
-                    <li>
-                      • Increasing the communication between the young talents
-                      in the Arab world and the elite producers and technicians
-                      working in the field and providing the greatest degree of
-                      integration between the productive sectors and between the
-                      media organizations and TV channels
-                    </li>
-                    <li>
-                      • Discover new talents and show distinguished ones to the
-                      limelight
-                    </li>
-                    <li>
-                      • Appreciating and honoring the creators and accomplished
-                      people throughout the Arab world by evaluating their work,
-                      knowing the opinions of the specialists about it and
-                      celebrating its best.
-                    </li>
-                  </ul>
-                </Trans>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="our_value">
-          <div className="container">
-            <div className="title">
-              <span>
-                <Trans id="our_value">our value</Trans>
-              </span>
-            </div>
-            <div className="content">
-              <Trans id="our_value_text">
-                <ul>
-                  <li>
-                    <span>• Neutrality :</span>
-                    <p>
-                      We stand without siding and one distance from all the
-                      people of the Arab world
-                    </p>
-                  </li>
-                  <li>
-                    <span>• Objectivity :</span>
-                    <p>
-                      Away from the whims, one mechanism in dealing with each
-                      performance. <br /> Your creativity determines your
-                      position
-                    </p>
-                  </li>
-                  <li>
-                    <span>• Credibility :</span>
-                    <p>
-                      One of the basic principles of our work .. Our integrity
-                      is our method in our evaluation
-                    </p>
-                  </li>
-                  <li>
-                    <span>• Enhancement :</span>
-                    <p>
-                      Providing numerous quality awards and discretionary seals
-                      according to performance criteria
-                    </p>
-                  </li>
-                </ul>
-              </Trans>
-            </div>
-          </div>
-        </div>
-        <div className="our_events">
-          <div className="container">
-            <div className="event">
-              <div className="icon">
-                <img src="/assets/images/our_value_icon.png" />
-              </div>
-              <div className="txt_area">
-                <div className="inside_txt_area">
-                  <span>
-                    <Trans id="our_events">Our Events</Trans>
-                  </span>
-                  <Trans id="our_events_text">
+    <I18n>
+      {({ i18n }) => (
+        <React.Fragment>
+          <section id="about_us">
+            <div className="about_txt">
+              <div className="container">
+                <div className="item">
+                  <div className="title">
+                    <Trans id="our_story"></Trans>
+                  </div>
+                  <div
+                    className="content"
+                    dangerouslySetInnerHTML={{
+                      __html: content.ourStory[i18n.language],
+                    }}
+                  ></div>
+                </div>
+                <div className="item">
+                  <div className="title">
+                    <Trans id="mia_2020"></Trans>
+                  </div>
+                  <div
+                    className="content"
+                    dangerouslySetInnerHTML={{
+                      __html: content.mia2020[i18n.language],
+                    }}
+                  ></div>
+                </div>
+                <div className="item">
+                  <div className="title">
+                    <Trans id="our_message"></Trans>
+                  </div>
+                  <div
+                    className="content"
+                    dangerouslySetInnerHTML={{
+                      __html: content.ourMessage[i18n.language],
+                    }}
+                  ></div>
+                </div>
+                <div className="item">
+                  <div className="title">
+                    <Trans id="our_goal"></Trans>
+                  </div>
+                  <div className="content">
                     <ul>
-                      <li>
-                        • Workshops to develop technical and technical
-                        professional capabilities
-                      </li>
-                      <li>
-                        • Specialized seminars, to be hosted by experts and
-                        professionals from the media makers and Arab art stars
-                      </li>
-                      <li>• View distinctive success stories</li>
-                      <li>
-                        • Market for the most recent engineering and technical
-                        systems in the field of media and television production
-                      </li>
-                      <li>
-                        • TV interviews discussing important issues (live
-                        broadcast)
-                      </li>
+                      {content.ourGoal.map((g, i) => (
+                        <li
+                          key={i}
+                          dangerouslySetInnerHTML={{
+                            __html: g[i18n.language],
+                          }}
+                        ></li>
+                      ))}
                     </ul>
-                  </Trans>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="imgthumb">
-              <img src="/assets/images/our_events_img.png" />
-            </div>
-          </div>
-        </div>
-        <div className="our_awards">
-          <div className="container">
-            <div className="imgthumb">
-              <div className="img">
-                <img src="/assets/images/our_awards_img.png" />
-              </div>
-            </div>
-            <div className="award">
-              <div className="icon">
-                <img src="/assets/images/our_award_icon.png" />
-              </div>
-              <div className="txt_area">
-                <div className="inside_txt_area">
+            <div className="our_value">
+              <div className="container">
+                <div className="title">
                   <span>
-                    <Trans id="our_awards">Our Awards</Trans>
+                    <Trans id="our_value"></Trans>
                   </span>
-                  <p>
-                    <Trans id="our_awards_text">
-                      The Arab Media Makers Award (MIA 2020), which is judged
-                      among contestants electronically, aims to measure the
-                      quality of the level of influence of the content of TV
-                      works on the lifestyle, audience thinking and impact by
-                      sorting the participating works according to specific
-                      conditions and criteria by the jury, and we have dedicated
-                      to each Category of the competition is three gold, silver
-                      and bronze prizes distributed to the winners with
-                      appreciation certificates
-                    </Trans>
-                  </p>
+                </div>
+                <div className="content">
                   <ul>
-                    <TabList
-                      activeClassName="active"
-                      activeIndex={activeTab}
-                      handleActiveTab={handleActiveTab}
-                    >
-                      {awardsTabs.map((t, i) => (
-                        <Tab key={t.titlleKey}>
-                          <li>
-                            <Trans id={t.titlleKey}></Trans>
-                          </li>
-                        </Tab>
-                      ))}
-                    </TabList>
+                    {content.ourValues.map((g, i) => (
+                      <li key={i}>
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: g.title[i18n.language],
+                          }}
+                        ></span>
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: g.content[i18n.language],
+                          }}
+                        ></p>
+                      </li>
+                    ))}
                   </ul>
-                  <I18n>
-                    {({ i18n }) => (
+                </div>
+              </div>
+            </div>
+            <div className="our_events">
+              <div className="container">
+                <div className="event">
+                  <div className="icon">
+                    <img src="/assets/images/our_value_icon.png" />
+                  </div>
+                  <div className="txt_area">
+                    <div className="inside_txt_area">
+                      <span>
+                        <Trans id="our_events"></Trans>
+                      </span>
+                      <p className="subtitle"
+                        dangerouslySetInnerHTML={{
+                          __html: content.ourEvents.header[i18n.language],
+                        }}
+                      ></p>
+                      <ul>
+                        {content.ourEvents.items.map((g, i) => (
+                          <li
+                            key={i}
+                            dangerouslySetInnerHTML={{
+                              __html: g[i18n.language],
+                            }}
+                          ></li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div className="imgthumb">
+                  <img src="/assets/images/our_events_img.png" />
+                </div>
+              </div>
+            </div>
+            <div className="our_awards">
+              <div className="container">
+                <div className="imgthumb">
+                  <div className="img">
+                    <img src="/assets/images/our_awards_img.png" />
+                  </div>
+                </div>
+                <div className="award">
+                  <div className="icon">
+                    <img src="/assets/images/our_award_icon.png" />
+                  </div>
+                  <div className="txt_area">
+                    <div className="inside_txt_area">
+                      <span>
+                        <Trans id="our_awards"></Trans>
+                      </span>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: i18n._("our_awards_text"),
+                        }}
+                      ></p>
+                      <ul>
+                        <TabList
+                          activeClassName="active"
+                          activeIndex={activeTab}
+                          handleActiveTab={handleActiveTab}
+                        >
+                          {awardsTabs.map((t, i) => (
+                            <Tab key={t.titlleKey}>
+                              <li>
+                                <Trans id={t.titlleKey}></Trans>
+                              </li>
+                            </Tab>
+                          ))}
+                        </TabList>
+                      </ul>
                       <TabPanels
                         activeIndex={activeTab}
                         activeClassName="active"
                       >
                         {awardsTabs.map((t, i) => (
-                          <TabPane>
+                          <TabPane key={i}>
                             {t.titlleKey == "about_awards" ? (
                               <div className="tab_content">
-                                <Awards awards={awards} type="artwork" />
+                                <Awards awards={awards} awardType="artwork" />
                               </div>
                             ) : t.titlleKey == "mia_contestant" ? (
                               <div className="tab_content">
-                                <Awards awards={awards} type="person" />
+                                <Awards awards={awards} awardType="person" />
                               </div>
                             ) : (
                               <div
@@ -284,21 +328,21 @@ const AboutUs = ({ awards, ...props }) => {
                           </TabPane>
                         ))}
                       </TabPanels>
-                    )}
-                  </I18n>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <Partners />
-    </React.Fragment>
+          </section>
+          <Partners />
+        </React.Fragment>
+      )}
+    </I18n>
   );
 };
 
-const Awards = ({ type, awards, ...props }) => {
-  const _awards = awards.filter((a) => a.awardType == type);
+const Awards = ({ awardType, awards, ...props }) => {
+  const _awards = awards.filter((a) => a.awardType == awardType);
   return (
     <I18n>
       {({ i18n }) => (

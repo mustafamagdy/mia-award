@@ -117,13 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="email_confirm_subject" xml:space="preserve">
-    <value>تحقق البريد الالكتروني</value>
+  <data name="booth_purchase_confirmation" xml:space="preserve">
+    <value>تم حجز المعرض لك</value>
   </data>
-  <data name="reset_password_request_subject" xml:space="preserve">
-    <value>طلب اعادة تعيين كلمة المرور</value>
-  </data>
-  <data name="your_password_reset_subject" xml:space="preserve">
-    <value>تم اعادة تعيين كلمة المرور</value>
+  <data name="newsletter_sub" xml:space="preserve">
+    <value>اضافة مستخدم الى القائمة البريدية</value>
   </data>
 </root>

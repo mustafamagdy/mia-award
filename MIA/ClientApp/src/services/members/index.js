@@ -2,7 +2,6 @@ export default function(/**@type {ApisauceInstance} */ api) {
   const fetchMyAwards = () => api.get("/members/myawards");
   const fetchMyArtworks = () => api.get("/members/artworks");
   const addNewArtwork = data => api.post("/members/add-artwork", data);
-  const addNewContestant = data => api.post("/members/add-contestant", data);
   const saveArtworkInfo = ({ id, ...data }) => api.put(`/members/artwork/${id}`, data);
   const fetchArtworkWithDetails = id => api.get(`/members/artwork/${id}`);
   const updateTrailer = ({ id, ...data }) => api.put(`/members/artwork/${id}/trailer`, data);
@@ -25,7 +24,6 @@ export default function(/**@type {ApisauceInstance} */ api) {
       postFileChunk,
       publishArtwork,
       removeArtworkFile,
-      addNewContestant
     }
   };
 }

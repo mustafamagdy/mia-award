@@ -10,13 +10,14 @@ import ImageUpload from "./ImageUpload";
 import myProfileActions from "store/accounts/actions";
 import myAuthActions from "store/auth/actions";
 import BreadCrumbNavBar from "../MyBookings/BreadCrumbNavBar";
+import config from "config";
 
 class MyProfile extends Component {
   state = {
     isEnableEditMode: false,
     isDialogOpen: false,
     isUploadDialogOpen: false,
-    avatar: {}
+    avatar: {},
   };
 
   componentDidMount() {
@@ -26,18 +27,32 @@ class MyProfile extends Component {
 
   toggleEnableEditingMode = () => {
     const { isLoggedIn } = this.props;
-    if (isLoggedIn) this.setState({ isEnableEditMode: !this.state.isEnableEditMode });
+    if (isLoggedIn)
+      this.setState({ isEnableEditMode: !this.state.isEnableEditMode });
   };
 
-  openChangePasswordDialog = () => this.setState({ isDialogOpen: !this.state.isDialogOpen, isEnableEditMode: true });
+  openChangePasswordDialog = () =>
+    this.setState({
+      isDialogOpen: !this.state.isDialogOpen,
+      isEnableEditMode: true,
+    });
 
-  closeDialog = () => this.setState({ isDialogOpen: false, isUploadDialogOpen: false, isEnableEditMode: true });
+  closeDialog = () =>
+    this.setState({
+      isDialogOpen: false,
+      isUploadDialogOpen: false,
+      isEnableEditMode: true,
+    });
 
-  openUploadImageDialog = () => this.setState({ isUploadDialogOpen: !this.state.isUploadDialogOpen, isEnableEditMode: true });
+  openUploadImageDialog = () =>
+    this.setState({
+      isUploadDialogOpen: !this.state.isUploadDialogOpen,
+      isEnableEditMode: true,
+    });
 
-  updateAvatar = avatar => this.setState({ avatar, isEnableEditMode: true });
+  updateAvatar = (avatar) => this.setState({ avatar, isEnableEditMode: true });
 
-  submitChangePassword = newPasswords => {
+  submitChangePassword = (newPasswords) => {
     const { changePassword, logout } = this.props;
     changePassword(newPasswords);
     this.closeDialog();
@@ -47,7 +62,7 @@ class MyProfile extends Component {
   render() {
     const {
       profile: { firstName, lastName, email, phoneNumber, avatarImageUrl },
-      location
+      location,
     } = this.props;
     const { isEnableEditMode, isDialogOpen, isUploadDialogOpen } = this.state;
 
@@ -58,9 +73,13 @@ class MyProfile extends Component {
             <ChangePassword
               isOpen={isDialogOpen}
               onClose={this.closeDialog}
-              onChangePassword={values => this.submitChangePassword(values)}
+              onChangePassword={(values) => this.submitChangePassword(values)}
             />
-            <ImageUpload isOpen={isUploadDialogOpen} onClose={this.closeDialog} updateAvatar={avatar => this.updateAvatar(avatar)} />
+            <ImageUpload
+              isOpen={isUploadDialogOpen}
+              onClose={this.closeDialog}
+              updateAvatar={(avatar) => this.updateAvatar(avatar)}
+            />
             <BookingSideNav location={location} />
             <div className="pc-profile">
               <div className="container">
@@ -71,22 +90,27 @@ class MyProfile extends Component {
                   name: `${firstName && firstName} ${lastName && lastName}`,
                   avatar: avatarImageUrl && avatarImageUrl,
                   email: email && email,
-                  phone: phoneNumber && phoneNumber
+                  phone: phoneNumber && phoneNumber,
                 }}
                 validationSchema={Yup.object().shape({
                   name: Yup.string().required("Required"),
                   email: Yup.string()
-                    .email("Invalid email")
+                    .email("not_valid_email")
                     .required("Required"),
-                  phone: Yup.string().required("Required")
+                  phone: Yup.string()
+                    .required("Required")
+                    .matches(
+                      config.validationRules.phoneExp,
+                      "phone_number_is_not_valid"
+                    ),
                 })}
-                onSubmit={values => {
+                onSubmit={(values) => {
                   this.toggleEnableEditingMode();
                   let userName = values.name.split(" ");
                   let userDate = {
                     firstName: userName[0],
                     lastName: userName[1],
-                    avatar: this.state.avatar
+                    avatar: this.state.avatar,
                   };
                   this.props.updateUserProfile(userDate);
                 }}
@@ -100,18 +124,37 @@ class MyProfile extends Component {
                             <div className="pc-profile__view">
                               <div className="pc-profile__img">
                                 {avatarImageUrl ? (
-                                  <img alt="" src={`${avatarImageUrl}?w=158&h=198&mode=stretch`} />
+                                  <img
+                                    alt=""
+                                    src={`${avatarImageUrl}?w=158&h=198&mode=stretch`}
+                                  />
                                 ) : (
-                                  <img src="./assets/images/no-user.png" alt="" />
+                                  <img
+                                    src="./assets/images/no-user.png"
+                                    alt=""
+                                  />
                                 )}
                               </div>
                               {(!isEnableEditMode && (
-                                <span className="pc-profile__change-photo" style={{ display: "none" }}>
-                                  <Trans id="change_photo"> Change photo </Trans>{" "}
+                                <span
+                                  className="pc-profile__change-photo"
+                                  style={{ display: "none" }}
+                                >
+                                  <Trans id="change_photo">
+                                    {" "}
+                                    Change photo{" "}
+                                  </Trans>{" "}
                                 </span>
                               )) || (
-                                <a href="#" className="pc-profile__change-photo" onClick={this.openUploadImageDialog}>
-                                  <Trans id="change_photo"> Change photo </Trans>
+                                <a
+                                  href="#"
+                                  className="pc-profile__change-photo"
+                                  onClick={this.openUploadImageDialog}
+                                >
+                                  <Trans id="change_photo">
+                                    {" "}
+                                    Change photo{" "}
+                                  </Trans>
                                 </a>
                               )}
                             </div>
@@ -119,16 +162,27 @@ class MyProfile extends Component {
                           <div className="gcell gcell--12 gcell--ms-7 gcell--md-6 gcell--def-7">
                             <div className="pc-profile__info">
                               <div className="pc-profile__info-it is-editing">
-                                <div className="pc-profile__info-name" style={{ minWidth: 100 }}>
+                                <div
+                                  className="pc-profile__info-name"
+                                  style={{ minWidth: 100 }}
+                                >
                                   <Trans id="name"> Name </Trans>:
                                 </div>
-                                {(!isEnableEditMode && <div className="pc-profile__info-text">{values.name}</div>) || (
+                                {(!isEnableEditMode && (
+                                  <div className="pc-profile__info-text">
+                                    {values.name}
+                                  </div>
+                                )) || (
                                   <>
                                     <div className="pc-profile__info-text">
                                       <div className="form-group">
                                         <div className="form-group__wrap">
                                           <Field
-                                            className={`form-group__input ${errors.name && touched.name ? "has-error" : ""}`}
+                                            className={`form-group__input ${
+                                              errors.name && touched.name
+                                                ? "has-error"
+                                                : ""
+                                            }`}
                                             required=""
                                             placeholder=""
                                             values={values.name}
@@ -140,7 +194,11 @@ class MyProfile extends Component {
                                     {!errors.name && touched.name && (
                                       <div className="pc-profile__info-edit">
                                         <button className="pc-profile__info-link">
-                                          <svg width="16" height="16" style={{ fill: "#01bab4" }}>
+                                          <svg
+                                            width="16"
+                                            height="16"
+                                            style={{ fill: "#01bab4" }}
+                                          >
                                             <use href="#checked-arrow"></use>
                                           </svg>
                                         </button>
@@ -151,16 +209,27 @@ class MyProfile extends Component {
                               </div>
 
                               <div className="pc-profile__info-it is-editing">
-                                <div className="pc-profile__info-name" style={{ minWidth: 100 }}>
+                                <div
+                                  className="pc-profile__info-name"
+                                  style={{ minWidth: 100 }}
+                                >
                                   <Trans id="email">EMail</Trans>:
                                 </div>
-                                {(!isEnableEditMode && <div className="pc-profile__info-text">{values.email}</div>) || (
+                                {(!isEnableEditMode && (
+                                  <div className="pc-profile__info-text">
+                                    {values.email}
+                                  </div>
+                                )) || (
                                   <>
                                     <div className="pc-profile__info-text">
                                       <div className="form-group">
                                         <div className="form-group__wrap">
                                           <Field
-                                            className={`form-group__input ${errors.email && touched.email ? "has-error" : ""}`}
+                                            className={`form-group__input ${
+                                              errors.email && touched.email
+                                                ? "has-error"
+                                                : ""
+                                            }`}
                                             required=""
                                             placeholder=""
                                             values={values.email}
@@ -172,7 +241,11 @@ class MyProfile extends Component {
                                     {!errors.email && touched.email && (
                                       <div className="pc-profile__info-edit">
                                         <button className="pc-profile__info-link">
-                                          <svg width="16" height="16" style={{ fill: "#01bab4" }}>
+                                          <svg
+                                            width="16"
+                                            height="16"
+                                            style={{ fill: "#01bab4" }}
+                                          >
                                             <use href="#checked-arrow"></use>
                                           </svg>
                                         </button>
@@ -183,16 +256,27 @@ class MyProfile extends Component {
                               </div>
 
                               <div className="pc-profile__info-it is-editing">
-                                <div className="pc-profile__info-name" style={{ minWidth: 100 }}>
+                                <div
+                                  className="pc-profile__info-name"
+                                  style={{ minWidth: 100 }}
+                                >
                                   <Trans id="phone"> Phone </Trans>:
                                 </div>
-                                {(!isEnableEditMode && <div className="pc-profile__info-text">{values.phone}</div>) || (
+                                {(!isEnableEditMode && (
+                                  <div className="pc-profile__info-text">
+                                    {values.phone}
+                                  </div>
+                                )) || (
                                   <>
                                     <div className="pc-profile__info-text">
                                       <div className="form-group">
                                         <div className="form-group__wrap">
                                           <Field
-                                            className={`form-group__input ${errors.phone && touched.phone ? "has-error" : ""}`}
+                                            className={`form-group__input ${
+                                              errors.phone && touched.phone
+                                                ? "has-error"
+                                                : ""
+                                            }`}
                                             required=""
                                             placeholder=""
                                             values={values.phone}
@@ -204,7 +288,11 @@ class MyProfile extends Component {
                                     {!errors.phone && touched.phone && (
                                       <div className="pc-profile__info-edit">
                                         <button className="pc-profile__info-link">
-                                          <svg width="16" height="16" style={{ fill: "#01bab4" }}>
+                                          <svg
+                                            width="16"
+                                            height="16"
+                                            style={{ fill: "#01bab4" }}
+                                          >
                                             <use href="#checked-arrow"></use>
                                           </svg>
                                         </button>
@@ -218,8 +306,15 @@ class MyProfile extends Component {
                           <div className="gcell gcell--12 gcell--ms-2 gcell--md-3">
                             <div className="pc-profile__change">
                               {(!isEnableEditMode && (
-                                <button className="pc-profile__change-pass js-change-pass" style={{ color: "#999" }} disabled>
-                                  <Trans id="change_password"> Change Password </Trans>{" "}
+                                <button
+                                  className="pc-profile__change-pass js-change-pass"
+                                  style={{ color: "#999" }}
+                                  disabled
+                                >
+                                  <Trans id="change_password">
+                                    {" "}
+                                    Change Password{" "}
+                                  </Trans>{" "}
                                 </button>
                               )) || (
                                 <button
@@ -227,7 +322,10 @@ class MyProfile extends Component {
                                   style={{ cursor: "pointer" }}
                                   onClick={this.openChangePasswordDialog}
                                 >
-                                  <Trans id="change_password"> Change Password </Trans>
+                                  <Trans id="change_password">
+                                    {" "}
+                                    Change Password{" "}
+                                  </Trans>
                                 </button>
                               )}
                             </div>
@@ -236,7 +334,10 @@ class MyProfile extends Component {
                       </div>
                     </div>
 
-                    <div className="summary-nav" style={{ margin: 40, justifyContent: "flex-end" }}>
+                    <div
+                      className="summary-nav"
+                      style={{ margin: 40, justifyContent: "flex-end" }}
+                    >
                       {!isEnableEditMode ? (
                         <span
                           title="enable Edit"
@@ -259,7 +360,11 @@ class MyProfile extends Component {
                               <Trans id="cancel"> Cancel </Trans>
                             </span>
                           </span>
-                          <button title="Save" type="submit" className="button summary-nav__next">
+                          <button
+                            title="Save"
+                            type="submit"
+                            className="button summary-nav__next"
+                          >
                             <span className="button__text">
                               <Trans id="update"> Update </Trans>
                             </span>
@@ -278,12 +383,16 @@ class MyProfile extends Component {
   }
 }
 
-const mapStateToProps = ({ account: { profile }, auth: { currentUser, isLoggedIn } }) => ({
+const mapStateToProps = ({
+  account: { profile },
+  auth: { currentUser, isLoggedIn },
+}) => ({
   profile,
   currentUser,
-  isLoggedIn
+  isLoggedIn,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ ...myProfileActions, ...myAuthActions }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...myProfileActions, ...myAuthActions }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);

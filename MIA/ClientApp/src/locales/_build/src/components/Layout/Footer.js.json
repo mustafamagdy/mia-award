@@ -3,7 +3,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        37
+        43
       ]
     ]
   },
@@ -12,7 +12,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        42
+        48
       ]
     ]
   },
@@ -21,7 +21,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        47
+        53
       ]
     ]
   },
@@ -30,7 +30,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        52
+        58
       ]
     ]
   },
@@ -39,7 +39,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        57
+        63
       ]
     ]
   },
@@ -48,7 +48,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        62
+        68
       ]
     ]
   },
@@ -57,7 +57,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        69
+        75
       ]
     ]
   },
@@ -66,7 +66,33 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        72
+        78
+      ]
+    ]
+  },
+  "email": {
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        90
+      ]
+    ]
+  },
+  "newsletter_success": {
+    "defaults": "You have successfully subscribed to the newsletter",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        100
+      ]
+    ]
+  },
+  "newsletter_failed": {
+    "defaults": "There is an error, subscription failed. Please try again later",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        107
       ]
     ]
   },
@@ -75,7 +101,7 @@
     "origin": [
       [
         "src/components/Layout/Footer.js",
-        100
+        116
       ]
     ]
   }

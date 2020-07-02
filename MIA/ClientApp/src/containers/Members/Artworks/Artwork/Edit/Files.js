@@ -36,6 +36,7 @@ const Files = ({ active, artwork, removeArtworkFile }, props) => {
           <div className="upload_input">
             <form action="#">
               <UploadDropZone
+                minSize={5} //minimum 5 mb for chunk uploader
                 setFiles={setFiles}
                 // setProgress={setProgress}
                 // accept="video/*"
@@ -78,7 +79,7 @@ const Files = ({ active, artwork, removeArtworkFile }, props) => {
               <File
                 projectName={artwork.projectName}
                 posterUrl={artwork.posterUrl}
-                coverUrl={encodeURI(artwork.coverImageUrl)}
+                coverUrl={encodeURI(artwork.coverUrl)}
                 file={f}
                 key={index}
                 showRemove

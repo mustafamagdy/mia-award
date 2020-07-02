@@ -47,15 +47,15 @@ const RecentShows = ({
         </div>
         {((recentShows && recentShows.length > 0) || usingFilter) && (
           <div className="search_filter">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <input
-                type="text"
-                ref={register}
-                name="title"
-                placeholder="show name"
-              />
-              <I18n>
-                {({ i18n }) => (
+            <I18n>
+              {({ i18n }) => (
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <input
+                    type="text"
+                    ref={register}
+                    name="title"
+                    placeholder={i18n._("show_name")}
+                  />
                   <select ref={register} name="year">
                     {years.map((y, i) => (
                       <option key={i} value={y}>
@@ -63,25 +63,24 @@ const RecentShows = ({
                       </option>
                     ))}
                   </select>
-                )}
-              </I18n>
-
-              <input
-                type="text"
-                ref={register}
-                name="tvchannels"
-                placeholder="Tv Channels"
-              />
-              <input
-                type="text"
-                ref={register}
-                name="onlineChannels"
-                placeholder="Online Channels"
-              />
-              <button type="submit">
-                <i className="icofont-ui-search"></i>
-              </button>
-            </form>
+                  <input
+                    type="text"
+                    ref={register}
+                    name="tvchannels"
+                    placeholder={i18n._("tv_channels")}
+                  />
+                  <input
+                    type="text"
+                    ref={register}
+                    name="onlineChannels"
+                    placeholder={i18n._("online_channels")}
+                  />
+                  <button type="submit">
+                    <i className="icofont-ui-search"></i>
+                  </button>
+                </form>
+              )}
+            </I18n>
           </div>
         )}
         {(recentShows && recentShows.length > 0) || usingFilter ? (

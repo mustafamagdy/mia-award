@@ -34,9 +34,9 @@ const Award = ({ location, awards, currency, props }) => {
                 <div className="txt">
                   <div className="title">
                     <span>{award.title[locale.code]}</span>
-                    <span>
+                    {/* <span>
                       {award.artworkFee} {currency}
-                    </span>
+                    </span> */}
                   </div>
                   <div
                     className="desc"

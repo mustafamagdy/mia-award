@@ -17,12 +17,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;HttpsEverywhere, HstsPreload, HealthCheck, Versioning, CORS, ResponseCompression, ForwardedHeaders, Swagger, ResponseCaching, EmailSendGrid</DefineConstants>
+    <DefineConstants>TRACE;HttpsEverywhere, HstsPreload, HealthCheck, Versioning, CORS, ResponseCompression, ForwardedHeaders, Swagger, ResponseCaching, SMTPSender</DefineConstants>
     <DocumentationFile>.\MIA.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;HttpsEverywhere, HstsPreload, HealthCheck, Versioning, CORS, ResponseCompression, ForwardedHeaders, Swagger, ResponseCaching, EmailSendGrid</DefineConstants>
+    <DefineConstants>TRACE;HttpsEverywhere, HstsPreload, HealthCheck, Versioning, CORS, ResponseCompression, ForwardedHeaders, Swagger, ResponseCaching, SMTPSender</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,15 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="Resources\Controllers.AccountController.en.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="wwwroot\.well-known\security.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Resources\Controllers.AccountController.en.resx" />
     <None Include="wwwroot\favicon.ico" />
   </ItemGroup>
 
@@ -99,5 +94,11 @@
     <Folder Include="ClientApp\src\sass\" />
     <Folder Include="seed\gallery\" />
     <Folder Include="wwwroot\logs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Api.HomeController.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

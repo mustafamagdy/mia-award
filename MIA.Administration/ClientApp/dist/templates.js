@@ -1,124 +1,4 @@
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/ConfirmationMessage/templates/ConfirmMessageDialog.html',
-    '<div class="modal-content">\n' +
-    '	<div class="modal-body">{{\'messageConfirmationLbl\' | translate}} ? </div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button"\n' +
-    '			ng-click="messageDlCtrl.Confirm()">{{\'Save\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button"\n' +
-    '			ng-click="messageDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
-    '<div class="modal-content">\n' +
-    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/UploadVideo/templates/UploadVideoDialog.html',
-    '<style>\n' +
-    '	form .progress {\n' +
-    '		line-height: 15px;\n' +
-    '	}\n' +
-    '\n' +
-    '	.progress {\n' +
-    '		display: inline-block;\n' +
-    '		width: 100px;\n' +
-    '		border: 3px groove #ccc;\n' +
-    '	}\n' +
-    '\n' +
-    '	.progress>div {\n' +
-    '		font-size: smaller;\n' +
-    '		background: linear-gradient(90deg, #f7e483, #dbba5a 57%, #a36d31);\n' +
-    '		width: 0%;\n' +
-    '	}\n' +
-    '</style>\n' +
-    '<div class="modal-body">\n' +
-    '	<form class="form-horizontal">\n' +
-    '\n' +
-    '		<button class="btn btn-success btn-xs pull-center" type="button"\n' +
-    '			ng-click="LoadUploadVideo()">{{\'Upload Video\' | translate}}</button>\n' +
-    '		<input type="file" id="file" style="display: none;" onchange="angular.element(this).scope().uploadVideo()">\n' +
-    '		<br>\n' +
-    '		<div id="dvProgress" class="progress" ng-show="Progress >= 0">\n' +
-    '		</div>\n' +
-    '	</form>\n' +
-    '</div>\n' +
-    '<!--<div class="pmd-modal-action text-right">\n' +
-    '	<button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '		class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '		ng-click="uploadVideo(itemId)">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '	 <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '		ng-click="newUploadChunkCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '</div> -->');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/login/templates/login.html',
-    '<div class="logincard" ng-if="!isLoggedIn()">\n' +
-    '    <div class="pmd-card card-default pmd-z-depth">\n' +
-    '        <div class="login-card">\n' +
-    '            <form ng-submit="submit(username,password)" name="loginForm">\n' +
-    '                <div class="pmd-card-body">\n' +
-    '                    <div class="alert alert-success"> Oh snap! Change a few things up and try submitting again. </div>\n' +
-    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                        <label for="inputError1" class="control-label pmd-input-group-label">User Name</label>\n' +
-    '                        <div class="input-group">\n' +
-    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i>\n' +
-    '                            </div>\n' +
-    '                            <input type="text" class="form-control" id="exampleInputAmount" required name="username"\n' +
-    '                                ng-model="username" ng-change="reset()">\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                        <label for="inputError1" class="control-label pmd-input-group-label">Password</label>\n' +
-    '                        <div class="input-group">\n' +
-    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">lock_outline</i>\n' +
-    '                            </div>\n' +
-    '                            <input required type="password" name="password" ng-model="password" ng-change="reset()"\n' +
-    '                                minlength="6" class="form-control">\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '                <div ng-if="invalidLoginInfo" class="loginFailed">\n' +
-    '                    <span>Incorrect username or password.</span>\n' +
-    '                </div>\n' +
-    '                <div ng-if="inActiveUser" class="loginFailed">\n' +
-    '                    <span>{{errorMessage}}\n' +
-    '                        <!-- / Your Account Is Disabled, Please contact to administrator. -->\n' +
-    '                    </span>\n' +
-    '                </div>\n' +
-    '                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">\n' +
-    '                    <button type="submit" style="\n' +
-    '                      width: 65%;\n' +
-    '    color: #ffffff!important;\n' +
-    '   border-color: #202232;\n' +
-    '    border-radius: 11px;\n' +
-    '    letter-spacing: 1px;\n' +
-    '    font-size: 15px;\n' +
-    '    font-family: \'Montserrat\',Helvetica,Arial,Lucida,sans-serif!important;\n' +
-    '    font-weight: 408!important;\n' +
-    '    text-transform: uppercase!important;\n' +
-    '    background-color: #2a2a30;" class="btn pmd-ripple-effect btn-primary btn-block">Login</button>\n' +
-    '                </div>\n' +
-    '            </form>\n' +
-    '        </div>\n' +
-    '\n' +
-    '\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/ArtWork/templates/ArtWork.html',
     '<div>\n' +
     '\n' +
@@ -232,7 +112,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    upload\n' +
     '                </a>\n' +
     '            </li>\n' +
-    '        </ul>\n' +
+    '        </ul> \n' +
     '        <div class="tab-content">\n' +
     '\n' +
     '\n' +
@@ -426,7 +306,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <input type="file" id="traillerUploder" name="file" style="display: none;"\n' +
     '                            onchange="angular.element(this).scope().getFileDetails(this)" />\n' +
     '                        <button class="buttonGold"\n' +
-    '                            ng-click="editArtWorkCtrl.LoadUploadTrailler()">{{\'UploadVideo\' | translate}}</button>\n' +
+    '                            ng-click="editArtWorkCtrl.LoadUploadTrailler()">{{\'Upload Poster\' | translate}}</button>\n' +
     '\n' +
     '                        <!-- <span>Choose Files</span> -->\n' +
     '                    </div><!-- end upload_input -->\n' +
@@ -449,7 +329,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        padding: 0 0 20px;" ng-repeat="file in files">\n' +
     '\n' +
     '                            <div ng-controller="UploaderController  as UploaderCtrl"\n' +
-    '                                data-ng-init="init(file,$stateParams.id,2)">\n' +
+    '                                data-ng-init="init(file,$stateParams.id)">\n' +
     '                                <div style=" display: flex;\n' +
     '                                align-items: center;\n' +
     '                                justify-content: flex-start;">\n' +
@@ -476,7 +356,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                        </div>\n' +
     '                                    </div>\n' +
     '                                </div><!-- end bar_area -->\n' +
-    '                              \n' +
+    '                                <div style="  display: block;\n' +
+    '                                font-size: 13px;\n' +
+    '                                color: #808080;">\n' +
     '                                    Uploading <p id="progNumber">{{UploaderCtrl.Progress}} %</p> done\n' +
     '                                </div><!-- end progress_number -->\n' +
     '\n' +
@@ -484,12 +366,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        </div><!-- end item -->\n' +
     '                    </div><!-- end upload_list -->\n' +
     '                </div><!-- end bottom_upload -->\n' +
-    '                <br>\n' +
-    '                <iframe class="youtube-player" type="text/html" width="640" height="385"\n' +
-    '                    ng-src="{{trustSrc(editArtWorkCtrl.ArtWork.trailerUrl)}}"\n' +
-    '                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\n' +
-    '                    frameborder="0">\n' +
-    '                </iframe>\n' +
     '            </div>\n' +
     '        </div>\n' +
     '\n' +
@@ -1018,7 +894,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/_edit.html',
+  $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/edit.html',
     '<div id="bold">\n' +
     '    {{\'EditArtWork\' | translate}}\n' +
     '</div>\n' +
@@ -1128,7 +1004,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/_new.html',
+  $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/new.html',
     '<div class="modal-content">\n' +
     '    <div class="modal-header bordered">\n' +
     '        <h2 class="pmd-card-description-text"> {{\'AddNewArtWorkMediaBtn\' | translate}} </h2>\n' +
@@ -1216,11 +1092,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/_uploader.html',
-    '  ');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/uploadMultiFiles.html',
     '<style>\n' +
     '    form .progress {\n' +
@@ -1277,7 +1148,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                    <div class="item" ng-repeat="file in files">\n' +
     '\n' +
     '                                        <div ng-controller="UploaderController  as UploaderCtrl"\n' +
-    '                                            data-ng-init="init(file,$stateParams.id,1)">\n' +
+    '                                            data-ng-init="init(file,$stateParams.id)">\n' +
     '                                            <div class="name">\n' +
     '                                                <span>{{file.name}}</span>\n' +
     '                                                <p>{{file.size/1024/1024|number:2}} mb</p>\n' +
@@ -1355,6 +1226,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    </div><!-- end container -->\n' +
     '\n' +
     '</section>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/ArtWorkMedia/templates/uploader.html',
+    '  ');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -2872,33 +2748,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '<section id="show_inner">\n' +
     '    <div class="show_inner_one">\n' +
     '        <div class="container">\n' +
-    '            <!-- <iframe class="youtube-player" type="text/html" width="80%" height="385"\n' +
-    '                ng-src="{{trustSrc(displayVideoCtrl.mediaFile.file.fileUrl)}}"\n' +
-    '                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\n' +
-    '                frameborder="0">\n' +
-    '            </iframe>  -->\n' +
-    '            <div class="row">\n' +
-    '\n' +
-    '                <video id="myVideo" width="80%" height="385">\n' +
-    '                    <source ng-src="{{trustSrc(displayVideoCtrl.mediaFile.file.fileUrl)}}" type="video/mp4">\n' +
-    '                </video>\n' +
-    '            </div>\n' +
-    '            <br>\n' +
-    '            <div class="row">\n' +
-    '                <button ng-click="playVid()" type="button"><span ng-show="!playing">&#9654;</span></button>\n' +
-    '                <button ng-click="pauseVid()" type="button"><span ng-show="playing">&#9616;&#9616;</span></button>\n' +
-    '\n' +
-    '            </div>\n' +
-    '\n' +
-    '            <!-- <video poster="https://mia-content.s3.amazonaws.com/artwork/01eb714475nrkrbbf8yvjhrc9j/image/jpeg">\n' +
-    '                <source ng-src="{{trustSrc(displayVideoCtrl.mediaFile.file.fileUrl)}}" />\n' +
-    '            </video>\n' +
-    '            <progressbar value="percent" max="100"></progressbar>\n' +
-    '            <div class="controls noselect">\n' +
-    '                <a ng-click="frame(-0.04)">&lt;</a>\n' +
-    '                <a ng-click="toggle()"> <span ng-show="!playing">&#9654;</span><span\n' +
-    '                        ng-show="playing">&#9616;&#9616;</span> </a>\n' +
-    '                <a ng-click="frame(0.04)">&gt;</a> </div> -->\n' +
+    '            <player videos=\'[{"type":"mp4","src":"https://mia-content.s3.amazonaws.com/album/01e22zntqbcbg2nvf6zb8kgdmk/Clock_Face_2Videvo.mov",\n' +
+    '            "poster":"https://mia-content.s3.amazonaws.com/artwork/01dzsa07y34ddsq9g6m11anxmx/image008.png",\n' +
+    '            "captions":"http://www.videojs.com/vtt/captions.vtt"}\n' +
+    '            ,{"type":"webm","src":"http://vjs.zencdn.net/v/oceans.webm"}]\' />\n' +
     '        </div>\n' +
     '    </div>\n' +
     '    <div class="show_inner_two">\n' +
@@ -2944,7 +2797,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                <div class="comment_form">\n' +
     '                                    <form name="formVideoComment">\n' +
     '                                        <div class="inputs">\n' +
-    '                                            <input required type="text" placeholder="time" readonly\n' +
+    '                                            <input required type="text" placeholder="time"\n' +
     '                                                ng-model="displayVideoCtrl.time">\n' +
     '\n' +
     '                                        </div><!-- end inputs -->\n' +
@@ -3833,7 +3686,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <div class="form-group pmd-textfield-floating-label-completed">\n' +
     '                            <span style="color:red">*</span>\n' +
     '\n' +
-    '                            <input id="posterImage" name="posterImage" style="display: none;"\n' +
+    '                            <input id="posterImage" name="posterImage" style="display: none;" multiple\n' +
     '                                onchange="angular.element(this).scope().AddposterImage(this.files)" type="file"\n' +
     '                                required>\n' +
     '                            <button class="btn btn-success btn-xs pull-center" type="button"\n' +
@@ -3873,91 +3726,22 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            </div>\n' +
     '                        </div>\n' +
     '\n' +
+    '                        <!-- <div class="form-group col-lg-4">\n' +
+    '                            <upload-video-directive id=\'$stateParams.id\'></upload-video-directive>\n' +
+    '\n' +
+    '                        </div> -->\n' +
     '                    </div>\n' +
     '                </div>\n' +
-    '                <div ng-show="newMediaItemCtrl.showVideo" class="row">\n' +
-    '                    <div class="form-group col-lg-6">\n' +
-    '                        <div class="bottom_upload">\n' +
-    '                            <div class="upload_input">\n' +
-    '                                <input type="file" id="traillerUploder" name="file" style="display: none;"\n' +
-    '                                    onchange="angular.element(this).scope().getFileDetails(this)" />\n' +
-    '                                <button class="buttonGold"\n' +
-    '                                    ng-click="newMediaItemCtrl.LoadUploadTrailler()">{{\'UploadVideo\' | translate}}</button>\n' +
     '\n' +
-    '                            </div><!-- end upload_input -->\n' +
-    '                            <div style="    padding: 10px;\n' +
-    '                        border: 1px solid #21231e;\n' +
-    '                        /* background: #101010; */\n' +
-    '                        overflow: auto;\n' +
-    '                        max-height: 380px;\n' +
-    '                        scrollbar-width: thin;\n' +
-    '                        scrollbar-color: #aaa49f #272727;\n' +
-    '                        width: 65%;">\n' +
     '\n' +
-    '                                <div style=" display: block;\n' +
-    '                            margin: 0 auto 30px;\n' +
-    '                            font-family: Montserrat_Bold;\n' +
-    '                            font-size: 18px;\n' +
-    '                            color: #ebca8a;">File Upload</div>\n' +
-    '                                <div style=" border-bottom: 1px solid #21231e;\n' +
-    '                            margin: 0 auto 20px;\n' +
-    '                            padding: 0 0 20px;" ng-repeat="file in files">\n' +
-    '\n' +
-    '                                    <div style=" display: flex;\n' +
-    '                                    align-items: center;\n' +
-    '                                    justify-content: flex-start;">\n' +
-    '                                        <span style=" display: block;\n' +
-    '                                        font-family: Montserrat_Bold;\n' +
-    '                                        color: #ebca8a;\n' +
-    '                                        font-size: 14px;\n' +
-    '                                        margin: 0 30px 0 0;">{{file.name}}</span>\n' +
-    '                                        <p>{{file.size/1024/1024|number:2}} mb</p>\n' +
-    '                                    </div><!-- end name -->\n' +
-    '                                    <div style=" display: flex;\n' +
-    '                                    flex-wrap: nowrap;\n' +
-    '                                    margin: 10px auto;\n' +
-    '                                    align-items: center;">\n' +
-    '                                        <div style="width: 94%;\n' +
-    '                                        height: 10px;\n' +
-    '                                        background: #3d3d3d;\n' +
-    '                                        position: relative;">\n' +
-    '                                            <div style="  position: absolute;\n' +
-    '                                            top: 0;\n' +
-    '                                            left: 0;\n' +
-    '                                            height: 10px;\n' +
-    '                                            background: #e2c764;" get-width row-height="{{newMediaItemCtrl.Progress}}">\n' +
-    '                                            </div>\n' +
-    '                                        </div>\n' +
-    '                                    </div><!-- end bar_area -->\n' +
-    '                                    Uploading <p id="progNumber">{{newMediaItemCtrl.Progress}} %</p> done\n' +
-    '                                </div><!-- end progress_number -->\n' +
-    '\n' +
-    '                            </div><!-- end item -->\n' +
-    '                        </div><!-- end upload_list -->\n' +
-    '                    </div><!-- end bottom_upload -->\n' +
-    '\n' +
-    '                </div>\n' +
     '            </div>\n' +
-    '\n' +
     '        </form>\n' +
     '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
-    '\n' +
-    '        <button ng-show="newMediaItemCtrl.selectedMediaType== \'Video\' || newMediaItemCtrl.showButtonVideo"\n' +
-    '            style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="newMediaItemForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="newMediaItemCtrl.AddNewMediaItem()">{{\'next\' | translate}}</button>\n' +
-    '\n' +
-    '        <button ng-show="newMediaItemCtrl.selectedMediaType== \'Image\'"\n' +
-    '            style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="newMediaItemForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-disabled="newMediaItemForm.$invalid"\n' +
+    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
     '            ng-click="newMediaItemCtrl.AddNewMediaItem()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '\n' +
-    '        <button ng-show="newMediaItemCtrl.showButtonVideo"\n' +
-    '            style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="newMediaItemForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="newMediaItemCtrl.UpdateMediaItemVideo()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '\n' +
     '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
     '            ng-click="newMediaItemCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
@@ -5632,4 +5416,124 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        theme: "bootstrap",\n' +
     '    });\n' +
     '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/ConfirmationMessage/templates/ConfirmMessageDialog.html',
+    '<div class="modal-content">\n' +
+    '	<div class="modal-body">{{\'messageConfirmationLbl\' | translate}} ? </div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button"\n' +
+    '			ng-click="messageDlCtrl.Confirm()">{{\'Save\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button"\n' +
+    '			ng-click="messageDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
+    '<div class="modal-content">\n' +
+    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/UploadVideo/templates/UploadVideoDialog.html',
+    '<style>\n' +
+    '	form .progress {\n' +
+    '		line-height: 15px;\n' +
+    '	}\n' +
+    '\n' +
+    '	.progress {\n' +
+    '		display: inline-block;\n' +
+    '		width: 100px;\n' +
+    '		border: 3px groove #ccc;\n' +
+    '	}\n' +
+    '\n' +
+    '	.progress>div {\n' +
+    '		font-size: smaller;\n' +
+    '		background: linear-gradient(90deg, #f7e483, #dbba5a 57%, #a36d31);\n' +
+    '		width: 0%;\n' +
+    '	}\n' +
+    '</style>\n' +
+    '<div class="modal-body">\n' +
+    '	<form class="form-horizontal">\n' +
+    '\n' +
+    '		<button class="btn btn-success btn-xs pull-center" type="button"\n' +
+    '			ng-click="LoadUploadVideo()">{{\'Upload Video\' | translate}}</button>\n' +
+    '		<input type="file" id="file" style="display: none;" onchange="angular.element(this).scope().uploadVideo()">\n' +
+    '		<br>\n' +
+    '		<div id="dvProgress" class="progress" ng-show="Progress >= 0">\n' +
+    '		</div>\n' +
+    '	</form>\n' +
+    '</div>\n' +
+    '<!--<div class="pmd-modal-action text-right">\n' +
+    '	<button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '		class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '		ng-click="uploadVideo(itemId)">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '	 <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '		ng-click="newUploadChunkCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '</div> -->');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/login/templates/login.html',
+    '<div class="logincard" ng-if="!isLoggedIn()">\n' +
+    '    <div class="pmd-card card-default pmd-z-depth">\n' +
+    '        <div class="login-card">\n' +
+    '            <form ng-submit="submit(username,password)" name="loginForm">\n' +
+    '                <div class="pmd-card-body">\n' +
+    '                    <div class="alert alert-success"> Oh snap! Change a few things up and try submitting again. </div>\n' +
+    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                        <label for="inputError1" class="control-label pmd-input-group-label">User Name</label>\n' +
+    '                        <div class="input-group">\n' +
+    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i>\n' +
+    '                            </div>\n' +
+    '                            <input type="text" class="form-control" id="exampleInputAmount" required name="username"\n' +
+    '                                ng-model="username" ng-change="reset()">\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                        <label for="inputError1" class="control-label pmd-input-group-label">Password</label>\n' +
+    '                        <div class="input-group">\n' +
+    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">lock_outline</i>\n' +
+    '                            </div>\n' +
+    '                            <input required type="password" name="password" ng-model="password" ng-change="reset()"\n' +
+    '                                minlength="6" class="form-control">\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '                <div ng-if="invalidLoginInfo" class="loginFailed">\n' +
+    '                    <span>Incorrect username or password.</span>\n' +
+    '                </div>\n' +
+    '                <div ng-if="inActiveUser" class="loginFailed">\n' +
+    '                    <span>{{errorMessage}}\n' +
+    '                        <!-- / Your Account Is Disabled, Please contact to administrator. -->\n' +
+    '                    </span>\n' +
+    '                </div>\n' +
+    '                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">\n' +
+    '                    <button type="submit" style="\n' +
+    '                      width: 65%;\n' +
+    '    color: #ffffff!important;\n' +
+    '   border-color: #202232;\n' +
+    '    border-radius: 11px;\n' +
+    '    letter-spacing: 1px;\n' +
+    '    font-size: 15px;\n' +
+    '    font-family: \'Montserrat\',Helvetica,Arial,Lucida,sans-serif!important;\n' +
+    '    font-weight: 408!important;\n' +
+    '    text-transform: uppercase!important;\n' +
+    '    background-color: #2a2a30;" class="btn pmd-ripple-effect btn-primary btn-block">Login</button>\n' +
+    '                </div>\n' +
+    '            </form>\n' +
+    '        </div>\n' +
+    '\n' +
+    '\n' +
+    '    </div>\n' +
+    '</div>');
 }]);

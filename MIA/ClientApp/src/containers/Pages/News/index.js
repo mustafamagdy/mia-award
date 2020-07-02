@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
 import Swiper from "react-id-swiper";
 import "swiper/css/swiper.css";
+import { I18n } from "@lingui/react";
 
 const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategories, categories, pageCount, ...pros }) => {
   const [pageNumber, setPageNumber] = useState(1);
