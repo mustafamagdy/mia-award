@@ -652,5 +652,13 @@
         101
       ]
     ]
+  },
+  "contestant": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        102
+      ]
+    ]
   }
 }

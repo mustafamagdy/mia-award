@@ -49,7 +49,7 @@ msgstr "1. mia 'لأفضل مذيع'. <br> 2. mia 'لأفضل مخرج' <br>3. m
 msgid "about_tab_content_mia_honor"
 msgstr "وهي جائزة رفيعة المستوى ستُمنح بصفة تقديرية للأشخاص  أو المؤسسات الإعلامية الذين قدموا أعمالا استثنائية."
 
-#: src/components/Layout/Footer.js:51
+#: src/components/Layout/Footer.js:58
 msgid "about_us"
 msgstr "من نحن"
 
@@ -61,11 +61,11 @@ msgstr "قبول التغييرات"
 msgid "accept_terms"
 msgstr "أوافق على الشروط"
 
-#: src/containers/Members/Artworks/index.js:108
+#: src/containers/Members/Artworks/index.js:112
 msgid "add_new_contestant"
 msgstr "اضافة متسابق"
 
-#: src/containers/Members/Artworks/index.js:86
+#: src/containers/Members/Artworks/index.js:90
 msgid "add_new_show"
 msgstr "اضافة عمل"
 
@@ -118,6 +118,7 @@ msgstr "مساحة"
 #~ msgstr "فئة الجائزة"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:34
+#: src/containers/Members/Artworks/index.js:45
 msgid "awards"
 msgstr "الجوائز"
 
@@ -163,8 +164,8 @@ msgstr "بواسطة"
 msgid "by_clicking_you_accept"
 msgstr "بالنقر على «أوافق» أو علامة «X» على هذا الشعار، أو باستخدامك لموقعنا، فإنك توافق على استخدام ملفات تعريف الارتباط ما لم تقم بتعطيلها."
 
-#: src/containers/Members/Profile.js:87
-#: src/containers/Members/Profile.js:197
+#: src/containers/Members/Profile.js:118
+#: src/containers/Members/Profile.js:233
 #: src/containers/MyProfile/index.js:360
 msgid "cancel"
 msgstr "إلغاء"
@@ -186,7 +187,7 @@ msgstr "التليفون المحمول "
 msgid "cellPhone2"
 msgstr "تليفون محمول أخر "
 
-#: src/containers/Members/Profile.js:51
+#: src/containers/Members/Profile.js:60
 msgid "change_avatar"
 msgstr "تعديل الصورة"
 
@@ -290,11 +291,15 @@ msgstr "حدث خطأ، يتعذر إرسال الرسالة."
 msgid "contact_us_message_sent_success"
 msgstr "تم إرسال الرسالة بنجاح."
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:102
+msgid "contestant"
+msgstr "الافراد"
+
 #: src/containers/App/CookieGDPR.js:115
 msgid "cookie_policy"
 msgstr "سياسة ملفات تعريف الارتباط"
 
-#: src/components/Layout/Footer.js:104
+#: src/components/Layout/Footer.js:116
 msgid "copyright_media_industry"
 msgstr "حقوق النشر© 2020 لشركة صناعة الإعلام. كافة الحقوق محفوظة"
 
@@ -352,13 +357,13 @@ msgstr "دبي، مدينة دبي الإعلامية، مبنى رقم 1، ال
 msgid "edit_info"
 msgstr "تعديل المعلومات"
 
-#: src/containers/Members/Profile.js:227
+#: src/containers/Members/Profile.js:268
 msgid "edit_profile"
 msgstr "تعديل الملف الشخصى"
 
-#: src/components/Layout/Footer.js:83
+#: src/components/Layout/Footer.js:90
 #: src/containers/Members/Auth/ForgetPassword.js:34
-#: src/containers/Members/Profile.js:221
+#: src/containers/Members/Profile.js:258
 #: src/containers/MyProfile/index.js:216
 #: src/containers/Pages/ContactUs/index.js:84
 msgid "email"
@@ -408,7 +413,7 @@ msgstr "الانتهاء واعادة التعحميل"
 msgid "first_day"
 msgstr "اليوم الاول"
 
-#: src/components/Layout/Footer.js:36
+#: src/components/Layout/Footer.js:43
 msgid "footer_text"
 msgstr "الاعلام العربي واقع جديد"
 
@@ -425,7 +430,7 @@ msgstr "اليوم الرابع"
 msgid "fullName"
 msgstr "الاسم بالكامل"
 
-#: src/containers/Members/Profile.js:209
+#: src/containers/Members/Profile.js:246
 msgid "full_name"
 msgstr "الاسم بالكامل"
 
@@ -463,7 +468,7 @@ msgstr "انطلاقاً من احترامنا لكل التوجهات و الأ
 msgid "i_accept"
 msgstr "أوافق"
 
-#: src/components/Layout/Footer.js:71
+#: src/components/Layout/Footer.js:78
 msgid "if_you_want_to_keep_updated"
 msgstr "هل انت مهتم بآخر المستجدات ؟ ضع بريدك الإلكتروني"
 
@@ -475,7 +480,7 @@ msgstr "معلومات اساسية"
 msgid "jobTitle"
 msgstr "الوظيفة"
 
-#: src/containers/Members/Profile.js:215
+#: src/containers/Members/Profile.js:252
 msgid "job_title"
 msgstr "الوظيفة"
 
@@ -541,7 +546,7 @@ msgstr "Media Industry"
 msgid "member_home"
 msgstr "المشتركون"
 
-#: src/components/Layout/Footer.js:46
+#: src/components/Layout/Footer.js:53
 msgid "members"
 msgstr "المشاركون"
 
@@ -551,13 +556,13 @@ msgstr "المشاركون"
 msgid "mia"
 msgstr "MIA"
 
-#: src/containers/Pages/AboutUs/index.js:56
+#: src/containers/Pages/AboutUs/index.js:168
 msgid "mia_2020"
 msgstr "ميا 2020"
 
 #: src/containers/Pages/AboutUs/index.js:59
-msgid "mia_2020_text"
-msgstr ""
+#~ msgid "mia_2020_text"
+#~ msgstr ""
 
 #: src/components/Layout/index.js:98
 msgid "mia_awards"
@@ -610,9 +615,17 @@ msgstr "الأخبار"
 msgid "news_features"
 msgstr "اهم الاخبار"
 
-#: src/components/Layout/Footer.js:68
+#: src/components/Layout/Footer.js:75
 msgid "newsletter"
 msgstr "رسالة إخبارية"
+
+#: src/components/Layout/Footer.js:107
+msgid "newsletter_failed"
+msgstr ""
+
+#: src/components/Layout/Footer.js:100
+msgid "newsletter_success"
+msgstr ""
 
 #: src/containers/Booths/index.js:352
 #: src/containers/Booths/index.js:566
@@ -624,6 +637,11 @@ msgstr "التالي"
 #: src/containers/Members/Artworks/Artwork/View/Files.js:140
 msgid "no"
 msgstr "لا"
+
+#: src/containers/Members/Artworks/index.js:53
+#: src/containers/Members/Profile.js:288
+msgid "no_awards_yet"
+msgstr "لم تحصل على أي جوائز بعد"
 
 #: src/containers/Members/Artworks/Artwork/View/Files.js:73
 msgid "no_files_uploaded"
@@ -667,53 +685,53 @@ msgstr "القنوات الرقمية"
 msgid "online_channels"
 msgstr "القنوات الرقمية"
 
-#: src/containers/Pages/AboutUs/index.js:232
+#: src/containers/Pages/AboutUs/index.js:282
 msgid "our_awards"
 msgstr "جوائزنا"
 
-#: src/containers/Pages/AboutUs/index.js:235
+#: src/containers/Pages/AboutUs/index.js:286
 msgid "our_awards_text"
 msgstr "انطلاقاً من احترامنا لكل التوجهات و الأذواق ، فقد حرصت MIA على جمع كل أنواع الأعمال الإعلامية وحصرها في ثلاث فئات، وتقدم MIA جوائزها المطلية بالذهب الخالص تحفيزاً للمتنافسين على تقديم أفضل ما لديهم، وفيما يلي فئات الجائزة"
 
-#: src/containers/Pages/AboutUs/index.js:185
+#: src/containers/Pages/AboutUs/index.js:243
 msgid "our_events"
 msgstr "فعالياتنا"
 
 #: src/containers/Pages/AboutUs/index.js:187
-msgid "our_events_text"
-msgstr "<0><1>• ورش عمل لتطوير القدرات المهنية الفنية والتقنية.</1><2>• ندوات متخصصة يلقيها خبراء ومحترفون من صناع الإعلام ونجوم الفن العربي.</2><3>• عرض قصص نجاح مميزة.</3><4>• سوق لأحدث النظم الهندسية والتقنية في مجال صناعة الإعلام والإنتاج التلفزيوني.</4><5>•لقاءات تليفزيونية لمناقشة القضايا الهامة (بث مباشر)</5></0>"
+#~ msgid "our_events_text"
+#~ msgstr "<0><1>• ورش عمل لتطوير القدرات المهنية الفنية والتقنية.</1><2>• ندوات متخصصة يلقيها خبراء ومحترفون من صناع الإعلام ونجوم الفن العربي.</2><3>• عرض قصص نجاح مميزة.</3><4>• سوق لأحدث النظم الهندسية والتقنية في مجال صناعة الإعلام والإنتاج التلفزيوني.</4><5>•لقاءات تليفزيونية لمناقشة القضايا الهامة (بث مباشر)</5></0>"
 
-#: src/containers/Pages/AboutUs/index.js:85
+#: src/containers/Pages/AboutUs/index.js:190
 msgid "our_goal"
 msgstr "هدفنا"
 
 #: src/containers/Pages/AboutUs/index.js:88
-msgid "our_goal_text"
-msgstr "<0><1>• الارتقاء بذائقة الانسان العربي بمختلف شرائحه، وتقديم رؤى مستقبلية جديدة تسهم في رفد مستقبل الانتاج التلفزيوني العربي.</1><2>•   تنشيط وتحفيز صناعة المحتوى التلفزيوني ورفع مستوى الانتاج العربي والرقي به إلى مصاف عالمية</2><3>•ايجاد فرصة للإندماج والتفاعل وتقارب الثقافات المتعددة من أجل لم شمل الهوية العربية  لنصنع معاً مستقبلًا باهرًا \" بقوة واحدة وأجيال واعدة\"</3><4>•  زيادة التواصل بين المواهب الشابة في العالم العربي ونخبة المنتجين والفنيين العاملين في المجال وتوفير أكبر قدر من التكامل بين القطاعات الإنتاجية وبين الهيئات الإعلامية والقنوات التلفزيونية</4><5>•  اكتشاف المواهب الجديدة وإظهار المتميز منها إلى الأضواء</5><6>• تقدير وتكريم المبدعين والمنجزين في أرجاء الوطن العربي من خلال تقييم أعمالهم ومعرفة آراء المختصين حيالها والاحتفال بأفضلها.</6></0>"
+#~ msgid "our_goal_text"
+#~ msgstr "<0><1>• الارتقاء بذائقة الانسان العربي بمختلف شرائحه، وتقديم رؤى مستقبلية جديدة تسهم في رفد مستقبل الانتاج التلفزيوني العربي.</1><2>•   تنشيط وتحفيز صناعة المحتوى التلفزيوني ورفع مستوى الانتاج العربي والرقي به إلى مصاف عالمية</2><3>•ايجاد فرصة للإندماج والتفاعل وتقارب الثقافات المتعددة من أجل لم شمل الهوية العربية  لنصنع معاً مستقبلًا باهرًا \" بقوة واحدة وأجيال واعدة\"</3><4>•  زيادة التواصل بين المواهب الشابة في العالم العربي ونخبة المنتجين والفنيين العاملين في المجال وتوفير أكبر قدر من التكامل بين القطاعات الإنتاجية وبين الهيئات الإعلامية والقنوات التلفزيونية</4><5>•  اكتشاف المواهب الجديدة وإظهار المتميز منها إلى الأضواء</5><6>• تقدير وتكريم المبدعين والمنجزين في أرجاء الوطن العربي من خلال تقييم أعمالهم ومعرفة آراء المختصين حيالها والاحتفال بأفضلها.</6></0>"
 
-#: src/containers/Pages/AboutUs/index.js:64
+#: src/containers/Pages/AboutUs/index.js:179
 msgid "our_message"
 msgstr "رسالتنا"
 
 #: src/containers/Pages/AboutUs/index.js:67
-msgid "our_message_text"
-msgstr "أثبتت الدراسات الحديثة أهمية محتوى المادة التلفزيونية في حياتنا اليومية وقدرتها التأثيرية على تغيير القيم والوعي الثقافي في أي مجتمع. ولهذه الأهمية انطلقت رسالتنا من وحي شعارنا (الإعلام العربي واقع جديد) لرفع مستوى جودة المحتوى في الإنتاج العربي التلفزيوني وجعل هذه الجائزة منصة عربية يكرم ويلتقي فيها كل المميزين والمبدعين في هذا المجال لتتلاقح خلالها الأفكار الجديدة وتؤدي إلى نتاج معرفي وتقني تستفيد منه المجتمعات العربية وتواجه به تحدياتها المستقبلية المختلفة."
+#~ msgid "our_message_text"
+#~ msgstr "أثبتت الدراسات الحديثة أهمية محتوى المادة التلفزيونية في حياتنا اليومية وقدرتها التأثيرية على تغيير القيم والوعي الثقافي في أي مجتمع. ولهذه الأهمية انطلقت رسالتنا من وحي شعارنا (الإعلام العربي واقع جديد) لرفع مستوى جودة المحتوى في الإنتاج العربي التلفزيوني وجعل هذه الجائزة منصة عربية يكرم ويلتقي فيها كل المميزين والمبدعين في هذا المجال لتتلاقح خلالها الأفكار الجديدة وتؤدي إلى نتاج معرفي وتقني تستفيد منه المجتمعات العربية وتواجه به تحدياتها المستقبلية المختلفة."
 
-#: src/containers/Pages/AboutUs/index.js:48
+#: src/containers/Pages/AboutUs/index.js:157
 msgid "our_story"
 msgstr "قصتنا"
 
 #: src/containers/Pages/AboutUs/index.js:51
-msgid "our_story_text"
-msgstr ""
+#~ msgid "our_story_text"
+#~ msgstr ""
 
-#: src/containers/Pages/AboutUs/index.js:136
+#: src/containers/Pages/AboutUs/index.js:211
 msgid "our_value"
 msgstr "قيِّمنا"
 
 #: src/containers/Pages/AboutUs/index.js:140
-msgid "our_value_text"
-msgstr "<0><1><2>• الحيادية : :</2><3>نقف بدون انحياز وعلى مسافة واحدة من كل ابناء الوطن العربي</3></1><4><5>• الموضوعية :</5><6>بعيداً عن الاهواء، لدينا آلية واحدة في التعامل مع كل أداء.. ابداعك هو ما يحدد مركزك</6></4><8><9>المصداقية:</9><10>من أساسيات جوهر عملنا أن نزاهتنا هي منهجنا في التقييم</10></8><11><12>• التعزيز :</12><13>تقديم جوائز نوعية عديدة وشهادات تقدير وفق معايير الأداء.</13></11></0>"
+#~ msgid "our_value_text"
+#~ msgstr "<0><1><2>• الحيادية : :</2><3>نقف بدون انحياز وعلى مسافة واحدة من كل ابناء الوطن العربي</3></1><4><5>• الموضوعية :</5><6>بعيداً عن الاهواء، لدينا آلية واحدة في التعامل مع كل أداء.. ابداعك هو ما يحدد مركزك</6></4><8><9>المصداقية:</9><10>من أساسيات جوهر عملنا أن نزاهتنا هي منهجنا في التقييم</10></8><11><12>• التعزيز :</12><13>تقديم جوائز نوعية عديدة وشهادات تقدير وفق معايير الأداء.</13></11></0>"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:44
 msgid "password"
@@ -838,7 +856,7 @@ msgstr "سنة الانتاج"
 msgid "profile"
 msgstr "الملف التعريفي"
 
-#: src/components/Layout/Footer.js:56
+#: src/components/Layout/Footer.js:63
 msgid "program"
 msgstr "فعالياتنا"
 
@@ -866,7 +884,7 @@ msgstr "اسم المشروع (عربي)"
 msgid "project_name_en"
 msgstr "اسم المشروع (English)"
 
-#: src/components/Layout/Footer.js:41
+#: src/components/Layout/Footer.js:48
 msgid "quick_links"
 msgstr "ارتباطات سريعة"
 
@@ -925,8 +943,8 @@ msgstr "استعراض سياسة ملفات تعريف الارتباط"
 
 #: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:230
 #: src/containers/Members/Artworks/Artwork/NewArtwork.js:481
-#: src/containers/Members/Profile.js:84
-#: src/containers/Members/Profile.js:190
+#: src/containers/Members/Profile.js:115
+#: src/containers/Members/Profile.js:225
 msgid "save"
 msgstr "حفظ"
 
@@ -1090,7 +1108,7 @@ msgstr "إرسال"
 msgid "terms_and_conditions"
 msgstr "الشروط والاحكام"
 
-#: src/components/Layout/Footer.js:61
+#: src/components/Layout/Footer.js:68
 msgid "terms_conditions"
 msgstr "الشروط والأحكام"
 

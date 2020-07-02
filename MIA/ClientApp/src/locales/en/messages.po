@@ -47,11 +47,9 @@ msgstr "Contestants"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:30
 msgid "about_tab_content_mia_honor"
-msgstr  ""
-"<b>MIA Appreciation Award</b>"
-"<br />A high-level award recognizing media personalities or organizations who present outstanding artistic contributions."
+msgstr "<b>MIA Appreciation Award</b><br />A high-level award recognizing media personalities or organizations who present outstanding artistic contributions."
 
-#: src/components/Layout/Footer.js:51
+#: src/components/Layout/Footer.js:58
 msgid "about_us"
 msgstr "About Us"
 
@@ -63,11 +61,11 @@ msgstr "Accept changes"
 msgid "accept_terms"
 msgstr "Accept terms"
 
-#: src/containers/Members/Artworks/index.js:108
+#: src/containers/Members/Artworks/index.js:112
 msgid "add_new_contestant"
 msgstr "Add New Contestant"
 
-#: src/containers/Members/Artworks/index.js:86
+#: src/containers/Members/Artworks/index.js:90
 msgid "add_new_show"
 msgstr "Add New Show"
 
@@ -120,6 +118,7 @@ msgstr "Area"
 #~ msgstr "Awards Category"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:34
+#: src/containers/Members/Artworks/index.js:45
 msgid "awards"
 msgstr "Awards"
 
@@ -165,8 +164,8 @@ msgstr "By"
 msgid "by_clicking_you_accept"
 msgstr "By clicking «I Accept» or «X» on this banner, or using our site, you consent to the use of cookies unless you have disabled them."
 
-#: src/containers/Members/Profile.js:87
-#: src/containers/Members/Profile.js:197
+#: src/containers/Members/Profile.js:118
+#: src/containers/Members/Profile.js:233
 #: src/containers/MyProfile/index.js:360
 msgid "cancel"
 msgstr "Cancel"
@@ -188,7 +187,7 @@ msgstr "Phone 1"
 msgid "cellPhone2"
 msgstr "Phone 2"
 
-#: src/containers/Members/Profile.js:51
+#: src/containers/Members/Profile.js:60
 msgid "change_avatar"
 msgstr "Change Avatar"
 
@@ -292,11 +291,15 @@ msgstr "There was an error, the message could not be sent."
 msgid "contact_us_message_sent_success"
 msgstr "The message was sent successfully."
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:102
+msgid "contestant"
+msgstr "Contestant"
+
 #: src/containers/App/CookieGDPR.js:115
 msgid "cookie_policy"
 msgstr "Cookies Policy"
 
-#: src/components/Layout/Footer.js:104
+#: src/components/Layout/Footer.js:116
 msgid "copyright_media_industry"
 msgstr "Copyright© 2020 Media Industry FZ-LLC. All rights reserved."
 
@@ -354,13 +357,13 @@ msgstr "Dubai, Dubai Media City, Building No. 1, Second Floor - Office No. 214"
 msgid "edit_info"
 msgstr "Edit Info"
 
-#: src/containers/Members/Profile.js:227
+#: src/containers/Members/Profile.js:268
 msgid "edit_profile"
 msgstr "Edit Profile"
 
-#: src/components/Layout/Footer.js:83
+#: src/components/Layout/Footer.js:90
 #: src/containers/Members/Auth/ForgetPassword.js:34
-#: src/containers/Members/Profile.js:221
+#: src/containers/Members/Profile.js:258
 #: src/containers/MyProfile/index.js:216
 #: src/containers/Pages/ContactUs/index.js:84
 msgid "email"
@@ -410,7 +413,7 @@ msgstr "Finish & Reload"
 msgid "first_day"
 msgstr "First Day"
 
-#: src/components/Layout/Footer.js:36
+#: src/components/Layout/Footer.js:43
 msgid "footer_text"
 msgstr "الاعلام العربي واقع جديد"
 
@@ -427,7 +430,7 @@ msgstr "Fourth Day"
 msgid "fullName"
 msgstr "Full name"
 
-#: src/containers/Members/Profile.js:209
+#: src/containers/Members/Profile.js:246
 msgid "full_name"
 msgstr "Full name"
 
@@ -465,7 +468,7 @@ msgstr "انطلاقاً من احترامنا لكل التوجهات و الأ
 msgid "i_accept"
 msgstr "I Accept"
 
-#: src/components/Layout/Footer.js:71
+#: src/components/Layout/Footer.js:78
 msgid "if_you_want_to_keep_updated"
 msgstr "Are you interested, enter your email address and we will keep you updated"
 
@@ -477,7 +480,7 @@ msgstr "Basic Info"
 msgid "jobTitle"
 msgstr "Job Title"
 
-#: src/containers/Members/Profile.js:215
+#: src/containers/Members/Profile.js:252
 msgid "job_title"
 msgstr "Job Title"
 
@@ -543,7 +546,7 @@ msgstr "Media Industry"
 msgid "member_home"
 msgstr "Members"
 
-#: src/components/Layout/Footer.js:46
+#: src/components/Layout/Footer.js:53
 msgid "members"
 msgstr "Members"
 
@@ -553,13 +556,13 @@ msgstr "Members"
 msgid "mia"
 msgstr "MIA"
 
-#: src/containers/Pages/AboutUs/index.js:56
+#: src/containers/Pages/AboutUs/index.js:168
 msgid "mia_2020"
 msgstr "MIA 2020"
 
 #: src/containers/Pages/AboutUs/index.js:59
-msgid "mia_2020_text"
-msgstr "With the participation of 21 Arab countriesA new Arab Award specialized in visual media that will be launched in Dubai Opera in 15 December 2020, with the participation of 22 Arab countries."
+#~ msgid "mia_2020_text"
+#~ msgstr "With the participation of 21 Arab countriesA new Arab Award specialized in visual media that will be launched in Dubai Opera in 15 December 2020, with the participation of 22 Arab countries."
 
 #: src/components/Layout/index.js:98
 msgid "mia_awards"
@@ -612,9 +615,17 @@ msgstr "News"
 msgid "news_features"
 msgstr "News Features"
 
-#: src/components/Layout/Footer.js:68
+#: src/components/Layout/Footer.js:75
 msgid "newsletter"
 msgstr "NEWSLETTER"
+
+#: src/components/Layout/Footer.js:107
+msgid "newsletter_failed"
+msgstr ""
+
+#: src/components/Layout/Footer.js:100
+msgid "newsletter_success"
+msgstr ""
 
 #: src/containers/Booths/index.js:352
 #: src/containers/Booths/index.js:566
@@ -626,6 +637,11 @@ msgstr "Next"
 #: src/containers/Members/Artworks/Artwork/View/Files.js:140
 msgid "no"
 msgstr "No"
+
+#: src/containers/Members/Artworks/index.js:53
+#: src/containers/Members/Profile.js:288
+msgid "no_awards_yet"
+msgstr "You didn't won any awards yet"
 
 #: src/containers/Members/Artworks/Artwork/View/Files.js:73
 msgid "no_files_uploaded"
@@ -665,56 +681,53 @@ msgstr "Online channels"
 msgid "online_channels"
 msgstr "Online channels"
 
-#: src/containers/Pages/AboutUs/index.js:232
+#: src/containers/Pages/AboutUs/index.js:282
 msgid "our_awards"
 msgstr "Our Awards"
 
-#: src/containers/Pages/AboutUs/index.js:235
+#: src/containers/Pages/AboutUs/index.js:286
 msgid "our_awards_text"
-msgstr ""
-"As we respect all trends and tastes, MIA is keen to receive all types of media productions and classify them into three categories."
-"<br />MIA presents its 24 kt gold-plated awards to motivate the competitors to offer their best."
-"<br />The Award categories are as follows:"
+msgstr "As we respect all trends and tastes, MIA is keen to receive all types of media productions and classify them into three categories.<br />MIA presents its 24 kt gold-plated awards to motivate the competitors to offer their best.<br />The Award categories are as follows:"
 
-#: src/containers/Pages/AboutUs/index.js:185
+#: src/containers/Pages/AboutUs/index.js:243
 msgid "our_events"
 msgstr "Our Events"
 
 #: src/containers/Pages/AboutUs/index.js:187
-msgid "our_events_text"
-msgstr ""
+#~ msgid "our_events_text"
+#~ msgstr ""
 
-#: src/containers/Pages/AboutUs/index.js:85
+#: src/containers/Pages/AboutUs/index.js:190
 msgid "our_goal"
 msgstr "Our Goals"
 
 #: src/containers/Pages/AboutUs/index.js:88
-msgid "our_goal_text"
-msgstr ""
+#~ msgid "our_goal_text"
+#~ msgstr ""
 
-#: src/containers/Pages/AboutUs/index.js:64
+#: src/containers/Pages/AboutUs/index.js:179
 msgid "our_message"
 msgstr "Our Message"
 
 #: src/containers/Pages/AboutUs/index.js:67
-msgid "our_message_text"
-msgstr ""
+#~ msgid "our_message_text"
+#~ msgstr ""
 
-#: src/containers/Pages/AboutUs/index.js:48
+#: src/containers/Pages/AboutUs/index.js:157
 msgid "our_story"
 msgstr "Our Story"
 
 #: src/containers/Pages/AboutUs/index.js:51
-msgid "our_story_text"
-msgstr ""
+#~ msgid "our_story_text"
+#~ msgstr ""
 
-#: src/containers/Pages/AboutUs/index.js:136
+#: src/containers/Pages/AboutUs/index.js:211
 msgid "our_value"
 msgstr "our Values"
 
 #: src/containers/Pages/AboutUs/index.js:140
-msgid "our_value_text"
-msgstr ""
+#~ msgid "our_value_text"
+#~ msgstr ""
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:44
 msgid "password"
@@ -839,7 +852,7 @@ msgstr "Production year"
 msgid "profile"
 msgstr "Profile"
 
-#: src/components/Layout/Footer.js:56
+#: src/components/Layout/Footer.js:63
 msgid "program"
 msgstr "Program"
 
@@ -867,7 +880,7 @@ msgstr "Project Name(ar)"
 msgid "project_name_en"
 msgstr "Project Name(en)"
 
-#: src/components/Layout/Footer.js:41
+#: src/components/Layout/Footer.js:48
 msgid "quick_links"
 msgstr "QUICK LINKS"
 
@@ -926,8 +939,8 @@ msgstr "Review Our Cookie Policy"
 
 #: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:230
 #: src/containers/Members/Artworks/Artwork/NewArtwork.js:481
-#: src/containers/Members/Profile.js:84
-#: src/containers/Members/Profile.js:190
+#: src/containers/Members/Profile.js:115
+#: src/containers/Members/Profile.js:225
 msgid "save"
 msgstr "Save"
 
@@ -1091,7 +1104,7 @@ msgstr "Submit"
 msgid "terms_and_conditions"
 msgstr "Terms and Conditions"
 
-#: src/components/Layout/Footer.js:61
+#: src/components/Layout/Footer.js:68
 msgid "terms_conditions"
 msgstr "Terms & Conditions"
 

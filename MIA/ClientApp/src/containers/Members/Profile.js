@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import { connect } from "react-redux";
 import accountsActions from "store/accounts/actions";
 import { bindActionCreators } from "redux";
+import { fileToBase64 } from "utils";
 
 import "../../sass/bootstrap-grid.scss";
 import { NavLink } from "react-router-dom";
@@ -28,6 +29,7 @@ const Profile = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
   const avatarFileRef = useRef(undefined);
+  const [tempAvatar, setTempAvatar] = useState(undefined);
 
   const handleActiveTab = (tabKey) => {
     setActiveTabKey(tabKey);
@@ -45,7 +47,14 @@ const Profile = ({
       {mode_avatar == "view" ? (
         <div className="edit_profile">
           <div className="imgthumb">
-            <img src={avatarImageUrl} />
+            <img
+              src={
+                avatarImageUrl == ""
+                  ? "/assets/images/user_avatar.png"
+                  : avatarImageUrl
+              }
+              alt=""
+            />
           </div>
           <button type="button" onClick={() => setMode_Avatar("edit")}>
             <Trans id="change_avatar">Change Avatar</Trans>
@@ -55,13 +64,35 @@ const Profile = ({
         <div className="edit_profile">
           <div className="imgthumb">
             <label htmlFor="chooseAvatar">
-              <img src={avatarImageUrl} />
+              <img
+                src={
+                  mode_avatar == "edit"
+                    ? tempAvatar != undefined
+                      ? tempAvatar
+                      : avatarImageUrl
+                    : avatarImageUrl
+                }
+                alt=""
+              />
             </label>
             <input
               type="file"
               id="chooseAvatar"
               ref={avatarFileRef}
               style={{ display: "none" }}
+              accept="image/*"
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  var reader = new FileReader();
+                  reader.onload = function (e) {
+                    setTempAvatar(e.target.result);
+                  };
+
+                  reader.readAsDataURL(e.target.files[0]);
+                } else {
+                  setTempAvatar(undefined);
+                }
+              }}
             />
           </div>
           <div>
@@ -186,10 +217,15 @@ const Profile = ({
                           </div>
                         </div>
                         <>
-                          <button type="submit" form="userProfileForm">
+                          <button
+                            className="normal_button"
+                            type="submit"
+                            form="userProfileForm"
+                          >
                             <Trans id="save">Save</Trans>
                           </button>
                           <button
+                            className="normal_button"
                             type="reset"
                             onClick={() => setMode("view")}
                             form="userProfileForm"
@@ -203,30 +239,36 @@ const Profile = ({
                 </Formik>
               </div>
             ) : (
-              <div className="container-fluid">
-                <div className="row">
-                  <div className="col-4">
-                    <Trans id="full_name">Full Name</Trans>
-                  </div>
-                  <div className="col-12">{userProfile?.fullName}</div>
-                </div>
-                <div className="row">
-                  <div className="col-4">
-                    <Trans id="job_title">Job Title</Trans>
-                  </div>
-                  <div className="col-12">{userProfile?.jobTitle}</div>
-                </div>
-                <div className="row">
-                  <div className="col-4">
-                    <Trans id="email">EMail</Trans>
-                  </div>
-                  <div className="col-12">{userProfile?.email}</div>
-                </div>
-                <div className="row">
-                  <button type="button" onClick={() => setMode("edit")}>
-                    <Trans id="edit_profile">Edit profile</Trans>
-                  </button>
-                </div>
+              <div className="info_show">
+                <ul>
+                  <li>
+                    <span>
+                      <Trans id="full_name">Full Name</Trans>
+                    </span>
+                    <p>{userProfile?.fullName}</p>
+                  </li>
+                  <li>
+                    <span>
+                      <Trans id="job_title">Job Title</Trans>
+                    </span>
+                    <p>{userProfile?.jobTitle}</p>
+                  </li>
+                  <li>
+                    <span>
+                      <Trans id="email">EMail</Trans>
+                    </span>
+                    <p>{userProfile?.email}</p>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => setMode("edit")}
+                      className="normal_button"
+                    >
+                      <Trans id="edit_profile">Edit profile</Trans>
+                    </button>
+                  </li>
+                </ul>
               </div>
             )}
           </div>
@@ -242,7 +284,9 @@ const Profile = ({
                 <AwardItem key={i} awardAndArtwork={award} />
               ))
             ) : (
-              <div>You didn't win any awards yet</div>
+              <p className="info">
+                <Trans id="no_awards_yet">No awards yet</Trans>
+              </p>
             )}
           </div>
         )}
