@@ -331,9 +331,4 @@ ASALocalRun/
 .mfractor/
 
 MIA/wwwroot/cached_images
-MIA.Administration/ClientApp/dist/app.js
-MIA.Administration/ClientApp/dist/bundle-ar.css
-MIA.Administration/ClientApp/dist/bundle-en.css
-MIA.Administration/ClientApp/dist/core.js
-MIA.Administration/ClientApp/dist/libs.js
-MIA.Administration/ClientApp/dist/templates.js
+MIA.Administration/ClientApp/dist/
