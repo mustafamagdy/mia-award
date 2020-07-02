@@ -67,7 +67,7 @@
                         <div class="form-group pmd-textfield-floating-label-completed">
                             <span style="color:red">*</span>
 
-                            <input id="posterImage" name="posterImage" style="display: none;" multiple
+                            <input id="posterImage" name="posterImage" style="display: none;"
                                 onchange="angular.element(this).scope().AddposterImage(this.files)" type="file"
                                 required>
                             <button class="btn btn-success btn-xs pull-center" type="button"
@@ -107,22 +107,91 @@
                             </div>
                         </div>
 
-                        <!-- <div class="form-group col-lg-4">
-                            <upload-video-directive id='$stateParams.id'></upload-video-directive>
-
-                        </div> -->
                     </div>
                 </div>
+                <div ng-show="newMediaItemCtrl.showVideo" class="row">
+                    <div class="form-group col-lg-6">
+                        <div class="bottom_upload">
+                            <div class="upload_input">
+                                <input type="file" id="traillerUploder" name="file" style="display: none;"
+                                    onchange="angular.element(this).scope().getFileDetails(this)" />
+                                <button class="buttonGold"
+                                    ng-click="newMediaItemCtrl.LoadUploadTrailler()">{{'UploadVideo' | translate}}</button>
 
+                            </div><!-- end upload_input -->
+                            <div style="    padding: 10px;
+                        border: 1px solid #21231e;
+                        /* background: #101010; */
+                        overflow: auto;
+                        max-height: 380px;
+                        scrollbar-width: thin;
+                        scrollbar-color: #aaa49f #272727;
+                        width: 65%;">
 
+                                <div style=" display: block;
+                            margin: 0 auto 30px;
+                            font-family: Montserrat_Bold;
+                            font-size: 18px;
+                            color: #ebca8a;">File Upload</div>
+                                <div style=" border-bottom: 1px solid #21231e;
+                            margin: 0 auto 20px;
+                            padding: 0 0 20px;" ng-repeat="file in files">
+
+                                    <div style=" display: flex;
+                                    align-items: center;
+                                    justify-content: flex-start;">
+                                        <span style=" display: block;
+                                        font-family: Montserrat_Bold;
+                                        color: #ebca8a;
+                                        font-size: 14px;
+                                        margin: 0 30px 0 0;">{{file.name}}</span>
+                                        <p>{{file.size/1024/1024|number:2}} mb</p>
+                                    </div><!-- end name -->
+                                    <div style=" display: flex;
+                                    flex-wrap: nowrap;
+                                    margin: 10px auto;
+                                    align-items: center;">
+                                        <div style="width: 94%;
+                                        height: 10px;
+                                        background: #3d3d3d;
+                                        position: relative;">
+                                            <div style="  position: absolute;
+                                            top: 0;
+                                            left: 0;
+                                            height: 10px;
+                                            background: #e2c764;" get-width row-height="{{newMediaItemCtrl.Progress}}">
+                                            </div>
+                                        </div>
+                                    </div><!-- end bar_area -->
+                                    Uploading <p id="progNumber">{{newMediaItemCtrl.Progress}} %</p> done
+                                </div><!-- end progress_number -->
+
+                            </div><!-- end item -->
+                        </div><!-- end upload_list -->
+                    </div><!-- end bottom_upload -->
+
+                </div>
             </div>
+
         </form>
     </div>
     <div class="pmd-modal-action text-right">
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-disabled="newMediaItemForm.$invalid"
-            class="btn pmd-ripple-effect btn-primary" type="button"
+
+        <button ng-show="newMediaItemCtrl.selectedMediaType== 'Video' || newMediaItemCtrl.showButtonVideo"
+            style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-disabled="newMediaItemForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
+            ng-click="newMediaItemCtrl.AddNewMediaItem()">{{'next' | translate}}</button>
+
+        <button ng-show="newMediaItemCtrl.selectedMediaType== 'Image'"
+            style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-disabled="newMediaItemForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
             ng-click="newMediaItemCtrl.AddNewMediaItem()">{{'saveChangesBtn' | translate}}</button>
+
+        <button ng-show="newMediaItemCtrl.showButtonVideo"
+            style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-disabled="newMediaItemForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
+            ng-click="newMediaItemCtrl.UpdateMediaItemVideo()">{{'saveChangesBtn' | translate}}</button>
+
         <button class="btn pmd-ripple-effect btn-default" type="button"
             ng-click="newMediaItemCtrl.close()">{{'DiscardBtn' | translate}}</button>
     </div>

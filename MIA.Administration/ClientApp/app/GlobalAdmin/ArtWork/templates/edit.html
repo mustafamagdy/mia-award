@@ -15,7 +15,7 @@
                     upload
                 </a>
             </li>
-        </ul> 
+        </ul>
         <div class="tab-content">
 
 
@@ -209,7 +209,7 @@
                         <input type="file" id="traillerUploder" name="file" style="display: none;"
                             onchange="angular.element(this).scope().getFileDetails(this)" />
                         <button class="buttonGold"
-                            ng-click="editArtWorkCtrl.LoadUploadTrailler()">{{'Upload Poster' | translate}}</button>
+                            ng-click="editArtWorkCtrl.LoadUploadTrailler()">{{'UploadVideo' | translate}}</button>
 
                         <!-- <span>Choose Files</span> -->
                     </div><!-- end upload_input -->
@@ -232,7 +232,7 @@
                         padding: 0 0 20px;" ng-repeat="file in files">
 
                             <div ng-controller="UploaderController  as UploaderCtrl"
-                                data-ng-init="init(file,$stateParams.id)">
+                                data-ng-init="init(file,$stateParams.id,2)">
                                 <div style=" display: flex;
                                 align-items: center;
                                 justify-content: flex-start;">
@@ -259,9 +259,7 @@
                                         </div>
                                     </div>
                                 </div><!-- end bar_area -->
-                                <div style="  display: block;
-                                font-size: 13px;
-                                color: #808080;">
+                              
                                     Uploading <p id="progNumber">{{UploaderCtrl.Progress}} %</p> done
                                 </div><!-- end progress_number -->
 
@@ -269,6 +267,12 @@
                         </div><!-- end item -->
                     </div><!-- end upload_list -->
                 </div><!-- end bottom_upload -->
+                <br>
+                <iframe class="youtube-player" type="text/html" width="640" height="385"
+                    ng-src="{{trustSrc(editArtWorkCtrl.ArtWork.trailerUrl)}}"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+                    frameborder="0">
+                </iframe>
             </div>
         </div>
 

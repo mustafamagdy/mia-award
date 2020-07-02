@@ -92,6 +92,8 @@ namespace MIA.Administration.MappingProfiles
       CreateMap<AlbumItem, PhotoAlbumFileDto>()
          .ForMember(a => a.FileKey, cfg => cfg.MapFrom(a => a.File.FileKey))
          .ForMember(a => a.FileUrl, cfg => cfg.MapFrom(a => a.File.FileUrl))
+         .ForMember(a => a.PosterKey, cfg => cfg.MapFrom(a => a.Poster.FileKey))
+         .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
          .ValidateMemberList(MemberList.None);
 
       CreateMap<Album, PhotoAlbumDto>()
