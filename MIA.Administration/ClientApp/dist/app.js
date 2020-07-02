@@ -2065,6 +2065,364 @@ debugger
 
     angular
         .module('home')
+        .controller('AwardController', ['appCONSTANTS', '$scope', '$translate', 'awardType', 'AwardResource', 'blockUI', '$uibModal',
+            'ToastService', AwardController]);
+
+
+    function AwardController(appCONSTANTS, $scope, $translate, awardType, AwardResource, blockUI, $uibModal, ToastService) {
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
+        var vm = this;
+
+        vm.currentPage = 1;
+        vm.appCONSTANTS = appCONSTANTS;
+        vm.awardTypes = awardType.TypeList;
+        vm.selectedType = vm.awardTypes[1];
+        refreshAwards();
+        function refreshAwards() {
+            blockUI.start("Loading...");
+
+            var k = AwardResource.getAllAwards({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
+                $scope.AwardList = results.items;
+                $scope.totalCount = results.metadata.totalItemCount;
+                console.log($scope.AwardList);
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+                });
+        }
+
+
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshAwards();
+        }
+        vm.changeAwardType = function () {
+            refreshAwardsByType();
+        }
+        function refreshAwardsByType() {
+            blockUI.start("Loading...");
+
+            debugger;
+            var k = AwardResource.getAllAwards({ awardType: vm.selectedType.Id,pageNumber: vm.currentPage, pageSize: 10  }).$promise.then(function (results) {
+                $scope.AwardList = results.items;
+                $scope.totalCount = results.metadata.totalItemCount;
+                console.log($scope.AwardList);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+    }
+
+})();
+(function () {
+    angular
+        .module('home')
+        .factory('AwardResource', ['$resource', 'appCONSTANTS', AwardResource])
+
+    function AwardResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Awards', {}, {
+            getAllAwards: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/awardsByType', useToken: true, params: { lang: '@lang' } },
+            getAllAwardsByType: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/awardsByType', useToken: true, params: { lang: '@lang' } },
+            getAllJudges: { method: 'GET', url: appCONSTANTS.API_URL + 'Awards/judges', useToken: true, isArray: true, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'PUT', useToken: true },
+            getAward: { method: 'GET', useToken: true },
+            delete: { method: 'DELETE', useToken: true },
+            getAwardDetails: { method: 'GET', url: appCONSTANTS.API_URL + 'Awards/getAwardDetails?id=:id',  useToken: true },
+        })
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .config(function ($stateProvider, $urlRouterProvider) {
+
+            $stateProvider
+                .state('Award', {
+                    url: '/Award',
+                    templateUrl: './app/GlobalAdmin/Award/templates/Award.html',
+                    controller: 'AwardController',
+                    'controllerAs': 'AwardCtrl',
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('newAward', {
+                    url: '/newAward',
+                    templateUrl: './app/GlobalAdmin/Award/templates/new.html',
+                    controller: 'createAwardDialogController',
+                    'controllerAs': 'newAwardCtrl',
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('editAward', {
+                    url: '/editAward/:id',
+                    templateUrl: './app/GlobalAdmin/Award/templates/edit.html',
+                    controller: 'editAwardDialogController',
+                    'controllerAs': 'editAwardCtrl',
+                    resolve: {
+                        AwardDetailsByAwardIdPrepService: AwardDetailsByAwardIdPrepService 
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+        });
+
+    AwardPrepService.$inject = ['AwardResource']
+    function AwardPrepService(AwardResource) {
+        return AwardResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+
+    AwardByIdPrepService.$inject = ['AwardResource', '$stateParams']
+    function AwardByIdPrepService(AwardResource, $stateParams) {
+        return AwardResource.getAward({ id: $stateParams.id }).$promise;
+    }
+
+    AllAwardPrepService.$inject = ['AwardResource']
+    function AllAwardPrepService(AwardResource) {
+        return AwardResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+
+    AwardDetailsByAwardIdPrepService.$inject = ['AwardResource', '$stateParams']
+    function AwardDetailsByAwardIdPrepService(AwardResource, $stateParams) {
+        return AwardResource.getAwardDetails({ id: $stateParams.id }).$promise;
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('createBoothDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'BoothResource', 'ToastService', '$rootScope', createBoothDialogController])
+
+    function createBoothDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, BoothResource,
+        ToastService, $rootScope) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.close = function () {
+            $state.go('Booth');
+        }
+
+
+        vm.AddNewBooth = function () {
+            blockUI.start("Loading...");
+            var newObj = new BoothResource();
+            newObj.Description = vm.Description;
+            newObj.Code = vm.Code;
+            newObj.Price = vm.Price;
+            newObj.$create().then(
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('Booth');
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.title, "error");
+                }
+            );
+        }
+
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editAwardDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', 'awardType', '$state', 'appCONSTANTS', '$translate',
+            'AwardResource', 'ToastService', 'AwardDetailsByAwardIdPrepService', editAwardDialogController
+        ])
+
+    function editAwardDialogController($rootScope, $scope, blockUI, $filter, awardType, $state, appCONSTANTS, $translate, AwardResource,
+        ToastService, AwardDetailsByAwardIdPrepService) {
+        var vm = this;
+        vm.judgesLevel1List = [];
+        vm.judgesLevel2List = [];
+        vm.ManagerList = [];
+        vm.selectedManager = "";
+        vm.selectedJudgesLevel1 = [];
+        vm.selectedJudgesLevel2 = [];
+        vm.RemoveLevel1Judges = [];
+        vm.RemoveLevel2Judges = [];
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.Award = AwardDetailsByAwardIdPrepService;
+        vm.awardTypes = awardType.TypeList;
+        vm.trophyImage = vm.Award.trophyUrl;
+
+        vm.addLevel1Judges = [];
+        vm.addLevel2Judges = [];
+        vm.removeLevel1Judges = [];
+        vm.removeLevel2Judges = [];
+
+        console.log(vm.Award);
+        refreshJudgess();
+
+        vm.Close = function () {
+            $state.go('Award');
+        }
+        vm.UpdateAward = function () {
+            blockUI.start("Loading...");
+            debugger;
+            for (let index = 0; index < vm.selectedJudgesLevel1.length; index++) {
+                const element = vm.selectedJudgesLevel1[index];
+                if (element.isSelected) {
+                    vm.addLevel1Judges.push({
+                        AwardId: vm.Award.id,
+                        JudgeId: element.id
+                    })
+                }
+            }
+
+            for (let index = 0; index < vm.selectedJudgesLevel2.length; index++) {
+                const element = vm.selectedJudgesLevel2[index];
+                if (element.isSelected) {
+                    vm.addLevel2Judges.push({
+                        AwardId: vm.Award.id,
+                        JudgeId: element.id
+                    })
+                }
+            }
+
+            for (let index = 0; index < vm.RemoveLevel1Judges.length; index++) {
+                const element = vm.RemoveLevel1Judges[index];
+                vm.removeLevel1Judges.push({
+                    AwardId: vm.Award.id,
+                    JudgeId: element.id
+                })
+            }
+            for (let index = 0; index < vm.RemoveLevel2Judges.length; index++) {
+                const element = vm.RemoveLevel2Judges[index];
+                vm.removeLevel2Judges.push({
+                    AwardId: vm.Award.id,
+                    JudgeId: element.id
+                })
+            }
+            var updateObj = new AwardResource();
+            updateObj.Id = vm.Award.id;
+            updateObj.ManagerId = vm.selectedManager.id;
+            updateObj.AddLevel1Judges = vm.addLevel1Judges;
+            updateObj.AddLevel2Judges = vm.addLevel2Judges;
+            updateObj.RemoveLevel1Judges = vm.removeLevel1Judges;
+            updateObj.RemoveLevel2Judges = vm.removeLevel2Judges;
+            updateObj.Title = vm.Award.title;
+            updateObj.Description = vm.Award.description;
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    blockUI.stop();
+
+                    $state.go('Award');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+
+        vm.selectJudgeLevel1 = function (user) {
+            debugger;
+            const userFromAdmins = this.selectedJudgesLevel1.find(b => b.id == user.id)
+            if (user.isSelected && userFromAdmins == null) {
+                this.selectedJudgesLevel1.push(user);
+
+            } else {
+                this.selectedJudgesLevel1.splice(this.selectedJudgesLevel1.indexOf(user), 1);
+                this.RemoveLevel1Judges.push(user);
+            }
+        }
+        vm.selectAllJudgeLevel1 = function (isselectAllJudgeLevel1) {
+            this.selectedJudgesLevel1 = [];
+            this.RemoveLevel1Judges = [];
+            this.judgesLevel1List.map(x => x.isSelected = isselectAllJudgeLevel1);
+            if (isselectAllJudgeLevel1) {
+                this.selectedJudgesLevel1.push(...this.judgesLevel1List);
+            } else {
+                this.RemoveLevel1Judges.push(...this.judgesLevel1List);
+            }
+        }
+
+        vm.selectJudgeLevel2 = function (user) {
+            const userFromAdmins = this.selectedJudgesLevel2.find(b => b.id == user.id)
+            if (user.isSelected && userFromAdmins == null) {
+                this.selectedJudgesLevel2.push(user);
+            } else {
+                this.selectedJudgesLevel2.splice(this.selectedJudgesLevel2.indexOf(user), 1);
+                this.RemoveLevel2Judges.push(user);
+            }
+        }
+        vm.selectAllJudgeLevel2 = function (isselectAllJudgeLevel2) {
+            this.selectedJudgesLevel2 = [];
+            this.judgesLevel2List.map(x => x.isSelected = isselectAllJudgeLevel2);
+            if (isselectAllJudgeLevel2) {
+                this.selectedJudgesLevel2.push(...this.judgesLevel2List);
+            } else {
+                this.RemoveLevel2Judges.push(...this.judgesLevel2List);
+            }
+        }
+
+
+        function refreshJudgess() {
+            var k = AwardResource.getAllJudges().$promise.then(function (results) {
+                vm.judgesLevel1List = angular.copy(results); 
+                vm.judgesLevel2List = angular.copy(results);;
+                vm.ManagerList = angular.copy(results);;
+                blockUI.stop();
+                debugger;
+                if (vm.Award.level1Judges != null) {
+                    var i;
+                    for (i = 0; i < vm.Award.level1Judges.length; i++) {
+                        var index = vm.judgesLevel1List.indexOf($filter('filter')(vm.judgesLevel1List, { 'id': vm.Award.level1Judges[i].judgeId }, true)[0]);
+                        vm.judgesLevel1List[index].isSelected = true;
+                    }
+                }
+                if (vm.Award.level2Judges != null) {
+                    var i;
+                    for (i = 0; i < vm.Award.level2Judges.length; i++) {
+                        var index = vm.judgesLevel2List.indexOf($filter('filter')(vm.judgesLevel2List, { 'id': vm.Award.level2Judges[i].judgeId }, true)[0]);
+                        vm.judgesLevel2List[index].isSelected = true;
+                    }
+                }
+                var index = vm.ManagerList.indexOf($filter('filter')(vm.ManagerList, { 'id': vm.Award.managerId }, true)[0]);
+                vm.selectedManager = vm.ManagerList[index];
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
         .controller('BoothController', ['appCONSTANTS', '$scope', '$translate', 'BoothResource', 'blockUI', '$uibModal',
             'ToastService', BoothController]);
 
@@ -2580,364 +2938,6 @@ debugger
             debugger;
             vm.receiptImage = $(element)[0].files[0];
         };
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('AwardController', ['appCONSTANTS', '$scope', '$translate', 'awardType', 'AwardResource', 'blockUI', '$uibModal',
-            'ToastService', AwardController]);
-
-
-    function AwardController(appCONSTANTS, $scope, $translate, awardType, AwardResource, blockUI, $uibModal, ToastService) {
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
-        var vm = this;
-
-        vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS;
-        vm.awardTypes = awardType.TypeList;
-        vm.selectedType = vm.awardTypes[1];
-        refreshAwards();
-        function refreshAwards() {
-            blockUI.start("Loading...");
-
-            var k = AwardResource.getAllAwards({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
-                $scope.AwardList = results.items;
-                $scope.totalCount = results.metadata.totalItemCount;
-                console.log($scope.AwardList);
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
-                });
-        }
-
-
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshAwards();
-        }
-        vm.changeAwardType = function () {
-            refreshAwardsByType();
-        }
-        function refreshAwardsByType() {
-            blockUI.start("Loading...");
-
-            debugger;
-            var k = AwardResource.getAllAwards({ awardType: vm.selectedType.Id,pageNumber: vm.currentPage, pageSize: 10  }).$promise.then(function (results) {
-                $scope.AwardList = results.items;
-                $scope.totalCount = results.metadata.totalItemCount;
-                console.log($scope.AwardList);
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-    }
-
-})();
-(function () {
-    angular
-        .module('home')
-        .factory('AwardResource', ['$resource', 'appCONSTANTS', AwardResource])
-
-    function AwardResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Awards', {}, {
-            getAllAwards: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/awardsByType', useToken: true, params: { lang: '@lang' } },
-            getAllAwardsByType: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/awardsByType', useToken: true, params: { lang: '@lang' } },
-            getAllJudges: { method: 'GET', url: appCONSTANTS.API_URL + 'Awards/judges', useToken: true, isArray: true, params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'PUT', useToken: true },
-            getAward: { method: 'GET', useToken: true },
-            delete: { method: 'DELETE', useToken: true },
-            getAwardDetails: { method: 'GET', url: appCONSTANTS.API_URL + 'Awards/getAwardDetails?id=:id',  useToken: true },
-        })
-    }
-
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .config(function ($stateProvider, $urlRouterProvider) {
-
-            $stateProvider
-                .state('Award', {
-                    url: '/Award',
-                    templateUrl: './app/GlobalAdmin/Award/templates/Award.html',
-                    controller: 'AwardController',
-                    'controllerAs': 'AwardCtrl',
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('newAward', {
-                    url: '/newAward',
-                    templateUrl: './app/GlobalAdmin/Award/templates/new.html',
-                    controller: 'createAwardDialogController',
-                    'controllerAs': 'newAwardCtrl',
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('editAward', {
-                    url: '/editAward/:id',
-                    templateUrl: './app/GlobalAdmin/Award/templates/edit.html',
-                    controller: 'editAwardDialogController',
-                    'controllerAs': 'editAwardCtrl',
-                    resolve: {
-                        AwardDetailsByAwardIdPrepService: AwardDetailsByAwardIdPrepService 
-                    },
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-        });
-
-    AwardPrepService.$inject = ['AwardResource']
-    function AwardPrepService(AwardResource) {
-        return AwardResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
-    }
-
-    AwardByIdPrepService.$inject = ['AwardResource', '$stateParams']
-    function AwardByIdPrepService(AwardResource, $stateParams) {
-        return AwardResource.getAward({ id: $stateParams.id }).$promise;
-    }
-
-    AllAwardPrepService.$inject = ['AwardResource']
-    function AllAwardPrepService(AwardResource) {
-        return AwardResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
-    }
-
-    AwardDetailsByAwardIdPrepService.$inject = ['AwardResource', '$stateParams']
-    function AwardDetailsByAwardIdPrepService(AwardResource, $stateParams) {
-        return AwardResource.getAwardDetails({ id: $stateParams.id }).$promise;
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('createBoothDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'BoothResource', 'ToastService', '$rootScope', createBoothDialogController])
-
-    function createBoothDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, BoothResource,
-        ToastService, $rootScope) {
-        var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.close = function () {
-            $state.go('Booth');
-        }
-
-
-        vm.AddNewBooth = function () {
-            blockUI.start("Loading...");
-            var newObj = new BoothResource();
-            newObj.Description = vm.Description;
-            newObj.Code = vm.Code;
-            newObj.Price = vm.Price;
-            newObj.$create().then(
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    $state.go('Booth');
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.title, "error");
-                }
-            );
-        }
-
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editAwardDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', 'awardType', '$state', 'appCONSTANTS', '$translate',
-            'AwardResource', 'ToastService', 'AwardDetailsByAwardIdPrepService', editAwardDialogController
-        ])
-
-    function editAwardDialogController($rootScope, $scope, blockUI, $filter, awardType, $state, appCONSTANTS, $translate, AwardResource,
-        ToastService, AwardDetailsByAwardIdPrepService) {
-        var vm = this;
-        vm.judgesLevel1List = [];
-        vm.judgesLevel2List = [];
-        vm.ManagerList = [];
-        vm.selectedManager = "";
-        vm.selectedJudgesLevel1 = [];
-        vm.selectedJudgesLevel2 = [];
-        vm.RemoveLevel1Judges = [];
-        vm.RemoveLevel2Judges = [];
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.Award = AwardDetailsByAwardIdPrepService;
-        vm.awardTypes = awardType.TypeList;
-        vm.trophyImage = vm.Award.trophyUrl;
-
-        vm.addLevel1Judges = [];
-        vm.addLevel2Judges = [];
-        vm.removeLevel1Judges = [];
-        vm.removeLevel2Judges = [];
-
-        console.log(vm.Award);
-        refreshJudgess();
-
-        vm.Close = function () {
-            $state.go('Award');
-        }
-        vm.UpdateAward = function () {
-            blockUI.start("Loading...");
-            debugger;
-            for (let index = 0; index < vm.selectedJudgesLevel1.length; index++) {
-                const element = vm.selectedJudgesLevel1[index];
-                if (element.isSelected) {
-                    vm.addLevel1Judges.push({
-                        AwardId: vm.Award.id,
-                        JudgeId: element.id
-                    })
-                }
-            }
-
-            for (let index = 0; index < vm.selectedJudgesLevel2.length; index++) {
-                const element = vm.selectedJudgesLevel2[index];
-                if (element.isSelected) {
-                    vm.addLevel2Judges.push({
-                        AwardId: vm.Award.id,
-                        JudgeId: element.id
-                    })
-                }
-            }
-
-            for (let index = 0; index < vm.RemoveLevel1Judges.length; index++) {
-                const element = vm.RemoveLevel1Judges[index];
-                vm.removeLevel1Judges.push({
-                    AwardId: vm.Award.id,
-                    JudgeId: element.id
-                })
-            }
-            for (let index = 0; index < vm.RemoveLevel2Judges.length; index++) {
-                const element = vm.RemoveLevel2Judges[index];
-                vm.removeLevel2Judges.push({
-                    AwardId: vm.Award.id,
-                    JudgeId: element.id
-                })
-            }
-            var updateObj = new AwardResource();
-            updateObj.Id = vm.Award.id;
-            updateObj.ManagerId = vm.selectedManager.id;
-            updateObj.AddLevel1Judges = vm.addLevel1Judges;
-            updateObj.AddLevel2Judges = vm.addLevel2Judges;
-            updateObj.RemoveLevel1Judges = vm.removeLevel1Judges;
-            updateObj.RemoveLevel2Judges = vm.removeLevel2Judges;
-            updateObj.Title = vm.Award.title;
-            updateObj.Description = vm.Award.description;
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    blockUI.stop();
-
-                    $state.go('Award');
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-
-        vm.selectJudgeLevel1 = function (user) {
-            debugger;
-            const userFromAdmins = this.selectedJudgesLevel1.find(b => b.id == user.id)
-            if (user.isSelected && userFromAdmins == null) {
-                this.selectedJudgesLevel1.push(user);
-
-            } else {
-                this.selectedJudgesLevel1.splice(this.selectedJudgesLevel1.indexOf(user), 1);
-                this.RemoveLevel1Judges.push(user);
-            }
-        }
-        vm.selectAllJudgeLevel1 = function (isselectAllJudgeLevel1) {
-            this.selectedJudgesLevel1 = [];
-            this.RemoveLevel1Judges = [];
-            this.judgesLevel1List.map(x => x.isSelected = isselectAllJudgeLevel1);
-            if (isselectAllJudgeLevel1) {
-                this.selectedJudgesLevel1.push(...this.judgesLevel1List);
-            } else {
-                this.RemoveLevel1Judges.push(...this.judgesLevel1List);
-            }
-        }
-
-        vm.selectJudgeLevel2 = function (user) {
-            const userFromAdmins = this.selectedJudgesLevel2.find(b => b.id == user.id)
-            if (user.isSelected && userFromAdmins == null) {
-                this.selectedJudgesLevel2.push(user);
-            } else {
-                this.selectedJudgesLevel2.splice(this.selectedJudgesLevel2.indexOf(user), 1);
-                this.RemoveLevel2Judges.push(user);
-            }
-        }
-        vm.selectAllJudgeLevel2 = function (isselectAllJudgeLevel2) {
-            this.selectedJudgesLevel2 = [];
-            this.judgesLevel2List.map(x => x.isSelected = isselectAllJudgeLevel2);
-            if (isselectAllJudgeLevel2) {
-                this.selectedJudgesLevel2.push(...this.judgesLevel2List);
-            } else {
-                this.RemoveLevel2Judges.push(...this.judgesLevel2List);
-            }
-        }
-
-
-        function refreshJudgess() {
-            var k = AwardResource.getAllJudges().$promise.then(function (results) {
-                vm.judgesLevel1List = angular.copy(results); 
-                vm.judgesLevel2List = angular.copy(results);;
-                vm.ManagerList = angular.copy(results);;
-                blockUI.stop();
-                debugger;
-                if (vm.Award.level1Judges != null) {
-                    var i;
-                    for (i = 0; i < vm.Award.level1Judges.length; i++) {
-                        var index = vm.judgesLevel1List.indexOf($filter('filter')(vm.judgesLevel1List, { 'id': vm.Award.level1Judges[i].judgeId }, true)[0]);
-                        vm.judgesLevel1List[index].isSelected = true;
-                    }
-                }
-                if (vm.Award.level2Judges != null) {
-                    var i;
-                    for (i = 0; i < vm.Award.level2Judges.length; i++) {
-                        var index = vm.judgesLevel2List.indexOf($filter('filter')(vm.judgesLevel2List, { 'id': vm.Award.level2Judges[i].judgeId }, true)[0]);
-                        vm.judgesLevel2List[index].isSelected = true;
-                    }
-                }
-                var index = vm.ManagerList.indexOf($filter('filter')(vm.ManagerList, { 'id': vm.Award.managerId }, true)[0]);
-                vm.selectedManager = vm.ManagerList[index];
-            },
-                function (data, status) {
-
-                    blockUI.stop();
-                });
-        }
     }
 }());
 (function () {

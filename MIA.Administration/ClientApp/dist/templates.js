@@ -1234,6 +1234,387 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Award/templates/Award.html',
+    '<div>\n' +
+    '    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes(\'News.add_new\')">\n' +
+    '        <!-- <div id="bold"> {{\'AddNewAwardBtn\'| translate}} </div> -->\n' +
+    '        <!-- <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-click="$state.go(\'newAward\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">\n' +
+    '            {{\'AddNew\'| translate}}</button> -->\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="row">\n' +
+    '        <div class="col-md-6  form-group">\n' +
+    '            <div class="form-group col-lg-4"> <label for="first-name">{{\'Award\' | translate}}</label>\n' +
+    '                <select required style="width:100% !important;color:#6c7293!important;"\n' +
+    '                    class="form-control select-with-search pmd-select2-tags" ng-model="AwardCtrl.selectedType"\n' +
+    '                    ng-change="AwardCtrl.changeAwardType()"\n' +
+    '                    ng-options="group as group.shortName  for group in AwardCtrl.awardTypes">\n' +
+    '                </select>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div ng-if="AwardList.length == null">\n' +
+    '        <span>{{\'NoAwardsAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="AwardList.length > 0">\n' +
+    '        <div class="table-responsive">\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th>{{\'title\' | translate}}</th>\n' +
+    '                        <th>{{\'description\' | translate}}</th>\n' +
+    '                        <th>{{\'manager\' | translate}}</th>\n' +
+    '                        <th>{{\'awardType\' | translate}}</th>\n' +
+    '                        <th></th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                    <tr ng-repeat="Award in AwardList">\n' +
+    '                        <td>\n' +
+    '                            {{Award.title[selectedLanguage]  | limitTo : 20}}\n' +
+    '                            {{Award.title[selectedLanguage].length > 20 ? \'...\' : \'\'}}\n' +
+    '                        </td>\n' +
+    '                        <td>\n' +
+    '                            {{Award.description[selectedLanguage]  | limitTo : 60}}\n' +
+    '                            {{Award.description[selectedLanguage].length > 60 ? \'...\' : \'\'}}\n' +
+    '                        </td>\n' +
+    '                        <td>\n' +
+    '                            {{Award.manager.fullName}}\n' +
+    '                        </td>\n' +
+    '                        <td>\n' +
+    '                            {{Award.awardType }}\n' +
+    '                        </td>\n' +
+    '                        <td>\n' +
+    '                            <i ng-show="user.PermessionModules.includes(\'News.add_new\')"\n' +
+    '                                class="material-icons md-dark pmd-md cursorPointer font25"\n' +
+    '                                ng-click="$state.go(\'editAward\',{id: Award.id});" title="Edit">mode_edit</i>\n' +
+    '                        </td>\n' +
+    '                    </tr>\n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '        paging-action="AwardCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
+    '        hide-if-empty="true" disabled-class="hide">\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '    $(".select-tags").select2({\n' +
+    '        tags: false,\n' +
+    '        theme: "bootstrap",\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Award/templates/edit.html',
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-description-text">{{\'EditAward\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="editAwardForm">\n' +
+    '            <div>\n' +
+    '\n' +
+    '                <div class="row">\n' +
+    '                    <div class="form-group col-lg-2">\n' +
+    '                        <img ng-src="{{editAwardCtrl.trophyImage}}" style="max-height: 97px;max-width: 423px;">\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '                <div class="row">\n' +
+    '                    <div class="form-group col-lg-6">\n' +
+    '                        <!-- Nav tabs -->\n' +
+    '                        <ul class="nav nav-tabs" role="tablist">\n' +
+    '                            <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
+    '                                ng-repeat="lang in editAwardCtrl.language">\n' +
+    '                                <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home"\n' +
+    '                                    role="tab" data-toggle="tab">\n' +
+    '                                    <span style="color:red">*</span> {{lang.value | translate}}\n' +
+    '                                </a>\n' +
+    '                            </li>\n' +
+    '                        </ul>\n' +
+    '                        <div class="pmd-card">\n' +
+    '                            <div class="pmd-card-discription">\n' +
+    '                                <!-- Tab panes -->\n' +
+    '                                <div class="tab-content">\n' +
+    '                                    <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
+    '                                        ng-repeat="lang in editAwardCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                        <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                            <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                            <input required type="text" class="mat-input form-control"\n' +
+    '                                                name="title{{lang.value+\'Name\'}}"\n' +
+    '                                                ng-model="editAwardCtrl.Award.title[lang.key]" ng-minlength="3"\n' +
+    '                                                ng-maxlength="255">\n' +
+    '                                            <div ng-messages="editAwardForm.title{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                                <div class="error ng-binding"\n' +
+    '                                                    ng-show="editAwardForm.title{{lang.value+\'Name\'}}.$error.required && !editAwardForm.title{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                                    {{\'requiredErr\' | translate}}</div>\n' +
+    '                                                <div class="error ng-binding"\n' +
+    '                                                    ng-show="(editAwardForm.title{{lang.value+\'Name\'}}.$error.minlength || editAwardForm.title{{lang.value+\'Name\'}}.$error.maxlength) && !editAwardForm.title{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                                    {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                            </div>\n' +
+    '                                        </div>\n' +
+    '                                        <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                            <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                            <textarea required type="text" class="mat-input form-control"\n' +
+    '                                                name="description{{lang.value+\'Name\'}}"\n' +
+    '                                                ng-model="editAwardCtrl.Award.description[lang.key]" ng-minlength="3"\n' +
+    '                                                ng-maxlength="955"></textarea>\n' +
+    '                                            <div ng-messages="editAwardForm.description{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                                <div class="error ng-binding"\n' +
+    '                                                    ng-show="editAwardForm.description{{lang.value+\'Name\'}}.$error.required && !editAwardForm.description{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                                    {{\'requiredErr\' | translate}}</div>\n' +
+    '                                                <div class="error ng-binding"\n' +
+    '                                                    ng-show="(editAwardForm.description{{lang.value+\'Name\'}}.$error.minlength || editAwardForm.description{{lang.value+\'Name\'}}.$error.maxlength) && !editAwardForm.description{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                                    {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                            </div>\n' +
+    '                                        </div>\n' +
+    '\n' +
+    '                                    </div>\n' +
+    '\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '\n' +
+    '\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '                <div class="row">\n' +
+    '                    <!-- <div class="form-group col-lg-2">\n' +
+    '                        <img ng-src="{{editAwardCtrl.trophyImage}}" style="max-height: 97px;max-width: 423px;">\n' +
+    '                    </div> -->\n' +
+    '                    <div class="form-group col-lg-4">\n' +
+    '                        <label for="first-name">{{\'Manager\' | translate}}</label>\n' +
+    '                        <select required style="width:100% !important"\n' +
+    '                            class="form-control select-with-search pmd-select2-tags"\n' +
+    '                            ng-model="editAwardCtrl.selectedManager"\n' +
+    '                            ng-options="group as group.fullName for group in editAwardCtrl.ManagerList">\n' +
+    '                        </select>\n' +
+    '\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="form-group col-lg-4">\n' +
+    '                        <label for="first-name">{{\'type\' | translate}}</label>\n' +
+    '                     <br>  {{editAwardCtrl.Award.awardType}}\n' +
+    '                        <!-- <div ng-repeat="awardType in editAwardCtrl.awardTypes" id="radio-{{radius.price}}">\n' +
+    '                            <input type="radio" name="type" ng-checked="awardType.checked"\n' +
+    '                                ng-model="editAwardCtrl.selectedType" value="{{awardType.Id}}">{{awardType.shortName}}\n' +
+    '                        </div> -->\n' +
+    '                    </div>\n' +
+    '                    <!-- <div class="form-group col-lg-6">\n' +
+    '                        <label for="first-name">{{\'Judges\' | translate}}</label>\n' +
+    '                        <select required style="width:100% !important" multiple\n' +
+    '                            class="form-control select-with-search pmd-select2-tags"\n' +
+    '                            ng-model="editAwardCtrl.selectedJudgesLevel1"\n' +
+    '                            ng-options="group as group.fullName  for group in editAwardCtrl.judgesLevel1Listist">\n' +
+    '                        </select>\n' +
+    '                    </div> -->\n' +
+    '                </div>\n' +
+    '\n' +
+    '                <div class="row">\n' +
+    '                    <div class="form-group col-lg-6">\n' +
+    '                        <div ng-if="editAwardCtrl.judgesLevel1List.length == 0">\n' +
+    '                            <span>{{\'NoJudgesAvailable\' | translate}}</span>\n' +
+    '                        </div>\n' +
+    '                        <div class="pmd-card pmd-z-depth pmd-card-custom-view"\n' +
+    '                            ng-if="editAwardCtrl.judgesLevel1List.length > 0">\n' +
+    '                            <div class="table-responsive">\n' +
+    '                                <table class="table pmd-table table-hover">\n' +
+    '                                    <thead>\n' +
+    '                                        <tr>\n' +
+    '                                            <th style="width:1%">\n' +
+    '                                                <input type="checkbox"\n' +
+    '                                                    ng-checked="editAwardCtrl.selectedJudgesLevel1.length == editAwardCtrl.judgesLevel1List.length"\n' +
+    '                                                    value="editAwardCtrl.selectedJudgesLevel1.length == editAwardCtrl.judgesLevel1List.length"\n' +
+    '                                                    ng-click="editAwardCtrl.selectAllJudgeLevel1($event.target.checked)"\n' +
+    '                                                    id="selectAllJudgeLevel1">\n' +
+    '\n' +
+    '                                            </th>\n' +
+    '                                            <th style="width: 50%">{{\'Name\' | translate}}</th>\n' +
+    '                                        </tr>\n' +
+    '                                    </thead>\n' +
+    '                                    <tbody>\n' +
+    '                                        <tr ng-repeat="judge in editAwardCtrl.judgesLevel1List">\n' +
+    '                                            <td> <input type="checkbox" id="judge-{{judge.id}}" value="judge"\n' +
+    '                                                    name="judge" ng-change="editAwardCtrl.selectJudgeLevel1(judge)"\n' +
+    '                                                    ng-model="judge.isSelected" id="judge.id"></td>\n' +
+    '\n' +
+    '                                            <td>{{judge.fullName}}\n' +
+    '                                            </td>\n' +
+    '                                        </tr>\n' +
+    '                                    </tbody>\n' +
+    '                                </table> \n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    ' \n' +
+    '                        <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '                            paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
+    '                            hide-if-empty="true" disabled-class="hide">\n' +
+    '                        </div>\n' +
+    '\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="form-group col-lg-6">\n' +
+    '                        <div ng-if="editAwardCtrl.judgesLevel2List.length == 0">\n' +
+    '                            <span>{{\'NoJudgesAvailable\' | translate}}</span>\n' +
+    '                        </div>\n' +
+    '                        <div class="pmd-card pmd-z-depth pmd-card-custom-view"\n' +
+    '                            ng-if="editAwardCtrl.judgesLevel2List.length > 0">\n' +
+    '                            <div class="table-responsive">\n' +
+    '                                <table class="table pmd-table table-hover">\n' +
+    '                                    <thead>\n' +
+    '                                        <tr>\n' +
+    '                                            <th style="width:1%">\n' +
+    '                                                <input type="checkbox"\n' +
+    '                                                    ng-checked="editAwardCtrl.selectedJudgesLevel2.length == editAwardCtrl.judgesLevel2List.length"\n' +
+    '                                                    value="editAwardCtrl.selectedJudgesLevel2.length == editAwardCtrl.judgesLevel2List.length"\n' +
+    '                                                    ng-click="editAwardCtrl.selectAllJudgeLevel2($event.target.checked)"\n' +
+    '                                                    id="selectAllJudgeLevel2">\n' +
+    '\n' +
+    '                                            </th>\n' +
+    '                                            <th style="width: 50%">{{\'Name\' | translate}}</th>\n' +
+    '                                        </tr>\n' +
+    '                                    </thead>\n' +
+    '                                    <tbody>\n' +
+    '                                        <tr ng-repeat="judge2 in editAwardCtrl.judgesLevel2List">\n' +
+    '                                            <td> <input type="checkbox" id="judge2-{{judge2.id}}" value="judge2"\n' +
+    '                                                    name="judge2" ng-change="editAwardCtrl.selectJudgeLevel2(judge2)"\n' +
+    '                                                    ng-model="judge2.isSelected" id="judge2.id"></td>\n' +
+    '\n' +
+    '                                            <td>{{judge2.fullName}}</td>\n' +
+    '                                        </tr>\n' +
+    '                                    </tbody>\n' +
+    '                                </table>\n' +
+    '                            </div>\n' +
+    '                        </div> \n' +
+    '                        <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '                            paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
+    '                            hide-if-empty="true" disabled-class="hide">\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-type: 6px;"\n' +
+    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="editAwardCtrl.UpdateAward()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '            ng-click="editAwardCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                // Insert the tag at the end of the results\n' +
+    '                data.push(tag);\n' +
+    '                // console.log(data);\n' +
+    '            }\n' +
+    '        });\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Award/templates/new.html',
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text"> {{\'AddNewBoothBtn\' | translate}} </h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="newBoothForm">\n' +
+    '            <div class="row">\n' +
+    '                <div class="form-group col-lg-12">\n' +
+    '                    <img src="../../../../assets/img/booth.jpg" style="height: 350px;\n' +
+    '                    width: 80%;" />\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '            <div class="row">\n' +
+    '                <div class="form-group col-lg-6">\n' +
+    '                    <ul class="nav nav-tabs" role="tablist">\n' +
+    '                        <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
+    '                            ng-repeat="lang in newBoothCtrl.language">\n' +
+    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home"\n' +
+    '                                role="tab" data-toggle="tab">\n' +
+    '                                <span style="color:red">*</span>{{lang.value | translate}}\n' +
+    '                            </a>\n' +
+    '                        </li>\n' +
+    '                    </ul>\n' +
+    '                    <div class="pmd-card">\n' +
+    '                        <div class="pmd-card-body">\n' +
+    '                            <!-- Tab panes -->\n' +
+    '                            <div class="tab-content">\n' +
+    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
+    '                                    ng-repeat="lang in newBoothCtrl.language" id="{{lang.value}}-form">\n' +
+    '\n' +
+    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                                        <label for="first-name">{{ \'Description\' | translate}} </label>\n' +
+    '                                        <textarea required class="mat-input form-control"\n' +
+    '                                            name="Description{{lang.value+\'Name\'}}"\n' +
+    '                                            ng-model="newBoothCtrl.Description[lang.key]" ng-minlength="3"\n' +
+    '                                            ng-maxlength="955"></textarea>\n' +
+    '                                        <div ng-messages="newBoothForm.Description{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                            <div class="error ng-binding"\n' +
+    '                                                ng-show="newBoothForm.Description{{lang.value+\'Name\'}}.$error.required && !newBoothForm.Description{{lang.value+\'Name\'}}.$pristine">\n' +
+    '                                                {{\'requiredErr\' | translate}}</div>\n' +
+    '                                            <div class="error ng-binding"\n' +
+    '                                                ng-show="(newBoothForm.Description{{lang.value+\'Name\'}}.$error.minlength || newBoothForm.Description{{lang.value+\'Name\'}}.$error.maxlength) && !newBoothForm.Description{{lang.value+\'Name\'}}.$error.required">\n' +
+    '                                                {{\'NameLengthError3\' | translate}}</div>\n' +
+    '                                        </div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div> \n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
+    '            ng-disabled="newBoothForm.$invalid" class="btn pmd-ripple-effect btn-primary" Booth="button"\n' +
+    '            ng-click="newBoothCtrl.AddNewBooth()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" Booth="button"\n' +
+    '            ng-click="newBoothCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                data.push(tag);\n' +
+    '            }\n' +
+    '        });\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/Booth/templates/Booth.html',
     '<div>\n' +
     '    <div style="margin-bottom:10px" ng-show="user.PermessionModules[\'Booths\'].includes(\'add_new\')">\n' +
@@ -1959,387 +2340,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                angular.element(document.getElementById(\'paymentDate\')).scope().dateChange();\n' +
     '            });\n' +
     '\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Award/templates/Award.html',
-    '<div>\n' +
-    '    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes(\'News.add_new\')">\n' +
-    '        <!-- <div id="bold"> {{\'AddNewAwardBtn\'| translate}} </div> -->\n' +
-    '        <!-- <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-click="$state.go(\'newAward\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">\n' +
-    '            {{\'AddNew\'| translate}}</button> -->\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div class="row">\n' +
-    '        <div class="col-md-6  form-group">\n' +
-    '            <div class="form-group col-lg-4"> <label for="first-name">{{\'Award\' | translate}}</label>\n' +
-    '                <select required style="width:100% !important;color:#6c7293!important;"\n' +
-    '                    class="form-control select-with-search pmd-select2-tags" ng-model="AwardCtrl.selectedType"\n' +
-    '                    ng-change="AwardCtrl.changeAwardType()"\n' +
-    '                    ng-options="group as group.shortName  for group in AwardCtrl.awardTypes">\n' +
-    '                </select>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '    <div ng-if="AwardList.length == null">\n' +
-    '        <span>{{\'NoAwardsAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="AwardList.length > 0">\n' +
-    '        <div class="table-responsive">\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th>{{\'title\' | translate}}</th>\n' +
-    '                        <th>{{\'description\' | translate}}</th>\n' +
-    '                        <th>{{\'manager\' | translate}}</th>\n' +
-    '                        <th>{{\'awardType\' | translate}}</th>\n' +
-    '                        <th></th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat="Award in AwardList">\n' +
-    '                        <td>\n' +
-    '                            {{Award.title[selectedLanguage]  | limitTo : 20}}\n' +
-    '                            {{Award.title[selectedLanguage].length > 20 ? \'...\' : \'\'}}\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            {{Award.description[selectedLanguage]  | limitTo : 60}}\n' +
-    '                            {{Award.description[selectedLanguage].length > 60 ? \'...\' : \'\'}}\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            {{Award.manager.fullName}}\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            {{Award.awardType }}\n' +
-    '                        </td>\n' +
-    '                        <td>\n' +
-    '                            <i ng-show="user.PermessionModules.includes(\'News.add_new\')"\n' +
-    '                                class="material-icons md-dark pmd-md cursorPointer font25"\n' +
-    '                                ng-click="$state.go(\'editAward\',{id: Award.id});" title="Edit">mode_edit</i>\n' +
-    '                        </td>\n' +
-    '                    </tr>\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '        paging-action="AwardCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '        hide-if-empty="true" disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '    $(".select-tags").select2({\n' +
-    '        tags: false,\n' +
-    '        theme: "bootstrap",\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Award/templates/edit.html',
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-description-text">{{\'EditAward\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="editAwardForm">\n' +
-    '            <div>\n' +
-    '\n' +
-    '                <div class="row">\n' +
-    '                    <div class="form-group col-lg-2">\n' +
-    '                        <img ng-src="{{editAwardCtrl.trophyImage}}" style="max-height: 97px;max-width: 423px;">\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '                <div class="row">\n' +
-    '                    <div class="form-group col-lg-6">\n' +
-    '                        <!-- Nav tabs -->\n' +
-    '                        <ul class="nav nav-tabs" role="tablist">\n' +
-    '                            <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
-    '                                ng-repeat="lang in editAwardCtrl.language">\n' +
-    '                                <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home"\n' +
-    '                                    role="tab" data-toggle="tab">\n' +
-    '                                    <span style="color:red">*</span> {{lang.value | translate}}\n' +
-    '                                </a>\n' +
-    '                            </li>\n' +
-    '                        </ul>\n' +
-    '                        <div class="pmd-card">\n' +
-    '                            <div class="pmd-card-discription">\n' +
-    '                                <!-- Tab panes -->\n' +
-    '                                <div class="tab-content">\n' +
-    '                                    <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
-    '                                        ng-repeat="lang in editAwardCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                        <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                            <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                            <input required type="text" class="mat-input form-control"\n' +
-    '                                                name="title{{lang.value+\'Name\'}}"\n' +
-    '                                                ng-model="editAwardCtrl.Award.title[lang.key]" ng-minlength="3"\n' +
-    '                                                ng-maxlength="255">\n' +
-    '                                            <div ng-messages="editAwardForm.title{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                                <div class="error ng-binding"\n' +
-    '                                                    ng-show="editAwardForm.title{{lang.value+\'Name\'}}.$error.required && !editAwardForm.title{{lang.value+\'Name\'}}.$pristine">\n' +
-    '                                                    {{\'requiredErr\' | translate}}</div>\n' +
-    '                                                <div class="error ng-binding"\n' +
-    '                                                    ng-show="(editAwardForm.title{{lang.value+\'Name\'}}.$error.minlength || editAwardForm.title{{lang.value+\'Name\'}}.$error.maxlength) && !editAwardForm.title{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                                    {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                            </div>\n' +
-    '                                        </div>\n' +
-    '                                        <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                            <label for="first-name">{{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                            <textarea required type="text" class="mat-input form-control"\n' +
-    '                                                name="description{{lang.value+\'Name\'}}"\n' +
-    '                                                ng-model="editAwardCtrl.Award.description[lang.key]" ng-minlength="3"\n' +
-    '                                                ng-maxlength="955"></textarea>\n' +
-    '                                            <div ng-messages="editAwardForm.description{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                                <div class="error ng-binding"\n' +
-    '                                                    ng-show="editAwardForm.description{{lang.value+\'Name\'}}.$error.required && !editAwardForm.description{{lang.value+\'Name\'}}.$pristine">\n' +
-    '                                                    {{\'requiredErr\' | translate}}</div>\n' +
-    '                                                <div class="error ng-binding"\n' +
-    '                                                    ng-show="(editAwardForm.description{{lang.value+\'Name\'}}.$error.minlength || editAwardForm.description{{lang.value+\'Name\'}}.$error.maxlength) && !editAwardForm.description{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                                    {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                            </div>\n' +
-    '                                        </div>\n' +
-    '\n' +
-    '                                    </div>\n' +
-    '\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '\n' +
-    '\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '                <div class="row">\n' +
-    '                    <!-- <div class="form-group col-lg-2">\n' +
-    '                        <img ng-src="{{editAwardCtrl.trophyImage}}" style="max-height: 97px;max-width: 423px;">\n' +
-    '                    </div> -->\n' +
-    '                    <div class="form-group col-lg-4">\n' +
-    '                        <label for="first-name">{{\'Manager\' | translate}}</label>\n' +
-    '                        <select required style="width:100% !important"\n' +
-    '                            class="form-control select-with-search pmd-select2-tags"\n' +
-    '                            ng-model="editAwardCtrl.selectedManager"\n' +
-    '                            ng-options="group as group.fullName for group in editAwardCtrl.ManagerList">\n' +
-    '                        </select>\n' +
-    '\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div class="form-group col-lg-4">\n' +
-    '                        <label for="first-name">{{\'type\' | translate}}</label>\n' +
-    '                     <br>  {{editAwardCtrl.Award.awardType}}\n' +
-    '                        <!-- <div ng-repeat="awardType in editAwardCtrl.awardTypes" id="radio-{{radius.price}}">\n' +
-    '                            <input type="radio" name="type" ng-checked="awardType.checked"\n' +
-    '                                ng-model="editAwardCtrl.selectedType" value="{{awardType.Id}}">{{awardType.shortName}}\n' +
-    '                        </div> -->\n' +
-    '                    </div>\n' +
-    '                    <!-- <div class="form-group col-lg-6">\n' +
-    '                        <label for="first-name">{{\'Judges\' | translate}}</label>\n' +
-    '                        <select required style="width:100% !important" multiple\n' +
-    '                            class="form-control select-with-search pmd-select2-tags"\n' +
-    '                            ng-model="editAwardCtrl.selectedJudgesLevel1"\n' +
-    '                            ng-options="group as group.fullName  for group in editAwardCtrl.judgesLevel1Listist">\n' +
-    '                        </select>\n' +
-    '                    </div> -->\n' +
-    '                </div>\n' +
-    '\n' +
-    '                <div class="row">\n' +
-    '                    <div class="form-group col-lg-6">\n' +
-    '                        <div ng-if="editAwardCtrl.judgesLevel1List.length == 0">\n' +
-    '                            <span>{{\'NoJudgesAvailable\' | translate}}</span>\n' +
-    '                        </div>\n' +
-    '                        <div class="pmd-card pmd-z-depth pmd-card-custom-view"\n' +
-    '                            ng-if="editAwardCtrl.judgesLevel1List.length > 0">\n' +
-    '                            <div class="table-responsive">\n' +
-    '                                <table class="table pmd-table table-hover">\n' +
-    '                                    <thead>\n' +
-    '                                        <tr>\n' +
-    '                                            <th style="width:1%">\n' +
-    '                                                <input type="checkbox"\n' +
-    '                                                    ng-checked="editAwardCtrl.selectedJudgesLevel1.length == editAwardCtrl.judgesLevel1List.length"\n' +
-    '                                                    value="editAwardCtrl.selectedJudgesLevel1.length == editAwardCtrl.judgesLevel1List.length"\n' +
-    '                                                    ng-click="editAwardCtrl.selectAllJudgeLevel1($event.target.checked)"\n' +
-    '                                                    id="selectAllJudgeLevel1">\n' +
-    '\n' +
-    '                                            </th>\n' +
-    '                                            <th style="width: 50%">{{\'Name\' | translate}}</th>\n' +
-    '                                        </tr>\n' +
-    '                                    </thead>\n' +
-    '                                    <tbody>\n' +
-    '                                        <tr ng-repeat="judge in editAwardCtrl.judgesLevel1List">\n' +
-    '                                            <td> <input type="checkbox" id="judge-{{judge.id}}" value="judge"\n' +
-    '                                                    name="judge" ng-change="editAwardCtrl.selectJudgeLevel1(judge)"\n' +
-    '                                                    ng-model="judge.isSelected" id="judge.id"></td>\n' +
-    '\n' +
-    '                                            <td>{{judge.fullName}}\n' +
-    '                                            </td>\n' +
-    '                                        </tr>\n' +
-    '                                    </tbody>\n' +
-    '                                </table> \n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    ' \n' +
-    '                        <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '                            paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '                            hide-if-empty="true" disabled-class="hide">\n' +
-    '                        </div>\n' +
-    '\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div class="form-group col-lg-6">\n' +
-    '                        <div ng-if="editAwardCtrl.judgesLevel2List.length == 0">\n' +
-    '                            <span>{{\'NoJudgesAvailable\' | translate}}</span>\n' +
-    '                        </div>\n' +
-    '                        <div class="pmd-card pmd-z-depth pmd-card-custom-view"\n' +
-    '                            ng-if="editAwardCtrl.judgesLevel2List.length > 0">\n' +
-    '                            <div class="table-responsive">\n' +
-    '                                <table class="table pmd-table table-hover">\n' +
-    '                                    <thead>\n' +
-    '                                        <tr>\n' +
-    '                                            <th style="width:1%">\n' +
-    '                                                <input type="checkbox"\n' +
-    '                                                    ng-checked="editAwardCtrl.selectedJudgesLevel2.length == editAwardCtrl.judgesLevel2List.length"\n' +
-    '                                                    value="editAwardCtrl.selectedJudgesLevel2.length == editAwardCtrl.judgesLevel2List.length"\n' +
-    '                                                    ng-click="editAwardCtrl.selectAllJudgeLevel2($event.target.checked)"\n' +
-    '                                                    id="selectAllJudgeLevel2">\n' +
-    '\n' +
-    '                                            </th>\n' +
-    '                                            <th style="width: 50%">{{\'Name\' | translate}}</th>\n' +
-    '                                        </tr>\n' +
-    '                                    </thead>\n' +
-    '                                    <tbody>\n' +
-    '                                        <tr ng-repeat="judge2 in editAwardCtrl.judgesLevel2List">\n' +
-    '                                            <td> <input type="checkbox" id="judge2-{{judge2.id}}" value="judge2"\n' +
-    '                                                    name="judge2" ng-change="editAwardCtrl.selectJudgeLevel2(judge2)"\n' +
-    '                                                    ng-model="judge2.isSelected" id="judge2.id"></td>\n' +
-    '\n' +
-    '                                            <td>{{judge2.fullName}}</td>\n' +
-    '                                        </tr>\n' +
-    '                                    </tbody>\n' +
-    '                                </table>\n' +
-    '                            </div>\n' +
-    '                        </div> \n' +
-    '                        <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '                            paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '                            hide-if-empty="true" disabled-class="hide">\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-type: 6px;"\n' +
-    '            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '            ng-click="editAwardCtrl.UpdateAward()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '            ng-click="editAwardCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-add-tags").select2({\n' +
-    '            tags: true,\n' +
-    '            theme: "bootstrap",\n' +
-    '            insertTag: function (data, tag) {\n' +
-    '                // Insert the tag at the end of the results\n' +
-    '                data.push(tag);\n' +
-    '                // console.log(data);\n' +
-    '            }\n' +
-    '        });\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Award/templates/new.html',
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text"> {{\'AddNewBoothBtn\' | translate}} </h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="newBoothForm">\n' +
-    '            <div class="row">\n' +
-    '                <div class="form-group col-lg-12">\n' +
-    '                    <img src="../../../../assets/img/booth.jpg" style="height: 350px;\n' +
-    '                    width: 80%;" />\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '            <div class="row">\n' +
-    '                <div class="form-group col-lg-6">\n' +
-    '                    <ul class="nav nav-tabs" role="tablist">\n' +
-    '                        <li role="presentation" ng-class="{\'active\':$index == 0}"\n' +
-    '                            ng-repeat="lang in newBoothCtrl.language">\n' +
-    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home"\n' +
-    '                                role="tab" data-toggle="tab">\n' +
-    '                                <span style="color:red">*</span>{{lang.value | translate}}\n' +
-    '                            </a>\n' +
-    '                        </li>\n' +
-    '                    </ul>\n' +
-    '                    <div class="pmd-card">\n' +
-    '                        <div class="pmd-card-body">\n' +
-    '                            <!-- Tab panes -->\n' +
-    '                            <div class="tab-content">\n' +
-    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}"\n' +
-    '                                    ng-repeat="lang in newBoothCtrl.language" id="{{lang.value}}-form">\n' +
-    '\n' +
-    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                                        <label for="first-name">{{ \'Description\' | translate}} </label>\n' +
-    '                                        <textarea required class="mat-input form-control"\n' +
-    '                                            name="Description{{lang.value+\'Name\'}}"\n' +
-    '                                            ng-model="newBoothCtrl.Description[lang.key]" ng-minlength="3"\n' +
-    '                                            ng-maxlength="955"></textarea>\n' +
-    '                                        <div ng-messages="newBoothForm.Description{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                            <div class="error ng-binding"\n' +
-    '                                                ng-show="newBoothForm.Description{{lang.value+\'Name\'}}.$error.required && !newBoothForm.Description{{lang.value+\'Name\'}}.$pristine">\n' +
-    '                                                {{\'requiredErr\' | translate}}</div>\n' +
-    '                                            <div class="error ng-binding"\n' +
-    '                                                ng-show="(newBoothForm.Description{{lang.value+\'Name\'}}.$error.minlength || newBoothForm.Description{{lang.value+\'Name\'}}.$error.maxlength) && !newBoothForm.Description{{lang.value+\'Name\'}}.$error.required">\n' +
-    '                                                {{\'NameLengthError3\' | translate}}</div>\n' +
-    '                                        </div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                </div> \n' +
-    '            </div>\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"\n' +
-    '            ng-disabled="newBoothForm.$invalid" class="btn pmd-ripple-effect btn-primary" Booth="button"\n' +
-    '            ng-click="newBoothCtrl.AddNewBooth()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" Booth="button"\n' +
-    '            ng-click="newBoothCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-add-tags").select2({\n' +
-    '            tags: true,\n' +
-    '            theme: "bootstrap",\n' +
-    '            insertTag: function (data, tag) {\n' +
-    '                data.push(tag);\n' +
-    '            }\n' +
-    '        });\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
     '    });\n' +
     '</script>');
 }]);
