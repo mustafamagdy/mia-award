@@ -53,16 +53,17 @@ namespace MIA.Administration.Api {
     public string ProductionLicenseNumber { get; set; }
     public string ProductionLicenseAgency { get; set; }
 
+    public string FileKey { get; set; }
+    public string FileUrl { get; set; }
+    //public ArtWorkPaymentDto Payment { get; set; }
+    //public string PaymentId { get; set; }
+    //public PaymentStatus PaymentStatus { get; set; }
+    //public byte[] Receipt { get; set; }
+    //public string ReceiptFileName { get; set; }
 
-    public ArtWorkPaymentDto Payment { get; set; }
-    public string PaymentId { get; set; }
-    public PaymentStatus PaymentStatus { get; set; }
-    public byte[] Receipt { get; set; }
-    public string ReceiptFileName { get; set; }
-
-    public string TransactionNumber { get; set; }
-    public decimal Amount { get; set; }
-    public long PaymentDate { get; set; }
+    //public string TransactionNumber { get; set; }
+    //public decimal Amount { get; set; }
+    //public long PaymentDate { get; set; }
 
     public bool IsArtwork { get; set; }
   }

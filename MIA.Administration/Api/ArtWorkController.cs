@@ -121,20 +121,20 @@ namespace MIA.Administration.Api
           {
             throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
-          if (dto.Receipt != null && dto.Receipt.Length > 0)
-          {
+          //if (dto.Receipt != null && dto.Receipt.Length > 0)
+          //{
 
-            using (var memorySteamReciept = new MemoryStream(dto.PosterByte))
-            {
+          //  using (var memorySteamReciept = new MemoryStream(dto.PosterByte))
+          //  {
 
-              string fileReceiptKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.ReceiptFileName);
-              var ReceiptUrl = await fileManager.UploadFileAsync(memorySteamReciept, fileReceiptKey);
+          //    string fileReceiptKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.ReceiptFileName);
+          //    var ReceiptUrl = await fileManager.UploadFileAsync(memorySteamReciept, fileReceiptKey);
 
-              // ArtWorksItem.Payment.Receipt = S3File.FromKeyAndUrl(fileReceiptKey, ReceiptUrl);
-            }
-          } else {
-            // ArtWorksItem.Payment.Receipt = S3File.FromKeyAndUrl("", "");
-          }
+          //    // ArtWorksItem.Payment.Receipt = S3File.FromKeyAndUrl(fileReceiptKey, ReceiptUrl);
+          //  }
+          //} else {
+          //  // ArtWorksItem.Payment.Receipt = S3File.FromKeyAndUrl("", "");
+          //}
 
           string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, ArtWorksItem.Id, dto.PosterFileName);
           var posterUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
@@ -192,16 +192,16 @@ namespace MIA.Administration.Api
       var mediaItem = await db.MediaFiles.FindAsync(result.Entity.Id);
       return IfFound(_mapper.Map<MediaFile>(mediaItem));
     }
-    [HttpPut("UpdateMediaItemVideoUrl")]
-    public async Task<IActionResult> UpdateMediaItemVideoUrlAsync([FromBody] MediaFileDto dto, [FromServices] IAppUnitOfWork db)
+    [HttpPut("UpdateTrailerUrl")]
+    public async Task<IActionResult> UpdateTrailerUrlAsync([FromBody] UpdateArtWorkDto dto, [FromServices] IAppUnitOfWork db)
     {
-      var mediaItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id == dto.Id);
-      mediaItem.File = S3File.FromKeyAndUrl(dto.FileKey, dto.FileUrl);
+      var trailerItem = await db.Artworks.FirstOrDefaultAsync(a => a.Id == dto.Id);
+      trailerItem.Trailer = S3File.FromKeyAndUrl(dto.FileKey, dto.FileUrl);
 
-      var entry = db.Set<MediaFile>().Attach(mediaItem);
+      var entry = db.Set<Artwork>().Attach(trailerItem);
       entry.State = EntityState.Modified;
       await db.CommitTransactionAsync();
-      return IfFound(_mapper.Map<MediaFileDto>(mediaItem));
+      return IfFound(_mapper.Map<ArtWorkDto>(trailerItem));
     }
 
     [HttpPost("createPayment")]

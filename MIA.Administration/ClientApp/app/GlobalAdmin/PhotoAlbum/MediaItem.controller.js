@@ -15,11 +15,12 @@
         vm.appCONSTANTS = appCONSTANTS;
         refreshMediaItems();
         function refreshMediaItems() {
-            blockUI.start("Loading...");
-            debugger;
-            var k = PhotoAlbumResource.getMediaItems({ id: $stateParams.id }).$promise.then(function (results) {
-                vm.mediaItemList = results;
-                console.log(vm.mediaItemList);
+            blockUI.start("Loading..."); 
+            var k = PhotoAlbumResource.getMediaItems({ id: $stateParams.id, pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
+                // vm.mediaItemList = results;
+                debugger;
+                vm.mediaItemList = results.items;
+                $scope.totalCount = results.metadata.totalItemCount;
                 blockUI.stop();
 
             },
@@ -27,7 +28,7 @@
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
-        } 
+        }
         function confirmationDelete(model) {
             var obj = new PhotoAlbumResource();
             obj.$deleteMediaItems({ id: model.id }).then(
@@ -57,7 +58,7 @@
         }
         vm.ChangeStatus = function (model) {
             var updateObj = new PhotoAlbumResource();
-            updateObj.id = model.id; 
+            updateObj.id = model.id;
             updateObj.featured = (model.featured == true ? false : true);
             updateObj.$updateMediaItem().then(
                 function (data, status) {
@@ -78,7 +79,7 @@
         }
 
 
-        
+
     }
 
 })();

@@ -830,10 +830,10 @@
 
     angular
         .module('home')
-        .controller('editArtWorkDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+        .controller('editArtWorkDialogController', ['$rootScope','$sce', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
             'ArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', editArtWorkDialogController])
 
-    function editArtWorkDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
+    function editArtWorkDialogController($rootScope,$sce, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
         ToastService, ArtWorkByIdPrepService) {
 
         refreshAwards();
@@ -842,20 +842,21 @@
         var vm = this;
         vm.awardList = [];
         vm.nomineeList = [];
-        vm.productionList = [];
         vm.selectedAward = "";
         vm.selectedNominee = "";
         vm.language = appCONSTANTS.supportedLanguage;
         vm.ArtWork = ArtWorkByIdPrepService;
-        vm.selectedProduction = [];
-        vm.posterImage = vm.ArtWork.posterUrl;
+
+              vm.posterImage = vm.ArtWork.posterUrl;
         vm.coverImage = vm.ArtWork.coverUrl;
 
         vm.yearsList = [2019, 2020];
         vm.selectedProductionYear = vm.ArtWork.productionYear;
         vm.selectedBroadcastYear = vm.ArtWork.broadcastYear;
         vm.IsArtwork = false;
-
+        $scope.trustSrc = function (src) {
+            return $sce.trustAsResourceUrl(src);
+        }
         this.tab = 1;
 
         this.setTab = function (tabId) {
@@ -1318,10 +1319,11 @@
     function ArtWorkMediaResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'artWorks', {}, {
             createMediaFile: { method: 'POST',url: appCONSTANTS.API_URL + 'artWorks/createMediaFile', useToken: true },
-            UpdateMediaItemVideoUrl: { method: 'PUT', url: appCONSTANTS.API_URL + 'artWorks/UpdateMediaItemVideoUrl', useToken: true },
+            updateTrailerUrl: { method: 'PUT', url: appCONSTANTS.API_URL + 'artWorks/UpdateTrailerUrl', useToken: true },
             deleteMediaItem: { method: 'DELETE', url: appCONSTANTS.API_URL + 'artWorks/deleteMediaItem', useToken: true },
+            UpdateMediaItemVideoUrl: { method: 'PUT', url: appCONSTANTS.API_URL + 'albums/UpdateMediaItemVideoUrl', useToken: true }
 
-              })
+               })
     }
 
 }());
@@ -1452,13 +1454,19 @@
         var url;
         vm.Progress = 0;
         vm.size = 0;
-        $scope.init = function (obj, id) {
-        debugger;
+        vm.FileModule = 0;
+        $scope.init = function (obj, id, FileModule) {
+            vm.FileModule = FileModule;
             processFile(obj, id);
         };
 
         function processFile(file, itemId) {
-            url = appCONSTANTS.API_URL + 'artWorks/artwork/' + itemId + '/files'; let start = 0;
+            url = appCONSTANTS.API_URL + 'artWorks/artwork/' + itemId + '/files';
+
+            if (vm.FileModule == 3)
+                url = appCONSTANTS.API_URL + 'albums/mediaItems/' + itemId + '/files';
+
+            let start = 0;
             let uploadId = "";
             vm.size = file.size;
             const totalChunks = Math.ceil(vm.size / sliceSize);
@@ -1530,11 +1538,23 @@
         function onProgress(evt) {
             vm.Progress = Math.round(evt);
         }
-        function onUploadComplete(evt) {
-            callBackUpload(model);
+        function Artwork(model) {
+            debugger;
+            var addObj = new ArtWorkMediaResource();
+            addObj.Id = model.id;
+            addObj.FileUrl = model.data.trailer.fileUrl;
+            addObj.FileKey = model.data.trailer.fileKey;
+            addObj.$updateTrailerUrl().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Fileuploaded'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
         }
-        function callBackUpload(model) {
-            debugger
+        function ArtworkMediaFile(model) {
+            debugger;
             var addObj = new ArtWorkMediaResource();
             addObj.ArtWorkId = model.id;
             addObj.FileUrl = model.data.trailer.fileUrl;
@@ -1547,6 +1567,28 @@
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
+        }
+        function Album(model) {
+            var addObj = new ArtWorkMediaResource();
+            addObj.Id = model.id;
+            addObj.FileUrl = model.data.trailer.fileUrl;
+            addObj.FileKey = model.data.trailer.fileKey;
+            addObj.$UpdateMediaItemVideoUrl().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Fileuploaded'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function callBackUpload(model) {
+            if (vm.FileModule == 1)
+                ArtworkMediaFile(model)
+            if (vm.FileModule == 2)
+                Artwork(model)
+            if (vm.FileModule == 3)
+                Album(model)
         }
     }
 }());
@@ -1633,6 +1675,79 @@
             }
 
 })();
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+
+         .filter("range", function () {
+            return (x, n) => Array.from({ length: n }, (x, index) => (index));
+        })
+        .controller('createArtWorkMediaDialogController', ['$stateParams', 'blockUI', '$uibModal', '$state', 'appCONSTANTS', '$translate',
+            'ArtWorkResource', 'ArtWorkMediaResource', 'ToastService', 'ArtWorkMediaByArtWorkIdPrepService', createArtWorkMediaDialogController])
+
+    function createArtWorkMediaDialogController($stateParams, blockUI, $uibModal, $state, appCONSTANTS, $translate, ArtWorkResource,
+        ArtWorkMediaResource, ToastService, ArtWorkMediaByArtWorkIdPrepService) {
+        var vm = this;
+
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.close = function () {
+            $state.go('ArtWorkMedia', { id: $stateParams.id });
+        }
+
+        vm.AddNewArtWorkMedia = function () {
+            debugger;
+            blockUI.start("Loading...");
+            var newObj = new ArtWorkMediaResource();
+            newObj.ArtWorkId = $stateParams.id;
+            newObj.Description ="سيي";
+            newObj.$createMediaFile().then(
+                function (data, status) {
+                    blockUI.stop();
+                    openUploadDialog(data.id, appCONSTANTS.API_URL + 'artWorks/artwork/' + data.id + '/files')
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+                }
+            );
+        }
+
+        function callBackUpload(model) {
+            debugger
+            var updateObj = new ArtWorkMediaResource();
+            updateObj.Id = model.id;
+            updateObj.FileUrl = model.data.FileUrl;
+            updateObj.FileKey = model.data.FileKey;
+            updateObj.$UpdateMediaItemVideoUrl().then(
+                function (data, status) {
+                    debugger;
+                    $state.go('ArtWorkMedia', { id: $stateParams.id });
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function openUploadDialog(id, url) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
+                controller: 'uploadVideoController',
+                controllerAs: 'uploadDlCtrl',
+                resolve: {
+                    itemId: function () { return id },
+                    url: function () { return url },
+                    callBackFunction: function () { return callBackUpload }
+                }
+
+            });
+        }
+
+    }
+}());
 (function () {
     'use strict';
 
@@ -1817,79 +1932,6 @@
 
             });
         }
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-
-         .filter("range", function () {
-            return (x, n) => Array.from({ length: n }, (x, index) => (index));
-        })
-        .controller('createArtWorkMediaDialogController', ['$stateParams', 'blockUI', '$uibModal', '$state', 'appCONSTANTS', '$translate',
-            'ArtWorkResource', 'ArtWorkMediaResource', 'ToastService', 'ArtWorkMediaByArtWorkIdPrepService', createArtWorkMediaDialogController])
-
-    function createArtWorkMediaDialogController($stateParams, blockUI, $uibModal, $state, appCONSTANTS, $translate, ArtWorkResource,
-        ArtWorkMediaResource, ToastService, ArtWorkMediaByArtWorkIdPrepService) {
-        var vm = this;
-
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.close = function () {
-            $state.go('ArtWorkMedia', { id: $stateParams.id });
-        }
-
-        vm.AddNewArtWorkMedia = function () {
-            debugger;
-            blockUI.start("Loading...");
-            var newObj = new ArtWorkMediaResource();
-            newObj.ArtWorkId = $stateParams.id;
-            newObj.Description ="سيي";
-            newObj.$createMediaFile().then(
-                function (data, status) {
-                    blockUI.stop();
-                    openUploadDialog(data.id, appCONSTANTS.API_URL + 'artWorks/artwork/' + data.id + '/files')
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
-                }
-            );
-        }
-
-        function callBackUpload(model) {
-            debugger
-            var updateObj = new ArtWorkMediaResource();
-            updateObj.Id = model.id;
-            updateObj.FileUrl = model.data.FileUrl;
-            updateObj.FileKey = model.data.FileKey;
-            updateObj.$UpdateMediaItemVideoUrl().then(
-                function (data, status) {
-                    debugger;
-                    $state.go('ArtWorkMedia', { id: $stateParams.id });
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        function openUploadDialog(id, url) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
-                controller: 'uploadVideoController',
-                controllerAs: 'uploadDlCtrl',
-                resolve: {
-                    itemId: function () { return id },
-                    url: function () { return url },
-                    callBackFunction: function () { return callBackUpload }
-                }
-
-            });
-        }
-
     }
 }());
 (function () {
@@ -2967,18 +3009,20 @@ debugger
                     });
 
                     scope.frame = function (num) {
+                        debugger;
                         if (video[0].readyState !== 0) {
                             video[0].currentTime += num;
                         }
                     };
 
                     scope.toggle = function () {
-                        if (video[0].paused === true) {
+                        debugger; if (video[0].paused === true) {
                             video[0].play();
                             scope.playing = true;
                         } else {
                             video[0].pause();
                             scope.playing = false;
+
                         }
                     };
                 },
@@ -2994,11 +3038,11 @@ debugger
                     '</div>'
             };
         }])
-        .controller('DisplayVideoController', ['appCONSTANTS', 'MediaFileByIdPrepService', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$state',
+        .controller('DisplayVideoController', ['appCONSTANTS', '$sce', 'MediaFileByIdPrepService', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$state',
             'ToastService', '$stateParams', DisplayVideoController]);
 
 
-    function DisplayVideoController(appCONSTANTS, MediaFileByIdPrepService, $scope, $translate, JudgeArtWorkResource, blockUI, $state, ToastService, $stateParams) {
+    function DisplayVideoController(appCONSTANTS, $sce, MediaFileByIdPrepService, $scope, $translate, JudgeArtWorkResource, blockUI, $state, ToastService, $stateParams) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         var vm = this;
@@ -3010,6 +3054,7 @@ debugger
         vm.Close = function () {
             $state.go('JudgeArtWork');
         }
+        $scope.playing = false;
         vm.submitComment = function () {
             blockUI.start("Loading...");
 
@@ -3044,6 +3089,30 @@ debugger
                     blockUI.stop();
                 });
         }
+
+        $scope.trustSrc = function (src) {
+            return $sce.trustAsResourceUrl(src);
+        }
+        var vid = document.getElementById("myVideo");
+
+        $scope.playVid = function () {
+            $scope.playing = true;
+            vid.play();
+        }
+
+        $scope.pauseVid = function () {
+            $scope.playing = false;
+            vid.pause();
+            tick();
+        }
+
+        function tick() {
+            debugger;
+            $scope.percent = (vid.currentTime / vid.duration) * 100;
+            vm.time = vid.currentTime;
+        }
+
+
 
 
     }
@@ -3849,11 +3918,11 @@ debugger;
         vm.appCONSTANTS = appCONSTANTS;
         refreshMediaItems();
         function refreshMediaItems() {
-            blockUI.start("Loading...");
-            debugger;
-            var k = PhotoAlbumResource.getMediaItems({ id: $stateParams.id }).$promise.then(function (results) {
-                vm.mediaItemList = results;
-                console.log(vm.mediaItemList);
+            blockUI.start("Loading..."); 
+            var k = PhotoAlbumResource.getMediaItems({ id: $stateParams.id, pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
+                debugger;
+                vm.mediaItemList = results.items;
+                $scope.totalCount = results.metadata.totalItemCount;
                 blockUI.stop();
 
             },
@@ -3861,7 +3930,7 @@ debugger;
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
-        } 
+        }
         function confirmationDelete(model) {
             var obj = new PhotoAlbumResource();
             obj.$deleteMediaItems({ id: model.id }).then(
@@ -3891,7 +3960,7 @@ debugger;
         }
         vm.ChangeStatus = function (model) {
             var updateObj = new PhotoAlbumResource();
-            updateObj.id = model.id; 
+            updateObj.id = model.id;
             updateObj.featured = (model.featured == true ? false : true);
             updateObj.$updateMediaItem().then(
                 function (data, status) {
@@ -3912,7 +3981,7 @@ debugger;
 
 
 
-            }
+    }
 
 })();
 (function () {
@@ -4040,8 +4109,8 @@ debugger;
             getPhotoAlbum: { method: 'GET', useToken: true },
             delete: { method: 'DELETE', useToken: true },
             updateMediaItem: { method: 'PUT', url: appCONSTANTS.API_URL + 'albums/UpdateMediaItem', useToken: true },
-            getMediaItems: { method: 'GET', url: appCONSTANTS.API_URL + 'albums/getMediaItems', useToken: true, isArray: true },
-            createMediaItem: { method: 'POST',url: appCONSTANTS.API_URL + 'albums/createMediaItems', useToken: true },
+            getMediaItems: { method: 'POST', url: appCONSTANTS.API_URL + 'albums/getMediaItems', useToken: true },
+            createMediaItem: { method: 'POST', url: appCONSTANTS.API_URL + 'albums/createMediaItems', useToken: true },
             UpdateMediaItemVideoUrl: { method: 'PUT', url: appCONSTANTS.API_URL + 'albums/UpdateMediaItemVideoUrl', useToken: true }
         })
     }
@@ -4161,6 +4230,10 @@ debugger;
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
         vm.selectedMediaType = "";
+        vm.showVideo = false;
+        vm.showButtonVideo = false;
+        vm.mediaId = 0;
+        vm.selectedMediaType = 'Image';
         vm.close = function () {
             $state.go('PhotoAlbum');
         }
@@ -4198,7 +4271,9 @@ debugger;
 
                     } else {
                         debugger;
-                        openUploadDialog(data.id, appCONSTANTS.API_URL + 'albums/mediaItems/' + data.id + '/files')
+                        vm.showButtonVideo = true;
+                        vm.showVideo = true;
+                        vm.mediaId = data.id;
                     }
                 },
                 function (data, status) {
@@ -4207,7 +4282,9 @@ debugger;
                 }
             );
         }
-
+        vm.UpdateMediaItemVideo = function () {
+            processFile($scope.files[0], vm.mediaId)
+        }
         vm.LoadUploadPoster = function () {
             $("#posterImage").click();
             debugger;
@@ -4301,36 +4378,126 @@ debugger;
             vm.posterVideo = $(element)[0].files[0];
         };
 
-        function callBackUpload(model) {
+
+
+
+
+        vm.LoadUploadTrailler = function () {
             debugger
+            $("#traillerUploder").click();
+        }
+        $scope.getFileDetails = function (e) {
+            $scope.files = [];
+            $scope.$apply(function () {
+
+                for (var i = 0; i < e.files.length; i++) {
+                    $scope.files.push(e.files[i])
+                }
+
+            });
+        };
+
+
+        const sliceSize = 5 * 1024 * 1024; 
+        var url;
+        vm.Progress = 0;
+        vm.size = 0;
+        vm.FileModule = 0;
+        $scope.init = function (obj, id, FileModule) {
+            vm.FileModule = FileModule;
+            processFile(obj, id);
+        };
+
+        function processFile(file, itemId) {
+            url = appCONSTANTS.API_URL + 'albums/mediaItems/' + itemId + '/files';
+
+            let start = 0;
+            let uploadId = "";
+            vm.size = file.size;
+            const totalChunks = Math.ceil(vm.size / sliceSize);
+            const chunkIndex = 0;
+            let end = 0;
+            start = chunkIndex * sliceSize;
+            end = start + sliceSize;
+            send(itemId, file, start, end, chunkIndex, totalChunks, [], uploadId);
+        };
+        function slice(file, start, end) {
+            let slice = file.mozSlice ? file.mozSlice : file.webkitSlice ? file.webkitSlice : file.slice ? file.slice : this.noop;
+            return slice.bind(file)(start, end);
+        };
+        this.noop = function () { };
+        function send(itemId, file, start, end, chunkIndex, totalChunks, etags, uploadId) {
+            if (chunkIndex >= totalChunks) {
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function () {
+                var dataUrl = reader.result;
+                var base64 = dataUrl.split(",")[1];
+
+                uploadChunkApi({ id: itemId, fileName: file.name, uploadId, chunkIndex, totalChunks, chunk: base64, eTags: etags })
+                    .then(
+                        function (data, status) {
+                            var a = data;
+                            if (a.status == 200) {
+                                if (end < vm.size) {
+                                    chunkIndex = chunkIndex + 1;
+                                    const newEnd = start + sliceSize * 2;
+                                    const newStart = start + sliceSize;
+                                    debugger;
+                                    const percent = (chunkIndex / totalChunks) * 100;
+                                    onProgress && onProgress(percent);
+                                    send(itemId, file, newStart, newEnd, chunkIndex, totalChunks, a.data.eTags, a.data.uploadId);
+                                } else {
+                                    debugger;
+
+                                    onProgress(100);
+                                    data.id = itemId;
+                                    callBackUpload(data);
+                                }
+                            } else {
+                                ToastService.show("right", "bottom", "fadeInUp", a.data.errors, "error");
+                                console.error("sending error", file.name, chunkIndex, a.data);
+                            }
+                        },
+                        function (data, status) {
+                            ToastService.show("right", "bottom", "fadeInUp", data, "error");
+                        }
+                    );
+            };
+
+            const slicedPart = slice(file, start, end);
+            reader.readAsDataURL(slicedPart);
+        };
+
+        function uploadChunkApi({ id, ...data }) {
+            return $http({
+                method: 'POST',
+                url: url,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: data,
+            });
+        };
+        function onProgress(evt) {
+            vm.Progress = Math.round(evt);
+        }
+        function callBackUpload(model) {
             var updateObj = new PhotoAlbumResource();
             updateObj.Id = model.id;
-            updateObj.FileUrl = model.data.fileUrl;
-            updateObj.FileKey = model.data.fileKey;
+            updateObj.FileUrl = model.data.file.fileUrl;
+            updateObj.FileKey = model.data.file.fileKey;
             updateObj.$UpdateMediaItemVideoUrl().then(
                 function (data, status) {
                     debugger;
                     $state.go('mediaItems', { id: $stateParams.id });
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Fileuploaded'), "success");
                 },
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
-        }
-        function openUploadDialog(id, url) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/UploadVideo/templates/UploadVideoDialog.html',
-                controller: 'uploadVideoController',
-                controllerAs: 'uploadDlCtrl',
-                resolve: {
-                    itemId: function () { return id },
-                    url: function () { return url },
-                    callBackFunction: function () { return callBackUpload }
-                }
-
-            });
         }
     }
 }());
@@ -4822,6 +4989,245 @@ debugger;
 }());
 
 (function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('VotingCriteriaController', ['appCONSTANTS', '$scope', '$translate', 'VotingCriteriaResource', 'blockUI', '$uibModal',
+            'ToastService', VotingCriteriaController]);
+
+
+    function VotingCriteriaController(appCONSTANTS, $scope, $translate, VotingCriteriaResource, blockUI, $uibModal, ToastService) {
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+        var vm = this;
+
+        vm.currentPage = 1;
+        vm.appCONSTANTS = appCONSTANTS;
+
+        refreshVotingCriterias();
+        function refreshVotingCriterias() {
+            blockUI.start("Loading...");
+
+            var k = VotingCriteriaResource.getAllVotingCriterias({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
+                $scope.VotingCriteriaList = results.items;
+                $scope.totalCount = results.metadata.totalItemCount; 
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+                });
+        }
+        vm.showMore = function (element) {
+            $(element.currentTarget).toggleClass("child-table-collapse");
+        }
+
+        function confirmationDelete(model) {
+            var updateObj = new VotingCriteriaResource();
+            updateObj.$delete({ id: model.id }).then(
+                function (data, status) {
+                    refreshVotingCriterias();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.openDeleteDialog = function (model, name, id) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+                controller: 'confirmDeleteDialogController',
+                controllerAs: 'deleteDlCtrl',
+                resolve: {
+                    model: function () { return model },
+                    itemName: function () { return name },
+                    itemId: function () { return id },
+                    message: function () { return null },
+                    callBackFunction: function () { return confirmationDelete }
+                }
+
+            });
+        } 
+
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshVotingCriterias();
+        }
+
+    }
+
+})();
+(function () {
+    angular
+        .module('home')
+        .factory('VotingCriteriaResource', ['$resource', 'appCONSTANTS', VotingCriteriaResource])
+
+    function VotingCriteriaResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'VotingCriterias', {}, {
+            getAllVotingCriterias: { method: 'POST', url: appCONSTANTS.API_URL + 'VotingCriterias/search', useToken: true, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'PUT', useToken: true },
+            getVotingCriteria: { method: 'GET', useToken: true },
+            delete: { method: 'DELETE', useToken: true },
+            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'VotingCriterias/ChangeStatus/:id/:status', useToken: true }
+
+        })
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .config(function ($stateProvider, $urlRouterProvider) {
+
+            $stateProvider
+                .state('VotingCriteria', {
+                    url: '/VotingCriteria',
+                    templateUrl: './app/GlobalAdmin/VotingCriteria/templates/VotingCriteria.html',
+                    controller: 'VotingCriteriaController',
+                    'controllerAs': 'VotingCriteriaCtrl',
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('newVotingCriteria', {
+                    url: '/newVotingCriteria',
+                    templateUrl: './app/GlobalAdmin/VotingCriteria/templates/new.html',
+                    controller: 'createVotingCriteriaDialogController',
+                    'controllerAs': 'newVotingCriteriaCtrl', 
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('editVotingCriteria', {
+                    url: '/editVotingCriteria/:id',
+                    templateUrl: './app/GlobalAdmin/VotingCriteria/templates/edit.html',
+                    controller: 'editVotingCriteriaDialogController',
+                    'controllerAs': 'editVotingCriteriaCtrl',
+                    resolve: {
+                        VotingCriteriaByIdPrepService: VotingCriteriaByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+        });
+
+    VotingCriteriaPrepService.$inject = ['VotingCriteriaResource']
+    function VotingCriteriaPrepService(VotingCriteriaResource) {
+        return VotingCriteriaResource.getAllVotingCriterias({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+
+    VotingCriteriaByIdPrepService.$inject = ['VotingCriteriaResource', '$stateParams']
+    function VotingCriteriaByIdPrepService(VotingCriteriaResource, $stateParams) {
+        return VotingCriteriaResource.getVotingCriteria({ id: $stateParams.id }).$promise;
+    }
+
+    AllAwardPrepService.$inject = ['VotingCriteriaResource']
+    function AllAwardPrepService(VotingCriteriaResource) {
+        return VotingCriteriaResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
+    }
+
+ }());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('createVotingCriteriaDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'VotingCriteriaResource', 'ToastService', '$rootScope', createVotingCriteriaDialogController])
+
+    function createVotingCriteriaDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, VotingCriteriaResource,
+        ToastService, $rootScope) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.close = function () {
+            $state.go('VotingCriteria');
+        }
+
+
+        vm.AddNewVotingCriteria = function () {
+            blockUI.start("Loading...");
+            var newObj = new VotingCriteriaResource();
+            newObj.Name = vm.Name;
+            newObj.Code = vm.Code; 
+            newObj.Weight= vm.Weight;
+            newObj.Level= vm.selectedVotingLevel;
+            newObj.$create().then(
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('VotingCriteria');
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.title, "error");
+                }
+            );
+        }
+
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editVotingCriteriaDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+            'VotingCriteriaResource', 'ToastService', 'VotingCriteriaByIdPrepService', editVotingCriteriaDialogController])
+
+    function editVotingCriteriaDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, VotingCriteriaResource,
+        ToastService, VotingCriteriaByIdPrepService) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.VotingCriteria = VotingCriteriaByIdPrepService;
+        debugger;
+        vm.selectedVotingLevel = vm.VotingCriteria.level;
+        console.log(vm.VotingCriteria);
+
+        vm.Close = function () {
+            $state.go('VotingCriteria');
+        }
+        vm.UpdateVotingCriteria = function () {
+            blockUI.start("Loading...");
+            debugger;
+
+            var updateObj = new VotingCriteriaResource();
+            updateObj.Id = vm.VotingCriteria.id;
+            updateObj.name = vm.VotingCriteria.name;
+            updateObj.Code = vm.VotingCriteria.code;
+            updateObj.Weight = vm.VotingCriteria.weight;
+            updateObj.Level = vm.selectedVotingLevel;
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    blockUI.stop();
+
+                    $state.go('VotingCriteria');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+    }
+}());
+(function () {
     angular
         .module('home')
         .factory('UploadChunkResource', ['$resource', 'appCONSTANTS', UploadChunkResource])
@@ -5111,245 +5517,6 @@ debugger;
             $uibModalInstance.dismiss();
         }
 
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('VotingCriteriaController', ['appCONSTANTS', '$scope', '$translate', 'VotingCriteriaResource', 'blockUI', '$uibModal',
-            'ToastService', VotingCriteriaController]);
-
-
-    function VotingCriteriaController(appCONSTANTS, $scope, $translate, VotingCriteriaResource, blockUI, $uibModal, ToastService) {
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
-        var vm = this;
-
-        vm.currentPage = 1;
-        vm.appCONSTANTS = appCONSTANTS;
-
-        refreshVotingCriterias();
-        function refreshVotingCriterias() {
-            blockUI.start("Loading...");
-
-            var k = VotingCriteriaResource.getAllVotingCriterias({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
-                $scope.VotingCriteriaList = results.items;
-                $scope.totalCount = results.metadata.totalItemCount; 
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    blockUI.stop();
-                });
-        }
-        vm.showMore = function (element) {
-            $(element.currentTarget).toggleClass("child-table-collapse");
-        }
-
-        function confirmationDelete(model) {
-            var updateObj = new VotingCriteriaResource();
-            updateObj.$delete({ id: model.id }).then(
-                function (data, status) {
-                    refreshVotingCriterias();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        } 
-
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshVotingCriterias();
-        }
-
-    }
-
-})();
-(function () {
-    angular
-        .module('home')
-        .factory('VotingCriteriaResource', ['$resource', 'appCONSTANTS', VotingCriteriaResource])
-
-    function VotingCriteriaResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'VotingCriterias', {}, {
-            getAllVotingCriterias: { method: 'POST', url: appCONSTANTS.API_URL + 'VotingCriterias/search', useToken: true, params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'PUT', useToken: true },
-            getVotingCriteria: { method: 'GET', useToken: true },
-            delete: { method: 'DELETE', useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'VotingCriterias/ChangeStatus/:id/:status', useToken: true }
-
-        })
-    }
-
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .config(function ($stateProvider, $urlRouterProvider) {
-
-            $stateProvider
-                .state('VotingCriteria', {
-                    url: '/VotingCriteria',
-                    templateUrl: './app/GlobalAdmin/VotingCriteria/templates/VotingCriteria.html',
-                    controller: 'VotingCriteriaController',
-                    'controllerAs': 'VotingCriteriaCtrl',
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('newVotingCriteria', {
-                    url: '/newVotingCriteria',
-                    templateUrl: './app/GlobalAdmin/VotingCriteria/templates/new.html',
-                    controller: 'createVotingCriteriaDialogController',
-                    'controllerAs': 'newVotingCriteriaCtrl', 
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-                .state('editVotingCriteria', {
-                    url: '/editVotingCriteria/:id',
-                    templateUrl: './app/GlobalAdmin/VotingCriteria/templates/edit.html',
-                    controller: 'editVotingCriteriaDialogController',
-                    'controllerAs': 'editVotingCriteriaCtrl',
-                    resolve: {
-                        VotingCriteriaByIdPrepService: VotingCriteriaByIdPrepService
-                    },
-                    data: {
-                        permissions: {
-                            redirectTo: 'root'
-                        }
-                    }
-
-                })
-        });
-
-    VotingCriteriaPrepService.$inject = ['VotingCriteriaResource']
-    function VotingCriteriaPrepService(VotingCriteriaResource) {
-        return VotingCriteriaResource.getAllVotingCriterias({ pageNumber: 1, pageSize: 10 }).$promise;
-    }
-
-    VotingCriteriaByIdPrepService.$inject = ['VotingCriteriaResource', '$stateParams']
-    function VotingCriteriaByIdPrepService(VotingCriteriaResource, $stateParams) {
-        return VotingCriteriaResource.getVotingCriteria({ id: $stateParams.id }).$promise;
-    }
-
-    AllAwardPrepService.$inject = ['VotingCriteriaResource']
-    function AllAwardPrepService(VotingCriteriaResource) {
-        return VotingCriteriaResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise;
-    }
-
- }());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('createVotingCriteriaDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'VotingCriteriaResource', 'ToastService', '$rootScope', createVotingCriteriaDialogController])
-
-    function createVotingCriteriaDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, VotingCriteriaResource,
-        ToastService, $rootScope) {
-        var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.close = function () {
-            $state.go('VotingCriteria');
-        }
-
-
-        vm.AddNewVotingCriteria = function () {
-            blockUI.start("Loading...");
-            var newObj = new VotingCriteriaResource();
-            newObj.Name = vm.Name;
-            newObj.Code = vm.Code; 
-            newObj.Weight= vm.Weight;
-            newObj.Level= vm.selectedVotingLevel;
-            newObj.$create().then(
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    $state.go('VotingCriteria');
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.title, "error");
-                }
-            );
-        }
-
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editVotingCriteriaDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
-            'VotingCriteriaResource', 'ToastService', 'VotingCriteriaByIdPrepService', editVotingCriteriaDialogController])
-
-    function editVotingCriteriaDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, VotingCriteriaResource,
-        ToastService, VotingCriteriaByIdPrepService) {
-        var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.VotingCriteria = VotingCriteriaByIdPrepService;
-        debugger;
-        vm.selectedVotingLevel = vm.VotingCriteria.level;
-        console.log(vm.VotingCriteria);
-
-        vm.Close = function () {
-            $state.go('VotingCriteria');
-        }
-        vm.UpdateVotingCriteria = function () {
-            blockUI.start("Loading...");
-            debugger;
-
-            var updateObj = new VotingCriteriaResource();
-            updateObj.Id = vm.VotingCriteria.id;
-            updateObj.name = vm.VotingCriteria.name;
-            updateObj.Code = vm.VotingCriteria.code;
-            updateObj.Weight = vm.VotingCriteria.weight;
-            updateObj.Level = vm.selectedVotingLevel;
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    blockUI.stop();
-
-                    $state.go('VotingCriteria');
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
     }
 }());
 (function () {
@@ -5983,6 +6150,291 @@ debugger;
 
     angular
         .module('home')
+        .controller('addUserController', ['blockUI', 'RoleResource', '$stateParams', '$translate', '$state', 'UserResource', '$scope', 'ToastService', addUserController]);
+
+    function addUserController(blockUI, RoleResource, $stateParams, $translate, $state, UserResource, $scope, ToastService, ) {
+
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
+
+        var vm = this;
+        vm.selectedRoleId = 0;
+        refreshRoles();
+        blockUI.start("Loading...");
+        vm.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
+        vm.selectedModuleList = [];
+        vm.selectedModule = "";
+        vm.UnSelectedPermissions = [];
+
+        vm.checkPermission = function (obj) {
+            var checkIfPermissionExist = vm.UnSelectedPermissions.indexOf(obj.permessionId);
+            if (checkIfPermissionExist == -1) {
+                vm.UnSelectedPermissions.push(obj.permessionId);
+            }
+            else {
+                var index = vm.UnSelectedPermissions.indexOf(obj.permessionId);
+                vm.UnSelectedPermissions.splice(index, 1);
+            }
+        }
+        vm.AddNewUser = function () {
+
+            blockUI.start("Loading...");
+            var newUser = new UserResource();
+            newUser.fullName = vm.fullName;
+            newUser.email = vm.email;
+            newUser.phoneNumber = vm.mobileNumber;
+            newUser.password = vm.password;
+            newUser.$create().then(
+                function (data, status) {
+                    blockUI.stop();
+                    if (data.id == null)
+                        ToastService.show("right", "bottom", "fadeInUp", data, "error");
+                    else {
+                        debugger;
+                        vm.selectedRole.forEach(role => {
+                            addUserToRole(role.name, data.id);
+                        });
+                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
+                        $state.go('users');
+                    }
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+                }
+            );
+        }
+        vm.currentPage = 1;
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshUsers();
+        }
+        vm.close = function () {
+            $state.go('users');
+        }
+        blockUI.stop();
+
+        function addUserToRole(role, userId) { 
+
+            var newRole = new RoleResource();
+            newRole.$addUserToRole({ roleName: role, userId: userId }).then(
+                function (data, status) {
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
+                }
+            );
+
+
+        }
+        function refreshRoles() {
+            var k = RoleResource.getAllActivateRoles().$promise.then(function (results) {
+                debugger;
+                vm.roleList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
+
+
+    }
+
+}());(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editUserController', ['$stateParams','UserRoleByIdPrepService', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
+            'EditUserPrepService', 'ToastService', editUserController]);
+
+
+    function editUserController($stateParams,UserRoleByIdPrepService, blockUI, $scope, $filter, $translate, $state, UserResource,
+        EditUserPrepService, ToastService) {
+
+        blockUI.start("Loading...");
+
+        $scope.isPaneShown = true;
+        $scope.$emit('LOAD')
+        var vm = this;
+
+        vm.userObj = EditUserPrepService;
+
+        vm.Role = UserRoleByIdPrepService;
+        console.log(UserRoleByIdPrepService);
+        vm.selectedModuleList = [];
+        vm.selectedModule = ""; 
+        vm.UnSelectedPermissions = [];
+        vm.checkPermission = function (obj) {
+            var checkIfPermissionExist = vm.UnSelectedPermissions.indexOf(obj.permessionId);
+            if (checkIfPermissionExist == -1) {
+                vm.UnSelectedPermissions.push(obj.permessionId);
+            }
+            else {
+                var index = vm.UnSelectedPermissions.indexOf(obj.permessionId);
+                vm.UnSelectedPermissions.splice(index, 1);
+            }
+        }
+        vm.EditUser = function () {
+            blockUI.start("Loading...");
+            vm.show = false;
+            var updateUser = new UserResource();
+            updateUser.userId = vm.userObj.userId;
+            updateUser.fullName = vm.userObj.fullName;
+            updateUser.username = vm.userObj.userName;
+            updateUser.unSelectedRoles = vm.UnSelectedPermissions;
+            updateUser.email = vm.userObj.email;
+            updateUser.mobileNumber = vm.userObj.mobileNumber;
+            updateUser.password = vm.userObj.password;
+
+            updateUser.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+                    if (data.message != null)
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    else {
+                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                        if ($scope.user.userTypeId == 1)
+                            $state.go('RetailerUser');
+                        if ($scope.user.userTypeId == 2)
+                            $state.go('ManufactureUser');
+                        if ($scope.user.userTypeId == 3)
+                            $state.go('DistributerUser');
+                        if ($scope.user.userTypeId == 4)
+                            $state.go('users');
+                        if ($scope.user.userTypeId == 5)
+                            $state.go('IooUser');
+                        if ($scope.user.userTypeId == 255)
+                            $state.go('IoaUser');
+
+                    }
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                }
+            );
+        }
+        vm.close = function () {
+
+                        if ($scope.user.userTypeId == 1)
+                $state.go('RetailerUser');
+            if ($scope.user.userTypeId == 2)
+                $state.go('ManufactureUser');
+            if ($scope.user.userTypeId == 3)
+                $state.go('DistributerUser');
+            if ($scope.user.userTypeId == 4)
+                $state.go('users');
+            if ($scope.user.userTypeId == 5)
+                $state.go('IooUser');
+            if ($scope.user.userTypeId == 255)
+                $state.go('IoaUser');
+        }
+        blockUI.stop();
+
+    }
+
+})();(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('userController', ['blockUI', '$translate', '$state', 'UserResource',
+            'RoleResource', 'ToastService', userController]);
+
+    function userController(blockUI, $translate, $state, UserResource, RoleResource, ToastService) {
+
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
+
+        var vm = this;
+        vm.currentTenantType = 0;
+        blockUI.start("Loading...");
+
+        refreshRoles();
+        vm.close = function () {
+
+            $state.go('users');
+        }
+
+
+        function refreshUsers() {
+            blockUI.start("Loading...");
+            var k = UserResource.getAllUsersByUserType({ roleName: vm.selectedRole.name }).$promise.then(function (results) {
+                vm.currentTenantType = vm.selectedRole;
+
+                vm.totalCount = results.length;
+                vm.userList = results;
+                console.log(vm.userList);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+
+        vm.showMore = function (element) {
+            $(element.currentTarget).toggleClass("child-table-collapse");
+        }
+        vm.changeUserType = function () {
+            refreshUsers()
+        }
+        vm.currentPage = 1;
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshUsers();
+        }
+        blockUI.stop();
+
+        function refreshRoles() {
+            var k = RoleResource.getAllActivateRoles().$promise.then(function (results) {
+
+                vm.roleList = results;
+                blockUI.stop();
+                vm.selectedRole = vm.roleList[0];
+                refreshUsers()
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
+    }
+
+}());(function () {
+    angular
+        .module('home')
+        .factory('UserResource', ['$resource', 'appCONSTANTS', UserResource])
+
+    function UserResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'user/CreateByEmail', {}, {
+            getAllUsersByUserType: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/role/:roleName/users', useToken: true, isArray: true, params: { lang: '@lang' } },
+            getAllUsersForManufacture: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetTenantUsers/:tenantId', useToken: true, params: { lang: '@lang' } },
+            getAllAdminUsers: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetAdminUsers/:userType', useToken: true, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/UpdateUser', useToken: true },
+            createOperationUser: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/CreateOperationUser/:userType', useToken: true },
+            getUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetUserById/:userId', useToken: true },
+            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/ChangeStatus/:userId', useToken: true },
+            changeRole: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/MoveToAdminRole/:userType/:userId', useToken: true },
+            getUserRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/RoleForUser/:userId', useToken: true},
+            refreshLogin: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/RefreshLogin', useToken: true },
+        })
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
         .controller('editBranchFeesController', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
             , 'branchFeesPrepService' , '$uibModalInstance', 'BranchResource', editBranchFeesController]);
@@ -6293,288 +6745,3 @@ debugger;
 
 }());
 
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('addUserController', ['blockUI', 'RoleResource', '$stateParams', '$translate', '$state', 'UserResource', '$scope', 'ToastService', addUserController]);
-
-    function addUserController(blockUI, RoleResource, $stateParams, $translate, $state, UserResource, $scope, ToastService, ) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
-
-        var vm = this;
-        vm.selectedRoleId = 0;
-        refreshRoles();
-        blockUI.start("Loading...");
-        vm.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
-        vm.selectedModuleList = [];
-        vm.selectedModule = "";
-        vm.UnSelectedPermissions = [];
-
-        vm.checkPermission = function (obj) {
-            var checkIfPermissionExist = vm.UnSelectedPermissions.indexOf(obj.permessionId);
-            if (checkIfPermissionExist == -1) {
-                vm.UnSelectedPermissions.push(obj.permessionId);
-            }
-            else {
-                var index = vm.UnSelectedPermissions.indexOf(obj.permessionId);
-                vm.UnSelectedPermissions.splice(index, 1);
-            }
-        }
-        vm.AddNewUser = function () {
-
-            blockUI.start("Loading...");
-            var newUser = new UserResource();
-            newUser.fullName = vm.fullName;
-            newUser.email = vm.email;
-            newUser.phoneNumber = vm.mobileNumber;
-            newUser.password = vm.password;
-            newUser.$create().then(
-                function (data, status) {
-                    blockUI.stop();
-                    if (data.id == null)
-                        ToastService.show("right", "bottom", "fadeInUp", data, "error");
-                    else {
-                        debugger;
-                        vm.selectedRole.forEach(role => {
-                            addUserToRole(role.name, data.id);
-                        });
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
-                        $state.go('users');
-                    }
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
-                }
-            );
-        }
-        vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshUsers();
-        }
-        vm.close = function () {
-            $state.go('users');
-        }
-        blockUI.stop();
-
-        function addUserToRole(role, userId) { 
-
-            var newRole = new RoleResource();
-            newRole.$addUserToRole({ roleName: role, userId: userId }).then(
-                function (data, status) {
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data, "error");
-                }
-            );
-
-
-        }
-        function refreshRoles() {
-            var k = RoleResource.getAllActivateRoles().$promise.then(function (results) {
-                debugger;
-                vm.roleList = results;
-                blockUI.stop();
-
-            },
-                function (data, status) {
-
-                    blockUI.stop();
-                });
-        }
-
-
-    }
-
-}());(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editUserController', ['$stateParams','UserRoleByIdPrepService', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
-            'EditUserPrepService', 'ToastService', editUserController]);
-
-
-    function editUserController($stateParams,UserRoleByIdPrepService, blockUI, $scope, $filter, $translate, $state, UserResource,
-        EditUserPrepService, ToastService) {
-
-        blockUI.start("Loading...");
-
-        $scope.isPaneShown = true;
-        $scope.$emit('LOAD')
-        var vm = this;
-
-        vm.userObj = EditUserPrepService;
-
-        vm.Role = UserRoleByIdPrepService;
-        console.log(UserRoleByIdPrepService);
-        vm.selectedModuleList = [];
-        vm.selectedModule = ""; 
-        vm.UnSelectedPermissions = [];
-        vm.checkPermission = function (obj) {
-            var checkIfPermissionExist = vm.UnSelectedPermissions.indexOf(obj.permessionId);
-            if (checkIfPermissionExist == -1) {
-                vm.UnSelectedPermissions.push(obj.permessionId);
-            }
-            else {
-                var index = vm.UnSelectedPermissions.indexOf(obj.permessionId);
-                vm.UnSelectedPermissions.splice(index, 1);
-            }
-        }
-        vm.EditUser = function () {
-            blockUI.start("Loading...");
-            vm.show = false;
-            var updateUser = new UserResource();
-            updateUser.userId = vm.userObj.userId;
-            updateUser.fullName = vm.userObj.fullName;
-            updateUser.username = vm.userObj.userName;
-            updateUser.unSelectedRoles = vm.UnSelectedPermissions;
-            updateUser.email = vm.userObj.email;
-            updateUser.mobileNumber = vm.userObj.mobileNumber;
-            updateUser.password = vm.userObj.password;
-
-            updateUser.$update().then(
-                function (data, status) {
-                    blockUI.stop();
-                    if (data.message != null)
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                    else {
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                        if ($scope.user.userTypeId == 1)
-                            $state.go('RetailerUser');
-                        if ($scope.user.userTypeId == 2)
-                            $state.go('ManufactureUser');
-                        if ($scope.user.userTypeId == 3)
-                            $state.go('DistributerUser');
-                        if ($scope.user.userTypeId == 4)
-                            $state.go('users');
-                        if ($scope.user.userTypeId == 5)
-                            $state.go('IooUser');
-                        if ($scope.user.userTypeId == 255)
-                            $state.go('IoaUser');
-
-                    }
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
-            );
-        }
-        vm.close = function () {
-
-                        if ($scope.user.userTypeId == 1)
-                $state.go('RetailerUser');
-            if ($scope.user.userTypeId == 2)
-                $state.go('ManufactureUser');
-            if ($scope.user.userTypeId == 3)
-                $state.go('DistributerUser');
-            if ($scope.user.userTypeId == 4)
-                $state.go('users');
-            if ($scope.user.userTypeId == 5)
-                $state.go('IooUser');
-            if ($scope.user.userTypeId == 255)
-                $state.go('IoaUser');
-        }
-        blockUI.stop();
-
-    }
-
-})();(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('userController', ['blockUI', '$translate', '$state', 'UserResource',
-            'RoleResource', 'ToastService', userController]);
-
-    function userController(blockUI, $translate, $state, UserResource, RoleResource, ToastService) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
-
-        var vm = this;
-        vm.currentTenantType = 0;
-        blockUI.start("Loading...");
-
-        refreshRoles();
-        vm.close = function () {
-
-            $state.go('users');
-        }
-
-
-        function refreshUsers() {
-            blockUI.start("Loading...");
-            var k = UserResource.getAllUsersByUserType({ roleName: vm.selectedRole.name }).$promise.then(function (results) {
-                vm.currentTenantType = vm.selectedRole;
-
-                vm.totalCount = results.length;
-                vm.userList = results;
-                console.log(vm.userList);
-                blockUI.stop();
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-
-        vm.showMore = function (element) {
-            $(element.currentTarget).toggleClass("child-table-collapse");
-        }
-        vm.changeUserType = function () {
-            refreshUsers()
-        }
-        vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshUsers();
-        }
-        blockUI.stop();
-
-        function refreshRoles() {
-            var k = RoleResource.getAllActivateRoles().$promise.then(function (results) {
-
-                vm.roleList = results;
-                blockUI.stop();
-                vm.selectedRole = vm.roleList[0];
-                refreshUsers()
-            },
-                function (data, status) {
-
-                    blockUI.stop();
-                });
-        }
-    }
-
-}());(function () {
-    angular
-        .module('home')
-        .factory('UserResource', ['$resource', 'appCONSTANTS', UserResource])
-
-    function UserResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'user/CreateByEmail', {}, {
-            getAllUsersByUserType: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/role/:roleName/users', useToken: true, isArray: true, params: { lang: '@lang' } },
-            getAllUsersForManufacture: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetTenantUsers/:tenantId', useToken: true, params: { lang: '@lang' } },
-            getAllAdminUsers: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetAdminUsers/:userType', useToken: true, params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/UpdateUser', useToken: true },
-            createOperationUser: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/CreateOperationUser/:userType', useToken: true },
-            getUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Account/GetUserById/:userId', useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/ChangeStatus/:userId', useToken: true },
-            changeRole: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/MoveToAdminRole/:userType/:userId', useToken: true },
-            getUserRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/RoleForUser/:userId', useToken: true},
-            refreshLogin: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/RefreshLogin', useToken: true },
-        })
-    }
-
-}());

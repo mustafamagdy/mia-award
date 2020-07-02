@@ -3,10 +3,10 @@
 
     angular
         .module('home')
-        .controller('editArtWorkDialogController', ['$rootScope', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+        .controller('editArtWorkDialogController', ['$rootScope','$sce', '$scope', 'blockUI', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
             'ArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', editArtWorkDialogController])
 
-    function editArtWorkDialogController($rootScope, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
+    function editArtWorkDialogController($rootScope,$sce, $scope, blockUI, $filter, $http, $state, appCONSTANTS, $translate, ArtWorkResource,
         ToastService, ArtWorkByIdPrepService) {
 
         refreshAwards();
@@ -15,13 +15,12 @@
         var vm = this;
         vm.awardList = [];
         vm.nomineeList = [];
-        // vm.countryList = [];
-        vm.productionList = [];
+        // vm.countryList = []; 
         vm.selectedAward = "";
         vm.selectedNominee = "";
         vm.language = appCONSTANTS.supportedLanguage;
         vm.ArtWork = ArtWorkByIdPrepService;
-        vm.selectedProduction = [];
+      
         vm.posterImage = vm.ArtWork.posterUrl;
         vm.coverImage = vm.ArtWork.coverUrl;
 
@@ -29,7 +28,9 @@
         vm.selectedProductionYear = vm.ArtWork.productionYear;// vm.yearsList[0];
         vm.selectedBroadcastYear = vm.ArtWork.broadcastYear;// vm.yearsList[0];
         vm.IsArtwork = false;
-
+        $scope.trustSrc = function (src) {
+            return $sce.trustAsResourceUrl(src);
+        }
         this.tab = 1;
 
         this.setTab = function (tabId) {
