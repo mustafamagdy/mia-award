@@ -330,4 +330,5 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
-/MIA/wwwroot/cached_images
+MIA/wwwroot/cached_images
+MIA.Administration/ClientApp/dist/
