@@ -4,7 +4,7 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        51
+        60
       ]
     ]
   },
@@ -13,11 +13,11 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        84
+        115
       ],
       [
         "src/containers/Members/Profile.js",
-        188
+        225
       ]
     ]
   },
@@ -26,11 +26,11 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        87
+        118
       ],
       [
         "src/containers/Members/Profile.js",
-        195
+        233
       ]
     ]
   },
@@ -39,7 +39,7 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        207
+        246
       ]
     ]
   },
@@ -48,7 +48,7 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        213
+        252
       ]
     ]
   },
@@ -57,7 +57,7 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        219
+        258
       ]
     ]
   },
@@ -66,7 +66,16 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        225
+        268
+      ]
+    ]
+  },
+  "no_awards_yet": {
+    "defaults": "No awards yet",
+    "origin": [
+      [
+        "src/containers/Members/Profile.js",
+        288
       ]
     ]
   }

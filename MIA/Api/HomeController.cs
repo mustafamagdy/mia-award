@@ -74,7 +74,7 @@ namespace MIA.Api {
     [HttpGet("awards")]
     public async Task<IActionResult> Awards([FromServices] IAppUnitOfWork db) {
       var result = await db.Awards
-                          .OrderBy(a=>a.Order)
+                          .OrderBy(a => a.Order)
                           .ProjectTo<AwardDto>(_mapper.ConfigurationProvider)
                           .ToListAsync();
       return Ok(result);
@@ -130,18 +130,18 @@ namespace MIA.Api {
 
     [HttpPost("newsletter")]
     public async Task<IActionResult> SubscribeToNewsLeter(
+     [FromHeader] string culture,
      [FromBody] NewsLetterDto dto,
+     [FromServices] ITemplateParser templateParser,
+     [FromServices] IOptions<AdminOptions> adminOptions,
+     [FromServices] IEmailSender emailSender,
      [FromServices] IAppUnitOfWork db) {
-      //var _result = db.News
-      //  .Include(a => a.Image)
-      //  .AsQueryable();
-
-      //var result = _result
-      //  .ProjectTo<NewsDto>(_mapper.ConfigurationProvider)
-      //  .ToPagedList(query);
-
-      //return Ok(result);
-
+      try {
+        string htmlMessage = await templateParser.LoadAndParse("newsletter_sub", locale: culture, dto);
+        await emailSender.SendEmailAsync(adminOptions.Value.ContactUsEmail, _Locale.Get(culture, "newsletter_sub"), htmlMessage);
+      } catch (Exception ex) {
+        _logger.LogError(ex, $"Failed to send email for user to subscribe in newsletter email: {dto.Email}");
+      }
       return Ok();
     }
 
