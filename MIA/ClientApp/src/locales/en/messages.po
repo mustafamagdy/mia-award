@@ -47,17 +47,19 @@ msgstr "Contestants"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:30
 msgid "about_tab_content_mia_honor"
-msgstr "MIA Honor"
+msgstr  ""
+"<b>MIA Appreciation Award</b>"
+"<br />A high-level award recognizing media personalities or organizations who present outstanding artistic contributions."
 
 #: src/components/Layout/Footer.js:51
 msgid "about_us"
 msgstr "About Us"
 
-#: src/containers/MyProfile/ChangePassword.js:101
+#: src/containers/MyProfile/ChangePassword.js:143
 msgid "accept_changes"
 msgstr "Accept changes"
 
-#: src/containers/Members/Auth/Register.js:200
+#: src/containers/Members/Auth/Register.js:205
 msgid "accept_terms"
 msgstr "Accept terms"
 
@@ -73,7 +75,7 @@ msgstr "Add New Show"
 msgid "address"
 msgstr "Address"
 
-#: src/containers/Booths/index.js:636
+#: src/containers/Booths/index.js:648
 msgid "agreeOnTerms"
 msgstr "Agree on"
 
@@ -82,7 +84,6 @@ msgstr "Agree on"
 #~ msgstr "All Languages"
 
 #: src/containers/Members/Artworks/Artwork/View/PaymentView.js:13
-#: src/containers/Members/Artworks/Contestant/View/PaymentView.js:13
 msgid "amount"
 msgstr "Amount"
 
@@ -106,11 +107,11 @@ msgstr "Apply Now"
 msgid "are_you_sure_to_delete"
 msgstr "Are you sure you want to delete this item?"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:260
+#: src/containers/Members/Artworks/Artwork/View/index.js:263
 msgid "are_you_sure_to_send_to_judge"
 msgstr "Are you sure you want to send your data to judge, this cannot be undo?"
 
-#: src/containers/Booths/index.js:326
+#: src/containers/Booths/index.js:338
 msgid "area"
 msgstr "Area"
 
@@ -122,17 +123,21 @@ msgstr "Area"
 msgid "awards"
 msgstr "Awards"
 
-#: src/containers/Booths/index.js:644
+#: src/containers/Booths/index.js:656
 msgid "book_now"
 msgstr "Book now"
 
-#: src/containers/Booths/index.js:658
+#: src/containers/Booths/index.js:670
 msgid "booth_booking_success"
 msgstr "Success"
 
-#: src/containers/Booths/index.js:661
+#: src/containers/Booths/index.js:673
 msgid "booth_booking_success_msg"
 msgstr "Booth has been successfuly booked, our team will contact you soon complete the process"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:101
+msgid "booth_password_must_match"
+msgstr "Booth passwords must batch"
 
 #: src/containers/Booths/index.js:104
 msgid "booth_sold_out"
@@ -142,8 +147,7 @@ msgstr "All booths have been sold out"
 msgid "booths"
 msgstr "Booths"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:192
-#: src/containers/Members/Artworks/Contestant/View/index.js:148
+#: src/containers/Members/Artworks/Artwork/View/index.js:191
 #: src/containers/Pages/Shows/view.js:80
 msgid "broadcast_year"
 msgstr "Broadcast Year"
@@ -162,8 +166,8 @@ msgid "by_clicking_you_accept"
 msgstr "By clicking «I Accept» or «X» on this banner, or using our site, you consent to the use of cookies unless you have disabled them."
 
 #: src/containers/Members/Profile.js:87
-#: src/containers/Members/Profile.js:195
-#: src/containers/MyProfile/index.js:259
+#: src/containers/Members/Profile.js:197
+#: src/containers/MyProfile/index.js:360
 msgid "cancel"
 msgstr "Cancel"
 
@@ -188,14 +192,14 @@ msgstr "Phone 2"
 msgid "change_avatar"
 msgstr "Change Avatar"
 
-#: src/containers/MyProfile/ChangePassword.js:17
-#: src/containers/MyProfile/index.js:222
-#: src/containers/MyProfile/index.js:230
+#: src/containers/MyProfile/ChangePassword.js:26
+#: src/containers/MyProfile/index.js:314
+#: src/containers/MyProfile/index.js:325
 msgid "change_password"
 msgstr "Change Password"
 
-#: src/containers/MyProfile/index.js:110
-#: src/containers/MyProfile/index.js:114
+#: src/containers/MyProfile/index.js:143
+#: src/containers/MyProfile/index.js:154
 msgid "change_photo"
 msgstr "Change Photo"
 
@@ -229,7 +233,7 @@ msgstr "Your comment has been submitted successfully for review."
 #: src/containers/Pages/News/view.js:151
 #: src/containers/Pages/Shows/view.js:295
 msgid "comment_title"
-msgstr ""
+msgstr "Title"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:62
 msgid "companyFieldOfBusiness"
@@ -252,11 +256,11 @@ msgstr "Confirm Password"
 msgid "confirm_delete"
 msgstr "Confirm"
 
-#: src/containers/MyProfile/ChangePassword.js:83
+#: src/containers/MyProfile/ChangePassword.js:113
 msgid "confirm_password"
 msgstr "Confirm Password"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:259
+#: src/containers/Members/Artworks/Artwork/View/index.js:262
 msgid "confirm_send_to_judge"
 msgstr "Confirm?"
 
@@ -315,7 +319,6 @@ msgstr "Create Account"
 
 #: src/containers/Home/Tickets.js:35
 #: src/containers/Members/Artworks/Artwork/View/PaymentView.js:19
-#: src/containers/Members/Artworks/Contestant/View/PaymentView.js:19
 msgid "date"
 msgstr "Date"
 
@@ -323,8 +326,7 @@ msgstr "Date"
 #~ msgid "date_of_release"
 #~ msgstr ""
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:172
-#: src/containers/Members/Artworks/Contestant/View/index.js:128
+#: src/containers/Members/Artworks/Artwork/View/index.js:171
 msgid "description"
 msgstr "Description"
 
@@ -348,19 +350,18 @@ msgstr "Details"
 msgid "dubai_address"
 msgstr "Dubai, Dubai Media City, Building No. 1, Second Floor - Office No. 214"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:249
-#: src/containers/Members/Artworks/Contestant/View/index.js:205
+#: src/containers/Members/Artworks/Artwork/View/index.js:252
 msgid "edit_info"
 msgstr "Edit Info"
 
-#: src/containers/Members/Profile.js:225
+#: src/containers/Members/Profile.js:227
 msgid "edit_profile"
 msgstr "Edit Profile"
 
 #: src/components/Layout/Footer.js:83
-#: src/containers/Members/Auth/ForgetPassword.js:28
-#: src/containers/Members/Profile.js:219
-#: src/containers/MyProfile/index.js:155
+#: src/containers/Members/Auth/ForgetPassword.js:34
+#: src/containers/Members/Profile.js:221
+#: src/containers/MyProfile/index.js:216
 #: src/containers/Pages/ContactUs/index.js:84
 msgid "email"
 msgstr "E-Mail"
@@ -369,7 +370,7 @@ msgstr "E-Mail"
 msgid "email*"
 msgstr "E-Mail"
 
-#: src/containers/MyProfile/index.js:248
+#: src/containers/MyProfile/index.js:349
 msgid "enable_edit"
 msgstr "Enable Edit"
 
@@ -426,7 +427,7 @@ msgstr "Fourth Day"
 msgid "fullName"
 msgstr "Full name"
 
-#: src/containers/Members/Profile.js:207
+#: src/containers/Members/Profile.js:209
 msgid "full_name"
 msgstr "Full name"
 
@@ -447,7 +448,7 @@ msgstr "General"
 msgid "get_in_touch"
 msgstr "Get In Touch"
 
-#: src/containers/Booths/index.js:266
+#: src/containers/Booths/index.js:278
 msgid "gold_sposer"
 msgstr "Gold Sponser"
 
@@ -476,7 +477,7 @@ msgstr "Basic Info"
 msgid "jobTitle"
 msgstr "Job Title"
 
-#: src/containers/Members/Profile.js:213
+#: src/containers/Members/Profile.js:215
 msgid "job_title"
 msgstr "Job Title"
 
@@ -492,7 +493,7 @@ msgstr "Judge"
 msgid "latest_video"
 msgstr "Latest Videos & Photos"
 
-#: src/containers/MyProfile/ChangePassword.js:116
+#: src/containers/MyProfile/ChangePassword.js:165
 #: src/containers/MyProfile/ImageUpload.js:78
 #: src/containers/User/ConfirmEmail.js:18
 msgid "loading"
@@ -514,9 +515,9 @@ msgstr ""
 msgid "location2_title"
 msgstr "Dubai Opera"
 
-#: src/containers/Members/Auth/ForgetPassword.js:33
+#: src/containers/Members/Auth/ForgetPassword.js:39
 #: src/containers/Members/Auth/index.js:115
-#: src/containers/Members/Auth/ResetPassword.js:64
+#: src/containers/Members/Auth/ResetPassword.js:72
 msgid "login"
 msgstr "Login"
 
@@ -532,9 +533,9 @@ msgstr "Logout"
 #: src/components/Forms/UploadDropZone.js:65
 #: src/containers/App/TransKeysNotFoundInJsx.js:88
 msgid "mb"
-msgstr ""
+msgstr "MB"
 
-#: src/containers/Booths/index.js:275
+#: src/containers/Booths/index.js:287
 msgid "media_industry"
 msgstr "Media Industry"
 
@@ -546,11 +547,19 @@ msgstr "Members"
 msgid "members"
 msgstr "Members"
 
-#: src/containers/Booths/index.js:272
-#: src/containers/MyProfile/ChangePassword.js:15
+#: src/containers/Booths/index.js:284
+#: src/containers/MyProfile/ChangePassword.js:21
 #: src/containers/MyProfile/ImageUpload.js:54
 msgid "mia"
 msgstr "MIA"
+
+#: src/containers/Pages/AboutUs/index.js:56
+msgid "mia_2020"
+msgstr "MIA 2020"
+
+#: src/containers/Pages/AboutUs/index.js:59
+msgid "mia_2020_text"
+msgstr "With the participation of 21 Arab countriesA new Arab Award specialized in visual media that will be launched in Dubai Opera in 15 December 2020, with the participation of 22 Arab countries."
 
 #: src/components/Layout/index.js:98
 msgid "mia_awards"
@@ -567,7 +576,7 @@ msgstr "MIA Honor"
 #: src/components/Forms/UploadDropZone.js:64
 #: src/containers/App/TransKeysNotFoundInJsx.js:87
 msgid "min_size"
-msgstr ""
+msgstr "Minimum file size"
 
 #: src/containers/Home/Awards.js:149
 #~ msgid "movies"
@@ -576,7 +585,7 @@ msgstr ""
 #~ msgid "msgid"
 #~ msgstr "msgstr_en"
 
-#: src/containers/MyProfile/index.js:123
+#: src/containers/MyProfile/index.js:169
 #: src/containers/Pages/ContactUs/index.js:115
 #: src/containers/Pages/News/view.js:137
 #: src/containers/Pages/Shows/view.js:281
@@ -589,9 +598,9 @@ msgstr "Nationality"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:91
 msgid "newPassword"
-msgstr ""
+msgstr "New Password"
 
-#: src/containers/MyProfile/ChangePassword.js:65
+#: src/containers/MyProfile/ChangePassword.js:84
 msgid "new_password"
 msgstr "New password"
 
@@ -607,10 +616,10 @@ msgstr "News Features"
 msgid "newsletter"
 msgstr "NEWSLETTER"
 
-#: src/containers/Booths/index.js:340
-#: src/containers/Booths/index.js:554
+#: src/containers/Booths/index.js:352
+#: src/containers/Booths/index.js:566
 #: src/containers/Home/News.js:132
-#: src/containers/Members/Auth/Register.js:176
+#: src/containers/Members/Auth/Register.js:181
 msgid "next"
 msgstr "Next"
 
@@ -630,11 +639,19 @@ msgstr "No reviews yet"
 msgid "no_trailer_yet"
 msgstr "No trailer uploaded yet"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:274
+#: src/containers/Members/Artworks/Artwork/View/index.js:277
 msgid "no_wait"
 msgstr "No wait .."
 
-#: src/containers/MyProfile/ChangePassword.js:47
+#: src/containers/App/TransKeysNotFoundInJsx.js:99
+msgid "not_valid_email"
+msgstr "Not valid email"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:100
+msgid "not_valid_url"
+msgstr "Not valid URL"
+
+#: src/containers/MyProfile/ChangePassword.js:58
 msgid "old_password"
 msgstr "Old Password"
 
@@ -643,51 +660,61 @@ msgid "onlineChannels"
 msgstr "Online channels"
 
 #: src/containers/Home/RecentShows.js:76
-#: src/containers/Members/Artworks/Artwork/View/index.js:209
-#: src/containers/Members/Artworks/Contestant/View/index.js:165
+#: src/containers/Members/Artworks/Artwork/View/index.js:208
 #: src/containers/Pages/Shows/index.js:190
 msgid "online_channels"
 msgstr "Online channels"
 
-#: src/containers/Pages/AboutUs/index.js:228
+#: src/containers/Pages/AboutUs/index.js:232
 msgid "our_awards"
 msgstr "Our Awards"
 
-#: src/containers/Pages/AboutUs/index.js:231
+#: src/containers/Pages/AboutUs/index.js:235
 msgid "our_awards_text"
-msgstr "The Arab Media Industry Award (MIA 2020) aims to measure the quality and depth of TV content impact on lifestyle and public thinking. This will be achieved by sorting the participating works in accordance with the terms and criteria set by the jury. The competitors will be judged electronically. We have allocated three awards; gold, silver and bronze, to each category of the competition to be granted to the winners with certificates of merit."
+msgstr ""
+"As we respect all trends and tastes, MIA is keen to receive all types of media productions and classify them into three categories."
+"<br />MIA presents its 24 kt gold-plated awards to motivate the competitors to offer their best."
+"<br />The Award categories are as follows:"
 
-#: src/containers/Pages/AboutUs/index.js:183
+#: src/containers/Pages/AboutUs/index.js:185
 msgid "our_events"
 msgstr "Our Events"
 
-#: src/containers/Pages/AboutUs/index.js:185
+#: src/containers/Pages/AboutUs/index.js:187
 msgid "our_events_text"
-msgstr "<0><1>• Workshops to develop professional and technical capacities.</1><2>• Specialized seminars delivered by media industry experts and professionals and Arab media stars</2><3>• The presentation of distinctive success stories.</3><4>• A market for the latest engineering and technical systems in the media and TV production industry.</4><5>•TV interviews to discuss important issues (live broadcasts).<5></0>"
+msgstr ""
 
-#: src/containers/Pages/AboutUs/index.js:86
+#: src/containers/Pages/AboutUs/index.js:85
 msgid "our_goal"
 msgstr "Our Goals"
 
-#: src/containers/Pages/AboutUs/index.js:89
+#: src/containers/Pages/AboutUs/index.js:88
 msgid "our_goal_text"
-msgstr "<0><1>• Developing the tastes & preferences of all segments of Arab citizens, and providing new insights to support the future of Arabic TV production.</1><2>• Promoting TV content industry, and elevating Arabic Production to world class levels.</2><3>•Creating an opportunity for integration, interaction and cross-cultural affinity in order to reunite the Arab identity to create together a golden future, \"with one power and promising generations.\"</3><4>•Increasing communication between young talents in the Arab world and the elite of producers and technicians working in the field, in addition to providing maximum integration between production sectors as well as media organizations and TV channels.</4><5>•Discovering new talents and turn the spotlight on the unique ones.</5><6>• Recognizing and honouring the innovators and achievers throughout the Arab world by evaluating their work, seeking specialists reviews about it and celebrating the best.</6></0>"
+msgstr ""
 
-#: src/containers/Pages/AboutUs/index.js:66
+#: src/containers/Pages/AboutUs/index.js:64
 msgid "our_message"
 msgstr "Our Message"
 
-#: src/containers/Pages/AboutUs/index.js:69
+#: src/containers/Pages/AboutUs/index.js:67
 msgid "our_message_text"
-msgstr "Recent studies have demonstrated the importance of TV content in our daily lives and its influence on changing cultural values and awareness in any society. Our message, inspired by our slogan (Arab Media Is A New Reality), was therefore originated to improve the quality of Arab TV production content. Moreover we aim to make this award an Arab platform in which all the distinguished and creative people in this field are honoured, while meeting to discuss new ideas. This will result in cognitive and technical products that would benefit the Arab societies to face their different future challenges."
+msgstr ""
 
-#: src/containers/Pages/AboutUs/index.js:134
+#: src/containers/Pages/AboutUs/index.js:48
+msgid "our_story"
+msgstr "Our Story"
+
+#: src/containers/Pages/AboutUs/index.js:51
+msgid "our_story_text"
+msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:136
 msgid "our_value"
 msgstr "our Values"
 
-#: src/containers/Pages/AboutUs/index.js:138
+#: src/containers/Pages/AboutUs/index.js:140
 msgid "our_value_text"
-msgstr "<0><1><2>• Impartiality: :</2><3>We stand without bias and at the same distance from all the people of the Arab world</3></1><4><5>• Objectivity:</5><6>Away from whims, we have a single mechanism for judging all performances. Your creativity is the one factor that determines your status.</6></4><8><9>Credibility:</9><10>The basic essence of our work is that the method of assessment is based on our integrity.</10></8><11><12>• Promotion:</12><13>We provide multiple quality awards and certificates of merit according to performance standards.</13></11></0>"
+msgstr ""
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:44
 msgid "password"
@@ -709,7 +736,7 @@ msgstr "Password"
 msgid "payment"
 msgstr "Payment"
 
-#: src/containers/MyProfile/index.js:187
+#: src/containers/MyProfile/index.js:263
 #: src/containers/Pages/ContactUs/index.js:63
 #: src/containers/Pages/ContactUs/index.js:131
 msgid "phone"
@@ -727,6 +754,10 @@ msgstr "+971 4 57 2636 7"
 msgid "phone_2"
 msgstr "+971 4 57 2636 8"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:98
+msgid "phone_number_is_not_valid"
+msgstr "Not valid phone number"
+
 #: src/components/Forms/Date/DualCalendar.js:22
 #~ msgid "please_select_checkin_date"
 #~ msgstr "Please select check-in day."
@@ -736,10 +767,10 @@ msgstr "+971 4 57 2636 8"
 #~ msgstr "Please select check-out day."
 
 #: src/containers/Members/Artworks/Contestant/NewContestant.js:292
-msgid "please_upload_payment_receipt"
-msgstr "Please upload payment receipt"
+#~ msgid "please_upload_payment_receipt"
+#~ msgstr "Please upload payment receipt"
 
-#: src/containers/Booths/index.js:568
+#: src/containers/Booths/index.js:580
 msgid "please_upload_the_receipt"
 msgstr "Please upload payment receipt"
 
@@ -790,18 +821,15 @@ msgstr "License agency"
 msgid "productionLicenseNumber"
 msgstr "License number"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:231
-#: src/containers/Members/Artworks/Contestant/View/index.js:187
+#: src/containers/Members/Artworks/Artwork/View/index.js:230
 msgid "production_license_agency"
 msgstr "License agency"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:222
-#: src/containers/Members/Artworks/Contestant/View/index.js:178
+#: src/containers/Members/Artworks/Artwork/View/index.js:221
 msgid "production_license_number"
 msgstr "License number"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:186
-#: src/containers/Members/Artworks/Contestant/View/index.js:142
+#: src/containers/Members/Artworks/Artwork/View/index.js:185
 #: src/containers/Pages/Shows/index.js:102
 #: src/containers/Pages/Shows/view.js:74
 msgid "production_year"
@@ -827,8 +855,7 @@ msgstr ""
 #~ msgid "programs"
 #~ msgstr "Programs"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:164
-#: src/containers/Members/Artworks/Contestant/View/index.js:120
+#: src/containers/Members/Artworks/Artwork/View/index.js:163
 msgid "project_name"
 msgstr "Project name"
 
@@ -871,7 +898,7 @@ msgid "recent_shows"
 msgstr "Recent Shows"
 
 #: src/containers/Members/Auth/index.js:132
-#: src/containers/Members/Auth/Register.js:208
+#: src/containers/Members/Auth/Register.js:213
 msgid "register"
 msgstr "Register"
 
@@ -887,9 +914,9 @@ msgstr "Release date"
 msgid "remove_file"
 msgstr "Remove file"
 
-#: src/containers/Members/Auth/ForgetPassword.js:37
+#: src/containers/Members/Auth/ForgetPassword.js:43
 #: src/containers/Members/Auth/index.js:50
-#: src/containers/Members/Auth/ResetPassword.js:68
+#: src/containers/Members/Auth/ResetPassword.js:76
 msgid "reset_password"
 msgstr "Reset Password"
 
@@ -897,12 +924,10 @@ msgstr "Reset Password"
 msgid "review_our_cookie_policy"
 msgstr "Review Our Cookie Policy"
 
-#: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:198
-#: src/containers/Members/Artworks/Artwork/NewArtwork.js:471
-#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:199
-#: src/containers/Members/Artworks/Contestant/NewContestant.js:364
+#: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:230
+#: src/containers/Members/Artworks/Artwork/NewArtwork.js:481
 #: src/containers/Members/Profile.js:84
-#: src/containers/Members/Profile.js:188
+#: src/containers/Members/Profile.js:190
 msgid "save"
 msgstr "Save"
 
@@ -927,12 +952,11 @@ msgstr "Select value"
 msgid "select_your_image"
 msgstr "Select Your Image"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:263
+#: src/containers/Members/Artworks/Artwork/View/index.js:266
 msgid "send"
 msgstr "Send"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:281
-#: src/containers/Members/Artworks/Contestant/View/index.js:221
+#: src/containers/Members/Artworks/Artwork/View/index.js:284
 msgid "send_for_judge"
 msgstr "Send to judge"
 
@@ -972,7 +996,7 @@ msgstr "Sign in"
 msgid "signup"
 msgstr "Signup"
 
-#: src/containers/Members/Auth/Register.js:189
+#: src/containers/Members/Auth/Register.js:194
 msgid "signup_terms"
 msgstr "Terms and Conditions"
 
@@ -980,8 +1004,7 @@ msgstr "Terms and Conditions"
 msgid "signup_text"
 msgstr " In order to apply for any award you need be a member in our website and follow all our policies. please signup to start your way to the awards"
 
-#: src/containers/Members/Artworks/Artwork/View/index.js:180
-#: src/containers/Members/Artworks/Contestant/View/index.js:136
+#: src/containers/Members/Artworks/Artwork/View/index.js:179
 #: src/containers/Pages/Shows/view.js:194
 msgid "siteUrl"
 msgstr "Site url"
@@ -1032,7 +1055,7 @@ msgstr "Workshops"
 #~ msgid "sports"
 #~ msgstr "Sports"
 
-#: src/containers/Booths/index.js:269
+#: src/containers/Booths/index.js:281
 msgid "standard"
 msgstr "Standard"
 
@@ -1045,17 +1068,16 @@ msgid "start_from"
 msgstr "Starts From"
 
 #: src/containers/Members/Artworks/Artwork/View/PaymentView.js:25
-#: src/containers/Members/Artworks/Contestant/View/PaymentView.js:25
 msgid "status"
 msgstr "Status"
 
 #: src/containers/Pages/AboutUs/index.js:46
-msgid "story"
-msgstr "Our Story"
+#~ msgid "story"
+#~ msgstr "Our Story"
 
-#: src/containers/Pages/AboutUs/index.js:49
-msgid "story_text"
-msgstr "The Arab media has been facing many challenges over the past decades, and has been lacking the proper Arab reality representation. Despite the great investment in the field of media, it lacks  concerted efforts between investors and production companies. In this respect, the Media Industry Company decided to create a TV award in an attempt to elevate the level of competition, develop the art industry content, and produce Arabic artwork. It also aims to be the link between the investor and the producer to put the Arab TV reality on the right track by creating such TV award. We also believe that the competition will lead to produce rich and unique content, which will be reflected on the audience in the Arab world."
+#: src/containers/Pages/AboutUs/index.js:51
+#~ msgid "story_text"
+#~ msgstr "In view of the great challenges that our Arab media has faced during the past decades and the underrepresentation of Arab reality in spite of the massive investments in the media sector in various respects, the media community realized the need for joint efforts between investors and production companies to put an end to this deficiency."
 
 #: src/containers/PreloaderPage/LoaderTestSample.js:38
 msgid "submit"
@@ -1065,7 +1087,7 @@ msgstr "Submit"
 #~ msgid "suggested_languages"
 #~ msgstr "Suggested Languages"
 
-#: src/containers/Booths/index.js:638
+#: src/containers/Booths/index.js:650
 msgid "terms_and_conditions"
 msgstr "Terms and Conditions"
 
@@ -1099,8 +1121,7 @@ msgid "tvChannels"
 msgstr "TV Channels"
 
 #: src/containers/Home/RecentShows.js:70
-#: src/containers/Members/Artworks/Artwork/View/index.js:199
-#: src/containers/Members/Artworks/Contestant/View/index.js:155
+#: src/containers/Members/Artworks/Artwork/View/index.js:198
 #: src/containers/Pages/Shows/index.js:184
 msgid "tv_channels"
 msgstr "TV Channels"
@@ -1116,11 +1137,11 @@ msgstr "Type your comment here"
 msgid "type_your_comment"
 msgstr "Type your comment here"
 
-#: src/containers/MyProfile/index.js:264
+#: src/containers/MyProfile/index.js:369
 msgid "update"
 msgstr "Update"
 
-#: src/containers/Members/Auth/Register.js:71
+#: src/containers/Members/Auth/Register.js:76
 msgid "upload"
 msgstr "Upload"
 
@@ -1137,8 +1158,8 @@ msgstr "Upload Image"
 #~ msgstr ""
 
 #: src/containers/Members/Artworks/Contestant/ChoosePayment.js:95
-msgid "usd"
-msgstr "USD"
+#~ msgid "usd"
+#~ msgstr "USD"
 
 #: src/containers/Pages/Shows/index.js:132
 msgid "user_account"
@@ -1192,10 +1213,8 @@ msgstr "What do we use cookies for?"
 msgid "yes"
 msgstr "Yes"
 
-#: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:66
-#: src/containers/Members/Artworks/Artwork/NewArtwork.js:154
-#: src/containers/Members/Artworks/Contestant/Edit/EditContestant.js:66
-#: src/containers/Members/Artworks/Contestant/NewContestant.js:129
+#: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:82
+#: src/containers/Members/Artworks/Artwork/NewArtwork.js:164
 msgid "you_applied_for_award_x"
 msgstr "You applied for the award."
 

@@ -1,19 +1,33 @@
 {
-  "story": {
-    "defaults": "Story",
+  "our_story": {
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        46
+        48
       ]
     ]
   },
-  "story_text": {
-    "defaults": "The Arab media passes during the past decades a lot of challenges and the lack of representation of the Arab reality with the correct representation, despite the presence of a large investment in the field of media in all its forms, but it lacks concerted efforts between investors and production companies. Art making and Arab business production by being the link between the investor and the producer in order to transfer the Arab \"television\" reality to the right path by creating an award for visual media, believing that the competition will create rich and distinctive content that will affect its audience. Dowries and recipients in the Arab world",
+  "our_story_text": {
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        49
+        51
+      ]
+    ]
+  },
+  "mia_2020": {
+    "origin": [
+      [
+        "src/containers/Pages/AboutUs/index.js",
+        56
+      ]
+    ]
+  },
+  "mia_2020_text": {
+    "origin": [
+      [
+        "src/containers/Pages/AboutUs/index.js",
+        59
       ]
     ]
   },
@@ -22,7 +36,7 @@
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        66
+        64
       ]
     ]
   },
@@ -31,7 +45,7 @@
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        69
+        67
       ]
     ]
   },
@@ -40,7 +54,7 @@
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        86
+        85
       ]
     ]
   },
@@ -49,7 +63,7 @@
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        89
+        88
       ]
     ]
   },
@@ -58,7 +72,7 @@
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        134
+        136
       ]
     ]
   },
@@ -67,7 +81,7 @@
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        138
+        140
       ]
     ]
   },
@@ -76,7 +90,7 @@
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        183
+        185
       ]
     ]
   },
@@ -85,7 +99,7 @@
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        185
+        187
       ]
     ]
   },
@@ -94,7 +108,7 @@
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        228
+        232
       ]
     ]
   },
@@ -103,7 +117,7 @@
     "origin": [
       [
         "src/containers/Pages/AboutUs/index.js",
-        231
+        235
       ]
     ]
   }

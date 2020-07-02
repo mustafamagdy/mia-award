@@ -4,7 +4,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js",
-        66
+        82
       ]
     ]
   },
@@ -13,7 +13,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js",
-        198
+        230
       ]
     ]
   }
