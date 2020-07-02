@@ -94,10 +94,33 @@
 <section id="show_inner">
     <div class="show_inner_one">
         <div class="container">
-            <player videos='[{"type":"mp4","src":"https://mia-content.s3.amazonaws.com/album/01e22zntqbcbg2nvf6zb8kgdmk/Clock_Face_2Videvo.mov",
-            "poster":"https://mia-content.s3.amazonaws.com/artwork/01dzsa07y34ddsq9g6m11anxmx/image008.png",
-            "captions":"http://www.videojs.com/vtt/captions.vtt"}
-            ,{"type":"webm","src":"http://vjs.zencdn.net/v/oceans.webm"}]' />
+            <!-- <iframe class="youtube-player" type="text/html" width="80%" height="385"
+                ng-src="{{trustSrc(displayVideoCtrl.mediaFile.file.fileUrl)}}"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+                frameborder="0">
+            </iframe>  -->
+            <div class="row">
+
+                <video id="myVideo" width="80%" height="385">
+                    <source ng-src="{{trustSrc(displayVideoCtrl.mediaFile.file.fileUrl)}}" type="video/mp4">
+                </video>
+            </div>
+            <br>
+            <div class="row">
+                <button ng-click="playVid()" type="button"><span ng-show="!playing">&#9654;</span></button>
+                <button ng-click="pauseVid()" type="button"><span ng-show="playing">&#9616;&#9616;</span></button>
+
+            </div>
+
+            <!-- <video poster="https://mia-content.s3.amazonaws.com/artwork/01eb714475nrkrbbf8yvjhrc9j/image/jpeg">
+                <source ng-src="{{trustSrc(displayVideoCtrl.mediaFile.file.fileUrl)}}" />
+            </video>
+            <progressbar value="percent" max="100"></progressbar>
+            <div class="controls noselect">
+                <a ng-click="frame(-0.04)">&lt;</a>
+                <a ng-click="toggle()"> <span ng-show="!playing">&#9654;</span><span
+                        ng-show="playing">&#9616;&#9616;</span> </a>
+                <a ng-click="frame(0.04)">&gt;</a> </div> -->
         </div>
     </div>
     <div class="show_inner_two">
@@ -143,7 +166,7 @@
                                 <div class="comment_form">
                                     <form name="formVideoComment">
                                         <div class="inputs">
-                                            <input required type="text" placeholder="time"
+                                            <input required type="text" placeholder="time" readonly
                                                 ng-model="displayVideoCtrl.time">
 
                                         </div><!-- end inputs -->

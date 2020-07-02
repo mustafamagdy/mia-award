@@ -25,18 +25,20 @@
                     });
 
                     scope.frame = function (num) {
+                        debugger;
                         if (video[0].readyState !== 0) {
                             video[0].currentTime += num;
                         }
                     };
 
                     scope.toggle = function () {
-                        if (video[0].paused === true) {
+                        debugger; if (video[0].paused === true) {
                             video[0].play();
                             scope.playing = true;
                         } else {
                             video[0].pause();
                             scope.playing = false;
+
                         }
                     };
                 },
@@ -52,11 +54,11 @@
                     '</div>'
             };
         }])
-        .controller('DisplayVideoController', ['appCONSTANTS', 'MediaFileByIdPrepService', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$state',
+        .controller('DisplayVideoController', ['appCONSTANTS', '$sce', 'MediaFileByIdPrepService', '$scope', '$translate', 'JudgeArtWorkResource', 'blockUI', '$state',
             'ToastService', '$stateParams', DisplayVideoController]);
 
 
-    function DisplayVideoController(appCONSTANTS, MediaFileByIdPrepService, $scope, $translate, JudgeArtWorkResource, blockUI, $state, ToastService, $stateParams) {
+    function DisplayVideoController(appCONSTANTS, $sce, MediaFileByIdPrepService, $scope, $translate, JudgeArtWorkResource, blockUI, $state, ToastService, $stateParams) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         var vm = this;
@@ -68,6 +70,7 @@
         vm.Close = function () {
             $state.go('JudgeArtWork');
         }
+        $scope.playing = false;
         vm.submitComment = function () {
             blockUI.start("Loading...");
 
@@ -103,7 +106,57 @@
                 });
         }
 
+        $scope.trustSrc = function (src) {
+            return $sce.trustAsResourceUrl(src);
+        }
+        var vid = document.getElementById("myVideo");
 
+        $scope.playVid = function () {
+            $scope.playing = true;
+            vid.play();
+        }
+
+        $scope.pauseVid = function () {
+            $scope.playing = false;
+            vid.pause();
+            tick();
+        }
+
+        function tick() {
+            debugger;
+            $scope.percent = (vid.currentTime / vid.duration) * 100;
+            vm.time = vid.currentTime;
+        }
+        //     var video =vm.mediaFile.file.fileUrl;
+        //    // element.addClass('player');
+        //     $scope.playing = false;
+        //     $scope.trustSrc = function (src) {
+        //         return $sce.trustAsResourceUrl(src);
+        //     }
+
+        //     video.on('timeupdate', function (e) {
+        //         $scope.$apply(function () {
+        //             $scope.percent = (video[0].currentTime / video[0].duration) * 100;
+        //         });
+        //     });
+
+        //     $scope.frame = function (num) {
+        //       debugger;
+        //         if (video[0].readyState !== 0) {
+        //             video[0].currentTime += num;
+        //         }
+        //     };
+
+        //     $scope.toggle = function () {
+        //         debugger;   if (video[0].paused === true) {
+        //             video[0].play();
+        //             $scope.playing = true;
+        //         } else {
+        //             video[0].pause();
+        //             $scope.playing = false;
+
+        //         }
+        //     };
     }
 
 })();

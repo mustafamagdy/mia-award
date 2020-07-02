@@ -53,7 +53,7 @@
                                     <div class="item" ng-repeat="file in files">
 
                                         <div ng-controller="UploaderController  as UploaderCtrl"
-                                            data-ng-init="init(file,$stateParams.id)">
+                                            data-ng-init="init(file,$stateParams.id,1)">
                                             <div class="name">
                                                 <span>{{file.name}}</span>
                                                 <p>{{file.size/1024/1024|number:2}} mb</p>

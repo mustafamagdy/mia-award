@@ -22,13 +22,19 @@
         var url;
         vm.Progress = 0;
         vm.size = 0;
-        $scope.init = function (obj, id) {
-        debugger;
+        vm.FileModule = 0;
+        $scope.init = function (obj, id, FileModule) {
+            vm.FileModule = FileModule;
             processFile(obj, id);
         };
 
         function processFile(file, itemId) {
-            url = appCONSTANTS.API_URL + 'artWorks/artwork/' + itemId + '/files'; let start = 0;
+            url = appCONSTANTS.API_URL + 'artWorks/artwork/' + itemId + '/files';
+
+            if (vm.FileModule == 3)
+                url = appCONSTANTS.API_URL + 'albums/mediaItems/' + itemId + '/files';
+
+            let start = 0;
             let uploadId = "";
             vm.size = file.size;
             const totalChunks = Math.ceil(vm.size / sliceSize);
@@ -105,12 +111,23 @@
         function onProgress(evt) {
             vm.Progress = Math.round(evt);
         }
-        function onUploadComplete(evt) {
-            //todo
-            callBackUpload(model);
+        function Artwork(model) {
+            debugger;
+            var addObj = new ArtWorkMediaResource();
+            addObj.Id = model.id;
+            addObj.FileUrl = model.data.trailer.fileUrl;
+            addObj.FileKey = model.data.trailer.fileKey;
+            addObj.$updateTrailerUrl().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Fileuploaded'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
         }
-        function callBackUpload(model) {
-            debugger
+        function ArtworkMediaFile(model) {
+            debugger;
             var addObj = new ArtWorkMediaResource();
             addObj.ArtWorkId = model.id;
             addObj.FileUrl = model.data.trailer.fileUrl;
@@ -123,6 +140,28 @@
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
+        }
+        function Album(model) {
+            var addObj = new ArtWorkMediaResource();
+            addObj.Id = model.id;
+            addObj.FileUrl = model.data.trailer.fileUrl;
+            addObj.FileKey = model.data.trailer.fileKey;
+            addObj.$UpdateMediaItemVideoUrl().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Fileuploaded'), "success");
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function callBackUpload(model) {
+            if (vm.FileModule == 1)
+                ArtworkMediaFile(model)
+            if (vm.FileModule == 2)
+                Artwork(model)
+            if (vm.FileModule == 3)
+                Album(model)
         }
     }
 }());
