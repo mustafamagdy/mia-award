@@ -1,10 +1,26 @@
 <div>
-    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes('News.add_new')">
-        <!-- <div id="bold"> {{'AddNewVotingCriteriaBtn'| translate}} </div> -->
-        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
+    <div class="row">
+        <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
+
+            <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes('News.add_new')">
+                <!-- <div id="bold"> {{'AddNewVotingCriteriaBtn'| translate}} </div> -->
+                <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
         border-radius: 17px;" ng-click="$state.go('newVotingCriteria');"
-            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
-            {{'AddNew'| translate}}</button>
+                    class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+                    {{'AddNew'| translate}}</button>
+            </div>
+        </div>
+
+        <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
+
+            <div class="form-group col-lg-4"> <label for="first-name">{{'Award' | translate}}</label>
+                <select required style="width:100% !important;color:#6c7293!important;"
+                    class="form-control select-with-search pmd-select2-tags" ng-model="VotingCriteriaCtrl.selectedRole"
+                    ng-change="VotingCriteriaCtrl.changeUserType()"
+                    ng-options="group as group.name  for group in VotingCriteriaCtrl.roleList">
+                </select>
+            </div>
+        </div>
     </div>
 
     <div ng-if="VotingCriteriaList.length == null">

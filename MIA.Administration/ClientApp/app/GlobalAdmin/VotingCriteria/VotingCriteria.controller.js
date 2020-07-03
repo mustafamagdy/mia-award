@@ -21,13 +21,13 @@
 
             var k = VotingCriteriaResource.getAllVotingCriterias({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
                 $scope.VotingCriteriaList = results.items;
-                $scope.totalCount = results.metadata.totalItemCount; 
+                $scope.totalCount = results.metadata.totalItemCount;
                 blockUI.stop();
-
+                console.log($scope.VotingCriteriaList)
             },
                 function (data, status) {
                     blockUI.stop();
-                   // ToastService.show("right", "bottom", "fadeInUp", data.data.errorMessage, "error");
+                    // ToastService.show("right", "bottom", "fadeInUp", data.data.errorMessage, "error");
                 });
         }
         vm.showMore = function (element) {
@@ -60,7 +60,7 @@
                 }
 
             });
-        } 
+        }
 
         vm.changePage = function (page) {
             vm.currentPage = page;
