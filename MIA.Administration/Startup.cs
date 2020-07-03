@@ -225,23 +225,11 @@ namespace MIA {
         .UseRouteUrlCultureProvider()
 
         .UseStaticFilesWithCacheControl()
-        // .UseIf(this.env.IsDevelopment(), cfg => {
-        //   return cfg.UseFileServer(new FileServerOptions {
-        //     FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "ClientApp")),
-        //     RequestPath = "/dist"
-        //   });
-        // })
+       
         .UseSpaFiles()
         .UseSpa(spa => {
-          spa.Options.SourcePath = env.IsProduction() ? "wwwroot" : "ClientApp";
-
-          if (env.IsDevelopment()) {
-            spa.Options.StartupTimeout = TimeSpan.FromSeconds(120);
-            spa.UseAngularCliServer(npmScript: "start");
-            //spa.UseReactDevelopmentServer(npmScript: "start");
-          }
-        })
-        ;
+          spa.Options.SourcePath = env.IsProduction() ? "wwwroot" : "ClientApp/dist";
+        });
 
       //seed default data
       DbInitializer.SeedDbAsync(userManager, roleManager, fileManager, db, encoder).Wait();

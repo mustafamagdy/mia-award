@@ -1,3 +1,11 @@
+// DEFINE Dev API URL here
+const apiUrl =
+  /* URL Should not end with /  */
+  //url
+  "http://localhost:62550";
+// "http://localhost:62912";
+// "http://localhost:62550";
+
 // requires
 var gulp = require("gulp");
 //var sass = require('gulp-sass');
@@ -30,11 +38,12 @@ var concatCss = require("gulp-concat-css");
 var version = require("gulp-version-number");
 var paths = {
   app: ["./app/**/*.js", "!./app/core/**/*.js"],
+  core_constant: "./app/core/core.constants.js",
   core: [
     "./app/core/app.module.js",
     "./app/core/home/app.module.js",
     "./app/core/app.config.js",
-    "./app/core/core.constants.js",
+    // "./app/core/core.constants.js",
     "./app/core/app.routes.js",
     "./app/core/confirmPassword.directive.js",
     "./app/core/translateProvider.js",
@@ -143,11 +152,24 @@ gulp.task("copy-libs", function () {
     .pipe(strip())
     .pipe(gulp.dest(paths.build + "/"));
 });
-//concatination js
-gulp.task("copy-core", function () {
+
+gulp.task("replace-api-url", function () {
   return (
     gulp
-      .src(paths.core)
+      .src(paths.core_constant)
+      //##API_URL##
+      .pipe(replace("##API_URL##", config.production ? "" : apiUrl))
+      .pipe(gulp.dest(paths.build + "/"))
+  );
+});
+//concatination js
+gulp.task("copy-core", ["replace-api-url"], function () {
+  const _corePaths = paths.core;
+  _corePaths.splice(3, 0, paths.build + "/core.constants.js");
+
+  return (
+    gulp
+      .src(_corePaths)
       .pipe(concat("core.js", { newLine: ";" }))
       //.pipe(uglify())
       .pipe(gulp.dest(paths.build + "/"))
@@ -276,6 +298,11 @@ gulp.task("copy", [
   "fonts",
 ]);
 
+//clean temp files
+gulp.task("remove-temp-files", function (cb) {
+  rimraf(paths.build + "/core.constants.js", cb);
+});
+
 //clean build
 gulp.task("clean-build", function (cb) {
   rimraf(paths.build, cb);
@@ -289,7 +316,7 @@ gulp.task("clean-temp", function (cb) {
 gulp.task("clean", ["clean-temp", "clean-build"]);
 
 gulp.task("build", function (cb) {
-  return runSequence("clean", "copy", cb);
+  return runSequence("clean", "copy", "remove-temp-files", cb);
 });
 
 gulp.task("watch", function (cb) {
@@ -302,14 +329,4 @@ gulp.task("watch", function (cb) {
 
 gulp.task("default", function (cb) {
   runSequence("build", "serve", "watch", cb);
-
-  // gulp.watch(paths.libs, ['copy-libs']);
-  // gulp.watch(paths.core, ['copy-core']);
-  // gulp.watch(paths.app, ['copy-app']);
-  // gulp.watch(paths.template, ['copy-templates']);
-  // gulp.watch(paths.index, ['copy-index']);
 });
-
-// gulp.task('watch', function() {
-//       gulp.watch(paths.libs, ['copy-libs']);
-// });
