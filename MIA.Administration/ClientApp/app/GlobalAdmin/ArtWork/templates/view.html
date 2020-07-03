@@ -1,0 +1,47 @@
+<div class="info_show">
+  <ul>
+    <li>
+      <span>{{'project_name ' | translate}} :</span>
+      <p>{{ctrl.ArtWork.projectName[selectedLanguage]}}</p>
+    </li>
+    <li>
+      <span>{{'description ' | translate}} :</span>
+      <p>{{ctrl.ArtWork.description[selectedLanguage]}}</p>
+    </li>
+    <li>
+      <span>{{'site_url ' | translate}} :</span>
+      <p>{{ctrl.ArtWork.siteUrl}}</p>
+    </li>
+    <li>
+      <span>{{'production_year ' | translate}} :</span>
+      <p>{{ctrl.ArtWork.productionYear}}</p>
+    </li>
+    <li>
+      <span>{{'broadcast_year ' | translate}} :</span>
+      <p>{{ctrl.ArtWork.broadcastYear}}</p>
+    </li>
+    <li>
+      <div class="crew_content">
+        <div class="title">{{'tv_channels'| translate}} :</div>
+        <div class="content">{{ctrl.ArtWork.tvChannels}}<br /></div>
+        <div class="title">{{'online_channels'| translate}} :</div>
+        <div class="content">{{ctrl.ArtWork.onlineChannels}}<br /></div>
+      </div>
+    </li>
+    <li>
+      <span>{{'license_number' | translate}} :</span>
+      <p>{{ctrl.ArtWork.productionLicenseNumber}}</p>
+    </li>
+    <li>
+      <span>{{'license_agency' | translate}} :</span>
+      <p>{{ctrl.ArtWork.productionLicenseAgency}}</p>
+    </li>
+  </ul>
+  <div class="actions">
+    <button
+      ng-click="ctrl.confirmAndApproveArtwork(ctrl.ArtWork,ctrl.ArtWork.projectName[selectedLanguage],ctrl.ArtWork.id);"
+    >
+      {{'approve'|translate}}
+    </button>
+  </div>
+</div>

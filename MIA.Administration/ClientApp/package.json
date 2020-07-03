@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "gulp",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "switch_new": "nvm use 12.16.1",
+    "switch_old": "nvm use 10.19.0"
   },
   "license": "Private",
   "dependencies": {

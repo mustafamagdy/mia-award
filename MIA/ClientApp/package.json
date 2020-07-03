@@ -13,7 +13,9 @@
     "extract-xls": "node CreateXlsFile.js",
     "extract-po": "node createPoFile.js",
     "compile": "lingui compile",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "switch_new": "nvm use 12.16.1",
+    "switch_old": "nvm use 10.19.0"
   },
   "dependencies": {
     "@babel/polyfill": "7.4.3",

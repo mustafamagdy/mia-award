@@ -19,7 +19,8 @@
 
             createPayment: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/createPayment', useToken: true },
             updatePayment: { method: 'PUT', url: appCONSTANTS.API_URL + 'artWorks/updatePayment', useToken: true },
-            UpdateTrailerVideoUrl: { method: 'PUT', url: appCONSTANTS.API_URL + 'artWorks/UpdateTrailerVideoUrl', useToken: true }
+            UpdateTrailerVideoUrl: { method: 'PUT', url: appCONSTANTS.API_URL + 'artWorks/UpdateTrailerVideoUrl', useToken: true },
+            allowFileUpload: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/:id/allow-file-upload', useToken: true },
 
         })
     }

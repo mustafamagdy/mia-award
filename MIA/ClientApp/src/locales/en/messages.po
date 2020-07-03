@@ -35,7 +35,7 @@ msgstr "Awards"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:32
 msgid "about_tab_content_conpatitors"
-msgstr "Compatitors"
+msgstr "The MIA Award seeks to motivate production companies and their personnel to develop positive and influential media. The best works and contributions are selected from all Arab countries and are highlighted. Contestants from all Arab countries; whether individuals, government authorities, solo entrepreneurs, satellite channels or digital platforms that fulfill the conditions and criteria, can submit their works electronically through the MIA Award website and pay the registration fees. The MIA Award is entitled to deal with the work as soon as it is uploaded to the Award website without any legal liabilities for intellectual property rights."
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:31
 msgid "about_tab_content_judge"

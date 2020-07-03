@@ -33,7 +33,8 @@
                             <img ng-show="ArtWork.posterUrl != '' " style="width: 70px;height: 70px;"
                                 data-ng-src="{{ArtWork.posterUrl}}" />
                         </td>
-                        <td data-title="Name">
+                        <td data-title="Name"
+                            ng-click="$state.go('viewArtWork',{id: ArtWork.id});"">
                             {{ArtWork.projectName[selectedLanguage]   | limitTo : 20}}
                             {{ArtWork.projectName[selectedLanguage].length > 20 ? '...' : ''}}
                         </td>
