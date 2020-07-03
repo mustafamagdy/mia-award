@@ -72,7 +72,6 @@ namespace MIA.ORMContext
     public DbSet<UserImage> UserImages { get; set; }
     public DbSet<Image> Images { get; set; }
     public DbSet<Judge> Judges { get; set; }
-    public DbSet<ContentReviewer> ContentReviewers { get; set; }
     public DbSet<Nominee> Nominees { get; set; }
     public DbSet<Artwork> Artworks { get; set; }
     public DbSet<ArtworkPayment> ArtworkPayments { get; set; }

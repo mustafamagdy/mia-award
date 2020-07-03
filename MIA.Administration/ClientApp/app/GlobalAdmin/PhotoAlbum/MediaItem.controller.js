@@ -18,7 +18,7 @@
             blockUI.start("Loading..."); 
             var k = PhotoAlbumResource.getMediaItems({ id: $stateParams.id, pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
                 // vm.mediaItemList = results;
-                debugger;
+                
                 vm.mediaItemList = results.items;
                 $scope.totalCount = results.metadata.totalItemCount;
                 blockUI.stop();

@@ -12,7 +12,7 @@ namespace MIA.ORMContext.Mappings {
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
 
-      builder.HasOne(a => a.Judge).WithMany(a => a.JudgekAwards).HasForeignKey(a => a.JudgeId);
+      builder.HasOne(a => a.Judge).WithMany(a => a.JudgeAwards).HasForeignKey(a => a.JudgeId);
       builder.HasOne(a => a.Award).WithMany(a => a.Level2Judges).HasForeignKey(a => a.AwardId);
 
     }

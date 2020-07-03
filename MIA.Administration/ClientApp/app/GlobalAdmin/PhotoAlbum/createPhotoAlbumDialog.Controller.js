@@ -92,7 +92,7 @@
         }
 
         $scope.uploadPosterFile = function (element) {
-            debugger;
+            
             vm.posterImage = $(element)[0].files[0];
         };
 

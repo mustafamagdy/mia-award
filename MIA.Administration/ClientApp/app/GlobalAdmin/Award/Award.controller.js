@@ -44,7 +44,7 @@
         function refreshAwardsByType() {
             blockUI.start("Loading...");
 
-            debugger;
+            
             var k = AwardResource.getAllAwards({ awardType: vm.selectedType.Id,pageNumber: vm.currentPage, pageSize: 10  }).$promise.then(function (results) {
                 $scope.AwardList = results.items;
                 $scope.totalCount = results.metadata.totalItemCount;

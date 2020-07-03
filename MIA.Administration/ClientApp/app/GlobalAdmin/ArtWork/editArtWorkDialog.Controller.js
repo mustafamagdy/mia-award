@@ -48,12 +48,12 @@
             $state.go('ArtWork');
         }
         vm.chnagein = function (ddd) {
-            debugger;
+            
 
         }
         vm.UpdateArtWork = function () {
             blockUI.start("Loading...");
-            debugger;
+            
             if (vm.ArtWork.award.awardType == 'artwork') {
                 var splitPoster = vm.posterImage.split(',');
                 var splitCover = vm.coverImage.split(',');
@@ -153,12 +153,12 @@
         }
 
         vm.LoadUploadPoster = function () {
-            debugger
+            
             $("#posterImage").click();
         }
         $scope.AddposterImage = function (element) {
             var logoFile = element[0];
-            debugger
+            
             var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
 
             if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
@@ -196,7 +196,7 @@
         }
 
         $scope.uploadPosterFile = function (element) {
-            debugger;
+            
             vm.posterImage = $(element)[0].files[0];
         };
 
@@ -205,12 +205,12 @@
 
 
         vm.LoadUploadCover = function () {
-            debugger
+            
             $("#coverImage").click();
         }
         $scope.AddcoverImage = function (element) {
             var logoFile = element[0];
-            debugger
+            
             var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
 
             if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
@@ -248,12 +248,12 @@
         }
 
         $scope.uploadCoverFile = function (element) {
-            debugger;
+            
             vm.coverImage = $(element)[0].files[0];
         };
 
         vm.LoadUploadTrailler = function () {
-            debugger
+            
             $("#traillerUploder").click();
         }
     }

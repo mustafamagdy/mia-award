@@ -40,7 +40,7 @@
         }
 
         vm.changeValue = function (value, index) {
-            debugger;
+            
             vm.votingCriteriaList[index].value = value;
 
         }
@@ -84,7 +84,7 @@
                 blockUI.stop();
             },
                 function (data, status) {
-                    debugger;
+                    
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });

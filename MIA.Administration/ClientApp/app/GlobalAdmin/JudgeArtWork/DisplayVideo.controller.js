@@ -25,14 +25,14 @@
                     });
 
                     scope.frame = function (num) {
-                        debugger;
+                        
                         if (video[0].readyState !== 0) {
                             video[0].currentTime += num;
                         }
                     };
 
                     scope.toggle = function () {
-                        debugger; if (video[0].paused === true) {
+                         if (video[0].paused === true) {
                             video[0].play();
                             scope.playing = true;
                         } else {
@@ -123,7 +123,7 @@
         }
 
         function tick() {
-            debugger;
+            
             $scope.percent = (vid.currentTime / vid.duration) * 100;
             vm.time = vid.currentTime;
         }
@@ -141,14 +141,14 @@
         //     });
 
         //     $scope.frame = function (num) {
-        //       debugger;
+        //       
         //         if (video[0].readyState !== 0) {
         //             video[0].currentTime += num;
         //         }
         //     };
 
         //     $scope.toggle = function () {
-        //         debugger;   if (video[0].paused === true) {
+        //            if (video[0].paused === true) {
         //             video[0].play();
         //             $scope.playing = true;
         //         } else {

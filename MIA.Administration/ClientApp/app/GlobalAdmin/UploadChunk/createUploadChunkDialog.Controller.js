@@ -54,7 +54,7 @@
                             $scope.uploadChunkApi({ id: itemId, fileName: file.name, uploadId, chunkIndex, totalChunks, chunk: base64, eTags: etags })
                                 .then(
                                     function (data, status) {
-                                        debugger;
+                                        
                                         var a = data;
                                         if (a.status == 200) {
                                             if (end < $scope.size) {
@@ -98,7 +98,7 @@
                         });
                     };
                     $scope.onProgress = function (evt) {
-                        debugger;
+                        
                         var element = angular.element(document.querySelector('#dvProgress'));
                         $scope.Progress = Math.round(evt);
                         element.html('<div style="width: ' + $scope.Progress + '%">' + $scope.Progress + '%</div>');
@@ -152,7 +152,7 @@
                 $scope.uploadChunkApi({ id: itemId, fileName: file.name, uploadId, chunkIndex, totalChunks, chunk: base64, eTags: etags })
                     .then(
                         function (data, status) {
-                            debugger;
+                            
                             var a = data;
                             if (a.status == 200) {
                                 if (end < $scope.size) {
@@ -186,7 +186,7 @@
         };
 
         $scope.uploadChunkApi = function ({ id, ...data }) {
-            debugger;
+            
 
             return $http({
                 method: 'POST',
@@ -198,7 +198,7 @@
             });
         };
         $scope.onProgress = function (evt) {
-            debugger;
+            
             var element = angular.element(document.querySelector('#dvProgress'));
             $scope.Progress = Math.round(evt);
             element.html('<div style="width: ' + $scope.Progress + '%">' + $scope.Progress + '%</div>');

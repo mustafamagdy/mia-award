@@ -27,7 +27,6 @@
     }
 
     function getUser() {
-      debugger;
       var token = getAuthInfo();
       if (token == undefined) return undefined;
       const userDetails = jwtHelper.decodeToken(token);

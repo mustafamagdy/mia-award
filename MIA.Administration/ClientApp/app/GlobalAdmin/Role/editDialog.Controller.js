@@ -54,7 +54,7 @@
                 },
                 function (data, status) {
 
-                    debugger; blockUI.stop();
+                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data.errorMessage, "error");
                 }
             );
@@ -121,7 +121,7 @@
         // vm.ChangeSelectedModule = function () {
         //     angular.forEach(vm.selectedModule, function (value, key) {
         //         angular.forEach(value.permessions, function (valuePermission, key1) {
-        //             debugger;
+        //             
         //             if (vm.selectedModuleList != 0) {
         //                 if (!vm.selectedModuleList.includes(valuePermission)) {
         //                     vm.selectedModuleList.push(valuePermission);

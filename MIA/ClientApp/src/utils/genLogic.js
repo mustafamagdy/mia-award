@@ -56,7 +56,7 @@ function _validateApi(api, apiNamespace, api_name, action) {
   //todo: validatte api
   const func = api[apiNamespace][api_name];
   if (!func) {
-    debugger;
+    
   }
 }
 

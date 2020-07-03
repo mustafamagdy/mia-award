@@ -32,8 +32,7 @@ namespace MIA.MappingProfiles {
       CreateMap<LoginRequest, AppUser>().ValidateMemberList(MemberList.None);
       CreateMap<SignUpByEmailRequest, AppUser>()
         .IncludeAllDerived()
-        .ValidateMemberList(MemberList.None)
-        .ForMember(x => x.UserName, conf => conf.MapFrom(x => x.Email));
+        .ValidateMemberList(MemberList.None);
 
       CreateMap<SignUpByEmailRequest, Nominee>()
         .IncludeBase<SignUpByEmailRequest, AppUser>();

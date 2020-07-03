@@ -39,7 +39,7 @@
         // }
         // $scope.dateIsValid = false;
         // $scope.dateChange = function () {
-        //     debugger;
+        //     
         //     if ($('#paymentDate').data('date') == null || $('#paymentDate').data('date') == "") {
         //         $scope.dateIsValid = false;
         //         // $scope.$apply();
@@ -49,13 +49,11 @@
         //     }
         // }
         $scope.uploadReceiptFile = function (element) {
-            debugger;
             vm.receipt = $(element)[0].files[0];
         };
 
 
         vm.AddNewArtWork = function () {
-            debugger;
             if (vm.selectedAward.awardType == 'artwork') {
                 var splitPoster = vm.posterImage.split(',');
                 var splitCover = vm.coverImage.split(',');
@@ -115,7 +113,6 @@
                 function (data, status) {
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    // debugger;
                     // if (vm.selectedAward.awardType == 'artwork')
                     //     openUploadDialog(data.id, appCONSTANTS.API_URL + 'artWorks/artwork/' + data.id + '/files')
                     // else
@@ -131,14 +128,12 @@
 
 
         function callBackUpload(model) {
-            debugger
             var updateObj = new ArtWorkResource();
             updateObj.Id = model.id;
             updateObj.FileUrl = model.data.trailer.fileUrl;
             updateObj.FileKey = model.data.trailer.fileKey;
             updateObj.$UpdateTrailerVideoUrl().then(
                 function (data, status) {
-                    debugger;
                     $state.go('ArtWork');
 
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
@@ -163,7 +158,6 @@
         }
         function refreshNominees() {
             var k = ArtWorkResource.getAllNominees().$promise.then(function (results) {
-                debugger;
                 vm.nomineeList = results;
                 vm.selectedNominee = vm.nomineeList[0];
                 blockUI.stop();
@@ -393,7 +387,6 @@
         }
 
         $scope.uploadreceiptFile = function (element) {
-            debugger;
             vm.receiptImage = $(element)[0].files[0];
         };
     }

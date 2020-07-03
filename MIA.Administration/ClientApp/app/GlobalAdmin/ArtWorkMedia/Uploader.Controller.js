@@ -67,13 +67,13 @@
                                     chunkIndex = chunkIndex + 1;
                                     const newEnd = start + sliceSize * 2;
                                     const newStart = start + sliceSize;
-                                    debugger;
+                                    
                                     const percent = (chunkIndex / totalChunks) * 100;
                                     onProgress && onProgress(percent);
                                     //upload next slice
                                     send(itemId, file, newStart, newEnd, chunkIndex, totalChunks, a.data.eTags, a.data.uploadId);
                                 } else {
-                                    debugger;
+                                    
 
                                     //  onUploadComplete && onUploadComplete(data);
                                     onProgress(100);
@@ -112,7 +112,7 @@
             vm.Progress = Math.round(evt);
         }
         function Artwork(model) {
-            debugger;
+            
             var addObj = new ArtWorkMediaResource();
             addObj.Id = model.id;
             addObj.FileUrl = model.data.trailer.fileUrl;
@@ -127,7 +127,7 @@
             );
         }
         function ArtworkMediaFile(model) {
-            debugger;
+            
             var addObj = new ArtWorkMediaResource();
             addObj.ArtWorkId = model.id;
             addObj.FileUrl = model.data.trailer.fileUrl;

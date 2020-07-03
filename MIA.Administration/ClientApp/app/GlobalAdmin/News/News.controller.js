@@ -22,7 +22,7 @@
             blockUI.start("Loading...");
 
             var k = NewsResource.getAllNewss({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
-                debugger;
+                
                 $scope.NewsList = results.items;
                 $scope.totalCount = results.metadata.totalItemCount;
                 console.log($scope.NewsList);
@@ -30,7 +30,7 @@
 
             },
                 function (data, status) {
-                    debugger;
+                    
                     blockUI.stop();
                    //s ToastService.show("right", "bottom", "fadeInUp", data.data.errorMessage, "error");
                 });

@@ -1197,7 +1197,7 @@ namespace MIA.ORMContext.Migrations
                         .HasForeignKey("AwardId1");
 
                     b.HasOne("MIA.Models.Entities.Judge", "Judge")
-                        .WithMany("JudgekAwards")
+                        .WithMany("JudgeAwards")
                         .HasForeignKey("JudgeId");
                 });
 
