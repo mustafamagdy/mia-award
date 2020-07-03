@@ -31,6 +31,8 @@ using MIA.Administration.Middlewares;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.AspNetCore.HttpOverrides;
 using MIA.Infrastructure;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace MIA {
   /// <summary>
@@ -145,7 +147,7 @@ namespace MIA {
         .AddSMTPEmailSender(this.configuration)
 #endif
         .AddSpaFiles(this.env)
-        
+
         .AddRedis(this.configuration)
         .AddProjectMappers()
         .AddProjectRepositories()
@@ -223,15 +225,16 @@ namespace MIA {
         .UseRouteUrlCultureProvider()
 
         .UseStaticFilesWithCacheControl()
-        .UseSpaFiles()
-        .UseSpa(spa => {
-          spa.Options.SourcePath = env.IsProduction() ? "wwwroot" : "ClientApp";
-
-          if (env.IsDevelopment()) {
-            spa.Options.StartupTimeout = TimeSpan.FromSeconds(120);
-            spa.UseAngularCliServer(npmScript: "start");
-            //spa.UseReactDevelopmentServer(npmScript: "start");
-          }
+        .UseIfElse(this.env.IsProduction(), cfg => {
+          cfg.UseSpaFiles()
+                .UseSpa(spa => {
+                  spa.Options.SourcePath = "wwwroot";
+                });
+          return cfg;
+        }, cfg => {
+          return cfg.UseFileServer(new FileServerOptions {
+            FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "ClientApp/dist")),
+          });
         });
 
       //seed default data
