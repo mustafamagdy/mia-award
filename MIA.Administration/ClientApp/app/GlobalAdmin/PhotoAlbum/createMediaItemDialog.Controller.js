@@ -29,7 +29,7 @@
             newObj.Featured = vm.isFeatured;
             newObj.MediaType = vm.selectedMediaType;
             newObj.AlbumId = $stateParams.id;
-            debugger;
+            
             if (vm.posterVideo != null) {
                 var splitVideoImage = vm.posterVideo.split(',');
                 newObj.Poster = splitVideoImage[1];
@@ -53,7 +53,7 @@
                         $state.go('mediaItems', { id: $stateParams.id });
 
                     } else {
-                        debugger;
+                        
                         vm.showButtonVideo = true;
                         vm.showVideo = true;
                         vm.mediaId = data.id;
@@ -71,11 +71,11 @@
         }
         vm.LoadUploadPoster = function () {
             $("#posterImage").click();
-            debugger;
+            
         }
         var posterImage;
         $scope.AddposterImage = function (element) {
-            debugger;
+            
             var logoFile = element[0];
             var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
 
@@ -112,7 +112,7 @@
         }
 
         $scope.uploadPosterFile = function (element) {
-            debugger;
+            
             vm.posterImage = $(element)[0].files[0];
         };
 
@@ -158,7 +158,7 @@
         }
 
         $scope.uploadPosterVideoFile = function (element) {
-            debugger;
+            
             vm.posterVideo = $(element)[0].files[0];
         };
 
@@ -170,7 +170,7 @@
         //     updateObj.FileKey = model.data.fileKey;
         //     updateObj.$UpdateMediaItemVideoUrl().then(
         //         function (data, status) {
-        //             debugger;
+        //             
         //             $state.go('mediaItems', { id: $stateParams.id });
 
         //             ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
@@ -257,13 +257,13 @@
                                     chunkIndex = chunkIndex + 1;
                                     const newEnd = start + sliceSize * 2;
                                     const newStart = start + sliceSize;
-                                    debugger;
+                                    
                                     const percent = (chunkIndex / totalChunks) * 100;
                                     onProgress && onProgress(percent);
                                     //upload next slice
                                     send(itemId, file, newStart, newEnd, chunkIndex, totalChunks, a.data.eTags, a.data.uploadId);
                                 } else {
-                                    debugger;
+                                    
 
                                     //  onUploadComplete && onUploadComplete(data);
                                     onProgress(100);
@@ -308,7 +308,7 @@
             updateObj.FileKey = model.data.file.fileKey;
             updateObj.$UpdateMediaItemVideoUrl().then(
                 function (data, status) {
-                    debugger;
+                    
                     $state.go('mediaItems', { id: $stateParams.id });
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Fileuploaded'), "success");
                 },

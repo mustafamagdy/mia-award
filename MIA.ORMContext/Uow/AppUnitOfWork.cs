@@ -17,7 +17,6 @@ namespace MIA.ORMContext.Uow {
     public DbSet<UserModule> UserModules => base.Context.Set<UserModule>();
     public DbSet<Image> Images => base.Context.Set<Image>();
     public DbSet<Judge> Judges => base.Context.Set<Judge>();
-    public DbSet<ContentReviewer> ContentReviewers => base.Context.Set<ContentReviewer>();
     public DbSet<Nominee> Nominees => base.Context.Set<Nominee>();
     public DbSet<Artwork> Artworks => base.Context.Set<Artwork>();
     public DbSet<ArtworkPayment> ArtworkPayments => base.Context.Set<ArtworkPayment>();

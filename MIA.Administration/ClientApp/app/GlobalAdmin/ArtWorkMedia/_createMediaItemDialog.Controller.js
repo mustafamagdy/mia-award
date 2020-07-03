@@ -25,7 +25,7 @@
             newObj.Featured = vm.isFeatured;
             newObj.MediaType = vm.selectedMediaType;
             newObj.AlbumId = $stateParams.id;
-            debugger;
+            
             if (vm.posterVideo != null) {
                 var splitVideoImage = vm.posterVideo.split(',');
                 newObj.Poster = splitVideoImage[1];
@@ -44,7 +44,7 @@
             newObj.$createMediaItem().then(
                 function (data, status) {
                     blockUI.stop();
-                    debugger;
+                    
                     if (data.mediaType == 'image') {
                         ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                         $state.go('mediaItems', { id: $stateParams.id });
@@ -62,11 +62,11 @@
 
         vm.LoadUploadPoster = function () {
             $("#posterImage").click();
-            debugger;
+            
         }
         var posterImage;
         $scope.AddposterImage = function (element) {
-            debugger;
+            
             var logoFile = element[0];
             var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
 
@@ -103,7 +103,7 @@
         }
 
         $scope.uploadPosterFile = function (element) {
-            debugger;
+            
             vm.posterImage = $(element)[0].files[0];
         };
 
@@ -149,7 +149,7 @@
         }
 
         $scope.uploadPosterVideoFile = function (element) {
-            debugger;
+            
             vm.posterVideo = $(element)[0].files[0];
         };
 
@@ -161,7 +161,7 @@
             updateObj.FileKey = model.data.fileKey;
             updateObj.$UpdateMediaItemVideoUrl().then(
                 function (data, status) {
-                    debugger;
+                    
                     $state.go('mediaItems', { id: $stateParams.id });
 
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");

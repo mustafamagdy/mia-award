@@ -8,8 +8,6 @@ namespace MIA.Models.Entities {
     public UserImage AvatarImage { get; set; }
   }
 
-  public class ContentReviewer : AppUser { }
-
   //dont login to backend
   public class Nominee : AppUser {
     public string JobTitle { get; set; }
@@ -19,7 +17,7 @@ namespace MIA.Models.Entities {
   }
 
   public class Judge : AppUser {
-    public HashSet<JudgeAward> JudgekAwards { get; set; }
+    public HashSet<JudgeAward> JudgeAwards { get; set; }
     public HashSet<JudgeVote> JudgeVotes { get; set; }
     public HashSet<JudgeComment> Comments { get; set; }
   }

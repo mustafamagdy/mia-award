@@ -20,7 +20,7 @@
         }
 
         vm.AddNewArtWorkMedia = function () {
-            debugger;
+            
             blockUI.start("Loading...");
             var newObj = new ArtWorkMediaResource();
             newObj.ArtWorkId = $stateParams.id;
@@ -39,14 +39,14 @@
         }
 
         function callBackUpload(model) {
-            debugger
+            
             var updateObj = new ArtWorkMediaResource();
             updateObj.Id = model.id;
             updateObj.FileUrl = model.data.FileUrl;
             updateObj.FileKey = model.data.FileKey;
             updateObj.$UpdateMediaItemVideoUrl().then(
                 function (data, status) {
-                    debugger;
+                    
                     $state.go('ArtWorkMedia', { id: $stateParams.id });
 
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");

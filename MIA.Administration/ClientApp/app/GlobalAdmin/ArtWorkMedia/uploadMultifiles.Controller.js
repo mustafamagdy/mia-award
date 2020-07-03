@@ -107,13 +107,13 @@ debugger
             blockUI.start("Loading...");
 
             var k = ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise.then(function (results) {
-                debugger;
+                
                 vm.artWorkFiles = results;
                 console.log(vm.artWorkFiles); blockUI.stop();
 
             },
                 function (data, status) {
-                    debugger;
+                    
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });

@@ -817,13 +817,6 @@ namespace MIA.ORMContext.Migrations
                     b.ToTable("AuditEntryProperties");
                 });
 
-            modelBuilder.Entity("MIA.Models.Entities.ContentReviewer", b =>
-                {
-                    b.HasBaseType("MIA.Models.Entities.AppUser");
-
-                    b.HasDiscriminator().HasValue("ContentReviewer");
-                });
-
             modelBuilder.Entity("MIA.Models.Entities.Judge", b =>
                 {
                     b.HasBaseType("MIA.Models.Entities.AppUser");
@@ -1195,7 +1188,7 @@ namespace MIA.ORMContext.Migrations
                         .HasForeignKey("AwardId1");
 
                     b.HasOne("MIA.Models.Entities.Judge", "Judge")
-                        .WithMany("JudgekAwards")
+                        .WithMany("JudgeAwards")
                         .HasForeignKey("JudgeId");
                 });
 

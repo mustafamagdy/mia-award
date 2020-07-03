@@ -23,6 +23,7 @@ using MIA.Providers;
 using X.PagedList;
 using MIA.Administration.Middlewares;
 using MIA.Api.Base;
+using MIA.Authorization.Entities;
 using MIA.Dto.Auth;
 using MIA.Exceptions;
 
@@ -70,8 +71,24 @@ namespace MIA.Administration.Api {
       [FromServices] IEmailSender emailSender,
       [FromServices] ICultureEmailTemplateProvider emailTemplateProvider,
       [FromServices] IApiUrlHelper urlHelper) {
-      AppUser user = signupData.MapTo<AppUser>();
-      IdentityResult result = await userManager.CreateAsync(user, signupData.Password);
+
+      AppUser user = null;
+      IdentityResult result = null;
+      if (string.IsNullOrEmpty(signupData.UserType)
+          || (signupData.UserType.ToLower() != PredefinedRoles.Judge.ToString().ToLower()
+          && signupData.UserType.ToLower() != PredefinedRoles.Nominee.ToString().ToLower())) {
+        user = signupData.MapTo<AppUser>();
+        result = await userManager.CreateAsync(user, signupData.Password);
+      } else if (signupData.UserType.ToLower() == PredefinedRoles.Judge.ToString().ToLower()) {
+        var judge = signupData.MapTo<Judge>();
+        result = await userManager.CreateAsync(judge, signupData.Password);
+        user = judge;
+      } else if (signupData.UserType.ToLower() == PredefinedRoles.Nominee.ToString().ToLower()) {
+        var nominee = signupData.MapTo<Nominee>();
+        result = await userManager.CreateAsync(nominee, signupData.Password);
+        user = nominee;
+      }
+
       if (result.Succeeded) {
         _logger.LogInformation("User created a new account with password.");
         string token = await userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -390,7 +407,7 @@ namespace MIA.Administration.Api {
       if (avatar != null) {
         result.AvatarImageUrl = $"/r/{avatar.Id}";
       }
-      
+
       return Ok(result);
     }
   }

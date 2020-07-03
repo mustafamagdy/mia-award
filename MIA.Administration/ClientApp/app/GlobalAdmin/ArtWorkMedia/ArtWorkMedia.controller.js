@@ -25,7 +25,7 @@
 
             },
                 function (data, status) {
-                    debugger;
+                    
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });
@@ -33,7 +33,7 @@
        
 
         function confirmationDelete(model) {
-         debugger;
+         
             var updateObj = new ArtWorkMediaResource();
             
             updateObj.$deleteMediaItem({ id: model.id }).then(

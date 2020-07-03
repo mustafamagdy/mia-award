@@ -11,7 +11,7 @@
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
         vm.ArtWork = ArtWorkByIdPrepService;
-     debugger; 
+      
 
         vm.Close = function () {
             $state.go('ArtWork');
@@ -19,7 +19,7 @@
         vm.UpdateArtWork = function () {
           //  var splitImage = $rootScope.image.split(',');
             blockUI.start("Loading...");
-            debugger;
+            
 
             var updateObj = new ArtWorkResource();
             updateObj.Id = vm.ArtWork.id;

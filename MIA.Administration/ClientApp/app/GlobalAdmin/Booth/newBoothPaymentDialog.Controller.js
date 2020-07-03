@@ -18,7 +18,7 @@
 
         $scope.dateIsValid = false;
         $scope.dateChange = function () {
-            debugger;
+            
             if ($('#paymentDate').data('date') == null || $('#paymentDate').data('date') == "") {
                 $scope.dateIsValid = false;
                 // $scope.$apply();
@@ -29,7 +29,7 @@
         }
 
         vm.UpdatePayment = function () {
-            debugger;
+            
             var fileByte = "";
             var fileName = "";
             blockUI.start("Loading...");
@@ -68,11 +68,11 @@
             );
         }
         vm.LoadUploadreceipt = function () {
-            debugger;
+            
             $("#receiptImage").click();
         }
         $scope.AddreceiptImage = function (element) {
-            debugger;
+            
             var logoFile = element[0];
 
             var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
@@ -112,7 +112,7 @@
         }
 
         $scope.uploadreceiptFile = function (element) {
-            debugger;
+            
             vm.receiptImage = $(element)[0].files[0];
         };
     }

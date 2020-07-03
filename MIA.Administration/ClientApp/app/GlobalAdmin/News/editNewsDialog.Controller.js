@@ -21,7 +21,7 @@
         vm.UpdateNews = function () {
             var splitImage = vm.posterImage.split(',');
             blockUI.start("Loading...");
-            debugger;
+            
 
             var updateObj = new NewsResource();
             updateObj.Id = vm.News.id;

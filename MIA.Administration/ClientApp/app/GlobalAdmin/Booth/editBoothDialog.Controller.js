@@ -18,7 +18,7 @@
         }
         vm.UpdateBooth = function () { 
             blockUI.start("Loading...");
-            debugger;
+            
 
             var updateObj = new BoothResource();
             updateObj.Id = vm.Booth.id;

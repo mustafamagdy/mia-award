@@ -14,7 +14,6 @@ namespace MIA.ORMContext.Uow {
     DbSet<AppUser> Users { get; }
     DbSet<Content> Contents{ get; }
     DbSet<Judge> Judges { get; }
-    DbSet<ContentReviewer> ContentReviewers { get; }
     DbSet<Nominee> Nominees { get; }
     DbSet<Image> Images { get; }
     DbSet<UserImage> UserImages { get; }

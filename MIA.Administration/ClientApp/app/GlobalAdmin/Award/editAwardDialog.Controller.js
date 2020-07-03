@@ -36,7 +36,7 @@
         }
         vm.UpdateAward = function () {
             blockUI.start("Loading...");
-            debugger;
+            
             //add new judge 1
             for (let index = 0; index < vm.selectedJudgesLevel1.length; index++) {
                 const element = vm.selectedJudgesLevel1[index];
@@ -105,7 +105,7 @@
 
 
         vm.selectJudgeLevel1 = function (user) {
-            debugger;
+            
             const userFromAdmins = this.selectedJudgesLevel1.find(b => b.id == user.id)
             if (user.isSelected && userFromAdmins == null) {
                 this.selectedJudgesLevel1.push(user);
@@ -156,7 +156,7 @@
                 vm.judgesLevel2List = angular.copy(results);;
                 vm.ManagerList = angular.copy(results);;
                 blockUI.stop();
-                debugger;
+                
                 if (vm.Award.level1Judges != null) {
                     var i;
                     for (i = 0; i < vm.Award.level1Judges.length; i++) {

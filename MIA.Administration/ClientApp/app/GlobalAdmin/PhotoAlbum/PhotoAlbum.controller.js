@@ -27,7 +27,7 @@
 
             },
                 function (data, status) {
-                    debugger;
+                    
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
                 });

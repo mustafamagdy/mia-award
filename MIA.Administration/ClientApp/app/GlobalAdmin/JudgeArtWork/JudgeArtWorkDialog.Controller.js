@@ -19,7 +19,7 @@
             $state.go('JudgeArtWork');
         }
         vm.changeValue = function (value, index) {
-            debugger;
+            
             vm.votingCriteriaList[index].value = value;
 
         }

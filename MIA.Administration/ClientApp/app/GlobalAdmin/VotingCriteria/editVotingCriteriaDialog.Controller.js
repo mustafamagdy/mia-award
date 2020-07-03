@@ -11,7 +11,7 @@
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
         vm.VotingCriteria = VotingCriteriaByIdPrepService;
-        debugger;
+        
         vm.selectedVotingLevel = vm.VotingCriteria.level;
         console.log(vm.VotingCriteria);
 
@@ -20,7 +20,7 @@
         }
         vm.UpdateVotingCriteria = function () {
             blockUI.start("Loading...");
-            debugger;
+            
 
             var updateObj = new VotingCriteriaResource();
             updateObj.Id = vm.VotingCriteria.id;

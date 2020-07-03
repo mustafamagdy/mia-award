@@ -13,7 +13,7 @@
                     elem.on('change', function () {
                         reader.readAsDataURL(elem[0].files[0]);
                         var filename = elem[0].files[0].name;
-                        debugger;
+                        
                         var extensionlist = filename.split('.');
                         rootScope.imageType = extensionlist[1];
 
@@ -31,13 +31,13 @@
 
                     var reader = new FileReader();
                     // reader.onload = function (e) {
-                    //     debugger;
+                    //     
                     //     rootScope.image = e.target.result;
                     //     scope.$apply();
 
                     // }
                     reader.onload = function (e) {
-                        debugger;
+                        
                         if (rootScope.isValid == false) {
                             rootScope.image = null;
                             scope.$apply();

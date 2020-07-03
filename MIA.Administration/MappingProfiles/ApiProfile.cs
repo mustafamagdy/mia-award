@@ -7,6 +7,7 @@ using MIA.Administration.Dto.User;
 using MIA.Dto.Admin;
 using MIA.Models.Entities;
 using System.Linq;
+using MIA.Dto.Auth;
 
 namespace MIA.Administration.MappingProfiles
 {
@@ -213,6 +214,15 @@ namespace MIA.Administration.MappingProfiles
         .ValidateMemberList(MemberList.None)
         .IncludeAllDerived();
       CreateMap<UserDto, AppUser>().ValidateMemberList(MemberList.None);
+
+
+
+      CreateMap<SignUpByEmailRequest, Judge>()
+        .IncludeBase<SignUpByEmailRequest, AppUser>();
+      
+      CreateMap<SignUpByEmailRequest, Nominee>()
+        .IncludeBase<SignUpByEmailRequest, AppUser>();
+
 
       #endregion
       //#region Role
