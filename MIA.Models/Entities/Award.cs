@@ -19,8 +19,7 @@ namespace MIA.Models.Entities {
     public Judge Manager { get; set; }
     public string ManagerId { get; set; }
 
-    public HashSet<JudgeAward> Level1Judges { get; set; }
-    public HashSet<JudgeAward> Level2Judges { get; set; }
+    public HashSet<JudgeAward> AllJudges { get; set; }
     public HashSet<Artwork> Artworks { get; set; }
     public HashSet<VotingCriteria> VotingCriterias { get; set; }
 

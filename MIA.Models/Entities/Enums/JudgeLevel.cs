@@ -1,5 +1,5 @@
 namespace MIA.Models.Entities {
-  public enum VotingLevel {
+  public enum JudgeLevel {
     Level1,
     Level2
   }

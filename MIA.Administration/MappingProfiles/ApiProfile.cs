@@ -167,7 +167,9 @@ namespace MIA.Administration.MappingProfiles
       CreateMap<Award, AwardDetailsDto>().ValidateMemberList(MemberList.None)
         .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.Trophy.FileUrl));
       CreateMap<NewAwardDto, Award>().ValidateMemberList(MemberList.None);
-      CreateMap<UpdateAwardDto, Award>().ValidateMemberList(MemberList.None);
+
+      CreateMap<UpdateAwardDto, Award>()
+        .ValidateMemberList(MemberList.None);
 
       #endregion
 

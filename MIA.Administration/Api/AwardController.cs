@@ -21,14 +21,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using X.PagedList;
 
-namespace MIA.Administration.Api
-{
+namespace MIA.Administration.Api {
 
   //[Authorize]
   [EnableCors(CorsPolicyName.AllowAll)]
   [Route("api/Awards")]
-  public class AwardsController : BaseCrudController<Award, AwardDto, NewAwardDto, UpdateAwardDto>
-  {
+  public class AwardsController : BaseCrudController<Award, AwardDto, NewAwardDto, UpdateAwardDto> {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
 
@@ -38,48 +36,44 @@ namespace MIA.Administration.Api
           IStringLocalizer<AwardsController> localize,
           IHostingEnvironment env,
           IOptions<UploadLimits> limitOptions
-        ) : base(mapper, logger, localize)
-    {
+        ) : base(mapper, logger, localize) {
       this.env = env;
       this.limitOptions = limitOptions;
     }
 
-    public override async Task<IActionResult> SaveNewAsync([FromBody] NewAwardDto dto, [FromServices] IAppUnitOfWork db)
-    {
+    public override async Task<IActionResult> SaveNewAsync([FromBody] NewAwardDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((AwardDto)(result as OkObjectResult)?.Value);
       var AwardsItem = await db.Awards.FindAsync(resultDto.Id);
       return IfFound(_mapper.Map<AwardDto>(AwardsItem));
     }
 
-    public override async Task<IActionResult> UpdateAsync([FromBody] UpdateAwardDto dto, [FromServices] IAppUnitOfWork db)
-    {
+    public override async Task<IActionResult> UpdateAsync([FromBody] UpdateAwardDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((AwardDto)(result as OkObjectResult)?.Value);
-      var AwardsItem = await db.Awards.FindAsync(resultDto.Id);
+      var AwardsItem = await db.Awards
+        .Include(a => a.AllJudges)
+        .FirstOrDefaultAsync(a => a.Id == resultDto.Id);
 
-      var JudgeAwardItem = db.JudgeAwards.Where(x => x.AwardId == resultDto.Id).ToList();
+      //var JudgeAwardItem = db.JudgeAwards.Where(x => x.AwardId == resultDto.Id).ToList();
 
       #region Judge Level 1
 
       //var deleteJudgesLevel1 = new JudgeAward[AwardsItem.Level1Judges.Count];
       //AwardsItem.Level1Judges.CopyTo(deleteJudgesLevel1, 0);
 
-      foreach (var removeJudge in dto.RemoveLevel1Judges)
-      {
-        var entity = db.Set<JudgeAward>().FirstOrDefault(a => a.JudgeId == removeJudge.JudgeId && a.AwardId == dto.Id);
+      foreach (var item in dto.RemoveLevel1Judges) {
+        var entity = db.Set<JudgeAward>().FirstOrDefault(a => a.JudgeId == item && a.AwardId == dto.Id && a.Level == JudgeLevel.Level1);
         if (entity != null)
           db.Set<JudgeAward>().Remove(entity);
       }
 
-      foreach (var addJudge in dto.AddLevel1Judges)
-      {
-        if (AwardsItem.Level1Judges.All(x => x.JudgeId != addJudge.JudgeId && x.AwardId != dto.Id))
-        {
-          AwardsItem.Level1Judges.Add(new JudgeAward
-          {
-            JudgeId = addJudge.JudgeId,
-            AwardId = addJudge.AwardId
+      foreach (var item in dto.AddLevel1Judges) {
+        if (!AwardsItem.AllJudges.Any(x => x.JudgeId == item && x.AwardId == dto.Id && x.Level == JudgeLevel.Level1)) {
+          await db.JudgeAwards.AddAsync(new JudgeAward {
+            JudgeId = item,
+            AwardId = AwardsItem.Id,
+            Level = JudgeLevel.Level1
           });
         }
       }
@@ -90,35 +84,33 @@ namespace MIA.Administration.Api
       //var deleteJudgesLevel2 = new JudgeAward[AwardsItem.Level2Judges.Count];
       //AwardsItem.Level2Judges.CopyTo(deleteJudgesLevel2, 0);
 
-      foreach (var removeJudge in dto.RemoveLevel2Judges)
-      {
-        var entity = db.Set<JudgeAward>().FirstOrDefault(a => a.JudgeId == removeJudge.JudgeId && a.AwardId == dto.Id);
+      foreach (var item in dto.RemoveLevel2Judges) {
+        var entity = db.Set<JudgeAward>().FirstOrDefault(a => a.JudgeId == item && a.AwardId == dto.Id&& a.Level == JudgeLevel.Level2);
         if (entity != null)
           db.Set<JudgeAward>().Remove(entity);
       }
 
-      foreach (var addJudge in dto.AddLevel2Judges)
-      {
-        if (AwardsItem.Level2Judges.All(x => x.JudgeId != addJudge.JudgeId && x.AwardId != dto.Id))
-        {
-          AwardsItem.Level2Judges.Add(new JudgeAward
-          {
-            JudgeId = addJudge.JudgeId,
-            AwardId = addJudge.AwardId
+      foreach (var item in dto.AddLevel2Judges) {
+        if (!AwardsItem.AllJudges.Any(x => x.JudgeId  == item && x.AwardId == dto.Id && x.Level == JudgeLevel.Level2)) {
+          await db.JudgeAwards.AddAsync(new JudgeAward {
+            JudgeId = item,
+            AwardId = AwardsItem.Id,
+            Level = JudgeLevel.Level2
           });
         }
       }
       #endregion
 
-      var entry = db.Set<Award>().Attach(AwardsItem);
-      entry.State = EntityState.Modified;
       await db.CommitTransactionAsync();
+
+      AwardsItem = await db.Awards
+        .Include(a => a.AllJudges)
+        .FirstOrDefaultAsync(a => a.Id == resultDto.Id);
 
       return IfFound(_mapper.Map<AwardDto>(AwardsItem));
     }
     [HttpGet("getAwardDetails")]
-    public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db)
-    {
+    public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
       //var result = await base.GetAsync(id, db); 
       AwardDetailsDto returnAwardDetails = null;
       var award = await db.Awards.FirstOrDefaultAsync(a => a.Id == id);
@@ -144,22 +136,19 @@ namespace MIA.Administration.Api
 
 
     [HttpGet("judges")]
-    public async Task<IActionResult> ListOfJudges([FromServices] IAppUnitOfWork db)
-    {
+    public async Task<IActionResult> ListOfJudges([FromServices] IAppUnitOfWork db) {
       var judges = db.Judges;
-      if (judges == null)
-      {
+      if (judges == null) {
         throw new ApiException(ApiErrorType.NotFound, "judges not found");
       }
       return IfFound(judges.MapTo<JudgeDto>());
     }
 
     [HttpPost("awardsByType")]
-    public async Task<IActionResult> ListOfAwardsByType(AwardFilterDto dto, [FromServices] IAppUnitOfWork db)
-    {
+    public async Task<IActionResult> ListOfAwardsByType(AwardFilterDto dto, [FromServices] IAppUnitOfWork db) {
       var awards = db.Awards
         .Include(m => m.Manager)
-        .ThenInclude(a=>a.AvatarImage)
+        .ThenInclude(a => a.AvatarImage)
         .Where(x => x.AwardType == dto.AwardType)
         .AsQueryable();
 
