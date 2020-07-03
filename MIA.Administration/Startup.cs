@@ -31,6 +31,8 @@ using MIA.Administration.Middlewares;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.AspNetCore.HttpOverrides;
 using MIA.Infrastructure;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace MIA {
   /// <summary>
@@ -145,7 +147,7 @@ namespace MIA {
         .AddSMTPEmailSender(this.configuration)
 #endif
         .AddSpaFiles(this.env)
-        
+
         .AddRedis(this.configuration)
         .AddProjectMappers()
         .AddProjectRepositories()
@@ -223,6 +225,12 @@ namespace MIA {
         .UseRouteUrlCultureProvider()
 
         .UseStaticFilesWithCacheControl()
+        // .UseIf(this.env.IsDevelopment(), cfg => {
+        //   return cfg.UseFileServer(new FileServerOptions {
+        //     FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "ClientApp")),
+        //     RequestPath = "/dist"
+        //   });
+        // })
         .UseSpaFiles()
         .UseSpa(spa => {
           spa.Options.SourcePath = env.IsProduction() ? "wwwroot" : "ClientApp";
@@ -232,7 +240,8 @@ namespace MIA {
             spa.UseAngularCliServer(npmScript: "start");
             //spa.UseReactDevelopmentServer(npmScript: "start");
           }
-        });
+        })
+        ;
 
       //seed default data
       DbInitializer.SeedDbAsync(userManager, roleManager, fileManager, db, encoder).Wait();

@@ -1,6 +1,7 @@
 (function () {
     //const apiBaseUrl = "http://localhost:5000";
     //const apiBaseUrl = "http://localhost:62912";
+    //test
     const apiBaseUrl = "";
     angular
         .module("core")
