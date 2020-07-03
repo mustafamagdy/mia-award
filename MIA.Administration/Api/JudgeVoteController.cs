@@ -108,7 +108,7 @@ namespace MIA.Administration.Api
 
     }
     [HttpGet("getCriteriaByLevel")]
-    public async Task<IActionResult> GetCriteriaBylevelAsync(VotingLevel level, [FromServices] IAppUnitOfWork db)
+    public async Task<IActionResult> GetCriteriaBylevelAsync(JudgeLevel level, [FromServices] IAppUnitOfWork db)
     {
       List<VotingCriteriasDto> votingCriteriaDto = null;
       var getCriteriaList = db.VotingCriterias.Where(c => c.Level == level).ToList();

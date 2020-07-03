@@ -1,5 +1,6 @@
 ﻿using MIA.Administration.Dto.Award;
 using MIA.Administration.Dto.User;
+using MIA.Models.Entities;
 
 namespace MIA.Administration.Api
 {
@@ -10,6 +11,7 @@ namespace MIA.Administration.Api
     public string JudgeId { get; set; }
     //  public AwardDto Award { get; set; }
     public string AwardId { get; set; }
+    public JudgeLevel Level{ get; set; }
   }
 
 }
