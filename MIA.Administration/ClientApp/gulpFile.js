@@ -330,3 +330,7 @@ gulp.task("watch", function (cb) {
 gulp.task("default", function (cb) {
   runSequence("build", "serve", "watch", cb);
 });
+
+gulp.task("only", function (cb) {
+  runSequence("build", "watch", cb);
+});

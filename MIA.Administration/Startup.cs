@@ -225,10 +225,16 @@ namespace MIA {
         .UseRouteUrlCultureProvider()
 
         .UseStaticFilesWithCacheControl()
-       
-        .UseSpaFiles()
-        .UseSpa(spa => {
-          spa.Options.SourcePath = env.IsProduction() ? "wwwroot" : "ClientApp/dist";
+        .UseIfElse(this.env.IsProduction(), cfg => {
+          cfg.UseSpaFiles()
+                .UseSpa(spa => {
+                  spa.Options.SourcePath = "wwwroot";
+                });
+          return cfg;
+        }, cfg => {
+          return cfg.UseFileServer(new FileServerOptions {
+            FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "ClientApp/dist")),
+          });
         });
 
       //seed default data
