@@ -30,6 +30,13 @@ namespace MIA.Authorization.Entities
     RemoveUserFromRole,
     [PermissionDescriptor(SystemModules.Adminstration, "add_user_to_role", "Can read employees data")]
     AddUserToRole,
+    [PermissionDescriptor(SystemModules.Adminstration, "artwork_list_basic_data", "Read and list artworks basic data")]
+    ArtworkListBasicData,
+    [PermissionDescriptor(SystemModules.Adminstration, "artowkr_allow_file_upload", "Allow file upload for artwork")]
+    ArtworkAllowFileUpload,
+
+
+
 
     //Boths
     [PermissionDescriptor(SystemModules.Booths, "view", "Can read employees")]
@@ -42,8 +49,10 @@ namespace MIA.Authorization.Entities
     BoothPayment,
 
     //Judge
-    [PermissionDescriptor(SystemModules.Judge, "list_judge_artwork", "Can read employees data")]
+    [PermissionDescriptor(SystemModules.Judge, "list_judge_artworks", "Can read employees data")]
     JudgeArtworkList,
+
+
 
     //Client side dont move or change, add before this line
     [PermissionDescriptor(SystemModules.Nominee, "NomineePolicy", "Nominee policy to access all nominee sections")]

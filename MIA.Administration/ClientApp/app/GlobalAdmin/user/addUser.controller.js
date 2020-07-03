@@ -20,12 +20,12 @@
         vm.UnSelectedPermissions = [];
 
         vm.checkPermission = function (obj) {
-            var checkIfPermissionExist = vm.UnSelectedPermissions.indexOf(obj.permessionId);
+            var checkIfPermissionExist = vm.UnSelectedPermissions.indexOf(obj.permissionId);
             if (checkIfPermissionExist == -1) {
-                vm.UnSelectedPermissions.push(obj.permessionId);
+                vm.UnSelectedPermissions.push(obj.permissionId);
             }
             else {
-                var index = vm.UnSelectedPermissions.indexOf(obj.permessionId);
+                var index = vm.UnSelectedPermissions.indexOf(obj.permissionId);
                 vm.UnSelectedPermissions.splice(index, 1);
             }
         }

@@ -45,6 +45,21 @@
                     }
 
                 })
+                .state('viewArtWork', {
+                    url: '/artWork/:id',
+                    templateUrl: './app/GlobalAdmin/ArtWork/templates/view.html',
+                    controller: 'viewArtWorkDialogController',
+                    'controllerAs': 'ctrl',
+                    resolve: {
+                        ArtWorkByIdPrepService: ArtWorkByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
                 .state('ArtWorkpayment', {
                     url: '/ArtWorkpayment/:id',
                     templateUrl: './app/GlobalAdmin/ArtWork/templates/payment.html',

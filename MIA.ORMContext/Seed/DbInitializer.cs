@@ -15,10 +15,8 @@ using System.Net.Http;
 using System.Text.Encodings.Web;
 using Newtonsoft.Json.Linq;
 
-namespace MIA.ORMContext.Seed
-{
-  public class DbInitializer
-  {
+namespace MIA.ORMContext.Seed {
+  public class DbInitializer {
     /// <summary>
     /// Seed database with default required data
     /// </summary>
@@ -33,8 +31,7 @@ namespace MIA.ORMContext.Seed
       RoleManager<AppRole> roleManager,
       IS3FileManager s3FileManager,
       IAppUnitOfWork db,
-      HtmlEncoder encoder)
-    {
+      HtmlEncoder encoder) {
 
       await SeedDefaultRoles(roleManager, db);
       await SeedAdminRoleAndPermissions(roleManager, db);
@@ -44,10 +41,10 @@ namespace MIA.ORMContext.Seed
 
       await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
       await SeedBoothUserAndRoleAsync(roleManager, userManager, db);
+      await SeedFilterAndUploadUserAndRoleAsync(roleManager, userManager, db);
       await SeedDemoUsers(roleManager, userManager, db);
 
-      if (Directory.Exists("./seed"))
-      {
+      if (Directory.Exists("./seed")) {
         await SeedContactUsMessageSubjectsAsync(db);
         await SeedAwards(db, encoder);
         await SeedGenres(db);
@@ -63,23 +60,18 @@ namespace MIA.ORMContext.Seed
       await db.CommitTransactionAsync();
     }
 
-    private static async Task SeedTimeLine(IAppUnitOfWork db)
-    {
+    private static async Task SeedTimeLine(IAppUnitOfWork db) {
       var filename = "./seed/timeline.json";
-      if (File.Exists(filename))
-      {
-        using (StreamReader r = new StreamReader(filename))
-        {
+      if (File.Exists(filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
           var programContent = db.Contents.FirstOrDefault(a => a.ContentType == ContentType.Program);
-          if (programContent == null)
-          {
+          if (programContent == null) {
             programContent = new Content();
             programContent.ContentType = ContentType.Program;
           }
 
           programContent.Data = r.ReadToEnd();
-          if (programContent.Id == null)
-          {
+          if (programContent.Id == null) {
             await db.Contents.AddAsync(programContent);
           }
         }
@@ -143,15 +135,12 @@ namespace MIA.ORMContext.Seed
       }
     }
 
-    private static async Task SeedDemoUsers(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IAppUnitOfWork db)
-    {
-      if (await roleManager.FindByNameAsync(Constants.NOMINEE_ROLE) == null)
-      {
+    private static async Task SeedDemoUsers(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IAppUnitOfWork db) {
+      if (await roleManager.FindByNameAsync(PredefinedRoles.Nominee.ToString()) == null) {
         await roleManager.CreateAsync(
-          new AppRole(Constants.NOMINEE_ROLE)
-          {
-            Name = Constants.NOMINEE_ROLE,
-            NormalizedName = Constants.NOMINEE_ROLE.ToUpper()
+          new AppRole(PredefinedRoles.Nominee.ToString()) {
+            Name = PredefinedRoles.Nominee.ToString(),
+            NormalizedName = PredefinedRoles.Nominee.ToString().ToUpper()
           });
 
       }
@@ -160,22 +149,18 @@ namespace MIA.ORMContext.Seed
           Permissions.NomineeAccess,
         };
 
-      var nomineeRole = await roleManager.FindByNameAsync(Constants.NOMINEE_ROLE);
-      nomineePermissions.ForEach(m =>
-      {
+      var nomineeRole = await roleManager.FindByNameAsync(PredefinedRoles.Nominee.ToString());
+      nomineePermissions.ForEach(m => {
         if (nomineeRole.Permissions == null)
           nomineeRole.Permissions = "";
 
-        if (!nomineeRole.Permissions.Contains((char)m))
-        {
+        if (!nomineeRole.Permissions.Contains((char)m)) {
           nomineeRole.Permissions += (char)m;
         }
       });
 
-      if (await userManager.FindByNameAsync(Constants.NOMINEE_USERNAME) == null)
-      {
-        Nominee nomineeUser = new Nominee
-        {
+      if (await userManager.FindByNameAsync(Constants.NOMINEE_USERNAME) == null) {
+        Nominee nomineeUser = new Nominee {
           FullName = "nominee user",
           Email = Constants.NOMINEE_EMAIL,
           UserName = Constants.NOMINEE_USERNAME,
@@ -184,15 +169,13 @@ namespace MIA.ORMContext.Seed
         };
 
         IdentityResult result = await userManager.CreateAsync(nomineeUser, Constants.NOMINEE_PASSWORD);
-        if (result.Succeeded)
-        {
-          await userManager.AddToRoleAsync(nomineeUser, Constants.NOMINEE_ROLE);
+        if (result.Succeeded) {
+          await userManager.AddToRoleAsync(nomineeUser, PredefinedRoles.Nominee.ToString());
         }
 
         var allowedModules = new SystemModules[] { SystemModules.Nominee };
         var modules = allowedModules[0];
-        for (int i = 1; i < allowedModules.Length; i++)
-        {
+        for (int i = 1; i < allowedModules.Length; i++) {
           modules |= allowedModules[i];
         }
 
@@ -201,15 +184,12 @@ namespace MIA.ORMContext.Seed
       }
     }
 
-    private static async Task SeedJudgeUsers(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IAppUnitOfWork db)
-    {
-      if (await roleManager.FindByNameAsync(Constants.JUDGE_ROLE) == null)
-      {
+    private static async Task SeedJudgeUsers(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IAppUnitOfWork db) {
+      if (await roleManager.FindByNameAsync(PredefinedRoles.Judge.ToString()) == null) {
         await roleManager.CreateAsync(
-          new AppRole(Constants.JUDGE_ROLE)
-          {
-            Name = Constants.JUDGE_ROLE,
-            NormalizedName = Constants.JUDGE_ROLE.ToUpper()
+          new AppRole(PredefinedRoles.Judge.ToString()) {
+            Name = PredefinedRoles.Judge.ToString(),
+            NormalizedName = PredefinedRoles.Judge.ToString().ToUpper()
           });
 
       }
@@ -218,23 +198,18 @@ namespace MIA.ORMContext.Seed
           Permissions.JudgeArtworkList,
         };
 
-      var judgeRole = await roleManager.FindByNameAsync(Constants.JUDGE_ROLE);
-      judgePermissions.ForEach(m =>
-      {
+      var judgeRole = await roleManager.FindByNameAsync(PredefinedRoles.Judge.ToString());
+      judgePermissions.ForEach(m => {
         if (judgeRole.Permissions == null)
           judgeRole.Permissions = "";
 
-        if (!judgeRole.Permissions.Contains((char)m))
-        {
+        if (!judgeRole.Permissions.Contains((char)m)) {
           judgeRole.Permissions += (char)m;
         }
       });
-      for (int j = 2; j < 5; j++)
-      {
-        if (await userManager.FindByNameAsync(Constants.JUDGE_USERNAME + j) == null)
-        {
-          Judge judgeUser = new Judge
-          {
+      for (int j = 2; j < 5; j++) {
+        if (await userManager.FindByNameAsync(Constants.JUDGE_USERNAME + j) == null) {
+          Judge judgeUser = new Judge {
             FullName = "judge user " + j,
             Email = Constants.JUDGE_EMAIL + j,
             UserName = Constants.JUDGE_USERNAME + j,
@@ -243,15 +218,13 @@ namespace MIA.ORMContext.Seed
           };
 
           IdentityResult result = await userManager.CreateAsync(judgeUser, Constants.JUDGE_PASSWORD);
-          if (result.Succeeded)
-          {
-            await userManager.AddToRoleAsync(judgeUser, Constants.JUDGE_ROLE);
+          if (result.Succeeded) {
+            await userManager.AddToRoleAsync(judgeUser, PredefinedRoles.Judge.ToString());
           }
 
           var allowedModules = new SystemModules[] { SystemModules.Judge };
           var modules = allowedModules[0];
-          for (int i = 1; i < allowedModules.Length; i++)
-          {
+          for (int i = 1; i < allowedModules.Length; i++) {
             modules |= allowedModules[i];
           }
 
@@ -262,36 +235,30 @@ namespace MIA.ORMContext.Seed
       }
     }
 
-    private static async Task SeedContactUsMessageSubjectsAsync(IAppUnitOfWork db)
-    {
+    private static async Task SeedContactUsMessageSubjectsAsync(IAppUnitOfWork db) {
       List<ContactUsSubject> dbItems = db.ContactUsSubjects.ToList();
       if (dbItems.Any())
         return;
       var filename = "./seed/contact_us_subjects.json";
-      if (File.Exists(filename))
-      {
-        using (StreamReader r = new StreamReader(filename))
-        {
+      if (File.Exists(filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
           var items = new List<ContactUsSubject>();
           string json = r.ReadToEnd();
           var deserializedItems = JsonConvert.DeserializeObject<List<ContactUsSubject>>(json);
 
-          foreach (var c in deserializedItems)
-          {
+          foreach (var c in deserializedItems) {
             var country = dbItems.FirstOrDefault(a => a.Name == c.Name);
             if (country != null) continue;
             items.Add(c);
           }
-          if (items.Any())
-          {
+          if (items.Any()) {
             await db.ContactUsSubjects.AddRangeAsync(items);
           }
         }
       }
     }
 
-    private static async Task SeedDemoArtworks(IAppUnitOfWork db, IS3FileManager fileManager)
-    {
+    private static async Task SeedDemoArtworks(IAppUnitOfWork db, IS3FileManager fileManager) {
       var artworksCount = db.Artworks.Count();
       if (artworksCount >= 30) return;
 
@@ -300,10 +267,8 @@ namespace MIA.ORMContext.Seed
       var awards = db.Awards.ToArray();
       var client = new HttpClient();
 
-      for (int i = 0; i < 30; i++)
-      {
-        var artwork = new Artwork
-        {
+      for (int i = 0; i < 30; i++) {
+        var artwork = new Artwork {
           AwardId = _faker_en.Random.ArrayElement(awards).Id,
           //FileCount = 3,
           UploadComplete = true,
@@ -330,8 +295,7 @@ namespace MIA.ORMContext.Seed
 
     }
 
-    private static async Task SeedDemoNews(IAppUnitOfWork db, IS3FileManager fileManager)
-    {
+    private static async Task SeedDemoNews(IAppUnitOfWork db, IS3FileManager fileManager) {
       var _faker_en = new Faker("en");
       var _faker_ar = new Faker("ar");
       string[] keywords = _faker_en.Random.WordsArray(10);
@@ -342,11 +306,9 @@ namespace MIA.ORMContext.Seed
       var newsCount = db.News.Count();
       if (newsCount >= 20) return;
 
-      for (int i = 0; i < 20; i++)
-      {
+      for (int i = 0; i < 20; i++) {
 
-        var news = new News
-        {
+        var news = new News {
           Keywords = string.Join(" ", _faker_ar.Random.ArrayElements(keywords, 4)),
           Title = LocalizedData.FromBoth(_faker_ar.Lorem.Sentence(), _faker_en.Lorem.Sentence()),
           Body = LocalizedData.FromBoth(_faker_ar.Lorem.Paragraph(), _faker_en.Lorem.Paragraph()),
@@ -355,8 +317,7 @@ namespace MIA.ORMContext.Seed
           Outdated = _faker_en.Random.Bool(),
           Poster = S3File.FromKeyAndUrl("", ""),
           Featured = _faker_ar.Random.Bool(),
-          Comments = Enumerable.Range(0, _faker_en.Random.Number(10)).Select(a => new NewsComment
-          {
+          Comments = Enumerable.Range(0, _faker_en.Random.Number(10)).Select(a => new NewsComment {
             Comments = _faker_ar.Lorem.Paragraph(),
             Date = _faker_ar.Date.Past().ToUnixTimeSeconds(),
             Name = _faker_ar.Internet.UserName(),
@@ -382,16 +343,13 @@ namespace MIA.ORMContext.Seed
       }
     }
 
-    private static async Task SeedDemoGallery(IAppUnitOfWork db, IS3FileManager fileManager)
-    {
+    private static async Task SeedDemoGallery(IAppUnitOfWork db, IS3FileManager fileManager) {
       var galleryDir = "./seed/gallery";
       if (!Directory.Exists(galleryDir)) return;
 
       var mainAlbum = db.Albums.FirstOrDefault(a => a.MainGallery);
-      if (mainAlbum == null)
-      {
-        mainAlbum = new Album
-        {
+      if (mainAlbum == null) {
+        mainAlbum = new Album {
           MainGallery = true,
           Title = LocalizedData.FromBoth("البوم صور جوائز ميا", "Mia Award photo album"),
         };
@@ -409,23 +367,18 @@ namespace MIA.ORMContext.Seed
       if (allItems == _listFiles.Length) return;
 
 
-      foreach (var file in _listFiles)
-      {
+      foreach (var file in _listFiles) {
         var type = file.GetFileExt() == ".mp4" ? MediaType.Video : MediaType.Image;
         var url = "";
         var posterUrl = "";
-        if (type == MediaType.Image)
-        {
+        if (type == MediaType.Image) {
           url = file;
-        }
-        else
-        {
+        } else {
           url = file;
           posterUrl = allFiles.FirstOrDefault(a => a.GetFileNameWithoutExt() == file.GetFileNameWithoutExt() && a.GetFileExt() != ".mp4");
         }
 
-        var item = new AlbumItem
-        {
+        var item = new AlbumItem {
           Title = LocalizedData.FromBoth("اعلام جديد", "New Media"),
           AlbumId = mainAlbum.Id,
           Featured = true,
@@ -444,17 +397,14 @@ namespace MIA.ORMContext.Seed
 
         var client = new HttpClient();
         client.Timeout = TimeSpan.FromMinutes(5);
-        using (var sFile = new FileStream(url, FileMode.Open))
-        {
+        using (var sFile = new FileStream(url, FileMode.Open)) {
           var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + url.GetFileExt());
           var fileUrl = await fileManager.UploadFileAsync(sFile, fileKey);
 
           item.File = S3File.FromKeyAndUrl(fileKey, fileUrl);
         }
-        if (type == MediaType.Video)
-        {
-          using (var sFile = new FileStream(posterUrl, FileMode.Open))
-          {
+        if (type == MediaType.Video) {
+          using (var sFile = new FileStream(posterUrl, FileMode.Open)) {
             var posterFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + posterUrl.GetFileExt());
             var posterFileUrl = await fileManager.UploadFileAsync(sFile, posterFileKey);
 
@@ -470,19 +420,17 @@ namespace MIA.ORMContext.Seed
     private static async Task SeedDemoUserAndRoleAsync(
       RoleManager<AppRole> roleManager,
       UserManager<AppUser> userManager,
-      IAppUnitOfWork db)
-    {
+      IAppUnitOfWork db) {
 
-      //if (await roleManager.FindByNameAsync(Constants.DEMO_ROLE) == null) {
+      //if (await roleManager.FindByNameAsync(PredefinedRoles.Demo.ToString()) == null) {
       //  await roleManager.CreateAsync(
       //    new AppRole {
-      //      Name = Constants.DEMO_ROLE,
-      //      NormalizedName = Constants.DEMO_ROLE.ToUpper()
+      //      Name = PredefinedRoles.Demo.ToString(),
+      //      NormalizedName = PredefinedRoles.Demo.ToString().ToUpper()
       //    });
 
-      var demoRole = await roleManager.FindByNameAsync(Constants.DEMO_ROLE);
-      if (demoRole.Permissions == null)
-      {
+      var demoRole = await roleManager.FindByNameAsync(PredefinedRoles.Demo.ToString());
+      if (demoRole.Permissions == null) {
         demoRole.Permissions = "";
       }
 
@@ -497,20 +445,16 @@ namespace MIA.ORMContext.Seed
           Permissions.RemoveUserFromRole,
         };
 
-      demoPermissions.ForEach(m =>
-      {
-        if (!demoRole.Permissions.Contains((char)m))
-        {
+      demoPermissions.ForEach(m => {
+        if (!demoRole.Permissions.Contains((char)m)) {
           demoRole.Permissions += (char)m;
         }
       });
       //}
 
 
-      if (await userManager.FindByNameAsync(Constants.DEMO_USERNAME) == null)
-      {
-        AppUser demoUser = new AppUser
-        {
+      if (await userManager.FindByNameAsync(Constants.DEMO_USERNAME) == null) {
+        AppUser demoUser = new AppUser {
           FullName = "demo user",
           Email = Constants.DEMO_EMAIL,
           UserName = Constants.DEMO_USERNAME,
@@ -519,15 +463,13 @@ namespace MIA.ORMContext.Seed
         };
 
         IdentityResult result = await userManager.CreateAsync(demoUser, Constants.DEMO_PASSWORD);
-        if (result.Succeeded)
-        {
-          await userManager.AddToRoleAsync(demoUser, Constants.DEMO_ROLE);
+        if (result.Succeeded) {
+          await userManager.AddToRoleAsync(demoUser, PredefinedRoles.Demo.ToString());
 
           //add allowed modules (this is an example only)
           var allowedModules = new SystemModules[] { SystemModules.News, SystemModules.Adminstration };
           var modules = allowedModules[0];
-          for (int i = 1; i < allowedModules.Length; i++)
-          {
+          for (int i = 1; i < allowedModules.Length; i++) {
             modules |= allowedModules[i];
           }
 
@@ -544,41 +486,32 @@ namespace MIA.ORMContext.Seed
     /// </summary>
     /// <param name="roleManager">Rolemanager instance to create default roles</param>
     /// <returns></returns>
-    private static async Task SeedAdminRoleAndPermissions(RoleManager<AppRole> roleManager, IAppUnitOfWork db)
-    {
-      if (await roleManager.FindByNameAsync(Constants.ADMIN_ROLE) == null)
-      {
+    private static async Task SeedAdminRoleAndPermissions(RoleManager<AppRole> roleManager, IAppUnitOfWork db) {
+      if (await roleManager.FindByNameAsync(PredefinedRoles.Administrator.ToString()) == null) {
         await roleManager.CreateAsync(
-          new AppRole(Constants.ADMIN_ROLE)
-          {
-            Name = Constants.ADMIN_ROLE,
-            NormalizedName = Constants.ADMIN_ROLE.ToUpper()
+          new AppRole(PredefinedRoles.Administrator.ToString()) {
+            Name = PredefinedRoles.Administrator.ToString(),
+            NormalizedName = PredefinedRoles.Administrator.ToString().ToUpper()
           });
 
-        var adminRole = await roleManager.FindByNameAsync(Constants.ADMIN_ROLE);
-        if (adminRole.Permissions == null)
-        {
+        var adminRole = await roleManager.FindByNameAsync(PredefinedRoles.Administrator.ToString());
+        if (adminRole.Permissions == null) {
           adminRole.Permissions = "";
         }
 
-        if (!adminRole.Permissions.Contains((char)Permissions.AccessAll))
-        {
+        if (!adminRole.Permissions.Contains((char)Permissions.AccessAll)) {
           adminRole.Permissions += (char)Permissions.AccessAll;
         }
 
       }
     }
 
-    private static async Task SeedDefaultRoles(RoleManager<AppRole> roleManager, IAppUnitOfWork db)
-    {
+    private static async Task SeedDefaultRoles(RoleManager<AppRole> roleManager, IAppUnitOfWork db) {
       var roles = Enum.GetNames(typeof(PredefinedRoles));
-      foreach (var role in roles)
-      {
-        if (await roleManager.FindByNameAsync(role.ToString().ToLower()) == null)
-        {
+      foreach (var role in roles) {
+        if (await roleManager.FindByNameAsync(role.ToString().ToLower()) == null) {
           await roleManager.CreateAsync(
-            new AppRole(role)
-            {
+            new AppRole(role) {
               Name = role.ToString().ToLower(),
               NormalizedName = role.ToString().ToUpper()
             });
@@ -591,12 +524,9 @@ namespace MIA.ORMContext.Seed
     /// </summary>
     /// <param name="userManager">Usermanager instance to create default users</param>
     /// <returns></returns>
-    private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager, IAppUnitOfWork db)
-    {
-      if (await userManager.FindByNameAsync(Constants.ADMIN_USERNAME) == null)
-      {
-        AppUser admin = new AppUser
-        {
+    private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager, IAppUnitOfWork db) {
+      if (await userManager.FindByNameAsync(Constants.ADMIN_USERNAME) == null) {
+        AppUser admin = new AppUser {
           FullName = "System admin",
           Email = Constants.ADMIN_EMAIL,
           UserName = Constants.ADMIN_USERNAME,
@@ -605,9 +535,8 @@ namespace MIA.ORMContext.Seed
         };
 
         IdentityResult result = await userManager.CreateAsync(admin, Constants.ADMIN_PASSWORD);
-        if (result.Succeeded)
-        {
-          await userManager.AddToRoleAsync(admin, Constants.ADMIN_ROLE);
+        if (result.Succeeded) {
+          await userManager.AddToRoleAsync(admin, PredefinedRoles.Administrator.ToString());
 
 
           var sys1Mod = new UserModule(admin.Id, SystemModules.Adminstration);
@@ -672,22 +601,17 @@ namespace MIA.ORMContext.Seed
       }
     }
 
-    private static async Task SeedAwards(IAppUnitOfWork db, HtmlEncoder encoder)
-    {
+    private static async Task SeedAwards(IAppUnitOfWork db, HtmlEncoder encoder) {
       List<Award> awards = db.Awards.ToList();
       var filename = "./seed/awards.json";
-      if (File.Exists(filename))
-      {
-        using (StreamReader r = new StreamReader(filename))
-        {
+      if (File.Exists(filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
           var newAwards = new List<Award>();
           string json = r.ReadToEnd();
           var listAwards = new List<Award>();
           JArray array = JArray.Parse(json);
-          foreach (JToken j in array)
-          {
-            listAwards.Add(new Award
-            {
+          foreach (JToken j in array) {
+            listAwards.Add(new Award {
               Code = ((JValue)j["Code"]).Value<string>(),
               AwardType = (AwardType)Enum.Parse(typeof(AwardType), ((JValue)j["AwardType"]).Value<string>()),
               ArtworkFee = ((JValue)j["ArtworkFee"]).Value<decimal>(),
@@ -698,36 +622,29 @@ namespace MIA.ORMContext.Seed
             });
           }
 
-          foreach (var award in listAwards)
-          {
+          foreach (var award in listAwards) {
             var _award = awards.FirstOrDefault(a => a.Code == award.Code);
             if (_award != null) continue;
             newAwards.Add(award);
           }
-          if (newAwards.Any())
-          {
+          if (newAwards.Any()) {
             await db.Awards.AddRangeAsync(newAwards);
           }
         }
       }
     }
 
-    private static async Task SeedNews(IAppUnitOfWork db, HtmlEncoder encoder, IS3FileManager fileManager)
-    {
+    private static async Task SeedNews(IAppUnitOfWork db, HtmlEncoder encoder, IS3FileManager fileManager) {
       List<News> allNews = db.News.ToList();
       var filename = "./seed/news/news.json";
-      if (File.Exists(filename))
-      {
-        using (StreamReader r = new StreamReader(filename))
-        {
+      if (File.Exists(filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
           var newNews = new List<News>();
           string json = r.ReadToEnd();
           var listNews = new List<News>();
           JArray array = JArray.Parse(json);
-          foreach (JToken j in array)
-          {
-            listNews.Add(new News
-            {
+          foreach (JToken j in array) {
+            listNews.Add(new News {
               Date = ((JValue)j["Date"]).Value<long>(),
               Outdated = ((JValue)j["Outdated"]).Value<bool>(),
               Poster = S3File.FromKeyAndUrl(((JValue)j["PosterId"]).Value<string>(), ((JValue)j["PosterUrl"]).Value<string>()),
@@ -739,21 +656,18 @@ namespace MIA.ORMContext.Seed
             });
           }
 
-          foreach (var news in listNews)
-          {
+          foreach (var news in listNews) {
             var _news = allNews.FirstOrDefault(a => a.Title.InEnglish() == news.Title.InEnglish());
             if (_news != null) continue;
 
             var imageFile = "";
-            if (File.Exists($"./seed/news/{news.Poster.FileKey}.jpg"))
-            {
+            if (File.Exists($"./seed/news/{news.Poster.FileKey}.jpg")) {
               imageFile = $"./seed/news/{news.Poster.FileKey}.jpg";
             }
 
             await db.News.AddAsync(news);
 
-            using (var placeholder_image = new MemoryStream(File.ReadAllBytes(imageFile)))
-            {
+            using (var placeholder_image = new MemoryStream(File.ReadAllBytes(imageFile))) {
               var imageKey = fileManager.GenerateFileKeyForResource(ResourceType.News, news.Id, news.Id + ".jpg");
               var imageUrl = await fileManager.UploadFileAsync(placeholder_image, imageKey);
               news.Poster = S3File.FromKeyAndUrl(imageKey, imageUrl);
@@ -768,12 +682,10 @@ namespace MIA.ORMContext.Seed
     private static async Task SeedBoothUserAndRoleAsync(
       RoleManager<AppRole> roleManager,
       UserManager<AppUser> userManager,
-      IAppUnitOfWork db)
-    {
+      IAppUnitOfWork db) {
 
-      var boothRole = await roleManager.FindByNameAsync(Constants.BOOTH_ROLE);
-      if (boothRole.Permissions == null)
-      {
+      var boothRole = await roleManager.FindByNameAsync(PredefinedRoles.BoothAgent.ToString());
+      if (boothRole.Permissions == null) {
         boothRole.Permissions = "";
       }
 
@@ -785,18 +697,14 @@ namespace MIA.ORMContext.Seed
           Permissions.BoothPayment,
         };
 
-      boothPermissions.ForEach(m =>
-      {
-        if (!boothRole.Permissions.Contains((char)m))
-        {
+      boothPermissions.ForEach(m => {
+        if (!boothRole.Permissions.Contains((char)m)) {
           boothRole.Permissions += (char)m;
         }
       });
 
-      if (await userManager.FindByNameAsync(Constants.BOOTH_USERNAME) == null)
-      {
-        AppUser boothUser = new AppUser
-        {
+      if (await userManager.FindByNameAsync(Constants.BOOTH_USERNAME) == null) {
+        AppUser boothUser = new AppUser {
           FullName = "booth user",
           Email = Constants.BOOTH_EMAIL,
           UserName = Constants.BOOTH_USERNAME,
@@ -805,20 +713,68 @@ namespace MIA.ORMContext.Seed
         };
 
         IdentityResult result = await userManager.CreateAsync(boothUser, Constants.BOOTH_PASSWORD);
-        if (result.Succeeded)
-        {
-          await userManager.AddToRoleAsync(boothUser, Constants.BOOTH_ROLE);
+        if (result.Succeeded) {
+          await userManager.AddToRoleAsync(boothUser, PredefinedRoles.BoothAgent.ToString());
 
           //add allowed modules (this is an example only)
           var allowedModules = new SystemModules[] { SystemModules.Booths };
           var modules = allowedModules[0];
-          for (int i = 1; i < allowedModules.Length; i++)
-          {
+          for (int i = 1; i < allowedModules.Length; i++) {
             modules |= allowedModules[i];
           }
 
           //adds allowed modules for user
           await db.UserModules.AddAsync(new UserModule(boothUser.Id, modules));
+        }
+      }
+
+    }
+
+
+    private static async Task SeedFilterAndUploadUserAndRoleAsync(
+         RoleManager<AppRole> roleManager,
+         UserManager<AppUser> userManager,
+         IAppUnitOfWork db) {
+
+      var filterAndUploadRole = await roleManager.FindByNameAsync(PredefinedRoles.FilterUploads.ToString());
+      if (filterAndUploadRole.Permissions == null) {
+        filterAndUploadRole.Permissions = "";
+      }
+
+      //(this is an example only)
+      Permissions[] boothPermissions = new Permissions[] {
+          Permissions.ArtworkAllowFileUpload,
+          Permissions.ArtworkListBasicData,
+        };
+
+      boothPermissions.ForEach(m => {
+        if (!filterAndUploadRole.Permissions.Contains((char)m)) {
+          filterAndUploadRole.Permissions += (char)m;
+        }
+      });
+
+      if (await userManager.FindByNameAsync(Constants.FILTER_AGENT_USERNAME) == null) {
+        AppUser filterUser = new AppUser {
+          FullName = "filter user",
+          Email = Constants.FILTER_AGENT_EMAIL,
+          UserName = Constants.FILTER_AGENT_USERNAME,
+          NormalizedEmail = Constants.FILTER_AGENT_EMAIL.ToUpper(),
+          NormalizedUserName = Constants.FILTER_AGENT_USERNAME.ToUpper(),
+        };
+
+        IdentityResult result = await userManager.CreateAsync(filterUser, Constants.FILTER_AGENT_PASSWORD);
+        if (result.Succeeded) {
+          await userManager.AddToRoleAsync(filterUser, PredefinedRoles.FilterUploads.ToString());
+
+          //add allowed modules (this is an example only)
+          var allowedModules = new SystemModules[] { SystemModules.Adminstration };
+          var modules = allowedModules[0];
+          for (int i = 1; i < allowedModules.Length; i++) {
+            modules |= allowedModules[i];
+          }
+
+          //adds allowed modules for user
+          await db.UserModules.AddAsync(new UserModule(filterUser.Id, modules));
         }
       }
 

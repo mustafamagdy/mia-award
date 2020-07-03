@@ -27,11 +27,12 @@
     }
 
     function getUser() {
+      debugger;
       var token = getAuthInfo();
       if (token == undefined) return undefined;
       const userDetails = jwtHelper.decodeToken(token);
-      userDetails.PermessionId  = userDetails.PermessionId || '';
-      userDetails.PermessionId = userDetails.PermessionId.split(';').map(a => a.trim());
+      userDetails.PermissionId  = userDetails.PermissionId || '';
+      userDetails.PermissionId = userDetails.PermissionId.split(';').map(a => a.trim());
       userDetails.PermessionModules = JSON.parse(userDetails.PermessionModules);
 
       return userDetails;

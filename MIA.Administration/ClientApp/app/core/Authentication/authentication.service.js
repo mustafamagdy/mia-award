@@ -33,7 +33,6 @@
     }
 
     function authenticaionFailed(res) {
-    debugger;
       ToastService.show("right", "bottom", "fadeInUp", res.data.errorMessage, "error");
       // data.data = null;
       res.status = "-1";
@@ -49,16 +48,20 @@
           status: 401
         });
       }
-      var authInfo = authorizationService.getAuthInfo();
-      var expirydate = new Date(authInfo[".expires"]);
-      if (forceRefresh || new Date() >= expirydate) {
-        return refreshToken(authInfo["refresh_token"]).then(refreshedToken, function() {
-          authorizationService.logout();
-        });
-      }
       var defer = $q.defer();
+      var authInfo = authorizationService.getAuthInfo();
       defer.resolve(authInfo);
       return defer.promise;
+
+      //TODO: later need to be refactored
+      // var expirydate = new Date(authInfo[".expires"]);
+      // if (forceRefresh || new Date() >= expirydate) {
+      //   return refreshToken(authInfo["refresh_token"]).then(refreshedToken, function() {
+      //     authorizationService.logout();
+      //   });
+      // }
+      // defer.resolve(authInfo);
+      // return defer.promise;
     }
 
     function isAuthenticated() {

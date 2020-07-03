@@ -107,10 +107,10 @@
         // vm.checkPermission = function (obj) {
         //     var checkIfPermissionExist = vm.selectedPermissions.indexOf(obj.id);
         //     if (checkIfPermissionExist == -1) {
-        //         vm.selectedPermissions.push(obj.permessionId);
+        //         vm.selectedPermissions.push(obj.permissionId);
         //     }
         //     else {
-        //         var index = vm.selectedPermissions.indexOf(obj.permessionId);
+        //         var index = vm.selectedPermissions.indexOf(obj.permissionId);
         //         vm.selectedPermissions.splice(index, 1);
         //     }
         // }

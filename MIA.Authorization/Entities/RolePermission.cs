@@ -43,6 +43,8 @@ namespace MIA.Authorization.Entities {
     [EnumMember(Value = "demo")]
     Demo,
     [EnumMember(Value = "booth")]
-    BoothAgent
+    BoothAgent,
+    [EnumMember(Value = "filter_upload")]
+    FilterUploads,
   }
 }
