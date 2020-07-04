@@ -10,7 +10,7 @@
     function judgeArtWorkDetailsController($sce, $scope, blockUI, $stateParams, ArtWorkResource, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
         ToastService, ArtWorkByIdPrepService) {
         var vm = this;
-        vm.showMediaList = false;
+        vm.showMediaList = true;
         vm.showCriteriaList = false;
         vm.JudgeArtWork = ArtWorkByIdPrepService;
         vm.artWorkLevel = 0;
