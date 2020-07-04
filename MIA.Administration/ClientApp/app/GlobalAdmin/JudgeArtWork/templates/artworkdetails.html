@@ -122,7 +122,7 @@
       <div class="show_video_show">
         <span>
           <img
-            data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.coverUrl}}"
+            data-ng-src="{{judgeArtWorkDetailsCtrl.getCoverUrl()}}"
           />
         </span>
         <!-- <div class="row">
@@ -203,7 +203,10 @@
           <div class="all_tabs_content">
             <!-- to show tab content please add class "active" to "item_tabs_content" element -->
 
-            <div class="item_tabs_content active" ng-show="judgeArtWorkDetailsCtrl.selectedTab == 'episodes'">
+            <div
+              class="item_tabs_content active"
+              ng-show="judgeArtWorkDetailsCtrl.selectedTab == 'episodes'"
+            >
               <div class="item_show">
                 <div class="season_content">
                   <ol>
@@ -214,7 +217,7 @@
                         ng-click="$state.go('displayVideo',{id: mediaItem.id});"
                       >
                         <img
-                          data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.posterUrl}}"
+                          data-ng-src="{{judgeArtWorkDetailsCtrl.getPosterUrl()}}" style="object-fit:cover;"
                         />
                       </span>
                     </li>
@@ -224,67 +227,65 @@
               </div>
               <!-- end item_show -->
             </div>
-            
-            <div class="item_tabs_content active" ng-show="judgeArtWorkDetailsCtrl.selectedTab == 'judging'">
-                <form class="form-horizontal" name="viewJudgeArtWorkForm">
-                  <div class="pmd-modal-action text-right">
-                    <button
-                      ng-disabled="viewJudgeArtWorkForm.$invalid"
-                      class="buttonGold"
-                      type="button"
-                      ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)"
-                    >
-                      {{'judgeComplete' | translate}}
-                    </button>
-                    <button
-                      ng-disabled="viewJudgeArtWorkForm.$invalid"
-                      class="buttonGold"
-                      type="button"
-                      ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)"
-                    >
-                      {{'saveChangesBtn' | translate}}
-                    </button>
-                    <button
-                      class="btn pmd-ripple-effect btn-default"
-                      type="button"
-                      ng-click="judgeArtWorkDetailsCtrl.Close()"
-                    >
-                      {{'DiscardBtn' | translate}}
-                    </button>
-                  </div>
-  
-                  <div class="item_show">
-                    <div
-                      class="season_content"
-                      ng-repeat="critiera in judgeArtWorkDetailsCtrl.votingCriteriaList"
-                    >
-                      <span> {{critiera.name[selectedLanguage]}}</span>
-  
-                      <rzslider
-                        class="custom-slider"
-                        rz-slider-model="critiera.votingValue"
-                        name="critiera+$index"
-                        ng-mouseup="judgeArtWorkDetailsCtrl.changeValue(critiera.votingValue,$index)"
-                        rz-slider-options="judgeArtWorkDetailsCtrl.slider.options"
-                      ></rzslider>
-                    </div>
-                    <!-- end season_content -->
-                  </div>
-                  <!-- end item_show -->
-                  <!-- end item_tabs_content -->
-                </form>
-              </div>
 
+            <div
+              class="item_tabs_content active"
+              ng-show="judgeArtWorkDetailsCtrl.selectedTab == 'judging'"
+            >
+              <form class="form-horizontal" name="viewJudgeArtWorkForm">
+                <div class="pmd-modal-action text-right">
+                  <button
+                    ng-disabled="viewJudgeArtWorkForm.$invalid"
+                    class="buttonGold"
+                    type="button"
+                    ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)"
+                  >
+                    {{'judgeComplete' | translate}}
+                  </button>
+                  <button
+                    ng-disabled="viewJudgeArtWorkForm.$invalid"
+                    class="buttonGold"
+                    type="button"
+                    ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)"
+                  >
+                    {{'saveChangesBtn' | translate}}
+                  </button>
+                  <button
+                    class="btn pmd-ripple-effect btn-default"
+                    type="button"
+                    ng-click="judgeArtWorkDetailsCtrl.Close()"
+                  >
+                    {{'DiscardBtn' | translate}}
+                  </button>
+                </div>
+
+                <div class="item_show">
+                  <div
+                    class="season_content"
+                    ng-repeat="critiera in judgeArtWorkDetailsCtrl.votingCriteriaList"
+                  >
+                    <span> {{critiera.name[selectedLanguage]}}</span>
+
+                    <rzslider
+                      class="custom-slider"
+                      rz-slider-model="critiera.votingValue"
+                      name="critiera+$index"
+                      ng-mouseup="judgeArtWorkDetailsCtrl.changeValue(critiera.votingValue,$index)"
+                      rz-slider-options="judgeArtWorkDetailsCtrl.slider.options"
+                    ></rzslider>
+                  </div>
+                  <!-- end season_content -->
+                </div>
+                <!-- end item_show -->
+                <!-- end item_tabs_content -->
+              </form>
+            </div>
           </div>
-          
         </div>
-        
       </div>
-      
     </div>
-    
   </div>
-  
+
   <!-- <div
     class="show_inner_two"
     ng-show="judgeArtWorkDetailsCtrl.showCriteriaList"

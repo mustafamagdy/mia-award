@@ -37,12 +37,25 @@
     vm.showCriteriaList = false;
     vm.JudgeArtWork = ArtWorkWithFilesByIdPrepService;
     vm.artWorkLevel = 0;
-    console.log(vm.JudgeArtWork);
+    vm.defaultCover = "./assets/img/newlogo.png";
     vm.votingCriteriaList = [
       {
         votingValue: 0,
       },
     ];
+
+    vm.getCoverUrl = function () {
+      return vm.JudgeArtWork.coverUrl == undefined ||
+        vm.JudgeArtWork.coverUrl == ""
+        ? vm.defaultCover
+        : vm.JudgeArtWork.coverUrl;
+    };
+    vm.getPosterUrl = function () {
+      return vm.JudgeArtWork.posterUrl == undefined ||
+        vm.JudgeArtWork.posterUrl == ""
+        ? vm.defaultCover
+        : vm.JudgeArtWork.posterUrl;
+    };
 
     vm.activeFileIndex = 0;
     //it requires array but we need to pass only one video at a time
