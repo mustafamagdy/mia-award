@@ -39,7 +39,7 @@ msgstr "The MIA Award seeks to motivate production companies and their personnel
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:31
 msgid "about_tab_content_judge"
-msgstr "Judge"
+msgstr "Based on our belief in the value of integrity as an essential element for the success of the Award, we developed a complete vision and an electronic judging plan characterized by credibility, professionalism and confidentiality at the same time, supervised by prominent academics, artists and professionals in this sector from various Arab countries to evaluate and select the works that will receive the MIA Award, under the direct supervision of the Supreme Award Committee."
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:29
 msgid "about_tab_content_mia_contestant"

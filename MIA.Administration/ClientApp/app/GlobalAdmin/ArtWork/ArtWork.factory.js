@@ -12,6 +12,7 @@
             create: { method: 'POST', useToken: true },
             update: { method: 'PUT', useToken: true },
             getArtWork: { method: 'GET', useToken: true },
+            getArtWorkWithFiles: { method: 'GET',url: appCONSTANTS.API_URL + 'artWorks/:id/withFiles', useToken: true },
             getPayment: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/getPayment?id=:id', useToken: true },
             getArtWorkFiles: { method: 'GET', url: appCONSTANTS.API_URL + 'artWorks/getArtWorkFiles?id=:id', isArray: true, useToken: true },
             delete: { method: 'DELETE', useToken: true },

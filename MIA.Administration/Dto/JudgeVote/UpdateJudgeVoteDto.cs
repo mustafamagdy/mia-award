@@ -7,10 +7,8 @@ namespace MIA.Administration.Api
   public class UpdateJudgeVoteDto : IUpdateDto
   {
     public string Id { get; set; }
-    public int VotingValue { get; set; }
     public string ArtWorkId { get; set; }
     public List<VotingCriteriaVoteDto> CriteriaValues { get; set; }
-    public bool JudgeComplete { get; set; }
 
     public string JudgeId { get; set; }
   }
@@ -20,8 +18,7 @@ namespace MIA.Administration.Api
     public decimal Weight { get; set; }
     public int Order { get; set; }
     public string Code { get; set; }
-    public int Value { get; set; }
-    public bool JudgeComplete { get; set; }
+    public int? Value { get; set; }
     public VotingCriteriasDto Criteria { get; set; }
   }
 }

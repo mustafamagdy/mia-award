@@ -276,7 +276,7 @@ body[dir="rtl"] #recent_shows .container .shows_items .item .imgthumb .mask .con
 #show_inner .show_inner_one .container {
   width: 1442px;
   margin: 0 auto;
-  padding: 190px 25px 60px;
+  /* padding: 190px 25px 60px; */
   overflow: hidden;
   position: relative;
   z-index: 4;
@@ -4650,7 +4650,7 @@ body[dir="rtl"]
     #show_inner .show_inner_one .container {
       width: 1442px;
       margin: 0 auto;
-      padding: 190px 25px 60px;
+      /* padding: 190px 25px 60px; */
       overflow: hidden;
       position: relative;
       z-index: 4;

@@ -32,7 +32,7 @@ namespace MIA.Authorization.Entities
     AddUserToRole,
     [PermissionDescriptor(SystemModules.Adminstration, "artwork_list_basic_data", "Read and list artworks basic data")]
     ArtworkListBasicData,
-    [PermissionDescriptor(SystemModules.Adminstration, "artowkr_allow_file_upload", "Allow file upload for artwork")]
+    [PermissionDescriptor(SystemModules.Adminstration, "artwork_allow_file_upload", "Allow file upload for artwork")]
     ArtworkAllowFileUpload,
 
 

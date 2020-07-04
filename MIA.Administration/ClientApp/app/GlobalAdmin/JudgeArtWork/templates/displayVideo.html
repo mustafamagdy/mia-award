@@ -99,7 +99,7 @@
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
                 frameborder="0">
             </iframe>  -->
-            <div class="row">
+            <!-- <div class="row">
 
                 <video id="myVideo" width="80%" height="385">
                     <source ng-src="{{trustSrc(displayVideoCtrl.mediaFile.file.fileUrl)}}" type="video/mp4">
@@ -110,17 +110,16 @@
                 <button ng-click="playVid()" type="button"><span ng-show="!playing">&#9654;</span></button>
                 <button ng-click="pauseVid()" type="button"><span ng-show="playing">&#9616;&#9616;</span></button>
 
-            </div>
+            </div> -->
 
-            <!-- <video poster="https://mia-content.s3.amazonaws.com/artwork/01eb714475nrkrbbf8yvjhrc9j/image/jpeg">
-                <source ng-src="{{trustSrc(displayVideoCtrl.mediaFile.file.fileUrl)}}" />
-            </video>
-            <progressbar value="percent" max="100"></progressbar>
-            <div class="controls noselect">
-                <a ng-click="frame(-0.04)">&lt;</a>
-                <a ng-click="toggle()"> <span ng-show="!playing">&#9654;</span><span
-                        ng-show="playing">&#9616;&#9616;</span> </a>
-                <a ng-click="frame(0.04)">&gt;</a> </div> -->
+            <videogular vg-update-time="displayVideoCtrl.onUpdateTime($currentTime, $duration)">
+                <vg-media
+                  vg-src="displayVideoCtrl.fileUrl"
+                  vg-tracks="displayVideoCtrl.tracks"
+                  vg-native-controls="true"
+                >
+                </vg-media>
+              </videogular>
         </div>
     </div>
     <div class="show_inner_two">
@@ -147,22 +146,6 @@
                                         </div><!-- end desc -->
                                     </div><!-- end review_status -->
                                 </div><!-- end review_section -->
-                                <div class="comments_area">
-                                    <div class="item" ng-repeat="comment in displayVideoCtrl.commentsList">
-                                        <div class="user_info">
-                                            <!-- <div class="imgthumb"><img src="assets/images/comment_user_image.png"
-                                                    alt="#"></div> -->
-                                            <div class="details">
-                                                <!-- <span>{{comment.judge.fullName}}</span> -->
-                                                <p>{{comment.mediaTime}} <a>{{comment.judge.fullName}}</a></p>
-                                            </div><!-- end details -->
-                                        </div><!-- end user_info -->
-                                        <div class="comment_content">
-                                            {{comment.comments}}
-                                        </div><!-- end comment_content -->
-                                    </div><!-- end item -->
-
-                                </div><!-- end comments_area -->
                                 <div class="comment_form">
                                     <form name="formVideoComment">
                                         <div class="inputs">
@@ -187,6 +170,23 @@
                                             ng-click="displayVideoCtrl.Close()">{{'DiscardBtn' | translate}}</button>
                                     </form>
                                 </div><!-- end comment_form -->
+                                <div class="comments_area">
+                                    <div class="item" ng-repeat="comment in displayVideoCtrl.commentsList">
+                                        <div class="user_info">
+                                            <!-- <div class="imgthumb"><img src="assets/images/comment_user_image.png"
+                                                    alt="#"></div> -->
+                                            <div class="details">
+                                                <!-- <span>{{comment.judge.fullName}}</span> -->
+                                                <p>{{comment.mediaTime}} <a>{{comment.judge.fullName}}</a></p>
+                                            </div><!-- end details -->
+                                        </div><!-- end user_info -->
+                                        <div class="comment_content">
+                                            {{comment.comments}}
+                                        </div><!-- end comment_content -->
+                                    </div><!-- end item -->
+
+                                </div><!-- end comments_area -->
+                            
                             </div><!-- end item_review -->
                         </div><!-- end item_tabs_content -->
 

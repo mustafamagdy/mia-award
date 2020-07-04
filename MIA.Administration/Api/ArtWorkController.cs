@@ -154,6 +154,18 @@ namespace MIA.Administration.Api {
       var returnMediaList = _mapper.Map<List<MediaFileDto>>(artWorkItem);
       return IfFound(returnMediaList);
     }
+
+    [HttpGet("{id}/withFiles")]
+    public async Task<IActionResult> GetArtworkWithFiles([FromRoute(Name = "id")] string id,
+      [FromServices] IAppUnitOfWork db) {
+      var item = await db.Artworks
+                    .Include(a => a.MediaFiles)
+                    .FirstOrDefaultAsync(a => a.Id == id);
+
+      var returnMediaList = _mapper.Map<ArtworkWithFilesDto>(item);
+      return IfFound(returnMediaList);
+    }
+
     [HttpGet("getMediaFile")]
     public async Task<IActionResult> GetMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
       var artWorkItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id == id);
