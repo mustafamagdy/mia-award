@@ -10,6 +10,10 @@
     function judgeArtWorkDetailsController($sce, $scope, blockUI, $stateParams, ArtWorkResource, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
         ToastService, ArtWorkByIdPrepService) {
         var vm = this;
+
+        vm.sources = [{src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.mp4"), type: "video/mp4"},];
+        vm.tracks = [];
+
         vm.showMediaList = true;
         vm.showCriteriaList = false;
         vm.JudgeArtWork = ArtWorkByIdPrepService;
