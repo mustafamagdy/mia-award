@@ -2,6 +2,7 @@
     "use strict";
 
     angular.module("core", [
+        "ngSanitize",
         "ngResource",
         "ui.router",
         "ngStorage",
@@ -17,6 +18,8 @@
         "ncy-angular-breadcrumb",
         "angular-jwt",
         "rzSlider",
+        "com.2fdevs.videogular",
+        "com.2fdevs.videogular.plugins.poster"
         // "datatables"
         // "jwt-decode"
         // 'base64',

@@ -1,111 +1,192 @@
 (function () {
-    'use strict';
+  "use strict";
 
-    angular
-        .module('home')
-        .controller('judgeArtWorkDetailsController', ['$sce', '$scope', 'blockUI', '$stateParams', 'ArtWorkResource', '$state', 'appCONSTANTS', '$translate',
-            'JudgeArtWorkResource', 'ToastService', 'ArtWorkByIdPrepService', judgeArtWorkDetailsController
-        ])
+  angular
+    .module("home")
+    .controller("judgeArtWorkDetailsController", [
+      "$sce",
+      "$scope",
+      "blockUI",
+      "$stateParams",
+      "ArtWorkResource",
+      "$state",
+      "appCONSTANTS",
+      "$translate",
+      "JudgeArtWorkResource",
+      "ToastService",
+      "ArtWorkWithFilesByIdPrepService",
+      judgeArtWorkDetailsController,
+    ]);
 
-    function judgeArtWorkDetailsController($sce, $scope, blockUI, $stateParams, ArtWorkResource, $state, appCONSTANTS, $translate, JudgeArtWorkResource,
-        ToastService, ArtWorkByIdPrepService) {
-        var vm = this;
-        vm.showMediaList = false;
-        vm.showCriteriaList = false;
-        vm.JudgeArtWork = ArtWorkByIdPrepService;
-        vm.artWorkLevel = 0;
-        console.log(vm.JudgeArtWork);
-        vm.votingCriteriaList = [{
-            votingValue: 0
-        }]
-        vm.Close = function () {
-            $state.go('JudgeArtWork');
-        }
-        $scope.trustSrc = function (src) {
-            return $sce.trustAsResourceUrl(src);
-        }
-        vm.showMedia = function () {
-            vm.showMediaList = !vm.showMediaList;
-            vm.showCriteriaList = false;
+  function judgeArtWorkDetailsController(
+    $sce,
+    $scope,
+    blockUI,
+    $stateParams,
+    ArtWorkResource,
+    $state,
+    appCONSTANTS,
+    $translate,
+    JudgeArtWorkResource,
+    ToastService,
+    ArtWorkWithFilesByIdPrepService
+  ) {
+    var vm = this;
 
-            getArtWorkMediaList();
-        }
-        vm.showJudging = function () {
-            vm.showCriteriaList = !vm.showCriteriaList;
-            vm.showMediaList = false;
+    vm.showMediaList = true;
+    vm.showCriteriaList = false;
+    vm.JudgeArtWork = ArtWorkWithFilesByIdPrepService;
+    vm.artWorkLevel = 0;
+    vm.defaultCover = "./assets/img/newlogo.png";
+    vm.votingCriteriaList = [
+      {
+        votingValue: 0,
+      },
+    ];
 
-            if (vm.JudgeArtWork.illegibleForJudge)
-                vm.artWorkLevel = 1;
-            getVotingCriterias();
-        }
+    vm.getCoverUrl = function () {
+      return vm.JudgeArtWork.coverUrl == undefined ||
+        vm.JudgeArtWork.coverUrl == ""
+        ? vm.defaultCover
+        : vm.JudgeArtWork.coverUrl;
+    };
+    vm.getPosterUrl = function () {
+      return vm.JudgeArtWork.posterUrl == undefined ||
+        vm.JudgeArtWork.posterUrl == ""
+        ? vm.defaultCover
+        : vm.JudgeArtWork.posterUrl;
+    };
 
-        vm.changeValue = function (value, index) {
-            
-            vm.votingCriteriaList[index].value = value;
+    vm.activeFileIndex = 0;
+    //it requires array but we need to pass only one video at a time
+    vm.sources =
+      vm.JudgeArtWork.files && vm.JudgeArtWork.files.length > 0
+        ? [vm.JudgeArtWork.files[vm.activeFileIndex]].map((f) => ({
+            src: $sce.trustAsResourceUrl(f.fileUrl),
+            type: `video/${f.fileUrl.split(".").pop()}`,
+          }))
+        : [];
 
-        }
-        vm.UpdateJudgeArtWork = function (judgeComplete) {
-            blockUI.start("Loading...");
-
-            var updateObj = new JudgeArtWorkResource();
-            updateObj.Id = vm.JudgeArtWork.id;
-            updateObj.ArtWorkId = vm.JudgeArtWork.id;
-            updateObj.JudgeId = $scope.user.id;
-            updateObj.CriteriaValues = vm.votingCriteriaList;
-            updateObj.JudgeComplete = judgeComplete;
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    blockUI.stop();
-                },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.slider = {
-            votingValue: 10,
-            maxValue: 90,
-            options: {
-                floor: 0,
-                ceil: 100,
-                step: 10,
-                showTicks: true,
-
-            }
-        };
-        function getArtWorkMediaList() {
-            blockUI.start("Loading...");
-
-            var k = ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise.then(function (results) {
-                vm.mediaItemList = results;
-                ////   console.log(vm.mediaItemList);
-                blockUI.stop();
+    // [{src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.mp4"), type: "video/mp4"},];
+    vm.tracks = [];
+    vm.trailer =
+      vm.JudgeArtWork.trailerUrl == ""
+        ? []
+        : [
+            {
+              src: vm.JudgeArtWork.trailerUrl,
+              type: `video/${vm.JudgeArtWork.trailerUrl.split(".").pop()}`,
             },
-                function (data, status) {
-                    
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
-                });
+          ];
+
+    vm.tabs = ["episodes", "judging"];
+    vm.selectedTab = "episodes";
+    vm.setActiveTab = function (tab) {
+      vm.selectedTab = tab;
+    };
+
+    vm.Close = function () {
+      $state.go("JudgeArtWork");
+    };
+    $scope.trustSrc = function (src) {
+      return $sce.trustAsResourceUrl(src);
+    };
+    vm.showMedia = function () {
+      vm.showMediaList = !vm.showMediaList;
+      vm.showCriteriaList = false;
+
+      // getArtWorkMediaList();
+    };
+    vm.showJudging = function () {
+      vm.showCriteriaList = !vm.showCriteriaList;
+      vm.showMediaList = false;
+
+      if (vm.JudgeArtWork.illegibleForJudge) vm.artWorkLevel = 1;
+      getVotingCriterias();
+    };
+
+    vm.changeValue = function (value, index) {
+      vm.votingCriteriaList[index].value = value;
+    };
+    vm.UpdateJudgeArtWork = function (judgeComplete) {
+      blockUI.start("Loading...");
+
+      var updateObj = new JudgeArtWorkResource();
+      updateObj.Id = vm.JudgeArtWork.id;
+      updateObj.ArtWorkId = vm.JudgeArtWork.id;
+      updateObj.JudgeId = $scope.user.id;
+      updateObj.CriteriaValues = vm.votingCriteriaList;
+      updateObj.JudgeComplete = judgeComplete;
+      updateObj.$update().then(
+        function (data, status) {
+          ToastService.show(
+            "right",
+            "bottom",
+            "fadeInUp",
+            $translate.instant("Editeduccessfully"),
+            "success"
+          );
+          blockUI.stop();
+        },
+        function (data, status) {
+          blockUI.stop();
+          ToastService.show(
+            "right",
+            "bottom",
+            "fadeInUp",
+            data.data.message,
+            "error"
+          );
         }
+      );
+    };
+    vm.slider = {
+      votingValue: 10,
+      maxValue: 90,
+      options: {
+        floor: 0,
+        ceil: 100,
+        step: 10,
+        showTicks: true,
+      },
+    };
+    function getArtWorkMediaList() {
+      blockUI.start("Loading...");
 
-        function getVotingCriterias() {
-            var k = JudgeArtWorkResource.getCriteriaByLevel({ level: vm.artWorkLevel }).$promise.then(function (results) {
-                vm.votingCriteriaList = results;
-                for (let index = 0; index < vm.votingCriteriaList.length; index++) {
-                    const element = vm.votingCriteriaList[index];element.votingValue=0;
-                    element.votingValue=0;
-                }
-                console.log(vm.votingCriteriaList);
-                vm.totalCount = results.length;
-                blockUI.stop();
-            },
-                function (data, status) {
-
-                    blockUI.stop();
-                });
+      var k = ArtWorkResource.getArtWorkFiles({
+        id: $stateParams.id,
+      }).$promise.then(
+        function (results) {
+          vm.mediaItemList = results;
+          ////   console.log(vm.mediaItemList);
+          blockUI.stop();
+        },
+        function (data, status) {
+          blockUI.stop();
+          ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
         }
-
+      );
     }
-}());
+
+    function getVotingCriterias() {
+      var k = JudgeArtWorkResource.getCriteriaByLevel({
+        level: vm.artWorkLevel,
+      }).$promise.then(
+        function (results) {
+          vm.votingCriteriaList = results;
+          for (let index = 0; index < vm.votingCriteriaList.length; index++) {
+            const element = vm.votingCriteriaList[index];
+            element.votingValue = 0;
+            element.votingValue = 0;
+          }
+          console.log(vm.votingCriteriaList);
+          vm.totalCount = results.length;
+          blockUI.stop();
+        },
+        function (data, status) {
+          blockUI.stop();
+        }
+      );
+    }
+  }
+})();

@@ -63,6 +63,7 @@ var paths = {
 
     "./node_modules/lodash/lodash.min.js",
     "./node_modules/angular/angular.js",
+    "./node_modules/angular-sanitize/angular-sanitize.min.js",
     "./node_modules/angular-ui-router/release/angular-ui-router.js",
     "./node_modules/angular-resource/angular-resource.js",
     "./node_modules/angular-permission/dist/angular-permission.js",
@@ -93,6 +94,9 @@ var paths = {
     "./assets/js/angular-block-ui.min.js",
     "./assets/js/signalr.js",
     // './node_modules/angular-datatables/dist/angular-datatables.min.js'
+    "./node_modules/videogular/dist/videogular/videogular.min.js",
+    "./node_modules/videogular/dist/poster/vg-poster.min.js",
+
   ],
   css: [
     "./node_modules/propellerkit/dist/css/bootstrap.min.css",
@@ -105,6 +109,7 @@ var paths = {
     "./node_modules/nvd3/build/nv.d3.min.css",
     "./node_modules/angular-ui-carousel/dist/ui-carousel.min.css",
     "./node_modules/angular-datatables/dist/css/angular-datatables.css",
+    "./node_modules/videogular/dist/themes/default/videogular.min.css",
   ],
   cssAR: [
     // './node_modules/propellerkit/dist/css/bootstrap.min.css',

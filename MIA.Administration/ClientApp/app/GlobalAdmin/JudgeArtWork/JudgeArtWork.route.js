@@ -55,7 +55,7 @@
                     controller: 'judgeArtWorkDetailsController',
                     'controllerAs': 'judgeArtWorkDetailsCtrl',
                     resolve: {
-                        ArtWorkByIdPrepService: ArtWorkByIdPrepService
+                        ArtWorkWithFilesByIdPrepService: ArtWorkWithFilesByIdPrepService
                     },
                     data: {
                         permissions: {
@@ -90,6 +90,11 @@
     ArtWorkByIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
     function ArtWorkByIdPrepService(ArtWorkResource, $stateParams) {
         return ArtWorkResource.getArtWork({ id: $stateParams.id }).$promise;
+    }
+
+    ArtWorkWithFilesByIdPrepService.$inject = ['ArtWorkResource', '$stateParams']
+    function ArtWorkWithFilesByIdPrepService(ArtWorkResource, $stateParams) {
+        return ArtWorkResource.getArtWorkWithFiles({ id: $stateParams.id }).$promise;
     }
 
     ArtWorkMediaByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']

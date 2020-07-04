@@ -44,4 +44,8 @@ namespace MIA.Administration.Api
     //public string WinnerAwardSecondPlaceId { get; set; }
   }
 
+  public class ArtworkWithFilesDto : ArtWorkDto
+  {
+    public BasicMediaFileDto[] Files { get; set; }
+  }
 }

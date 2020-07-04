@@ -74,18 +74,18 @@ namespace MIA.Administration.Api
         judgeObj.JudgeId = dto.JudgeId;
         judgeObj.ArtworkId = dto.ArtWorkId;
         judgeObj.CriteriaId = value.Id;
-        judgeObj.VotingValue = Convert.ToInt32(value.Value);
-        judgeObj.JudgeComplete = dto.JudgeComplete;
+        judgeObj.VotingValue = value.Value;
         insertList.Add(judgeObj);
       }
       await db.Set<JudgeVote>().AddRangeAsync(_mapper.Map<List<JudgeVote>>(insertList));
-      if (dto.JudgeComplete)
-      {
-        var getArtwork = db.Artworks.Where(a => a.Id == dto.ArtWorkId).FirstOrDefault();
-        getArtwork.IllegibleForJudge = true;
-        var entry = db.Set<Artwork>().Attach(getArtwork);
-        entry.State = EntityState.Modified;
-      }
+      //TODO: need to be calculated to decide either IllegibleForJudge is true or false base on configurable threshold
+      //if (dto.JudgeComplete)
+      //{
+      //  var getArtwork = db.Artworks.Where(a => a.Id == dto.ArtWorkId).FirstOrDefault();
+      //  getArtwork.IllegibleForJudge = true;
+      //  var entry = db.Set<Artwork>().Attach(getArtwork);
+      //  entry.State = EntityState.Modified;
+      //}
 
       await db.CommitTransactionAsync();
 

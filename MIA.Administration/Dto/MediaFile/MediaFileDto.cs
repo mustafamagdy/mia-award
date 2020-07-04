@@ -17,4 +17,10 @@ namespace MIA.Administration.Api {
     public S3File File { get; set; }
   }
 
+  public class BasicMediaFileDto
+  {
+    public string Id { get; set; }
+    public string FileKey { get; set; }
+    public string FileUrl { get; set; }
+  }
 }
