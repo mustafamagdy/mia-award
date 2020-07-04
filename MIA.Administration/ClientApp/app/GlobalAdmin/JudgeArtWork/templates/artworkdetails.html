@@ -125,7 +125,7 @@
             data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.coverUrl}}"
           />
         </span>
-        <div class="row">
+        <!-- <div class="row">
           <div class="form-group col-lg-6">
             <button
               class="buttonGold"
@@ -144,7 +144,7 @@
               {{'StartJudge'| translate}}
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- end show_video_show -->
     </div>
@@ -154,7 +154,10 @@
 
   <div class="show_inner_two" ng-show="judgeArtWorkDetailsCtrl.showMediaList">
     <div class="container">
-      <div class="show_video">
+      <div
+        class="show_video"
+        ng-show="judgeArtWorkDetailsCtrl.JudgeArtWork.trailerUrl != ''"
+      >
         <!-- <iframe width="560" height="315" data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.trailerUrl}}"
                     frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe> -->
@@ -173,7 +176,7 @@
 
         <videogular>
           <vg-media
-            vg-src="judgeArtWorkDetailsCtrl.sources"
+            vg-src="judgeArtWorkDetailsCtrl.trailer"
             vg-tracks="judgeArtWorkDetailsCtrl.tracks"
             vg-native-controls="true"
           >
@@ -185,8 +188,14 @@
         <div class="tabs_area">
           <div class="tabs">
             <!-- to show tab content please add class "active" to "li" element -->
-            <ul>
-              <li class="active">Show</li>
+            <ul class="tabs-items">
+              <li
+                ng-repeat="tab in judgeArtWorkDetailsCtrl.tabs"
+                ng-class="{'active': judgeArtWorkDetailsCtrl.selectedTab == tab, 'tab-item': true}"
+                ng-click="judgeArtWorkDetailsCtrl.setActiveTab(tab)"
+              >
+                {{tab | translate}}
+              </li>
             </ul>
             <!-- end ul -->
           </div>
@@ -194,12 +203,12 @@
           <div class="all_tabs_content">
             <!-- to show tab content please add class "active" to "item_tabs_content" element -->
 
-            <div class="item_tabs_content active">
+            <div class="item_tabs_content active" ng-show="judgeArtWorkDetailsCtrl.selectedTab == 'episodes'">
               <div class="item_show">
                 <div class="season_content">
                   <ol>
                     <li
-                      ng-repeat=" mediaItem in judgeArtWorkDetailsCtrl.mediaItemList"
+                      ng-repeat=" mediaItem in judgeArtWorkDetailsCtrl.JudgeArtWork.files"
                     >
                       <span
                         ng-click="$state.go('displayVideo',{id: mediaItem.id});"
@@ -215,18 +224,68 @@
               </div>
               <!-- end item_show -->
             </div>
-            <!-- end item_tabs_content -->
+            
+            <div class="item_tabs_content active" ng-show="judgeArtWorkDetailsCtrl.selectedTab == 'judging'">
+                <form class="form-horizontal" name="viewJudgeArtWorkForm">
+                  <div class="pmd-modal-action text-right">
+                    <button
+                      ng-disabled="viewJudgeArtWorkForm.$invalid"
+                      class="buttonGold"
+                      type="button"
+                      ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)"
+                    >
+                      {{'judgeComplete' | translate}}
+                    </button>
+                    <button
+                      ng-disabled="viewJudgeArtWorkForm.$invalid"
+                      class="buttonGold"
+                      type="button"
+                      ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)"
+                    >
+                      {{'saveChangesBtn' | translate}}
+                    </button>
+                    <button
+                      class="btn pmd-ripple-effect btn-default"
+                      type="button"
+                      ng-click="judgeArtWorkDetailsCtrl.Close()"
+                    >
+                      {{'DiscardBtn' | translate}}
+                    </button>
+                  </div>
+  
+                  <div class="item_show">
+                    <div
+                      class="season_content"
+                      ng-repeat="critiera in judgeArtWorkDetailsCtrl.votingCriteriaList"
+                    >
+                      <span> {{critiera.name[selectedLanguage]}}</span>
+  
+                      <rzslider
+                        class="custom-slider"
+                        rz-slider-model="critiera.votingValue"
+                        name="critiera+$index"
+                        ng-mouseup="judgeArtWorkDetailsCtrl.changeValue(critiera.votingValue,$index)"
+                        rz-slider-options="judgeArtWorkDetailsCtrl.slider.options"
+                      ></rzslider>
+                    </div>
+                    <!-- end season_content -->
+                  </div>
+                  <!-- end item_show -->
+                  <!-- end item_tabs_content -->
+                </form>
+              </div>
+
           </div>
-          <!-- end all_tabs_content -->
+          
         </div>
-        <!-- end tabs_area -->
+        
       </div>
-      <!-- end show_content -->
+      
     </div>
-    <!-- end container -->
+    
   </div>
-  <!-- end show_inner_two -->
-  <div
+  
+  <!-- <div
     class="show_inner_two"
     ng-show="judgeArtWorkDetailsCtrl.showCriteriaList"
   >
@@ -234,73 +293,25 @@
       <div class="show_content">
         <div class="tabs_area">
           <div class="tabs">
-            <!-- to show tab content please add class "active" to "li" element -->
+            
             <ul>
               <li class="active">{{'VotingCriteria'| translate}}</li>
             </ul>
-            <!-- end ul -->
+            
           </div>
-          <!-- end tabs -->
+          
           <div class="all_tabs_content">
-            <!-- to show tab content please add class "active" to "item_tabs_content" element -->
-            <form class="form-horizontal" name="viewJudgeArtWorkForm">
-              <div class="item_tabs_content active">
-                <div class="item_show">
-                  <div
-                    class="season_content"
-                    ng-repeat="critiera in judgeArtWorkDetailsCtrl.votingCriteriaList"
-                  >
-                    <span> {{critiera.name[selectedLanguage]}}</span>
-
-                    <rzslider
-                      class="custom-slider"
-                      rz-slider-model="critiera.votingValue"
-                      name="critiera+$index"
-                      ng-mouseup="judgeArtWorkDetailsCtrl.changeValue(critiera.votingValue,$index)"
-                      rz-slider-options="judgeArtWorkDetailsCtrl.slider.options"
-                    ></rzslider>
-                  </div>
-                  <!-- end season_content -->
-                </div>
-                <!-- end item_show -->
-              </div>
-              <!-- end item_tabs_content -->
-
-              <div class="pmd-modal-action text-right">
-                <button
-                  ng-disabled="viewJudgeArtWorkForm.$invalid"
-                  class="buttonGold"
-                  type="button"
-                  ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)"
-                >
-                  {{'judgeComplete' | translate}}
-                </button>
-                <button
-                  ng-disabled="viewJudgeArtWorkForm.$invalid"
-                  class="buttonGold"
-                  type="button"
-                  ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)"
-                >
-                  {{'saveChangesBtn' | translate}}
-                </button>
-                <button
-                  class="btn pmd-ripple-effect btn-default"
-                  type="button"
-                  ng-click="judgeArtWorkDetailsCtrl.Close()"
-                >
-                  {{'DiscardBtn' | translate}}
-                </button>
-              </div>
-            </form>
+            
+           
           </div>
-          <!-- end all_tabs_content -->
+          
         </div>
-        <!-- end tabs_area -->
+        
       </div>
-      <!-- end show_content -->
+      
     </div>
-    <!-- end container -->
+    
   </div>
-  <!-- end show_inner_two -->
+   -->
 </section>
 <!-- End show_inner -->
