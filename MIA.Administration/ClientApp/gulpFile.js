@@ -18,7 +18,7 @@ var minify = require("gulp-minify");
 var minifyHtml = require("gulp-htmlmin");
 var webserver = require("gulp-webserver");
 var ngHtml2Js = require("gulp-ng-html2js");
-var uglify = require("gulp-uglify");
+// var uglify = require("gulp-uglify");
 var inject = require("gulp-inject-string");
 var watch = require("gulp-watch");
 var gutil = require("gulp-util");
@@ -28,7 +28,7 @@ var strip = require("gulp-strip-comments");
 var config = {
   production: gutil.env.env == 'production',
 };
-uglify = config.production ? uglify : gutil.noop;
+// uglify = config.production ? uglify : gutil.noop;
 
 //var minifyHtml = require('gulp-minify-html')
 var runSequence = require("run-sequence").use(gulp);
@@ -154,7 +154,7 @@ gulp.task("copy-libs", function () {
   return gulp
     .src(paths.libs)
     .pipe(concat("libs.js"))
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(strip())
     .pipe(gulp.dest(paths.build + "/"));
 });
@@ -249,7 +249,7 @@ gulp.task("copy-templates", function () {
       })
     )
     .pipe(concat("templates.js"))
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(strip())
     .pipe(gulp.dest(paths.build + "/"));
 });
