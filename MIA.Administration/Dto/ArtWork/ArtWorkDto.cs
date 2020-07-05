@@ -47,6 +47,44 @@ namespace MIA.Administration.Api {
     public S3File File3 { get; set; }
   }
 
+
+  public class ArtworkForJudgingDto {
+    public string Id { get; set; }
+
+    public LocalizedData ProjectName { get; set; }
+    public LocalizedData Description { get; set; }
+    public string PosterUrl { get; set; }
+    public string TrailerUrl { get; set; }
+    public string CoverUrl { get; set; }
+    public LocalizedData AwardName { get; set; }
+    public string AwardId { get; set; }
+
+    public string SiteUrl { get; set; }
+    public int ProductionYear { get; set; }
+    public int BroadcastYear { get; set; }
+    public string TvChannels { get; set; }
+    public string OnlineChannels { get; set; }
+    public string ProductionLicenseNumber { get; set; }
+    public string ProductionLicenseAgency { get; set; }
+
+    public JudgeArtworkScoreViewDto[] Scores { get; set; }
+
+  }
+
+  public class JudgeArtworkScoreViewDto
+  {
+    public string ArtworkId { get; set; }
+    public LocalizedData ProjectName { get; set; }
+    public string JudgeId { get; set; }
+    public string FullName { get; set; }
+    public JudgeLevel Level { get; set; }
+    public decimal Score { get; set; }
+    public decimal ScoreTotal { get; set; }
+    public decimal Percentage { get; set; }
+    public string FinalThoughts { get; set; }
+  }
+
+
   public class ArtworkWithFilesDto : ArtWorkDto {
     public BasicMediaFileDto[] Files { get; set; }
   }

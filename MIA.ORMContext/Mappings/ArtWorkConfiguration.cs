@@ -18,6 +18,9 @@ namespace MIA.ORMContext.Mappings {
       builder.HasOne(a => a.Award).WithMany(a => a.Artworks).HasForeignKey(a => a.AwardId);
       builder.HasOne(a => a.Nominee).WithMany(a => a.Artworks).HasForeignKey(a => a.NomineeId);
       builder.HasMany(a => a.MediaFiles).WithOne(a => a.ArtWork).HasForeignKey(a => a.ArtWorkId);
+      builder.HasMany(a => a.FinalScores).WithOne(a => a.Artwork).HasForeignKey(a => a.ArtworkId);
+
+
 
       builder.OwnsOne(a => a.Poster);
       builder.OwnsOne(a => a.Trailer);
@@ -25,5 +28,7 @@ namespace MIA.ORMContext.Mappings {
       builder.OwnsOne(a => a.Cover);
 
     }
+
+   
   }
 }

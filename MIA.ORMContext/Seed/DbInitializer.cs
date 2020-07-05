@@ -809,7 +809,7 @@ namespace MIA.ORMContext.Seed {
         using (StreamReader r = new StreamReader(filename)) {
           var newItem = new List<VotingCriteria>();
           string json = r.ReadToEnd();
-          var listGenres = new List<VotingCriteria>();
+          var listCriterias = new List<VotingCriteria>();
           JArray array = JArray.Parse(json);
           foreach (JToken j in array) {
             var item = new VotingCriteria {
@@ -829,10 +829,10 @@ namespace MIA.ORMContext.Seed {
               }
             }
 
-            listGenres.Add(item);
+            listCriterias.Add(item);
           }
 
-          foreach (var item in listGenres) {
+          foreach (var item in listCriterias) {
             var _item = criterias.FirstOrDefault(a => a.Code == item.Code);
             if (_item != null) continue;
             newItem.Add(item);

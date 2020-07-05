@@ -25,8 +25,10 @@ using System.Threading.Tasks;
 using Amazon.S3.Transfer;
 using MIA.Authorization.Attributes;
 using MIA.Authorization.Entities;
+using MIA.ORMContext;
 using MIA.TemplateParser;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Z.EntityFramework.Plus;
 
 namespace MIA.Administration.Api {
 
@@ -304,13 +306,21 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPost("getJudgeArtWorks")]
-    public async Task<IActionResult> GetJudgeArtWorksAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
-      var listOfArtWork = new List<ArtWorkDto>();
+    public async Task<IActionResult> GetJudgeArtWorksAsync(
+      [FromQuery(Name = "id")] string id,
+      [FromServices] IUserResolver userResolver,
+      [FromServices] IAppUnitOfWork db) {
+      var userId = (await userResolver.CurrentUserAsync())?.Id;
+
+      var listOfArtWork = new List<ArtworkForJudgingDto>();
       var judgeAward = await db.JudgeAwards.Where(a => a.JudgeId == id).ToListAsync();
       foreach (var award in judgeAward) {
-        var artWork = await db.Artworks.Where(a => a.AwardId == award.AwardId && a.UploadComplete).ToListAsync();
+        var artWork = await db.Artworks
+                              .IncludeFilter(a => a.FinalScores.Where(a => a.JudgeId == id))
+                              .Where(a => a.AwardId == award.AwardId && a.UploadComplete)
+                              .ToListAsync();
         if (artWork != null)
-          listOfArtWork.AddRange(_mapper.Map<List<ArtWorkDto>>(artWork));
+          listOfArtWork.AddRange(_mapper.Map<List<ArtworkForJudgingDto>>(artWork));
       }
       return IfFound(listOfArtWork);
 

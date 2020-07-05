@@ -149,6 +149,25 @@ namespace MIA.Administration.MappingProfiles
         .ForMember(a => a.FileCount, cfg => cfg.MapFrom(a => a.MediaFiles.Count))
             .IncludeAllDerived();
 
+
+      CreateMap<Artwork, ArtworkForJudgingDto>()
+        .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.ProjectName))
+        .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
+        .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
+        .ForMember(a => a.TrailerUrl, cfg => cfg.MapFrom(a => a.Trailer.FileUrl))
+        .ForMember(a => a.CoverUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
+        .ForMember(a => a.Scores, cfg => cfg.MapFrom(a => a.FinalScores))
+        .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
+        .ForMember(a => a.AwardName, cfg => cfg.MapFrom(a => a.Award.Title))
+        .ValidateMemberList(MemberList.None)
+            .IncludeAllDerived();
+
+      CreateMap<JudgeArtworkScore, JudgeArtworkScoreViewDto>()
+        .ForMember(a => a.FullName, cfg => cfg.MapFrom(a => a.Judge.FullName))
+        .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Artwork.ProjectName))
+        .ValidateMemberList(MemberList.None);
+
+
       CreateMap<Artwork, ArtworkWithFilesDto>()
         .ForMember(a => a.Files, cfg => cfg.MapFrom(a => a.MediaFiles))
         .IncludeBase<Artwork, ArtWorkDto>()
