@@ -41,7 +41,7 @@
     vm.showCriteriaList = false;
     vm.JudgeArtWork = ArtWorkWithFilesAndScoresByIdPrepService;
     vm.artWorkLevel = 0;
-    vm.defaultCover = "./assets/img/newlogo.png";
+    vm.defaultCover = "./assets/img/big_award.png";
     vm.votingCriteriaList = [];
     vm.refreshSlider = function () {
       $timeout(function () {

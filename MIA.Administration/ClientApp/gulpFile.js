@@ -97,6 +97,7 @@ var paths = {
     // './node_modules/angular-datatables/dist/angular-datatables.min.js'
     "./node_modules/videogular/dist/videogular/videogular.min.js",
     "./node_modules/videogular/dist/poster/vg-poster.min.js",
+    "./node_modules/videogular/dist/controls/vg-controls.min.js",
 
   ],
   css: [
@@ -123,6 +124,7 @@ var paths = {
     "./node_modules/nvd3/build/nv.d3.min.css",
     "./node_modules/angular-ui-carousel/dist/ui-carousel.min.css",
     "./node_modules/angular-datatables/dist/css/angular-datatables.css",
+    "./node_modules/videogular/dist/themes/default/videogular.min.css",
   ],
   templates: ["./app/**/*.html"],
   index: "./index.html",
