@@ -25,7 +25,7 @@ var gutil = require("gulp-util");
 var replace = require("gulp-replace");
 var strip = require("gulp-strip-comments");
 var config = {
-  production: !!gutil.env.production,
+  production: gutil.env.env == 'production',
 };
 uglify = config.production ? uglify : gutil.noop;
 
