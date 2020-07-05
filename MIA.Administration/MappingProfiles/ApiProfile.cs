@@ -171,6 +171,7 @@ namespace MIA.Administration.MappingProfiles {
       CreateMap<JudgeArtworkScore, JudgeArtworkScoreViewDto>()
         .ForMember(a => a.FullName, cfg => cfg.MapFrom(a => a.Judge.FullName))
         .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Artwork.ProjectName))
+        .ForMember(a => a.LevelNumber, cfg => cfg.MapFrom(a => (int)a.Level))
         .ValidateMemberList(MemberList.None);
 
 

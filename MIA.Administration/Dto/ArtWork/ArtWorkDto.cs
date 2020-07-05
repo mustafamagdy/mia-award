@@ -77,6 +77,7 @@ namespace MIA.Administration.Api {
     public string JudgeId { get; set; }
     public string FullName { get; set; }
     public JudgeLevel Level { get; set; }
+    public int LevelNumber { get; set; }
     public decimal Score { get; set; }
     public decimal ScoreTotal { get; set; }
     public decimal Percentage { get; set; }

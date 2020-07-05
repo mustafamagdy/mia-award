@@ -153,6 +153,7 @@ namespace MIA.Administration.Api {
       [FromServices] IUserResolver userResolver,
       [FromBody] JudgeCompleteWithFinalThoughtDto dto,
       [FromServices] IAppUnitOfWork db,
+      [FromServices] IOptions<AdminOptions> adminOptions,
       [FromServices] IVotingCalculator calculator
     ) {
       var userId = (await userResolver.CurrentUserAsync())?.Id;
@@ -188,6 +189,16 @@ namespace MIA.Administration.Api {
       artworkScore.FinalThoughts = dto.FinalThoughts;
 
       await db.ArtworkScores.AddAsync(artworkScore);
+
+      if (dto.Level == JudgeLevel.Level1) {
+        if (results.Percentage >= adminOptions.Value.Level1Threshold) {
+          artwork.IllegibleForJudge = true;
+        } else {
+          artwork.IllegibleForJudge = false;
+        }
+
+        db.Artworks.Update(artwork);
+      }
 
       return Ok();
     }

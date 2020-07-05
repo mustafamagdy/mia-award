@@ -338,7 +338,7 @@ namespace MIA.Administration.Api {
       foreach (var award in judgeAwardForLevel1) {
         var artWork = await db.Artworks
                               .IncludeFilter(a => a.FinalScores.Where(a => a.JudgeId == id))
-                              .Where(a => a.AwardId == award.AwardId && a.UploadComplete)
+                              .Where(a => a.AwardId == award.AwardId && a.UploadComplete && a.IllegibleForJudge == null)
                               .ToListAsync();
         if (artWork != null)
           level1Artworks.AddRange(_mapper.Map<List<ArtworkForJudgingDto>>(artWork));
@@ -349,7 +349,7 @@ namespace MIA.Administration.Api {
       foreach (var award in judgeAwardForLevel2) {
         var artWork = await db.Artworks
                               .IncludeFilter(a => a.FinalScores.Where(a => a.JudgeId == id))
-                              .Where(a => a.AwardId == award.AwardId && a.UploadComplete)
+                              .Where(a => a.AwardId == award.AwardId && a.UploadComplete && a.IllegibleForJudge == true)
                               .ToListAsync();
         if (artWork != null)
           level2Artworks.AddRange(_mapper.Map<List<ArtworkForJudgingDto>>(artWork));

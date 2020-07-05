@@ -41,6 +41,22 @@
     vm.showCriteriaList = false;
     vm.JudgeArtWork = ArtWorkWithFilesAndScoresByIdPrepService;
     vm.artWorkLevel = 0;
+
+    if (vm.JudgeArtWork.illegibleForJudge == true) {
+      vm.artWorkLevel = 1;
+    }
+
+    vm.judgingFinished = isJudgingFinished();
+
+    function isJudgingFinished() {
+      debugger;
+      return (
+        vm.JudgeArtWork.scores &&
+        vm.JudgeArtWork.scores.length > 0 &&
+        vm.JudgeArtWork.scores.find((a) => a.levelNumber == vm.artWorkLevel) !=
+          undefined
+      );
+    }
     vm.defaultCover = "./assets/img/big_award.png";
     vm.votingCriteriaList = [];
     vm.refreshSlider = function () {
@@ -87,9 +103,9 @@
           ];
 
     vm.tabs = ["episodes", "judging"];
-    if(vm.JudgeArtWork.scores && vm.JudgeArtWork.scores[0]) {
+    if (vm.judgingFinished) {
       vm.tabs.push("final_thoughts");
-      vm.finalThoughts = vm.JudgeArtWork.scores[0].finalThoughts
+      vm.finalThoughts = vm.JudgeArtWork.scores[0].finalThoughts;
       vm.finalThoughtsReadOnly = true;
     }
 
@@ -196,7 +212,7 @@
     vm.finalizeJudge = function () {
       var addFinalThoughts = new JudgeArtWorkResource();
       addFinalThoughts.finalThoughts = vm.finalThoughts;
-      addFinalThoughts.level = vm.level;
+      addFinalThoughts.level = vm.artWorkLevel;
       addFinalThoughts.artworkId = vm.JudgeArtWork.id;
 
       addFinalThoughts.$postFinalThoughts().then(

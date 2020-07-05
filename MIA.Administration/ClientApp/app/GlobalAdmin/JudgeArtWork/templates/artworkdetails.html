@@ -208,7 +208,7 @@
               <form class="form-horizontal" name="viewJudgeArtWorkForm">
                 <div
                   class="pmd-modal-action text-right"
-                  ng-hide="judgeArtWorkDetailsCtrl.JudgeArtWork.scores && judgeArtWorkDetailsCtrl.JudgeArtWork.scores[0]"
+                  ng-hide="judgeArtWorkDetailsCtrl.judgingFinished"
                 >
                   <button
                     ng-disabled="viewJudgeArtWorkForm.$invalid"
@@ -272,7 +272,7 @@
                 </div>
                 <div
                   class="row"
-                  ng-hide="judgeArtWorkDetailsCtrl.JudgeArtWork.scores && judgeArtWorkDetailsCtrl.JudgeArtWork.scores[0]"
+                  ng-hide="judgeArtWorkDetailsCtrl.judgingFinished"
                 >
                   <button
                     ng-disabled="finalThoughtsForm.$invalid"
