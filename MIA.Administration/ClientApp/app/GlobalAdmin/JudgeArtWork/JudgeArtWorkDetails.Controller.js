@@ -12,6 +12,7 @@
       "$state",
       "appCONSTANTS",
       "$translate",
+      "$uibModal",
       "JudgeArtWorkResource",
       "ToastService",
       "ArtWorkWithFilesByIdPrepService",
@@ -27,6 +28,7 @@
     $state,
     appCONSTANTS,
     $translate,
+    $uibModal,
     JudgeArtWorkResource,
     ToastService,
     ArtWorkWithFilesByIdPrepService
@@ -108,7 +110,8 @@
     vm.changeValue = function (value, index) {
       vm.votingCriteriaList[index].value = value;
     };
-    vm.UpdateJudgeArtWork = function (judgeComplete) {
+
+    vm.UpdateJudgeArtWork = function () {
       blockUI.start("Loading...");
 
       var updateObj = new JudgeArtWorkResource();
@@ -116,7 +119,6 @@
       updateObj.ArtWorkId = vm.JudgeArtWork.id;
       updateObj.JudgeId = $scope.user.id;
       updateObj.CriteriaValues = vm.votingCriteriaList;
-      updateObj.JudgeComplete = judgeComplete;
       updateObj.$update().then(
         function (data, status) {
           ToastService.show(
@@ -140,6 +142,75 @@
         }
       );
     };
+
+    vm.confirmJudgeComplete = function (name) {
+      var modalContent = $uibModal.open({
+        templateUrl: "./app/core/Delete/templates/ConfirmDeleteDialog.html",
+        controller: "confirmDeleteDialogController",
+        controllerAs: "deleteDlCtrl",
+        resolve: {
+          model: function () {
+            return vm.JudgeArtWork;
+          },
+          okLabel: function () {
+            return "yes";
+          },
+          itemName: function () {
+            return name;
+          },
+          itemId: function () {
+            return vm.JudgeArtWork.id;
+          },
+          message: function () {
+            return $translate.instant("confirm_complete_judging");
+          },
+          callBackFunction: function () {
+            return startFinalizingJudging;
+          },
+        },
+      });
+    };
+
+    function startFinalizingJudging(model) {
+      vm.tabs = ["final_thoughts"];
+      vm.selectedTab = vm.tabs[0];
+    }
+
+    vm.resetTabs = function () {
+      vm.tabs = ["episodes", "judging"];
+      vm.selectedTab = vm.tabs[0];
+    };
+
+    vm.finalizeJudge = function () {
+      var addFinalThoughts = new JudgeArtWorkResource();
+      addFinalThoughts.finalThoughts = vm.finalThoughts;
+      addFinalThoughts.level = vm.level;
+      addFinalThoughts.artworkId = vm.JudgeArtWork.id;
+
+      addFinalThoughts.$postFinalThoughts().then(
+        function (data, status) {
+          ToastService.show(
+            "right",
+            "bottom",
+            "fadeInUp",
+            $translate.instant("Editeduccessfully"),
+            "success"
+          );
+          blockUI.stop();
+        },
+        function (data, status) {
+          blockUI.stop();
+          ToastService.show(
+            "right",
+            "bottom",
+            "fadeInUp",
+            data.data.message,
+            "error"
+          );
+        }
+      );
+    };
+
     vm.slider = {
       votingValue: 10,
       maxValue: 90,

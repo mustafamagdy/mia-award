@@ -71,8 +71,6 @@
     };
 
     vm.getAttachments = function () {
-      debugger;
-
       const _ar = [];
       if (vm.ArtWork.resume.fileUrl != "") _ar.push(vm.ArtWork.resume);
       if (vm.ArtWork.file1.fileUrl != "") _ar.push(vm.ArtWork.file1);

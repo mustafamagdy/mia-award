@@ -121,9 +121,7 @@
       <!-- end show_info -->
       <div class="show_video_show">
         <span>
-          <img
-            data-ng-src="{{judgeArtWorkDetailsCtrl.getCoverUrl()}}"
-          />
+          <img data-ng-src="{{judgeArtWorkDetailsCtrl.getCoverUrl()}}" />
         </span>
         <!-- <div class="row">
           <div class="form-group col-lg-6">
@@ -217,7 +215,8 @@
                         ng-click="$state.go('displayVideo',{id: mediaItem.id});"
                       >
                         <img
-                          data-ng-src="{{judgeArtWorkDetailsCtrl.getPosterUrl()}}" style="object-fit:cover;"
+                          data-ng-src="{{judgeArtWorkDetailsCtrl.getPosterUrl()}}"
+                          style="object-fit: cover;"
                         />
                       </span>
                     </li>
@@ -238,7 +237,7 @@
                     ng-disabled="viewJudgeArtWorkForm.$invalid"
                     class="buttonGold"
                     type="button"
-                    ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)"
+                    ng-click="judgeArtWorkDetailsCtrl.confirmJudgeComplete(judgeArtWorkDetailsCtrl.JudgeArtWork.projectName[selectedLanguage])"
                   >
                     {{'judgeComplete' | translate}}
                   </button>
@@ -278,6 +277,32 @@
                 </div>
                 <!-- end item_show -->
                 <!-- end item_tabs_content -->
+              </form>
+            </div>
+
+            <div
+              class="item_tabs_content active"
+              ng-show="judgeArtWorkDetailsCtrl.selectedTab == 'final_thoughts'"
+            >
+              <form class="form-horizontal" name="finalThoughtsForm">
+                <div class="row"></div>
+                <div class="row">
+                  <button
+                    ng-disabled="finalThoughtsForm.$invalid"
+                    class="buttonGold"
+                    type="button"
+                    ng-click="judgeArtWorkDetailsCtrl.finalizeJudge(judgeArtWorkDetailsCtrl.JudgeArtWork.projectName[selectedLanguage])"
+                  >
+                    {{'finalizeJudge' | translate}}
+                  </button>
+                  <button
+                    class="btn pmd-ripple-effect btn-default"
+                    type="button"
+                    ng-click="judgeArtWorkDetailsCtrl.resetTabs()"
+                  >
+                    {{'DiscardBtn' | translate}}
+                  </button>
+                </div>
               </form>
             </div>
           </div>

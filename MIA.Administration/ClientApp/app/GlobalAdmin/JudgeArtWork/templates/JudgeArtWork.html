@@ -41,18 +41,18 @@
             <div class="item" ng-repeat="JudgeArtWork in JudgeArtWorkList">
                 <div class="imgthumb">
                     <a ng-click="$state.go('artWorkDetails',{id: JudgeArtWork.id});" title="{{JudgeArtWork.projectName[selectedLanguage]}}">
-                        <img data-ng-src="{{JudgeArtWork.posterUrl}}">
+                        <img ng-src="{{JudgeArtWorkCtrl.getPosterUrl(JudgeArtWork)}}">
                         <div class="mask">
                             <div class="content">
                                 <p> {{JudgeArtWork.projectName[selectedLanguage]   | limitTo : 50}}
                                     {{JudgeArtWork.projectName[selectedLanguage].length > 50 ? '...' : ''}}</p>
-                                <div class="stars">
+                                <!-- <div class="stars">
                                     <i class="icofont-ui-rating"></i>
                                     <i class="icofont-ui-rating"></i>
                                     <i class="icofont-ui-rating"></i>
                                     <i class="icofont-ui-rate-blank"></i>
                                     <i class="icofont-ui-rate-blank"></i>
-                                </div><!-- end stars -->
+                                </div> -->
                             </div><!-- end content -->
                         </div><!-- end mask -->
                     </a>

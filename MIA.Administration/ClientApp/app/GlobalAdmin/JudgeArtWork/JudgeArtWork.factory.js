@@ -15,7 +15,9 @@
             getCriteriaByLevel: { method: 'GET', url: appCONSTANTS.API_URL + 'judgeVote/getCriteriaByLevel?level=:level', isArray: true, useToken: true },
 
             postComment: { method: 'POST', url: appCONSTANTS.API_URL + 'judgeVote/submitJudgeComment', useToken: true },
-            getCommetsListByMedia: { method: 'GET', url: appCONSTANTS.API_URL + 'judgeVote/getCommetsListByMedia?id=:id', isArray: true, useToken: true }
+            getCommetsListByMedia: { method: 'GET', url: appCONSTANTS.API_URL + 'judgeVote/getCommetsListByMedia?id=:id', isArray: true, useToken: true },
+            postFinalThoughts: { method: 'POST', url: appCONSTANTS.API_URL + 'judgeVote/final-thoughts', useToken: true },
+
         })
     }
 
