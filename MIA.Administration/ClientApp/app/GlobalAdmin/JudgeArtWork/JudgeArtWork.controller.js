@@ -58,7 +58,7 @@
       $(element.currentTarget).toggleClass("child-table-collapse");
     };
 
-    vm.defaultCover = "./assets/img/newlogo.png";
+    vm.defaultCover = "./assets/img/big_award.png";
     vm.getPosterUrl = function (artwork) {
       return artwork.posterUrl == undefined || artwork.posterUrl == ""
         ? vm.defaultCover

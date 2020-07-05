@@ -17,6 +17,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
+using MIA.Administration.Services;
 using MIA.Exceptions;
 using MIA.ORMContext;
 using Z.EntityFramework.Plus;
@@ -151,7 +152,10 @@ namespace MIA.Administration.Api {
     public async Task<IActionResult> CloseJudgeWithFinalThoughts(
       [FromServices] IUserResolver userResolver,
       [FromBody] JudgeCompleteWithFinalThoughtDto dto,
-      [FromServices] IAppUnitOfWork db) {
+      [FromServices] IAppUnitOfWork db,
+      [FromServices] IOptions<AdminOptions> adminOptions,
+      [FromServices] IVotingCalculator calculator
+    ) {
       var userId = (await userResolver.CurrentUserAsync())?.Id;
       var artwork = await db.Artworks.FindAsync(dto.ArtworkId);
       if (artwork == null) {
@@ -168,15 +172,33 @@ namespace MIA.Administration.Api {
         throw new ApiException(ApiErrorType.BadRequest, "you already submitted the final score to this artwork");
       }
 
+      var judgeVotes = db.JudgeVotes
+                          .Include(a => a.Criteria)
+                          .Where(a => a.ArtworkId == artwork.Id && a.JudgeId == userId)
+                          .ProjectTo<JudgeVoteValues>(_mapper.ConfigurationProvider);
+
+      var results = calculator.CalculateTotalsFor(judgeVotes);
+
       artworkScore = new JudgeArtworkScore();
       artworkScore.JudgeId = userId;
       artworkScore.ArtworkId = artwork.Id;
       artworkScore.Level = dto.Level;
-
-      //TODO: do the calculation here
-
+      artworkScore.ScoreTotal = results.ScoreTotal;
+      artworkScore.Score = results.Score;
+      artworkScore.Percentage = results.Percentage;
       artworkScore.FinalThoughts = dto.FinalThoughts;
+
       await db.ArtworkScores.AddAsync(artworkScore);
+
+      if (dto.Level == JudgeLevel.Level1) {
+        if (results.Percentage >= adminOptions.Value.Level1Threshold) {
+          artwork.IllegibleForJudge = true;
+        } else {
+          artwork.IllegibleForJudge = false;
+        }
+
+        db.Artworks.Update(artwork);
+      }
 
       return Ok();
     }

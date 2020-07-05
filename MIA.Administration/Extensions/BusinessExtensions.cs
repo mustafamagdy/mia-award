@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using MIA.Administration.MappingProfiles;
+using MIA.Administration.Services;
 using MIA.MappingProfiles;
 
 namespace MIA.Administration.Extensions {
@@ -35,7 +36,7 @@ namespace MIA.Administration.Extensions {
     /// <param name="services"></param>
     /// <returns></returns>
     public static IServiceCollection AddProjectApplicationServices(this IServiceCollection services) =>
-      services;
+      services.AddScoped<IVotingCalculator, VotingCalculator>();
 
 
   }

@@ -54,5 +54,94 @@
     "Name": "عامل الترفيه بالمحتوى",
     "Order": 7,
     "Weight": 5.714285714285714
+  },
+
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Code": "قوة المذيع و المقدم",
+    "Name": "قوة المذيع و المقدم",
+    "Order": 1,
+    "Weight": 20
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Code": "ضبط إيقاع البرنامج",
+    "Name": "ضبط إيقاع البرنامج",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Code": "أحجام اللقطات وحركات الكاميرا",
+    "Name": "أحجام اللقطات وحركات الكاميرا",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Code": "مدى مشاركة وتفاعل الجمهور",
+    "Name": "مدى مشاركة وتفاعل الجمهور",
+    "Order": 4,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Code": "جمالية العرض و المكان و الاستوديو",
+    "Name": "جمالية العرض و المكان و الاستوديو",
+    "Order": 5,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Code": "تقنية الإعداد ومحاور الأسئلة",
+    "Name": "تقنية الإعداد ومحاور الأسئلة",
+    "Order": 6,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Code": "نوعية الحضور",
+    "Name": "نوعية الحضور",
+    "Order": 7,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 8,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 9,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 10,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Code": "أهمية الموضوع",
+    "Name": "أهمية الموضوع",
+    "Order": 11,
+    "Weight": 10
   }
 ]

@@ -47,7 +47,9 @@
     "propellerkit": "^1.1.0",
     "propellerkit-select2": "^1.1.0",
     "videogular": "^2.2.1",
-    "videogular-poster": "^1.4.4"
+    "videogular-controls": "^1.4.4",
+    "videogular-poster": "^1.4.4",
+    "videogular-themes-default": "^1.4.4"
   },
   "devDependencies": {
     "add-stream": "^1.0.0",
