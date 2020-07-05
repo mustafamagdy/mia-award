@@ -105,7 +105,12 @@
     vm.tabs = ["episodes", "judging"];
     if (vm.judgingFinished) {
       vm.tabs.push("final_thoughts");
-      vm.finalThoughts = vm.JudgeArtWork.scores[0].finalThoughts;
+      var scoreRecord = vm.JudgeArtWork.scores.find(
+        (a) => a.levelNumber == vm.artWorkLevel
+      );
+      vm.finalThoughts =
+        scoreRecord == undefined ? "" : scoreRecord.finalThoughts;
+
       vm.finalThoughtsReadOnly = true;
     }
 
