@@ -50,6 +50,7 @@
     vm.selectedProductionYear = vm.ArtWork.productionYear; // vm.yearsList[0];
     vm.selectedBroadcastYear = vm.ArtWork.broadcastYear; // vm.yearsList[0];
     vm.IsArtwork = false;
+
     $scope.trustSrc = function (src) {
       return $sce.trustAsResourceUrl(src);
     };
@@ -67,6 +68,15 @@
 
     vm.Close = function () {
       $state.go("ArtWork");
+    };
+
+    vm.getAttachments = function () {
+      const _ar = [];
+      if (vm.ArtWork.resume.fileUrl != "") _ar.push(vm.ArtWork.resume);
+      if (vm.ArtWork.file1.fileUrl != "") _ar.push(vm.ArtWork.file1);
+      if (vm.ArtWork.file2.fileUrl != "") _ar.push(vm.ArtWork.file2);
+      if (vm.ArtWork.file3.fileUrl != "") _ar.push(vm.ArtWork.file3);
+      return _ar;
     };
 
     function doApproveArtwork(model) {

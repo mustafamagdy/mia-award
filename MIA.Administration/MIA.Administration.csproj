@@ -25,6 +25,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\emailTemplates\_en\**" />
+    <Content Remove="wwwroot\emailTemplates\_en\**" />
+    <EmbeddedResource Remove="wwwroot\emailTemplates\_en\**" />
+    <None Remove="wwwroot\emailTemplates\_en\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Api\JudgeAwardController.cs" />
     <Compile Remove="Api\UserController.cs" />
   </ItemGroup>
@@ -35,21 +42,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="Resources\Controllers.AccountController.en.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="wwwroot\.well-known\security.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="wwwroot\emailTemplates\_en\email1.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Resources\Controllers.AccountController.en.resx" />
     <None Include="wwwroot\favicon.ico" />
   </ItemGroup>
 
@@ -93,6 +89,8 @@
     <PackageReference Include="swashbuckle.aspnetcore.annotations" Version="4.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="7.6.0" />
+    <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="2.7.79" />
+    <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="2.0.52" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,7 @@
 <style>
+  .custom-slider {
+    width: 200px;
+  }
   .custom-slider.rzslider .rz-bar {
     background: #ffe4d1;
     height: 2px;
@@ -54,18 +57,17 @@
   .container {
     padding: 10px 25px 60px !important;
   }
+  .voting_criteria {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 </style>
 <section id="show_inner">
   <div class="show_inner_one">
     <div class="container">
       <div class="show_info">
         <div class="show_details">
-          <!-- <div class="imgthumb">
-                        <img data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.posterUrl}}">
-                        <div class="mask">
-                            <span>{{judgeArtWorkDetailsCtrl.JudgeArtWork.projectName[selectedLanguage] }}</span>
-                        </div>
-                    </div> -->
           <div class="desc">
             <div class="name">
               {{judgeArtWorkDetailsCtrl.JudgeArtWork.projectName[selectedLanguage]
@@ -78,37 +80,34 @@
               <i class="icofont-ui-rate-blank"></i>
               <i class="icofont-ui-rate-blank"></i>
             </div>
-            <!-- end stars -->
             <ul>
-              <li>
+              <li class="data-item">
                 <span>{{'productionLicenseAgency'| translate}} :</span>
                 <p>
                   {{judgeArtWorkDetailsCtrl.JudgeArtWork.productionLicenseAgency}}
                 </p>
               </li>
-              <li>
+              <li class="data-item">
                 <span>{{'productionLicenseNumber'| translate}} :</span>
                 <p>
                   {{judgeArtWorkDetailsCtrl.JudgeArtWork.productionLicenseNumber}}
                 </p>
               </li>
-              <li>
+              <li class="data-item">
                 <span>{{'siteUrl'| translate}} :</span>
                 <p>{{judgeArtWorkDetailsCtrl.JudgeArtWork.siteUrl}}</p>
               </li>
-              <li>
+              <li class="data-item">
                 <span>{{'onlineChannels'| translate}} :</span>
                 <p>{{judgeArtWorkDetailsCtrl.JudgeArtWork.onlineChannels}}</p>
               </li>
-              <li>
+              <li class="data-item">
                 <span>{{'tvChannels'| translate}} :</span>
                 <p>{{judgeArtWorkDetailsCtrl.JudgeArtWork.tvChannels}}</p>
               </li>
             </ul>
           </div>
-          <!-- end desc -->
         </div>
-        <!-- end show_details -->
         <div class="about_show">
           <span>About the show</span>
           <p>
@@ -116,41 +115,14 @@
             }}
           </p>
         </div>
-        <!-- end about_show -->
       </div>
-      <!-- end show_info -->
       <div class="show_video_show">
         <span>
-          <img
-            data-ng-src="{{judgeArtWorkDetailsCtrl.getCoverUrl()}}"
-          />
+          <img data-ng-src="{{judgeArtWorkDetailsCtrl.getCoverUrl()}}" />
         </span>
-        <!-- <div class="row">
-          <div class="form-group col-lg-6">
-            <button
-              class="buttonGold"
-              ng-click="judgeArtWorkDetailsCtrl.showMedia()"
-              type="button"
-            >
-              {{'DisplayEposides'| translate}}
-            </button>
-          </div>
-          <div class="form-group col-lg-6">
-            <button
-              class="buttonGold"
-              ng-click="judgeArtWorkDetailsCtrl.showJudging()"
-              type="button"
-            >
-              {{'StartJudge'| translate}}
-            </button>
-          </div>
-        </div> -->
       </div>
-      <!-- end show_video_show -->
     </div>
-    <!-- end container -->
   </div>
-  <!-- end show_inner_one -->
 
   <div class="show_inner_two" ng-show="judgeArtWorkDetailsCtrl.showMediaList">
     <div class="container">
@@ -158,22 +130,6 @@
         class="show_video"
         ng-show="judgeArtWorkDetailsCtrl.JudgeArtWork.trailerUrl != ''"
       >
-        <!-- <iframe width="560" height="315" data-ng-src="{{judgeArtWorkDetailsCtrl.JudgeArtWork.trailerUrl}}"
-                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe> -->
-
-        <!-- <iframe
-          class="youtube-player"
-          type="text/html"
-          width="640"
-          height="385"
-          ng-src="{{trustSrc(judgeArtWorkDetailsCtrl.JudgeArtWork.trailerUrl)}}"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          frameborder="0"
-        >
-        </iframe> -->
-
         <videogular>
           <vg-media
             vg-src="judgeArtWorkDetailsCtrl.trailer"
@@ -183,13 +139,12 @@
           </vg-media>
         </videogular>
       </div>
-      <!-- end show_video -->
       <div class="show_content">
         <div class="tabs_area">
           <div class="tabs">
-            <!-- to show tab content please add class "active" to "li" element -->
             <ul class="tabs-items">
               <li
+                class="data-item"
                 ng-repeat="tab in judgeArtWorkDetailsCtrl.tabs"
                 ng-class="{'active': judgeArtWorkDetailsCtrl.selectedTab == tab, 'tab-item': true}"
                 ng-click="judgeArtWorkDetailsCtrl.setActiveTab(tab)"
@@ -197,12 +152,8 @@
                 {{tab | translate}}
               </li>
             </ul>
-            <!-- end ul -->
           </div>
-          <!-- end tabs -->
           <div class="all_tabs_content">
-            <!-- to show tab content please add class "active" to "item_tabs_content" element -->
-
             <div
               class="item_tabs_content active"
               ng-show="judgeArtWorkDetailsCtrl.selectedTab == 'episodes'"
@@ -211,21 +162,21 @@
                 <div class="season_content">
                   <ol>
                     <li
+                      class="data-item"
                       ng-repeat=" mediaItem in judgeArtWorkDetailsCtrl.JudgeArtWork.files"
                     >
                       <span
                         ng-click="$state.go('displayVideo',{id: mediaItem.id});"
                       >
                         <img
-                          data-ng-src="{{judgeArtWorkDetailsCtrl.getPosterUrl()}}" style="object-fit:cover;"
+                          data-ng-src="{{judgeArtWorkDetailsCtrl.getPosterUrl()}}"
+                          style="object-fit: cover;"
                         />
                       </span>
                     </li>
                   </ol>
                 </div>
-                <!-- end season_content -->
               </div>
-              <!-- end item_show -->
             </div>
 
             <div
@@ -233,12 +184,12 @@
               ng-show="judgeArtWorkDetailsCtrl.selectedTab == 'judging'"
             >
               <form class="form-horizontal" name="viewJudgeArtWorkForm">
-                <div class="pmd-modal-action text-right">
+                <div class="pmd-modal-action text-right" ng-hide="judgeArtWorkDetailsCtrl.JudgeArtWork.scores && judgeArtWorkDetailsCtrl.JudgeArtWork.scores[0]">
                   <button
                     ng-disabled="viewJudgeArtWorkForm.$invalid"
                     class="buttonGold"
                     type="button"
-                    ng-click="judgeArtWorkDetailsCtrl.UpdateJudgeArtWork(false)"
+                    ng-click="judgeArtWorkDetailsCtrl.confirmJudgeComplete(judgeArtWorkDetailsCtrl.JudgeArtWork.projectName[selectedLanguage])"
                   >
                     {{'judgeComplete' | translate}}
                   </button>
@@ -250,34 +201,67 @@
                   >
                     {{'saveChangesBtn' | translate}}
                   </button>
-                  <button
+                  <!-- <button
                     class="btn pmd-ripple-effect btn-default"
                     type="button"
                     ng-click="judgeArtWorkDetailsCtrl.Close()"
                   >
                     {{'DiscardBtn' | translate}}
-                  </button>
+                  </button> -->
                 </div>
 
                 <div class="item_show">
                   <div
-                    class="season_content"
+                    class="voting_criteria"
                     ng-repeat="critiera in judgeArtWorkDetailsCtrl.votingCriteriaList"
                   >
-                    <span> {{critiera.name[selectedLanguage]}}</span>
+                    <span> {{critiera.name}}</span>
 
                     <rzslider
                       class="custom-slider"
-                      rz-slider-model="critiera.votingValue"
+                      rz-slider-model="critiera.judgeValue"
                       name="critiera+$index"
-                      ng-mouseup="judgeArtWorkDetailsCtrl.changeValue(critiera.votingValue,$index)"
-                      rz-slider-options="judgeArtWorkDetailsCtrl.slider.options"
+                      ng-mouseup="judgeArtWorkDetailsCtrl.changeValue(critiera.judgeValue,$index)"
+                      rz-slider-options="{ floor: 0, ceil: 10, step: 1, showTicks: true}"
                     ></rzslider>
                   </div>
-                  <!-- end season_content -->
                 </div>
-                <!-- end item_show -->
-                <!-- end item_tabs_content -->
+              </form>
+            </div>
+
+            <div
+              class="item_tabs_content active"
+              ng-show="judgeArtWorkDetailsCtrl.selectedTab == 'final_thoughts'"
+            >
+              <form class="form-horizontal" name="finalThoughtsForm">
+                <div class="row">
+                  <textarea
+                    name="finalThoughts"
+                    cols="200"
+                    rows="10"
+                    required
+                    placeholder="Type here your final thoughts"
+                    ng-model="judgeArtWorkDetailsCtrl.finalThoughts"
+                    ng-readonly="judgeArtWorkDetailsCtrl.finalThoughtsReadOnly"
+                  ></textarea>
+                </div>
+                <div class="row" ng-hide="judgeArtWorkDetailsCtrl.JudgeArtWork.scores && judgeArtWorkDetailsCtrl.JudgeArtWork.scores[0]">
+                  <button
+                    ng-disabled="finalThoughtsForm.$invalid"
+                    class="buttonGold"
+                    type="button"
+                    ng-click="judgeArtWorkDetailsCtrl.finalizeJudge(judgeArtWorkDetailsCtrl.JudgeArtWork.projectName[selectedLanguage])"
+                  >
+                    {{'finalizeJudge' | translate}}
+                  </button>
+                  <button
+                    class="btn pmd-ripple-effect btn-default"
+                    type="button"
+                    ng-click="judgeArtWorkDetailsCtrl.resetTabs()"
+                  >
+                    {{'DiscardBtn' | translate}}
+                  </button>
+                </div>
               </form>
             </div>
           </div>
@@ -285,34 +269,4 @@
       </div>
     </div>
   </div>
-
-  <!-- <div
-    class="show_inner_two"
-    ng-show="judgeArtWorkDetailsCtrl.showCriteriaList"
-  >
-    <div class="container">
-      <div class="show_content">
-        <div class="tabs_area">
-          <div class="tabs">
-            
-            <ul>
-              <li class="active">{{'VotingCriteria'| translate}}</li>
-            </ul>
-            
-          </div>
-          
-          <div class="all_tabs_content">
-            
-           
-          </div>
-          
-        </div>
-        
-      </div>
-      
-    </div>
-    
-  </div>
-   -->
 </section>
-<!-- End show_inner -->

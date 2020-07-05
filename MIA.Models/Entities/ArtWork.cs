@@ -57,6 +57,7 @@ namespace MIA.Models.Entities {
     public HashSet<MediaFile> MediaFiles { get; set; }
     public HashSet<ArtworkReview> Reviews { get; set; }
     public HashSet<JudgeVote> Votes { get; set; }
+    public HashSet<JudgeArtworkScore> FinalScores { get; set; }
 
 
     public Award FirstPlace { get; set; }

@@ -12,9 +12,11 @@
       "$state",
       "appCONSTANTS",
       "$translate",
+      "$uibModal",
+      "$timeout",
       "JudgeArtWorkResource",
       "ToastService",
-      "ArtWorkWithFilesByIdPrepService",
+      "ArtWorkWithFilesAndScoresByIdPrepService",
       judgeArtWorkDetailsController,
     ]);
 
@@ -27,22 +29,27 @@
     $state,
     appCONSTANTS,
     $translate,
+    $uibModal,
+    $timeout,
     JudgeArtWorkResource,
     ToastService,
-    ArtWorkWithFilesByIdPrepService
+    ArtWorkWithFilesAndScoresByIdPrepService
   ) {
     var vm = this;
 
     vm.showMediaList = true;
     vm.showCriteriaList = false;
-    vm.JudgeArtWork = ArtWorkWithFilesByIdPrepService;
+    vm.JudgeArtWork = ArtWorkWithFilesAndScoresByIdPrepService;
     vm.artWorkLevel = 0;
     vm.defaultCover = "./assets/img/newlogo.png";
-    vm.votingCriteriaList = [
-      {
-        votingValue: 0,
-      },
-    ];
+    vm.votingCriteriaList = [];
+    vm.refreshSlider = function () {
+      $timeout(function () {
+        $scope.$broadcast("rzSliderForceRender");
+      }, 100);
+    };
+
+    getVotingCriterias();
 
     vm.getCoverUrl = function () {
       return vm.JudgeArtWork.coverUrl == undefined ||
@@ -80,9 +87,16 @@
           ];
 
     vm.tabs = ["episodes", "judging"];
+    if(vm.JudgeArtWork.scores && vm.JudgeArtWork.scores[0]) {
+      vm.tabs.push("final_thoughts");
+      vm.finalThoughts = vm.JudgeArtWork.scores[0].finalThoughts
+      vm.finalThoughtsReadOnly = true;
+    }
+
     vm.selectedTab = "episodes";
     vm.setActiveTab = function (tab) {
       vm.selectedTab = tab;
+      vm.refreshSlider();
     };
 
     vm.Close = function () {
@@ -108,7 +122,8 @@
     vm.changeValue = function (value, index) {
       vm.votingCriteriaList[index].value = value;
     };
-    vm.UpdateJudgeArtWork = function (judgeComplete) {
+
+    vm.UpdateJudgeArtWork = function () {
       blockUI.start("Loading...");
 
       var updateObj = new JudgeArtWorkResource();
@@ -116,7 +131,6 @@
       updateObj.ArtWorkId = vm.JudgeArtWork.id;
       updateObj.JudgeId = $scope.user.id;
       updateObj.CriteriaValues = vm.votingCriteriaList;
-      updateObj.JudgeComplete = judgeComplete;
       updateObj.$update().then(
         function (data, status) {
           ToastService.show(
@@ -140,16 +154,75 @@
         }
       );
     };
-    vm.slider = {
-      votingValue: 10,
-      maxValue: 90,
-      options: {
-        floor: 0,
-        ceil: 100,
-        step: 10,
-        showTicks: true,
-      },
+
+    vm.confirmJudgeComplete = function (name) {
+      var modalContent = $uibModal.open({
+        templateUrl: "./app/core/Delete/templates/ConfirmDeleteDialog.html",
+        controller: "confirmDeleteDialogController",
+        controllerAs: "deleteDlCtrl",
+        resolve: {
+          model: function () {
+            return vm.JudgeArtWork;
+          },
+          okLabel: function () {
+            return "yes";
+          },
+          itemName: function () {
+            return name;
+          },
+          itemId: function () {
+            return vm.JudgeArtWork.id;
+          },
+          message: function () {
+            return $translate.instant("confirm_complete_judging");
+          },
+          callBackFunction: function () {
+            return startFinalizingJudging;
+          },
+        },
+      });
     };
+
+    function startFinalizingJudging(model) {
+      vm.tabs = ["final_thoughts"];
+      vm.selectedTab = vm.tabs[0];
+    }
+
+    vm.resetTabs = function () {
+      vm.tabs = ["episodes", "judging"];
+      vm.selectedTab = vm.tabs[0];
+    };
+
+    vm.finalizeJudge = function () {
+      var addFinalThoughts = new JudgeArtWorkResource();
+      addFinalThoughts.finalThoughts = vm.finalThoughts;
+      addFinalThoughts.level = vm.level;
+      addFinalThoughts.artworkId = vm.JudgeArtWork.id;
+
+      addFinalThoughts.$postFinalThoughts().then(
+        function (data, status) {
+          ToastService.show(
+            "right",
+            "bottom",
+            "fadeInUp",
+            $translate.instant("Editeduccessfully"),
+            "success"
+          );
+          blockUI.stop();
+        },
+        function (data, status) {
+          blockUI.stop();
+          ToastService.show(
+            "right",
+            "bottom",
+            "fadeInUp",
+            data.data.message,
+            "error"
+          );
+        }
+      );
+    };
+
     function getArtWorkMediaList() {
       blockUI.start("Loading...");
 
@@ -174,13 +247,8 @@
       }).$promise.then(
         function (results) {
           vm.votingCriteriaList = results;
-          for (let index = 0; index < vm.votingCriteriaList.length; index++) {
-            const element = vm.votingCriteriaList[index];
-            element.votingValue = 0;
-            element.votingValue = 0;
-          }
-          console.log(vm.votingCriteriaList);
           vm.totalCount = results.length;
+
           blockUI.stop();
         },
         function (data, status) {

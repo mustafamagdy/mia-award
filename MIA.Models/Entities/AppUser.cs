@@ -20,5 +20,8 @@ namespace MIA.Models.Entities {
     public HashSet<JudgeAward> Awards { get; set; }
     public HashSet<JudgeVote> JudgeVotes { get; set; }
     public HashSet<JudgeComment> Comments { get; set; }
+
+    public HashSet<JudgeArtworkScore> FinalScores { get; set; }
+
   }
 }
