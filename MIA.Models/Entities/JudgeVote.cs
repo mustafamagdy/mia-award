@@ -1,7 +1,7 @@
 ﻿namespace MIA.Models.Entities
 {
   public class JudgeVote : BaseEntity<string> {
-    public int? VotingValue { get; set; }
+    public int VotingValue { get; set; }
 
     public Judge Judge { get; set; }
     public string JudgeId { get; set; }

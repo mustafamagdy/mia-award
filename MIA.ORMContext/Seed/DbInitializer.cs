@@ -55,6 +55,8 @@ namespace MIA.ORMContext.Seed {
         await SeedTimeLine(db);
         await SeedSponsers(db);
         //await SeedJudgeUsers(roleManager, userManager, db);
+        await SeedVotingCriterias(db);
+
       }
 
       await db.CommitTransactionAsync();
@@ -77,6 +79,7 @@ namespace MIA.ORMContext.Seed {
         }
       }
     }
+
     private static async Task SeedSponsers(IAppUnitOfWork db) {
       var filename = "./seed/sponsers.json";
       if (File.Exists(filename)) {
@@ -135,7 +138,8 @@ namespace MIA.ORMContext.Seed {
       }
     }
 
-    private static async Task SeedDemoUsers(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IAppUnitOfWork db) {
+    private static async Task SeedDemoUsers(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager,
+      IAppUnitOfWork db) {
       if (await roleManager.FindByNameAsync(PredefinedRoles.Nominee.ToString()) == null) {
         await roleManager.CreateAsync(
           new AppRole(PredefinedRoles.Nominee.ToString()) {
@@ -145,9 +149,10 @@ namespace MIA.ORMContext.Seed {
 
       }
 
-      Permissions[] nomineePermissions = new Permissions[] {
-          Permissions.NomineeAccess,
-        };
+      Permissions[] nomineePermissions = new Permissions[]
+      {
+        Permissions.NomineeAccess,
+      };
 
       var nomineeRole = await roleManager.FindByNameAsync(PredefinedRoles.Nominee.ToString());
       nomineePermissions.ForEach(m => {
@@ -184,7 +189,8 @@ namespace MIA.ORMContext.Seed {
       }
     }
 
-    private static async Task SeedJudgeUsers(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IAppUnitOfWork db) {
+    private static async Task SeedJudgeUsers(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager,
+      IAppUnitOfWork db) {
       if (await roleManager.FindByNameAsync(PredefinedRoles.Judge.ToString()) == null) {
         await roleManager.CreateAsync(
           new AppRole(PredefinedRoles.Judge.ToString()) {
@@ -194,9 +200,10 @@ namespace MIA.ORMContext.Seed {
 
       }
 
-      Permissions[] judgePermissions = new Permissions[] {
-          Permissions.JudgeArtworkList,
-        };
+      Permissions[] judgePermissions = new Permissions[]
+      {
+        Permissions.JudgeArtworkList,
+      };
 
       var judgeRole = await roleManager.FindByNameAsync(PredefinedRoles.Judge.ToString());
       judgePermissions.ForEach(m => {
@@ -251,6 +258,7 @@ namespace MIA.ORMContext.Seed {
             if (country != null) continue;
             items.Add(c);
           }
+
           if (items.Any()) {
             await db.ContactUsSubjects.AddRangeAsync(items);
           }
@@ -375,7 +383,8 @@ namespace MIA.ORMContext.Seed {
           url = file;
         } else {
           url = file;
-          posterUrl = allFiles.FirstOrDefault(a => a.GetFileNameWithoutExt() == file.GetFileNameWithoutExt() && a.GetFileExt() != ".mp4");
+          posterUrl = allFiles.FirstOrDefault(a =>
+            a.GetFileNameWithoutExt() == file.GetFileNameWithoutExt() && a.GetFileExt() != ".mp4");
         }
 
         var item = new AlbumItem {
@@ -398,14 +407,18 @@ namespace MIA.ORMContext.Seed {
         var client = new HttpClient();
         client.Timeout = TimeSpan.FromMinutes(5);
         using (var sFile = new FileStream(url, FileMode.Open)) {
-          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + url.GetFileExt());
+          var fileKey =
+            fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + url.GetFileExt());
           var fileUrl = await fileManager.UploadFileAsync(sFile, fileKey);
 
           item.File = S3File.FromKeyAndUrl(fileKey, fileUrl);
         }
+
         if (type == MediaType.Video) {
           using (var sFile = new FileStream(posterUrl, FileMode.Open)) {
-            var posterFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id, item.Id + posterUrl.GetFileExt());
+            var posterFileKey =
+              fileManager.GenerateFileKeyForResource(ResourceType.Album, mainAlbum.Id,
+                item.Id + posterUrl.GetFileExt());
             var posterFileUrl = await fileManager.UploadFileAsync(sFile, posterFileKey);
 
             item.Poster = S3File.FromKeyAndUrl(posterFileKey, posterFileUrl);
@@ -435,15 +448,16 @@ namespace MIA.ORMContext.Seed {
       }
 
       //(this is an example only)
-      Permissions[] demoPermissions = new Permissions[] {
-          Permissions.NewsRead,
-          Permissions.NewsAddNew,
-          Permissions.NewsRemove,
-          Permissions.AddUserToRole,
-          Permissions.ReadRolePermissions,
-          Permissions.RemoveUserFromRole,
-          Permissions.RemoveUserFromRole,
-        };
+      Permissions[] demoPermissions = new Permissions[]
+      {
+        Permissions.NewsRead,
+        Permissions.NewsAddNew,
+        Permissions.NewsRemove,
+        Permissions.AddUserToRole,
+        Permissions.ReadRolePermissions,
+        Permissions.RemoveUserFromRole,
+        Permissions.RemoveUserFromRole,
+      };
 
       demoPermissions.ForEach(m => {
         if (!demoRole.Permissions.Contains((char)m)) {
@@ -566,6 +580,7 @@ namespace MIA.ORMContext.Seed {
             if (_genre != null) continue;
             newGenre.Add(genre);
           }
+
           if (newGenre.Any()) {
             await db.Genres.AddRangeAsync(newGenre);
           }
@@ -594,6 +609,7 @@ namespace MIA.ORMContext.Seed {
             if (_subject != null) continue;
             newGenre.Add(genre);
           }
+
           if (newGenre.Any()) {
             await db.ArtworkSubjects.AddRangeAsync(newGenre);
           }
@@ -615,7 +631,8 @@ namespace MIA.ORMContext.Seed {
               Code = ((JValue)j["Code"]).Value<string>(),
               AwardType = (AwardType)Enum.Parse(typeof(AwardType), ((JValue)j["AwardType"]).Value<string>()),
               ArtworkFee = ((JValue)j["ArtworkFee"]).Value<decimal>(),
-              Trophy = S3File.FromKeyAndUrl(((JValue)j["TrophyImageKey"]).Value<string>(), ((JValue)j["TrophyImageUrl"]).Value<string>()),
+              Trophy = S3File.FromKeyAndUrl(((JValue)j["TrophyImageKey"]).Value<string>(),
+                ((JValue)j["TrophyImageUrl"]).Value<string>()),
               Order = ((JValue)j["Order"]).Value<int>(),
               Title = LocalizedData.FromDictionary((JObject)j["Title"]),
               Description = LocalizedData.FromDictionary((JObject)j["Description"]),
@@ -627,6 +644,7 @@ namespace MIA.ORMContext.Seed {
             if (_award != null) continue;
             newAwards.Add(award);
           }
+
           if (newAwards.Any()) {
             await db.Awards.AddRangeAsync(newAwards);
           }
@@ -647,7 +665,8 @@ namespace MIA.ORMContext.Seed {
             listNews.Add(new News {
               Date = ((JValue)j["Date"]).Value<long>(),
               Outdated = ((JValue)j["Outdated"]).Value<bool>(),
-              Poster = S3File.FromKeyAndUrl(((JValue)j["PosterId"]).Value<string>(), ((JValue)j["PosterUrl"]).Value<string>()),
+              Poster = S3File.FromKeyAndUrl(((JValue)j["PosterId"]).Value<string>(),
+                ((JValue)j["PosterUrl"]).Value<string>()),
               Featured = ((JValue)j["Featured"]).Value<bool>(),
               Category = ((JValue)j["Category"]).Value<string>(),
               Keywords = ((JValue)j["Keywords"]).Value<string>(),
@@ -690,12 +709,13 @@ namespace MIA.ORMContext.Seed {
       }
 
       //(this is an example only)
-      Permissions[] boothPermissions = new Permissions[] {
-          Permissions.BoothRead,
-          Permissions.BoothAddNew,
-          Permissions.BoothRemove,
-          Permissions.BoothPayment,
-        };
+      Permissions[] boothPermissions = new Permissions[]
+      {
+        Permissions.BoothRead,
+        Permissions.BoothAddNew,
+        Permissions.BoothRemove,
+        Permissions.BoothPayment,
+      };
 
       boothPermissions.ForEach(m => {
         if (!boothRole.Permissions.Contains((char)m)) {
@@ -732,9 +752,9 @@ namespace MIA.ORMContext.Seed {
 
 
     private static async Task SeedFilterAndUploadUserAndRoleAsync(
-         RoleManager<AppRole> roleManager,
-         UserManager<AppUser> userManager,
-         IAppUnitOfWork db) {
+      RoleManager<AppRole> roleManager,
+      UserManager<AppUser> userManager,
+      IAppUnitOfWork db) {
 
       var filterAndUploadRole = await roleManager.FindByNameAsync(PredefinedRoles.FilterUploads.ToString());
       if (filterAndUploadRole.Permissions == null) {
@@ -742,10 +762,11 @@ namespace MIA.ORMContext.Seed {
       }
 
       //(this is an example only)
-      Permissions[] boothPermissions = new Permissions[] {
-          Permissions.ArtworkAllowFileUpload,
-          Permissions.ArtworkListBasicData,
-        };
+      Permissions[] boothPermissions = new Permissions[]
+      {
+        Permissions.ArtworkAllowFileUpload,
+        Permissions.ArtworkListBasicData,
+      };
 
       boothPermissions.ForEach(m => {
         if (!filterAndUploadRole.Permissions.Contains((char)m)) {
@@ -777,10 +798,51 @@ namespace MIA.ORMContext.Seed {
           await db.UserModules.AddAsync(new UserModule(filterUser.Id, modules));
         }
       }
-
     }
 
+    private static async Task SeedVotingCriterias(IAppUnitOfWork db) {
+      List<VotingCriteria> criterias = db.VotingCriterias.ToList();
+      var listAwards = db.Awards.ToList();
 
+      var filename = "./seed/voting_criteria.json";
+      if (File.Exists(filename)) {
+        using (StreamReader r = new StreamReader(filename)) {
+          var newItem = new List<VotingCriteria>();
+          string json = r.ReadToEnd();
+          var listCriterias = new List<VotingCriteria>();
+          JArray array = JArray.Parse(json);
+          foreach (JToken j in array) {
+            var item = new VotingCriteria {
+              Code = ((JValue)j["Code"]).Value<string>(),
+              Name = ((JValue)j["Name"]).Value<string>(),
+              Level = (JudgeLevel)((JValue)j["Level"]).Value<int>(),
+              Weight = ((JValue)j["Weight"]).Value<decimal>(),
+              Order = ((JValue)j["Order"]).Value<int>()
+            };
 
+            //AwardCode
+            var awardCode = ((JValue)j["AwardCode"]).Value<string>();
+            if (awardCode != "") {
+              var _award = listAwards.FirstOrDefault(a => a.Code == awardCode);
+              if (_award != null) {
+                item.AwardId = _award.Id;
+              }
+            }
+
+            listCriterias.Add(item);
+          }
+
+          foreach (var item in listCriterias) {
+            var _item = criterias.FirstOrDefault(a => a.Code == item.Code);
+            if (_item != null) continue;
+            newItem.Add(item);
+          }
+
+          if (newItem.Any()) {
+            await db.VotingCriterias.AddRangeAsync(newItem);
+          }
+        }
+      }
+    }
   }
 }

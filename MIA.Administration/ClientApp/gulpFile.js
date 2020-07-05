@@ -24,6 +24,7 @@ var watch = require("gulp-watch");
 var gutil = require("gulp-util");
 var replace = require("gulp-replace");
 var strip = require("gulp-strip-comments");
+
 var config = {
   production: gutil.env.env == 'production',
 };

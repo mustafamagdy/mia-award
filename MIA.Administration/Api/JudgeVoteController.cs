@@ -14,16 +14,19 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
+using MIA.Exceptions;
+using MIA.ORMContext;
+using Z.EntityFramework.Plus;
 
-namespace MIA.Administration.Api
-{
+namespace MIA.Administration.Api {
 
   //[Authorize]
   [EnableCors(CorsPolicyName.AllowAll)]
   [Route("api/judgeVote")]
-  public class JudgeVoteController : BaseCrudController<JudgeVote, JudgeVoteDto, NewJudgeVoteDto, UpdateJudgeVoteDto>
-  {
+  public class JudgeVoteController : BaseCrudController<JudgeVote, JudgeVoteDto, NewJudgeVoteDto, UpdateJudgeVoteDto> {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
 
@@ -33,14 +36,12 @@ namespace MIA.Administration.Api
           IStringLocalizer<JudgeVoteController> localize,
           IHostingEnvironment env,
           IOptions<UploadLimits> limitOptions
-        ) : base(mapper, logger, localize)
-    {
+        ) : base(mapper, logger, localize) {
       this.env = env;
       this.limitOptions = limitOptions;
     }
 
-    public override async Task<IActionResult> SaveNewAsync([FromForm] NewJudgeVoteDto dto, [FromServices] IAppUnitOfWork db)
-    {
+    public override async Task<IActionResult> SaveNewAsync([FromForm] NewJudgeVoteDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((JudgeVoteDto)(result as OkObjectResult)?.Value);
       var JudgeVoteItem = await db.JudgeVotes.FindAsync(resultDto.Id);
@@ -53,54 +54,38 @@ namespace MIA.Administration.Api
     }
 
     [HttpPost("submitJudgeVote")]
-    public async Task<IActionResult> SubmitJudgeVote([FromBody] UpdateJudgeVoteDto dto, [FromServices] IAppUnitOfWork db)
-    {
+    public async Task<IActionResult> SubmitJudgeVote([FromBody] UpdateJudgeVoteDto dto, [FromServices] IAppUnitOfWork db) {
       var insertList = new List<JudgeVote>();
 
       var judgeVoteItems = db.JudgeVotes.Where(a => a.ArtworkId == dto.ArtWorkId).ToList();
-      if (judgeVoteItems.Any())
-      {
-        foreach (var objJudges in judgeVoteItems)
-        {
+      if (judgeVoteItems.Any()) {
+        foreach (var objJudges in judgeVoteItems) {
           var entity = objJudges;// db.Set<JudgeVote>().FirstOrDefault(a => a.ArtworkId == dto.ArtworkId);
           if (entity != null)
             db.Set<JudgeVote>().Remove(entity);
         }
       }
 
-      foreach (var value in dto.CriteriaValues)
-      {
+      foreach (var value in dto.CriteriaValues) {
         var judgeObj = new JudgeVote();
         judgeObj.JudgeId = dto.JudgeId;
         judgeObj.ArtworkId = dto.ArtWorkId;
         judgeObj.CriteriaId = value.Id;
-        judgeObj.VotingValue = value.Value;
+        judgeObj.VotingValue = value.JudgeValue;
         insertList.Add(judgeObj);
       }
       await db.Set<JudgeVote>().AddRangeAsync(_mapper.Map<List<JudgeVote>>(insertList));
-      //TODO: need to be calculated to decide either IllegibleForJudge is true or false base on configurable threshold
-      //if (dto.JudgeComplete)
-      //{
-      //  var getArtwork = db.Artworks.Where(a => a.Id == dto.ArtWorkId).FirstOrDefault();
-      //  getArtwork.IllegibleForJudge = true;
-      //  var entry = db.Set<Artwork>().Attach(getArtwork);
-      //  entry.State = EntityState.Modified;
-      //}
-
       await db.CommitTransactionAsync();
-
       return Ok();
     }
-    public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db)
-    {
+    public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
       var result = await base.GetAsync(id, db);
       var resultDto = ((JudgeVoteDto)(result as OkObjectResult)?.Value);
       var boothItem = await db.JudgeVotes.FirstOrDefaultAsync(a => a.Id == resultDto.Id);
       return IfFound(_mapper.Map<JudgeVoteDto>(boothItem));
     }
     [HttpGet("getJudgeVoteCriteriaValues")]
-    public async Task<IActionResult> GetJudgeVoteCriteriaValuesAsync(string id, [FromServices] IAppUnitOfWork db)
-    {
+    public async Task<IActionResult> GetJudgeVoteCriteriaValuesAsync(string id, [FromServices] IAppUnitOfWork db) {
       List<JudgeVoteDto> returnVotingCriteriaVoteDto = null;
       var judgeVoting = db.JudgeVotes.Where(a => a.ArtworkId == id).ToList();
       returnVotingCriteriaVoteDto = _mapper.Map<List<JudgeVoteDto>>(judgeVoting);
@@ -108,23 +93,40 @@ namespace MIA.Administration.Api
 
     }
     [HttpGet("getCriteriaByLevel")]
-    public async Task<IActionResult> GetCriteriaBylevelAsync(JudgeLevel level, [FromServices] IAppUnitOfWork db)
-    {
-      List<VotingCriteriasDto> votingCriteriaDto = null;
-      var getCriteriaList = db.VotingCriterias.Where(c => c.Level == level).ToList();
-      votingCriteriaDto = _mapper.Map<List<VotingCriteriasDto>>(getCriteriaList);
-      return IfFound(votingCriteriaDto);
+    public async Task<IActionResult> GetCriteriaBylevelAsync(
+      JudgeLevel level,
+      [FromServices] IAppUnitOfWork db,
+      [FromServices] IUserResolver userResolver) {
+      var userId = (await userResolver.CurrentUserAsync())?.Id;
+      if (string.IsNullOrEmpty(userId)) {
+        throw new ApiException(ApiErrorType.Unauthorized, "User cannot be resolved");
+      }
+
+      var list = db.VotingCriterias
+        .IncludeFilter(a => a.ArtworkVotes.Where(a => a.JudgeId == userId))
+        .Where(c => c.Level == level)
+        .ToList()
+        .Select(a => new JudgeVoteCriteriaWithValueDto {
+          Id = a.Id,
+          Level = a.Level,
+          Order = a.Order,
+          Code = a.Code,
+          Name = a.Name,
+          Weight = a.Weight,
+          JudgeValue = a.ArtworkVotes.Any() ? a.ArtworkVotes.FirstOrDefault().VotingValue : 0
+        })
+        .ToArray();
+      return IfFound(list);
 
     }
 
     [HttpGet("getCommetsListByMedia")]
-    public async Task<IActionResult> GetCommetsListByMediaAsync(string id, [FromServices] IAppUnitOfWork db)
-    {
+    public async Task<IActionResult> GetCommetsListByMediaAsync(string id, [FromServices] IAppUnitOfWork db) {
       List<JudgeCommentDto> judgeCommentDtoto = null;
       var getCommetnsList = db.JudgeComments.
-        Include(j=>j.Judge).
+        Include(j => j.Judge).
         Where(c => c.MediaFileId == id).
-        OrderByDescending(x=>x.Id).
+        OrderByDescending(x => x.Id).
         ToList();
       judgeCommentDtoto = _mapper.Map<List<JudgeCommentDto>>(getCommetnsList);
       return IfFound(judgeCommentDtoto);
@@ -132,8 +134,7 @@ namespace MIA.Administration.Api
     }
 
     [HttpPost("submitJudgeComment")]
-    public async Task<IActionResult> SubmitJudgeComment([FromBody] NewJudgeCommentDto dto, [FromServices] IAppUnitOfWork db)
-    {
+    public async Task<IActionResult> SubmitJudgeComment([FromBody] NewJudgeCommentDto dto, [FromServices] IAppUnitOfWork db) {
       var judgeObj = new JudgeComment();
       judgeObj.JudgeId = dto.JudgeId;
       judgeObj.MediaFileId = dto.MediaFileId;
@@ -141,6 +142,41 @@ namespace MIA.Administration.Api
       judgeObj.Comments = dto.Comments;
       await db.Set<JudgeComment>().AddAsync(_mapper.Map<JudgeComment>(judgeObj));
       await db.CommitTransactionAsync();
+
+      return Ok();
+    }
+
+
+    [HttpPost("final-thoughts")]
+    public async Task<IActionResult> CloseJudgeWithFinalThoughts(
+      [FromServices] IUserResolver userResolver,
+      [FromBody] JudgeCompleteWithFinalThoughtDto dto,
+      [FromServices] IAppUnitOfWork db) {
+      var userId = (await userResolver.CurrentUserAsync())?.Id;
+      var artwork = await db.Artworks.FindAsync(dto.ArtworkId);
+      if (artwork == null) {
+        throw new ApiException(ApiErrorType.NotFound, "record not found");
+      }
+
+      var isValidArtworkForJudge = await db.JudgeAwards.AnyAsync(a => a.JudgeId == userId && a.AwardId == artwork.AwardId && a.Level == dto.Level);
+      if (isValidArtworkForJudge == false) {
+        throw new ApiException(ApiErrorType.NotFound, "artwork is not in judge's award");
+      }
+
+      var artworkScore = await db.ArtworkScores.FirstOrDefaultAsync(a => a.JudgeId == userId && a.ArtworkId == dto.ArtworkId && a.Level == dto.Level);
+      if (artworkScore != null) {
+        throw new ApiException(ApiErrorType.BadRequest, "you already submitted the final score to this artwork");
+      }
+
+      artworkScore = new JudgeArtworkScore();
+      artworkScore.JudgeId = userId;
+      artworkScore.ArtworkId = artwork.Id;
+      artworkScore.Level = dto.Level;
+
+      //TODO: do the calculation here
+
+      artworkScore.FinalThoughts = dto.FinalThoughts;
+      await db.ArtworkScores.AddAsync(artworkScore);
 
       return Ok();
     }

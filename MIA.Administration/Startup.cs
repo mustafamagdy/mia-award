@@ -87,12 +87,14 @@ namespace MIA {
         .AddCustomSwagger(this.GetType())
 #endif
         .AddHttpContextAccessor()
+        //Add localization for contrllers
+        .AddCustomLocalization()
+
         // Add useful interface for accessing the ActionContext outside a controller.
         .AddSingleton<IActionContextAccessor, ActionContextAccessor>()
         //access current username, and userid for audit purpose
         .AddSingleton<IUserResolver, UserResolver>()
-        //.AddSingleton<IBookingManager, BookingManagerClient>()
-        //.AddSingleton<ISessionManager, SessionManagerClient>()
+      
         .AddScoped(x => x
          .GetRequiredService<IUrlHelperFactory>()
          .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext))
