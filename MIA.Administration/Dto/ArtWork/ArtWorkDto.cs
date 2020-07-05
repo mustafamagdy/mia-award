@@ -4,10 +4,8 @@ using MIA.Administration.Dto.User;
 using MIA.Models.Entities;
 using System.Collections.Generic;
 
-namespace MIA.Administration.Api
-{
-  public class ArtWorkDto
-  {
+namespace MIA.Administration.Api {
+  public class ArtWorkDto {
     public string Id { get; set; }
 
     public LocalizedData ProjectName { get; set; }
@@ -15,15 +13,15 @@ namespace MIA.Administration.Api
     public string PosterUrl { get; set; }
     public string TrailerUrl { get; set; }
     public string CoverUrl { get; set; }
-    public string TrailerPosterUrl { get; set; } 
+    public string TrailerPosterUrl { get; set; }
     public bool UploadComplete { get; set; }
     public bool AllowFileUpload { get; set; }
     public bool Featured { get; set; }
     public AwardDto Award { get; set; }
     public string AwardId { get; set; }
     //   public NomineeDto Nominee { get; set; }
-    public string NomineeId { get; set; } 
-    public string PaymentId { get; set; } 
+    public string NomineeId { get; set; }
+    public string PaymentId { get; set; }
     public ArtWorkPaymentDto Payment { get; set; }
     public bool? IllegibleForJudge { get; set; }
 
@@ -42,10 +40,14 @@ namespace MIA.Administration.Api
     //public string WinnerAwardFirstPlaceId { get; set; }
     //public AwardDto WinnerAwardSecondPlace { get; set; }
     //public string WinnerAwardSecondPlaceId { get; set; }
+
+    public S3File Resume { get; set; }
+    public S3File File1 { get; set; }
+    public S3File File2 { get; set; }
+    public S3File File3 { get; set; }
   }
 
-  public class ArtworkWithFilesDto : ArtWorkDto
-  {
+  public class ArtworkWithFilesDto : ArtWorkDto {
     public BasicMediaFileDto[] Files { get; set; }
   }
 }

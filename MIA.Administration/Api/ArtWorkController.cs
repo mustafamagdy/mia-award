@@ -25,6 +25,8 @@ using System.Threading.Tasks;
 using Amazon.S3.Transfer;
 using MIA.Authorization.Attributes;
 using MIA.Authorization.Entities;
+using MIA.TemplateParser;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace MIA.Administration.Api {
 
@@ -43,6 +45,7 @@ namespace MIA.Administration.Api {
           IHostingEnvironment env,
           IOptions<UploadLimits> limitOptions,
           IS3FileManager fileManager
+
         ) : base(mapper, logger, localize) {
       this.env = env;
       this.limitOptions = limitOptions;
@@ -357,13 +360,36 @@ namespace MIA.Administration.Api {
     [HasPermission(Permissions.ArtworkAllowFileUpload)]
     public async Task<IActionResult> AllowFileUpload(
       [FromRoute] string id,
+      [FromServices] IEmailSender emailSender,
+      [FromServices] ITemplateParser templateParser,
       [FromServices] IAppUnitOfWork db) {
       try {
-        var artwork = await db.Artworks.FirstOrDefaultAsync(a => a.Id == id);
+        var artwork = await db.Artworks
+          .Include(a => a.Nominee)
+          .FirstOrDefaultAsync(a => a.Id == id);
         if (artwork == null) {
           throw new ApiException(ApiErrorType.NotFound, "record not found");
         } else {
+          //send email only if it was false 
+          var sendEmail = artwork.AllowFileUpload == false;
+
           artwork.AllowFileUpload = true;
+
+          if (sendEmail) {
+            try {
+              string htmlMessage = await templateParser.LoadAndParse("notify_user_start_upload", locale: "en",
+                new UserWithArtworkDetails {
+                  FullName = artwork.Nominee.FullName,
+                  ProjectName = artwork.ProjectName.InEnglish()
+                });
+
+              //send confirmation email
+              await emailSender.SendEmailAsync(artwork.Nominee.Email, _localizer.Get("en", "notify_user_start_upload"), htmlMessage);
+            } catch (Exception exEmail) {
+              _logger.LogError(exEmail, "Failed to notify user to start uploading");
+            }
+
+          }
           return Ok();
         }
       } catch (Exception ex) {
@@ -373,6 +399,11 @@ namespace MIA.Administration.Api {
     }
 
 
+  }
+
+  public class UserWithArtworkDetails {
+    public string FullName { get; set; }
+    public string ProjectName { get; set; }
   }
 
 }

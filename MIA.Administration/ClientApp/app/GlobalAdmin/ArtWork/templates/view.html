@@ -1,3 +1,12 @@
+<style>
+  .documents {
+  }
+  .items {
+  }
+  .item {
+  }
+</style>
+
 <div class="info_show">
   <ul>
     <li>
@@ -36,7 +45,20 @@
       <span>{{'license_agency' | translate}} :</span>
       <p>{{ctrl.ArtWork.productionLicenseAgency}}</p>
     </li>
+    <li>
+      <span>{{'approved ' | translate}} :</span>
+      <p>{{(ctrl.ArtWork.allowFileUpload? 'yes':'no') | translate}}</p>
+    </li>
   </ul>
+  <div class="documents">
+    <p>{{'attachments'|translate}}</p>
+    <ul class="items">
+      <li ng-repeat="file in ctrl.getAttachments()">
+        <a target="_blank" ng-href="{{file.fileUrl}}">file </a>
+      </li>
+    </ul>
+  </div>
+
   <div class="actions">
     <button
       ng-click="ctrl.confirmAndApproveArtwork(ctrl.ArtWork,ctrl.ArtWork.projectName[selectedLanguage],ctrl.ArtWork.id);"
