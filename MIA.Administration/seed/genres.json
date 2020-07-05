@@ -1,0 +1,13 @@
+﻿[
+  {"Code": "1", "Name": {"ar": "برنامج مسابقات ","en": "Competition Program \\ TV quiz show"} },
+  {"Code": "2", "Name": {"ar": "البرنامج جماهيري ","en": "A  Mass program"} },
+  {"Code": "3", "Name": {"ar": "برامج مناظرات ","en": "Debate programs"} },
+  {"Code": "4", "Name": {"ar": "برامج مقابلات ","en": "Interview programs"} },
+  {"Code": "5", "Name": {"ar": "برامج شخصية ","en": "Personal programs "} },
+  {"Code": "6", "Name": {"ar": "حديث مباشر ","en": "live talk  \\ direct talk"} },
+  {"Code": "7", "Name": {"ar": "برامج تغطية ميدانية ","en":"Field coverage programs"} },
+  {"Code": "8", "Name": {"ar": "عمل درامي ","en": "Dramatic work"} },
+  {"Code": "9", "Name": {"ar": "انتاج وثائقي ","en": "Documentary production"} },
+  {"Code": "10", "Name": {"ar": "مجلة تلفزيونية ","en": "TV magazine"} },
+  {"Code": "11", "Name": {"ar": "ندوة تلفزيونية ","en": "TV symposium\\TV seminar"} },
+]
