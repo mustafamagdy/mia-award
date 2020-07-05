@@ -7,6 +7,7 @@ using MIA.Administration.Dto.User;
 using MIA.Dto.Admin;
 using MIA.Models.Entities;
 using System.Linq;
+using MIA.Administration.Services;
 using MIA.Dto.Auth;
 
 namespace MIA.Administration.MappingProfiles {
@@ -219,6 +220,12 @@ namespace MIA.Administration.MappingProfiles {
       CreateMap<NewJudgeVoteDto, JudgeVote>().ValidateMemberList(MemberList.None);
       CreateMap<VotingCriteriaVoteDto, JudgeVote>()
         .ForMember(a => a.VotingValue, cfg => cfg.MapFrom(a => a.JudgeValue))
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<JudgeVote, JudgeVoteValues>()
+        .ForMember(a => a.VotingValue, cfg => cfg.MapFrom(a => a.VotingValue))
+        .ForMember(a => a.CriteriaId, cfg => cfg.MapFrom(a => a.CriteriaId))
+        .ForMember(a => a.Weight, cfg => cfg.MapFrom(a => a.Criteria.Weight))
         .ValidateMemberList(MemberList.None);
 
       #endregion

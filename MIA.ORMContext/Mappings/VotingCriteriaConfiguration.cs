@@ -13,6 +13,7 @@ namespace MIA.ORMContext.Mappings {
         .HasValueGenerator<SeqIdValueGenerator>()
         .ValueGeneratedOnAdd();
 
+      builder.Property(x => x.Weight).HasColumnType("decimal(12,4)");
 
       builder.HasOne(a => a.Award).WithMany(a => a.VotingCriterias).HasForeignKey(a => a.AwardId).IsRequired(false);
       builder.HasMany(a => a.ArtworkVotes).WithOne(a => a.Criteria).HasForeignKey(a => a.CriteriaId);
