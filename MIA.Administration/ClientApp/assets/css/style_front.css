@@ -617,7 +617,7 @@ body[dir="rtl"] #recent_shows .container .shows_items .item .imgthumb .mask .con
 #show_inner .show_inner_two .container .show_content .tabs_area .all_tabs_content .item_tabs_content .info_show ul {
   /* li */
 }
-#show_inner .show_inner_two .container .show_content .tabs_area .all_tabs_content .item_tabs_content .info_show ul li {
+#show_inner .show_inner_two .container .show_content .tabs_area .all_tabs_content .item_tabs_content .info_show ul li.data-item {
   display: flex;
   width: 100%;
   margin: 15px auto;
@@ -736,7 +736,7 @@ body[dir="rtl"] #recent_shows .container .shows_items .item .imgthumb .mask .con
   margin: 0 -15px;
   /* li */
 }
-#show_inner .show_inner_two .container .show_content .tabs_area .all_tabs_content .item_tabs_content .item_show ul li {
+#show_inner .show_inner_two .container .show_content .tabs_area .all_tabs_content .item_tabs_content .item_show ul li.data-item {
   padding: 15px;
   width: 25%;
   cursor: pointer;

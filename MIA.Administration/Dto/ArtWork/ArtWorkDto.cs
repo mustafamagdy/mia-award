@@ -71,8 +71,7 @@ namespace MIA.Administration.Api {
 
   }
 
-  public class JudgeArtworkScoreViewDto
-  {
+  public class JudgeArtworkScoreViewDto {
     public string ArtworkId { get; set; }
     public LocalizedData ProjectName { get; set; }
     public string JudgeId { get; set; }
@@ -87,5 +86,9 @@ namespace MIA.Administration.Api {
 
   public class ArtworkWithFilesDto : ArtWorkDto {
     public BasicMediaFileDto[] Files { get; set; }
+  }
+
+  public class ArtworkWithFilesAndScoresDto : ArtworkWithFilesDto {
+    public JudgeArtworkScoreViewDto[] Scores { get; set; }
   }
 }

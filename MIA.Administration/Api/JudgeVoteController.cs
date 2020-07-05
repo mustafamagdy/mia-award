@@ -14,9 +14,12 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
 using MIA.Exceptions;
 using MIA.ORMContext;
+using Z.EntityFramework.Plus;
 
 namespace MIA.Administration.Api {
 
@@ -68,21 +71,11 @@ namespace MIA.Administration.Api {
         judgeObj.JudgeId = dto.JudgeId;
         judgeObj.ArtworkId = dto.ArtWorkId;
         judgeObj.CriteriaId = value.Id;
-        judgeObj.VotingValue = value.Value;
+        judgeObj.VotingValue = value.JudgeValue;
         insertList.Add(judgeObj);
       }
       await db.Set<JudgeVote>().AddRangeAsync(_mapper.Map<List<JudgeVote>>(insertList));
-      //TODO: need to be calculated to decide either IllegibleForJudge is true or false base on configurable threshold
-      //if (dto.JudgeComplete)
-      //{
-      //  var getArtwork = db.Artworks.Where(a => a.Id == dto.ArtWorkId).FirstOrDefault();
-      //  getArtwork.IllegibleForJudge = true;
-      //  var entry = db.Set<Artwork>().Attach(getArtwork);
-      //  entry.State = EntityState.Modified;
-      //}
-
       await db.CommitTransactionAsync();
-
       return Ok();
     }
     public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
@@ -100,11 +93,30 @@ namespace MIA.Administration.Api {
 
     }
     [HttpGet("getCriteriaByLevel")]
-    public async Task<IActionResult> GetCriteriaBylevelAsync(JudgeLevel level, [FromServices] IAppUnitOfWork db) {
-      List<VotingCriteriasDto> votingCriteriaDto = null;
-      var getCriteriaList = db.VotingCriterias.Where(c => c.Level == level).ToList();
-      votingCriteriaDto = _mapper.Map<List<VotingCriteriasDto>>(getCriteriaList);
-      return IfFound(votingCriteriaDto);
+    public async Task<IActionResult> GetCriteriaBylevelAsync(
+      JudgeLevel level,
+      [FromServices] IAppUnitOfWork db,
+      [FromServices] IUserResolver userResolver) {
+      var userId = (await userResolver.CurrentUserAsync())?.Id;
+      if (string.IsNullOrEmpty(userId)) {
+        throw new ApiException(ApiErrorType.Unauthorized, "User cannot be resolved");
+      }
+
+      var list = db.VotingCriterias
+        .IncludeFilter(a => a.ArtworkVotes.Where(a => a.JudgeId == userId))
+        .Where(c => c.Level == level)
+        .ToList()
+        .Select(a => new JudgeVoteCriteriaWithValueDto {
+          Id = a.Id,
+          Level = a.Level,
+          Order = a.Order,
+          Code = a.Code,
+          Name = a.Name,
+          Weight = a.Weight,
+          JudgeValue = a.ArtworkVotes.Any() ? a.ArtworkVotes.FirstOrDefault().VotingValue : 0
+        })
+        .ToArray();
+      return IfFound(list);
 
     }
 

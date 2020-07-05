@@ -13,9 +13,10 @@
       "appCONSTANTS",
       "$translate",
       "$uibModal",
+      "$timeout",
       "JudgeArtWorkResource",
       "ToastService",
-      "ArtWorkWithFilesByIdPrepService",
+      "ArtWorkWithFilesAndScoresByIdPrepService",
       judgeArtWorkDetailsController,
     ]);
 
@@ -29,22 +30,26 @@
     appCONSTANTS,
     $translate,
     $uibModal,
+    $timeout,
     JudgeArtWorkResource,
     ToastService,
-    ArtWorkWithFilesByIdPrepService
+    ArtWorkWithFilesAndScoresByIdPrepService
   ) {
     var vm = this;
 
     vm.showMediaList = true;
     vm.showCriteriaList = false;
-    vm.JudgeArtWork = ArtWorkWithFilesByIdPrepService;
+    vm.JudgeArtWork = ArtWorkWithFilesAndScoresByIdPrepService;
     vm.artWorkLevel = 0;
     vm.defaultCover = "./assets/img/newlogo.png";
-    vm.votingCriteriaList = [
-      {
-        votingValue: 0,
-      },
-    ];
+    vm.votingCriteriaList = [];
+    vm.refreshSlider = function () {
+      $timeout(function () {
+        $scope.$broadcast("rzSliderForceRender");
+      }, 100);
+    };
+
+    getVotingCriterias();
 
     vm.getCoverUrl = function () {
       return vm.JudgeArtWork.coverUrl == undefined ||
@@ -82,9 +87,16 @@
           ];
 
     vm.tabs = ["episodes", "judging"];
+    if(vm.JudgeArtWork.scores && vm.JudgeArtWork.scores[0]) {
+      vm.tabs.push("final_thoughts");
+      vm.finalThoughts = vm.JudgeArtWork.scores[0].finalThoughts
+      vm.finalThoughtsReadOnly = true;
+    }
+
     vm.selectedTab = "episodes";
     vm.setActiveTab = function (tab) {
       vm.selectedTab = tab;
+      vm.refreshSlider();
     };
 
     vm.Close = function () {
@@ -211,16 +223,6 @@
       );
     };
 
-    vm.slider = {
-      votingValue: 10,
-      maxValue: 90,
-      options: {
-        floor: 0,
-        ceil: 100,
-        step: 10,
-        showTicks: true,
-      },
-    };
     function getArtWorkMediaList() {
       blockUI.start("Loading...");
 
@@ -245,13 +247,8 @@
       }).$promise.then(
         function (results) {
           vm.votingCriteriaList = results;
-          for (let index = 0; index < vm.votingCriteriaList.length; index++) {
-            const element = vm.votingCriteriaList[index];
-            element.votingValue = 0;
-            element.votingValue = 0;
-          }
-          console.log(vm.votingCriteriaList);
           vm.totalCount = results.length;
+
           blockUI.stop();
         },
         function (data, status) {

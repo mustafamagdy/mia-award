@@ -9,20 +9,17 @@ using MIA.Models.Entities;
 using System.Linq;
 using MIA.Dto.Auth;
 
-namespace MIA.Administration.MappingProfiles
-{
+namespace MIA.Administration.MappingProfiles {
 
   /// <summary>
   /// Auto mapper profile that contain mapping used in Api project
   /// </summary>
-  public class ApiProfile : Profile
-  {
+  public class ApiProfile : Profile {
 
     /// <summary>
     /// Constructor
     /// </summary>
-    public ApiProfile()
-    {
+    public ApiProfile() {
 
       #region News
 
@@ -77,7 +74,15 @@ namespace MIA.Administration.MappingProfiles
       #endregion
 
       #region VotingCriteria
-      CreateMap<VotingCriteria, VotingCriteriasDto>().ValidateMemberList(MemberList.None);
+      CreateMap<VotingCriteria, VotingCriteriasDto>()
+        .IncludeAllDerived()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<VotingCriteria, JudgeVoteCriteriaWithValueDto>()
+        .IncludeBase<VotingCriteria, VotingCriteriasDto>()
+        .ForMember(a => a.JudgeValue, cfg => cfg.Ignore())
+        .ValidateMemberList(MemberList.None);
+
       CreateMap<NewVotingCriteriasDto, VotingCriteria>().ValidateMemberList(MemberList.None);
       CreateMap<UpdateVotingCriteriasDto, VotingCriteria>().ValidateMemberList(MemberList.None);
 
@@ -127,7 +132,7 @@ namespace MIA.Administration.MappingProfiles
         .ForMember(a => a.FileUrl, cfg => cfg.MapFrom(a => a.File.FileUrl))
       .ValidateMemberList(MemberList.None);
       CreateMap<MediaFileDto, MediaFile>().ValidateMemberList(MemberList.None);
-   
+
       CreateMap<MediaFile, BasicMediaFileDto>()
          .ForMember(a => a.FileKey, cfg => cfg.MapFrom(a => a.File.FileKey))
          .ForMember(a => a.FileUrl, cfg => cfg.MapFrom(a => a.File.FileUrl))
@@ -172,16 +177,19 @@ namespace MIA.Administration.MappingProfiles
         .ForMember(a => a.Files, cfg => cfg.MapFrom(a => a.MediaFiles))
         .IncludeBase<Artwork, ArtWorkDto>()
         .ValidateMemberList(MemberList.None);
-        
+
+      CreateMap<Artwork, ArtworkWithFilesAndScoresDto>()
+             .ForMember(a => a.Scores, cfg => cfg.MapFrom(a => a.FinalScores))
+             .IncludeBase<Artwork, ArtworkWithFilesDto>()
+             .ValidateMemberList(MemberList.None);
 
 
-
-        CreateMap<NewArtWorkDto, Artwork>().ValidateMemberList(MemberList.None)
-            .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.ProjectName))
-            .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
-            //.ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
-            .ForMember(a => a.Nominee, cfg => cfg.MapFrom(a => a.Nominee))
-            .ForMember(a => a.Award, cfg => cfg.MapFrom(a => a.Award));
+      CreateMap<NewArtWorkDto, Artwork>().ValidateMemberList(MemberList.None)
+          .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.ProjectName))
+          .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
+          //.ForMember(a => a.Payment, cfg => cfg.MapFrom(a => a.Payment))
+          .ForMember(a => a.Nominee, cfg => cfg.MapFrom(a => a.Nominee))
+          .ForMember(a => a.Award, cfg => cfg.MapFrom(a => a.Award));
 
       CreateMap<UpdateArtWorkDto, Artwork>().ValidateMemberList(MemberList.None)
             .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.ProjectName))
@@ -209,7 +217,9 @@ namespace MIA.Administration.MappingProfiles
 
       CreateMap<JudgeVote, JudgeVoteDto>().ValidateMemberList(MemberList.None);
       CreateMap<NewJudgeVoteDto, JudgeVote>().ValidateMemberList(MemberList.None);
-      CreateMap<VotingCriteriaVoteDto, JudgeVote>().ValidateMemberList(MemberList.None);
+      CreateMap<VotingCriteriaVoteDto, JudgeVote>()
+        .ForMember(a => a.VotingValue, cfg => cfg.MapFrom(a => a.JudgeValue))
+        .ValidateMemberList(MemberList.None);
 
       #endregion
 
@@ -253,7 +263,7 @@ namespace MIA.Administration.MappingProfiles
 
       CreateMap<SignUpByEmailRequest, Judge>()
         .IncludeBase<SignUpByEmailRequest, AppUser>();
-      
+
       CreateMap<SignUpByEmailRequest, Nominee>()
         .IncludeBase<SignUpByEmailRequest, AppUser>();
 

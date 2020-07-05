@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MIA.ORMContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200704104748_UpdateJudgeVoteEntities")]
-    partial class UpdateJudgeVoteEntities
+    [Migration("20200705142532_JudgeVoteNotNullable")]
+    partial class JudgeVoteNotNullable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -501,6 +501,34 @@ namespace MIA.ORMContext.Migrations
                     b.ToTable("Images");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Image");
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.JudgeArtworkScore", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ArtworkId");
+
+                    b.Property<string>("FinalThoughts");
+
+                    b.Property<string>("JudgeId");
+
+                    b.Property<int>("Level");
+
+                    b.Property<decimal>("Percentage");
+
+                    b.Property<decimal>("Score");
+
+                    b.Property<decimal>("ScoreTotal");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtworkId");
+
+                    b.HasIndex("JudgeId");
+
+                    b.ToTable("ArtworkScores");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.JudgeAward", b =>
@@ -1173,6 +1201,17 @@ namespace MIA.ORMContext.Migrations
                                 .HasForeignKey("MIA.Models.Entities.S3File", "BoothPurchaseId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
+                });
+
+            modelBuilder.Entity("MIA.Models.Entities.JudgeArtworkScore", b =>
+                {
+                    b.HasOne("MIA.Models.Entities.Artwork", "Artwork")
+                        .WithMany("FinalScores")
+                        .HasForeignKey("ArtworkId");
+
+                    b.HasOne("MIA.Models.Entities.Judge", "Judge")
+                        .WithMany("FinalScores")
+                        .HasForeignKey("JudgeId");
                 });
 
             modelBuilder.Entity("MIA.Models.Entities.JudgeAward", b =>

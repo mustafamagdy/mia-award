@@ -18,7 +18,7 @@ namespace MIA.Administration.Api
     public decimal Weight { get; set; }
     public int Order { get; set; }
     public string Code { get; set; }
-    public int? Value { get; set; }
+    public int JudgeValue { get; set; }
     public VotingCriteriasDto Criteria { get; set; }
   }
 }

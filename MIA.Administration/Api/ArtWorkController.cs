@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Amazon.S3.Transfer;
+using AutoMapper.QueryableExtensions;
 using MIA.Authorization.Attributes;
 using MIA.Authorization.Entities;
 using MIA.ORMContext;
@@ -171,6 +172,26 @@ namespace MIA.Administration.Api {
       return IfFound(returnMediaList);
     }
 
+    [HttpGet("{id}/withFiles-and-score")]
+    public async Task<IActionResult> GetArtworkWithFilesAndScore([FromRoute(Name = "id")] string id,
+      [FromServices] IAppUnitOfWork db,
+      [FromServices] IUserResolver userResolver
+      ) {
+      var userId = (await userResolver.CurrentUserAsync())?.Id;
+      if (string.IsNullOrEmpty(userId)) {
+        throw new ApiException(ApiErrorType.Unauthorized, "you are not a judge");
+      }
+
+      var item = await db.Artworks
+                      .Include(a => a.FinalScores)
+                      .Include(a => a.MediaFiles)
+                      .FirstOrDefaultAsync(a => a.Id == id);
+
+      item.FinalScores = item.FinalScores.Where(x => x.JudgeId == userId).ToHashSet();
+      var result = _mapper.Map<ArtworkWithFilesAndScoresDto>(item);
+      return IfFound(result);
+    }
+
     [HttpGet("getMediaFile")]
     public async Task<IActionResult> GetMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
       var artWorkItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id == id);
@@ -312,17 +333,33 @@ namespace MIA.Administration.Api {
       [FromServices] IAppUnitOfWork db) {
       var userId = (await userResolver.CurrentUserAsync())?.Id;
 
-      var listOfArtWork = new List<ArtworkForJudgingDto>();
-      var judgeAward = await db.JudgeAwards.Where(a => a.JudgeId == id).ToListAsync();
-      foreach (var award in judgeAward) {
+      var level1Artworks = new List<ArtworkForJudgingDto>();
+      var judgeAwardForLevel1 = await db.JudgeAwards.Where(a => a.JudgeId == id && a.Level == JudgeLevel.Level1).ToListAsync();
+      foreach (var award in judgeAwardForLevel1) {
         var artWork = await db.Artworks
                               .IncludeFilter(a => a.FinalScores.Where(a => a.JudgeId == id))
                               .Where(a => a.AwardId == award.AwardId && a.UploadComplete)
                               .ToListAsync();
         if (artWork != null)
-          listOfArtWork.AddRange(_mapper.Map<List<ArtworkForJudgingDto>>(artWork));
+          level1Artworks.AddRange(_mapper.Map<List<ArtworkForJudgingDto>>(artWork));
       }
-      return IfFound(listOfArtWork);
+
+      var level2Artworks = new List<ArtworkForJudgingDto>();
+      var judgeAwardForLevel2 = await db.JudgeAwards.Where(a => a.JudgeId == id && a.Level == JudgeLevel.Level2).ToListAsync();
+      foreach (var award in judgeAwardForLevel2) {
+        var artWork = await db.Artworks
+                              .IncludeFilter(a => a.FinalScores.Where(a => a.JudgeId == id))
+                              .Where(a => a.AwardId == award.AwardId && a.UploadComplete)
+                              .ToListAsync();
+        if (artWork != null)
+          level2Artworks.AddRange(_mapper.Map<List<ArtworkForJudgingDto>>(artWork));
+      }
+
+
+      return IfFound(new {
+        Level1Artworks = level1Artworks.OrderBy(a => a.Scores.Length).ThenBy(a => a.Id).ToArray(),
+        Level2Artworks = level2Artworks.OrderBy(a => a.Scores.Length).ThenBy(a => a.Id).ToArray(),
+      });
 
     }
 

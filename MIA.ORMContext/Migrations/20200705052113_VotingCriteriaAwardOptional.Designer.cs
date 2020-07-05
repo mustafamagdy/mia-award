@@ -556,7 +556,7 @@ namespace MIA.ORMContext.Migrations
 
                     b.Property<string>("JudgeId");
 
-                    b.Property<int?>("VotingValue");
+                    b.Property<int>("VotingValue");
 
                     b.HasKey("Id");
 

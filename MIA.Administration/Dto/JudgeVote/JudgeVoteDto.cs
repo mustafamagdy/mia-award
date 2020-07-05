@@ -5,7 +5,7 @@ using MIA.Models.Entities;
 namespace MIA.Administration.Api {
   public class JudgeVoteDto {
     public string Id { get; set; }
-    public int? VotingValue { get; set; }
+    public int VotingValue { get; set; }
     public ArtWorkDto ArtWork { get; set; }
     public string ArtWorkId { get; set; }
     public VotingCriteriasDto Criteria { get; set; }
