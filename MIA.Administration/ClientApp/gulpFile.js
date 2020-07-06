@@ -83,6 +83,8 @@ var paths = {
     "./node_modules/angular-translate/dist/angular-translate.min.js",
     "./node_modules/angular-ui-event/dist/event.min.js",
     "./node_modules/select2/dist/js/select2.full.min.js",
+    "./node_modules/angular-ui-select2/src/select2.js",
+
     "./assets/js/moment-with-locales.js",
     "./assets/js/bootstrap-datetimepicker.js",
     "./node_modules/angular-ui-carousel/dist/ui-carousel.min.js",
@@ -107,8 +109,10 @@ var paths = {
   css: [
     "./node_modules/propellerkit/dist/css/bootstrap.min.css",
     "./node_modules/propellerkit/dist/css/propeller.min.css",
+    
     "./node_modules/select2/dist/css/select2.min.css",
     "./node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css",
+
     "./assets/css/*.css",
     "./assets/css/ADM-treeView.css",
     "./node_modules/ngprogress-lite/ngprogress-lite.css",
@@ -125,6 +129,7 @@ var paths = {
     // './node_modules/propellerkit/dist/css/propeller.min.css',
     "./node_modules/select2/dist/css/select2.min.css",
     "./node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css",
+
     "./assets/cssAR/*.css",
     "./assets/css/ADM-treeView.css",
     "./node_modules/ngprogress-lite/ngprogress-lite.css",

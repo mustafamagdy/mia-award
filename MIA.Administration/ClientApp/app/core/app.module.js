@@ -23,7 +23,7 @@
     "com.2fdevs.videogular.plugins.controls",
     "uiCropper",
     "angularjs-datetime-picker",
-
+    "ui.select2",
     // "datatables"
     // "jwt-decode"
     // 'base64',

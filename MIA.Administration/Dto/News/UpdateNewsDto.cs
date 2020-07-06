@@ -18,7 +18,9 @@ namespace MIA.Administration.Api
     public string PosterFileName { get; set; }
 
     public long Date { get; set; }
-    public bool Outdated { get; set; }
+    public bool Featured { get; set; }
+    public string Keywords { get; set; }
+    public string Category { get; set; }
     public S3File Poster  { get; set; }
   }
 

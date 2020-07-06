@@ -29,6 +29,7 @@
     "angular-ui-carousel": "^0.1.10",
     "angular-ui-event": "^1.0.0",
     "angular-ui-router": "1.0.0",
+    "angular-ui-select2": "0.0.5",
     "angular-utils-ui-breadcrumbs": "^0.2.2-1",
     "angularjs-datetime-picker": "^0.1.16",
     "angularjs-slider": "^7.0.0",
