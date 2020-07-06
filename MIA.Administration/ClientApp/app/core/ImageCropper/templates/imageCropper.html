@@ -1,0 +1,37 @@
+<style>
+  .cropArea {
+    background: #e4e4e4;
+    overflow: hidden;
+    width: 500px;
+    height: 350px;
+  }
+</style>
+
+<table>
+  <td>
+    <input type="text" data-ng-model="cropperCtrl.cropper.cropWidth" />
+    <input type="text" data-ng-model="cropperCtrl.cropper.cropHeight" />
+    <input type="text" data-ng-model="cropperCtrl.cropper.cropTop" />
+    <input type="text" data-ng-model="cropperCtrl.cropper.cropLeft" />
+    <br />
+    <input type="text" data-ng-model="cropperCtrl.cropper.cropImageWidth" />
+    <input type="text" data-ng-model="cropperCtrl.cropper.cropImageHeight" />
+    <input type="text" data-ng-model="cropperCtrl.cropper.cropImageTop" />
+    <input type="text" data-ng-model="cropperCtrl.cropper.cropImageLeft" />
+
+    <div>Select an image file: <input type="file" id="fileInput" /></div>
+    <div class="cropArea">
+      <ui-cropper
+        image="cropperCtrl.originalImage"
+        area-type="rectangle"
+        area-init-size="{ w:cropperCtrl.cropper.cropWidth,h:cropperCtrl.cropper.cropHeight}"
+        cropject="cropperCtrl.cropper"
+        result-image="cropperCtrl.croppedImage"
+      ></ui-cropper>
+    </div>
+  </td>
+  <td>
+    <div>Cropped Image:</div>
+    <div><img ng-src="{{cropperCtrl.croppedImage}}" /></div>
+  </td>
+</table>

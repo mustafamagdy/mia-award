@@ -26,7 +26,7 @@ var replace = require("gulp-replace");
 var strip = require("gulp-strip-comments");
 
 var config = {
-  production: gutil.env.env == 'production',
+  production: gutil.env.env == "production",
 };
 // uglify = config.production ? uglify : gutil.noop;
 
@@ -57,6 +57,8 @@ var paths = {
     "./app/core/Authentication/*.js",
     "./app/core/Authorization/*.js",
     "./app/core/Toast/*.js",
+    "./app/core/ImageCropper/imageCropper.Controller.js",
+
     // './app/**/*.*.js',
   ],
   libs: [
@@ -99,6 +101,8 @@ var paths = {
     "./node_modules/videogular/dist/poster/vg-poster.min.js",
     "./node_modules/videogular/dist/controls/vg-controls.min.js",
 
+    "./node_modules/ui-cropper/compile/unminified/ui-cropper.js",
+    "./node_modules/angularjs-datetime-picker/angularjs-datetime-picker.js",
   ],
   css: [
     "./node_modules/propellerkit/dist/css/bootstrap.min.css",
@@ -112,6 +116,9 @@ var paths = {
     "./node_modules/angular-ui-carousel/dist/ui-carousel.min.css",
     "./node_modules/angular-datatables/dist/css/angular-datatables.css",
     "./node_modules/videogular/dist/themes/default/videogular.min.css",
+    "./node_modules/ui-cropper/compile/unminified/ui-cropper.css",
+
+    "./node_modules/angularjs-datetime-picker/angularjs-datetime-picker.css",
   ],
   cssAR: [
     // './node_modules/propellerkit/dist/css/bootstrap.min.css',
@@ -153,12 +160,14 @@ var paths = {
 
 //concatination js
 gulp.task("copy-libs", function () {
-  return gulp
-    .src(paths.libs)
-    .pipe(concat("libs.js"))
-    // .pipe(uglify())
-    .pipe(strip())
-    .pipe(gulp.dest(paths.build + "/"));
+  return (
+    gulp
+      .src(paths.libs)
+      .pipe(concat("libs.js"))
+      // .pipe(uglify())
+      .pipe(strip())
+      .pipe(gulp.dest(paths.build + "/"))
+  );
 });
 
 gulp.task("replace-api-url", function () {
@@ -239,21 +248,23 @@ gulp.task("fonts", function (cb) {
 });
 //cash template
 gulp.task("copy-templates", function () {
-  return gulp
-    .src(paths.templates)
-    .pipe(
-      ngHtml2Js({
-        moduleName: "home",
-        declareModule: false,
-        rename: function (templateUrl) {
-          return "./app/" + templateUrl;
-        },
-      })
-    )
-    .pipe(concat("templates.js"))
-    // .pipe(uglify())
-    .pipe(strip())
-    .pipe(gulp.dest(paths.build + "/"));
+  return (
+    gulp
+      .src(paths.templates)
+      .pipe(
+        ngHtml2Js({
+          moduleName: "home",
+          declareModule: false,
+          rename: function (templateUrl) {
+            return "./app/" + templateUrl;
+          },
+        })
+      )
+      .pipe(concat("templates.js"))
+      // .pipe(uglify())
+      .pipe(strip())
+      .pipe(gulp.dest(paths.build + "/"))
+  );
 });
 
 // gulp.task('copy-templates', function() {

@@ -1,28 +1,31 @@
-(function() {
-    "use strict";
+(function () {
+  "use strict";
 
-    angular.module("core", [
-        "ngSanitize",
-        "ngResource",
-        "ui.router",
-        "ngStorage",
-        "permission",
-        "bw.paging",
-        "ui.event",
-        "ngProgressLite",
-        "ui.bootstrap",
-        "pascalprecht.translate",
-        "blockUI",
-        "ui.carousel",
-        "angular.filter",
-        "ncy-angular-breadcrumb",
-        "angular-jwt",
-        "rzSlider",
-        "com.2fdevs.videogular",
-        "com.2fdevs.videogular.plugins.poster",
-        "com.2fdevs.videogular.plugins.controls"
-        // "datatables"
-        // "jwt-decode"
-        // 'base64',
-    ]);
+  angular.module("core", [
+    "ngSanitize",
+    "ngResource",
+    "ui.router",
+    "ngStorage",
+    "permission",
+    "bw.paging",
+    "ui.event",
+    "ngProgressLite",
+    "ui.bootstrap",
+    "pascalprecht.translate",
+    "blockUI",
+    "ui.carousel",
+    "angular.filter",
+    "ncy-angular-breadcrumb",
+    "angular-jwt",
+    "rzSlider",
+    "com.2fdevs.videogular",
+    "com.2fdevs.videogular.plugins.poster",
+    "com.2fdevs.videogular.plugins.controls",
+    "uiCropper",
+    "angularjs-datetime-picker",
+
+    // "datatables"
+    // "jwt-decode"
+    // 'base64',
+  ]);
 })();
