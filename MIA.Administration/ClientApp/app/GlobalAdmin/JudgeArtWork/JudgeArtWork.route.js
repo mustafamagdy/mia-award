@@ -95,6 +95,21 @@
                     }
 
                 })
+                .state('artwork-votes', {
+                    url: '/artwork-votes',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/artwork-vote-details.html',
+                    controller: 'artworkVoteDetailsController',
+                    'controllerAs': 'ctrl',
+                    resolve: {
+                       
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
 
         });
 

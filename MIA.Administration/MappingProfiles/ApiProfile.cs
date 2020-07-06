@@ -169,6 +169,12 @@ namespace MIA.Administration.MappingProfiles {
         .ValidateMemberList(MemberList.None)
             .IncludeAllDerived();
 
+      CreateMap<Artwork, ArtworkVotingDetails>()
+        .ForMember(a => a.Votes, cfg => cfg.Ignore())
+        .ValidateMemberList(MemberList.None);
+
+
+
       CreateMap<JudgeArtworkScore, JudgeArtworkScoreViewDto>()
         .ForMember(a => a.FullName, cfg => cfg.MapFrom(a => a.Judge.FullName))
         .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Artwork.ProjectName))
@@ -185,7 +191,7 @@ namespace MIA.Administration.MappingProfiles {
              .ForMember(a => a.Scores, cfg => cfg.MapFrom(a => a.FinalScores))
              .IncludeBase<Artwork, ArtworkWithFilesDto>()
              .ValidateMemberList(MemberList.None);
-      
+
       CreateMap<Artwork, ArtworkMinimumDto>()
         .ValidateMemberList(MemberList.None);
 

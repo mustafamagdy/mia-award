@@ -362,6 +362,45 @@ namespace MIA.Administration.Api {
       return IfFound(result);
     }
 
+    [HttpGet("artworks-for-dropdown")]
+    public async Task<IActionResult> ArtworksForDropdown(
+      [FromServices] IAppUnitOfWork db) {
+      var artworks = await db.Artworks.Where(a => a.UploadComplete).ProjectTo<ArtworkMinimumDto>(_mapper.ConfigurationProvider).ToArrayAsync();
+      return IfFound(artworks);
+    }
+
+    [HttpGet("artwork-score-detail/{artworkId}/{level?}")]
+    public async Task<IActionResult> ArtworkScoreDetails(
+          [FromRoute(Name = "artworkId")] string artworkId,
+          [FromRoute(Name = "level")] int? level,
+          [FromServices] IUserResolver userResolver,
+          [FromServices] IOptions<AdminOptions> adminOptions,
+          [FromServices] IAppUnitOfWork db) {
+      //var userId = (await userResolver.CurrentUserAsync())?.Id;
+
+      var artwork = await db.Artworks
+                            .Include(a => a.Votes)
+                            .ThenInclude(a => a.Criteria)
+                            .AsNoTracking()
+                            .FirstOrDefaultAsync(a => a.Id == artworkId);
+      if (level != null) {
+        artwork.Votes = artwork.Votes.Where(a => a.Criteria.Level == (JudgeLevel)level).ToHashSet();
+      }
+
+      var votes = artwork.Votes
+                        .Select(a => new CriteriaVoteWithValue {
+                          Weight = a.Criteria.Weight,
+                          CriteriaName = a.Criteria.Name,
+                          LevelNumber = (int)a.Criteria.Level,
+                          VotedValue = a.VotingValue,
+                          WeightedValue = a.Criteria.Weight * (a.VotingValue / 10.0m)
+                        })
+                        .ToArray();
+
+      var _artwork = _mapper.Map<ArtworkVotingDetails>(artwork);
+      _artwork.Votes = votes;
+      return IfFound(_artwork);
+    }
 
     [HttpPut("UpdateTrailerVideoUrl")]
     public async Task<IActionResult> UpdateTrailerVideoUrlAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db) {
