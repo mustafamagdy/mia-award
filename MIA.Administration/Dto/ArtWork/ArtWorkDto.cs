@@ -68,6 +68,8 @@ namespace MIA.Administration.Api {
     public string ProductionLicenseAgency { get; set; }
 
     public JudgeArtworkScoreViewDto[] Scores { get; set; }
+    //just for UI don't use
+    public int LevelNumber { get; set; }
 
   }
 

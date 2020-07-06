@@ -50,7 +50,7 @@
 
                 })
                 .state('artWorkDetails', {
-                    url: '/artWorkDetails/:id',
+                    url: '/artWorkDetails/:id/:level',
                     templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/artworkdetails.html',
                     controller: 'judgeArtWorkDetailsController',
                     'controllerAs': 'judgeArtWorkDetailsCtrl',
@@ -99,7 +99,7 @@
     }
     ArtWorkWithFilesAndScoresByIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
     function ArtWorkWithFilesAndScoresByIdPrepService(JudgeArtWorkResource, $stateParams) {
-        return JudgeArtWorkResource.getArtWorkWithFilesAndScore({ id: $stateParams.id }).$promise;
+        return JudgeArtWorkResource.getArtWorkWithFilesAndScore({ id: $stateParams.id, level: $stateParams.level }).$promise;
     }
 
     ArtWorkMediaByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']

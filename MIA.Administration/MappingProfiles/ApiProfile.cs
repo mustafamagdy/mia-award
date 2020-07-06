@@ -165,6 +165,7 @@ namespace MIA.Administration.MappingProfiles {
         .ForMember(a => a.Scores, cfg => cfg.MapFrom(a => a.FinalScores))
         .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
         .ForMember(a => a.AwardName, cfg => cfg.MapFrom(a => a.Award.Title))
+        .ForMember(a => a.LevelNumber, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None)
             .IncludeAllDerived();
 

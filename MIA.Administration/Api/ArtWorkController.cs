@@ -172,8 +172,10 @@ namespace MIA.Administration.Api {
       return IfFound(returnMediaList);
     }
 
-    [HttpGet("{judgeId}/withFiles-and-score")]
-    public async Task<IActionResult> GetArtworkWithFilesAndScore([FromRoute(Name = "judgeId")] string id,
+    [HttpGet("{judgeId}/withFiles-and-score/{level}")]
+    public async Task<IActionResult> GetArtworkWithFilesAndScore(
+      [FromRoute(Name = "judgeId")] string id,
+      [FromRoute(Name = "level")] int level,
       [FromServices] IAppUnitOfWork db,
       [FromServices] IUserResolver userResolver
       ) {
@@ -185,9 +187,10 @@ namespace MIA.Administration.Api {
       var item = await db.Artworks
                       .Include(a => a.FinalScores)
                       .Include(a => a.MediaFiles)
+                      .AsNoTracking()
                       .FirstOrDefaultAsync(a => a.Id == id);
 
-      item.FinalScores = item.FinalScores.Where(x => x.JudgeId == userId).ToHashSet();
+      item.FinalScores = item.FinalScores.Where(x => x.JudgeId == userId && x.Level == (JudgeLevel)level).ToHashSet();
       var result = _mapper.Map<ArtworkWithFilesAndScoresDto>(item);
       return IfFound(result);
     }
@@ -387,6 +390,7 @@ namespace MIA.Administration.Api {
     }
     private ArtworkForJudgingDto GetArtworkForLevelWithScore(ArtworkForJudgingDto artwork, string judgeId, JudgeLevel level) {
       artwork.Scores = artwork.Scores.Where(a => a.JudgeId == judgeId && a.Level == level).ToArray();
+      artwork.LevelNumber = (int) level;
       return artwork;
     }
 

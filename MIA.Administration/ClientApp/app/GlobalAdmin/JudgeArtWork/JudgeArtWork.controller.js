@@ -30,7 +30,12 @@
     var vm = this;
     vm.currentPage = 1;
     vm.appCONSTANTS = appCONSTANTS;
-
+    vm.tabs = ["remaining", "done"];
+    vm.selectedTab = "remaining";
+    vm.setActiveTab = function (tab) {
+      vm.selectedTab = tab;
+    };
+    
     refreshJudgeArtWorks();
 
     function refreshJudgeArtWorks() {
@@ -41,8 +46,11 @@
         null
       ).$promise.then(
         function (results) {
-          $scope.level1Artworks = results.level1Artworks;
-          $scope.level2Artworks = results.level2Artworks;
+          $scope.remaining_level1Artworks = results.remaining.level1Artworks;
+          $scope.remaining_level2Artworks = results.remaining.level2Artworks;
+          $scope.done_level1Artworks = results.done.level1Artworks;
+          $scope.done_level2Artworks = results.done.level2Artworks;
+
           // $scope.totalCount = results.metadata.totalItemCount;
           // console.log($scope.JudgeArtWorkList);
           blockUI.stop();
