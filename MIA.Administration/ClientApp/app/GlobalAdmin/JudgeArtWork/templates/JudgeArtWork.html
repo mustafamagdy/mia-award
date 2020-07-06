@@ -1,14 +1,13 @@
-
 <style>
-    .shows_items {
-        display: flex;
-        flex-direction: column;
-    }
-    .level_title {
-        font-size: 20px;
-        margin: 0px;
-        text-align: left;
-    }
+  .shows_items {
+    display: flex;
+    flex-direction: column;
+  }
+  .level_title {
+    font-size: 20px;
+    margin: 0px;
+    text-align: left;
+  }
 </style>
 <div id="recent_shows">
   <div class="container">
@@ -28,7 +27,10 @@
               ng-click="$state.go('artWorkDetails',{id: JudgeArtWork.id});"
               title="{{JudgeArtWork.projectName[selectedLanguage]}}"
             >
-              <img ng-src="{{JudgeArtWorkCtrl.getPosterUrl(JudgeArtWork)}}" />
+              <img
+                ng-src="{{JudgeArtWorkCtrl.getPosterUrl(JudgeArtWork)}}"
+                style="object-fit: cover;"
+              />
               <div class="mask">
                 <div class="content">
                   <p>
@@ -53,7 +55,10 @@
               ng-click="$state.go('artWorkDetails',{id: JudgeArtWork.id});"
               title="{{JudgeArtWork.projectName[selectedLanguage]}}"
             >
-              <img ng-src="{{JudgeArtWorkCtrl.getPosterUrl(JudgeArtWork)}}" />
+              <img
+                ng-src="{{JudgeArtWorkCtrl.getPosterUrl(JudgeArtWork)}}"
+                style="object-fit: cover;"
+              />
               <div class="mask">
                 <div class="content">
                   <p>

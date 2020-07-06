@@ -41,7 +41,6 @@
         null
       ).$promise.then(
         function (results) {
-          debugger;
           $scope.level1Artworks = results.level1Artworks;
           $scope.level2Artworks = results.level2Artworks;
           // $scope.totalCount = results.metadata.totalItemCount;

@@ -49,7 +49,6 @@
     vm.judgingFinished = isJudgingFinished();
 
     function isJudgingFinished() {
-      debugger;
       return (
         vm.JudgeArtWork.scores &&
         vm.JudgeArtWork.scores.length > 0 &&

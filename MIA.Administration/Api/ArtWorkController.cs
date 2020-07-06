@@ -155,14 +155,14 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("getArtWorkFiles")]
-    public async Task<IActionResult> GetArtWorkFilesAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> GetArtWorkFilesAsync([FromQuery(Name = "judgeId")] string id, [FromServices] IAppUnitOfWork db) {
       var artWorkItem = db.MediaFiles.Where(a => a.ArtWorkId == id).ToList();
       var returnMediaList = _mapper.Map<List<MediaFileDto>>(artWorkItem);
       return IfFound(returnMediaList);
     }
 
-    [HttpGet("{id}/withFiles")]
-    public async Task<IActionResult> GetArtworkWithFiles([FromRoute(Name = "id")] string id,
+    [HttpGet("{judgeId}/withFiles")]
+    public async Task<IActionResult> GetArtworkWithFiles([FromRoute(Name = "judgeId")] string id,
       [FromServices] IAppUnitOfWork db) {
       var item = await db.Artworks
                     .Include(a => a.MediaFiles)
@@ -172,8 +172,8 @@ namespace MIA.Administration.Api {
       return IfFound(returnMediaList);
     }
 
-    [HttpGet("{id}/withFiles-and-score")]
-    public async Task<IActionResult> GetArtworkWithFilesAndScore([FromRoute(Name = "id")] string id,
+    [HttpGet("{judgeId}/withFiles-and-score")]
+    public async Task<IActionResult> GetArtworkWithFilesAndScore([FromRoute(Name = "judgeId")] string id,
       [FromServices] IAppUnitOfWork db,
       [FromServices] IUserResolver userResolver
       ) {
@@ -193,12 +193,12 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("getMediaFile")]
-    public async Task<IActionResult> GetMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> GetMediaFileAsync([FromQuery(Name = "judgeId")] string id, [FromServices] IAppUnitOfWork db) {
       var artWorkItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id == id);
       return IfFound(_mapper.Map<MediaFile>(artWorkItem));
     }
     [HttpDelete("deleteMediaItem")]
-    public async Task<IActionResult> DeleteMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> DeleteMediaFileAsync([FromQuery(Name = "judgeId")] string id, [FromServices] IAppUnitOfWork db) {
       var entity = db.Set<MediaFile>().FirstOrDefault(a => a.Id == id);
       if (entity == null)
         throw new ApiException(ApiErrorType.NotFound, "record not found");
@@ -295,7 +295,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("getPayment")]
-    public async Task<IActionResult> GetPaymentAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> GetPaymentAsync([FromQuery(Name = "judgeId")] string id, [FromServices] IAppUnitOfWork db) {
       var artWorkItem = await db.ArtworkPayments.FirstOrDefaultAsync(a => a.ArtworkId == id);
       if (artWorkItem == null) {
         return IfFound(_mapper.Map<ArtWorkPaymentDto>(new ArtworkPayment()));
@@ -328,40 +328,68 @@ namespace MIA.Administration.Api {
 
     [HttpPost("getJudgeArtWorks")]
     public async Task<IActionResult> GetJudgeArtWorksAsync(
-      [FromQuery(Name = "id")] string id,
+      [FromQuery(Name = "id")] string judgeId,
       [FromServices] IUserResolver userResolver,
       [FromServices] IAppUnitOfWork db) {
       var userId = (await userResolver.CurrentUserAsync())?.Id;
 
-      var level1Artworks = new List<ArtworkForJudgingDto>();
-      var judgeAwardForLevel1 = await db.JudgeAwards.Where(a => a.JudgeId == id && a.Level == JudgeLevel.Level1).ToListAsync();
+      var judgeAwardForLevel1 = await db.JudgeAwards.Where(a => a.JudgeId == judgeId && a.Level == JudgeLevel.Level1).ToListAsync();
+      var judgeAwardForLevel2 = await db.JudgeAwards.Where(a => a.JudgeId == judgeId && a.Level == JudgeLevel.Level2).ToListAsync();
+
+      var remaining_level1Artworks = new List<ArtworkForJudgingDto>();
       foreach (var award in judgeAwardForLevel1) {
-        var artWork = await db.Artworks
-                              .IncludeFilter(a => a.FinalScores.Where(a => a.JudgeId == id))
-                              .Where(a => a.AwardId == award.AwardId && a.UploadComplete && a.IllegibleForJudge == null)
-                              .ToListAsync();
-        if (artWork != null)
-          level1Artworks.AddRange(_mapper.Map<List<ArtworkForJudgingDto>>(artWork));
+        var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, judgeId, JudgeLevel.Level1, false);
+        remaining_level1Artworks.AddRange(result);
       }
 
-      var level2Artworks = new List<ArtworkForJudgingDto>();
-      var judgeAwardForLevel2 = await db.JudgeAwards.Where(a => a.JudgeId == id && a.Level == JudgeLevel.Level2).ToListAsync();
+      var remaining_level2Artworks = new List<ArtworkForJudgingDto>();
       foreach (var award in judgeAwardForLevel2) {
-        var artWork = await db.Artworks
-                              .IncludeFilter(a => a.FinalScores.Where(a => a.JudgeId == id))
-                              .Where(a => a.AwardId == award.AwardId && a.UploadComplete && a.IllegibleForJudge == true)
-                              .ToListAsync();
-        if (artWork != null)
-          level2Artworks.AddRange(_mapper.Map<List<ArtworkForJudgingDto>>(artWork));
+        var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, judgeId, JudgeLevel.Level2, false);
+        remaining_level2Artworks.AddRange(result);
       }
 
+
+      var done_level1Artworks = new List<ArtworkForJudgingDto>();
+      foreach (var award in judgeAwardForLevel1) {
+        var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, judgeId, JudgeLevel.Level1, true);
+        done_level1Artworks.AddRange(result);
+      }
+
+      var done_level2Artworks = new List<ArtworkForJudgingDto>();
+      foreach (var award in judgeAwardForLevel2) {
+        var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, judgeId, JudgeLevel.Level2, true);
+        done_level2Artworks.AddRange(result);
+      }
 
       return IfFound(new {
-        Level1Artworks = level1Artworks.OrderBy(a => a.Scores.Length).ThenBy(a => a.Id).ToArray(),
-        Level2Artworks = level2Artworks.OrderBy(a => a.Scores.Length).ThenBy(a => a.Id).ToArray(),
+        Remaining = new {
+          Level1Artworks = remaining_level1Artworks.OrderBy(a => a.Id).ToArray(),
+          Level2Artworks = remaining_level2Artworks.OrderBy(a => a.Id).ToArray(),
+        },
+        Done = new {
+          Level1Artworks = done_level1Artworks.OrderBy(a => a.Scores.Length).ThenBy(a => a.Id).ToArray(),
+          Level2Artworks = done_level2Artworks.OrderBy(a => a.Scores.Length).ThenBy(a => a.Id).ToArray(),
+        }
       });
 
     }
+
+    private async Task<ArtworkForJudgingDto[]> GetArtworksForJudgeAndLevel(IAppUnitOfWork db, string awardId, string judgeId, JudgeLevel level, bool isDone) {
+      var artWorks = await db.Artworks
+        .Include(a => a.FinalScores)
+        .Where(a => a.FinalScores.Any(x => x.JudgeId == judgeId && x.Level == level) == isDone
+                    && a.AwardId == awardId && a.UploadComplete)
+        .ToListAsync();
+
+      var result = artWorks.Select(a => _mapper.Map<ArtworkForJudgingDto>(a))
+        .Select(a => GetArtworkForLevelWithScore(a, judgeId, level)).ToArray();
+      return result;
+    }
+    private ArtworkForJudgingDto GetArtworkForLevelWithScore(ArtworkForJudgingDto artwork, string judgeId, JudgeLevel level) {
+      artwork.Scores = artwork.Scores.Where(a => a.JudgeId == judgeId && a.Level == level).ToArray();
+      return artwork;
+    }
+
 
     [HttpPut("UpdateTrailerVideoUrl")]
     public async Task<IActionResult> UpdateTrailerVideoUrlAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db) {
@@ -374,7 +402,7 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<ArtWorkDto>(artWork));
     }
 
-    [HttpPost("artwork/{id}/files")]
+    [HttpPost("artwork/{judgeId}/files")]
     public async Task<IActionResult> UploadArtworkFiles(
       [FromRoute] string id,
       [FromServices] IAppUnitOfWork db,
@@ -403,7 +431,7 @@ namespace MIA.Administration.Api {
       }
     }
 
-    [HttpPost("{id}/allow-file-upload")]
+    [HttpPost("{judgeId}/allow-file-upload")]
     [HasPermission(Permissions.ArtworkAllowFileUpload)]
     public async Task<IActionResult> AllowFileUpload(
       [FromRoute] string id,

@@ -17,7 +17,7 @@
             <param name="logger"></param>
             <param name="_locale"></param>
         </member>
-        <member name="M:MIA.Api.AccountController.CreateByEmail(System.String,MIA.Dto.Auth.SignUpByEmailRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider,MIA.Api.Base.IApiUrlHelper)">
+        <member name="M:MIA.Api.AccountController.CreateByEmail(System.String,MIA.Dto.Auth.SignUpByEmailRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.ProvjudgeIders.ICultureEmailTemplateProvjudgeIder,MIA.Api.Base.IApiUrlHelper)">
             <summary>
             SignUp using email and password
             </summary>
@@ -25,7 +25,7 @@
             <param name="signupData"></param>
             <param name="userManager"></param>
             <param name="emailSender"></param>
-            <param name="emailTemplateProvider"></param>
+            <param name="emailTemplateProvjudgeIder"></param>
             <param name="urlHelper"></param>
             <returns></returns>
         </member>
@@ -36,7 +36,7 @@
             <param name="mobileRequestData"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Api.AccountController.VerifyEmail(System.String,MIA.Dto.Auth.UserVerificationRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider)">
+        <member name="M:MIA.Api.AccountController.VerifyEmail(System.String,MIA.Dto.Auth.UserVerificationRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.ProvjudgeIders.ICultureEmailTemplateProvjudgeIder)">
             <summary>
             Verify user email using the verification token sent by email
             </summary>
@@ -44,10 +44,10 @@
             <param name="userRequest"></param>
             <param name="userManager"></param>
             <param name="emailSender"></param>
-            <param name="emailTemplateProvider"></param>
+            <param name="emailTemplateProvjudgeIder"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Api.AccountController.ForgotPassword(System.String,MIA.Dto.Auth.ForgotPasswordRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider,MIA.Api.Base.IApiUrlHelper)">
+        <member name="M:MIA.Api.AccountController.ForgotPassword(System.String,MIA.Dto.Auth.ForgotPasswordRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.ProvjudgeIders.ICultureEmailTemplateProvjudgeIder,MIA.Api.Base.IApiUrlHelper)">
             <summary>
             Reset password reset email with token
             </summary>
@@ -55,11 +55,11 @@
             <param name="forgotPass"></param>
             <param name="userManager"></param>
             <param name="emailSender"></param>
-            <param name="emailTemplateProvider"></param>
+            <param name="emailTemplateProvjudgeIder"></param>
             <param name="urlHelper"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Api.AccountController.ResetPassword(System.String,MIA.Dto.Auth.ResetPasswordRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider)">
+        <member name="M:MIA.Api.AccountController.ResetPassword(System.String,MIA.Dto.Auth.ResetPasswordRequest,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.ProvjudgeIders.ICultureEmailTemplateProvjudgeIder)">
             <summary>
             Reset password for user using token
             </summary>
@@ -67,7 +67,7 @@
             <param name="resetPassword"></param>
             <param name="userManager"></param>
             <param name="emailSender"></param>
-            <param name="emailTemplateProvider"></param>
+            <param name="emailTemplateProvjudgeIder"></param>
             <returns></returns>
         </member>
         <member name="T:MIA.Api.AdminController">
@@ -85,7 +85,7 @@
         </member>
         <member name="T:MIA.Api.AuthController">
             <summary>
-            Authentication controller for different identity operations
+            Authentication controller for different judgeIdentity operations
             </summary>
         </member>
         <member name="M:MIA.Api.AuthController.#ctor(AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{MIA.Api.AuthController})">
@@ -105,7 +105,7 @@
             <param name="jwtOptions"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Api.AuthController.Logout(System.String,Microsoft.AspNetCore.Identity.SignInManager{MIA.Models.Entities.AppUser},MIA.Middlewares.Auth.IAuthTokenManager)">
+        <member name="M:MIA.Api.AuthController.Logout(System.String,Microsoft.AspNetCore.Identity.SignInManager{MIA.Models.Entities.AppUser},MIA.MjudgeIddlewares.Auth.IAuthTokenManager)">
             <summary>
             Logout and deactivate user auth token
             </summary>
@@ -193,14 +193,14 @@
             <param name="result"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Api.Base.BaseApiController`1.ValidationError(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Identity.IdentityError})">
+        <member name="M:MIA.Api.Base.BaseApiController`1.ValjudgeIdationError(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Identity.IdentityError})">
             <summary>
-            Converts <see cref="T:Microsoft.AspNetCore.Identity.IdentityError"/> list into <see cref="T:Microsoft.AspNetCore.Mvc.ValidationProblemDetails"/>
+            Converts <see cref="T:Microsoft.AspNetCore.Identity.IdentityError"/> list into <see cref="T:Microsoft.AspNetCore.Mvc.ValjudgeIdationProblemDetails"/>
             </summary>
             <param name="errors"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Api.Base.BaseApiController`1.ValidationError(System.Net.HttpStatusCode,System.String)">
+        <member name="M:MIA.Api.Base.BaseApiController`1.ValjudgeIdationError(System.Net.HttpStatusCode,System.String)">
             <summary>
             Converts simple string to error object
             </summary>
@@ -209,19 +209,19 @@
         </member>
         <member name="M:MIA.Api.Base.BaseApiController`1.NotFound404(System.String)">
             <summary>
-            returns validation errors with 404 status code
+            returns valjudgeIdation errors with 404 status code
             </summary>
             <param name="error"></param>
         </member>
-        <member name="M:MIA.Api.Base.BaseApiController`1.Forbid403(System.String)">
+        <member name="M:MIA.Api.Base.BaseApiController`1.ForbjudgeId403(System.String)">
             <summary>
-            returns validation errors with 403 status code
+            returns valjudgeIdation errors with 403 status code
             </summary>
             <param name="error"></param>
         </member>
         <member name="M:MIA.Api.Base.BaseApiController`1.Unauthorized401(System.String)">
             <summary>
-            returns validation errors with 401 status code
+            returns valjudgeIdation errors with 401 status code
             </summary>
             <param name="error"></param>
         </member>
@@ -265,13 +265,13 @@
             <param name="db"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Api.TestController.TestEmail(System.String,Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider)">
+        <member name="M:MIA.Api.TestController.TestEmail(System.String,Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.ProvjudgeIders.ICultureEmailTemplateProvjudgeIder)">
             <summary>
             
             </summary>
             <param name="cultureCode"></param>
             <param name="emailSender"></param>
-            <param name="emailTemplateProvider"></param>
+            <param name="emailTemplateProvjudgeIder"></param>
             <returns></returns>
         </member>
         <member name="T:MIA.Attrributes.TransactionIsolationLevelAttribute">
@@ -418,7 +418,7 @@
         </member>
         <member name="P:MIA.Dto.Auth.UserVerificationRequest.UserId">
             <summary>
-            UserId to get validate
+            UserId to get valjudgeIdate
             </summary>
         </member>
         <member name="P:MIA.Dto.Auth.UserVerificationRequest.Code">
@@ -438,7 +438,7 @@
         </member>
         <member name="P:MIA.Dto.Auth.SignUpByMobileRequest.MobileNumber">
             <summary>
-            User mobile number to validate
+            User mobile number to valjudgeIdate
             </summary>
         </member>
         <member name="T:MIA.Dto.Auth.SignUpByMobileVerifyRequest">
@@ -448,7 +448,7 @@
         </member>
         <member name="P:MIA.Dto.Auth.SignUpByMobileVerifyRequest.VerificationCode">
             <summary>
-            Verification code sent to user to validate his mobile number
+            Verification code sent to user to valjudgeIdate his mobile number
             </summary>
         </member>
         <member name="T:MIA.Dto.Auth.SignUpByMobileCompleteRequest">
@@ -608,53 +608,53 @@
             General interface for all kind of errors with a message
             </summary>
         </member>
-        <member name="T:MIA.Exceptions.IValidationSummary">
+        <member name="T:MIA.Exceptions.IValjudgeIdationSummary">
             <summary>
-            Validation summary for validation errors
+            ValjudgeIdation summary for valjudgeIdation errors
             </summary>
         </member>
-        <member name="P:MIA.Exceptions.IValidationSummary.IsValid">
+        <member name="P:MIA.Exceptions.IValjudgeIdationSummary.IsValjudgeId">
             <summary>
-            Read-only returning true if only the object under test is valid
+            Read-only returning true if only the object under test is valjudgeId
             </summary>
         </member>
-        <member name="P:MIA.Exceptions.IValidationSummary.Errors">
+        <member name="P:MIA.Exceptions.IValjudgeIdationSummary.Errors">
             <summary>
-            List of validation errors
+            List of valjudgeIdation errors
             </summary>
         </member>
-        <member name="T:MIA.Exceptions.IValidationSummary`1">
+        <member name="T:MIA.Exceptions.IValjudgeIdationSummary`1">
             <summary>
-            Generic version of <see cref="T:MIA.Exceptions.IValidationSummary"/>
+            Generic version of <see cref="T:MIA.Exceptions.IValjudgeIdationSummary"/>
             </summary>
             <typeparam name="TError"></typeparam>
         </member>
-        <member name="P:MIA.Exceptions.IValidationSummary`1.Errors">
+        <member name="P:MIA.Exceptions.IValjudgeIdationSummary`1.Errors">
             <summary>
             List of custom errors that inherits from <see cref="!:TError"/>
             </summary>
         </member>
-        <member name="T:MIA.Exceptions.ValidationException">
+        <member name="T:MIA.Exceptions.ValjudgeIdationException">
             <summary>
-            All data validation exceptions should inherit from this
+            All data valjudgeIdation exceptions should inherit from this
             </summary>
         </member>
-        <member name="P:MIA.Exceptions.ValidationException.ValidationResult">
+        <member name="P:MIA.Exceptions.ValjudgeIdationException.ValjudgeIdationResult">
             <summary>
-            Validation result retuned from the server
+            ValjudgeIdation result retuned from the server
             </summary>
         </member>
-        <member name="P:MIA.Exceptions.ValidationException.Entity">
+        <member name="P:MIA.Exceptions.ValjudgeIdationException.Entity">
             <summary>
-            The entity that is not valid
+            The entity that is not valjudgeId
             </summary>
         </member>
-        <member name="M:MIA.Exceptions.ValidationException.#ctor(System.Object,MIA.Exceptions.IValidationSummary)">
+        <member name="M:MIA.Exceptions.ValjudgeIdationException.#ctor(System.Object,MIA.Exceptions.IValjudgeIdationSummary)">
             <summary>
-            Constructor that receives the entity that is invalid, and a validation summary
+            Constructor that receives the entity that is invaljudgeId, and a valjudgeIdation summary
             </summary>
             <param name="Entity"></param>
-            <param name="validationResult"></param>
+            <param name="valjudgeIdationResult"></param>
         </member>
         <member name="T:MIA.Extensions.ApplicationBuilderExtensions">
             <summary>
@@ -669,14 +669,14 @@
         </member>
         <member name="M:MIA.Extensions.ApplicationBuilderExtensions.UseCustomExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
-            Use exceotion middleware
+            Use exceotion mjudgeIddleware
             </summary>
             <param name="application"></param>
             <returns></returns>
         </member>
         <member name="M:MIA.Extensions.ApplicationBuilderExtensions.UseStaticFilesWithCacheControl(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
-            Uses the static files middleware to serve static files. Also adds the Cache-Control and Pragma HTTP
+            Uses the static files mjudgeIddleware to serve static files. Also adds the Cache-Control and Pragma HTTP
             headers. The cache duration is controlled from configuration.
             See http://andrewlock.net/adding-cache-control-headers-to-static-files-in-asp-net-core/.
             </summary>
@@ -688,9 +688,9 @@
             <param name="application"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Extensions.ApplicationBuilderExtensions.UseRouteUrlCultureProvider(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+        <member name="M:MIA.Extensions.ApplicationBuilderExtensions.UseRouteUrlCultureProvjudgeIder(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
-            Add supported locales, and middleware to determine the approperiate locale according to route url
+            Add supported locales, and mjudgeIddleware to determine the approperiate locale according to route url
             </summary>
             <param name="application"></param>
             <returns></returns>
@@ -814,7 +814,7 @@
         <member name="M:MIA.Extensions.ServiceExtensions.AddCustomResponseCompression(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Adds dynamic response compression to enable GZIP compression of responses. This is turned off for HTTPS
-            requests by default to avoid the BREACH security vulnerability.
+            requests by default to avojudgeId the BREACH security vulnerability.
             </summary>
         </member>
         <member name="M:MIA.Extensions.ServiceExtensions.AddCustomRouting(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
@@ -847,7 +847,7 @@
         </member>
         <member name="M:MIA.Extensions.ServiceExtensions.AddSMTPEmailSender(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
-            Add SMTP email provider as default email sender
+            Add SMTP email provjudgeIder as default email sender
             </summary>
             <param name="services"></param>
             <param name="configuration"></param>
@@ -967,17 +967,17 @@
             Constructor
             </summary>
         </member>
-        <member name="T:MIA.Middlewares.ApiExceptionHandlerMiddleware">
+        <member name="T:MIA.MjudgeIddlewares.ApiExceptionHandlerMjudgeIddleware">
             <summary>
-            Api exception handler middle ware to handle unhandeled exceptions and wrap them in ApiException class
+            Api exception handler mjudgeIddle ware to handle unhandeled exceptions and wrap them in ApiException class
             </summary>
         </member>
-        <member name="T:MIA.Middlewares.Auth.AuthTokenManager">
+        <member name="T:MIA.MjudgeIddlewares.Auth.AuthTokenManager">
             <summary>
             
             </summary>
         </member>
-        <member name="M:MIA.Middlewares.Auth.AuthTokenManager.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{MIA.Infrastructure.Options.JwtOptions})">
+        <member name="M:MIA.MjudgeIddlewares.Auth.AuthTokenManager.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{MIA.Infrastructure.Options.JwtOptions})">
             <summary>
             Constructor
             </summary>
@@ -985,90 +985,90 @@
             <param name="httpContextAccessor"></param>
             <param name="jwtOptions"></param>
         </member>
-        <member name="M:MIA.Middlewares.Auth.AuthTokenManager.IsCurrentActiveToken">
+        <member name="M:MIA.MjudgeIddlewares.Auth.AuthTokenManager.IsCurrentActiveToken">
             <summary>
             check if the current token is not deactivated
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MIA.Middlewares.Auth.AuthTokenManager.DeactivateCurrentAsync">
+        <member name="M:MIA.MjudgeIddlewares.Auth.AuthTokenManager.DeactivateCurrentAsync">
             <summary>
             deactivate current token
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MIA.Middlewares.Auth.AuthTokenManager.IsActiveAsync(System.String)">
+        <member name="M:MIA.MjudgeIddlewares.Auth.AuthTokenManager.IsActiveAsync(System.String)">
             <summary>
             check if token is active
             </summary>
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Middlewares.Auth.AuthTokenManager.DeactivateAsync(System.String)">
+        <member name="M:MIA.MjudgeIddlewares.Auth.AuthTokenManager.DeactivateAsync(System.String)">
             <summary>
             deactivate token
             </summary>
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="T:MIA.Middlewares.Auth.AuthTokenManagerMiddleware">
+        <member name="T:MIA.MjudgeIddlewares.Auth.AuthTokenManagerMjudgeIddleware">
             <summary>
             
             </summary>
         </member>
-        <member name="M:MIA.Middlewares.Auth.AuthTokenManagerMiddleware.#ctor(MIA.Middlewares.Auth.IAuthTokenManager)">
+        <member name="M:MIA.MjudgeIddlewares.Auth.AuthTokenManagerMjudgeIddleware.#ctor(MIA.MjudgeIddlewares.Auth.IAuthTokenManager)">
             <summary>
             constructor
             </summary>
             <param name="tokenManager"></param>
         </member>
-        <member name="M:MIA.Middlewares.Auth.AuthTokenManagerMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Http.RequestDelegate)">
+        <member name="M:MIA.MjudgeIddlewares.Auth.AuthTokenManagerMjudgeIddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Http.RequestDelegate)">
             <summary>
-            Validate user has access token
+            ValjudgeIdate user has access token
             </summary>
             <param name="context"></param>
             <param name="next"></param>
             <returns></returns>
         </member>
-        <member name="T:MIA.Middlewares.Auth.IAuthTokenManager">
+        <member name="T:MIA.MjudgeIddlewares.Auth.IAuthTokenManager">
             <summary>
             
             </summary>
         </member>
-        <member name="M:MIA.Middlewares.Auth.IAuthTokenManager.IsCurrentActiveToken">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:MIA.Middlewares.Auth.IAuthTokenManager.DeactivateCurrentAsync">
+        <member name="M:MIA.MjudgeIddlewares.Auth.IAuthTokenManager.IsCurrentActiveToken">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MIA.Middlewares.Auth.IAuthTokenManager.IsActiveAsync(System.String)">
+        <member name="M:MIA.MjudgeIddlewares.Auth.IAuthTokenManager.DeactivateCurrentAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.MjudgeIddlewares.Auth.IAuthTokenManager.IsActiveAsync(System.String)">
             <summary>
             
             </summary>
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Middlewares.Auth.IAuthTokenManager.DeactivateAsync(System.String)">
+        <member name="M:MIA.MjudgeIddlewares.Auth.IAuthTokenManager.DeactivateAsync(System.String)">
             <summary>
             
             </summary>
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="T:MIA.RequestedPageHeaderModelBinderProvider">
+        <member name="T:MIA.RequestedPageHeaderModelBinderProvjudgeIder">
             <summary>
-            Provider for Requested Page model binder
+            ProvjudgeIder for Requested Page model binder
             </summary>
         </member>
-        <member name="M:MIA.RequestedPageHeaderModelBinderProvider.GetBinder(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext)">
+        <member name="M:MIA.RequestedPageHeaderModelBinderProvjudgeIder.GetBinder(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProvjudgeIderContext)">
             <summary>
-            Validate if the model binder is suitable or not
+            ValjudgeIdate if the model binder is suitable or not
             </summary>
             <param name="Context"></param>
             <returns></returns>
@@ -1135,12 +1135,12 @@
             See https://github.com/aspnet/KestrelHttpServer/issues/2216
             </summary>
         </member>
-        <member name="T:MIA.Providers.ICultureEmailTemplateProvider">
+        <member name="T:MIA.ProvjudgeIders.ICultureEmailTemplateProvjudgeIder">
             <summary>
-            Culture aware email template to load email template according to provided culture code
+            Culture aware email template to load email template according to provjudgeIded culture code
             </summary>
         </member>
-        <member name="M:MIA.Providers.ICultureEmailTemplateProvider.GetEmailTemplateAsync(System.String,System.String)">
+        <member name="M:MIA.ProvjudgeIders.ICultureEmailTemplateProvjudgeIder.GetEmailTemplateAsync(System.String,System.String)">
             <summary>
             
             </summary>
@@ -1148,7 +1148,7 @@
             <param name="name"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Providers.ICultureEmailTemplateProvider.GetHtmlMessageAsync(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+        <member name="M:MIA.ProvjudgeIders.ICultureEmailTemplateProvjudgeIder.GetHtmlMessageAsync(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
             
             </summary>
@@ -1157,18 +1157,18 @@
             <param name="keyValuePairs"></param>
             <returns></returns>
         </member>
-        <member name="T:MIA.Providers.LocalEmailTemplateProvider">
+        <member name="T:MIA.ProvjudgeIders.LocalEmailTemplateProvjudgeIder">
             <summary>
-            Provider for email templates that are loaded from local drive
+            ProvjudgeIder for email templates that are loaded from local drive
             </summary>
         </member>
-        <member name="M:MIA.Providers.LocalEmailTemplateProvider.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+        <member name="M:MIA.ProvjudgeIders.LocalEmailTemplateProvjudgeIder.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
             
             </summary>
             <param name="env"></param>
         </member>
-        <member name="M:MIA.Providers.LocalEmailTemplateProvider.GetEmailTemplateAsync(System.String,System.String)">
+        <member name="M:MIA.ProvjudgeIders.LocalEmailTemplateProvjudgeIder.GetEmailTemplateAsync(System.String,System.String)">
             <summary>
             
             </summary>
@@ -1176,16 +1176,16 @@
             <param name="name"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Providers.LocalEmailTemplateProvider.GetEmailTemplateAsync(System.String)">
+        <member name="M:MIA.ProvjudgeIders.LocalEmailTemplateProvjudgeIder.GetEmailTemplateAsync(System.String)">
             <summary>
             
             </summary>
             <param name="name"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Providers.LocalEmailTemplateProvider.Replace(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+        <member name="M:MIA.ProvjudgeIders.LocalEmailTemplateProvjudgeIder.Replace(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
-            Performs the keyword replacement on the provide email template.
+            Performs the keyword replacement on the provjudgeIde email template.
             </summary>
             <remarks>
             Values written to the email template are Html encoded.
@@ -1194,7 +1194,7 @@
             <param name="keyValuePairs"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Providers.LocalEmailTemplateProvider.GetHtmlMessageAsync(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+        <member name="M:MIA.ProvjudgeIders.LocalEmailTemplateProvjudgeIder.GetHtmlMessageAsync(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
             
             </summary>
@@ -1202,7 +1202,7 @@
             <param name="keyValuePairs"></param>
             <returns></returns>
         </member>
-        <member name="M:MIA.Providers.LocalEmailTemplateProvider.GetHtmlMessageAsync(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+        <member name="M:MIA.ProvjudgeIders.LocalEmailTemplateProvjudgeIder.GetHtmlMessageAsync(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
             
             </summary>
@@ -1211,12 +1211,12 @@
             <param name="keyValuePairs"></param>
             <returns></returns>
         </member>
-        <member name="T:MIA.Providers.UrlRequestCultureProvider">
+        <member name="T:MIA.ProvjudgeIders.UrlRequestCultureProvjudgeIder">
             <summary>
-            Provider getting current culture from route url
+            ProvjudgeIder getting current culture from route url
             </summary>
         </member>
-        <member name="M:MIA.Providers.UrlRequestCultureProvider.DetermineProviderCultureResult(Microsoft.AspNetCore.Http.HttpContext)">
+        <member name="M:MIA.ProvjudgeIders.UrlRequestCultureProvjudgeIder.DetermineProvjudgeIderCultureResult(Microsoft.AspNetCore.Http.HttpContext)">
             <summary>
             Determine culture according to route url
             </summary>
