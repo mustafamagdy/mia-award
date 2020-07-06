@@ -185,7 +185,9 @@ namespace MIA.Administration.MappingProfiles {
              .ForMember(a => a.Scores, cfg => cfg.MapFrom(a => a.FinalScores))
              .IncludeBase<Artwork, ArtworkWithFilesDto>()
              .ValidateMemberList(MemberList.None);
-
+      
+      CreateMap<Artwork, ArtworkMinimumDto>()
+        .ValidateMemberList(MemberList.None);
 
       CreateMap<NewArtWorkDto, Artwork>().ValidateMemberList(MemberList.None)
           .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.ProjectName))
@@ -212,6 +214,9 @@ namespace MIA.Administration.MappingProfiles {
       CreateMap<NewAwardDto, Award>().ValidateMemberList(MemberList.None);
 
       CreateMap<UpdateAwardDto, Award>()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<Award, AwardMinimumDto>()
         .ValidateMemberList(MemberList.None);
 
       #endregion

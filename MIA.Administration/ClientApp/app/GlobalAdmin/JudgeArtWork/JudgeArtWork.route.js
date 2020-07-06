@@ -65,6 +65,36 @@
                     }
 
                 })
+                .state('my-dashboard', {
+                    url: '/my-dashboard',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/judge-dashboard.html',
+                    controller: 'judgeDashboardController',
+                    'controllerAs': 'ctrl',
+                    resolve: {
+                        JudgeDashboardPrepService: JudgeDashboardPrepService,
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('artwork-statistics', {
+                    url: '/artwork-statistics',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/artwork-statistics.html',
+                    controller: 'artworkStatisticsController',
+                    'controllerAs': 'ctrl',
+                    resolve: {
+                        ArtworkStatisticsPrepService: ArtworkStatisticsPrepService,
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
 
         });
 
@@ -100,6 +130,16 @@
     ArtWorkWithFilesAndScoresByIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
     function ArtWorkWithFilesAndScoresByIdPrepService(JudgeArtWorkResource, $stateParams) {
         return JudgeArtWorkResource.getArtWorkWithFilesAndScore({ id: $stateParams.id, level: $stateParams.level }).$promise;
+    }
+    
+    JudgeDashboardPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
+    function JudgeDashboardPrepService(JudgeArtWorkResource, $stateParams) {
+        return JudgeArtWorkResource.getMyStatistics({  }).$promise;
+    }
+
+    ArtworkStatisticsPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
+    function ArtworkStatisticsPrepService(JudgeArtWorkResource, $stateParams) {
+        return JudgeArtWorkResource.getArtworkStatistics({pageSize: 10, pageNumber:1 }).$promise;
     }
 
     ArtWorkMediaByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']

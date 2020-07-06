@@ -94,4 +94,9 @@ namespace MIA.Administration.Api {
   public class ArtworkWithFilesAndScoresDto : ArtworkWithFilesDto {
     public JudgeArtworkScoreViewDto[] Scores { get; set; }
   }
+
+  public class ArtworkMinimumDto {
+    public string Id { get; set; }
+    public LocalizedData ProjectName { get; set; }
+  }
 }

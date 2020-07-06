@@ -35,14 +35,16 @@
     vm.setActiveTab = function (tab) {
       vm.selectedTab = tab;
     };
-    
+
     refreshJudgeArtWorks();
 
     function refreshJudgeArtWorks() {
       blockUI.start("Loading...");
 
       var k = JudgeArtWorkResource.getJudgeArtWorks(
-        { id: $scope.user.id },
+        {
+          // id: $scope.user.id
+        },
         null
       ).$promise.then(
         function (results) {
