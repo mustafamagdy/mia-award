@@ -19,7 +19,8 @@
         "angular-jwt",
         "rzSlider",
         "com.2fdevs.videogular",
-        "com.2fdevs.videogular.plugins.poster"
+        "com.2fdevs.videogular.plugins.poster",
+        "com.2fdevs.videogular.plugins.controls"
         // "datatables"
         // "jwt-decode"
         // 'base64',

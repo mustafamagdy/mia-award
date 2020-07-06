@@ -40,8 +40,23 @@
     vm.showMediaList = true;
     vm.showCriteriaList = false;
     vm.JudgeArtWork = ArtWorkWithFilesAndScoresByIdPrepService;
-    vm.artWorkLevel = 0;
-    vm.defaultCover = "./assets/img/newlogo.png";
+    vm.artWorkLevel = $stateParams.level || 0;
+
+    // if (vm.JudgeArtWork.illegibleForJudge == true) {
+    //   vm.artWorkLevel = 1;
+    // }
+
+    vm.judgingFinished = isJudgingFinished();
+
+    function isJudgingFinished() {
+      return (
+        vm.JudgeArtWork.scores &&
+        vm.JudgeArtWork.scores.length > 0 &&
+        vm.JudgeArtWork.scores.find((a) => a.levelNumber == vm.artWorkLevel) !=
+          undefined
+      );
+    }
+    vm.defaultCover = "./assets/img/big_award.png";
     vm.votingCriteriaList = [];
     vm.refreshSlider = function () {
       $timeout(function () {
@@ -87,9 +102,14 @@
           ];
 
     vm.tabs = ["episodes", "judging"];
-    if(vm.JudgeArtWork.scores && vm.JudgeArtWork.scores[0]) {
+    if (vm.judgingFinished) {
       vm.tabs.push("final_thoughts");
-      vm.finalThoughts = vm.JudgeArtWork.scores[0].finalThoughts
+      var scoreRecord = vm.JudgeArtWork.scores.find(
+        (a) => a.levelNumber == vm.artWorkLevel
+      );
+      vm.finalThoughts =
+        scoreRecord == undefined ? "" : scoreRecord.finalThoughts;
+
       vm.finalThoughtsReadOnly = true;
     }
 
@@ -132,6 +152,7 @@
       updateObj.JudgeId = $scope.user.id;
       updateObj.CriteriaValues = vm.votingCriteriaList;
       updateObj.$update().then(
+        
         function (data, status) {
           ToastService.show(
             "right",
@@ -196,7 +217,7 @@
     vm.finalizeJudge = function () {
       var addFinalThoughts = new JudgeArtWorkResource();
       addFinalThoughts.finalThoughts = vm.finalThoughts;
-      addFinalThoughts.level = vm.level;
+      addFinalThoughts.level = vm.artWorkLevel;
       addFinalThoughts.artworkId = vm.JudgeArtWork.id;
 
       addFinalThoughts.$postFinalThoughts().then(

@@ -7,6 +7,7 @@ using MIA.Administration.Dto.User;
 using MIA.Dto.Admin;
 using MIA.Models.Entities;
 using System.Linq;
+using MIA.Administration.Services;
 using MIA.Dto.Auth;
 
 namespace MIA.Administration.MappingProfiles {
@@ -164,12 +165,20 @@ namespace MIA.Administration.MappingProfiles {
         .ForMember(a => a.Scores, cfg => cfg.MapFrom(a => a.FinalScores))
         .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
         .ForMember(a => a.AwardName, cfg => cfg.MapFrom(a => a.Award.Title))
+        .ForMember(a => a.LevelNumber, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None)
             .IncludeAllDerived();
+
+      CreateMap<Artwork, ArtworkVotingDetails>()
+        .ForMember(a => a.Votes, cfg => cfg.Ignore())
+        .ValidateMemberList(MemberList.None);
+
+
 
       CreateMap<JudgeArtworkScore, JudgeArtworkScoreViewDto>()
         .ForMember(a => a.FullName, cfg => cfg.MapFrom(a => a.Judge.FullName))
         .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.Artwork.ProjectName))
+        .ForMember(a => a.LevelNumber, cfg => cfg.MapFrom(a => (int)a.Level))
         .ValidateMemberList(MemberList.None);
 
 
@@ -183,6 +192,8 @@ namespace MIA.Administration.MappingProfiles {
              .IncludeBase<Artwork, ArtworkWithFilesDto>()
              .ValidateMemberList(MemberList.None);
 
+      CreateMap<Artwork, ArtworkMinimumDto>()
+        .ValidateMemberList(MemberList.None);
 
       CreateMap<NewArtWorkDto, Artwork>().ValidateMemberList(MemberList.None)
           .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.ProjectName))
@@ -211,6 +222,9 @@ namespace MIA.Administration.MappingProfiles {
       CreateMap<UpdateAwardDto, Award>()
         .ValidateMemberList(MemberList.None);
 
+      CreateMap<Award, AwardMinimumDto>()
+        .ValidateMemberList(MemberList.None);
+
       #endregion
 
       #region Judge Vote
@@ -219,6 +233,12 @@ namespace MIA.Administration.MappingProfiles {
       CreateMap<NewJudgeVoteDto, JudgeVote>().ValidateMemberList(MemberList.None);
       CreateMap<VotingCriteriaVoteDto, JudgeVote>()
         .ForMember(a => a.VotingValue, cfg => cfg.MapFrom(a => a.JudgeValue))
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<JudgeVote, JudgeVoteValues>()
+        .ForMember(a => a.VotingValue, cfg => cfg.MapFrom(a => a.VotingValue))
+        .ForMember(a => a.CriteriaId, cfg => cfg.MapFrom(a => a.CriteriaId))
+        .ForMember(a => a.Weight, cfg => cfg.MapFrom(a => a.Criteria.Weight))
         .ValidateMemberList(MemberList.None);
 
       #endregion

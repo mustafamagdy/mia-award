@@ -52,7 +52,13 @@
     background: orange;
   }
   .show_info {
-    width: 70%;
+    width: 40%;
+  }
+  #show_inner .show_inner_one .container .show_video_show {
+    width: 60%;
+  }
+  #show_inner .show_inner_one .container .show_info .show_details .desc {
+    width: 100%;
   }
   .container {
     padding: 10px 25px 60px !important;
@@ -61,6 +67,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+  vg-poster img {
+    object-fit: cover;
+    opacity: 1;
   }
 </style>
 <section id="show_inner">
@@ -117,28 +127,40 @@
         </div>
       </div>
       <div class="show_video_show">
-        <span>
-          <img data-ng-src="{{judgeArtWorkDetailsCtrl.getCoverUrl()}}" />
-        </span>
+        <videogular class="videogular-container" oncontextmenu="return false;">
+          <vg-media
+            ng-if="judgeArtWorkDetailsCtrl.trailer !=''"
+            vg-src="judgeArtWorkDetailsCtrl.trailer"
+            vg-tracks="judgeArtWorkDetailsCtrl.tracks"
+            controlsList="nodownload"
+            oncontextmenu="return false;"
+            vg-native-controls="false"
+          >
+          </vg-media>
+          <vg-poster vg-url="judgeArtWorkDetailsCtrl.getCoverUrl()"></vg-poster>
+          <vg-controls>
+            <vg-play-pause-button></vg-play-pause-button>
+            <vg-scrub-bar>
+              <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            </vg-scrub-bar>
+            <vg-time-display
+              >{{ timeLeft | date:'mm:ss':'+0000' }}</vg-time-display
+            >
+            <vg-fullscreen-button></vg-fullscreen-button>
+            <vg-volume>
+              <vg-mute-button></vg-mute-button>
+            </vg-volume>
+          </vg-controls>
+        </videogular>
+        <!-- <span>
+          <img data-ng-src="{{judgeArtWorkDetailsCtrl.getCoverUrl()}}" style="object-fit: scale-down;" />
+        </span> -->
       </div>
     </div>
   </div>
 
   <div class="show_inner_two" ng-show="judgeArtWorkDetailsCtrl.showMediaList">
     <div class="container">
-      <div
-        class="show_video"
-        ng-show="judgeArtWorkDetailsCtrl.JudgeArtWork.trailerUrl != ''"
-      >
-        <videogular>
-          <vg-media
-            vg-src="judgeArtWorkDetailsCtrl.trailer"
-            vg-tracks="judgeArtWorkDetailsCtrl.tracks"
-            vg-native-controls="true"
-          >
-          </vg-media>
-        </videogular>
-      </div>
       <div class="show_content">
         <div class="tabs_area">
           <div class="tabs">
@@ -170,7 +192,7 @@
                       >
                         <img
                           data-ng-src="{{judgeArtWorkDetailsCtrl.getPosterUrl()}}"
-                          style="object-fit: cover;"
+                          style="object-fit: scale-down;"
                         />
                       </span>
                     </li>
@@ -184,7 +206,10 @@
               ng-show="judgeArtWorkDetailsCtrl.selectedTab == 'judging'"
             >
               <form class="form-horizontal" name="viewJudgeArtWorkForm">
-                <div class="pmd-modal-action text-right" ng-hide="judgeArtWorkDetailsCtrl.JudgeArtWork.scores && judgeArtWorkDetailsCtrl.JudgeArtWork.scores[0]">
+                <div
+                  class="pmd-modal-action text-right"
+                  ng-hide="judgeArtWorkDetailsCtrl.judgingFinished"
+                >
                   <button
                     ng-disabled="viewJudgeArtWorkForm.$invalid"
                     class="buttonGold"
@@ -245,7 +270,10 @@
                     ng-readonly="judgeArtWorkDetailsCtrl.finalThoughtsReadOnly"
                   ></textarea>
                 </div>
-                <div class="row" ng-hide="judgeArtWorkDetailsCtrl.JudgeArtWork.scores && judgeArtWorkDetailsCtrl.JudgeArtWork.scores[0]">
+                <div
+                  class="row"
+                  ng-hide="judgeArtWorkDetailsCtrl.judgingFinished"
+                >
                   <button
                     ng-disabled="finalThoughtsForm.$invalid"
                     class="buttonGold"

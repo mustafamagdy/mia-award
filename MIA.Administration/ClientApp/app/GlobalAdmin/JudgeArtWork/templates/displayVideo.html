@@ -1,105 +1,105 @@
 <style>
-    body {
-        margin: 0;
-    }
+  body {
+    margin: 0;
+  }
 
-    /* player */
+  /* player */
 
-    .player video {
-        max-height: 500px;
-        /* max-width: 100%; */
-        display: block;
-    }
+  .player video {
+    max-height: 500px;
+    /* max-width: 100%; */
+    display: block;
+  }
 
-    .player .progress {
-        border-radius: 0;
-        margin: 0 0 5px 0;
-        height: 10px;
-    }
+  .player .progress {
+    border-radius: 0;
+    margin: 0 0 5px 0;
+    height: 10px;
+  }
 
-    .player .progress-bar {
-        background-color: #9e0b0f;
-    }
+  .player .progress-bar {
+    background-color: #9e0b0f;
+  }
 
-    .player .controls {
-        text-align: center;
-        font-size: 2em;
-    }
+  .player .controls {
+    text-align: center;
+    font-size: 2em;
+  }
 
-    .player .controls a {
-        color: #777;
-        cursor: pointer;
-        color: #000;
-        font-size: 1em;
-        margin: 0 10px;
-    }
+  .player .controls a {
+    color: #777;
+    cursor: pointer;
+    color: #000;
+    font-size: 1em;
+    margin: 0 10px;
+  }
 
-    .player .controls a:hover {
-        color: #555;
-    }
+  .player .controls a:hover {
+    color: #555;
+  }
 
-    .player .controls .glyphicon {
-        vertical-align: middle;
-    }
+  .player .controls .glyphicon {
+    vertical-align: middle;
+  }
 
-    /* progress */
-    .progress {
-        height: 20px;
-        margin-bottom: 20px;
-        overflow: hidden;
-        background-color: #f5f5f5;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
-    }
+  /* progress */
+  .progress {
+    height: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
 
-    .progress-bar {
-        float: left;
-        width: 0;
-        height: 100%;
-        font-size: 12px;
-        line-height: 20px;
-        color: #fff;
-        text-align: center;
-        background-color: #428bca;
-        -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
-        box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
-        -webkit-transition: width .6s ease;
-        -o-transition: width .6s ease;
-        transition: width .6s ease;
-    }
+  .progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background-color: #428bca;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    -webkit-transition: width 0.6s ease;
+    -o-transition: width 0.6s ease;
+    transition: width 0.6s ease;
+  }
 
-    .progress.active .progress-bar,
-    .progress-bar.active {
-        -webkit-animation: progress-bar-stripes 2s linear infinite;
-        -o-animation: progress-bar-stripes 2s linear infinite;
-        animation: progress-bar-stripes 2s linear infinite;
-    }
+  .progress.active .progress-bar,
+  .progress-bar.active {
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
+    -o-animation: progress-bar-stripes 2s linear infinite;
+    animation: progress-bar-stripes 2s linear infinite;
+  }
 
-    .progress-bar[aria-valuenow="1"],
-    .progress-bar[aria-valuenow="2"] {
-        min-width: 30px;
-    }
+  .progress-bar[aria-valuenow="1"],
+  .progress-bar[aria-valuenow="2"] {
+    min-width: 30px;
+  }
 
-    .progress-bar[aria-valuenow="0"] {
-        min-width: 30px;
-        color: #777;
-        background-color: transparent;
-        background-image: none;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-    }
+  .progress-bar[aria-valuenow="0"] {
+    min-width: 30px;
+    color: #777;
+    background-color: transparent;
+    background-image: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
 </style>
 
 <section id="show_inner">
-    <div class="show_inner_one">
-        <div class="container">
-            <!-- <iframe class="youtube-player" type="text/html" width="80%" height="385"
+  <div class="show_inner_one">
+    <div class="container">
+      <!-- <iframe class="youtube-player" type="text/html" width="80%" height="385"
                 ng-src="{{trustSrc(displayVideoCtrl.mediaFile.file.fileUrl)}}"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
                 frameborder="0">
             </iframe>  -->
-            <!-- <div class="row">
+      <!-- <div class="row">
 
                 <video id="myVideo" width="80%" height="385">
                     <source ng-src="{{trustSrc(displayVideoCtrl.mediaFile.file.fileUrl)}}" type="video/mp4">
@@ -112,91 +112,144 @@
 
             </div> -->
 
-            <videogular vg-update-time="displayVideoCtrl.onUpdateTime($currentTime, $duration)">
-                <vg-media
-                  vg-src="displayVideoCtrl.fileUrl"
-                  vg-tracks="displayVideoCtrl.tracks"
-                  vg-native-controls="true"
-                >
-                </vg-media>
-              </videogular>
-        </div>
+      <videogular
+        vg-update-time="displayVideoCtrl.onUpdateTime($currentTime, $duration)"
+      >
+        <vg-media
+          vg-src="displayVideoCtrl.fileUrl"
+          vg-tracks="displayVideoCtrl.tracks"
+          vg-native-controls="false"
+        >
+        </vg-media>
+        <vg-controls>
+          <vg-play-pause-button></vg-play-pause-button>
+          <vg-scrub-bar>
+            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+          </vg-scrub-bar>
+          <vg-time-display
+            >{{ timeLeft | date:'mm:ss':'+0000' }}</vg-time-display
+          >
+          <vg-fullscreen-button></vg-fullscreen-button>
+          <vg-volume>
+            <vg-mute-button></vg-mute-button>
+          </vg-volume>
+        </vg-controls>
+      </videogular>
     </div>
-    <div class="show_inner_two">
-        <div class="container">
-            <div class="show_content">
-                <div class="tabs_area">
-                    <div class="tabs">
-                        <!-- to show tab content please add class "active" to "li" element -->
-                        <ul>
-                            <li class="active">{{'comments'| translate}}</li>
-                        </ul><!-- end ul -->
-                    </div><!-- end tabs -->
-                    <div class="all_tabs_content">
-                        <!-- to show tab content please add class "active" to "item_tabs_content" element -->
+  </div>
+  <div class="show_inner_two">
+    <div class="container">
+      <div class="show_content">
+        <div class="tabs_area">
+          <div class="tabs">
+            <!-- to show tab content please add class "active" to "li" element -->
+            <ul>
+              <li class="active">{{'comments'| translate}}</li>
+            </ul>
+            <!-- end ul -->
+          </div>
+          <!-- end tabs -->
+          <div class="all_tabs_content">
+            <!-- to show tab content please add class "active" to "item_tabs_content" element -->
 
-                        <div class="item_tabs_content active">
-                            <div class="item_review">
-                                <div class="review_section">
-                                    <div class="review_status">
-                                        <i class="icofont-ui-rating"></i>
-                                        <div class="desc">
+            <div class="item_tabs_content active">
+              <div class="item_review">
+                <div class="review_section">
+                  <div class="review_status">
+                    <i class="icofont-ui-rating"></i>
+                    <div class="desc">
+                      <p>
+                        {{displayVideoCtrl.commentsList.length}} {{'comments'|
+                        translate}}
+                      </p>
+                    </div>
+                    <!-- end desc -->
+                  </div>
+                  <!-- end review_status -->
+                </div>
+                <!-- end review_section -->
+                <div class="comment_form">
+                  <form name="formVideoComment">
+                    <div class="inputs">
+                      <input
+                        required
+                        type="text"
+                        placeholder="time"
+                        readonly
+                        ng-model="displayVideoCtrl.time"
+                      />
+                    </div>
+                    <!-- end inputs -->
+                    <textarea
+                      name="comment"
+                      cols="30"
+                      rows="10"
+                      required
+                      placeholder="Type here your Comment"
+                      ng-model="displayVideoCtrl.comment"
+                    ></textarea>
 
-                                            <p>{{displayVideoCtrl.commentsList.length}} {{'comments'| translate}}</p>
-                                        </div><!-- end desc -->
-                                    </div><!-- end review_status -->
-                                </div><!-- end review_section -->
-                                <div class="comment_form">
-                                    <form name="formVideoComment">
-                                        <div class="inputs">
-                                            <input required type="text" placeholder="time" readonly
-                                                ng-model="displayVideoCtrl.time">
+                    <div ng-messages="formVideoComment.comment.$error">
+                      <div
+                        class="error"
+                        ng-if="formVideoComment.comment.$error.required && 
+                                                                        !formVideoComment.comment.$pristine"
+                      >
+                        {{'requiredErr' | translate}}
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      ng-disabled="formVideoComment.$invalid"
+                      ng-click="displayVideoCtrl.submitComment()"
+                    >
+                      {{'PostComment' | translate}}
+                    </button>
 
-                                        </div><!-- end inputs -->
-                                        <textarea name="comment" cols="30" rows="10" required
-                                            placeholder="Type here your Comment"
-                                            ng-model="displayVideoCtrl.comment"></textarea>
-
-                                        <div ng-messages="formVideoComment.comment.$error">
-                                            <div class="error" ng-if="formVideoComment.comment.$error.required && 
-                                                                        !formVideoComment.comment.$pristine">
-                                                {{'requiredErr' |  translate}}
-                                            </div>
-                                        </div>
-                                        <button type="button" ng-disabled="formVideoComment.$invalid"
-                                            ng-click="displayVideoCtrl.submitComment()">{{'PostComment' | translate}}</button>
-
-                                        <button type="button"
-                                            ng-click="displayVideoCtrl.Close()">{{'DiscardBtn' | translate}}</button>
-                                    </form>
-                                </div><!-- end comment_form -->
-                                <div class="comments_area">
-                                    <div class="item" ng-repeat="comment in displayVideoCtrl.commentsList">
-                                        <div class="user_info">
-                                            <!-- <div class="imgthumb"><img src="assets/images/comment_user_image.png"
+                    <button type="button" ng-click="displayVideoCtrl.Close()">
+                      {{'DiscardBtn' | translate}}
+                    </button>
+                  </form>
+                </div>
+                <!-- end comment_form -->
+                <div class="comments_area">
+                  <div
+                    class="item"
+                    ng-repeat="comment in displayVideoCtrl.commentsList"
+                  >
+                    <div class="user_info">
+                      <!-- <div class="imgthumb"><img src="assets/images/comment_user_image.png"
                                                     alt="#"></div> -->
-                                            <div class="details">
-                                                <!-- <span>{{comment.judge.fullName}}</span> -->
-                                                <p>{{comment.mediaTime}} <a>{{comment.judge.fullName}}</a></p>
-                                            </div><!-- end details -->
-                                        </div><!-- end user_info -->
-                                        <div class="comment_content">
-                                            {{comment.comments}}
-                                        </div><!-- end comment_content -->
-                                    </div><!-- end item -->
-
-                                </div><!-- end comments_area -->
-                            
-                            </div><!-- end item_review -->
-                        </div><!-- end item_tabs_content -->
-
-                    </div><!-- end all_tabs_content -->
-                </div><!-- end tabs_area -->
-
-            </div><!-- end show_content -->
-        </div><!-- end container -->
-    </div><!-- end show_inner_two -->
-
-
-
+                      <div class="details">
+                        <!-- <span>{{comment.judge.fullName}}</span> -->
+                        <p>
+                          {{comment.mediaTime}}
+                          <a>{{comment.judge.fullName}}</a>
+                        </p>
+                      </div>
+                      <!-- end details -->
+                    </div>
+                    <!-- end user_info -->
+                    <div class="comment_content">
+                      {{comment.comments}}
+                    </div>
+                    <!-- end comment_content -->
+                  </div>
+                  <!-- end item -->
+                </div>
+                <!-- end comments_area -->
+              </div>
+              <!-- end item_review -->
+            </div>
+            <!-- end item_tabs_content -->
+          </div>
+          <!-- end all_tabs_content -->
+        </div>
+        <!-- end tabs_area -->
+      </div>
+      <!-- end show_content -->
+    </div>
+    <!-- end container -->
+  </div>
+  <!-- end show_inner_two -->
 </section>

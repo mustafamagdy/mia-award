@@ -68,6 +68,8 @@ namespace MIA.Administration.Api {
     public string ProductionLicenseAgency { get; set; }
 
     public JudgeArtworkScoreViewDto[] Scores { get; set; }
+    //just for UI don't use
+    public int LevelNumber { get; set; }
 
   }
 
@@ -77,6 +79,7 @@ namespace MIA.Administration.Api {
     public string JudgeId { get; set; }
     public string FullName { get; set; }
     public JudgeLevel Level { get; set; }
+    public int LevelNumber { get; set; }
     public decimal Score { get; set; }
     public decimal ScoreTotal { get; set; }
     public decimal Percentage { get; set; }
@@ -90,5 +93,10 @@ namespace MIA.Administration.Api {
 
   public class ArtworkWithFilesAndScoresDto : ArtworkWithFilesDto {
     public JudgeArtworkScoreViewDto[] Scores { get; set; }
+  }
+
+  public class ArtworkMinimumDto {
+    public string Id { get; set; }
+    public LocalizedData ProjectName { get; set; }
   }
 }
