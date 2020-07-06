@@ -155,14 +155,14 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("getArtWorkFiles")]
-    public async Task<IActionResult> GetArtWorkFilesAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> GetArtWorkFilesAsync([FromQuery(Name = "judgeId")] string id, [FromServices] IAppUnitOfWork db) {
       var artWorkItem = db.MediaFiles.Where(a => a.ArtWorkId == id).ToList();
       var returnMediaList = _mapper.Map<List<MediaFileDto>>(artWorkItem);
       return IfFound(returnMediaList);
     }
 
-    [HttpGet("{id}/withFiles")]
-    public async Task<IActionResult> GetArtworkWithFiles([FromRoute(Name = "id")] string id,
+    [HttpGet("{judgeId}/withFiles")]
+    public async Task<IActionResult> GetArtworkWithFiles([FromRoute(Name = "judgeId")] string id,
       [FromServices] IAppUnitOfWork db) {
       var item = await db.Artworks
                     .Include(a => a.MediaFiles)
@@ -172,8 +172,10 @@ namespace MIA.Administration.Api {
       return IfFound(returnMediaList);
     }
 
-    [HttpGet("{id}/withFiles-and-score")]
-    public async Task<IActionResult> GetArtworkWithFilesAndScore([FromRoute(Name = "id")] string id,
+    [HttpGet("{judgeId}/withFiles-and-score/{level}")]
+    public async Task<IActionResult> GetArtworkWithFilesAndScore(
+      [FromRoute(Name = "judgeId")] string id,
+      [FromRoute(Name = "level")] int level,
       [FromServices] IAppUnitOfWork db,
       [FromServices] IUserResolver userResolver
       ) {
@@ -185,20 +187,21 @@ namespace MIA.Administration.Api {
       var item = await db.Artworks
                       .Include(a => a.FinalScores)
                       .Include(a => a.MediaFiles)
+                      .AsNoTracking()
                       .FirstOrDefaultAsync(a => a.Id == id);
 
-      item.FinalScores = item.FinalScores.Where(x => x.JudgeId == userId).ToHashSet();
+      item.FinalScores = item.FinalScores.Where(x => x.JudgeId == userId && x.Level == (JudgeLevel)level).ToHashSet();
       var result = _mapper.Map<ArtworkWithFilesAndScoresDto>(item);
       return IfFound(result);
     }
 
     [HttpGet("getMediaFile")]
-    public async Task<IActionResult> GetMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> GetMediaFileAsync([FromQuery(Name = "judgeId")] string id, [FromServices] IAppUnitOfWork db) {
       var artWorkItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id == id);
       return IfFound(_mapper.Map<MediaFile>(artWorkItem));
     }
     [HttpDelete("deleteMediaItem")]
-    public async Task<IActionResult> DeleteMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> DeleteMediaFileAsync([FromQuery(Name = "judgeId")] string id, [FromServices] IAppUnitOfWork db) {
       var entity = db.Set<MediaFile>().FirstOrDefault(a => a.Id == id);
       if (entity == null)
         throw new ApiException(ApiErrorType.NotFound, "record not found");
@@ -295,7 +298,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("getPayment")]
-    public async Task<IActionResult> GetPaymentAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> GetPaymentAsync([FromQuery(Name = "judgeId")] string id, [FromServices] IAppUnitOfWork db) {
       var artWorkItem = await db.ArtworkPayments.FirstOrDefaultAsync(a => a.ArtworkId == id);
       if (artWorkItem == null) {
         return IfFound(_mapper.Map<ArtWorkPaymentDto>(new ArtworkPayment()));
@@ -326,41 +329,77 @@ namespace MIA.Administration.Api {
 
     }
 
-    [HttpPost("getJudgeArtWorks")]
-    public async Task<IActionResult> GetJudgeArtWorksAsync(
-      [FromQuery(Name = "id")] string id,
+    [HttpPost("artwork-statistics")]
+    public async Task<IActionResult> ArtworkStatistics(
+      [FromBody] ArtworkStatisticsFilter dto,
       [FromServices] IUserResolver userResolver,
       [FromServices] IAppUnitOfWork db) {
-      var userId = (await userResolver.CurrentUserAsync())?.Id;
+      //var userId = (await userResolver.CurrentUserAsync())?.Id;
+      var allArtworks = db.Artworks
+                          .Include(a => a.FinalScores)
+                          .Where(a => a.UploadComplete);
 
-      var level1Artworks = new List<ArtworkForJudgingDto>();
-      var judgeAwardForLevel1 = await db.JudgeAwards.Where(a => a.JudgeId == id && a.Level == JudgeLevel.Level1).ToListAsync();
-      foreach (var award in judgeAwardForLevel1) {
-        var artWork = await db.Artworks
-                              .IncludeFilter(a => a.FinalScores.Where(a => a.JudgeId == id))
-                              .Where(a => a.AwardId == award.AwardId && a.UploadComplete && a.IllegibleForJudge == null)
-                              .ToListAsync();
-        if (artWork != null)
-          level1Artworks.AddRange(_mapper.Map<List<ArtworkForJudgingDto>>(artWork));
+      if (!string.IsNullOrEmpty(dto.AwardId)) {
+        allArtworks = allArtworks.Where(a => a.AwardId == dto.AwardId);
       }
 
-      var level2Artworks = new List<ArtworkForJudgingDto>();
-      var judgeAwardForLevel2 = await db.JudgeAwards.Where(a => a.JudgeId == id && a.Level == JudgeLevel.Level2).ToListAsync();
-      foreach (var award in judgeAwardForLevel2) {
-        var artWork = await db.Artworks
-                              .IncludeFilter(a => a.FinalScores.Where(a => a.JudgeId == id))
-                              .Where(a => a.AwardId == award.AwardId && a.UploadComplete && a.IllegibleForJudge == true)
-                              .ToListAsync();
-        if (artWork != null)
-          level2Artworks.AddRange(_mapper.Map<List<ArtworkForJudgingDto>>(artWork));
+      var query = await allArtworks.AsNoTracking().ToPagedListAsync(dto);
+
+      var result = query.Select(a => new {
+        Artwork = _mapper.Map<ArtworkMinimumDto>(a),
+        Level1 = new {
+          Avg = a.FinalScores.Where(x => x.Level == JudgeLevel.Level1).DefaultIfEmpty().Average(x => x.Percentage),
+          Min = a.FinalScores.Where(x => x.Level == JudgeLevel.Level1).DefaultIfEmpty().Min(x => x.Percentage),
+          Max = a.FinalScores.Where(x => x.Level == JudgeLevel.Level1).DefaultIfEmpty().Max(x => x.Percentage),
+        },
+        Level2 = new {
+          Avg = a.FinalScores.Where(x => x.Level == JudgeLevel.Level2).DefaultIfEmpty().Average(x => x.Percentage),
+          Min = a.FinalScores.Where(x => x.Level == JudgeLevel.Level2).DefaultIfEmpty().Min(x => x.Percentage),
+          Max = a.FinalScores.Where(x => x.Level == JudgeLevel.Level2).DefaultIfEmpty().Max(x => x.Percentage),
+        }
+      }).ToPagedList(dto);
+
+      return IfFound(result);
+    }
+
+    [HttpGet("artworks-for-dropdown")]
+    public async Task<IActionResult> ArtworksForDropdown(
+      [FromServices] IAppUnitOfWork db) {
+      var artworks = await db.Artworks.Where(a => a.UploadComplete).ProjectTo<ArtworkMinimumDto>(_mapper.ConfigurationProvider).ToArrayAsync();
+      return IfFound(artworks);
+    }
+
+    [HttpGet("artwork-score-detail/{artworkId}/{level?}")]
+    public async Task<IActionResult> ArtworkScoreDetails(
+          [FromRoute(Name = "artworkId")] string artworkId,
+          [FromRoute(Name = "level")] int? level,
+          [FromServices] IUserResolver userResolver,
+          [FromServices] IOptions<AdminOptions> adminOptions,
+          [FromServices] IAppUnitOfWork db) {
+      //var userId = (await userResolver.CurrentUserAsync())?.Id;
+
+      var artwork = await db.Artworks
+                            .Include(a => a.Votes)
+                            .ThenInclude(a => a.Criteria)
+                            .AsNoTracking()
+                            .FirstOrDefaultAsync(a => a.Id == artworkId);
+      if (level != null) {
+        artwork.Votes = artwork.Votes.Where(a => a.Criteria.Level == (JudgeLevel)level).ToHashSet();
       }
 
+      var votes = artwork.Votes
+                        .Select(a => new CriteriaVoteWithValue {
+                          Weight = a.Criteria.Weight,
+                          CriteriaName = a.Criteria.Name,
+                          LevelNumber = (int)a.Criteria.Level,
+                          VotedValue = a.VotingValue,
+                          WeightedValue = a.Criteria.Weight * (a.VotingValue / 10.0m)
+                        })
+                        .ToArray();
 
-      return IfFound(new {
-        Level1Artworks = level1Artworks.OrderBy(a => a.Scores.Length).ThenBy(a => a.Id).ToArray(),
-        Level2Artworks = level2Artworks.OrderBy(a => a.Scores.Length).ThenBy(a => a.Id).ToArray(),
-      });
-
+      var _artwork = _mapper.Map<ArtworkVotingDetails>(artwork);
+      _artwork.Votes = votes;
+      return IfFound(_artwork);
     }
 
     [HttpPut("UpdateTrailerVideoUrl")]
@@ -374,7 +413,7 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<ArtWorkDto>(artWork));
     }
 
-    [HttpPost("artwork/{id}/files")]
+    [HttpPost("artwork/{judgeId}/files")]
     public async Task<IActionResult> UploadArtworkFiles(
       [FromRoute] string id,
       [FromServices] IAppUnitOfWork db,
@@ -403,7 +442,7 @@ namespace MIA.Administration.Api {
       }
     }
 
-    [HttpPost("{id}/allow-file-upload")]
+    [HttpPost("{judgeId}/allow-file-upload")]
     [HasPermission(Permissions.ArtworkAllowFileUpload)]
     public async Task<IActionResult> AllowFileUpload(
       [FromRoute] string id,

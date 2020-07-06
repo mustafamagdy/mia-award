@@ -50,13 +50,58 @@
 
                 })
                 .state('artWorkDetails', {
-                    url: '/artWorkDetails/:id',
+                    url: '/artWorkDetails/:id/:level',
                     templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/artworkdetails.html',
                     controller: 'judgeArtWorkDetailsController',
                     'controllerAs': 'judgeArtWorkDetailsCtrl',
                     resolve: {
                         // ArtWorkWithFilesByIdPrepService: ArtWorkWithFilesByIdPrepService,
                         ArtWorkWithFilesAndScoresByIdPrepService: ArtWorkWithFilesAndScoresByIdPrepService,
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('my-dashboard', {
+                    url: '/my-dashboard',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/judge-dashboard.html',
+                    controller: 'judgeDashboardController',
+                    'controllerAs': 'ctrl',
+                    resolve: {
+                        JudgeDashboardPrepService: JudgeDashboardPrepService,
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('artwork-statistics', {
+                    url: '/artwork-statistics',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/artwork-statistics.html',
+                    controller: 'artworkStatisticsController',
+                    'controllerAs': 'ctrl',
+                    resolve: {
+                        ArtworkStatisticsPrepService: ArtworkStatisticsPrepService,
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('artwork-votes', {
+                    url: '/artwork-votes',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/artwork-vote-details.html',
+                    controller: 'artworkVoteDetailsController',
+                    'controllerAs': 'ctrl',
+                    resolve: {
+                       
                     },
                     data: {
                         permissions: {
@@ -99,7 +144,17 @@
     }
     ArtWorkWithFilesAndScoresByIdPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
     function ArtWorkWithFilesAndScoresByIdPrepService(JudgeArtWorkResource, $stateParams) {
-        return JudgeArtWorkResource.getArtWorkWithFilesAndScore({ id: $stateParams.id }).$promise;
+        return JudgeArtWorkResource.getArtWorkWithFilesAndScore({ id: $stateParams.id, level: $stateParams.level }).$promise;
+    }
+    
+    JudgeDashboardPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
+    function JudgeDashboardPrepService(JudgeArtWorkResource, $stateParams) {
+        return JudgeArtWorkResource.getMyStatistics({  }).$promise;
+    }
+
+    ArtworkStatisticsPrepService.$inject = ['JudgeArtWorkResource', '$stateParams']
+    function ArtworkStatisticsPrepService(JudgeArtWorkResource, $stateParams) {
+        return JudgeArtWorkResource.getArtworkStatistics({pageSize: 10, pageNumber:1 }).$promise;
     }
 
     ArtWorkMediaByArtWorkIdPrepService.$inject = ['ArtWorkResource', '$stateParams']

@@ -165,8 +165,15 @@ namespace MIA.Administration.MappingProfiles {
         .ForMember(a => a.Scores, cfg => cfg.MapFrom(a => a.FinalScores))
         .ForMember(a => a.AwardId, cfg => cfg.MapFrom(a => a.AwardId))
         .ForMember(a => a.AwardName, cfg => cfg.MapFrom(a => a.Award.Title))
+        .ForMember(a => a.LevelNumber, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None)
             .IncludeAllDerived();
+
+      CreateMap<Artwork, ArtworkVotingDetails>()
+        .ForMember(a => a.Votes, cfg => cfg.Ignore())
+        .ValidateMemberList(MemberList.None);
+
+
 
       CreateMap<JudgeArtworkScore, JudgeArtworkScoreViewDto>()
         .ForMember(a => a.FullName, cfg => cfg.MapFrom(a => a.Judge.FullName))
@@ -185,6 +192,8 @@ namespace MIA.Administration.MappingProfiles {
              .IncludeBase<Artwork, ArtworkWithFilesDto>()
              .ValidateMemberList(MemberList.None);
 
+      CreateMap<Artwork, ArtworkMinimumDto>()
+        .ValidateMemberList(MemberList.None);
 
       CreateMap<NewArtWorkDto, Artwork>().ValidateMemberList(MemberList.None)
           .ForMember(a => a.ProjectName, cfg => cfg.MapFrom(a => a.ProjectName))
@@ -211,6 +220,9 @@ namespace MIA.Administration.MappingProfiles {
       CreateMap<NewAwardDto, Award>().ValidateMemberList(MemberList.None);
 
       CreateMap<UpdateAwardDto, Award>()
+        .ValidateMemberList(MemberList.None);
+
+      CreateMap<Award, AwardMinimumDto>()
         .ValidateMemberList(MemberList.None);
 
       #endregion

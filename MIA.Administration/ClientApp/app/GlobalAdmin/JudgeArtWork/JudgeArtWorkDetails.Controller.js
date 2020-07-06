@@ -40,16 +40,15 @@
     vm.showMediaList = true;
     vm.showCriteriaList = false;
     vm.JudgeArtWork = ArtWorkWithFilesAndScoresByIdPrepService;
-    vm.artWorkLevel = 0;
+    vm.artWorkLevel = $stateParams.level || 0;
 
-    if (vm.JudgeArtWork.illegibleForJudge == true) {
-      vm.artWorkLevel = 1;
-    }
+    // if (vm.JudgeArtWork.illegibleForJudge == true) {
+    //   vm.artWorkLevel = 1;
+    // }
 
     vm.judgingFinished = isJudgingFinished();
 
     function isJudgingFinished() {
-      debugger;
       return (
         vm.JudgeArtWork.scores &&
         vm.JudgeArtWork.scores.length > 0 &&
@@ -153,6 +152,7 @@
       updateObj.JudgeId = $scope.user.id;
       updateObj.CriteriaValues = vm.votingCriteriaList;
       updateObj.$update().then(
+        
         function (data, status) {
           ToastService.show(
             "right",

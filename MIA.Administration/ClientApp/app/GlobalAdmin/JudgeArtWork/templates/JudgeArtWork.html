@@ -1,69 +1,170 @@
-
 <style>
-    .shows_items {
-        display: flex;
-        flex-direction: column;
-    }
-    .level_title {
-        font-size: 20px;
-        margin: 0px;
-        text-align: left;
-    }
+  .shows_items {
+    display: flex;
+    flex-direction: column;
+  }
+  .level_title {
+    font-size: 20px;
+    margin: 0px;
+    text-align: left;
+  }
 </style>
+
 <div id="recent_shows">
   <div class="container">
-    <div ng-if="level1Artworks.length == 0" class="empty-item">
-      <span>{{'NoJudgeArtWorksAvailableForLevel1' | translate}}</span>
-    </div>
-    <div ng-if="level2Artworks.length == 0" class="empty-item">
-      <span>{{'NoJudgeArtWorksAvailableForLevel2' | translate}}</span>
-    </div>
+    <ul class="tabs">
+      <li
+        class="tab-item"
+        ng-repeat="tab in JudgeArtWorkCtrl.tabs"
+        ng-click="JudgeArtWorkCtrl.setActiveTab(tab)"
+      >
+        {{tab|translate}}
+      </li>
+    </ul>
+    <div
+      class="tab-content-item"
+      ng-if="JudgeArtWorkCtrl.selectedTab == 'remaining'"
+    >
+      <div ng-if="remaining_level1Artworks.length == 0" class="empty-item">
+        <span>{{'NoJudgeArtWorksAvailableForLevel1' | translate}}</span>
+      </div>
+      <div ng-if="remaining_level2Artworks.length == 0" class="empty-item">
+        <span>{{'NoJudgeArtWorksAvailableForLevel2' | translate}}</span>
+      </div>
 
-    <div class="shows_items" ng-if="level1Artworks.length > 0">
-      <div class="level_title">{{'Level1Artworks' | translate}}</div>
-      <div class="items">
-        <div class="item" ng-repeat="JudgeArtWork in level1Artworks">
-          <div class="imgthumb">
-            <a
-              ng-click="$state.go('artWorkDetails',{id: JudgeArtWork.id});"
-              title="{{JudgeArtWork.projectName[selectedLanguage]}}"
-            >
-              <img ng-src="{{JudgeArtWorkCtrl.getPosterUrl(JudgeArtWork)}}" />
-              <div class="mask">
-                <div class="content">
-                  <p>
-                    {{JudgeArtWork.projectName[selectedLanguage] | limitTo :
-                    50}} {{JudgeArtWork.projectName[selectedLanguage].length >
-                    50 ? '...' : ''}}
-                  </p>
+      <div class="shows_items" ng-if="remaining_level1Artworks.length > 0">
+        <div class="level_title">
+          {{'remaining_level1Artworks' | translate}}
+        </div>
+        <div class="items">
+          <div
+            class="item"
+            ng-repeat="JudgeArtWork in remaining_level1Artworks"
+          >
+            <div class="imgthumb">
+              <a
+                ng-click="$state.go('artWorkDetails',{id: JudgeArtWork.id, level: JudgeArtWork.levelNumber});"
+                title="{{JudgeArtWork.projectName[selectedLanguage]}}"
+              >
+                <img
+                  ng-src="{{JudgeArtWorkCtrl.getPosterUrl(JudgeArtWork)}}"
+                  style="object-fit: cover;"
+                />
+                <div class="mask">
+                  <div class="content">
+                    <p>
+                      {{JudgeArtWork.projectName[selectedLanguage] | limitTo :
+                      50}} {{JudgeArtWork.projectName[selectedLanguage].length >
+                      50 ? '...' : ''}}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="shows_items" ng-if="remaining_level2Artworks.length > 0">
+        <div class="level_title">
+          {{'remaining_level2Artworks' | translate}}
+        </div>
+        <div class="items">
+          <div
+            class="item"
+            ng-repeat="JudgeArtWork in remaining_level2Artworks"
+          >
+            <div class="imgthumb">
+              <a
+                ng-click="$state.go('artWorkDetails',{id: JudgeArtWork.id, level: JudgeArtWork.levelNumber});"
+                title="{{JudgeArtWork.projectName[selectedLanguage]}}"
+              >
+                <img
+                  ng-src="{{JudgeArtWorkCtrl.getPosterUrl(JudgeArtWork)}}"
+                  style="object-fit: cover;"
+                />
+                <div class="mask">
+                  <div class="content">
+                    <p>
+                      {{JudgeArtWork.projectName[selectedLanguage] | limitTo :
+                      50}} {{JudgeArtWork.projectName[selectedLanguage].length >
+                      50 ? '...' : ''}}
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div
+      class="tab-content-item"
+      ng-if="JudgeArtWorkCtrl.selectedTab == 'done'"
+    >
+      <div ng-if="done_level1Artworks.length == 0" class="empty-item">
+        <span>{{'NoJudgeArtWorksAvailableForLevel1' | translate}}</span>
+      </div>
+      <div ng-if="done_level2Artworks.length == 0" class="empty-item">
+        <span>{{'NoJudgeArtWorksAvailableForLevel2' | translate}}</span>
+      </div>
 
-    <div class="shows_items" ng-if="level2Artworks.length > 0">
-      <div class="level_title">{{'Level2Artworks' | translate}}</div>
-      <div class="items">
-        <div class="item" ng-repeat="JudgeArtWork in level2Artworks">
-          <div class="imgthumb">
-            <a
-              ng-click="$state.go('artWorkDetails',{id: JudgeArtWork.id});"
-              title="{{JudgeArtWork.projectName[selectedLanguage]}}"
-            >
-              <img ng-src="{{JudgeArtWorkCtrl.getPosterUrl(JudgeArtWork)}}" />
-              <div class="mask">
-                <div class="content">
-                  <p>
-                    {{JudgeArtWork.projectName[selectedLanguage] | limitTo :
-                    50}} {{JudgeArtWork.projectName[selectedLanguage].length >
-                    50 ? '...' : ''}}
-                  </p>
+      <div class="shows_items" ng-if="done_level1Artworks.length > 0">
+        <div class="level_title">
+          {{'done_level1Artworks' | translate}}
+        </div>
+        <div class="items">
+          <div class="item" ng-repeat="JudgeArtWork in done_level1Artworks">
+            <div class="imgthumb">
+              <a
+                ng-click="$state.go('artWorkDetails',{id: JudgeArtWork.id, level: JudgeArtWork.levelNumber});"
+                title="{{JudgeArtWork.projectName[selectedLanguage]}}"
+              >
+                <img
+                  ng-src="{{JudgeArtWorkCtrl.getPosterUrl(JudgeArtWork)}}"
+                  style="object-fit: cover;"
+                />
+                <div class="mask">
+                  <div class="content">
+                    <p>
+                      {{JudgeArtWork.projectName[selectedLanguage] | limitTo :
+                      50}} {{JudgeArtWork.projectName[selectedLanguage].length >
+                      50 ? '...' : ''}}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="shows_items" ng-if="done_level2Artworks.length > 0">
+        <div class="level_title">
+          {{'done_level2Artworks' | translate}}
+        </div>
+        <div class="items">
+          <div class="item" ng-repeat="JudgeArtWork in done_level2Artworks">
+            <div class="imgthumb">
+              <a
+                ng-click="$state.go('artWorkDetails',{id: JudgeArtWork.id, level: JudgeArtWork.levelNumber});"
+                title="{{JudgeArtWork.projectName[selectedLanguage]}}"
+              >
+                <img
+                  ng-src="{{JudgeArtWorkCtrl.getPosterUrl(JudgeArtWork)}}"
+                  style="object-fit: cover;"
+                />
+                <div class="mask">
+                  <div class="content">
+                    <p>
+                      {{JudgeArtWork.projectName[selectedLanguage] | limitTo :
+                      50}} {{JudgeArtWork.projectName[selectedLanguage].length >
+                      50 ? '...' : ''}}
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
