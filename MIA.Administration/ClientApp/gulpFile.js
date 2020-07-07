@@ -47,6 +47,7 @@ var paths = {
     // "./app/core/core.constants.js",
     "./app/core/app.routes.js",
     "./app/core/confirmPassword.directive.js",
+    "./app/core/numbersOnly.directive.js",
     "./app/core/translateProvider.js",
     "./app/core/ToastService.factory.js",
     "./app/core/GlobalAdmin/*.js",

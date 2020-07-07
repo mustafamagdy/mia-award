@@ -162,7 +162,8 @@
         var user = authorizationService.getUser();
         var authorize = false;
         if (transition._targetState._identifier.self != undefined) {
-          if (transition._targetState._identifier.self.data.permissions.only != undefined) {
+          if (transition._targetState._identifier.self.data != undefined &&
+             transition._targetState._identifier.self.data.permissions.only != undefined) {
             transition._targetState._identifier.self.data.permissions.only.forEach(function(element) {
               if (user.PermissionId.includes(element.toString())) authorize = true;
             }, this);

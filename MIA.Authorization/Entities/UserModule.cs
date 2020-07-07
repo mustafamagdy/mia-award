@@ -20,6 +20,6 @@ namespace MIA.Authorization.Entities {
     [MaxLength(100)]
     public string UserId { get; private set; }
 
-    public SystemModules AllowedModules { get; private set; }
+    public SystemModules AllowedModules { get; set; }
   }
 }
