@@ -168,7 +168,11 @@ namespace MIA.Administration.Api
       }
       else
       {
-
+        var moduleAttribute = permission.GetAttribute<PermissionDescriptorAttribute>();
+        role.Permissions += (char)permission;
+        if (moduleAttribute != null) {
+          await UpdateUserModuleForRole(role, moduleAttribute.SystemModule, db, false);
+        }
       }
 
       return Ok(role);

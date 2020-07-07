@@ -1,0 +1,77 @@
+<div class="modal-content">
+  <div class="modal-header bordered">
+    <h2 class="pmd-card-title-text">{{'booth_purchase_details' | translate}}</h2>
+  </div>
+  <div class="modal-body">
+    <ul>
+      <li>
+        <span>{{'companyName' | translate}}</span>
+        <p>{{boothPaymentCtrl.boothPayment.companyName}}</p>
+      </li>
+      <li>
+        <span>{{'contactName' | translate}}</span>
+        <p>{{boothPaymentCtrl.boothPayment.contactPersonName}}</p>
+      </li>
+      <li>
+        <span>{{'phone1' | translate}}</span>
+        <p>{{boothPaymentCtrl.boothPayment.cellPhone1}}</p>
+      </li>
+      <li>
+        <span>{{'phone2' | translate}}</span>
+        <p>{{boothPaymentCtrl.boothPayment.cellPhone2}}</p>
+      </li>
+      <li>
+        <span>{{'email' | translate}}</span>
+        <p>{{boothPaymentCtrl.boothPayment.email}}</p>
+      </li>
+      <li>
+        <span>{{'nationality' | translate}}</span>
+        <p>{{boothPaymentCtrl.boothPayment.nationality}}</p>
+      </li>
+      <li>
+        <span>{{'extraDetails' | translate}}</span>
+        <p>{{boothPaymentCtrl.boothPayment.extraDetails}}</p>
+      <li>
+        <span>{{'websiteUrl' | translate}}</span>
+        <p>{{boothPaymentCtrl.boothPayment.websiteUrl}}</p>
+      </li>
+      <li>
+        <span>{{'address' | translate}}</span>
+        <p>{{boothPaymentCtrl.boothPayment.address}}</p>
+      </li>
+      <li>
+        <span>{{'screen_option' | translate}}</span>
+        <p>
+          {{(boothPaymentCtrl.boothPayment.screenOption?'yes':'no')|translate}}
+        </p>
+      </li>
+      <li>
+        <span>{{'printing_option' | translate}}</span>
+        <p>
+          {{(boothPaymentCtrl.boothPayment.printingOption?'yes':'no')|translate}}
+        </p>
+      </li>
+      <li>
+        <span>{{'company_Logo' | translate}}</span>
+        <a
+          href="{{boothPaymentCtrl.boothPayment.companyLogo.fileUrl}}"
+          ng-if="boothPaymentCtrl.boothPayment.companyLogo.fileUrl!=''"
+        >
+          {{'download'|translate}}
+        </a>
+
+        <span ng-if="boothPaymentCtrl.boothPayment.companyLogo.fileUrl==''"
+          >{{'no_logo'|translate}}</span
+        >
+      </li>
+    </ul>
+
+    <button
+      class="btn pmd-ripple-effect btn-default"
+      type="button"
+      ng-click="boothPaymentCtrl.close()"
+    >
+      {{'closeBtn' | translate}}
+    </button>
+  </div>
+</div>

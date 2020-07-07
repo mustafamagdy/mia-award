@@ -80,6 +80,21 @@
                     }
 
                 })
+                .state('my-judges', {
+                    url: '/my-judges',
+                    templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/my-judges.html',
+                    controller: 'myJudgesController',
+                    'controllerAs': 'ctrl',
+                    resolve: {
+                        // myAwardJudgesWorkPrepService: myAwardJudgesWorkPrepService,
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
                 .state('artwork-statistics', {
                     url: '/artwork-statistics',
                     templateUrl: './app/GlobalAdmin/JudgeArtWork/templates/artwork-statistics.html',

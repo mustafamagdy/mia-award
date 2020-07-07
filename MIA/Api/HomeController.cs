@@ -219,9 +219,10 @@ namespace MIA.Api {
     private async Task<BoothPayment> SaveUserPaymentAsync(IS3FileManager fileManager, IAppUnitOfWork db, Booth booth, string purchaseId, BoothPurchaseDto dto) {
       var payment = new BoothPayment();
       payment.BoothPurchaseId = purchaseId;
-      payment.Amount = booth.Price;
+      payment.Amount = dto.Payment.ReceiptAmount;
       payment.PaymentStatus = Models.Entities.PaymentStatus.Waiting;
       payment.PaymentDate = DateTimeOffset.Now.ToUnixTimeSeconds();
+      payment.TransactionNumber = dto.Payment.ReceiptNumber;
 
       await db.BoothPayments.AddAsync(payment);
 

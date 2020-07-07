@@ -58,4 +58,18 @@ namespace MIA.Administration.Api {
 
     public CriteriaVoteWithValue[] Votes { get; set; }
   }
+
+  public class JudgeStatisticsDto
+  {
+    public string JudgeId { get; set; }
+    public string JudgeFullName { get; set; }
+    public ArtworkStatisticsTotalDto Totals { get; set; }
+    public ArtworkStatisticsTotalDto Remaining { get; set; }
+  }
+
+  public class ArtworkStatisticsTotalDto
+  {
+    public int Level1Artworks { get; set; }
+    public int Level2Artworks { get; set; }
+  }
 }
