@@ -105,7 +105,7 @@
     function addUserToRole(role, userId) {
       var newRole = new RoleResource();
       newRole.$addUserToRole({ roleName: role, userId: userId }).then(
-        function (data, status) {},
+        function (data, status) { },
         function (data, status) {
           blockUI.stop();
           ToastService.show("right", "bottom", "fadeInUp", data, "error");

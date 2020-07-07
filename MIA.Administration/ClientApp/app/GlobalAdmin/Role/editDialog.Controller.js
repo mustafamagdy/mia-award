@@ -46,7 +46,7 @@
         function addPermissionToRole(permId) {
             blockUI.start("Loading...");
             var updateObj = new RoleResource();
-
+debugger;
             updateObj.$addPermissionToRole({ roleName: vm.name, permissionId: permId }).then(
                 function (data, status) {
                     blockUI.stop();

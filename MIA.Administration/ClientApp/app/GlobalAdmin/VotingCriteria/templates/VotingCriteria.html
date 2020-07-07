@@ -15,9 +15,9 @@
 
             <div class="form-group col-lg-4"> <label for="first-name">{{'Award' | translate}}</label>
                 <select required style="width:100% !important;color:#6c7293!important;"
-                    class="form-control select-with-search pmd-select2-tags" ng-model="VotingCriteriaCtrl.selectedRole"
-                    ng-change="VotingCriteriaCtrl.changeUserType()"
-                    ng-options="group as group.name  for group in VotingCriteriaCtrl.roleList">
+                    class="form-control select-with-search pmd-select2-tags" ng-model="VotingCriteriaCtrl.selectedAward"
+                    ng-change="VotingCriteriaCtrl.changeAward()"
+                    ng-options="group as group.title[selectedLanguage]  for group in VotingCriteriaCtrl.awardList">
                 </select>
             </div>
         </div>
@@ -59,8 +59,7 @@
                                 class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('editVotingCriteria',{id: VotingCriteria.id});"
                                 title="Edit">mode_edit</i>
-                            <i ng-show="user.PermessionModules['News'].includes('remove')"
-                                class="material-icons pmd-md deleteButton cursorPointer font25"
+                            <i class="material-icons pmd-md deleteButton cursorPointer font25"
                                 ng-click="VotingCriteriaCtrl.openDeleteDialog(VotingCriteria,VotingCriteria.name[selectedLanguage] ,VotingCriteria.id)"
                                 title="Delete">delete</i>
                         </td>

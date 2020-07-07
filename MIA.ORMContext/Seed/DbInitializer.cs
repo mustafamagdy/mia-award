@@ -453,10 +453,10 @@ namespace MIA.ORMContext.Seed {
         Permissions.NewsRead,
         Permissions.NewsAddNew,
         Permissions.NewsRemove,
-        Permissions.AddUserToRole,
-        Permissions.ReadRolePermissions,
-        Permissions.RemoveUserFromRole,
-        Permissions.RemoveUserFromRole,
+        //Permissions.AddUserToRole,
+        //Permissions.ReadRolePermissions,
+        //Permissions.RemoveUserFromRole,
+        //Permissions.RemoveUserFromRole,
       };
 
       demoPermissions.ForEach(m => {
@@ -481,7 +481,7 @@ namespace MIA.ORMContext.Seed {
           await userManager.AddToRoleAsync(demoUser, PredefinedRoles.Demo.ToString());
 
           //add allowed modules (this is an example only)
-          var allowedModules = new SystemModules[] { SystemModules.News, SystemModules.Adminstration };
+          var allowedModules = new SystemModules[] {  SystemModules.Adminstration };
           var modules = allowedModules[0];
           for (int i = 1; i < allowedModules.Length; i++) {
             modules |= allowedModules[i];

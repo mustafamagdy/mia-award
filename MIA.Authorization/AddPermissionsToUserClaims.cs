@@ -36,13 +36,20 @@ namespace MIA.Authorization {
           ?? new UserModule(user.Id, SystemModules.Dashboard))
           .AllowedModules.ToString()).Split(","));
 
+      //var xxallRolePermissions = _extraAuthDbContext.Roles
+      //  .Where(x => roles.Contains(x.Name))
+      //  .Where(a=>a.Permissions != null)
+      //  .SelectMany(x => x.PermissionsInRole.DefaultIfEmpty())
+      //  .AsEnumerable()
+      //  .Select(a => _mapper.Map<PermissionDto>(a)).ToList();
+
       var allRolePermissions = _extraAuthDbContext.Roles
         .Where(x => roles.Contains(x.Name))
         .SelectMany(x => x.PermissionsInRole)
         .AsEnumerable()
         .Select(a => _mapper.Map<PermissionDto>(a));
 
-      var roleGroupedPermissions = allRolePermissions
+      var roleGroupedPermissions = allRolePermissions 
         .GroupBy(a => a.SystemModule)
         .ToDictionary(a => a.Key, b => b.Select(a => string.Join('_', a.Name.ToLower().Split(' '))).ToArray());
 

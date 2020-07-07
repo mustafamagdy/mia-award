@@ -45,7 +45,7 @@
             <div class="row">
 
                 <div class="col-md-6  form-group   pmd-textfield-floating-label-completed">
-                    <label for="first-name">{{'Search' | translate}}</label>
+                    <label for="first-name">{{'search' | translate}}</label>
                     <input class="mat-input form-control" name="search" ng-model="searchText">
                     <!-- <select required style="width:100% !important" multiple
                         class="form-control select-with-search pmd-select2-tags" ng-model="editRoleCtrl.selectedModule"
@@ -75,20 +75,20 @@
                                                 ng-click="editRoleCtrl.selectAllPermission($event.target.checked)"
                                                 id="selectAllPermission"> -->
                                         </th>
-                                        <th style="width: 30%">{{'Name' | translate}}</th>
                                         <th style="width: 20%">{{'Module' | translate}}</th>
-                                        <th style="width: 50%">{{'Description' | translate}}</th>
+                                        <th style="width: 30%">{{'Description' | translate}}</th>
+                                        <!-- <th style="width: 50%">{{'Description' | translate}}</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr
-                                        ng-repeat="perm in editRoleCtrl.newSelectedPermissions | filter : {'name':searchText}">
+                                        ng-repeat="perm in editRoleCtrl.newSelectedPermissions | filter : {'description':searchText}">
                                         <td> <input type="checkbox" id="perm-{{perm.id}}" value="perm" name="perm"
                                                 ng-change="editRoleCtrl.selectPermission(perm)"
                                                 ng-model="perm.isSelected" id="perm.id"></td>
-
-                                        <td>{{perm.name}}</td>
                                         <td>{{perm.systemModule}}</td>
+
+                                        <!-- <td>{{perm.name}}</td> -->
                                         <td>{{perm.description}}</td>
                                     </tr>
                                 </tbody>

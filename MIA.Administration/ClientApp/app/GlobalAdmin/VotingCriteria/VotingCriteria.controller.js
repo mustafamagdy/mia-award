@@ -3,11 +3,11 @@
 
     angular
         .module('home')
-        .controller('VotingCriteriaController', ['appCONSTANTS', '$scope', '$translate', 'VotingCriteriaResource', 'blockUI', '$uibModal',
+        .controller('VotingCriteriaController', ['appCONSTANTS', '$scope', 'ArtWorkResource', 'VotingCriteriaResource', 'blockUI', '$uibModal',
             'ToastService', VotingCriteriaController]);
 
 
-    function VotingCriteriaController(appCONSTANTS, $scope, $translate, VotingCriteriaResource, blockUI, $uibModal, ToastService) {
+    function VotingCriteriaController(appCONSTANTS, $scope, ArtWorkResource, VotingCriteriaResource, blockUI, $uibModal, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         var vm = this;
@@ -16,6 +16,7 @@
         vm.appCONSTANTS = appCONSTANTS;
 
         refreshVotingCriterias();
+        refreshAwards();
         function refreshVotingCriterias() {
             blockUI.start("Loading...");
 
@@ -30,43 +31,46 @@
                     // ToastService.show("right", "bottom", "fadeInUp", data.data.errorMessage, "error");
                 });
         }
-        vm.showMore = function (element) {
-            $(element.currentTarget).toggleClass("child-table-collapse");
-        }
 
-        function confirmationDelete(model) {
-            var updateObj = new VotingCriteriaResource();
-            updateObj.$delete({ id: model.id }).then(
-                function (data, status) {
-                    refreshVotingCriterias();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        }
 
         vm.changePage = function (page) {
             vm.currentPage = page;
             refreshVotingCriterias();
         }
+        vm.changeAward = function () {
+            refreshVotingCriteriaByAward()
+        }
+        function refreshVotingCriteriaByAward() {
+            blockUI.start("Loading...");
+            var k = VotingCriteriaResource.getVotingCriteriaByAward({ id: vm.selectedAward.id, pageNumber: 1, pageSize: 10 }).$promise.then(function (results) {
+                $scope.VotingCriteriaList = results.items;
+                $scope.totalCount = results.metadata.totalItemCount;
+                console.log(vm.VotingCriteriaList);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    debugger;
+                    blockUI.stop();
+                    $scope.VotingCriteriaList = [];
+                    $scope.totalCount = 0;
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.errorMessage, "error");
+                });
+        }
+        function refreshAwards() {
+            var k = ArtWorkResource.getAllAwards({ pageNumber: 1, pageSize: 10 }).$promise.then(function (results) {
 
+                vm.awardList = results.items;
+                vm.totalCount = results.metadata.totalItemCount;
+                vm.selectedAward = vm.awardList[0];
+                console.log(vm.awardList);
+                blockUI.stop();
+
+            },
+                function (data, status) {
+
+                    blockUI.stop();
+                });
+        }
     }
 
 })();
