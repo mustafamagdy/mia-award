@@ -119,7 +119,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                               className="react-player"
                               width="100%"
                               height="100%"
-                              light="https://picsum.photos/200/300"
+                              light={s.posterUrl||"https://picsum.photos/200/300"}
                             />
                             <div className="zoom_image">
                               <span>
@@ -172,7 +172,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                           className="react-player"
                           width="100%"
                           height="100%"
-                          light="https://picsum.photos/200/300"
+                          light={p.posterUrl||"https://picsum.photos/200/300"}
                         />
                       )}
                     </span>

@@ -60,7 +60,7 @@
             var updateObj = new PhotoAlbumResource();
             updateObj.id = model.id;
             updateObj.featured = (model.featured == true ? false : true);
-            updateObj.$updateMediaItem().then(
+            updateObj.$toggleFeatured().then(
                 function (data, status) {
                     //  refreshMediaItems();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
