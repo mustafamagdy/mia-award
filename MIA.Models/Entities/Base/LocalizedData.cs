@@ -42,10 +42,10 @@ namespace MIA.Models.Entities {
     }
 
     public string InEnglish() {
-      return this[English];
+      return this.ContainsKey(English) ? this[English] : "";
     }
     public string InArabic() {
-      return this[Arabic];
+      return this.ContainsKey(Arabic) ? this[Arabic] : "";
     }
 
     public bool Equals(LocalizedData other) {

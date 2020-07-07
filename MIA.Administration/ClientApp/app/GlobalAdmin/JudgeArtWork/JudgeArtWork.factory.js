@@ -10,6 +10,7 @@
             getJudgeArtWork: { method: 'GET', useToken: true },
             delete: { method: 'DELETE', useToken: true },
             getJudgeArtWorks: { method: 'POST', url: appCONSTANTS.API_URL + 'judgeVote/my-artworks', useToken: true },
+            myAwardJudgesWork: { method: 'POST', url: appCONSTANTS.API_URL + 'judgeVote/my-judges', isArray: true,useToken: true },
             getMyStatistics: { method: 'POST', url: appCONSTANTS.API_URL + 'judgeVote/my-statistics', useToken: true },
             getJudgeAwards: { method: 'POST', url: appCONSTANTS.API_URL + 'judgeVote/my-awards', isArray: true, useToken: true },
             getArtworkStatistics: { method: 'POST', url: appCONSTANTS.API_URL + 'artWorks/artwork-statistics', useToken: true },

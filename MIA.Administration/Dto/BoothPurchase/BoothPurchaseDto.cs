@@ -6,15 +6,25 @@ namespace MIA.Administration.Api
   public class BoothPurchaseDto
   {
     public string Id { get; set; }
-    public BoothsDto Booth { get; set; }
-    public string BoothId { get; set; }
-
-    public string ContactName { get; set; }
-    public string Phone1 { get; set; }
-    public string Phone2 { get; set; }
+    public string CompanyName { get; set; }
+    public string Nationality { get; set; }
+    public string Address { get; set; }
+    public string Phone { get; set; }
+    public string Fax { get; set; }
+    public string WebsiteUrl { get; set; }
+    public string ContactPersonName { get; set; }
+    public string ContactPersonTitle { get; set; }
+    public string CellPhone1 { get; set; }
+    public string CellPhone2 { get; set; }
     public string Email { get; set; }
-    public string EmailVerified { get; set; }
-    public PurchaseStatus Status { get; set; }
+
+    public string ExtraDetails { get; set; }
+    public string CompanyFieldOfBusiness { get; set; }
+
+    public bool ScreenOption { get; set; }
+    public bool PrintingOption { get; set; }
+
+    public S3File CompanyLogo { get; set; }
 
     public BoothPaymentDto Payment { get; set; }
     public string PaymentId { get; set; }

@@ -396,8 +396,8 @@ namespace MIA.ORMContext.Seed {
         };
 
         //avoid adding files again
-        //if (db.AlbumItems.FirstOrDefault(a => a.Title != null && a.Title.InEnglish() == item.Title.InEnglish()) != null)
-        //  continue;
+        if (db.AlbumItems.FirstOrDefault(a => a.Title != null && a.Title.InEnglish() == item.Title.InEnglish()) != null)
+          continue;
 
         await db.AlbumItems.AddAsync(item);
         await db.CommitTransactionAsync();

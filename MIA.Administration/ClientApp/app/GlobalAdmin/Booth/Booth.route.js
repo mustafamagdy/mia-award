@@ -61,6 +61,21 @@
                     }
 
                 })
+                .state('boothPurchase', {
+                    url: '/boothPurchase/:id',
+                    templateUrl: './app/GlobalAdmin/Booth/templates/purchase.html',
+                    controller: 'boothPaymentDialogController',
+                    'controllerAs': 'boothPaymentCtrl',
+                    resolve: {
+                        BoothPaymentByBoothIdPrepService: BoothPaymentByBoothIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
 
                 .state('newBoothPayment', {
                     url: '/newBoothPayment/:id',

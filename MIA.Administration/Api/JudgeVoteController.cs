@@ -208,9 +208,9 @@ namespace MIA.Administration.Api {
       [FromBody] JudgeStatisticsFilter dto,
       [FromServices] IUserResolver userResolver,
       [FromServices] IAppUnitOfWork db) {
-      var userId = (await userResolver.CurrentUserAsync())?.Id;
+      var judgeId = (await userResolver.CurrentUserAsync())?.Id;
 
-      var judgeAwards = await db.JudgeAwards.Where(a => a.JudgeId == userId).ToListAsync();
+      var judgeAwards = await db.JudgeAwards.Where(a => a.JudgeId == judgeId).ToListAsync();
       var judgeAwardForLevel1 = new List<JudgeAward>();
       var judgeAwardForLevel2 = new List<JudgeAward>();
 
@@ -232,26 +232,26 @@ namespace MIA.Administration.Api {
 
       var remaining_level1Artworks = new List<ArtworkForJudgingDto>();
       foreach (var award in judgeAwardForLevel1) {
-        var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, userId, JudgeLevel.Level1, false);
+        var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, judgeId, JudgeLevel.Level1, false);
         remaining_level1Artworks.AddRange(result);
       }
 
       var remaining_level2Artworks = new List<ArtworkForJudgingDto>();
       foreach (var award in judgeAwardForLevel2) {
-        var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, userId, JudgeLevel.Level2, false);
+        var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, judgeId, JudgeLevel.Level2, false);
         remaining_level2Artworks.AddRange(result);
       }
 
 
       var done_level1Artworks = new List<ArtworkForJudgingDto>();
       foreach (var award in judgeAwardForLevel1) {
-        var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, userId, JudgeLevel.Level1, true);
+        var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, judgeId, JudgeLevel.Level1, true);
         done_level1Artworks.AddRange(result);
       }
 
       var done_level2Artworks = new List<ArtworkForJudgingDto>();
       foreach (var award in judgeAwardForLevel2) {
-        var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, userId, JudgeLevel.Level2, true);
+        var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, judgeId, JudgeLevel.Level2, true);
         done_level2Artworks.AddRange(result);
       }
 
@@ -268,6 +268,79 @@ namespace MIA.Administration.Api {
 
     }
 
+
+    [HttpPost("my-judges")]
+    public async Task<IActionResult> MyJudges(
+     [FromBody] JudgeStatisticsFilter dto,
+     [FromServices] IUserResolver userResolver,
+     [FromServices] IAppUnitOfWork db) {
+      var managerId = (await userResolver.CurrentUserAsync())?.Id;
+      var myAward = await db.Awards.FindAsync(dto.AwardId);
+      if (myAward == null || myAward.ManagerId != managerId) {
+        throw new ApiException(ApiErrorType.NotFound, "record not found");
+      }
+      var judgeAwards = await db.JudgeAwards.Include(a => a.Judge).Where(a => a.AwardId == myAward.Id).ToListAsync();
+      var resultList = new List<JudgeStatisticsDto>();
+      var query = await judgeAwards.DefaultIfEmpty().GroupBy(a => a.Judge).ToListAsync();
+      foreach (var judgeWork in query) {
+        var judgeAwardForLevel1 = new List<JudgeAward>();
+        var judgeAwardForLevel2 = new List<JudgeAward>();
+
+        if (dto.Level.HasValue) {
+          if (dto.Level.Value == JudgeLevel.Level1) {
+            judgeAwardForLevel1 = judgeAwards.Where(a => a.Level == JudgeLevel.Level1).ToList();
+          } else if (dto.Level.Value == JudgeLevel.Level2) {
+            judgeAwardForLevel2 = judgeAwards.Where(a => a.Level == JudgeLevel.Level2).ToList();
+          }
+        } else {
+          judgeAwardForLevel1 = judgeAwards.Where(a => a.Level == JudgeLevel.Level1).ToList();
+          judgeAwardForLevel2 = judgeAwards.Where(a => a.Level == JudgeLevel.Level2).ToList();
+        }
+
+
+        var remaining_level1Artworks = new List<ArtworkForJudgingDto>();
+        foreach (var award in judgeAwardForLevel1) {
+          var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, managerId, JudgeLevel.Level1, false);
+          remaining_level1Artworks.AddRange(result);
+        }
+
+        var remaining_level2Artworks = new List<ArtworkForJudgingDto>();
+        foreach (var award in judgeAwardForLevel2) {
+          var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, managerId, JudgeLevel.Level2, false);
+          remaining_level2Artworks.AddRange(result);
+        }
+
+
+        var done_level1Artworks = new List<ArtworkForJudgingDto>();
+        foreach (var award in judgeAwardForLevel1) {
+          var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, managerId, JudgeLevel.Level1, true);
+          done_level1Artworks.AddRange(result);
+        }
+
+        var done_level2Artworks = new List<ArtworkForJudgingDto>();
+        foreach (var award in judgeAwardForLevel2) {
+          var result = await GetArtworksForJudgeAndLevel(db, award.AwardId, managerId, JudgeLevel.Level2, true);
+          done_level2Artworks.AddRange(result);
+        }
+
+        resultList.Add(new JudgeStatisticsDto {
+          JudgeId = judgeWork.Key.Id,
+          JudgeFullName = judgeWork.Key.FullName,
+          Totals = new ArtworkStatisticsTotalDto {
+            Level1Artworks = remaining_level1Artworks.Count + done_level1Artworks.Count,
+            Level2Artworks = remaining_level2Artworks.Count + done_level2Artworks.Count
+          },
+          Remaining = new ArtworkStatisticsTotalDto {
+            Level1Artworks = remaining_level1Artworks.Count,
+            Level2Artworks = remaining_level2Artworks.Count,
+          }
+        });
+      }
+
+
+      return IfFound(resultList);
+
+    }
 
     [HttpGet("getCommetsListByMedia")]
     public async Task<IActionResult> GetCommetsListByMediaAsync(string id, [FromServices] IAppUnitOfWork db) {

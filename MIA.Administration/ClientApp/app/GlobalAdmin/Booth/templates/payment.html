@@ -1,146 +1,238 @@
 <div class="modal-content">
-    <div class="modal-header bordered">
-        <h2 class="pmd-card-title-text"> {{'update' | translate}} </h2>
-    </div>
-    <div class="modal-body">
-        <table class="table pmd-table table-hover">
-            <thead>
-                <tr>
-                    <th>{{'contactName' | translate}}</th>
-                    <th>{{'phone1' | translate}}</th>
-                    <th>{{'email' | translate}}</th>
-                    <th>{{'status' | translate}}</th>
-                    <th>{{'date' | translate}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-
-                    <td style="width: 10px">{{boothPaymentCtrl.boothPayment.contactName}}</td>
-                    <td style="width: 10px">{{boothPaymentCtrl.boothPayment.phone1}} -
-                        {{boothPaymentCtrl.boothPayment.phone2}}</td>
-                    <td style="width: 10px">{{boothPaymentCtrl.boothPayment.email}}</td>
-                    <td style="width: 10px">{{boothPaymentCtrl.boothPayment.payment.paymentStatus}}</td>
-                    <td style="width: 10px">{{boothPaymentCtrl.boothPayment.payment.paymentDate | date:'MM/dd/yyyy'}}
-                    </td>
-
-                </tr>
-            </tbody>
-        </table>
-        <hr>
-        <form class="form-horizontal" name="boothPaymentForm">
-            <div class="row">
-                <div class="form-group col-lg-2">
-                    <label for="first-name">{{'Amount' | translate}}</label>
-                    <input required type="text" class="mat-input form-control" name="Amount" numbers-only
-                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
-                        ng-model="boothPaymentCtrl.boothPayment.payment.amount" required />
-                    <div ng-messages="boothPaymentForm.Amount.$error">
-                        <div class="error" ng-if="boothPaymentForm.Amount.$error.required && 
-                                        !boothPaymentForm.Amount.$pristine">
-                            {{'requiredErr' |  translate}}
-                        </div>
-                        <!-- length validation -->
-                        <div class="error" ng-if="(boothPaymentForm.Amount.$error.minlength ||
+  <div class="modal-header bordered">
+    <h2 class="pmd-card-title-text">{{'update' | translate}}</h2>
+  </div>
+  <div class="modal-body">
+    <table class="table pmd-table table-hover">
+      <thead>
+        <tr>
+          <th>{{'companyName' | translate}}</th>
+          <th>{{'contactName' | translate}}</th>
+          <th>{{'phone1' | translate}}</th>
+          <th>{{'email' | translate}}</th>
+          <th>{{'status' | translate}}</th>
+          <th>{{'date' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="width: 10px;">
+            {{boothPaymentCtrl.boothPayment.companyName}}
+          </td>
+          <td style="width: 10px;">
+            {{boothPaymentCtrl.boothPayment.contactPersonName}}
+          </td>
+          <td style="width: 10px;">
+            {{boothPaymentCtrl.boothPayment.cellPhone1}} -
+            {{boothPaymentCtrl.boothPayment.cellPhone2}}
+          </td>
+          <td style="width: 10px;">{{boothPaymentCtrl.boothPayment.email}}</td>
+          <td style="width: 10px;">
+            {{boothPaymentCtrl.boothPayment.payment.paymentStatus}}
+          </td>
+          <td style="width: 10px;">
+            {{boothPaymentCtrl.boothPayment.payment.paymentDate |
+            date:'MM/dd/yyyy'}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
+    <form class="form-horizontal" name="boothPaymentForm">
+      <div class="row">
+        <div class="form-group col-lg-2">
+          <label for="first-name">{{'Amount' | translate}}</label>
+          <input
+            required
+            type="text"
+            class="mat-input form-control"
+            name="Amount"
+            numbers-only
+            style="display: inline-block;"
+            ng-minlength="1"
+            ng-maxlength="4"
+            ng-model="boothPaymentCtrl.boothPayment.payment.amount"
+            required
+          />
+          <div ng-messages="boothPaymentForm.Amount.$error">
+            <div
+              class="error"
+              ng-if="boothPaymentForm.Amount.$error.required && 
+                                        !boothPaymentForm.Amount.$pristine"
+            >
+              {{'requiredErr' | translate}}
+            </div>
+            <!-- length validation -->
+            <div
+              class="error"
+              ng-if="(boothPaymentForm.Amount.$error.minlength ||
                                             boothPaymentForm.Amount.$error.maxlength) 
-                                             && !boothPaymentForm.Amount.newAmount.$error.required">
-                            {{'PhoneLengthError' |  translate}}
-                        </div>
-                    </div>
-                </div>
+                                             && !boothPaymentForm.Amount.newAmount.$error.required"
+            >
+              {{'PhoneLengthError' | translate}}
+            </div>
+          </div>
+        </div>
 
-                <div class="form-group col-lg-3">
-                    <label><span style="color:red">*</span> {{'TransactionNumber' | translate}}</label>
-                    <input type="text" class="form-control" name="TransactionNumber" style="display: inline-block; "
-                        ng-model="boothPaymentCtrl.boothPayment.payment.transactionNumber" required />
-                    <div class="error" ng-messages="boothPaymentForm.TransactionNumber.$error">
-                        <div ng-if="boothPaymentForm.TransactionNumber.$error.required && 
-                            !boothPaymentForm.TransactionNumber.$pristine">{{'requiredErr' | translate}}</div>
-                    </div>
-                </div>
+        <div class="form-group col-lg-3">
+          <label
+            ><span style="color: red;">*</span> {{'TransactionNumber' |
+            translate}}</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="TransactionNumber"
+            style="display: inline-block;"
+            ng-model="boothPaymentCtrl.boothPayment.payment.transactionNumber"
+            required
+          />
+          <div
+            class="error"
+            ng-messages="boothPaymentForm.TransactionNumber.$error"
+          >
+            <div
+              ng-if="boothPaymentForm.TransactionNumber.$error.required && 
+                            !boothPaymentForm.TransactionNumber.$pristine"
+            >
+              {{'requiredErr' | translate}}
+            </div>
+          </div>
+        </div>
 
-                <div class="form-group col-lg-3">
-                    <label><span style="color:red">*</span> {{'PaymentDate' | translate}}</label>
+        <div class="form-group col-lg-3">
+          <label
+            ><span style="color: red;">*</span> {{'PaymentDate' |
+            translate}}</label
+          >
 
-                    <input name="itemDatetime" ng-model="itemDatetime" type="text" id="paymentDate" class="form-control"
-                        ng-change="dateChange();" />
-                    <div ng-messages="boothPaymentForm.paymentDate.$error">
-                        <div
-                            ng-if="boothPaymentForm.paymentDate.$error.required && !boothPaymentForm.paymentDate.$pristine">
-                            {{'paymentDateReqError' | translate}}</div>
-                        <div
-                            ng-if="(boothPaymentForm.paymentDate.$error.minlength || boothPaymentForm.paymentDate.$error.maxlength)">
-                            {{'paymentDateLengthError' | translate}}</div>
-                    </div>
-                    <!-- 
+          <input
+            name="itemDatetime"
+            ng-model="itemDatetime"
+            type="text"
+            id="paymentDate"
+            class="form-control"
+            ng-change="dateChange();"
+          />
+          <div ng-messages="boothPaymentForm.paymentDate.$error">
+            <div
+              ng-if="boothPaymentForm.paymentDate.$error.required && !boothPaymentForm.paymentDate.$pristine"
+            >
+              {{'paymentDateReqError' | translate}}
+            </div>
+            <div
+              ng-if="(boothPaymentForm.paymentDate.$error.minlength || boothPaymentForm.paymentDate.$error.maxlength)"
+            >
+              {{'paymentDateLengthError' | translate}}
+            </div>
+          </div>
+          <!-- 
                         <input type="text" class="form-control" name="PaymentDate" style="display: inline-block; "
                             ng-model="boothPaymentCtrl.PaymentDate" required /> -->
-                    <div class="error" ng-messages="boothPaymentForm.PaymentDate.$error">
-                        <div ng-if="boothPaymentForm.PaymentDate.$error.required && 
-                            !boothPaymentForm.PaymentDate.$pristine">{{'requiredErr' | translate}}</div>
-                    </div>
-                </div>
-
-                <div class="form-group col-lg-4">
-
-                    <div class="form-group col-lg-4">
-                        <label for="first-name">{{'status' | translate}}</label>
-                        <select required style="width:100% !important"
-                            class="form-control select-with-search pmd-select2-tags"
-                            ng-model="boothPaymentCtrl.selectedStatus"
-                            ng-options="group as group.shortName  for group in boothPaymentCtrl.statusList">
-                        </select>
-                    </div>
-                </div>
+          <div class="error" ng-messages="boothPaymentForm.PaymentDate.$error">
+            <div
+              ng-if="boothPaymentForm.PaymentDate.$error.required && 
+                            !boothPaymentForm.PaymentDate.$pristine"
+            >
+              {{'requiredErr' | translate}}
             </div>
-            <div class="row">
+          </div>
+        </div>
 
-                <div class="form-group col-lg-4">
-                    <span style="color:red">*</span>
+        <div class="form-group col-lg-4">
+          <div class="form-group col-lg-4">
+            <label for="first-name">{{'status' | translate}}</label>
+            <select
+              required
+              style="width: 100% !important;"
+              class="form-control select-with-search pmd-select2-tags"
+              ng-model="boothPaymentCtrl.selectedStatus"
+              ng-options="group as group.shortName  for group in boothPaymentCtrl.statusList"
+            >
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-lg-4">
+          <span style="color: red;">*</span>
 
-                    <input id="receiptImage" name="receiptImage" style="display: none;"
-                        onchange="angular.element(this).scope().AddreceiptImage(this.files)" type="file">
-                    <button class="btn btn-success btn-xs pull-center"
-                        ng-click="boothPaymentCtrl.LoadUploadreceipt()">{{'Upload Receipt' | translate}}</button>
-                    <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
-                        {{'RecommendedProductImage' | translate}}</span>
-                    <img ng-src="{{boothPaymentCtrl.receiptImage}}" style="max-height: 139px;max-width: 423px;">
-                    <div ng-messages="boothPaymentForm.receiptImage.$error">
-                        <div ng-if="boothPaymentForm.receiptImage.$error.required">{{'requiredErr' | translate}}
-                        </div>
-                    </div>
-                </div>
+          <input
+            id="receiptImage"
+            name="receiptImage"
+            style="display: none;"
+            onchange="angular.element(this).scope().AddreceiptImage(this.files)"
+            type="file"
+          />
+          <button
+            class="btn btn-success btn-xs pull-center"
+            ng-click="boothPaymentCtrl.LoadUploadreceipt()"
+          >
+            {{'Upload Receipt' | translate}}
+          </button>
+          <span>
+            <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+            {{'RecommendedProductImage' | translate}}</span
+          >
+          <a href="{{boothPaymentCtrl.receiptImage}}" target="_blank"
+            ><img
+              ng-src="{{boothPaymentCtrl.receiptImage}}"
+              style="max-height: 300px; max-width: 700px;"
+          /></a>
+          <div ng-messages="boothPaymentForm.receiptImage.$error">
+            <div ng-if="boothPaymentForm.receiptImage.$error.required">
+              {{'requiredErr' | translate}}
             </div>
-            <div class="pmd-modal-action text-right"> 
-                <button ng-show="boothPaymentCtrl.boothPayment != null"
-                    style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-                    ng-disabled="boothPaymentForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
-                    ng-click="boothPaymentCtrl.UpdatePayment()">{{'saveChangesBtn' | translate}}</button>
-                <button class="btn pmd-ripple-effect btn-default" type="button"
-                    ng-click="boothPaymentCtrl.close()">{{'DiscardBtn' | translate}}</button>
-            </div>
-        </form>
-    </div>
-
+          </div>
+        </div>
+      </div>
+      <div class="pmd-modal-action text-right">
+        <button
+          ng-show="boothPaymentCtrl.boothPayment != null"
+          style="
+            border: #494b74 solid 1px;
+            background-color: transparent;
+            color: #494b74;
+            border-radius: 6px;
+          "
+          ng-disabled="boothPaymentForm.$invalid"
+          class="btn pmd-ripple-effect btn-primary"
+          type="button"
+          ng-click="boothPaymentCtrl.UpdatePayment()"
+        >
+          {{'saveChangesBtn' | translate}}
+        </button>
+        <button
+          class="btn pmd-ripple-effect btn-default"
+          type="button"
+          ng-click="boothPaymentCtrl.close()"
+        >
+          {{'DiscardBtn' | translate}}
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $(".select-add-tags").select2({
-            tags: true,
-            theme: "bootstrap",
-        });
-
-        var today = new Date();
-        today.setDate(today.getDate() + 1)
-
-        $('#paymentDate').datetimepicker({
-            widgetPositioning: { vertical: "bottom" },
-            minDate: today,
-        })
-            .on('dp.change', function (e) {
-                
-                angular.element(document.getElementById('paymentDate')).scope().dateChange();
-            });
-
+  $(document).ready(function () {
+    $(".select-add-tags").select2({
+      tags: true,
+      theme: "bootstrap",
     });
+
+    var today = new Date();
+    today.setDate(today.getDate() + 1);
+
+    $("#paymentDate")
+      .datetimepicker({
+        widgetPositioning: { vertical: "bottom" },
+        minDate: today,
+      })
+      .on("dp.change", function (e) {
+        angular
+          .element(document.getElementById("paymentDate"))
+          .scope()
+          .dateChange();
+      });
+  });
 </script>
