@@ -220,10 +220,20 @@ namespace MIA.Administration.Api
       var exists = role.Permissions.Contains((char)permission);
       if (exists)
       {
-        role.Permissions = role.Permissions.Remove(role.Permissions.IndexOf((char)permission));
+        role.Permissions = role.Permissions.Remove(role.Permissions.IndexOf((char)permission),1);
         var moduleAttribute = permission.GetAttribute<PermissionDescriptorAttribute>();
         if (moduleAttribute != null) {
-          await UpdateUserModuleForRole(role, moduleAttribute.SystemModule, db, true);
+          var modulePermissions = Enum.GetValues(typeof(Permissions))
+            .Cast<Permissions>()
+            .Where(a => a.GetAttribute<PermissionDescriptorAttribute>() != null 
+                        && a.GetAttribute<PermissionDescriptorAttribute>().SystemModule == moduleAttribute.SystemModule)
+            .ToArray();
+          var unpacked = role.Permissions.UnpackPermissionsFromString();
+          //if this is no permission in this module for this role, remove users from this module
+          if (!unpacked.Intersect(modulePermissions).Any())
+          {
+            await UpdateUserModuleForRole(role, moduleAttribute.SystemModule, db, true);
+          }
         }
       }
 
