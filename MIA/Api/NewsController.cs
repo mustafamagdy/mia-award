@@ -53,8 +53,10 @@ namespace MIA.Api {
 
 
     [HttpGet("categories")]
-    public async Task<IActionResult> Categories() {
-      var categories = Enum.GetNames(typeof(NewsCategory)).Select(a => a.ToLower()).ToArray();
+    public async Task<IActionResult> Categories(
+      [FromServices] IAppUnitOfWork db
+      ) {
+      var categories = await db.News.Select(a => a.Category).Distinct().ToArrayAsync();
       return IfFound(categories);
     }
 

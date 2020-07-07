@@ -6,6 +6,7 @@ namespace MIA.Administration.Api {
     public string Code { get; set; }
     public string Name { get; set; }
     public JudgeLevel Level { get; set; }
+    public int LevelNumber { get; set; }
     public decimal Weight { get; set; }
     public int Order { get; set; }
   }

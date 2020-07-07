@@ -136,7 +136,8 @@ namespace MIA.Administration.Api
     }
     [HttpPost("role/{roleName}/permissions/{permissionId}")]
     //[HasPermission(Permissions.ReadRolePermissions)]
-    public async Task<IActionResult> AddPermissionToRole([FromRoute] string roleName, [FromRoute]short permissionId,
+    public async Task<IActionResult> AddPermissionToRole([FromRoute] string roleName, 
+      [FromRoute]short permissionId,
       [FromServices] IAppUnitOfWork db)
     {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
@@ -150,13 +151,19 @@ namespace MIA.Administration.Api
       {
         throw new ApiException(ApiErrorType.NotFound, "permission not found or not allowed");
       }
+      
       //check if the role doesn't have any permsion
       if (role.Permissions != null)
       {
         var exists = role.Permissions.Contains((char)permission);
         if (!exists)
         {
+          var moduleAttribute = permission.GetAttribute<PermissionDescriptorAttribute>();
           role.Permissions += (char)permission;
+          if (moduleAttribute != null)
+          {
+            await UpdateUserModuleForRole(role, moduleAttribute.SystemModule, db, false);
+          }
         }
       }
       else
@@ -165,6 +172,32 @@ namespace MIA.Administration.Api
       }
 
       return Ok(role);
+    }
+
+    private async Task UpdateUserModuleForRole(AppRole role, SystemModules module, IAppUnitOfWork db,bool remove)
+    {
+      var roleUsers = await db.UserRoles.Where(a => a.RoleId == role.Id).Select(a=>a.UserId).ToArrayAsync();
+      if (roleUsers.Any())
+      {
+        var users = db.Users.Where(a => roleUsers.Contains(a.Id));
+        foreach (var user in users)
+        {
+          var userModule = await db.UserModules.FirstOrDefaultAsync(a => a.UserId == user.Id);
+          if (userModule == null && !remove) {
+            userModule = new UserModule(user.Id, module);
+            await db.UserModules.AddAsync(userModule);
+          }
+          else if (userModule  != null && ((userModule.AllowedModules & module) == 0) && !remove)
+          {
+            //add user to this module
+            userModule.AllowedModules |= module;
+          }
+          else if(userModule != null && remove)
+          {
+            userModule.AllowedModules &= ~module;
+          }
+        }
+      }
     }
 
     [HttpDelete("role/{roleName}/permissions/{permissionId}")]
@@ -177,11 +210,7 @@ namespace MIA.Administration.Api
       {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
-
-      var systemRoles = Enum.GetNames(typeof(PredefinedRoles)).Select(a => a.ToLower());
-      if (systemRoles.Contains(role.Name.ToLower()))
-        throw new ApiException(ApiErrorType.BadRequest, "You cannot remote system roles");
-
+      
       Permissions permission;
       if (!Enum.TryParse(permissionId.ToString(), out permission))
       {
@@ -191,7 +220,21 @@ namespace MIA.Administration.Api
       var exists = role.Permissions.Contains((char)permission);
       if (exists)
       {
-        role.Permissions.Remove(role.Permissions.IndexOf((char)permission));
+        role.Permissions = role.Permissions.Remove(role.Permissions.IndexOf((char)permission),1);
+        var moduleAttribute = permission.GetAttribute<PermissionDescriptorAttribute>();
+        if (moduleAttribute != null) {
+          var modulePermissions = Enum.GetValues(typeof(Permissions))
+            .Cast<Permissions>()
+            .Where(a => a.GetAttribute<PermissionDescriptorAttribute>() != null 
+                        && a.GetAttribute<PermissionDescriptorAttribute>().SystemModule == moduleAttribute.SystemModule)
+            .ToArray();
+          var unpacked = role.Permissions.UnpackPermissionsFromString();
+          //if this is no permission in this module for this role, remove users from this module
+          if (!unpacked.Intersect(modulePermissions).Any())
+          {
+            await UpdateUserModuleForRole(role, moduleAttribute.SystemModule, db, true);
+          }
+        }
       }
 
       return Ok(role);

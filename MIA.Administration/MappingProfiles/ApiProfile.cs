@@ -76,6 +76,7 @@ namespace MIA.Administration.MappingProfiles {
 
       #region VotingCriteria
       CreateMap<VotingCriteria, VotingCriteriasDto>()
+        .ForMember(a => a.LevelNumber, cfg => cfg.MapFrom(a => (int)a.Level))
         .IncludeAllDerived()
         .ValidateMemberList(MemberList.None);
 

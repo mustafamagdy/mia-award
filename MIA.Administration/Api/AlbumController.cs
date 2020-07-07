@@ -25,14 +25,12 @@ using MIA.ORMContext;
 using MIA.Infrastructure;
 using MIA.Exceptions;
 
-namespace MIA.Administration.Api
-{
+namespace MIA.Administration.Api {
 
   //[Authorize]
   [EnableCors(CorsPolicyName.AllowAll)]
   [Route("api/albums")]
-  public class AlbumController : BaseCrudController<Album, PhotoAlbumDto, NewPhotoAlbumDto, UpdatePhotoAlbumDto>
-  {
+  public class AlbumController : BaseCrudController<Album, PhotoAlbumDto, NewPhotoAlbumDto, UpdatePhotoAlbumDto> {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
     private readonly IS3FileManager fileManager;
@@ -44,15 +42,13 @@ namespace MIA.Administration.Api
           IHostingEnvironment env,
           IOptions<UploadLimits> limitOptions,
           IS3FileManager fileManager
-        ) : base(mapper, logger, localize)
-    {
+        ) : base(mapper, logger, localize) {
       this.env = env;
       this.limitOptions = limitOptions;
       this.fileManager = fileManager;
     }
 
-    public override async Task<IActionResult> Search([FromBody] BaseSearchDto dto, [FromServices] IAppUnitOfWork db)
-    {
+    public override async Task<IActionResult> Search([FromBody] BaseSearchDto dto, [FromServices] IAppUnitOfWork db) {
 
       var result = db.Albums
                    .Include(a => a.MediaItems)
@@ -65,8 +61,7 @@ namespace MIA.Administration.Api
 
     public override async Task<IActionResult> SaveNewAsync(
       [FromBody] NewPhotoAlbumDto dto,
-      [FromServices] IAppUnitOfWork db)
-    {
+      [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((PhotoAlbumDto)(result as OkObjectResult)?.Value);
       var album = await db.Albums.FindAsync(resultDto.Id);
@@ -74,34 +69,28 @@ namespace MIA.Administration.Api
       var albumItems = new List<AlbumItem>();
       string posterKey, posterUrl = string.Empty;
       //   string posterKey = string.Empty;
-      foreach (var file in dto.Files)
-      {
+      foreach (var file in dto.Files) {
         if (file != null)//&& file.Length > 0)
         {
-          using (var memorySteam = new MemoryStream(file.Media))
-          {
+          using (var memorySteam = new MemoryStream(file.Media)) {
             string validationError = "";
-            if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
-            {
+            if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
               throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
             }
 
             string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, album.Id, file.MediaFileName);
             var fileUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
-            using (var memorySteamPoster = new MemoryStream(file.Poster))
-            {
+            using (var memorySteamPoster = new MemoryStream(file.Poster)) {
               string validationPosterError = "";
-              if (memorySteamPoster.ValidateImage(limitOptions.Value, out validationPosterError) == false)
-              {
+              if (memorySteamPoster.ValidateImage(limitOptions.Value, out validationPosterError) == false) {
                 throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
               }
 
               posterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, album.Id, file.PosterFileName);
               posterUrl = await fileManager.UploadFileAsync(memorySteamPoster, posterKey);
             };
-            var albumItem = new AlbumItem
-            {
+            var albumItem = new AlbumItem {
               File = S3File.FromKeyAndUrl(fileKey, fileUrl),
               Poster = S3File.FromKeyAndUrl(posterKey, posterUrl),
               MediaType = GetMediaType(file.MediaFileName),
@@ -118,14 +107,12 @@ namespace MIA.Administration.Api
       return IfFound(_mapper.Map<PhotoAlbumDto>(album));
     }
 
-    private MediaType GetMediaType(string fileName)
-    {
+    private MediaType GetMediaType(string fileName) {
       //todo
       return MediaType.Image;
     }
 
-    public override async Task<IActionResult> UpdateAsync([FromBody] UpdatePhotoAlbumDto dto, [FromServices] IAppUnitOfWork db)
-    {
+    public override async Task<IActionResult> UpdateAsync([FromBody] UpdatePhotoAlbumDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((PhotoAlbumDto)(result as OkObjectResult)?.Value);
       var album = await db.Albums
@@ -136,83 +123,73 @@ namespace MIA.Administration.Api
     }
 
     [HttpPost("getMediaItems")]
-    public async Task<IActionResult> GetMediaItemsAsync(  BaseSearchIdDto dto, [FromServices] IAppUnitOfWork db)
-    {
+    public async Task<IActionResult> GetMediaItemsAsync(BaseSearchIdDto dto, [FromServices] IAppUnitOfWork db) {
       var albumItems = db.AlbumItems.Where(a => a.AlbumId == dto.Id).ToList();
       var returnAlbumItems = _mapper.Map<List<PhotoAlbumFileDto>>(albumItems).ToPagedList(dto);
       return IfFound(returnAlbumItems);
 
     }
-    [HttpPost("createMediaItems")]
-    public async Task<IActionResult> CreateMediaItemsAsync([FromBody] NewMediasDto dto, [FromServices] IAppUnitOfWork db)
-    {
-      var mediaItem = db.AlbumItems.Where(a => a.Id == dto.AlbumId);
+    [HttpPost("{albumId}/createMediaItems")]
+    public async Task<IActionResult> CreateMediaItemsAsync(
+      [FromRoute(Name = "albumId")] string albumId,
+      [FromBody] NewMediasDto dto, [FromServices] IAppUnitOfWork db) {
+      var maxOrder = db.AlbumItems.Where(a => a.AlbumId == albumId).DefaultIfEmpty().Max(a => a.Order);
       string filePosterKey = String.Empty;
       var filePosterUrl = "";
-      var maxOrder = mediaItem.DefaultIfEmpty().Max(a => a.Order);
       var albumItem = new AlbumItem();
-      if (dto.Media != null)
-      {
-        using (var memorySteam = new MemoryStream(dto.Media))
-        {
+      dto.MediaFileName = NormalizeFileName(dto.MediaFileName);
+      dto.PosterFileName = NormalizeFileName(dto.PosterFileName);
+
+      if (dto.Media != null) {
+        using (var memorySteam = new MemoryStream(dto.Media)) {
           string validationError = "";
-          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
-          {
+          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
             throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
 
-          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, dto.AlbumId, dto.MediaFileName);
+          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, albumId, dto.MediaFileName);
           var fileUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
-          if (dto.Poster != null)
-          {
-            using (var memorySteamPoster = new MemoryStream(dto.Poster))
-            {
+          if (dto.Poster != null) {
+            using (var memorySteamPoster = new MemoryStream(dto.Poster)) {
               string validationPosterError = "";
-              if (memorySteamPoster.ValidateImage(limitOptions.Value, out validationError) == false)
-              {
+              if (memorySteamPoster.ValidateImage(limitOptions.Value, out validationError) == false) {
                 throw new ApiException(ApiErrorType.BadRequest, validationPosterError.MapTo<ErrorResult>());
               }
 
-              filePosterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, dto.AlbumId, dto.PosterFileName);
+              filePosterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, albumId, dto.PosterFileName);
               filePosterUrl = await fileManager.UploadFileAsync(memorySteamPoster, filePosterKey);
 
             }
           }
 
-          albumItem = new AlbumItem
-          {
+          albumItem = new AlbumItem {
             File = S3File.FromKeyAndUrl(fileKey, fileUrl),
             Poster = S3File.FromKeyAndUrl(filePosterKey, filePosterUrl),
             MediaType = dto.MediaType,
             Featured = dto.Featured,
-            AlbumId = dto.AlbumId,
+            AlbumId = albumId,
             Title = dto.Title,
-            Order = maxOrder
+            Order = ++maxOrder
           };
           db.AlbumItems.Add(albumItem);
 
         };
-      }
-      else
-      {
-        using (var memorySteam = new MemoryStream(dto.Poster))
-        {
+      } else {
+        using (var memorySteam = new MemoryStream(dto.Poster)) {
           string validationError = "";
-          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false)
-          {
+          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
             throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
 
-          filePosterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, dto.AlbumId, dto.PosterFileName);
+          filePosterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, albumId, dto.PosterFileName);
           filePosterUrl = await fileManager.UploadFileAsync(memorySteam, filePosterKey);
 
-          albumItem = new AlbumItem
-          {
+          albumItem = new AlbumItem {
             Poster = S3File.FromKeyAndUrl(filePosterKey, filePosterUrl),
             MediaType = dto.MediaType,
             Featured = dto.Featured,
-            AlbumId = dto.AlbumId,
+            AlbumId = albumId,
             Title = dto.Title,
             Order = maxOrder
           };
@@ -223,9 +200,21 @@ namespace MIA.Administration.Api
       return Ok(albumItem);
 
     }
+
+    private string NormalizeFileName(string filename) {
+      if (string.IsNullOrEmpty(filename)) return "";
+
+      string invalidChars = System.Text.RegularExpressions.Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()));
+      string invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
+
+      var x = System.Text.RegularExpressions.Regex.Replace(filename, invalidRegStr, "_");
+      x = x.Replace(" ", "_");
+
+      return x;
+    }
+
     [HttpDelete("deleteMediaItems")]
-    public async Task<IActionResult> DeleteMediaItemsAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db)
-    {
+    public async Task<IActionResult> DeleteMediaItemsAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
       var entity = db.Set<AlbumItem>().FirstOrDefault(a => a.Id == id);
       if (entity == null)
         throw new ApiException(ApiErrorType.NotFound, "record not found");
@@ -235,8 +224,7 @@ namespace MIA.Administration.Api
 
     }
     [HttpPut("UpdateMediaItem")]
-    public async Task<IActionResult> UpdateMediaItemAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db)
-    {
+    public async Task<IActionResult> UpdateMediaItemAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db) {
       var mediaItem = await db.AlbumItems.FirstOrDefaultAsync(a => a.Id == dto.Id);
       mediaItem.Featured = dto.Featured;
       mediaItem.Title = dto.Title;
@@ -246,9 +234,17 @@ namespace MIA.Administration.Api
       await db.CommitTransactionAsync();
       return IfFound(_mapper.Map<PhotoAlbumFileDto>(mediaItem));
     }
+
+    [HttpPut("toggleFeatured")]
+    public async Task<IActionResult> ToggleFeatured([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db) {
+      var mediaItem = await db.AlbumItems.FirstOrDefaultAsync(a => a.Id == dto.Id);
+      mediaItem.Featured = dto.Featured;
+
+      return IfFound(_mapper.Map<PhotoAlbumFileDto>(mediaItem));
+    }
+
     [HttpPut("UpdateMediaItemVideoUrl")]
-    public async Task<IActionResult> UpdateMediaItemVideoUrlAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db)
-    {
+    public async Task<IActionResult> UpdateMediaItemVideoUrlAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db) {
       var mediaItem = await db.AlbumItems.FirstOrDefaultAsync(a => a.Id == dto.Id);
       mediaItem.File = S3File.FromKeyAndUrl(dto.FileKey, dto.FileUrl);
 
@@ -263,33 +259,25 @@ namespace MIA.Administration.Api
       [FromRoute] string id,
       [FromServices] IAppUnitOfWork db,
       [FromServices] IS3FileManager fileManager,
-      FileChunkDto dto)
-    {
-      try
-      {
-        var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.ArtWork, id);
+      FileChunkDto dto) {
+      try {
+        var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.Album, id);
         var result = await fileManager.UploadChunk(tempDir, dto);
         if (!string.IsNullOrEmpty(result.FinalUrl))
         {
+          var mediaItem = await db.AlbumItems.FindAsync(id);
           //move file to final directory of the artwork files
-          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, id, dto.FileName);
+          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mediaItem.AlbumId, NormalizeFileName(dto.FileName));
           var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
 
-          var mediaFile = new AlbumItem
-          {
-            File = S3File.FromKeyAndUrl(fileKey, fileUrl)
-          };
+          mediaItem.File = S3File.FromKeyAndUrl(fileKey, fileUrl);
 
           //TODO: uncomment 
-          return Ok(mediaFile);
-        }
-        else
-        {
+          return Ok(mediaItem);
+        } else {
           return Ok(result);
         }
-      }
-      catch (Exception ex)
-      {
+      } catch (Exception ex) {
         _logger.LogError(ex, "Failed to upload file");
         throw new ApiException(ApiErrorType.FailedToUploadChunkedFile, $"{ex.Message}");
       }

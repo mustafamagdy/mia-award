@@ -31,5 +31,10 @@
         })
         .constant("userRolesEnum", {
             GlobalAdmin: "GlobalAdmin"
-        });
+        })
+        .constant("uploadOptions", {
+            maxImageFileSizeInMb: 3
+        })
+        
+        ;
 })();

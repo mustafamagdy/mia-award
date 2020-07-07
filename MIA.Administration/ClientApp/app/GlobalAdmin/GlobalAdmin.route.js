@@ -166,6 +166,19 @@
                         }
                     }
                 })
+                .state('test', {
+                    url: '/test-1',
+                    templateUrl: './app/core/ImageCropper/templates/imageCropper.html',
+                    controller: 'imageCropperController',
+                    'controllerAs': 'cropperCtrl',
+                    resolve: {
+                    },
+                    data: {
+                        permissions: {
+                            redirectTo: 'root'
+                        }
+                    }
+                })
         })
 
 

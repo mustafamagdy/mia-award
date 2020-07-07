@@ -18,7 +18,7 @@ namespace MIA.Administration.Api
     public byte[] Media { get; set; }
     public bool Featured { get; set; }
     public MediaType MediaType { get; set; }
-    public string AlbumId { get; set; }
+    //public string AlbumId { get; set; }
     public string PosterFileName { get; set; }
     public byte[] Poster { get; set; }
 
