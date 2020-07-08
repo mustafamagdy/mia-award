@@ -165,7 +165,7 @@
 
                             <div class="form-group col-lg-4">
                                 <span style="color:red">*</span>
-                                <input id="posterImage" name="posterImage" style="display: none;"
+                                <input id="posterImage" name="posterImage" style="display: none;" accept="image/*"
                                     onchange="angular.element(this).scope().AddposterImage(this.files)" type="file"
                                     required>
                                 <button class="btn btn-success btn-xs pull-center"
@@ -182,7 +182,7 @@
                             </div>
                             <div class="form-group col-lg-4">
                                 <span style="color:red">*</span>
-                                <input id="coverImage" name="coverImage" style="display: none;"
+                                <input id="coverImage" name="coverImage" style="display: none;" accept="image/*"
                                     onchange="angular.element(this).scope().AddcoverImage(this.files)" type="file"
                                     required>
                                 <button class="btn btn-success btn-xs pull-center"
@@ -206,7 +206,7 @@
 
                 <div class="bottom_upload">
                     <div class="upload_input">
-                        <input type="file" id="traillerUploder" name="file" style="display: none;"
+                        <input type="file" id="traillerUploder" name="file" style="display: none;" accept="video/*"
                             onchange="angular.element(this).scope().getFileDetails(this)" />
                         <button class="buttonGold"
                             ng-click="editArtWorkCtrl.LoadUploadTrailler()">{{'UploadVideo' | translate}}</button>

@@ -20,7 +20,7 @@
 
 		<button class="btn btn-success btn-xs pull-center" type="button"
 			ng-click="LoadUploadVideo()">{{'Upload Video' | translate}}</button>
-		<input type="file" id="file" style="display: none;" onchange="angular.element(this).scope().uploadVideo()">
+		<input type="file" accept="audio/*,video/*" id="file" style="display: none;" onchange="angular.element(this).scope().uploadVideo()">
 		<br>
 		<div id="dvProgress" class="progress" ng-show="Progress >= 0">
 		</div>
