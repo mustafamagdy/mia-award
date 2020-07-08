@@ -13,6 +13,7 @@
       "appCONSTANTS",
       "$translate",
       "VotingCriteriaResource",
+      "AwardResource",
       "ToastService",
       "VotingCriteriaByIdPrepService",
       editVotingCriteriaDialogController,
@@ -28,19 +29,40 @@
     appCONSTANTS,
     $translate,
     VotingCriteriaResource,
+    AwardResource,
     ToastService,
     VotingCriteriaByIdPrepService
   ) {
     var vm = this;
     vm.language = appCONSTANTS.supportedLanguage;
     vm.VotingCriteria = VotingCriteriaByIdPrepService;
+    vm.awards = [];
+
+    loadAwards();
 
     // vm.selectedVotingLevel = vm.VotingCriteria.level;
     $scope.selectedVotingLevel = vm.VotingCriteria.level;
 
+    function loadAwards() {
+      var k = AwardResource.awardsForDropdown().$promise.then(
+        function (results) {
+          const _empty = {
+            id: "",
+            title: { en: "All awards", ar: "كل الجوائز" },
+          };
+          vm.awards = [_empty, ...results];
+          blockUI.stop();
+        },
+        function (data, status) {
+          blockUI.stop();
+        }
+      );
+    }
+
     vm.Close = function () {
       $state.go("VotingCriteria");
     };
+
     vm.UpdateVotingCriteria = function () {
       blockUI.start("Loading...");
 
@@ -49,7 +71,13 @@
       updateObj.name = vm.VotingCriteria.name;
       updateObj.Code = vm.VotingCriteria.code;
       updateObj.Weight = vm.VotingCriteria.weight;
+      if (vm.VotingCriteria.awardId == "") {
+        updateObj.AwardId = undefined;
+      } else {
+        updateObj.AwardId = vm.VotingCriteria.awardId;
+      }
       updateObj.Level = $scope.selectedVotingLevel;
+
       updateObj.$update().then(
         function (data, status) {
           ToastService.show(

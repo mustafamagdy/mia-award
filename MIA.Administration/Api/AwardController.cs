@@ -134,6 +134,15 @@ namespace MIA.Administration.Api {
       //}
     }
 
+    [HttpPost("for-dropdown")]
+    public async Task<IActionResult> GetAwardsForDropdown(
+      [FromServices] IAppUnitOfWork db) {
+      var awards = await db.Awards
+                          .ProjectTo<AwardMinimumDto>(_mapper.ConfigurationProvider)
+                          .ToListAsync();
+
+      return IfFound(awards);
+    }
 
     [HttpGet("judges")]
     public async Task<IActionResult> ListOfJudges([FromServices] IAppUnitOfWork db) {
