@@ -79,6 +79,30 @@
       </div>
       <div class="row">
         <div class="form-group col-lg-4">
+          <select
+            style="flex: 1; color: #6c7293 !important; width: 100%;"
+            class="form-control select-with-search pmd-select2-tags"
+            name="award"
+            ng-model="editVotingCriteriaCtrl.VotingCriteria.awardId"
+            ng-change="editVotingCriteriaCtrl.selectAward(award)"
+          >
+            <option
+              ng-repeat="award in editVotingCriteriaCtrl.awards"
+              ng-value="award.id"
+              >{{award.title[selectedLanguage]}}</option
+            >
+          </select>
+          <div ng-messages="editVotingCriteriaForm.award.$error">
+            <div
+              class="error"
+              ng-if="editVotingCriteriaForm.award.$error.required && 
+                        !editVotingCriteriaForm.award.$pristine"
+            >
+              {{'requiredErr' | translate}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-lg-4">
           <label>
             <input
               type="radio"
