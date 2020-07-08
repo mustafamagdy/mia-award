@@ -1,6 +1,6 @@
 <div>
 
-    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes('News.add_new')">
+    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes('Adminstration.add_artwork')">
         <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
         border-radius: 17px;" ng-click="$state.go('newArtWork');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
             type="button">
@@ -57,7 +57,7 @@
                             </span>
                         </td>
                         <td width="30%">
-                            <i ng-show="user.PermessionModules.includes('News.add_new')"
+                            <i ng-show="user.PermessionModules.includes('Adminstration.edit_artwork')"
                                 class="material-icons md-dark pmd-md perm_media font25"
                                 ng-click="$state.go('editArtWork',{id: ArtWork.id});" title="Edit">mode_edit</i>
 

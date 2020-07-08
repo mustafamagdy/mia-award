@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
 
-            <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes('News.add_new')">
+            <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes('Adminstration.add_voting')">
                 <!-- <div id="bold"> {{'AddNewVotingCriteriaBtn'| translate}} </div> -->
                 <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
         border-radius: 17px;" ng-click="$state.go('newVotingCriteria');"
@@ -55,11 +55,12 @@
                             {{VotingCriteria.level}}
                         </td>
                         <td width="30%">
-                            <i ng-show="user.PermessionModules.includes('News.add_new')"
+                            <i ng-show="user.PermessionModules.includes('Adminstration.edit_voting')"
                                 class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('editVotingCriteria',{id: VotingCriteria.id});"
                                 title="Edit">mode_edit</i>
-                            <i class="material-icons pmd-md deleteButton cursorPointer font25"
+                            <i ng-show="user.PermessionModules.includes('Adminstration.remove_voting')"
+                                class="material-icons pmd-md deleteButton cursorPointer font25"
                                 ng-click="VotingCriteriaCtrl.openDeleteDialog(VotingCriteria,VotingCriteria.name[selectedLanguage] ,VotingCriteria.id)"
                                 title="Delete">delete</i>
                         </td>

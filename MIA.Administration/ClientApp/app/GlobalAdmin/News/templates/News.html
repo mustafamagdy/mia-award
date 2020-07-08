@@ -1,5 +1,5 @@
 <div>
-    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes('News.add_new')">
+    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes('Adminstration.add_news')">
         <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
         border-radius: 17px;" ng-click="$state.go('newNews');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
             type="button">
@@ -30,7 +30,7 @@
                             {{News.title[selectedLanguage].length > 20 ? '...' : ''}}
                         </td>
                         <td ng-show="!News.outdated">
-                            <div ng-if="user.PermessionModules['News'].includes('view')==true">
+                            <div ng-if="user.PermessionModules.includes('Adminstration.change_news_staus')">
                                 <div class="btn-switch" ng-class="{'btn-switch--on':News.outdated}"
                                     ng-model="News.outdated" ng-click="NewsCtrl.ChangeStatus(News)">
 
@@ -49,10 +49,10 @@
                                 </div>
                         </td>
                         <td width="30%">
-                            <i ng-show="user.PermessionModules.includes('News.add_new')"
+                            <i ng-show="user.PermessionModules.includes('News.edit_news')"
                                 class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('editNews',{id: News.id});" title="Edit">mode_edit</i>
-                            <i ng-show="user.PermessionModules['News'].includes('remove')"
+                            <i ng-show="user.PermessionModules.includes('News.remove_news')"
                                 class="material-icons pmd-md deleteButton cursorPointer font25"
                                 ng-click="NewsCtrl.openDeleteDialog(News,News.title[selectedLanguage] ,News.id)"
                                 title="Delete">delete</i>

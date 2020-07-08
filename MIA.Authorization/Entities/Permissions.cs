@@ -17,7 +17,7 @@ namespace MIA.Authorization.Entities
     NewsRemove = 3,
     [PermissionDescriptor(SystemModules.Adminstration, "edit_news", "edit news")]
     NewsEdit = 4,
-    [PermissionDescriptor(SystemModules.Adminstration, "change_news_staus", "change new status")]
+    [PermissionDescriptor(SystemModules.Adminstration, "change_news_staus", "change news status")]
     NewsChangeStauts = 5,
 
 
@@ -30,7 +30,7 @@ namespace MIA.Authorization.Entities
     VotingRemove = 8,
     [PermissionDescriptor(SystemModules.Adminstration, "edit_voting", "edit voting")]
     VotingEdit = 9,
-    [PermissionDescriptor(SystemModules.Adminstration, "change_voting_staus", "change new status")]
+    [PermissionDescriptor(SystemModules.Adminstration, "change_voting_staus", "change voting status")]
     VotingChangeStauts = 10,
 
     [PermissionDescriptor(SystemModules.Adminstration, "view_roles", "Can read roles")]
@@ -49,6 +49,16 @@ namespace MIA.Authorization.Entities
     //RemoveUserFromRole,
     //[PermissionDescriptor(SystemModules.Adminstration, "add_user_to_role", "Can read employees data")]
     //AddUserToRole,
+
+    //User
+    [PermissionDescriptor(SystemModules.Adminstration, "view_user", "Can read user criteria")]
+    ReadUser ,
+    [PermissionDescriptor(SystemModules.Adminstration, "add_user", "add a new user")]
+    UserAddNew  ,
+    [PermissionDescriptor(SystemModules.Adminstration, "remove_user", "remove user")]
+    UserRemove ,
+    [PermissionDescriptor(SystemModules.Adminstration, "edit_user", "edit user")]
+    UserEdit  ,
 
     //Artwork
     [PermissionDescriptor(SystemModules.Adminstration, "view_artwork", "Can read artwork ")]
@@ -75,9 +85,10 @@ namespace MIA.Authorization.Entities
     AlbumRead,
     [PermissionDescriptor(SystemModules.Adminstration, "add_album", "add a new album")]
     AlbumAddNew, 
-    [PermissionDescriptor(SystemModules.Adminstration, "edit_album", "booths")]
+    [PermissionDescriptor(SystemModules.Adminstration, "edit_album", "edit album")]
     AlbumEdit,
-
+    [PermissionDescriptor(SystemModules.Adminstration, "edit_remove", "edit remove")]
+    AlbumRemove,
     [PermissionDescriptor(SystemModules.Adminstration, "view_album_file", "Read album file")]
     AlbumFileRead,
     [PermissionDescriptor(SystemModules.Adminstration, "change_album_staus", "make file featured")]
@@ -92,9 +103,11 @@ namespace MIA.Authorization.Entities
     BoothRemove,
     [PermissionDescriptor(SystemModules.Booths, "manage_payments", "Can read booths payments")]
     BoothPayment,
-    [PermissionDescriptor(SystemModules.Adminstration, "change_booths_staus", "change new booths")]
+    [PermissionDescriptor(SystemModules.Booths, "change_booths_staus", "change new booths")]
     BoothChangeStauts,
 
+    [PermissionDescriptor(SystemModules.Booths, "edit_booths", "edit booths")]
+    BoothEdit ,
     //Judge
     [PermissionDescriptor(SystemModules.Judge, "list_judge_artworks", "Can read employees data")]
     JudgeArtworkList,

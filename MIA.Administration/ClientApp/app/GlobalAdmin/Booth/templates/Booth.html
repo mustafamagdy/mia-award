@@ -5,19 +5,11 @@
 </style>
 
 <div>
-  <div
-    style="margin-bottom: 10px;"
-    ng-show="user.PermessionModules['Booths'].includes('add_new')"
-  >
-    <button
-      style="
+  <div style="margin-bottom: 10px;" ng-show="user.PermessionModules.includes('Booths.add_booths')">
+    <button style="
         background: linear-gradient(90deg, #f7e483, #dbba5a 57%, #a36d31);
         border-radius: 17px;
-      "
-      ng-click="$state.go('newBooth');"
-      class="btn pmd-ripple-effect btn-primary pmd-z-depth"
-      type="button"
-    >
+      " ng-click="$state.go('newBooth');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
       {{'AddNew'| translate}}
     </button>
   </div>
@@ -25,19 +17,13 @@
   <div ng-if="BoothList.length == null">
     <span>{{'NoBoothsAvailable' | translate}}</span>
   </div>
-  <div
-    class="pmd-card pmd-z-depth pmd-card-custom-view"
-    ng-if="BoothList.length > 0"
-  >
-    <div
-      class="table-responsive"
-      style="
+  <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="BoothList.length > 0">
+    <div class="table-responsive" style="
         border: 1px solid #21231e;
         border-radius: 20px;
         background-color: #0e0e0e;
         box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.35);
-      "
-    >
+      ">
       <table class="table pmd-table table-hover">
         <thead>
           <tr>
@@ -62,52 +48,31 @@
               {{Booth.description[selectedLanguage].length > 30 ? '...' : ''}}
             </td>
             <td>
-              <div
-                class="btn-switch"
-                ng-class="{'btn-switch--on':Booth.sellable}"
-                ng-click="BoothCtrl.ChangeStatus(Booth)"
-                ng-model="Booth.sellable"
-              >
-                <div
-                  class="btn-switch-circle"
-                  ng-class="{'btn-switch-circle--on':Booth.sellable}"
-                  ng-model="Booth.sellable"
-                ></div>
+              <div class="btn-switch" ng-class="{'btn-switch--on':Booth.sellable}"
+                ng-click="BoothCtrl.ChangeStatus(Booth)" ng-model="Booth.sellable">
+                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':Booth.sellable}"
+                  ng-model="Booth.sellable"></div>
               </div>
             </td>
             <td class="pmd-table-row-action">
-              <span
-                href="javascript:void(0);"
-                ng-if="Booth.boothPurchase.length >0 "
+              <span href="javascript:void(0);" ng-if="Booth.boothPurchase.length >0 "
                 ng-click="BoothCtrl.showMore($event, Booth)"
-                class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"
-                ><i class="material-icons md-dark pmd-sm"></i
-              ></span>
+                class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i
+                  class="material-icons md-dark pmd-sm"></i></span>
             </td>
             <td width="20%">
-              <i
-                ng-show="user.PermessionModules['Booths'].includes('add_new')"
+              <i ng-show="user.PermessionModules.includes('Booths.edit_booths')"
                 class="material-icons md-dark pmd-md cursorPointer font25"
-                ng-click="$state.go('editBooth',{id: Booth.id});"
-                title="Edit"
-                >mode_edit</i
-              >
+                ng-click="$state.go('editBooth',{id: Booth.id});" title="Edit">mode_edit</i>
 
-              <i
-                ng-show="!Booth.hasConfirmedPayment && user.PermessionModules['Booths'].includes('add_new')"
+              <i ng-show="!Booth.hasConfirmedPayment && user.PermessionModules.includes('Booths.manage_payments')"
                 class="material-icons md-dark pmd-md perm_media font25"
-                ng-click="$state.go('newBoothPayment',{id: Booth.id});"
-                title="payment"
-                >payment</i
-              >
+                ng-click="$state.go('newBoothPayment',{id: Booth.id});" title="payment">payment</i>
 
-              <i
-                ng-show="user.PermessionModules['Booths'].includes('remove')"
+              <i ng-show="user.PermessionModules.includes('Booths.remove_booths')"
                 class="material-icons pmd-md deleteButton cursorPointer font25"
                 ng-click="BoothCtrl.openDeleteDialog(Booth,Booth.description[selectedLanguage] ,Booth.id)"
-                title="Delete"
-                >delete</i
-              >
+                title="Delete">delete</i>
             </td>
           </tr>
         </tbody>
@@ -115,19 +80,9 @@
     </div>
   </div>
 
-  <div
-    style="text-align: center; direction: ltr;"
-    paging
-    page="1"
-    page-size="10"
-    total="totalCount"
-    paging-action="BoothCtrl.changePage(page)"
-    flex="nogrow"
-    show-prev-next="true"
-    show-first-last="true"
-    hide-if-empty="true"
-    disabled-class="hide"
-  ></div>
+  <div style="text-align: center; direction: ltr;" paging page="1" page-size="10" total="totalCount"
+    paging-action="BoothCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+    hide-if-empty="true" disabled-class="hide"></div>
 </div>
 
 <script type="text/ng-template" id="purchases.html">
