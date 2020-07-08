@@ -151,8 +151,8 @@
       updateObj.ArtWorkId = vm.JudgeArtWork.id;
       updateObj.JudgeId = $scope.user.id;
       updateObj.CriteriaValues = vm.votingCriteriaList;
+      updateObj.Level = vm.artWorkLevel;
       updateObj.$update().then(
-        
         function (data, status) {
           ToastService.show(
             "right",
@@ -222,6 +222,9 @@
 
       addFinalThoughts.$postFinalThoughts().then(
         function (data, status) {
+          //reload the page
+          $state.go("JudgeArtWork");
+
           ToastService.show(
             "right",
             "bottom",
@@ -264,6 +267,7 @@
 
     function getVotingCriterias() {
       var k = JudgeArtWorkResource.getCriteriaByLevel({
+        artworkId: vm.JudgeArtWork.id,
         level: vm.artWorkLevel,
       }).$promise.then(
         function (results) {

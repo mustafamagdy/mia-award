@@ -89,36 +89,31 @@
     -webkit-box-shadow: none;
     box-shadow: none;
   }
+
+  [videogular] vg-scrub-bar .container,
+  videogular vg-scrub-bar .container {
+    position: absolute !important;
+    width: 100% !important;
+    height: 2px !important;
+    top: 24px !important;
+    padding-left: 0 !important;
+    padding: 0px !important;
+  }
 </style>
 
 <section id="show_inner">
   <div class="show_inner_one">
     <div class="container">
-      <!-- <iframe class="youtube-player" type="text/html" width="80%" height="385"
-                ng-src="{{trustSrc(displayVideoCtrl.mediaFile.file.fileUrl)}}"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
-                frameborder="0">
-            </iframe>  -->
-      <!-- <div class="row">
-
-                <video id="myVideo" width="80%" height="385">
-                    <source ng-src="{{trustSrc(displayVideoCtrl.mediaFile.file.fileUrl)}}" type="video/mp4">
-                </video>
-            </div>
-            <br>
-            <div class="row">
-                <button ng-click="playVid()" type="button"><span ng-show="!playing">&#9654;</span></button>
-                <button ng-click="pauseVid()" type="button"><span ng-show="playing">&#9616;&#9616;</span></button>
-
-            </div> -->
-
       <videogular
         vg-update-time="displayVideoCtrl.onUpdateTime($currentTime, $duration)"
+        oncontextmenu="return false;"
       >
         <vg-media
           vg-src="displayVideoCtrl.fileUrl"
           vg-tracks="displayVideoCtrl.tracks"
           vg-native-controls="false"
+          controlsList="nodownload"
+          oncontextmenu="return false;"
         >
         </vg-media>
         <vg-controls>
@@ -142,16 +137,11 @@
       <div class="show_content">
         <div class="tabs_area">
           <div class="tabs">
-            <!-- to show tab content please add class "active" to "li" element -->
             <ul>
               <li class="active">{{'comments'| translate}}</li>
             </ul>
-            <!-- end ul -->
           </div>
-          <!-- end tabs -->
           <div class="all_tabs_content">
-            <!-- to show tab content please add class "active" to "item_tabs_content" element -->
-
             <div class="item_tabs_content active">
               <div class="item_review">
                 <div class="review_section">
@@ -163,11 +153,9 @@
                         translate}}
                       </p>
                     </div>
-                    <!-- end desc -->
                   </div>
-                  <!-- end review_status -->
                 </div>
-                <!-- end review_section -->
+
                 <div class="comment_form">
                   <form name="formVideoComment">
                     <div class="inputs">
@@ -179,7 +167,7 @@
                         ng-model="displayVideoCtrl.time"
                       />
                     </div>
-                    <!-- end inputs -->
+
                     <textarea
                       name="comment"
                       cols="30"
@@ -211,45 +199,31 @@
                     </button>
                   </form>
                 </div>
-                <!-- end comment_form -->
+
                 <div class="comments_area">
                   <div
                     class="item"
                     ng-repeat="comment in displayVideoCtrl.commentsList"
                   >
                     <div class="user_info">
-                      <!-- <div class="imgthumb"><img src="assets/images/comment_user_image.png"
-                                                    alt="#"></div> -->
                       <div class="details">
-                        <!-- <span>{{comment.judge.fullName}}</span> -->
                         <p>
                           {{comment.mediaTime}}
                           <a>{{comment.judge.fullName}}</a>
                         </p>
                       </div>
-                      <!-- end details -->
                     </div>
-                    <!-- end user_info -->
+
                     <div class="comment_content">
                       {{comment.comments}}
                     </div>
-                    <!-- end comment_content -->
                   </div>
-                  <!-- end item -->
                 </div>
-                <!-- end comments_area -->
               </div>
-              <!-- end item_review -->
             </div>
-            <!-- end item_tabs_content -->
           </div>
-          <!-- end all_tabs_content -->
         </div>
-        <!-- end tabs_area -->
       </div>
-      <!-- end show_content -->
     </div>
-    <!-- end container -->
   </div>
-  <!-- end show_inner_two -->
 </section>

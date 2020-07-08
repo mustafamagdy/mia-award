@@ -24,6 +24,7 @@
     "uiCropper",
     "angularjs-datetime-picker",
     "ui.select2",
+    "tc.chartjs",
     // "datatables"
     // "jwt-decode"
     // 'base64',

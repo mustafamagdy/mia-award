@@ -415,7 +415,7 @@ msgstr "First Day"
 
 #: src/components/Layout/Footer.js:43
 msgid "footer_text"
-msgstr "الاعلام العربي واقع جديد"
+msgstr "An Arab award going global"
 
 #: src/containers/Members/Auth/index.js:48
 #: src/containers/Members/Auth/Login.js:62

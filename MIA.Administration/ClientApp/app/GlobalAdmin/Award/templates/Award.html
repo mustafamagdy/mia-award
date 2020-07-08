@@ -1,77 +1,100 @@
 <div>
-    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes('News.add_new')">
-        <!-- <div id="bold"> {{'AddNewAwardBtn'| translate}} </div> -->
-        <!-- <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+  <div
+    style="margin-bottom: 10px;"
+    ng-show="user.PermessionModules.includes('News.add_new')"
+  >
+    <!-- <div id="bold"> {{'AddNewAwardBtn'| translate}} </div> -->
+    <!-- <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
             ng-click="$state.go('newAward');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
             {{'AddNew'| translate}}</button> -->
-    </div>
+  </div>
 
-    <div class="row">
-        <div class="col-md-6  form-group">
-            <div class="form-group col-lg-4"> <label for="first-name">{{'Award' | translate}}</label>
-                <select required style="width:100% !important;color:#6c7293!important;"
-                    class="form-control select-with-search pmd-select2-tags" ng-model="AwardCtrl.selectedType"
-                    ng-change="AwardCtrl.changeAwardType()"
-                    ng-options="group as group.shortName  for group in AwardCtrl.awardTypes">
-                </select>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-md-6 form-group">
+      <div class="form-group col-lg-4">
+        <label for="first-name">{{'Award' | translate}}</label>
+        <select
+          required
+          style="width: 100% !important; color: #6c7293 !important;"
+          class="form-control select-with-search pmd-select2-tags"
+          ng-model="AwardCtrl.selectedType"
+          ng-change="AwardCtrl.changeAwardType()"
+          ng-options="group as group.shortName  for group in AwardCtrl.awardTypes"
+        >
+        </select>
+      </div>
     </div>
-    <div ng-if="AwardList.length == null">
-        <span>{{'NoAwardsAvailable' | translate}}</span>
+  </div>
+  <div ng-if="AwardList.length == null">
+    <span>{{'NoAwardsAvailable' | translate}}</span>
+  </div>
+  <div
+    class="pmd-card pmd-z-depth pmd-card-custom-view"
+    ng-if="AwardList.length > 0"
+  >
+    <div class="table-responsive">
+      <table class="table pmd-table table-hover">
+        <thead>
+          <tr>
+            <th>{{'title' | translate}}</th>
+            <th>{{'description' | translate}}</th>
+            <th>{{'manager' | translate}}</th>
+            <th>{{'awardType' | translate}}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="Award in AwardList">
+            <td>
+              {{Award.title[selectedLanguage] }}
+            </td>
+            <td>
+              {{Award.description[selectedLanguage] | limitTo : 60}}
+              {{Award.description[selectedLanguage].length > 60 ? '...' : ''}}
+            </td>
+            <td>
+              {{Award.manager.fullName}}
+            </td>
+            <td>
+              {{Award.awardType }}
+            </td>
+            <td>
+              <i
+                ng-show="user.PermessionModules.includes('News.add_new')"
+                class="material-icons md-dark pmd-md cursorPointer font25"
+                ng-click="$state.go('editAward',{id: Award.id});"
+                title="Edit"
+                >mode_edit</i
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="AwardList.length > 0">
-        <div class="table-responsive">
-            <table class="table pmd-table table-hover">
-                <thead>
-                    <tr>
-                        <th>{{'title' | translate}}</th>
-                        <th>{{'description' | translate}}</th>
-                        <th>{{'manager' | translate}}</th>
-                        <th>{{'awardType' | translate}}</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="Award in AwardList">
-                        <td>
-                            {{Award.title[selectedLanguage]  | limitTo : 20}}
-                            {{Award.title[selectedLanguage].length > 20 ? '...' : ''}}
-                        </td>
-                        <td>
-                            {{Award.description[selectedLanguage]  | limitTo : 60}}
-                            {{Award.description[selectedLanguage].length > 60 ? '...' : ''}}
-                        </td>
-                        <td>
-                            {{Award.manager.fullName}}
-                        </td>
-                        <td>
-                            {{Award.awardType }}
-                        </td>
-                        <td>
-                            <i ng-show="user.PermessionModules.includes('News.add_new')"
-                                class="material-icons md-dark pmd-md cursorPointer font25"
-                                ng-click="$state.go('editAward',{id: Award.id});" title="Edit">mode_edit</i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+  </div>
 
-    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
-        paging-action="AwardCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
-        hide-if-empty="true" disabled-class="hide">
-    </div>
+  <div
+    style="text-align: center; direction: ltr;"
+    paging
+    page="1"
+    page-size="10"
+    total="totalCount"
+    paging-action="AwardCtrl.changePage(page)"
+    flex="nogrow"
+    show-prev-next="true"
+    show-first-last="true"
+    hide-if-empty="true"
+    disabled-class="hide"
+  ></div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $(".select-with-search").select2({
-            theme: "bootstrap"
-        });
+  $(document).ready(function () {
+    $(".select-with-search").select2({
+      theme: "bootstrap",
     });
-    $(".select-tags").select2({
-        tags: false,
-        theme: "bootstrap",
-    });
+  });
+  $(".select-tags").select2({
+    tags: false,
+    theme: "bootstrap",
+  });
 </script>

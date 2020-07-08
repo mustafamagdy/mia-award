@@ -19,6 +19,7 @@ const MembersDashboard = ({
   myContestants,
   myAwardsLoaded,
   myArtworksLoaded,
+  judgeCompleted,
   ...props
 }) => {
   if (!myAwardsLoaded) fetchMyAwards();
@@ -42,7 +43,9 @@ const MembersDashboard = ({
         }}
       ></div>
       <div className="awards_area">
-        <div className="title"><Trans id="awards">Awards</Trans></div>
+        <div className="title">
+          <Trans id="awards">Awards</Trans>
+        </div>
         <div className="all_awards_area">
           {myAwards &&
             myAwards.map((m, i) => {
@@ -82,16 +85,18 @@ const MembersDashboard = ({
               myArtworks.map((m, i) => {
                 return <Artwork artWork={m} key={i} />;
               })}
-            <div className="item add_new">
-              <div className="upload_area">
-                <NavLink to="/members/artwork">
-                  <i className="icofont-plus"></i>
-                  <span>
-                    <Trans id="add_new_show">add new show</Trans>
-                  </span>
-                </NavLink>
+            {!judgeCompleted && (
+              <div className="item add_new">
+                <div className="upload_area">
+                  <NavLink to="/members/artwork">
+                    <i className="icofont-plus"></i>
+                    <span>
+                      <Trans id="add_new_show">add new show</Trans>
+                    </span>
+                  </NavLink>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
         {activeTabKey == "contestant" && (
@@ -104,16 +109,20 @@ const MembersDashboard = ({
               myContestants.map((m, i) => {
                 return <Artwork artWork={m} key={i} />;
               })}
-            <div className="item add_new">
-              <div className="upload_area">
-                <NavLink to="/members/contestant">
-                  <i className="icofont-plus"></i>
-                  <span>
-                    <Trans id="add_new_contestant">apply for contestant</Trans>
-                  </span>
-                </NavLink>
+            {!judgeCompleted && (
+              <div className="item add_new">
+                <div className="upload_area">
+                  <NavLink to="/members/contestant">
+                    <i className="icofont-plus"></i>
+                    <span>
+                      <Trans id="add_new_contestant">
+                        apply for contestant
+                      </Trans>
+                    </span>
+                  </NavLink>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </div>
@@ -122,6 +131,7 @@ const MembersDashboard = ({
 };
 
 const mapStateToProps = ({
+  home: { options },
   members: {
     myAwards,
     myArtworks,
@@ -129,13 +139,17 @@ const mapStateToProps = ({
     myAwardsLoaded,
     myArtworksLoaded,
   },
-}) => ({
-  myAwards,
-  myArtworks,
-  myContestants,
-  myAwardsLoaded,
-  myArtworksLoaded,
-});
+}) => {
+  let judgeCompleted = options.allJudgeFinished;
+  return {
+    myAwards,
+    myArtworks,
+    myContestants,
+    myAwardsLoaded,
+    myArtworksLoaded,
+    judgeCompleted,
+  };
+};
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...membersActions, ...authActions }, dispatch);
 export default connect(

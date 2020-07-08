@@ -1,6 +1,7 @@
 ﻿
 using MIA.Administration.Api.Base;
 using System.Collections.Generic;
+using MIA.Models.Entities;
 
 namespace MIA.Administration.Api
 {
@@ -11,6 +12,7 @@ namespace MIA.Administration.Api
     public List<VotingCriteriaVoteDto> CriteriaValues { get; set; }
 
     public string JudgeId { get; set; }
+    public JudgeLevel Level { get; set; }
   }
   public class VotingCriteriaVoteDto
   {

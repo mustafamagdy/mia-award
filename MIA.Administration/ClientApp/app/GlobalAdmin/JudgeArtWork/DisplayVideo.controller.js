@@ -5,7 +5,9 @@
     .module("home")
     .directive("player", [
       "$sce",
-      function ($sce) {
+      "$timeout",
+
+      function ($sce, $timeout) {
         "use strict";
         return {
           restrict: "E",
@@ -66,6 +68,7 @@
       "JudgeArtWorkResource",
       "blockUI",
       "$state",
+      "$timeout",
       "ToastService",
       "$stateParams",
       DisplayVideoController,
@@ -80,6 +83,7 @@
     JudgeArtWorkResource,
     blockUI,
     $state,
+    $timeout,
     ToastService,
     $stateParams
   ) {
@@ -130,6 +134,8 @@
       updateObj.Comments = vm.comment;
       updateObj.$postComment().then(
         function (data, status) {
+          vm.comment = "";
+
           refreshComments();
           ToastService.show(
             "right",
@@ -172,55 +178,5 @@
     $scope.trustSrc = function (src) {
       return $sce.trustAsResourceUrl(src);
     };
-    /********/
-    // var vid = document.getElementById("myVideo");
-
-    // $scope.playVid = function () {
-    //   $scope.playing = true;
-    //   vid.play();
-    // };
-
-    // $scope.pauseVid = function () {
-    //   $scope.playing = false;
-    //   vid.pause();
-    //   tick();
-    // };
-
-    // function tick() {
-    //   $scope.percent = (vid.currentTime / vid.duration) * 100;
-    //   vm.time = vid.currentTime;
-    // }
-    /********/
-
-    //     var video =vm.mediaFile.file.fileUrl;
-    //    // element.addClass('player');
-    //     $scope.playing = false;
-    //     $scope.trustSrc = function (src) {
-    //         return $sce.trustAsResourceUrl(src);
-    //     }
-
-    //     video.on('timeupdate', function (e) {
-    //         $scope.$apply(function () {
-    //             $scope.percent = (video[0].currentTime / video[0].duration) * 100;
-    //         });
-    //     });
-
-    //     $scope.frame = function (num) {
-    //
-    //         if (video[0].readyState !== 0) {
-    //             video[0].currentTime += num;
-    //         }
-    //     };
-
-    //     $scope.toggle = function () {
-    //            if (video[0].paused === true) {
-    //             video[0].play();
-    //             $scope.playing = true;
-    //         } else {
-    //             video[0].pause();
-    //             $scope.playing = false;
-
-    //         }
-    //     };
   }
 })();

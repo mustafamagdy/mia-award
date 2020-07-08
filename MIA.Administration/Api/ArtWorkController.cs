@@ -196,12 +196,12 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("getMediaFile")]
-    public async Task<IActionResult> GetMediaFileAsync([FromQuery(Name = "judgeId")] string id, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> GetMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
       var artWorkItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id == id);
       return IfFound(_mapper.Map<MediaFile>(artWorkItem));
     }
     [HttpDelete("deleteMediaItem")]
-    public async Task<IActionResult> DeleteMediaFileAsync([FromQuery(Name = "judgeId")] string id, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> DeleteMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
       var entity = db.Set<MediaFile>().FirstOrDefault(a => a.Id == id);
       if (entity == null)
         throw new ApiException(ApiErrorType.NotFound, "record not found");
@@ -298,7 +298,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("getPayment")]
-    public async Task<IActionResult> GetPaymentAsync([FromQuery(Name = "judgeId")] string id, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> GetPaymentAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
       var artWorkItem = await db.ArtworkPayments.FirstOrDefaultAsync(a => a.ArtworkId == id);
       if (artWorkItem == null) {
         return IfFound(_mapper.Map<ArtWorkPaymentDto>(new ArtworkPayment()));
@@ -442,7 +442,7 @@ namespace MIA.Administration.Api {
       }
     }
 
-    [HttpPost("{judgeId}/allow-file-upload")]
+    [HttpPost("{id}/allow-file-upload")]
     [HasPermission(Permissions.ArtworkAllowFileUpload)]
     public async Task<IActionResult> AllowFileUpload(
       [FromRoute] string id,

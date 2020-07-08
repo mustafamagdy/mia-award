@@ -64,6 +64,7 @@ namespace MIA.ORMContext.Uow {
     public DbSet<Genre> Genres => base.Context.Set<Genre>();
     public DbSet<ArtworkSubject> ArtworkSubjects => base.Context.Set<ArtworkSubject>();
     public DbSet<JudgeArtworkScore> ArtworkScores => base.Context.Set<JudgeArtworkScore>();
+    public DbSet<SystemOptions> SystemOptions => base.Context.Set<SystemOptions>();
 
 
   }

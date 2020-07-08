@@ -137,8 +137,10 @@ namespace MIA.Api {
      [FromServices] IEmailSender emailSender,
      [FromServices] IAppUnitOfWork db) {
       try {
-        string htmlMessage = await templateParser.LoadAndParse("newsletter_sub", locale: culture, dto);
-        await emailSender.SendEmailAsync(adminOptions.Value.ContactUsEmail, _Locale.Get(culture, "newsletter_sub"), htmlMessage);
+        string adminMessage = await templateParser.LoadAndParse("newsletter_sub", locale: culture, dto);
+        await emailSender.SendEmailAsync(adminOptions.Value.ContactUsEmail, _Locale.Get(culture, "newsletter_sub"), adminMessage);
+        string userMessage = await templateParser.LoadAndParse("newsletter_sub_user", locale: culture, dto);
+        await emailSender.SendEmailAsync(dto.Email, _Locale.Get(culture, "newsletter_sub"), userMessage);
       } catch (Exception ex) {
         _logger.LogError(ex, $"Failed to send email for user to subscribe in newsletter email: {dto.Email}");
       }
@@ -162,6 +164,16 @@ namespace MIA.Api {
       if (sponsers != null) {
         var deserializedItems = JsonConvert.DeserializeObject<dynamic>(sponsers.Data);
         return Ok(deserializedItems);
+      } else {
+        return NoContent();
+      }
+    }
+
+    [HttpGet("options")]
+    public async Task<IActionResult> GetSystemOptions([FromServices] IAppUnitOfWork db) {
+      var options = await db.SystemOptions.FirstOrDefaultAsync();
+      if (options != null) {
+        return Ok(options);
       } else {
         return NoContent();
       }
