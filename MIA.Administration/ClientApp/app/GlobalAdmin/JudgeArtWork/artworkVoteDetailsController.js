@@ -53,7 +53,7 @@
         function (results) {
           const _empty = {
             id: "",
-            title: { en: "Choose artwork", ar: "اختر عمل" },
+            projectName: { en: "Choose artwork", ar: "اختر عمل" },
           };
           vm.artworks = [_empty, ...results];
           vm.selectedArtwork = _empty;

@@ -19,8 +19,9 @@
                         <th>{{'title' | translate}}</th>
                         <th>{{'award' | translate}}</th>
                         <th>{{'awardtype' | translate}}</th>
+                        <th>{{'approve_for_upload' | translate}}</th>
                         <th>{{'Ready for review' | translate}}</th>
-                        <th>{{'paymentStatus' | translate}}</th>
+                        <!-- <th>{{'paymentStatus' | translate}}</th> -->
                         <th></th>
                     </tr>
                 </thead>
@@ -42,20 +43,23 @@
                             {{ArtWork.award.title[selectedLanguage]   | limitTo : 20}}
                             {{ArtWork.award.title.length > 20 ? '...' : ''}}
                         </td>
-                        <td data-title="uploadComplete">
+                        <td data-title="awardType">
                             {{ArtWork.award.awardType}}
                         </td>
-                        <td data-title="uploadComplete">
-                            {{ArtWork.uploadComplete}}
+                        <td data-title="allowFileUpload">
+                            {{(ArtWork.allowFileUpload? 'yes':'no')|translate}}
                         </td>
-                        <td data-title="paymentStatus">
+                        <td data-title="uploadComplete">
+                            {{(ArtWork.uploadComplete? 'yes':'no')|translate}}
+                        </td>
+                        <!-- <td data-title="paymentStatus">
                             <span ng-if="ArtWork.payment != null">
                                 {{ArtWork.payment.paymentStatus}}
                             </span>
                             <span ng-if="ArtWork.payment == null">
                                 {{'nopayment' | translate}}
                             </span>
-                        </td>
+                        </td> -->
                         <td width="30%">
                             <i ng-show="user.PermessionModules.includes('News.add_new')"
                                 class="material-icons md-dark pmd-md perm_media font25"

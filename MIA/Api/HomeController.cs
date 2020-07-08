@@ -137,8 +137,10 @@ namespace MIA.Api {
      [FromServices] IEmailSender emailSender,
      [FromServices] IAppUnitOfWork db) {
       try {
-        string htmlMessage = await templateParser.LoadAndParse("newsletter_sub", locale: culture, dto);
-        await emailSender.SendEmailAsync(adminOptions.Value.ContactUsEmail, _Locale.Get(culture, "newsletter_sub"), htmlMessage);
+        string adminMessage = await templateParser.LoadAndParse("newsletter_sub", locale: culture, dto);
+        await emailSender.SendEmailAsync(adminOptions.Value.ContactUsEmail, _Locale.Get(culture, "newsletter_sub"), adminMessage);
+        string userMessage = await templateParser.LoadAndParse("newsletter_sub_user", locale: culture, dto);
+        await emailSender.SendEmailAsync(dto.Email, _Locale.Get(culture, "newsletter_sub"), userMessage);
       } catch (Exception ex) {
         _logger.LogError(ex, $"Failed to send email for user to subscribe in newsletter email: {dto.Email}");
       }
