@@ -74,9 +74,13 @@ namespace MIA.Api {
           TokenLink = callbackUrl,
           FullName = user.FullName
         });
+        try {
+          //send confirmation email
+          await emailSender.SendEmailAsync(user.Email, _Locale.Get(culture, "email_confirm_subject"), htmlMessage);
 
-        //send confirmation email
-        await emailSender.SendEmailAsync(user.Email, _Locale.Get(culture, "email_confirm_subject"), htmlMessage);
+        } catch (Exception exMailError) {
+          _logger.LogError(exMailError, "Failed to send user notificaiton email");
+        }
 
         //add to nominee role
         await userManager.AddToRoleAsync(user, PredefinedRoles.Nominee.ToString());
