@@ -106,11 +106,15 @@ var paths = {
 
     "./node_modules/ui-cropper/compile/unminified/ui-cropper.js",
     "./node_modules/angularjs-datetime-picker/angularjs-datetime-picker.js",
+
+    "./node_modules/chart.js/dist/Chart.min.js",
+    "./node_modules/angular-chart.js/dist/angular-chart.min.js",
+    "./node_modules/tc-angular-chartjs/dist/tc-angular-chartjs.min.js",
   ],
   css: [
     "./node_modules/propellerkit/dist/css/bootstrap.min.css",
     "./node_modules/propellerkit/dist/css/propeller.min.css",
-    
+
     "./node_modules/select2/dist/css/select2.min.css",
     "./node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css",
 
