@@ -44,10 +44,10 @@ const NewArtwork = ({ awards, awardType, addNewArtwork, genres, ...props }) => {
           onlineChannels: "",
           ProductionLicenseNumber: "",
           productionLicenseAgency: "",
-          file1: undefined,
-          file2: undefined,
-          file3: undefined,
-          resume: undefined,
+          _file1: undefined,
+          _file2: undefined,
+          _file3: undefined,
+          _resume: undefined,
 
           // payment: {
           //   //payment
@@ -85,10 +85,10 @@ const NewArtwork = ({ awards, awardType, addNewArtwork, genres, ...props }) => {
             onlineChannels: Yup.string().required("Required"),
             ProductionLicenseNumber: Yup.string().required("Required"),
             productionLicenseAgency: Yup.string().required("Required"),
-            file1: Yup.mixed().required("File_is_required"),
-            file2: Yup.mixed().required("File_is_required"),
-            file3: Yup.mixed().required("File_is_required"),
-            resume: awardType == "person" ? Yup.mixed().required() : null,
+            _file1: Yup.mixed().required("File_is_required"),
+            _file2: Yup.mixed().required("File_is_required"),
+            _file3: Yup.mixed().required("File_is_required"),
+            _resume: awardType == "person" ? Yup.mixed().required() : null,
 
             // payment: Yup.object().shape({
             //   receiptAmount: Yup.number().required("Required").min(1).max(100000),
@@ -113,21 +113,21 @@ const NewArtwork = ({ awards, awardType, addNewArtwork, genres, ...props }) => {
           // values.payment.receipt = receipt;
 
           if (awardType == "person") {
-            const resume = await fileToBase64(values.resume);
-            values.resumeFileName = values.resume.name;
+            const resume = await fileToBase64(values._resume);
+            values.resumeFileName = values._resume.name;
             values.resume = resume;
           }
 
-          const file1 = await fileToBase64(values.file1);
-          values.file1FileName = values.file1.name;
+          const file1 = await fileToBase64(values._file1);
+          values.file1FileName = values._file1.name;
           values.file1 = file1;
 
-          const file2 = await fileToBase64(values.file2);
-          values.file2FileName = values.file2.name;
+          const file2 = await fileToBase64(values._file2);
+          values.file2FileName = values._file2.name;
           values.file2 = file2;
 
-          const file3 = await fileToBase64(values.file3);
-          values.file3FileName = values.file3.name;
+          const file3 = await fileToBase64(values._file3);
+          values.file3FileName = values._file3.name;
           values.file3 = file3;
 
           addNewArtwork(values);
@@ -348,11 +348,11 @@ const NewArtwork = ({ awards, awardType, addNewArtwork, genres, ...props }) => {
                         isFile={true}
                         hasError={
                           errors &&
-                          errors.resume !== undefined &&
+                          errors._resume !== undefined &&
                           touched &&
-                          touched.resume !== undefined
+                          touched._resume !== undefined
                         }
-                        name="resume"
+                        name="_resume"
                         accept="image/*"
                       />
                     </div>
@@ -364,11 +364,11 @@ const NewArtwork = ({ awards, awardType, addNewArtwork, genres, ...props }) => {
                       isFile={true}
                       hasError={
                         errors &&
-                        errors.file1 !== undefined &&
+                        errors._file1 !== undefined &&
                         touched &&
-                        touched.file1 !== undefined
+                        touched._file1 !== undefined
                       }
-                      name="file1"
+                      name="_file1"
                       accept="image/*"
                     />
                   </div>
@@ -379,11 +379,11 @@ const NewArtwork = ({ awards, awardType, addNewArtwork, genres, ...props }) => {
                       isFile={true}
                       hasError={
                         errors &&
-                        errors.file2 !== undefined &&
+                        errors._file2 !== undefined &&
                         touched &&
-                        touched.file2 !== undefined
+                        touched._file2 !== undefined
                       }
-                      name="file2"
+                      name="_file2"
                       accept="image/*"
                     />
                   </div>
@@ -394,11 +394,11 @@ const NewArtwork = ({ awards, awardType, addNewArtwork, genres, ...props }) => {
                       isFile={true}
                       hasError={
                         errors &&
-                        errors.file3 !== undefined &&
+                        errors._file3 !== undefined &&
                         touched &&
-                        touched.file3 !== undefined
+                        touched._file3 !== undefined
                       }
-                      name="file3"
+                      name="_file3"
                       accept="image/*"
                     />
                   </div>

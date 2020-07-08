@@ -169,6 +169,16 @@ namespace MIA.Api {
       }
     }
 
+    [HttpGet("options")]
+    public async Task<IActionResult> GetSystemOptions([FromServices] IAppUnitOfWork db) {
+      var options = await db.SystemOptions.FirstOrDefaultAsync();
+      if (options != null) {
+        return Ok(options);
+      } else {
+        return NoContent();
+      }
+    }
+
     [HttpGet("booths")]
     public async Task<IActionResult> Booths([FromServices] IAppUnitOfWork db) {
       return Ok(await db.Booths

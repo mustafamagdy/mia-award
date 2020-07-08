@@ -34,6 +34,7 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.fetchAwards();
     this.props.fetchMainAlbum();
+    this.props.fetchOptions();
     this.props.fetchMetadata();
     this.props.fetchSponsers();
   }

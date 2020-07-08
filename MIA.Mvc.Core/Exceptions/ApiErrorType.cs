@@ -27,6 +27,8 @@ namespace MIA.Exceptions {
     UserNotExist,
     [Error("1002", HttpStatusCode.NotFound, Message = "Record not found")]
     RecordNotFound,
+    [Error("1003", HttpStatusCode.BadRequest, Message = "Judging has been finished")]
+    JudgeFinished,
     ////////////////////////////////////////////////////////
     ///
     /////////////////////Data access ///////////////////////

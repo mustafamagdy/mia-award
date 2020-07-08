@@ -28,6 +28,7 @@ export const logic = (apiNamespace, actionName, successCb, failCb) => {
             payload: _errorMsg,
             error: true,
           });
+
           if (failCb) {
             failCb(dispatch, res.data);
           } else {
@@ -56,7 +57,6 @@ function _validateApi(api, apiNamespace, api_name, action) {
   //todo: validatte api
   const func = api[apiNamespace][api_name];
   if (!func) {
-    
   }
 }
 
