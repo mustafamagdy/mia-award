@@ -26,7 +26,7 @@ var replace = require("gulp-replace");
 var strip = require("gulp-strip-comments");
 
 var config = {
-  production: gutil.env.env == 'production',
+  production: gutil.env.env == "production",
 };
 // uglify = config.production ? uglify : gutil.noop;
 
@@ -47,6 +47,7 @@ var paths = {
     // "./app/core/core.constants.js",
     "./app/core/app.routes.js",
     "./app/core/confirmPassword.directive.js",
+    "./app/core/numbersOnly.directive.js",
     "./app/core/translateProvider.js",
     "./app/core/ToastService.factory.js",
     "./app/core/GlobalAdmin/*.js",
@@ -57,6 +58,8 @@ var paths = {
     "./app/core/Authentication/*.js",
     "./app/core/Authorization/*.js",
     "./app/core/Toast/*.js",
+    "./app/core/ImageCropper/imageCropper.Controller.js",
+
     // './app/**/*.*.js',
   ],
   libs: [
@@ -81,6 +84,8 @@ var paths = {
     "./node_modules/angular-translate/dist/angular-translate.min.js",
     "./node_modules/angular-ui-event/dist/event.min.js",
     "./node_modules/select2/dist/js/select2.full.min.js",
+    "./node_modules/angular-ui-select2/src/select2.js",
+
     "./assets/js/moment-with-locales.js",
     "./assets/js/bootstrap-datetimepicker.js",
     "./node_modules/angular-ui-carousel/dist/ui-carousel.min.js",
@@ -99,12 +104,16 @@ var paths = {
     "./node_modules/videogular/dist/poster/vg-poster.min.js",
     "./node_modules/videogular/dist/controls/vg-controls.min.js",
 
+    "./node_modules/ui-cropper/compile/unminified/ui-cropper.js",
+    "./node_modules/angularjs-datetime-picker/angularjs-datetime-picker.js",
   ],
   css: [
     "./node_modules/propellerkit/dist/css/bootstrap.min.css",
     "./node_modules/propellerkit/dist/css/propeller.min.css",
+    
     "./node_modules/select2/dist/css/select2.min.css",
     "./node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css",
+
     "./assets/css/*.css",
     "./assets/css/ADM-treeView.css",
     "./node_modules/ngprogress-lite/ngprogress-lite.css",
@@ -112,12 +121,16 @@ var paths = {
     "./node_modules/angular-ui-carousel/dist/ui-carousel.min.css",
     "./node_modules/angular-datatables/dist/css/angular-datatables.css",
     "./node_modules/videogular/dist/themes/default/videogular.min.css",
+    "./node_modules/ui-cropper/compile/unminified/ui-cropper.css",
+
+    "./node_modules/angularjs-datetime-picker/angularjs-datetime-picker.css",
   ],
   cssAR: [
     // './node_modules/propellerkit/dist/css/bootstrap.min.css',
     // './node_modules/propellerkit/dist/css/propeller.min.css',
     "./node_modules/select2/dist/css/select2.min.css",
     "./node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css",
+
     "./assets/cssAR/*.css",
     "./assets/css/ADM-treeView.css",
     "./node_modules/ngprogress-lite/ngprogress-lite.css",
@@ -153,12 +166,14 @@ var paths = {
 
 //concatination js
 gulp.task("copy-libs", function () {
-  return gulp
-    .src(paths.libs)
-    .pipe(concat("libs.js"))
-    // .pipe(uglify())
-    .pipe(strip())
-    .pipe(gulp.dest(paths.build + "/"));
+  return (
+    gulp
+      .src(paths.libs)
+      .pipe(concat("libs.js"))
+      // .pipe(uglify())
+      .pipe(strip())
+      .pipe(gulp.dest(paths.build + "/"))
+  );
 });
 
 gulp.task("replace-api-url", function () {
@@ -239,21 +254,23 @@ gulp.task("fonts", function (cb) {
 });
 //cash template
 gulp.task("copy-templates", function () {
-  return gulp
-    .src(paths.templates)
-    .pipe(
-      ngHtml2Js({
-        moduleName: "home",
-        declareModule: false,
-        rename: function (templateUrl) {
-          return "./app/" + templateUrl;
-        },
-      })
-    )
-    .pipe(concat("templates.js"))
-    // .pipe(uglify())
-    .pipe(strip())
-    .pipe(gulp.dest(paths.build + "/"));
+  return (
+    gulp
+      .src(paths.templates)
+      .pipe(
+        ngHtml2Js({
+          moduleName: "home",
+          declareModule: false,
+          rename: function (templateUrl) {
+            return "./app/" + templateUrl;
+          },
+        })
+      )
+      .pipe(concat("templates.js"))
+      // .pipe(uglify())
+      .pipe(strip())
+      .pipe(gulp.dest(paths.build + "/"))
+  );
 });
 
 // gulp.task('copy-templates', function() {

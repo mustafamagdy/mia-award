@@ -13,4 +13,10 @@ namespace MIA.Administration.Api
     public string Area { get; set; }
   }
 
+  public class BoothSellableUpdateDto
+  {
+    public string Id { get; set; }
+    public bool Sellable { get; set; }
+  }
+
 }

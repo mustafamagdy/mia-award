@@ -11,8 +11,9 @@
             getPhotoAlbum: { method: 'GET', useToken: true },
             delete: { method: 'DELETE', useToken: true },
             updateMediaItem: { method: 'PUT', url: appCONSTANTS.API_URL + 'albums/UpdateMediaItem', useToken: true },
+            toggleFeatured: { method: 'PUT', url: appCONSTANTS.API_URL + 'albums/toggleFeatured', useToken: true },
             getMediaItems: { method: 'POST', url: appCONSTANTS.API_URL + 'albums/getMediaItems', useToken: true },
-            createMediaItem: { method: 'POST', url: appCONSTANTS.API_URL + 'albums/createMediaItems', useToken: true },
+            createMediaItem: { method: 'POST', url: appCONSTANTS.API_URL + 'albums/:albumId/createMediaItems', useToken: true },
             UpdateMediaItemVideoUrl: { method: 'PUT', url: appCONSTANTS.API_URL + 'albums/UpdateMediaItemVideoUrl', useToken: true }
         })
     }

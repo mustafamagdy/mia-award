@@ -1,0 +1,71 @@
+<style>
+  .shows_items {
+    display: flex;
+    flex-direction: column;
+  }
+  .level_title {
+    font-size: 20px;
+    margin: 0px;
+    text-align: left;
+  }
+  table,
+  thead,
+  tbody,
+  tr,
+  td {
+    border: 1px solid red;
+  }
+</style>
+
+<div id="recent_shows">
+  <div class="container">
+    <div class="filter">
+      <select
+        required
+        style="color: #6c7293 !important; width: 300px;"
+        class="form-control select-with-search pmd-select2-tags"
+        ng-model="ctrl.selectedAward"
+        ng-change="ctrl.filterByAward()"
+        ng-options="award as award.title[selectedLanguage]  for award in ctrl.awards"
+      >
+      </select>
+    </div>
+    <div class="dashboard-table">
+      <table>
+        <thead>
+          <tr>
+            <td rowspan="2">{{'judge'|translate}}</td>
+            <td colspan="2">{{'all'|translate}}</td>
+            <td colspan="2">{{'done'|translate}}</td>
+            <td colspan="2">{{'remaining'|translate}}</td>
+          </tr>
+          <tr>
+            <td>{{'level1'|translate}}</td>
+            <td>{{'level2'|translate}}</td>
+            <td>{{'level1'|translate}}</td>
+            <td>{{'level2'|translate}}</td>
+            <td>{{'level1'|translate}}</td>
+            <td>{{'level2'|translate}}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in ctrl.statistics">
+            <td>{{item.judgeFullName}}</td>
+            <td>{{item.totals.level1Artworks}}</td>
+            <td>{{item.totals.level2Artworks}}</td>
+            <td>
+              {{item.totals.level1Artworks -
+              item.remaining.level1Artworks}}
+            </td>
+            <td>
+              {{item.totals.level2Artworks -
+              item.remaining.level2Artworks}}
+            </td>
+            <td>{{item.remaining.level1Artworks}}</td>
+            <td>{{item.remaining.level2Artworks}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

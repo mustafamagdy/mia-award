@@ -142,7 +142,13 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<BoothPurchaseDto>(boothItem));
     }
 
+    [HttpPut("toggleSellable")]
+    public async Task<IActionResult> ToggleSellable([FromBody] BoothSellableUpdateDto dto, [FromServices] IAppUnitOfWork db) {
+      var item = await db.Booths.FirstOrDefaultAsync(a => a.Id == dto.Id);
+      item.Sellable = dto.Sellable;
 
+      return IfFound(_mapper.Map<BoothsDto>(item));
+    }
   }
 
 }

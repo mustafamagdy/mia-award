@@ -25,7 +25,8 @@
         img {
           width: 100%;
           height: 100%;
-          object-fit: scale-down;
+          // object-fit: scale-down;
+          object-fit: cover;
         } /* img */
       } /* post_imgthumb */
       .post_details {
@@ -323,7 +324,8 @@
             -moz-transition: all 0.4s ease-in-out;
             -o-transition: all 0.4s ease-in-out;
             transition: all 0.4s ease-in-out;
-            object-fit: scale-down;
+            // object-fit: scale-down;
+            object-fit: cover;
           } /* img */
           &:hover {
             img {

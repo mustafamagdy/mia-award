@@ -1,130 +1,143 @@
 <div class="modal-content">
-    <div class="modal-header bordered">
-        <h2 class="pmd-card-description-text">{{'EditVotingCriteria' | translate}}</h2>
-    </div>
-    <div class="modal-body">
-        <form class="form-horizontal" name="editVotingCriteriaForm">
-            <div class="row">
-                <!-- Nav tabs -->
-                <div class="form-group col-lg-6">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" ng-class="{'active':$index == 0}"
-                            ng-repeat="lang in editVotingCriteriaCtrl.language">
-                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home"
-                                role="tab" data-toggle="tab">
-                                <span style="color:red">*</span> {{lang.value | translate}}
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="pmd-card">
-                        <div class="pmd-card-body">
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}"
-                                    ng-repeat="lang in editVotingCriteriaCtrl.language" id="{{lang.value}}-form">
-                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
-                                        <label for="first-name">{{ lang.value+'Name' | translate}} </label>
-                                        <textarea required type="text" class="mat-input form-control"
-                                            name="name{{lang.value+'Name'}}"
-                                            ng-model="editVotingCriteriaCtrl.VotingCriteria.name[lang.key]"
-                                            ng-minlength="3" ng-maxlength="255"></textarea>
-                                        <div ng-messages="editVotingCriteriaForm.name{{lang.value+'Name'}}.$error">
-
-                                            <div class="error ng-binding"
-                                                ng-show="editVotingCriteriaForm.name{{lang.value+'Name'}}.$error.required && !editVotingCriteriaForm.name{{lang.value+'Name'}}.$pristine">
-                                                {{'requiredErr' | translate}}</div>
-                                            <div class="error ng-binding"
-                                                ng-show="(editVotingCriteriaForm.name{{lang.value+'Name'}}.$error.minlength || editVotingCriteriaForm.name{{lang.value+'Name'}}.$error.maxlength) && !editVotingCriteriaForm.name{{lang.value+'Name'}}.$error.required">
-                                                {{'NameLengthError3' | translate}}</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-
+  <div class="modal-header bordered">
+    <h2 class="pmd-card-description-text">
+      {{'EditVotingCriteria' | translate}}
+    </h2>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="editVotingCriteriaForm">
+      <div class="row">
+        <div class="form-group col-lg-3">
+          <label for="first-name">{{'name' | translate}}</label>
+          <input
+            required
+            type="text"
+            class="mat-input form-control"
+            name="name"
+            style="display: inline-block;"
+            ng-model="editVotingCriteriaCtrl.VotingCriteria.name"
+          />
+          <!-- required validation  -->
+          <div ng-messages="editVotingCriteriaForm.name.$error">
+            <div
+              class="error"
+              ng-if="editVotingCriteriaForm.name.$error.required && 
+                          !editVotingCriteriaForm.name.$pristine"
+            >
+              {{'requiredErr' | translate}}
             </div>
-            <div class="row">
-                <div class="form-group col-lg-3">
-                    <label for="first-name">{{'Code' | translate}}</label>
-                    <input required type="text" class="mat-input form-control" name="Code" numbers-only
-                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
-                        ng-model="editVotingCriteriaCtrl.VotingCriteria.code" required />
-                    <!-- required validation  -->
-                    <div ng-messages="editVotingCriteriaForm.Code.$error">
-                        <div class="error" ng-if="editVotingCriteriaForm.Code.$error.required && 
-                        !editVotingCriteriaForm.Code.$pristine">
-                            {{'requiredErr' |  translate}}
-                        </div>
-                        <!-- length validation -->
-                        <div class="error" ng-if="(editVotingCriteriaForm.Code.$error.minlength ||
-                            editVotingCriteriaForm.Code.$error.maxlength) 
-                             && !editVotingCriteriaForm.Code.newCode.$error.required">
-                            {{'PhoneLengthError' |  translate}}
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group col-lg-3">
-                    <label for="first-name">{{'Weight' | translate}}</label>
-                    <input required type="text" class="mat-input form-control" name="Weight" numbers-only
-                        style="display: inline-block;" ng-minlength="1" ng-maxlength="4"
-                        ng-model="editVotingCriteriaCtrl.VotingCriteria.weight" required />
-                    <!-- required validation  -->
-                    <div ng-messages="editVotingCriteriaForm.Weight.$error">
-                        <div class="error" ng-if="editVotingCriteriaForm.Weight.$error.required && 
-                        !editVotingCriteriaForm.Weight.$pristine">
-                            {{'requiredErr' |  translate}}
-                        </div>
-                        <!-- length validation -->
-                        <div class="error" ng-if="(editVotingCriteriaForm.Weight.$error.minlength ||
-                            editVotingCriteriaForm.Weight.$error.maxlength) 
-                             && !editVotingCriteriaForm.Weight.newPrice.$error.required">
-                            {{'PhoneLengthError' |  translate}}
-                        </div>
-                    </div>
-                </div>
+            <!-- length validation -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-lg-3">
+          <label for="first-name">{{'Code' | translate}}</label>
+          <input
+            required
+            type="text"
+            class="mat-input form-control"
+            name="Code"
+            style="display: inline-block;"
+            ng-model="editVotingCriteriaCtrl.VotingCriteria.code"
+          />
+          <!-- required validation  -->
+          <div ng-messages="editVotingCriteriaForm.Code.$error">
+            <div
+              class="error"
+              ng-if="editVotingCriteriaForm.Code.$error.required && 
+                        !editVotingCriteriaForm.Code.$pristine"
+            >
+              {{'requiredErr' | translate}}
             </div>
-            <div class="row">
-                <div class="form-group col-lg-4">
-                    <label>
-                        <input type="radio" name="level" ng-model="editVotingCriteriaForm.selectedVotingLevel" value="level1">
-                        level1
-                    </label>
-                    <label>
-                        <input type="radio" name="level" ng-model="editVotingCriteriaForm.selectedVotingLevel" value="level2">
-                        level2
-                    </label>
-
-                </div>
+            <!-- length validation -->
+          </div>
+        </div>
+        <div class="form-group col-lg-3">
+          <label for="first-name">{{'Weight' | translate}}</label>
+          <input
+            required
+            type="text"
+            class="mat-input form-control"
+            name="Weight"
+            decimal-numbers
+            decimal-points="4"
+            style="display: inline-block;"
+            ng-model="editVotingCriteriaCtrl.VotingCriteria.weight"
+          />
+          <!-- required validation  -->
+          <div ng-messages="editVotingCriteriaForm.Weight.$error">
+            <div
+              class="error"
+              ng-if="editVotingCriteriaForm.Weight.$error.required && 
+                        !editVotingCriteriaForm.Weight.$pristine"
+            >
+              {{'requiredErr' | translate}}
             </div>
-        </form>
-    </div>
-    <div class="pmd-modal-action text-right">
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            class="btn pmd-ripple-effect btn-primary" type="button"
-            ng-click="editVotingCriteriaCtrl.UpdateVotingCriteria()">{{'saveChangesBtn' | translate}}</button>
-        <button class="btn pmd-ripple-effect btn-default" type="button"
-            ng-click="editVotingCriteriaCtrl.Close()">{{'DiscardBtn' | translate}}</button>
-    </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-lg-4">
+          <label>
+            <input
+              type="radio"
+              name="level"
+              ng-model="selectedVotingLevel"
+              value="level1"
+            />
+            level1
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="level"
+              ng-model="selectedVotingLevel"
+              value="level2"
+            />
+            level2
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="pmd-modal-action text-right">
+    <button
+      style="
+        border: #494b74 solid 1px;
+        background-color: transparent;
+        color: #494b74;
+        border-radius: 6px;
+      "
+      class="btn pmd-ripple-effect btn-primary"
+      type="button"
+      ng-click="editVotingCriteriaCtrl.UpdateVotingCriteria()"
+    >
+      {{'saveChangesBtn' | translate}}
+    </button>
+    <button
+      class="btn pmd-ripple-effect btn-default"
+      type="button"
+      ng-click="editVotingCriteriaCtrl.Close()"
+    >
+      {{'DiscardBtn' | translate}}
+    </button>
+  </div>
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $(".select-add-tags").select2({
-            tags: true,
-            theme: "bootstrap",
-            insertTag: function (data, tag) {
-                // Insert the tag at the end of the results
-                data.push(tag);
-                // console.log(data);
-            }
-        });
-        $(".select-with-search").select2({
-            theme: "bootstrap"
-        });
+  $(document).ready(function () {
+    $(".select-add-tags").select2({
+      tags: true,
+      theme: "bootstrap",
+      insertTag: function (data, tag) {
+        // Insert the tag at the end of the results
+        data.push(tag);
+        // console.log(data);
+      },
     });
+    $(".select-with-search").select2({
+      theme: "bootstrap",
+    });
+  });
 </script>

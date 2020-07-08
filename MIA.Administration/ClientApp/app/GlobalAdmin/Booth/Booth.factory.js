@@ -14,6 +14,7 @@
             getPayment: { method: 'GET', url: appCONSTANTS.API_URL + 'booths/getPayment?id=:id', useToken: true },
             updatePayment: { method: 'PUT', url: appCONSTANTS.API_URL + 'booths/updatePayment', useToken: true },
             createPayment: { method: 'POST', url: appCONSTANTS.API_URL + 'booths/createPayment', useToken: true },
+            toggleSellable: { method: 'PUT', url: appCONSTANTS.API_URL + 'booths/toggleSellable', useToken: true },
         })
     }
 

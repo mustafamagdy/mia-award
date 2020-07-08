@@ -308,8 +308,6 @@ namespace MIA.ORMContext.Seed {
       var _faker_ar = new Faker("ar");
       string[] keywords = _faker_en.Random.WordsArray(10);
 
-      string[] categories = Enum.GetNames(typeof(NewsCategory)).Select(a => a.ToLower()).ToArray();
-
       //TODO remove in production
       var newsCount = db.News.Count();
       if (newsCount >= 20) return;
@@ -321,7 +319,7 @@ namespace MIA.ORMContext.Seed {
           Title = LocalizedData.FromBoth(_faker_ar.Lorem.Sentence(), _faker_en.Lorem.Sentence()),
           Body = LocalizedData.FromBoth(_faker_ar.Lorem.Paragraph(), _faker_en.Lorem.Paragraph()),
           Date = _faker_en.Date.Past().ToUnixTimeSeconds(),
-          Category = _faker_en.Random.ArrayElement(categories),
+          Category = _faker_en.Random.Word(),
           Outdated = _faker_en.Random.Bool(),
           Poster = S3File.FromKeyAndUrl("", ""),
           Featured = _faker_ar.Random.Bool(),
@@ -398,8 +396,8 @@ namespace MIA.ORMContext.Seed {
         };
 
         //avoid adding files again
-        //if (db.AlbumItems.FirstOrDefault(a => a.Title != null && a.Title.InEnglish() == item.Title.InEnglish()) != null)
-        //  continue;
+        if (db.AlbumItems.FirstOrDefault(a => a.Title != null && a.Title.InEnglish() == item.Title.InEnglish()) != null)
+          continue;
 
         await db.AlbumItems.AddAsync(item);
         await db.CommitTransactionAsync();

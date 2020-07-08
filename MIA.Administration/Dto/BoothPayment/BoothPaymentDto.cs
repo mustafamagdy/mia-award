@@ -17,5 +17,6 @@ namespace MIA.Administration.Dto.BoothPayment
     public string TransactionNumber { get; set; }
     public decimal Amount { get; set; }
     public long PaymentDate { get; set; }
+
   }
 }
