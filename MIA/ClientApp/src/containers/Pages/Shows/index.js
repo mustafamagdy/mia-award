@@ -24,7 +24,7 @@ const Shows = ({
   years,
   pageCount,
 }) => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState } = useForm();
   const [] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
@@ -188,7 +188,7 @@ const Shows = ({
                     name="onlineChannels"
                     placeholder={i18n._("online_channels")}
                   />
-                  <button type="submit">
+                  <button type="submit" disabled={formState.isSubmitting}>
                     <i className="icofont-ui-search"></i>
                   </button>
                 </form>

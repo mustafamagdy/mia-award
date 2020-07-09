@@ -708,5 +708,21 @@
         109
       ]
     ]
+  },
+  "reviews": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        110
+      ]
+    ]
+  },
+  "type_your_message_min_100": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        111
+      ]
+    ]
   }
 }

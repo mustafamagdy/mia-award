@@ -19,7 +19,7 @@ const RecentShows = ({
   pageCount,
   ...props
 }) => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState } = useForm();
   const [pageNumber, setPageNumber] = useState(1);
   const [searchQuery, setSearchQuery] = useState({});
   const [usingFilter, setUsingFilter] = useState(false);
@@ -75,7 +75,7 @@ const RecentShows = ({
                     name="onlineChannels"
                     placeholder={i18n._("online_channels")}
                   />
-                  <button type="submit">
+                  <button type="submit" disabled={formState.isSubmitting}>
                     <i className="icofont-ui-search"></i>
                   </button>
                 </form>

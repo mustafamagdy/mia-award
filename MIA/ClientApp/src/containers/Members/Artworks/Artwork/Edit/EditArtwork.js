@@ -7,7 +7,13 @@ import * as Yup from "yup";
 import config from "config";
 import { fileToBase64 } from "utils";
 
-const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
+const EditArtworkInfo = ({
+  artwork,
+  active,
+  editArtwork,
+  submitting,
+  ...props
+}) => {
   return (
     <Formik
       initialValues={artwork}
@@ -53,15 +59,7 @@ const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
         editArtwork(values);
       }}
     >
-      {({
-        values,
-        isSubmitting,
-        setFieldValue,
-        errors,
-        isValid,
-        touched,
-        ...props
-      }) => {
+      {({ values, setFieldValue, errors, isValid, touched, ...props }) => {
         return (
           <Form noValidate className="info_form">
             <div className="pay_col_one">
@@ -226,7 +224,11 @@ const EditArtworkInfo = ({ artwork, active, editArtwork, ...props }) => {
                   </div>
                 )}
                 <div className="row">
-                  <button className="normal_button" type="submit">
+                  <button
+                    className="normal_button"
+                    type="submit"
+                    disabled={submitting}
+                  >
                     <Trans id="save">Save</Trans>
                   </button>
                 </div>

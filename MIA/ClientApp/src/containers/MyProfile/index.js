@@ -115,7 +115,7 @@ class MyProfile extends Component {
                   this.props.updateUserProfile(userDate);
                 }}
               >
-                {({ values, errors, touched }) => (
+                {({ values, errors, touched, isSubmitting }) => (
                   <Form>
                     <div className="pc-profile__content">
                       <div className="container">
@@ -364,6 +364,7 @@ class MyProfile extends Component {
                             title="Save"
                             type="submit"
                             className="button summary-nav__next"
+                            disabled={isSubmitting}
                           >
                             <span className="button__text">
                               <Trans id="update"> Update </Trans>

@@ -12,6 +12,7 @@ const initialState = {
   myContestants: [],
   contestant: undefined,
   contestantMode: "add", //add, view, edit
+  submitting: false,
 };
 
 const fetchMyAwardsSuccess = (state, action) => {
@@ -30,16 +31,24 @@ const fetchMyArtworksSuccess = (state, action) => {
     draft.myContestants = [...contestants];
   });
 };
+const addNewArtwork = (state, action) => {
+  return produce(state, (draft) => {
+    draft.submitting = true;
+  });
+};
+
 const addNewArtworkSuccess = (state, action) => {
   return produce(state, (draft) => {
     if (action.payload.awardType == "person") {
       draft.contestant = { ...action.payload };
       draft.myContestants = [...state.myContestants, action.payload];
       draft.contestantMode = "view";
+      draft.submitting = false;
     } else {
       draft.artwork = { ...action.payload };
       draft.myArtworks = [...state.myArtworks, action.payload];
       draft.artworkMode = "view";
+      draft.submitting = false;
     }
   });
 };
@@ -47,6 +56,7 @@ const saveArtworkInfoSuccess = (state, action) => {
   return produce(state, (draft) => {
     draft.artworkMode = "view";
     draft.artwork = { ...action.payload };
+    draft.submitting = false;
   });
 };
 const fetchArtworkWithDetailsSuccess = (state, action) => {
@@ -113,6 +123,7 @@ const removeFileSuccess = (state, action) => {
 export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_MY_AWARDS_SUCCESS]: fetchMyAwardsSuccess,
   [ActionTypes.FETCH_MY_ARTWORKS_SUCCESS]: fetchMyArtworksSuccess,
+  [ActionTypes.ADD_NEW_ARTWORK]: addNewArtwork,
   [ActionTypes.ADD_NEW_ARTWORK_SUCCESS]: addNewArtworkSuccess,
   [ActionTypes.SAVE_ARTWORK_INFO_SUCCESS]: saveArtworkInfoSuccess,
   [ActionTypes.FETCH_ARTWORK_WITH_DETAILS_SUCCESS]: fetchArtworkWithDetailsSuccess,

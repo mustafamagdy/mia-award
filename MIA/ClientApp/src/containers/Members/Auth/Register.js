@@ -213,7 +213,7 @@ const Register = ({
                     <button
                       className="normal_button"
                       type="submit"
-                      disabled={!acceptTerms}
+                      disabled={!acceptTerms || isSubmitting}
                     >
                       <Trans id="register">Register</Trans>
                     </button>

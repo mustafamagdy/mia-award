@@ -16,6 +16,7 @@ const initialState = {
   forgotPasswordErrors: [],
   forgotPasswordFailed: false,
   avatarImageUrl: "",
+  profileSubmitting: false
 };
 
 const signupFinished = (state, action) => {
@@ -116,12 +117,15 @@ const changePasswordFailed = (state, { payload }) => {
 };
 
 const updateUserProfile = (state, action) => {
-  return produce(state, (draft) => {});
+  return produce(state, (draft) => {
+    draft.profileSubmitting = true;
+  });
 };
 
 const updateUserProfileSuccess = (state, action) => {
   return produce(state, (draft) => {
     draft.profile = action.payload;
+    draft.profileSubmitting = false;
   });
 };
 const updateUserAvatarSuccess = (state, action) => {
@@ -131,7 +135,9 @@ const updateUserAvatarSuccess = (state, action) => {
 };
 
 const updateUserProfileFailed = (state, { payload }) => {
-  return produce(state, (draft) => {});
+  return produce(state, (draft) => {
+    draft.profileSubmitting = false;
+  });
 };
 
 export const reducer = createReducer(initialState, {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
 import ReCAPTCHA from "react-google-recaptcha";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
@@ -26,6 +26,7 @@ const ShowsView = ({
   postShowReview,
   commentsSuccess,
   clearReviewSuccess,
+  submittingComment,  
   ...props
 }) => {
   useEffect(() => {
@@ -158,6 +159,7 @@ const ShowsView = ({
                     postShowReview={postShowReview}
                     commentsSuccess={commentsSuccess}
                     clearReviewSuccess={clearReviewSuccess}
+                    submittingComment={submittingComment}
                   />
                 </div>
               </div>
@@ -229,6 +231,7 @@ const Reviews = ({
   postShowReview,
   commentsSuccess,
   clearReviewSuccess,
+  submittingComment,
   ...props
 }) => (
   <div className="item_review">
@@ -240,6 +243,7 @@ const Reviews = ({
       postShowReview={postShowReview}
       commentsSuccess={commentsSuccess}
       clearReviewSuccess={clearReviewSuccess}
+      submittingComment={submittingComment}
     />
   </div>
 );
@@ -249,10 +253,18 @@ const CommentForm = ({
   postShowReview,
   commentsSuccess,
   clearReviewSuccess,
+  submittingComment,
   ...props
 }) => {
-  const { register, handleSubmit, reset, setValue } = useForm();
+  const { register, handleSubmit, reset, setValue, formState } = useForm();
   // let reCaptchaRef = useRef();
+  const recaptchaRef = useRef();
+  useEffect(() => {
+    if (submittingComment) {
+      reset({});
+      recaptchaRef.current.reset();
+    }
+  }, [submittingComment]);
 
   const onSubmit = (values) => {
     postShowReview({
@@ -260,11 +272,8 @@ const CommentForm = ({
       id: showId,
     });
     setTimeout(() => {
-      reset();
-      setTimeout(() => {
-        clearReviewSuccess();
-      }, 2000);
-    }, 1000);
+      clearReviewSuccess();
+    }, 2000);
   };
 
   return (
@@ -306,21 +315,22 @@ const CommentForm = ({
             <ReCAPTCHA
               theme="dark"
               sitekey={config.reCaptchaKey}
-              ref={() =>
-                register(
+              ref={(r) => {
+                recaptchaRef.current = r;
+                return register(
                   { name: "reCaptchaToken" },
                   {
                     validate: (value) => {
                       return !!value;
                     },
                   }
-                )
-              }
+                );
+              }}
               onChange={(v) => {
                 setValue("reCaptchaToken", v);
               }}
             />
-            <button type="submit">
+            <button type="submit" disabled={submittingComment}>
               <Trans id="post_comment">Post Comment</Trans>
             </button>
             {"  "}
@@ -383,12 +393,13 @@ const AdsArea = (props) => (
 );
 
 const mapStateToProps = ({
-  shows: { selectedShow, commentsSuccess },
+  shows: { selectedShow, commentsSuccess, submittingComment },
   router: { location },
 }) => ({
   show: selectedShow,
   commentsSuccess,
   location,
+  submittingComment,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...showsActions }, dispatch);

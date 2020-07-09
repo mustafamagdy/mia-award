@@ -4,7 +4,7 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        60
+        61
       ]
     ]
   },
@@ -13,11 +13,11 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        115
+        116
       ],
       [
         "src/containers/Members/Profile.js",
-        225
+        227
       ]
     ]
   },
@@ -26,11 +26,11 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        118
+        119
       ],
       [
         "src/containers/Members/Profile.js",
-        233
+        235
       ]
     ]
   },
@@ -39,7 +39,7 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        246
+        248
       ]
     ]
   },
@@ -48,7 +48,7 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        252
+        254
       ]
     ]
   },
@@ -57,7 +57,7 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        258
+        260
       ]
     ]
   },
@@ -66,7 +66,7 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        268
+        270
       ]
     ]
   },
@@ -75,7 +75,7 @@
     "origin": [
       [
         "src/containers/Members/Profile.js",
-        288
+        290
       ]
     ]
   }

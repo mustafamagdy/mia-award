@@ -4,7 +4,7 @@
     "origin": [
       [
         "src/containers/MyProfile/ImageUpload.js",
-        54
+        67
       ]
     ]
   },
@@ -13,7 +13,7 @@
     "origin": [
       [
         "src/containers/MyProfile/ImageUpload.js",
-        56
+        72
       ]
     ]
   },
@@ -22,7 +22,7 @@
     "origin": [
       [
         "src/containers/MyProfile/ImageUpload.js",
-        63
+        94
       ]
     ]
   },
@@ -31,7 +31,7 @@
     "origin": [
       [
         "src/containers/MyProfile/ImageUpload.js",
-        66
+        104
       ]
     ]
   },
@@ -40,7 +40,7 @@
     "origin": [
       [
         "src/containers/MyProfile/ImageUpload.js",
-        78
+        126
       ]
     ]
   }

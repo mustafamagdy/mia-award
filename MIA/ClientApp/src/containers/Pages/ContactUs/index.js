@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Trans } from "@lingui/macro";
 import { useForm } from "react-hook-form";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -20,9 +20,10 @@ const ContactUs = ({
   contactUsMessageSubjects,
   contactUsSuccess,
   contactUsFailed,
+  contactUsSubmitting,
   ...props
 }) => {
-  const { register, handleSubmit, setValue } = useForm({
+  const { register, handleSubmit, setValue, formState, reset } = useForm({
     validationSchema: Yup.object({
       name: Yup.string().required("required"),
       email: Yup.string().email("not_valid_email").required("required"),
@@ -31,6 +32,14 @@ const ContactUs = ({
       message: Yup.string().required("required").min(100).max(4000),
     }),
   });
+
+  const recaptchaRef = useRef();
+  useEffect(() => {
+    if (contactUsSubmitting) {
+      reset({});
+      recaptchaRef.current.reset();
+    }
+  }, [contactUsSubmitting]);
 
   const onSubmit = (values) => {
     sendContactUsMessage(values);
@@ -150,27 +159,28 @@ const ContactUs = ({
                     id=""
                     cols="30"
                     rows="10"
-                    placeholder={i18n._("type_your_comment")}
+                    placeholder={i18n._("type_your_message_min_100")}
                   ></textarea>
                   <ReCAPTCHA
                     className="captcha_item"
                     theme="dark"
                     sitekey={config.reCaptchaKey}
-                    ref={() =>
-                      register(
+                    ref={(r) => {
+                      recaptchaRef.current = r;
+                      return register(
                         { name: "reCaptchaToken" },
                         {
                           validate: (value) => {
                             return !!value;
                           },
                         }
-                      )
-                    }
+                      );
+                    }}
                     onChange={(v) => {
                       setValue("reCaptchaToken", v);
                     }}
                   />
-                  <button type="submit">
+                  <button type="submit" disabled={contactUsSubmitting}>
                     <Trans id="send_message">Send Message</Trans>
                   </button>
                   {contactUsSuccess && (
@@ -198,11 +208,17 @@ const ContactUs = ({
 };
 
 const mapStateToProps = ({
-  home: { contactUsMessageSubjects, contactUsSuccess, contactUsFailed },
+  home: {
+    contactUsMessageSubjects,
+    contactUsSuccess,
+    contactUsFailed,
+    contactUsSubmitting,
+  },
 }) => ({
   contactUsMessageSubjects,
   contactUsSuccess,
   contactUsFailed,
+  contactUsSubmitting,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...homeActions }, dispatch);

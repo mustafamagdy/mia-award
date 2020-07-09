@@ -23,6 +23,7 @@ const EditArtwork = ({
   removeArtworkFile,
   fetchArtworkWithDetails,
   awardType,
+  submitting,
   ...props
 }) => {
   const [tabs, setTabs] = useState(["info"]);
@@ -131,6 +132,7 @@ const EditArtwork = ({
               <EditArtworkInfo
                 editArtwork={saveArtworkInfo}
                 artwork={artwork}
+                submitting={submitting}
               />
             )}
             {activeTabKey === "trailer" && (
@@ -159,8 +161,9 @@ const EditArtwork = ({
   );
 };
 
-const mapStateToProps = ({ members: { artwork } }) => ({
+const mapStateToProps = ({ members: { artwork, submitting } }) => ({
   artwork,
+  submitting,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...membersActions }, dispatch);
