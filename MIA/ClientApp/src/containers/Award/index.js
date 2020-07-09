@@ -14,7 +14,6 @@ const Award = ({ location, awards, currency, props }) => {
   }, []);
 
   useEffect(() => {
-    console.log("id ", awardId);
     setAward(awards.find((a) => a.id == awardId));
   }, [awardId, awards]);
 
@@ -45,21 +44,23 @@ const Award = ({ location, awards, currency, props }) => {
                     }}
                   ></div>
                   <div className="download">
-                    <a href="#">
-                      <img src="/assets/images/pdf_icon.png" />
+                    <a
+                      href={`/assets/files/award_${award.awardType}.${locale.code}.pdf`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src="/assets/images/pdf_icon.png" alt="Terms" />
                     </a>
-                    <a href="#">
-                      <img src="/assets/images/pdf_icon.png" />
-                    </a>
-                    <a href="#">
-                      <img src="/assets/images/pdf_icon.png" />
-                    </a>
-                    <a href="#">
-                      <img src="/assets/images/pdf_icon.png" />
+                    <a
+                      href={`/assets/files/mia.${locale.code}.pdf`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src="/assets/images/pdf_icon.png" alt="Media kit" />
                     </a>
                   </div>
                   <div className="applynow">
-                    <a href="#">
+                    <a href="/members">
                       <Trans id="apply_for_award">APPLY FOR AWARD</Trans>
                     </a>
                   </div>
