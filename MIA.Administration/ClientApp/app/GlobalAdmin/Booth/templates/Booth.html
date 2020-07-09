@@ -5,7 +5,7 @@
 </style>
 
 <div>
-  <div style="margin-bottom: 10px;" ng-show="user.PermessionModules.includes('Booths.add_booths')">
+  <div style="margin-bottom: 10px;" ng-show="user.userPermissions['Booths'].add_booths">
     <button style="
         background: linear-gradient(90deg, #f7e483, #dbba5a 57%, #a36d31);
         border-radius: 17px;
@@ -61,15 +61,15 @@
                   class="material-icons md-dark pmd-sm"></i></span>
             </td>
             <td width="20%">
-              <i ng-show="user.PermessionModules.includes('Booths.edit_booths')"
+              <i ng-show="user.userPermissions['Booths'].edit_booths"
                 class="material-icons md-dark pmd-md cursorPointer font25"
                 ng-click="$state.go('editBooth',{id: Booth.id});" title="Edit">mode_edit</i>
 
-              <i ng-show="!Booth.hasConfirmedPayment && user.PermessionModules.includes('Booths.manage_payments')"
+              <i ng-show="!Booth.hasConfirmedPayment && user.userPermissions['Booths'].manage_payments"
                 class="material-icons md-dark pmd-md perm_media font25"
                 ng-click="$state.go('newBoothPayment',{id: Booth.id});" title="payment">payment</i>
 
-              <i ng-show="user.PermessionModules.includes('Booths.remove_booths')"
+              <i ng-show="user.userPermissions['Booths'].remove_booths"
                 class="material-icons pmd-md deleteButton cursorPointer font25"
                 ng-click="BoothCtrl.openDeleteDialog(Booth,Booth.description[selectedLanguage] ,Booth.id)"
                 title="Delete">delete</i>

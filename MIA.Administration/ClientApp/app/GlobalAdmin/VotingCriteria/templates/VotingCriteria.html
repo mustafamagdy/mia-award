@@ -1,7 +1,7 @@
 <div>
   <div style="margin-bottom: 10px;">
     <button
-      ng-show="user.PermessionModules.includes('News.add_new')"
+      ng-show="user.userPermissions['Admin'].add_new"
       style="
         background: linear-gradient(90deg, #f7e483, #dbba5a 57%, #a36d31);
         border-radius: 17px;
@@ -68,14 +68,14 @@
             </td>
             <td width="30%">
               <i
-                ng-show="user.PermessionModules.includes('News.add_new')"
+                ng-show="user.userPermissions['Admin'].add_new"
                 class="material-icons md-dark pmd-md cursorPointer font25"
                 ng-click="$state.go('editVotingCriteria',{id: VotingCriteria.id});"
                 title="Edit"
                 >mode_edit</i
               >
               <i
-                ng-show="user.PermessionModules['News'].includes('remove')"
+                ng-show="user.userPermissions['Admin'].remove"
                 class="material-icons pmd-md deleteButton cursorPointer font25"
                 ng-click="VotingCriteriaCtrl.openDeleteDialog(VotingCriteria,VotingCriteria.name[selectedLanguage] ,VotingCriteria.id)"
                 title="Delete"

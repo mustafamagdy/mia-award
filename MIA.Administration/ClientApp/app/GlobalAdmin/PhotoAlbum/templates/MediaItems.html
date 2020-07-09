@@ -1,5 +1,5 @@
 <div>
-    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes('News.add_new')">
+    <div style="margin-bottom:10px" ng-show="user.userPermissions['Admin'].add_new">
 
         <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
         border-radius: 17px;" ng-click="$state.go('newMediaItem',{id: $stateParams.id});"
@@ -43,7 +43,7 @@
                                 </div>
                         </td>
                         <td width="30%">
-                            <i ng-show="user.PermessionModules['News'].includes('remove')"
+                            <i ng-show="user.userPermissions['Admin'].remove"
                                 class="material-icons pmd-md deleteButton cursorPointer font25"
                                 ng-click="mediaItemCtrl.openDeleteDialog(mediaItem,mediaItem.title[selectedLanguage] ,mediaItem.id)"
                                 title="Delete">delete</i>

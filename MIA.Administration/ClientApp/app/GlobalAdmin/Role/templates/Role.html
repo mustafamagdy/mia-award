@@ -24,7 +24,7 @@
                         <td>{{role.name}}</td> 
 
                         <td>
-                            <i ng-show="user.PermessionModules.includes('Adminstration.edit_roles')"
+                            <i ng-show="user.userPermissions['Admin'].edit_roles"
                              class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('editRole',{name: role.name});" title="Edit">mode_edit</i>
                             <i ng-show="!role.systemRole" class="material-icons pmd-md deleteButton cursorPointer font25"

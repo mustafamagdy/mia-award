@@ -30,20 +30,22 @@
       var token = getAuthInfo();
       if (token == undefined) return undefined;
       const userDetails = jwtHelper.decodeToken(token);
-      userDetails.PermissionId  = userDetails.PermissionId || '';
-      userDetails.PermissionId = userDetails.PermissionId.split(';').map(a => a.trim());
-      userDetails.PermessionModules = JSON.parse(userDetails.PermessionModules);
+      const _modules = (userDetails.userModules || '').split(';').map(a => a.trim());
+      //this will make the user modules as object { 'admin': true, ... etc}
+      userDetails.userModules  = _modules.reduce(function(acc, cur, i) { 
+                                                  acc[cur] = true;
+                                                  return acc;
+                                              }, {});
 
+      userDetails.userPermissions = JSON.parse(userDetails.userPermissions);
+      Object.keys(userDetails.userPermissions).forEach( k=> {
+        const _permissions = userDetails.userPermissions[k];
+        userDetails.userPermissions[k] = _permissions.reduce(function(acc, cur, i) { 
+              acc[cur] = true;
+              return acc;
+          }, {});
+      });
       return userDetails;
-      // return {
-      //   tenantId: info ? info.tenantId : "",
-      //   name: info ? info.username : "",
-      //   role: info ? info.Role : "",
-      //   id: info ? info.userId : "",
-      //   permessionModules: info ? info.permessionModules : 0,
-      //   PermissionId: info ? info.PermissionId : [],
-      //   userTypeId: info && info.userType ? info.userType : 0
-      // };
     }
 
     function hasRole(role) {
@@ -61,29 +63,9 @@
     }
 
     function setAuthInfo(info) {
-      // info.data.PermissionId = info.data.permissionId;
-      // info.data.permessionModules = info.data.permessionModules;
-      // info.data.expires_in = "172799";
-      // info.data.token_type = "bearer";
-
-      // $localStorage.authInfo = info.data;
-      // var currentDate = new Date();
-      // $localStorage.authInfo['expires_in'] = currentDate.setSeconds(currentDate.getSeconds() + $localStorage.authInfo['expires_in']);
-
       $localStorage.authInfo = info.data;
     }
 
-    function setAuthInfoAfterChangeTenant(info) {
-      info.PermissionId = info.PermissionId;
-      info.permessionModules = info.permessionModules;
-      info.expires_in = "172799";
-      info.token = info.token;
-      info.token_type = "bearer";
-      info.userType = info.userType;
-
-      $localStorage.authInfo = info;
-      var currentDate = new Date();
-      $localStorage.authInfo["expires_in"] = currentDate.setSeconds(currentDate.getSeconds() + $localStorage.authInfo["expires_in"]);
-    }
+    function setAuthInfoAfterChangeTenant(info) { }
   }
 })();

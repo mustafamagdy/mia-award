@@ -626,7 +626,7 @@
             </li>
             <!-- End user info -->
 
-            <li ng-show="user.PermessionModules.includes('Adminstration.view_roles') ">
+            <li ng-show="user.userModules['Admin']">
                 <a class="pmd-ripple-effect" ng-click="$state.go('Role');">
                     <i class="media-left media-middle">
 
@@ -646,7 +646,7 @@
             </li>
 
 
-            <li ng-show="user.PermessionModules.includes('Adminstration.view_news') ">
+            <li ng-show="user.userModules['Admin']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('News');">
                     <i class="media-left media-middle">
@@ -665,7 +665,7 @@
                     <span class="media-body" style="color: #a38031;">{{'NewsLbl' | translate}}</span>
                 </a>
             </li>
-            <li ng-show="user.PermessionModules.includes('Booths.view_booths') ">
+            <li ng-show="user.userModules['Booths']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('Booth');">
                     <i class="media-left media-middle">
@@ -684,7 +684,7 @@
                     <span class="media-body" style="color: #a38031;">{{'Booth' | translate}}</span>
                 </a>
             </li>
-            <li ng-show="user.PermessionModules.includes('Adminstration.view_artwork') ">
+            <li ng-show="user.userModules['Judge']">
                 <a class="pmd-ripple-effect" ng-click="$state.go('ArtWork');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -703,7 +703,7 @@
                 </a>
             </li>
 
-            <li ng-show="user.PermessionModules.includes('Adminstration.view_award') ">
+            <li ng-show="user.userModules['Admin']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('Award');">
                     <i class="media-left media-middle">
@@ -722,7 +722,7 @@
                     <span class="media-body" style="color: #a38031;">{{'Award' | translate}}</span>
                 </a>
             </li>
-            <li ng-show="user.PermessionModules.includes('Adminstration.view_voting') ">
+            <li ng-show="user.userModules['Admin']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('VotingCriteria');">
                     <i class="media-left media-middle">
@@ -741,7 +741,7 @@
                     <span class="media-body" style="color: #a38031;">{{'VotingCriteria' | translate}}</span>
                 </a>
             </li>
-            <li ng-show="user.PermessionModules.includes('Adminstration.view_album') ">
+            <li ng-show="user.userModules['Admin']">
                 <a class="pmd-ripple-effect" ng-click="$state.go('PhotoAlbum');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -760,7 +760,7 @@
                 </a>
             </li>
 
-            <li ng-show="user.PermessionModules.includes('Judge.list_judge_artworks') ">
+            <li ng-show="user.userModules['Judge']">
                 <a class="pmd-ripple-effect" ng-click="$state.go('JudgeArtWork');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -779,7 +779,7 @@
                 </a>
             </li>
 
-            <li ng-show="user.PermessionModules.includes('Judge.list_judge_artworks') ">
+            <li ng-show="user.userModules['Judge']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('artwork-votes');">
                     <i class="media-left media-middle">
@@ -798,7 +798,7 @@
                     <span class="media-body" style="color: #a38031;">{{'ArtworkVotes' | translate}}</span>
                 </a>
             </li>
-            <li ng-show="user.PermessionModules.includes('Judge.list_judge_artworks') ">
+            <li ng-show="user.userModules['Judge']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('artwork-statistics');">
                     <i class="media-left media-middle">
@@ -817,7 +817,7 @@
                     <span class="media-body" style="color: #a38031;">{{'ArtworkStatistics' | translate}}</span>
                 </a>
             </li>
-            <li ng-show="user.PermessionModules.includes('Judge.list_judge_artworks') ">
+            <li ng-show="user.userModules['Judge']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('my-judges');">
                     <i class="media-left media-middle">
@@ -836,7 +836,7 @@
                     <span class="media-body" style="color: #a38031;">{{'MyJudges' | translate}}</span>
                 </a>
             </li>
-            <li ng-show="user.PermessionModules.includes('Judge.list_judge_artworks') ">
+            <li ng-show="user.userModules['Judge']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('my-dashboard');">
                     <i class="media-left media-middle">
@@ -859,7 +859,7 @@
 
             <!-- user -->
             <li class="dropdown pmd-dropdown visible-xs visible-md visible-sm visible-lg"
-                ng-show="user.PermessionModules.includes('Adminstration.view_user') ">
+                ng-show="user.userModules['Admin']">
                 <a data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true"
                     aria-expandedhref="javascript:void(0);" class="pmd-ripple-effect">
                     <i class="media-left media-middle">
@@ -892,8 +892,7 @@
                 </a>
 
                 <ul class="dropdown-menu" style="opacity: 1;">
-                    <li ng-show="user.PermessionModules.includes('News') ">
-                        <a class="pmd-ripple-effect" ng-click="$state.go('users');"
+                    <li ng-show="user.userModules['Admin']" class="pmd-ripple-effect" ng-click="$state.go('users');"
                             style="background-color: transparent;" data-toggle="dropdown"
                             class="btn-user dropdown-toggle media" data-sidebar="true"
                             aria-expandedhref="javascript:void(0);">
@@ -911,30 +910,6 @@
                             </span>
                         </a>
                     </li>
-                    <!-- 	<li ng-show="user.PermessionModules.split(';').includes('16') ">
-						<a class="pmd-ripple-effect" ng-click="$state.go('DistributerUser');"
-							style="background-color: transparent;" data-toggle="dropdown"
-							class="btn-user dropdown-toggle media" data-sidebar="true"
-							aria-expandedhref="javascript:void(0);">
-							<span class="media-body">
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-									width="15px" height="15px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										<rect id="bound" x="0" y="0" width="24" height="24" />
-										<path
-											d="M12,16 C14.209139,16 16,14.209139 16,12 C16,9.790861 14.209139,8 12,8 C9.790861,8 8,9.790861 8,12 C8,14.209139 9.790861,16 12,16 Z M12,20 C7.581722,20 4,16.418278 4,12 C4,7.581722 7.581722,4 12,4 C16.418278,4 20,7.581722 20,12 C20,16.418278 16.418278,20 12,20 Z"
-											id="Oval-6" fill="#494b74" fill-rule="nonzero" />
-									</g>
-								</svg>
-								{{'DistributorLbl' | translate}}
-							</span>
-						</a>
-					</li> 
-				</ul>
-
- -->
-
-
             </li>
         </ul>
     </aside>
