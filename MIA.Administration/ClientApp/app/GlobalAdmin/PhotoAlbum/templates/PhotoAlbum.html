@@ -1,5 +1,5 @@
 <div>
-    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes('News.add_new')">
+    <div style="margin-bottom:10px" ng-show="user.userPermissions['Admin'].add_album">
 
         <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
         border-radius: 17px;" ng-click="$state.go('newPhotoAlbum');"
@@ -28,14 +28,14 @@
                         </td>
 
                         <td width="30%">
-                            <i ng-show="user.PermessionModules.includes('News.add_new')"
+                            <i ng-show="user.userPermissions['Admin'].edit_album"
                                 class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('editPhotoAlbum',{id: PhotoAlbum.id});" title="Edit">mode_edit</i>
-                            <i ng-show="user.PermessionModules['News'].includes('remove') && !PhotoAlbum.mainGallery"
+                            <i ng-show="user.userPermissions['Admin'].remove_album && !PhotoAlbum.mainGallery"
                                 class="material-icons pmd-md deleteButton cursorPointer font25"
                                 ng-click="PhotoAlbumCtrl.openDeleteDialog(PhotoAlbum,PhotoAlbum.title[selectedLanguage] ,PhotoAlbum.id)"
                                 title="Delete">delete</i>
-                            <i ng-show="user.PermessionModules.includes('News.add_new')"
+                            <i ng-show="user.userPermissions['Admin'].view_album_file"
                                 class="material-icons md-dark pmd-md perm_media font25"
                                 ng-click="$state.go('mediaItems',{id: PhotoAlbum.id});" title="media">perm_media</i>
 

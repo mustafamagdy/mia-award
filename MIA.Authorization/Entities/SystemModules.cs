@@ -4,11 +4,10 @@ namespace MIA.Authorization.Entities {
   [Flags]
   public enum SystemModules : long {
     Dashboard = 1 << 1,
-    Adminstration = 1 << 2,
-    News = 1 << 3,
-    Booths = 1 << 4,
-    Gallery = 1 << 5,
-    Nominee = 1 << 6,
-    Judge = 1 << 7,
+    Admin = 1 << 2, 
+    Booths = 1 << 3,
+    Gallery = 1 << 4,
+    Nominee = 1 << 5,
+    Judge = 1 << 6,
   }
 }

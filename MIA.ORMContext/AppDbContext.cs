@@ -47,7 +47,7 @@ namespace MIA.ORMContext {
 
       builder.Entity<AppRole>().Property(x => x.Id).HasValueGenerator<SeqIdValueGenerator>().ValueGeneratedOnAdd();
       builder.Entity<AppRole>().Property(x => x.Description).HasColumnType("nvarchar(MAX)");
-      builder.Entity<AppRole>().Property(x => x.Permissions).HasColumnType("nvarchar(1000)").HasMaxLength(1000);
+      builder.Entity<AppRole>().Property(x => x.Permissions).HasColumnType("nvarchar(MAX)").HasDefaultValue("");
 
       // set localizedData converter
       builder.UseValueConverterForType<LocalizedData>(new LocalizedDataConverter());

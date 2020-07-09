@@ -27,7 +27,9 @@ namespace MIA.Authorization {
     /// <param name="permissionToCheck"></param>
     /// <returns></returns>
     public static bool UserHasThisPermission(this Permissions[] usersPermissions, Permissions permissionToCheck) {
-      return usersPermissions.Contains(permissionToCheck) || usersPermissions.Contains(Permissions.AccessAll);
+      return usersPermissions.Contains(permissionToCheck) 
+             //|| usersPermissions.Contains(Permissions.AccessAll)
+        ;
     }
   }
 }

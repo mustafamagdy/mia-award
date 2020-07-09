@@ -11,8 +11,10 @@
             update: { method: 'PUT', useToken: true },
             getVotingCriteria: { method: 'GET', useToken: true },
             delete: { method: 'DELETE', useToken: true },
-            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'VotingCriterias/ChangeStatus/:id/:status', useToken: true }
-
+            changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'VotingCriterias/ChangeStatus/:id/:status', useToken: true },
+            getVotingCriteriaByAward: { method: 'POST', url: appCONSTANTS.API_URL + 'VotingCriterias/getVotingCriteriaByAward', useToken: true },
+           
+            
         })
     }
 

@@ -40,7 +40,6 @@ namespace MIA.ORMContext.Seed {
       //await SeedDemoNews(db, s3FileManager);
       //await SeedDemoArtworks(db, s3FileManager);
 
-      await SeedDemoUserAndRoleAsync(roleManager, userManager, db);
       await SeedBoothUserAndRoleAsync(roleManager, userManager, db);
       await SeedFilterAndUploadUserAndRoleAsync(roleManager, userManager, db);
       await SeedDemoUsers(roleManager, userManager, db);
@@ -429,93 +428,19 @@ namespace MIA.ORMContext.Seed {
 
     }
 
-    private static async Task SeedDemoUserAndRoleAsync(
-      RoleManager<AppRole> roleManager,
-      UserManager<AppUser> userManager,
-      IAppUnitOfWork db) {
-
-      //if (await roleManager.FindByNameAsync(PredefinedRoles.Demo.ToString()) == null) {
-      //  await roleManager.CreateAsync(
-      //    new AppRole {
-      //      Name = PredefinedRoles.Demo.ToString(),
-      //      NormalizedName = PredefinedRoles.Demo.ToString().ToUpper()
-      //    });
-
-      var demoRole = await roleManager.FindByNameAsync(PredefinedRoles.Demo.ToString());
-      if (demoRole.Permissions == null) {
-        demoRole.Permissions = "";
-      }
-
-      //(this is an example only)
-      Permissions[] demoPermissions = new Permissions[]
-      {
-        Permissions.NewsRead,
-        Permissions.NewsAddNew,
-        Permissions.NewsRemove,
-        Permissions.AddUserToRole,
-        Permissions.ReadRolePermissions,
-        Permissions.RemoveUserFromRole,
-        Permissions.RemoveUserFromRole,
-      };
-
-      demoPermissions.ForEach(m => {
-        if (!demoRole.Permissions.Contains((char)m)) {
-          demoRole.Permissions += (char)m;
-        }
-      });
-      //}
-
-
-      if (await userManager.FindByNameAsync(Constants.DEMO_USERNAME) == null) {
-        AppUser demoUser = new AppUser {
-          FullName = "demo user",
-          Email = Constants.DEMO_EMAIL,
-          UserName = Constants.DEMO_USERNAME,
-          NormalizedEmail = Constants.DEMO_EMAIL.ToUpper(),
-          NormalizedUserName = Constants.DEMO_USERNAME.ToUpper(),
-        };
-
-        IdentityResult result = await userManager.CreateAsync(demoUser, Constants.DEMO_PASSWORD);
-        if (result.Succeeded) {
-          await userManager.AddToRoleAsync(demoUser, PredefinedRoles.Demo.ToString());
-
-          //add allowed modules (this is an example only)
-          var allowedModules = new SystemModules[] { SystemModules.News, SystemModules.Adminstration };
-          var modules = allowedModules[0];
-          for (int i = 1; i < allowedModules.Length; i++) {
-            modules |= allowedModules[i];
-          }
-
-          //adds allowed modules for user
-          await db.UserModules.AddAsync(new UserModule(demoUser.Id, modules));
-        }
-      }
-
-    }
-
-
     /// <summary>
     /// Seed db with default admin role
     /// </summary>
     /// <param name="roleManager">Rolemanager instance to create default roles</param>
     /// <returns></returns>
     private static async Task SeedAdminRoleAndPermissions(RoleManager<AppRole> roleManager, IAppUnitOfWork db) {
-      if (await roleManager.FindByNameAsync(PredefinedRoles.Administrator.ToString()) == null) {
-        await roleManager.CreateAsync(
-          new AppRole(PredefinedRoles.Administrator.ToString()) {
-            Name = PredefinedRoles.Administrator.ToString(),
-            NormalizedName = PredefinedRoles.Administrator.ToString().ToUpper()
-          });
 
-        var adminRole = await roleManager.FindByNameAsync(PredefinedRoles.Administrator.ToString());
-        if (adminRole.Permissions == null) {
-          adminRole.Permissions = "";
-        }
+      var adminRole = await roleManager.FindByNameAsync(PredefinedRoles.Administrator.ToString());
+      adminRole.Permissions = "";
 
-        if (!adminRole.Permissions.Contains((char)Permissions.AccessAll)) {
-          adminRole.Permissions += (char)Permissions.AccessAll;
-        }
-
+      var allPermissions = Enum.GetValues(typeof(Permissions));
+      foreach (var p in allPermissions) {
+        adminRole.Permissions += (char)((Permissions)p);
       }
     }
 
@@ -557,11 +482,24 @@ namespace MIA.ORMContext.Seed {
 
         IdentityResult result = await userManager.CreateAsync(admin, Constants.ADMIN_PASSWORD);
         if (result.Succeeded) {
-          await userManager.AddToRoleAsync(admin, PredefinedRoles.Administrator.ToString());
+          var addUserToRoleResult = await userManager.AddToRoleAsync(admin, PredefinedRoles.Administrator.ToString());
+          if (addUserToRoleResult.Succeeded) {
+            var allowedModules = new SystemModules[]
+            {
+              SystemModules.Booths,
+              SystemModules.Admin,
+              SystemModules.Dashboard,
+              SystemModules.Gallery,
+              SystemModules.Judge
+            };
+            var modules = allowedModules[0];
+            for (int i = 1; i < allowedModules.Length; i++) {
+              modules |= allowedModules[i];
+            }
 
-
-          var sys1Mod = new UserModule(admin.Id, SystemModules.Adminstration);
-          await db.UserModules.AddAsync(sys1Mod);
+            //adds allowed modules for user
+            await db.UserModules.AddAsync(new UserModule(admin.Id, modules));
+          }
         }
       }
     }
@@ -795,7 +733,7 @@ namespace MIA.ORMContext.Seed {
           await userManager.AddToRoleAsync(filterUser, PredefinedRoles.FilterUploads.ToString());
 
           //add allowed modules (this is an example only)
-          var allowedModules = new SystemModules[] { SystemModules.Adminstration };
+          var allowedModules = new SystemModules[] { SystemModules.Admin };
           var modules = allowedModules[0];
           for (int i = 1; i < allowedModules.Length; i++) {
             modules |= allowedModules[i];

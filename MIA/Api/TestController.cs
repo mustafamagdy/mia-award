@@ -113,12 +113,6 @@ namespace MIA.Api {
       throw new ValidationException(user, null);
     }
 
-    [HttpGet]
-    [HasPermission(Permissions.NewsRead)]
-    public IActionResult Employees() {
-      return Ok("here are all employees");
-    }
-
 
     [HttpGet("gen-email/{templatename}/{cultureCode}")]
     public async Task<IActionResult> GenerateEmail(

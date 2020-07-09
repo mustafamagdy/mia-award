@@ -1,5 +1,5 @@
 <div>
-    <div style="margin-bottom:10px" ng-show="user.PermessionModules.includes('News.add_new')">
+    <div style="margin-bottom:10px" ng-show="user.userPermissions['Admin'].add_new">
         <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
         border-radius: 17px;" ng-click="$state.go('newArtWorkMedia',{id:$stateParams.id});"
             class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
@@ -24,10 +24,10 @@
                             {{ArtWork.description.length > 20 ? '...' : ''}}
                         </td>
                         <td width="10%">
-                            <i ng-show="user.PermessionModules.includes('News.add_new')"
+                            <i ng-show="user.userPermissions['Admin'].add_new"
                                 class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('editArtWork',{id: ArtWork.id});" title="Edit">mode_edit</i>
-                            <i ng-show="user.PermessionModules.includes('News.add_new')"
+                            <i ng-show="user.userPermissions['Admin'].add_new"
                                 class="material-icons pmd-md deleteButton cursorPointer font25"
                                 ng-click="ArtWorkMediaCtrl.openDeleteDialog(ArtWork,ArtWork.description  ,ArtWork.id)"
                                 title="Delete">delete</i>

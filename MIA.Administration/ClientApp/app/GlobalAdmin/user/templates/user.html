@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
 
-            <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
+            <button ng-show="user.userPermissions['Admin'].add_user" style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
             border-radius: 17px;" ng-click="$state.go('addUser');"
                 class="btn pmd-ripple-effect btn-primary pmd-z-depth"
                 type="button">{{'AddUserBtn' | translate}}</button>
@@ -46,7 +46,8 @@
                         <td width="20%">{{userObj.gender}}</td>
 
                         <td>
-                            <i class="material-icons md-dark pmd-md cursorPointer font25"
+                            <i ng-show="user.userPermissions['Admin'].edit_user"
+                                class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('editUser',{userId: userObj.id});" title="Edit">mode_edit</i>
                         </td>
                     </tr>

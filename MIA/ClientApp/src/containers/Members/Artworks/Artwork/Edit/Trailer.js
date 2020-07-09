@@ -7,6 +7,7 @@ import { Trailer as TrailerView } from "../View/Trailer";
 import { withRouter } from "react-router";
 import { Subject } from "rxjs";
 import { I18n } from "@lingui/react";
+import config from "../../../../../config";
 const Trailer = ({
   active,
   artworkId,
@@ -101,7 +102,7 @@ const Trailer = ({
                     <input
                       type="file"
                       name="trailer"
-                      accept="video/*"
+                      accept={config.validationRules.videoFiles}
                       onChange={(e) => {
                         if (e.target.files && e.target.files[0]) {
                           setTrailerFile(e.target.files[0]);
