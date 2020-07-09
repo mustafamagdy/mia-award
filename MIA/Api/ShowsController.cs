@@ -88,8 +88,10 @@ namespace MIA.Api {
       }
 
       //filter not approved comments, this should be using the filter inside inlucde, but it needs work from zzz project
-      result.Reviews = result.Reviews.Where(a => a.IsApproved).ToArray();
-
+      result.Reviews = result.Reviews
+                            .OrderByDescending(a=>a.DateLong)
+                            .Where(a => a.IsApproved).ToArray();
+      
       return Ok(result);
     }
 
@@ -104,6 +106,7 @@ namespace MIA.Api {
       var comment = _mapper.Map<ArtworkReview>(dto);
       comment.ArtworkId = showId;
       comment.IsApproved = adminOptions.Value.AutoApproveNewsComments;
+      comment.Date = DateTime.UtcNow.ToUnixTimeMilliseconds();
 
       await db.ArtworkReviews.AddAsync(comment);
       return Ok(_mapper.Map<UserCommentDto>(comment));

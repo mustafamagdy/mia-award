@@ -54,7 +54,7 @@ class ChangePassword extends Component {
                   onChangePassword(values);
                 }}
               >
-                {({ values, errors, touched }) => (
+                {({ values, errors, touched, isSubmitting }) => (
                   <Form className="form popup__form" method="post">
                     <div className="form-group">
                       <label className="form-group__label" htmlFor="old-pass">
@@ -141,6 +141,7 @@ class ChangePassword extends Component {
                       <button
                         type="submit"
                         className="button button--full-width"
+                        disabled={isSubmitting}
                       >
                         <span className="button__text">
                           <Trans id="accept_changes"> Accept changes </Trans>

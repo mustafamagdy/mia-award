@@ -4,7 +4,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        44
+        45
       ]
     ]
   },
@@ -13,7 +13,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        60
+        61
       ]
     ]
   },
@@ -21,7 +21,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        137
+        144
       ]
     ]
   },
@@ -29,7 +29,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        143
+        150
       ]
     ]
   },
@@ -37,7 +37,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        151
+        158
       ]
     ]
   },
@@ -45,7 +45,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        161
+        168
       ]
     ]
   },
@@ -54,7 +54,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        181
+        189
       ]
     ]
   },
@@ -63,7 +63,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        186
+        194
       ]
     ]
   },
@@ -72,7 +72,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        192
+        200
       ]
     ]
   },
@@ -80,7 +80,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        214
+        222
       ]
     ]
   },
@@ -89,7 +89,7 @@
     "origin": [
       [
         "src/containers/Pages/News/view.js",
-        240
+        248
       ]
     ]
   }

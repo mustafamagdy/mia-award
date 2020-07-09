@@ -62,7 +62,7 @@ const LoginForm = ({ switchResetPassword, loginUser, props }) => {
                   <Trans id="forget_password">Forgot password</Trans> ?
                 </label>
               </div>
-              <button form="login-form" type="submit">
+              <button form="login-form" type="submit" disabled={isSubmitting}>
                 <Trans id="signin">Sign in</Trans>
               </button>
             </div>

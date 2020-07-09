@@ -70,9 +70,10 @@ namespace MIA.Api {
                           .ProjectTo<FullNewsWithCommentsDto>(_mapper.ConfigurationProvider)
                           .FirstOrDefaultAsync();
 
-
       //filter not approved comments, this should be using the filter inside inlucde, but it needs work from zzz project
-      result.Comments = result.Comments.Where(a => a.IsApproved).ToArray();
+      result.Comments = result.Comments
+                              .OrderByDescending(a => a.DateLong)
+                              .Where(a => a.IsApproved).ToArray();
 
       //poor performace, but for sake of time
       var relatedNews = db.News
@@ -104,6 +105,7 @@ namespace MIA.Api {
       var comment = _mapper.Map<NewsComment>(dto);
       comment.NewsId = newsId;
       comment.IsApproved = adminOptions.Value.AutoApproveNewsComments;
+      comment.Date = DateTime.UtcNow.ToUnixTimeMilliseconds();
 
       await db.NewsComments.AddAsync(comment);
       return Ok(_mapper.Map<UserCommentDto>(comment));

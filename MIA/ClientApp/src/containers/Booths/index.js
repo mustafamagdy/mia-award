@@ -21,6 +21,7 @@ const Booths = ({
   booths,
   boothBooked,
   bookBooth,
+  boothSubmitting,
   ...props
 }) => {
   useEffect(() => {
@@ -238,6 +239,7 @@ const Booths = ({
                           <Payment
                             errors={errors}
                             touched={touched}
+                            boothSubmitting={boothSubmitting}
                             active={activeTabKey == "payment"}
                           />
                         </Form>
@@ -298,9 +300,9 @@ const Info = ({
             setFieldValue("boothCode", e.target.value);
           }}
         >
-          {[{ code: "" }, ...booths].map((a) => (
+          {[{ code: "" }, ...booths].map((a, i) => (
             <option
-              key={a.code}
+              key={i}
               value={a.code}
               selected={selectedBooth && a.code == selectedBooth.code}
             >
@@ -570,7 +572,15 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
   );
 };
 
-const Payment = ({ active, errors, touched, nextStep, ...props }) => {
+const Payment = ({
+  active,
+  errors,
+  touched,
+  isSubmitting,
+  nextStep,
+  boothSubmitting,
+  ...props
+}) => {
   return (
     <div className={classNames("tab_item payment_tab", { active })}>
       <div className="paymnets_area">
@@ -652,7 +662,7 @@ const Payment = ({ active, errors, touched, nextStep, ...props }) => {
               </Field>
             </div>
             <div className="next_step">
-              <button type="submit">
+              <button type="submit" disabled={boothSubmitting}>
                 <Trans id="book_now">Book Now</Trans>
               </button>
             </div>
@@ -691,11 +701,12 @@ const Booth3DView = ({ boothType, ...props }) => (
 
 const mapStateToProps = ({
   global: { currency },
-  home: { booths, boothBooked },
+  home: { booths, boothBooked, boothSubmitting },
 }) => ({
   currency,
   booths,
   boothBooked,
+  boothSubmitting,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...homeActions }, dispatch);

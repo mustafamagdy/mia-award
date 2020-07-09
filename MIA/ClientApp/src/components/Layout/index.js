@@ -26,7 +26,7 @@ import {
 import { I18n } from "@lingui/react";
 
 const SearchForm = forwardRef(({ history, hideAndReset }, ref) => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState } = useForm();
   const overlayRef = useRef();
   useOnClickOutside(overlayRef, () => hideAndReset());
 

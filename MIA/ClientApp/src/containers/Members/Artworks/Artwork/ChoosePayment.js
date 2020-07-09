@@ -11,6 +11,7 @@ import { useEffect } from "react";
 const ChoosePayment = ({
   active,
   register,
+  isSubmitting,
   awards = [],
   onPayment,
   processOrder,
@@ -136,7 +137,7 @@ const ChoosePayment = ({
                 }}
               />
               <div className="confirm">
-                <button id="pay-button" type="submit" form="payment-form">
+                <button id="pay-button" type="submit" form="payment-form" disabled={isSubmitting}>
                   Pay & Continue
                 </button>
               </div>
@@ -196,7 +197,7 @@ const ChoosePayment = ({
                   <label htmlFor="receipt" className="btn-2">
                     Choose receipt image
                   </label>
-                  <button form="offline-payment" type="submit">
+                  <button form="offline-payment" type="submit" disabled={isSubmitting}>
                     Submit
                   </button>
                 </div>

@@ -24,6 +24,7 @@ const NewsView = ({
   postNewsComment,
   commentsSuccess,
   clearCommentSuccess,
+  submittingComment,
   ...props
 }) => {
   useEffect(() => {
@@ -88,6 +89,7 @@ const NewsView = ({
             postNewsComment={postNewsComment}
             commentsSuccess={commentsSuccess}
             clearCommentSuccess={clearCommentSuccess}
+            submittingComment={submittingComment}
           />
         </div>
         <div className="side_bar">
@@ -106,10 +108,18 @@ const CommentForm = ({
   postNewsComment,
   commentsSuccess,
   clearCommentSuccess,
+  submittingComment,
   ...props
 }) => {
-  const { register, handleSubmit, reset, setValue } = useForm();
+  const { register, handleSubmit, reset, setValue, formState } = useForm();
   // let reCaptchaRef = useRef();
+  const recaptchaRef = useRef();
+  useEffect(() => {
+    if (submittingComment) {
+      reset({});
+      recaptchaRef.current.reset()
+    }
+  }, [submittingComment]);
 
   const onSubmit = (values) => {
     postNewsComment({
@@ -117,11 +127,8 @@ const CommentForm = ({
       id: newsId,
     });
     setTimeout(() => {
-      reset();
-      setTimeout(() => {
-        clearCommentSuccess();
-      }, 2000);
-    }, 1000);
+      clearCommentSuccess();
+    }, 2000);
   };
 
   return (
@@ -163,21 +170,22 @@ const CommentForm = ({
             <ReCAPTCHA
               theme="dark"
               sitekey={config.reCaptchaKey}
-              ref={() =>
-                register(
+              ref={(r) => {
+                recaptchaRef.current = r;
+                return register(
                   { name: "reCaptchaToken" },
                   {
                     validate: (value) => {
                       return !!value;
                     },
                   }
-                )
-              }
+                );
+              }}
               onChange={(v) => {
                 setValue("reCaptchaToken", v);
               }}
             />
-            <button type="submit">
+            <button type="submit" disabled={submittingComment}>
               <Trans id="post_comment">Post Comment</Trans>
             </button>
             {"  "}
@@ -251,13 +259,14 @@ const RelatedNews = ({ relatedNews, ...props }) => (
 );
 
 const mapStateToProps = ({
-  news: { newsItem, postNewsComment, commentsSuccess },
+  news: { newsItem, postNewsComment, commentsSuccess, submittingComment },
   router: { location },
 }) => ({
   newsItem,
   postNewsComment,
   commentsSuccess,
   location,
+  submittingComment,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...newsActions }, dispatch);

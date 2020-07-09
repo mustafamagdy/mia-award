@@ -16,7 +16,7 @@ const ForgetPasswordForm = ({
     email: Yup.string().required("Required").email("not_valid_email"),
   });
 
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, formState } = useForm({
     validationSchema: validationSchema,
   });
   const forgetPassword = (values) => {
@@ -39,7 +39,7 @@ const ForgetPasswordForm = ({
                 <Trans id="login">Login</Trans> ?
               </label>
             </div>
-            <button type="submit">
+            <button type="submit" disabled={formState.isSubmitting}>
               <Trans id="reset_password">Reset Password</Trans>
             </button>
           </div>

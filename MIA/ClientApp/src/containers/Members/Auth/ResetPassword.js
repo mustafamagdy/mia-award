@@ -75,7 +75,7 @@ const ResetPasswordForm = ({
                   <Trans id="login">Login</Trans> ?
                 </label>
               </div>
-              <button type="submit">
+              <button type="submit" disabled={isSubmitting}>
                 <Trans id="reset_password">Reset Password</Trans>
               </button>
             </div>

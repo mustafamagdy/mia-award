@@ -61,6 +61,7 @@ namespace MIA.MappingProfiles {
         .ForMember(a => a.UserFullName, cfg => cfg.MapFrom(a => a.Name))
         .ForMember(a => a.UserAvatarUrl, cfg => cfg.Ignore())
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
+        .ForMember(a => a.DateLong, cfg => cfg.MapFrom(a => a.Date))
        .ValidateMemberList(MemberList.None);
 
       CreateMap<SubmitUserComment, NewsComment>()
@@ -99,6 +100,7 @@ namespace MIA.MappingProfiles {
         .ForMember(a => a.UserFullName, cfg => cfg.MapFrom(a => a.Name))
         .ForMember(a => a.UserAvatarUrl, cfg => cfg.Ignore())
         .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime().ToString("dd-MM-yyyy")))
+        .ForMember(a => a.DateLong, cfg => cfg.MapFrom(a => a.Date))
         .ValidateMemberList(MemberList.None);
 
       CreateMap<SubmitUserComment, ArtworkReview>()

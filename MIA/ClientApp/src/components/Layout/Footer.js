@@ -12,6 +12,7 @@ const Footer = ({
   sendNewsletter,
   newsLetterSuccess = undefined,
   resetNewsLetterSuccess,
+  newsLetterSubmitting,
   ...props
 }) => {
   const { register, handleSubmit, reset } = useForm();
@@ -89,7 +90,7 @@ const Footer = ({
                       ref={register({ required: true })}
                       placeholder={i18n._("email")}
                     />
-                    <button type="submit">
+                    <button type="submit" disabled={newsLetterSubmitting}>
                       <i className="icofont-send-mail"></i>
                     </button>
                   </form>
@@ -124,9 +125,9 @@ const Footer = ({
 };
 
 const mapStateToProps = (
-  { home: { sendNewsletter, newsLetterSuccess, resetNewsLetterSuccess } },
+  { home: { sendNewsletter, newsLetterSuccess, resetNewsLetterSuccess, newsLetterSubmitting } },
   ownProps
-) => ({ sendNewsletter, newsLetterSuccess, resetNewsLetterSuccess });
+) => ({ sendNewsletter, newsLetterSuccess, resetNewsLetterSuccess,newsLetterSubmitting });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...homeActions }, dispatch);
 

@@ -21,6 +21,7 @@ const Profile = ({
   updateUserProfile,
   updateUserAvatar,
   avatarImageUrl,
+  profileSubmitting,
   ...props
 }) => {
   const tabs = ["info", "awards"];
@@ -221,6 +222,7 @@ const Profile = ({
                             className="normal_button"
                             type="submit"
                             form="userProfileForm"
+                            disabled={profileSubmitting}
                           >
                             <Trans id="save">Save</Trans>
                           </button>
@@ -328,9 +330,12 @@ const AwardItem = ({ awardAndArtwork, ...props }) => (
   </div>
 );
 
-const mapStateToProps = ({ account: { profile, avatarImageUrl } }) => ({
+const mapStateToProps = ({
+  account: { profile, avatarImageUrl, profileSubmitting },
+}) => ({
   userProfile: profile,
   avatarImageUrl,
+  profileSubmitting,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...accountsActions }, dispatch);

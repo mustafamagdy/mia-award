@@ -29,6 +29,9 @@ const initialState = {
   contactUsSuccess: false,
   contactUsFailed: false,
   newsLetterSuccess: undefined,
+  newsLetterSubmitting: false,
+  boothSubmitting: false,
+  contactUsSubmitting: false,
 };
 
 const fetchBoothsSuccess = (state, action) => {
@@ -49,14 +52,21 @@ const fetchSponsersSuccess = (state, action) => {
   });
 };
 
+const sendContactUsMessage = (state, action) => {
+  return produce(state, (draft) => {
+    draft.contactUsSubmitting = true;
+  });
+};
 const sendContactUsMessageSuccess = (state, action) => {
   return produce(state, (draft) => {
+    draft.contactUsSubmitting = false;
     draft.contactUsSuccess = true;
     draft.contactUsFailed = false;
   });
 };
 const sendContactUsMessageFailed = (state, action) => {
   return produce(state, (draft) => {
+    draft.contactUsSubmitting = false;
     draft.contactUsFailed = true;
   });
 };
@@ -94,20 +104,39 @@ const fetchLatestmainAlbumuccess = (state, action) => {
   return produce(state, (draft) => {});
 };
 
+const bookBooth = (state, action) => {
+  return produce(state, (draft) => {
+    draft.boothSubmitting = true;
+  });
+};
 const bookBoothSuccess = (state, action) => {
   return produce(state, (draft) => {
+    draft.boothSubmitting = false;
     draft.boothBooked = true;
+  });
+};
+const bookBoothFailed = (state, action) => {
+  return produce(state, (draft) => {
+    draft.boothSubmitting = false;
+    draft.boothBooked = true;
+  });
+};
+const sendNewsletter = (state, action) => {
+  return produce(state, (draft) => {
+    draft.newsLetterSubmitting = true;
   });
 };
 const sendNewsletterSuccess = (state, action) => {
   return produce(state, (draft) => {
     draft.newsLetterSuccess = true;
+    draft.newsLetterSubmitting = false;
   });
 };
 
 const sendNewsletterFailed = (state, action) => {
   return produce(state, (draft) => {
     draft.newsLetterSuccess = false;
+    draft.newsLetterSubmitting = false;
   });
 };
 
@@ -144,9 +173,13 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.FETCH_RECENT_SHOWS_SUCCESS]: fetchRecentShowsSuccess,
   [ActionTypes.FETCH_AWARDS_SUCCESS]: fetchAwardsSuccess,
   [ActionTypes.FETCH_LATEST_ALBUM_CONTENTS_SUCCESS]: fetchLatestmainAlbumuccess,
+  [ActionTypes.SEND_CONTACT_US_MESSAGE]: sendContactUsMessage,
   [ActionTypes.SEND_CONTACT_US_MESSAGE_SUCCESS]: sendContactUsMessageSuccess,
   [ActionTypes.SEND_CONTACT_US_MESSAGE_FAIL]: sendContactUsMessageFailed,
+  [ActionTypes.BOOK_BOOTH]: bookBooth,
   [ActionTypes.BOOK_BOOTH_SUCCESS]: bookBoothSuccess,
+  [ActionTypes.BOOK_BOOTH_FAIL]: bookBoothFailed,
+  [ActionTypes.SEND_NEWSLETTER]: sendNewsletter,
   [ActionTypes.SEND_NEWSLETTER_SUCCESS]: sendNewsletterSuccess,
   [ActionTypes.SEND_NEWSLETTER_FAIL]: sendNewsletterFailed,
   [ActionTypes.RESET_NEWS_LETTER_SUCCESS]: resetNewsletterSuccess,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import classNames from "classnames";
 import { Trans, t } from "@lingui/macro";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
@@ -14,7 +14,14 @@ import { bindActionCreators } from "redux";
 import { fileToBase64 } from "utils";
 import LocalizedDropdown from "../../../../components/Forms/LocalizedDropdown";
 
-const NewArtwork = ({ awards, awardType, addNewArtwork, genres, ...props }) => {
+const NewArtwork = ({
+  awards,
+  awardType,
+  addNewArtwork,
+  genres,
+  submitting,
+  ...props
+}) => {
   const [selectedAward, setSelectedAward] = useState();
   useEffect(() => {
     setSelectedAward(awards[0]);
@@ -108,6 +115,7 @@ const NewArtwork = ({ awards, awardType, addNewArtwork, genres, ...props }) => {
           })
         }
         onSubmit={async (values, actions) => {
+          actions.setSubmitting(true);
           // const receipt = await fileToBase64(values.payment.receiptFile);
           // values.payment.receiptFileName = values.payment.receiptFile.name;
           // values.payment.receipt = receipt;
@@ -133,15 +141,7 @@ const NewArtwork = ({ awards, awardType, addNewArtwork, genres, ...props }) => {
           addNewArtwork(values);
         }}
       >
-        {({
-          values,
-          isSubmitting,
-          setFieldValue,
-          errors,
-          isValid,
-          touched,
-          ...props
-        }) => {
+        {({ values, setFieldValue, errors, isValid, touched, ...props }) => {
           return (
             <Form noValidate className="info_form">
               <div className="pay_col_one">
@@ -477,7 +477,11 @@ const NewArtwork = ({ awards, awardType, addNewArtwork, genres, ...props }) => {
                   </div>
                   */}
                   <div className="row">
-                    <button className="normal_button" type="submit">
+                    <button
+                      className="normal_button"
+                      type="submit"
+                      disabled={submitting}
+                    >
                       <Trans id="save">Save</Trans>
                     </button>
                   </div>
@@ -492,7 +496,8 @@ const NewArtwork = ({ awards, awardType, addNewArtwork, genres, ...props }) => {
 };
 
 const mapStateToProps = (
-  { home: { awards, genres, artworkSubjectRoles } },
+  { home: { awards, genres, artworkSubjectRoles }, members: { submitting } },
+
   compProps
 ) => {
   const _awards = awards.filter((a) => a.awardType == compProps.awardType);
@@ -509,6 +514,7 @@ const mapStateToProps = (
     awards: _awards,
     genres,
     artworkSubjectRoles,
+    submitting,
   };
 };
 const mapDispatchToProps = (dispatch) =>
