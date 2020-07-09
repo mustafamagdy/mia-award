@@ -9,7 +9,20 @@ const apiNamespace = "accounts";
 const signupLogic = logic(apiNamespace, ActionTypes.SIGNUP, (dispatch) => {
   dispatch(push("/account/checkYourEmail"));
 });
-const verifyEmailLogic = logic(apiNamespace, ActionTypes.VERIFY_EMAIL);
+const verifyEmailLogic = logic(
+  apiNamespace,
+  ActionTypes.VERIFY_EMAIL,
+  (dispatch, res) => {},
+  (dispatch, res) => {
+    if (
+      res.errorCode == "400" &&
+      res.errors &&
+      res.errors.find((a) => a.propertyName == "InvalidToken") != undefined
+    ) {
+      toast.error("Invalid verification link");
+    }
+  }
+);
 const forgotPasswordLogic = logic(
   apiNamespace,
   ActionTypes.FORGOT_PASSWORD,

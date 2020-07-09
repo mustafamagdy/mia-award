@@ -136,6 +136,7 @@ const Info = ({
   id,
   details: {
     awardType,
+    awardTitle,
     projectName,
     description,
     siteUrl,
@@ -158,6 +159,14 @@ const Info = ({
     <div className={classNames("tab_content tab_info", { active })}>
       <div className="info_show">
         <ul>
+          <li>
+            <span>
+              <Trans id="award_name">Award</Trans> :
+            </span>
+            <LanguageContext.Consumer>
+              {({ locale }) => <p>{awardTitle[locale.code]}</p>}
+            </LanguageContext.Consumer>
+          </li>
           <li>
             <span>
               <Trans id="project_name">Project Name</Trans> :

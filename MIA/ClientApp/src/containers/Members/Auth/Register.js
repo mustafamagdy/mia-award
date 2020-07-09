@@ -38,7 +38,10 @@ const Register = ({
             config.validationRules.phoneExp,
             "phone_number_is_not_valid"
           ),
-        password: Yup.string().required("Required"),
+        password: Yup.string()
+        .required("Required")
+        .min(6, "password_too_short")
+        .matches(config.validationRules.passwordStrength,"not_valid_password"),
         confirmPassword: Yup.string()
           .required("Required")
           .when("password", {

@@ -1,10 +1,19 @@
 {
+  "award_name": {
+    "defaults": "Award",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        164
+      ]
+    ]
+  },
   "project_name": {
     "defaults": "Project Name",
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        163
+        172
       ]
     ]
   },
@@ -13,7 +22,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        171
+        180
       ]
     ]
   },
@@ -22,7 +31,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        179
+        188
       ]
     ]
   },
@@ -31,7 +40,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        185
+        194
       ]
     ]
   },
@@ -40,7 +49,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        191
+        200
       ]
     ]
   },
@@ -49,7 +58,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        198
+        207
       ]
     ]
   },
@@ -58,7 +67,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        208
+        217
       ]
     ]
   },
@@ -67,7 +76,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        221
+        230
       ]
     ]
   },
@@ -76,7 +85,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        230
+        239
       ]
     ]
   },
@@ -85,7 +94,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        252
+        261
       ]
     ]
   },
@@ -93,7 +102,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        262
+        271
       ]
     ]
   },
@@ -101,7 +110,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        263
+        272
       ]
     ]
   },
@@ -109,7 +118,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        266
+        275
       ]
     ]
   },
@@ -117,7 +126,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        277
+        286
       ]
     ]
   },
@@ -126,7 +135,7 @@
     "origin": [
       [
         "src/containers/Members/Artworks/Artwork/View/index.js",
-        284
+        293
       ]
     ]
   }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Trans } from "@lingui/macro";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import config from 'config';
 
 class ChangePassword extends Component {
   render() {
@@ -36,7 +37,9 @@ class ChangePassword extends Component {
                 }}
                 validationSchema={Yup.object().shape({
                   currentPassword: Yup.string().required("Required"),
-                  newPassword: Yup.string().required("Required"),
+                  newPassword: Yup.string().required("Required")
+                  .min(6, "password_too_short")
+                  .matches(config.validationRules.passwordStrength,"not_valid_password"),
                   confirmPassword: Yup.string()
                     .required("Required")
                     .when("newPassword", {
