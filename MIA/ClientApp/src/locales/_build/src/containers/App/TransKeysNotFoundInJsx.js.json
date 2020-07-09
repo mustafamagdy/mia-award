@@ -660,5 +660,21 @@
         102
       ]
     ]
+  },
+  "password_too_short": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        103
+      ]
+    ]
+  },
+  "not_valid_password": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        104
+      ]
+    ]
   }
 }

@@ -4,6 +4,7 @@ import { Recaptcha, Field } from "components/Forms";
 import * as Yup from "yup";
 import classNames from "classnames";
 import { Trans } from "@lingui/macro";
+import config from 'config';
 
 const ResetPasswordForm = ({
   switchToLogin,
@@ -28,7 +29,9 @@ const ResetPasswordForm = ({
         userId: userId,
       }}
       validationSchema={Yup.object().shape({
-        newPassword: Yup.string().required("Required"),
+        newPassword: Yup.string().required("Required")
+        .min(6, "password_too_short")
+        .matches(config.validationRules.passwordStrength,"not_valid_password"),
         confirmPassword: Yup.string()
           .required("Required")
           .when("newPassword", {

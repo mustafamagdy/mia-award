@@ -4,7 +4,7 @@
     "origin": [
       [
         "src/containers/Members/Auth/Register.js",
-        76
+        81
       ]
     ]
   },
@@ -13,7 +13,7 @@
     "origin": [
       [
         "src/containers/Members/Auth/Register.js",
-        181
+        186
       ]
     ]
   },
@@ -21,7 +21,7 @@
     "origin": [
       [
         "src/containers/Members/Auth/Register.js",
-        194
+        199
       ]
     ]
   },
@@ -30,7 +30,7 @@
     "origin": [
       [
         "src/containers/Members/Auth/Register.js",
-        205
+        210
       ]
     ]
   },
@@ -39,7 +39,7 @@
     "origin": [
       [
         "src/containers/Members/Auth/Register.js",
-        213
+        218
       ]
     ]
   }
