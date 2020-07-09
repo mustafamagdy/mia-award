@@ -24,7 +24,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MIA.Api {
 #if (Versioning)
-    [ApiVersion("1.0")]
+  [ApiVersion("1.0")]
 #endif
   [Route("api/members")]
   [Authorize()]
@@ -108,6 +108,11 @@ namespace MIA.Api {
        [FromServices] IAppUnitOfWork db,
        [FromServices] IOptions<UploadLimits> limitOptions,
        [FromServices] IS3FileManager fileManager) {
+
+      var systemOption = (await db.SystemOptions.FirstOrDefaultAsync());
+      if (systemOption != null && systemOption.AllJudgeFinished) {
+        throw new ApiException(ApiErrorType.JudgeFinished, "judge completed");
+      }
 
       var nominee = await _userResolver.CurrentUserAsync();
       var award = await db.Awards.FindAsync(dto.AwardId);

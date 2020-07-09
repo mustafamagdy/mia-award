@@ -100,6 +100,13 @@ class TransKeysNotFoundInJsx extends React.Component {
         <Trans id="not_valid_url"></Trans>
         <Trans id="booth_password_must_match">Both password need to be the same</Trans>
         <Trans id="contestant"></Trans>
+        <Trans id="password_too_short"></Trans>
+        <Trans id="not_valid_password"></Trans>
+
+        <Trans id="All"></Trans>
+        <Trans id="Latest"></Trans>
+        <Trans id="Photos"></Trans>
+        <Trans id="Videos"></Trans>
 
       </div>
     );

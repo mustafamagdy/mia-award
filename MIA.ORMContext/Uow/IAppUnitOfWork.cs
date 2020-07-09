@@ -42,7 +42,8 @@ namespace MIA.ORMContext.Uow {
     DbSet<Genre> Genres { get; }
     DbSet<ArtworkSubject> ArtworkSubjects { get; }
     DbSet<JudgeArtworkScore> ArtworkScores { get; }
-    
+    DbSet<SystemOptions> SystemOptions{ get; }
+
 
   }
 }

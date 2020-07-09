@@ -104,6 +104,7 @@ export default {
     },
     phoneExp: /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
     url: /^((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+    passwordStrength: /^(?=.*([A-Z]){1,})(?=.*[!@#$&*]{1,})(?=.*[a-z]{1,}).{6,100}$/
   },
   files: {
     booth_pdf: "/assets/files/exhibition final.pdf",

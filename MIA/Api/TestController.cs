@@ -202,11 +202,11 @@ namespace MIA.Api {
       }
     }
 
-    [HttpPost("send-email")]
+    [HttpGet("send-email")]
     public async Task<IActionResult> SendTestEmail([FromServices] IEmailSender emailSender)
     {
-      //await emailSender.SendEmailAsync("mustafa.magdy1@gmail.com", "hello mustafa", "hello again");
-      await emailSender.SendEmailAsync("eng.mohammadabdo@gmail.com", "hello mustafa", "hello again");
+      await emailSender.SendEmailAsync("mustafa.magdy1@gmail.com", "hello mustafa", "hello again");
+      //await emailSender.SendEmailAsync("eng.mohammadabdo@gmail.com", "hello mustafa", "hello again");
       return Ok();
     }
 

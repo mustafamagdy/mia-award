@@ -23,6 +23,7 @@ const UploadingProgress = ({ progress, file, props }) => {
 };
 
 const Files = ({ active, artwork, removeArtworkFile }, props) => {
+  
   const [files, setFiles] = useState([]);
   return (
     <div className={classNames("tab_content tab_upload_videos", { active })}>

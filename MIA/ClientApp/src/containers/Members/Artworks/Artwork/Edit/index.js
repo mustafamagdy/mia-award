@@ -22,7 +22,7 @@ const EditArtwork = ({
   location: { search },
   removeArtworkFile,
   fetchArtworkWithDetails,
-  type,
+  awardType,
   ...props
 }) => {
   const [tabs, setTabs] = useState(["info"]);
@@ -34,12 +34,12 @@ const EditArtwork = ({
   });
 
   useEffect(() => {
-    if (type && type == "artwork") {
+    if (awardType && awardType == "artwork") {
       setTabs(["info", "trailer"]);
     } else {
       setTabs(["info"]);
     }
-  }, [type]);
+  }, [awardType]);
 
   useEffect(() => {
     if (!!id) {
@@ -56,7 +56,7 @@ const EditArtwork = ({
         tabs.indexOf("files") === -1 &&
         canUploadFiles &&
         !uploadComplete &&
-        type == "artwork"
+        awardType == "artwork"
       ) {
         const t = [...tabs];
         t.push("files");
@@ -145,14 +145,13 @@ const EditArtwork = ({
             )}
             {artwork.canUploadFiles &&
               activeTabKey === "files" &&
-              type ==
-                "artwork"(
-                  <Files
-                    artwork={artwork}
-                    active={activeTabKey === "files"}
-                    removeArtworkFile={removeArtworkFile}
-                  />
-                )}
+              awardType == "artwork" && (
+                <Files
+                  artwork={artwork}
+                  active={activeTabKey === "files"}
+                  removeArtworkFile={removeArtworkFile}
+                />
+              )}
           </React.Fragment>
         )}
       </div>

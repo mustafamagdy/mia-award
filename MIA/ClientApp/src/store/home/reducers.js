@@ -3,11 +3,11 @@ import produce from "immer";
 import { ActionTypes } from "./actions";
 
 const initialState = {
+  options: {},
   news: [],
   awards: [],
   sponsers: [],
   timeline: [],
-  sponsers: [],
   booths: [],
   mainAlbum: {
     /*
@@ -127,7 +127,14 @@ const fetchMetadataSuccess = (state, action) => {
   });
 };
 
+const fetchOptionsSucess = (state, action) => {
+  return produce(state, (draft) => {
+    draft.options = action.payload;
+  });
+};
+
 export const reducer = createReducer(initialState, {
+  [ActionTypes.FETCH_OPTIONS_SUCCESS]: fetchOptionsSucess,
   [ActionTypes.FETCH_METADATA_SUCCESS]: fetchMetadataSuccess,
   [ActionTypes.FETCH_MAIN_ALBUM_SUCCESS]: fetchMainAlbumSuccess,
   [ActionTypes.FETCH_NEWS_SUCCESS]: fetchNewsSuccess,

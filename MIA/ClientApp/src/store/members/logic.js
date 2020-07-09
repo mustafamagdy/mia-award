@@ -1,6 +1,8 @@
 import { ActionTypes } from "./actions";
 import logic from "utils/genLogic";
 import { push } from "connected-react-router";
+import { toast } from "react-toastify";
+import { i18n } from "@lingui/core";
 
 const apiNamespace = "members";
 const fetchMyAwardsLogic = logic(apiNamespace, ActionTypes.FETCH_MY_AWARDS);
@@ -24,6 +26,11 @@ const addNewArtworkLogic = logic(
       dispatch(push(`/members/contestant/${res.id}`));
     } else {
       dispatch(push(`/members/artwork/${res.id}`));
+    }
+  },
+  (dispatch, err) => {
+    if (err.errorCode == "1003") {
+      toast.warn("Judge has finished, you cannot submit any work");
     }
   }
 );

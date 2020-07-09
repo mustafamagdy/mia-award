@@ -6,6 +6,7 @@
     function AwardResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Awards', {}, {
             getAllAwards: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/awardsByType', useToken: true, params: { lang: '@lang' } },
+            awardsForDropdown: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/for-dropdown', isArray: true, useToken: true, params: { lang: '@lang' } },
             getAllAwardsByType: { method: 'POST', url: appCONSTANTS.API_URL + 'Awards/awardsByType', useToken: true, params: { lang: '@lang' } },
             getAllJudges: { method: 'GET', url: appCONSTANTS.API_URL + 'Awards/judges', useToken: true, isArray: true, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },

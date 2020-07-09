@@ -91,7 +91,8 @@ namespace MIA.ORMContext {
     public DbSet<Genre> Genres { get; set; }
     public DbSet<ArtworkSubject> ArtworkSubjects { get; set; }
     public DbSet<JudgeArtworkScore> ArtworkScores { get; set; }
-
+    public DbSet<SystemOptions> SystemOptions { get; set; }
+    
   }
 
 }

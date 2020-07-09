@@ -8,5 +8,6 @@
     public string Audience { get; set; }
     public int ExpireInHours { get; set; }
     public bool ThrowIfCacheNotAvailable { get; set; }
+
   }
 }

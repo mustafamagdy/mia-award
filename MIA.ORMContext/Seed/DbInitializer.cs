@@ -33,6 +33,7 @@ namespace MIA.ORMContext.Seed {
       IAppUnitOfWork db,
       HtmlEncoder encoder) {
 
+      await SeedDefaultSystemOptions(db);
       await SeedDefaultRoles(roleManager, db);
       await SeedAdminRoleAndPermissions(roleManager, db);
       await SeedAdminUserAsync(userManager, db);
@@ -515,6 +516,14 @@ namespace MIA.ORMContext.Seed {
           adminRole.Permissions += (char)Permissions.AccessAll;
         }
 
+      }
+    }
+
+    private static async Task SeedDefaultSystemOptions(IAppUnitOfWork db) {
+      var options = db.SystemOptions.FirstOrDefault();
+      if (options == null) {
+        options = new SystemOptions();
+        await db.SystemOptions.AddAsync(options);
       }
     }
 

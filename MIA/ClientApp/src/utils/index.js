@@ -33,18 +33,26 @@ Object.defineProperty(Array.prototype, "chunk", {
 });
 
 export const fileToBase64 = (fileData) => {
-  return new Promise((resolve) => {
-    var reader = new FileReader();
-    // Read file content on file loaded event
-    reader.onload = function (event) {
-      var dataUrl = reader.result;
-      var base64 = dataUrl.split(",")[1];
-      resolve(base64);
-    };
+  if (fileData instanceof File) {
+    return new Promise((resolve) => {
+      var reader = new FileReader();
+      // Read file content on file loaded event
+      reader.onload = function (event) {
+        var dataUrl = reader.result;
+        var base64 = dataUrl.split(",")[1];
+        resolve(base64);
 
-    // Convert data to base64
-    reader.readAsDataURL(fileData);
-  });
+        reader = undefined;
+      };
+
+      // Convert data to base64
+      reader.readAsDataURL(fileData);
+    });
+  } else {
+    return new Promise((resolve) => {
+      resolve(fileData);
+    });
+  }
 };
 
 export const getPropValue = (obj, prop) => {

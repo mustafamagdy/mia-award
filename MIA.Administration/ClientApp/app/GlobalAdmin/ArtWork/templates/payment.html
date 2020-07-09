@@ -79,7 +79,7 @@
                     <span style="color:red">*</span>
 
                     <input id="receiptImage" name="receiptImage" style="display: none;"
-                        onchange="angular.element(this).scope().AddreceiptImage(this.files)" type="file">
+                        onchange="angular.element(this).scope().AddreceiptImage(this.files)" type="file" accept="image/*,.pdf">
                     <button class="btn btn-success btn-xs pull-center"
                         ng-click="artWorkPaymentCtrl.LoadUploadreceipt()">{{'Upload Receipt' | translate}}</button>
                     <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>

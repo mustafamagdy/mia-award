@@ -11,7 +11,6 @@ namespace MIA.Administration.Api
     public string Code { get; set; }
     public JudgeLevel Level { get; set; }
     public string AwardId { get; set; }
-
   }
 
 }

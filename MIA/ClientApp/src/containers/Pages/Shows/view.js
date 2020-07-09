@@ -113,7 +113,6 @@ const ShowsView = ({
         <div className="container">
           <div className="show_video">
             <ReactPlayer
-              playing
               controls
               url={show.trailerUrl}
               className="react-player"

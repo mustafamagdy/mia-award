@@ -69,6 +69,7 @@
 
                             <input id="posterImage" name="posterImage" style="display: none;"
                                 onchange="angular.element(this).scope().AddposterImage(this.files)" type="file"
+                                accept="image/*"
                                 required>
                             <button class="btn btn-success btn-xs pull-center" type="button"
                                 ng-click="newMediaItemCtrl.LoadUploadPoster()">{{'Upload Image' | translate}}</button>
@@ -90,7 +91,7 @@
                                 <span style="color:red">Must upload cover to video</span>
                                 <br>
                                 <input id="posterVideo" name="posterVideo" style="display: none;"
-                                    onchange="angular.element(this).scope().AddposterVideo(this.files)" type="file"
+                                  accept="audio/*,video/*"  onchange="angular.element(this).scope().AddposterVideo(this.files)" type="file"
                                     required>
                                 <button class="btn btn-success btn-xs pull-center" type="button"
                                     ng-click="newMediaItemCtrl.LoadUploadPosterVideo()">{{'Upload Image' | translate}}</button>
@@ -114,7 +115,7 @@
                         <div class="bottom_upload">
                             <div class="upload_input">
                                 <input type="file" id="traillerUploder" name="file" style="display: none;"
-                                    onchange="angular.element(this).scope().getFileDetails(this)" />
+                                  accept="audio/*,video/*"   onchange="angular.element(this).scope().getFileDetails(this)" />
                                 <button class="buttonGold"
                                     ng-click="newMediaItemCtrl.LoadUploadTrailler()">{{'UploadVideo' | translate}}</button>
 

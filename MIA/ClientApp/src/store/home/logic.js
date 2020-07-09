@@ -3,6 +3,7 @@ import logic from "utils/genLogic";
 
 const apiNamespace = "home";
 const fetchMainAlbumLogic = logic(apiNamespace, ActionTypes.FETCH_MAIN_ALBUM);
+const fetchOptionsLogic = logic(apiNamespace, ActionTypes.FETCH_OPTIONS);
 const fetchMetadataLogic = logic(apiNamespace, ActionTypes.FETCH_METADATA);
 const fetchNewsLogic = logic(apiNamespace, ActionTypes.FETCH_NEWS);
 const fetchTimelineLogic = logic(apiNamespace, ActionTypes.FETCH_TIMELINE);
@@ -18,6 +19,7 @@ const bookBoothLogic = logic(apiNamespace, ActionTypes.BOOK_BOOTH, (dispatch, re
 const sendNewsletterLogic = logic(apiNamespace, ActionTypes.SEND_NEWSLETTER);
 
 export default [
+  fetchOptionsLogic,
   fetchMetadataLogic,
   fetchMainAlbumLogic,
   fetchNewsLogic,

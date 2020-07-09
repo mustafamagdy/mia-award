@@ -60,7 +60,11 @@ namespace MIA.Administration.Api {
     public async Task<IActionResult> SubmitJudgeVote([FromBody] UpdateJudgeVoteDto dto, [FromServices] IAppUnitOfWork db) {
       var insertList = new List<JudgeVote>();
 
-      var judgeVoteItems = db.JudgeVotes.Where(a => a.ArtworkId == dto.ArtWorkId).ToList();
+      var judgeVoteItems = db.JudgeVotes
+        .Include(a => a.Criteria)
+        .Where(a => a.ArtworkId == dto.ArtWorkId && a.Criteria.Level == dto.Level)
+        .ToList();
+
       if (judgeVoteItems.Any()) {
         foreach (var objJudges in judgeVoteItems) {
           var entity = objJudges;// db.Set<JudgeVote>().FirstOrDefault(a => a.ArtworkId == dto.ArtworkId);
@@ -95,9 +99,10 @@ namespace MIA.Administration.Api {
       return IfFound(returnVotingCriteriaVoteDto);
 
     }
-    [HttpGet("getCriteriaByLevel")]
+    [HttpGet("{artworkId}/getCriteriaByLevel/{level}")]
     public async Task<IActionResult> GetCriteriaBylevelAsync(
-      JudgeLevel level,
+      [FromRoute(Name = "artworkId")]string artworkId,
+      [FromRoute(Name = "level")] JudgeLevel level,
       [FromServices] IAppUnitOfWork db,
       [FromServices] IUserResolver userResolver) {
       var userId = (await userResolver.CurrentUserAsync())?.Id;
@@ -106,7 +111,7 @@ namespace MIA.Administration.Api {
       }
 
       var list = db.VotingCriterias
-        .IncludeFilter(a => a.ArtworkVotes.Where(a => a.JudgeId == userId))
+        .IncludeFilter(a => a.ArtworkVotes.Where(x => x.JudgeId == userId && x.ArtworkId == artworkId))
         .Where(c => c.Level == level)
         .ToList()
         .Select(a => new JudgeVoteCriteriaWithValueDto {
@@ -171,11 +176,18 @@ namespace MIA.Administration.Api {
     }
 
     private async Task<ArtworkForJudgingDto[]> GetArtworksForJudgeAndLevel(IAppUnitOfWork db, string awardId, string judgeId, JudgeLevel level, bool isDone) {
-      var artWorks = await db.Artworks
+      var artWorksQuery = db.Artworks
         .Include(a => a.FinalScores)
         .Where(a => a.FinalScores.Any(x => x.JudgeId == judgeId && x.Level == level) == isDone
-                    && a.AwardId == awardId && a.UploadComplete)
-        .ToListAsync();
+                    && a.AwardId == awardId && a.UploadComplete);
+
+      if (!isDone && level == JudgeLevel.Level2) {
+        //if you want list of artworks that has not been done in level 2, those artworks should not contain list of artworks
+        //in level 1 but not yet finished in level 1 (not failed, not succeeded yet)
+        artWorksQuery = artWorksQuery.Where(a => a.IllegibleForJudge != null);
+      }
+
+      var artWorks = await artWorksQuery.ToListAsync();
 
       var result = artWorks.Select(a => _mapper.Map<ArtworkForJudgingDto>(a))
         .Select(a => GetArtworkForLevelWithScore(a, judgeId, level)).ToArray();
