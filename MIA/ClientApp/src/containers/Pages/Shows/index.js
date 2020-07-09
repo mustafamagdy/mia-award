@@ -105,7 +105,6 @@ const Shows = ({
                       </div>
                       <div className="video_item">
                         <ReactPlayer
-                          playing
                           controls
                           url={item.trailerUrl}
                           className="react-player"
