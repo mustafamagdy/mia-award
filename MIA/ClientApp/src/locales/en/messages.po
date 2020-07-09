@@ -17,13 +17,29 @@ msgstr ""
 msgid "About the show"
 msgstr "About the show"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:106
+msgid "All"
+msgstr "All"
+
 #: src/containers/App/TransKeysNotFoundInJsx.js:41
 msgid "File_is_required"
 msgstr "File is required"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:107
+msgid "Latest"
+msgstr "Latest"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:108
+msgid "Photos"
+msgstr "Photos"
+
 #: src/containers/App/TransKeysNotFoundInJsx.js:40
 msgid "Required"
 msgstr "This field is required"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:109
+msgid "Videos"
+msgstr "Videos"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:49
 msgid "about_awards"
@@ -53,7 +69,7 @@ msgstr "<b>MIA Appreciation Award</b><br />A high-level award recognizing media 
 msgid "about_us"
 msgstr "About Us"
 
-#: src/containers/MyProfile/ChangePassword.js:145
+#: src/containers/MyProfile/ChangePassword.js:146
 msgid "accept_changes"
 msgstr "Accept changes"
 
@@ -195,7 +211,7 @@ msgstr "Phone 2"
 msgid "change_avatar"
 msgstr "Change Avatar"
 
-#: src/containers/MyProfile/ChangePassword.js:26
+#: src/containers/MyProfile/ChangePassword.js:27
 #: src/containers/MyProfile/index.js:314
 #: src/containers/MyProfile/index.js:325
 msgid "change_password"
@@ -259,7 +275,7 @@ msgstr "Confirm Password"
 msgid "confirm_delete"
 msgstr "Confirm"
 
-#: src/containers/MyProfile/ChangePassword.js:115
+#: src/containers/MyProfile/ChangePassword.js:116
 msgid "confirm_password"
 msgstr "Confirm Password"
 
@@ -500,7 +516,7 @@ msgstr "Judge"
 msgid "latest_video"
 msgstr "Latest Videos & Photos"
 
-#: src/containers/MyProfile/ChangePassword.js:167
+#: src/containers/MyProfile/ChangePassword.js:168
 #: src/containers/MyProfile/ImageUpload.js:78
 #: src/containers/User/ConfirmEmail.js:18
 msgid "loading"
@@ -524,7 +540,7 @@ msgstr "Dubai Opera"
 
 #: src/containers/Members/Auth/ForgetPassword.js:39
 #: src/containers/Members/Auth/index.js:115
-#: src/containers/Members/Auth/ResetPassword.js:74
+#: src/containers/Members/Auth/ResetPassword.js:75
 msgid "login"
 msgstr "Login"
 
@@ -555,7 +571,7 @@ msgid "members"
 msgstr "Members"
 
 #: src/containers/Booths/index.js:284
-#: src/containers/MyProfile/ChangePassword.js:21
+#: src/containers/MyProfile/ChangePassword.js:22
 #: src/containers/MyProfile/ImageUpload.js:54
 msgid "mia"
 msgstr "MIA"
@@ -607,7 +623,7 @@ msgstr "Nationality"
 msgid "newPassword"
 msgstr "New Password"
 
-#: src/containers/MyProfile/ChangePassword.js:86
+#: src/containers/MyProfile/ChangePassword.js:87
 msgid "new_password"
 msgstr "New password"
 
@@ -675,7 +691,7 @@ msgstr "Password must contain at least capital letter, and one non-alphabetic ch
 msgid "not_valid_url"
 msgstr "Not valid URL"
 
-#: src/containers/MyProfile/ChangePassword.js:60
+#: src/containers/MyProfile/ChangePassword.js:61
 msgid "old_password"
 msgstr "Old Password"
 
@@ -941,7 +957,7 @@ msgstr "Remove file"
 
 #: src/containers/Members/Auth/ForgetPassword.js:43
 #: src/containers/Members/Auth/index.js:50
-#: src/containers/Members/Auth/ResetPassword.js:78
+#: src/containers/Members/Auth/ResetPassword.js:79
 msgid "reset_password"
 msgstr "Reset Password"
 

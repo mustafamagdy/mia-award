@@ -17,13 +17,29 @@ msgstr ""
 msgid "About the show"
 msgstr "عن العمل"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:106
+msgid "All"
+msgstr "الكل"
+
 #: src/containers/App/TransKeysNotFoundInJsx.js:41
 msgid "File_is_required"
 msgstr "الملف مطلوب"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:107
+msgid "Latest"
+msgstr "الاحدث"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:108
+msgid "Photos"
+msgstr "الصور"
+
 #: src/containers/App/TransKeysNotFoundInJsx.js:40
 msgid "Required"
 msgstr "هذا الحقل مطلوب"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:109
+msgid "Videos"
+msgstr "مرئيات"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:49
 msgid "about_awards"
@@ -53,7 +69,7 @@ msgstr "وهي جائزة رفيعة المستوى ستُمنح بصفة تقد
 msgid "about_us"
 msgstr "من نحن"
 
-#: src/containers/MyProfile/ChangePassword.js:145
+#: src/containers/MyProfile/ChangePassword.js:146
 msgid "accept_changes"
 msgstr "قبول التغييرات"
 
@@ -195,7 +211,7 @@ msgstr "تليفون محمول أخر "
 msgid "change_avatar"
 msgstr "تعديل الصورة"
 
-#: src/containers/MyProfile/ChangePassword.js:26
+#: src/containers/MyProfile/ChangePassword.js:27
 #: src/containers/MyProfile/index.js:314
 #: src/containers/MyProfile/index.js:325
 msgid "change_password"
@@ -259,7 +275,7 @@ msgstr "تأكيد كلمة المرور"
 msgid "confirm_delete"
 msgstr "تأكيد"
 
-#: src/containers/MyProfile/ChangePassword.js:115
+#: src/containers/MyProfile/ChangePassword.js:116
 msgid "confirm_password"
 msgstr "تأكيد كلمة المرور"
 
@@ -500,7 +516,7 @@ msgstr "التحكيم"
 msgid "latest_video"
 msgstr "أحدث الفيديوهات والصور"
 
-#: src/containers/MyProfile/ChangePassword.js:167
+#: src/containers/MyProfile/ChangePassword.js:168
 #: src/containers/MyProfile/ImageUpload.js:78
 #: src/containers/User/ConfirmEmail.js:18
 msgid "loading"
@@ -524,7 +540,7 @@ msgstr "مسرح دار الاوبرا"
 
 #: src/containers/Members/Auth/ForgetPassword.js:39
 #: src/containers/Members/Auth/index.js:115
-#: src/containers/Members/Auth/ResetPassword.js:74
+#: src/containers/Members/Auth/ResetPassword.js:75
 msgid "login"
 msgstr "دخول"
 
@@ -555,7 +571,7 @@ msgid "members"
 msgstr "المشاركون"
 
 #: src/containers/Booths/index.js:284
-#: src/containers/MyProfile/ChangePassword.js:21
+#: src/containers/MyProfile/ChangePassword.js:22
 #: src/containers/MyProfile/ImageUpload.js:54
 msgid "mia"
 msgstr "MIA"
@@ -607,7 +623,7 @@ msgstr "الجنسية"
 msgid "newPassword"
 msgstr "كلمة المرور الجديدة"
 
-#: src/containers/MyProfile/ChangePassword.js:86
+#: src/containers/MyProfile/ChangePassword.js:87
 msgid "new_password"
 msgstr "كلمة المرور الجديدة"
 
@@ -679,7 +695,7 @@ msgstr "كلمة المرور ضعيفة، يجب ان تحتوي على حرف 
 msgid "not_valid_url"
 msgstr "عنوان الموقع غير صحيح"
 
-#: src/containers/MyProfile/ChangePassword.js:60
+#: src/containers/MyProfile/ChangePassword.js:61
 msgid "old_password"
 msgstr "كلمة المرور القديمة"
 
@@ -945,7 +961,7 @@ msgstr "حذف ملف"
 
 #: src/containers/Members/Auth/ForgetPassword.js:43
 #: src/containers/Members/Auth/index.js:50
-#: src/containers/Members/Auth/ResetPassword.js:78
+#: src/containers/Members/Auth/ResetPassword.js:79
 msgid "reset_password"
 msgstr "اعادة تعيين كلمة المرور"
 

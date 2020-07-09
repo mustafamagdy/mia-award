@@ -28,7 +28,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
   }, []);
 
   useEffect(() => {
-    setSlides(featuredItems);
+    setSlides(featuredItems.slice(0, 10));
   }, [featuredItems]);
 
   useEffect(() => {
