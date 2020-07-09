@@ -844,7 +844,7 @@ msgstr "Prev"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:64
 msgid "printingOption"
-msgstr "________"
+msgstr "Brand printing (vinyl sticker) price per square meter including installation: 350 dirhams"
 
 #: src/components/Layout/Footer.js:72
 #~ msgid "privacy_policy"
@@ -974,7 +974,7 @@ msgstr "Save"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:63
 msgid "screenOption"
-msgstr "_______"
+msgstr "40 inch screen for 1000 dirhams for 3 days"
 
 #: src/components/Layout/index.js:52
 #: src/containers/App/TransKeysNotFoundInJsx.js:89
