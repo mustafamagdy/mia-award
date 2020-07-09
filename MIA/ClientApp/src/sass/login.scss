@@ -302,7 +302,6 @@
               } /* input */
             } /* imgthumb */
             .content {
-            
               padding: 10px;
               border: 1px solid #21231e;
               background: #101010;
@@ -369,7 +368,7 @@
               display: flex;
               flex-direction: column;
               justify-content: space-between;
-              
+
               padding: 10px;
               border: 1px solid #21231e;
               background: #101010;
@@ -404,6 +403,17 @@
                 } /* rtl */
               } /* input */
             } /* checkbox */
+            .content {
+              .terms {
+                overflow-y: scroll;
+                p {
+                  color: #808080;
+                  line-height: 22px;
+                  font-size: 14px;
+                  margin: 10px auto 20px;
+                }
+              }
+            }
           } /* term_tab */
         } /* tabs_content */
         .registered_link {
@@ -533,4 +543,23 @@
 
 .content_div {
   height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #f7e483;
 }

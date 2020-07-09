@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 import { Recaptcha, Field } from "components/Forms";
 import * as Yup from "yup";
 import classNames from "classnames";
 import { Trans } from "@lingui/macro";
 import config from "config";
+import terms from "./terms.json";
+import { I18n } from "@lingui/react";
 
 const Register = ({
   signupActiveTab,
@@ -39,9 +41,12 @@ const Register = ({
             "phone_number_is_not_valid"
           ),
         password: Yup.string()
-        .required("Required")
-        .min(6, "password_too_short")
-        .matches(config.validationRules.passwordStrength,"not_valid_password"),
+          .required("Required")
+          .min(6, "password_too_short")
+          .matches(
+            config.validationRules.passwordStrength,
+            "not_valid_password"
+          ),
         confirmPassword: Yup.string()
           .required("Required")
           .when("password", {
@@ -196,7 +201,13 @@ const Register = ({
             >
               <div className="content">
                 <div className="terms">
-                  <Trans id="signup_terms"></Trans>
+                  <I18n>
+                    {({ i18n }) =>
+                      terms[i18n.language].map((t, i) => (
+                        <p key={i}>{t.text}</p>
+                      ))
+                    }
+                  </I18n>
                 </div>
                 <div className="checkbox">
                   <input
