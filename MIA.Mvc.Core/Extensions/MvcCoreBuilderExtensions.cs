@@ -33,6 +33,16 @@
             .AllowAnyMethod()
             .AllowAnyHeader()
             );
+
+          options.AddPolicy(
+            CorsPolicyName.DevOnly,
+            x => x
+              .WithOrigins("http://localhost:62550", "http://localhost:62912")
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+          );
+
+
         });
     }
 

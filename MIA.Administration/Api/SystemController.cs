@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MIA.Api.Base;
+using MIA.Authorization.Attributes;
+using MIA.Authorization.Entities;
+using MIA.ORMContext.Uow;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MIA.Administration.Api {
   /// <summary>
@@ -14,6 +18,7 @@ namespace MIA.Administration.Api {
   [ApiVersion("1.0")]
 #endif
   [Route("api/system")]
+  [Authorize]
   public class SystemController : BaseApiController<SystemController> {
     private readonly IHostingEnvironment _env;
 
@@ -30,28 +35,11 @@ namespace MIA.Administration.Api {
       return Ok(await Task.FromResult("Alive " + DateTime.UtcNow));
     }
 
-
-    [HttpGet("roots")]
-    public async Task<IActionResult> roots() {
-      var webroot = _env.WebRootPath;
-      var contentpath = _env.ContentRootPath;
-
-      return Ok(new {
-        webroot,
-        contentpath
-      });
-    }
-
-    [HttpGet("logtest")]
-    public async Task<IActionResult> logtest() {
-      _logger.LogInformation("systtem -> log information");
-      _logger.LogDebug("systtem -> log debug");
-      _logger.LogError("systtem -> log error");
-      _logger.LogWarning("systtem -> log warning");
-      _logger.LogCritical("systtem -> log critical");
-
-      return Ok("logged");
-
+    [HasPermission(Permissions.CloseJudging)]
+    [HttpPost("close-all")]
+    public async Task<IActionResult> CloseJudging(IAppUnitOfWork db) {
+      //todo: calc first, second award winners, then close the system
+      return Ok("working on it");
     }
 
   }

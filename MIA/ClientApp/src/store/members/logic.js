@@ -5,7 +5,12 @@ import { toast } from "react-toastify";
 import { i18n } from "@lingui/core";
 
 const apiNamespace = "members";
-const fetchMyAwardsLogic = logic(apiNamespace, ActionTypes.FETCH_MY_AWARDS);
+const fetchMyAwardsLogic = logic(
+  apiNamespace,
+  ActionTypes.FETCH_MY_AWARDS,
+  () => {},
+  () => {}
+);
 const fetchMyArtworksLogic = logic(apiNamespace, ActionTypes.FETCH_MY_ARTWORKS);
 const saveArtworkInfoLogic = logic(
   apiNamespace,

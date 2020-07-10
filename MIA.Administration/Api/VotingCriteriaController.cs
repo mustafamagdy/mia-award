@@ -13,13 +13,16 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
+using MIA.Authorization.Attributes;
+using MIA.Authorization.Entities;
 using MIA.ORMContext;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MIA.Administration.Api {
 
-  //[Authorize]
-  [EnableCors(CorsPolicyName.AllowAll)]
+  [EnableCors(CorsPolicyName.DevOnly)]
   [Route("api/votingCriterias")]
+  [Authorize]
   public class VotingCriteriasController : BaseCrudController<VotingCriteria, VotingCriteriasDto, NewVotingCriteriasDto, UpdateVotingCriteriasDto> {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
@@ -36,6 +39,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPost("filterByAward")]
+    [HasPermission(Permissions.ReadVotingCriteria)]
     public async Task<IActionResult> FilterByAward(
       [FromBody] VotingCriteriaSearchDto dto,
       [FromServices] IAppUnitOfWork db) {
@@ -55,6 +59,7 @@ namespace MIA.Administration.Api {
       return IfFound(result);
     }
 
+    [HasPermission(Permissions.VotingCriteriaAddNew)]
     public override async Task<IActionResult> SaveNewAsync([FromBody] NewVotingCriteriasDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((VotingCriteriasDto)(result as OkObjectResult)?.Value);
@@ -62,6 +67,7 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<VotingCriteriasDto>(VotingCriteriasItem));
     }
 
+    [HasPermission(Permissions.VotingCriteriaEdit)]
     public override async Task<IActionResult> UpdateAsync([FromBody] UpdateVotingCriteriasDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((VotingCriteriasDto)(result as OkObjectResult)?.Value);

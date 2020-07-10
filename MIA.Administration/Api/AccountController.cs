@@ -35,6 +35,7 @@ namespace MIA.Administration.Api {
   [ApiVersion("1.0")]
 #endif
   [Route("api/user")]
+  [Authorize]
   public class AccountController : BaseApiController<AccountController> {
     private readonly IStringLocalizer<AccountController> _Locale;
 

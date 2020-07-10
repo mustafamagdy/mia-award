@@ -16,6 +16,8 @@ using MIA.Infrastructure.Options;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Hosting;
 using MIA.Administration.Middlewares;
+using MIA.Authorization.Attributes;
+using MIA.Authorization.Entities;
 using Microsoft.EntityFrameworkCore;
 using MIA.Mvc.Core;
 using MIA.Infrastructure;
@@ -23,9 +25,9 @@ using MIA.Exceptions;
 
 namespace MIA.Administration.Api {
 
-  //[Authorize]
-  [EnableCors(CorsPolicyName.AllowAll)]
+  [EnableCors(CorsPolicyName.DevOnly)]
   [Route("api/news")]
+  [Authorize]
   public class NewsController : BaseCrudController<News, NewsDto, NewNewsDto, UpdateNewsDto> {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
@@ -44,6 +46,7 @@ namespace MIA.Administration.Api {
       this.fileManager = fileManager;
     }
 
+    [HasPermission(Permissions.NewsAddNew)]
     public override async Task<IActionResult> SaveNewAsync([FromBody] NewNewsDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
@@ -67,6 +70,7 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<NewsDto>(newsItem));
     }
 
+    [HasPermission(Permissions.NewsEdit)]
     public override async Task<IActionResult> UpdateAsync([FromBody] UpdateNewsDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
@@ -94,6 +98,7 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<NewsDto>(newsItem));
     }
 
+    [HasPermission(Permissions.NewsRead)]
     public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
       var result = await base.GetAsync(id, db);
       var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
@@ -101,6 +106,10 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<NewsDto>(newsItem));
     }
 
+    [HasPermission(Permissions.NewsRemove)]
+    public override Task<IActionResult> DeleteAsync(string id, IAppUnitOfWork db) {
+      return base.DeleteAsync(id, db);
+    }
   }
 
 }
