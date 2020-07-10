@@ -645,7 +645,6 @@
                 </a>
             </li>
 
-
             <li ng-show="user.userModules['Admin']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('News');">
@@ -665,6 +664,7 @@
                     <span class="media-body" style="color: #a38031;">{{'NewsLbl' | translate}}</span>
                 </a>
             </li>
+
             <li ng-show="user.userModules['Booths']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('Booth');">
@@ -684,6 +684,7 @@
                     <span class="media-body" style="color: #a38031;">{{'Booth' | translate}}</span>
                 </a>
             </li>
+            
             <li ng-show="user.userModules['Judge']">
                 <a class="pmd-ripple-effect" ng-click="$state.go('ArtWork');">
                     <i class="media-left media-middle">
@@ -722,6 +723,7 @@
                     <span class="media-body" style="color: #a38031;">{{'Award' | translate}}</span>
                 </a>
             </li>
+
             <li ng-show="user.userModules['Admin']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('VotingCriteria');">
@@ -741,6 +743,7 @@
                     <span class="media-body" style="color: #a38031;">{{'VotingCriteria' | translate}}</span>
                 </a>
             </li>
+            
             <li ng-show="user.userModules['Admin']">
                 <a class="pmd-ripple-effect" ng-click="$state.go('PhotoAlbum');">
                     <i class="media-left media-middle">
@@ -798,6 +801,7 @@
                     <span class="media-body" style="color: #a38031;">{{'ArtworkVotes' | translate}}</span>
                 </a>
             </li>
+            
             <li ng-show="user.userModules['Judge']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('artwork-statistics');">
@@ -817,6 +821,7 @@
                     <span class="media-body" style="color: #a38031;">{{'ArtworkStatistics' | translate}}</span>
                 </a>
             </li>
+            
             <li ng-show="user.userModules['Judge']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('my-judges');">
@@ -836,6 +841,7 @@
                     <span class="media-body" style="color: #a38031;">{{'MyJudges' | translate}}</span>
                 </a>
             </li>
+            
             <li ng-show="user.userModules['Judge']">
 
                 <a class="pmd-ripple-effect" ng-click="$state.go('my-dashboard');">
@@ -856,10 +862,7 @@
                 </a>
             </li>
 
-
-            <!-- user -->
-            <li class="dropdown pmd-dropdown visible-xs visible-md visible-sm visible-lg"
-                ng-show="user.userModules['Admin']">
+            <li ng-show="user.userModules['Admin']" class="dropdown pmd-dropdown visible-xs visible-md visible-sm visible-lg">
                 <a data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true"
                     aria-expandedhref="javascript:void(0);" class="pmd-ripple-effect">
                     <i class="media-left media-middle">
