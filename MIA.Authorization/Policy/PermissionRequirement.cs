@@ -7,10 +7,10 @@ namespace MIA.Authorization.Policy {
   /// requirements to be met this should be used as a policy for Permission attribute
   /// </summary>
   public class PermissionRequirement : IAuthorizationRequirement {
-    public PermissionRequirement(string permissionName) {
-      PermissionName = permissionName ?? throw new ArgumentNullException(nameof(permissionName));
+    public PermissionRequirement(string permissionNames) {
+      PermissionNames = permissionNames ?? throw new ArgumentNullException(nameof(permissionNames));
     }
 
-    public string PermissionName { get; }
+    public string PermissionNames { get; }
   }
 }

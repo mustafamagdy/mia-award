@@ -13,7 +13,7 @@ namespace MIA.Authorization.Policy {
         return Task.CompletedTask;
       }
 
-      if (permissionsClaim.Value.ThisPermissionIsAllowed(requirement.PermissionName)) {
+      if (permissionsClaim.Value.ThisPermissionIsAllowed(requirement.PermissionNames.Split(","))) {
         context.Succeed(requirement);
       }
 

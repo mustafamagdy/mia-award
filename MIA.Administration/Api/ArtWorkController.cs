@@ -150,7 +150,7 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<ArtWorkDto>(ArtWorksItem));
     }
 
-    [HasPermission(Permissions.ReadArtwork)]
+    [HasPermission(Permissions.ReadArtwork, Permissions.ArtworkListBasicData)]
     public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
       var result = await base.GetAsync(id, db);
       var resultDto = ((ArtWorkDto)(result as OkObjectResult)?.Value);
