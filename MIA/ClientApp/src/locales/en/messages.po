@@ -73,7 +73,7 @@ msgstr "About Us"
 msgid "accept_changes"
 msgstr "Accept changes"
 
-#: src/containers/Members/Auth/Register.js:210
+#: src/containers/Members/Auth/Register.js:221
 msgid "accept_terms"
 msgstr "Accept terms"
 
@@ -105,7 +105,7 @@ msgstr "Amount"
 msgid "any_year"
 msgstr "Any Year"
 
-#: src/containers/Award/index.js:63
+#: src/containers/Award/index.js:64
 msgid "apply_for_award"
 msgstr "Apply for award"
 
@@ -402,8 +402,12 @@ msgid "extraDetails"
 msgstr "Extra Details"
 
 #: src/containers/User/ConfirmEmail.js:18
-msgid "failed"
-msgstr "Failed"
+#~ msgid "failed"
+#~ msgstr "Failed"
+
+#: src/containers/User/ConfirmEmail.js:35
+msgid "failed_to_verify"
+msgstr "Failed to verify your email."
 
 #: src/containers/Pages/ContactUs/index.js:84
 msgid "fax"
@@ -518,7 +522,6 @@ msgstr "Latest Videos & Photos"
 
 #: src/containers/MyProfile/ChangePassword.js:169
 #: src/containers/MyProfile/ImageUpload.js:126
-#: src/containers/User/ConfirmEmail.js:18
 msgid "loading"
 msgstr "Loading...."
 
@@ -650,7 +653,7 @@ msgstr ""
 #: src/containers/Booths/index.js:354
 #: src/containers/Booths/index.js:568
 #: src/containers/Home/News.js:132
-#: src/containers/Members/Auth/Register.js:186
+#: src/containers/Members/Auth/Register.js:191
 msgid "next"
 msgstr "Next"
 
@@ -939,7 +942,7 @@ msgid "recent_shows"
 msgstr "Recent Shows"
 
 #: src/containers/Members/Auth/index.js:132
-#: src/containers/Members/Auth/Register.js:218
+#: src/containers/Members/Auth/Register.js:229
 msgid "register"
 msgstr "Register"
 
@@ -1042,8 +1045,8 @@ msgid "signup"
 msgstr "Signup"
 
 #: src/containers/Members/Auth/Register.js:199
-msgid "signup_terms"
-msgstr "Terms and Conditions"
+#~ msgid "signup_terms"
+#~ msgstr "Terms and Conditions"
 
 #: src/containers/Members/Auth/index.js:125
 msgid "signup_text"
@@ -1190,7 +1193,7 @@ msgstr "Type your message (minimum 100 letters)"
 msgid "update"
 msgstr "Update"
 
-#: src/containers/Members/Auth/Register.js:81
+#: src/containers/Members/Auth/Register.js:86
 msgid "upload"
 msgstr "Upload"
 
@@ -1217,6 +1220,10 @@ msgstr "User account"
 #: src/containers/App/TransKeysNotFoundInJsx.js:43
 msgid "username"
 msgstr "Username"
+
+#: src/containers/User/ConfirmEmail.js:23
+msgid "verifying_your_email_please_wait"
+msgstr "Verifying your email, please wait"
 
 #: src/containers/Home/PhotoAlbum.js:114
 msgid "videos_desc"

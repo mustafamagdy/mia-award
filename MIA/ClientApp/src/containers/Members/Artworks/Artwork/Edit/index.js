@@ -22,7 +22,6 @@ const EditArtwork = ({
   location: { search },
   removeArtworkFile,
   fetchArtworkWithDetails,
-  awardType,
   submitting,
   ...props
 }) => {
@@ -35,12 +34,15 @@ const EditArtwork = ({
   });
 
   useEffect(() => {
-    if (awardType && awardType == "artwork") {
-      setTabs(["info", "trailer"]);
-    } else {
-      setTabs(["info"]);
+    if (artwork) {
+      const { awardType } = artwork;
+      if (awardType && awardType == "artwork") {
+        setTabs(["info", "trailer"]);
+      } else {
+        setTabs(["info"]);
+      }
     }
-  }, [awardType]);
+  }, [artwork]);
 
   useEffect(() => {
     if (!!id) {
@@ -50,7 +52,7 @@ const EditArtwork = ({
 
   useEffect(() => {
     if (artwork !== undefined) {
-      const { canUploadFiles, uploadComplete } = artwork;
+      const { canUploadFiles, uploadComplete, awardType } = artwork;
 
       //allow upoad files tab only if he can upload files, and files upload didn;t marked as complete
       if (
@@ -147,7 +149,7 @@ const EditArtwork = ({
             )}
             {artwork.canUploadFiles &&
               activeTabKey === "files" &&
-              awardType == "artwork" && (
+              artwork.awardType == "artwork" && (
                 <Files
                   artwork={artwork}
                   active={activeTabKey === "files"}

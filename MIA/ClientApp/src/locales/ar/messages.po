@@ -73,7 +73,7 @@ msgstr "من نحن"
 msgid "accept_changes"
 msgstr "قبول التغييرات"
 
-#: src/containers/Members/Auth/Register.js:210
+#: src/containers/Members/Auth/Register.js:221
 msgid "accept_terms"
 msgstr "أوافق على الشروط"
 
@@ -105,7 +105,7 @@ msgstr "سعر الاشتراك"
 msgid "any_year"
 msgstr "أي عام"
 
-#: src/containers/Award/index.js:63
+#: src/containers/Award/index.js:64
 msgid "apply_for_award"
 msgstr "قدم أعمالك"
 
@@ -402,8 +402,12 @@ msgid "extraDetails"
 msgstr "تفاصيل العارضين"
 
 #: src/containers/User/ConfirmEmail.js:18
-msgid "failed"
-msgstr "فشل"
+#~ msgid "failed"
+#~ msgstr "فشل"
+
+#: src/containers/User/ConfirmEmail.js:35
+msgid "failed_to_verify"
+msgstr "فشلت عملية تأكيد بريدك الالكتروني"
 
 #: src/containers/Pages/ContactUs/index.js:84
 msgid "fax"
@@ -518,7 +522,6 @@ msgstr "أحدث الفيديوهات والصور"
 
 #: src/containers/MyProfile/ChangePassword.js:169
 #: src/containers/MyProfile/ImageUpload.js:126
-#: src/containers/User/ConfirmEmail.js:18
 msgid "loading"
 msgstr "تحميل...."
 
@@ -650,7 +653,7 @@ msgstr "تم اشتراكك بنجاح في القائمة البريدية"
 #: src/containers/Booths/index.js:354
 #: src/containers/Booths/index.js:568
 #: src/containers/Home/News.js:132
-#: src/containers/Members/Auth/Register.js:186
+#: src/containers/Members/Auth/Register.js:191
 msgid "next"
 msgstr "التالي"
 
@@ -943,7 +946,7 @@ msgid "recent_shows"
 msgstr "آخر العروض"
 
 #: src/containers/Members/Auth/index.js:132
-#: src/containers/Members/Auth/Register.js:218
+#: src/containers/Members/Auth/Register.js:229
 msgid "register"
 msgstr "انشاء حساب"
 
@@ -1046,8 +1049,8 @@ msgid "signup"
 msgstr "تسجيل حساب جديد"
 
 #: src/containers/Members/Auth/Register.js:199
-msgid "signup_terms"
-msgstr "الشروط والاحكام"
+#~ msgid "signup_terms"
+#~ msgstr "الشروط والاحكام"
 
 #: src/containers/Members/Auth/index.js:125
 msgid "signup_text"
@@ -1194,7 +1197,7 @@ msgstr "اكتب رسالتك هنا (100 حرف على الاقل)"
 msgid "update"
 msgstr "تحديث"
 
-#: src/containers/Members/Auth/Register.js:81
+#: src/containers/Members/Auth/Register.js:86
 msgid "upload"
 msgstr "ارفاق"
 
@@ -1221,6 +1224,10 @@ msgstr "حساب المستخدم"
 #: src/containers/App/TransKeysNotFoundInJsx.js:43
 msgid "username"
 msgstr "اسم المستخدم"
+
+#: src/containers/User/ConfirmEmail.js:23
+msgid "verifying_your_email_please_wait"
+msgstr "جاري تأكيد بريدك الالكتروني، فضلا انتظر"
 
 #: src/containers/Home/PhotoAlbum.js:114
 msgid "videos_desc"

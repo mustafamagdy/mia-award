@@ -40,8 +40,6 @@ namespace MIA.Authorization.Entities {
     Administrator,
     [EnumMember(Value = "judge")]
     Judge,
-    [EnumMember(Value = "demo")]
-    Demo,
     [EnumMember(Value = "booth")]
     BoothAgent,
     [EnumMember(Value = "filter_upload")]

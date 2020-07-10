@@ -121,7 +121,7 @@ namespace MIA.Api {
     ) {
 
       AppUser user = await userManager.FindByIdAsync(userRequest.UserId);
-      if (user != null) {
+      if (user != null && !user.EmailConfirmed) {
         IdentityResult result = await userManager.ConfirmEmailAsync(user, userRequest.Code);
         if (result.Succeeded) {
           string htmlMessage = await templateParser.LoadAndParse("welcome", locale: culture, new UserEmailReviewDto {
@@ -133,6 +133,8 @@ namespace MIA.Api {
         } else {
           throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
         }
+      } else if (user != null) {
+        return Ok(user.Id);
       } else {
         throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
