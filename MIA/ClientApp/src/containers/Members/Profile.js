@@ -57,14 +57,29 @@ const Profile = ({
               alt=""
             />
           </div>
-          <button type="button" onClick={() => setMode_Avatar("edit")}>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setMode_Avatar("edit");
+            }}
+          >
             <Trans id="change_avatar">Change Avatar</Trans>
           </button>
         </div>
       ) : (
         <div className="edit_profile">
           <div className="imgthumb">
-            <label htmlFor="chooseAvatar">
+            <div
+              style={{ width: "100%", height: "100%" }}
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log("cliccccc");
+                if (mode_avatar == "edit") {
+                  avatarFileRef.current.click();
+                }
+              }}
+            >
               <img
                 src={
                   mode_avatar == "edit"
@@ -74,32 +89,34 @@ const Profile = ({
                     : avatarImageUrl
                 }
                 alt=""
+                style={{ width: "100%", height: "100%" }}
               />
-            </label>
-            <input
-              type="file"
-              id="chooseAvatar"
-              ref={avatarFileRef}
-              style={{ display: "none" }}
-              accept="image/*"
-              onChange={(e) => {
-                if (e.target.files && e.target.files[0]) {
-                  var reader = new FileReader();
-                  reader.onload = function (e) {
-                    setTempAvatar(e.target.result);
-                  };
+              <input
+                type="file"
+                id="chooseAvatar"
+                ref={avatarFileRef}
+                style={{ display: "none" }}
+                accept="image/*"
+                onChange={(e) => {
+                  if (e.target.files && e.target.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                      setTempAvatar(e.target.result);
+                    };
 
-                  reader.readAsDataURL(e.target.files[0]);
-                } else {
-                  setTempAvatar(undefined);
-                }
-              }}
-            />
+                    reader.readAsDataURL(e.target.files[0]);
+                  } else {
+                    setTempAvatar(undefined);
+                  }
+                }}
+              />
+            </div>
           </div>
           <div>
             <button
               type="button"
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 if (
                   avatarFileRef &&
                   avatarFileRef.current &&
@@ -115,7 +132,13 @@ const Profile = ({
             >
               <Trans id="save">Save</Trans>
             </button>
-            <button type="button" onClick={() => setMode_Avatar("view")}>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setMode_Avatar("view");
+              }}
+            >
               <Trans id="cancel">Cancel</Trans>
             </button>
           </div>
@@ -229,7 +252,10 @@ const Profile = ({
                           <button
                             className="normal_button"
                             type="reset"
-                            onClick={() => setMode("view")}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setMode("view");
+                            }}
                             form="userProfileForm"
                           >
                             <Trans id="cancel">Cancel</Trans>
@@ -264,7 +290,10 @@ const Profile = ({
                   <li>
                     <button
                       type="button"
-                      onClick={() => setMode("edit")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMode("edit");
+                      }}
                       className="normal_button"
                     >
                       <Trans id="edit_profile">Edit profile</Trans>
