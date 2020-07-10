@@ -45,6 +45,11 @@ namespace MIA.Administration.Api {
       this.fileManager = fileManager;
     }
 
+    [HasPermission(Permissions.BoothRead)]
+    public override Task<IActionResult> Search(BaseSearchDto dto, IAppUnitOfWork db) {
+      return base.Search(dto, db);
+    }
+
     [HasPermission(Permissions.BoothAddNew)]
     public override async Task<IActionResult> SaveNewAsync([FromBody] NewBoothsDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
@@ -60,7 +65,7 @@ namespace MIA.Administration.Api {
       var BoothsItem = await db.Booths.FindAsync(resultDto.Id);
       return IfFound(_mapper.Map<BoothsDto>(BoothsItem));
     }
-   
+
     [HasPermission(Permissions.BoothRead)]
     public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
       var result = await base.GetAsync(id, db);

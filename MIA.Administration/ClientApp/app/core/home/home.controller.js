@@ -1,11 +1,11 @@
-(function() {
+(function () {
   "use strict";
 
   angular
     .module("home")
-    .controller("homeCtrl", [ 
+    .controller("homeCtrl", [
       "$interval",
-      "$filter",  
+      "$filter",
       "ToastService",
       "$window",
       "$rootScope",
@@ -19,12 +19,12 @@
       "authenticationService",
       "authorizationService",
       "$localStorage",
-      homeCtrl
+      homeCtrl,
     ]);
 
-  function homeCtrl( 
+  function homeCtrl(
     $interval,
-    $filter,  
+    $filter,
     ToastService,
     $window,
     $rootScope,
@@ -49,18 +49,18 @@
     $scope.ManufactureList = [];
     $scope.totalCount = 0;
     $scope.CurrentDate = new Date();
- 
+
     $scope.languages = [
       {
         id: "en",
-        label: "english"
+        label: "english",
       },
       {
         id: "ar",
-        label: "arabic"
-      }
+        label: "arabic",
+      },
     ];
-    $scope.init = function() {
+    $scope.init = function () {
       if (!!$localStorage.authInfo) {
         $scope.user = authorizationService.getUser();
       } else {
@@ -69,7 +69,8 @@
       }
 
       $scope.selectedManufacture = $localStorage.tenant;
-      if ($scope.user.userTypeId == 4 || $scope.user.userTypeId == 5) getManufactures();
+      if ($scope.user.userTypeId == 4 || $scope.user.userTypeId == 5)
+        getManufactures();
       if ($scope.user.userTypeId == 2 || $scope.user.userTypeId == 7) {
         refreshOrders();
         getManufactureById();
@@ -101,9 +102,9 @@
         $scope.selectedManufacture = $localStorage.tenant;
       }
     };
-    $scope.init(); 
+    $scope.init();
 
-    $scope.openOrder = function(orderId) {
+    $scope.openOrder = function (orderId) {
       blockUI.start("Loading...");
       // var updateObj = new OrderResource();
       // updateObj.orderId = orderId;
@@ -122,7 +123,6 @@
       //   }
       // );
     };
-    
 
     if ($localStorage.language == null) {
       $scope.selectedLanguage = $scope.languages[0].id;
@@ -131,7 +131,7 @@
 
     $translate.use($scope.selectedLanguage);
 
-    $scope.submit = function(username, password) {
+    $scope.submit = function (username, password) {
       blockUI.start("Loading...");
 
       authorizationService.isPasswordchanged = false;
@@ -142,7 +142,9 @@
       if (username && password) {
         $scope.afterSubmit = false;
         $scope.emailEmpty = $scope.passwordEmpty = false;
-        authenticationService.authenticate(username, password).then(loginSuccess, loginFailed);
+        authenticationService
+          .authenticate(username, password)
+          .then(loginSuccess, loginFailed);
         //.error(loginFailed);;
       } else {
         $scope.afterSubmit = false;
@@ -150,24 +152,74 @@
     };
 
     $scope.reloadPage = true;
-    $rootScope.$on("$stateChangeStart", function(e, toState, toParams, fromState, fromParams) {
+    $rootScope.$on("$stateChangeStart", function (
+      e,
+      toState,
+      toParams,
+      fromState,
+      fromParams
+    ) {
       if (fromState.name != "" && $scope.reloadPage) {
         e.preventDefault();
         $scope.reloadPage = false;
         $state.go(toState.name, toParams, { reload: true });
       }
     });
-    $transitions.onStart({}, function(transition) {
+    $transitions.onStart({}, function (transition) {
       if (authorizationService.isLoggedIn()) {
         var user = authorizationService.getUser();
         var authorize = false;
         if (transition._targetState._identifier.self != undefined) {
-          if (transition._targetState._identifier.self.data != undefined &&
-             transition._targetState._identifier.self.data.permissions.only != undefined) {
-            transition._targetState._identifier.self.data.permissions.only.forEach(function(element) {
-              if (user.PermissionId.includes(element.toString())) authorize = true;
-            }, this);
-            if (!authorize) $state.go(transition._targetState._identifier.self.data.permissions.redirectTo);
+          if (
+            transition._targetState._identifier.self.data != undefined &&
+            transition._targetState._identifier.self.data.permissions.only !=
+              undefined
+          ) {
+            authorize = transition._targetState._identifier.self.data.permissions.only.some(
+              (a) => {
+                const _parts = a.split(".");
+                const _module = _parts[0];
+                const _permission = _parts[1];
+                return (
+                  _module &&
+                  _permission &&
+                  user.userPermissions[_module][_permission]
+                );
+              }
+            );
+            if (!authorize) {
+              console.log("you don't have permissions");
+              $state.go(
+                transition._targetState._identifier.self.data.permissions
+                  .redirectTo
+              );
+            }
+          }
+        } else {
+          if (
+            transition._targetState._definition.data != undefined &&
+            transition._targetState._definition.data.permissions.only !=
+              undefined
+          ) {
+            authorize = transition._targetState._definition.data.permissions.only.some(
+              (a) => {
+                const _parts = a.split(".");
+                const _module = _parts[0];
+                const _permission = _parts[1];
+                return (
+                  _module &&
+                  _permission &&
+                  user.userPermissions[_module][_permission]
+                );
+              }
+            );
+
+            if (!authorize) {
+              console.log("you don't have permissions");
+              $state.go(
+                transition._targetState._definition.data.permissions.redirectTo
+              );
+            }
           }
         }
       } else {
@@ -175,15 +227,23 @@
       }
     });
     $scope.$watch(
-      function() {
+      function () {
         return $localStorage.authInfo;
       },
-      function(newVal, oldVal) {
-        if (oldVal != undefined && newVal === undefined && $localStorage.authInfo == undefined) {
+      function (newVal, oldVal) {
+        if (
+          oldVal != undefined &&
+          newVal === undefined &&
+          $localStorage.authInfo == undefined
+        ) {
           console.log("logout");
           $state.go("login");
         }
-        if (oldVal === undefined && newVal !== undefined && $localStorage.authInfo != undefined) {
+        if (
+          oldVal === undefined &&
+          newVal !== undefined &&
+          $localStorage.authInfo != undefined
+        ) {
           console.log("login");
           $scope.user = authorizationService.getUser();
           loginSuccess();
@@ -200,11 +260,9 @@
         return;
       }
 
-       
       $scope.afterSubmit = false;
-      $scope.invalidLoginInfo = false; 
+      $scope.invalidLoginInfo = false;
       $scope.user = authorizationService.getUser();
-      
     }
 
     function loginFailed(response) {
@@ -235,26 +293,25 @@
       }
     }
 
-    $scope.logout = function() {
+    $scope.logout = function () {
       authorizationService.logout();
       $state.go("login");
     };
-    $scope.reset = function() {
+    $scope.reset = function () {
       $scope.invalidLoginInfo = false;
       $scope.inActiveUser = false;
     };
-    $scope.isLoggedIn = function() {
+    $scope.isLoggedIn = function () {
       return authorizationService.isLoggedIn();
     };
-    $scope.changeLanguage = function(language) {
+    $scope.changeLanguage = function (language) {
       $scope.selectedLanguage = language;
       $localStorage.language = $scope.selectedLanguage;
       $state.reload();
       $translate.use(language);
     };
-    $scope.getCurrentTime = function() {
+    $scope.getCurrentTime = function () {
       return new Date().getTime();
     };
-     
   }
 })();

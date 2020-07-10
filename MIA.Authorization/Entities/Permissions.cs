@@ -92,9 +92,9 @@ namespace MIA.Authorization.Entities {
     ArtworkRemove,
     [PermissionDescriptor(SystemModules.Admin, "edit_artwork", "edit artwork")]
     ArtworkEdit,
-    [PermissionDescriptor(SystemModules.Admin, "artwork_list_basic_data", "read artworks basic data")]
+    [PermissionDescriptor(SystemModules.Admin, "read_artworks_basic_data", "read artworks basic data")]
     ArtworkListBasicData,
-    [PermissionDescriptor(SystemModules.Admin, "artwork_allow_file_upload", "approve artworks")]
+    [PermissionDescriptor(SystemModules.Admin, "approve_artworks", "approve artworks")]
     ArtworkApprove,
 
 
