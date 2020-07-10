@@ -685,7 +685,7 @@
                 </a>
             </li>
             
-            <li ng-show="user.userModules['Judge']">
+            <li ng-show="user.userModules['Admin'] || user.userModules['Judge'] ">
                 <a class="pmd-ripple-effect" ng-click="$state.go('ArtWork');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
