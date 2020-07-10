@@ -19,16 +19,19 @@ using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
 using MIA.Administration.Dto.Award;
 using MIA.Administration.Services;
+using MIA.Authorization.Attributes;
+using MIA.Authorization.Entities;
 using MIA.Exceptions;
 using MIA.ORMContext;
+using Microsoft.AspNetCore.Authorization;
 using X.PagedList;
 using Z.EntityFramework.Plus;
 
 namespace MIA.Administration.Api {
 
-  //[Authorize]
-  [EnableCors(CorsPolicyName.AllowAll)]
+  [EnableCors(CorsPolicyName.DevOnly)]
   [Route("api/judgeVote")]
+  [Authorize]
   public class JudgeVoteController : BaseCrudController<JudgeVote, JudgeVoteDto, NewJudgeVoteDto, UpdateJudgeVoteDto> {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
@@ -44,6 +47,7 @@ namespace MIA.Administration.Api {
       this.limitOptions = limitOptions;
     }
 
+    [HasPermission(Permissions.UpdateArtworkVote)]
     public override async Task<IActionResult> SaveNewAsync([FromForm] NewJudgeVoteDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((JudgeVoteDto)(result as OkObjectResult)?.Value);
@@ -57,6 +61,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPost("submitJudgeVote")]
+    [HasPermission(Permissions.UpdateArtworkVote)]
     public async Task<IActionResult> SubmitJudgeVote([FromBody] UpdateJudgeVoteDto dto, [FromServices] IAppUnitOfWork db) {
       var insertList = new List<JudgeVote>();
 
@@ -85,13 +90,17 @@ namespace MIA.Administration.Api {
       await db.CommitTransactionAsync();
       return Ok();
     }
+   
+    [HasPermission(Permissions.UpdateArtworkVote)]
     public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
       var result = await base.GetAsync(id, db);
       var resultDto = ((JudgeVoteDto)(result as OkObjectResult)?.Value);
       var boothItem = await db.JudgeVotes.FirstOrDefaultAsync(a => a.Id == resultDto.Id);
       return IfFound(_mapper.Map<JudgeVoteDto>(boothItem));
     }
+   
     [HttpGet("getJudgeVoteCriteriaValues")]
+    [HasPermission(Permissions.UpdateArtworkVote)]
     public async Task<IActionResult> GetJudgeVoteCriteriaValuesAsync(string id, [FromServices] IAppUnitOfWork db) {
       List<JudgeVoteDto> returnVotingCriteriaVoteDto = null;
       var judgeVoting = db.JudgeVotes.Where(a => a.ArtworkId == id).ToList();
@@ -99,7 +108,9 @@ namespace MIA.Administration.Api {
       return IfFound(returnVotingCriteriaVoteDto);
 
     }
+    
     [HttpGet("{artworkId}/getCriteriaByLevel/{level}")]
+    [HasPermission(Permissions.ViewArtworkJudgeDetails)]
     public async Task<IActionResult> GetCriteriaBylevelAsync(
       [FromRoute(Name = "artworkId")]string artworkId,
       [FromRoute(Name = "level")] JudgeLevel level,
@@ -129,6 +140,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPost("my-artworks")]
+    [HasPermission(Permissions.ViewAssignedArtworks)]
     public async Task<IActionResult> GetJudgeArtWorksAsync(
       [FromServices] IUserResolver userResolver,
       [FromServices] IAppUnitOfWork db) {
@@ -200,6 +212,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPost("my-awards")]
+    [HasPermission(Permissions.ReadAward)]
     public async Task<IActionResult> GetMyAwards(
       [FromServices] IUserResolver userResolver,
       [FromServices] IAppUnitOfWork db) {
@@ -216,6 +229,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPost("my-statistics")]
+    [HasPermission(Permissions.ViewMyArtworkStatistics)]
     public async Task<IActionResult> MyArtworkStatistics(
       [FromBody] JudgeStatisticsFilter dto,
       [FromServices] IUserResolver userResolver,
@@ -282,6 +296,7 @@ namespace MIA.Administration.Api {
 
 
     [HttpPost("my-judges")]
+    [HasPermission(Permissions.ViewMyJudges)]
     public async Task<IActionResult> MyJudges(
      [FromBody] JudgeStatisticsFilter dto,
      [FromServices] IUserResolver userResolver,
@@ -355,6 +370,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("getCommetsListByMedia")]
+    [HasPermission(Permissions.AddCommentToArtworkVideo)]
     public async Task<IActionResult> GetCommetsListByMediaAsync(string id, [FromServices] IAppUnitOfWork db) {
       List<JudgeCommentDto> judgeCommentDtoto = null;
       var getCommetnsList = db.JudgeComments.
@@ -368,6 +384,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPost("submitJudgeComment")]
+    [HasPermission(Permissions.AddCommentToArtworkVideo)]
     public async Task<IActionResult> SubmitJudgeComment([FromBody] NewJudgeCommentDto dto, [FromServices] IAppUnitOfWork db) {
       var judgeObj = new JudgeComment();
       judgeObj.JudgeId = dto.JudgeId;
@@ -382,6 +399,7 @@ namespace MIA.Administration.Api {
 
 
     [HttpPost("final-thoughts")]
+    [HasPermission(Permissions.UpdateArtworkFinalThoughts)]
     public async Task<IActionResult> CloseJudgeWithFinalThoughts(
       [FromServices] IUserResolver userResolver,
       [FromBody] JudgeCompleteWithFinalThoughtDto dto,

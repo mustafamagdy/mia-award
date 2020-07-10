@@ -19,13 +19,16 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MIA.Authorization.Attributes;
+using MIA.Authorization.Entities;
+using Microsoft.AspNetCore.Authorization;
 using X.PagedList;
 
 namespace MIA.Administration.Api {
 
-  //[Authorize]
-  [EnableCors(CorsPolicyName.AllowAll)]
+  [EnableCors(CorsPolicyName.DevOnly)]
   [Route("api/Awards")]
+  [Authorize]
   public class AwardsController : BaseCrudController<Award, AwardDto, NewAwardDto, UpdateAwardDto> {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
@@ -41,6 +44,7 @@ namespace MIA.Administration.Api {
       this.limitOptions = limitOptions;
     }
 
+    [HasPermission(Permissions.AwardEdit)]
     public override async Task<IActionResult> SaveNewAsync([FromBody] NewAwardDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((AwardDto)(result as OkObjectResult)?.Value);
@@ -48,6 +52,7 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<AwardDto>(AwardsItem));
     }
 
+    [HasPermission(Permissions.AwardEdit)]
     public override async Task<IActionResult> UpdateAsync([FromBody] UpdateAwardDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((AwardDto)(result as OkObjectResult)?.Value);
@@ -109,32 +114,18 @@ namespace MIA.Administration.Api {
 
       return IfFound(_mapper.Map<AwardDto>(AwardsItem));
     }
+   
     [HttpGet("getAwardDetails")]
+    [HasPermission(Permissions.ReadAward)]
     public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
-      //var result = await base.GetAsync(id, db); 
       AwardDetailsDto returnAwardDetails = null;
       var award = await db.Awards.FirstOrDefaultAsync(a => a.Id == id);
       var judgeItems = await db.JudgeAwards.Where(a => a.AwardId == id).ToListAsync();
       return IfFound(_mapper.Map<AwardDetailsDto>(award));
-      //if (!judgeItems.Any())
-      //{
-      //  returnAwardDetails = _mapper.Map<AwardDetailsDto>(award);
-      //  return IfFound(returnAwardDetails);
-      //}
-      //else
-      //{
-      //  var returnAwardJudgesLevel1 = _mapper.Map<List<JudgeAwardDto>>(judgeItems);
-      //  var returnAwardJudgesLevel2 = _mapper.Map<List<JudgeAwardDto>>(judgeItems);
-
-      //  returnAwardDetails = _mapper.Map<AwardDetailsDto>(award);
-      //  returnAwardDetails.Level1Judges = returnAwardJudgesLevel1;
-      //  returnAwardDetails.Level2Judges = returnAwardJudgesLevel2;
-      //  return IfFound(returnAwardDetails);
-
-      //}
     }
 
     [HttpPost("for-dropdown")]
+    [HasPermission(Permissions.ReadAward)]
     public async Task<IActionResult> GetAwardsForDropdown(
       [FromServices] IAppUnitOfWork db) {
       var awards = await db.Awards
@@ -145,6 +136,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("judges")]
+    [HasPermission(Permissions.ManageJudges)]
     public async Task<IActionResult> ListOfJudges([FromServices] IAppUnitOfWork db) {
       var judges = db.Judges;
       if (judges == null) {
@@ -154,6 +146,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPost("awardsByType")]
+    [HasPermission(Permissions.ReadAward)]
     public async Task<IActionResult> ListOfAwardsByType(AwardFilterDto dto, [FromServices] IAppUnitOfWork db) {
       var awards = db.Awards
         .Include(m => m.Manager)

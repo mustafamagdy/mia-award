@@ -18,12 +18,15 @@ using Microsoft.Extensions.Options;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using MIA.Authorization.Attributes;
+using MIA.Authorization.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MIA.Administration.Api {
 
-  //[Authorize]
-  [EnableCors(CorsPolicyName.AllowAll)]
+  [EnableCors(CorsPolicyName.DevOnly)]
   [Route("api/booths")]
+  [Authorize]
   public class BoothsController : BaseCrudController<Booth, BoothsDto, NewBoothsDto, UpdateBoothsDto> {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
@@ -42,6 +45,7 @@ namespace MIA.Administration.Api {
       this.fileManager = fileManager;
     }
 
+    [HasPermission(Permissions.BoothAddNew)]
     public override async Task<IActionResult> SaveNewAsync([FromBody] NewBoothsDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((BoothsDto)(result as OkObjectResult)?.Value);
@@ -49,12 +53,15 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<BoothsDto>(BoothsItem));
     }
 
+    [HasPermission(Permissions.BoothAddNew)]
     public override async Task<IActionResult> UpdateAsync([FromBody] UpdateBoothsDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((BoothsDto)(result as OkObjectResult)?.Value);
       var BoothsItem = await db.Booths.FindAsync(resultDto.Id);
       return IfFound(_mapper.Map<BoothsDto>(BoothsItem));
     }
+   
+    [HasPermission(Permissions.BoothRead)]
     public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
       var result = await base.GetAsync(id, db);
       var resultDto = ((BoothsDto)(result as OkObjectResult)?.Value);
@@ -64,6 +71,7 @@ namespace MIA.Administration.Api {
 
 
     [HttpPost("createPayment")]
+    [HasPermission(Permissions.BoothPayment)]
     public async Task<IActionResult> SavePaymentAsync([FromBody] NewBoothPurchaseDto dto, [FromServices] IAppUnitOfWork db, [FromServices] IUserResolver userResolver) {
       string fileKey, fileUrl;
 
@@ -98,6 +106,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPut("updatePayment")]
+    [HasPermission(Permissions.BoothPayment)]
     public async Task<IActionResult> UpdatePaymentAsync([FromBody] UpdateBoothPaymentDto dto, [FromServices] IAppUnitOfWork db, [FromServices] IUserResolver userResolver) {
       string fileKey, fileUrl;
       var paymentItem = await db.BoothPayments.FirstOrDefaultAsync(a => a.Id == dto.Id);
@@ -137,12 +146,14 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("getPayment")]
+    [HasPermission(Permissions.BoothPayment)]
     public async Task<IActionResult> GetPaymentAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
       var boothItem = await db.BoothPurchases.Include(p => p.Payment).FirstOrDefaultAsync(a => a.Id == id);
       return IfFound(_mapper.Map<BoothPurchaseDto>(boothItem));
     }
 
     [HttpPut("toggleSellable")]
+    [HasPermission(Permissions.BoothChangeStatus)]
     public async Task<IActionResult> ToggleSellable([FromBody] BoothSellableUpdateDto dto, [FromServices] IAppUnitOfWork db) {
       var item = await db.Booths.FirstOrDefaultAsync(a => a.Id == dto.Id);
       item.Sellable = dto.Sellable;

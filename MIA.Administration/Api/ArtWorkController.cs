@@ -28,14 +28,15 @@ using MIA.Authorization.Attributes;
 using MIA.Authorization.Entities;
 using MIA.ORMContext;
 using MIA.TemplateParser;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Z.EntityFramework.Plus;
 
 namespace MIA.Administration.Api {
 
-  //[Authorize]
-  [EnableCors(CorsPolicyName.AllowAll)]
+  [EnableCors(CorsPolicyName.DevOnly)]
   [Route("api/artWorks")]
+  [Authorize]
   public class ArtWorksController : BaseCrudController<Artwork, ArtWorkDto, NewArtWorkDto, UpdateArtWorkDto> {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
@@ -55,6 +56,7 @@ namespace MIA.Administration.Api {
       this.fileManager = fileManager;
     }
 
+    [HasPermission(Permissions.ArtworkEdit)]
     public override async Task<IActionResult> SaveNewAsync([FromBody] NewArtWorkDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((ArtWorkDto)(result as OkObjectResult)?.Value);
@@ -98,6 +100,7 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<ArtWorkDto>(ArtWorksItem));
     }
 
+    [HasPermission(Permissions.ArtworkEdit)]
     public override async Task<IActionResult> UpdateAsync([FromBody] UpdateArtWorkDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((ArtWorkDto)(result as OkObjectResult)?.Value);
@@ -147,60 +150,24 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<ArtWorkDto>(ArtWorksItem));
     }
 
+    [HasPermission(Permissions.ReadArtwork)]
     public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
       var result = await base.GetAsync(id, db);
       var resultDto = ((ArtWorkDto)(result as OkObjectResult)?.Value);
       var artWorkItem = await db.Artworks.Include(i => i.Award).Include(i => i.Nominee).FirstOrDefaultAsync(a => a.Id == resultDto.Id);
       return IfFound(_mapper.Map<ArtWorkDto>(artWorkItem));
     }
-
-    [HttpGet("getArtWorkFiles")]
-    public async Task<IActionResult> GetArtWorkFilesAsync([FromQuery(Name = "judgeId")] string id, [FromServices] IAppUnitOfWork db) {
-      var artWorkItem = db.MediaFiles.Where(a => a.ArtWorkId == id).ToList();
-      var returnMediaList = _mapper.Map<List<MediaFileDto>>(artWorkItem);
-      return IfFound(returnMediaList);
-    }
-
-    [HttpGet("{judgeId}/withFiles")]
-    public async Task<IActionResult> GetArtworkWithFiles([FromRoute(Name = "judgeId")] string id,
-      [FromServices] IAppUnitOfWork db) {
-      var item = await db.Artworks
-                    .Include(a => a.MediaFiles)
-                    .FirstOrDefaultAsync(a => a.Id == id);
-
-      var returnMediaList = _mapper.Map<ArtworkWithFilesDto>(item);
-      return IfFound(returnMediaList);
-    }
-
-    [HttpGet("{judgeId}/withFiles-and-score/{level}")]
-    public async Task<IActionResult> GetArtworkWithFilesAndScore(
-      [FromRoute(Name = "judgeId")] string id,
-      [FromRoute(Name = "level")] int level,
-      [FromServices] IAppUnitOfWork db,
-      [FromServices] IUserResolver userResolver
-      ) {
-      var userId = (await userResolver.CurrentUserAsync())?.Id;
-      if (string.IsNullOrEmpty(userId)) {
-        throw new ApiException(ApiErrorType.Unauthorized, "you are not a judge");
-      }
-
-      var item = await db.Artworks
-                      .Include(a => a.FinalScores)
-                      .Include(a => a.MediaFiles)
-                      .AsNoTracking()
-                      .FirstOrDefaultAsync(a => a.Id == id);
-
-      item.FinalScores = item.FinalScores.Where(x => x.JudgeId == userId && x.Level == (JudgeLevel)level).ToHashSet();
-      var result = _mapper.Map<ArtworkWithFilesAndScoresDto>(item);
-      return IfFound(result);
-    }
+    
 
     [HttpGet("getMediaFile")]
+    [HasPermission(Permissions.ReadArtwork)]
     public async Task<IActionResult> GetMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
       var artWorkItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id == id);
       return IfFound(_mapper.Map<MediaFile>(artWorkItem));
     }
+    
     [HttpDelete("deleteMediaItem")]
+    [HasPermission(Permissions.ArtworkEdit)]
     public async Task<IActionResult> DeleteMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
       var entity = db.Set<MediaFile>().FirstOrDefault(a => a.Id == id);
       if (entity == null)
@@ -209,14 +176,18 @@ namespace MIA.Administration.Api {
       db.Set<MediaFile>().Remove(entity);
       return Ok();
     }
+   
     [HttpPost("createMediaFile")]
+    [HasPermission(Permissions.ArtworkEdit)]
     public async Task<IActionResult> CreateMediaFile([FromBody] MediaFileDto dto, [FromServices] IAppUnitOfWork db) {
       dto.File = S3File.FromKeyAndUrl(dto.FileKey, dto.FileUrl);
       var result = await db.Set<MediaFile>().AddAsync(_mapper.Map<MediaFile>(dto));
       var mediaItem = await db.MediaFiles.FindAsync(result.Entity.Id);
       return IfFound(_mapper.Map<MediaFile>(mediaItem));
     }
+    
     [HttpPut("UpdateTrailerUrl")]
+    [HasPermission(Permissions.ArtworkEdit)]
     public async Task<IActionResult> UpdateTrailerUrlAsync([FromBody] UpdateArtWorkDto dto, [FromServices] IAppUnitOfWork db) {
       var trailerItem = await db.Artworks.FirstOrDefaultAsync(a => a.Id == dto.Id);
       trailerItem.Trailer = S3File.FromKeyAndUrl(dto.FileKey, dto.FileUrl);
@@ -228,6 +199,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPost("createPayment")]
+    [HasPermission(Permissions.ArtworkEdit)]
     public async Task<IActionResult> SavePaymentAsync([FromBody] NewArtWorkPaymentDto dto, [FromServices] IAppUnitOfWork db) {
       //var newartwork = new ArtWorkPayment();
       //newartwork.ArtworkId = dto.ArtworkId;
@@ -266,6 +238,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPut("updatePayment")]
+    [HasPermission(Permissions.ArtworkEdit)]
     public async Task<IActionResult> UpdatePaymentAsync([FromBody] UpdateArtWorkPaymentDto dto, [FromServices] IAppUnitOfWork db) {
 
       var paymentItem = await db.ArtworkPayments.FirstOrDefaultAsync(a => a.Id == dto.Id);
@@ -298,6 +271,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("getPayment")]
+    [HasPermission(Permissions.ReadArtwork)]
     public async Task<IActionResult> GetPaymentAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
       var artWorkItem = await db.ArtworkPayments.FirstOrDefaultAsync(a => a.ArtworkId == id);
       if (artWorkItem == null) {
@@ -305,7 +279,9 @@ namespace MIA.Administration.Api {
       }
       return IfFound(_mapper.Map<ArtWorkPaymentDto>(artWorkItem));
     }
+    
     [HttpGet("nominees")]
+    [HasPermission(Permissions.ReadArtwork)]
     public async Task<IActionResult> ListOfNominees([FromServices] IAppUnitOfWork db) {
       var nominee = db.Nominees;
       if (nominee == null) {
@@ -314,7 +290,9 @@ namespace MIA.Administration.Api {
 
       return IfFound(nominee.MapTo<NomineeDto>());
     }
+   
     [HttpGet("countries")]
+    [HasPermission(Permissions.ReadArtwork)]
     public IActionResult ListOfCountries() {
       var listCountries = new List<CountryDto>();
       var filename = "iso_countries_all.json";
@@ -329,7 +307,72 @@ namespace MIA.Administration.Api {
 
     }
 
+    [HttpPut("UpdateTrailerVideoUrl")]
+    [HasPermission(Permissions.ArtworkEdit)]
+    public async Task<IActionResult> UpdateTrailerVideoUrlAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db) {
+      var artWork = await db.Artworks.FirstOrDefaultAsync(a => a.Id == dto.Id);
+      artWork.Trailer = S3File.FromKeyAndUrl(dto.FileKey, dto.FileUrl);
+
+      var entry = db.Set<Artwork>().Attach(artWork);
+      entry.State = EntityState.Modified;
+      await db.CommitTransactionAsync();
+      return IfFound(_mapper.Map<ArtWorkDto>(artWork));
+    }
+
+    [HttpPost("artwork/{id}/files")]
+    [HasPermission(Permissions.ArtworkEdit)]
+    public async Task<IActionResult> UploadArtworkFiles(
+      [FromRoute] string id,
+      [FromServices] IAppUnitOfWork db,
+      [FromServices] IS3FileManager fileManager,
+      FileChunkDto dto) {
+      try {
+        var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.ArtWork, id);
+        var result = await fileManager.UploadChunk(tempDir, dto);
+        if (!string.IsNullOrEmpty(result.FinalUrl)) {
+          //move file to final directory of the artwork files
+          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, id, dto.FileName);
+          var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
+
+          var mediaFile = new Artwork {
+            Trailer = S3File.FromKeyAndUrl(fileKey, fileUrl)
+          };
+
+          //TODO: uncomment 
+          return Ok(mediaFile);
+        } else {
+          return Ok(result);
+        }
+      } catch (Exception ex) {
+        _logger.LogError(ex, "Failed to upload file");
+        throw new ApiException(ApiErrorType.FailedToUploadChunkedFile, $"{ex.Message}");
+      }
+    }
+
+    [HttpGet("getArtWorkFiles")]
+    [HasPermission(Permissions.ReadArtwork)]
+    public async Task<IActionResult> GetArtWorkFilesAsync([FromQuery(Name = "judgeId")] string id, [FromServices] IAppUnitOfWork db) {
+      var artWorkItem = db.MediaFiles.Where(a => a.ArtWorkId == id).ToList();
+      var returnMediaList = _mapper.Map<List<MediaFileDto>>(artWorkItem);
+      return IfFound(returnMediaList);
+    }
+
+
+    [HttpGet("{artworkId}/withFiles")]
+    [HasPermission(Permissions.ReadArtworkWithAllFiles)]
+    public async Task<IActionResult> GetArtworkWithFiles(
+      [FromRoute(Name = "artworkId")] string id,
+      [FromServices] IAppUnitOfWork db) {
+      var item = await db.Artworks
+        .Include(a => a.MediaFiles)
+        .FirstOrDefaultAsync(a => a.Id == id);
+
+      var returnMediaList = _mapper.Map<ArtworkWithFilesDto>(item);
+      return IfFound(returnMediaList);
+    }
+
     [HttpPost("artwork-statistics")]
+    [HasPermission(Permissions.ViewAllArtworkStatistics)]
     public async Task<IActionResult> ArtworkStatistics(
       [FromBody] ArtworkStatisticsFilter dto,
       [FromServices] IUserResolver userResolver,
@@ -363,6 +406,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("artworks-for-dropdown")]
+    [HasPermission(Permissions.ReadArtwork)]
     public async Task<IActionResult> ArtworksForDropdown(
       [FromServices] IAppUnitOfWork db) {
       var artworks = await db.Artworks.Where(a => a.UploadComplete).ProjectTo<ArtworkMinimumDto>(_mapper.ConfigurationProvider).ToArrayAsync();
@@ -370,6 +414,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpGet("artwork-score-detail/{artworkId}/{level?}")]
+    [HasPermission(Permissions.ViewArtworkScore)]
     public async Task<IActionResult> ArtworkScoreDetails(
           [FromRoute(Name = "artworkId")] string artworkId,
           [FromRoute(Name = "level")] int? level,
@@ -402,48 +447,9 @@ namespace MIA.Administration.Api {
       return IfFound(_artwork);
     }
 
-    [HttpPut("UpdateTrailerVideoUrl")]
-    public async Task<IActionResult> UpdateTrailerVideoUrlAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db) {
-      var artWork = await db.Artworks.FirstOrDefaultAsync(a => a.Id == dto.Id);
-      artWork.Trailer = S3File.FromKeyAndUrl(dto.FileKey, dto.FileUrl);
-
-      var entry = db.Set<Artwork>().Attach(artWork);
-      entry.State = EntityState.Modified;
-      await db.CommitTransactionAsync();
-      return IfFound(_mapper.Map<ArtWorkDto>(artWork));
-    }
-
-    [HttpPost("artwork/{judgeId}/files")]
-    public async Task<IActionResult> UploadArtworkFiles(
-      [FromRoute] string id,
-      [FromServices] IAppUnitOfWork db,
-      [FromServices] IS3FileManager fileManager,
-      FileChunkDto dto) {
-      try {
-        var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.ArtWork, id);
-        var result = await fileManager.UploadChunk(tempDir, dto);
-        if (!string.IsNullOrEmpty(result.FinalUrl)) {
-          //move file to final directory of the artwork files
-          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWork, id, dto.FileName);
-          var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
-
-          var mediaFile = new Artwork {
-            Trailer = S3File.FromKeyAndUrl(fileKey, fileUrl)
-          };
-
-          //TODO: uncomment 
-          return Ok(mediaFile);
-        } else {
-          return Ok(result);
-        }
-      } catch (Exception ex) {
-        _logger.LogError(ex, "Failed to upload file");
-        throw new ApiException(ApiErrorType.FailedToUploadChunkedFile, $"{ex.Message}");
-      }
-    }
 
     [HttpPost("{id}/allow-file-upload")]
-    [HasPermission(Permissions.ArtworkAllowFileUpload)]
+    [HasPermission(Permissions.ArtworkApprove)]
     public async Task<IActionResult> AllowFileUpload(
       [FromRoute] string id,
       [FromServices] IEmailSender emailSender,
@@ -484,6 +490,30 @@ namespace MIA.Administration.Api {
       }
     }
 
+
+    [HttpGet("{judgeId}/withFiles-and-score/{level}")]
+    [HasPermission(Permissions.ViewArtworkScore)]
+    public async Task<IActionResult> GetArtworkWithFilesAndScore(
+      [FromRoute(Name = "judgeId")] string id,
+      [FromRoute(Name = "level")] int level,
+      [FromServices] IAppUnitOfWork db,
+      [FromServices] IUserResolver userResolver
+    ) {
+      var userId = (await userResolver.CurrentUserAsync())?.Id;
+      if (string.IsNullOrEmpty(userId)) {
+        throw new ApiException(ApiErrorType.Unauthorized, "you are not a judge");
+      }
+
+      var item = await db.Artworks
+        .Include(a => a.FinalScores)
+        .Include(a => a.MediaFiles)
+        .AsNoTracking()
+        .FirstOrDefaultAsync(a => a.Id == id);
+
+      item.FinalScores = item.FinalScores.Where(x => x.JudgeId == userId && x.Level == (JudgeLevel)level).ToHashSet();
+      var result = _mapper.Map<ArtworkWithFilesAndScoresDto>(item);
+      return IfFound(result);
+    }
 
   }
 

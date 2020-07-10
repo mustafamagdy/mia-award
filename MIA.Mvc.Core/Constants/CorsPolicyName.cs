@@ -8,5 +8,6 @@
     /// allow all cors policy
     /// </summary>
     public const string AllowAll = "AllowAll";
+    public const string DevOnly = "DevOnly";
   }
 }

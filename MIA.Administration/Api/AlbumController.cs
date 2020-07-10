@@ -21,15 +21,18 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
 using AutoMapper.QueryableExtensions;
+using MIA.Authorization.Attributes;
+using MIA.Authorization.Entities;
 using MIA.ORMContext;
 using MIA.Infrastructure;
 using MIA.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MIA.Administration.Api {
 
-  //[Authorize]
-  [EnableCors(CorsPolicyName.AllowAll)]
+  [EnableCors(CorsPolicyName.DevOnly)]
   [Route("api/albums")]
+  [Authorize]
   public class AlbumController : BaseCrudController<Album, PhotoAlbumDto, NewPhotoAlbumDto, UpdatePhotoAlbumDto> {
     private readonly IHostingEnvironment env;
     private readonly IOptions<UploadLimits> limitOptions;
@@ -48,6 +51,7 @@ namespace MIA.Administration.Api {
       this.fileManager = fileManager;
     }
 
+    [HasPermission(Permissions.AlbumRead)]
     public override async Task<IActionResult> Search([FromBody] BaseSearchDto dto, [FromServices] IAppUnitOfWork db) {
 
       var result = db.Albums
@@ -59,6 +63,7 @@ namespace MIA.Administration.Api {
 
     }
 
+    [HasPermission(Permissions.AlbumManage)]
     public override async Task<IActionResult> SaveNewAsync(
       [FromBody] NewPhotoAlbumDto dto,
       [FromServices] IAppUnitOfWork db) {
@@ -112,6 +117,7 @@ namespace MIA.Administration.Api {
       return MediaType.Image;
     }
 
+    [HasPermission(Permissions.AlbumManage)]
     public override async Task<IActionResult> UpdateAsync([FromBody] UpdatePhotoAlbumDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((PhotoAlbumDto)(result as OkObjectResult)?.Value);
@@ -123,13 +129,16 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPost("getMediaItems")]
+    [HasPermission(Permissions.AlbumRead)]
     public async Task<IActionResult> GetMediaItemsAsync(BaseSearchIdDto dto, [FromServices] IAppUnitOfWork db) {
       var albumItems = db.AlbumItems.Where(a => a.AlbumId == dto.Id).ToList();
       var returnAlbumItems = _mapper.Map<List<PhotoAlbumFileDto>>(albumItems).ToPagedList(dto);
       return IfFound(returnAlbumItems);
 
     }
+    
     [HttpPost("{albumId}/createMediaItems")]
+    [HasPermission(Permissions.AlbumManage)]
     public async Task<IActionResult> CreateMediaItemsAsync(
       [FromRoute(Name = "albumId")] string albumId,
       [FromBody] NewMediasDto dto, [FromServices] IAppUnitOfWork db) {
@@ -214,6 +223,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpDelete("deleteMediaItems")]
+    [HasPermission(Permissions.AlbumManage)]
     public async Task<IActionResult> DeleteMediaItemsAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
       var entity = db.Set<AlbumItem>().FirstOrDefault(a => a.Id == id);
       if (entity == null)
@@ -223,7 +233,9 @@ namespace MIA.Administration.Api {
       return IfFound(entity);
 
     }
+    
     [HttpPut("UpdateMediaItem")]
+    [HasPermission(Permissions.AlbumManage)]
     public async Task<IActionResult> UpdateMediaItemAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db) {
       var mediaItem = await db.AlbumItems.FirstOrDefaultAsync(a => a.Id == dto.Id);
       mediaItem.Featured = dto.Featured;
@@ -236,6 +248,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPut("toggleFeatured")]
+    [HasPermission(Permissions.AlbumChangeStatus)]
     public async Task<IActionResult> ToggleFeatured([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db) {
       var mediaItem = await db.AlbumItems.FirstOrDefaultAsync(a => a.Id == dto.Id);
       mediaItem.Featured = dto.Featured;
@@ -244,6 +257,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPut("UpdateMediaItemVideoUrl")]
+    [HasPermission(Permissions.AlbumManage)]
     public async Task<IActionResult> UpdateMediaItemVideoUrlAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db) {
       var mediaItem = await db.AlbumItems.FirstOrDefaultAsync(a => a.Id == dto.Id);
       mediaItem.File = S3File.FromKeyAndUrl(dto.FileKey, dto.FileUrl);
@@ -255,6 +269,7 @@ namespace MIA.Administration.Api {
     }
 
     [HttpPost("mediaItems/{id}/files")]
+    [HasPermission(Permissions.AlbumManage)]
     public async Task<IActionResult> UploadArtworkFiles(
       [FromRoute] string id,
       [FromServices] IAppUnitOfWork db,

@@ -202,7 +202,11 @@ namespace MIA.ORMContext.Seed {
 
       Permissions[] judgePermissions = new Permissions[]
       {
-        Permissions.JudgeArtworkList,
+        Permissions.ViewJudgedArtworks,
+        Permissions.UpdateArtworkVote,
+        Permissions.UpdateArtworkFinalThoughts,
+        Permissions.AddCommentToArtworkVideo,
+        Permissions.RemoveCommentToArtworkVideo,
       };
 
       var judgeRole = await roleManager.FindByNameAsync(PredefinedRoles.Judge.ToString());
@@ -395,9 +399,8 @@ namespace MIA.ORMContext.Seed {
           Poster = S3File.FromKeyAndUrl("", "")
         };
 
-        //avoid adding files again
-        if (db.AlbumItems.FirstOrDefault(a => a.Title != null && a.Title.InEnglish() == item.Title.InEnglish()) != null)
-          continue;
+        //just some items
+        if (db.AlbumItems.Count() > 15) break;
 
         await db.AlbumItems.AddAsync(item);
         await db.CommitTransactionAsync();
@@ -486,10 +489,9 @@ namespace MIA.ORMContext.Seed {
           if (addUserToRoleResult.Succeeded) {
             var allowedModules = new SystemModules[]
             {
+              SystemModules.Dashboard,
               SystemModules.Booths,
               SystemModules.Admin,
-              SystemModules.Dashboard,
-              SystemModules.Gallery,
               SystemModules.Judge
             };
             var modules = allowedModules[0];
@@ -706,14 +708,13 @@ namespace MIA.ORMContext.Seed {
         filterAndUploadRole.Permissions = "";
       }
 
-      //(this is an example only)
-      Permissions[] boothPermissions = new Permissions[]
+      Permissions[] permissions = new Permissions[]
       {
-        Permissions.ArtworkAllowFileUpload,
+        Permissions.ArtworkApprove,
         Permissions.ArtworkListBasicData,
       };
 
-      boothPermissions.ForEach(m => {
+      permissions.ForEach(m => {
         if (!filterAndUploadRole.Permissions.Contains((char)m)) {
           filterAndUploadRole.Permissions += (char)m;
         }
