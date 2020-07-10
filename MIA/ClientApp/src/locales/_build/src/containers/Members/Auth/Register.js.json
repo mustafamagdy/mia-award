@@ -4,7 +4,7 @@
     "origin": [
       [
         "src/containers/Members/Auth/Register.js",
-        81
+        86
       ]
     ]
   },
@@ -13,15 +13,7 @@
     "origin": [
       [
         "src/containers/Members/Auth/Register.js",
-        186
-      ]
-    ]
-  },
-  "signup_terms": {
-    "origin": [
-      [
-        "src/containers/Members/Auth/Register.js",
-        199
+        191
       ]
     ]
   },
@@ -30,7 +22,7 @@
     "origin": [
       [
         "src/containers/Members/Auth/Register.js",
-        210
+        221
       ]
     ]
   },
@@ -39,7 +31,7 @@
     "origin": [
       [
         "src/containers/Members/Auth/Register.js",
-        218
+        229
       ]
     ]
   }
