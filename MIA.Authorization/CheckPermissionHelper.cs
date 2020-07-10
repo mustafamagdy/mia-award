@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using MIA.Authorization.Entities;
@@ -11,13 +12,19 @@ namespace MIA.Authorization {
     /// <param name="packedPermissions"></param>
     /// <param name="permissionName"></param>
     /// <returns></returns>
-    public static bool ThisPermissionIsAllowed(this string packedPermissions, string permissionName) {
+    public static bool ThisPermissionIsAllowed(this string packedPermissions, string[] permissionNames) {
       var usersPermissions = packedPermissions.UnpackPermissionsFromString().ToArray();
+      var requiredPermissions = new List<Permissions>();
+      if (permissionNames == null || permissionNames.Length == 0) {
+        throw new InvalidEnumArgumentException("Not valid permission requirements");
+      }
+      foreach (var permissionName in permissionNames) {
+        if (!Enum.TryParse(permissionName, true, out Permissions permissionToCheck))
+          throw new InvalidEnumArgumentException($"{permissionName} could not be converted to a {nameof(Permissions)}.");
+        requiredPermissions.Add(permissionToCheck);
+      }
 
-      if (!Enum.TryParse(permissionName, true, out Permissions permissionToCheck))
-        throw new InvalidEnumArgumentException($"{permissionName} could not be converted to a {nameof(Permissions)}.");
-
-      return usersPermissions.UserHasThisPermission(permissionToCheck);
+      return usersPermissions.UserHasThisPermission(requiredPermissions.ToArray());
     }
 
     /// <summary>
@@ -26,10 +33,12 @@ namespace MIA.Authorization {
     /// <param name="usersPermissions"></param>
     /// <param name="permissionToCheck"></param>
     /// <returns></returns>
-    public static bool UserHasThisPermission(this Permissions[] usersPermissions, Permissions permissionToCheck) {
-      return usersPermissions.Contains(permissionToCheck) 
-             //|| usersPermissions.Contains(Permissions.AccessAll)
-        ;
+    public static bool UserHasThisPermission(this Permissions[] usersPermissions, Permissions[] permissionToCheck) {
+      var result = usersPermissions.Intersect(permissionToCheck);
+
+      return result.Any()
+      //|| usersPermissions.Contains(Permissions.AccessAll)
+      ;
     }
   }
 }

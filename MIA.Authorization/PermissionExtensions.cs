@@ -15,7 +15,9 @@ namespace MIA.Authorization {
     public static bool UserHasThisPermission(this ClaimsPrincipal user, Permissions permission) {
       var permissionClaim =
         user?.Claims.SingleOrDefault(x => x.Type == PermissionConstants.PackedPermissionClaimType);
-      return permissionClaim?.Value.UnpackPermissionsFromString().ToArray().UserHasThisPermission(permission) == true;
+      return permissionClaim?
+               .Value.UnpackPermissionsFromString().ToArray()
+               .UserHasThisPermission(new Permissions[] { permission }) == true;
     }
 
     public static string GetUserIdFromClaims(this IEnumerable<Claim> claims) {
