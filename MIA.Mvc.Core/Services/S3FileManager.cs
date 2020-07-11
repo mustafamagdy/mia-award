@@ -47,10 +47,11 @@ namespace MIA.Mvc.Core {
 
     public async Task<string> UploadFileAsync(Stream stream, string key, string bucketName = null, bool publicRead = true) {
       bucketName = bucketName ?? _awsOptions.Value.S3_Content_BucketName;
+      var region = RegionEndpoint.GetBySystemName(_awsOptions.Value.S3_Content_Region);
       using (var client = new AmazonS3Client(
         awsAccessKeyId: _awsOptions.Value.S3_Content_AccessKey,
         awsSecretAccessKey: _awsOptions.Value.S3_Content_SecretKey,
-        region: RegionEndpoint.GetBySystemName(_awsOptions.Value.S3_Content_Region))) {
+        region: region)) {
         var uploadRequest = new TransferUtilityUploadRequest {
           InputStream = stream,
           Key = key,
@@ -60,8 +61,8 @@ namespace MIA.Mvc.Core {
 
         var fileTransferUtility = new TransferUtility(client);
         await fileTransferUtility.UploadAsync(uploadRequest);
-        //https://[application.bucket].s3.amazonaws.com/[key]
-        return $"https://{bucketName}.s3.amazonaws.com/{key}";
+       
+        return $"https://{bucketName}.s3.{region.SystemName}.amazonaws.com/{key}";
       }
     }
 
@@ -91,10 +92,11 @@ namespace MIA.Mvc.Core {
     }
 
     public async Task<string> MoveObjectAsync(string sourceKey, string sourceBucketName, string destinationKey, string destinationBucketName, bool publicRead = true) {
+      var region = RegionEndpoint.GetBySystemName(_awsOptions.Value.S3_Content_Region);
       using (var client = new AmazonS3Client(
       awsAccessKeyId: _awsOptions.Value.S3_Content_AccessKey,
       awsSecretAccessKey: _awsOptions.Value.S3_Content_SecretKey,
-      region: RegionEndpoint.GetBySystemName(_awsOptions.Value.S3_Content_Region))) {
+      region: region)) {
         //copy file
         await client.CopyObjectAsync(
           new Amazon.S3.Model.CopyObjectRequest() {
@@ -107,7 +109,7 @@ namespace MIA.Mvc.Core {
         //remove original
         await DeleteFileAsync(sourceKey, sourceBucketName);
 
-        return $"https://{destinationBucketName}.s3.amazonaws.com/{destinationKey}";
+        return $"https://{destinationBucketName}.s3.{region.SystemName}.amazonaws.com/{destinationKey}";
       }
     }
 
