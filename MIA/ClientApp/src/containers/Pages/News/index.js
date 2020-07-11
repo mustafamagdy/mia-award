@@ -42,14 +42,13 @@ const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategorie
     loop: true,
     grabCursor: true,
     centeredSlides: true,
-    simulateTouch: true,
     slidesPerView: "auto",
     coverflowEffect: {
       rotate: 50,
       stretch: 0,
       depth: 100,
       modifier: 1,
-      slideShadows: true
+      slideShadows: true,
     },
     rebuildOnUpdate: true,
     pagination: {
