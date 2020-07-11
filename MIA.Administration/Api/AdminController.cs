@@ -22,8 +22,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using X.PagedList;
 
-namespace MIA.Administration.Api
-{
+namespace MIA.Administration.Api {
   /// <summary>
   /// Admin tasks controller
   /// </summary>
@@ -32,8 +31,7 @@ namespace MIA.Administration.Api
 #endif
   [Route("api/admin")]
   [Authorize]
-  public class AdminController : BaseApiController<AdminController>
-  {
+  public class AdminController : BaseApiController<AdminController> {
     private readonly IStringLocalizer<AdminController> _locale;
 
     /// <summary>
@@ -46,19 +44,16 @@ namespace MIA.Administration.Api
       IMapper mapper,
       ILogger<AdminController> logger,
       IStringLocalizer<AdminController> locale
-    ) : base(logger, mapper)
-    {
+    ) : base(logger, mapper) {
       this._locale = locale;
     }
 
     [HttpGet("roles")]
     [HasPermission(Permissions.ReadRoles)]
-    public IActionResult Roles([FromServices] IAppUnitOfWork db)
-    {
+    public IActionResult Roles([FromServices] IAppUnitOfWork db) {
       var roles = db.Roles.MapTo<RoleDto>();
       var systemRoles = Enum.GetNames(typeof(PredefinedRoles)).Select(a => a.ToLower());
-      var allRoles = roles.Select(a =>
-      {
+      var allRoles = roles.Select(a => {
         a.SystemRole = systemRoles.Contains(a.Name.ToLower());
         return a;
       }).ToList();
@@ -67,8 +62,7 @@ namespace MIA.Administration.Api
 
     [HttpPost("permissions")]
     [HasPermission(Permissions.ReadPermissions)]
-    public IActionResult ListPermissions(BaseSearchDto dto)
-    {
+    public IActionResult ListPermissions(BaseSearchDto dto) {
       var permissionNames = Enum.GetValues(typeof(Permissions)).Cast<short>();
       var permissions = permissionNames.Select(p => _mapper.Map<PermissionDto>((Permissions)p)).ToPagedList(dto);
       return IfFound(permissions);
@@ -76,11 +70,9 @@ namespace MIA.Administration.Api
 
     [HttpGet("permissions/module/{moduleName}")]
     [HasPermission(Permissions.ReadPermissions)]
-    public IActionResult ListPermissionsByModule([FromRoute] string moduleName)
-    {
+    public IActionResult ListPermissionsByModule([FromRoute] string moduleName) {
       Object systemModules;
-      if (!Enum.TryParse(typeof(SystemModules), moduleName, out systemModules))
-      {
+      if (!Enum.TryParse(typeof(SystemModules), moduleName, out systemModules)) {
         throw new ApiException(ApiErrorType.NotFound, "moudle not found");
       }
       var permissionNames = Enum.GetValues(typeof(Permissions)).Cast<short>();
@@ -91,18 +83,15 @@ namespace MIA.Administration.Api
     }
     [HttpGet("role/modules")]
     [HasPermission(Permissions.ReadRoles)]
-    public async Task<IActionResult> ListModules()
-    {
+    public async Task<IActionResult> ListModules() {
       var modules = Enum.GetNames(typeof(SystemModules));
       return IfFound(modules);
     }
     [HttpGet("role/{roleName}/permissions")]
     [HasPermission(Permissions.ReadRolePermissions)]
-    public async Task<IActionResult> ListRolePermissions([FromRoute]string roleName, [FromServices] IAppUnitOfWork db)
-    {
+    public async Task<IActionResult> ListRolePermissions([FromRoute]string roleName, [FromServices] IAppUnitOfWork db) {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName);
-      if (role == null)
-      {
+      if (role == null) {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
@@ -117,13 +106,10 @@ namespace MIA.Administration.Api
 
     [HttpPost("role/createRole/{roleName}")]
     [HasPermission(Permissions.EditRole)]
-    public async Task<IActionResult> CreateRole([FromRoute] string roleName, RoleManager<AppRole> roleManager, [FromServices] IAppUnitOfWork db)
-    {
-      if (await roleManager.FindByNameAsync(roleName.ToString().ToLower()) == null)
-      {
+    public async Task<IActionResult> CreateRole([FromRoute] string roleName, RoleManager<AppRole> roleManager, [FromServices] IAppUnitOfWork db) {
+      if (await roleManager.FindByNameAsync(roleName.ToString().ToLower()) == null) {
         await roleManager.CreateAsync(
-          new AppRole(roleName)
-          {
+          new AppRole(roleName) {
             Name = roleName.ToString().ToLower(),
             NormalizedName = roleName.ToString().ToUpper()
           });
@@ -132,38 +118,34 @@ namespace MIA.Administration.Api
     }
     [HttpPost("role/{roleName}/permissions/{permissionId}")]
     [HasPermission(Permissions.ManageRolePermissions)]
-    public async Task<IActionResult> AddPermissionToRole([FromRoute] string roleName, 
+    public async Task<IActionResult> AddPermissionToRole([FromRoute] string roleName,
       [FromRoute]short permissionId,
-      [FromServices] IAppUnitOfWork db)
-    {
+      [FromServices] IAppUnitOfWork db) {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null)
-      {
+      if (role == null) {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
+      if (role.Name == PredefinedRoles.Administrator.ToString()) {
+        throw new ApiException(ApiErrorType.BadRequest, "Admin role cannot be modified");
+      }
+
       Permissions permission;
-      if (!Enum.TryParse(permissionId.ToString(), out permission))
-      {
+      if (!Enum.TryParse(permissionId.ToString(), out permission)) {
         throw new ApiException(ApiErrorType.NotFound, "permission not found or not allowed");
       }
-      
+
       //check if the role doesn't have any permsion
-      if (role.Permissions != null)
-      {
+      if (role.Permissions != null) {
         var exists = role.Permissions.Contains((char)permission);
-        if (!exists)
-        {
+        if (!exists) {
           var moduleAttribute = permission.GetAttribute<PermissionDescriptorAttribute>();
           role.Permissions += (char)permission;
-          if (moduleAttribute != null)
-          {
+          if (moduleAttribute != null) {
             await UpdateUserModuleForRole(role, moduleAttribute.SystemModule, db, false);
           }
         }
-      }
-      else
-      {
+      } else {
         var moduleAttribute = permission.GetAttribute<PermissionDescriptorAttribute>();
         role.Permissions += (char)permission;
         if (moduleAttribute != null) {
@@ -174,26 +156,19 @@ namespace MIA.Administration.Api
       return Ok(role);
     }
 
-    private async Task UpdateUserModuleForRole(AppRole role, SystemModules module, IAppUnitOfWork db,bool remove)
-    {
-      var roleUsers = await db.UserRoles.Where(a => a.RoleId == role.Id).Select(a=>a.UserId).ToArrayAsync();
-      if (roleUsers.Any())
-      {
+    private async Task UpdateUserModuleForRole(AppRole role, SystemModules module, IAppUnitOfWork db, bool remove) {
+      var roleUsers = await db.UserRoles.Where(a => a.RoleId == role.Id).Select(a => a.UserId).ToArrayAsync();
+      if (roleUsers.Any()) {
         var users = db.Users.Where(a => roleUsers.Contains(a.Id));
-        foreach (var user in users)
-        {
+        foreach (var user in users) {
           var userModule = await db.UserModules.FirstOrDefaultAsync(a => a.UserId == user.Id);
           if (userModule == null && !remove) {
             userModule = new UserModule(user.Id, module);
             await db.UserModules.AddAsync(userModule);
-          }
-          else if (userModule  != null && ((userModule.AllowedModules & module) == 0) && !remove)
-          {
+          } else if (userModule != null && ((userModule.AllowedModules & module) == 0) && !remove) {
             //add user to this module
             userModule.AllowedModules |= module;
-          }
-          else if(userModule != null && remove)
-          {
+          } else if (userModule != null && remove) {
             userModule.AllowedModules &= ~module;
           }
         }
@@ -203,35 +178,34 @@ namespace MIA.Administration.Api
     [HttpDelete("role/{roleName}/permissions/{permissionId}")]
     [HasPermission(Permissions.ManageRolePermissions)]
     public async Task<IActionResult> RemovePermissionFromRole([FromRoute] string roleName, [FromRoute]short permissionId,
-      [FromServices] IAppUnitOfWork db)
-    {
+      [FromServices] IAppUnitOfWork db) {
       var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null)
-      {
+      if (role == null) {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
-      
+
+      if (role.Name == PredefinedRoles.Administrator.ToString()) {
+        throw new ApiException(ApiErrorType.BadRequest, "Admin role cannot be modified");
+      }
+
       Permissions permission;
-      if (!Enum.TryParse(permissionId.ToString(), out permission))
-      {
+      if (!Enum.TryParse(permissionId.ToString(), out permission)) {
         throw new ApiException(ApiErrorType.NotFound, "permission not found or not allowed");
       }
 
       var exists = role.Permissions.Contains((char)permission);
-      if (exists)
-      {
-        role.Permissions = role.Permissions.Remove(role.Permissions.IndexOf((char)permission),1);
+      if (exists) {
+        role.Permissions = role.Permissions.Remove(role.Permissions.IndexOf((char)permission), 1);
         var moduleAttribute = permission.GetAttribute<PermissionDescriptorAttribute>();
         if (moduleAttribute != null) {
           var modulePermissions = Enum.GetValues(typeof(Permissions))
             .Cast<Permissions>()
-            .Where(a => a.GetAttribute<PermissionDescriptorAttribute>() != null 
+            .Where(a => a.GetAttribute<PermissionDescriptorAttribute>() != null
                         && a.GetAttribute<PermissionDescriptorAttribute>().SystemModule == moduleAttribute.SystemModule)
             .ToArray();
           var unpacked = role.Permissions.UnpackPermissionsFromString();
           //if this is no permission in this module for this role, remove users from this module
-          if (!unpacked.Intersect(modulePermissions).Any())
-          {
+          if (!unpacked.Intersect(modulePermissions).Any()) {
             await UpdateUserModuleForRole(role, moduleAttribute.SystemModule, db, true);
           }
         }
@@ -244,17 +218,14 @@ namespace MIA.Administration.Api
     [HttpPost("role/{roleName}/user/{userId}")]
     [HasPermission(Permissions.AddUserToRole)]
     public async Task<IActionResult> AddUserToRole([FromRoute] string roleName, [FromRoute] string userId,
-      [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
-    {
+      [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager) {
       var user = await db.Users.FindAsync(userId);
-      if (user == null)
-      {
+      if (user == null) {
         throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
 
       var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null)
-      {
+      if (role == null) {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
@@ -265,17 +236,14 @@ namespace MIA.Administration.Api
     [HttpDelete("role/{roleName}/user/{userId}")]
     [HasPermission(Permissions.RemoveUserFromRole)]
     public async Task<IActionResult> RemoveUserToRole([FromRoute] string roleName, [FromRoute] string userId,
-      [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
-    {
+      [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager) {
       var user = await db.Users.FindAsync(userId);
-      if (user == null)
-      {
+      if (user == null) {
         throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
 
       var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null)
-      {
+      if (role == null) {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
@@ -285,11 +253,9 @@ namespace MIA.Administration.Api
 
     [HttpGet("user/{userId}/roles")]
     [HasPermission(Permissions.ReadUserRoles)]
-    public async Task<IActionResult> ListUserRoles([FromRoute] string userId, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
-    {
+    public async Task<IActionResult> ListUserRoles([FromRoute] string userId, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager) {
       var user = await db.Users.FindAsync(userId);
-      if (user == null)
-      {
+      if (user == null) {
         throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
       var roles = await userManager.GetRolesAsync(user);
@@ -298,11 +264,9 @@ namespace MIA.Administration.Api
 
     [HttpGet("role/{roleName}/users")]
     [HasPermission(Permissions.ReadUserRoles)]
-    public async Task<IActionResult> ListRoleUsers([FromRoute] string roleName, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager)
-    {
+    public async Task<IActionResult> ListRoleUsers([FromRoute] string roleName, [FromServices] IAppUnitOfWork db, [FromServices] UserManager<AppUser> userManager) {
       var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
-      if (role == null)
-      {
+      if (role == null) {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
       var users = await userManager.GetUsersInRoleAsync(roleName);
