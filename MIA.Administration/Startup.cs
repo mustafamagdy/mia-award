@@ -227,7 +227,7 @@ namespace MIA {
         .UseRouteUrlCultureProvider()
 
         .UseStaticFilesWithCacheControl()
-        .UseIfElse(this.env.IsProduction(), cfg => {
+        .UseIfElse(!this.env.IsDevelopment(), cfg => {
           cfg.UseSpaFiles()
                 .UseSpa(spa => {
                   spa.Options.SourcePath = "wwwroot";

@@ -240,7 +240,7 @@ namespace MIA
         .UseSpaFiles()
         .UseSpa(spa =>
         {
-          spa.Options.SourcePath = env.IsDevelopment() ? "ClientApp": "wwwroot" ;
+          spa.Options.SourcePath = !env.IsDevelopment() ? "wwwroot": "ClientApp";
 
 
           if (env.IsDevelopment())
