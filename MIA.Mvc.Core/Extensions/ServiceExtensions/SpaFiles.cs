@@ -12,11 +12,11 @@ namespace MIA.Extensions {
     /// </summary>
     /// <param name="services"></param>
     /// <param name="env"></param>
-    public static IServiceCollection AddSpaFiles (this IServiceCollection services, IHostingEnvironment env) {
+    public static IServiceCollection AddSpaFiles(this IServiceCollection services, IHostingEnvironment env) {
 
       // The React files will be served from this directory
-      services.AddSpaStaticFiles (configuration => {
-        configuration.RootPath = env.IsProduction () ? "wwwroot" : "ClientApp";
+      services.AddSpaStaticFiles(configuration => {
+        configuration.RootPath = !env.IsDevelopment() ? "wwwroot" : "ClientApp";
       });
 
       return services;
@@ -27,8 +27,12 @@ namespace MIA.Extensions {
     /// </summary>
     /// <param name="app">IApplicationBuilder instance </param>
     /// <returns></returns>
-    public static IApplicationBuilder UseSpaFiles (this IApplicationBuilder app) {
-      app.UseSpaStaticFiles ();
+    public static IApplicationBuilder UseSpaFiles(this IApplicationBuilder app) {
+      app.UseSpaStaticFiles(new StaticFileOptions(
+
+        ) {
+
+      });
       return app;
     }
   }
