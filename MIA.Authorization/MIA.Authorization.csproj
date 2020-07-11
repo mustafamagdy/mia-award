@@ -2,9 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <RuntimeFrameworkVersion>2.2.0</RuntimeFrameworkVersion>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RuntimeFrameworkVersion>2.2.0</RuntimeFrameworkVersion>   
   </PropertyGroup>
 
   <ItemGroup>
