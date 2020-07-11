@@ -14,7 +14,14 @@ import Paginator from "components/Paginator";
 import "lightbox-react/style.css"; // This only needs to be imported once in your app
 import "swiper/css/swiper.css";
 
-const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCount, ...props }) => {
+const Gallery = ({
+  featuredItems,
+  items,
+  fetchItems,
+  fetchFeaturedItems,
+  pageCount,
+  ...props
+}) => {
   const [slides, setSlides] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
@@ -35,7 +42,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
     fetchItems({ pageNumber, pageSize: 10, type: tabs[activeTab] });
   }, [pageNumber, activeTab]);
 
-  const handleActiveTab = tab => {
+  const handleActiveTab = (tab) => {
     setActiveTab(tab);
     setPageNumber(1);
   };
@@ -48,7 +55,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
     if (swiper !== null) swiper.slidePrev();
   };
 
-  const handleItemClicked = p => {
+  const handleItemClicked = (p) => {
     if (p.mediaType == "video") {
       setCurrentItem(<Video url={p.fileUrl} />);
     } else {
@@ -69,22 +76,41 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
       stretch: 0,
       depth: 100,
       modifier: 1,
-      slideShadows: true
+      slideShadows: true,
+    },
+    breakpoints: {
+      991: {
+        spaceBetween: 0,
+        simulateTouch: true,
+        loop: true,
+      },
+      640: {
+        coverflowEffect: {
+          rotate: 0,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        },
+      },
     },
     rebuildOnUpdate: true,
     pagination: {
       el: ".slider_dots",
-      clickable: true
+      clickable: true,
     },
     navigation: {
       nextEl: "#nav_next",
-      prevEl: "#nav_prev"
-    }
+      prevEl: "#nav_prev",
+    },
   };
 
   return (
     <React.Fragment>
-      <RenderLightBox currentItem={currentItem} setCurrentitem={setCurrentItem} />
+      <RenderLightBox
+        currentItem={currentItem}
+        setCurrentitem={setCurrentItem}
+      />
       <section id="gallery">
         <div className="gallery_slider">
           <div className="container">
@@ -119,7 +145,9 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                               className="react-player"
                               width="100%"
                               height="100%"
-                              light={s.posterUrl||"https://picsum.photos/200/300"}
+                              light={
+                                s.posterUrl || "https://picsum.photos/200/300"
+                              }
                             />
                             <div className="zoom_image">
                               <span>
@@ -146,7 +174,11 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
               </div>
               <div className="tabs">
                 <ul>
-                  <TabList activeClassName="active" activeIndex={activeTab} handleActiveTab={handleActiveTab}>
+                  <TabList
+                    activeClassName="active"
+                    activeIndex={activeTab}
+                    handleActiveTab={handleActiveTab}
+                  >
                     {tabs.map((t, i) => (
                       <Tab key={i}>
                         <li>
@@ -161,7 +193,14 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
             <div className="tab_content active">
               <div className="gallery_items">
                 {items.map((p, i) => (
-                  <div key={p.id} className={classNames("item", { video: p.mediaType == "video" }, { photo: p.mediaType == "image" })}>
+                  <div
+                    key={p.id}
+                    className={classNames(
+                      "item",
+                      { video: p.mediaType == "video" },
+                      { photo: p.mediaType == "image" }
+                    )}
+                  >
                     <span onClick={() => handleItemClicked(p)}>
                       {p.mediaType == "image" ? (
                         <img src={p.fileUrl} />
@@ -172,7 +211,7 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                           className="react-player"
                           width="100%"
                           height="100%"
-                          light={p.posterUrl||"https://picsum.photos/200/300"}
+                          light={p.posterUrl || "https://picsum.photos/200/300"}
                         />
                       )}
                     </span>
@@ -180,7 +219,11 @@ const Gallery = ({ featuredItems, items, fetchItems, fetchFeaturedItems, pageCou
                 ))}
               </div>
             </div>
-            <Paginator pageCount={pageCount} pageNumber={pageNumber} setPageNumber={setPageNumber} />
+            <Paginator
+              pageCount={pageCount}
+              pageNumber={pageNumber}
+              setPageNumber={setPageNumber}
+            />
           </div>
         </div>
       </section>
@@ -192,15 +235,35 @@ const SliderDots = ({ slides, onSlideSleected, currentSlide, ...props }) => {
   return (
     <div className="slider_dots">
       {slides.map((s, i) => (
-        <span key={s.id} className={classNames({ current: Math.abs(currentSlide) == i })} onClick={() => onSlideSleected(i)}></span>
+        <span
+          key={s.id}
+          className={classNames({ current: Math.abs(currentSlide) == i })}
+          onClick={() => onSlideSleected(i)}
+        ></span>
       ))}
     </div>
   );
 };
 
-const Video = ({ url }) => <ReactPlayer playing url={url} className="react-player-lightbox" width="90%" height="90%" />;
+const Video = ({ url }) => (
+  <ReactPlayer
+    playing
+    url={url}
+    className="react-player-lightbox"
+    width="90%"
+    height="90%"
+  />
+);
 
-const RenderLightBox = ({ currentItem, setCurrentitem, nextItem, prevItem, onNext, onPrev, ...props }) => {
+const RenderLightBox = ({
+  currentItem,
+  setCurrentitem,
+  nextItem,
+  prevItem,
+  onNext,
+  onPrev,
+  ...props
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -225,8 +288,9 @@ const mapStateToProps = ({
   gallery: {
     items,
     featuredItems,
-    items_pagination: { pageCount }
-  }
+    items_pagination: { pageCount },
+  },
 }) => ({ items, featuredItems, pageCount });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...galleryActions }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...galleryActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Gallery);
