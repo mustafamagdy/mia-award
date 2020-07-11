@@ -43,26 +43,29 @@ html {
   overflow-x: hidden;
   padding: 0;
 }
-html::-webkit-scrollbar,
-html::-moz-scrollbar,
-html::-o-scrollbar,
-html::scrollbar {
-  width: 10px;
+@media (min-width: 767px) {
+  html::-webkit-scrollbar,
+  html::-moz-scrollbar,
+  html::-o-scrollbar,
+  html::scrollbar {
+    width: 10px;
+  }
+  html::-webkit-scrollbar-thumb,
+  html::-moz-scrollbar-thumb,
+  html::-o-scrollbar-thumb,
+  html::scrollbar-thumb {
+    background: #b59870;
+    border-radius: 20px;
+  }
+  html::-webkit-scrollbar-track,
+  html::-moz-scrollbar-track,
+  html::-o-scrollbar-track,
+  html::scrollbar-track {
+    background: #000;
+    border-radius: 20px;
+  }
 }
-html::-webkit-scrollbar-thumb,
-html::-moz-scrollbar-thumb,
-html::-o-scrollbar-thumb,
-html::scrollbar-thumb {
-  background: #b59870;
-  border-radius: 20px;
-}
-html::-webkit-scrollbar-track,
-html::-moz-scrollbar-track,
-html::-o-scrollbar-track,
-html::scrollbar-track {
-  background: #000;
-  border-radius: 20px;
-}
+
 *,
 ::after,
 ::before {
@@ -500,11 +503,11 @@ p.info {
 } /* pay_col_two */
 
 label.has-error {
-  color: red;
+  color: #ffb1b1;
   font-size: x-small;
 }
 input.has-error {
-  border: 1px solid red;
+  border: 1px solid #ffb1b1;
 }
 
 .react-confirm-alert-overlay {

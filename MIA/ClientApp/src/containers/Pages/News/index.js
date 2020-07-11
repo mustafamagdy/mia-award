@@ -42,6 +42,7 @@ const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategorie
     loop: true,
     grabCursor: true,
     centeredSlides: true,
+    simulateTouch: true,
     slidesPerView: "auto",
     coverflowEffect: {
       rotate: 50,
@@ -54,6 +55,22 @@ const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategorie
     pagination: {
       el: ".slider_dots",
       clickable: true
+    },
+    breakpoints: {
+      991: {
+        spaceBetween: 0,
+        simulateTouch: true,
+        loop: true,
+      },
+      640: {
+        coverflowEffect: {
+          rotate: 0,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        },
+      },
     },
     navigation: {
       nextEl: "#nav_next",
