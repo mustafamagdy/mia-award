@@ -23,12 +23,11 @@ const Shows = ({
   // generas,
   years,
   pageCount,
+  query,
 }) => {
-  const { register, handleSubmit, reset, formState } = useForm();
-  const [] = useState([]);
+  const { register, handleSubmit, reset, formState, setValue } = useForm();
   const [activeTab, setActiveTab] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const [] = useState(undefined);
   const [swiper, setSwiper] = useState(null);
   const [searchQuery, setSearchQuery] = useState({});
 
@@ -37,12 +36,17 @@ const Shows = ({
   }, []);
 
   useEffect(() => {
+    const _searchQuery = { ...searchQuery };
+    if (query) {
+      _searchQuery.title = query;
+      setValue('title', query);
+    }
     fetchItems({
       pageNumber,
       pageSize: 10,
-      ...searchQuery,
+      ..._searchQuery,
     });
-  }, [pageNumber, activeTab, searchQuery]);
+  }, [pageNumber, activeTab, searchQuery, query]);
 
   const onSubmit = (values) => {
     values.year = values.year == "any_year" ? 0 : values.year;
@@ -170,7 +174,9 @@ const Shows = ({
                     {({ i18n }) => (
                       <select ref={register} name="year">
                         {years.map((y, i) => (
-                          <option value={y}>{i18n._(y)}</option>
+                          <option key={i} value={y}>
+                            {i18n._(y)}
+                          </option>
                         ))}
                       </select>
                     )}
@@ -268,7 +274,9 @@ const mapStateToProps = ({
     featuredItems,
     items_pagination: { pageCount },
   },
+  router: { location },
 }) => {
+  const query = location.query ? location.query.q : undefined;
   const years = [];
   for (
     let y = config.validationRules.allowed_artwork_years.min;
@@ -278,7 +286,7 @@ const mapStateToProps = ({
     years.push(y);
   }
   years.unshift("any_year");
-  return { items, featuredItems, pageCount, years };
+  return { items, featuredItems, pageCount, years, query };
 };
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...showsActions }, dispatch);

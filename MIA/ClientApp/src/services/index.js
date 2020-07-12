@@ -19,7 +19,7 @@ const create = (baseURL = apiURI) => {
     headers: {
       "Cache-Control": "no-cache",
     },
-    timeout: 120000, //30000 //30 sec
+    timeout: 4 * 60 * 1000,
   });
 
   //add access token on each request

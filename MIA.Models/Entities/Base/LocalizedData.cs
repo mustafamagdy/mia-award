@@ -34,11 +34,11 @@ namespace MIA.Models.Entities {
     }
 
     public bool ArabicContains(string query) {
-      return this[Arabic].Contains(query);
+      return this[Arabic].Contains(query, StringComparison.InvariantCultureIgnoreCase);
     }
 
     public bool EnglishContains(string query) {
-      return this[English].Contains(query);
+      return this[English].Contains(query, StringComparison.InvariantCultureIgnoreCase);
     }
 
     public string InEnglish() {
@@ -55,7 +55,7 @@ namespace MIA.Models.Entities {
     }
 
     public bool Contains(string query) {
-      return InArabic().Contains(query) || InEnglish().Contains(query);
+      return InArabic().Contains(query, StringComparison.InvariantCultureIgnoreCase) || InEnglish().Contains(query, StringComparison.InvariantCultureIgnoreCase);
     }
 
     public static LocalizedData FromDictionary(Dictionary<string, string> source) {
