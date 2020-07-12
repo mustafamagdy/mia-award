@@ -69,9 +69,11 @@ const Register = ({
           setFieldValue("reCaptchaToken", undefined);
         }, 1200);
 
-        const file = await fileToBase64(values.avatar);
-        values.avatarFileName = values.avatar.name;
-        values.avatar = file;
+        if (values.avatar) {
+          const file = await fileToBase64(values.avatar);
+          values.avatarFileName = values.avatar.name;
+          values.avatar = file;
+        }
 
         values.username = values.email;
         console.log("values ", values);
