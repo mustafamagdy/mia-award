@@ -150,7 +150,6 @@ namespace MIA.Administration.Api {
     public async Task<IActionResult> ListOfAwardsByType(AwardFilterDto dto, [FromServices] IAppUnitOfWork db) {
       var awards = db.Awards
         .Include(m => m.Manager)
-        .ThenInclude(a => a.AvatarImage)
         .Where(x => x.AwardType == dto.AwardType)
         .AsQueryable();
 

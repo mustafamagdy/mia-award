@@ -171,6 +171,7 @@ namespace MIA.ORMContext.Seed {
           UserName = Constants.NOMINEE_USERNAME,
           NormalizedEmail = Constants.NOMINEE_EMAIL.ToUpper(),
           NormalizedUserName = Constants.NOMINEE_USERNAME.ToUpper(),
+          ProfileImage = S3File.FromKeyAndUrl("", "")
         };
 
         IdentityResult result = await userManager.CreateAsync(nomineeUser, Constants.NOMINEE_PASSWORD);
@@ -226,6 +227,7 @@ namespace MIA.ORMContext.Seed {
             UserName = Constants.JUDGE_USERNAME + j,
             NormalizedEmail = Constants.JUDGE_EMAIL.ToUpper() + j,
             NormalizedUserName = Constants.JUDGE_USERNAME.ToUpper() + j,
+            ProfileImage = S3File.FromKeyAndUrl("", "")
           };
 
           IdentityResult result = await userManager.CreateAsync(judgeUser, Constants.JUDGE_PASSWORD);
@@ -481,6 +483,7 @@ namespace MIA.ORMContext.Seed {
           UserName = Constants.ADMIN_USERNAME,
           NormalizedEmail = Constants.ADMIN_EMAIL.ToUpper(),
           NormalizedUserName = Constants.ADMIN_USERNAME.ToUpper(),
+          ProfileImage = S3File.FromKeyAndUrl("", "")
         };
 
         IdentityResult result = await userManager.CreateAsync(admin, Constants.ADMIN_PASSWORD);
@@ -677,6 +680,7 @@ namespace MIA.ORMContext.Seed {
           UserName = Constants.BOOTH_USERNAME,
           NormalizedEmail = Constants.BOOTH_EMAIL.ToUpper(),
           NormalizedUserName = Constants.BOOTH_USERNAME.ToUpper(),
+          ProfileImage = S3File.FromKeyAndUrl("", "")
         };
 
         IdentityResult result = await userManager.CreateAsync(boothUser, Constants.BOOTH_PASSWORD);
@@ -727,6 +731,7 @@ namespace MIA.ORMContext.Seed {
           UserName = Constants.FILTER_AGENT_USERNAME,
           NormalizedEmail = Constants.FILTER_AGENT_EMAIL.ToUpper(),
           NormalizedUserName = Constants.FILTER_AGENT_USERNAME.ToUpper(),
+          ProfileImage = S3File.FromKeyAndUrl("", "")
         };
 
         IdentityResult result = await userManager.CreateAsync(filterUser, Constants.FILTER_AGENT_PASSWORD);

@@ -42,9 +42,11 @@ const FormField = ({
             </div>
           ) : isFile ? (
             <div className="form-group">
-              <label className="form-group__label col-6 col-md-6 col-sm-12">
-                <Trans id={transId}> {transdDefaultVal} </Trans>
-              </label>
+              {noLabel !== true &&  (
+                <label className="form-group__label col-6 col-md-6 col-sm-12">
+                  <Trans id={transId}> {transdDefaultVal} </Trans>
+                </label>
+              )}
               <Field
                 component={FieldFileUpload}
                 name={name}

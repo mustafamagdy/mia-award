@@ -115,17 +115,21 @@ const Profile = ({
           <div>
             <button
               type="button"
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.stopPropagation();
                 if (
                   avatarFileRef &&
                   avatarFileRef.current &&
                   avatarFileRef.current.files[0]
                 ) {
-                  updateUserAvatar &&
-                    updateUserAvatar({
-                      avatar: avatarFileRef.current.files[0],
-                    });
+                  let avatar = {};
+                  const file = await fileToBase64(
+                    avatarFileRef.current.files[0]
+                  );
+                  avatar.avatarFileName = avatarFileRef.current.files[0].name;
+                  avatar.avatar = file;
+
+                  updateUserAvatar && updateUserAvatar({ ...avatar });
                 }
                 setMode_Avatar("view");
               }}

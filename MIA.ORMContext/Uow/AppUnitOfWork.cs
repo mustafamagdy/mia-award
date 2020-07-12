@@ -34,7 +34,7 @@ namespace MIA.ORMContext.Uow {
 
     public DbSet<AppUser> Users => base.Context.Set<AppUser>();
     public DbSet<Content> Contents => base.Context.Set<Content>();
-    public DbSet<UserImage> UserImages => base.Context.Set<UserImage>();
+    //public DbSet<UserImage> UserImages => base.Context.Set<UserImage>();
     public DbSet<UserModule> UserModules => base.Context.Set<UserModule>();
     public DbSet<Image> Images => base.Context.Set<Image>();
     public DbSet<Judge> Judges => base.Context.Set<Judge>();

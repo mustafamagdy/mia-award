@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Formik, Form } from "formik";
 import { Recaptcha, Field } from "components/Forms";
 import * as Yup from "yup";
@@ -8,6 +8,7 @@ import config from "config";
 import terms from "./terms.json";
 import { I18n } from "@lingui/react";
 import { connect } from "react-redux";
+import { fileToBase64 } from "utils";
 
 const Register = ({
   signupActiveTab,
@@ -17,6 +18,8 @@ const Register = ({
   ...props
 }) => {
   const [acceptTerms, setAcceptTerms] = useState(false);
+  const [tempAvatar, setTempAvatar] = useState(undefined);
+
   const signUp = (values) => {
     signupUser(values);
   };
@@ -32,6 +35,7 @@ const Register = ({
         confirmPassword: "",
         reCaptchaToken: "",
         address: "",
+        avatar: undefined,
       }}
       validationSchema={Yup.object().shape({
         fullName: Yup.string().required("Required"),
@@ -60,16 +64,21 @@ const Register = ({
           }),
         reCaptchaToken: Yup.string().required("reCaptcha is required"),
       })}
-      onSubmit={(values, { actions, setFieldValue, setSubmitting }) => {
+      onSubmit={async (values, { actions, setFieldValue, setSubmitting }) => {
         setTimeout(function () {
           setFieldValue("reCaptchaToken", undefined);
         }, 1200);
 
+        const file = await fileToBase64(values.avatar);
+        values.avatarFileName = values.avatar.name;
+        values.avatar = file;
+
         values.username = values.email;
+        console.log("values ", values);
         signUp(values);
       }}
     >
-      {({ values, errors, touched, isSubmitting, formik }) => {
+      {({ values, errors, touched, isSubmitting, formik, setFieldValue }) => {
         return (
           <Form className="form popup__form" method="post">
             <div
@@ -80,11 +89,43 @@ const Register = ({
               <div className="fields">
                 <div className="avatar">
                   <div className="imgthumb">
-                    <img src="/assets/images/user_avatar.png" alt="" />
-                    <span>
+                    <img
+                      src={
+                        tempAvatar != undefined
+                          ? tempAvatar
+                          : "/assets/images/user_avatar.png"
+                      }
+                      alt=""
+                    />
+                    <label htmlFor="avatar">
                       <Trans id="upload">Upload</Trans>
-                    </span>
-                    <input name="avatar" type="file" />
+                    </label>
+                    <Field
+                      noLabel={true}
+                      isFile={true}
+                      hasError={
+                        errors &&
+                        errors.avatar !== undefined &&
+                        touched &&
+                        touched.avatar !== undefined
+                      }
+                      name="avatar"
+                      id="avatar"
+                      accept="image/*"
+                      onChange={(e) => {
+                        setFieldValue("avatar", e.target.files[0]);
+                        if (e.target.files && e.target.files[0]) {
+                          var reader = new FileReader();
+                          reader.onload = function (e) {
+                            setTempAvatar(e.target.result);
+                          };
+
+                          reader.readAsDataURL(e.target.files[0]);
+                        } else {
+                          setTempAvatar(undefined);
+                        }
+                      }}
+                    />
                   </div>
                 </div>
                 <Field

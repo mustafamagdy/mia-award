@@ -31,7 +31,6 @@ namespace MIA.Api {
       var result = db.Artworks
         .Include(a => a.Award)
         .Include(a => a.Nominee)
-        .ThenInclude(a => a.AvatarImage)
         .Where(a => a.UploadComplete && a.Award.AwardType == AwardType.Artwork)
         .ProjectTo<ArtworkBasicViewDto>(_mapper.ConfigurationProvider)
         .ToArray();
@@ -46,7 +45,6 @@ namespace MIA.Api {
       var _result = db.Artworks
         .Include(a => a.Award)
         .Include(a => a.Nominee)
-        .ThenInclude(a => a.AvatarImage)
         .Where(a => a.UploadComplete && a.Award.AwardType == AwardType.Artwork);
 
       //todo: filtering
@@ -77,7 +75,6 @@ namespace MIA.Api {
       var result = await db.Artworks
         .Include(a => a.Award)
         .Include(a => a.Nominee)
-        .ThenInclude(a => a.AvatarImage)
         .Include(a => a.Reviews)
         .Where(a => a.UploadComplete && a.Award.AwardType == AwardType.Artwork && a.Id == showId)
         .ProjectTo<FullArtworkWithCommentsDto>(_mapper.ConfigurationProvider)

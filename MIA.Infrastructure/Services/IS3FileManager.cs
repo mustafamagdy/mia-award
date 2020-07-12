@@ -9,9 +9,10 @@ namespace MIA.Infrastructure {
     Album,
     Awards,
     ArtWork,
-    ArtWrokPayment,
+    ArtWorkPayment,
     BoothPayment,
-    Docs
+    Docs,
+    Users
   }
 
   public interface IS3FileManager {
