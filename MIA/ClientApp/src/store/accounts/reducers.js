@@ -16,17 +16,27 @@ const initialState = {
   forgotPasswordErrors: [],
   forgotPasswordFailed: false,
   avatarImageUrl: "",
-  profileSubmitting: false
+  profileSubmitting: false,
+  signupSubmitting: false,
 };
 
-const signupFinished = (state, action) => {
-  return state;
+const signup = (state, { payload }) => {
+  return produce(state, (draft) => {
+    draft.signupSubmitting = true;
+  });
+};
+const signupSuccess = (state, { payload }) => {
+  return produce(state, (draft) => {
+    draft.signupSubmitting = false;
+
+  });
 };
 
 const signupFailed = (state, { payload }) => {
   return produce(state, (draft) => {
     draft.signupErrors = payload;
     draft.signupFailed = true;
+    draft.signupSubmitting = false;
   });
 };
 
@@ -141,7 +151,8 @@ const updateUserProfileFailed = (state, { payload }) => {
 };
 
 export const reducer = createReducer(initialState, {
-  [ActionTypes.SIGNUP_SUCCESS]: signupFinished,
+  [ActionTypes.SIGNUP]: signup,
+  [ActionTypes.SIGNUP_SUCCESS]: signupSuccess,
   [ActionTypes.SIGNUP_FAIL]: signupFailed,
   [ActionTypes.RESET_SIGNUP_ERRORS]: resetSignupErrors,
   [ActionTypes.VERIFY_EMAIL_SUCCESS]: verifyEmail,

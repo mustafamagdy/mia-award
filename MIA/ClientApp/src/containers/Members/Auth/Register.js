@@ -7,11 +7,13 @@ import { Trans } from "@lingui/macro";
 import config from "config";
 import terms from "./terms.json";
 import { I18n } from "@lingui/react";
+import { connect } from "react-redux";
 
 const Register = ({
   signupActiveTab,
   setSignupActiveTab,
   signupUser,
+  signupSubmitting,
   ...props
 }) => {
   const [acceptTerms, setAcceptTerms] = useState(false);
@@ -60,10 +62,7 @@ const Register = ({
       })}
       onSubmit={(values, { actions, setFieldValue, setSubmitting }) => {
         setTimeout(function () {
-          setSubmitting(false);
           setFieldValue("reCaptchaToken", undefined);
-          // this.recaptcha.reset();
-          // history.push("/");
         }, 1200);
 
         values.username = values.email;
@@ -224,7 +223,7 @@ const Register = ({
                     <button
                       className="normal_button"
                       type="submit"
-                      disabled={!acceptTerms || isSubmitting}
+                      disabled={!acceptTerms || signupSubmitting}
                     >
                       <Trans id="register">Register</Trans>
                     </button>
@@ -239,4 +238,8 @@ const Register = ({
   );
 };
 
-export default Register;
+const mapStateToProps = ({ account: { signupSubmitting } }, ownProps) => ({
+  signupSubmitting,
+});
+
+export default connect(mapStateToProps, null)(Register);
