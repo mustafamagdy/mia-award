@@ -486,7 +486,7 @@ msgstr "Gold Sponser"
 
 #: src/containers/Home/Awards.js:32
 msgid "home_general_award_text"
-msgstr "انطلاقاً من احترامنا لكل التوجهات و الأذواق ، فقد حرصت MIA على جمع كل أنواع الأعمال الإعلامية وحصرها في ثلاث فئات، وتقدم MIA جوائزها المطلية بالذهب الخالص تحفيزاً للمتنافسين على تقديم أفضل ما لديهم، وفيما يلي فئات الجائزة"
+msgstr "As we Have Great respect for all directions and tastes, MIA presents its prizes in pure gold to motivate the competitors to provide their best as well it made sure to collect all types of media works and limit them to three categories, shown in detail blew"
 
 #: src/containers/App/CookieGDPR.js:126
 msgid "i_accept"
