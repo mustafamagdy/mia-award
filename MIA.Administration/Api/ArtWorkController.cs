@@ -222,7 +222,7 @@ namespace MIA.Administration.Api {
             throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
 
-          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWrokPayment, paymentItem.Id, dto.ReceiptFileName);
+          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWorkPayment, paymentItem.Id, dto.ReceiptFileName);
           var receiptUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
           paymentItem.Receipt = S3File.FromKeyAndUrl(fileKey, receiptUrl);
@@ -253,7 +253,7 @@ namespace MIA.Administration.Api {
             throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
           }
 
-          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWrokPayment, paymentItem.Id, dto.ReceiptFileName);
+          string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.ArtWorkPayment, paymentItem.Id, dto.ReceiptFileName);
           var posterUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
           paymentItem.Receipt = S3File.FromKeyAndUrl(fileKey, posterUrl);

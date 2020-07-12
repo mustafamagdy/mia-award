@@ -8,10 +8,13 @@ namespace MIA.Dto.Auth {
     public string FullName { get; set; }
   }
 
+  public class UserDataWithAvatar : UpdateUserAvatarDto {
+    public string FullName { get; set; }
+  }
   /// <summary>
   /// Signup using email and password
   /// </summary>
-  public class SignUpByEmailRequest : UserDataDto {
+  public class SignUpByEmailRequest : UserDataWithAvatar {
     public string CompanyName { get; set; }
     public string JobTitle { get; set; }
     public string PhoneNumber { get; set; }

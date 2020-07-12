@@ -5,7 +5,8 @@ namespace MIA.Models.Entities {
   public class AppUser : IdentityUser<string> {
     public string FullName { get; set; }
     public string Address { get; set; }
-    public UserImage AvatarImage { get; set; }
+    //public UserImage AvatarImage { get; set; }
+    public S3File ProfileImage { get; set; }
   }
 
   //dont login to backend

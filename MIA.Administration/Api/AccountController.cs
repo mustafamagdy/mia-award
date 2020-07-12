@@ -26,6 +26,7 @@ using MIA.Api.Base;
 using MIA.Authorization.Entities;
 using MIA.Dto.Auth;
 using MIA.Exceptions;
+using MIA.Infrastructure;
 
 namespace MIA.Administration.Api {
   /// <summary>
@@ -79,13 +80,16 @@ namespace MIA.Administration.Api {
           || (signupData.UserType.ToLower() != PredefinedRoles.Judge.ToString().ToLower()
           && signupData.UserType.ToLower() != PredefinedRoles.Nominee.ToString().ToLower())) {
         user = signupData.MapTo<AppUser>();
+        user.ProfileImage = S3File.FromKeyAndUrl("", "");
         result = await userManager.CreateAsync(user, signupData.Password);
       } else if (signupData.UserType.ToLower() == PredefinedRoles.Judge.ToString().ToLower()) {
         var judge = signupData.MapTo<Judge>();
+        judge.ProfileImage = S3File.FromKeyAndUrl("", "");
         result = await userManager.CreateAsync(judge, signupData.Password);
         user = judge;
       } else if (signupData.UserType.ToLower() == PredefinedRoles.Nominee.ToString().ToLower()) {
         var nominee = signupData.MapTo<Nominee>();
+        nominee.ProfileImage = S3File.FromKeyAndUrl("", "");
         result = await userManager.CreateAsync(nominee, signupData.Password);
         user = nominee;
       }
@@ -300,7 +304,7 @@ namespace MIA.Administration.Api {
     public async Task<IActionResult> UpdateProfile(
      [FromServices] IHttpContextAccessor context,
      [FromServices] UserManager<AppUser> userManager,
-     [FromServices] IAppUnitOfWork db,
+     [FromServices] IS3FileManager fileManager,
      [FromServices] IOptions<UploadLimits> limitOptions,
      [FromServices] IHostingEnvironment env,
      [FromForm] UpdateUserProfileDto dto
@@ -314,43 +318,11 @@ namespace MIA.Administration.Api {
       var user = await userManager.FindByNameAsync(username);
       _mapper.Map(dto, user, typeof(UpdateUserProfileDto), typeof(AppUser));
 
-      UserImage avatar = db.UserImages.FirstOrDefault(a => a.UserId == user.Id);
-      if (dto.Avatar != null && dto.Avatar.Length > 0) {
-        using (var memorySteam = new MemoryStream()) {
-          dto.Avatar.CopyTo(memorySteam);
-
-          string validationError = "";
-          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
-            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
-          }
-
-          if (avatar == null) {
-            avatar = new UserImage { UserId = user.Id };
-            await db.UserImages.AddAsync(avatar);
-          }
-          avatar.Data = memorySteam.ToArray();
-          //delete all images in disk with that Id if exists
-          try {
-            var imageDir = Path.Combine(env.WebRootPath, ImageProxyMiddleware.CACHED_IMAGE_DIR);
-            var files = Directory.GetFiles(imageDir, $"{avatar.Id}*");
-            foreach (var file in files) {
-              System.IO.File.Delete(file);
-            }
-          } catch (Exception ex) {
-            _logger.LogError(ex, "Failed to delete user images ");
-          }
-          user.AvatarImage = avatar;
-        }
-      }
+      user.ProfileImage = await SaveUserAvatar(fileManager, user.Id, dto);
 
       await userManager.UpdateAsync(user);
       var result = _mapper.Map<UserProfileDto>(user);
-      if (avatar != null) {
-        result.AvatarImageUrl = $"/r/{avatar.Id}";
-      } else {
-        //add placeholder
-        //result.AvatarImageUrl = $"/r/0";
-      }
+      result.AvatarImageUrl = user.ProfileImage.FileUrl;
 
       return Ok(result);
     }
@@ -361,7 +333,7 @@ namespace MIA.Administration.Api {
     public async Task<IActionResult> UpdateUserAvatar(
      [FromServices] IHttpContextAccessor context,
      [FromServices] UserManager<AppUser> userManager,
-     [FromServices] IAppUnitOfWork db,
+     [FromServices] IS3FileManager fileManager,
      [FromServices] IOptions<UploadLimits> limitOptions,
      [FromServices] IHostingEnvironment env,
      [FromForm] UpdateUserAvatarDto dto
@@ -373,43 +345,24 @@ namespace MIA.Administration.Api {
       }
 
       var user = await userManager.FindByNameAsync(username);
+      user.ProfileImage = await SaveUserAvatar(fileManager, user.Id, dto);
 
-      UserImage avatar = db.UserImages.FirstOrDefault(a => a.UserId == user.Id);
-      if (dto.Avatar != null && dto.Avatar.Length > 0) {
-        using (var memorySteam = new MemoryStream()) {
-          dto.Avatar.CopyTo(memorySteam);
-
-          string validationError = "";
-          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
-            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
-          }
-
-          if (avatar == null) {
-            avatar = new UserImage { UserId = user.Id };
-            await db.UserImages.AddAsync(avatar);
-          }
-          avatar.Data = memorySteam.ToArray();
-          //delete all images in disk with that Id if exists
-          try {
-            var imageDir = Path.Combine(env.WebRootPath, ImageProxyMiddleware.CACHED_IMAGE_DIR);
-            var files = Directory.GetFiles(imageDir, $"{avatar.Id}*");
-            foreach (var file in files) {
-              System.IO.File.Delete(file);
-            }
-          } catch (Exception ex) {
-            _logger.LogError(ex, "Failed to delete user images ");
-          }
-          user.AvatarImage = avatar;
-        }
-      }
 
       await userManager.UpdateAsync(user);
       var result = _mapper.Map<UserProfileDto>(user);
-      if (avatar != null) {
-        result.AvatarImageUrl = $"/r/{avatar.Id}";
-      }
+      result.AvatarImageUrl = user.ProfileImage.FileUrl;
 
       return Ok(result);
     }
+    private async Task<S3File> SaveUserAvatar(IS3FileManager fileManager, string userId,
+      UpdateUserAvatarDto dto) {
+      if (!string.IsNullOrEmpty(dto.AvatarFileName) && dto.Avatar != null && dto.Avatar.Length > 0) {
+        var avatarFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Users,
+          userId, $"{userId}_avatar" + dto.AvatarFileName.GetFileExt());
+        return S3File.FromKeyAndUrl(avatarFileKey, await fileManager.UploadFileAsync(dto.Avatar, avatarFileKey));
+      }
+      return null;
+    }
+
   }
 }

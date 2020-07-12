@@ -16,7 +16,7 @@ namespace MIA.ORMContext.Uow {
     DbSet<Judge> Judges { get; }
     DbSet<Nominee> Nominees { get; }
     DbSet<Image> Images { get; }
-    DbSet<UserImage> UserImages { get; }
+    //DbSet<UserImage> UserImages { get; }
     DbSet<Artwork> Artworks { get; }
     DbSet<ArtworkPayment> ArtworkPayments { get; }
     DbSet<Award> Awards { get; }

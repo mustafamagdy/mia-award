@@ -41,7 +41,7 @@ namespace MIA.ORMContext {
       //AppUser mapping
       builder.Entity<AppUser>().Property(x => x.Id).HasValueGenerator<SeqIdValueGenerator>().ValueGeneratedOnAdd();
       builder.Entity<AppUser>().Property(x => x.FullName).IsUnicode(true).HasMaxLength(Constants.MAX_100);
-      builder.Entity<AppUser>().HasOne(x => x.AvatarImage).WithOne().HasForeignKey<UserImage>(x => x.UserId);
+      builder.Entity<AppUser>().OwnsOne(x => x.ProfileImage);
 
       builder.Entity<AppUser>().Property(x => x.Id).HasValueGenerator<SeqIdValueGenerator>().ValueGeneratedOnAdd();
 
@@ -62,7 +62,7 @@ namespace MIA.ORMContext {
     #endregion
 
     public DbSet<Content> Contents { get; set; }
-    public DbSet<UserImage> UserImages { get; set; }
+    //public DbSet<UserImage> UserImages { get; set; }
     public DbSet<Image> Images { get; set; }
     public DbSet<Judge> Judges { get; set; }
     public DbSet<Nominee> Nominees { get; set; }

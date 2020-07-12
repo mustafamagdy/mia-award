@@ -275,7 +275,7 @@ namespace MIA.Administration.MappingProfiles {
       #region UserDto  
 
       CreateMap<AppUser, UserDto>()
-        .ForMember(a => a.AvatarImage, n => n.MapFrom(a => a.AvatarImage.Imageurl))
+        .ForMember(a => a.AvatarImage, n => n.MapFrom(a => a.ProfileImage.FileUrl))
         .ValidateMemberList(MemberList.None)
         .IncludeAllDerived();
       CreateMap<UserDto, AppUser>().ValidateMemberList(MemberList.None);

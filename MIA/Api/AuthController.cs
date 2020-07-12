@@ -73,8 +73,6 @@ namespace MIA.Api {
         throw new ApiException(ApiErrorType.Forbidden, "User is not allowed");
       }
 
-      var userAvatar = db.UserImages.FirstOrDefault(a => a.UserId == user.Id);
-
       ClaimsPrincipal res = await claimFactory.CreateAsync(user);
       var allClaims = new List<Claim>(res.Claims);
 
@@ -84,7 +82,7 @@ namespace MIA.Api {
       allClaims.Add(new Claim("fullName", user.FullName));
       allClaims.Add(new Claim("jobTitle", nominee.JobTitle ?? ""));
       allClaims.Add(new Claim("address", nominee.Address ?? ""));
-      allClaims.Add(new Claim("avatarImageUrl", userAvatar == null ? "" : $"/r/{userAvatar.Id}?w=114&h=114&mode=stretch"));
+      allClaims.Add(new Claim("avatarImageUrl", $"{nominee.ProfileImage.FileUrl}?w=114&h=114&mode=stretch"));
 
       SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecretKey));
       SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

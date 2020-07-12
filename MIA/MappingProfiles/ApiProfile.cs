@@ -139,7 +139,7 @@ namespace MIA.MappingProfiles {
         .ForMember(a => a.TrailerPosterUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
         .ForMember(a => a.CoverUrl, cfg => cfg.MapFrom(a => a.Cover.FileUrl))
         .ForMember(a => a.TrailerUrl, cfg => cfg.MapFrom(a => a.Trailer.FileUrl))
-        .ForMember(a => a.NomineeAvatar, cfg => cfg.MapFrom(a => a.Nominee.AvatarImage.Imageurl))
+        .ForMember(a => a.NomineeAvatar, cfg => cfg.MapFrom(a => a.Nominee.ProfileImage.FileUrl))
         .ValidateMemberList(MemberList.None);
 
       CreateMap<Artwork, ArtworkViewDto>()
