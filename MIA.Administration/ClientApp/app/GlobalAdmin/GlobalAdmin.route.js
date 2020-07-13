@@ -32,12 +32,12 @@
         },
       })
       .state("editUser", {
-        url: "/editUser/:userId/:userType",
+        url: "/editUser/:userId",
         templateUrl: "./app/GlobalAdmin/user/templates/editUser.html",
         controller: "editUserController",
         controllerAs: "editUserCtrl",
         resolve: {
-          UserRoleByIdPrepService: UserRoleByIdPrepService,
+          // UserRoleByIdPrepService: UserRoleByIdPrepService,
           EditUserPrepService: EditUserPrepService,
         },
         data: {

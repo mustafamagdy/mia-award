@@ -464,7 +464,8 @@ namespace MIA.ORMContext.Seed {
           await roleManager.CreateAsync(
             new AppRole(role) {
               Name = role.ToString().ToLower(),
-              NormalizedName = role.ToString().ToUpper()
+              NormalizedName = role.ToString().ToUpper(),
+              Permissions = ""
             });
         }
       }

@@ -280,14 +280,19 @@ namespace MIA.Administration.MappingProfiles {
         .IncludeAllDerived();
       CreateMap<UserDto, AppUser>().ValidateMemberList(MemberList.None);
 
+      CreateMap<AppUser, UserBasicDataDto>()
+        .IncludeAllDerived();
 
+      CreateMap<AppUser, UserWithRolesDto>()
+        .IncludeBase<AppUser, UserBasicDataDto>()
+        .ForMember(a => a.Roles, n => n.Ignore())
+        .ValidateMemberList(MemberList.None);
 
       CreateMap<SignUpByEmailRequest, Judge>()
         .IncludeBase<SignUpByEmailRequest, AppUser>();
 
       CreateMap<SignUpByEmailRequest, Nominee>()
         .IncludeBase<SignUpByEmailRequest, AppUser>();
-
 
       #endregion
       //#region Role
