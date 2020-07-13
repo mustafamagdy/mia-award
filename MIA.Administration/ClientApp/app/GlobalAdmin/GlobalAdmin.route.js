@@ -156,6 +156,21 @@
           },
         },
       })
+      .state("close-all", {
+        url: "/close-all",
+        templateUrl: "./app/GlobalAdmin/system/templates/system.html",
+        controller: "systemController",
+        controllerAs: "sysContrller",
+        resolve: {
+          SystemStatusPrepService: SystemStatusPrepService,
+        },
+        data: {
+          permissions: {
+            only: ["Admin.close_judging"],
+            redirectTo: "root",
+          },
+        },
+      })
       .state("test", {
         url: "/test-1",
         templateUrl: "./app/core/ImageCropper/templates/imageCropper.html",
@@ -223,5 +238,10 @@
   UserRoleByIdPrepService.$inject = ["UserResource", "$stateParams"];
   function UserRoleByIdPrepService(UserResource, $stateParams) {
     return UserResource.getUserRole({ name: $stateParams.name }).$promise;
+  }
+
+  SystemStatusPrepService.$inject = ["SystemResource"];
+  function SystemStatusPrepService(SystemResource) {
+    return SystemResource.checkSystemResults().$promise;
   }
 })();

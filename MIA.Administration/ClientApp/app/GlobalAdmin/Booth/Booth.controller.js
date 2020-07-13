@@ -62,23 +62,6 @@
               debugger;
             _scope.purchases = booth.boothPurchase;
             _scope.boothCode = booth.code;
-
-            _scope.oneAtATime = true;
-
-            _scope.groups = [
-              {
-                title: "Room1",
-                content: "Dynamic Group Body - 1"
-              },
-              {
-                title: "Room2",
-                content: "Dynamic Group Body - 2"
-              }
-            ];
-          
-            _scope.items = ['Camera 1', 'Camera 2', 'Camera 3'];
-
-
             _scope.cancel = function () {
               _inst.dismiss();
             };
