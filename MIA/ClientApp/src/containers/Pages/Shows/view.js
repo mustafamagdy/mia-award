@@ -115,16 +115,18 @@ const ShowsView = ({
       </div>
       <div className="show_inner_two">
         <div className="container">
-          <div className="show_video">
-            <ReactPlayer
-              controls
-              url={show.trailerUrl}
-              className="react-player"
-              width="560"
-              height="315"
-              light={encodeURI(show.coverUrl)}
-            />
-          </div>
+          {show.trailerUrl != undefined && show.trailerUrl != "" && (
+            <div className="show_video">
+              <ReactPlayer
+                controls
+                url={show.trailerUrl}
+                className="react-player"
+                width="560"
+                height="315"
+                light={encodeURI(show.coverUrl)}
+              />
+            </div>
+          )}
           <div className="show_content">
             <div className="tabs_area">
               <div className="tabs">

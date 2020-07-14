@@ -14,9 +14,9 @@ namespace System {
       return new DateTimeOffset(date).ToUnixTimeSeconds();
     }
 
-    [DebuggerStepThrough]
+    //[DebuggerStepThrough]
     public static DateTime LocalDateTime(this long utcDateInMilliSeconds) {
-      if (utcDateInMilliSeconds.ToString().Length == 14)
+      if (utcDateInMilliSeconds.ToString().Length > 10)
         return DateTimeOffset.FromUnixTimeMilliseconds(utcDateInMilliSeconds).LocalDateTime;
       else
         return DateTimeOffset.FromUnixTimeSeconds(utcDateInMilliSeconds).LocalDateTime;
