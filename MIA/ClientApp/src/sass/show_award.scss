@@ -24,12 +24,21 @@
       white-space: pre;
       [dir="rtl"] & {
         content: "عن \A الجائزة";
+
         font-family: Tajawal_Bold;
         font-size: 100px;
         right: 50px;
         left: auto;
       } /* rtl */
     } /* after */
+    &.sponser {
+      &::after {
+        content: "Sponser";
+        [dir="rtl"] & {
+          content: "راعي";
+        }
+      }
+    }
     .award_area {
       width: 1000px;
       margin: 50px auto;
@@ -161,6 +170,20 @@
             } /* hover */
           } /* a */
         } /* applynow */
+        .social_media {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          a {
+            display: block;
+            font-size: 25px;
+            color: $maincolor;
+            margin: 10px;
+            &:hover {
+              color: $secondcolor;
+            } /* a hover */
+          } /* a */
+        } /* social_media */
       } /* txt */
     } /* award_area */
   } /* container */

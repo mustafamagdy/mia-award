@@ -84,7 +84,15 @@ namespace MIA.MappingProfiles {
       CreateMap<Award, AwardDto>()
         .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.AwardType))
         .ForMember(a => a.TrophyUrl, cfg => cfg.MapFrom(a => a.Trophy.FileUrl))
+        .IncludeAllDerived()
         .ValidateMemberList(MemberList.None);
+
+      CreateMap<Award, AwardWithWinnerArtworkDto>()
+        .IncludeBase<Award, AwardDto>()
+        .ForMember(a => a.FirstPlace, cfg => cfg.Ignore())
+        .ForMember(a => a.SecondPlace, cfg => cfg.Ignore())
+        .ValidateMemberList(MemberList.None);
+
 
       CreateMap<Artwork, RecentShowsDto>()
        .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))

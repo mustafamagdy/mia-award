@@ -24,7 +24,7 @@ const Profile = ({
   profileSubmitting,
   ...props
 }) => {
-  const tabs = ["info", "awards"];
+  const tabs = ["info"];//, "awards"];
   const [mode, setMode] = useState("view"); //view/edit
   const [mode_avatar, setMode_Avatar] = useState("view"); //view/edit
   const [activeIndex, setActiveIndex] = useState(0);

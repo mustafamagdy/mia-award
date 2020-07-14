@@ -12,7 +12,7 @@ const Sponser = ({ sponser, ...props }) => {
       {({ locale }) =>
         sponser && (
           <section id="show_award">
-            <div className="container">
+            <div className="container sponser">
               <div className="award_area">
                 <div className="imgthumb sponser">
                   <img src={sponser.logo} alt={sponser.name[locale.code]} />
@@ -21,12 +21,14 @@ const Sponser = ({ sponser, ...props }) => {
                   <div className="title">
                     <span>{sponser.name[locale.code]}</span>
                   </div>
-                  {/* <div
-                    className="desc"
-                    dangerouslySetInnerHTML={{
-                      __html: award.description[locale.code],
-                    }}
-                  ></div> */}
+                  <div className="desc">{sponser.content[locale.code]}</div>
+                  <div className="links social_media">
+                    {sponser.links.map((l, i) => (
+                      <a target="_blank" href={l.url} rel="noopener noreferrer">
+                        <i className={`icofont-${l.type}`}></i>
+                      </a>
+                    ))}
+                  </div>{" "}
                 </div>
               </div>
             </div>

@@ -1,49 +1,38 @@
 import React from "react";
-import { LanguageContext } from "containers/Providers/LanguageProvider";
-import { Trans } from "@lingui/macro";
-import { NavLink } from "react-router-dom";
+import { I18n } from "@lingui/react";
 
 const Award = ({ award, ...props }) => {
-  return (
-    <div className="award_col">
+  const artworks = [];
+  if (award.firstPlace) {
+    artworks.push({ order: "first", ...award.firstPlace });
+  }
+  if (award.secondPlace) {
+    artworks.push({ order: "second", ...award.secondPlace });
+  }
+
+  return artworks.map((artwork, i) => (
+    <div className="award_col winner" key={i}>
       <div className="award_block">
         <div className="show_one">
           <div className="imgthumb">
             <img src={award.trophyUrl} />
           </div>
-          <LanguageContext.Consumer>
-            {({ locale }) => (
+          <I18n>
+            {({ i18n }) => (
               <>
-                <div
-                  className="name"
-                  dangerouslySetInnerHTML={{
-                    __html: award.title[locale.code],
-                  }}
-                ></div>
-                <div
-                  className="desc"
-                  dangerouslySetInnerHTML={{
-                    __html: award.description[locale.code],
-                  }}
-                ></div>
+                <div className="name">{award.title[i18n.language]}</div>
+                <div className="artwork">
+                  {`${artwork.projectName[i18n.language]} (${i18n._(
+                    artwork.order
+                  )})`}
+                </div>
               </>
             )}
-          </LanguageContext.Consumer>
-        </div>
-        <div className="show_two">
-          <div className="imgthumb">
-            <img src={award.trophyUrl} />
-          </div>
-          <div className="apply">
-            <NavLink to={`/award/${award.id}`}>
-              <Trans id="view_award">view award</Trans>
-            </NavLink>
-          </div>
-          <div className="name">{award.code}</div>
+          </I18n>
         </div>
       </div>
     </div>
-  );
+  ));
 };
 
 export default Award;
