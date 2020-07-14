@@ -8,6 +8,7 @@ import homeActions from "store/home/actions";
 import { bindActionCreators } from "redux";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
 import config from "config";
+import { NavLink } from "react-router-dom";
 // import "sass/recent_shows.scss";
 
 const RecentShows = ({
@@ -89,7 +90,7 @@ const RecentShows = ({
               {recentShows.map((show, i) => (
                 <div className="item" key={show.id}>
                   <div className="imgthumb">
-                    <a href={`/shows/${show.id}`}>
+                    <NavLink to={`/shows/${show.id}`}>
                       <img src={show.posterUrl} />
                       <div className="mask">
                         <div className="content">
@@ -101,7 +102,7 @@ const RecentShows = ({
                           {/* <Rating rate={show.rating} readonly /> */}
                         </div>
                       </div>
-                    </a>
+                    </NavLink>
                   </div>
                 </div>
               ))}

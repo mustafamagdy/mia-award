@@ -8,6 +8,7 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 import "utils";
 
 import Swiper from "react-id-swiper";
+import { NavLink } from "react-router-dom";
 
 const News = ({ fetchNews, news, ...props }) => {
   const [hasNext, setHasNext] = useState(false);
@@ -87,9 +88,9 @@ const News = ({ fetchNews, news, ...props }) => {
                             <div className="content">
                               <p>{item.title[locale.code]}</p>
                               <div className="more">
-                                <a href={`/news/${item.id}`}>
+                                <NavLink to={`/news/${item.id}`}>
                                   <Trans id="read_more">Read More</Trans>
-                                </a>
+                                </NavLink>
                               </div>
                             </div>
                           </div>
@@ -118,9 +119,9 @@ const News = ({ fetchNews, news, ...props }) => {
           ) : (
             <span></span>
           )}
-          <a href="/news" title="#">
+          <NavLink to="/news" title="#">
             <Trans id="show_all">show all</Trans>
-          </a>
+          </NavLink>
           {hasNext ? (
             <button
               type="button"

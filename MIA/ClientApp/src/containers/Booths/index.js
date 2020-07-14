@@ -14,6 +14,7 @@ import ReactPlayer from "react-player";
 import { Form, Formik } from "formik";
 import { Field, ErrorMessage, LocalizedDataField } from "components/Forms";
 import config from "config";
+import { NavLink } from "react-router-dom";
 
 const Booths = ({
   currency,
@@ -326,7 +327,11 @@ const Info = ({
           </span>
         )}
         <div className="download">
-          <a href={config.files.booth_pdf} target="_blank">
+          <a
+            href={config.files.booth_pdf}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src="/assets/images/pdf_icon.png" alt="" />
           </a>
           {/* <a href="#">
@@ -656,9 +661,9 @@ const Payment = ({
             <div className="row">
               <Field isCheckbox={true} name="agreeOnTerms">
                 <Trans id="agreeOnTerms">Agree on</Trans>{" "}
-                <a href="/booth-terms" target="_blank">
+                <NavLink to="/booth-terms" target="_blank">
                   <Trans id="terms_and_conditions">terms and conditions</Trans>
-                </a>
+                </NavLink>
               </Field>
             </div>
             <div className="next_step">

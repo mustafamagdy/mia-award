@@ -17,9 +17,17 @@
       padding: 0 !important;
     }
     .partnerItem {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      a {
+        &:link,
+        &:visited,
+        &:hover {
+          color: black;
+        }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+      }
     }
     .swiper-container-horizontal > .swiper-pagination-bullets {
       bottom: 0;

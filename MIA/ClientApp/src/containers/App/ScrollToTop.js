@@ -1,19 +1,17 @@
-import React from "react";
+import React, { Component } from "react";
 import animateScrollTo from "animated-scroll-to";
+import { withRouter } from "react-router";
+class ScrollToTop extends Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      // window.scrollTo(0, 0);
+      animateScrollTo(0, { speed: 200 });
+    }
+  }
 
-const ScrollToTop = props => {
-  const scrollToTop = () => {
-    animateScrollTo(0, { speed: 400 });
-  };
-  return (
-    <div className="js-init scroll-up scroll-up--show" onClick={scrollToTop}>
-      <span className="svg">
-        <svg width="17" height="17">
-          <use href="#icon-chevron-top" />
-        </svg>
-      </span>
-    </div>
-  );
-};
+  render() {
+    return this.props.children;
+  }
+}
 
-export default ScrollToTop;
+export default withRouter(ScrollToTop);

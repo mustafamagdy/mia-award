@@ -11,6 +11,7 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 import Swiper from "react-id-swiper";
 import "swiper/css/swiper.css";
 import { I18n } from "@lingui/react";
+import { NavLink } from "react-router-dom";
 
 const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategories, categories, pageCount, ...pros }) => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -116,9 +117,9 @@ const News = ({ featuredNews, news, fetchNews, fetchFeaturedNews, fetchCategorie
                             ></div>
                           </div>
                           <div className="more">
-                            <a href={`/news/${item.id}`}>
+                            <NavLink to={`/news/${item.id}`}>
                               <Trans id="read_more">Read More</Trans>
-                            </a>
+                            </NavLink>
                           </div>
                         </div>
                       )}
@@ -195,9 +196,9 @@ const BlocksNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =>
                     <div className="content">
                       <p>{item.title[locale.code]}</p>
                       <div className="more">
-                        <a href={`/news/${item.id}`}>
+                        <NavLink to={`/news/${item.id}`}>
                           <Trans id="read_more_elapsed">Read More..</Trans>
-                        </a>
+                        </NavLink>
                       </div>
                     </div>
                   </div>
@@ -238,9 +239,9 @@ const ListingNews = ({ news, pageCount, pageNumber, setPageNumber, ...props }) =
                 ></div>
               </div>
               <div className="more">
-                <a href={`/news/${item.id}`}>
+                <NavLink to={`/news/${item.id}`}>
                   <Trans id="read_more_elapsed">Read More..</Trans>
-                </a>
+                </NavLink>
               </div>
             </div>
           )}

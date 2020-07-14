@@ -76,7 +76,6 @@ const Register = ({
         }
 
         values.username = values.email;
-        console.log("values ", values);
         signUp(values);
       }}
     >

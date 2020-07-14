@@ -11,33 +11,26 @@ import { Route, Switch, Redirect } from "react-router-dom";
 
 import AboutUs from "../Pages/AboutUs";
 import ContactUs from "../Pages/ContactUs";
-import Awards from "../Pages/Awards";
-import Timeline from "../Timeline";
+import Timeline from "../Pages/Timeline";
 import Gallery from "../Pages/Gallery";
 import NewsView from "../Pages/News/view";
 import Shows from "../Pages/Shows";
 import ShowsView from "../Pages/Shows/view";
-
-import MediaBrowser from "../Media";
-import Booths from "../Booths";
-
-import Members from "../Members";
-import TestUpload from "../Test/Upload";
+import Award from "../Pages/Award";
+import Sponser from "../Pages/Sponser";
 import News from "../Pages/News";
-import Homepage from "./Homepage";
-import Award from "../Award";
 import Terms from "../Pages/Terms";
-import Artworks from "../Members/Artworks";
 import BoothTermsAndConditions from "../Pages/BoothTermsAndConditions";
 
+
+import Booths from "../Booths";
+import Members from "../Members";
+import Homepage from "./Homepage";
+import Artworks from "../Members/Artworks";
+import TestUpload from "../Test/Upload";
+
 class Home extends React.Component {
-  componentDidMount() {
-    this.props.fetchAwards();
-    this.props.fetchMainAlbum();
-    this.props.fetchOptions();
-    this.props.fetchMetadata();
-    this.props.fetchSponsers();
-  }
+  
 
   render() {
     return (
@@ -49,7 +42,6 @@ class Home extends React.Component {
           <Route exact path="/" component={Homepage} />
           <Route path="/about-us" component={AboutUs} />
           <Route path="/timeline" component={Timeline} />
-          <Route path="/awards" component={Awards} />
           <Route path="/contact-us" component={ContactUs} />
           <Route path="/gallery" component={Gallery} />
           <Route exact path="/news" component={News} />
@@ -57,10 +49,8 @@ class Home extends React.Component {
           <Route exact path="/shows" component={Shows} />
           <Route path="/shows/:id" component={ShowsView} />
           <Route path="/award/:id" component={Award} />
+          <Route path="/sponser/:key" component={Sponser} />
           <Route path="/contestant/:id" component={ShowsView} />
-
-          {/* browse media */}
-          <Route path="/media" component={MediaBrowser} />
 
           {/* Account management */}
           <Route exact path="/account" component={Profile} />
@@ -84,5 +74,5 @@ class Home extends React.Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => bindActionCreators({ ...globalActions, ...homeActions }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ ...globalActions,  }, dispatch);
 export default connect(null, mapDispatchToProps)(Home);

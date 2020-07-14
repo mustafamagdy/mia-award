@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import homeActions from "store/home/actions";
 
 import "sass/footer.scss";
+import { NavLink } from "react-router-dom";
 
 const Footer = ({
   sendNewsletter,
@@ -36,9 +37,9 @@ const Footer = ({
           <div className="row">
             <div className="about_mia">
               <div className="logo">
-                <a href="/">
+                <NavLink to="/">
                   <img src="/assets/images/logo.png" />
-                </a>
+                </NavLink>
               </div>
               <p>
                 <Trans id="footer_text"></Trans>
@@ -50,24 +51,24 @@ const Footer = ({
               </div>
               <ul>
                 <li>
-                  <a href="/members">
+                  <NavLink to="/members">
                     <Trans id="members">Members</Trans>
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="/about-us">
+                  <NavLink to="/about-us">
                     <Trans id="about_us">About Us</Trans>
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="/timeline">
+                  <NavLink to="/timeline">
                     <Trans id="program">Program</Trans>
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="/terms">
+                  <NavLink to="/terms">
                     <Trans id="terms_conditions">Terms & Conditions</Trans>
-                  </a>
+                  </NavLink>
                 </li>
               </ul>
             </div>

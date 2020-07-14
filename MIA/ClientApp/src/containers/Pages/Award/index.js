@@ -5,20 +5,20 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 import { Trans } from "@lingui/macro";
 import homeActions from "store/home/actions";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const Award = ({ location, awards, currency, props }) => {
+  const [awardId, setAwardId] = useState(undefined);
+  const [award, setAward] = useState(undefined);
+
   useEffect(() => {
     const _id = location.pathname.split("/").pop();
     setAwardId(_id);
-    console.log("set id", _id);
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     setAward(awards.find((a) => a.id == awardId));
   }, [awardId, awards]);
-
-  const [awardId, setAwardId] = useState(undefined);
-  const [award, setAward] = useState(undefined);
 
   return (
     <LanguageContext.Consumer>
@@ -60,9 +60,9 @@ const Award = ({ location, awards, currency, props }) => {
                     </a>
                   </div>
                   <div className="applynow">
-                    <a href="/members">
+                    <NavLink to="/members">
                       <Trans id="apply_for_award">APPLY FOR AWARD</Trans>
-                    </a>
+                    </NavLink>
                   </div>
                 </div>
               </div>

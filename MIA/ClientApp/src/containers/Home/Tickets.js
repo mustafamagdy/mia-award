@@ -4,6 +4,7 @@ import { Trans } from "@lingui/macro";
 import { useState } from "react";
 import Map from "components/Map";
 import config from "config";
+import { NavLink } from "react-router-dom";
 
 const Tickets = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -37,9 +38,9 @@ const Tickets = (props) => {
               ))}
             </ul>
             <div className="buy_now">
-              <a href={`/buy-tiket/${config.tickets[activeIndex].locationId}`}>
+              <NavLink to={`/buy-tiket/${config.tickets[activeIndex].locationId}`}>
                 <Trans id="buy_your_ticket">buy your ticket</Trans>
-              </a>
+              </NavLink>
             </div>
           </div>
           <div className="ticket_imgthumb">

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Trans } from "@lingui/macro";
-import Partners from "../../Home/Partners";
+import Sponsers from "../../Home/Sponsers";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
 import { I18n } from "@lingui/react";
 import { connect } from "react-redux";
@@ -334,7 +334,7 @@ const AboutUs = ({ awards, ...props }) => {
               </div>
             </div>
           </section>
-          <Partners />
+          <Sponsers />
         </React.Fragment>
       )}
     </I18n>

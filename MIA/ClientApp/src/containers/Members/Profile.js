@@ -74,7 +74,6 @@ const Profile = ({
               style={{ width: "100%", height: "100%" }}
               onClick={(e) => {
                 e.stopPropagation();
-                console.log("cliccccc");
                 if (mode_avatar == "edit") {
                   avatarFileRef.current.click();
                 }

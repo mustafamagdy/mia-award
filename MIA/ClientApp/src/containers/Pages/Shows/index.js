@@ -13,6 +13,7 @@ import "lightbox-react/style.css"; // This only needs to be imported once in you
 import "swiper/css/swiper.css";
 import { useForm } from "react-hook-form";
 import config from "config";
+import { NavLink } from "react-router-dom";
 
 const Shows = ({
   fetchFeaturedItems,
@@ -145,9 +146,9 @@ const Shows = ({
                         </div>
                       </div>
                       <div className="more">
-                        <a href={`/shows/${item.id}`}>
+                        <NavLink to={`/shows/${item.id}`}>
                           <Trans id="view">View</Trans>
-                        </a>
+                        </NavLink>
                       </div>
                     </div>
                   </div>
@@ -248,9 +249,9 @@ const Shows = ({
 const Show = ({ show }) => (
   <div className="item">
     <div className="imgthumb">
-      <a href={`/shows/${show.id}`}>
+      <NavLink to={`/shows/${show.id}`}>
         <img src={show.posterUrl} />
-        <div className="mask">
+        <div clNavLinkssName="mask">
           <div className="content">
             <p>
               <LanguageContext.Consumer>
@@ -260,7 +261,7 @@ const Show = ({ show }) => (
             {/* <Stars /> */}
           </div>
         </div>
-      </a>
+      </NavLink>
     </div>
   </div>
 );

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import globalActions from "store/app/actions";
 
-import Partners from "./Partners";
+import Sponsers from "./Sponsers";
 import AwardsSlider from "./Awards";
 import News from "./News";
 import Tickets from "./Tickets";
@@ -23,7 +23,7 @@ class HomePage extends React.Component {
           <RecentShows />
           {config.tickets_enabled && <Tickets />}
           <News />
-          <Partners />
+          <Sponsers />
         </section>
       </React.Fragment>
     );
