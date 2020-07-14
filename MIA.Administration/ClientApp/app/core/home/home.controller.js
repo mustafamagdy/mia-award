@@ -236,7 +236,6 @@
           newVal === undefined &&
           $localStorage.authInfo == undefined
         ) {
-          console.log("logout");
           $state.go("login");
         }
         if (
@@ -244,7 +243,6 @@
           newVal !== undefined &&
           $localStorage.authInfo != undefined
         ) {
-          console.log("login");
           $scope.user = authorizationService.getUser();
           loginSuccess();
           // authorizationService.isLoggedIn() && !location.href.contains('connect')
@@ -300,6 +298,9 @@
     $scope.reset = function () {
       $scope.invalidLoginInfo = false;
       $scope.inActiveUser = false;
+    };
+    $scope.hasOneOfPermissions = function (...permissions) {
+      return authorizationService.hasOneOfPermissions(...permissions);
     };
     $scope.isLoggedIn = function () {
       return authorizationService.isLoggedIn();

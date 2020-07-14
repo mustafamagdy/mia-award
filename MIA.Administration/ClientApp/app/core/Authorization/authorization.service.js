@@ -2,8 +2,18 @@
   "use strict";
 
   angular.module("core").factory("authorizationService", authorizationService);
-  authorizationService.$inject = ["$rootScope", "$localStorage", "AUTH_EVENTS", "jwtHelper"];
-  function authorizationService($rootScope, $localStorage, AUTH_EVENTS, jwtHelper) {
+  authorizationService.$inject = [
+    "$rootScope",
+    "$localStorage",
+    "AUTH_EVENTS",
+    "jwtHelper",
+  ];
+  function authorizationService(
+    $rootScope,
+    $localStorage,
+    AUTH_EVENTS,
+    jwtHelper
+  ) {
     var factory = {
       getAuthInfo: getAuthInfo,
       setAuthInfoAfterChangeTenant: setAuthInfoAfterChangeTenant,
@@ -12,8 +22,9 @@
       isLoggedIn: isLoggedIn,
       logout: logout,
       setAuthInfo: setAuthInfo,
+      hasOneOfPermissions: hasOneOfPermissions,
       isDisabled: false,
-      isPasswordchanged: false
+      isPasswordchanged: false,
     };
 
     return factory;
@@ -30,22 +41,43 @@
       var token = getAuthInfo();
       if (token == undefined) return undefined;
       const userDetails = jwtHelper.decodeToken(token);
-      const _modules = (userDetails.userModules || '').split(';').map(a => a.trim());
+      const _modules = (userDetails.userModules || "")
+        .split(";")
+        .map((a) => a.trim());
       //this will make the user modules as object { 'admin': true, ... etc}
-      userDetails.userModules  = _modules.reduce(function(acc, cur, i) { 
-                                                  acc[cur] = true;
-                                                  return acc;
-                                              }, {});
+      userDetails.userModules = _modules.reduce(function (acc, cur, i) {
+        acc[cur] = true;
+        return acc;
+      }, {});
 
       userDetails.userPermissions = JSON.parse(userDetails.userPermissions);
-      Object.keys(userDetails.userPermissions).forEach( k=> {
+      Object.keys(userDetails.userPermissions).forEach((k) => {
         const _permissions = userDetails.userPermissions[k];
-        userDetails.userPermissions[k] = _permissions.reduce(function(acc, cur, i) { 
-              acc[cur] = true;
-              return acc;
-          }, {});
+        userDetails.userPermissions[k] = _permissions.reduce(function (
+          acc,
+          cur,
+          i
+        ) {
+          acc[cur] = true;
+          return acc;
+        },
+        {});
       });
       return userDetails;
+    }
+
+    function hasOneOfPermissions(...permissions) {
+      const user = getUser();
+      const hasPermission = permissions.some((p) => {
+        const _parts = p.split(".");
+        const _module = _parts[0];
+        const _permission = _parts[1];
+        return (
+          _module && _permission && user.userPermissions[_module][_permission]
+        );
+      });
+
+      return hasPermission;
     }
 
     function hasRole(role) {
@@ -66,6 +98,6 @@
       $localStorage.authInfo = info.data;
     }
 
-    function setAuthInfoAfterChangeTenant(info) { }
+    function setAuthInfoAfterChangeTenant(info) {}
   }
 })();
