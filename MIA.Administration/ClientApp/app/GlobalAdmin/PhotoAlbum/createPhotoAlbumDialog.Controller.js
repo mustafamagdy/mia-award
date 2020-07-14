@@ -88,7 +88,6 @@
                 }
             });
 
-            console.log(vm.posterImage);
         }
 
         $scope.uploadPosterFile = function (element) {

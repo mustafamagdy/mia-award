@@ -18,7 +18,6 @@
 
         $scope.totalCount = RolePrepService.totalCount;
         $scope.RoleList = RolePrepService;
-        console.log($scope.RoleList)
         function refreshRoles() {
             blockUI.start("Loading...");
 

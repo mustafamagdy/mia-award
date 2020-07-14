@@ -11,7 +11,6 @@ import UserProvider from "containers/Providers/UserProvider";
 import Sidebar from "./Sidebar";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import appActions from "store/app/actions";
 import { Trans } from "@lingui/macro";
 import { useForm } from "react-hook-form";
 import config from "config";
@@ -24,6 +23,10 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import { I18n } from "@lingui/react";
+import { NavLink } from "react-router-dom";
+import appActions from "store/app/actions";
+import homeActions from "store/home/actions";
+
 
 const SearchForm = forwardRef(({ history, hideAndReset }, ref) => {
   const { register, handleSubmit, reset, formState } = useForm();
@@ -89,22 +92,30 @@ const Layout = ({
     };
   }, [searchFormOpen]);
 
+  useEffect(() => {
+    props.fetchAwards();
+    props.fetchMainAlbum();
+    props.fetchOptions();
+    props.fetchMetadata();
+    props.fetchSponsers();
+  }, []);
+
   return (
     <UserProvider>
       <React.Fragment>
         <aside className="menu">
           <div className="logo">
-            <a href="/">
+            <NavLink to="/">
               <Trans id="mia_awards">MIA Award</Trans>
-            </a>
+            </NavLink>
           </div>
           <div className="mainmenu">
             <ul>
               {config.menu.map((m, i) => (
                 <li key={i}>
-                  <a href={m.route}>
+                  <NavLink to={m.route}>
                     <Trans id={m.label}>{m.label}</Trans>
-                  </a>
+                  </NavLink>
                 </li>
               ))}
             </ul>
@@ -165,5 +176,5 @@ const mapStateToProps = ({ global: { searchFormOpen } }) => ({
   searchFormOpen,
 });
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ ...appActions }, dispatch);
+  bindActionCreators({ ...appActions, ...homeActions }, dispatch);
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout));

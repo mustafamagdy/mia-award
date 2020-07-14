@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import appActions from "store/app/actions";
 import config from 'config';
 import LanguageSelect from "./LanguageSelect";
+import { NavLink } from "react-router-dom";
 
 // import "sass/main_sidebar.scss";
 // import "sass/modals/aside.scss";
@@ -14,9 +15,9 @@ const Sidebar = ({ toggleSidebar, toggleSearchForm, toggleShareSidebar, ...props
   return (
     <section id="main_sidebar">
       <div className="logo">
-        <a href="/">
+        <NavLink to="/">
           <img src="/assets/images/small_logo.png" />
-        </a>
+        </NavLink>
       </div>
       <div className="sidebar_area open">
         <div className="aside_button" onClick={toggleSidebar}>
@@ -32,18 +33,18 @@ const Sidebar = ({ toggleSidebar, toggleSearchForm, toggleShareSidebar, ...props
       </div>
       <LanguageSelect />
       <div className="social_media">
-        <a href={config.social.fb} target="_blank">
+        <NavLink to={config.social.fb} target="_blank">
           <i className="icofont-facebook"></i>
-        </a>
-        <a href={config.social.tw} target="_blank">
+        </NavLink>
+        <NavLink to={config.social.tw} target="_blank">
           <i className="icofont-twitter"></i>
-        </a>
-        <a href={config.social.in} target="_blank">
+        </NavLink>
+        <NavLink to={config.social.in} target="_blank">
           <i className="icofont-instagram"></i>
-        </a>
-        <a href={config.social.yt} target="_blank">
+        </NavLink>
+        <NavLink to={config.social.yt} target="_blank">
           <i className="icofont-youtube"></i>
-        </a>
+        </NavLink>
       </div>
       <div className="share_site" onClick={toggleShareSidebar}>
         <span>

@@ -165,6 +165,7 @@
         $state.go(toState.name, toParams, { reload: true });
       }
     });
+
     $transitions.onStart({}, function (transition) {
       if (authorizationService.isLoggedIn()) {
         var user = authorizationService.getUser();
@@ -188,7 +189,6 @@
               }
             );
             if (!authorize) {
-              console.log("you don't have permissions");
               $state.go(
                 transition._targetState._identifier.self.data.permissions
                   .redirectTo
@@ -215,17 +215,20 @@
             );
 
             if (!authorize) {
-              console.log("you don't have permissions");
               $state.go(
                 transition._targetState._definition.data.permissions.redirectTo
               );
             }
           }
         }
+
+        $(".pmd-sidebar-nav>li>a").removeClass("active");
+        $(`a.pmd-ripple-effect[data-state=${transition._targetState._definition.name}`).addClass("active");
       } else {
         $state.go("login");
       }
     });
+
     $scope.$watch(
       function () {
         return $localStorage.authInfo;
@@ -236,7 +239,6 @@
           newVal === undefined &&
           $localStorage.authInfo == undefined
         ) {
-          console.log("logout");
           $state.go("login");
         }
         if (
@@ -244,7 +246,6 @@
           newVal !== undefined &&
           $localStorage.authInfo != undefined
         ) {
-          console.log("login");
           $scope.user = authorizationService.getUser();
           loginSuccess();
           // authorizationService.isLoggedIn() && !location.href.contains('connect')
@@ -300,6 +301,9 @@
     $scope.reset = function () {
       $scope.invalidLoginInfo = false;
       $scope.inActiveUser = false;
+    };
+    $scope.hasOneOfPermissions = function (...permissions) {
+      return authorizationService.hasOneOfPermissions(...permissions);
     };
     $scope.isLoggedIn = function () {
       return authorizationService.isLoggedIn();

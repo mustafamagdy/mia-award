@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MIA.Administration.Api.Base;
+using MIA.Administration.Dto.User;
 using MIA.Api.Base;
 using MIA.Authorization;
 using MIA.Authorization.Attributes;
@@ -48,6 +49,84 @@ namespace MIA.Administration.Api {
       this._locale = locale;
     }
 
+    [HttpGet("user/{userId}")]
+    [HasPermission(Permissions.ReadUser)]
+    public async Task<IActionResult> GetUser(
+      [FromRoute]string userId,
+      [FromServices] UserManager<AppUser> userManager) {
+      var user = await userManager.FindByIdAsync(userId);
+      if (user == null) {
+        throw new ApiException(ApiErrorType.NotFound, "user not found");
+      }
+
+      var result = _mapper.Map<UserWithRolesDto>(user);
+      var roles = await userManager.GetRolesAsync(user);
+      result.Roles = roles.ToArray();
+      return Ok(result);
+    }
+
+    [HttpPut("user/{userId}")]
+    [HasPermission(Permissions.UserEdit)]
+    public async Task<IActionResult> UpdateUser(
+      [FromRoute]string userId,
+      [FromBody] UserUpdateDto userDto,
+      [FromServices] IUserResolver userResolver,
+      [FromServices] UserManager<AppUser> userManager) {
+      var currentuser = await userResolver.CurrentUserAsync();
+
+      var user = await userManager.FindByIdAsync(userId);
+      if (user == null) {
+        throw new ApiException(ApiErrorType.NotFound, "user not found");
+      }
+
+      if (user.UserName.ToLower() == "admin" && currentuser.UserName.ToLower() != "admin") {
+        throw new ApiException(ApiErrorType.BadRequest, "admin user can only be updated from admin user");
+      }
+
+      if (user.Email != userDto.Email) {
+        user.Email = userDto.Email;
+        user.EmailConfirmed = false;
+      }
+
+      user.PhoneNumber = userDto.PhoneNumber;
+      user.FullName = userDto.FullName;
+
+      await userManager.UpdateAsync(user);
+      if (!string.IsNullOrEmpty(userDto.Password)) {
+        var token = await userManager.GeneratePasswordResetTokenAsync(user);
+        var result = await userManager.ResetPasswordAsync(user, token, userDto.Password);
+        if (result.Succeeded) {
+          return Ok();
+        } else {
+          throw new ApiException(ApiErrorType.BadRequest, result.Errors.MapTo<ErrorResult>());
+        }
+      }
+
+      return Ok();
+    }
+
+    [HttpDelete("user/{userId}")]
+    [HasPermission(Permissions.UserRemove)]
+    public async Task<IActionResult> DeleteUser(
+      [FromRoute]string userId,
+      [FromServices] UserManager<AppUser> userManager) {
+      var user = await userManager.FindByIdAsync(userId);
+      if (user == null) {
+        throw new ApiException(ApiErrorType.NotFound, "user not found");
+      }
+
+      if (user.UserName.ToLower() == "admin") {
+        throw new ApiException(ApiErrorType.BadRequest, "admin user cannot be deleted");
+      }
+
+      try {
+        await userManager.DeleteAsync(user);
+        return Ok();
+      } catch (Exception ex) {
+        throw new ApiException(ex.Message);
+      }
+    }
+
     [HttpGet("roles")]
     [HasPermission(Permissions.ReadRoles)]
     public IActionResult Roles([FromServices] IAppUnitOfWork db) {
@@ -81,12 +160,21 @@ namespace MIA.Administration.Api {
         .Where(x => x.SystemModule == (SystemModules)systemModules).ToList();
       return IfFound(permissions);
     }
+
     [HttpGet("role/modules")]
     [HasPermission(Permissions.ReadRoles)]
     public async Task<IActionResult> ListModules() {
       var modules = Enum.GetNames(typeof(SystemModules));
       return IfFound(modules);
     }
+
+    [HttpGet("permissions")]
+    [HasPermission(Permissions.ReadPermissions)]
+    public async Task<IActionResult> ListAllPermissions([FromServices] IAppUnitOfWork db) {
+      var permissions = Enum.GetValues(typeof(Permissions)).Cast<Permissions>().MapTo<PermissionDto>();
+      return IfFound(permissions);
+    }
+
     [HttpGet("role/{roleName}/permissions")]
     [HasPermission(Permissions.ReadRolePermissions)]
     public async Task<IActionResult> ListRolePermissions([FromRoute]string roleName, [FromServices] IAppUnitOfWork db) {
@@ -104,18 +192,50 @@ namespace MIA.Administration.Api {
       return IfFound(rolePermissions);
     }
 
-    [HttpPost("role/createRole/{roleName}")]
+    [HttpPost("createRole/{roleName}")]
     [HasPermission(Permissions.EditRole)]
-    public async Task<IActionResult> CreateRole([FromRoute] string roleName, RoleManager<AppRole> roleManager, [FromServices] IAppUnitOfWork db) {
-      if (await roleManager.FindByNameAsync(roleName.ToString().ToLower()) == null) {
+    public async Task<IActionResult> CreateRole(
+      [FromRoute] string roleName,
+      [FromServices] RoleManager<AppRole> roleManager,
+      [FromServices] IAppUnitOfWork db) {
+
+      if (await roleManager.FindByNameAsync(roleName.ToLower()) == null) {
         await roleManager.CreateAsync(
           new AppRole(roleName) {
             Name = roleName.ToString().ToLower(),
-            NormalizedName = roleName.ToString().ToUpper()
+            NormalizedName = roleName.ToString().ToUpper(),
+            Permissions = "",
           });
       }
       return Ok();
     }
+
+    [HttpPut("updateRole/{originalName}/{newName}")]
+    [HasPermission(Permissions.EditRole)]
+    public async Task<IActionResult> UpdateRoleName(
+      [FromRoute] string originalName,
+      [FromRoute] string newName,
+      [FromServices] RoleManager<AppRole> roleManager,
+      [FromServices] IAppUnitOfWork db) {
+
+      if (originalName.Trim().ToLower() == PredefinedRoles.Administrator.ToString().ToLower()
+          || newName.Trim().ToLower() == PredefinedRoles.Administrator.ToString().ToLower()) {
+        throw new ApiException(ApiErrorType.BadRequest, "Admin role cannot be modified");
+      }
+
+      var role = await roleManager.FindByNameAsync(originalName.ToLower());
+      if (role == null) {
+        throw new ApiException(ApiErrorType.NotFound, "role not found");
+
+      }
+
+      role.Name = newName;
+      await roleManager.UpdateAsync(role);
+
+      return Ok();
+    }
+
+
     [HttpPost("role/{roleName}/permissions/{permissionId}")]
     [HasPermission(Permissions.ManageRolePermissions)]
     public async Task<IActionResult> AddPermissionToRole([FromRoute] string roleName,
@@ -126,7 +246,7 @@ namespace MIA.Administration.Api {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
-      if (role.Name == PredefinedRoles.Administrator.ToString()) {
+      if (role.Name.ToLower() == PredefinedRoles.Administrator.ToString().ToLower()) {
         throw new ApiException(ApiErrorType.BadRequest, "Admin role cannot be modified");
       }
 
@@ -184,7 +304,7 @@ namespace MIA.Administration.Api {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
-      if (role.Name == PredefinedRoles.Administrator.ToString()) {
+      if (role.Name.ToLower() == PredefinedRoles.Administrator.ToString().ToLower()) {
         throw new ApiException(ApiErrorType.BadRequest, "Admin role cannot be modified");
       }
 
@@ -224,12 +344,29 @@ namespace MIA.Administration.Api {
         throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
 
-      var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
+      var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
       if (role == null) {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
       await userManager.AddToRoleAsync(user, roleName);
+      var rolePermissions = role.Permissions.UnpackPermissionsFromString();
+      var modules = rolePermissions
+                            .Select(a => a.GetAttribute<PermissionDescriptorAttribute>().SystemModule)
+                            .Distinct()
+                            .ToArray();
+
+      var userModule = (await db.UserModules.FirstOrDefaultAsync(a => a.UserId == userId)) ?? new UserModule(userId, SystemModules.Dashboard);
+      foreach (var module in modules) {
+        if ((userModule.AllowedModules & module) == 0) {
+          userModule.AllowedModules |= module;
+        }
+      }
+
+      if (await db.UserModules.FirstOrDefaultAsync(a => a.UserId == userId) == null) {
+        await db.UserModules.AddAsync(userModule);
+      }
+
       return Ok();
     }
 
@@ -242,12 +379,26 @@ namespace MIA.Administration.Api {
         throw new ApiException(ApiErrorType.NotFound, "user not found");
       }
 
-      var role = db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
+      var role = await db.Roles.FirstOrDefaultAsync(x => x.Name.ToLower() == roleName.ToLower());
       if (role == null) {
         throw new ApiException(ApiErrorType.NotFound, "role not found");
       }
 
       await userManager.RemoveFromRoleAsync(user, roleName);
+      var rolePermissions = role.Permissions.UnpackPermissionsFromString();
+      var modules = rolePermissions
+        .Select(a => a.GetAttribute<PermissionDescriptorAttribute>().SystemModule)
+        .Distinct()
+        .ToArray();
+
+      var userModule = (await db.UserModules.FirstOrDefaultAsync(a => a.UserId == userId)) ?? new UserModule(userId, SystemModules.Dashboard);
+      foreach (var module in modules) {
+        if ((userModule.AllowedModules & module) != 0) {
+          userModule.AllowedModules &= ~module;
+        }
+      }
+
+
       return Ok();
     }
 

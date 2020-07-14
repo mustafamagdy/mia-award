@@ -23,7 +23,6 @@
             var k = AwardResource.getAllAwards({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
                 $scope.AwardList = results.items;
                 $scope.totalCount = results.metadata.totalItemCount;
-                console.log($scope.AwardList);
                 blockUI.stop();
 
             },
@@ -48,7 +47,6 @@
             var k = AwardResource.getAllAwards({ awardType: vm.selectedType.Id,pageNumber: vm.currentPage, pageSize: 10  }).$promise.then(function (results) {
                 $scope.AwardList = results.items;
                 $scope.totalCount = results.metadata.totalItemCount;
-                console.log($scope.AwardList);
                 blockUI.stop();
             },
                 function (data, status) {

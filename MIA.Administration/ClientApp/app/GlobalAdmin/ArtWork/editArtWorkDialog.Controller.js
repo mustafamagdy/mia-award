@@ -42,7 +42,6 @@
         };
         if (vm.ArtWork.award.awardType == 'artwork')
             vm.IsArtwork = true;
-        console.log(vm.ArtWork);
 
         vm.Close = function () {
             $state.go('ArtWork');

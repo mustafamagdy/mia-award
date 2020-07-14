@@ -48,10 +48,11 @@ const MembersDashboard = ({
         </div>
         <div className="all_awards_area">
           {myAwards &&
+            judgeCompleted &&
             myAwards.map((m, i) => {
               return <Award key={i} award={m} />;
             })}
-          {myAwards.length === 0 && (
+          {(myAwards.length === 0 || !judgeCompleted) && (
             <p className="info">
               <Trans id="no_awards_yet">No awards yet</Trans>
             </p>

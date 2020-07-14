@@ -23,8 +23,8 @@
     $uibModal,
     ToastService
   ) {
-    $(".pmd-sidebar-nav>li>a").removeClass("active");
-    $($(".pmd-sidebar-nav").children()[3].children[0]).addClass("active");
+    // $(".pmd-sidebar-nav>li>a").removeClass("active");
+    // $($(".pmd-sidebar-nav").children()[3].children[0]).addClass("active");
     var vm = this;
     vm.currentPage = 1;
     vm.appCONSTANTS = appCONSTANTS;
@@ -41,7 +41,6 @@
         function (results) {
           $scope.BoothList = results.items;
           $scope.totalCount = results.metadata.totalItemCount;
-          //   console.log($scope.BoothList);
           blockUI.stop();
         },
         function (data, status) {
@@ -62,23 +61,6 @@
               debugger;
             _scope.purchases = booth.boothPurchase;
             _scope.boothCode = booth.code;
-
-            _scope.oneAtATime = true;
-
-            _scope.groups = [
-              {
-                title: "Room1",
-                content: "Dynamic Group Body - 1"
-              },
-              {
-                title: "Room2",
-                content: "Dynamic Group Body - 2"
-              }
-            ];
-          
-            _scope.items = ['Camera 1', 'Camera 2', 'Camera 3'];
-
-
             _scope.cancel = function () {
               _inst.dismiss();
             };

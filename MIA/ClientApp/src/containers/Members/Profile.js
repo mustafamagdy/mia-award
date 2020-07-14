@@ -24,7 +24,7 @@ const Profile = ({
   profileSubmitting,
   ...props
 }) => {
-  const tabs = ["info", "awards"];
+  const tabs = ["info"];//, "awards"];
   const [mode, setMode] = useState("view"); //view/edit
   const [mode_avatar, setMode_Avatar] = useState("view"); //view/edit
   const [activeIndex, setActiveIndex] = useState(0);
@@ -74,7 +74,6 @@ const Profile = ({
               style={{ width: "100%", height: "100%" }}
               onClick={(e) => {
                 e.stopPropagation();
-                console.log("cliccccc");
                 if (mode_avatar == "edit") {
                   avatarFileRef.current.click();
                 }

@@ -29,7 +29,6 @@
 
                 vm.totalCount = results.length;
                 vm.userList = results;
-                console.log(vm.userList);
                 blockUI.stop();
             },
                 function (data, status) {

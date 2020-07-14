@@ -8,8 +8,9 @@ import "sass/partners.scss";
 import Swiper from "react-id-swiper";
 import { I18n } from "@lingui/react";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 
-const Partners = ({ sponsers, ...props }) => {
+const Sponsers = ({ sponsers, ...props }) => {
   const params = {
     spaceBetween: 20,
     slidesPerView: 1,
@@ -41,8 +42,10 @@ const Partners = ({ sponsers, ...props }) => {
             <Swiper {...params}>
               {sponsers.map((sponser) => (
                 <div key={sponser.id} className="partnerItem">
-                  <img src={sponser.logo} alt={sponser.name[i18n.language]} />
-                  <label>{sponser.sponserType[i18n.language]}</label>
+                  <NavLink to={`/sponser/${sponser.id}`}>
+                    <img src={sponser.logo} alt={sponser.name[i18n.language]} />
+                    <label>{sponser.sponserType[i18n.language]}</label>
+                  </NavLink>
                 </div>
               ))}
             </Swiper>
@@ -54,4 +57,4 @@ const Partners = ({ sponsers, ...props }) => {
 };
 
 const mapStateToProps = ({ home: { sponsers } }) => ({ sponsers });
-export default connect(mapStateToProps, null)(Partners);
+export default connect(mapStateToProps, null)(Sponsers);

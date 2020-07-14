@@ -175,7 +175,6 @@
                 vm.awardList = results.items;
                 vm.totalCount = results.metadata.totalItemCount;
                 vm.selectedAward = vm.awardList[0];
-                console.log(vm.awardList);
                 blockUI.stop();
 
             },

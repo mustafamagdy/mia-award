@@ -297,7 +297,6 @@ class PaymentForm extends React.Component {
 
   onCardTokenized = event => {
     const { token } = event;
-    console.log("done => ", token);
     // this.props.payAndComplete({ cardToken: token });
     // var el = document.querySelector(".success-payment-message");
     // el.innerHTML = "Card tokenization completed<br>" + 'Your card token is: <span className="token">' + token + "</span>";

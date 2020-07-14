@@ -11,7 +11,7 @@
         controllerAs: "JudgeArtWorkCtrl",
         data: {
           permissions: {
-            only: ["Admin.view_my_assigned_artworks"],
+            only: ["Judge.view_my_assigned_artworks"],
             redirectTo: "root",
           },
         },

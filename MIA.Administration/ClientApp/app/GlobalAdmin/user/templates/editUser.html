@@ -1,119 +1,237 @@
 <div class="modal-content">
-    <div class="modal-header bordered">
-        <h2 class="pmd-card-title-text"> {{'EditUser' | translate}}</h2>
-    </div>
-    <div class="modal-body">
-        <form class="form-horizontal" name="updateUserForm">
-            <div class="row">
-                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
-                    <label for="first-name"> <span style="color:red">*</span>{{'FullName' | translate}}</label>
-                    <input required type="text" class="mat-input form-control" name="fullName"
-                        ng-model="editUserCtrl.userObj.fullName" ng-minlength="3" ng-maxlength="255">
-                    <div ng-messages="updateUserForm.fullName.$error" class="error">
-                        <div class="error" ng-show="updateUserForm.fullName.$error.pattern">{{'TextOnly' | translate}}
-                        </div>
-                        <div class="error"
-                            ng-if="updateUserForm.fullName.$error.required && !updateUserForm.fullName.$pristine">{{'NameLengthError'
-                    | translate}}</div>
-                        <div class="error"
-                            ng-if="(updateUserForm.fullName.$error.minlength || updateUserForm.fullName.$error.maxlength) ">{{'NameLengthError3'
-                    | translate}}</div>
-                    </div>
-                </div>
-
-                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
-                    <label for="first-name"><span style="color:red">*</span>{{'userName' | translate}}</label>
-                    <input required type="text" class="mat-input form-control" name="userName" readonly
-                        ng-model="editUserCtrl.userObj.userName" ng-minlength="3" ng-maxlength="255">
-                    <div ng-messages="updateUserForm.userName.$error">
-                        <div class="error" ng-show="updateUserForm.userName.$error.pattern">{{'TextOnly' | translate}}
-                        </div>
-                        <div class="error"
-                            ng-if="updateUserForm.userName.$error.required && !updateUserForm.userName.$pristine">{{'userName' |
-                    translate}}</div>
-                        <div
-                            ng-if="(updateUserForm.userName.$error.minlength || updateUserForm.userName.$error.maxlength)">{{'NameLengthError3'
-                    | translate}}</div>
-                    </div>
-                </div>
+  <div class="modal-header bordered">
+    <h2 class="pmd-card-title-text">{{'EditUser' | translate}}</h2>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="updateUserForm">
+      <div class="row">
+        <div
+          class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label-completed"
+        >
+          <label for="first-name">
+            <span style="color: red;">*</span>{{'FullName' | translate}}</label
+          >
+          <input
+            required
+            type="text"
+            class="mat-input form-control"
+            name="fullName"
+            ng-model="editUserCtrl.userObj.fullName"
+            ng-minlength="3"
+            ng-maxlength="255"
+          />
+          <div ng-messages="updateUserForm.fullName.$error" class="error">
+            <div class="error" ng-show="updateUserForm.fullName.$error.pattern">
+              {{'TextOnly' | translate}}
             </div>
-            <div class="row">
-                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
-                    <label><span style="color:red">*</span>{{'EmailLbl' | translate}}</label>
-                    <input required type="text" class="mat-input form-control" name="userEmail"
-                        ng-model="editUserCtrl.userObj.email"
-                        ng-pattern="/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/">
-                    <span class="error" ng-show="updateUserForm.userEmail.$error.pattern">{{'WrongMail' | translate}}
-                    </span>
-
-                    <div ng-messages="updateUserForm.userEmail.$error">
-                        <div  class="error" ng-if="updateUserForm.userEmail.$error.required && !updateUserForm.userEmail.$pristine">{{'EmailLengthError'
-                    | translate}}</div>
-                    </div>
-                </div>
-
-                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
-                    <label for="first-name"><span style="color:red">*</span>{{'phoneLbl' | translate}}</label>
-                    <input required type="text" class="mat-input form-control" name="phone" numbers-only
-                        ng-model="editUserCtrl.userObj.mobileNumber" ng-minlength="10" ng-maxlength="11">
-                    <div ng-messages="updateUserForm.phone.$error">
-                        <div  class="error" ng-if="updateUserForm.phone.$error.required && !updateUserForm.phone.$pristine">{{'PhoneReqError' |
-                    translate}}</div>
-                        <div  class="error" ng-if="(updateUserForm.phone.$error.minlength || updateUserForm.phone.$error.maxlength)">{{'PhoneLengthError'
-                    | translate}}</div>
-                    </div>
-                </div>
+            <div
+              class="error"
+              ng-if="updateUserForm.fullName.$error.required && !updateUserForm.fullName.$pristine"
+            >
+              {{'NameLengthError' | translate}}
             </div>
-
-            <div class="row">
-                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
-                    <label for="first-name"><span style="color:red">*</span>{{'UserPasswordLbl' | translate}}</label>
-                    <input type="password" class="mat-input form-control" name="password"
-                        ng-model="editUserCtrl.userObj.password" ng-minlength="8" ng-maxlength="25">
-                    <div ng-messages="updateUserForm.password.$error">
-                        <div  class="error" ng-if="updateUserForm.password.$error.required && !updateUserForm.password.$pristine">{{'requiredErr' |
-                    translate}}</div>
-                        <div
-                        class="error" ng-if="(updateUserForm.password.$error.minlength || updateUserForm.password.$error.maxlength) && !updateUserForm.password.newPassword.$error.required">
-                            Password
-                            length must be 8-25 char.</div>
-                    </div>
-                </div>
-                <div class="col-md-6  form-group pmd-textfield pmd-textfield-floating-label-completed">
-                    <label for="first-name"><span style="color:red">*</span>{{'ConfirmPasswordLbl' | translate}}</label>
-                    <input type="password" class="mat-input form-control" name="confirmPassword"
-                        ng-model="editUserCtrl.userObj.confirmPassword" equalto="updateUserForm.password">
-                    <div ng-messages="updateUserForm.confirmPassword.$error">
-                        <div class="error" 
-                            ng-if="updateUserForm.confirmPassword.$error.required && !updateUserForm.confirmPassword.$pristine">{{'requiredErr'
-    | translate}}</div>
-                        <div
-                        class="error"   ng-if="updateUserForm.confirmPassword.$error.equalto && !updateUserForm.confirmPassword.$error.required">{{'passworddontmatch'
-    | translate}}</div>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                        <table class="table table-striped table-bordered">
-                            <tr ng-repeat-start="module in editUserCtrl.Role.permessionTree">
-                                <td><strong>{{module.module.title[selectedLanguage]}}</strong></td>
-                            </tr>
-                            <tr ng-repeat-end ng-repeat="per in module.permessions">
-                                <td> <input type="checkbox" ng-change="editUserCtrl.checkPermission(per)"
-                                        ng-model="per.seclected"> </td>
-                                <td>{{ per.title[selectedLanguage]}}</td>
-                            </tr>
-                        </table> 
-                        </div>
-
+            <div
+              class="error"
+              ng-if="(updateUserForm.fullName.$error.minlength || updateUserForm.fullName.$error.maxlength) "
+            >
+              {{'NameLengthError3' | translate}}
             </div>
-        </form>
-    </div>
-    <div class="pmd-modal-action text-right">
-        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
-            ng-disabled="updateUserForm.$invalid " class="btn pmd-ripple-effect btn-primary" type="button"
-            ng-click="editUserCtrl.EditUser()">{{'saveChangesBtn' |
-            translate}}</button>
-        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editUserCtrl.close()">{{'DiscardBtn' |
-            translate}}</button>
-    </div>
+          </div>
+        </div>
+
+        <div
+          class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label-completed"
+        >
+          <label for="first-name"
+            ><span style="color: red;">*</span>{{'username' | translate}}</label
+          >
+          <input
+            required
+            type="text"
+            class="mat-input form-control"
+            name="username"
+            readonly
+            ng-model="editUserCtrl.userObj.username"
+            ng-minlength="3"
+            ng-maxlength="255"
+          />
+          <div ng-messages="updateUserForm.username.$error">
+            <div class="error" ng-show="updateUserForm.username.$error.pattern">
+              {{'TextOnly' | translate}}
+            </div>
+            <div
+              class="error"
+              ng-if="updateUserForm.username.$error.required && !updateUserForm.username.$pristine"
+            >
+              {{'username' | translate}}
+            </div>
+            <div
+              ng-if="(updateUserForm.username.$error.minlength || updateUserForm.username.$error.maxlength)"
+            >
+              {{'NameLengthError3' | translate}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label-completed"
+        >
+          <label
+            ><span style="color: red;">*</span>{{'EmailLbl' | translate}}</label
+          >
+          <input
+            required
+            type="text"
+            class="mat-input form-control"
+            name="userEmail"
+            ng-model="editUserCtrl.userObj.email"
+            ng-pattern="/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/"
+          />
+          <span class="error" ng-show="updateUserForm.userEmail.$error.pattern"
+            >{{'WrongMail' | translate}}
+          </span>
+
+          <div ng-messages="updateUserForm.userEmail.$error">
+            <div
+              class="error"
+              ng-if="updateUserForm.userEmail.$error.required && !updateUserForm.userEmail.$pristine"
+            >
+              {{'EmailLengthError' | translate}}
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label-completed"
+        >
+          <label for="first-name"
+            ><span style="color: red;">*</span>{{'phoneLbl' | translate}}</label
+          >
+          <input
+            required
+            type="text"
+            class="mat-input form-control"
+            name="phoneNumber"
+            numbers-only
+            ng-model="editUserCtrl.userObj.phoneNumber"
+            ng-minlength="10"
+            ng-maxlength="11"
+          />
+          <div ng-messages="updateUserForm.phoneNumber.$error">
+            <div
+              class="error"
+              ng-if="updateUserForm.phoneNumber.$error.required && !updateUserForm.phoneNumber.$pristine"
+            >
+              {{'PhoneReqError' | translate}}
+            </div>
+            <div
+              class="error"
+              ng-if="(updateUserForm.phoneNumber.$error.minlength || updateUserForm.phoneNumber.$error.maxlength)"
+            >
+              {{'PhoneLengthError' | translate}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div
+          class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label-completed"
+        >
+          <label for="first-name"
+            ><span style="color: red;">*</span>{{'UserPasswordLbl' |
+            translate}}</label
+          >
+          <input
+            type="password"
+            class="mat-input form-control"
+            name="password"
+            ng-model="editUserCtrl.userObj.password"
+          />
+          <!-- <div ng-messages="updateUserForm.password.$error">
+            <div
+              class="error"
+              ng-if="updateUserForm.password.$error.required && !updateUserForm.password.$pristine"
+            >
+              {{'requiredErr' | translate}}
+            </div>
+            <div
+              class="error"
+              ng-if="(updateUserForm.password.$error.minlength || updateUserForm.password.$error.maxlength) && !updateUserForm.password.newPassword.$error.required"
+            >
+              Password length must be 8-25 char.
+            </div>
+          </div> -->
+        </div>
+        <div
+          class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label-completed"
+        >
+          <label for="first-name"
+            ><span style="color: red;">*</span>{{'ConfirmPasswordLbl' |
+            translate}}</label
+          >
+          <input
+            type="password"
+            class="mat-input form-control"
+            name="confirmPassword"
+            ng-model="editUserCtrl.userObj.confirmPassword"
+          />
+          <!-- <div ng-messages="updateUserForm.confirmPassword.$error">
+            <div
+              class="error"
+              ng-if="updateUserForm.confirmPassword.$error.required && !updateUserForm.confirmPassword.$pristine"
+            >
+              {{'requiredErr' | translate}}
+            </div>
+            <div
+              class="error"
+              ng-if="updateUserForm.confirmPassword.$error.equalto && !updateUserForm.confirmPassword.$error.required"
+            >
+              {{'passworddontmatch' | translate}}
+            </div>
+          </div> -->
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered">
+            <tr ng-repeat="role in editUserCtrl.roles">
+              <td style="width: 10px;">
+                <input
+                  type="checkbox"
+                  ng-change="editUserCtrl.checkRole(role)"
+                  ng-model="role.selected"
+                />
+              </td>
+              <td>
+                <strong>{{role.name}}</strong>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="pmd-modal-action text-right">
+    <button
+      style="
+        border: #494b74 solid 1px;
+        background-color: transparent;
+        color: #494b74;
+        border-radius: 6px;
+      "
+      ng-disabled="updateUserForm.$invalid "
+      class="btn pmd-ripple-effect btn-primary"
+      type="button"
+      ng-click="editUserCtrl.EditUser()"
+    >
+      {{'saveChangesBtn' | translate}}
+    </button>
+    <button
+      class="btn pmd-ripple-effect btn-default"
+      type="button"
+      ng-click="editUserCtrl.close()"
+    >
+      {{'DiscardBtn' | translate}}
+    </button>
+  </div>
 </div>

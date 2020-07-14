@@ -25,8 +25,8 @@
     $uibModal,
     ToastService
   ) {
-    $(".pmd-sidebar-nav>li>a").removeClass("active");
-    $($(".pmd-sidebar-nav").children()[6].children[0]).addClass("active");
+    // $(".pmd-sidebar-nav>li>a").removeClass("active");
+    // $($(".pmd-sidebar-nav").children()[6].children[0]).addClass("active");
     var vm = this;
 
     vm.currentPage = 1;
@@ -43,8 +43,6 @@
 
     vm.filterByAward = function () {
       blockUI.start("Loading...");
-      console.log(vm.selectedAward);
-      console.log(vm.selectedLevel);
       const awardId =
         vm.selectedAward == undefined || vm.selectedAward.id == ""
           ? undefined

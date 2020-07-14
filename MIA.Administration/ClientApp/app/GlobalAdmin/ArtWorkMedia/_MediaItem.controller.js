@@ -19,7 +19,6 @@
             
             var k = PhotoAlbumResource.getMediaItems({ id: $stateParams.id }).$promise.then(function (results) {
                 vm.mediaItemList = results;
-                console.log(vm.mediaItemList);
                 blockUI.stop();
 
             },

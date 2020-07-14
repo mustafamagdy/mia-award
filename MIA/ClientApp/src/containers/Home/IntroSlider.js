@@ -4,6 +4,7 @@ import { Trans } from "@lingui/macro";
 import { I18n } from "@lingui/react";
 import Swiper from "react-id-swiper";
 import "swiper/css/swiper.css";
+import { NavLink } from "react-router-dom";
 
 const Intro = ({ ...props }) => {
   const [items, _] = useState([
@@ -126,9 +127,9 @@ const Intro = ({ ...props }) => {
                   <p>
                     <Trans id={currentItem.textKey}></Trans>
                   </p>
-                  <a href="/timeline">
+                  <NavLink to="/timeline">
                     <Trans id="view_more">view more</Trans>
-                  </a>
+                  </NavLink>
                   <div className="slider_thumb">
                     <div className="thmb">
                       <Swiper {...params2}>

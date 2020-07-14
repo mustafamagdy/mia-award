@@ -157,7 +157,7 @@ namespace MIA.Administration.Api {
       var artWorkItem = await db.Artworks.Include(i => i.Award).Include(i => i.Nominee).FirstOrDefaultAsync(a => a.Id == resultDto.Id);
       return IfFound(_mapper.Map<ArtWorkDto>(artWorkItem));
     }
-    
+
 
     [HttpGet("getMediaFile")]
     [HasPermission(Permissions.ReadArtwork)]
@@ -165,7 +165,7 @@ namespace MIA.Administration.Api {
       var artWorkItem = await db.MediaFiles.FirstOrDefaultAsync(a => a.Id == id);
       return IfFound(_mapper.Map<MediaFile>(artWorkItem));
     }
-    
+
     [HttpDelete("deleteMediaItem")]
     [HasPermission(Permissions.ArtworkEdit)]
     public async Task<IActionResult> DeleteMediaFileAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
@@ -176,7 +176,7 @@ namespace MIA.Administration.Api {
       db.Set<MediaFile>().Remove(entity);
       return Ok();
     }
-   
+
     [HttpPost("createMediaFile")]
     [HasPermission(Permissions.ArtworkEdit)]
     public async Task<IActionResult> CreateMediaFile([FromBody] MediaFileDto dto, [FromServices] IAppUnitOfWork db) {
@@ -185,7 +185,7 @@ namespace MIA.Administration.Api {
       var mediaItem = await db.MediaFiles.FindAsync(result.Entity.Id);
       return IfFound(_mapper.Map<MediaFile>(mediaItem));
     }
-    
+
     [HttpPut("UpdateTrailerUrl")]
     [HasPermission(Permissions.ArtworkEdit)]
     public async Task<IActionResult> UpdateTrailerUrlAsync([FromBody] UpdateArtWorkDto dto, [FromServices] IAppUnitOfWork db) {
@@ -279,7 +279,7 @@ namespace MIA.Administration.Api {
       }
       return IfFound(_mapper.Map<ArtWorkPaymentDto>(artWorkItem));
     }
-    
+
     [HttpGet("nominees")]
     [HasPermission(Permissions.ReadArtwork)]
     public async Task<IActionResult> ListOfNominees([FromServices] IAppUnitOfWork db) {
@@ -290,7 +290,7 @@ namespace MIA.Administration.Api {
 
       return IfFound(nominee.MapTo<NomineeDto>());
     }
-   
+
     [HttpGet("countries")]
     [HasPermission(Permissions.ReadArtwork)]
     public IActionResult ListOfCountries() {
@@ -391,14 +391,14 @@ namespace MIA.Administration.Api {
       var result = query.Select(a => new {
         Artwork = _mapper.Map<ArtworkMinimumDto>(a),
         Level1 = new {
-          Avg = a.FinalScores.Where(x => x.Level == JudgeLevel.Level1).DefaultIfEmpty().Average(x => x.Percentage),
-          Min = a.FinalScores.Where(x => x.Level == JudgeLevel.Level1).DefaultIfEmpty().Min(x => x.Percentage),
-          Max = a.FinalScores.Where(x => x.Level == JudgeLevel.Level1).DefaultIfEmpty().Max(x => x.Percentage),
+          Avg = a.FinalScores.Where(x => x.Level == JudgeLevel.Level1).Select(x => x.Percentage).DefaultIfEmpty(0).Average(),
+          Min = a.FinalScores.Where(x => x.Level == JudgeLevel.Level1).Select(x => x.Percentage).DefaultIfEmpty(0).Min(),
+          Max = a.FinalScores.Where(x => x.Level == JudgeLevel.Level1).Select(x => x.Percentage).DefaultIfEmpty(0).Max(),
         },
         Level2 = new {
-          Avg = a.FinalScores.Where(x => x.Level == JudgeLevel.Level2).DefaultIfEmpty().Average(x => x.Percentage),
-          Min = a.FinalScores.Where(x => x.Level == JudgeLevel.Level2).DefaultIfEmpty().Min(x => x.Percentage),
-          Max = a.FinalScores.Where(x => x.Level == JudgeLevel.Level2).DefaultIfEmpty().Max(x => x.Percentage),
+          Avg = a.FinalScores.Where(x => x.Level == JudgeLevel.Level2).Select(x => x.Percentage).DefaultIfEmpty(0).Average(),
+          Min = a.FinalScores.Where(x => x.Level == JudgeLevel.Level2).Select(x => x.Percentage).DefaultIfEmpty(0).Min(),
+          Max = a.FinalScores.Where(x => x.Level == JudgeLevel.Level2).Select(x => x.Percentage).DefaultIfEmpty(0).Max(),
         }
       }).ToPagedList(dto);
 

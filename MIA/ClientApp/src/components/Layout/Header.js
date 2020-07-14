@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { Trans } from "@lingui/macro";
 import "sass/header.scss";
 import config from "config";
+import { NavLink } from "react-router-dom";
 
 class Header extends React.Component {
   state = {
@@ -37,18 +38,18 @@ class Header extends React.Component {
         <header className={classNames({ fixed: this.state.headerFixed })}>
           <div className="container">
             <div className="logo">
-              <a href="/">
+              <NavLink to="/">
                 <img src="/assets/images/logo.png" />
-              </a>
+              </NavLink>
             </div>
             {/* <!-- end logo --> */}
             <div className="mainmenu">
               <ul>
                 {config.menu.map((m, i) => (
                   <li key={m.label}>
-                    <a href={m.route}>
+                    <NavLink to={m.route}>
                       <Trans id={m.label}>{m.label}</Trans>
-                    </a>
+                    </NavLink>
                   </li>
                 ))}
               </ul>

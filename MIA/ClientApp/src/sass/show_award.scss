@@ -1,6 +1,7 @@
 @import "./variables.scss";
 #show_award {
-  background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
+  background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center
+    center;
   position: relative;
   .container {
     width: 1442px;
@@ -23,12 +24,21 @@
       white-space: pre;
       [dir="rtl"] & {
         content: "عن \A الجائزة";
+
         font-family: Tajawal_Bold;
         font-size: 100px;
         right: 50px;
         left: auto;
       } /* rtl */
     } /* after */
+    &.sponser {
+      &::after {
+        content: "Sponser";
+        [dir="rtl"] & {
+          content: "راعي";
+        }
+      }
+    }
     .award_area {
       width: 1000px;
       margin: 50px auto;
@@ -41,6 +51,9 @@
       }
       .imgthumb {
         width: 20%;
+        &.sponser {
+          width: 40%;
+        }
         @media (min-width: 320px) and (max-width: 767px) {
           width: 100%;
         }
@@ -52,6 +65,9 @@
       } /* imgthumb */
       .txt {
         width: 80%;
+        &.sponser {
+          width: 60%;
+        }
         padding: 0 0 0 50px;
         [dir="rtl"] & {
           padding: 0 50px 0 0;
@@ -92,12 +108,44 @@
         } /* download */
         .applynow {
           a {
-            background: -moz-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
-            background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f7e483), color-stop(57%, #dbba5a), color-stop(100%, #a36d31));
-            background: -webkit-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
-            background: -o-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
-            background: -ms-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
-            background: linear-gradient(90deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%);
+            background: -moz-linear-gradient(
+              0deg,
+              #f7e483 0%,
+              #dbba5a 57%,
+              #a36d31 100%
+            );
+            background: -webkit-gradient(
+              linear,
+              left top,
+              right top,
+              color-stop(0%, #f7e483),
+              color-stop(57%, #dbba5a),
+              color-stop(100%, #a36d31)
+            );
+            background: -webkit-linear-gradient(
+              0deg,
+              #f7e483 0%,
+              #dbba5a 57%,
+              #a36d31 100%
+            );
+            background: -o-linear-gradient(
+              0deg,
+              #f7e483 0%,
+              #dbba5a 57%,
+              #a36d31 100%
+            );
+            background: -ms-linear-gradient(
+              0deg,
+              #f7e483 0%,
+              #dbba5a 57%,
+              #a36d31 100%
+            );
+            background: linear-gradient(
+              90deg,
+              #f7e483 0%,
+              #dbba5a 57%,
+              #a36d31 100%
+            );
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7e483', endColorstr='#a36d31',GradientType=1 );
             height: 40px;
             padding: 0 30px;
@@ -122,6 +170,20 @@
             } /* hover */
           } /* a */
         } /* applynow */
+        .social_media {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          a {
+            display: block;
+            font-size: 25px;
+            color: $maincolor;
+            margin: 10px;
+            &:hover {
+              color: $secondcolor;
+            } /* a hover */
+          } /* a */
+        } /* social_media */
       } /* txt */
     } /* award_area */
   } /* container */

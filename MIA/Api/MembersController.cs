@@ -16,6 +16,7 @@ using MIA.Payments;
 using PaymentStatus = MIA.Payments.PaymentStatus;
 using MIA.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using Microsoft.Extensions.Options;
 using MIA.Infrastructure;
@@ -82,11 +83,24 @@ namespace MIA.Api {
           .Include(a => a.FirstPlace)
           .Include(a => a.SecondPlace)
           .Where(a => a.SecondPlace.NomineeId == nominee.Id || a.FirstPlace.NomineeId == nominee.Id)
-          .ProjectTo<AwardDto>(_mapper.ConfigurationProvider)
           .ToArrayAsync();
 
+      var result = new List<AwardWithWinnerArtworkDto>();
+      foreach (var award in awards) {
+        var item = _mapper.Map<AwardWithWinnerArtworkDto>(award);
 
-      return Ok(awards);
+        if (award.FirstPlace.NomineeId == nominee.Id) {
+          item.FirstPlace = _mapper.Map<ArtworkWithStatusDto>(award.FirstPlace);
+        }
+
+        if (award.SecondPlace.NomineeId == nominee.Id) {
+          item.SecondPlace = _mapper.Map<ArtworkWithStatusDto>(award.SecondPlace);
+        }
+
+        result.Add(item);
+      }
+
+      return Ok(result);
     }
 
 

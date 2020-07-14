@@ -13,7 +13,6 @@
         vm.JudgeArtWork = ArtWorkByIdPrepService;
         vm.artWorkMedia = ArtWorkMediaByArtWorkIdPrepService;
         vm.votingCriteriaList = [];
-        console.log('sdsd', vm.JudgeArtWork);
         refreshVotingCriterias();
         vm.Close = function () {
             $state.go('JudgeArtWork');
@@ -47,7 +46,6 @@
         function refreshVotingCriterias() {
             var k = JudgeArtWorkResource.getJudgeVoteCriteriaValues({ id: $stateParams.id }).$promise.then(function (results) {
                 vm.votingCriteriaList = results;
-                console.log(vm.votingCriteriaList);
                 vm.totalCount = results.length;
                 blockUI.stop();
             },

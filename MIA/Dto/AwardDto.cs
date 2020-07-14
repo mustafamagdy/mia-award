@@ -12,6 +12,12 @@ namespace MIA.Api {
     public AwardType AwardType { get; set; }
   }
 
+  public class AwardWithWinnerArtworkDto : AwardDto
+  {
+    public ArtworkWithStatusDto FirstPlace { get; set; }
+    public ArtworkWithStatusDto SecondPlace { get; set; }
+  }
+
   public class BoothDto {
     public string Code { get; set; }
     public string Area { get; set; }

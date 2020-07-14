@@ -26,7 +26,7 @@ const ShowsView = ({
   postShowReview,
   commentsSuccess,
   clearReviewSuccess,
-  submittingComment,  
+  submittingComment,
   ...props
 }) => {
   useEffect(() => {
@@ -40,6 +40,9 @@ const ShowsView = ({
   const handleActiveTab = (tab) => {
     setActiveTab(tab);
   };
+  const defaultImage = (imgUrl) =>
+    imgUrl == undefined || imgUrl == "" ? "/assets/images/logo.png" : imgUrl;
+
   return show != undefined && !!show.id ? (
     <section id="show_inner">
       <div className="show_inner_one">
@@ -47,7 +50,7 @@ const ShowsView = ({
           <div className="show_info">
             <div className="show_details">
               <div className="imgthumb">
-                <img src={show.posterUrl} />
+                <img src={defaultImage(show.posterUrl)} alt="" />
                 <div className="mask">
                   <LanguageContext.Consumer>
                     {({ locale }) => (
@@ -112,16 +115,18 @@ const ShowsView = ({
       </div>
       <div className="show_inner_two">
         <div className="container">
-          <div className="show_video">
-            <ReactPlayer
-              controls
-              url={show.trailerUrl}
-              className="react-player"
-              width="560"
-              height="315"
-              light={encodeURI(show.coverUrl)}
-            />
-          </div>
+          {show.trailerUrl != undefined && show.trailerUrl != "" && (
+            <div className="show_video">
+              <ReactPlayer
+                controls
+                url={show.trailerUrl}
+                className="react-player"
+                width="560"
+                height="315"
+                light={encodeURI(show.coverUrl)}
+              />
+            </div>
+          )}
           <div className="show_content">
             <div className="tabs_area">
               <div className="tabs">

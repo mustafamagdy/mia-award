@@ -22,7 +22,6 @@
 
         var Manufacture = this;
         $scope.settingsPrepService = settingsPrepService;
-        console.log($scope.settingsPrepService);
         Manufacture.orderType = {
             type: 'item'
         };
@@ -232,7 +231,6 @@
             var k = GetProgramResource.gatAllPrograms().$promise.then(function (results) {
                 $scope.programList = results;
 
-                console.log($scope.programList);
                 blockUI.stop();
             },
                 function (data, status) {

@@ -20,6 +20,7 @@ import { I18n } from "@lingui/react";
 
 import "sass/style.scss";
 import "react-toastify/dist/ReactToastify.css";
+import ScrollToTop from "./ScrollToTop";
 
 history.listen((location, action) => {
   //todo: use this for query string sync
@@ -37,7 +38,9 @@ class App extends React.Component {
           <ConnectedRouter history={history}>
             <Layout>
               <TransKeysNotFoundInJsx />
-              <Home />
+              <ScrollToTop>
+                <Home />
+              </ScrollToTop>
               <I18n>
                 {({ i18n }) => {
                   const rtl = i18n.language == "ar";

@@ -10,6 +10,7 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 import config from "config";
 import Swiper from "react-id-swiper";
 import "swiper/css/swiper.css";
+import { NavLink } from "react-router-dom";
 
 const AwardsSlider = ({ awards, ...props }) => {
   useEffect(() => {
@@ -29,8 +30,7 @@ const AwardsSlider = ({ awards, ...props }) => {
             <Trans id="apply_for_your_award">apply for your award</Trans>
           </span>
           <p>
-            <Trans id="home_general_award_text">             
-            </Trans>
+            <Trans id="home_general_award_text"></Trans>
           </p>
           <time>
             <Trans id="start_from">starts from{"  "}</Trans>
@@ -47,7 +47,12 @@ const AwardsSlider = ({ awards, ...props }) => {
         <div className="award_slider">
           <div className="slides_items">
             {awardsInSlider.length ? (
-              <Awards awards={awardsInSlider} activeKey={activeKey} animateClass={animateClass} setSwiper={setSwiper} />
+              <Awards
+                awards={awardsInSlider}
+                activeKey={activeKey}
+                animateClass={animateClass}
+                setSwiper={setSwiper}
+              />
             ) : null}
           </div>
           <div className="slider_nav">
@@ -70,7 +75,7 @@ const Awards = ({ awards, activeKey, animateClass, setSwiper }) => {
     spaceBetween: 0,
     loop: true,
     simulateTouch: true,
-    getSwiper: swiper => {
+    getSwiper: (swiper) => {
       setSwiper(swiper);
     },
     breakpoints: {
@@ -78,13 +83,13 @@ const Awards = ({ awards, activeKey, animateClass, setSwiper }) => {
         slidesPerView: 2.5,
         spaceBetween: 20,
         simulateTouch: false,
-        loop: true
-      }
+        loop: true,
+      },
     },
     navigation: {
       nextEl: "#next_award",
-      prevEl: "#prev_award"
-    }
+      prevEl: "#prev_award",
+    },
   };
   return (
     <Swiper {...params}>
@@ -93,16 +98,16 @@ const Awards = ({ awards, activeKey, animateClass, setSwiper }) => {
           <div
             className={classNames("slide_block", {
               active: award.code === activeKey,
-              animateClass: award.code === activeKey ? animateClass : ""
+              animateClass: award.code === activeKey ? animateClass : "",
             })}
           >
             <div className="imgthumb">
               <img src={award.trophyUrl} />
             </div>
             <div className="apply">
-              <a href={`/award/${award.id}`}>
+              <NavLink to={`/award/${award.id}`}>
                 <Trans id="apply_now">apply now</Trans>
-              </a>
+              </NavLink>
             </div>
             <LanguageContext.Consumer>
               {({ locale }) => (
@@ -110,13 +115,13 @@ const Awards = ({ awards, activeKey, animateClass, setSwiper }) => {
                   <div
                     className="title"
                     dangerouslySetInnerHTML={{
-                      __html: award.title[locale.code]
+                      __html: award.title[locale.code],
                     }}
                   ></div>
                   <div
                     className="desc"
                     dangerouslySetInnerHTML={{
-                      __html: award.description[locale.code]
+                      __html: award.description[locale.code],
                     }}
                   ></div>
                 </>
@@ -130,5 +135,6 @@ const Awards = ({ awards, activeKey, animateClass, setSwiper }) => {
 };
 
 const mapStateToProps = ({ home: { awards } }) => ({ awards });
-const mapDispatchToProps = dispatch => bindActionCreators({ ...homeActions }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...homeActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(AwardsSlider);

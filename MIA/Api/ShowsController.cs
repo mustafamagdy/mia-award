@@ -55,10 +55,10 @@ namespace MIA.Api {
         _result = _result.Where(a => a.ProjectName.Contains(query.Title));
 
       if (query.TvChannels != null && query.TvChannels.Trim() != "")
-        _result = _result.Where(a => a.TvChannels.Contains(query.Title));
+        _result = _result.Where(a => a.TvChannels.Contains(query.TvChannels));
 
       if (query.OnlineChannels != null && query.OnlineChannels.Trim() != "")
-        _result = _result.Where(a => a.OnlineChannels.Contains(query.Title));
+        _result = _result.Where(a => a.OnlineChannels.Contains(query.OnlineChannels));
 
       var result = await _result
         .ProjectTo<ArtworkBasicViewDto>(_mapper.ConfigurationProvider)

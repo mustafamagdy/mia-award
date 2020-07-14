@@ -9,6 +9,15 @@
     "sponserType": {
       "en": "Media Sponser",
       "ar": "راعي اعلامي"
-    }
+    },
+    "content": {
+      "en": "“Rotana Media Group” one of the leading diversified media groups operating in the Middle East. The group’s portfolio comprises of music production, film and series production, management services, TV channels, Radio stations, Concerts production, website, app and media representation Rotana is at the forefront of the entertainment industry. We entertain and ducate, inform and inspire audiences worldwide through our free-to-air TV channels, radio stations, “music label” company, movie library, regional advertising and media agency, strong digital and social media presence and Hypermedia, the OOH agency of Rotana Group. The “Rotana Media Group” employs 500+ people located across the Middle East.",
+      "ar": "“Rotana Media Group” one of the leading diversified media groups operating in the Middle East. The group’s portfolio comprises of music production, film and series production, management services, TV channels, Radio stations, Concerts production, website, app and media representation Rotana is at the forefront of the entertainment industry. We entertain and ducate, inform and inspire audiences worldwide through our free-to-air TV channels, radio stations, “music label” company, movie library, regional advertising and media agency, strong digital and social media presence and Hypermedia, the OOH agency of Rotana Group. The “Rotana Media Group” employs 500+ people located across the Middle East.",
+    },
+    "links": [
+      { "type": "facebook", "url": "#" },
+      { "type": "twitter", "url": "#" },
+      { "type": "instagram", "url": "#" }
+    ]
   }
 ]

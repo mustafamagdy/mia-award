@@ -16,6 +16,7 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import { I18n } from "@lingui/react";
+import { NavLink } from "react-router-dom";
 
 const NewsView = ({
   newsItem,
@@ -250,9 +251,9 @@ const RelatedNews = ({ relatedNews, ...props }) => (
     {relatedNews &&
       relatedNews.map((n) => (
         <div key={n.id} className="item">
-          <a href={`/news/${n.id}`}>
+          <NavLink to={`/news/${n.id}`}>
             <img src={n.posterUrl} />
-          </a>
+          </NavLink>
         </div>
       ))}
   </div>

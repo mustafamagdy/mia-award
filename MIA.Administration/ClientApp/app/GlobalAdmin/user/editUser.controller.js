@@ -1,106 +1,151 @@
 (function () {
-    'use strict';
+  "use strict";
 
-    angular
-        .module('home')
-        .controller('editUserController', ['$stateParams','UserRoleByIdPrepService', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
-            'EditUserPrepService', 'ToastService', editUserController]);
+  angular
+    .module("home")
+    .controller("editUserController", [
+      "$stateParams",
+      "blockUI",
+      "$scope",
+      "$filter",
+      "$translate",
+      "$state",
+      "UserResource",
+      "RoleResource",
+      "EditUserPrepService",
+      "ToastService",
+      editUserController,
+    ]);
 
+  function editUserController(
+    $stateParams,
+    blockUI,
+    $scope,
+    $filter,
+    $translate,
+    $state,
+    UserResource,
+    RoleResource,
+    EditUserPrepService,
+    ToastService
+  ) {
+    blockUI.start("Loading...");
 
-    function editUserController($stateParams,UserRoleByIdPrepService, blockUI, $scope, $filter, $translate, $state, UserResource,
-        EditUserPrepService, ToastService) {
+    $scope.isPaneShown = true;
+    $scope.$emit("LOAD");
+    var vm = this;
+    vm.userObj = EditUserPrepService;
+    vm.roles = [];
+    roleList();
 
-        blockUI.start("Loading...");
+    vm.EditUser = function () {
+      blockUI.start("Loading...");
+      vm.show = false;
+      var updateUser = new UserResource();
+      updateUser.userId = vm.userObj.userId;
+      updateUser.fullName = vm.userObj.fullName;
+      updateUser.email = vm.userObj.email;
+      updateUser.phoneNumber = vm.userObj.phoneNumber;
+      updateUser.password = vm.userObj.password;
 
-        $scope.isPaneShown = true;
-        $scope.$emit('LOAD')
-        var vm = this;
-
-        vm.userObj = EditUserPrepService;
-
-        vm.Role = UserRoleByIdPrepService;
-        console.log(UserRoleByIdPrepService);
-        vm.selectedModuleList = [];
-        vm.selectedModule = ""; 
-        vm.UnSelectedPermissions = [];
-        vm.checkPermission = function (obj) {
-            var checkIfPermissionExist = vm.UnSelectedPermissions.indexOf(obj.permissionId);
-            if (checkIfPermissionExist == -1) {
-                vm.UnSelectedPermissions.push(obj.permissionId);
-            }
-            else {
-                var index = vm.UnSelectedPermissions.indexOf(obj.permissionId);
-                vm.UnSelectedPermissions.splice(index, 1);
-            }
-        }
-        vm.EditUser = function () {
-            blockUI.start("Loading...");
-            vm.show = false;
-            var updateUser = new UserResource();
-            updateUser.userId = vm.userObj.userId;
-            updateUser.fullName = vm.userObj.fullName;
-            updateUser.username = vm.userObj.userName;
-            updateUser.unSelectedRoles = vm.UnSelectedPermissions;
-            updateUser.email = vm.userObj.email;
-            updateUser.mobileNumber = vm.userObj.mobileNumber;
-            updateUser.password = vm.userObj.password;
-
-            updateUser.$update().then(
-                function (data, status) {
-                    blockUI.stop();
-                    if (data.message != null)
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                    else {
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                        if ($scope.user.userTypeId == 1)
-                            $state.go('RetailerUser');
-                        if ($scope.user.userTypeId == 2)
-                            $state.go('ManufactureUser');
-                        if ($scope.user.userTypeId == 3)
-                            $state.go('DistributerUser');
-                        if ($scope.user.userTypeId == 4)
-                            $state.go('users');
-                        if ($scope.user.userTypeId == 5)
-                            $state.go('IooUser');
-                        if ($scope.user.userTypeId == 255)
-                            $state.go('IoaUser');
-
-                        // if ($stateParams.userType == 1)
-                        //     $state.go('RetailerUser');
-                        // if ($stateParams.userType == 2)
-                        //     $state.go('ManufactureUser');
-                        // if ($stateParams.userType == 3)
-                        //     $state.go('DistributerUser');
-                        // if ($stateParams.userType == 4)
-                        //     $state.go('IooUser');
-                        // if ($stateParams.userType == 5)
-                        //     $state.go('IoaUser');
-                    }
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                }
+      updateUser.$update({ userId: vm.userObj.id }).then(
+        function (data, status) {
+          blockUI.stop();
+          if (data.message != null)
+            ToastService.show(
+              "right",
+              "bottom",
+              "fadeInUp",
+              data.message,
+              "error"
             );
-        }
-        vm.close = function () {
-            
-            if ($scope.user.userTypeId == 1)
-                $state.go('RetailerUser');
-            if ($scope.user.userTypeId == 2)
-                $state.go('ManufactureUser');
-            if ($scope.user.userTypeId == 3)
-                $state.go('DistributerUser');
-            if ($scope.user.userTypeId == 4)
-                $state.go('users');
-            if ($scope.user.userTypeId == 5)
-                $state.go('IooUser');
-            if ($scope.user.userTypeId == 255)
-                $state.go('IoaUser');
-        }
-        blockUI.stop();
+          else {
+            ToastService.show(
+              "right",
+              "bottom",
+              "fadeInUp",
+              $translate.instant("Editeduccessfully"),
+              "success"
+            );
+            $state.go("users");
+          }
+        },
+        function (data, status) {
+          blockUI.stop();
 
+          ToastService.show(
+            "right",
+            "bottom",
+            "fadeInUp",
+            data.message,
+            "error"
+          );
+        }
+      );
+    };
+
+    function roleList() {
+      blockUI.start("Loading...");
+      var k = RoleResource.getAllRoles().$promise.then(
+        function (results) {
+          const userRoles = vm.userObj.roles;
+
+          vm.roles = results.map((r) => {
+            const selected = userRoles.includes(r.name);
+            return { name: r.name, selected };
+          });
+          blockUI.stop();
+        },
+        function (data, status) {
+          blockUI.stop();
+          ToastService.show(
+            "right",
+            "bottom",
+            "fadeInUp",
+            data.message,
+            "error"
+          );
+        }
+      );
     }
 
+    vm.checkRole = function (role) {
+      blockUI.start("Loading...");
+
+      const roleObj = new RoleResource();
+      roleObj.roleName = role.name;
+      roleObj.userId = vm.userObj.id;
+
+      roleObj[role.selected ? "$addUserToRole" : "$removeUserFromRole"]({
+        roleName: role.name,
+        userId: vm.userObj.id,
+      }).then(
+        function (results) {
+          blockUI.stop();
+          ToastService.show(
+            "right",
+            "bottom",
+            "fadeInUp",
+            $translate.instant("updated_success"),
+            "success"
+          );
+        },
+        function (data, status) {
+          blockUI.stop();
+          ToastService.show(
+            "right",
+            "bottom",
+            "fadeInUp",
+            data.message,
+            "error"
+          );
+        }
+      );
+    };
+
+    vm.close = function () {
+      $state.go("users");
+    };
+    blockUI.stop();
+  }
 })();

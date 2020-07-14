@@ -1,0 +1,72 @@
+<style>
+  table,
+  thead,
+  tbody,
+  tr,
+  td {
+    border: 1px solid red;
+  }
+</style>
+<div>
+  <div class="row">
+    <div class="col-md-8">
+      {{'system_status'|translate}}: {{(sysContrller.closed
+      ?'closed':'active')|translate}}
+    </div>
+    <div class="col-md-4">
+      <button
+        ng-click="sysContrller.confirmClosingJudge()"
+        ng-show="user.userPermissions['Admin'].close_judging && sysContrller.closed  == false"
+      >
+        {{'close_all_judge' | translate}}
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div
+      class="table-responsive"
+      ng-repeat="awardWinners in sysContrller.groupedWinners"
+    >
+      <span>{{'award_type'|translate}}</span> {{awardWinners.awardType |
+      translate}}
+      <table>
+        <thead>
+          <tr>
+            <td rowspan="2">{{'award' | translate}}</td>
+            <td colspan="2">{{'first_place' | translate}}</td>
+            <td colspan="2">{{'second_place' | translate}}</td>
+          </tr>
+          <tr>
+            <td>{{'artwork'|translate}}</td>
+            <td>%</td>
+            <td>{{'artwork'|translate}}</td>
+            <td>%</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="award in awardWinners.winners">
+            <td>{{award.awardName[selectedLanguage]}}</td>
+            <td>{{award.first.projectName[selectedLanguage]}}</td>
+            <td>{{award.first.avg}}</td>
+            <td>{{award.second.projectName[selectedLanguage]}}</td>
+            <td>{{award.second.avg}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script type="text/ng-template" id="confirmClosingJudge.html">
+  <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+        <h4>{{'close_judge' | translate}}</h4>
+    </div>
+        <div class="modal-body">
+          {{'are_you_sure_to_close_all_judges' | translate}}
+        </div>
+        <div class="modal-footer">
+            <button ng-click="yes()" class="btn btn-danger">{{'yes_sure'|translate}}</button>
+            <button ng-click="cancel()" class="btn btn-default">{{'cancel'|translate}}</button>
+        </div>
+</script>

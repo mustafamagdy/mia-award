@@ -109,7 +109,6 @@ debugger
             var k = ArtWorkResource.getArtWorkFiles({ id: $stateParams.id }).$promise.then(function (results) {
                 
                 vm.artWorkFiles = results;
-                console.log(vm.artWorkFiles); blockUI.stop();
 
             },
                 function (data, status) {

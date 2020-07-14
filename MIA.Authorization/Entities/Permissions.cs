@@ -76,7 +76,7 @@ namespace MIA.Authorization.Entities {
     AlbumChangeStatus,
 
     //Award
-    [PermissionDescriptor(SystemModules.Admin, "view_award", "read award ")]
+    [PermissionDescriptor(SystemModules.Admin, "view_award", "read award")]
     ReadAward = 50,
     [PermissionDescriptor(SystemModules.Admin, "edit_award", "edit award")]
     AwardEdit,
