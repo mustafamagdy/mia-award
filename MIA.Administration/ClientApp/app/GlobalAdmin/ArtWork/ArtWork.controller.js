@@ -15,8 +15,8 @@
     ]);
 
   function ArtWorkController(appCONSTANTS, $scope, $translate, ArtWorkResource, blockUI, $uibModal, ToastService) {
-    $(".pmd-sidebar-nav>li>a").removeClass("active");
-    $($(".pmd-sidebar-nav").children()[4].children[0]).addClass("active");
+    // $(".pmd-sidebar-nav>li>a").removeClass("active");
+    // $($(".pmd-sidebar-nav").children()[4].children[0]).addClass("active");
     var vm = this;
 
     vm.currentPage = 1;

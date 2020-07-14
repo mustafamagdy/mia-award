@@ -628,7 +628,7 @@
 
             <li ng-show="user.userModules['Admin'] && hasOneOfPermissions('Admin.view_roles','Admin.edit_roles','Admin.view_permissions','Admin.view_role_permissions','Admin.manage_role_permissions','Admin.read_user_roles','Admin.remove_user_from_role','Admin.add_user_to_role')">
           
-                <a class="pmd-ripple-effect" ng-click="$state.go('Role');">
+                <a class="pmd-ripple-effect" data-state="Role" ng-click="$state.go('Role');">
                     <i class="media-left media-middle">
 
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -648,7 +648,7 @@
 
             <li ng-show="user.userModules['Admin'] && hasOneOfPermissions('Admin.view_news','Admin.add_news','Admin.remove_news','Admin.edit_news')">
 
-                <a class="pmd-ripple-effect" ng-click="$state.go('News');">
+                <a class="pmd-ripple-effect" data-state="News" ng-click="$state.go('News');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                             height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -668,7 +668,7 @@
 
             <li ng-show="user.userModules['Booths'] && hasOneOfPermissions('Booths.view_booths','Booths.add_booths','Booths.remove_booths','Booths.manage_payments','Booths.change_booths_status')">
 
-                <a class="pmd-ripple-effect" ng-click="$state.go('Booth');">
+                <a class="pmd-ripple-effect" data-state="Booth" ng-click="$state.go('Booth');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                             height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -687,7 +687,7 @@
             </li>
             
             <li ng-show="(user.userModules['Admin'] && hasOneOfPermissions('Admin.view_artwork','Admin.add_artwork','Admin.remove_artwork','Admin.edit_artwork','Admin.read_artworks_basic_data','Admin.approve_artworks')) || (user.userModules['Judge'] && hasOneOfPermissions('Admin.view_artwork'))">
-                <a class="pmd-ripple-effect" ng-click="$state.go('ArtWork');">
+                <a class="pmd-ripple-effect" data-state="ArtWork" ng-click="$state.go('ArtWork');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                             height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -707,7 +707,7 @@
 
             <li ng-show="user.userModules['Admin'] && hasOneOfPermissions('Admin.view_award','Admin.edit_award','Admin.manage_award_judges')">
 
-                <a class="pmd-ripple-effect" ng-click="$state.go('Award');">
+                <a class="pmd-ripple-effect" data-state="Award" ng-click="$state.go('Award');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                             height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -727,7 +727,7 @@
 
             <li ng-show="user.userModules['Admin'] && hasOneOfPermissions('Admin.view_voting','Admin.add_voting','Admin.remove_voting','Admin.edit_voting')">
 
-                <a class="pmd-ripple-effect" ng-click="$state.go('VotingCriteria');">
+                <a class="pmd-ripple-effect" data-state="VotingCriteria" ng-click="$state.go('VotingCriteria');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                             height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -746,7 +746,7 @@
             </li>
             
             <li ng-show="user.userModules['Admin'] && hasOneOfPermissions('Admin.view_album','Admin.album_manage','Admin.change_album_status')">
-                <a class="pmd-ripple-effect" ng-click="$state.go('PhotoAlbum');">
+                <a class="pmd-ripple-effect" data-state="PhotoAlbum" ng-click="$state.go('PhotoAlbum');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                             height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -765,7 +765,7 @@
             </li>
 
             <li ng-show="user.userModules['Judge'] && hasOneOfPermissions('Judge.view_my_assigned_artworks')">
-                <a class="pmd-ripple-effect" ng-click="$state.go('JudgeArtWork');">
+                <a class="pmd-ripple-effect" data-state="JudgeArtWork" ng-click="$state.go('JudgeArtWork');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                             height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -785,7 +785,7 @@
 
             <li ng-show="user.userModules['Judge'] && hasOneOfPermissions('Judge.view_artwork_judge_details')">
 
-                <a class="pmd-ripple-effect" ng-click="$state.go('artwork-votes');">
+                <a class="pmd-ripple-effect" data-state="artwork-votes" ng-click="$state.go('artwork-votes');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                             height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -805,7 +805,7 @@
             
             <li ng-show="user.userModules['Judge'] && hasOneOfPermissions('Judge.view_my_artwork_statistics')">
 
-                <a class="pmd-ripple-effect" ng-click="$state.go('artwork-statistics');">
+                <a class="pmd-ripple-effect" data-state="artwork-statistics" ng-click="$state.go('artwork-statistics');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                             height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -825,7 +825,7 @@
             
             <li ng-show="user.userModules['Judge'] && hasOneOfPermissions('Judge.list_my_judges')">
 
-                <a class="pmd-ripple-effect" ng-click="$state.go('my-judges');">
+                <a class="pmd-ripple-effect" data-state="my-judges" ng-click="$state.go('my-judges');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                             height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -845,7 +845,7 @@
             
             <li ng-show="user.userModules['Judge']">
 
-                <a class="pmd-ripple-effect" ng-click="$state.go('my-dashboard');">
+                <a class="pmd-ripple-effect" data-state="my-dashboard" ng-click="$state.go('my-dashboard');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                             height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -896,7 +896,7 @@
                 </a>
 
                 <ul class="dropdown-menu" style="opacity: 1;">
-                    <li ng-show="user.userModules['Admin']" class="pmd-ripple-effect" ng-click="$state.go('users');"
+                    <li ng-show="user.userModules['Admin']" class="pmd-ripple-effect" data-state="users" ng-click="$state.go('users');"
                             style="background-color: transparent;" data-toggle="dropdown"
                             class="btn-user dropdown-toggle media" data-sidebar="true"
                             aria-expandedhref="javascript:void(0);">
@@ -917,7 +917,7 @@
             </li>
 
             <li ng-show="user.userModules['Admin'] && hasOneOfPermissions('Admin.close_judging')">
-                <a class="pmd-ripple-effect" ng-click="$state.go('close-all');">
+                <a class="pmd-ripple-effect" data-state="close-all" ng-click="$state.go('close-all');">
                     <i class="media-left media-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                             height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">

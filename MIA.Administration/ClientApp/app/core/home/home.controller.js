@@ -165,7 +165,9 @@
         $state.go(toState.name, toParams, { reload: true });
       }
     });
+
     $transitions.onStart({}, function (transition) {
+      console.log('start ', transition);
       if (authorizationService.isLoggedIn()) {
         var user = authorizationService.getUser();
         var authorize = false;
@@ -222,10 +224,14 @@
             }
           }
         }
+
+        $(".pmd-sidebar-nav>li>a").removeClass("active");
+        $(`a.pmd-ripple-effect[data-state=${transition._targetState._definition.name}`).addClass("active");
       } else {
         $state.go("login");
       }
     });
+
     $scope.$watch(
       function () {
         return $localStorage.authInfo;
