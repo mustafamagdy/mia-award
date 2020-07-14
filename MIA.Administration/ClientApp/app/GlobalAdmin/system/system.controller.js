@@ -68,7 +68,6 @@
                   vm.closed = true;
                   vm.winners = results || [];
                   vm.groupedWinners = groupedWinners(vm.winners);
-                  console.log("winners ", vm.winners);
                   blockUI.stop();
                 },
                 function (data, status) {

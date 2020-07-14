@@ -235,7 +235,6 @@ export default class Map extends Component {
   render() {
     const protocol = "https";
     const googleApi = `${protocol}://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`;
-    // console.log(googleApi);
     return (
       <MapWithMarkers
         lat={this.props.lat}

@@ -165,7 +165,6 @@
       }).$promise.then(
         function (results) {
           vm.commentsList = results;
-          console.log(vm.commentsList);
           vm.totalCount = results.length;
           blockUI.stop();
         },

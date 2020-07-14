@@ -167,7 +167,6 @@
     });
 
     $transitions.onStart({}, function (transition) {
-      console.log('start ', transition);
       if (authorizationService.isLoggedIn()) {
         var user = authorizationService.getUser();
         var authorize = false;
@@ -190,7 +189,6 @@
               }
             );
             if (!authorize) {
-              console.log("you don't have permissions");
               $state.go(
                 transition._targetState._identifier.self.data.permissions
                   .redirectTo
@@ -217,7 +215,6 @@
             );
 
             if (!authorize) {
-              console.log("you don't have permissions");
               $state.go(
                 transition._targetState._definition.data.permissions.redirectTo
               );

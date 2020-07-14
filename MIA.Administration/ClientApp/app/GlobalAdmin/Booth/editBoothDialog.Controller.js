@@ -11,7 +11,6 @@
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
         vm.Booth = BoothByIdPrepService; 
-        console.log(vm.Booth);
 
         vm.Close = function () {
             $state.go('Booth');

@@ -22,7 +22,6 @@
       var reader = new FileReader();
       reader.onload = function (evt) {
         $scope.$apply(function ($scope) {
-          console.log('scope ', $scope);
           $scope.cropperCtrl.originalImage = evt.target.result;
         });
       };

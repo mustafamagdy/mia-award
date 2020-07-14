@@ -43,8 +43,6 @@
 
     vm.filterByAward = function () {
       blockUI.start("Loading...");
-      console.log(vm.selectedAward);
-      console.log(vm.selectedLevel);
       const awardId =
         vm.selectedAward == undefined || vm.selectedAward.id == ""
           ? undefined

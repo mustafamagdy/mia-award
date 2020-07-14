@@ -91,7 +91,6 @@ const Uploader = ({
         chunk: base64,
         eTags: etags,
       }).then((a) => {
-        // console.log(a);
         if (a.ok) {
           if (end < size) {
             chunkIndex = chunkIndex + 1;

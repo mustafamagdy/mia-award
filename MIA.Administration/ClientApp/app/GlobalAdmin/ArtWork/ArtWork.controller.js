@@ -29,7 +29,6 @@
         function (results) {
           $scope.ArtWorkList = results.items;
           $scope.totalCount = results.metadata.totalItemCount;
-          console.log($scope.ArtWorkList);
           blockUI.stop();
         },
         function (data, status) {

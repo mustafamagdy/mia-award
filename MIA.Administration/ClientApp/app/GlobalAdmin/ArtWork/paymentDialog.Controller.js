@@ -13,7 +13,6 @@
 
         vm.statusList = status.StatusList;
         vm.artWorkPayment = ArtWorkPaymentByArtWorkIdPrepService;
-        console.log(vm.artWorkPayment)
         vm.CheckIsUpdate = angular.copy(vm.artWorkPayment.amount);
         if (vm.artWorkPayment.paymentStatus == 'waiting')
             vm.selectedStatus = vm.statusList[0];

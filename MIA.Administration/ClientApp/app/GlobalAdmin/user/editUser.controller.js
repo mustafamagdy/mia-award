@@ -111,7 +111,6 @@
 
     vm.checkRole = function (role) {
       blockUI.start("Loading...");
-      console.log("select ", role.selected, role.name, vm.userObj.id);
 
       const roleObj = new RoleResource();
       roleObj.roleName = role.name;

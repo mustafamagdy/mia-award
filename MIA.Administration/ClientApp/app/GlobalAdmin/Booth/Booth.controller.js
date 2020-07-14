@@ -41,7 +41,6 @@
         function (results) {
           $scope.BoothList = results.items;
           $scope.totalCount = results.metadata.totalItemCount;
-          //   console.log($scope.BoothList);
           blockUI.stop();
         },
         function (data, status) {

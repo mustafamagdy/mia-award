@@ -22,7 +22,6 @@
             var k = PhotoAlbumResource.getAllPhotoAlbums({ pageNumber: vm.currentPage, pageSize: 10 }).$promise.then(function (results) {
                 $scope.PhotoAlbumList = results.items;
                 $scope.totalCount = results.metadata.totalItemCount;
-                console.log($scope.PhotoAlbumList);
                 blockUI.stop();
 
             },

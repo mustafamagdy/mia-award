@@ -13,7 +13,6 @@
         
         vm.statusList = status.StatusList;
         vm.boothPayment = BoothPaymentByBoothIdPrepService;
-        console.log(vm.boothPayment);
 
         if (vm.boothPayment.payment.paymentStatus == 'waiting')
             vm.selectedStatus = vm.statusList[0];

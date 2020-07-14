@@ -13,7 +13,6 @@
         vm.language = appCONSTANTS.supportedLanguage;
         vm.PhotoAlbum = PhotoAlbumByIdPrepService;
         vm.posterImage= vm.PhotoAlbum.posterUrl;
-        console.log(vm.PhotoAlbum);
 
         vm.Close = function () {
             $state.go('PhotoAlbum');
