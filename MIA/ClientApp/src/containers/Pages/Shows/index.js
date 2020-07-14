@@ -15,6 +15,10 @@ import { useForm } from "react-hook-form";
 import config from "config";
 import { NavLink } from "react-router-dom";
 
+const defaultImage = (imgUrl) =>
+imgUrl == undefined || imgUrl == "" ? "/assets/images/logo.png" : imgUrl;
+
+
 const Shows = ({
   fetchFeaturedItems,
   fetchItems,
@@ -40,7 +44,7 @@ const Shows = ({
     const _searchQuery = { ...searchQuery };
     if (query) {
       _searchQuery.title = query;
-      setValue('title', query);
+      setValue("title", query);
     }
     fetchItems({
       pageNumber,
@@ -76,6 +80,7 @@ const Shows = ({
     },
   };
 
+
   return featuredItems != undefined && featuredItems.length > 0 ? (
     <section id="show_all">
       <div className="show_slider">
@@ -94,7 +99,7 @@ const Shows = ({
                 {featuredItems.map((item) => (
                   <div key={item.id} className="item">
                     <div className="imgthmb">
-                      <img src={item.posterUrl} />
+                      <img src={defaultImage(item.posterUrl)} alt="" />
                     </div>
                     <div className="content">
                       <div className="title">
@@ -250,7 +255,7 @@ const Show = ({ show }) => (
   <div className="item">
     <div className="imgthumb">
       <NavLink to={`/shows/${show.id}`}>
-        <img src={show.posterUrl} />
+        <img src={defaultImage(show.posterUrl)} />
         <div clNavLinkssName="mask">
           <div className="content">
             <p>
