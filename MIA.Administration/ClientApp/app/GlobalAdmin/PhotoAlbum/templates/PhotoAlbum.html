@@ -28,14 +28,14 @@
                         </td>
 
                         <td width="30%">
-                            <i ng-show="user.userPermissions['Admin'].edit_album"
+                            <i ng-show="user.userPermissions['Admin'].album_manage"
                                 class="material-icons md-dark pmd-md cursorPointer font25"
                                 ng-click="$state.go('editPhotoAlbum',{id: PhotoAlbum.id});" title="Edit">mode_edit</i>
                             <i ng-show="user.userPermissions['Admin'].remove_album && !PhotoAlbum.mainGallery"
                                 class="material-icons pmd-md deleteButton cursorPointer font25"
                                 ng-click="PhotoAlbumCtrl.openDeleteDialog(PhotoAlbum,PhotoAlbum.title[selectedLanguage] ,PhotoAlbum.id)"
                                 title="Delete">delete</i>
-                            <i ng-show="user.userPermissions['Admin'].view_album_file"
+                            <i ng-show="user.userPermissions['Admin'].album_manage"
                                 class="material-icons md-dark pmd-md perm_media font25"
                                 ng-click="$state.go('mediaItems',{id: PhotoAlbum.id});" title="media">perm_media</i>
 
