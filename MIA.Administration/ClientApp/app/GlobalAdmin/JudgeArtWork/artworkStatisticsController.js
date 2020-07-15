@@ -38,11 +38,17 @@
     var vm = this;
     vm.awards = [];
     vm.selectedAward = undefined;
-    vm.noDataFound = false;
+    vm.noDataFound = true;
 
     loadAwards();
     vm.statistics = ArtworkStatisticsPrepService;
-
+    vm.artworkLabels = vm.statistics.map(
+      (a) => a.artwork.projectName[$scope.selectedLanguage]
+    );
+    vm.level1Data = vm.statistics.map((a) => a.level1.avg * 100.0);
+    vm.level2Data = vm.statistics.map((a) => a.level2.avg * 100.0);
+    vm.noDataFound = vm.statistics.length > 0;
+    
     function loadAwards() {
       var k = JudgeArtWorkResource.getJudgeAwards().$promise.then(
         function (results) {
@@ -86,59 +92,56 @@
       );
     };
 
-    $scope.data = {
-      labels: [
-        "16 Jan",
-        "16 Feb",
-        "16 Mar",
-        "16 Apr",
-        "16 May",
-        "16 Jun",
-        "16 Jul",
-      ],
+    vm.data = {
+      labels: vm.artworkLabels,
       datasets: [
         {
-          label: "A",
+          label: "Level 1 (avg)",
           backgroundColor: "rgba(255, 99, 132, 1)",
           borderColor: "rgba(255,99,132,1)",
-          data: [60, 90, 120, 60, 90, 120, 60],
+          data: vm.level1Data,
         },
         {
-          label: "B",
+          label: "Level 2 (avg)",
           backgroundColor: "rgba(75, 192, 192, 1)",
           borderColor: "rgba(75, 192, 192, 1)",
-          data: [40, 60, 80, 40, 60, 80, 40],
+          data: vm.level2Data,
         },
       ],
     };
 
-    $scope.options = {
+    vm.options = {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
         xAxes: [
           {
-            stacked: true,
+            stacked: false,
           },
         ],
         yAxes: [
           {
-            stacked: true,
+            stacked: false,
+            ticks: {
+              fontColor: "white",
+              fontFamily: "Cairo",
+            },
           },
         ],
       },
       legend: {
         display: true,
         labels: {
-          fontColor: "rgb(255, 99, 132)",
+          fontColor: "#d9c290",
+          fontFamily: "Cairo",
         },
       },
       title: {
         display: true,
-        text: "Custom Chart Title",
+        text: "Artworks Statistics",
+        fontColor: "#d9c290",
+        fontFamily: "Cairo",
       },
-
-      // Chart.js options can go here.
     };
   }
 })();

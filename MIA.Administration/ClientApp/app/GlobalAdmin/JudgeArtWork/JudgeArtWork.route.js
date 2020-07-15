@@ -106,7 +106,7 @@
         },
         data: {
           permissions: {
-            only: ["Judge.view_my_artwork_statistics"],
+            only: ["Judge.view_all_artwork_statistics"],
             redirectTo: "root",
           },
         },

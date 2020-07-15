@@ -803,7 +803,7 @@
                 </a>
             </li>
             
-            <li ng-show="user.userModules['Judge'] && hasOneOfPermissions('Judge.view_my_artwork_statistics')">
+            <li ng-show="user.userModules['Judge'] && hasOneOfPermissions('Judge.view_all_artwork_statistics')">
 
                 <a class="pmd-ripple-effect" data-state="artwork-statistics" ng-click="$state.go('artwork-statistics');">
                     <i class="media-left media-middle">
@@ -843,7 +843,7 @@
                 </a>
             </li>
             
-            <li ng-show="user.userModules['Judge']">
+            <li ng-show="user.userModules['Judge'] && hasOneOfPermissions('Judge.view_my_artwork_statistics')">
 
                 <a class="pmd-ripple-effect" data-state="my-dashboard" ng-click="$state.go('my-dashboard');">
                     <i class="media-left media-middle">

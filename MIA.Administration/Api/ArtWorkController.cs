@@ -397,7 +397,7 @@ namespace MIA.Administration.Api {
         allArtworks = allArtworks.Where(a => a.Award.ManagerId == userId);
       }
 
-      var query = await allArtworks.AsNoTracking().ToPagedListAsync(dto);
+      var query = await allArtworks.AsNoTracking().ToListAsync();
 
       var result = query.Select(a => new {
         Artwork = _mapper.Map<ArtworkMinimumDto>(a),
@@ -411,7 +411,7 @@ namespace MIA.Administration.Api {
           Min = a.FinalScores.Where(x => x.Level == JudgeLevel.Level2).Select(x => x.Percentage).DefaultIfEmpty(0).Min(),
           Max = a.FinalScores.Where(x => x.Level == JudgeLevel.Level2).Select(x => x.Percentage).DefaultIfEmpty(0).Max(),
         }
-      }).ToPagedList(dto);
+      }).ToList();
 
       return IfFound(result);
     }

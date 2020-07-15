@@ -29,19 +29,12 @@ namespace MIA.Authorization {
       var identity = await base.GenerateClaimsAsync(user);
       var userId = identity.Claims.GetUserIdFromClaims();
 
-      var roles = string.Join(";", await _userManager.GetRolesAsync(user));
-
+      var roles = await _userManager.GetRolesAsync(user);
+      var allRoles = string.Join(";", roles);
       var userModules = string.Join(";",
         ((_extraAuthDbContext.UserModules.FirstOrDefault(a => a.UserId == user.Id)
           ?? new UserModule(user.Id, SystemModules.Dashboard))
           .AllowedModules.ToString()).Split(","));
-
-      //var xxallRolePermissions = _extraAuthDbContext.Roles
-      //  .Where(x => roles.Contains(x.Name))
-      //  .Where(a=>a.Permissions != null)
-      //  .SelectMany(x => x.PermissionsInRole.DefaultIfEmpty())
-      //  .AsEnumerable()
-      //  .Select(a => _mapper.Map<PermissionDto>(a)).ToList();
 
       var allRolePermissions = _extraAuthDbContext.Roles
         .Where(x => roles.Contains(x.Name))
@@ -52,23 +45,14 @@ namespace MIA.Authorization {
       var roleGroupedPermissions = allRolePermissions
         .GroupBy(a => a.SystemModule)
         .ToDictionary(a => a.Key, b => b.Select(a => string.Join('_', a.Name.ToLower().Split(' '))).ToArray());
-
-      //var rolePermissions = allRolePermissions
-      //  .DefaultIfEmpty()
-      //  .GroupBy(a => a.SystemModule)
-      //  .Select(a => new {
-      //    Module = a.Key,
-      //    Permissions = a.Select(x => string.Join('_', x.Name.ToLower().Split(' '))).ToArray()
-      //  }).ToArray();
-
+      
       identity.AddClaim(new Claim("id", user.Id));
       identity.AddClaim(new Claim("name", user.UserName));
       identity.AddClaim(new Claim("username", user.UserName));
-      identity.AddClaim(new Claim("roles", roles));
+      identity.AddClaim(new Claim("roles", allRoles));
       identity.AddClaim(new Claim("userModules", userModules));
-      //identity.AddClaim(new Claim("userPermissions", JsonConvert.SerializeObject(rolePermissions)));
       identity.AddClaim(new Claim("userPermissions", JsonConvert.SerializeObject(roleGroupedPermissions)));
-     
+
 
       var permCalc = new CalcAllowedPermissions(_extraAuthDbContext);
       var permissions = permCalc.CalcPermissionsForUserAsync(userId);
