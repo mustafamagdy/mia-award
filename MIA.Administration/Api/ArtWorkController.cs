@@ -378,13 +378,23 @@ namespace MIA.Administration.Api {
       [FromBody] ArtworkStatisticsFilter dto,
       [FromServices] IUserResolver userResolver,
       [FromServices] IAppUnitOfWork db) {
-      //var userId = (await userResolver.CurrentUserAsync())?.Id;
+      var userId = (await userResolver.CurrentUserAsync())?.Id;
+
+      var isManager = await db.Awards.AnyAsync(a => a.ManagerId == userId);
+
+
+
       var allArtworks = db.Artworks
+                          .Include(a => a.Award)
                           .Include(a => a.FinalScores)
                           .Where(a => a.UploadComplete);
 
       if (!string.IsNullOrEmpty(dto.AwardId)) {
         allArtworks = allArtworks.Where(a => a.AwardId == dto.AwardId);
+      }
+
+      if (isManager) {
+        allArtworks = allArtworks.Where(a => a.Award.ManagerId == userId);
       }
 
       var query = await allArtworks.AsNoTracking().ToPagedListAsync(dto);
