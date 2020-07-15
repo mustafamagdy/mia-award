@@ -44,5 +44,7 @@ namespace MIA.Authorization.Entities {
     BoothAgent,
     [EnumMember(Value = "filter_upload")]
     FilterUploads,
+    [EnumMember(Value = "judge_manager")]
+    JudgeManager,
   }
 }
