@@ -29,6 +29,7 @@ using MIA.Authorization.Entities;
 using MIA.ORMContext;
 using MIA.TemplateParser;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Z.EntityFramework.Plus;
 
@@ -421,9 +422,31 @@ namespace MIA.Administration.Api {
           [FromServices] IUserResolver userResolver,
           [FromServices] IOptions<AdminOptions> adminOptions,
           [FromServices] IAppUnitOfWork db) {
-      //var userId = (await userResolver.CurrentUserAsync())?.Id;
+      var userId = (await userResolver.CurrentUserAsync())?.Id;
+      var isJudge = await db.Judges.AnyAsync(a => a.Id == userId);
+      var isManager = await db.Awards.AnyAsync(a => a.ManagerId == userId);
 
-      var artwork = await db.Artworks
+      Artwork artwork = null;
+      if (isManager) {
+        var isArtworkBelongsToHim = await
+          db.Awards.AnyAsync(a => a.ManagerId == userId && a.Artworks.Any(x => x.Id == artworkId));
+
+        if (!isArtworkBelongsToHim) {
+          throw new ApiException(ApiErrorType.Forbidden, "Artwork doesn't belong to you");
+        }
+      } else if (isJudge) {
+        var isArtworkBelongsToHim = await
+          db.JudgeAwards
+            .Include(a => a.Award)
+            .ThenInclude(a => a.Artworks)
+            .AnyAsync(a => a.JudgeId == userId && a.Award.Artworks.Any(x => x.Id == artworkId));
+
+        if (!isArtworkBelongsToHim) {
+          throw new ApiException(ApiErrorType.Forbidden, "Artwork doesn't belong to you");
+        }
+      }
+
+      artwork = await db.Artworks
                             .Include(a => a.Votes)
                             .ThenInclude(a => a.Criteria)
                             .AsNoTracking()
@@ -432,18 +455,39 @@ namespace MIA.Administration.Api {
         artwork.Votes = artwork.Votes.Where(a => a.Criteria.Level == (JudgeLevel)level).ToHashSet();
       }
 
-      var votes = artwork.Votes
-                        .Select(a => new CriteriaVoteWithValue {
-                          Weight = a.Criteria.Weight,
-                          CriteriaName = a.Criteria.Name,
-                          LevelNumber = (int)a.Criteria.Level,
-                          VotedValue = a.VotingValue,
-                          WeightedValue = a.Criteria.Weight * (a.VotingValue / 10.0m)
-                        })
-                        .ToArray();
+      var votes = new List<JudgeVote>();
+      var resultVotes = new CriteriaVoteWithValue[] { };
+
+      if (isManager) {
+        votes = artwork.Votes.ToList();
+        resultVotes = votes
+          .GroupBy(a => a.Criteria)
+          .Select(a => new CriteriaVoteWithValue {
+            Weight = a.Key.Weight,
+            CriteriaName = a.Key.Name,
+            LevelNumber = (int)a.Key.Level,
+            VotedValue = a.Select(x => (decimal)x.VotingValue).DefaultIfEmpty(0).Average(),
+            WeightedValue = a.Key.Weight * (a.Select(x => (decimal)x.VotingValue / 10.0m).DefaultIfEmpty(0).Average()),
+            Percentage = (a.Key.Weight * (a.Select(x => (decimal)x.VotingValue).DefaultIfEmpty(0).Average() / 10.0m) / a.Key.Weight) * 100.0M
+          })
+          .ToArray();
+
+      } else if (isJudge) {
+        votes = artwork.Votes.Where(a => a.JudgeId == userId).ToList();
+        resultVotes = votes
+                      .Select(a => new CriteriaVoteWithValue {
+                        Weight = a.Criteria.Weight,
+                        CriteriaName = a.Criteria.Name,
+                        LevelNumber = (int)a.Criteria.Level,
+                        VotedValue = a.VotingValue,
+                        WeightedValue = a.Criteria.Weight * (a.VotingValue / 10.0m),
+                        Percentage = (a.Criteria.Weight * (a.VotingValue / 10.0m) / a.Criteria.Weight) * 100.0M
+                      })
+                      .ToArray();
+      }
 
       var _artwork = _mapper.Map<ArtworkVotingDetails>(artwork);
-      _artwork.Votes = votes;
+      _artwork.Votes = resultVotes;
       return IfFound(_artwork);
     }
 

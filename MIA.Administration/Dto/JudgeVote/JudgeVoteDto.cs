@@ -35,8 +35,9 @@ namespace MIA.Administration.Api {
   public class CriteriaVoteWithValue {
     public string CriteriaName { get; set; }
     public decimal Weight { get; set; }
-    public int VotedValue { get; set; }
+    public decimal VotedValue { get; set; }
     public decimal WeightedValue { get; set; }
+    public decimal Percentage { get; set; }
     public int LevelNumber { get; set; }
   }
 

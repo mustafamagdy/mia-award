@@ -62,12 +62,15 @@ namespace MIA.Administration.Api {
 
     [HttpPost("submitJudgeVote")]
     [HasPermission(Permissions.UpdateArtworkVote)]
-    public async Task<IActionResult> SubmitJudgeVote([FromBody] UpdateJudgeVoteDto dto, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> SubmitJudgeVote(
+      [FromBody] UpdateJudgeVoteDto dto, 
+      [FromServices] IUserResolver userResolver,
+      [FromServices] IAppUnitOfWork db) {
       var insertList = new List<JudgeVote>();
 
       var judgeVoteItems = db.JudgeVotes
         .Include(a => a.Criteria)
-        .Where(a => a.ArtworkId == dto.ArtWorkId && a.Criteria.Level == dto.Level)
+        .Where(a => a.ArtworkId == dto.ArtWorkId && a.Criteria.Level == dto.Level && a.JudgeId == dto.JudgeId)
         .ToList();
 
       if (judgeVoteItems.Any()) {
