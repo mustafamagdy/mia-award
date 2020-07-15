@@ -41,15 +41,23 @@
     vm.selectedAward = "";
     vm.selectedNominee = "";
     vm.language = appCONSTANTS.supportedLanguage;
-    vm.ArtWork = ArtWorkByIdPrepService;
+    vm.artwork = ArtWorkByIdPrepService;
 
-    vm.posterImage = vm.ArtWork.posterUrl;
-    vm.coverImage = vm.ArtWork.coverUrl;
+    vm.posterImage = vm.artwork.posterUrl;
+    vm.coverImage = vm.artwork.coverUrl;
 
     vm.yearsList = [2019, 2020];
-    vm.selectedProductionYear = vm.ArtWork.productionYear; // vm.yearsList[0];
-    vm.selectedBroadcastYear = vm.ArtWork.broadcastYear; // vm.yearsList[0];
+    vm.selectedProductionYear = vm.artwork.productionYear; // vm.yearsList[0];
+    vm.selectedBroadcastYear = vm.artwork.broadcastYear; // vm.yearsList[0];
     vm.IsArtwork = false;
+
+    vm.defaultCover = "./assets/img/big_award.png";
+    vm.getCoverUrl = function () {
+      return vm.artwork.coverUrl == undefined ||
+        vm.artwork.coverUrl == ""
+        ? vm.defaultCover
+        : vm.artwork.coverUrl;
+    };
 
     $scope.trustSrc = function (src) {
       return $sce.trustAsResourceUrl(src);
@@ -64,7 +72,7 @@
       return this.tab === tabId;
     };
 
-    if (vm.ArtWork.award.awardType == "artwork") vm.IsArtwork = true;
+    if (vm.artwork.award.awardType == "artwork") vm.IsArtwork = true;
 
     vm.Close = function () {
       $state.go("ArtWork");
@@ -72,10 +80,10 @@
 
     vm.getAttachments = function () {
       const _ar = [];
-      if (vm.ArtWork.resume.fileUrl != "") _ar.push(vm.ArtWork.resume);
-      if (vm.ArtWork.file1.fileUrl != "") _ar.push(vm.ArtWork.file1);
-      if (vm.ArtWork.file2.fileUrl != "") _ar.push(vm.ArtWork.file2);
-      if (vm.ArtWork.file3.fileUrl != "") _ar.push(vm.ArtWork.file3);
+      if (vm.artwork.resume.fileUrl != "") _ar.push(vm.artwork.resume);
+      if (vm.artwork.file1.fileUrl != "") _ar.push(vm.artwork.file1);
+      if (vm.artwork.file2.fileUrl != "") _ar.push(vm.artwork.file2);
+      if (vm.artwork.file3.fileUrl != "") _ar.push(vm.artwork.file3);
       return _ar;
     };
 
@@ -83,6 +91,7 @@
       const _resource = new ArtWorkResource();
       _resource.$allowFileUpload({ id: model.id }).then(
         function (data, status) {
+          vm.artwork.allowFileUpload = true;
           ToastService.show(
             "right",
             "bottom",
