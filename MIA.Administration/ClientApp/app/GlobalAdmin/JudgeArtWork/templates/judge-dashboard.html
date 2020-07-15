@@ -8,6 +8,31 @@
     margin: 0px;
     text-align: left;
   }
+  table,
+  thead,
+  tbody,
+  tr,
+  td {
+    /* border: 1px dotted red; */
+    color: #d9c290;
+  }
+
+  thead,
+  td {
+    text-align: center;
+  }
+  td {
+    padding: 10px;
+    border: 1px solid;
+  }
+  .results {
+    display: flex;
+    flex-direction: row;
+  }
+  .dashboard-table {
+    flex: 1;
+    width: 100%;
+  }
 </style>
 
 <div id="recent_shows">
@@ -23,40 +48,50 @@
       >
       </select>
     </div>
-    <div class="dashboard-table">
-      <table>
-        <thead>
-          <tr>
-            <td colspan="2">{{'all'|translate}}</td>
-            <td colspan="2">{{'done'|translate}}</td>
-            <td colspan="2">{{'remaining'|translate}}</td>
-          </tr>
-          <tr>
-            <td>{{'level1'|translate}}</td>
-            <td>{{'level2'|translate}}</td>
-            <td>{{'level1'|translate}}</td>
-            <td>{{'level2'|translate}}</td>
-            <td>{{'level1'|translate}}</td>
-            <td>{{'level2'|translate}}</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ctrl.statistics.totals.level1Artworks}}</td>
-            <td>{{ctrl.statistics.totals.level2Artworks}}</td>
-            <td>
-              {{ctrl.statistics.totals.level1Artworks -
-              ctrl.statistics.remaining.level1Artworks}}
-            </td>
-            <td>
-              {{ctrl.statistics.totals.level2Artworks -
-              ctrl.statistics.remaining.level2Artworks}}
-            </td>
-            <td>{{ctrl.statistics.remaining.level1Artworks}}</td>
-            <td>{{ctrl.statistics.remaining.level2Artworks}}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="results" ng-if="!ctrl.noDataFound">
+      <div class="chart-container" style="height: 500px; flex: 1;">
+        <canvas
+          tc-chartjs-doughnut
+          chart-data="ctrl.data"
+          chart-options="ctrl.options"
+        >
+        </canvas>
+      </div>
+      <div class="dashboard-table">
+        <table>
+          <thead>
+            <tr>
+              <td colspan="2">{{'all'|translate}}</td>
+              <td colspan="2">{{'done'|translate}}</td>
+              <td colspan="2">{{'remaining'|translate}}</td>
+            </tr>
+            <tr>
+              <td>{{'level1'|translate}}</td>
+              <td>{{'level2'|translate}}</td>
+              <td>{{'level1'|translate}}</td>
+              <td>{{'level2'|translate}}</td>
+              <td>{{'level1'|translate}}</td>
+              <td>{{'level2'|translate}}</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ctrl.statistics.totals.level1Artworks}}</td>
+              <td>{{ctrl.statistics.totals.level2Artworks}}</td>
+              <td>
+                {{ctrl.statistics.totals.level1Artworks -
+                ctrl.statistics.remaining.level1Artworks}}
+              </td>
+              <td>
+                {{ctrl.statistics.totals.level2Artworks -
+                ctrl.statistics.remaining.level2Artworks}}
+              </td>
+              <td>{{ctrl.statistics.remaining.level1Artworks}}</td>
+              <td>{{ctrl.statistics.remaining.level2Artworks}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

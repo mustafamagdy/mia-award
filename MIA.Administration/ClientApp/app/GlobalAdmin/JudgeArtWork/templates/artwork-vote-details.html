@@ -1,146 +1,211 @@
 <style>
-  .shows_items {
-    display: flex;
-    flex-direction: column;
+  .show_info {
+    width: 40%;
   }
-  .level_title {
-    font-size: 20px;
-    margin: 0px;
-    text-align: left;
+  #show_inner .show_inner_one .container .show_video_show {
+    width: 60%;
   }
-  .filter {
-    display: flex;
-    flex-direction: row;
+  #show_inner .show_inner_one .container .show_info .show_details .desc {
+    width: 100%;
+  }
+  .container {
+    padding: 10px 25px 60px !important;
+  }
+  .criterias {
+    display: block !important;
   }
   .criteria-item {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
+  .criteria-item.header {
+    border: 1px solid gray;
+    background-color: darkslategray;
+    font-weight: bold;
+    text-align: start;
+  }
+  .criteria-name.header,
+  .criteria-weight.header,
+  .criteria-percent.header {
+    border: 1px solid gray;
+  }
+
   .criteria-name {
     flex: 5;
+    color: #d9c290;
   }
   .criteria-weight {
     flex: 1;
+    color: #d9c290;
   }
   .criteria-percent {
     flex: 1;
+    color: #d9c290;
+  }
+
+  .filter {
+    display: flex;
+    flex-direction: row;
   }
 </style>
-
-<div id="recent_shows">
-  <div class="container">
-    <div class="filter">
-      <select
-        required
-        style="flex: 1; color: #6c7293 !important;"
-        class="form-control select-with-search pmd-select2-tags"
-        ng-model="ctrl.selectedArtwork"
-        ng-change="ctrl.selectArtwork()"
-        ng-options="artwork as artwork.projectName[selectedLanguage]  for artwork in ctrl.artworks"
-      >
-      </select>
-      <select
-        required
-        style="flex: 1; color: #6c7293 !important;"
-        class="form-control select-with-search pmd-select2-tags"
-        ng-model="ctrl.selectedLevel"
-        ng-change="ctrl.selectLevel()"
-        ng-options="level as level.name[selectedLanguage]  for level in ctrl.levels"
-      >
-      </select>
-      <button ng-click="ctrl.getArtworkWithDetails()">
-        {{'filter'|translate}}
-      </button>
-    </div>
-    <div class="artwork-results" ng-if="!ctrl.noDataFound">
-      <div class="artwork-details">
-        <ul>
-          <li>
-            <span>{{'project_name ' | translate}} :</span>
-            <p>{{ctrl.artwork.projectName[selectedLanguage]}}</p>
-          </li>
-          <li>
-            <span>{{'description ' | translate}} :</span>
-            <p>{{ctrl.artwork.description[selectedLanguage]}}</p>
-          </li>
-          <li>
-            <span>{{'site_url ' | translate}} :</span>
-            <p>{{ctrl.artwork.siteUrl}}</p>
-          </li>
-          <li>
-            <span>{{'production_year ' | translate}} :</span>
-            <p>{{ctrl.artwork.productionYear}}</p>
-          </li>
-          <li>
-            <span>{{'broadcast_year ' | translate}} :</span>
-            <p>{{ctrl.artwork.broadcastYear}}</p>
-          </li>
-          <li>
-            <div class="crew_content">
-              <div class="title">{{'tv_channels'| translate}} :</div>
-              <div class="content">{{ctrl.artwork.tvChannels}}<br /></div>
-              <div class="title">{{'online_channels'| translate}} :</div>
-              <div class="content">{{ctrl.artwork.onlineChannels}}<br /></div>
+<div class="container">
+  <div class="filter">
+    <select
+      required
+      style="width: 200px !important; color: #6c7293 !important;"
+      class="form-control select-with-search pmd-select2-tags"
+      ng-model="ctrl.selectedArtwork"
+      ng-change="ctrl.selectArtwork()"
+      ng-options="artwork as artwork.projectName[selectedLanguage]  for artwork in ctrl.artworks"
+    >
+    </select>
+    <select
+      required
+      style="width: 200px !important; color: #6c7293 !important;"
+      class="form-control select-with-search pmd-select2-tags"
+      ng-model="ctrl.selectedLevel"
+      ng-change="ctrl.selectLevel()"
+      ng-options="level as level.name[selectedLanguage]  for level in ctrl.levels"
+    >
+    </select>
+    <button ng-click="ctrl.getArtworkWithDetails()">
+      {{'filter'|translate}}
+    </button>
+  </div>
+  <div class="artwork-results" ng-if="!ctrl.noDataFound">
+    <section id="show_inner">
+      <div class="show_inner_one">
+        <div class="container">
+          <div class="show_info">
+            <div class="show_details">
+              <div class="desc">
+                <div class="name">
+                  {{ctrl.artwork.projectName[selectedLanguage] }}
+                </div>
+                <ul>
+                  <li class="data-item">
+                    <span>{{'productionLicenseAgency'| translate}} :</span>
+                    <p>
+                      {{ctrl.artwork.productionLicenseAgency}}
+                    </p>
+                  </li>
+                  <li class="data-item">
+                    <span>{{'productionLicenseNumber'| translate}} :</span>
+                    <p>
+                      {{ctrl.artwork.productionLicenseNumber}}
+                    </p>
+                  </li>
+                  <li class="data-item">
+                    <span>{{'siteUrl'| translate}} :</span>
+                    <p>{{ctrl.artwork.siteUrl}}</p>
+                  </li>
+                  <li class="data-item">
+                    <span>{{'onlineChannels'| translate}} :</span>
+                    <p>
+                      {{ctrl.artwork.onlineChannels}}
+                    </p>
+                  </li>
+                  <li class="data-item">
+                    <span>{{'tvChannels'| translate}} :</span>
+                    <p>{{ctrl.artwork.tvChannels}}</p>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </li>
-          <li>
-            <span>{{'license_number' | translate}} :</span>
-            <p>{{ctrl.artwork.productionLicenseNumber}}</p>
-          </li>
-          <li>
-            <span>{{'license_agency' | translate}} :</span>
-            <p>{{ctrl.artwork.productionLicenseAgency}}</p>
-          </li>
-          <li>
-            <span>{{'approved ' | translate}} :</span>
-            <p>{{(ctrl.artwork.allowFileUpload? 'yes':'no') | translate}}</p>
-          </li>
-        </ul>
-      </div>
-      <div class="votes">
-        <div class="level" ng-if="ctrl.level1 && ctrl.level1.length > 0">
-          <span>{{'level1'|translate}}</span>
-          <ul class="criterias">
-            <li class="criteria-item">
-              <span class="criteria-name">{{'criteria'|translate}}</span>
-              <span class="criteria-weight"
-                >{{'criteria-weight'|translate}}</span
-              >
-              <span class="criteria-percent"
-                >{{'vote-percentage'|translate}}</span
-              >
-            </li>
-            <li class="criteria-item" ng-repeat="item in ctrl.level1">
-              <span class="criteria-name">{{item.criteriaName}}</span>
-              <span class="criteria-weight">{{item.weight}}</span>
-              <span class="criteria-percent">{{item.weightedValue}} %</span>
-            </li>
-          </ul>
-        </div>
-        <div class="level" ng-if="ctrl.level2 && ctrl.level2.length > 0">
-          <span>{{'level2'|translate}}</span>
-          <ul class="criterias">
-            <li class="criteria-item">
-              <span class="criteria-name">{{'criteria'|translate}}</span>
-              <span class="criteria-weight"
-                >{{'criteria-weight'|translate}}</span
-              >
-              <span class="criteria-percent"
-                >{{'vote-percentage'|translate}}</span
-              >
-            </li>
-            <li class="criteria-item" ng-repeat="item in ctrl.level2">
-              <span class="criteria-name">{{item.criteriaName}}</span>
-              <span class="criteria-weight">{{item.weight}}</span>
-              <span class="criteria-percent">{{item.weightedValue}} %</span>
-            </li>
-          </ul>
+            <div class="about_show">
+              <span>About the show</span>
+              <p>
+                {{ctrl.artwork.description[selectedLanguage] }}
+              </p>
+            </div>
+          </div>
+          <div class="show_video_show">
+            <img
+              data-ng-src="{{ctrl.getCoverUrl()}}"
+              style="object-fit: scale-down;"
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="no-data" ng-if="ctrl.noDataFound">
-      {{'no-data-available'|translate}}
-    </div>
+
+      <div class="show_inner_two">
+        <div class="container">
+          <div class="show_content">
+            <div class="tabs_area">
+              <div class="tabs">
+                <ul class="tabs-items">
+                  <li
+                    class="data-item"
+                    ng-repeat="tab in ctrl.tabs"
+                    ng-class="{'active': ctrl.selectedTab == tab, 'tab-item': true}"
+                    ng-click="ctrl.setActiveTab(tab)"
+                  >
+                    {{tab | translate}}
+                  </li>
+                </ul>
+              </div>
+              <div class="all_tabs_content">
+                <div
+                  class="item_tabs_content active"
+                  ng-show="ctrl.selectedTab == 'level1'"
+                >
+                  <div class="item_show">
+                    <ul class="criterias">
+                      <li class="criteria-item header">
+                        <span class="criteria-name header"
+                          >{{'criteria'|translate}}</span
+                        >
+                        <span class="criteria-weight header"
+                          >{{'criteria-weight'|translate}}</span
+                        >
+                        <span class="criteria-percent header"
+                          >{{'vote-percentage'|translate}}</span
+                        >
+                      </li>
+                      <li class="criteria-item" ng-repeat="item in ctrl.level1">
+                        <span class="criteria-name">{{item.criteriaName}}</span>
+                        <span class="criteria-weight">{{item.weight}}</span>
+                        <span class="criteria-percent"
+                          >{{item.percentage}} %</span
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              
+                <div
+                class="item_tabs_content active"
+                ng-show="ctrl.selectedTab == 'level2'"
+              >
+                <div class="item_show">
+                  <ul class="criterias">
+                    <li class="criteria-item header">
+                      <span class="criteria-name header"
+                        >{{'criteria'|translate}}</span
+                      >
+                      <span class="criteria-weight header"
+                        >{{'criteria-weight'|translate}}</span
+                      >
+                      <span class="criteria-percent header"
+                        >{{'vote-percentage'|translate}}</span
+                      >
+                    </li>
+                    <li class="criteria-item" ng-repeat="item in ctrl.level2">
+                      <span class="criteria-name">{{item.criteriaName}}</span>
+                      <span class="criteria-weight">{{item.weight}}</span>
+                      <span class="criteria-percent"
+                        >{{item.weightedValue}} ({{item.percentage}} %)</span
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </div>

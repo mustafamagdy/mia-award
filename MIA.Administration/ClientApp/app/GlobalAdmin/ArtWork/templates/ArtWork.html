@@ -35,7 +35,7 @@
                                 data-ng-src="{{ArtWork.posterUrl}}" />
                         </td>
                         <td data-title="Name"
-                            ng-click="$state.go('viewArtWork',{id: ArtWork.id});"">
+                            ng-click="user.userPermissions['Admin'].approve_artworks && $state.go('viewArtWork',{id: ArtWork.id})"">
                             {{ArtWork.projectName[selectedLanguage]   | limitTo : 20}}
                             {{ArtWork.projectName[selectedLanguage].length > 20 ? '...' : ''}}
                         </td>

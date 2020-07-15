@@ -37,11 +37,18 @@
     vm.artworks = [];
     vm.selectedArtwork = undefined;
     vm.selectedLevel = undefined;
+    vm.tabs = [];
+    vm.selectedTab = undefined;
+    vm.setActiveTab = function (tab) {
+      vm.selectedTab = tab;
+    };
+
     vm.levels = [
       { id: "", name: { en: "All levels", ar: "كل المراحل" } },
       { id: "1", name: { en: "Level 1", ar: "مرحلة 1" }, levelNumber: 0 },
       { id: "2", name: { en: "Level 2", ar: "مرحلة 2" }, levelNumber: 1 },
     ];
+
     vm.noDataFound = true;
     vm.artwork = undefined;
     vm.level1 = [];
@@ -93,6 +100,13 @@
           vm.level1 = votes.filter((a) => a.levelNumber == 0);
           vm.level2 = votes.filter((a) => a.levelNumber == 1);
 
+          if (level == undefined) {
+            vm.tabs = ["level1", "level2"];
+          } else {
+            vm.tabs = [`level${vm.selectedLevel.id}`];
+          }
+
+          vm.selectedTab = vm.tabs[0];
           blockUI.stop();
         },
         function (data, status) {

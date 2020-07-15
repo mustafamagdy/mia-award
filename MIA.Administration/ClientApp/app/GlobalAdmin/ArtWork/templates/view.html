@@ -1,55 +1,141 @@
 <style>
-  .documents {
+  .show_info {
+    width: 40%;
   }
-  .items {
+  #show_inner .show_inner_one .container .show_video_show {
+    width: 60%;
   }
-  .item {
+  #show_inner .show_inner_one .container .show_info .show_details .desc {
+    width: 100%;
+  }
+  .show_video_show {
+    max-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .show_video_show img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  .attachments {
+    display: flex;
+    margin: 0;
+    color: #fff;
+    align-items: flex-start !important;
+  }
+  .attachments ul {
+
+  }
+
+  .attachments ul li {
+    
+  }
+  .attachments ul li a{
+    color: white;
+  }
+  .approve_button {
+    margin: 20px;
+    padding: 10px;
   }
 </style>
+<div class="artwork-results">
+  <section id="show_inner">
+    <div class="show_inner_one">
+      <div class="container">
+        <div class="show_info">
+          <div class="show_details">
+            <div class="desc">
+              <div class="name">
+                {{ctrl.artwork.projectName[selectedLanguage] }} ({{(ctrl.artwork.allowFileUpload? 'approved':'not_approved_yet') | translate}})
+              </div>
+              <ul>
+                <li class="data-item">
+                  <span>{{'award_type'| translate}} :</span>
+                  <p>
+                    {{ctrl.artwork.award.awardType | translate}}
+                  </p>
+                </li>
+                <li class="data-item">
+                  <span>{{'award'| translate}} :</span>
+                  <p>
+                    {{ctrl.artwork.award.title[selectedLanguage]}}
+                  </p>
+                </li>
+                <li class="data-item">
+                  <span>{{'productionLicenseAgency'| translate}} :</span>
+                  <p>
+                    {{ctrl.artwork.productionLicenseAgency}}
+                  </p>
+                </li>
+                <li class="data-item">
+                  <span>{{'productionLicenseNumber'| translate}} :</span>
+                  <p>
+                    {{ctrl.artwork.productionLicenseNumber}}
+                  </p>
+                </li>
+                <li class="data-item">
+                  <span>{{'siteUrl'| translate}} :</span>
+                  <p>{{ctrl.artwork.siteUrl}}</p>
+                </li>
+                <li class="data-item">
+                  <span>{{'onlineChannels'| translate}} :</span>
+                  <p>
+                    {{ctrl.artwork.onlineChannels}}
+                  </p>
+                </li>
+                <li class="data-item">
+                  <span>{{'tvChannels'| translate}} :</span>
+                  <p>{{ctrl.artwork.tvChannels}}</p>
+                </li>
+                <li class="data-item attachments">
+                  <span>{{'attachments'| translate}} :</span>
+                    <ul>
+                      <li ng-repeat="file in ctrl.getAttachments()"><a target="_blank" ng-href="{{file.fileUrl}}">attachment {{$index+1}} </a></li>
+                    </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="about_show">
+            <span>About the show</span>
+            <p>
+              {{ctrl.artwork.description[selectedLanguage] }}
+            </p>
+          </div>
+          
+        </div>
+        <div class="show_video_show">
+          <img data-ng-src="{{ctrl.artwork.coverUrl}}" style="object-fit: scale-down;" ng-show="ctrl.artwork.coverUrl != ''" />
+          <div class="actions">
+            <button
+            class="approve_button buttonGold"
+            ng-show="user.userPermissions['Admin'].approve_artworks && !ctrl.artwork.allowFileUpload"
+            ng-click="ctrl.confirmAndApproveArtwork(ctrl.artwork,ctrl.artwork.projectName[selectedLanguage],ctrl.artwork.id);"
+          >
+            {{'approve'|translate}}
+          </button>
 
-<div class="info_show">
-  <ul>
-    <li>
-      <span>{{'project_name ' | translate}} :</span>
-      <p>{{ctrl.ArtWork.projectName[selectedLanguage]}}</p>
-    </li>
-    <li>
-      <span>{{'description ' | translate}} :</span>
-      <p>{{ctrl.ArtWork.description[selectedLanguage]}}</p>
-    </li>
-    <li>
-      <span>{{'site_url ' | translate}} :</span>
-      <p>{{ctrl.ArtWork.siteUrl}}</p>
-    </li>
-    <li>
-      <span>{{'production_year ' | translate}} :</span>
-      <p>{{ctrl.ArtWork.productionYear}}</p>
-    </li>
-    <li>
-      <span>{{'broadcast_year ' | translate}} :</span>
-      <p>{{ctrl.ArtWork.broadcastYear}}</p>
-    </li>
-    <li>
-      <div class="crew_content">
-        <div class="title">{{'tv_channels'| translate}} :</div>
-        <div class="content">{{ctrl.ArtWork.tvChannels}}<br /></div>
-        <div class="title">{{'online_channels'| translate}} :</div>
-        <div class="content">{{ctrl.ArtWork.onlineChannels}}<br /></div>
+          </div>
+        </div>
       </div>
-    </li>
-    <li>
-      <span>{{'license_number' | translate}} :</span>
-      <p>{{ctrl.ArtWork.productionLicenseNumber}}</p>
-    </li>
-    <li>
-      <span>{{'license_agency' | translate}} :</span>
-      <p>{{ctrl.ArtWork.productionLicenseAgency}}</p>
-    </li>
-    <li>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- 
+  
+  
+  
+  
+  <li>
       <span>{{'approved ' | translate}} :</span>
-      <p>{{(ctrl.ArtWork.allowFileUpload? 'yes':'no') | translate}}</p>
+      <p>{{(ctrl.artwork.allowFileUpload? 'yes':'no') | translate}}</p>
     </li>
-  </ul>
+
+
   <div class="documents">
     <p>{{'attachments'|translate}}</p>
     <ul class="items">
@@ -59,11 +145,10 @@
     </ul>
   </div>
 
-  <div class="actions">
+ <div class="actions">
     <button
-      ng-click="ctrl.confirmAndApproveArtwork(ctrl.ArtWork,ctrl.ArtWork.projectName[selectedLanguage],ctrl.ArtWork.id);"
+      ng-click="ctrl.confirmAndApproveArtwork(ctrl.artwork,ctrl.artwork.projectName[selectedLanguage],ctrl.artwork.id);"
     >
       {{'approve'|translate}}
     </button>
-  </div>
-</div>
+  </div> -->

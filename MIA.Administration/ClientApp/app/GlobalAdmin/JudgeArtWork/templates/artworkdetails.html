@@ -43,7 +43,9 @@
     background: #dbba5a;
     top: -1px;
   }
-
+  .criteria_name {
+    color: #d9c290;
+  }
   .custom-slider.rzslider .rz-tick ul li {
     padding: 1px !important;
   }
@@ -250,7 +252,7 @@
                     class="voting_criteria"
                     ng-repeat="critiera in judgeArtWorkDetailsCtrl.votingCriteriaList"
                   >
-                    <span> {{critiera.name}}</span>
+                    <span class="criteria_name"> {{critiera.name}}</span>
 
                     <rzslider
                       class="custom-slider"
