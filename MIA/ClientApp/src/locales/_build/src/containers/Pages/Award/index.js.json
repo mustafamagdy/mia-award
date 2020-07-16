@@ -3,7 +3,7 @@
     "defaults": "APPLY FOR AWARD",
     "origin": [
       [
-        "src/containers/Award/index.js",
+        "src/containers/Pages/Award/index.js",
         64
       ]
     ]

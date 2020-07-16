@@ -89,7 +89,8 @@ export default {
     in: "https://www.instagram.com/MIAawardarab",
     yt: "https://www.youtube.com/MIAawardarab",
   },
-  uploadFileExtension: ["video/mp4"],
+  uploadVideoFileExtension: ["video/mp4"],
+  uploadImageFileExtension: ["image/png", "image/jpg", "image/jpeg"],
   MAX_FILE_SIZE: 10485760,
   validationRules: {
     allowed_artwork_years: {
@@ -99,7 +100,8 @@ export default {
     phoneExp: /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
     url: /^((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
     passwordStrength: /^(?=.*([A-Z]){1,})(?=.*[!@#$&*]{1,})(?=.*[a-z]{1,}).{6,100}$/,
-    videoFiles: ".mp4,.ogg,.webM",    
+    videoFiles: ".mp4,.ogg,.webM",
+    imageFiles: "image/*",
   },
   files: {
     booth_pdf: "/assets/files/exhibition final.pdf",

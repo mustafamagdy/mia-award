@@ -109,6 +109,7 @@ class TransKeysNotFoundInJsx extends React.Component {
         <Trans id="Videos"></Trans>
         <Trans id="reviews"></Trans>
         <Trans id="type_your_message_min_100"></Trans>
+        <Trans id="files"></Trans>
 
       </div>
     );

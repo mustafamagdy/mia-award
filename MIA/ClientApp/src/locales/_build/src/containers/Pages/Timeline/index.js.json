@@ -3,7 +3,7 @@
     "defaults": "Program Schedule",
     "origin": [
       [
-        "src/containers/Timeline/index.js",
+        "src/containers/Pages/Timeline/index.js",
         30
       ]
     ]
@@ -11,7 +11,7 @@
   "program_schedule_brief": {
     "origin": [
       [
-        "src/containers/Timeline/index.js",
+        "src/containers/Pages/Timeline/index.js",
         33
       ]
     ]
