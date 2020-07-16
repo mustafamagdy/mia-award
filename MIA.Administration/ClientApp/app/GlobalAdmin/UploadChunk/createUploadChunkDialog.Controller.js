@@ -4,7 +4,7 @@
     angular
         .module('home')
 
-        .directive("uploadVideoDirective", function ($http, $stateParams) {
+        .directive("uploadVideoDirective", function ($http, $stateParams, $localStorage) {
             return {
                 restrict: 'E',
                 scope: {
@@ -87,12 +87,12 @@
 
                     $scope.uploadChunkApi = function ({ id, ...data }) {
 
-
                         return $http({
                             method: 'POST',
                             url: apiBaseUrl + `/api/test/artwork/${id}/files`,
                             headers: {
-                                'Content-Type': 'application/json'
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + $localStorage.authInfo
                             },
                             data: data,
                         });
@@ -106,9 +106,9 @@
                 }
             };
         })
-        .controller('uploadVideoController', ['$uibModalInstance', 'itemId', 'url', '$scope', '$http', 'ToastService', 'callBackFunction', uploadVideoController])
+        .controller('uploadVideoController', ['$uibModalInstance', 'itemId', 'url', '$scope', '$http', 'ToastService', 'callBackFunction','$localStorage', uploadVideoController])
 
-    function uploadVideoController($uibModalInstance, itemId, url, $scope, $http, ToastService, callBackFunction) {
+    function uploadVideoController($uibModalInstance, itemId, url, $scope, $http, ToastService, callBackFunction,$localStorage) {
         var vm = this;
         $scope.LoadUploadVideo = function () {
             $("#file").click();
@@ -186,13 +186,12 @@
         };
 
         $scope.uploadChunkApi = function ({ id, ...data }) {
-            
-
             return $http({
                 method: 'POST',
                 url: url, 
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + $localStorage.authInfo
                 },
                 data: data,
             });
