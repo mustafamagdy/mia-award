@@ -198,7 +198,8 @@ namespace MIA.ORMContext.Seed {
           UserName = Constants.ADMIN_USERNAME,
           NormalizedEmail = Constants.ADMIN_EMAIL.ToUpper(),
           NormalizedUserName = Constants.ADMIN_USERNAME.ToUpper(),
-          ProfileImage = S3File.FromKeyAndUrl("", "")
+          ProfileImage = S3File.FromKeyAndUrl("", ""),
+          LockoutEnabled = false
         };
 
         IdentityResult result = await userManager.CreateAsync(admin, Constants.ADMIN_PASSWORD);

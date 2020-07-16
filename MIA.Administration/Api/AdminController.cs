@@ -425,5 +425,24 @@ namespace MIA.Administration.Api {
       return IfFound(users.MapTo<ProfileDto>());
     }
 
+    [HttpPost("user/{userId}/toggle")]
+    [HasPermission(Permissions.UserEdit)]
+    public async Task<IActionResult> ToggleUserStatus([FromRoute] string userId,
+      [FromServices] IAppUnitOfWork db,
+      [FromServices] UserManager<AppUser> userManager) {
+      var user = await db.Users.FindAsync(userId);
+      if (user == null) {
+        throw new ApiException(ApiErrorType.NotFound, "user not found");
+      }
+      if (user.UserName.ToLower() == "admin") {
+        throw new ApiException(ApiErrorType.BadRequest, "Admin user cannot be modified");
+      }
+
+      user.Active = !user.Active;
+      await userManager.UpdateAsync(user);
+
+      return Ok();
+    }
+
   }
 }
