@@ -1,14 +1,14 @@
 import React from "react";
 import { LanguageContext } from "containers/Providers/LanguageProvider";
-
+import { NavLink } from "react-router-dom";
 const ArtWork = ({ artWork, ...props }) => {
   return (
     <LanguageContext.Consumer>
       {({ locale }) => (
         <div className="item">
           <div className="imgthumb">
-            <a
-              href={
+            <NavLink
+              to={
                 artWork.awardType == "person"
                   ? `/members/contestant/${artWork.id}`
                   : `/members/artwork/${artWork.id}`
@@ -33,7 +33,7 @@ const ArtWork = ({ artWork, ...props }) => {
                   </>
                 </div>
               </div>
-            </a>
+            </NavLink>
           </div>
         </div>
       )}
