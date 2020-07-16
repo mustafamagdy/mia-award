@@ -15,6 +15,21 @@ const initialState = {
   submitting: false,
 };
 
+const resetAll = (state, action) => {
+  return produce(state, (draft) => {
+    draft.myAwards = [];
+    draft.myAwardsLoaded = false;
+    draft.myArtworks = [];
+    draft.myArtworksLoaded = false;
+    draft.artwork = undefined;
+    draft.artworkMode = "add";
+    draft.myContestants = [];
+    draft.contestant = undefined;
+    draft.contestantMode = "add";
+    draft.submitting = false;
+  });
+};
+
 const fetchMyAwardsSuccess = (state, action) => {
   return produce(state, (draft) => {
     draft.myAwardsLoaded = true;
@@ -121,6 +136,7 @@ const removeFileSuccess = (state, action) => {
 };
 
 export const reducer = createReducer(initialState, {
+  [ActionTypes.RESET]: resetAll,
   [ActionTypes.FETCH_MY_AWARDS_SUCCESS]: fetchMyAwardsSuccess,
   [ActionTypes.FETCH_MY_ARTWORKS_SUCCESS]: fetchMyArtworksSuccess,
   [ActionTypes.ADD_NEW_ARTWORK]: addNewArtwork,

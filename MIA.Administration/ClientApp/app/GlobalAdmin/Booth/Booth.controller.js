@@ -29,14 +29,16 @@
     vm.currentPage = 1;
     vm.appCONSTANTS = appCONSTANTS;
     vm.showDetails = false;
+    vm.filterBy = "";
 
-    refreshBooths();
-    function refreshBooths() {
+
+    vm.refreshBooths = function() {
       blockUI.start("Loading...");
 
       var k = BoothResource.getAllBooths({
         pageNumber: vm.currentPage,
         pageSize: 10,
+        code: vm.filterBy,
       }).$promise.then(
         function (results) {
           $scope.BoothList = results.items;
@@ -50,6 +52,9 @@
       );
     }
 
+    vm.refreshBooths();
+
+    
     vm.showMore = function (element, booth) {
       // $(element.currentTarget).toggleClass("child-table-collapse");
 
@@ -58,7 +63,7 @@
         controller: [
           "$scope",
           function (_scope) {
-              debugger;
+            debugger;
             _scope.purchases = booth.boothPurchase;
             _scope.boothCode = booth.code;
             _scope.cancel = function () {
@@ -73,7 +78,7 @@
       var updateObj = new BoothResource();
       updateObj.$delete({ id: model.id }).then(
         function (data, status) {
-          refreshBooths();
+          vm.refreshBooths();
           ToastService.show(
             "right",
             "bottom",
@@ -148,7 +153,7 @@
 
     vm.changePage = function (page) {
       vm.currentPage = page;
-      refreshBooths();
+      vm.refreshBooths();
     };
   }
 })();

@@ -13,10 +13,10 @@
                 }
             }
         })
-        .controller('UploaderController', ['$scope', '$translate', 'blockUI', '$http', 'appCONSTANTS', 'ArtWorkMediaResource', 'ToastService', UploaderController])
+        .controller('UploaderController', ['$scope', '$translate', 'blockUI', '$http', 'appCONSTANTS', 'ArtWorkMediaResource', 'ToastService','$localStorage', UploaderController])
 
     function UploaderController($scope, $translate, blockUI, $http, appCONSTANTS,
-        ArtWorkMediaResource, ToastService) {
+        ArtWorkMediaResource, ToastService,$localStorage) {
         var vm = this;
         const sliceSize = 5 * 1024 * 1024; // Send 5MB Chunks
         var url;
@@ -103,7 +103,8 @@
                 method: 'POST',
                 url: url,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + $localStorage.authInfo
                 },
                 data: data,
             });

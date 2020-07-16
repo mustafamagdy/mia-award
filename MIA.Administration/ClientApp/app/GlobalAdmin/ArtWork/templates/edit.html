@@ -206,7 +206,7 @@
 
                 <div class="bottom_upload">
                     <div class="upload_input">
-                        <input type="file" id="traillerUploder" name="file" style="display: none;" accept="video/*"
+                        <input type="file" id="traillerUploder" name="file" style="display: none;" accept=".mp4,.ogg,.webM"
                             onchange="angular.element(this).scope().getFileDetails(this)" />
                         <button class="buttonGold"
                             ng-click="editArtWorkCtrl.LoadUploadTrailler()">{{'UploadVideo' | translate}}</button>

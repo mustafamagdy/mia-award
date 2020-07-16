@@ -2,9 +2,9 @@
 	'use strict';
 	angular
 		.module('home')
-		.controller('uploadVideoDialogController', ['itemId', 'callBackFunction', uploadVideoDialogController])
+		.controller('uploadVideoDialogController', ['itemId', 'callBackFunction','$localStorage', uploadVideoDialogController])
 
-	function uploadVideoDialogController(itemId, callBackFunction) {
+	function uploadVideoDialogController(itemId, callBackFunction,$localStorage) {
 		$scope.uploadVideo = function () {
 			const file = $('#file').get(0).files[0];
 			$scope.processFile(file);
@@ -75,7 +75,8 @@
 				method: 'POST',
 				url: appCONSTANTS.API_URL + + `/test/artwork/${id}/files`,
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					'Authorization': 'Bearer ' + $localStorage.authInfo
 				},
 				data: data,
 			});

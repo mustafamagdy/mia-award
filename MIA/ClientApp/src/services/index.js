@@ -40,20 +40,20 @@ const create = (baseURL = apiURI) => {
     }
   });
   api.addResponseTransform((response) => {
-    if (
-      response.status &&
-      (response.status === 401 || response.status === 403)
-    ) {
-      localStorage.removeItem("jwtToken");
-      if (
-        response.config.url &&
-        response.config.url.toLowerCase() == "auth/login-nominee"
-      ) {
-        //do nothing
-      } else {
-        history.push("/");
-      }
-    }
+    // if (
+    //   response.status &&
+    //   (response.status === 401 || response.status === 403)
+    // ) {
+    //   localStorage.removeItem("jwtToken");
+    //   if (
+    //     response.config.url &&
+    //     response.config.url.toLowerCase() == "auth/login-nominee"
+    //   ) {
+    //     //do nothing
+    //   } else {
+    //     history.push("/");
+    //   }
+    // }
   });
   const app = appApi(api);
   const accounts = accountsApi(api);

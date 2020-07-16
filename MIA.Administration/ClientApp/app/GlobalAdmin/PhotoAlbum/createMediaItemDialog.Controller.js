@@ -17,6 +17,7 @@
       "PhotoAlbumResource",
       "ToastService",
       "$rootScope",
+      '$localStorage',
       createMediaItemController,
     ]);
 
@@ -33,7 +34,8 @@
     $translate,
     PhotoAlbumResource,
     ToastService,
-    $rootScope
+    $rootScope,
+    $localStorage
   ) {
     var vm = this;
     vm.language = appCONSTANTS.supportedLanguage;
@@ -345,6 +347,7 @@
         url: url,
         headers: {
           "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + $localStorage.authInfo
         },
         data: data,
       });

@@ -17,7 +17,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
 using MIA.Authorization.Attributes;
 using MIA.Authorization.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -46,8 +48,13 @@ namespace MIA.Administration.Api {
     }
 
     [HasPermission(Permissions.BoothRead)]
-    public override Task<IActionResult> Search(BaseSearchDto dto, IAppUnitOfWork db) {
-      return base.Search(dto, db);
+    [HttpPost("filterBy")]
+    public async Task<IActionResult> FilterBy([FromBody]FilterBoothDto dto, [FromServices] IAppUnitOfWork db) {
+      var result = await db.Booths
+        .Where(a => dto.Code == "" || a.Code.ToLower().Contains(dto.Code.ToLower()))
+        .ProjectTo<BoothsDto>(_mapper.ConfigurationProvider)
+        .ToPagedListAsync(dto);
+      return Ok(result);
     }
 
     [HasPermission(Permissions.BoothAddNew)]
@@ -167,4 +174,7 @@ namespace MIA.Administration.Api {
     }
   }
 
+  public class FilterBoothDto : BaseSearchDto {
+    public string Code { get; set; }
+  }
 }
