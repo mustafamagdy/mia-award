@@ -2,6 +2,7 @@ import { createActions } from "utils/reduxsauce";
 
 const { Types, Creators } = createActions(
   {
+    reset: { args: [] },
     fetchMyAwards: { args: [], meta: { async: true } },
     fetchMyArtworks: { args: [], meta: { async: true } },
     addNewArtwork: { args: ["payload"], meta: { async: true } },
@@ -14,10 +15,10 @@ const { Types, Creators } = createActions(
     editArtwork: {},
     switchToView: {},
     publishArtwork: { args: ["payload"], meta: { async: true } },
-    removeArtworkFile: { args: ["payload"], meta: { async: true } }
+    removeArtworkFile: { args: ["payload"], meta: { async: true } },
   },
   {
-    prefix: "@app/members/"
+    prefix: "@app/members/",
   }
 );
 
