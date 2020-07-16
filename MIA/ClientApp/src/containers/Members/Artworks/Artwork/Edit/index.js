@@ -34,17 +34,6 @@ const EditArtwork = ({
   });
 
   useEffect(() => {
-    if (artwork) {
-      const { awardType } = artwork;
-      if (awardType && awardType == "artwork") {
-        setTabs(["info", "trailer"]);
-      } else {
-        setTabs(["info"]);
-      }
-    }
-  }, [artwork]);
-
-  useEffect(() => {
     if (!!id) {
       fetchArtworkWithDetails(id);
     }
@@ -54,16 +43,16 @@ const EditArtwork = ({
     if (artwork !== undefined) {
       const { canUploadFiles, uploadComplete, awardType } = artwork;
 
-      //allow upoad files tab only if he can upload files, and files upload didn;t marked as complete
-      if (
-        tabs.indexOf("files") === -1 &&
-        canUploadFiles &&
-        !uploadComplete &&
-        awardType == "artwork"
-      ) {
-        const t = [...tabs];
-        t.push("files");
-        setTabs(t);
+      if (awardType == "artwork") {
+        const _tabs = [...tabs];
+        if(_tabs.indexOf('trailer') === -1) {
+          _tabs.push('trailer');
+        }
+        //allow upoad files tab only if he can upload files, and files upload didn;t marked as complete
+        if (_tabs.indexOf("files") === -1 && canUploadFiles && !uploadComplete) {
+          _tabs.push("files");
+          setTabs(_tabs);
+        }
       }
 
       setArtworkPosterStyle({
@@ -72,7 +61,9 @@ const EditArtwork = ({
         }') scroll no-repeat top center/cover`,
       });
     }
+  }, [artwork]);
 
+  useEffect(() => {
     const tabKey = new URLSearchParams(search).get("tabKey");
     if (tabKey != undefined && tabKey !== activeTabKey) {
       setActiveTabKey(tabKey);
@@ -83,7 +74,7 @@ const EditArtwork = ({
     } else if (tabKey == activeTabKey) {
       setActiveIndex(tabs.indexOf(tabKey));
     }
-  }, [artwork, tabs, search]);
+  }, [tabs, search]);
 
   const handleActiveTab = (tabKey) => {
     // setActiveTabKey(tabKey);

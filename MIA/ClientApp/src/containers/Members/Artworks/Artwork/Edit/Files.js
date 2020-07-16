@@ -11,26 +11,19 @@ const Files = ({ active, artwork, removeArtworkFile }, props) => {
   return (
     <div className={classNames("tab_content tab_upload_videos", { active })}>
       <div className="uploads_area">
-        {/* <div className="top_upload">
-          <div className="submit">
-            <button type="submit">Submit</button>
-          </div>
-        </div> */}
         <div className="bottom_upload">
           <div className="upload_input">
             <form action="#">
               <UploadDropZone
                 minSize={5} //minimum 5 mb for chunk uploader
                 setFiles={setFiles}
-                // setProgress={setProgress}
-                // accept="video/*"
                 className="upload_now"
                 iconClass="icofont-upload-alt"
                 message="Drag files to upload"
                 multiple={true}
                 inputContent="Drop Files (Custom Preview)"
                 style={{ width: "100%", height: "100%" }}
-                extensions={config.uploadFileExtension}
+                extensions={config.uploadVideoFileExtension}
                 accept={config.validationRules.videoFiles}
               />
               {/* <span>Choose Files</span> */}
