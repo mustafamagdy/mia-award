@@ -1,29 +1,12 @@
 import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import UploadDropZone from "components/Forms/UploadDropZone";
-import { Uploader, ProgressBar } from "components/Forms";
+import { Uploader } from "components/Forms";
 import config from "config";
 import { File } from "../View/Files";
-
-const UploadingProgress = ({ progress, file, props }) => {
-  return (
-    <div className="item">
-      <div className="name">
-        <span>{file.name}</span>
-        <p>{Math.trunc(file.size / 1024 / 1024)} Mb</p>
-      </div>
-      <div className="bar_area">
-        <ProgressBar progress={progress} />
-      </div>
-      <div className="progress_number">
-        Uploading <p>{Math.trunc(progress)}%</p> done
-      </div>
-    </div>
-  );
-};
+import UploadingProgress from "./UploadingProgress";
 
 const Files = ({ active, artwork, removeArtworkFile }, props) => {
-  
   const [files, setFiles] = useState([]);
   return (
     <div className={classNames("tab_content tab_upload_videos", { active })}>
