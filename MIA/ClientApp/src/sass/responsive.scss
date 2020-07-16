@@ -564,6 +564,7 @@
       } /* news_single */
       #show_all {
         .show_slider {
+          display: none;
           .container {
             width: auto;
             padding: 100px 15px 60px;
@@ -1142,6 +1143,11 @@
   #show_inner .show_inner_one .container .show_info .show_details .desc .name {
     font-size: 15px;
   }
+  #show_all
+    .slider_area
+    {
+      display: none;
+    }
   #show_all
     .show_slider
     .container
