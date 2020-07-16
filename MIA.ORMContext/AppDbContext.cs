@@ -1,4 +1,5 @@
-﻿using MIA.Authorization.Entities;
+﻿using Bogus.Extensions;
+using MIA.Authorization.Entities;
 using MIA.Models.Entities;
 using MIA.ORMContext.ValueConverters;
 using MIA.ORMContext.ValueGenerators;
@@ -42,6 +43,7 @@ namespace MIA.ORMContext {
       builder.Entity<AppUser>().Property(x => x.Id).HasValueGenerator<SeqIdValueGenerator>().ValueGeneratedOnAdd();
       builder.Entity<AppUser>().Property(x => x.FullName).IsUnicode(true).HasMaxLength(Constants.MAX_100);
       builder.Entity<AppUser>().OwnsOne(x => x.ProfileImage);
+      builder.Entity<AppUser>().Property(x => x.Active).HasDefaultValue(true);
 
       builder.Entity<AppUser>().Property(x => x.Id).HasValueGenerator<SeqIdValueGenerator>().ValueGeneratedOnAdd();
 

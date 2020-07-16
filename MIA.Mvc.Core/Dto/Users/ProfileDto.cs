@@ -11,5 +11,6 @@ namespace MIA.Administration.Api {
     public PhoneNumber MobileNumber { get; set; }
     public Gender Gender { get; set; }
     public string ImageUrl { get; set; }
+    public bool Active { get; set; }
   }
 }

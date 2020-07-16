@@ -53,7 +53,7 @@ namespace MIA.Api {
       }
 
       bool canSignIn = await signInManager.CanSignInAsync(user);
-      if (!canSignIn) {
+      if (!canSignIn || !user.Active) {
         throw new ApiException(ApiErrorType.Forbidden, "User cannot login");
       }
 

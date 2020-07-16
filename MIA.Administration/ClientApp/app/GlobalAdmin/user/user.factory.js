@@ -12,6 +12,7 @@
             update: { method: 'PUT', url: appCONSTANTS.API_URL + 'admin/user/:userId', useToken: true },
             createOperationUser: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/CreateOperationUser/:userType', useToken: true },
             getUser: { method: 'GET', url: appCONSTANTS.API_URL + 'admin/user/:userId', useToken: true },
+            toggleStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'admin/user/:userId/toggle', useToken: true },
             changeStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/ChangeStatus/:userId', useToken: true },
             changeRole: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/MoveToAdminRole/:userType/:userId', useToken: true },
             getUserRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/RoleForUser/:userId', useToken: true},

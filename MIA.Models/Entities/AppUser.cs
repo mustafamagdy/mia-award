@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace MIA.Models.Entities {
   public class AppUser : IdentityUser<string> {
+    public bool Active { get; set; }
     public string FullName { get; set; }
     public string Address { get; set; }
     //public UserImage AvatarImage { get; set; }
