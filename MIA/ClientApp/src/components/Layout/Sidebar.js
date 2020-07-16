@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import appActions from "store/app/actions";
-import config from 'config';
+import config from "config";
 import LanguageSelect from "./LanguageSelect";
 import { NavLink } from "react-router-dom";
 
@@ -11,7 +11,12 @@ import { NavLink } from "react-router-dom";
 // import "sass/modals/search.scss";
 // import "sass/modals/share_sidebar.scss";
 
-const Sidebar = ({ toggleSidebar, toggleSearchForm, toggleShareSidebar, ...props }) => {
+const Sidebar = ({
+  toggleSidebar,
+  toggleSearchForm,
+  toggleShareSidebar,
+  ...props
+}) => {
   return (
     <section id="main_sidebar">
       <div className="logo">
@@ -33,18 +38,18 @@ const Sidebar = ({ toggleSidebar, toggleSearchForm, toggleShareSidebar, ...props
       </div>
       <LanguageSelect />
       <div className="social_media">
-        <NavLink to={config.social.fb} target="_blank">
+        <a href={config.social.fb} target="_blank">
           <i className="icofont-facebook"></i>
-        </NavLink>
-        <NavLink to={config.social.tw} target="_blank">
+        </a>
+        <a href={config.social.tw} target="_blank">
           <i className="icofont-twitter"></i>
-        </NavLink>
-        <NavLink to={config.social.in} target="_blank">
+        </a>
+        <a href={config.social.in} target="_blank">
           <i className="icofont-instagram"></i>
-        </NavLink>
-        <NavLink to={config.social.yt} target="_blank">
+        </a>
+        <a href={config.social.yt} target="_blank">
           <i className="icofont-youtube"></i>
-        </NavLink>
+        </a>
       </div>
       <div className="share_site" onClick={toggleShareSidebar}>
         <span>
@@ -55,5 +60,6 @@ const Sidebar = ({ toggleSidebar, toggleSearchForm, toggleShareSidebar, ...props
   );
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ ...appActions }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...appActions }, dispatch);
 export default connect(null, mapDispatchToProps)(Sidebar);
