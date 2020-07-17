@@ -35,13 +35,14 @@ namespace MIA.ORMContext.Seed {
 
       await SeedDefaultSystemOptions(db);
       await SeedDefaultRoles(roleManager, db);
-      
+
       await SeedRole_Admin_Permissions(roleManager, db);
       await SeedRole_BoothAgent_Permissions(roleManager, userManager, db);
       await SeedRole_Filter_Permissions(roleManager, userManager, db);
       await SeedRole_Judge_Permissions(roleManager, userManager, db);
       await SeedRole_JudgeManager_Permissions(roleManager, userManager, db);
-
+      await SeedRole_Nominee_Permissions(roleManager, userManager, db);
+      
       await SeedAdminUserAsync(userManager, db);
 
       if (Directory.Exists("./seed")) {
@@ -189,6 +190,26 @@ namespace MIA.ORMContext.Seed {
         }
       });
     }
+
+    private static async Task SeedRole_Nominee_Permissions(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IAppUnitOfWork db) {
+
+      var filterAndUploadRole = await roleManager.FindByNameAsync(PredefinedRoles.Nominee.ToString());
+      if (filterAndUploadRole.Permissions == null) {
+        filterAndUploadRole.Permissions = "";
+      }
+
+      Permissions[] permissions = new Permissions[]
+      {
+        Permissions.NomineeAccess,
+      };
+
+      permissions.ForEach(m => {
+        if (!filterAndUploadRole.Permissions.Contains((char)m)) {
+          filterAndUploadRole.Permissions += (char)m;
+        }
+      });
+    }
+
 
     private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager, IAppUnitOfWork db) {
       if (await userManager.FindByNameAsync(Constants.ADMIN_USERNAME) == null) {
