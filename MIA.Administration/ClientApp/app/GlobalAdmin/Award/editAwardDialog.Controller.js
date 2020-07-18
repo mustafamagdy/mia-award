@@ -15,6 +15,7 @@
       "AwardResource",
       "ToastService",
       "AwardDetailsByAwardIdPrepService",
+      "ListAllUsersPrepService",
       editAwardDialogController,
     ]);
 
@@ -29,11 +30,12 @@
     $translate,
     AwardResource,
     ToastService,
-    AwardDetailsByAwardIdPrepService
+    AwardDetailsByAwardIdPrepService,
+    ListAllUsersPrepService
   ) {
     var vm = this;
 
-    vm.ManagerList = [];
+    vm.ManagerList = ListAllUsersPrepService;
     vm.selectedManager = "";
 
     vm.language = appCONSTANTS.supportedLanguage;
@@ -189,8 +191,6 @@
     function refreshJudgess() {
       var k = AwardResource.getAllJudges().$promise.then(
         function (results) {
-          //vm.judgesLevel1List = angular.copy(results); //[...results];
-          //vm.judgesLevel2List = angular.copy(results);
           vm.judgesLevel1List = results.map((a) => ({
             ...a,
             isSelected:
@@ -205,36 +205,8 @@
                 (x) => x.level == "level2" && x.judgeId == a.id
               ) != undefined,
           }));
-          debugger;
-          vm.ManagerList = angular.copy(results);
+          
           blockUI.stop();
-
-          //   if (vm.Award.level1Judges != null) {
-          //     var i;
-          //     for (i = 0; i < vm.Award.level1Judges.length; i++) {
-          //       var index = vm.judgesLevel1List.indexOf(
-          //         $filter("filter")(
-          //           vm.judgesLevel1List,
-          //           { id: vm.Award.level1Judges[i].judgeId },
-          //           true
-          //         )[0]
-          //       );
-          //       vm.judgesLevel1List[index].isSelected = true;
-          //     }
-          //   }
-          //   if (vm.Award.level2Judges != null) {
-          //     var i;
-          //     for (i = 0; i < vm.Award.level2Judges.length; i++) {
-          //       var index = vm.judgesLevel2List.indexOf(
-          //         $filter("filter")(
-          //           vm.judgesLevel2List,
-          //           { id: vm.Award.level2Judges[i].judgeId },
-          //           true
-          //         )[0]
-          //       );
-          //       vm.judgesLevel2List[index].isSelected = true;
-          //     }
-          //   }
           var index = vm.ManagerList.indexOf(
             $filter("filter")(
               vm.ManagerList,

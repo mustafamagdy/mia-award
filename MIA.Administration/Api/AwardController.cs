@@ -90,13 +90,13 @@ namespace MIA.Administration.Api {
       //AwardsItem.Level2Judges.CopyTo(deleteJudgesLevel2, 0);
 
       foreach (var item in dto.RemoveLevel2Judges) {
-        var entity = db.Set<JudgeAward>().FirstOrDefault(a => a.JudgeId == item && a.AwardId == dto.Id&& a.Level == JudgeLevel.Level2);
+        var entity = db.Set<JudgeAward>().FirstOrDefault(a => a.JudgeId == item && a.AwardId == dto.Id && a.Level == JudgeLevel.Level2);
         if (entity != null)
           db.Set<JudgeAward>().Remove(entity);
       }
 
       foreach (var item in dto.AddLevel2Judges) {
-        if (!AwardsItem.AllJudges.Any(x => x.JudgeId  == item && x.AwardId == dto.Id && x.Level == JudgeLevel.Level2)) {
+        if (!AwardsItem.AllJudges.Any(x => x.JudgeId == item && x.AwardId == dto.Id && x.Level == JudgeLevel.Level2)) {
           await db.JudgeAwards.AddAsync(new JudgeAward {
             JudgeId = item,
             AwardId = AwardsItem.Id,
@@ -114,7 +114,7 @@ namespace MIA.Administration.Api {
 
       return IfFound(_mapper.Map<AwardDto>(AwardsItem));
     }
-   
+
     [HttpGet("getAwardDetails")]
     [HasPermission(Permissions.ReadAward)]
     public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
@@ -143,6 +143,13 @@ namespace MIA.Administration.Api {
         throw new ApiException(ApiErrorType.NotFound, "judges not found");
       }
       return IfFound(judges.MapTo<JudgeDto>());
+    }
+
+    [HttpGet("all-users")]
+    [HasPermission(Permissions.ManageJudges)]
+    public async Task<IActionResult> ListOfAllUsersForJudgeManagerDropdown([FromServices] IAppUnitOfWork db) {
+      var users = await db.Users.ProjectTo<UserIdFullNameDto>(_mapper.ConfigurationProvider).ToListAsync();
+      return IfFound(users);
     }
 
     [HttpPost("awardsByType")]

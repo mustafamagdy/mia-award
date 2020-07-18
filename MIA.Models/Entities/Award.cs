@@ -16,7 +16,7 @@ namespace MIA.Models.Entities {
 
     public AwardType AwardType { get; set; }
 
-    public Judge Manager { get; set; }
+    public AppUser Manager { get; set; }
     public string ManagerId { get; set; }
 
     public HashSet<JudgeAward> AllJudges { get; set; }

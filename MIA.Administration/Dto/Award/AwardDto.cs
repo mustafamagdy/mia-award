@@ -15,7 +15,7 @@ namespace MIA.Administration.Dto.Award {
     public string TrophyUrl { get; set; }
     // public TrophyImage Trophy { get; set; }
     //public string TrophyId { get; set; }
-    public JudgeDto Manager { get; set; }
+    public UserIdFullNameDto Manager { get; set; }
     public string ManagerId { get; set; }
   }
 

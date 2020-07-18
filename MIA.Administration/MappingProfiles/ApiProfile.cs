@@ -283,6 +283,10 @@ namespace MIA.Administration.MappingProfiles {
       CreateMap<AppUser, UserBasicDataDto>()
         .IncludeAllDerived();
 
+      CreateMap<AppUser, UserIdFullNameDto>()
+        .IncludeAllDerived()
+        .ValidateMemberList(MemberList.None);
+      
       CreateMap<AppUser, UserWithRolesDto>()
         .IncludeBase<AppUser, UserBasicDataDto>()
         .ForMember(a => a.Roles, n => n.Ignore())
