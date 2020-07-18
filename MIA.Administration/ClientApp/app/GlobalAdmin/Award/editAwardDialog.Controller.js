@@ -15,6 +15,7 @@
       "AwardResource",
       "ToastService",
       "AwardDetailsByAwardIdPrepService",
+      "ListAllUsersPrepService",
       editAwardDialogController,
     ]);
 
@@ -29,11 +30,12 @@
     $translate,
     AwardResource,
     ToastService,
-    AwardDetailsByAwardIdPrepService
+    AwardDetailsByAwardIdPrepService,
+    ListAllUsersPrepService
   ) {
     var vm = this;
 
-    vm.ManagerList = [];
+    vm.ManagerList = ListAllUsersPrepService;
     vm.selectedManager = "";
 
     vm.language = appCONSTANTS.supportedLanguage;
@@ -203,8 +205,6 @@
                 (x) => x.level == "level2" && x.judgeId == a.id
               ) != undefined,
           }));
-          
-          vm.ManagerList = angular.copy(results);
           
           blockUI.stop();
           var index = vm.ManagerList.indexOf(

@@ -17,6 +17,7 @@
             changeRole: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/MoveToAdminRole/:userType/:userId', useToken: true },
             getUserRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Role/RoleForUser/:userId', useToken: true},
             refreshLogin: { method: 'POST', url: appCONSTANTS.API_URL + 'Account/RefreshLogin', useToken: true },
+            allUsersForDropdown: { method: 'GET', url: appCONSTANTS.API_URL + 'awards/all-users', isArray: true, useToken: true },
         })
     }
 

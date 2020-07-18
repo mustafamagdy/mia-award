@@ -33,6 +33,7 @@
         controllerAs: "editAwardCtrl",
         resolve: {
           AwardDetailsByAwardIdPrepService: AwardDetailsByAwardIdPrepService,
+          ListAllUsersPrepService: ListAllUsersPrepService,
         },
         data: {
           permissions: {
@@ -65,5 +66,10 @@
   AwardDetailsByAwardIdPrepService.$inject = ["AwardResource", "$stateParams"];
   function AwardDetailsByAwardIdPrepService(AwardResource, $stateParams) {
     return AwardResource.getAwardDetails({ id: $stateParams.id }).$promise;
+  }
+
+  ListAllUsersPrepService.$inject = ["UserResource", "$stateParams"];
+  function ListAllUsersPrepService(UserResource, $stateParams) {
+    return UserResource.allUsersForDropdown().$promise;
   }
 })();

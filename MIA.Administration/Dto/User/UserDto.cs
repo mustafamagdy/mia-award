@@ -37,6 +37,12 @@ namespace MIA.Administration.Dto.User {
     public S3File ProfileImage { get; set; }
   }
 
+  public class UserIdFullNameDto
+  {
+    public string Id { get; set; }
+    public string FullName { get; set; }
+  }
+
   public class UserUpdateDto : UserBasicDataDto {
     public string Password { get; set; }
   }
