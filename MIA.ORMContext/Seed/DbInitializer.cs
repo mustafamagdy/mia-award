@@ -578,6 +578,7 @@ namespace MIA.ORMContext.Seed {
           foreach (JToken j in array) {
             var item = new VotingCriteria {
               Code = ((JValue)j["Code"]).Value<string>(),
+              Group = ((JValue)j["Group"]).Value<string>(),
               Name = ((JValue)j["Name"]).Value<string>(),
               Level = (JudgeLevel)((JValue)j["Level"]).Value<int>(),
               Weight = ((JValue)j["Weight"]).Value<decimal>(),
