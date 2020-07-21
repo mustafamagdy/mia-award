@@ -105,15 +105,23 @@ msgstr "سعر الاشتراك"
 msgid "any_year"
 msgstr "أي عام"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:114
+msgid "apply_for_artwork_award"
+msgstr "تقدم لجائزة البرامج المرئية"
+
 #: src/containers/Pages/Award/index.js:64
 msgid "apply_for_award"
 msgstr "قدم أعمالك"
 
-#: src/containers/Home/Awards.js:30
-msgid "apply_for_your_award"
-msgstr "التقدم للجائزة"
+#: src/containers/App/TransKeysNotFoundInJsx.js:115
+msgid "apply_for_person_award"
+msgstr "تقدم لجائزة فردية"
 
-#: src/containers/Home/Awards.js:109
+#: src/containers/Home/Awards.js:30
+#~ msgid "apply_for_your_award"
+#~ msgstr "التقدم للجائزة"
+
+#: src/containers/Home/Awards.js:136
 msgid "apply_now"
 msgstr "التقدم الآن"
 
@@ -486,7 +494,7 @@ msgstr "راعي ذهبي"
 #~ msgid "hijri"
 #~ msgstr "هجري"
 
-#: src/containers/Home/Awards.js:33
+#: src/containers/Home/Awards.js:58
 msgid "home_general_award_text"
 msgstr "انطلاقاً من احترامنا لكل التوجهات و الأذواق ، فقد حرصت MIA على جمع كل أنواع الأعمال الإعلامية وحصرها في ثلاث فئات، وتقدم MIA جوائزها المطلية بالذهب الخالص تحفيزاً للمتنافسين على تقديم أفضل ما لديهم، وفيما يلي فئات الجائزة"
 
@@ -1113,7 +1121,7 @@ msgstr "قياسية"
 #~ msgid "stars"
 #~ msgstr ""
 
-#: src/containers/Home/Awards.js:36
+#: src/containers/Home/Awards.js:61
 msgid "start_from"
 msgstr "البدء من"
 
@@ -1153,7 +1161,7 @@ msgstr "اليوم الثالث"
 #~ msgid "ticket_desc"
 #~ msgstr ""
 
-#: src/containers/Home/Awards.js:38
+#: src/containers/Home/Awards.js:63
 msgid "to"
 msgstr "إلى"
 

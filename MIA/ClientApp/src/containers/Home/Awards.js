@@ -12,64 +12,91 @@ import Swiper from "react-id-swiper";
 import "swiper/css/swiper.css";
 import { NavLink } from "react-router-dom";
 
-const AwardsSlider = ({ awards, ...props }) => {
+const _AwardSliderSection = ({ awards, type,direction, ...props }) => {
   useEffect(() => {
-    setActiveKey(awards[0] && awards[0].code);
-    setAwardsInSlider(awards);
-  }, [awards]);
+    const _awards = awards && awards.filter((a) => a.awardType == type);
+    setActiveKey(_awards[0] && _awards[0].code);
+    setAwardsInSlider(_awards);
+  }, [awards, type]);
 
   const [activeKey, setActiveKey] = useState("");
   const [awardsInSlider, setAwardsInSlider] = useState([]);
   const [animateClass, setAnimateClass] = useState("");
   const [swiper, setSwiper] = useState(null);
+
   return (
-    <div id="apply_award">
-      <div className="container">
-        <div className="award_txt">
-          <span>
-            <Trans id="apply_for_your_award">apply for your award</Trans>
-          </span>
-          <p>
-            <Trans id="home_general_award_text"></Trans>
-          </p>
-          <time>
-            <Trans id="start_from">starts from{"  "}</Trans>
-            <i>{config.awardDetails.startDate}</i>
-            <Trans id="to">
-              {"  "}to{"  "}
-            </Trans>
-            <i>{config.awardDetails.endDate}</i>
-          </time>
-          {/* <a href="#" title="#">
-            <Trans id="view_all">view all</Trans>
-          </a> */}
-        </div>
-        <div className="award_slider">
-          <div className="slides_items">
-            {awardsInSlider.length ? (
-              <Awards
-                awards={awardsInSlider}
-                activeKey={activeKey}
-                animateClass={animateClass}
-                setSwiper={setSwiper}
-              />
-            ) : null}
-          </div>
-          <div className="slider_nav">
-            <button type="button" className="arrow_prev" id="prev_award">
-              <i className="icofont-simple-left"></i>
-            </button>
-            <button type="button" className="arrow_next" id="next_award">
-              <i className="icofont-simple-right"></i>
-            </button>
-          </div>
-        </div>
+    <div className="award_slider">
+      <div className="slides_items">
+        {awardsInSlider.length ? (
+          <Awards
+            type={type}
+            awards={awardsInSlider}
+            activeKey={activeKey}
+            animateClass={animateClass}
+            setSwiper={setSwiper}
+          />
+        ) : null}
+      </div>
+      <div className={classNames("slider_nav", { mirrord: direction == "right" })}>
+        <button type="button" className="arrow_prev" id={`prev_${type}_award`}>
+          <i className="icofont-simple-left"></i>
+        </button>
+        <button type="button" className="arrow_next" id={`next_${type}_award`}>
+          <i className="icofont-simple-right"></i>
+        </button>
       </div>
     </div>
   );
 };
+const _AwardSliderText = ({ type, ...props }) => {
+  return (
+    <div className="award_txt">
+      <span>
+        <Trans id={`apply_for_${type}_award`}>apply for your award</Trans>
+      </span>
+      <p>
+        <Trans id="home_general_award_text"></Trans>
+      </p>
+      <time>
+        <Trans id="start_from">starts from{"  "}</Trans>
+        <i>{config.awardDetails.startDate}</i>
+        <Trans id="to">
+          {"  "}to{"  "}
+        </Trans>
+        <i>{config.awardDetails.endDate}</i>
+      </time>
+    </div>
+  );
+};
 
-const Awards = ({ awards, activeKey, animateClass, setSwiper }) => {
+const AwardsSlider = ({ awards, type, direction, ...props }) => {
+  const [parts, setParts] = useState([]);
+
+  useLayoutEffect(() => {
+    const _parts = [];
+    if (direction == "left") {
+      _parts.push(
+        <_AwardSliderSection awards={awards} type={type} direction={direction} {...props} />
+      );
+      _parts.push(<_AwardSliderText type={type} />);
+    } else {
+      _parts.push(<_AwardSliderText type={type} />);
+      _parts.push(
+        <_AwardSliderSection awards={awards} type={type} direction={direction} {...props} />
+      );
+    }
+
+    setParts([..._parts]);
+  }, [awards, direction]);
+
+  return (
+    <div id="apply_award">
+      <div className="container">{parts}</div>
+    </div>
+  );
+};
+
+const Awards = ({ awards, type, activeKey, animateClass, setSwiper }) => {
   const params = {
     slidesPerView: 1,
     spaceBetween: 0,
@@ -87,8 +114,8 @@ const Awards = ({ awards, activeKey, animateClass, setSwiper }) => {
       },
     },
     navigation: {
-      nextEl: "#next_award",
-      prevEl: "#prev_award",
+      nextEl: `#next_${type}_award`,
+      prevEl: `#prev_${type}_award`,
     },
   };
   return (

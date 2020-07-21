@@ -16,7 +16,7 @@
 
     .award_txt {
       width: 40%;
-      padding: 30px 40px 0 0;
+      padding: 30px 40px 0px 50px;
       position: relative;
       z-index: 9;
 
@@ -274,6 +274,10 @@
         top: 30px;
         z-index: 10;
         right: 20px;
+        &.mirrord {
+          left: 20px;
+        }
+
         display: flex;
 
         button {
@@ -319,7 +323,7 @@ body[dir="rtl"] {
       padding: 60px 25px 60px 0;
 
       .award_txt {
-        padding: 0 0 0 40px;
+        padding: 0 20px 0 40px;
 
         span {
           font-family: Tajawal_Bold;
@@ -363,7 +367,10 @@ body[dir="rtl"] {
         .slider_nav {
           left: 20px;
           right: auto;
-
+          &.mirrord {
+            left: auto;
+            right: 20px;
+          }
           button {
             -webkit-transform: rotate(180deg);
             -moz-transform: rotate(180deg);

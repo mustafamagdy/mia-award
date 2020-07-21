@@ -111,6 +111,9 @@ class TransKeysNotFoundInJsx extends React.Component {
         <Trans id="type_your_message_min_100"></Trans>
         <Trans id="files"></Trans>
 
+        <Trans id="apply_for_artwork_award"></Trans>
+        <Trans id="apply_for_person_award"></Trans>
+
       </div>
     );
   }
