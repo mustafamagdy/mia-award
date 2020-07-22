@@ -199,7 +199,7 @@ namespace MIA.Administration.Api {
       [FromServices] RoleManager<AppRole> roleManager,
       [FromServices] IAppUnitOfWork db) {
 
-      if (await roleManager.FindByNameAsync(roleName.ToLower()) == null) {
+      if ((await roleManager.FindByNameAsync(roleName.ToLower())) == null) {
         await roleManager.CreateAsync(
           new AppRole(roleName) {
             Name = roleName.ToString().ToLower(),
@@ -363,7 +363,7 @@ namespace MIA.Administration.Api {
         }
       }
 
-      if (await db.UserModules.FirstOrDefaultAsync(a => a.UserId == userId) == null) {
+      if ((await db.UserModules.FirstOrDefaultAsync(a => a.UserId == userId)) == null) {
         await db.UserModules.AddAsync(userModule);
       }
 
