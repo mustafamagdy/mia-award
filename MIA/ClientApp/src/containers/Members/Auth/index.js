@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import classNames from "classnames";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
@@ -15,16 +15,21 @@ import ResetPasswordForm from "./ResetPassword";
 import Register from "./Register";
 
 // let resetPassword =false;
-const Auth = ({ location, ...props }) => {
+const Auth = ({ location, resetPasswordView, ...props }) => {
   const [view, setView] = useState("login");
   const [signupActiveTab, setSignupActiveTab] = useState(0);
   const [resetPassword, setResetPassword] = useState(false);
   const signupTabs = ["info", "terms_and_conditions"];
-  let { reset } = props;
-  if (reset && !resetPassword && view != "reset-password") {
-    setView("reset-password");
-    setResetPassword(true);
-  }
+
+  useEffect(() => {
+    if (resetPasswordView && !resetPassword && view != "reset-password") {
+      setView("reset-password");
+      setResetPassword(true);
+    } else {
+      setView("login");
+      setResetPassword(false);
+    }
+  }, [resetPasswordView]);
 
   return (
     <section id="login_page">

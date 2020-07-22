@@ -1,5 +1,8 @@
 import { createLogic } from "redux-logic";
 import { toast } from "react-toastify";
+import { push } from "connected-react-router";
+import membersActions from "store/members/actions";
+import authActions from "store/auth/actions";
 
 const normalizeActionName = (actionName) =>
   actionName
@@ -19,23 +22,33 @@ export const logic = (apiNamespace, actionName, successCb, failCb) => {
     async process({ getState, action, api }, dispatch, done) {
       try {
         _validateApi(api, apiNamespace, api_name, action);
+
         const res = await api[apiNamespace][api_name](action.payload);
         if (!res.ok) {
-          const _errorMsg =
-            res.data.Error || res.data.Message || "Unknown Error";
-          dispatch({
-            type: `${actionName}_FAIL`,
-            payload: _errorMsg,
-            error: true,
-          });
-
-          if (failCb) {
-            failCb(dispatch, res.data);
+          if (res.status == 401) {
+            localStorage.removeItem("jwtToken");
+            sessionStorage.removeItem("jwtToken");
+            dispatch(membersActions.reset());
+            dispatch(authActions.reset());
+            dispatch(push("/members/signin"));
           } else {
-            if (res.data && res.data.errorCode == "404") {
-              toast.error("No data found");
+            const _errorMsg =
+              (res.data && (res.data.Error || res.data.Message)) ||
+              "Unknown Error";
+            dispatch({
+              type: `${actionName}_FAIL`,
+              payload: _errorMsg,
+              error: true,
+            });
+
+            if (failCb) {
+              failCb(dispatch, res.data);
             } else {
-              toast.error(_errorMsg);
+              if (res.data && res.data.errorCode == "404") {
+                toast.error("No data found");
+              } else {
+                toast.error(_errorMsg);
+              }
             }
           }
         } else {

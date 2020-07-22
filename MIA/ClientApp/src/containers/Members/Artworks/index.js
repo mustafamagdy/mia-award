@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, withRouter, Switch, Redirect } from "react-router";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
@@ -20,10 +20,16 @@ const MembersDashboard = ({
   myAwardsLoaded,
   myArtworksLoaded,
   judgeCompleted,
+  currentUser,
   ...props
 }) => {
-  if (!myAwardsLoaded) fetchMyAwards();
-  if (!myArtworksLoaded) fetchMyArtworks();
+
+  useEffect(() => {
+    
+    fetchMyAwards();
+    fetchMyArtworks();
+  }, []);
+
   const tabs = ["shows", "contestant"];
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState(tabs[0]);
@@ -132,6 +138,7 @@ const MembersDashboard = ({
 };
 
 const mapStateToProps = ({
+  auth: {currentUser},
   home: { options },
   members: {
     myAwards,
@@ -149,6 +156,7 @@ const mapStateToProps = ({
     myAwardsLoaded,
     myArtworksLoaded,
     judgeCompleted,
+    currentUser
   };
 };
 const mapDispatchToProps = (dispatch) =>
