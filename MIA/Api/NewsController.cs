@@ -34,6 +34,7 @@ namespace MIA.Api {
             (string.IsNullOrEmpty(query.Category)
             || query.Category.ToLower() == "all"
             || a.Category.ToLower() == query.Category.ToLower()))
+        .OrderByDescending(a=>a.Date)
         .ProjectTo<FullNewsDto>(_mapper.ConfigurationProvider)
         .ToPagedListAsync(query);
 
@@ -45,6 +46,7 @@ namespace MIA.Api {
       [FromServices] IAppUnitOfWork db) {
       var result = await db.News
         .Where(a => a.Featured == true && a.Outdated == false)
+        .OrderByDescending(a=>a.Date)
         .ProjectTo<FullNewsDto>(_mapper.ConfigurationProvider)
         .ToArrayAsync();
 
