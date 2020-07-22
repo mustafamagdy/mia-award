@@ -42,7 +42,7 @@ namespace MIA.ORMContext.Seed {
       await SeedRole_Judge_Permissions(roleManager, userManager, db);
       await SeedRole_JudgeManager_Permissions(roleManager, userManager, db);
       await SeedRole_Nominee_Permissions(roleManager, userManager, db);
-      
+
       await SeedAdminUserAsync(userManager, db);
 
       if (Directory.Exists("./seed")) {
@@ -71,7 +71,7 @@ namespace MIA.ORMContext.Seed {
     private static async Task SeedDefaultRoles(RoleManager<AppRole> roleManager, IAppUnitOfWork db) {
       var roles = Enum.GetNames(typeof(PredefinedRoles));
       foreach (var role in roles) {
-        if (await roleManager.FindByNameAsync(role.ToString().ToLower()) == null) {
+        if ((await roleManager.FindByNameAsync(role.ToString().ToLower())) == null) {
           await roleManager.CreateAsync(
             new AppRole(role) {
               Name = role.ToString().ToLower(),
@@ -212,7 +212,7 @@ namespace MIA.ORMContext.Seed {
 
 
     private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager, IAppUnitOfWork db) {
-      if (await userManager.FindByNameAsync(Constants.ADMIN_USERNAME) == null) {
+      if ((await userManager.FindByNameAsync(Constants.ADMIN_USERNAME)) == null) {
         AppUser admin = new AppUser {
           FullName = "System admin",
           Email = Constants.ADMIN_EMAIL,
