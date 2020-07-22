@@ -103,7 +103,8 @@
                   -moz-filter: grayscale(80%);
                   -o-filter: grayscale(80%);
                   filter: grayscale(80%);
-                  object-fit: scale-down;
+                  // object-fit: scale-down;
+                  object-fit: cover;
                 } /* img */
                 .mask {
                   background: transparent url("/assets/images/mask_bg.png") scroll no-repeat center top;
