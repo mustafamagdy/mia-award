@@ -10,7 +10,9 @@ import newsApi from "./news";
 import galleryApi from "./gallery";
 import showsApi from "./shows";
 import membersApi from "./members";
-import { history } from "store";
+
+import membersActions from "store/members/actions";
+import { store /*, persistedStore*/, history } from "store";
 
 const apiURI = config.useLocalApi ? config.devApiRoot : config.apiRoot;
 const create = (baseURL = apiURI) => {
@@ -40,6 +42,12 @@ const create = (baseURL = apiURI) => {
     }
   });
   api.addResponseTransform((response) => {
+    if (response.status && response.status === 401) {
+      localStorage.removeItem("jwtToken");
+      sessionStorage.removeItem("jwtToken");
+      store.dispatch(membersActions.reset());
+      history.push("/");
+    }
     // if (
     //   response.status &&
     //   (response.status === 401 || response.status === 403)
