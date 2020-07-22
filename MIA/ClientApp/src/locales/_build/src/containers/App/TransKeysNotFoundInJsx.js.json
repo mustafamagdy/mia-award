@@ -732,5 +732,21 @@
         112
       ]
     ]
+  },
+  "apply_for_artwork_award": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        114
+      ]
+    ]
+  },
+  "apply_for_person_award": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        115
+      ]
+    ]
   }
 }

@@ -18,7 +18,8 @@ class HomePage extends React.Component {
       <React.Fragment>
         <Intro />
         <section id="another_content">
-          <AwardsSlider />
+          <AwardsSlider direction="right" type="artwork"/>
+          <AwardsSlider direction="left" type="person"/>
           <PhotoAlbum />
           <RecentShows />
           {config.tickets_enabled && <Tickets />}

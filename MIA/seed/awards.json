@@ -13,7 +13,7 @@
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
     "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
-    "Order": 2
+    "Order": 1
   },
   {
     "Code": "interview",
@@ -29,9 +29,8 @@
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
     "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
-    "Order": 1
+    "Order": 2
   },
-
   {
     "Code": "debate",
     "AwardType": "Artwork",
@@ -161,120 +160,8 @@
     "Order": 10
   },
   {
-    "Code": "presenter-male",
-    "AwardType": "Person",
-    "Title": {
-      "ar": "جائزة أفضل مذيع ",
-      "en": "MIA for best male presenter"
-    },
-    "Description": {
-      "ar": "",
-      "en": ""
-    },
-    "ArtworkFee": 0,
-    "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
-    "Order": 13
-  },
-  {
-    "Code": "presenter-female",
-    "AwardType": "Person",
-    "Title": {
-      "ar": "جائزة أفضل مذيعة ",
-      "en": "MIA for best female presenter"
-    },
-    "Description": {
-      "ar": "",
-      "en": ""
-    },
-    "ArtworkFee": 0,
-    "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
-    "Order": 14
-  },
-  {
-    "Code": "presenter",
-    "AwardType": "Person",
-    "Title": {
-      "ar": "جائزة أفضل مخرج",
-      "en": "MIA for best director"
-    },
-    "Description": {
-      "ar": "",
-      "en": ""
-    },
-    "ArtworkFee": 0,
-    "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
-    "Order": 15
-  },
-  {
-    "Code": "producer",
-    "AwardType": "Person",
-    "Title": {
-      "ar": "جائزة أفضل معد ومنتج",
-      "en": "MIA for best devisor and producer"
-    },
-    "Description": {
-      "ar": "",
-      "en": ""
-    },
-    "ArtworkFee": 0,
-    "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
-    "Order": 16
-  },
-  {
-    "Code": "screenwriter",
-    "AwardType": "Person",
-    "Title": {
-      "ar": "جائزة أفضل كاتب سينارو",
-      "en": "MIA for best screenwriter"
-    },
-    "Description": {
-      "ar": "",
-      "en": ""
-    },
-    "ArtworkFee": 0,
-    "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
-    "Order": 17
-  },
-  {
-    "Code": "camera-operator",
-    "AwardType": "Person",
-    "Title": {
-      "ar": "جائزة أفضل مصور",
-      "en": "MIA for best camera operator"
-    },
-    "Description": {
-      "ar": "",
-      "en": ""
-    },
-    "ArtworkFee": 0,
-    "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
-    "Order": 18
-  },
-  {
-    "Code": "music",
-    "AwardType": "Person",
-    "Title": {
-      "ar": "جائزة أفضل موسيقى",
-      "en": "MIA for best music"
-    },
-    "Description": {
-      "ar": "",
-      "en": ""
-    },
-    "ArtworkFee": 0,
-    "TrophyImageKey": "awards/trophy/award.png",
-    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
-    "Order": 19
-  },
-  {
     "Code": "promo",
-    "AwardType": "Person",
+    "AwardType": "Artwork",
     "Title": {
       "ar": "جائزة أفضل برومو",
       "en": "MIA for best promo"
@@ -286,14 +173,15 @@
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
     "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
-    "Order": 20
+    "Order": 11
   },
+  
   {
-    "Code": "acter",
+    "Code": "actor",
     "AwardType": "Person",
     "Title": {
       "ar": "جائزة آفضل ممثل",
-      "en": "MIA for best acter"
+      "en": "MIA for best actor"
     },
     "Description": {
       "ar": "",
@@ -302,7 +190,7 @@
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
     "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
-    "Order": 11
+    "Order": 1
   },
   {
     "Code": "actress",
@@ -318,6 +206,134 @@
     "ArtworkFee": 0,
     "TrophyImageKey": "awards/trophy/award.png",
     "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
-    "Order": 12
+    "Order": 2
+  },
+  {
+    "Code": "male-presenter",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل مذيع ",
+      "en": "MIA for best male presenter"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 3
+  },
+  {
+    "Code": "female-presenter",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل مذيعة ",
+      "en": "MIA for best female presenter"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 4
+  },
+  {
+    "Code": "director",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل مخرج",
+      "en": "MIA for best director"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 5
+  },
+  {
+    "Code": "producer",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل معد ومنتج",
+      "en": "MIA for best conceptualizer and producer"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 6
+  },
+  {
+    "Code": "screenwriter",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل كاتب سينارو",
+      "en": "MIA for best screenwriter"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 7
+  },
+  {
+    "Code": "director-photography",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل مدير تصوير",
+      "en": "MIA for best director of photography"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 8
+  },
+  {
+    "Code": "cinematographer",
+    "AwardType": "Person",
+    "Title": {      
+      "ar": "جائزة أفضل مصور",
+      "en": "MIA for best cinematographer"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 9
+  },
+  {
+    "Code": "music",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل موسيقى",
+      "en": "MIA for best music"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 10
   }
 ]

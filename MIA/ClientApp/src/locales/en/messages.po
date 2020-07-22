@@ -59,7 +59,7 @@ msgstr "Based on our belief in the value of integrity as an essential element fo
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:29
 msgid "about_tab_content_mia_contestant"
-msgstr "Contestants"
+msgstr "Indvidual"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:30
 msgid "about_tab_content_mia_honor"
@@ -79,7 +79,7 @@ msgstr "Accept terms"
 
 #: src/containers/Members/Artworks/index.js:119
 msgid "add_new_contestant"
-msgstr "Add New Contestant"
+msgstr "Add New Indvidual"
 
 #: src/containers/Members/Artworks/index.js:95
 msgid "add_new_show"
@@ -105,15 +105,23 @@ msgstr "Amount"
 msgid "any_year"
 msgstr "Any Year"
 
+#: src/containers/App/TransKeysNotFoundInJsx.js:114
+msgid "apply_for_artwork_award"
+msgstr "Apply for television program award"
+
 #: src/containers/Pages/Award/index.js:64
 msgid "apply_for_award"
 msgstr "Apply for award"
 
-#: src/containers/Home/Awards.js:30
-msgid "apply_for_your_award"
-msgstr "Apply For Your Award"
+#: src/containers/App/TransKeysNotFoundInJsx.js:115
+msgid "apply_for_person_award"
+msgstr "Apply for indvidual award"
 
-#: src/containers/Home/Awards.js:109
+#: src/containers/Home/Awards.js:30
+#~ msgid "apply_for_your_award"
+#~ msgstr "Apply For Your Award"
+
+#: src/containers/Home/Awards.js:136
 msgid "apply_now"
 msgstr "Apply Now"
 
@@ -312,7 +320,7 @@ msgstr "The message was sent successfully."
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:102
 msgid "contestant"
-msgstr "Contestant"
+msgstr "Indvidual"
 
 #: src/containers/App/CookieGDPR.js:115
 msgid "cookie_policy"
@@ -486,7 +494,7 @@ msgstr "Gold Sponser"
 #~ msgid "hijri"
 #~ msgstr "Hijri"
 
-#: src/containers/Home/Awards.js:33
+#: src/containers/Home/Awards.js:58
 msgid "home_general_award_text"
 msgstr "As we Have Great respect for all directions and tastes, MIA presents its prizes in pure gold to motivate the competitors to provide their best as well it made sure to collect all types of media works and limit them to three categories, shown in detail blew"
 
@@ -593,7 +601,7 @@ msgstr "MIA Award"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:35
 msgid "mia_contestant"
-msgstr "MIA Contestant"
+msgstr "MIA Indvidual"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:36
 msgid "mia_honor"
@@ -1109,7 +1117,7 @@ msgstr "Standard"
 #~ msgid "stars"
 #~ msgstr ""
 
-#: src/containers/Home/Awards.js:36
+#: src/containers/Home/Awards.js:61
 msgid "start_from"
 msgstr "Starts From"
 
@@ -1149,7 +1157,7 @@ msgstr "Third Day"
 #~ msgid "ticket_desc"
 #~ msgstr ""
 
-#: src/containers/Home/Awards.js:38
+#: src/containers/Home/Awards.js:63
 msgid "to"
 msgstr "To"
 

@@ -1,18 +1,9 @@
 {
-  "apply_for_your_award": {
-    "defaults": "apply for your award",
-    "origin": [
-      [
-        "src/containers/Home/Awards.js",
-        30
-      ]
-    ]
-  },
   "home_general_award_text": {
     "origin": [
       [
         "src/containers/Home/Awards.js",
-        33
+        58
       ]
     ]
   },
@@ -21,7 +12,7 @@
     "origin": [
       [
         "src/containers/Home/Awards.js",
-        36
+        61
       ]
     ]
   },
@@ -29,7 +20,7 @@
     "origin": [
       [
         "src/containers/Home/Awards.js",
-        38
+        63
       ]
     ]
   },
@@ -38,7 +29,7 @@
     "origin": [
       [
         "src/containers/Home/Awards.js",
-        109
+        136
       ]
     ]
   }
