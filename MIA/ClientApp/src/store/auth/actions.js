@@ -2,6 +2,7 @@ import { createActions } from "utils/reduxsauce";
 
 const { Types, Creators } = createActions(
   {
+    reset: {},
     login: { args: ["payload"], meta: { async: true } },
     logout: { args: ["payload"], meta: { async: true } },
     setAuthToken: { args: ["token"], meta: { async: false } },

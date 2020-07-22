@@ -11,7 +11,7 @@ const Members = () => {
         path="/members/resetPassword"
         exact
         render={() => {
-          return <Auth reset={true} />;
+          return <Auth resetPasswordView={true} />;
         }}
       />
       <Route path="/members/signin" exact component={Auth} />
