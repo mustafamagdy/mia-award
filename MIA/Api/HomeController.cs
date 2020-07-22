@@ -122,6 +122,7 @@ namespace MIA.Api {
     public async Task<IActionResult> LatestNews([FromServices] IAppUnitOfWork db) {
       var result = await db.News
                     .Where(a => a.Featured)
+                    .OrderByDescending(a => a.Date)
                     .ProjectTo<NewsDto>(_mapper.ConfigurationProvider)
                     .ToArrayAsync();
 
