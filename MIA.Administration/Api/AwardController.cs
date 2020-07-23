@@ -54,6 +54,11 @@ namespace MIA.Administration.Api {
 
     [HasPermission(Permissions.AwardEdit)]
     public override async Task<IActionResult> UpdateAsync([FromBody] UpdateAwardDto dto, [FromServices] IAppUnitOfWork db) {
+      var sysOptions = db.SystemOptions.FirstOrDefault();
+      if (sysOptions != null && sysOptions.AllJudgeFinished) {
+        throw new ApiException(ApiErrorType.BadRequest, "Judge is closed, you cannot submit any updates");
+      }
+
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((AwardDto)(result as OkObjectResult)?.Value);
       var AwardsItem = await db.Awards

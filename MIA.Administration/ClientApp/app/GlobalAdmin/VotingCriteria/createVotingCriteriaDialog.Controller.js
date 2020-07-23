@@ -83,7 +83,7 @@
             "right",
             "bottom",
             "fadeInUp",
-            data.data.title,
+            data.data.errorMessage,
             "error"
           );
         }

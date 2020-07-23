@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
 using MIA.Authorization.Attributes;
 using MIA.Authorization.Entities;
+using MIA.Exceptions;
 using MIA.ORMContext;
 using Microsoft.AspNetCore.Authorization;
 
@@ -61,6 +62,11 @@ namespace MIA.Administration.Api {
 
     [HasPermission(Permissions.VotingCriteriaAddNew)]
     public override async Task<IActionResult> SaveNewAsync([FromBody] NewVotingCriteriasDto dto, [FromServices] IAppUnitOfWork db) {
+      var sysOptions = db.SystemOptions.FirstOrDefault();
+      if (sysOptions != null && sysOptions.AllJudgeFinished) {
+        throw new ApiException(ApiErrorType.BadRequest, "Judge is closed, you cannot submit any updates");
+      }
+
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((VotingCriteriasDto)(result as OkObjectResult)?.Value);
       var VotingCriteriasItem = await db.VotingCriterias.FindAsync(resultDto.Id);
@@ -69,6 +75,12 @@ namespace MIA.Administration.Api {
 
     [HasPermission(Permissions.VotingCriteriaEdit)]
     public override async Task<IActionResult> UpdateAsync([FromBody] UpdateVotingCriteriasDto dto, [FromServices] IAppUnitOfWork db) {
+
+      var sysOptions = db.SystemOptions.FirstOrDefault();
+      if (sysOptions != null && sysOptions.AllJudgeFinished) {
+        throw new ApiException(ApiErrorType.BadRequest, "Judge is closed, you cannot submit any updates");
+      }
+
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((VotingCriteriasDto)(result as OkObjectResult)?.Value);
       var VotingCriteriasItem = await db.VotingCriterias.FindAsync(resultDto.Id);
