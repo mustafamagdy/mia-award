@@ -169,7 +169,7 @@
             "right",
             "bottom",
             "fadeInUp",
-            data.data.message,
+            data.data.errorMessage,
             "error"
           );
         }
@@ -240,7 +240,7 @@
             "right",
             "bottom",
             "fadeInUp",
-            data.data.message,
+            data.data.errorMessage,
             "error"
           );
         }

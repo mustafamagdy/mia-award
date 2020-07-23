@@ -63,9 +63,14 @@ namespace MIA.Administration.Api {
     [HttpPost("submitJudgeVote")]
     [HasPermission(Permissions.UpdateArtworkVote)]
     public async Task<IActionResult> SubmitJudgeVote(
-      [FromBody] UpdateJudgeVoteDto dto, 
+      [FromBody] UpdateJudgeVoteDto dto,
       [FromServices] IUserResolver userResolver,
       [FromServices] IAppUnitOfWork db) {
+      var sysOptions = db.SystemOptions.FirstOrDefault();
+      if (sysOptions != null && sysOptions.AllJudgeFinished) {
+        throw new ApiException(ApiErrorType.BadRequest, "Judge is closed, you cannot submit any updates");
+      }
+
       var insertList = new List<JudgeVote>();
 
       var judgeVoteItems = db.JudgeVotes
@@ -93,7 +98,7 @@ namespace MIA.Administration.Api {
       await db.CommitTransactionAsync();
       return Ok();
     }
-   
+
     [HasPermission(Permissions.UpdateArtworkVote)]
     public override async Task<IActionResult> GetAsync(string id, [FromServices] IAppUnitOfWork db) {
       var result = await base.GetAsync(id, db);
@@ -101,7 +106,7 @@ namespace MIA.Administration.Api {
       var boothItem = await db.JudgeVotes.FirstOrDefaultAsync(a => a.Id == resultDto.Id);
       return IfFound(_mapper.Map<JudgeVoteDto>(boothItem));
     }
-   
+
     [HttpGet("getJudgeVoteCriteriaValues")]
     [HasPermission(Permissions.UpdateArtworkVote)]
     public async Task<IActionResult> GetJudgeVoteCriteriaValuesAsync(string id, [FromServices] IAppUnitOfWork db) {
@@ -111,7 +116,7 @@ namespace MIA.Administration.Api {
       return IfFound(returnVotingCriteriaVoteDto);
 
     }
-    
+
     [HttpGet("{artworkId}/getCriteriaByLevel/{level}")]
     [HasPermission(Permissions.ViewArtworkJudgeDetails)]
     public async Task<IActionResult> GetCriteriaBylevelAsync(
@@ -124,9 +129,11 @@ namespace MIA.Administration.Api {
         throw new ApiException(ApiErrorType.Unauthorized, "User cannot be resolved");
       }
 
+      var artwork = await db.Artworks.FindAsync(artworkId);
+
       var list = db.VotingCriterias
         .IncludeFilter(a => a.ArtworkVotes.Where(x => x.JudgeId == userId && x.ArtworkId == artworkId))
-        .Where(c => c.Level == level)
+        .Where(c => c.Level == level && c.AwardId == artwork.AwardId)
         .ToList()
         .Select(a => new JudgeVoteCriteriaWithValueDto {
           Id = a.Id,
@@ -412,6 +419,12 @@ namespace MIA.Administration.Api {
       [FromServices] IOptions<AdminOptions> adminOptions,
       [FromServices] IVotingCalculator calculator
     ) {
+
+      var sysOptions = db.SystemOptions.FirstOrDefault();
+      if (sysOptions != null && sysOptions.AllJudgeFinished) {
+        throw new ApiException(ApiErrorType.BadRequest, "Judge is closed, you cannot submit any updates");
+      }
+
       var userId = (await userResolver.CurrentUserAsync())?.Id;
       var artwork = await db.Artworks.FindAsync(dto.ArtworkId);
       if (artwork == null) {

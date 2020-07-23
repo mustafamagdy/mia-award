@@ -97,7 +97,7 @@
             "right",
             "bottom",
             "fadeInUp",
-            data.data.message,
+            data.data.errorMessage,
             "error"
           );
         }
