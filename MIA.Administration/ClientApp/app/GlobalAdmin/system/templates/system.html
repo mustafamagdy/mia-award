@@ -1,10 +1,27 @@
 <style>
+  .level_title {
+    font-size: 20px;
+    margin: 0px;
+    text-align: left;
+  }
   table,
   thead,
   tbody,
   tr,
   td {
-    border: 1px solid red;
+    color: #d9c290;
+  }
+
+  thead,
+  td {
+    text-align: center;
+  }
+  td {
+    padding: 10px;
+    border: 1px solid;
+  }
+  td.percent {
+    width: 40px;
   }
 </style>
 <div>
@@ -38,18 +55,18 @@
           </tr>
           <tr>
             <td>{{'artwork'|translate}}</td>
-            <td>%</td>
+            <td class="percent">%</td>
             <td>{{'artwork'|translate}}</td>
-            <td>%</td>
+            <td class="percent">%</td>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="award in awardWinners.winners">
             <td>{{award.awardName[selectedLanguage]}}</td>
             <td>{{award.first.projectName[selectedLanguage]}}</td>
-            <td>{{award.first.avg}}</td>
+            <td class="percent">{{award.first.avg * 100.00}} %</td>
             <td>{{award.second.projectName[selectedLanguage]}}</td>
-            <td>{{award.second.avg}}</td>
+            <td class="percent">{{award.second.avg * 100.00}} %</td>
           </tr>
         </tbody>
       </table>

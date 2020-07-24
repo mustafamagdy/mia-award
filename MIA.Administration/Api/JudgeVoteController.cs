@@ -133,7 +133,8 @@ namespace MIA.Administration.Api {
 
       var list = db.VotingCriterias
         .IncludeFilter(a => a.ArtworkVotes.Where(x => x.JudgeId == userId && x.ArtworkId == artworkId))
-        .Where(c => c.Level == level && c.AwardId == artwork.AwardId)
+        .Where(c => (c.Level == level && level == JudgeLevel.Level1) || (level == JudgeLevel.Level2 && c.AwardId == artwork.AwardId))
+        .OrderBy(a => a.Group).ThenBy(a => a.Order)
         .ToList()
         .Select(a => new JudgeVoteCriteriaWithValueDto {
           Id = a.Id,
