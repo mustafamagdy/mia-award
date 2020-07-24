@@ -19,9 +19,10 @@
   td {
     padding: 10px;
     border: 1px solid;
+    width: auto !important;
   }
   td.percent {
-    width: 40px;
+    width: 40px !important;
   }
 </style>
 <div>
@@ -64,9 +65,13 @@
           <tr ng-repeat="award in awardWinners.winners">
             <td>{{award.awardName[selectedLanguage]}}</td>
             <td>{{award.first.projectName[selectedLanguage]}}</td>
-            <td class="percent">{{award.first.avg * 100.00}} %</td>
+            <td class="percent">
+              {{award.first? (award.first.avg * 100.00).toString() + "%":""}}
+            </td>
             <td>{{award.second.projectName[selectedLanguage]}}</td>
-            <td class="percent">{{award.second.avg * 100.00}} %</td>
+            <td class="percent">
+              {{award.second? (award.second.avg * 100.00).toString() + "%":""}}
+            </td>
           </tr>
         </tbody>
       </table>

@@ -112,6 +112,16 @@ namespace MIA.Administration.Api {
           var theAward = await db.Awards.FindAsync(awardWinners.AwardId);
           theAward.FirstPlaceId = awardWinners.First?.ArtworkId;
           theAward.SecondPlaceId = awardWinners.Second?.ArtworkId;
+
+          if (awardWinners.First?.ArtworkId != null) {
+            var firstArtwork = await db.Artworks.FindAsync(awardWinners.First?.ArtworkId);
+            firstArtwork.FirstPlaceId = theAward.Id;
+          }
+
+          if (awardWinners.Second?.ArtworkId != null) {
+            var firstArtwork = await db.Artworks.FindAsync(awardWinners.Second?.ArtworkId);
+            firstArtwork.SecondPlaceId = theAward.Id;
+          }
         }
 
         sysOptions.AllJudgeFinished = true;
