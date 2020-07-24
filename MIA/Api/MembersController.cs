@@ -82,18 +82,19 @@ namespace MIA.Api {
       var awards = await db.Awards
           .Include(a => a.FirstPlace)
           .Include(a => a.SecondPlace)
-          .Where(a => a.SecondPlace.NomineeId == nominee.Id || a.FirstPlace.NomineeId == nominee.Id)
+          .Where(a => (a.SecondPlace != null && a.SecondPlace.NomineeId == nominee.Id) 
+                      || (a.FirstPlace != null && a.FirstPlace.NomineeId == nominee.Id))
           .ToArrayAsync();
 
       var result = new List<AwardWithWinnerArtworkDto>();
       foreach (var award in awards) {
         var item = _mapper.Map<AwardWithWinnerArtworkDto>(award);
 
-        if (award.FirstPlace.NomineeId == nominee.Id) {
+        if (award.FirstPlace !=null && award.FirstPlace.NomineeId == nominee.Id) {
           item.FirstPlace = _mapper.Map<ArtworkWithStatusDto>(award.FirstPlace);
         }
 
-        if (award.SecondPlace.NomineeId == nominee.Id) {
+        if (award.SecondPlace != null &&  award.SecondPlace.NomineeId == nominee.Id) {
           item.SecondPlace = _mapper.Map<ArtworkWithStatusDto>(award.SecondPlace);
         }
 
