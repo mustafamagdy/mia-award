@@ -79,18 +79,18 @@ namespace MIA.Administration.Api {
         {
           using (var memorySteam = new MemoryStream(file.Media)) {
             string validationError = "";
-            if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
-              throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
-            }
+            //if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
+            //  throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
+            //}
 
             string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, album.Id, file.MediaFileName);
             var fileUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
             using (var memorySteamPoster = new MemoryStream(file.Poster)) {
               string validationPosterError = "";
-              if (memorySteamPoster.ValidateImage(limitOptions.Value, out validationPosterError) == false) {
-                throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
-              }
+              //if (memorySteamPoster.ValidateImage(limitOptions.Value, out validationPosterError) == false) {
+              //  throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
+              //}
 
               posterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, album.Id, file.PosterFileName);
               posterUrl = await fileManager.UploadFileAsync(memorySteamPoster, posterKey);
@@ -152,19 +152,19 @@ namespace MIA.Administration.Api {
       if (dto.Media != null) {
         using (var memorySteam = new MemoryStream(dto.Media)) {
           string validationError = "";
-          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
-            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
-          }
+          //if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
+          //  throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
+          //}
 
           string fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, albumId, dto.MediaFileName);
           var fileUrl = await fileManager.UploadFileAsync(memorySteam, fileKey);
 
           if (dto.Poster != null) {
             using (var memorySteamPoster = new MemoryStream(dto.Poster)) {
-              string validationPosterError = "";
-              if (memorySteamPoster.ValidateImage(limitOptions.Value, out validationError) == false) {
-                throw new ApiException(ApiErrorType.BadRequest, validationPosterError.MapTo<ErrorResult>());
-              }
+              //string validationPosterError = "";
+              //if (memorySteamPoster.ValidateImage(limitOptions.Value, out validationError) == false) {
+              //  throw new ApiException(ApiErrorType.BadRequest, validationPosterError.MapTo<ErrorResult>());
+              //}
 
               filePosterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, albumId, dto.PosterFileName);
               filePosterUrl = await fileManager.UploadFileAsync(memorySteamPoster, filePosterKey);
@@ -187,9 +187,9 @@ namespace MIA.Administration.Api {
       } else {
         using (var memorySteam = new MemoryStream(dto.Poster)) {
           string validationError = "";
-          if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
-            throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
-          }
+          //if (memorySteam.ValidateImage(limitOptions.Value, out validationError) == false) {
+          //  throw new ApiException(ApiErrorType.BadRequest, validationError.MapTo<ErrorResult>());
+          //}
 
           filePosterKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, albumId, dto.PosterFileName);
           filePosterUrl = await fileManager.UploadFileAsync(memorySteam, filePosterKey);
