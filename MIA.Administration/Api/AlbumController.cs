@@ -136,7 +136,7 @@ namespace MIA.Administration.Api {
       return IfFound(returnAlbumItems);
 
     }
-    
+
     [HttpPost("{albumId}/createMediaItems")]
     [HasPermission(Permissions.AlbumManage)]
     public async Task<IActionResult> CreateMediaItemsAsync(
@@ -224,16 +224,25 @@ namespace MIA.Administration.Api {
 
     [HttpDelete("deleteMediaItems")]
     [HasPermission(Permissions.AlbumManage)]
-    public async Task<IActionResult> DeleteMediaItemsAsync([FromQuery(Name = "id")] string id, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> DeleteMediaItemsAsync(
+      [FromQuery(Name = "id")] string id,
+      [FromServices] IAppUnitOfWork db,
+      [FromServices] IS3FileManager fileManager) {
       var entity = db.Set<AlbumItem>().FirstOrDefault(a => a.Id == id);
       if (entity == null)
         throw new ApiException(ApiErrorType.NotFound, "record not found");
-      //   IS3FileManager.DeleteFileAsync(entity.PosterKey);
       db.Set<AlbumItem>().Remove(entity);
+      if (entity.MediaType == MediaType.Image) {
+        await fileManager.DeleteFileAsync(entity.File.FileKey);
+      } else {
+        await fileManager.DeleteFileAsync(entity.File.FileKey);
+        await fileManager.DeleteFileAsync(entity.Poster.FileKey);
+      }
+
       return IfFound(entity);
 
     }
-    
+
     [HttpPut("UpdateMediaItem")]
     [HasPermission(Permissions.AlbumManage)]
     public async Task<IActionResult> UpdateMediaItemAsync([FromBody] PhotoAlbumFileDto dto, [FromServices] IAppUnitOfWork db) {
@@ -268,21 +277,22 @@ namespace MIA.Administration.Api {
       return IfFound(_mapper.Map<PhotoAlbumFileDto>(mediaItem));
     }
 
-    [HttpPost("mediaItems/{id}/files")]
+    [HttpPost("{albumId}/mediaItems/{id}/files")]
     [HasPermission(Permissions.AlbumManage)]
     public async Task<IActionResult> UploadArtworkFiles(
+      [FromRoute] string albumId,
       [FromRoute] string id,
       [FromServices] IAppUnitOfWork db,
       [FromServices] IS3FileManager fileManager,
       FileChunkDto dto) {
       try {
-        var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.Album, id);
+        dto.FileName = NormalizeFileName(dto.FileName);
+        var tempDir = fileManager.GetTempDirectoryForResource(ResourceType.Album, albumId);
         var result = await fileManager.UploadChunk(tempDir, dto);
-        if (!string.IsNullOrEmpty(result.FinalUrl))
-        {
+        if (!string.IsNullOrEmpty(result.FinalUrl)) {
           var mediaItem = await db.AlbumItems.FindAsync(id);
           //move file to final directory of the artwork files
-          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mediaItem.AlbumId, NormalizeFileName(dto.FileName));
+          var fileKey = fileManager.GenerateFileKeyForResource(ResourceType.Album, mediaItem.AlbumId, dto.FileName);
           var fileUrl = await fileManager.MoveObjectAsync(result.FileKey, fileKey);
 
           mediaItem.File = S3File.FromKeyAndUrl(fileKey, fileUrl);
