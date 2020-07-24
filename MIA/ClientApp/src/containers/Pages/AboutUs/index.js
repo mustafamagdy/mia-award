@@ -190,7 +190,7 @@ const AboutUs = ({ awards, ...props }) => {
                     <Trans id="our_goal"></Trans>
                   </div>
                   <div className="content">
-                    <ul>
+                    <ul className="bullets">
                       {content.ourGoal.map((g, i) => (
                         <li
                           key={i}
