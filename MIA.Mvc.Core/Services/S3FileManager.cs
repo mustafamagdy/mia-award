@@ -61,7 +61,7 @@ namespace MIA.Mvc.Core {
 
         var fileTransferUtility = new TransferUtility(client);
         await fileTransferUtility.UploadAsync(uploadRequest);
-       
+
         return $"https://{bucketName}.s3.{region.SystemName}.amazonaws.com/{key}";
       }
     }
@@ -91,25 +91,31 @@ namespace MIA.Mvc.Core {
       return await MoveObjectAsync(sourceKey, bucketName, destinationKey, bucketName, publicRead);
     }
 
-    public async Task<string> MoveObjectAsync(string sourceKey, string sourceBucketName, string destinationKey, string destinationBucketName, bool publicRead = true) {
-      var region = RegionEndpoint.GetBySystemName(_awsOptions.Value.S3_Content_Region);
-      using (var client = new AmazonS3Client(
-      awsAccessKeyId: _awsOptions.Value.S3_Content_AccessKey,
-      awsSecretAccessKey: _awsOptions.Value.S3_Content_SecretKey,
-      region: region)) {
-        //copy file
-        await client.CopyObjectAsync(
-          new Amazon.S3.Model.CopyObjectRequest() {
-            SourceBucket = sourceBucketName,
-            DestinationBucket = destinationBucketName,
-            SourceKey = sourceKey,
-            DestinationKey = destinationKey,
-            CannedACL = publicRead ? S3CannedACL.PublicRead : S3CannedACL.Private
-          });
-        //remove original
-        await DeleteFileAsync(sourceKey, sourceBucketName);
+    public async Task<string> MoveObjectAsync(string sourceKey,
+      string sourceBucketName, string destinationKey,
+      string destinationBucketName, bool publicRead = true) {
+      try {
+        var region = RegionEndpoint.GetBySystemName(_awsOptions.Value.S3_Content_Region);
+        using (var client = new AmazonS3Client(
+        awsAccessKeyId: _awsOptions.Value.S3_Content_AccessKey,
+        awsSecretAccessKey: _awsOptions.Value.S3_Content_SecretKey,
+        region: region)) {
+          //copy file
+          await client.CopyObjectAsync(
+            new Amazon.S3.Model.CopyObjectRequest() {
+              SourceBucket = sourceBucketName,
+              DestinationBucket = destinationBucketName,
+              SourceKey = sourceKey,
+              DestinationKey = destinationKey,
+              CannedACL = publicRead ? S3CannedACL.PublicRead : S3CannedACL.Private
+            });
+          //remove original
+          await DeleteFileAsync(sourceKey, sourceBucketName);
 
-        return $"https://{destinationBucketName}.s3.{region.SystemName}.amazonaws.com/{destinationKey}";
+          return $"https://{destinationBucketName}.s3.{region.SystemName}.amazonaws.com/{destinationKey}";
+        }
+      } catch (Exception ex) {
+        throw;
       }
     }
 

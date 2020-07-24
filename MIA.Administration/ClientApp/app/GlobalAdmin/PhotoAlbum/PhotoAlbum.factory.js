@@ -10,6 +10,7 @@
             update: { method: 'PUT', useToken: true },
             getPhotoAlbum: { method: 'GET', useToken: true },
             delete: { method: 'DELETE', useToken: true },
+            deleteMediaItems: { method: 'DELETE',url: appCONSTANTS.API_URL + 'albums/deleteMediaItems?id=:id', useToken: true },
             updateMediaItem: { method: 'PUT', url: appCONSTANTS.API_URL + 'albums/UpdateMediaItem', useToken: true },
             toggleFeatured: { method: 'PUT', url: appCONSTANTS.API_URL + 'albums/toggleFeatured', useToken: true },
             getMediaItems: { method: 'POST', url: appCONSTANTS.API_URL + 'albums/getMediaItems', useToken: true },

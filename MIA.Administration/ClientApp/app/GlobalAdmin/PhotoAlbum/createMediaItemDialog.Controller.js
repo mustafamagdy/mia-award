@@ -17,7 +17,7 @@
       "PhotoAlbumResource",
       "ToastService",
       "$rootScope",
-      '$localStorage',
+      "$localStorage",
       createMediaItemController,
     ]);
 
@@ -216,7 +216,6 @@
       vm.posterVideo = $(element)[0].files[0];
     };
 
-
     vm.LoadUploadTrailler = function () {
       $("#traillerUploder").click();
     };
@@ -240,7 +239,7 @@
     };
 
     function processFile(file, itemId) {
-      url = appCONSTANTS.API_URL + "albums/mediaItems/" + itemId + "/files";
+      url = `${appCONSTANTS.API_URL}albums/${$stateParams.id}/mediaItems/${itemId}/files`;
 
       let start = 0;
       let uploadId = "";
@@ -347,7 +346,7 @@
         url: url,
         headers: {
           "Content-Type": "application/json",
-          'Authorization': 'Bearer ' + $localStorage.authInfo
+          Authorization: "Bearer " + $localStorage.authInfo,
         },
         data: data,
       });
