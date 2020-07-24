@@ -66,11 +66,11 @@
             <td>{{award.awardName[selectedLanguage]}}</td>
             <td>{{award.first.projectName[selectedLanguage]}}</td>
             <td class="percent">
-              {{award.first? (award.first.avg * 100.00).toString() + "%":""}}
+              {{award.first? ((award.first.avg * 100.00).toFixed(2)).toString() + "%":""}}
             </td>
             <td>{{award.second.projectName[selectedLanguage]}}</td>
             <td class="percent">
-              {{award.second? (award.second.avg * 100.00).toString() + "%":""}}
+              {{award.second? ((award.second.avg * 100.00).toFixed(2)).toString() + "%":""}}
             </td>
           </tr>
         </tbody>
