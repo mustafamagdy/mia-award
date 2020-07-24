@@ -209,6 +209,8 @@ namespace MIA.Administration.Api {
         //if you want list of artworks that has not been done in level 2, those artworks should not contain list of artworks
         //in level 1 but not yet finished in level 1 (not failed, not succeeded yet)
         artWorksQuery = artWorksQuery.Where(a => a.IllegibleForJudge != null);
+      } else if (!isDone && level == JudgeLevel.Level1) {
+        artWorksQuery = artWorksQuery.Where(a => a.IllegibleForJudge == null);
       }
 
       var artWorks = await artWorksQuery.ToListAsync();
