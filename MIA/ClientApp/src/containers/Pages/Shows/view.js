@@ -3,12 +3,7 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 import ReCAPTCHA from "react-google-recaptcha";
 import { TabList, Tab, TabPane, TabPanels } from "components/Tabs";
 import config from "config";
-import {
-  FacebookShareButton,
-  TwitterShareButton,
-  InstapaperShareButton,
-  WhatsappShareButton,
-} from "react-share";
+
 import { Trans } from "@lingui/macro";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
