@@ -82,7 +82,7 @@ export default {
     { label: "booths", route: "/booths" },
     { label: "contact_us", route: "/contact-us" },
   ],
-  siteShareUrl: "http://miaawards.com",
+  siteShareUrl: "https://miaaward.com",
   social: {
     fb: "https://www.facebook.com/MIAawardArab",
     tw: "https://twitter.com/MIAawardArab",

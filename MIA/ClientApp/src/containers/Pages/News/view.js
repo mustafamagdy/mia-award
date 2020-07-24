@@ -45,16 +45,16 @@ const NewsView = ({
               <span>
                 <Trans id="share">Share</Trans> :
               </span>
-              <FacebookShareButton url={config.siteShareUrl}>
+              <FacebookShareButton url={`${config.siteShareUrl}/news/${newsItem.id}`}>
                 <i className="icofont-facebook"></i>
               </FacebookShareButton>
-              <TwitterShareButton url={config.siteShareUrl}>
+              <TwitterShareButton url={`${config.siteShareUrl}/news/${newsItem.id}`}>
                 <i className="icofont-twitter"></i>
               </TwitterShareButton>
-              <InstapaperShareButton url={config.siteShareUrl}>
+              <InstapaperShareButton url={`${config.siteShareUrl}/news/${newsItem.id}`}>
                 <i className="icofont-instagram"></i>
               </InstapaperShareButton>
-              <WhatsappShareButton url={config.siteShareUrl}>
+              <WhatsappShareButton url={`${config.siteShareUrl}/news/${newsItem.id}`}>
                 <i className="icofont-whatsapp"></i>
               </WhatsappShareButton>
             </div>

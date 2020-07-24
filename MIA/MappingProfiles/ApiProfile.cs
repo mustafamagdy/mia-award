@@ -163,7 +163,7 @@ namespace MIA.MappingProfiles {
           // .ForMember(a => a.Producers, cfg => cfg.MapFrom(a => a.Production))
           // .ForMember(a => a.Directors, cfg => cfg.MapFrom(a => a.Director))
           .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.Award.AwardType))
-          .ForMember(a => a.Files, cfg => cfg.MapFrom(a => a.MediaFiles == null ? new HashSet<MediaFile>() : a.MediaFiles))
+          .ForMember(a => a.Files, cfg => cfg.MapFrom(a => a.MediaFiles ?? new HashSet<MediaFile>()))
         .IncludeAllDerived()
         .ValidateMemberList(MemberList.None);
 
