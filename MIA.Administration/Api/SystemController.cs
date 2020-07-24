@@ -45,6 +45,8 @@ namespace MIA.Administration.Api {
       var res = award.Artworks
         .Select(x => {
           var level2Scores = x.FinalScores.Where(a => a.Level == JudgeLevel.Level2).ToArray();
+          if (!level2Scores.Any()) return null;
+
           return new ArtworkFinalResult {
             ArtworkId = x.Id,
             ProjectName = x.ProjectName,
@@ -56,7 +58,9 @@ namespace MIA.Administration.Api {
             Min = level2Scores.Select(n => n.Percentage).DefaultIfEmpty(0).Min(),
             Max = level2Scores.Select(n => n.Percentage).DefaultIfEmpty(0).Max(),
           };
-        });
+        })
+        .Where(a=> a != null)
+        .ToArray();
 
       var winners = res.OrderByDescending(a => a.Avg).Take(2).ToArray();
       var groupedWinners = winners
