@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using MIA.Administration.Api;
 using MIA.Administration.Dto.ArtWorkPayment;
 using MIA.Administration.Dto.Award;
@@ -27,6 +28,7 @@ namespace MIA.Administration.MappingProfiles {
       CreateMap<News, NewsDto>()
         //.ForMember(a => a.ImageUrl, cfg => cfg.MapFrom(a => a.Image != null ? a.Image.Imageurl : ""))
         .ForMember(a => a.PosterUrl, cfg => cfg.MapFrom(a => a.Poster.FileUrl))
+        .ForMember(a => a.Date, cfg => cfg.MapFrom(a => a.Date.LocalDateTime()))
         .ValidateMemberList(MemberList.None);
 
       CreateMap<NewNewsDto, News>()

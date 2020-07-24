@@ -101,7 +101,7 @@
     $scope.AddposterImage = function (element) {
       var logoFile = element[0];
 
-      var allowedImageTypes = ["image/jpg", "image/png", "image/gif"];
+      var allowedImageTypes = ["image/jpg","image/jpeg", "image/png", "image/gif"];
 
       if (logoFile && logoFile.size >= 0 && logoFile.size / (1024 * 1000) < 2) {
         if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
