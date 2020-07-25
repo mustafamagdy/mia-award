@@ -182,15 +182,11 @@ const NewArtwork = ({
                                 }
                               }}
                             >
-                              <I18n>
-                                {({ i18n }) => {
-                                  return awards.map((a, i) => (
-                                    <option key={a.id} value={a.id}>
-                                      {i18n._(a.code)}
-                                    </option>
-                                  ));
-                                }}
-                              </I18n>
+                              {awards.map((a, i) => (
+                                <option key={a.id} value={a.id}>
+                                  {a.title[locale.code]}
+                                </option>
+                              ))}
                             </select>
                           </div>
                         </>

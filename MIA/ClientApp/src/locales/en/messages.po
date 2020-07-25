@@ -899,7 +899,7 @@ msgstr "Program Schedule"
 
 #: src/containers/Pages/Timeline/index.js:33
 msgid "program_schedule_brief"
-msgstr ""
+msgstr "In the Opera House in Dubai, the Arab Media Capital, under the slogan of “Arab Media Is A New Reality”"
 
 #: src/components/Layout/Header.js:63
 #~ msgid "programs"
