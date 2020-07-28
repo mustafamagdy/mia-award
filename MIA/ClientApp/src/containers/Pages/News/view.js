@@ -232,12 +232,12 @@ const AdsArea = (props) => (
   <>
     <div className="small_banner">
       <a href="#" title="#">
-        <img src="/assets/images/small_banner.png" />
+        <img src="/assets/files/ad1.png" />
       </a>
     </div>
     <div className="big_banner">
       <a href="#" title="#">
-        <img src="/assets/images/big_banner.png" />
+        <img src="/assets/files/ad1.png" />
       </a>
     </div>
   </>

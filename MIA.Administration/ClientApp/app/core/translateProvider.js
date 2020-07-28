@@ -346,6 +346,30 @@
         "StartJudge": "Start judging",
         "JudgeArtWorkLbl": "Judging ArtWork",
 
+        'Role' :"Role",
+        'NewsLbl' :"News",
+        'Booth' :"Booth",
+        'ArtWork' :"ArtWork",
+        'Award' :"Award",
+        'VotingCriteria' :"Voting Criteria",
+        'PhotoAlbum' :"Photo Album",
+        'JudgeArtWorkLbl' :"Judge ArtWork",
+        'ArtworkVotes' :"Artwork Votes",
+        'ArtworkStatistics' :"Artwork Statistics",
+        'MyJudges' :"My Judges",
+        'MyDashboard' :"My Dashboard",
+        'closing_judge' :"Close All Judge",
+        'user' :"Users",
+        'All' :"All",
+        "remaining":"Remaining",
+        "done":"Done",
+
+        "NoJudgeArtWorksAvailableForLevel1":"No artworks for level 1",
+        "remaining_level1Artworks":"Remaining Level 1",
+        "NoJudgeArtWorksAvailableForLevel2":"No artworks for level 2",
+        "remaining_level2Artworks":"Remaining Level 2",
+
+
       }
       var ar_translations = {
         "OrderDetails": "تفاصيل الطلب",
@@ -692,6 +716,31 @@
         "DisplayEposides": "عرض الحلقات",
         "StartJudge": "إبدأ التحكيم",
         "JudgeArtWorkLbl": "القاضي الفني",
+
+        'Role' :"انواع المستخدمين",
+        'NewsLbl' :"الاخبار",
+        'Booth' :"المعارض",
+        'ArtWork' :"الاعمال",
+        'Award' :"الجوائز",
+        'VotingCriteria' :"عناصر التحكيم",
+        'PhotoAlbum' :"الميديا",
+        'JudgeArtWorkLbl' :"تحكيم الاعمال",
+        'ArtworkVotes' :"نتائج التحكيم",
+        'ArtworkStatistics' :"احصائيات التحكيم",
+        'MyJudges' :"حكامي",
+        'MyDashboard' :"منصتي",
+        'closing_judge' :"اغلاق كل التحكيم",
+        'user' :"المستخدمين",
+        'All' :"الكل",
+
+        "remaining":"باقي",
+        "done":"اكتمل",
+
+        "NoJudgeArtWorksAvailableForLevel1":"لا يوجد اعمال للمستوى الاول",
+        "remaining_level1Artworks":"اعمال باقية مستوى اول",
+        "NoJudgeArtWorksAvailableForLevel2":"لا يوجد اعمال للمستوى الثاني",
+        "remaining_level2Artworks":"اعمال باقية مستوى ثاني",
+
       }
       $translateProvider.translations('en', en_translations);
 

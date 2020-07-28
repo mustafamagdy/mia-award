@@ -42,10 +42,10 @@
 
     loadAwards();
     vm.statistics = JudgeDashboardPrepService;
-    vm.remaining = vm.statistics.remaining.level1Artworks;
-    vm.done =
-      vm.statistics.totals.level1Artworks -
-      vm.statistics.remaining.level1Artworks;
+    
+    vm.total = vm.statistics.totals.level1Artworks + vm.statistics.totals.level2Artworks;
+    vm.remaining = vm.statistics.remaining.level1Artworks + vm.statistics.remaining.level2Artworks;
+    vm.done = vm.total - vm.remaining;
 
     function loadAwards() {
       var k = JudgeArtWorkResource.getJudgeAwards().$promise.then(
@@ -76,9 +76,9 @@
       }).$promise.then(
         function (results) {
           vm.statistics = results;
-          vm.remaining = results.remaining.level1Artworks;
-          vm.done =
-            results.totals.level1Artworks - results.remaining.level1Artworks;
+          vm.total = results.totals.level1Artworks + results.totals.level2Artworks;
+          vm.remaining = results.remaining.level1Artworks + results.remaining.level2Artworks;
+          vm.done = vm.total - vm.remaining;
 
           vm.noDataFound = false;
 
