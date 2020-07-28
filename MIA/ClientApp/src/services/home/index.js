@@ -1,4 +1,4 @@
-export default function(/**@type {ApisauceInstance} */ api) {
+export default function homeApi(/**@type {ApisauceInstance} */ api) {
   const fetchMainAlbum = () => api.get("home/main-album");
   const fetchOptions = () => api.get("home/options");
   const fetchMetadata = () => api.get("home/metadata");

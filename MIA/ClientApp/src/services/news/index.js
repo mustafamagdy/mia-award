@@ -1,4 +1,4 @@
-export default function(/**@type {ApisauceInstance} */ api) {
+export default function newsApi(/**@type {ApisauceInstance} */ api) {
   const fetchFeaturedNews = () => api.get("news/featured");
   const fetchNews = (query = {}) => api.post("news/list", query);
   const fetchCategories = () => api.get("news/categories");

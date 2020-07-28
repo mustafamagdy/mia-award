@@ -1,4 +1,4 @@
-export default function (/**@type {ApisauceInstance} */ api) {
+export default function accountsApi(/**@type {ApisauceInstance} */ api) {
   const signup = (user) => api.post("user/nominee", user);
   const fetchUserProfile = () => api.get("user/profile");
   const updateUserProfile = (userData) => {

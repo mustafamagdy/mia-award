@@ -1,4 +1,4 @@
-export default function(/**@type {ApisauceInstance} */ api) {
+export default function membersApi(/**@type {ApisauceInstance} */ api) {
   const fetchMyAwards = () => api.get("/members/myawards");
   const fetchMyArtworks = () => api.get("/members/artworks");
   const addNewArtwork = data => api.post("/members/add-artwork", data);

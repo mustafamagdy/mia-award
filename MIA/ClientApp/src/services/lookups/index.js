@@ -1,4 +1,4 @@
-export default function (/**@type {ApisauceInstance} */ api) {
+export default function lookupsApi(/**@type {ApisauceInstance} */ api) {
   //const getAirports = () => api.get("lookups/airports");
 
   return {
