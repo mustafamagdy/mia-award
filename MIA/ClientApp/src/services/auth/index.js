@@ -1,4 +1,4 @@
-export default function(/**@type {ApisauceInstance} */ api) {
+export default function authApi(/**@type {ApisauceInstance} */ api) {
   const login = loginRequest => api.post("Auth/login-nominee", loginRequest);
   const logout = accessToken => api.post("Auth/logout", { accessToken });
 

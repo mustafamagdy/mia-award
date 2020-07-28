@@ -42,7 +42,7 @@ const create = (baseURL = apiURI) => {
       delete request.headers["Authorization"];
     }
   });
-  api.addResponseTransform((response) => {
+  // api.addResponseTransform((response) => {
     
     // if (
     //   response.status &&
@@ -58,7 +58,7 @@ const create = (baseURL = apiURI) => {
     //     history.push("/");
     //   }
     // }
-  });
+  // });
   const app = appApi(api);
   const accounts = accountsApi(api);
   const auth = authApi(api);
