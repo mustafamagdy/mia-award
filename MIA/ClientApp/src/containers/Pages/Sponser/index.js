@@ -5,12 +5,13 @@ import { LanguageContext } from "containers/Providers/LanguageProvider";
 import { Trans } from "@lingui/macro";
 import homeActions from "store/home/actions";
 import { useState } from "react";
+import { Redirect } from "react-router-dom";
 
 const Sponser = ({ sponser, ...props }) => {
   return (
     <LanguageContext.Consumer>
       {({ locale }) =>
-        sponser && (
+        sponser ? (
           <section id="show_award">
             <div className="container sponser">
               <div className="award_area">
@@ -33,6 +34,8 @@ const Sponser = ({ sponser, ...props }) => {
               </div>
             </div>
           </section>
+        ) : (
+          <Redirect to="/" />
         )
       }
     </LanguageContext.Consumer>

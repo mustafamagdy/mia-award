@@ -40,8 +40,10 @@
       .swiper-wrapper {
         display: flex;
         align-items: center;
+        justify-content: center;
         .swiper-slide {
           padding: 20px;
+          flex: 1;
           img {
             width: 90%;
             margin: 0 auto;
