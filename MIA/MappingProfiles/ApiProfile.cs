@@ -136,6 +136,7 @@ namespace MIA.MappingProfiles {
         .ValidateMemberList(MemberList.None);
 
       CreateMap<UpdateArtworkWithDetails, Artwork>()
+        .ForMember(a => a.Resume, cfg => cfg.Ignore())
         .ValidateMemberList(MemberList.None);
 
       CreateMap<Artwork, ArtworkBasicData>()
@@ -157,6 +158,7 @@ namespace MIA.MappingProfiles {
         .ForMember(a => a.AwardTitle, cfg => cfg.MapFrom(a => a.Award.Title))
         .ForMember(a => a.AwardFee, cfg => cfg.MapFrom(a => a.Award.ArtworkFee))
         .ForMember(a => a.AwardType, cfg => cfg.MapFrom(a => a.Award.AwardType))
+        .ForMember(a => a.ResumeFileUrl, cfg => cfg.MapFrom(a => a.Resume.FileUrl))
         .ValidateMemberList(MemberList.None);
 
       CreateMap<Artwork, ArtworkViewWithFilesDto>()

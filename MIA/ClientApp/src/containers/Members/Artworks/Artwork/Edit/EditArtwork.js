@@ -7,13 +7,7 @@ import * as Yup from "yup";
 import config from "config";
 import { fileToBase64 } from "utils";
 
-const EditArtworkInfo = ({
-  artwork,
-  active,
-  editArtwork,
-  submitting,
-  ...props
-}) => {
+const EditArtworkInfo = ({ artwork, active, editArtwork, submitting, ...props }) => {
   return (
     <Formik
       initialValues={artwork}
@@ -27,9 +21,7 @@ const EditArtworkInfo = ({
             ar: Yup.string().required("Required"),
             en: Yup.string().required("Required"),
           }),
-          siteUrl: Yup.string()
-            .required("Required")
-            .matches(config.validationRules.url, "not_valid_url"),
+          siteUrl: Yup.string().required("Required").matches(config.validationRules.url, "not_valid_url"),
           productionYear: Yup.number()
             .required("Required")
             .min(config.validationRules.allowed_artwork_years.min)
@@ -43,14 +35,14 @@ const EditArtworkInfo = ({
           productionLicenseNumber: Yup.string().required("Required"),
           productionLicenseAgency: Yup.string().required("Required"),
           //props special for contestant
-          resume:
-            artwork.awardType == "person"
-              ? Yup.mixed().required("File_is_required")
-              : null,
+          // resume:
+          //   artwork.awardType == "person"
+          //     ? Yup.mixed().required("File_is_required")
+          //     : null,
         })
       }
       onSubmit={async (values, actions) => {
-        if (artwork.awardType == "person") {
+        if (artwork.awardType == "person" && values.resume != undefined) {
           const resume = await fileToBase64(values.resume);
           values.resumeFileName = values.resume.name;
           values.resume = resume;
@@ -72,15 +64,10 @@ const EditArtworkInfo = ({
                     {({ locale }) => (
                       <>
                         <span>
-                          <Trans id={artwork?.awardTitle[locale.code]}>
-                            {artwork?.awardTitle[locale.code]}
-                          </Trans>
+                          <Trans id={artwork?.awardTitle[locale.code]}>{artwork?.awardTitle[locale.code]}</Trans>
                         </span>
                         <p>
-                          <Trans id="you_applied_for_award_x">
-                            you applied for {artwork?.awardTitle[locale.code]}{" "}
-                            award.
-                          </Trans>
+                          <Trans id="you_applied_for_award_x">you applied for {artwork?.awardTitle[locale.code]} award.</Trans>
                         </p>
                       </>
                     )}
@@ -118,23 +105,13 @@ const EditArtworkInfo = ({
                   <Field
                     transId="site_url"
                     transdDefaultVal="Site Url"
-                    hasError={
-                      errors &&
-                      errors.siteUrl !== undefined &&
-                      touched &&
-                      touched.siteUrl !== undefined
-                    }
+                    hasError={errors && errors.siteUrl !== undefined && touched && touched.siteUrl !== undefined}
                     name="siteUrl"
                   />
                   <Field
                     transId="production_year"
                     transdDefaultVal="Production Year"
-                    hasError={
-                      errors &&
-                      errors.productionYear !== undefined &&
-                      touched &&
-                      touched.productionYear !== undefined
-                    }
+                    hasError={errors && errors.productionYear !== undefined && touched && touched.productionYear !== undefined}
                     name="productionYear"
                   />
                 </div>
@@ -143,12 +120,7 @@ const EditArtworkInfo = ({
                   <Field
                     transId="broadcast_year"
                     transdDefaultVal="Broadcast Year"
-                    hasError={
-                      errors &&
-                      errors.broadcastYear !== undefined &&
-                      touched &&
-                      touched.broadcastYear !== undefined
-                    }
+                    hasError={errors && errors.broadcastYear !== undefined && touched && touched.broadcastYear !== undefined}
                     name="broadcastYear"
                   />
                 </div>
@@ -157,12 +129,7 @@ const EditArtworkInfo = ({
                   <Field
                     transId="tv_channels"
                     transdDefaultVal="Tv Channels"
-                    hasError={
-                      errors &&
-                      errors.tvChannels !== undefined &&
-                      touched &&
-                      touched.tvChannels !== undefined
-                    }
+                    hasError={errors && errors.tvChannels !== undefined && touched && touched.tvChannels !== undefined}
                     name="tvChannels"
                   />
                 </div>
@@ -171,12 +138,7 @@ const EditArtworkInfo = ({
                   <Field
                     transId="online_channels"
                     transdDefaultVal="Online Channels"
-                    hasError={
-                      errors &&
-                      errors.onlineChannels !== undefined &&
-                      touched &&
-                      touched.onlineChannels !== undefined
-                    }
+                    hasError={errors && errors.onlineChannels !== undefined && touched && touched.onlineChannels !== undefined}
                     name="onlineChannels"
                   />
                 </div>
@@ -207,28 +169,39 @@ const EditArtworkInfo = ({
                   />
                 </div>
                 {artwork.awardType == "person" && (
-                  <div className="row">
-                    <Field
-                      transId="resume"
-                      transdDefaultVal="Resume"
-                      isFile={true}
-                      hasError={
-                        errors &&
-                        errors.resume !== undefined &&
-                        touched &&
-                        touched.resume !== undefined
-                      }
-                      name="resume"
-                      accept="image/*"
-                    />
-                  </div>
+                  <>
+                    <>
+                      {artwork.resumeFileUrl != "" && (
+                        <div className="row">
+                          <div className="form-group">
+                            <label className="form-group__label col-4 col-md-4 col-sm-12">
+                              <Trans id="submitted_resume">Submitted resume</Trans>
+                            </label>
+                            <a
+                              href={artwork.resumeFileUrl}
+                              target="_blank"
+                              className="form-group__wrap  col-8 col-md-8 col-sm-12"
+                            >
+                              <Trans id="resume">resume</Trans>
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                    <div className="row">
+                      <Field
+                        transId="resume"
+                        transdDefaultVal="Resume"
+                        isFile={true}
+                        hasError={errors && errors.resume !== undefined && touched && touched.resume !== undefined}
+                        name="resume"
+                        accept="image/*"
+                      />
+                    </div>
+                  </>
                 )}
                 <div className="row">
-                  <button
-                    className="normal_button"
-                    type="submit"
-                    disabled={submitting}
-                  >
+                  <button className="normal_button" type="submit" disabled={submitting}>
                     <Trans id="save">Save</Trans>
                   </button>
                 </div>

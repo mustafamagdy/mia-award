@@ -10,8 +10,6 @@ const initialState = {
   artwork: undefined,
   artworkMode: "add", //add, view, edit
   myContestants: [],
-  contestant: undefined,
-  contestantMode: "add", //add, view, edit
   submitting: false,
 };
 
@@ -24,8 +22,6 @@ const resetAll = (state, action) => {
     draft.artwork = undefined;
     draft.artworkMode = "add";
     draft.myContestants = [];
-    draft.contestant = undefined;
-    draft.contestantMode = "add";
     draft.submitting = false;
   });
 };
@@ -57,7 +53,7 @@ const addNewArtworkSuccess = (state, action) => {
     if (action.payload.awardType == "person") {
       draft.contestant = { ...action.payload };
       draft.myContestants = [...state.myContestants, action.payload];
-      draft.contestantMode = "view";
+      draft.artworkMode = "view";
       draft.submitting = false;
     } else {
       draft.artwork = { ...action.payload };
@@ -77,7 +73,7 @@ const saveArtworkInfoSuccess = (state, action) => {
 const fetchArtworkWithDetailsSuccess = (state, action) => {
   return produce(state, (draft) => {
     if (action.payload.awardType == "person") {
-      draft.contestant = { ...action.payload };
+      draft.artwork = { ...action.payload };
       const indx = state.myContestants.findIndex(
         (a) => a.id == action.payload.id
       );
