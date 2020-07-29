@@ -82,7 +82,7 @@ namespace MIA.Api {
       var awards = await db.Awards
           .Include(a => a.FirstPlace)
           .Include(a => a.SecondPlace)
-          .Where(a => (a.SecondPlace != null && a.SecondPlace.NomineeId == nominee.Id) 
+          .Where(a => (a.SecondPlace != null && a.SecondPlace.NomineeId == nominee.Id)
                       || (a.FirstPlace != null && a.FirstPlace.NomineeId == nominee.Id))
           .ToArrayAsync();
 
@@ -90,11 +90,11 @@ namespace MIA.Api {
       foreach (var award in awards) {
         var item = _mapper.Map<AwardWithWinnerArtworkDto>(award);
 
-        if (award.FirstPlace !=null && award.FirstPlace.NomineeId == nominee.Id) {
+        if (award.FirstPlace != null && award.FirstPlace.NomineeId == nominee.Id) {
           item.FirstPlace = _mapper.Map<ArtworkWithStatusDto>(award.FirstPlace);
         }
 
-        if (award.SecondPlace != null &&  award.SecondPlace.NomineeId == nominee.Id) {
+        if (award.SecondPlace != null && award.SecondPlace.NomineeId == nominee.Id) {
           item.SecondPlace = _mapper.Map<ArtworkWithStatusDto>(award.SecondPlace);
         }
 
@@ -178,7 +178,7 @@ namespace MIA.Api {
     }
 
     private async Task<S3File> SaveResume(IS3FileManager fileManager,
-     string artworkId, SubmitArtworkWithDetails dto) {
+     string artworkId, IResumeFile dto) {
       if (!string.IsNullOrEmpty(dto.ResumeFileName) && dto.Resume != null && dto.Resume.Length > 0) {
         var resumeFileKey = fileManager.GenerateFileKeyForResource(
           ResourceType.ArtWork,
@@ -235,6 +235,7 @@ namespace MIA.Api {
     public async Task<IActionResult> UpdateArtwork(
       [FromRoute] string id,
       [FromBody] UpdateArtworkWithDetails dto,
+      [FromServices] IS3FileManager fileManager,
       [FromServices] IAppUnitOfWork db) {
 
       var nominee = await _userResolver.CurrentUserAsync();
@@ -255,6 +256,14 @@ namespace MIA.Api {
 
       var updatedArtwork = _mapper.Map<UpdateArtworkWithDetails, Artwork>(dto, artwork);
       updatedArtwork.Id = id;
+
+      if (dto.Resume != null) {
+        if (updatedArtwork.Resume.FileKey != "") {
+          await fileManager.DeleteFileAsync(updatedArtwork.Resume.FileKey);
+        }
+        updatedArtwork.Resume = await SaveResume(fileManager, id, dto);
+      }
+
       db.Artworks.Update(updatedArtwork);
       return Ok(_mapper.Map<ArtworkViewWithFilesDto>(updatedArtwork));
     }

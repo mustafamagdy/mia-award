@@ -28,6 +28,7 @@ namespace MIA.Api {
     public LocalizedData AwardTitle { get; set; }
     public decimal AwardFee { get; set; }
     public string TrophyUrl { get; set; }
+    public string ResumeFileUrl { get; set; }
   }
   public class ArtworkViewWithFilesDto : ArtworkViewDto {
     public ArtworkFileDto[] Files { get; set; }
@@ -71,9 +72,17 @@ namespace MIA.Api {
     public string Status { get; set; }
   }
 
-  public class UpdateArtworkWithDetails : ArtworkBasicData { }
+  public class UpdateArtworkWithDetails : ArtworkBasicData, IResumeFile {
+    public string ResumeFileName { get; set; }
+    public byte[] Resume { get; set; }
+  }
 
-  public class SubmitArtworkWithDetails : ArtworkBasicData {
+  public interface IResumeFile {
+    string ResumeFileName { get; set; }
+    byte[] Resume { get; set; }
+  }
+
+  public class SubmitArtworkWithDetails : ArtworkBasicData, IResumeFile {
     public string PosterFileName { get; set; }
     public string CoverImageFileName { get; set; }
     public byte[] Poster { get; set; }

@@ -37,8 +37,7 @@ const ViewArtwork = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeTabKey, setActiveTabKey] = useState("info");
   const [artworkPosterStyle, setArtworkPosterStyle] = useState({
-    background:
-      "transparent url('/assets/images/poaster.png') scroll no-repeat top center/cover",
+    background: "transparent url('/assets/images/poaster.png') scroll no-repeat top center/cover",
   });
 
   useEffect(() => {
@@ -62,11 +61,7 @@ const ViewArtwork = ({
       <div className="upload_poster" style={artworkPosterStyle}>
         {item && item.coverUrl && (
           <div className="upload_area">
-            <img
-              src={item.coverUrl}
-              style={{ objectFit: "cover" }}
-              alt="Cover"
-            />
+            <img src={item.coverUrl} style={{ objectFit: "cover" }} alt="Cover" />
           </div>
         )}
       </div>
@@ -163,25 +158,19 @@ const Info = ({
             <span>
               <Trans id="award_name">Award</Trans> :
             </span>
-            <LanguageContext.Consumer>
-              {({ locale }) => <p>{awardTitle[locale.code]}</p>}
-            </LanguageContext.Consumer>
+            <LanguageContext.Consumer>{({ locale }) => <p>{awardTitle[locale.code]}</p>}</LanguageContext.Consumer>
           </li>
           <li>
             <span>
               <Trans id="project_name">Project Name</Trans> :
             </span>
-            <LanguageContext.Consumer>
-              {({ locale }) => <p>{projectName[locale.code]}</p>}
-            </LanguageContext.Consumer>
+            <LanguageContext.Consumer>{({ locale }) => <p>{projectName[locale.code]}</p>}</LanguageContext.Consumer>
           </li>
           <li>
             <span>
               <Trans id="description">Description</Trans> :
             </span>
-            <LanguageContext.Consumer>
-              {({ locale }) => <p>{description[locale.code]}</p>}
-            </LanguageContext.Consumer>
+            <LanguageContext.Consumer>{({ locale }) => <p>{description[locale.code]}</p>}</LanguageContext.Consumer>
           </li>
           <li>
             <span>
@@ -227,19 +216,13 @@ const Info = ({
           </li>
           <li>
             <span>
-              <Trans id="production_license_number">
-                Production License Number
-              </Trans>
-              :
+              <Trans id="production_license_number">Production License Number</Trans>:
             </span>
             <p>{productionLicenseNumber}</p>
           </li>
           <li>
             <span>
-              <Trans id="production_license_agency">
-                Production License Agency
-              </Trans>
-              :
+              <Trans id="production_license_agency">Production License Agency</Trans>:
             </span>
             <p>{productionLicenseAgency}</p>
           </li>
@@ -299,27 +282,15 @@ const Info = ({
   );
 };
 
-const mapStateToProps = (
-  { members: { artwork, contestant, artworkMode, contestantMode } },
-  compProps
-) => {
+const mapStateToProps = ({ members: { artwork, artworkMode } }, compProps) => {
   let _item, _itemMode;
-  if (compProps.awardType == "person") {
-    _item = contestant;
-    _itemMode = contestantMode;
-  } else {
-    _item = artwork;
-    _itemMode = artworkMode;
-  }
+  _item = artwork;
+  _itemMode = artworkMode;
 
   return {
     item: _item,
     itemMode: _itemMode,
   };
 };
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ ...membersActions }, dispatch);
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(ViewArtwork));
+const mapDispatchToProps = (dispatch) => bindActionCreators({ ...membersActions }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ViewArtwork));
