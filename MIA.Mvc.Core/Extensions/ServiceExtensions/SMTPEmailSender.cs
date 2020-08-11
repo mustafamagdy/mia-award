@@ -17,33 +17,6 @@ namespace MIA.Extensions {
     }
 
     public async Task SendEmailAsync(string email, string subject, string htmlMessage) {
-
-      String username = "AKIAWESSA665U7KZL7WL";  // Replace with your SMTP username.
-      String password = "BDazePeEJCtw++i9u4GbRIgiPDGapTATHlzWnxwAdVo1";  // Replace with your SMTP password.
-      String host = "email-smtp.us-east-1.amazonaws.com";
-
-      //try {
-       
-      //  int port = 25;
-
-      //  using (var client = new System.Net.Mail.SmtpClient(host, port)) {
-      //    client.Credentials = new System.Net.NetworkCredential(username, password);
-      //    client.EnableSsl = true;
-
-      //    client.Send
-      //    (
-      //      "no-reply@miaaward.com",  // Replace with the sender address.
-      //      email,    // Replace with the recipient address.
-      //      "Testing Amazon SES through SMTP",
-      //      "This email was delivered through Amazon SES via the SMTP end point."
-      //    );
-      //  }
-
-      //} catch (Exception ex) {
-      //  throw;
-      //}
-
-
       var mSmtpClient = new System.Net.Mail.SmtpClient();
       try {
         MailMessage mMailMessage = new MailMessage();
