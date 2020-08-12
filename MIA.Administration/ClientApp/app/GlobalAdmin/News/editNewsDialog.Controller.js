@@ -34,12 +34,13 @@
     var vm = this;
     var posterImage;
     vm.language = appCONSTANTS.supportedLanguage;
-    vm.News = NewsByIdPrepService;
+    vm.news = NewsByIdPrepService;
 
-    vm.posterImage = vm.News.posterUrl;
-    vm.newsDate = new Date(vm.News.date).toLocaleDateString();
-    // vm.keywords = vm.News.keywords.split(",");
-    vm.keywords = vm.News.keywords.split(",");
+    vm.posterImage = vm.news.posterUrl;
+    vm._newsDate = new Date(vm.news.date);
+    vm.newsDate = `${vm._newsDate.getFullYear()}-${vm._newsDate.getMonth() + 1}-${vm._newsDate.getDate()}`;
+    // vm.keywords = vm.news.keywords.split(",");
+    vm.keywords = vm.news.keywords.split(",");
 
     vm.Close = function () {
       $state.go("News");
@@ -49,17 +50,17 @@
       blockUI.start("Loading...");
 
       var updateObj = new NewsResource();
-      updateObj.Id = vm.News.id;
-      updateObj.title = vm.News.title;
-      updateObj.body = vm.News.body;
-      if (Array.isArray(vm.News.keywords)) {
-        updateObj.keywords = vm.News.keywords.join(",");
+      updateObj.Id = vm.news.id;
+      updateObj.title = vm.news.title;
+      updateObj.body = vm.news.body;
+      if (Array.isArray(vm.news.keywords)) {
+        updateObj.keywords = vm.news.keywords.join(",");
       } else {
-        updateObj.keywords = vm.News.keywords;
+        updateObj.keywords = vm.news.keywords;
       }
       updateObj.date = +new Date(vm.newsDate);
-      updateObj.featured = vm.News.featured;
-      updateObj.category = vm.News.category;
+      updateObj.featured = vm.news.featured;
+      updateObj.category = vm.news.category;
 
       if (posterImage != null) {
         // updateObj.image = splitImage[1];
@@ -71,26 +72,14 @@
       }
       updateObj.$update().then(
         function (data, status) {
-          ToastService.show(
-            "right",
-            "bottom",
-            "fadeInUp",
-            $translate.instant("Editeduccessfully"),
-            "success"
-          );
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("Editeduccessfully"), "success");
           blockUI.stop();
 
           $state.go("News");
         },
         function (data, status) {
           blockUI.stop();
-          ToastService.show(
-            "right",
-            "bottom",
-            "fadeInUp",
-            data.data.message,
-            "error"
-          );
+          ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
         }
       );
     };
@@ -101,7 +90,7 @@
     $scope.AddposterImage = function (element) {
       var logoFile = element[0];
 
-      var allowedImageTypes = ["image/jpg","image/jpeg", "image/png", "image/gif"];
+      var allowedImageTypes = ["image/jpg", "image/jpeg", "image/png", "image/gif"];
 
       if (logoFile && logoFile.size >= 0 && logoFile.size / (1024 * 1000) < 2) {
         if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
@@ -121,24 +110,12 @@
           });
         } else {
           $("#logoImage").val("");
-          ToastService.show(
-            "right",
-            "bottom",
-            "fadeInUp",
-            $translate.instant("imageTypeError"),
-            "error"
-          );
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("imageTypeError"), "error");
         }
       } else {
         if (logoFile) {
           $("#logoImage").val("");
-          ToastService.show(
-            "right",
-            "bottom",
-            "fadeInUp",
-            $translate.instant("imgaeSizeError"),
-            "error"
-          );
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("imgaeSizeError"), "error");
         }
       }
     };

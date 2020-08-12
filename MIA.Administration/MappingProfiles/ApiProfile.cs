@@ -74,6 +74,24 @@ namespace MIA.Administration.MappingProfiles {
             .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
         ;
 
+      CreateMap<Booth, BoothReportDto>()
+        .ValidateMemberList(MemberList.None)
+        .ForMember(a => a.Sellable, cfg => cfg.MapFrom(a => a.Sellable ? "Yes" : "No"))
+        .ForMember(a => a.Sold,
+          cfg => cfg.MapFrom(a => a.Purchases.Any(z => z.Payment != null && z.Payment.PaymentStatus == PaymentStatus.Confirmed)
+                                  ? "Sold"
+                                  : "Not Sold"))
+        .ForMember(a => a.BoothPrice, cfg => cfg.MapFrom(a => a.Price))
+        .ForMember(a => a.PaidAmount, cfg => cfg.MapFrom(a =>
+              a.Purchases != null && a.Purchases.Any(z => z.Payment != null && z.Payment.PaymentStatus == PaymentStatus.Confirmed)
+            ? a.Purchases.FirstOrDefault(z => z.Payment.PaymentStatus == PaymentStatus.Confirmed).Payment.Amount
+            : 0))
+        .ForMember(a => a.PurchaseDate, cfg => cfg.MapFrom(a =>
+              a.Purchases != null && a.Purchases.Any(z => z.Payment != null && z.Payment.PaymentStatus == PaymentStatus.Confirmed)
+            ? a.Purchases.FirstOrDefault(z => z.Payment.PaymentStatus == PaymentStatus.Confirmed).Payment.PaymentDate.LocalDateTime().ToString("yyyy-MM-dd")
+            : ""))
+        ;
+
       #endregion
 
       #region VotingCriteria
@@ -288,7 +306,7 @@ namespace MIA.Administration.MappingProfiles {
       CreateMap<AppUser, UserIdFullNameDto>()
         .IncludeAllDerived()
         .ValidateMemberList(MemberList.None);
-      
+
       CreateMap<AppUser, UserWithRolesDto>()
         .IncludeBase<AppUser, UserBasicDataDto>()
         .ForMember(a => a.Roles, n => n.Ignore())

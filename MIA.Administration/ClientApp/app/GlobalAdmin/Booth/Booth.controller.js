@@ -37,12 +37,13 @@
 
       var k = BoothResource.getAllBooths({
         pageNumber: vm.currentPage,
-        pageSize: 10,
+        pageSize: 1000,
         code: vm.filterBy,
       }).$promise.then(
         function (results) {
-          $scope.BoothList = results.items;
-          $scope.totalCount = results.metadata.totalItemCount;
+          //$scope.BoothList = results.items;
+          $scope.BoothList = results;
+          //$scope.totalCount = results.metadata.totalItemCount;
           blockUI.stop();
         },
         function (data, status) {

@@ -21,18 +21,8 @@
       <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li
-            role="presentation"
-            ng-class="{'active':$index == 0}"
-            ng-repeat="lang in newNewsCtrl.language"
-          >
-            <a
-              href="javascript:void(0);"
-              data-target="#{{lang.value}}-form"
-              aria-controls="home"
-              role="tab"
-              data-toggle="tab"
-            >
+          <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in newNewsCtrl.language">
+            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">
               <span style="color: red;">*</span>{{lang.value | translate}}
             </a>
           </li>
@@ -41,16 +31,8 @@
           <div class="pmd-card-body">
             <!-- Tab panes -->
             <div class="tab-content">
-              <div
-                role="tablist"
-                class="tab-pane"
-                ng-class="{'active':$index == 0}"
-                ng-repeat="lang in newNewsCtrl.language"
-                id="{{lang.value}}-form"
-              >
-                <div
-                  class="form-group pmd-textfield pmd-textfield-floating-label"
-                >
+              <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in newNewsCtrl.language" id="{{lang.value}}-form">
+                <div class="form-group pmd-textfield pmd-textfield-floating-label">
                   <label for="first-name">{{ 'Title' | translate}} </label>
                   <input
                     required
@@ -61,9 +43,7 @@
                     ng-minlength="3"
                     ng-maxlength="255"
                   />
-                  <div
-                    ng-messages="newNewsForm.titleDictionary{{lang.value+'Name'}}.$error"
-                  >
+                  <div ng-messages="newNewsForm.titleDictionary{{lang.value+'Name'}}.$error">
                     <div
                       class="error ng-binding"
                       ng-show="newNewsForm.titleDictionary{{lang.value+'Name'}}.$error.required && !newNewsForm.titleDictionary{{lang.value+'Name'}}.$pristine"
@@ -78,9 +58,7 @@
                     </div>
                   </div>
                 </div>
-                <div
-                  class="form-group pmd-textfield pmd-textfield-floating-label"
-                >
+                <div class="form-group pmd-textfield pmd-textfield-floating-label">
                   <label for="first-name">{{ 'Body' | translate}} </label>
                   <textarea
                     required
@@ -90,9 +68,7 @@
                     ng-minlength="3"
                     ng-maxlength="955"
                   ></textarea>
-                  <div
-                    ng-messages="newNewsForm.bodyDictionary{{lang.value+'Name'}}.$error"
-                  >
+                  <div ng-messages="newNewsForm.bodyDictionary{{lang.value+'Name'}}.$error">
                     <div
                       class="error ng-binding"
                       ng-show="newNewsForm.bodyDictionary{{lang.value+'Name'}}.$error.required && !newNewsForm.bodyDictionary{{lang.value+'Name'}}.$pristine"
@@ -109,39 +85,31 @@
                 </div>
               </div>
             </div>
-            <div class="form-group pmd-textfield-floating-label-completed">
-              <select
-                style="width: 600px !important;"
-                multiple
-                class="form-control select-add-tags pmd-select2-tags"
-                ng-model="newNewsCtrl.news.keywords"
-              >
-              </select>
-              <div class="input-group date" style="width: 200px;">
-                <input
-                  datetime-picker
-                  date-only
-                  required
-                  date-format="yyyy-MM-dd"
-                  ng-model="newNewsCtrl.news.newsDate"
-                />
+            <div class="row">
+              <div class="form-group pmd-textfield-floating-label-completed">
+                <label for="tags">{{ 'Tags' | translate}} </label>
+                <input style="width: 600px !important;" type="text" class="form-control" id="tags" name="tags" ng-model="newNewsCtrl.news.keywords" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group pmd-textfield-floating-label-completed">
+                <label for="date">{{ 'Date' | translate}} </label>
+                <div class="input-group date" style="width: 200px;">
+                  <input datetime-picker date-only required date-format="yyyy-MM-dd" ng-model="newNewsCtrl.news.newsDate" />
+                </div>
               </div>
             </div>
             <div class="row">
               <div class="form-group">
                 <label>{{'featured' | translate}}</label>
-                <input
-                  type="checkbox"
-                  class="form-control"
-                  ng-model="newNewsCtrl.news.featured"
-                />
+                <input type="checkbox" class="form-control" ng-model="newNewsCtrl.news.featured" />
               </div>
-              <input
-                  required
-                  type="textbox"
-                  class="form-control"
-                  ng-model="newNewsCtrl.news.category"
-                />
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label for="category">{{ 'Category' | translate}} </label>
+                <input required type="textbox" class="form-control" ng-model="newNewsCtrl.news.category" id="category" name="category" />
+              </div>
             </div>
           </div>
         </div>
@@ -157,20 +125,14 @@
             accept="image/*"
             required
           />
-          <button
-            class="btn btn-success btn-xs pull-center"
-            ng-click="newNewsCtrl.LoadUploadPoster()"
-          >
+          <button class="btn btn-success btn-xs pull-center" ng-click="newNewsCtrl.LoadUploadPoster()">
             {{'Upload Poster' | translate}}
           </button>
           <span>
             <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
             {{'RecommendedProductImage' | translate}}</span
           >
-          <img
-            ng-src="{{newNewsCtrl.posterImage}}"
-            style="max-height: 139px; max-width: 423px;"
-          />
+          <img ng-src="{{newNewsCtrl.posterImage}}" style="max-height: 139px; max-width: 423px;" />
           <div ng-messages="newNewsForm.posterImage.$error">
             <div ng-if="newNewsForm.posterImage.$error.required">
               {{'requiredErr' | translate}}
@@ -190,12 +152,7 @@
   </div>
   <div class="pmd-modal-action text-right">
     <button
-      style="
-        border: #494b74 solid 1px;
-        background-color: transparent;
-        color: #494b74;
-        border-radius: 6px;
-      "
+      style="border: #494b74 solid 1px; background-color: transparent; color: #494b74; border-radius: 6px;"
       ng-disabled="newNewsForm.$invalid || newNewsCtrl.posterImage ==null"
       class="btn pmd-ripple-effect btn-primary"
       News="button"
@@ -203,11 +160,7 @@
     >
       {{'saveChangesBtn' | translate}}
     </button>
-    <button
-      class="btn pmd-ripple-effect btn-default"
-      News="button"
-      ng-click="newNewsCtrl.close()"
-    >
+    <button class="btn pmd-ripple-effect btn-default" News="button" ng-click="newNewsCtrl.close()">
       {{'DiscardBtn' | translate}}
     </button>
   </div>

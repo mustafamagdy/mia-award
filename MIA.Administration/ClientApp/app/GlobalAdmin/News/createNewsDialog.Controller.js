@@ -21,9 +21,7 @@
 
               var extension = extensionlist[extensionlist.length - 1];
               if (extensions.indexOf(extension) == -1) {
-                alert(
-                  "File extension , Only 'jpeg', 'jpg', 'png', 'gif', 'bmp' are allowed."
-                );
+                alert("File extension , Only 'jpeg', 'jpg', 'png', 'gif', 'bmp' are allowed.");
                 scope.imageName = null;
                 rootScope.isValid = false;
               } else {
@@ -67,18 +65,7 @@
       createNewsDialogController,
     ]);
 
-  function createNewsDialogController(
-    $scope,
-    blockUI,
-    $http,
-    $state,
-    appCONSTANTS,
-    uploadOptions,
-    $translate,
-    NewsResource,
-    ToastService,
-    $rootScope
-  ) {
+  function createNewsDialogController($scope, blockUI, $http, $state, appCONSTANTS, uploadOptions, $translate, NewsResource, ToastService, $rootScope) {
     var vm = this;
     $rootScope.image = null;
 
@@ -102,7 +89,7 @@
       newObj.Body = vm.bodyDictionary;
       newObj.PosterByte = splitImage[1];
       newObj.PosterFileName = posterImage.type;
-      newObj.keywords = vm.news.keywords.join(",");
+      newObj.keywords = vm.news.keywords;
       newObj.date = +new Date(vm.news.newsDate);
       newObj.featured = vm.news.featured;
       newObj.category = vm.news.category;
@@ -110,24 +97,12 @@
       newObj.$create().then(
         function (data, status) {
           blockUI.stop();
-          ToastService.show(
-            "right",
-            "bottom",
-            "fadeInUp",
-            $translate.instant("AddedSuccessfully"),
-            "success"
-          );
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("AddedSuccessfully"), "success");
           $state.go("News");
         },
         function (data, status) {
           blockUI.stop();
-          ToastService.show(
-            "right",
-            "bottom",
-            "fadeInUp",
-            data.data.title,
-            "error"
-          );
+          ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
         }
       );
     };
@@ -141,11 +116,7 @@
 
       var allowedImageTypes = ["image/jpg", "image/png", "image/jpeg"];
 
-      if (
-        logoFile &&
-        logoFile.size >= 0 &&
-        logoFile.size / (1024 * 1000) < uploadOptions.maxImageFileSizeInMb
-      ) {
+      if (logoFile && logoFile.size >= 0 && logoFile.size / (1024 * 1000) < uploadOptions.maxImageFileSizeInMb) {
         if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
           $scope.newNewsForm.$dirty = true;
           $scope.$apply(function () {
@@ -163,24 +134,12 @@
           });
         } else {
           $("#logoImage").val("");
-          ToastService.show(
-            "right",
-            "bottom",
-            "fadeInUp",
-            $translate.instant("imageTypeError"),
-            "error"
-          );
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("imageTypeError"), "error");
         }
       } else {
         if (logoFile) {
           $("#logoImage").val("");
-          ToastService.show(
-            "right",
-            "bottom",
-            "fadeInUp",
-            $translate.instant("imgaeSizeError"),
-            "error"
-          );
+          ToastService.show("right", "bottom", "fadeInUp", $translate.instant("imgaeSizeError"), "error");
         }
       }
     };

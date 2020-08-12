@@ -16,13 +16,20 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
+using Bogus;
+using EPPlus.TableGrid.Core;
+using EPPlus.TableGrid.Core.Configurations;
+using EPPlus.TableGrid.Core.Configurations.Styles;
 using MIA.Authorization.Attributes;
 using MIA.Authorization.Entities;
 using Microsoft.AspNetCore.Authorization;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace MIA.Administration.Api {
 
@@ -49,11 +56,13 @@ namespace MIA.Administration.Api {
 
     [HasPermission(Permissions.BoothRead)]
     [HttpPost("filterBy")]
-    public async Task<IActionResult> FilterBy([FromBody]FilterBoothDto dto, [FromServices] IAppUnitOfWork db) {
+    public async Task<IActionResult> FilterBy([FromBody] FilterBoothDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await db.Booths
         .Where(a => dto.Code == "" || a.Code.ToLower().Contains(dto.Code.ToLower()))
+        .OrderBy(a => a.Code)
         .ProjectTo<BoothsDto>(_mapper.ConfigurationProvider)
-        .ToPagedListAsync(dto);
+        .ToArrayAsync();
+      // .ToPagedListAsync(dto);
       return Ok(result);
     }
 
@@ -172,9 +181,123 @@ namespace MIA.Administration.Api {
 
       return IfFound(_mapper.Map<BoothsDto>(item));
     }
+
+    [HttpGet("report")]
+    [AllowAnonymous]
+    //[HasPermission(Permissions.ExportBoothReport)]
+    public async Task<IActionResult> BoothReport([FromServices] IAppUnitOfWork db) {
+      var booths = await db.Booths
+        .Include(a => a.Purchases)
+        .ThenInclude(a => a.Payment)
+        .OrderBy(a => a.Code)
+        .ProjectTo<BoothReportDto>(_mapper.ConfigurationProvider)
+        .ToArrayAsync();
+
+      var gridOptions = GetGridOptions(booths);
+      var bytes = Spreadsheet.GenerateTableGrid(gridOptions);
+      var stream = new MemoryStream(bytes);
+      string fileName = $"booths_{DateTime.Now:yy-MMM-dd}.xls";
+      stream.Position = 0;
+      return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+    }
+
+    TgOptions<BoothReportDto> GetGridOptions(IEnumerable<BoothReportDto> data) {
+      return new TgOptions<BoothReportDto>() {
+        Collection = data,
+        DefaultColumnOptions = new TgDefaultColumnOptions() {
+          AutoWidth = true,
+          Style = new TgExcelStyle {
+            HorizontalAlignment = ExcelHorizontalAlignment.Center
+          },
+          HeaderStyle = new TgExcelStyle {
+            HorizontalAlignment = ExcelHorizontalAlignment.Center,
+            VerticalAlignment = ExcelVerticalAlignment.Center,
+            WrapText = true,
+            Font = new TgExcelFont() { IsBold = true }
+          }
+        },
+        Columns = new List<TgColumn>()
+          {
+            new TgColumn<BoothReportDto>()
+            {
+                Header = "Code",
+                Property = it => it.Code,
+                Style = new TgExcelStyle() {HorizontalAlignment = ExcelHorizontalAlignment.Right},
+                Width = 7,
+            },
+            new TgColumn<BoothReportDto>()
+            {
+              Header = "Public",
+              Property = it => it.Sellable,
+              Style = new TgExcelStyle() {HorizontalAlignment = ExcelHorizontalAlignment.Right},
+              Width = 7,
+            },
+            new TgColumn<BoothReportDto>()
+            {
+              Header = "Sold",
+              Property = it => it.Sold,
+              Width = 20
+            },
+
+            new TgColumn<BoothReportDto>()
+            {
+                Header = "Booth Price",
+                Property = it => it.BoothPrice,
+                Width = 16,
+                Style = new TgExcelStyle() {HorizontalAlignment = ExcelHorizontalAlignment.Left}
+            },
+            new TgColumn<BoothReportDto>()
+            {
+                Header = "Paid Amount",
+                Property = it => it.PaidAmount,
+                Width = 16,
+                Style = new TgExcelStyle() {HorizontalAlignment = ExcelHorizontalAlignment.Left},
+                Summary = new TgColumnSummary()
+                {
+                    AggregateFunction = new AggregateFunction(AggregateFunctionType.Sum),
+                    Style = new TgExcelStyle()
+                    {
+                        Font = new TgExcelFont() {IsBold = true}
+                    }
+                }
+            },
+            new TgColumn<BoothReportDto>()
+            {
+                Header = "Purchase Date",
+                Property = it => it.PurchaseDate,
+                Width = 20,
+                Style = new TgExcelStyle()
+                {
+                    HorizontalAlignment = ExcelHorizontalAlignment.Right
+                }
+            },
+        },
+        GroupOptions = new TgGroupOptions<BoothReportDto>() {
+          GroupingType = GroupingType.GroupHeaderOnColumn,
+          GroupingColumn = item => item.Sold,
+          IsGroupCollapsable = true
+        },
+        PrintHeaders = true,
+        RowNumberColumn = new TgRowNumberColumn(),
+        PrintHeaderColumnNumbers = true,
+      };
+    }
   }
 
   public class FilterBoothDto : BaseSearchDto {
     public string Code { get; set; }
   }
+
+  public class BoothReportDto {
+    public string Code { get; set; }
+    public string Sellable { get; set; }
+    public string Sold { get; set; }
+    public decimal BoothPrice { get; set; }
+    public decimal PaidAmount { get; set; }
+    public string PurchaseDate { get; set; }
+
+
+
+  }
+
 }

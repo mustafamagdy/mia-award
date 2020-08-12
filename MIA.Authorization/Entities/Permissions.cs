@@ -124,7 +124,8 @@ namespace MIA.Authorization.Entities {
     BoothPayment,
     [PermissionDescriptor(SystemModules.Booths, "change_booths_status", "change new booths")]
     BoothChangeStatus,
-
+    [PermissionDescriptor(SystemModules.Booths, "booth_report", "export booth report")]
+    ExportBoothReport,
 
     //Judge
     [PermissionDescriptor(SystemModules.Judge, "list_my_judged_artworks", "list and view my judged artworks")]

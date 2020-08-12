@@ -47,6 +47,7 @@ namespace MIA.Administration.Api {
     }
 
     [HasPermission(Permissions.NewsAddNew)]
+    [RequestSizeLimit(1024*1024*30)]
     public override async Task<IActionResult> SaveNewAsync([FromBody] NewNewsDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.SaveNewAsync(dto, db);
       var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
@@ -71,6 +72,7 @@ namespace MIA.Administration.Api {
     }
 
     [HasPermission(Permissions.NewsEdit)]
+    [RequestSizeLimit(1024*1024*30)]
     public override async Task<IActionResult> UpdateAsync([FromBody] UpdateNewsDto dto, [FromServices] IAppUnitOfWork db) {
       var result = await base.UpdateAsync(dto, db);
       var resultDto = ((NewsDto)(result as OkObjectResult)?.Value);
