@@ -189,8 +189,9 @@ namespace MIA.Administration.Api {
       var booths = await db.Booths
         .Include(a => a.Purchases)
         .ThenInclude(a => a.Payment)
-        .OrderBy(a => a.Code)
         .ProjectTo<BoothReportDto>(_mapper.ConfigurationProvider)
+        .OrderByDescending(a => a.IsSold)
+        .ThenBy(a => a.Code)
         .ToArrayAsync();
 
       var gridOptions = GetGridOptions(booths);
@@ -291,6 +292,7 @@ namespace MIA.Administration.Api {
   public class BoothReportDto {
     public string Code { get; set; }
     public string Sellable { get; set; }
+    public string IsSold { get; set; }
     public string Sold { get; set; }
     public decimal BoothPrice { get; set; }
     public decimal PaidAmount { get; set; }

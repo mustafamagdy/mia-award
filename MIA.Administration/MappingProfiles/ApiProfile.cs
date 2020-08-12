@@ -77,6 +77,8 @@ namespace MIA.Administration.MappingProfiles {
       CreateMap<Booth, BoothReportDto>()
         .ValidateMemberList(MemberList.None)
         .ForMember(a => a.Sellable, cfg => cfg.MapFrom(a => a.Sellable ? "Yes" : "No"))
+        .ForMember(a => a.IsSold,
+          cfg => cfg.MapFrom(a => a.Purchases.Any(z => z.Payment != null && z.Payment.PaymentStatus == PaymentStatus.Confirmed)))
         .ForMember(a => a.Sold,
           cfg => cfg.MapFrom(a => a.Purchases.Any(z => z.Payment != null && z.Payment.PaymentStatus == PaymentStatus.Confirmed)
                                   ? "Sold"
