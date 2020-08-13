@@ -299,6 +299,14 @@ namespace MIA.Administration.Api {
     public string PurchaseDate { get; set; }
 
 
+    public string CompanyName { get; set; }
+    public string Phone { get; set; }
+    public string Fax { get; set; }
+    public string ContactPersonName { get; set; }
+    public string ContactPersonTitle { get; set; }
+    public string CellPhone1 { get; set; }
+    public string CellPhone2 { get; set; }
+    public string Email { get; set; }
 
   }
 

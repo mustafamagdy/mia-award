@@ -28,6 +28,11 @@ namespace MIA.Administration.Api
 
     public BoothPaymentDto Payment { get; set; }
     public string PaymentId { get; set; }
+
+    public PaymentStatus PaymentStatus { get; set; }
+    public string TransactionNumber { get; set; }
+    public decimal Amount { get; set; }
+    public long PaymentDate { get; set; }
   }
 
 }
