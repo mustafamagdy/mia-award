@@ -32,17 +32,49 @@
     vm.filterBy = "";
 
 
-    vm.refreshBooths = function() {
+    vm.save = function(blob, fileName) {
+      if (window.navigator.msSaveOrOpenBlob) { // For IE:
+        navigator.msSaveBlob(blob, fileName);
+      } else { // For other browsers:
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = fileName;
+        link.click();
+        window.URL.revokeObjectURL(link.href);
+      }
+    }
+
+    //vm.boothReport = function () {
+    //  blockUI.start("Loading...");
+
+    //  BoothResource
+    //    .report()
+    //    .$promise.then(
+    //      function (response) {
+    //        debugger;
+    //        vm.save(new Blob(response, { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), "test.xls");
+
+    //      blockUI.stop();
+    //    },
+    //    function (data, status) {
+    //      blockUI.stop();
+    //      ToastService.show("right", "bottom", "fadeInUp", data.data, "error");
+    //    }
+    //  );
+    //}
+
+    vm.refreshBooths = function () {
       blockUI.start("Loading...");
 
       var k = BoothResource.getAllBooths({
         pageNumber: vm.currentPage,
-        pageSize: 10,
+        pageSize: 1000,
         code: vm.filterBy,
       }).$promise.then(
         function (results) {
-          $scope.BoothList = results.items;
-          $scope.totalCount = results.metadata.totalItemCount;
+          //$scope.BoothList = results.items;
+          $scope.BoothList = results;
+          //$scope.totalCount = results.metadata.totalItemCount;
           blockUI.stop();
         },
         function (data, status) {
@@ -54,7 +86,7 @@
 
     vm.refreshBooths();
 
-    
+
     vm.showMore = function (element, booth) {
       // $(element.currentTarget).toggleClass("child-table-collapse");
 

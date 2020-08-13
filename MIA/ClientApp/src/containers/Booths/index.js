@@ -15,16 +15,10 @@ import { Form, Formik } from "formik";
 import { Field, ErrorMessage, LocalizedDataField } from "components/Forms";
 import config from "config";
 import { NavLink } from "react-router-dom";
+import "react-day-picker/lib/style.css";
+import DayPickerInput from "react-day-picker/DayPickerInput";
 
-const Booths = ({
-  currency,
-  fetchBooths,
-  booths,
-  boothBooked,
-  bookBooth,
-  boothSubmitting,
-  ...props
-}) => {
+const Booths = ({ currency, fetchBooths, booths, boothBooked, bookBooth, boothSubmitting, ...props }) => {
   useEffect(() => {
     setLoading(false);
     if (booths == undefined || booths.length == 0) {
@@ -73,18 +67,11 @@ const Booths = ({
                 imageHeight={175}
                 zoomContainerWidth={500}
                 zoomContainerHeight={500}
-                portalStyle={Object.assign(
-                  { ...ImageZoom.defaultPortalStyle },
-                  { top: "140px" }
-                )}
+                portalStyle={Object.assign({ ...ImageZoom.defaultPortalStyle }, { top: "140px" })}
                 zoomScale={5}
                 responsive={true}
               >
-                <img
-                  src="assets/images/booth_image_small.png"
-                  alt=""
-                  width="100%"
-                />
+                <img src="assets/images/booth_image_small.png" alt="" width="100%" />
               </ImageZoom>
 
               {/* <span>
@@ -111,12 +98,7 @@ const Booths = ({
               <>
                 <div className="tabs_links">
                   <ul>
-                    <TabList
-                      activeClassName="active"
-                      activeIndex={activeIndex}
-                      activeTabKey={activeTabKey}
-                      handleActiveTabWithKey={handleActiveTab}
-                    >
+                    <TabList activeClassName="active" activeIndex={activeIndex} activeTabKey={activeTabKey} handleActiveTabWithKey={handleActiveTab}>
                       {tabs.map((t, i) => (
                         <Tab key={t} tabKey={t}>
                           <li>
@@ -157,29 +139,14 @@ const Booths = ({
                     validationSchema={Yup.object().shape({
                       boothCode: Yup.string().required("Required"),
                       address: Yup.string().required("Required"),
-                      phone: Yup.string()
-                        .required("Required")
-                        .matches(
-                          config.validationRules.phoneExp,
-                          "phone_number_is_not_valid"
-                        ),
+                      phone: Yup.string().required("Required").matches(config.validationRules.phoneExp, "phone_number_is_not_valid"),
                       contactPersonName: Yup.string().required("Required"),
                       contactPersonTitle: Yup.string().required("Required"),
-                      cellPhone1: Yup.string()
-                        .required("Required")
-                        .matches(
-                          config.validationRules.phoneExp,
-                          "phone_number_is_not_valid"
-                        ),
-                      email: Yup.string()
-                        .required("Required")
-                        .email("not_valid_email"),
+                      cellPhone1: Yup.string().required("Required").matches(config.validationRules.phoneExp, "phone_number_is_not_valid"),
+                      email: Yup.string().required("Required").email("not_valid_email"),
                       agreeOnTerms: Yup.bool().required("Required"),
                       payment: Yup.object().shape({
-                        receiptAmount: Yup.number()
-                          .required("Required")
-                          .min(1)
-                          .max(100000),
+                        receiptAmount: Yup.number().required("Required").min(1).max(100000),
                         receiptNumber: Yup.string().required("Required"),
                         receiptDate: Yup.date().required("Required"),
                         receiptFile: Yup.mixed().required("Required"),
@@ -187,37 +154,22 @@ const Booths = ({
                     })}
                     onSubmit={async (values, actions) => {
                       if (values.companyLogo !== undefined) {
-                        const companyLogo = await fileToBase64(
-                          values.companyLogo
-                        );
+                        const companyLogo = await fileToBase64(values.companyLogo);
                         const companyFileName = values.companyLogo.name;
                         const lastIndxOfdot = companyFileName.lastIndexOf(".");
-                        const ext = companyFileName.substring(
-                          lastIndxOfdot + 1
-                        );
+                        const ext = companyFileName.substring(lastIndxOfdot + 1);
                         values.CompanyLogoFileExt = ext;
                         values.companyLogo = companyLogo;
                       }
 
-                      const receipt = await fileToBase64(
-                        values.payment.receiptFile
-                      );
-                      values.payment.receiptFileName =
-                        values.payment.receiptFile.name;
+                      const receipt = await fileToBase64(values.payment.receiptFile);
+                      values.payment.receiptFileName = values.payment.receiptFile.name;
                       values.payment.receipt = receipt;
 
                       bookBooth(values);
                     }}
                   >
-                    {({
-                      values,
-                      isSubmitting,
-                      setFieldValue,
-                      errors,
-                      isValid,
-                      touched,
-                      ...props
-                    }) => {
+                    {({ values, isSubmitting, setFieldValue, errors, isValid, touched, ...props }) => {
                       return (
                         <Form noValidate className="info_form">
                           <Info
@@ -231,17 +183,13 @@ const Booths = ({
                             booths={booths}
                             nextStep={nextStep}
                           />
-                          <Details
-                            errors={errors}
-                            touched={touched}
-                            active={activeTabKey == "details"}
-                            nextStep={nextStep}
-                          />
+                          <Details errors={errors} touched={touched} active={activeTabKey == "details"} nextStep={nextStep} />
                           <Payment
                             errors={errors}
                             touched={touched}
                             boothSubmitting={boothSubmitting}
                             active={activeTabKey == "payment"}
+                            setFieldValue={setFieldValue}
                           />
                         </Form>
                       );
@@ -257,18 +205,7 @@ const Booths = ({
   );
 };
 
-const Info = ({
-  booths,
-  active,
-  nextStep,
-  setFieldValue,
-  errors,
-  touched,
-  currency,
-  setSelectedBooth,
-  selectedBooth,
-  ...props
-}) => {
+const Info = ({ booths, active, nextStep, setFieldValue, errors, touched, currency, setSelectedBooth, selectedBooth, ...props }) => {
   useEffect(() => {
     // setSelectedBooth(booths[0]);
   }, [booths]);
@@ -302,24 +239,12 @@ const Info = ({
           }}
         >
           {[{ code: "" }, ...booths].map((a, i) => (
-            <option
-              key={i}
-              value={a.code}
-              selected={selectedBooth && a.code == selectedBooth.code}
-            >
+            <option key={i} value={a.code} selected={selectedBooth && a.code == selectedBooth.code}>
               {a.code}
             </option>
           ))}
         </select>
-        <ErrorMessage
-          name="boothCode"
-          hasError={
-            touched &&
-            touched.boothCode !== undefined &&
-            errors &&
-            errors.boothCode !== undefined
-          }
-        />
+        <ErrorMessage name="boothCode" hasError={touched && touched.boothCode !== undefined && errors && errors.boothCode !== undefined} />
 
         {selectedBooth && (
           <span>
@@ -327,11 +252,7 @@ const Info = ({
           </span>
         )}
         <div className="download">
-          <a
-            href={config.files.booth_pdf}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={config.files.booth_pdf} target="_blank" rel="noopener noreferrer">
             <img src="/assets/images/pdf_icon.png" alt="" />
           </a>
           {/* <a href="#">
@@ -345,11 +266,7 @@ const Info = ({
             <Trans id="area">AREA</Trans>: {selectedBooth && selectedBooth.area}
           </div>
           <LanguageContext.Consumer>
-            {({ locale }) => (
-              <div className="content">
-                {selectedBooth && selectedBooth.description[locale.code]}
-              </div>
-            )}
+            {({ locale }) => <div className="content">{selectedBooth && selectedBooth.description[locale.code]}</div>}
           </LanguageContext.Consumer>
         </>
       )}
@@ -371,12 +288,7 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
           <Field
             transId="companyName"
             transdDefaultVal="Company Name"
-            hasError={
-              errors &&
-              errors.companyName !== undefined &&
-              touched &&
-              touched.companyName !== undefined
-            }
+            hasError={errors && errors.companyName !== undefined && touched && touched.companyName !== undefined}
             name="companyName"
           />
         </div>
@@ -384,12 +296,7 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
           <Field
             transId="nationality"
             transdDefaultVal="Nationality"
-            hasError={
-              errors &&
-              errors.nationality !== undefined &&
-              touched &&
-              touched.nationality !== undefined
-            }
+            hasError={errors && errors.nationality !== undefined && touched && touched.nationality !== undefined}
             name="nationality"
           />
         </div>
@@ -397,12 +304,7 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
           <Field
             transId="address"
             transdDefaultVal="Address"
-            hasError={
-              errors &&
-              errors.address !== undefined &&
-              touched &&
-              touched.address !== undefined
-            }
+            hasError={errors && errors.address !== undefined && touched && touched.address !== undefined}
             name="address"
           />
         </div>
@@ -410,38 +312,18 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
           <Field
             transId="phone"
             transdDefaultVal="Phone number"
-            hasError={
-              errors &&
-              errors.phone !== undefined &&
-              touched &&
-              touched.phone !== undefined
-            }
+            hasError={errors && errors.phone !== undefined && touched && touched.phone !== undefined}
             name="phone"
           />
         </div>
         <div className="row">
-          <Field
-            transId="fax"
-            transdDefaultVal="Fax"
-            hasError={
-              errors &&
-              errors.fax !== undefined &&
-              touched &&
-              touched.fax !== undefined
-            }
-            name="fax"
-          />
+          <Field transId="fax" transdDefaultVal="Fax" hasError={errors && errors.fax !== undefined && touched && touched.fax !== undefined} name="fax" />
         </div>
         <div className="row">
           <Field
             transId="websiteUrl"
             transdDefaultVal="Website Url"
-            hasError={
-              errors &&
-              errors.websiteUrl !== undefined &&
-              touched &&
-              touched.websiteUrl !== undefined
-            }
+            hasError={errors && errors.websiteUrl !== undefined && touched && touched.websiteUrl !== undefined}
             name="websiteUrl"
           />
         </div>
@@ -449,12 +331,7 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
           <Field
             transId="contactPersonName"
             transdDefaultVal="Contact Person"
-            hasError={
-              errors &&
-              errors.contactPersonName !== undefined &&
-              touched &&
-              touched.contactPersonName !== undefined
-            }
+            hasError={errors && errors.contactPersonName !== undefined && touched && touched.contactPersonName !== undefined}
             name="contactPersonName"
           />
         </div>
@@ -462,12 +339,7 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
           <Field
             transId="contactPersonTitle"
             transdDefaultVal="Contact Person Title"
-            hasError={
-              errors &&
-              errors.contactPersonTitle !== undefined &&
-              touched &&
-              touched.contactPersonTitle !== undefined
-            }
+            hasError={errors && errors.contactPersonTitle !== undefined && touched && touched.contactPersonTitle !== undefined}
             name="contactPersonTitle"
           />
         </div>
@@ -475,12 +347,7 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
           <Field
             transId="cellPhone1"
             transdDefaultVal="Cellphone 1"
-            hasError={
-              errors &&
-              errors.cellPhone1 !== undefined &&
-              touched &&
-              touched.cellPhone1 !== undefined
-            }
+            hasError={errors && errors.cellPhone1 !== undefined && touched && touched.cellPhone1 !== undefined}
             name="cellPhone1"
           />
         </div>
@@ -488,12 +355,7 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
           <Field
             transId="cellPhone2"
             transdDefaultVal="Cellphone 2"
-            hasError={
-              errors &&
-              errors.cellPhone2 !== undefined &&
-              touched &&
-              touched.cellPhone2 !== undefined
-            }
+            hasError={errors && errors.cellPhone2 !== undefined && touched && touched.cellPhone2 !== undefined}
             name="cellPhone2"
           />
         </div>
@@ -501,12 +363,7 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
           <Field
             transId="email"
             transdDefaultVal="Email"
-            hasError={
-              errors &&
-              errors.email !== undefined &&
-              touched &&
-              touched.email !== undefined
-            }
+            hasError={errors && errors.email !== undefined && touched && touched.email !== undefined}
             name="email"
           />
         </div>
@@ -515,12 +372,7 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
             transId="company_logo"
             transdDefaultVal="Company Logo"
             isFile={true}
-            hasError={
-              errors &&
-              errors.companyLogo !== undefined &&
-              touched &&
-              touched.companyLogo !== undefined
-            }
+            hasError={errors && errors.companyLogo !== undefined && touched && touched.companyLogo !== undefined}
             name="companyLogo"
             accept="image/*"
           />
@@ -529,12 +381,7 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
           <Field
             transId="extraDetails"
             transdDefaultVal="Extra Details"
-            hasError={
-              errors &&
-              errors.extraDetails !== undefined &&
-              touched &&
-              touched.extraDetails !== undefined
-            }
+            hasError={errors && errors.extraDetails !== undefined && touched && touched.extraDetails !== undefined}
             name="extraDetails"
           />
         </div>
@@ -542,30 +389,15 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
           <Field
             transId="companyFieldOfBusiness"
             transdDefaultVal="Line of business"
-            hasError={
-              errors &&
-              errors.companyFieldOfBusiness !== undefined &&
-              touched &&
-              touched.companyFieldOfBusiness !== undefined
-            }
+            hasError={errors && errors.companyFieldOfBusiness !== undefined && touched && touched.companyFieldOfBusiness !== undefined}
             name="companyFieldOfBusiness"
           />
         </div>
         <div className="row">
-          <Field
-            isCheckbox={true}
-            transId="screenOption"
-            transdDefaultVal={'40" Screen for 3 days'}
-            name="screenOption"
-          />
+          <Field isCheckbox={true} transId="screenOption" transdDefaultVal={'40" Screen for 3 days'} name="screenOption" />
         </div>
         <div className="row">
-          <Field
-            isCheckbox={true}
-            transId="printingOption"
-            transdDefaultVal={"Printing the logo (vinyl sticker) "}
-            name="printingOption"
-          />
+          <Field isCheckbox={true} transId="printingOption" transdDefaultVal={"Printing the logo (vinyl sticker) "} name="printingOption" />
         </div>
       </div>
       <div className="next_step">
@@ -577,25 +409,14 @@ const Details = ({ active, errors, touched, nextStep, ...props }) => {
   );
 };
 
-const Payment = ({
-  active,
-  errors,
-  touched,
-  isSubmitting,
-  nextStep,
-  boothSubmitting,
-  ...props
-}) => {
+const Payment = ({ active, errors, touched, isSubmitting, setFieldValue, nextStep, boothSubmitting, ...props }) => {
   return (
     <div className={classNames("tab_item payment_tab", { active })}>
       <div className="paymnets_area">
         <div className="choose_area">
           <div className="pay_offline_form">
             <p className="info">
-              <Trans id="please_upload_the_receipt">
-                please upload the reciept to be approved from the adminstration
-                and confirm your payment
-              </Trans>
+              <Trans id="please_upload_the_receipt">please upload the reciept to be approved from the adminstration and confirm your payment</Trans>
             </p>
             <div className="row">
               <Field
@@ -633,6 +454,8 @@ const Payment = ({
                 transId="receipt_date"
                 transdDefaultVal="Receipt Date"
                 isDate={true}
+                component={DayPickerInput}
+                onDayChange={(day) => setFieldValue("payment.receiptDate", day)}
                 hasError={
                   errors &&
                   errors.payment &&
@@ -649,11 +472,7 @@ const Payment = ({
                 transId="receipt_file"
                 transdDefaultVal="Receipt File"
                 isFile={true}
-                hasError={
-                  errors &&
-                  errors.payment &&
-                  errors.payment.receiptFile !== undefined
-                }
+                hasError={errors && errors.payment && errors.payment.receiptFile !== undefined}
                 name="payment.receiptFile"
                 accept="image/*"
               />
@@ -685,34 +504,21 @@ const Confirmation = ({ active, success, ...props }) => {
         <Trans id="booth_booking_success">Booking successfull</Trans>
       </div>
       <div className="content">
-        <Trans id="booth_booking_success_msg">
-          Thank you please contact us @123456
-        </Trans>
+        <Trans id="booth_booking_success_msg">Thank you please contact us @123456</Trans>
       </div>
     </div>
   );
 };
 
 const Booth3DView = ({ boothType, ...props }) => (
-  <ReactPlayer
-    loop
-    playing
-    url={`/assets/files/booth_${boothType}.mp4`}
-    className="react-player"
-    width="100%"
-    height="100%"
-  />
+  <ReactPlayer loop playing url={`/assets/files/booth_${boothType}.mp4`} className="react-player" width="100%" height="100%" />
 );
 
-const mapStateToProps = ({
-  global: { currency },
-  home: { booths, boothBooked, boothSubmitting },
-}) => ({
+const mapStateToProps = ({ global: { currency }, home: { booths, boothBooked, boothSubmitting } }) => ({
   currency,
   booths,
   boothBooked,
   boothSubmitting,
 });
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ ...homeActions }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ ...homeActions }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Booths);

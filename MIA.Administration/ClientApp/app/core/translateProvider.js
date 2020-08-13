@@ -368,8 +368,8 @@
         "remaining_level1Artworks":"Remaining Level 1",
         "NoJudgeArtWorksAvailableForLevel2":"No artworks for level 2",
         "remaining_level2Artworks":"Remaining Level 2",
-
-
+        "EditNews":"Edit News",
+        "booth_report":"Booth Report"
       }
       var ar_translations = {
         "OrderDetails": "تفاصيل الطلب",

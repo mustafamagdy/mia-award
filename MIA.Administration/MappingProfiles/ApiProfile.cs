@@ -74,6 +74,9 @@ namespace MIA.Administration.MappingProfiles {
             .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
         ;
 
+      CreateMap<Booth, BoothReportDto>().ConvertUsing<BoothReportDtoConverter>();
+
+
       #endregion
 
       #region VotingCriteria
@@ -288,7 +291,7 @@ namespace MIA.Administration.MappingProfiles {
       CreateMap<AppUser, UserIdFullNameDto>()
         .IncludeAllDerived()
         .ValidateMemberList(MemberList.None);
-      
+
       CreateMap<AppUser, UserWithRolesDto>()
         .IncludeBase<AppUser, UserBasicDataDto>()
         .ForMember(a => a.Roles, n => n.Ignore())
@@ -308,6 +311,44 @@ namespace MIA.Administration.MappingProfiles {
 
     }
 
+  }
+
+
+  public class BoothReportDtoConverter : ITypeConverter<Booth, BoothReportDto> {
+    public BoothReportDto Convert(Booth src, BoothReportDto destination, ResolutionContext context) {
+      var result = new BoothReportDto();
+      result.Code = src.Code;
+      result.Sellable = src.Sellable ? "Yes" : "No";
+      result.BoothPrice = src.Price;
+
+      var confirmedPurchase =
+        src.Purchases.FirstOrDefault(z => z.Payment != null && z.Payment.PaymentStatus == PaymentStatus.Confirmed);
+
+      var waitingPurchase =
+        src.Purchases
+          .Where(z => z.Payment != null)
+          .OrderByDescending(a => a.Payment.PaymentDate)
+          .FirstOrDefault(z => z.Payment.PaymentStatus == PaymentStatus.Waiting);
+
+      result.StatusInt = confirmedPurchase != null ? 0 : waitingPurchase != null ? 1 : 2;
+      result.Status = result.StatusInt == 0 ? "Sold" : result.StatusInt == 1 ? "Waiting" : "Not Sold";
+      var details = confirmedPurchase ?? waitingPurchase;
+      if (details != null) {
+        result.CompanyName = details.CompanyName;
+        result.Phone = details.Phone;
+        result.Fax = details.Fax;
+        result.ContactPersonName = details.ContactPersonName;
+        result.ContactPersonTitle = details.ContactPersonTitle;
+        result.CellPhone1 = details.CellPhone1;
+        result.CellPhone2 = details.CellPhone2;
+        result.Email = details.Email;
+        result.PaidAmount = details.Payment.Amount;
+        result.PurchaseDate = details.Payment.PaymentDate.LocalDateTime().ToString("yyyy-MM-dd");
+      }
+
+
+      return result;
+    }
   }
 
 
