@@ -186,13 +186,14 @@ namespace MIA.Administration.Api {
     [AllowAnonymous]
     //[HasPermission(Permissions.ExportBoothReport)]
     public async Task<IActionResult> BoothReport([FromServices] IAppUnitOfWork db) {
-      var booths = await db.Booths
-        .Include(a => a.Purchases)
-        .ThenInclude(a => a.Payment)
-        .ProjectTo<BoothReportDto>(_mapper.ConfigurationProvider)
-        .OrderByDescending(a => a.IsSold)
+      var booths = (await db.Booths
+          .Include(a => a.Purchases)
+          .ThenInclude(a => a.Payment)
+          .ToArrayAsync())
+        .Select(a => _mapper.Map<BoothReportDto>(a))
+        .OrderBy(a => a.StatusInt)
         .ThenBy(a => a.Code)
-        .ToArrayAsync();
+        .ToList();
 
       var gridOptions = GetGridOptions(booths);
       var bytes = Spreadsheet.GenerateTableGrid(gridOptions);
@@ -235,8 +236,8 @@ namespace MIA.Administration.Api {
             },
             new TgColumn<BoothReportDto>()
             {
-              Header = "Sold",
-              Property = it => it.Sold,
+              Header = "Status",
+              Property = it => it.Status,
               Width = 20
             },
 
@@ -265,17 +266,98 @@ namespace MIA.Administration.Api {
             new TgColumn<BoothReportDto>()
             {
                 Header = "Purchase Date",
-                Property = it => it.PurchaseDate,
+                Property = it =>  it.PurchaseDate,
                 Width = 20,
                 Style = new TgExcelStyle()
                 {
                     HorizontalAlignment = ExcelHorizontalAlignment.Right
                 }
             },
+            new TgColumn<BoothReportDto>()
+            {
+              Header = "Company Name",
+              Property = it =>  it.CompanyName,
+              Width = 20,
+              Style = new TgExcelStyle()
+              {
+                HorizontalAlignment = ExcelHorizontalAlignment.Left
+              }
+            },
+            new TgColumn<BoothReportDto>()
+            {
+              Header = "Company Phone",
+              Property = it =>  it.Phone,
+              Width = 20,
+              Style = new TgExcelStyle()
+              {
+                HorizontalAlignment = ExcelHorizontalAlignment.Left
+              }
+            },
+            new TgColumn<BoothReportDto>()
+            {
+              Header = "EMail",
+              Property = it =>  it.Email,
+              Width = 20,
+              Style = new TgExcelStyle()
+              {
+                HorizontalAlignment = ExcelHorizontalAlignment.Left
+              }
+            },
+            new TgColumn<BoothReportDto>()
+            {
+              Header = "Company Fax",
+              Property = it =>  it.Fax,
+              Width = 20,
+              Style = new TgExcelStyle()
+              {
+                HorizontalAlignment = ExcelHorizontalAlignment.Left
+              }
+            },
+            new TgColumn<BoothReportDto>()
+            {
+              Header = "Cell Phone1",
+              Property = it =>  it.CellPhone1,
+              Width = 20,
+              Style = new TgExcelStyle()
+              {
+                HorizontalAlignment = ExcelHorizontalAlignment.Left
+              }
+            },
+            new TgColumn<BoothReportDto>()
+            {
+              Header = "Cell Phone2",
+              Property = it =>  it.CellPhone2,
+              Width = 20,
+              Style = new TgExcelStyle()
+              {
+                HorizontalAlignment = ExcelHorizontalAlignment.Left
+              }
+            },
+            new TgColumn<BoothReportDto>()
+            {
+              Header = "Contact Person Title",
+              Property = it =>  it.ContactPersonTitle,
+              Width = 10,
+              Style = new TgExcelStyle()
+              {
+                HorizontalAlignment = ExcelHorizontalAlignment.Left
+              }
+            },
+            new TgColumn<BoothReportDto>()
+            {
+              Header = "Contact Person",
+              Property = it =>  it.ContactPersonName,
+              Width = 20,
+              Style = new TgExcelStyle()
+              {
+                HorizontalAlignment = ExcelHorizontalAlignment.Left
+              }
+            },
+
         },
         GroupOptions = new TgGroupOptions<BoothReportDto>() {
           GroupingType = GroupingType.GroupHeaderOnColumn,
-          GroupingColumn = item => item.Sold,
+          GroupingColumn = item => item.Status,
           IsGroupCollapsable = true
         },
         PrintHeaders = true,
@@ -292,11 +374,9 @@ namespace MIA.Administration.Api {
   public class BoothReportDto {
     public string Code { get; set; }
     public string Sellable { get; set; }
-    public string IsSold { get; set; }
-    public string Sold { get; set; }
+    public int StatusInt { get; set; }
+    public string Status { get; set; }
     public decimal BoothPrice { get; set; }
-    public decimal PaidAmount { get; set; }
-    public string PurchaseDate { get; set; }
 
 
     public string CompanyName { get; set; }
@@ -307,7 +387,8 @@ namespace MIA.Administration.Api {
     public string CellPhone1 { get; set; }
     public string CellPhone2 { get; set; }
     public string Email { get; set; }
-
+    public decimal PaidAmount { get; set; }
+    public string PurchaseDate { get; set; }
   }
 
 }

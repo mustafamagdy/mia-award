@@ -74,25 +74,8 @@ namespace MIA.Administration.MappingProfiles {
             .ForMember(a => a.Description, cfg => cfg.MapFrom(a => a.Description))
         ;
 
-      CreateMap<Booth, BoothReportDto>()
-        .ValidateMemberList(MemberList.None)
-        .ForMember(a => a.Sellable, cfg => cfg.MapFrom(a => a.Sellable ? "Yes" : "No"))
-        .ForMember(a => a.IsSold,
-          cfg => cfg.MapFrom(a => a.Purchases.Any(z => z.Payment != null && z.Payment.PaymentStatus == PaymentStatus.Confirmed)))
-        .ForMember(a => a.Sold,
-          cfg => cfg.MapFrom(a => a.Purchases.Any(z => z.Payment != null && z.Payment.PaymentStatus == PaymentStatus.Confirmed)
-                                  ? "Sold"
-                                  : "Not Sold"))
-        .ForMember(a => a.BoothPrice, cfg => cfg.MapFrom(a => a.Price))
-        .ForMember(a => a.PaidAmount, cfg => cfg.MapFrom(a =>
-              a.Purchases != null && a.Purchases.Any(z => z.Payment != null && z.Payment.PaymentStatus == PaymentStatus.Confirmed)
-            ? a.Purchases.FirstOrDefault(z => z.Payment.PaymentStatus == PaymentStatus.Confirmed).Payment.Amount
-            : 0))
-        .ForMember(a => a.PurchaseDate, cfg => cfg.MapFrom(a =>
-              a.Purchases != null && a.Purchases.Any(z => z.Payment != null && z.Payment.PaymentStatus == PaymentStatus.Confirmed)
-            ? a.Purchases.FirstOrDefault(z => z.Payment.PaymentStatus == PaymentStatus.Confirmed).Payment.PaymentDate.LocalDateTime().ToString("yyyy-MM-dd")
-            : ""))
-        ;
+      CreateMap<Booth, BoothReportDto>().ConvertUsing<BoothReportDtoConverter>();
+
 
       #endregion
 
@@ -328,6 +311,44 @@ namespace MIA.Administration.MappingProfiles {
 
     }
 
+  }
+
+
+  public class BoothReportDtoConverter : ITypeConverter<Booth, BoothReportDto> {
+    public BoothReportDto Convert(Booth src, BoothReportDto destination, ResolutionContext context) {
+      var result = new BoothReportDto();
+      result.Code = src.Code;
+      result.Sellable = src.Sellable ? "Yes" : "No";
+      result.BoothPrice = src.Price;
+
+      var confirmedPurchase =
+        src.Purchases.FirstOrDefault(z => z.Payment != null && z.Payment.PaymentStatus == PaymentStatus.Confirmed);
+
+      var waitingPurchase =
+        src.Purchases
+          .Where(z => z.Payment != null)
+          .OrderByDescending(a => a.Payment.PaymentDate)
+          .FirstOrDefault(z => z.Payment.PaymentStatus == PaymentStatus.Waiting);
+
+      result.StatusInt = confirmedPurchase != null ? 0 : waitingPurchase != null ? 1 : 2;
+      result.Status = result.StatusInt == 0 ? "Sold" : result.StatusInt == 1 ? "Waiting" : "Not Sold";
+      var details = confirmedPurchase ?? waitingPurchase;
+      if (details != null) {
+        result.CompanyName = details.CompanyName;
+        result.Phone = details.Phone;
+        result.Fax = details.Fax;
+        result.ContactPersonName = details.ContactPersonName;
+        result.ContactPersonTitle = details.ContactPersonTitle;
+        result.CellPhone1 = details.CellPhone1;
+        result.CellPhone2 = details.CellPhone2;
+        result.Email = details.Email;
+        result.PaidAmount = details.Payment.Amount;
+        result.PurchaseDate = details.Payment.PaymentDate.LocalDateTime().ToString("yyyy-MM-dd");
+      }
+
+
+      return result;
+    }
   }
 
 
