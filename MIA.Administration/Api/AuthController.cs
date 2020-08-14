@@ -86,17 +86,7 @@ namespace MIA.Administration.Api {
         throw new ApiException(ApiErrorType.Forbidden, "User is not allowed");
       }
 
-      var roles = await userManager.GetRolesAsync(user);
-
-      var modulePermissions = new Dictionary<string, string>();
-      var userModules = string.Join(";",
-        ((db.UserModules.FirstOrDefault(a => a.UserId == user.Id)
-        ?? new UserModule(user.Id, SystemModules.Dashboard))
-        .AllowedModules.ToString()).Split(","));
-
-
-
-      ClaimsPrincipal res = await claimFactory.CreateAsync(user);
+     ClaimsPrincipal res = await claimFactory.CreateAsync(user);
       var allClaims = new List<Claim>(res.Claims);
       allClaims.Add(new Claim("FullName", user.FullName));
 

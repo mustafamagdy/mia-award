@@ -68,6 +68,8 @@
 
     function hasOneOfPermissions(...permissions) {
       const user = getUser();
+      if(!user) return false;
+      
       const hasPermission = permissions.some((p) => {
         const _parts = p.split(".");
         const _module = _parts[0];
