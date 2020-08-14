@@ -27,7 +27,6 @@ namespace MIA.Authorization.Entities {
      */
 
 
-    NotSet = 0,
 
     //Roles
     [PermissionDescriptor(SystemModules.Admin, "view_roles", "read roles")]

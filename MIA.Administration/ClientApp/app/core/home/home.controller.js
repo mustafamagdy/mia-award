@@ -254,7 +254,7 @@
     );
     function loginSuccess(response) {
       blockUI.stop();
-      if (response.data.userId == 0) {
+      if (response != undefined) {
         $scope.invalidLoginInfo = false;
         $scope.inActiveUser = true;
         $scope.errorMessage = response.data.message; //"User not found";
