@@ -87,7 +87,7 @@ export default {
     fb: "https://www.facebook.com/MIAawardArab",
     tw: "https://twitter.com/MIAawardArab",
     in: "https://www.instagram.com/MIAawardarab",
-    yt: "https://www.youtube.com/MIAawardarab",
+    yt: "https://www.youtube.com/channel/UCJJDSkO9SE20HHuJMdy0ndA",
   },
   uploadVideoFileExtension: ["video/mp4"],
   uploadImageFileExtension: ["image/png", "image/jpg", "image/jpeg"],
