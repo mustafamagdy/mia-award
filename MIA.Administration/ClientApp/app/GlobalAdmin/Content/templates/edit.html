@@ -1,0 +1,167 @@
+<style>
+  .form-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  input[type="checkbox"] {
+    width: 20px;
+    margin: 0px 10px;
+  }
+</style>
+
+<div class="modal-content">
+  <div class="modal-header bordered">
+    <h2 class="pmd-card-title-text">{{'EditNews' | translate}}</h2>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="editNewsForm">
+      <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in editNewsCtrl.language">
+            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">
+              <span style="color: red;">*</span>{{lang.value | translate}}
+            </a>
+          </li>
+        </ul>
+        <div class="pmd-card">
+          <div class="pmd-card-body">
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in editNewsCtrl.language" id="{{lang.value}}-form">
+                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                  <label for="first-name">{{ 'Title' | translate}} </label>
+                  <input
+                    required
+                    News="text"
+                    class="mat-input form-control"
+                    name="title{{lang.value+'Name'}}"
+                    ng-model="editNewsCtrl.news.title[lang.key]"
+                    ng-minlength="3"
+                    ng-maxlength="255"
+                  />
+                  <div ng-messages="editNewsForm.title{{lang.value+'Name'}}.$error">
+                    <div
+                      class="error ng-binding"
+                      ng-show="editNewsForm.title{{lang.value+'Name'}}.$error.required && !editNewsForm.title{{lang.value+'Name'}}.$pristine"
+                    >
+                      {{'requiredErr' | translate}}
+                    </div>
+                    <div
+                      class="error ng-binding"
+                      ng-show="(editNewsForm.title{{lang.value+'Name'}}.$error.minlength || editNewsForm.title{{lang.value+'Name'}}.$error.maxlength) && !editNewsForm.title{{lang.value+'Name'}}.$error.required"
+                    >
+                      {{'NameLengthError3' | translate}}
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                  <label for="first-name">{{ 'Body' | translate}} </label>
+                  <textarea
+                    required
+                    class="mat-input form-control"
+                    name="body{{lang.value+'Name'}}"
+                    ng-model="editNewsCtrl.news.body[lang.key]"
+                    ng-minlength="3"
+                    ng-maxlength="955"
+                  ></textarea>
+                  <div ng-messages="editNewsForm.body{{lang.value+'Name'}}.$error">
+                    <div
+                      class="error ng-binding"
+                      ng-show="editNewsForm.body{{lang.value+'Name'}}.$error.required && !editNewsForm.body{{lang.value+'Name'}}.$pristine"
+                    >
+                      {{'requiredErr' | translate}}
+                    </div>
+                    <div
+                      class="error ng-binding"
+                      ng-show="(editNewsForm.body{{lang.value+'Name'}}.$error.minlength || editNewsForm.body{{lang.value+'Name'}}.$error.maxlength) && !editNewsForm.body{{lang.value+'Name'}}.$error.required"
+                    >
+                      {{'NameLengthError3' | translate}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group pmd-textfield-floating-label-completed">
+                <label for="tags">{{ 'Tags' | translate}} </label>
+                <input style="width: 600px !important;" type="text" class="form-control" id="tags" name="tags" ng-model="editNewsCtrl.news.keywords" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group pmd-textfield-floating-label-completed">
+                <label for="date">{{ 'Date' | translate}} </label>
+                <div class="input-group date" style="width: 200px;">
+                  <input datetime-picker date-only required date-format="yyyy-MM-dd" ng-model="editNewsCtrl.newsDate" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label>{{'featured' | translate}}</label>
+                <input type="checkbox" class="form-control" ng-model="editNewsCtrl.news.featured" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label for="category">{{ 'Category' | translate}} </label>
+                <input required type="textbox" class="form-control" ng-model="editNewsCtrl.news.category" id="category" name="category" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group pmd-textfield-floating-label-completed">
+          <span style="color: red;">*</span>
+
+          <input
+            id="posterImage"
+            name="posterImage"
+            style="display: none;"
+            onchange="angular.element(this).scope().AddposterImage(this.files)"
+            type="file"
+            accept="image/*"
+            required
+          />
+          <button class="btn btn-success btn-xs pull-center" ng-click="editNewsCtrl.LoadUploadPoster()">
+            {{'Upload Poster' | translate}}
+          </button>
+          <span>
+            <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+            {{'RecommendedProductImage' | translate}}</span
+          >
+          <img ng-src="{{editNewsCtrl.posterImage}}" style="max-height: 139px; max-width: 423px;" />
+          <div ng-messages="editNewsForm.posterImage.$error">
+            <div ng-if="editNewsForm.posterImage.$error.required">
+              {{'requiredErr' | translate}}
+            </div>
+          </div>
+
+          <!-- <label for="image" class="btn btn-success btn-xs pull-center" name="upload" Value="">Upload
+                        Photo</label>
+                    <input id="image" class="hidden" type="file" img-upload ng-model="imageName"
+                        name="imageName">
+                    <img ng-src="{{image}}" height="100" width="100" ng-show="image" />
+                    <span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i>
+                        {{'RecommendedProductImage' | translate}}</span> -->
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="pmd-modal-action text-right">
+    <button
+      style="border: #494b74 solid 1px; background-color: transparent; color: #494b74; border-radius: 6px;"
+      ng-disabled="editNewsForm.$invalid || editNewsCtrl.posterImage ==null"
+      class="btn pmd-ripple-effect btn-primary"
+      type="button"
+      ng-click="editNewsCtrl.UpdateNews()"
+    >
+      {{'saveChangesBtn' | translate}}
+    </button>
+    <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editNewsCtrl.Close()">
+      {{'DiscardBtn' | translate}}
+    </button>
+  </div>
+</div>
