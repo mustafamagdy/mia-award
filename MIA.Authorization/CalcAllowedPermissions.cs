@@ -40,9 +40,9 @@ namespace MIA.Authorization {
         from permission in permissionsForUser
         let moduleAttr = typeof(Permissions).GetMember(permission.ToString())[0]
           .GetCustomAttribute<PermissionDescriptorAttribute>()
-        where moduleAttr == null || userModules.HasFlag(moduleAttr.SystemModule)
+        where moduleAttr != null && userModules.HasFlag(moduleAttr.SystemModule)
         select permission;
-
+        //where moduleAttr == null || userModules.HasFlag(moduleAttr.SystemModule)
       return filteredPermissions.PackPermissionsIntoString();
     }
 

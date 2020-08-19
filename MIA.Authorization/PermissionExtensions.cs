@@ -26,23 +26,24 @@ namespace MIA.Authorization {
 
 
     public static string PackPermissionsIntoString(this IEnumerable<Permissions> permissions) {
-      return permissions.Aggregate("", (s, permission) => s + (char)permission);
-    }
+      var _permissions = permissions == null ? new Permissions[] { } : permissions.ToArray();
+      return _permissions.Aggregate("", (s, permission) => s + (char) permission);
+  }
 
-    public static IEnumerable<Permissions> UnpackPermissionsFromString(this string packedPermissions) {
-      if (!string.IsNullOrEmpty(packedPermissions)) {
-        foreach (var character in packedPermissions) {
-          yield return ((Permissions)character);
-        }
+  public static IEnumerable<Permissions> UnpackPermissionsFromString(this string packedPermissions) {
+    if (!string.IsNullOrEmpty(packedPermissions)) {
+      foreach (var character in packedPermissions) {
+        yield return ((Permissions)character);
       }
     }
-
-    public static Permissions? FindPermissionByName(this string permissionName) {
-      return Enum.TryParse(permissionName, out Permissions permission)
-        ? (Permissions?)permission
-        : null;
-    }
-
-
   }
+
+  public static Permissions? FindPermissionByName(this string permissionName) {
+    return Enum.TryParse(permissionName, out Permissions permission)
+      ? (Permissions?)permission
+      : null;
+  }
+
+
+}
 }
