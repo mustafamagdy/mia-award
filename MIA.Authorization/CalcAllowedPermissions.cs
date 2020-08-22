@@ -43,7 +43,7 @@ namespace MIA.Authorization {
         where moduleAttr != null && userModules.HasFlag(moduleAttr.SystemModule)
         select permission;
         //where moduleAttr == null || userModules.HasFlag(moduleAttr.SystemModule)
-      return filteredPermissions.PackPermissionsIntoString();
+      return filteredPermissions.DefaultIfEmpty().PackPermissionsIntoString();
     }
 
   }
