@@ -76,13 +76,13 @@ const AwardsSlider = ({ awards, type, direction, ...props }) => {
     const _parts = [];
     if (direction == "left") {
       _parts.push(
-        <_AwardSliderSection awards={awards} type={type} direction={direction} {...props} />
+        <_AwardSliderSection key={type} awards={awards} type={type} direction={direction} {...props} />
       );
-      _parts.push(<_AwardSliderText type={type} />);
+      _parts.push(<_AwardSliderText key={`${type}_title`} type={type} />);
     } else {
-      _parts.push(<_AwardSliderText type={type} />);
+      _parts.push(<_AwardSliderText key={`${type}_title`} type={type} />);
       _parts.push(
-        <_AwardSliderSection awards={awards} type={type} direction={direction} {...props} />
+        <_AwardSliderSection key={type} awards={awards} type={type} direction={direction} {...props} />
       );
     }
 
