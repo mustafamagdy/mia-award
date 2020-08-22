@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useEffect,
-  useRef,
-  forwardRef,
-  useImperativeHandle,
-} from "react";
+import React, { Fragment, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import UserProvider from "containers/Providers/UserProvider";
@@ -16,17 +10,11 @@ import { useForm } from "react-hook-form";
 import config from "config";
 import { withRouter } from "react-router";
 import { useOnClickOutside } from "hooks";
-import {
-  FacebookShareButton,
-  TwitterShareButton,
-  InstapaperShareButton,
-  WhatsappShareButton,
-} from "react-share";
+import { FacebookShareButton, TwitterShareButton, InstapaperShareButton, WhatsappShareButton } from "react-share";
 import { I18n } from "@lingui/react";
 import { NavLink } from "react-router-dom";
 import appActions from "store/app/actions";
 import homeActions from "store/home/actions";
-
 
 const SearchForm = forwardRef(({ history, hideAndReset }, ref) => {
   const { register, handleSubmit, reset, formState } = useForm();
@@ -48,12 +36,7 @@ const SearchForm = forwardRef(({ history, hideAndReset }, ref) => {
     <I18n>
       {({ i18n }) => (
         <form onSubmit={handleSubmit(onSearch)} ref={overlayRef}>
-          <input
-            type="text"
-            name="search"
-            ref={register}
-            placeholder={i18n._("search...")}
-          />
+          <input type="text" name="search" ref={register} placeholder={i18n._("search...")} />
           <button type="submit">
             <i className="icofont-ui-search"></i>
           </button>
@@ -63,13 +46,7 @@ const SearchForm = forwardRef(({ history, hideAndReset }, ref) => {
   );
 });
 
-const Layout = ({
-  toggleShareSidebar,
-  searchFormOpen,
-  history,
-  toggleSearchForm,
-  ...props
-}) => {
+const Layout = ({ toggleShareSidebar, searchFormOpen, history, toggleSearchForm, location, ...props }) => {
   const searchFormRef = useRef();
 
   const dismissDlgs = (event) => {
@@ -98,7 +75,7 @@ const Layout = ({
     props.fetchOptions();
     props.fetchMetadata();
     props.fetchSponsers();
-  }, []);
+  }, [location]);
 
   return (
     <UserProvider>
@@ -122,11 +99,7 @@ const Layout = ({
           </div>
         </aside>
         <div id="search_modal" className="search_modal">
-          <SearchForm
-            ref={searchFormRef}
-            history={history}
-            hideAndReset={hideAndReset}
-          />
+          <SearchForm ref={searchFormRef} history={history} hideAndReset={hideAndReset} />
         </div>
         <ShareSidebar toggleShareSidebar={toggleShareSidebar} />
         <Sidebar />
@@ -175,6 +148,5 @@ const ShareSidebar = ({ toggleShareSidebar, ...props }) => {
 const mapStateToProps = ({ global: { searchFormOpen } }) => ({
   searchFormOpen,
 });
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ ...appActions, ...homeActions }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ ...appActions, ...homeActions }, dispatch);
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout));
