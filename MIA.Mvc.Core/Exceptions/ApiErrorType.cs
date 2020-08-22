@@ -29,6 +29,8 @@ namespace MIA.Exceptions {
     RecordNotFound,
     [Error("1003", HttpStatusCode.BadRequest, Message = "Judging has been finished")]
     JudgeFinished,
+    [Error("1004", HttpStatusCode.BadRequest, Message = "Validation failed")]
+    ValidationFailed,
     ////////////////////////////////////////////////////////
     ///
     /////////////////////Data access ///////////////////////

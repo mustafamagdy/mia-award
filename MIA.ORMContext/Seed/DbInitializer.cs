@@ -13,6 +13,7 @@ using MIA.Models.Entities.Enums;
 using MIA.Infrastructure;
 using System.Net.Http;
 using System.Text.Encodings.Web;
+using MIA.Authorization.Attributes;
 using Newtonsoft.Json.Linq;
 
 namespace MIA.ORMContext.Seed {
@@ -87,7 +88,9 @@ namespace MIA.ORMContext.Seed {
       var adminRole = await roleManager.FindByNameAsync(PredefinedRoles.Administrator.ToString());
       adminRole.Permissions = "";
 
-      var allPermissions = Enum.GetValues(typeof(Permissions));
+      var allPermissions = Enum.GetValues(typeof(Permissions)).Cast<Permissions>();
+      allPermissions = allPermissions
+        .Where(a => a.GetAttribute<PermissionDescriptorAttribute>().SystemModule != SystemModules.Nominee).ToArray();
       foreach (var p in allPermissions) {
         adminRole.Permissions += (char)((Permissions)p);
       }
@@ -212,8 +215,11 @@ namespace MIA.ORMContext.Seed {
 
 
     private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager, IAppUnitOfWork db) {
-      if ((await userManager.FindByNameAsync(Constants.ADMIN_USERNAME)) == null) {
-        AppUser admin = new AppUser {
+      AppUser admin = await userManager.FindByNameAsync(Constants.ADMIN_USERNAME);
+      var isAdminFound = admin != null;
+      IdentityResult result = null;
+      if (!isAdminFound) {
+        admin = new AppUser {
           FullName = "System admin",
           Email = Constants.ADMIN_EMAIL,
           UserName = Constants.ADMIN_USERNAME,
@@ -223,25 +229,26 @@ namespace MIA.ORMContext.Seed {
           LockoutEnabled = false
         };
 
-        IdentityResult result = await userManager.CreateAsync(admin, Constants.ADMIN_PASSWORD);
-        if (result.Succeeded) {
-          var addUserToRoleResult = await userManager.AddToRoleAsync(admin, PredefinedRoles.Administrator.ToString());
-          if (addUserToRoleResult.Succeeded) {
-            var allowedModules = new SystemModules[]
-            {
-              SystemModules.Dashboard,
-              SystemModules.Booths,
-              SystemModules.Admin,
-              SystemModules.Judge
-            };
-            var modules = allowedModules[0];
-            for (int i = 1; i < allowedModules.Length; i++) {
-              modules |= allowedModules[i];
-            }
+        result = await userManager.CreateAsync(admin, Constants.ADMIN_PASSWORD);
+      }
 
-            //adds allowed modules for user
-            await db.UserModules.AddAsync(new UserModule(admin.Id, modules));
+      if (isAdminFound || result.Succeeded) {
+        var addUserToRoleResult = await userManager.AddToRoleAsync(admin, PredefinedRoles.Administrator.ToString());
+        if (addUserToRoleResult.Succeeded) {
+          var allowedModules = new SystemModules[]
+          {
+            SystemModules.Dashboard,
+            SystemModules.Booths,
+            SystemModules.Admin,
+            SystemModules.Judge
+          };
+          var modules = allowedModules[0];
+          for (int i = 1; i < allowedModules.Length; i++) {
+            modules |= allowedModules[i];
           }
+
+          //adds allowed modules for user
+          await db.UserModules.AddAsync(new UserModule(admin.Id, modules));
         }
       }
     }

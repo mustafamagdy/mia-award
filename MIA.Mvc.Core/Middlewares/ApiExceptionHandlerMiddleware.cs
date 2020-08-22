@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -53,7 +54,10 @@ namespace MIA.Middlewares {
       try {
         await _next(context);
       } catch (ValidationException ex) {
-        var e = new ApiException(ex.Message, ex, ApiErrorType.BadRequest, ex.Errors);
+        var e = new ApiException(ex.Message, ex, ApiErrorType.ValidationFailed, ex.Errors.Select(s => new ErrorResult {
+          PropertyName = s.PropertyName,
+          ErrorMessage = s.ErrorMessage
+        }));
         context.Response.Clear();
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)e.StatusCode;

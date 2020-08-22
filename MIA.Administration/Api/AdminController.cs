@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -142,9 +143,16 @@ namespace MIA.Administration.Api {
     [HttpPost("permissions")]
     [HasPermission(Permissions.ReadPermissions)]
     public IActionResult ListPermissions(BaseSearchDto dto) {
-      var permissionNames = Enum.GetValues(typeof(Permissions)).Cast<short>();
-      var permissions = permissionNames.Select(p => _mapper.Map<PermissionDto>((Permissions)p)).ToPagedList(dto);
+      var allPermissions = GetAssignablePermissions();
+      var permissions = allPermissions.Select(p => _mapper.Map<PermissionDto>(p)).ToPagedList(dto);
       return IfFound(permissions);
+    }
+
+    private IEnumerable<Permissions> GetAssignablePermissions(SystemModules? module = null) {
+      var allPermissions = Enum.GetValues(typeof(Permissions)).Cast<Permissions>();
+      allPermissions = allPermissions.Where(a => a.GetAttribute<PermissionDescriptorAttribute>().SystemModule != SystemModules.Nominee
+                                                 && (module == null || a.GetAttribute<PermissionDescriptorAttribute>().SystemModule == module.Value)).ToArray();
+      return allPermissions;
     }
 
     [HttpGet("permissions/module/{moduleName}")]
@@ -154,9 +162,10 @@ namespace MIA.Administration.Api {
       if (!Enum.TryParse(typeof(SystemModules), moduleName, out systemModules)) {
         throw new ApiException(ApiErrorType.NotFound, "moudle not found");
       }
-      var permissionNames = Enum.GetValues(typeof(Permissions)).Cast<short>();
-      var permissions = permissionNames
-        .Select(p => _mapper.Map<PermissionDto>((Permissions)p))
+      var allPermissions = GetAssignablePermissions();
+
+      var permissions = allPermissions
+        .Select(p => _mapper.Map<PermissionDto>(p))
         .Where(x => x.SystemModule == (SystemModules)systemModules).ToList();
       return IfFound(permissions);
     }
@@ -171,7 +180,7 @@ namespace MIA.Administration.Api {
     [HttpGet("permissions")]
     [HasPermission(Permissions.ReadPermissions)]
     public async Task<IActionResult> ListAllPermissions([FromServices] IAppUnitOfWork db) {
-      var permissions = Enum.GetValues(typeof(Permissions)).Cast<Permissions>().MapTo<PermissionDto>();
+      var permissions = GetAssignablePermissions().MapTo<PermissionDto>();
       return IfFound(permissions);
     }
 
@@ -318,11 +327,7 @@ namespace MIA.Administration.Api {
         role.Permissions = role.Permissions.Remove(role.Permissions.IndexOf((char)permission), 1);
         var moduleAttribute = permission.GetAttribute<PermissionDescriptorAttribute>();
         if (moduleAttribute != null) {
-          var modulePermissions = Enum.GetValues(typeof(Permissions))
-            .Cast<Permissions>()
-            .Where(a => a.GetAttribute<PermissionDescriptorAttribute>() != null
-                        && a.GetAttribute<PermissionDescriptorAttribute>().SystemModule == moduleAttribute.SystemModule)
-            .ToArray();
+          var modulePermissions = GetAssignablePermissions(moduleAttribute.SystemModule);
           var unpacked = role.Permissions.UnpackPermissionsFromString();
           //if this is no permission in this module for this role, remove users from this module
           if (!unpacked.Intersect(modulePermissions).Any()) {
