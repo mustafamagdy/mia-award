@@ -369,7 +369,9 @@
         "NoJudgeArtWorksAvailableForLevel2":"No artworks for level 2",
         "remaining_level2Artworks":"Remaining Level 2",
         "EditNews":"Edit News",
-        "booth_report":"Booth Report"
+        "booth_report":"Booth Report",
+        "are_you_sure_to_close_all_judges": "are you sure to close all judges",
+        "yes_sure": "Yes sure"
       }
       var ar_translations = {
         "OrderDetails": "تفاصيل الطلب",
