@@ -425,15 +425,15 @@ msgstr "+971 4 57 2636 6"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:76
 msgid "file1"
-msgstr "ملف #1"
+msgstr "صلاحية التمثيل الرسمي"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:77
 msgid "file2"
-msgstr "ملف #2"
+msgstr "رخصة الانتاج / حقوق الملكية"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:78
 msgid "file3"
-msgstr "ملف #3"
+msgstr "جواز السفر"
 
 #: src/containers/App/TransKeysNotFoundInJsx.js:112
 msgid "files"
