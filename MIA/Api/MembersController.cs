@@ -33,6 +33,11 @@ namespace MIA.Api {
   public class MembersController : BaseApiController<MembersController> {
     private readonly IUserResolver _userResolver;
 
+    private const string file1 = "صلاحية التمثيل الرسمي";
+    private const string file2 = "رخصة الانتاج / حقوق الملكية";
+    private const string file3 = "جواز السفر";
+
+
     public MembersController(IMapper mapper,
       [FromServices] ILogger<MembersController> logger,
       [FromServices] IUserResolver userResolver
@@ -160,9 +165,9 @@ namespace MIA.Api {
       }
 
       // artwork.Payment = await SaveUserPaymentAsync(fileManager, db, award, artwork.Id, dto);
-      artwork.File1 = (await SaveArtworkAttachmentFile(fileManager, artwork.Id, dto.File1, dto.File1FileName, "File1")) ?? S3File.FromKeyAndUrl("", "");
-      artwork.File2 = (await SaveArtworkAttachmentFile(fileManager, artwork.Id, dto.File2, dto.File2FileName, "File2")) ?? S3File.FromKeyAndUrl("", "");
-      artwork.File3 = (await SaveArtworkAttachmentFile(fileManager, artwork.Id, dto.File3, dto.File3FileName, "File3")) ?? S3File.FromKeyAndUrl("", "");
+      artwork.File1 = (await SaveArtworkAttachmentFile(fileManager, artwork.Id, dto.File1, dto.File1FileName, file1)) ?? S3File.FromKeyAndUrl("", "");
+      artwork.File2 = (await SaveArtworkAttachmentFile(fileManager, artwork.Id, dto.File2, dto.File2FileName, file2)) ?? S3File.FromKeyAndUrl("", "");
+      artwork.File3 = (await SaveArtworkAttachmentFile(fileManager, artwork.Id, dto.File3, dto.File3FileName, file3)) ?? S3File.FromKeyAndUrl("", "");
 
       return Ok(_mapper.Map<ArtworkViewWithFilesDto>(artwork));
     }

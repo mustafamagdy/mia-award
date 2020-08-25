@@ -18,7 +18,7 @@ import { NavLink } from "react-router-dom";
 import "react-day-picker/lib/style.css";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 
-const Booths = ({ currency, fetchBooths, booths, boothBooked, bookBooth, boothSubmitting, ...props }) => {
+const Booths = ({ currency, fetchBooths, booths, boothBooked, bookBooth, boothSubmitting, resetBoothBook, ...props }) => {
   useEffect(() => {
     setLoading(false);
     if (booths == undefined || booths.length == 0) {
@@ -93,7 +93,7 @@ const Booths = ({ currency, fetchBooths, booths, boothBooked, bookBooth, boothSu
                 <Trans id="booth_sold_out">Soldout</Trans>
               </div>
             ) : boothBooked == true ? (
-              <Confirmation active={boothBooked} success={true} />
+              <Confirmation active={boothBooked} success={true} resetBoothBook={resetBoothBook} />
             ) : (
               <>
                 <div className="tabs_links">
@@ -497,7 +497,14 @@ const Payment = ({ active, errors, touched, isSubmitting, setFieldValue, nextSte
   );
 };
 
-const Confirmation = ({ active, success, ...props }) => {
+const Confirmation = ({ active, success, resetBoothBook, ...props }) => {
+  useEffect(() => {
+    if (success) {
+      setTimeout(() => {
+        resetBoothBook && resetBoothBook();
+      }, 4000);
+    }
+  }, [active]);
   return (
     <div className={classNames("tab_item confirmation_tab", { active })}>
       <div className="title">

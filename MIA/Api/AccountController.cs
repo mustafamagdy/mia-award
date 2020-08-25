@@ -68,7 +68,7 @@ namespace MIA.Api {
       if (result.Succeeded) {
 
         if (signupData.Avatar != null && signupData.Avatar.Length > 0) {
-          user.ProfileImage = await SaveUserAvatar(fileManager, user.Id, signupData);
+          user.ProfileImage = await SaveUserAvatar(fileManager, user.Id, signupData, user.ProfileImage);
           await userManager.UpdateAsync(user);
         }
 
@@ -214,7 +214,7 @@ namespace MIA.Api {
     [Authorize]
     public async Task<IActionResult> ChangePassword(
       [FromHeader] string culture,
-      [FromServices]  IHttpContextAccessor context,
+      [FromServices] IHttpContextAccessor context,
       [FromBody] ChangePasswordRequest dto,
       [FromServices] UserManager<AppUser> userManager,
       [FromServices] IEmailSender emailSender,
@@ -248,8 +248,8 @@ namespace MIA.Api {
     [HttpGet("profile")]
     [Authorize()]
     public async Task<IActionResult> Profile(
-      [FromServices]  IHttpContextAccessor context,
-      [FromServices]  IAppUnitOfWork db,
+      [FromServices] IHttpContextAccessor context,
+      [FromServices] IAppUnitOfWork db,
       [FromServices] UserManager<AppUser> userManager
       ) {
 
@@ -272,7 +272,7 @@ namespace MIA.Api {
     [HttpPost("profile")]
     [Authorize()]
     public async Task<IActionResult> UpdateProfile(
-     [FromServices]  IHttpContextAccessor context,
+     [FromServices] IHttpContextAccessor context,
      [FromServices] UserManager<AppUser> userManager,
      [FromServices] IS3FileManager fileManager,
      [FromServices] IOptions<UploadLimits> limitOptions,
@@ -291,7 +291,7 @@ namespace MIA.Api {
       user.FullName = dto.FullName;
       user.Email = dto.Email;
       user.JobTitle = dto.JobTitle;
-      user.ProfileImage = await SaveUserAvatar(fileManager, user.Id, dto);
+      user.ProfileImage = await SaveUserAvatar(fileManager, user.Id, dto, user.ProfileImage);
 
       await userManager.UpdateAsync(user);
       var result = _mapper.Map<UserProfileDto>(user);
@@ -301,13 +301,13 @@ namespace MIA.Api {
     }
 
     private async Task<S3File> SaveUserAvatar(IS3FileManager fileManager, string userId,
-      UpdateUserAvatarDto dto) {
+      UpdateUserAvatarDto dto, S3File originalFile) {
       if (!string.IsNullOrEmpty(dto.AvatarFileName) && dto.Avatar != null && dto.Avatar.Length > 0) {
         var avatarFileKey = fileManager.GenerateFileKeyForResource(ResourceType.Users,
           userId, $"{userId}_avatar" + dto.AvatarFileName.GetFileExt());
         return S3File.FromKeyAndUrl(avatarFileKey, await fileManager.UploadFileAsync(dto.Avatar, avatarFileKey));
       }
-      return null;
+      return originalFile == null ? S3File.FromKeyAndUrl("", "") : originalFile;
     }
 
     [HttpPost("avatar")]
@@ -327,7 +327,7 @@ namespace MIA.Api {
       }
 
       var user = await userManager.FindByNameAsync(username);
-      user.ProfileImage = await SaveUserAvatar(fileManager, user.Id, dto);
+      user.ProfileImage = await SaveUserAvatar(fileManager, user.Id, dto, user.ProfileImage);
 
       await userManager.UpdateAsync(user);
       var result = _mapper.Map<UserProfileDto>(user);

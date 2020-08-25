@@ -159,6 +159,13 @@ const resetNewsletterSuccess = (state, action) => {
   });
 };
 
+const resetBoothBook = (state, action) => {
+  return produce(state, (draft) => {
+    draft.boothSubmitting = false;
+    draft.boothBooked = false;
+  });
+};
+
 const fetchMetadataSuccess = (state, action) => {
   return produce(state, (draft) => {
     draft.contactUsMessageSubjects = [...action.payload.contactUsSubjects];
@@ -198,4 +205,5 @@ export const reducer = createReducer(initialState, {
   [ActionTypes.SEND_NEWSLETTER_SUCCESS]: sendNewsletterSuccess,
   [ActionTypes.SEND_NEWSLETTER_FAIL]: sendNewsletterFailed,
   [ActionTypes.RESET_NEWS_LETTER_SUCCESS]: resetNewsletterSuccess,
+  [ActionTypes.RESET_BOOTH_BOOK]: resetBoothBook,
 });

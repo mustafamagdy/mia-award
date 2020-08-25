@@ -15,6 +15,7 @@ const { Types, Creators } = createActions(
     fetchLatestAlbumContents: { args: [], meta: { async: true } },
     searchForShow: { args: ["showTitle"] },
     bookBooth: { args: ["payload"], meta: { async: true } },
+    resetBoothBook: { args: [] },
     sendNewsletter: { args: ["payload"], meta: { async: true } },
     resetNewsLetterSuccess: { args: [] },
   },
