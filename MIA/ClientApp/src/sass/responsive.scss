@@ -1081,7 +1081,8 @@
     .video_item
     a,
   #gallery .gallery_tabs .container .tab_content .gallery_items .item span {
-    height: auto;
+    // height: auto;
+    height: 100%;
   }
   #login_page .container .login_area {
     // width: auto;
@@ -1254,6 +1255,9 @@
   #contact_us .container .form_area .content,
   #contact_us .container .map_area .content {
     padding: 0 40px;
+  }
+  #gallery .gallery_tabs .container .tab_content .gallery_items .item {
+    height: 400px;
   }
   #gallery .gallery_slider .container .slider_area .slider_items .item {
     flex-basis: 700px;
