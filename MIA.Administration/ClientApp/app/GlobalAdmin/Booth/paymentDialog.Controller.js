@@ -45,9 +45,11 @@
     let paymentDate = undefined;
     const dateLen = vm.boothPayment.payment.paymentDate.toString().length;
     if (dateLen == 13) {
-      paymentDate = new Date(vm.boothPayment.payment.paymentDate * 1000);
+      paymentDate = new Date(vm.boothPayment.payment.paymentDate);
     } else if (dateLen == 16) {
       paymentDate = new Date(vm.boothPayment.payment.paymentDate / 1000);
+    }else if(dateLen == 10) {
+      paymentDate = new Date(vm.boothPayment.payment.paymentDate * 1000);
     }
     const dateTimeFormat = new Intl.DateTimeFormat("en", { year: "numeric", month: "2-digit", day: "2-digit" });
     const [{ value: month }, , { value: day }, , { value: year }] = dateTimeFormat.formatToParts(paymentDate);
