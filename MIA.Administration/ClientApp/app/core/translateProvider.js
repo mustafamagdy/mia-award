@@ -371,7 +371,11 @@
         "EditNews":"Edit News",
         "booth_report":"Booth Report",
         "are_you_sure_to_close_all_judges": "are you sure to close all judges",
-        "yes_sure": "Yes sure"
+        "yes_sure": "Yes sure",
+        "done_level1Artworks":"Level 1 artworks (DONE)",
+        "remaining_level1Artworks":"Level 1 artworks (REMAINING)",
+        "done_level2Artworks":"Level 2 artworks (DONE)",
+        "remaining_level2Artworks":"Level 2 artworks (REMAINING)"
       }
       var ar_translations = {
         "OrderDetails": "تفاصيل الطلب",
