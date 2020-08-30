@@ -181,9 +181,11 @@
               width: 50%;
               padding: 0 10px;
               margin: 15px auto;
+              height: 300px;
               .imgthumb {
                 width: auto;
-                height: auto;
+                // height: auto;
+                height: 100%;
                 .mask {
                   background-size: cover;
                 }
