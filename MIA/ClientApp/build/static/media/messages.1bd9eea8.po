@@ -1,0 +1,1288 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2019-12-23 23:04+0200\n"
+"Mime-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/containers/Pages/Shows/view.js:93
+msgid "About the show"
+msgstr "About the show"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:106
+msgid "All"
+msgstr "All"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:41
+msgid "File_is_required"
+msgstr "File is required"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:107
+msgid "Latest"
+msgstr "Latest"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:108
+msgid "Photos"
+msgstr "Photos"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:40
+msgid "Required"
+msgstr "This field is required"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:109
+msgid "Videos"
+msgstr "Videos"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:49
+msgid "about_awards"
+msgstr "Awards"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:28
+msgid "about_tab_content_awards"
+msgstr "Awards"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:32
+msgid "about_tab_content_conpatitors"
+msgstr "The MIA Award seeks to motivate production companies and their personnel to develop positive and influential media. The best works and contributions are selected from all Arab countries and are highlighted. Contestants from all Arab countries; whether individuals, government authorities, solo entrepreneurs, satellite channels or digital platforms that fulfill the conditions and criteria, can submit their works electronically through the MIA Award website and pay the registration fees. The MIA Award is entitled to deal with the work as soon as it is uploaded to the Award website without any legal liabilities for intellectual property rights."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:31
+msgid "about_tab_content_judge"
+msgstr "Based on our belief in the value of integrity as an essential element for the success of the Award, we developed a complete vision and an electronic judging plan characterized by credibility, professionalism and confidentiality at the same time, supervised by prominent academics, artists and professionals in this sector from various Arab countries to evaluate and select the works that will receive the MIA Award, under the direct supervision of the Supreme Award Committee."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:29
+msgid "about_tab_content_mia_contestant"
+msgstr "Indvidual"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:30
+msgid "about_tab_content_mia_honor"
+msgstr "<b>MIA Appreciation Award</b><br />A high-level award recognizing media personalities or organizations who present outstanding artistic contributions."
+
+#: src/components/Layout/Footer.js:60
+msgid "about_us"
+msgstr "About Us"
+
+#: src/containers/MyProfile/ChangePassword.js:147
+#~ msgid "accept_changes"
+#~ msgstr "Accept changes"
+
+#: src/containers/Members/Auth/Register.js:262
+msgid "accept_terms"
+msgstr "Accept terms"
+
+#: src/containers/Members/Artworks/index.js:119
+msgid "add_new_contestant"
+msgstr "Add New Indvidual"
+
+#: src/containers/Members/Artworks/index.js:95
+msgid "add_new_show"
+msgstr "Add New Show"
+
+#: src/containers/Pages/ContactUs/index.js:60
+msgid "address"
+msgstr "Address"
+
+#: src/containers/Booths/index.js:663
+msgid "agreeOnTerms"
+msgstr "Agree on"
+
+#: src/components/Layout/LanguageSelect.js:65
+#~ msgid "all_languages"
+#~ msgstr "All Languages"
+
+#: src/containers/Members/Artworks/Artwork/View/PaymentView.js:13
+msgid "amount"
+msgstr "Amount"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:11
+msgid "any_year"
+msgstr "Any Year"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:114
+msgid "apply_for_artwork_award"
+msgstr "Apply for television program award"
+
+#: src/containers/Pages/Award/index.js:64
+msgid "apply_for_award"
+msgstr "Apply for award"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:115
+msgid "apply_for_person_award"
+msgstr "Apply for indvidual award"
+
+#: src/containers/Home/Awards.js:30
+#~ msgid "apply_for_your_award"
+#~ msgstr "Apply For Your Award"
+
+#: src/containers/Home/Awards.js:136
+msgid "apply_now"
+msgstr "Apply Now"
+
+#: src/containers/Members/Artworks/Artwork/View/Files.js:131
+msgid "are_you_sure_to_delete"
+msgstr "Are you sure you want to delete this item?"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:272
+msgid "are_you_sure_to_send_to_judge"
+msgstr "Are you sure you want to send your data to judge, this cannot be undo?"
+
+#: src/containers/Booths/index.js:345
+msgid "area"
+msgstr "Area"
+
+#: src/containers/Home/RecentShows.js:46
+#~ msgid "award_category"
+#~ msgstr "Awards Category"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:164
+msgid "award_name"
+msgstr "Award"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:34
+#: src/containers/Members/Artworks/index.js:47
+msgid "awards"
+msgstr "Awards"
+
+#: src/containers/Booths/index.js:671
+msgid "book_now"
+msgstr "Book now"
+
+#: src/containers/Booths/index.js:685
+msgid "booth_booking_success"
+msgstr "Success"
+
+#: src/containers/Booths/index.js:688
+msgid "booth_booking_success_msg"
+msgstr "Booth has been successfuly booked, our team will contact you soon complete the process"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:101
+msgid "booth_password_must_match"
+msgstr "Booth passwords must batch"
+
+#: src/containers/Booths/index.js:106
+msgid "booth_sold_out"
+msgstr "All booths have been sold out"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:9
+msgid "booths"
+msgstr "Booths"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:200
+#: src/containers/Pages/Shows/view.js:84
+msgid "broadcast_year"
+msgstr "Broadcast Year"
+
+#: src/containers/Home/Tickets.js:42
+msgid "buy_your_ticket"
+msgstr "Buy Your Ticket"
+
+#: src/containers/Pages/News/view.js:223
+#: src/containers/Pages/Shows/view.js:372
+msgid "by"
+msgstr "By"
+
+#: src/containers/App/CookieGDPR.js:117
+msgid "by_clicking_you_accept"
+msgstr "By clicking «I Accept» or «X» on this banner, or using our site, you consent to the use of cookies unless you have disabled them."
+
+#: src/containers/Members/Profile.js:145
+#: src/containers/Members/Profile.js:264
+msgid "cancel"
+msgstr "Cancel"
+
+#: src/containers/Pages/Shows/view.js:197
+#~ msgid "cast"
+#~ msgstr ""
+
+#: src/containers/Pages/Shows/index.js:111
+#: src/containers/Pages/Shows/view.js:60
+#~ msgid "category"
+#~ msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:58
+msgid "cellPhone1"
+msgstr "Phone 1"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:59
+msgid "cellPhone2"
+msgstr "Phone 2"
+
+#: src/containers/Members/Profile.js:67
+msgid "change_avatar"
+msgstr "Change Avatar"
+
+#: src/containers/MyProfile/ChangePassword.js:27
+#: src/containers/MyProfile/index.js:314
+#: src/containers/MyProfile/index.js:325
+#~ msgid "change_password"
+#~ msgstr "Change Password"
+
+#: src/containers/MyProfile/index.js:143
+#: src/containers/MyProfile/index.js:154
+#~ msgid "change_photo"
+#~ msgstr "Change Photo"
+
+#: src/containers/Members/Artworks/Artwork/Edit/Trailer.js:68
+#~ msgid "change_trailer"
+#~ msgstr "Change Trailer"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:81
+msgid "choose_award"
+msgstr "Choose Award"
+
+#: src/containers/Booths/index.js:313
+#~ msgid "choose_receipt_image"
+#~ msgstr "Choose receipt image"
+
+#: src/containers/Booths/index.js:222
+#~ msgid "choose_your_payment_method"
+#~ msgstr "Choose payment method"
+
+#: src/containers/Pages/News/view.js:201
+#: src/containers/Pages/Shows/view.js:350
+msgid "comment_failed"
+msgstr "There was an error, the message could not be sent."
+
+#: src/containers/Pages/News/view.js:195
+#: src/containers/Pages/Shows/view.js:344
+msgid "comment_submitted"
+msgstr "Your comment has been submitted successfully for review."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:96
+#: src/containers/Pages/News/view.js:159
+#: src/containers/Pages/Shows/view.js:308
+msgid "comment_title"
+msgstr "Title"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:62
+msgid "companyFieldOfBusiness"
+msgstr "Line of business"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:53
+msgid "companyName"
+msgstr "Company Name"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:60
+msgid "company_logo"
+msgstr "Company Logo"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:45
+#: src/containers/App/TransKeysNotFoundInJsx.js:92
+msgid "confirmPassword"
+msgstr "Confirm Password"
+
+#: src/containers/Members/Artworks/Artwork/View/Files.js:130
+msgid "confirm_delete"
+msgstr "Confirm"
+
+#: src/containers/MyProfile/ChangePassword.js:116
+#~ msgid "confirm_password"
+#~ msgstr "Confirm Password"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:271
+msgid "confirm_send_to_judge"
+msgstr "Confirm?"
+
+#: src/containers/User/CheckYourEmail.js:9
+msgid "confirm_your_email_first"
+msgstr "Your account has been created, please check your email for confirmation."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:38
+msgid "conpatitors"
+msgstr "Compatitors"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:56
+msgid "contactPersonName"
+msgstr "Contact Person"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:57
+msgid "contactPersonTitle"
+msgstr "Job Title"
+
+#: src/containers/Pages/ContactUs/index.js:53
+msgid "contact_us"
+msgstr "Contact Us"
+
+#: src/containers/Pages/ContactUs/index.js:195
+msgid "contact_us_message_sent_fail"
+msgstr "There was an error, the message could not be sent."
+
+#: src/containers/Pages/ContactUs/index.js:188
+msgid "contact_us_message_sent_success"
+msgstr "The message was sent successfully."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:102
+msgid "contestant"
+msgstr "Indvidual"
+
+#: src/containers/App/CookieGDPR.js:115
+msgid "cookie_policy"
+msgstr "Cookies Policy"
+
+#: src/components/Layout/Footer.js:118
+msgid "copyright_media_industry"
+msgstr "Copyright© 2020 Media Industry FZ-LLC. All rights reserved."
+
+#: src/containers/Pages/Shows/index.js:123
+#: src/containers/Pages/Shows/view.js:72
+#~ msgid "country"
+#~ msgstr "Country"
+
+#: src/containers/Members/Artworks/Artwork/Edit/Trailer.js:142
+#~ msgid "cover"
+#~ msgstr "Cover"
+
+#: src/components/Layout/LoginStatus.js:34
+msgid "create_account"
+msgstr "Create Account"
+
+#: src/containers/Pages/Shows/view.js:193
+#~ msgid "crew"
+#~ msgstr ""
+
+#: src/containers/Home/Tickets.js:36
+#: src/containers/Members/Artworks/Artwork/View/PaymentView.js:19
+msgid "date"
+msgstr "Date"
+
+#: src/containers/Pages/Shows/view.js:54
+#~ msgid "date_of_release"
+#~ msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:180
+msgid "description"
+msgstr "Description"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:72
+msgid "description_ar"
+msgstr "Description(ar)"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:73
+msgid "description_en"
+msgstr "Description(en)"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:51
+msgid "details"
+msgstr "Details"
+
+#: src/containers/Pages/Shows/view.js:163
+#~ msgid "director"
+#~ msgstr ""
+
+#: src/containers/Pages/ContactUs/index.js:63
+msgid "dubai_address"
+msgstr "Dubai, Dubai Media City, Building No. 1, Second Floor - Office No. 214"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:261
+msgid "edit_info"
+msgstr "Edit Info"
+
+#: src/containers/Members/Profile.js:302
+msgid "edit_profile"
+msgstr "Edit Profile"
+
+#: src/components/Layout/Footer.js:92
+#: src/containers/Members/Auth/ForgetPassword.js:34
+#: src/containers/Members/Profile.js:289
+#: src/containers/Pages/ContactUs/index.js:93
+msgid "email"
+msgstr "E-Mail"
+
+#: src/containers/Pages/ContactUs/index.js:132
+msgid "email*"
+msgstr "E-Mail"
+
+#: src/containers/MyProfile/index.js:349
+#~ msgid "enable_edit"
+#~ msgstr "Enable Edit"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:61
+msgid "extraDetails"
+msgstr "Extra Details"
+
+#: src/containers/User/ConfirmEmail.js:18
+#~ msgid "failed"
+#~ msgstr "Failed"
+
+#: src/containers/User/ConfirmEmail.js:35
+msgid "failed_to_verify"
+msgstr "Failed to verify your email."
+
+#: src/containers/Pages/ContactUs/index.js:84
+msgid "fax"
+msgstr "Fax"
+
+#: src/containers/Pages/ContactUs/index.js:87
+msgid "fax_1"
+msgstr "+971 4 57 2636 6"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:76
+msgid "file1"
+msgstr "File #1"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:77
+msgid "file2"
+msgstr "File #2"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:78
+msgid "file3"
+msgstr "File #3"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:112
+msgid "files"
+msgstr "Files"
+
+#: src/containers/Members/Artworks/Artwork/Edit/Trailer.js:209
+#~ msgid "finish_and_reload"
+#~ msgstr "Finish & Reload"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:83
+msgid "first_day"
+msgstr "First Day"
+
+#: src/components/Layout/Footer.js:45
+msgid "footer_text"
+msgstr "An Arab award going global"
+
+#: src/containers/Members/Auth/index.js:48
+#: src/containers/Members/Auth/Login.js:62
+msgid "forget_password"
+msgstr "Forgot Password"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:86
+msgid "forth_day"
+msgstr "Fourth Day"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:46
+msgid "fullName"
+msgstr "Full name"
+
+#: src/containers/Members/Profile.js:277
+msgid "full_name"
+msgstr "Full name"
+
+#: src/containers/Pages/Gallery/index.js:173
+msgid "gallery"
+msgstr "Gallery"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:8
+msgid "general"
+msgstr "General"
+
+#: src/containers/Pages/Shows/index.js:117
+#: src/containers/Pages/Shows/view.js:66
+#~ msgid "genre"
+#~ msgstr "Genre"
+
+#: src/containers/Pages/ContactUs/index.js:110
+msgid "get_in_touch"
+msgstr "Get In Touch"
+
+#: src/containers/Booths/index.js:281
+msgid "gold_sposer"
+msgstr "Gold Sponser"
+
+#: src/components/Forms/Date/DualCalendar.js:49
+#: src/components/Forms/Date/MonoCalendar.js:39
+#~ msgid "hijri"
+#~ msgstr "Hijri"
+
+#: src/containers/Home/Awards.js:58
+msgid "home_general_award_text"
+msgstr "As we Have Great respect for all directions and tastes, MIA presents its prizes in pure gold to motivate the competitors to provide their best as well it made sure to collect all types of media works and limit them to three categories, shown in detail blew"
+
+#: src/containers/App/CookieGDPR.js:126
+msgid "i_accept"
+msgstr "I Accept"
+
+#: src/components/Layout/Footer.js:80
+msgid "if_you_want_to_keep_updated"
+msgstr "Are you interested, enter your email address and we will keep you updated"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:48
+msgid "info"
+msgstr "Basic Info"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:68
+msgid "jobTitle"
+msgstr "Job Title"
+
+#: src/containers/Members/Profile.js:283
+msgid "job_title"
+msgstr "Job Title"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:37
+msgid "judge"
+msgstr "Judge"
+
+#: src/components/Layout/LanguageSelect.js:44
+#~ msgid "language"
+#~ msgstr "Language"
+
+#: src/containers/Home/PhotoAlbum.js:111
+msgid "latest_video"
+msgstr "Latest Videos & Photos"
+
+#: src/containers/MyProfile/ChangePassword.js:169
+#: src/containers/MyProfile/ImageUpload.js:126
+#~ msgid "loading"
+#~ msgstr "Loading...."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:15
+msgid "location1_description"
+msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:14
+msgid "location1_title"
+msgstr "Al-Maydan Hotel"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:17
+msgid "location2_description"
+msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:16
+msgid "location2_title"
+msgstr "Dubai Opera"
+
+#: src/containers/Members/Auth/ForgetPassword.js:39
+#: src/containers/Members/Auth/index.js:115
+#: src/containers/Members/Auth/ResetPassword.js:75
+msgid "login"
+msgstr "Login"
+
+#: src/containers/Members/Auth/index.js:110
+msgid "login_to_your_account"
+msgstr "Login to your account to view your uploaded artworks"
+
+#: src/components/Layout/LoginStatus.js:14
+#: src/containers/Members/MemberSidebar.js:43
+msgid "logout"
+msgstr "Logout"
+
+#: src/components/Forms/UploadDropZone.js:65
+#: src/containers/App/TransKeysNotFoundInJsx.js:88
+msgid "mb"
+msgstr "MB"
+
+#: src/containers/Booths/index.js:290
+msgid "media_industry"
+msgstr "Media Industry"
+
+#: src/containers/Members/MemberSidebar.js:29
+msgid "member_home"
+msgstr "Members"
+
+#: src/components/Layout/Footer.js:55
+msgid "members"
+msgstr "Members"
+
+#: src/containers/Booths/index.js:287
+msgid "mia"
+msgstr "MIA"
+
+#: src/containers/Pages/AboutUs/index.js:168
+msgid "mia_2020"
+msgstr "MIA 2020"
+
+#: src/containers/Pages/AboutUs/index.js:59
+#~ msgid "mia_2020_text"
+#~ msgstr "With the participation of 21 Arab countriesA new Arab Award specialized in visual media that will be launched in Dubai Opera in 15 December 2020, with the participation of 22 Arab countries."
+
+#: src/components/Layout/index.js:109
+msgid "mia_awards"
+msgstr "MIA Award"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:35
+msgid "mia_contestant"
+msgstr "MIA Indvidual"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:36
+msgid "mia_honor"
+msgstr "MIA Honor"
+
+#: src/components/Forms/UploadDropZone.js:64
+#: src/containers/App/TransKeysNotFoundInJsx.js:87
+msgid "min_size"
+msgstr "Minimum file size"
+
+#: src/containers/Home/Awards.js:149
+#~ msgid "movies"
+#~ msgstr "{0}"
+
+#~ msgid "msgid"
+#~ msgstr "msgstr_en"
+
+#: src/containers/Pages/ContactUs/index.js:124
+#: src/containers/Pages/News/view.js:145
+#: src/containers/Pages/Shows/view.js:294
+msgid "name"
+msgstr "Name"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:54
+msgid "nationality"
+msgstr "Nationality"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:91
+msgid "newPassword"
+msgstr "New Password"
+
+#: src/containers/MyProfile/ChangePassword.js:87
+#~ msgid "new_password"
+#~ msgstr "New password"
+
+#: src/containers/Pages/News/index.js:140
+msgid "news"
+msgstr "News"
+
+#: src/containers/Home/News.js:71
+msgid "news_features"
+msgstr "News Features"
+
+#: src/components/Layout/Footer.js:77
+msgid "newsletter"
+msgstr "NEWSLETTER"
+
+#: src/components/Layout/Footer.js:109
+msgid "newsletter_failed"
+msgstr ""
+
+#: src/components/Layout/Footer.js:102
+msgid "newsletter_success"
+msgstr ""
+
+#: src/containers/Booths/index.js:359
+#: src/containers/Booths/index.js:573
+#: src/containers/Home/News.js:133
+#: src/containers/Members/Auth/Register.js:232
+msgid "next"
+msgstr "Next"
+
+#: src/containers/Members/Artworks/Artwork/View/Files.js:140
+msgid "no"
+msgstr "No"
+
+#: src/containers/Members/Artworks/index.js:57
+#: src/containers/Members/Profile.js:322
+msgid "no_awards_yet"
+msgstr "You didn't won any awards yet"
+
+#: src/containers/Members/Artworks/Artwork/View/Files.js:73
+msgid "no_files_uploaded"
+msgstr "No files uploaded yet"
+
+#: src/containers/Pages/Shows/view.js:381
+msgid "no_reviews_yet"
+msgstr "No reviews yet"
+
+#: src/containers/Members/Artworks/Artwork/View/Trailer.js:11
+msgid "no_trailer_yet"
+msgstr "No trailer uploaded yet"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:286
+msgid "no_wait"
+msgstr "No wait .."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:99
+msgid "not_valid_email"
+msgstr "Not valid email"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:104
+msgid "not_valid_password"
+msgstr "Password must contain at least capital letter, and one non-alphabetic character"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:100
+msgid "not_valid_url"
+msgstr "Not valid URL"
+
+#: src/containers/MyProfile/ChangePassword.js:61
+#~ msgid "old_password"
+#~ msgstr "Old Password"
+
+#: src/containers/Pages/Shows/view.js:212
+msgid "onlineChannels"
+msgstr "Online channels"
+
+#: src/containers/Home/RecentShows.js:77
+#: src/containers/Members/Artworks/Artwork/View/index.js:217
+#: src/containers/Pages/Shows/index.js:201
+msgid "online_channels"
+msgstr "Online channels"
+
+#: src/containers/Pages/AboutUs/index.js:282
+msgid "our_awards"
+msgstr "Our Awards"
+
+#: src/containers/Pages/AboutUs/index.js:286
+msgid "our_awards_text"
+msgstr "As we respect all trends and tastes, MIA is keen to receive all types of media productions and classify them into three categories.<br />MIA presents its 24 kt gold-plated awards to motivate the competitors to offer their best.<br />The Award categories are as follows:"
+
+#: src/containers/Pages/AboutUs/index.js:243
+msgid "our_events"
+msgstr "Our Events"
+
+#: src/containers/Pages/AboutUs/index.js:187
+#~ msgid "our_events_text"
+#~ msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:190
+msgid "our_goal"
+msgstr "Our Goals"
+
+#: src/containers/Pages/AboutUs/index.js:88
+#~ msgid "our_goal_text"
+#~ msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:179
+msgid "our_message"
+msgstr "Our Message"
+
+#: src/containers/Pages/AboutUs/index.js:67
+#~ msgid "our_message_text"
+#~ msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:157
+msgid "our_story"
+msgstr "Our Story"
+
+#: src/containers/Pages/AboutUs/index.js:51
+#~ msgid "our_story_text"
+#~ msgstr ""
+
+#: src/containers/Pages/AboutUs/index.js:211
+msgid "our_value"
+msgstr "our Values"
+
+#: src/containers/Pages/AboutUs/index.js:140
+#~ msgid "our_value_text"
+#~ msgstr ""
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:44
+msgid "password"
+msgstr "Password"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:103
+msgid "password_too_short"
+msgstr "Password is too short, must be at least 6 characters"
+
+#: src/containers/Booths/index.js:249
+#~ msgid "pay_and_continue"
+#~ msgstr "Pay and Continue"
+
+#: src/containers/Booths/index.js:257
+#~ msgid "pay_offline"
+#~ msgstr "Pay Offline"
+
+#: src/containers/Booths/index.js:227
+#~ msgid "pay_online"
+#~ msgstr "Pay Online"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:52
+msgid "payment"
+msgstr "Payment"
+
+#: src/containers/Pages/ContactUs/index.js:72
+#: src/containers/Pages/ContactUs/index.js:140
+msgid "phone"
+msgstr "Phone"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:47
+msgid "phoneNumber"
+msgstr "Phone number"
+
+#: src/containers/Pages/ContactUs/index.js:75
+msgid "phone_1"
+msgstr "+971 4 57 2636 7"
+
+#: src/containers/Pages/ContactUs/index.js:78
+msgid "phone_2"
+msgstr "+971 4 57 2636 8"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:98
+msgid "phone_number_is_not_valid"
+msgstr "Not valid phone number"
+
+#: src/components/Forms/Date/DualCalendar.js:22
+#~ msgid "please_select_checkin_date"
+#~ msgstr "Please select check-in day."
+
+#: src/components/Forms/Date/DualCalendar.js:23
+#~ msgid "please_select_checkout_date"
+#~ msgstr "Please select check-out day."
+
+#: src/containers/Members/Artworks/Contestant/NewContestant.js:292
+#~ msgid "please_upload_payment_receipt"
+#~ msgstr "Please upload payment receipt"
+
+#: src/containers/Booths/index.js:595
+msgid "please_upload_the_receipt"
+msgstr "Please upload payment receipt"
+
+#: src/containers/Pages/Shows/view.js:203
+#~ msgid "pod"
+#~ msgstr ""
+
+#: src/containers/Pages/News/view.js:190
+#: src/containers/Pages/Shows/view.js:339
+msgid "post_comment"
+msgstr "Post A Comment"
+
+#: src/containers/Pages/News/index.js:110
+#: src/containers/Pages/News/index.js:232
+#: src/containers/Pages/News/view.js:62
+msgid "posted"
+msgstr "Posted"
+
+#: src/containers/Pages/Shows/view.js:78
+#~ msgid "posted_date"
+#~ msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/Edit/Trailer.js:184
+#~ msgid "poster"
+#~ msgstr "Poster"
+
+#: src/containers/Home/News.js:117
+msgid "prev"
+msgstr "Prev"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:64
+msgid "printingOption"
+msgstr "Brand printing (vinyl sticker) price per square meter including installation: 350 dirhams"
+
+#: src/components/Layout/Footer.js:72
+#~ msgid "privacy_policy"
+#~ msgstr "Privacy Policy"
+
+#: src/containers/Pages/Shows/view.js:169
+#~ msgid "production"
+#~ msgstr ""
+
+#: src/containers/Pages/Shows/view.js:225
+msgid "productionLicenseAgency"
+msgstr "License agency"
+
+#: src/containers/Pages/Shows/view.js:218
+msgid "productionLicenseNumber"
+msgstr "License number"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:239
+msgid "production_license_agency"
+msgstr "License agency"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:230
+msgid "production_license_number"
+msgstr "License number"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:194
+#: src/containers/Pages/Shows/index.js:112
+#: src/containers/Pages/Shows/view.js:78
+msgid "production_year"
+msgstr "Production year"
+
+#: src/containers/Members/MemberSidebar.js:35
+msgid "profile"
+msgstr "Profile"
+
+#: src/components/Layout/Footer.js:65
+msgid "program"
+msgstr "Program"
+
+#: src/containers/Pages/Timeline/index.js:30
+msgid "program_schedule"
+msgstr "Program Schedule"
+
+#: src/containers/Pages/Timeline/index.js:33
+msgid "program_schedule_brief"
+msgstr "In the Opera House in Dubai, the Arab Media Capital, under the slogan of “Arab Media Is A New Reality”"
+
+#: src/components/Layout/Header.js:63
+#~ msgid "programs"
+#~ msgstr "Programs"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:172
+msgid "project_name"
+msgstr "Project name"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:70
+msgid "project_name_ar"
+msgstr "Project Name(ar)"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:71
+msgid "project_name_en"
+msgstr "Project Name(en)"
+
+#: src/components/Layout/Footer.js:50
+msgid "quick_links"
+msgstr "QUICK LINKS"
+
+#: src/containers/Home/News.js:92
+#: src/containers/Pages/News/index.js:121
+msgid "read_more"
+msgstr "Read More"
+
+#: src/containers/Pages/News/index.js:200
+#: src/containers/Pages/News/index.js:243
+msgid "read_more_elapsed"
+msgstr "Read More.."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:66
+msgid "receipt_date"
+msgstr "Receipt Date"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:67
+msgid "receipt_file"
+msgstr "Receipt File"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:65
+msgid "receipt_number"
+msgstr "Receipt Number"
+
+#: src/containers/Home/RecentShows.js:47
+msgid "recent_shows"
+msgstr "Recent Shows"
+
+#: src/containers/Members/Auth/index.js:132
+#: src/containers/Members/Auth/Register.js:270
+msgid "register"
+msgstr "Register"
+
+#: src/containers/Pages/News/view.js:249
+msgid "related_news"
+msgstr "Related News"
+
+#: src/containers/Pages/Shows/index.js:131
+msgid "release-date"
+msgstr "Release date"
+
+#: src/containers/Members/Artworks/Artwork/View/Files.js:147
+msgid "remove_file"
+msgstr "Remove file"
+
+#: src/containers/Members/Auth/ForgetPassword.js:43
+#: src/containers/Members/Auth/index.js:50
+#: src/containers/Members/Auth/ResetPassword.js:79
+msgid "reset_password"
+msgstr "Reset Password"
+
+#: src/containers/App/CookieGDPR.js:100
+msgid "review_our_cookie_policy"
+msgstr "Review Our Cookie Policy"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:110
+msgid "reviews"
+msgstr "Reviews"
+
+#: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:232
+#: src/containers/Members/Artworks/Artwork/NewArtwork.js:485
+#: src/containers/Members/Profile.js:136
+#: src/containers/Members/Profile.js:253
+msgid "save"
+msgstr "Save"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:63
+msgid "screenOption"
+msgstr "40 inch screen for 1000 dirhams for 3 days"
+
+#: src/components/Layout/index.js:55
+#: src/containers/App/TransKeysNotFoundInJsx.js:89
+msgid "search..."
+msgstr "Search ..."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:84
+msgid "second_day"
+msgstr "Second Day"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:12
+msgid "select_an_option"
+msgstr "Select value"
+
+#: src/containers/MyProfile/ImageUpload.js:94
+#~ msgid "select_your_image"
+#~ msgstr "Select Your Image"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:275
+msgid "send"
+msgstr "Send"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:293
+msgid "send_for_judge"
+msgstr "Send to judge"
+
+#: src/containers/Pages/ContactUs/index.js:184
+msgid "send_message"
+msgstr "Send Message"
+
+#: src/containers/Pages/News/view.js:46
+msgid "share"
+msgstr "Share"
+
+#: src/containers/Home/News.js:123
+msgid "show_all"
+msgstr "Show All"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:90
+#: src/containers/Home/RecentShows.js:58
+#: src/containers/Pages/Shows/index.js:177
+msgid "show_name"
+msgstr "Project Name"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:10
+msgid "shows"
+msgstr "Shows"
+
+#: src/components/Layout/LoginStatus.js:31
+msgid "sign_in"
+msgstr "Sign In"
+
+#: src/containers/Members/Auth/index.js:46
+#: src/containers/Members/Auth/index.js:107
+#: src/containers/Members/Auth/Login.js:66
+msgid "signin"
+msgstr "Sign in"
+
+#: src/containers/Members/Auth/index.js:121
+msgid "signup"
+msgstr "Signup"
+
+#: src/containers/Members/Auth/Register.js:199
+#~ msgid "signup_terms"
+#~ msgstr "Terms and Conditions"
+
+#: src/containers/Members/Auth/index.js:125
+msgid "signup_text"
+msgstr " In order to apply for any award you need be a member in our website and follow all our policies. please signup to start your way to the awards"
+
+#: src/containers/Members/Artworks/Artwork/View/index.js:188
+#: src/containers/Pages/Shows/view.js:200
+msgid "siteUrl"
+msgstr "Site url"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:74
+msgid "site_url"
+msgstr "Site Url"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:20
+msgid "slide1_text"
+msgstr "The MIA award ceremony and activities start from Dubai Media City, and the award will be held at the 'Opera Dubai ', the first creative front for arts, culture and music for the city of Dubai, where the Opera House Theater is one of the most important destinations for those interested in culture and arts not only at the level of the Arab world but also on the whole world"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:19
+msgid "slide1_title"
+msgstr "Opera"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:22
+msgid "slide2_text"
+msgstr "Based on our belief in the value of integrity as an essential element for the success of the Award, we developed a complete vision and an electronic judging plan characterized by credibility, professionalism and confidentiality at the same time, supervised by prominent academics, artists and professionals in this sector from various Arab countries to evaluate and select the works that will receive the MIA Award, under the direct supervision of the Supreme Award Committee."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:21
+msgid "slide2_title"
+msgstr "Judge"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:24
+msgid "slide3_text"
+msgstr "Compassion, sympathy and mercy are significant moral values representing noble human and cultural principles with profound impact on social life.One cannot forget the role of compassion in creating the spirit of solidarity, joint liability and engagement between people. Compassion is one of the reasons behind social engagement as advocated by our religion, to be united and coherent supporting each other. MIA Award has chosen to honor charitable works as humanitarian support under the topic “Social Compassion”, based on the belief in the necessity of enhancing human dimensions, spreading the spirit of compassion and concerted humanitarian efforts in all works in the various sectors, being an essential element and one of the top manifestations of Arab unity."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:23
+msgid "slide3_title"
+msgstr "MIA Compassion "
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:26
+msgid "slide4_text"
+msgstr "Events held within the scope of the Award program:Workshops to develop professional technical and technological capabilities.Specialized seminars by expert professional media makers and Arab stars.Presenting unique success stories.A special market serving production companies and digital and TV platforms, including the latest engineering and technological systems in media and TV production industry.Live interviews and discussion of important issues (Live broadcast)"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:25
+msgid "slide4_title"
+msgstr "Workshops"
+
+#: src/containers/Booths/index.js:84
+#~ msgid "sold_out"
+#~ msgstr ""
+
+#: src/containers/Home/Awards.js:62
+#: src/containers/Home/Awards.js:93
+#: src/containers/Home/Awards.js:129
+#~ msgid "sports"
+#~ msgstr "Sports"
+
+#: src/containers/Booths/index.js:284
+msgid "standard"
+msgstr "Standard"
+
+#: src/containers/Pages/Shows/view.js:187
+#~ msgid "stars"
+#~ msgstr ""
+
+#: src/containers/Home/Awards.js:61
+msgid "start_from"
+msgstr "Starts From"
+
+#: src/containers/Members/Artworks/Artwork/View/PaymentView.js:25
+msgid "status"
+msgstr "Status"
+
+#: src/containers/Pages/AboutUs/index.js:46
+#~ msgid "story"
+#~ msgstr "Our Story"
+
+#: src/containers/Pages/AboutUs/index.js:51
+#~ msgid "story_text"
+#~ msgstr "In view of the great challenges that our Arab media has faced during the past decades and the underrepresentation of Arab reality in spite of the massive investments in the media sector in various respects, the media community realized the need for joint efforts between investors and production companies to put an end to this deficiency."
+
+#: src/containers/PreloaderPage/LoaderTestSample.js:38
+#~ msgid "submit"
+#~ msgstr "Submit"
+
+#: src/components/Layout/LanguageSelect.js:50
+#~ msgid "suggested_languages"
+#~ msgstr "Suggested Languages"
+
+#: src/containers/Booths/index.js:665
+msgid "terms_and_conditions"
+msgstr "Terms and Conditions"
+
+#: src/components/Layout/Footer.js:70
+msgid "terms_conditions"
+msgstr "Terms & Conditions"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:85
+msgid "third_day"
+msgstr "Third Day"
+
+#: src/containers/Home/Tickets.js:15
+#~ msgid "ticket_desc"
+#~ msgstr ""
+
+#: src/containers/Home/Awards.js:63
+msgid "to"
+msgstr "To"
+
+#: src/components/Forms/Date/DualCalendar.js:35
+#: src/components/Forms/Date/MonoCalendar.js:25
+#~ msgid "today"
+#~ msgstr "Today"
+
+#: src/containers/Members/Artworks/Artwork/Edit/Trailer.js:100
+#~ msgid "trailer"
+#~ msgstr "Trailer"
+
+#: src/containers/Pages/Shows/view.js:206
+msgid "tvChannels"
+msgstr "TV Channels"
+
+#: src/containers/Home/RecentShows.js:71
+#: src/containers/Members/Artworks/Artwork/View/index.js:207
+#: src/containers/Pages/Shows/index.js:195
+msgid "tv_channels"
+msgstr "TV Channels"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:95
+#: src/containers/Pages/News/view.js:169
+#: src/containers/Pages/Shows/view.js:318
+msgid "type_here_your_comment"
+msgstr "Type your comment here"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:93
+msgid "type_your_comment"
+msgstr "Type your comment here"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:111
+#: src/containers/Pages/ContactUs/index.js:162
+msgid "type_your_message_min_100"
+msgstr "Type your message (minimum 100 letters)"
+
+#: src/containers/MyProfile/index.js:370
+#~ msgid "update"
+#~ msgstr "Update"
+
+#: src/containers/Members/Auth/Register.js:102
+msgid "upload"
+msgstr "Upload"
+
+#: src/containers/MyProfile/ImageUpload.js:72
+#~ msgid "upload_avatar"
+#~ msgstr "Upload Avatar"
+
+#: src/containers/MyProfile/ImageUpload.js:104
+#~ msgid "upload_image"
+#~ msgstr "Upload Image"
+
+#: src/containers/Pages/Shows/index.js:87
+#~ msgid "uploaded"
+#~ msgstr ""
+
+#: src/containers/Members/Artworks/Contestant/ChoosePayment.js:95
+#~ msgid "usd"
+#~ msgstr "USD"
+
+#: src/containers/Pages/Shows/index.js:141
+msgid "user_account"
+msgstr "User account"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:43
+msgid "username"
+msgstr "Username"
+
+#: src/containers/User/ConfirmEmail.js:23
+msgid "verifying_your_email_please_wait"
+msgstr "Verifying your email, please wait"
+
+#: src/containers/Home/PhotoAlbum.js:114
+msgid "videos_desc"
+msgstr ""
+
+#: src/containers/Pages/Shows/index.js:155
+msgid "view"
+msgstr "View"
+
+#: src/containers/Home/Awards.js:48
+#~ msgid "view_all"
+#~ msgstr "View All"
+
+#: src/containers/Members/Artworks/Award.js:39
+#~ msgid "view_award"
+#~ msgstr "View Award"
+
+#: src/containers/Home/IntroSlider.js:137
+#~ msgid "view_awards"
+#~ msgstr "View Awards"
+
+#: src/containers/Home/IntroSlider.js:131
+msgid "view_more"
+msgstr "View more"
+
+#: src/containers/App/CookieGDPR.js:110
+msgid "we_use_cookies_and_similar_technology"
+msgstr "We use cookies and similar technologies to recognize your repeated visits and preferences; to measure the affectiveness of publicity campaigns and to analyze traffic. To learn more about cookies, including how to disable them, view our"
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:55
+msgid "websiteUrl"
+msgstr "Website Url"
+
+#: src/containers/App/CookieGDPR.js:106
+msgid "what_do_we_use_cookies_for"
+msgstr "What do we use cookies for?"
+
+#: src/containers/Pages/Shows/view.js:175
+#~ msgid "writers"
+#~ msgstr ""
+
+#: src/containers/Members/Artworks/Artwork/View/Files.js:134
+msgid "yes"
+msgstr "Yes"
+
+#: src/containers/Members/Artworks/Artwork/Edit/EditArtwork.js:80
+#: src/containers/Members/Artworks/Artwork/NewArtwork.js:164
+msgid "you_applied_for_award_x"
+msgstr "You applied for the award."
+
+#: src/containers/App/TransKeysNotFoundInJsx.js:94
+#: src/containers/App/TransKeysNotFoundInJsx.js:97
+#: src/containers/Pages/News/view.js:151
+#: src/containers/Pages/Shows/view.js:300
+msgid "your_email"
+msgstr "Your email"
