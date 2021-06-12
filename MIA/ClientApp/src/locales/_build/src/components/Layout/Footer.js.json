@@ -1,0 +1,108 @@
+{
+  "footer_text": {
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        45
+      ]
+    ]
+  },
+  "quick_links": {
+    "defaults": "QUICK LINKS",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        50
+      ]
+    ]
+  },
+  "members": {
+    "defaults": "Members",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        55
+      ]
+    ]
+  },
+  "about_us": {
+    "defaults": "About Us",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        60
+      ]
+    ]
+  },
+  "program": {
+    "defaults": "Program",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        65
+      ]
+    ]
+  },
+  "terms_conditions": {
+    "defaults": "Terms & Conditions",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        70
+      ]
+    ]
+  },
+  "newsletter": {
+    "defaults": "NEWSLETTER",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        77
+      ]
+    ]
+  },
+  "if_you_want_to_keep_updated": {
+    "defaults": "Are you interested, enter your email address and we will keep you updated",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        80
+      ]
+    ]
+  },
+  "email": {
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        92
+      ]
+    ]
+  },
+  "newsletter_success": {
+    "defaults": "You have successfully subscribed to the newsletter",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        102
+      ]
+    ]
+  },
+  "newsletter_failed": {
+    "defaults": "There is an error, subscription failed. Please try again later",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        109
+      ]
+    ]
+  },
+  "copyright_media_industry": {
+    "defaults": "Copyright 2020 Media Industry Awards. All rights reserved.",
+    "origin": [
+      [
+        "src/components/Layout/Footer.js",
+        118
+      ]
+    ]
+  }
+}

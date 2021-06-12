@@ -1,0 +1,386 @@
+@import "./variables.scss";
+#news_single {
+  background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center center;
+  position: relative;
+  .container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 170px 0 60px;
+    overflow: hidden;
+    position: relative;
+    z-index: 4;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    .data_side {
+      width: 75%;
+      padding: 0 15px;
+      margin: 15px auto;
+      .post_imgthumb {
+        margin: 0 auto 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.35);
+        overflow: hidden;
+        height: 477px;
+        img {
+          width: 100%;
+          height: 100%;
+          // object-fit: scale-down;
+          object-fit: cover;
+        } /* img */
+      } /* post_imgthumb */
+      .post_details {
+        margin: 0 auto 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .share {
+          display: flex;
+          align-items: center;
+          span {
+            font-size: 17px;
+            color: #c0a176;
+            margin: 0 5px 0 0;
+            text-transform: capitalize;
+          } /* span */
+          i {
+            display: block;
+            margin: 0 5px;
+            font-size: 20px;
+            color: #c0a176;
+            &:hover {
+              color: #debf94;
+            }
+          } /* a */
+        } /* share */
+        time {
+          font-size: 15px;
+          color: #c0a176;
+          text-transform: capitalize;
+        } /* time */
+      } /* post_details */
+      .title {
+        display: block;
+        font-size: 20px;
+        margin: 0 auto 15px;
+        line-height: 25px;
+        font-family: Montserrat_Bold;
+        color: #fff;
+      }
+      .content {
+        font-size: 15px;
+        line-height: 22px;
+        color: #808080;
+        margin: 0 auto 50px;
+      } /* content */
+      .comments_area {
+        padding: 10px;
+        border: 1px solid #21231e;
+        background: #101010;
+        overflow: auto;
+        max-height: 380px;
+        margin: 0 auto 30px;
+        scrollbar-width: thin;
+        scrollbar-color: #aaa49f #272727;
+        .item {
+          border-bottom: 1px solid #21231e;
+          margin: 0 auto 20px;
+          padding: 0 0 20px;
+          .user_info {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0 auto 15px;
+            .imgthumb {
+              border-radius: 100%;
+              border: 2px solid #c0a176;
+              height: 55px;
+              width: 55px;
+              margin: 0 20px 0 0;
+              overflow: hidden;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: scale-down;
+              } /* img */
+            } /* imgthumb */
+            .details {
+              span {
+                display: block;
+                font-size: 16px;
+                color: #a8a8a8;
+                font-family: Montserrat_Bold;
+              } /* span */
+              p {
+                display: block;
+                margin: 8px auto 0;
+                font-size: 13px;
+                color: #a8a8a8;
+                i {
+                  color: #447fba;
+                  font-style: normal;
+                } /* a */
+              } /* p */
+            } /* details */
+          } /* user_info */
+          .comment_content {
+            font-size: 14px;
+            line-height: 21px;
+            color: #e5e5e5;
+          } /* comment_content */
+          &:last-of-type {
+            border-bottom: none;
+            margin: 0 auto;
+            padding: 0;
+          } /* last-of-type */
+        } /* item */
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+        &::-webkit-scrollbar-track {
+          -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+        &::-webkit-scrollbar-thumb {
+          background: #aaa49f;
+          outline: 1px solid #272727;
+        }
+      } /* comments_area */
+      .comment_form {
+        .inputs {
+          display: flex;
+          justify-content: space-between;
+          input {
+            border: 1px solid #21231e;
+            height: 45px;
+            border-radius: 10px;
+            padding: 0 10px;
+            background: #141414;
+            color: #fff;
+            font-size: 16px;
+            margin: 0 0 15px;
+            font-family: "Montserrat_Medium", "Tajawal_Medium", Arial, Helvetica, sans-serif;
+            &:first-child {
+              width: 35%;
+            }
+            &:last-child {
+              width: 63%;
+            }
+          } /* input */
+        } /* inputs */
+        textarea {
+          width: 100%;
+          height: 200px;
+          background: #141414;
+          border: 1px solid #21231e;
+          border-radius: 10px;
+          padding: 15px;
+          font-size: 16px;
+          color: #fff;
+          font-family: "Montserrat_Medium", "Tajawal_Medium", Arial, Helvetica, sans-serif;
+        } /* textarea */
+        button {
+          background: -moz-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%); /* ff3.6+ */
+          background: -webkit-gradient(
+            linear,
+            left top,
+            right top,
+            color-stop(0%, #f7e483),
+            color-stop(57%, #dbba5a),
+            color-stop(100%, #a36d31)
+          ); /* safari4+,chrome */
+          background: -webkit-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%); /* safari5.1+,chrome10+ */
+          background: -o-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%); /* opera 11.10+ */
+          background: -ms-linear-gradient(0deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%); /* ie10+ */
+          background: linear-gradient(90deg, #f7e483 0%, #dbba5a 57%, #a36d31 100%); /* w3c */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7e483', endColorstr='#a36d31',GradientType=1 ); /* ie6-9 */
+          height: 40px;
+          padding: 0 25px;
+          border-radius: 10px;
+          font-family: Montserrat_Medium;
+          border: none;
+          font-size: 15px;
+          margin: 15px auto 0;
+          color: #0c0c0c;
+          cursor: pointer;
+          -webkit-transition: all 0s ease-in-out;
+          -moz-transition: all 0s ease-in-out;
+          -o-transition: all 0s ease-in-out;
+          transition: all 0s ease-in-out;
+          &:hover {
+            background: #a36d31;
+          }
+        } /* button */
+        .msg_success {
+          background: #d4edda;
+          border: 1px solid #c3e6cb;
+          color: #155724;
+          padding: 13px;
+          display: block;
+          width: 100%;
+          border-radius: 5px;
+          text-align: center;
+          text-transform: capitalize;
+          font-size: 17px;
+          margin: 15px auto;
+        } /* msg_success */
+        .msg_wrong {
+          background: #f8d7da;
+          border: 1px solid #f5c6cb;
+          color: #721c24;
+          padding: 13px;
+          display: block;
+          width: 100%;
+          border-radius: 5px;
+          text-align: center;
+          text-transform: capitalize;
+          font-size: 17px;
+          margin: 15px auto;
+        } /* msg_wrong */
+      } /* comment_form */
+    } /* data_side */
+    .side_bar {
+      width: 25%;
+      padding: 0 15px;
+      margin: 15px auto;
+      .small_banner {
+        margin: 0 auto 20px;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: auto;
+          border: 1px solid #020202;
+          border-radius: 10px;
+          -webkit-transition: all 0.4s ease-in-out;
+          -moz-transition: all 0.4s ease-in-out;
+          -o-transition: all 0.4s ease-in-out;
+          transition: all 0.4s ease-in-out;
+          object-fit: scale-down;
+        } /* img */
+        &:hover {
+          img {
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+            object-fit: scale-down;
+          } /* img */
+        } /* hover */
+      } /* small_banner */
+      .big_banner {
+        margin: 0 auto 20px;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: auto;
+          border: 1px solid #020202;
+          border-radius: 10px;
+          -webkit-transition: all 0.4s ease-in-out;
+          -moz-transition: all 0.4s ease-in-out;
+          -o-transition: all 0.4s ease-in-out;
+          transition: all 0.4s ease-in-out;
+        } /* img */
+        &:hover {
+          img {
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+          } /* img */
+        } /* hover */
+      } /* small_banner */
+      .related_news {
+        margin: 40px auto auto;
+        .title {
+          font-size: 20px;
+          position: relative;
+          font-family: Montserrat_Bold;
+          margin: 0 auto 20px;
+          color: #ccbc93;
+          border-bottom: 1px solid #21231e;
+          padding: 0 0 20px;
+          &::after {
+            position: absolute;
+            content: "";
+            width: 25%;
+            height: 4px;
+            background: #ccbc93;
+            display: block;
+            bottom: -2px;
+            left: 0;
+          } /* after */
+        } /* title */
+        .item {
+          overflow: hidden;
+          margin: 0 auto 20px;
+          width: 200px;
+          height: 350px;
+          img {
+            width: 100%;
+            // height: auto;
+            height: 100%;
+            border: 1px solid #21231e;
+            border-radius: 10px;
+            -webkit-transition: all 0.4s ease-in-out;
+            -moz-transition: all 0.4s ease-in-out;
+            -o-transition: all 0.4s ease-in-out;
+            transition: all 0.4s ease-in-out;
+            // object-fit: scale-down;
+            object-fit: cover;
+          } /* img */
+          &:hover {
+            img {
+              -webkit-filter: grayscale(100%);
+              -moz-filter: grayscale(100%);
+              -o-filter: grayscale(100%);
+              filter: grayscale(100%);
+            } /* img */
+          } /* hover */
+        } /* item */
+      } /* related_news */
+    } /* side_bar */
+  } /* container */
+} /* news_single */
+
+//**** RTL Style ****//
+body[dir="rtl"] {
+  #news_single {
+    .container {
+      .data_side {
+        .title {
+          font-family: Tajawal_Bold;
+        }
+        .comments_area {
+          .item {
+            .user_info {
+              .imgthumb {
+                margin: 0 0 0 20px;
+              }
+              .details {
+                span {
+                  font-family: Tajawal_Bold;
+                }
+              } /* details */
+            } /* user_info */
+          } /* item */
+        } /* comments_area */
+        .comment_form {
+          button {
+            font-family: Tajawal_Medium;
+          }
+        } /* comment_form */
+      } /* data_side */
+      .side_bar {
+        .related_news {
+          .title {
+            font-family: Tajawal_Bold;
+            &::after {
+              right: 0;
+              left: auto;
+            } /* after */
+          } /* title */
+        } /* related_news */
+      } /* side_bar */
+    } /* container */
+  } /* news_single */
+}
+//**** RTL Style ****//

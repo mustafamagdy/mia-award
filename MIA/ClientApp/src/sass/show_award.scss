@@ -1,0 +1,190 @@
+@import "./variables.scss";
+#show_award {
+  background: #141414 url("/assets/images/cotactus_bg.png") scroll repeat center
+    center;
+  position: relative;
+  .container {
+    width: 1442px;
+    margin: 0 auto;
+    padding: 161px 25px 60px;
+    overflow: hidden;
+    position: relative;
+    z-index: 4;
+    min-height: 100vh;
+    &::after {
+      content: "About \A awards";
+      position: absolute;
+      left: 50px;
+      bottom: 0;
+      font-size: 150px;
+      text-transform: uppercase;
+      font-family: Montserrat_Bold;
+      color: #1b1b1b;
+      opacity: 0.75;
+      white-space: pre;
+      [dir="rtl"] & {
+        content: "عن \A الجائزة";
+
+        font-family: Tajawal_Bold;
+        font-size: 100px;
+        right: 50px;
+        left: auto;
+      } /* rtl */
+    } /* after */
+    &.sponser {
+      &::after {
+        content: "Sponser";
+        [dir="rtl"] & {
+          content: "راعي";
+        }
+      }
+    }
+    .award_area {
+      width: 1000px;
+      margin: 50px auto;
+      display: flex;
+      position: relative;
+      z-index: 9;
+      @media (min-width: 320px) and (max-width: 767px) {
+        width: 100%;
+        display: block;
+      }
+      .imgthumb {
+        width: 20%;
+        &.sponser {
+          width: 40%;
+        }
+        @media (min-width: 320px) and (max-width: 767px) {
+          width: 100%;
+        }
+        img {
+          max-width: 100%;
+          display: block;
+          margin: 0 auto;
+        } /* img */
+      } /* imgthumb */
+      .txt {
+        width: 80%;
+        &.sponser {
+          width: 100%;
+        }
+        padding: 0 0 0 50px;
+        [dir="rtl"] & {
+          padding: 0 50px 0 0;
+        } /* rtl */
+        @media (min-width: 320px) and (max-width: 767px) {
+          width: 100%;
+          padding: 10px;
+        }
+        .title {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          text-transform: uppercase;
+          font-family: Montserrat_Bold;
+          color: #c0a176;
+          font-size: 30px;
+          margin: 0 auto 20px;
+          [dir="rtl"] & {
+            font-family: Tajawal_Bold;
+          } /* rtl */
+          @media (min-width: 320px) and (max-width: 767px) {
+            font-size: 20px;
+          }
+        } /* title */
+        .desc {
+          font-size: 14px;
+          line-height: 22px;
+          color: #808080;
+          margin: 0 auto 20px;
+        } /* desc */
+        .download {
+          display: flex;
+          margin: 0 auto 20px;
+          a {
+            display: inline-block;
+            margin: 5px 15px 5px 0;
+          } /* a */
+        } /* download */
+        .applynow {
+          a {
+            background: -moz-linear-gradient(
+              0deg,
+              #f7e483 0%,
+              #dbba5a 57%,
+              #a36d31 100%
+            );
+            background: -webkit-gradient(
+              linear,
+              left top,
+              right top,
+              color-stop(0%, #f7e483),
+              color-stop(57%, #dbba5a),
+              color-stop(100%, #a36d31)
+            );
+            background: -webkit-linear-gradient(
+              0deg,
+              #f7e483 0%,
+              #dbba5a 57%,
+              #a36d31 100%
+            );
+            background: -o-linear-gradient(
+              0deg,
+              #f7e483 0%,
+              #dbba5a 57%,
+              #a36d31 100%
+            );
+            background: -ms-linear-gradient(
+              0deg,
+              #f7e483 0%,
+              #dbba5a 57%,
+              #a36d31 100%
+            );
+            background: linear-gradient(
+              90deg,
+              #f7e483 0%,
+              #dbba5a 57%,
+              #a36d31 100%
+            );
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7e483', endColorstr='#a36d31',GradientType=1 );
+            height: 40px;
+            padding: 0 30px;
+            border-radius: 100px;
+            font-family: Montserrat_Bold;
+            border: none;
+            font-size: 16px;
+            margin: 10px;
+            color: #0c0c0c;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-transition: all 0s ease-in-out;
+            -moz-transition: all 0s ease-in-out;
+            -o-transition: all 0s ease-in-out;
+            transition: all 0s ease-in-out;
+            line-height: 40px;
+            [dir="rtl"] & {
+              font-family: Tajawal_Bold;
+            } /* rtl */
+            &:hover {
+              background: #a36d31;
+            } /* hover */
+          } /* a */
+        } /* applynow */
+        .social_media {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          a {
+            display: block;
+            font-size: 25px;
+            color: $maincolor;
+            margin: 10px;
+            &:hover {
+              color: $secondcolor;
+            } /* a hover */
+          } /* a */
+        } /* social_media */
+      } /* txt */
+    } /* award_area */
+  } /* container */
+} /* show_award */

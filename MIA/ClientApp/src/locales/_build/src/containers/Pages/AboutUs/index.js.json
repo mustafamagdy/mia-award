@@ -1,0 +1,66 @@
+{
+  "our_story": {
+    "origin": [
+      [
+        "src/containers/Pages/AboutUs/index.js",
+        157
+      ]
+    ]
+  },
+  "mia_2020": {
+    "origin": [
+      [
+        "src/containers/Pages/AboutUs/index.js",
+        168
+      ]
+    ]
+  },
+  "our_message": {
+    "origin": [
+      [
+        "src/containers/Pages/AboutUs/index.js",
+        179
+      ]
+    ]
+  },
+  "our_goal": {
+    "origin": [
+      [
+        "src/containers/Pages/AboutUs/index.js",
+        190
+      ]
+    ]
+  },
+  "our_value": {
+    "origin": [
+      [
+        "src/containers/Pages/AboutUs/index.js",
+        211
+      ]
+    ]
+  },
+  "our_events": {
+    "origin": [
+      [
+        "src/containers/Pages/AboutUs/index.js",
+        243
+      ]
+    ]
+  },
+  "our_awards": {
+    "origin": [
+      [
+        "src/containers/Pages/AboutUs/index.js",
+        282
+      ]
+    ]
+  },
+  "our_awards_text": {
+    "origin": [
+      [
+        "src/containers/Pages/AboutUs/index.js",
+        286
+      ]
+    ]
+  }
+}

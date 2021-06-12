@@ -1,0 +1,36 @@
+{
+  "home_general_award_text": {
+    "origin": [
+      [
+        "src/containers/Home/Awards.js",
+        58
+      ]
+    ]
+  },
+  "start_from": {
+    "defaults": "starts from",
+    "origin": [
+      [
+        "src/containers/Home/Awards.js",
+        61
+      ]
+    ]
+  },
+  "to": {
+    "origin": [
+      [
+        "src/containers/Home/Awards.js",
+        63
+      ]
+    ]
+  },
+  "apply_now": {
+    "defaults": "apply now",
+    "origin": [
+      [
+        "src/containers/Home/Awards.js",
+        136
+      ]
+    ]
+  }
+}

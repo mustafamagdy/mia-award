@@ -1,0 +1,339 @@
+﻿[
+  {
+    "Code": "talk-show",
+    "AwardType": "Artwork",
+    "Title": {
+      "ar": "جائزة أفضل برامج مقابلات",
+      "en": "MIA for best talk-show"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 1
+  },
+  {
+    "Code": "interview",
+    "AwardType": "Artwork",
+    "Title": {
+      "ar": "جائزة أفضل برنامج شخصي",
+      "en": "MIA for best interview program"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 2
+  },
+  {
+    "Code": "debate",
+    "AwardType": "Artwork",
+    "Title": {
+      "ar": "جائزة أفضل برامج مناظرات",
+      "en": "MIA for best debate program"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 3
+  },
+  {
+    "Code": "seminar",
+    "AwardType": "Artwork",
+    "Title": {
+      "ar": "جائزة أفضل ندوة تلفزيونية",
+      "en": "MIA for best TV seminar"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 4
+  },
+  {
+    "Code": "popular-show",
+    "AwardType": "Artwork",
+    "Title": {
+      "ar": "جائزة أفضل برنامج جماهيري",
+      "en": "MIA for most popular show"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 5
+  },
+  {
+    "Code": "magazine",
+    "AwardType": "Artwork",
+    "Title": {
+      "ar": "جائزة أفضل مجلة تلفزيونية",
+      "en": "MIA for best TV magazine"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 6
+  },
+  {
+    "Code": "documentary",
+    "AwardType": "Artwork",
+    "Title": {
+      "ar": "جائزة أفضل إنتاج وثائقي",
+      "en": "MIA for best documentary production"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 7
+  },
+  {
+    "Code": "competition",
+    "AwardType": "Artwork",
+    "Title": {
+      "ar": "جائزة أفضل برنامج مسابقات",
+      "en": "MIA for best competition program"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 8
+  },
+  {
+    "Code": "field-coverage",
+    "AwardType": "Artwork",
+    "Title": {
+      "ar": "جائزة أفضل تغطية ميدانية",
+      "en": "MIA for best field coverage"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 9
+  },
+  {
+    "Code": "drama",
+    "AwardType": "Artwork",
+    "Title": {
+      "ar": "جائزة أفضل عمل درامي",
+      "en": "MIA for best drama"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 10
+  },
+  {
+    "Code": "promo",
+    "AwardType": "Artwork",
+    "Title": {
+      "ar": "جائزة أفضل برومو",
+      "en": "MIA for best promo"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 11
+  },
+  
+  {
+    "Code": "actor",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة آفضل ممثل",
+      "en": "MIA for best actor"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 1
+  },
+  {
+    "Code": "actress",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل ممثلة",
+      "en": "MIA for best actress"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 2
+  },
+  {
+    "Code": "male-presenter",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل مذيع ",
+      "en": "MIA for best male presenter"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 3
+  },
+  {
+    "Code": "female-presenter",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل مذيعة ",
+      "en": "MIA for best female presenter"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 4
+  },
+  {
+    "Code": "director",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل مخرج",
+      "en": "MIA for best director"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 5
+  },
+  {
+    "Code": "producer",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل معد ومنتج",
+      "en": "MIA for best conceptualizer and producer"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 6
+  },
+  {
+    "Code": "screenwriter",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل كاتب سينارو",
+      "en": "MIA for best screenwriter"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 7
+  },
+  {
+    "Code": "director-photography",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل مدير تصوير",
+      "en": "MIA for best director of photography"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 8
+  },
+  {
+    "Code": "cinematographer",
+    "AwardType": "Person",
+    "Title": {      
+      "ar": "جائزة أفضل مصور",
+      "en": "MIA for best cinematographer"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 9
+  },
+  {
+    "Code": "music",
+    "AwardType": "Person",
+    "Title": {
+      "ar": "جائزة أفضل موسيقى",
+      "en": "MIA for best music"
+    },
+    "Description": {
+      "ar": "",
+      "en": ""
+    },
+    "ArtworkFee": 0,
+    "TrophyImageKey": "awards/trophy/award.png",
+    "TrophyImageUrl": "https://mia-content.s3.amazonaws.com/awards/trophy/award.png",
+    "Order": 10
+  }
+]

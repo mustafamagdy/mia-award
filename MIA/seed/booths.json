@@ -1,0 +1,171 @@
+﻿[
+  {
+    "Code": "A",
+    "Start": 301,
+    "End": 337,
+    "Area": "2.5m x 2.5m",
+    "Price": 8000,
+    "Currency": "AED",
+    "Sellable": true,
+    "Description": {
+      "en": "Booths & Exit",
+      "ar": "Booths & Exit"
+    }
+  },
+  {
+    "Code": "B",
+    "Start": 201,
+    "End": 205,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": true,
+    "Description": {
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
+  },
+  {
+    "Code": "B",
+    "Start": 206,
+    "End": 210,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": false,
+    "Description": {
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
+  },
+  {
+    "Code": "B",
+    "Start": 211,
+    "End": 225,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": true,
+    "Description": {
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
+  },
+  {
+    "Code": "B",
+    "Start": 226,
+    "End": 230,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": false,
+    "Description": {
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
+  },
+  {
+    "Code": "B",
+    "Start": 231,
+    "End": 238,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": true,
+    "Description": {
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
+  },
+  {
+    "Code": "B",
+    "Start": 239,
+    "End": 243,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": false,
+    "Description": {
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
+  },
+  {
+    "Code": "B",
+    "Start": 244,
+    "End": 272,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": true,
+    "Description": {
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
+  },
+  {
+    "Code": "B",
+    "Start": 273,
+    "End": 277,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": false,
+    "Description": {
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
+  },
+  {
+    "Code": "B",
+    "Start": 278,
+    "End": 282,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": true,
+    "Description": {
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
+  },
+  {
+    "Code": "B",
+    "Start": 283,
+    "End": 287,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": false,
+    "Description": {
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
+  },
+  {
+    "Code": "B",
+    "Start": 288,
+    "End": 291,
+    "Area": "2.5m x 2.5m",
+    "Price": 12000,
+    "Currency": "AED",
+    "Sellable": true,
+    "Description": {
+      "en": "Middle area",
+      "ar": "Middle area"
+    }
+  },
+  {
+    "Code": "C",
+    "Start": 101,
+    "End": 125,
+    "Area": "2.5m x 2.5m",
+    "Price": 15000,
+    "Currency": "AED",
+    "Sellable": true,
+    "Description": {
+      "en": "Registration Hall, Media Booths, Wall of fame",
+      "ar": "Registration Hall, Media Booths, Wall of fame"
+    }
+  }
+]

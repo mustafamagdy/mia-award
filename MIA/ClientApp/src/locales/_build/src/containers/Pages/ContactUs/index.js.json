@@ -1,0 +1,147 @@
+{
+  "contact_us": {
+    "defaults": "Contact Us",
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        53
+      ]
+    ]
+  },
+  "address": {
+    "defaults": "Address",
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        60
+      ]
+    ]
+  },
+  "dubai_address": {
+    "defaults": "Dubai, Dubai Media City, Building No. 1, Second Floor - Office No. 214",
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        63
+      ]
+    ]
+  },
+  "phone": {
+    "defaults": "Phone",
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        72
+      ],
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        140
+      ]
+    ]
+  },
+  "phone_1": {
+    "defaults": "+971 4 57 2636 7",
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        75
+      ]
+    ]
+  },
+  "phone_2": {
+    "defaults": "+971 4 57 2636 8",
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        78
+      ]
+    ]
+  },
+  "fax": {
+    "defaults": "Fax",
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        84
+      ]
+    ]
+  },
+  "fax_1": {
+    "defaults": "+971 4 57 2636 6",
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        87
+      ]
+    ]
+  },
+  "email": {
+    "defaults": "EMail",
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        93
+      ]
+    ]
+  },
+  "get_in_touch": {
+    "defaults": "Get In Touch",
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        110
+      ]
+    ]
+  },
+  "name": {
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        124
+      ]
+    ]
+  },
+  "email*": {
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        132
+      ]
+    ]
+  },
+  "type_your_message_min_100": {
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        162
+      ]
+    ]
+  },
+  "send_message": {
+    "defaults": "Send Message",
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        184
+      ]
+    ]
+  },
+  "contact_us_message_sent_success": {
+    "defaults": "The message was sent successfully",
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        188
+      ]
+    ]
+  },
+  "contact_us_message_sent_fail": {
+    "defaults": "There is an error, the message could not be sent",
+    "origin": [
+      [
+        "src/containers/Pages/ContactUs/index.js",
+        195
+      ]
+    ]
+  }
+}

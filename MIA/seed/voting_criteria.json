@@ -1,0 +1,2369 @@
+[
+  //level 0 - group 1
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للمحتوى و المضمون",
+    "Code": "مستوى حداثة المحتوى والمضمون",
+    "Name": "مستوى حداثة المحتوى والمضمون",
+    "Order": 1,
+    "Weight": 5.714285714285714
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للمحتوى و المضمون",
+    "Code": "القرب الإنساني ( مواكبة المتغيرات المحيطة بالمجتمع ) ",
+    "Name": "القرب الإنساني ( مواكبة المتغيرات المحيطة بالمجتمع ) ",
+    "Order": 2,
+    "Weight": 5.714285714285714
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للمحتوى و المضمون",
+    "Code": "مدى مساهمة العمل في معالجة القضايا المجتمعية",
+    "Name": "مدى مساهمة العمل في معالجة القضايا المجتمعية",
+    "Order": 3,
+    "Weight": 5.714285714285714
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للمحتوى و المضمون",
+    "Code": "مستوى الإبداع و الابتكار ضمن  القالب الأساسي ",
+    "Name": "مستوى الإبداع و الابتكار ضمن  القالب الأساسي ",
+    "Order": 4,
+    "Weight": 5.714285714285714
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للمحتوى و المضمون",
+    "Code": "وضوح اللغة المحكية و البصرية",
+    "Name": "وضوح اللغة المحكية و البصرية",
+    "Order": 5,
+    "Weight": 5.714285714285714
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للمحتوى و المضمون",
+    "Code": "تميز الإعداد في خدمة النص",
+    "Name": "تميز الإعداد في خدمة النص",
+    "Order": 6,
+    "Weight": 5.714285714285714
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للمحتوى و المضمون",
+    "Code": "عامل الترفيه بالمحتوى",
+    "Name": "عامل الترفيه بالمحتوى",
+    "Order": 7,
+    "Weight": 5.714285714285714
+  },
+
+  //level 0 - group 2  
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للجودة الإنتاج والتنفيذ الفني",
+    "Code": "المعالجة النصية",
+    "Name": "المعالجة النصية",
+    "Order": 1,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للجودة الإنتاج والتنفيذ الفني",
+    "Code": "المعالجة الفنية",
+    "Name": "المعالجة الفنية",
+    "Order": 2,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للجودة الإنتاج والتنفيذ الفني",
+    "Code": "المعالجة البصرية ",
+    "Name": "المعالجة البصرية ",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للجودة الإنتاج والتنفيذ الفني",
+    "Code": "المعالجة الاخراجية ",
+    "Name": "المعالجة الاخراجية ",
+    "Order": 4,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للجودة الإنتاج والتنفيذ الفني",
+    "Code": "المعالجة الإنتاجية",
+    "Name": "المعالجة الإنتاجية",
+    "Order": 5,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للجودة الإنتاج والتنفيذ الفني",
+    "Code": "المعالجة التقنية",
+    "Name": "المعالجة التقنية",
+    "Order": 6,
+    "Weight": 5
+  },
+
+  //level 0 - group 3
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للتأثير",
+    "Code": "نسبة المشاهدة ",
+    "Name": "نسبة المشاهدة ",
+    "Order": 1,
+    "Weight": 7.5
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للتأثير",
+    "Code": "هل تم رصج حجم الانتشار و الشهرة والتفاعل الناتج ؟",
+    "Name": "هل تم رصج حجم الانتشار و الشهرة والتفاعل الناتج ؟",
+    "Order": 2,
+    "Weight": 7.5
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للتأثير",
+    "Code": "وجود القيم المجتمعية و القدرة على التغيير الايجابي",
+    "Name": "وجود القيم المجتمعية و القدرة على التغيير الايجابي",
+    "Order": 3,
+    "Weight": 7.5
+  },
+  {
+    "AwardCode": "",
+    "Level": 0,
+    "Group":"التقييم الأولي للتأثير",
+    "Code": "عامل الجذب و التأثير الحسي على المشاهد",
+    "Name": "عامل الجذب و التأثير الحسي على المشاهد",
+    "Order": 4,
+    "Weight": 7.5
+  },
+
+
+  //talk-show
+  {
+    "AwardCode": "talk-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "كاريزما المقدم وظهوره ",
+    "Name": "كاريزما المقدم وظهوره ",
+    "Order": 1,
+    "Weight": 20
+  },
+  {
+    "AwardCode": "talk-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "تناسب المدة الزمنية",
+    "Name": "تناسب المدة الزمنية",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "talk-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "مقدار تحقيق شد إنتباه المشاهد",
+    "Name": "مقدار تحقيق شد إنتباه المشاهد",
+    "Order": 3,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "talk-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "التشويق و المتعة",
+    "Name": "التشويق و المتعة",
+    "Order": 4,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "talk-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "قوة التقارير المرافقة ",
+    "Name": "قوة التقارير المرافقة ",
+    "Order": 5,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "talk-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 6,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "talk-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 7,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "talk-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 8,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "talk-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "الموضوع و المحتوى",
+    "Name": "الموضوع و المحتوى",
+    "Order": 9,
+    "Weight": 10
+  },
+
+
+  //interview
+  {
+    "AwardCode": "interview",
+    "Level": 1,
+    "Group":"",
+    "Code": "مقدمة المذيع للحلقة ",
+    "Name": "مقدمة المذيع للحلقة ",
+    "Order": 1,
+    "Weight": 20
+  },
+  {
+    "AwardCode": "interview",
+    "Level": 1,
+    "Group":"",
+    "Code": "قيادة المذيع للحوار",
+    "Name": "قيادة المذيع للحوار",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "interview",
+    "Level": 1,
+    "Group":"",
+    "Code": "سلاسة الأسئلة ",
+    "Name": "سلاسة الأسئلة ",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "interview",
+    "Level": 1,
+    "Group":"",
+    "Code": "وضوح الحوار و تناسقه ",
+    "Name": "وضوح الحوار و تناسقه ",
+    "Order": 4,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "interview",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الضيف ",
+    "Name": "أهمية الضيف ",
+    "Order": 5,
+    "Weight": 15
+  },
+  {
+    "AwardCode": "interview",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 6,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "interview",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 7,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "interview",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 8,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "interview",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الموضوع",
+    "Name": "أهمية الموضوع",
+    "Order": 9,
+    "Weight": 10
+  },
+
+  //debate
+  {
+    "AwardCode": "debate",
+    "Level": 1,
+    "Group":"",
+    "Code": "قوة موضوع المناظرة ",
+    "Name": "قوة موضوع المناظرة ",
+    "Order": 1,
+    "Weight": 20
+  },
+  {
+    "AwardCode": "debate",
+    "Level": 1,
+    "Group":"",
+    "Code": "قيادة المذيع للمناظرة",
+    "Name": "قيادة المذيع للمناظرة",
+    "Order": 2,
+    "Weight": 15
+  },
+  {
+    "AwardCode": "debate",
+    "Level": 1,
+    "Group":"",
+    "Code": "إدارة المذيع للوقت ",
+    "Name": "إدارة المذيع للوقت ",
+    "Order": 3,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "debate",
+    "Level": 1,
+    "Group":"",
+    "Code": "قوة المناظرين و مصداقيتهم",
+    "Name": "قوة المناظرين و مصداقيتهم",
+    "Order": 4,
+    "Weight": 15
+  },
+  {
+    "AwardCode": "debate",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة الموضوع و جدية المناظرة و شفافيتها",
+    "Name": "جودة الموضوع و جدية المناظرة و شفافيتها",
+    "Order": 5,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "debate",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 6,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "debate",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 7,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "debate",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 8,
+    "Weight": 10
+  },
+
+  //popular-show
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "قوة المذيع و المقدم",
+    "Name": "قوة المذيع و المقدم",
+    "Order": 1,
+    "Weight": 20
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "ضبط إيقاع البرنامج",
+    "Name": "ضبط إيقاع البرنامج",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "أحجام اللقطات وحركات الكاميرا",
+    "Name": "أحجام اللقطات وحركات الكاميرا",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "مدى مشاركة وتفاعل الجمهور",
+    "Name": "مدى مشاركة وتفاعل الجمهور",
+    "Order": 4,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "جمالية العرض و المكان و الاستوديو",
+    "Name": "جمالية العرض و المكان و الاستوديو",
+    "Order": 5,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "تقنية الإعداد ومحاور الأسئلة",
+    "Name": "تقنية الإعداد ومحاور الأسئلة",
+    "Order": 6,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "نوعية الحضور",
+    "Name": "نوعية الحضور",
+    "Order": 7,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 8,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 9,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 10,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "popular-show",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الموضوع",
+    "Name": "أهمية الموضوع",
+    "Order": 11,
+    "Weight": 10
+  },
+
+  //competition
+  {
+    "AwardCode": "competition",
+    "Level": 1,
+    "Group":"",
+    "Code": "الإبتكار بفكرة المسابقة ",
+    "Name": "الإبتكار بفكرة المسابقة ",
+    "Order": 1,
+    "Weight": 15
+  },
+  {
+    "AwardCode": "competition",
+    "Level": 1,
+    "Group":"",
+    "Code": "قيمة الجوائز وجودتها",
+    "Name": "قيمة الجوائز وجودتها",
+    "Order": 2,
+    "Weight": 20
+  },
+  {
+    "AwardCode": "competition",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة المتسابقين وخبرتهم",
+    "Name": "جودة المتسابقين وخبرتهم",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "competition",
+    "Level": 1,
+    "Group":"",
+    "Code": "لجنة التحكيم وجودتها إن وجدت",
+    "Name": "لجنة التحكيم وجودتها إن وجدت",
+    "Order": 4,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "competition",
+    "Level": 1,
+    "Group":"",
+    "Code": "مشاركة الجمهور و تفاعلهم",
+    "Name": "مشاركة الجمهور و تفاعلهم",
+    "Order": 5,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "competition",
+    "Level": 1,
+    "Group":"",
+    "Code": "إيقاع البرنامج وحركة الكاميرات",
+    "Name": "إيقاع البرنامج وحركة الكاميرات",
+    "Order": 6,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "competition",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 7,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "competition",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 8,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "competition",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 9,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "competition",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الموضوع",
+    "Name": "أهمية الموضوع",
+    "Order": 10,
+    "Weight": 10
+  },
+
+  //seminar
+  {
+    "AwardCode": "seminar",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الشخصيات المستضافة ( لجنة الحكم و الضيوف )",
+    "Name": "أهمية الشخصيات المستضافة ( لجنة الحكم و الضيوف )",
+    "Order": 1,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "seminar",
+    "Level": 1,
+    "Group":"",
+    "Code": "ضبط الإيقاع التفاعلي ",
+    "Name": "ضبط الإيقاع التفاعلي ",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "seminar",
+    "Level": 1,
+    "Group":"",
+    "Code": "قوة التقارير والبروموهات ",
+    "Name": "قوة التقارير والبروموهات ",
+    "Order": 3,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "seminar",
+    "Level": 1,
+    "Group":"",
+    "Code": "حجم التفاعل الجماهيري داخل الاستديو ",
+    "Name": "حجم التفاعل الجماهيري داخل الاستديو ",
+    "Order": 4,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "seminar",
+    "Level": 1,
+    "Group":"",
+    "Code": "التناغم بين مفردات العمل والجمهور ",
+    "Name": "التناغم بين مفردات العمل والجمهور ",
+    "Order": 5,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "seminar",
+    "Level": 1,
+    "Group":"",
+    "Code": "قوة التقارير المرافقة ",
+    "Name": "قوة التقارير المرافقة ",
+    "Order": 6,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "seminar",
+    "Level": 1,
+    "Group":"",
+    "Code": "مستوى توظيف تقنيات التصوير وتنوعها ",
+    "Name": "مستوى توظيف تقنيات التصوير وتنوعها ",
+    "Order": 7,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "seminar",
+    "Level": 1,
+    "Group":"",
+    "Code": "مستوى الانتشارالجغرافي للمشاهدين ",
+    "Name": "مستوى الانتشارالجغرافي للمشاهدين ",
+    "Order": 8,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "seminar",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة فورمات البرنامج  والمضمون",
+    "Name": "جودة فورمات البرنامج  والمضمون",
+    "Order": 9,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "seminar",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 10,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "seminar",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 11,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "seminar",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 12,
+    "Weight": 10
+  },
+
+  //magazine
+  {
+    "AwardCode": "magazine",
+    "Level": 1,
+    "Group":"",
+    "Code": "كفائة و تنوع الضيوف ",
+    "Name": "كفائة و تنوع الضيوف ",
+    "Order": 1,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "magazine",
+    "Level": 1,
+    "Group":"",
+    "Code": "تنوع التقارير المرافقة ",
+    "Name": "تنوع التقارير المرافقة ",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "magazine",
+    "Level": 1,
+    "Group":"",
+    "Code": "مستوى التغطية الجغرافية من المشاهدين ",
+    "Name": "مستوى التغطية الجغرافية من المشاهدين ",
+    "Order": 3,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "magazine",
+    "Level": 1,
+    "Group":"",
+    "Code": "قوة الإعداد ",
+    "Name": "قوة الإعداد ",
+    "Order": 4,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "magazine",
+    "Level": 1,
+    "Group":"",
+    "Code": "إسلوب الإخراج في نقل الموضوعات للمشاهد ",
+    "Name": "إسلوب الإخراج في نقل الموضوعات للمشاهد ",
+    "Order": 5,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "magazine",
+    "Level": 1,
+    "Group":"",
+    "Code": "تنوع القوالب الموضوعات ",
+    "Name": "تنوع القوالب الموضوعات ",
+    "Order": 6,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "magazine",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 7,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "magazine",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 8,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "magazine",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 9,
+    "Weight": 10
+  },
+
+  //documentary
+  {
+    "AwardCode": "documentary",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الوثائق المقدمة",
+    "Name": "أهمية الوثائق المقدمة",
+    "Order": 1,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "documentary",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة التقطيع و المونتاج ",
+    "Name": "جودة التقطيع و المونتاج ",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "documentary",
+    "Level": 1,
+    "Group":"",
+    "Code": "التعليق الصوتي",
+    "Name": "التعليق الصوتي",
+    "Order": 3,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "documentary",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 4,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "documentary",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 5,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "documentary",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 6,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "documentary",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الموضوع وجديته",
+    "Name": "أهمية الموضوع وجديته",
+    "Order": 7,
+    "Weight": 10
+  },
+
+  //drama
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية القصة و الرواية ومستوى الابتكار",
+    "Name": "أهمية القصة و الرواية ومستوى الابتكار",
+    "Order": 1,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "قوة السيناريو",
+    "Name": "قوة السيناريو",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "الحبكة الدرامية",
+    "Name": "الحبكة الدرامية",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "السيناريو و الحوار",
+    "Name": "السيناريو و الحوار",
+    "Order": 4,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة الاخراج و المونتاج",
+    "Name": "جودة الاخراج و المونتاج",
+    "Order": 5,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "فعالية وإدارة الميزانية للإنتاج",
+    "Name": "فعالية وإدارة الميزانية للإنتاج",
+    "Order": 6,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة الممثلين",
+    "Name": "جودة الممثلين",
+    "Order": 7,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "خدمة الاضاءة للموضوع",
+    "Name": "خدمة الاضاءة للموضوع",
+    "Order": 8,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "الموسيقى  التصورية ",
+    "Name": "الموسيقى  التصورية ",
+    "Order": 9,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "المقدمة و الخاتمة ",
+    "Name": "المقدمة و الخاتمة ",
+    "Order": 10,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 11,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 12,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 13,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "drama",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمبة الموضوع ",
+    "Name": "أهمبة الموضوع ",
+    "Order": 14,
+    "Weight": 10
+  },
+
+  //field-coverage
+  {
+    "AwardCode": "field-coverage",
+    "Level": 1,
+    "Group":"",
+    "Code": "النقل المباشر",
+    "Name": "النقل المباشر",
+    "Order": 1,
+    "Weight": 15
+  },
+  {
+    "AwardCode": "field-coverage",
+    "Level": 1,
+    "Group":"",
+    "Code": "حداثة الموضوع و أهميته",
+    "Name": "حداثة الموضوع و أهميته",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "field-coverage",
+    "Level": 1,
+    "Group":"",
+    "Code": "التنوع بالمواقع وعدد المراسلين",
+    "Name": "التنوع بالمواقع وعدد المراسلين",
+    "Order": 3,
+    "Weight":5
+  },
+  {
+    "AwardCode": "field-coverage",
+    "Level": 1,
+    "Group":"",
+    "Code": "مصادقية الموضوع و الشفافية",
+    "Name": "مصادقية الموضوع و الشفافية",
+    "Order": 4,
+    "Weight":5
+  },
+  {
+    "AwardCode": "field-coverage",
+    "Level": 1,
+    "Group":"",
+    "Code": "سلاسة التقديم",
+    "Name": "سلاسة التقديم",
+    "Order": 5,
+    "Weight":5
+  },
+  {
+    "AwardCode": "field-coverage",
+    "Level": 1,
+    "Group":"",
+    "Code": "لغة المراسل و مصادر المعلومات ",
+    "Name": "لغة المراسل و مصادر المعلومات ",
+    "Order": 6,
+    "Weight":5
+  },
+  {
+    "AwardCode": "field-coverage",
+    "Level": 1,
+    "Group":"",
+    "Code": "حصرية اللقطات",
+    "Name": "حصرية اللقطات",
+    "Order": 7,
+    "Weight":5
+  },
+  {
+    "AwardCode": "field-coverage",
+    "Level": 1,
+    "Group":"",
+    "Code": "قوة ومناسبة الموقع ",
+    "Name": "قوة ومناسبة الموقع ",
+    "Order": 8,
+    "Weight":5
+  },
+  {
+    "AwardCode": "field-coverage",
+    "Level": 1,
+    "Group":"",
+    "Code": "حبكة و جودة القصة الاخبارية ",
+    "Name": "حبكة و جودة القصة الاخبارية ",
+    "Order": 9,
+    "Weight":5
+  },
+  {
+    "AwardCode": "field-coverage",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 10,
+    "Weight":10
+  },
+  {
+    "AwardCode": "field-coverage",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 11,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "field-coverage",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 12,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "field-coverage",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الموضوع",
+    "Name": "أهمية الموضوع",
+    "Order": 13,
+    "Weight": 10
+  },
+
+
+  //promo
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "قوة الفكرة ",
+    "Name": "قوة الفكرة ",
+    "Order": 1,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "قوة عناصر الإبهار",
+    "Name": "قوة عناصر الإبهار",
+    "Order": 2,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة المؤثرات المستخدمة",
+    "Name": "جودة المؤثرات المستخدمة",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "عنصر المفاجأة و الترغيب",
+    "Name": "عنصر المفاجأة و الترغيب",
+    "Order": 4,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "قوة التأثير و التشويق",
+    "Name": "قوة التأثير و التشويق",
+    "Order": 5,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة النص و اللغة",
+    "Name": "جودة النص و اللغة",
+    "Order": 6,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "المدة الزمنية",
+    "Name": "المدة الزمنية",
+    "Order": 7,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "الموسيقى الدالة",
+    "Name": "الموسيقى الدالة",
+    "Order": 8,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "إيقاع البرومو",
+    "Name": "إيقاع البرومو",
+    "Order": 9,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "وضوح المضمون والرسالة",
+    "Name": "وضوح المضمون والرسالة",
+    "Order": 10,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "خدمة المنتج ",
+    "Name": "خدمة المنتج ",
+    "Order": 11,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "التعليقي الصوتي",
+    "Name": "التعليقي الصوتي",
+    "Order": 12,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 13,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 14,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 15,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "promo",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 16,
+    "Weight": 10
+  },
+
+  //male-presenter
+  {
+    "AwardCode": "male-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "الحضور و الكاريزما و قوة الشخصية  المظهر والإطلالة",
+    "Name": "الحضور و الكاريزما و قوة الشخصية  المظهر والإطلالة",
+    "Order": 1,
+    "Weight": 15
+  },
+  {
+    "AwardCode": "male-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "بلاغة المنطق ودقة التعبير ",
+    "Name": "بلاغة المنطق ودقة التعبير ",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "male-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "اللغة و مخارج الحروف والصوت والإلقاء",
+    "Name": "اللغة و مخارج الحروف والصوت والإلقاء",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "male-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "سرعة البديهة و التفاعل الذكي والإرتجال",
+    "Name": "سرعة البديهة و التفاعل الذكي والإرتجال",
+    "Order": 4,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "male-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "تعابير الوجه و لغة الجسد",
+    "Name": "تعابير الوجه و لغة الجسد",
+    "Order": 5,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "male-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل مع الكاميرات",
+    "Name": "التفاعل مع الكاميرات",
+    "Order": 6,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "male-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة التعامل مع الضيوف  والمتصلين",
+    "Name": "جودة التعامل مع الضيوف  والمتصلين",
+    "Order": 7,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "male-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "المنحى الفني بالأداء",
+    "Name": "المنحى الفني بالأداء",
+    "Order": 8,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "male-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 9,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "male-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 10,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "male-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 11,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "male-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الموضوع",
+    "Name": "أهمية الموضوع",
+    "Order": 12,
+    "Weight": 10
+  },
+
+  //female-presenter
+  {
+    "AwardCode": "female-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "الحضور و الكاريزما و قوة الشخصية  المظهر والإطلالة",
+    "Name": "الحضور و الكاريزما و قوة الشخصية  المظهر والإطلالة",
+    "Order": 1,
+    "Weight": 15
+  },
+  {
+    "AwardCode": "female-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "بلاغة المنطق ودقة التعبير ",
+    "Name": "بلاغة المنطق ودقة التعبير ",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "female-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "اللغة و مخارج الحروف والصوت والإلقاء",
+    "Name": "اللغة و مخارج الحروف والصوت والإلقاء",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "female-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "سرعة البديهة و التفاعل الذكي والإرتجال",
+    "Name": "سرعة البديهة و التفاعل الذكي والإرتجال",
+    "Order": 4,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "female-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "تعابير الوجه و لغة الجسد",
+    "Name": "تعابير الوجه و لغة الجسد",
+    "Order": 5,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "female-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل مع الكاميرات",
+    "Name": "التفاعل مع الكاميرات",
+    "Order": 6,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "female-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة التعامل مع الضيوف  والمتصلين",
+    "Name": "جودة التعامل مع الضيوف  والمتصلين",
+    "Order": 7,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "female-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "المنحى الفني بالأداء",
+    "Name": "المنحى الفني بالأداء",
+    "Order": 8,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "female-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 9,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "female-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 10,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "female-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 11,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "female-presenter",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الموضوع",
+    "Name": "أهمية الموضوع",
+    "Order": 12,
+    "Weight": 10
+  },
+
+  //director-photography
+  {
+    "AwardCode": "director-photography",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة الصورة ووضوح الكادر",
+    "Name": "جودة الصورة ووضوح الكادر",
+    "Order": 1,
+    "Weight": 15
+  },
+  {
+    "AwardCode": "director-photography",
+    "Level": 1,
+    "Group":"",
+    "Code": "تناسق الالوان وتناغمها",
+    "Name": "تناسق الالوان وتناغمها",
+    "Order": 2,
+    "Weight": 15
+  },
+  {
+    "AwardCode": "director-photography",
+    "Level": 1,
+    "Group":"",
+    "Code": "وضوح هوية الصورة وتميزها  في اجمالي العمل ",
+    "Name": "وضوح هوية الصورة وتميزها  في اجمالي العمل ",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "director-photography",
+    "Level": 1,
+    "Group":"",
+    "Code": "استعمال وسائل وتقنيات جديدة وحديثة.",
+    "Name": "استعمال وسائل وتقنيات جديدة وحديثة.",
+    "Order": 4,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "director-photography",
+    "Level": 1,
+    "Group":"",
+    "Code": "كثافة وجودة التعبير في اللقطات لونا ومدة",
+    "Name": "كثافة وجودة التعبير في اللقطات لونا ومدة",
+    "Order": 5,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "director-photography",
+    "Level": 1,
+    "Group":"",
+    "Code": "ابتكار افكار ولقطات جديدة غير مسبوقة",
+    "Name": "ابتكار افكار ولقطات جديدة غير مسبوقة",
+    "Order": 6,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "director-photography",
+    "Level": 1,
+    "Group":"",
+    "Code": "عناصر الاضافة في المضمون من خلال الاضاءة",
+    "Name": "عناصر الاضافة في المضمون من خلال الاضاءة",
+    "Order": 7,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "director-photography",
+    "Level": 1,
+    "Group":"",
+    "Code": "حركة الكاميرا وسلاستها ",
+    "Name": "حركة الكاميرا وسلاستها ",
+    "Order": 8,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "director-photography",
+    "Level": 1,
+    "Group":"",
+    "Code": "قعالية الإضاءة في خدمة المضمون",
+    "Name": "قعالية الإضاءة في خدمة المضمون",
+    "Order": 9,
+    "Weight": 15
+  },
+  {
+    "AwardCode": "director-photography",
+    "Level": 1,
+    "Group":"",
+    "Code": "التناسق والتناغم بين حركة الكاميرا والاضاءة ومضمون الصورة ",
+    "Name": "التناسق والتناغم بين حركة الكاميرا والاضاءة ومضمون الصورة ",
+    "Order": 10,
+    "Weight": 15
+  },
+
+  //actor
+  {
+    "AwardCode": "actor",
+    "Level": 1,
+    "Group":"",
+    "Code": "كاريزما وحضور الممثل او الممثلة بشكل عام",
+    "Name": "كاريزما وحضور الممثل او الممثلة بشكل عام",
+    "Order": 1,
+    "Weight": 15
+  },
+  {
+    "AwardCode": "actor",
+    "Level": 1,
+    "Group":"",
+    "Code": "اداء  الشخصية/ الدور، ووضوح هوية الشخصية",
+    "Name": "اداء  الشخصية/ الدور، ووضوح هوية الشخصية",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "actor",
+    "Level": 1,
+    "Group":"",
+    "Code": "الاضافة الجديدة الخاصة المساعدة في الأداء",
+    "Name": "الاضافة الجديدة الخاصة المساعدة في الأداء",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "actor",
+    "Level": 1,
+    "Group":"",
+    "Code": "مدى  قوة الارتجال في التعبير والتلقائية",
+    "Name": "مدى  قوة الارتجال في التعبير والتلقائية",
+    "Order": 4,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "actor",
+    "Level": 1,
+    "Group":"",
+    "Code": "توظيف الصوت والالقاء في خدمة  الدور/ الشخصية",
+    "Name": "توظيف الصوت والالقاء في خدمة  الدور/ الشخصية",
+    "Order": 5,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "actor",
+    "Level": 1,
+    "Group":"",
+    "Code": "تناغم التعبير الجسدي والايمائي",
+    "Name": "تناغم التعبير الجسدي والايمائي",
+    "Order": 6,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "actor",
+    "Level": 1,
+    "Group":"",
+    "Code": "سرعة البديهة والتفاعل مع الممثلين",
+    "Name": "سرعة البديهة والتفاعل مع الممثلين",
+    "Order": 7,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "actor",
+    "Level": 1,
+    "Group":"",
+    "Code": "صدق وعمق الانفعال والاداء",
+    "Name": "صدق وعمق الانفعال والاداء",
+    "Order": 8,
+    "Weight": 20
+  },
+  {
+    "AwardCode": "actor",
+    "Level": 1,
+    "Group":"",
+    "Code": " خدمة السياق الدرامي للعمل من منطلق الدور/الشخصية",
+    "Name": " خدمة السياق الدرامي للعمل من منطلق الدور/الشخصية",
+    "Order": 9,
+    "Weight": 10
+  },
+
+
+  //actress
+  {
+    "AwardCode": "actress",
+    "Level": 1,
+    "Group":"",
+    "Code": "كاريزما وحضور الممثل او الممثلة بشكل عام",
+    "Name": "كاريزما وحضور الممثل او الممثلة بشكل عام",
+    "Order": 1,
+    "Weight": 15
+  },
+  {
+    "AwardCode": "actress",
+    "Level": 1,
+    "Group":"",
+    "Code": "اداء  الشخصية/ الدور، ووضوح هوية الشخصية",
+    "Name": "اداء  الشخصية/ الدور، ووضوح هوية الشخصية",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "actress",
+    "Level": 1,
+    "Group":"",
+    "Code": "الاضافة الجديدة الخاصة المساعدة في الأداء",
+    "Name": "الاضافة الجديدة الخاصة المساعدة في الأداء",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "actress",
+    "Level": 1,
+    "Group":"",
+    "Code": "مدى  قوة الارتجال في التعبير والتلقائية",
+    "Name": "مدى  قوة الارتجال في التعبير والتلقائية",
+    "Order": 4,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "actress",
+    "Level": 1,
+    "Group":"",
+    "Code": "توظيف الصوت والالقاء في خدمة  الدور/ الشخصية",
+    "Name": "توظيف الصوت والالقاء في خدمة  الدور/ الشخصية",
+    "Order": 5,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "actress",
+    "Level": 1,
+    "Group":"",
+    "Code": "تناغم التعبير الجسدي والايمائي",
+    "Name": "تناغم التعبير الجسدي والايمائي",
+    "Order": 6,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "actress",
+    "Level": 1,
+    "Group":"",
+    "Code": "سرعة البديهة والتفاعل مع الممثلين",
+    "Name": "سرعة البديهة والتفاعل مع الممثلين",
+    "Order": 7,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "actress",
+    "Level": 1,
+    "Group":"",
+    "Code": "صدق وعمق الانفعال والاداء",
+    "Name": "صدق وعمق الانفعال والاداء",
+    "Order": 8,
+    "Weight": 20
+  },
+  {
+    "AwardCode": "actress",
+    "Level": 1,
+    "Group":"",
+    "Code": " خدمة السياق الدرامي للعمل من منطلق الدور/الشخصية",
+    "Name": " خدمة السياق الدرامي للعمل من منطلق الدور/الشخصية",
+    "Order": 9,
+    "Weight": 10
+  },
+
+
+  //cinematographer
+  {
+    "AwardCode": "cinematographer",
+    "Level": 1,
+    "Group":"",
+    "Code": "إختيار زوايا التصوير",
+    "Name": "إختيار زوايا التصوير",
+    "Order": 1,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "cinematographer",
+    "Level": 1,
+    "Group":"",
+    "Code": "إختيار حجم اللقطات",
+    "Name": "إختيار حجم اللقطات",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "cinematographer",
+    "Level": 1,
+    "Group":"",
+    "Code": "حركة الكاميرا",
+    "Name": "حركة الكاميرا",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "cinematographer",
+    "Level": 1,
+    "Group":"",
+    "Code": "قدرة المصور على خدمة النص بالصورة.",
+    "Name": "قدرة المصور على خدمة النص بالصورة.",
+    "Order": 4,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "cinematographer",
+    "Level": 1,
+    "Group":"",
+    "Code": "القدرة على التعامل مع تقنيات التصوير",
+    "Name": "القدرة على التعامل مع تقنيات التصوير",
+    "Order": 5,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "cinematographer",
+    "Level": 1,
+    "Group":"",
+    "Code": "التعابير الفنية",
+    "Name": "التعابير الفنية",
+    "Order": 6,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "cinematographer",
+    "Level": 1,
+    "Group":"",
+    "Code": "تنوع اللقطات",
+    "Name": "تنوع اللقطات",
+    "Order": 7,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "cinematographer",
+    "Level": 1,
+    "Group":"",
+    "Code": "جمالية اللقطات",
+    "Name": "جمالية اللقطات",
+    "Order": 8,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "cinematographer",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 9,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "cinematographer",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 10,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "cinematographer",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 11,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "cinematographer",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الموضوع",
+    "Name": "أهمية الموضوع",
+    "Order": 12,
+    "Weight": 10
+  },
+
+  //screenwriter
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "صناعة الرؤية الاخراجية ",
+    "Name": "صناعة الرؤية الاخراجية ",
+    "Order": 1,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "حرفية تقطيع المشاهد والربط ",
+    "Name": "حرفية تقطيع المشاهد والربط ",
+    "Order": 2,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "إيقاع المشاهد",
+    "Name": "إيقاع المشاهد",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "ضبط النص و المضمون",
+    "Name": "ضبط النص و المضمون",
+    "Order": 4,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "القدرة المعالجة الدرامية",
+    "Name": "القدرة المعالجة الدرامية",
+    "Order": 5,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "القدرة على خدمة الموضوع",
+    "Name": "القدرة على خدمة الموضوع",
+    "Order": 6,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "القدرة على صناعة المؤثرات و التشويق",
+    "Name": "القدرة على صناعة المؤثرات و التشويق",
+    "Order": 7,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة اللغة المستخدمة",
+    "Name": "جودة اللغة المستخدمة",
+    "Order": 8,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة اختيار الحوار",
+    "Name": "جودة اختيار الحوار",
+    "Order": 9,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "ربط الأدوات التقنية",
+    "Name": "ربط الأدوات التقنية",
+    "Order": 10,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "القدرة على التعامل مع الزمن في خدمة النص",
+    "Name": "القدرة على التعامل مع الزمن في خدمة النص",
+    "Order": 11,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 12,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 13,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 14,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "screenwriter",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الموضوع",
+    "Name": "أهمية الموضوع",
+    "Order": 15,
+    "Weight": 10
+  },
+
+  //music
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "وضوح الهوية الموسيقية",
+    "Name": "وضوح الهوية الموسيقية",
+    "Order": 1,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "خدمة الموقف و العمل ",
+    "Name": "خدمة الموقف و العمل ",
+    "Order": 2,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "جمال ووضوح النغمة",
+    "Name": "جمال ووضوح النغمة",
+    "Order": 3,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "فرادة اللحن",
+    "Name": "فرادة اللحن",
+    "Order": 4,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "قوة ذاكرة اللحن",
+    "Name": "قوة ذاكرة اللحن",
+    "Order": 5,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "التوزيع و التناسق",
+    "Name": "التوزيع و التناسق",
+    "Order": 6,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "خدمة الآلات للنغمة",
+    "Name": "خدمة الآلات للنغمة",
+    "Order": 7,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "توافق الموسيقى مع النص",
+    "Name": "توافق الموسيقى مع النص",
+    "Order": 8,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "مشتقات الأنغام",
+    "Name": "مشتقات الأنغام",
+    "Order": 9,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "البداية والنهاية",
+    "Name": "البداية والنهاية",
+    "Order": 10,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 11,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 12,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 13,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "music",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الموضوع",
+    "Name": "أهمية الموضوع",
+    "Order": 14,
+    "Weight": 10
+  },
+
+  //director
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "إيقاع العمل و التناغم ",
+    "Name": "إيقاع العمل و التناغم ",
+    "Order": 1,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "المدة الزمنية.",
+    "Name": "المدة الزمنية.",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة المونتاج",
+    "Name": "جودة المونتاج",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "اختيار الموسيقى",
+    "Name": "اختيار الموسيقى",
+    "Order": 4,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "صناعة التشويق",
+    "Name": "صناعة التشويق",
+    "Order": 5,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "توظيف المؤثرات ",
+    "Name": "توظيف المؤثرات ",
+    "Order": 6,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "خدمة النص ",
+    "Name": "خدمة النص ",
+    "Order": 7,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "إختيار اللقطات",
+    "Name": "إختيار اللقطات",
+    "Order": 8,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "ضبط المؤدين",
+    "Name": "ضبط المؤدين",
+    "Order": 9,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "اختيار الكوادر الفنية",
+    "Name": "اختيار الكوادر الفنية",
+    "Order": 10,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "شارة البداية والنهاية",
+    "Name": "شارة البداية والنهاية",
+    "Order": 11,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 12,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 13,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 14,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "director",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الموضوع",
+    "Name": "أهمية الموضوع",
+    "Order": 15,
+    "Weight": 10
+  },
+
+  //producer
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "إبتكار و إختيار الفكرة",
+    "Name": "إبتكار و إختيار الفكرة",
+    "Order": 1,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "أسلوب طرح الفكرة",
+    "Name": "أسلوب طرح الفكرة",
+    "Order": 2,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "مقدمة البرنامج ",
+    "Name": "مقدمة البرنامج ",
+    "Order": 3,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "اللغة و توابعها",
+    "Name": "اللغة و توابعها",
+    "Order": 4,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "نوعية الضيوف",
+    "Name": "نوعية الضيوف",
+    "Order": 5,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "جودة التقارير",
+    "Name": "جودة التقارير",
+    "Order": 6,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "جدوى النص للمضمون",
+    "Name": "جدوى النص للمضمون",
+    "Order": 7,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "التعليق الصوتي",
+    "Name": "التعليق الصوتي",
+    "Order": 8,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "البداية و الختام",
+    "Name": "البداية و الختام",
+    "Order": 9,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "تسلسل الفقرات",
+    "Name": "تسلسل الفقرات",
+    "Order": 10,
+    "Weight": 5
+  },
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Name": "المكملات والهوية البصرية والصوتية و المؤثرات ",
+    "Order": 11,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "التقنيات الرقمية المستخدمة ",
+    "Name": "التقنيات الرقمية المستخدمة ",
+    "Order": 12,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "التفاعل و الانتشار بعد النشر أو البث",
+    "Name": "التفاعل و الانتشار بعد النشر أو البث",
+    "Order": 13,
+    "Weight": 10
+  },
+  {
+    "AwardCode": "producer",
+    "Level": 1,
+    "Group":"",
+    "Code": "أهمية الموضوع",
+    "Name": "أهمية الموضوع",
+    "Order": 14,
+    "Weight": 10
+  },
+
+
+]

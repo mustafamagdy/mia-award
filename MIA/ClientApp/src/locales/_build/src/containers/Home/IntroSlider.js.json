@@ -1,0 +1,11 @@
+{
+  "view_more": {
+    "defaults": "view more",
+    "origin": [
+      [
+        "src/containers/Home/IntroSlider.js",
+        131
+      ]
+    ]
+  }
+}

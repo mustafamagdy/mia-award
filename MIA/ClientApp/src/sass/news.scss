@@ -1,0 +1,344 @@
+@import "./variables.scss";
+#news_features {
+  background: #171717 url("/assets/images/news_features_bg.png") scroll no-repeat bottom center/cover;
+  .container {
+    width: 1442px;
+    margin: 0 auto;
+    padding: 50px 25px;
+    overflow: hidden;
+    @media (max-width: 1442px) {
+      width: 100%;
+    }
+    @media (max-width: 991px) and (min-width: 320px) {
+      padding: 0 !important;
+    }
+    .swiper-container-horizontal > .swiper-pagination-bullets {
+      bottom: 0;
+      left: 0;
+      width: 90%;
+      right: 0;
+      margin: 0 auto;
+    }
+    .swiper-container {
+      .swiper-wrapper {
+        display: flex;
+        align-items: center;
+        .swiper-slide {
+          padding: 20px;
+          .feature_block {
+            time {
+              display: block;
+              font-size: 18px;
+              font-family: Montserrat_Bold;
+              position: relative;
+              color: #484848;
+              margin: 0 auto 40px;
+              padding: 0 0 0 33px;
+              [dir="rtl"] & {
+                padding: 0 33px 0 0;
+                &::before {
+                  right: 10px;
+                  left: auto;
+                } /* before */
+              }
+              &::before {
+                position: absolute;
+                height: 9px;
+                width: 9px;
+                background: #ccbc93;
+                content: "";
+                border-radius: 100%;
+                top: 7px;
+                left: 10px;
+              }
+            }
+            .item {
+              position: relative;
+              padding: 0 0 15px 33px;
+              [dir="rtl"] & {
+                padding: 0 33px 0 0;
+              }
+              .category {
+                position: absolute;
+                left: 0;
+                top: 0;
+                margin: 0;
+                display: block;
+                line-height: 23px;
+                color: #fff;
+                text-transform: uppercase;
+                font-family: Montserrat_Bold;
+                font-size: 25px;
+                letter-spacing: 3px;
+                writing-mode: tb-rl;
+                [dir="rtl"] & {
+                  right: 0;
+                  left: auto;
+                  top: 0;
+                  font-family: Tajawal_Bold;
+                  font-size: 25px;
+                  letter-spacing: 0;
+                }
+              } /* category */
+              .imgthumb {
+                position: relative;
+                border-radius: 4px;
+                overflow: hidden;
+                height: 550px;
+                -webkit-transition: all 0.4s ease-in-out;
+                -moz-transition: all 0.4s ease-in-out;
+                -o-transition: all 0.4s ease-in-out;
+                transition: all 0.4s ease-in-out;
+                [dir="rtl"] & {
+                  margin-bottom: 17px;
+                }
+                img {
+                  width: 100%;
+                  height: 100%;
+                  -webkit-transition: all 0.4s ease-in-out;
+                  -moz-transition: all 0.4s ease-in-out;
+                  -o-transition: all 0.4s ease-in-out;
+                  transition: all 0.4s ease-in-out;
+                  -webkit-filter: grayscale(80%);
+                  -moz-filter: grayscale(80%);
+                  -o-filter: grayscale(80%);
+                  filter: grayscale(80%);
+                  // object-fit: scale-down;
+                  object-fit: cover;
+                } /* img */
+                .mask {
+                  background: transparent url("/assets/images/mask_bg.png") scroll no-repeat center top;
+                  position: absolute;
+                  bottom: -100%;
+                  padding: 10px;
+                  left: 0;
+                  width: 100%;
+                  display: flex;
+                  min-height: 80%;
+                  align-items: flex-end;
+                  opacity: 0;
+                  -webkit-transition: all 0.4s ease-in-out;
+                  -moz-transition: all 0.4s ease-in-out;
+                  -o-transition: all 0.4s ease-in-out;
+                  transition: all 0.4s ease-in-out;
+                  p {
+                    color: #fff;
+                    font-size: 13px;
+                    margin: 0 auto 10px;
+                    text-transform: capitalize;
+                    line-height: 21px;
+                    [dir="rtl"] & {
+                      font-size: 15px;
+                    }
+                  } /* p */
+                  .more {
+                    display: flex;
+                    justify-content: flex-end;
+                    a {
+                      text-transform: uppercase;
+                      font-size: 12px;
+                      color: #baac87;
+                      font-family: Montserrat_Bold;
+                      [dir="rtl"] & {
+                        font-size: 14px;
+                        font-family: Tajawal_Bold;
+                      }
+                      &:hover {
+                        color: #cec09b;
+                      }
+                    }
+                  } /* more */
+                }
+                &:hover {
+                  -webkit-transform: scale(1.04);
+                  -moz-transform: scale(1.04);
+                  -o-transform: scale(1.04);
+                  transform: scale(1.04);
+                  box-shadow: 0 0 0 1px #ccbc93;
+                  img {
+                    -webkit-filter: grayscale(0%);
+                    -moz-filter: grayscale(0%);
+                    -o-filter: grayscale(0%);
+                    filter: grayscale(0%);
+                  } /* img */
+                  .mask {
+                    bottom: 0;
+                    opacity: 1;
+                  }
+                } /* hover */
+              } /* imgthumb */
+            } /* item */
+          } /* feature_block */
+        }
+      }
+      .swiper-pagination-bullet {
+        display: none;
+      }
+    }
+    .title {
+      text-transform: uppercase;
+      font-family: Montserrat_Bold;
+      font-size: 18px;
+      color: #ccbc93;
+      position: relative;
+      padding: 0 0 0 33px;
+      margin: 0 auto 20px;
+      [dir="rtl"] & {
+        font-family: Tajawal_Bold;
+        font-size: 25px;
+        padding: 0 33px 0 0;
+      }
+      &::before {
+        content: "";
+        height: 3px;
+        width: 23px;
+        background: #ccbc93;
+        position: absolute;
+        left: 0;
+        top: 11px;
+        [dir="rtl"] & {
+          right: 0;
+          left: auto;
+          top: 17px;
+        }
+      }
+    }
+    .features_nav {
+      margin: 30px auto;
+      display: flex;
+      justify-content: space-between;
+      a {
+        align-self: center;
+        text-transform: uppercase;
+        font-family: Montserrat_Bold;
+        font-size: 17px;
+        letter-spacing: 1px;
+        line-height: 20px;
+        height: 20px;
+        color: #ccbc93;
+        position: relative;
+        [dir="rtl"] & {
+          font-family: Tajawal_Bold;
+          font-size: 20px;
+          letter-spacing: 0;
+        }
+        &::after {
+          height: 20px;
+          width: 2px;
+          background: #ccbc93;
+          content: "";
+          position: absolute;
+          left: -20px;
+          display: block;
+          top: 0;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+        } /* after */
+        &::before {
+          height: 20px;
+          width: 2px;
+          background: #ccbc93;
+          content: "";
+          position: absolute;
+          right: -20px;
+          display: block;
+          top: 0;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+        } /* before */
+        &:hover {
+          color: #eadab1;
+          &::after {
+            background: #eadab1;
+          }
+          &::before {
+            background: #eadab1;
+          }
+        } /* hover */
+      } /* a */
+      button.arrow_next {
+        font-size: 17px;
+        font-family: Montserrat_Bold;
+        height: 20px;
+        line-height: 20px;
+        background: transparent;
+        border: none;
+        text-transform: uppercase;
+        padding: 0;
+        position: relative;
+        color: #5c5c5c;
+        cursor: pointer;
+
+        [dir="rtl"] & {
+          font-size: 20px;
+          font-family: Tajawal_Bold;
+        }
+
+        &::after {
+          height: 2px;
+          content: "";
+          width: 0;
+          left: -10px;
+          background: #ccbc93;
+          display: block;
+          bottom: -9px;
+          position: absolute;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+        }
+        &:hover {
+          color: #ccbc93;
+          &::after {
+            width: 50px;
+          }
+        } /* hover */
+      } /* button */
+      button.arrow_prev {
+        font-size: 17px;
+        font-family: Montserrat_Bold;
+        height: 20px;
+        line-height: 20px;
+        background: transparent;
+        border: none;
+        text-transform: uppercase;
+        padding: 0;
+        position: relative;
+        color: #5c5c5c;
+        cursor: pointer;
+        [dir="rtl"] & {
+          font-size: 20px;
+          font-family: Tajawal_Bold;
+        }
+        &::after {
+          height: 2px;
+          content: "";
+          width: 0;
+          right: -10px;
+          background: #ccbc93;
+          display: block;
+          bottom: -9px;
+          position: absolute;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+          [dir="rtl"] & {
+            bottom: -12px;
+          }
+        }
+        &:hover {
+          color: #ccbc93;
+          &::after {
+            width: 50px;
+          }
+        } /* hover */
+      } /* button */
+    } /* features_nav */
+  } /* container */
+} /* news_features */

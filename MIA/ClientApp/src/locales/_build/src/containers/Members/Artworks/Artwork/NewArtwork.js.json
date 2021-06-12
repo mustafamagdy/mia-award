@@ -1,0 +1,20 @@
+{
+  "you_applied_for_award_x": {
+    "defaults": "you applied for {0} award.",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/NewArtwork.js",
+        164
+      ]
+    ]
+  },
+  "save": {
+    "defaults": "Save",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/NewArtwork.js",
+        485
+      ]
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+<div>
+
+    <div style="margin-bottom:10px" ng-show="user.userPermissions['Admin'].add_artwork">
+        <button style="background: linear-gradient(90deg,#f7e483,#dbba5a 57%,#a36d31);
+        border-radius: 17px;" ng-click="$state.go('newArtWork');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+            type="button">
+            {{'AddNew'| translate}}</button>
+    </div>
+
+    <div ng-if="ArtWorkList.length == null" class="empty-item">
+        <span>{{'NoArtWorksAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="ArtWorkList.length > 0">
+        <div>
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'poster' | translate}}</th>
+                        <th>{{'title' | translate}}</th>
+                        <th>{{'award' | translate}}</th>
+                        <th>{{'awardtype' | translate}}</th>
+                        <th>{{'approve_for_upload' | translate}}</th>
+                        <th>{{'Ready for review' | translate}}</th>
+                        <!-- <th>{{'paymentStatus' | translate}}</th> -->
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="ArtWork in ArtWorkList"
+                        ng-class="{waiting:ArtWork.payment.paymentStatus == 'waiting'}">
+                        <td>
+                            <img ng-show="ArtWork.posterUrl == ''" style="width: 70px;height: 70px;"
+                                data-ng-src="http://localhost:9092/assets/img/iOrdrat.png" />
+                            <img ng-show="ArtWork.posterUrl != '' " style="width: 70px;height: 70px;"
+                                data-ng-src="{{ArtWork.posterUrl}}" />
+                        </td>
+                        <td data-title="Name"
+                            ng-click="user.userPermissions['Admin'].approve_artworks && $state.go('viewArtWork',{id: ArtWork.id})"">
+                            {{ArtWork.projectName[selectedLanguage]   | limitTo : 20}}
+                            {{ArtWork.projectName[selectedLanguage].length > 20 ? '...' : ''}}
+                        </td>
+                        <td data-title="Name">
+                            {{ArtWork.award.title[selectedLanguage]   | limitTo : 20}}
+                            {{ArtWork.award.title.length > 20 ? '...' : ''}}
+                        </td>
+                        <td data-title="awardType">
+                            {{ArtWork.award.awardType}}
+                        </td>
+                        <td data-title="allowFileUpload">
+                            {{(ArtWork.allowFileUpload? 'yes':'no')|translate}}
+                        </td>
+                        <td data-title="uploadComplete">
+                            {{(ArtWork.uploadComplete? 'yes':'no')|translate}}
+                        </td>
+                        <!-- <td data-title="paymentStatus">
+                            <span ng-if="ArtWork.payment != null">
+                                {{ArtWork.payment.paymentStatus}}
+                            </span>
+                            <span ng-if="ArtWork.payment == null">
+                                {{'nopayment' | translate}}
+                            </span>
+                        </td> -->
+                        <td width="30%">
+                            <i ng-show="user.userPermissions['Admin'].edit_artwork"
+                                class="material-icons md-dark pmd-md perm_media font25"
+                                ng-click="$state.go('editArtWork',{id: ArtWork.id});" title="Edit">mode_edit</i>
+
+                            <!-- <i ng-show="user.userPermissions['Admin'].add_new"
+                                class="material-icons md-dark pmd-md perm_media font25"
+                                ng-click="$state.go('ArtWorkpayment',{id: ArtWork.id});" title="payment">payment</i> -->
+
+                            <i ng-show="user.userPermissions['Admin'].add_new && ArtWork.award.awardType =='artwork'  "
+                                class="material-icons md-dark pmd-md perm_media font25"
+                                ng-click="$state.go('MultiFiles',{id: ArtWork.id});" title="media">perm_media</i>
+
+                            <!-- <i ng-show="user.userPermissions['Admin'].add_new"
+                                class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('ArtWorkpayment',{id: ArtWork.id});" title="payment"><img
+                                    src="../../../../assets/img/payment.png"></img></i>
+
+                            <i ng-show="user.userPermissions['Admin'].add_new"
+                                class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('newArtWorkMedia',{id: ArtWork.id});" title="media"><img
+                                    src="../../../../assets/img/media.png"></img></i> -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="ArtWorkCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+        hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

@@ -1,0 +1,20 @@
+{
+  "verifying_your_email_please_wait": {
+    "defaults": "Please wait, we are verifying your email",
+    "origin": [
+      [
+        "src/containers/User/ConfirmEmail.js",
+        23
+      ]
+    ]
+  },
+  "failed_to_verify": {
+    "defaults": "Failed to verify your email",
+    "origin": [
+      [
+        "src/containers/User/ConfirmEmail.js",
+        35
+      ]
+    ]
+  }
+}

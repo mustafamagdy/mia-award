@@ -1,0 +1,53 @@
+<div class="logincard" ng-if="!isLoggedIn()">
+    <div class="pmd-card card-default pmd-z-depth">
+        <div class="login-card">
+            <form ng-submit="submit(username,password)" name="loginForm">
+                <div class="pmd-card-body">
+                    <div class="alert alert-success"> Oh snap! Change a few things up and try submitting again. </div>
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                        <label for="inputError1" class="control-label pmd-input-group-label">User Name</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i>
+                            </div>
+                            <input type="text" class="form-control" id="exampleInputAmount" required name="username"
+                                ng-model="username" ng-change="reset()">
+                        </div>
+                    </div>
+
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                        <label for="inputError1" class="control-label pmd-input-group-label">Password</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">lock_outline</i>
+                            </div>
+                            <input required type="password" name="password" ng-model="password" ng-change="reset()"
+                                minlength="6" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="invalidLoginInfo" class="loginFailed">
+                    <span>Incorrect username or password.</span>
+                </div>
+                <div ng-if="inActiveUser" class="loginFailed">
+                    <span>{{errorMessage}}
+                        <!-- / Your Account Is Disabled, Please contact to administrator. -->
+                    </span>
+                </div>
+                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
+                    <button type="submit" style="
+                      width: 65%;
+    color: #ffffff!important;
+   border-color: #202232;
+    border-radius: 11px;
+    letter-spacing: 1px;
+    font-size: 15px;
+    font-family: 'Montserrat',Helvetica,Arial,Lucida,sans-serif!important;
+    font-weight: 408!important;
+    text-transform: uppercase!important;
+    background-color: #2a2a30;" class="btn pmd-ripple-effect btn-primary btn-block">Login</button>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</div>

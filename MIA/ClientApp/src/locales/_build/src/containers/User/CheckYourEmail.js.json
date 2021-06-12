@@ -1,0 +1,11 @@
+{
+  "confirm_your_email_first": {
+    "defaults": "confirm your email first",
+    "origin": [
+      [
+        "src/containers/User/CheckYourEmail.js",
+        9
+      ]
+    ]
+  }
+}

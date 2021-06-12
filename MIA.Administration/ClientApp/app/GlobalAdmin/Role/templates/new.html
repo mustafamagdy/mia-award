@@ -1,0 +1,79 @@
+<div class="modal-content">
+  <div class="modal-header bordered">
+    <h2 class="pmd-card-title-text">{{'EditRoleLbl' | translate}}</h2>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="newRoleForm">
+      <div class="row">
+        <div
+          class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label-completed"
+        >
+          <label for="first-name"
+            ><span style="color: red;">*</span>{{'name' | translate}}</label
+          >
+          <input
+            required
+            type="text"
+            class="mat-input form-control"
+            name="roleName"
+            ng-model="newRoleCtrl.roleName"
+            ng-minlength="3"
+            ng-maxlength="255"
+          />
+          <div ng-messages="newRoleForm.roleName.$error" class="error">
+            <div class="error" ng-show="newRoleForm.roleName.$error.pattern">
+              {{'TextOnly' | translate}}
+            </div>
+            <div
+              class="error"
+              ng-if="newRoleForm.roleName.$error.required && !newRoleForm.roleName.$pristine"
+            >
+              {{'NameLengthError3' | translate}}
+            </div>
+            <div
+              class="error"
+              ng-if="(newRoleForm.roleName.$error.minlength || newRoleForm.roleName.$error.maxlength) "
+            >
+              {{'NameLengthError3' | translate}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="pmd-modal-action text-right">
+    <button
+      style="
+        border: #494b74 solid 1px;
+        background-color: transparent;
+        color: #494b74;
+        border-radius: 6px;
+      "
+      ng-disabled="newRoleForm.$invalid"
+      class="btn pmd-ripple-effect btn-primary"
+      type="button"
+      ng-click="newRoleCtrl.AddNewRole()"
+    >
+      {{'saveChangesBtn' | translate}}
+    </button>
+    <button
+      class="btn pmd-ripple-effect btn-default"
+      type="button"
+      ng-click="$state.go('Role');"
+    >
+      {{'DiscardBtn' | translate}}
+    </button>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $(".select-with-search").select2({
+      theme: "bootstrap",
+    });
+  });
+  $(".select-tags").select2({
+    tags: false,
+    theme: "bootstrap",
+  });
+</script>

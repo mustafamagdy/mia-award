@@ -1,0 +1,21 @@
+{
+  "AED": {
+    "symbol": "AED",
+    "name": "United Arab Emirates Dirham",
+    "symbol_native": "د.إ.‏",
+    "decimal_digits": 2,
+    "rounding": 0,
+    "code": "AED",
+    "name_plural": "UAE dirhams"
+  },
+  "USD": {
+    "popular": true,
+    "symbol": "$",
+    "name": "US Dollar",
+    "symbol_native": "$",
+    "decimal_digits": 2,
+    "rounding": 0,
+    "code": "USD",
+    "name_plural": "US dollars"
+  }
+}

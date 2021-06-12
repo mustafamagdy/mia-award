@@ -1,0 +1,11 @@
+{
+  "gallery": {
+    "defaults": "Gallery",
+    "origin": [
+      [
+        "src/containers/Pages/Gallery/index.js",
+        173
+      ]
+    ]
+  }
+}

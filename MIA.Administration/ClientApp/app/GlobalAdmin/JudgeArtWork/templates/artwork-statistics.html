@@ -1,0 +1,89 @@
+<style>
+  .shows_items {
+    display: flex;
+    flex-direction: column;
+  }
+  .level_title {
+    font-size: 20px;
+    margin: 0px;
+    text-align: left;
+  }
+  table,
+  thead,
+  tbody,
+  tr,
+  td {
+    color: #d9c290;
+  }
+
+  thead,
+  td {
+    text-align: center;
+  }
+  td {
+    padding: 10px;
+    border: 1px solid;
+  }
+</style>
+
+<div id="recent_shows">
+  <div class="container">
+    <div class="filter">
+      <select
+        required
+        style="color: #6c7293 !important;"
+        class="form-control select-with-search pmd-select2-tags"
+        ng-model="ctrl.selectedAward"
+        ng-change="ctrl.filterByAward()"
+        ng-options="award as award.title[selectedLanguage]  for award in ctrl.awards"
+      >
+      </select>
+    </div>
+    <div class="results" ng-if="!ctrl.noDataFound">
+      <div
+        class="chart-container"
+        style="height: 500px; width: 100%;"
+      >
+        <canvas
+          tc-chartjs-horizontalbar
+          chart-data="ctrl.data"
+          chart-options="ctrl.options"
+        >
+        </canvas>
+      </div>
+      <div class="dashboard-table">
+        <table>
+          <thead>
+            <tr>
+              <td rowspan="2">{{'artwork'|translate}}</td>
+              <td colspan="3">{{'level1'|translate}}</td>
+              <td colspan="3">{{'level2'|translate}}</td>
+            </tr>
+            <tr>
+              <td>{{'min'|translate}}</td>
+              <td>{{'avg'|translate}}</td>
+              <td>{{'max'|translate}}</td>
+              <td>{{'min'|translate}}</td>
+              <td>{{'avg'|translate}}</td>
+              <td>{{'max'|translate}}</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in ctrl.statistics">
+              <td>{{item.artwork.projectName[selectedLanguage]}}</td>
+              <td>{{(item.level1.min * 100.00).toFixed(2)}} %</td>
+              <td>{{(item.level1.avg * 100.00).toFixed(2)}} %</td>
+              <td>{{(item.level1.max * 100.00).toFixed(2)}} %</td>
+              <td>{{(item.level2.min * 100.00).toFixed(2)}} %</td>
+              <td>{{(item.level2.avg * 100.00).toFixed(2)}} %</td>
+              <td>{{(item.level2.max * 100.00).toFixed(2)}} %</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="no-data" ng-if="ctrl.noDataFound">
+      {{'no-data-available'|translate}}
+    </div>
+  </div>
+</div>

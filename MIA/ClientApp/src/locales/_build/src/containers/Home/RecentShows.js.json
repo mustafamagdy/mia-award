@@ -1,0 +1,35 @@
+{
+  "recent_shows": {
+    "defaults": "recent shows",
+    "origin": [
+      [
+        "src/containers/Home/RecentShows.js",
+        47
+      ]
+    ]
+  },
+  "show_name": {
+    "origin": [
+      [
+        "src/containers/Home/RecentShows.js",
+        58
+      ]
+    ]
+  },
+  "tv_channels": {
+    "origin": [
+      [
+        "src/containers/Home/RecentShows.js",
+        71
+      ]
+    ]
+  },
+  "online_channels": {
+    "origin": [
+      [
+        "src/containers/Home/RecentShows.js",
+        77
+      ]
+    ]
+  }
+}

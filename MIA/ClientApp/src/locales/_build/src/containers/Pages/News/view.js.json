@@ -1,0 +1,96 @@
+{
+  "share": {
+    "defaults": "Share",
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        46
+      ]
+    ]
+  },
+  "posted": {
+    "defaults": "Posted",
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        62
+      ]
+    ]
+  },
+  "name": {
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        145
+      ]
+    ]
+  },
+  "your_email": {
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        151
+      ]
+    ]
+  },
+  "comment_title": {
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        159
+      ]
+    ]
+  },
+  "type_here_your_comment": {
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        169
+      ]
+    ]
+  },
+  "post_comment": {
+    "defaults": "Post Comment",
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        190
+      ]
+    ]
+  },
+  "comment_submitted": {
+    "defaults": "Your comment has been submitted successfully for review",
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        195
+      ]
+    ]
+  },
+  "comment_failed": {
+    "defaults": "There is an error, the message could not be sent",
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        201
+      ]
+    ]
+  },
+  "by": {
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        223
+      ]
+    ]
+  },
+  "related_news": {
+    "defaults": "Related News",
+    "origin": [
+      [
+        "src/containers/Pages/News/view.js",
+        249
+      ]
+    ]
+  }
+}

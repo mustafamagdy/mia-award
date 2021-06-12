@@ -1,0 +1,38 @@
+{
+  "awards": {
+    "defaults": "Awards",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/index.js",
+        47
+      ]
+    ]
+  },
+  "no_awards_yet": {
+    "defaults": "No awards yet",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/index.js",
+        57
+      ]
+    ]
+  },
+  "add_new_show": {
+    "defaults": "add new show",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/index.js",
+        95
+      ]
+    ]
+  },
+  "add_new_contestant": {
+    "defaults": "apply for contestant",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/index.js",
+        119
+      ]
+    ]
+  }
+}

@@ -1,0 +1,244 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap",
+            insertTag: function (data, tag) {
+                // Insert the tag at the end of the results
+                data.push(tag);
+                // console.log(data);
+            }
+        });
+
+        $(".select-tags").select2({
+            tags: false,
+            theme: "bootstrap",
+        });
+
+        $(".select-with-search").select2({
+            theme: "bootstrap"
+        });
+    });
+</script>
+<form class="form-horizontal" name="settingForm">
+    <div ng-if="settingsPrepService.isActive == undefined">
+        <!-- <div>
+            {{'SendVer' | translate}}
+            <br>
+            <label>
+                <input type="radio" ng-model="settingCtrl.orderType.type" value="none"> {{'None' | translate}}
+            </label>
+            <br/>
+            <label>
+                <input type="radio" ng-model="settingCtrl.orderType.type" value="sms"> {{'SMS' | translate}}
+            </label>
+            <br/>
+            <label>
+                <input type="radio" ng-model="settingCtrl.orderType.type" value="mail"> {{'Mail' | translate}}
+            </label>
+            <br/>
+            <label>
+                <input type="radio" ng-model="settingCtrl.orderType.type" value="both"> {{'Both' | translate}}
+            </label>
+            <br/>
+        </div> -->
+
+        <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'Currency' | translate}}</label>
+        <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="settingCtrl.currency"
+            ng-options="curr as curr.currencyCode for curr in currencyPrepService">
+        </select>
+    </div> -->
+
+        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'MinDaysPerProg' | translate}}</label>
+            <input required type="number" class="mat-input form-control" name="minDays" ng-model="settingCtrl.minDays"
+                ng-pattern="/^[1-9]+[0-9]*$/" ng-minlength="1" ng-maxlength="2">
+            <div ng-messages="settingForm.minDays.$error" class="error">
+                <div ng-if="settingForm.minDays.$error.required && !settingForm.minDays.$pristine">
+                    {{'minDaysReqError' | translate}}</div>
+                <div ng-if="(settingForm.minDays.$error.minlength || settingForm.minDays.$error.maxlength)">
+                    {{'minDaysLengthError' | translate}}</div>
+                <div ng-if="settingForm.minDays.$error.pattern && !settingForm.minDays.$pristine">
+                    {{'wrongpattern' | translate}}</div>
+            </div>
+        </div>
+
+        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <!-- <label for="first-name">{{'AllowPause' | translate}}
+                <input type="checkbox" ng-model="settingCtrl.allowPause">
+            </label>
+            <div ng-if="settingCtrl.allowPause == true" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'MaxPauseDays' | translate}}</label>
+                <input required type="number" class="mat-input form-control" name="maxPause" ng-model="settingCtrl.maxPause" ng-minlength="1"
+                    ng-maxlength="2">
+                <div ng-messages="settingForm.maxPause.$error" class="error">
+                    <div ng-if="settingForm.maxPause.$error.required && !settingForm.maxPause.$pristine">{{'minDaysReqError' | translate}}</div>
+                    <div ng-if="(settingForm.maxPause.$error.minlength || settingForm.maxPause.$error.maxlength)">{{'minDaysLengthError' | translate}}</div>
+                </div>
+            </div>
+            <br> -->
+
+            <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'ProgramDiscount' | translate}}</label>
+                <input required type="number" class="mat-input form-control" name="programDiscount"
+                    ng-model="settingCtrl.programDiscount" minlength="1" maxlength="2">
+                <div ng-messages="settingForm.programDiscount.$error" class="error">
+                    <div ng-if="settingForm.programDiscount.$error.required && !settingForm.programDiscount.$pristine">
+                        {{'minDaysReqError' | translate}}</div>
+                    <div
+                        ng-if="(settingForm.programDiscount.$error.minlength || settingForm.programDiscount.$error.maxlength)">
+                        {{'minDaysLengthError' | translate}}</div>
+                </div>
+            </div> -->
+            <br>
+            <!-- <label for="first-name">{{'AllowHistory' | translate}}
+                <input type="checkbox" ng-model="settingCtrl.allowHistory">
+            </label> -->
+        </div>
+
+        <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'ProgramDiscount' | translate}}</label>ييي
+                <input required type="number" class="mat-input form-control" name="programDiscount"
+                ng-pattern="/^[1-9]+[0-9]*$/"   ng-model="settingCtrl.programDiscount" minlength="1" maxlength="2">
+                <div ng-messages="settingForm.programDiscount.$error" class="error">
+                    <div ng-if="settingForm.programDiscount.$error.required && !settingForm.programDiscount.$pristine">
+                        {{'minDaysReqError' | translate}}</div>
+                    <div
+                        ng-if="(settingForm.programDiscount.$error.minlength || settingForm.programDiscount.$error.maxlength)">
+                        {{'minDaysLengthError' | translate}}</div>
+
+                    <div ng-if="settingForm.programDiscount.$error.pattern && !settingForm.programDiscount.$pristine">
+                        {{'wrongpattern' | translate}}</div>
+                </div>
+            </div>
+        </div> -->
+
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="settingCtrl.AddSetting()"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth ng-binding" type="button">Add</button>
+    </div>
+
+    <div ng-if="settingsPrepService.isActive != undefined">
+        <!-- <div>
+            {{'SendVer' | translate}}
+            <br>
+            <label>
+                <input type="radio" ng-model="settingCtrl.orderType.type" value="none"> {{'None' | translate}}
+            </label>
+            <br/>
+            <label>
+                <input type="radio" ng-model="settingCtrl.orderType.type" value="sms"> {{'SMS' | translate}}
+            </label>
+            <br/>
+            <label>
+                <input type="radio" ng-model="settingCtrl.orderType.type" value="mail"> {{'Mail' | translate}}
+            </label>
+            <br/>
+            <label>
+                <input type="radio" ng-model="settingCtrl.orderType.type" value="both"> {{'Both' | translate}}
+            </label>
+            <br/>
+        </div> -->
+
+        <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Currency' | translate}}</label>
+            <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="settingsPrepService.currencyCode"
+                ng-options="curr as curr.currencyCode for curr in currencyPrepService">
+            </select>
+        </div> -->
+
+        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'MinDaysPerProg' | translate}}</label>
+            <input required type="number" class="mat-input form-control" name="minDays" ng-pattern="/^[1-9]+[0-9]*$/"
+                ng-model="settingsPrepService.minNoDaysPerProgram" ng-minlength="1" ng-maxlength="2">
+            <div ng-messages="settingForm.minDays.$error" class="error">
+                <div ng-if="settingForm.minDays.$error.required && !settingForm.minDays.$pristine">
+                    {{'requiredErr' | translate}}</div>
+                <div ng-if="(settingForm.minDays.$error.minlength || settingForm.minDays.$error.maxlength)">
+                    {{'maxlength' | translate}}</div>
+                <div ng-if="settingForm.minDays.$error.pattern && !settingForm.minDays.$pristine">
+                    {{'wrongpattern' | translate}}</div>
+            </div>
+        </div>
+
+
+
+        <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'AllowPause' | translate}}
+                <input type="checkbox" ng-model="settingsPrepService.isPause">
+            </label>
+            <div ng-if="settingsPrepService.isPause == true" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'MaxPauseDays' | translate}}</label>
+                <input required type="number" class="mat-input form-control" name="maxPause" ng-model="settingsPrepService.maxPauseDays"
+                    ng-minlength="1" ng-maxlength="2">
+                <div ng-messages="settingForm.maxPause.$error" class="error">
+                    <div ng-if="settingForm.maxPause.$error.required && !settingForm.maxPause.$pristine">{{'minDaysReqError' | translate}}</div>
+                    <div ng-if="(settingForm.maxPause.$error.minlength || settingForm.maxPause.$error.maxlength)">{{'minDaysLengthError' | translate}}</div>
+                </div>
+            </div>
+
+            <br>
+
+            <label for="first-name">{{'AllowHistory' | translate}}
+                <input type="checkbox" ng-model="settingsPrepService.allowHistory">
+            </label>
+        </div> -->
+
+        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'ProgramDiscount' | translate}}</label>
+                <input required type="number" class="mat-input form-control" name="programDiscount"
+                    ng-pattern="/^[1-9]+[0-9]*$/" ng-model="settingCtrl.programDiscount" minlength="1"
+                    maxlength="2">
+                <div ng-messages="settingForm.programDiscount.$error" class="error">
+                    <div ng-if="settingForm.programDiscount.$error.required && !settingForm.programDiscount.$pristine">
+                        {{'requiredErr' | translate}}</div>
+                    <div
+                        ng-if="(settingForm.programDiscount.$error.minlength || settingForm.programDiscount.$error.maxlength)">
+                        {{'maxlength' | translate}}</div>
+
+                    <div ng-if="settingForm.programDiscount.$error.pattern && !settingForm.programDiscount.$pristine">
+                        {{'wrongpattern' | translate}}</div>
+                </div>
+            </div>
+        </div>
+
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;" ng-click="settingCtrl.UpdateSetting()"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth ng-binding" ng-disabled="settingForm.$invalid  " type="button">{{'Save' | translate}} </button>
+
+    </div>
+
+    <br>
+
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="BranchPrepService.results.length > 0">
+        <h2 style="margin-left: 50%">{{'DeliveryFees' | translate}}</h2>
+        <div class="table-responsive">
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'branchName' | translate}}</th>
+                    <th>{{'DeliveryCost' | translate}}</th>
+                    <th>{{'DeliveryPrice' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="branch in BranchPrepService.results">
+                    <td data-title="Name">{{branch.titleDictionary[selectedLanguage]}}</td>
+                    <td data-title="Name">{{branch.deliveryCost}}</td>
+                    <td data-title="Name">{{branch.deliveryPrice}}</td>
+                    <td width="30%" ng-show="!branch.isStatic">
+                        <i class="material-icons md-dark pmd-md cursorPointer font25"
+                            ng-click="EditBranchDialog(branch.branchId)"title="Edit">mode_edit</i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        disabled-class="hide">
+    </div>
+</form>

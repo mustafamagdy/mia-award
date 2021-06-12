@@ -1,0 +1,57 @@
+@import "./variables.scss";
+#tickets_area {
+  background: #171717 url("/assets/images/tickets_bg.png") scroll no-repeat 70% 10%;
+  .container {
+    // width: 1440px;
+    margin: 0 auto;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    .ticket_txt {
+      width: 30%;
+      margin: 30px auto;
+      padding: 0 20px;
+      text-align: justify;
+      p {
+        font-size: 16px;
+        line-height: 24px;
+        color: #808080;
+        margin: 0 auto 20px;
+      } /* p */
+      li {
+        text-transform: uppercase;
+        font-size: 24px;
+        margin: 0 auto 15px;
+        color: #b59870;
+        i {
+          font-style: normal;
+          color: #fff;
+        } /* i */
+      } /* li */
+      .buy_now {
+        display: flex;
+        justify-content: flex-end;
+        margin: 50px auto 0;
+        a {
+          display: inline-block;
+          border: 2px solid #787878;
+          font-size: 18px;
+          padding: 9px 40px;
+          border-radius: 100px;
+          text-transform: capitalize;
+          color: #787878;
+          &:hover {background: #222;color: #b59870;}
+        } /* a */
+      } /* buy_now */
+    } /* ticket_txt */
+    .ticket_imgthumb {
+      width: 50%;
+      margin: 30px auto;
+      img {
+        max-width: 100%;
+        max-height: 460px;
+      } /* img */
+    } /* ticket_imgthumb */
+  } /* container */
+} /* tickets_area */

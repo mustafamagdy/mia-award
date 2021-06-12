@@ -1,0 +1,142 @@
+{
+  "award_name": {
+    "defaults": "Award",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        164
+      ]
+    ]
+  },
+  "project_name": {
+    "defaults": "Project Name",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        172
+      ]
+    ]
+  },
+  "description": {
+    "defaults": "Description",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        180
+      ]
+    ]
+  },
+  "siteUrl": {
+    "defaults": "Site Url",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        188
+      ]
+    ]
+  },
+  "production_year": {
+    "defaults": "Production Year",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        194
+      ]
+    ]
+  },
+  "broadcast_year": {
+    "defaults": "Broadcast Year",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        200
+      ]
+    ]
+  },
+  "tv_channels": {
+    "defaults": "TV Channels",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        207
+      ]
+    ]
+  },
+  "online_channels": {
+    "defaults": "Online Channels",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        217
+      ]
+    ]
+  },
+  "production_license_number": {
+    "defaults": "Production License Number",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        230
+      ]
+    ]
+  },
+  "production_license_agency": {
+    "defaults": "Production License Agency",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        239
+      ]
+    ]
+  },
+  "edit_info": {
+    "defaults": "Edit Info",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        261
+      ]
+    ]
+  },
+  "confirm_send_to_judge": {
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        271
+      ]
+    ]
+  },
+  "are_you_sure_to_send_to_judge": {
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        272
+      ]
+    ]
+  },
+  "send": {
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        275
+      ]
+    ]
+  },
+  "no_wait": {
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        286
+      ]
+    ]
+  },
+  "send_for_judge": {
+    "defaults": "Send for judge",
+    "origin": [
+      [
+        "src/containers/Members/Artworks/Artwork/View/index.js",
+        293
+      ]
+    ]
+  }
+}

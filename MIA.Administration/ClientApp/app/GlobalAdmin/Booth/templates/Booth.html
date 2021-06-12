@@ -1,0 +1,238 @@
+<style>
+  .modal-dialog {
+    width: 90%;
+  }
+
+  .button {
+    display: inline-block !important;
+    outline: none !important;
+    border: 3px solid #0a0a23 !important;
+    background-color: #dfdfe2 !important;
+    color: #0a0a23 !important;
+    text-decoration: none !important;
+    padding: 0 20px !important;
+    height: 35px;
+  }
+</style>
+
+<div>
+  <div style="margin-bottom: 10px; display: flex; padding: 5px;">
+    <button
+      ng-show="user.userPermissions['Booths'].add_booths"
+      style="
+        background: linear-gradient(90deg, #f7e483, #dbba5a 57%, #a36d31);
+        border-radius: 17px;
+      "
+      ng-click="$state.go('newBooth');"
+      class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+      type="button"
+    >
+      {{'AddNew'| translate}}
+    </button>
+    <div style="padding: 0px 10px;">
+      <input
+        type="text"
+        placeholder="Search ..."
+        name="code"
+        ng-model="BoothCtrl.filterBy"
+      />
+      <button type="button" ng-click="BoothCtrl.currentPage=1;BoothCtrl.refreshBooths()">
+        {{'filter'|translate}}
+      </button>
+    </div>
+    <div>
+      <a class="button" ng-href="{{BoothCtrl.appCONSTANTS.API_URL}}booths/report" >
+        {{'booth_report'|translate}}
+      </a>
+    </div>
+  </div>
+
+  <div ng-if="BoothList.length == null">
+    <span>{{'NoBoothsAvailable' | translate}}</span>
+  </div>
+  <div
+    class="pmd-card pmd-z-depth pmd-card-custom-view"
+    ng-if="BoothList.length > 0"
+  >
+    <div class="table-responsive">
+      <table class="table pmd-table table-hover">
+        <thead>
+          <tr>
+            <th>{{'code' | translate}}</th>
+            <th>{{'price' | translate}}</th>
+            <th>{{'description' | translate}}</th>
+            <th>{{'sellable' | translate}}</th>
+            <th>{{'details' | translate}}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="Booth in BoothList">
+            <td>
+              {{Booth.code}}
+            </td>
+            <td>
+              {{Booth.price}}
+            </td>
+            <td width="60%">
+              {{Booth.description[selectedLanguage] | limitTo : 30}}
+              {{Booth.description[selectedLanguage].length > 30 ? '...' : ''}}
+            </td>
+            <td>
+              <div
+                class="btn-switch"
+                ng-class="{'btn-switch--on':Booth.sellable}"
+                ng-click="BoothCtrl.ChangeStatus(Booth)"
+                ng-model="Booth.sellable"
+              >
+                <div
+                  class="btn-switch-circle"
+                  ng-class="{'btn-switch-circle--on':Booth.sellable}"
+                  ng-model="Booth.sellable"
+                ></div>
+              </div>
+            </td>
+            <td class="pmd-table-row-action">
+              <span
+                href="javascript:void(0);"
+                ng-if="Booth.boothPurchase.length >0 "
+                ng-click="BoothCtrl.showMore($event, Booth)"
+                class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"
+                ><i class="material-icons md-dark pmd-sm"></i
+              ></span>
+            </td>
+            <td width="20%">
+              <i
+                ng-show="user.userPermissions['Booths'].edit_booths"
+                class="material-icons md-dark pmd-md cursorPointer font25"
+                ng-click="$state.go('editBooth',{id: Booth.id});"
+                title="Edit"
+                >mode_edit</i
+              >
+
+              <!-- <i
+                ng-show="!Booth.hasConfirmedPayment && user.userPermissions['Booths'].manage_payments"
+                class="material-icons md-dark pmd-md perm_media font25"
+                ng-click="$state.go('newBoothPayment',{id: Booth.id});"
+                title="payment"
+                >payment</i
+              > -->
+
+              <i
+                ng-show="user.userPermissions['Booths'].remove_booths"
+                class="material-icons pmd-md deleteButton cursorPointer font25"
+                ng-click="BoothCtrl.openDeleteDialog(Booth,Booth.description[selectedLanguage] ,Booth.id)"
+                title="Delete"
+                >delete</i
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- <div
+    style="text-align: center; direction: ltr;"
+    paging
+    page="1"
+    page-size="10"
+    total="totalCount"
+    paging-action="BoothCtrl.changePage(page)"
+    flex="nogrow"
+    show-prev-next="true"
+    show-first-last="true"
+    hide-if-empty="true"
+    disabled-class="hide"
+  ></div> -->
+</div>
+
+<script type="text/ng-template" id="purchases.html">
+  <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+        <h4>{{boothCode}}</h4>
+    </div>
+        <div class="modal-body">
+           <table class="table">
+                <thead>
+                  <tr>
+                  <td>
+                    {{'companyName'|translate}}
+                  </td>
+                  <td>
+                    {{'contactPerson'|translate}}
+                  </td>
+                  <td>
+                    {{'phones'|translate}}
+                  </td>
+                  <td>
+                    {{'email'|translate}}
+                  </td>
+                  <td>
+                    {{'status'|translate}}
+                  </td>
+                  <td>
+                    {{'payment'|translate}}
+                  </td>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="purchase in purchases">
+                    <td>{{purchase.companyName}}</td>
+                    <td>{{purchase.contactPersonName}}</td>
+                    <td>
+                      {{purchase.cellPhone1}} <br />
+                      {{purchase.cellPhone2}}
+                    </td>
+                    <td>{{purchase.email}}</td>
+                    <td>{{purchase.payment.paymentStatus}}</td>
+                    <td style="width: 10px;">
+                      <i
+                        ng-show=" purchase.payment.paymentStatus != 'rejected'"
+                        class="material-icons md-dark pmd-md perm_media font25"
+                        ng-click="cancel(); $state.go('boothPayment',{id: purchase.id});"
+                        title="payment"
+                        >payment</i
+                      >
+                      <i
+                        class="material-icons md-dark pmd-md perm_media font25"
+                        ng-click="cancel(); $state.go('boothPurchase',{id: purchase.id});"
+                        title="details"
+                        >{{'details'|translate}}</i
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <div class="modal-footer">
+            <button ng-click="cancel()" class="btn btn-primary">Close</button>
+        </div>
+</script>
+
+<!--todo -->
+<script type="text/ng-template" id="payment.html">
+  <div class="modal-header">
+      <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+      <h4>{{boothCode}} - {{companyName}} - {{'payment'|translate}}</h4>
+  </div>
+  <div class="modal-body">
+      <div class="form-group">
+          <label>Email address</label>
+          <span>test</span>
+        </div>
+      <div class="form-group">
+          <label>Email address</label>
+          <span>test</span>
+        </div>
+      <div class="form-group">
+          <label>Email address</label>
+          <span>test</span>
+        </div>
+
+  </div>
+  <div class="modal-footer">
+      <button ng-click="approve()" disabled={{hasApprovedPayment}} class="btn btn-primary">{{'Approve'|translate}}</button>
+      <button ng-click="reject()" class="btn btn-danger">{{'Reject'|translate}}</button>
+  </div>
+</script>

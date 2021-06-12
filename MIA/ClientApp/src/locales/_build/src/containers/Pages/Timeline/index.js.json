@@ -1,0 +1,19 @@
+{
+  "program_schedule": {
+    "defaults": "Program Schedule",
+    "origin": [
+      [
+        "src/containers/Pages/Timeline/index.js",
+        30
+      ]
+    ]
+  },
+  "program_schedule_brief": {
+    "origin": [
+      [
+        "src/containers/Pages/Timeline/index.js",
+        33
+      ]
+    ]
+  }
+}

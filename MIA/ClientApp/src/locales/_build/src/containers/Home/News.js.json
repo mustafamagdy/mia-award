@@ -1,0 +1,45 @@
+{
+  "news_features": {
+    "defaults": "news & features",
+    "origin": [
+      [
+        "src/containers/Home/News.js",
+        71
+      ]
+    ]
+  },
+  "read_more": {
+    "defaults": "Read More",
+    "origin": [
+      [
+        "src/containers/Home/News.js",
+        92
+      ]
+    ]
+  },
+  "prev": {
+    "origin": [
+      [
+        "src/containers/Home/News.js",
+        117
+      ]
+    ]
+  },
+  "show_all": {
+    "defaults": "show all",
+    "origin": [
+      [
+        "src/containers/Home/News.js",
+        123
+      ]
+    ]
+  },
+  "next": {
+    "origin": [
+      [
+        "src/containers/Home/News.js",
+        133
+      ]
+    ]
+  }
+}

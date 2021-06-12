@@ -1,0 +1,149 @@
+{
+  "production_year": {
+    "defaults": "Production Year",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        78
+      ]
+    ]
+  },
+  "broadcast_year": {
+    "defaults": "Broadcast Year",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        84
+      ]
+    ]
+  },
+  "About the show": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        93
+      ]
+    ]
+  },
+  "siteUrl": {
+    "defaults": "Site Url",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        200
+      ]
+    ]
+  },
+  "tvChannels": {
+    "defaults": "Tv Channels",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        206
+      ]
+    ]
+  },
+  "onlineChannels": {
+    "defaults": "Online Channels",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        212
+      ]
+    ]
+  },
+  "productionLicenseNumber": {
+    "defaults": "Production license number",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        218
+      ]
+    ]
+  },
+  "productionLicenseAgency": {
+    "defaults": "Production license agency",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        225
+      ]
+    ]
+  },
+  "name": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        294
+      ]
+    ]
+  },
+  "your_email": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        300
+      ]
+    ]
+  },
+  "comment_title": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        308
+      ]
+    ]
+  },
+  "type_here_your_comment": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        318
+      ]
+    ]
+  },
+  "post_comment": {
+    "defaults": "Post Comment",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        339
+      ]
+    ]
+  },
+  "comment_submitted": {
+    "defaults": "Your comment has been submitted successfully for review",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        344
+      ]
+    ]
+  },
+  "comment_failed": {
+    "defaults": "There is an error, the message could not be sent",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        350
+      ]
+    ]
+  },
+  "by": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        372
+      ]
+    ]
+  },
+  "no_reviews_yet": {
+    "defaults": "No reviews yet",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/view.js",
+        381
+      ]
+    ]
+  }
+}

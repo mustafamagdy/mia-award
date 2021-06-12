@@ -1,0 +1,752 @@
+{
+  "general": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        8
+      ]
+    ]
+  },
+  "booths": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        9
+      ]
+    ]
+  },
+  "shows": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        10
+      ]
+    ]
+  },
+  "any_year": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        11
+      ]
+    ]
+  },
+  "select_an_option": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        12
+      ]
+    ]
+  },
+  "location1_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        14
+      ]
+    ]
+  },
+  "location1_description": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        15
+      ]
+    ]
+  },
+  "location2_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        16
+      ]
+    ]
+  },
+  "location2_description": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        17
+      ]
+    ]
+  },
+  "slide1_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        19
+      ]
+    ]
+  },
+  "slide1_text": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        20
+      ]
+    ]
+  },
+  "slide2_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        21
+      ]
+    ]
+  },
+  "slide2_text": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        22
+      ]
+    ]
+  },
+  "slide3_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        23
+      ]
+    ]
+  },
+  "slide3_text": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        24
+      ]
+    ]
+  },
+  "slide4_title": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        25
+      ]
+    ]
+  },
+  "slide4_text": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        26
+      ]
+    ]
+  },
+  "about_tab_content_awards": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        28
+      ]
+    ]
+  },
+  "about_tab_content_mia_contestant": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        29
+      ]
+    ]
+  },
+  "about_tab_content_mia_honor": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        30
+      ]
+    ]
+  },
+  "about_tab_content_judge": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        31
+      ]
+    ]
+  },
+  "about_tab_content_conpatitors": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        32
+      ]
+    ]
+  },
+  "awards": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        34
+      ]
+    ]
+  },
+  "mia_contestant": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        35
+      ]
+    ]
+  },
+  "mia_honor": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        36
+      ]
+    ]
+  },
+  "judge": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        37
+      ]
+    ]
+  },
+  "conpatitors": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        38
+      ]
+    ]
+  },
+  "Required": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        40
+      ]
+    ]
+  },
+  "File_is_required": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        41
+      ]
+    ]
+  },
+  "username": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        43
+      ]
+    ]
+  },
+  "password": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        44
+      ]
+    ]
+  },
+  "confirmPassword": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        45
+      ],
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        92
+      ]
+    ]
+  },
+  "fullName": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        46
+      ]
+    ]
+  },
+  "phoneNumber": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        47
+      ]
+    ]
+  },
+  "info": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        48
+      ]
+    ]
+  },
+  "about_awards": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        49
+      ]
+    ]
+  },
+  "details": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        51
+      ]
+    ]
+  },
+  "payment": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        52
+      ]
+    ]
+  },
+  "companyName": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        53
+      ]
+    ]
+  },
+  "nationality": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        54
+      ]
+    ]
+  },
+  "websiteUrl": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        55
+      ]
+    ]
+  },
+  "contactPersonName": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        56
+      ]
+    ]
+  },
+  "contactPersonTitle": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        57
+      ]
+    ]
+  },
+  "cellPhone1": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        58
+      ]
+    ]
+  },
+  "cellPhone2": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        59
+      ]
+    ]
+  },
+  "company_logo": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        60
+      ]
+    ]
+  },
+  "extraDetails": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        61
+      ]
+    ]
+  },
+  "companyFieldOfBusiness": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        62
+      ]
+    ]
+  },
+  "screenOption": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        63
+      ]
+    ]
+  },
+  "printingOption": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        64
+      ]
+    ]
+  },
+  "receipt_number": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        65
+      ]
+    ]
+  },
+  "receipt_date": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        66
+      ]
+    ]
+  },
+  "receipt_file": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        67
+      ]
+    ]
+  },
+  "jobTitle": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        68
+      ]
+    ]
+  },
+  "project_name_ar": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        70
+      ]
+    ]
+  },
+  "project_name_en": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        71
+      ]
+    ]
+  },
+  "description_ar": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        72
+      ]
+    ]
+  },
+  "description_en": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        73
+      ]
+    ]
+  },
+  "site_url": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        74
+      ]
+    ]
+  },
+  "file1": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        76
+      ]
+    ]
+  },
+  "file2": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        77
+      ]
+    ]
+  },
+  "file3": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        78
+      ]
+    ]
+  },
+  "choose_award": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        81
+      ]
+    ]
+  },
+  "first_day": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        83
+      ]
+    ]
+  },
+  "second_day": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        84
+      ]
+    ]
+  },
+  "third_day": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        85
+      ]
+    ]
+  },
+  "forth_day": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        86
+      ]
+    ]
+  },
+  "min_size": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        87
+      ]
+    ]
+  },
+  "mb": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        88
+      ]
+    ]
+  },
+  "search...": {
+    "defaults": "Search ...",
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        89
+      ]
+    ]
+  },
+  "show_name": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        90
+      ]
+    ]
+  },
+  "newPassword": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        91
+      ]
+    ]
+  },
+  "type_your_comment": {
+    "defaults": "Type here your comment (100 character minimum)",
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        93
+      ]
+    ]
+  },
+  "your_email": {
+    "defaults": "Your email",
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        94
+      ],
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        97
+      ]
+    ]
+  },
+  "type_here_your_comment": {
+    "defaults": "Type here your comment",
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        95
+      ]
+    ]
+  },
+  "comment_title": {
+    "defaults": "Comment title",
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        96
+      ]
+    ]
+  },
+  "phone_number_is_not_valid": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        98
+      ]
+    ]
+  },
+  "not_valid_email": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        99
+      ]
+    ]
+  },
+  "not_valid_url": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        100
+      ]
+    ]
+  },
+  "booth_password_must_match": {
+    "defaults": "Both password need to be the same",
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        101
+      ]
+    ]
+  },
+  "contestant": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        102
+      ]
+    ]
+  },
+  "password_too_short": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        103
+      ]
+    ]
+  },
+  "not_valid_password": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        104
+      ]
+    ]
+  },
+  "All": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        106
+      ]
+    ]
+  },
+  "Latest": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        107
+      ]
+    ]
+  },
+  "Photos": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        108
+      ]
+    ]
+  },
+  "Videos": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        109
+      ]
+    ]
+  },
+  "reviews": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        110
+      ]
+    ]
+  },
+  "type_your_message_min_100": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        111
+      ]
+    ]
+  },
+  "files": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        112
+      ]
+    ]
+  },
+  "apply_for_artwork_award": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        114
+      ]
+    ]
+  },
+  "apply_for_person_award": {
+    "origin": [
+      [
+        "src/containers/App/TransKeysNotFoundInJsx.js",
+        115
+      ]
+    ]
+  }
+}

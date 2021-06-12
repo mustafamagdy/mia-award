@@ -1,0 +1,19 @@
+{
+  "latest_video": {
+    "defaults": "latest videos & photos",
+    "origin": [
+      [
+        "src/containers/Home/PhotoAlbum.js",
+        111
+      ]
+    ]
+  },
+  "videos_desc": {
+    "origin": [
+      [
+        "src/containers/Home/PhotoAlbum.js",
+        114
+      ]
+    ]
+  }
+}

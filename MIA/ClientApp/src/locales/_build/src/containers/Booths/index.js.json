@@ -1,0 +1,123 @@
+{
+  "booth_sold_out": {
+    "defaults": "Soldout",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        106
+      ]
+    ]
+  },
+  "gold_sposer": {
+    "defaults": "Gold Sponser",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        281
+      ]
+    ]
+  },
+  "standard": {
+    "defaults": "Standard",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        284
+      ]
+    ]
+  },
+  "mia": {
+    "defaults": "MIA",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        287
+      ]
+    ]
+  },
+  "media_industry": {
+    "defaults": "Media Industry",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        290
+      ]
+    ]
+  },
+  "area": {
+    "defaults": "AREA",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        345
+      ]
+    ]
+  },
+  "next": {
+    "defaults": "Next",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        359
+      ],
+      [
+        "src/containers/Booths/index.js",
+        573
+      ]
+    ]
+  },
+  "please_upload_the_receipt": {
+    "defaults": "please upload the reciept to be approved from the adminstration and confirm your payment",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        595
+      ]
+    ]
+  },
+  "agreeOnTerms": {
+    "defaults": "Agree on",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        663
+      ]
+    ]
+  },
+  "terms_and_conditions": {
+    "defaults": "terms and conditions",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        665
+      ]
+    ]
+  },
+  "book_now": {
+    "defaults": "Book Now",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        671
+      ]
+    ]
+  },
+  "booth_booking_success": {
+    "defaults": "Booking successfull",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        685
+      ]
+    ]
+  },
+  "booth_booking_success_msg": {
+    "defaults": "Thank you please contact us @123456",
+    "origin": [
+      [
+        "src/containers/Booths/index.js",
+        688
+      ]
+    ]
+  }
+}

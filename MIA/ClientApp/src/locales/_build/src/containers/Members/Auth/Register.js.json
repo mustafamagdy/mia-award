@@ -1,0 +1,38 @@
+{
+  "upload": {
+    "defaults": "Upload",
+    "origin": [
+      [
+        "src/containers/Members/Auth/Register.js",
+        102
+      ]
+    ]
+  },
+  "next": {
+    "defaults": "Next",
+    "origin": [
+      [
+        "src/containers/Members/Auth/Register.js",
+        232
+      ]
+    ]
+  },
+  "accept_terms": {
+    "defaults": "Accept Terms & Conditions",
+    "origin": [
+      [
+        "src/containers/Members/Auth/Register.js",
+        262
+      ]
+    ]
+  },
+  "register": {
+    "defaults": "Register",
+    "origin": [
+      [
+        "src/containers/Members/Auth/Register.js",
+        270
+      ]
+    ]
+  }
+}

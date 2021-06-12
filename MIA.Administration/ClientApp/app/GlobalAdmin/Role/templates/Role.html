@@ -1,0 +1,72 @@
+<div>
+  <div style="margin-bottom: 10px;">
+    <button
+      style="
+        border: #494b74 solid 1px;
+        background-color: transparent;
+        color: #494b74;
+        border-radius: 6px;
+      "
+      ng-click="$state.go('newRole');"
+      ng-show="user.userPermissions['Admin'].edit_roles"
+      class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+      type="button"
+    >
+      {{'AddBtn' | translate}}
+    </button>
+  </div>
+
+  <div ng-if="RoleList.length == 0">
+    <span>{{'NoRolesAvailable' | translate}}</span>
+  </div>
+  <div
+    class="pmd-card pmd-z-depth pmd-card-custom-view"
+    ng-if="RoleList.length > 0"
+  >
+    <div class="table-responsive">
+      <table class="table pmd-table table-hover">
+        <thead>
+          <tr>
+            <th style="width: 50%;">{{'Name' | translate}}</th>
+            <!-- <th>{{'Status' | translate}}</th> -->
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="role in RoleList">
+            <td>{{role.name}}</td>
+
+            <td>
+              <i
+                ng-show="user.userPermissions['Admin'].edit_roles"
+                class="material-icons md-dark pmd-md cursorPointer font25"
+                ng-click="$state.go('editRole',{name: role.name});"
+                title="Edit"
+                >mode_edit</i
+              >
+              <i
+                ng-show="!role.systemRole"
+                class="material-icons pmd-md deleteButton cursorPointer font25"
+                ng-click="RoleCtrl.openDeleteDialog(role,role.titles[selectedLanguage],role.userGroupId)"
+                >delete</i
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div
+    style="text-align: center; direction: ltr;"
+    paging
+    page="1"
+    page-size="10"
+    total="totalCount"
+    paging-action="changePage(page)"
+    flex="nogrow"
+    show-prev-next="true"
+    show-first-last="true"
+    hide-if-empty="true"
+    disabled-class="hide"
+  ></div>
+</div>

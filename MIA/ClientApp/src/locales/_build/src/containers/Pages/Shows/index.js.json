@@ -1,0 +1,62 @@
+{
+  "production_year": {
+    "defaults": "Production Year",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        112
+      ]
+    ]
+  },
+  "release-date": {
+    "defaults": "Date of release",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        131
+      ]
+    ]
+  },
+  "user_account": {
+    "defaults": "User Account",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        141
+      ]
+    ]
+  },
+  "view": {
+    "defaults": "View",
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        155
+      ]
+    ]
+  },
+  "show_name": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        177
+      ]
+    ]
+  },
+  "tv_channels": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        195
+      ]
+    ]
+  },
+  "online_channels": {
+    "origin": [
+      [
+        "src/containers/Pages/Shows/index.js",
+        201
+      ]
+    ]
+  }
+}

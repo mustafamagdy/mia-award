@@ -1,0 +1,8 @@
+#payment-form {
+  iframe {
+    /* This fixes a mobile Safari bug */
+    height: 50px !important;
+  }
+  // width: 280px;
+  // margin: 0 auto;
+}

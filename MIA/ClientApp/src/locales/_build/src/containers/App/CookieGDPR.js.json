@@ -1,0 +1,56 @@
+{
+  "review_our_cookie_policy": {
+    "defaults": "Review our cookie policy",
+    "origin": [
+      [
+        "src/containers/App/CookieGDPR.js",
+        100
+      ]
+    ]
+  },
+  "what_do_we_use_cookies_for": {
+    "defaults": "What do we use cookies for?",
+    "origin": [
+      [
+        "src/containers/App/CookieGDPR.js",
+        106
+      ]
+    ]
+  },
+  "we_use_cookies_and_similar_technology": {
+    "defaults": "We use cookies and similar technologies to recognize your repeat visits and preferences, as well as to measure the affectiveness of campaigns and analyze traffic. To learn more about cookies, including how to disable them, view our",
+    "origin": [
+      [
+        "src/containers/App/CookieGDPR.js",
+        110
+      ]
+    ]
+  },
+  "cookie_policy": {
+    "defaults": "Cookie Policy",
+    "origin": [
+      [
+        "src/containers/App/CookieGDPR.js",
+        115
+      ]
+    ]
+  },
+  "by_clicking_you_accept": {
+    "defaults": ". By clicking «I Accept» or «X» on this banner, or using our site, you consent to the use of cookies unless you have disabled them.",
+    "origin": [
+      [
+        "src/containers/App/CookieGDPR.js",
+        117
+      ]
+    ]
+  },
+  "i_accept": {
+    "defaults": "I accept",
+    "origin": [
+      [
+        "src/containers/App/CookieGDPR.js",
+        126
+      ]
+    ]
+  }
+}

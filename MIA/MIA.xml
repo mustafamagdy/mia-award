@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MIA</name>
+    </assembly>
+    <members>
+        <member name="T:MIA.Api.ReportsController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:MIA.Api.SystemController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MIA.Api.SystemController.Ping">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MIA.Api.TestController">
+            <summary>
+            Test controller for checking internal features
+            </summary>
+        </member>
+        <member name="M:MIA.Api.TestController.#ctor(AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{MIA.Api.TestController})">
+            <summary>
+            
+            </summary>
+            <param name="mapper"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:MIA.Api.TestController.ProjectWithPagination(MIA.ORMContext.Uow.IAppUnitOfWork)">
+            <summary>
+            
+            </summary>
+            <param name="db"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Api.TestController.TestEmail(System.String,Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,MIA.Providers.ICultureEmailTemplateProvider)">
+            <summary>
+            
+            </summary>
+            <param name="cultureCode"></param>
+            <param name="emailSender"></param>
+            <param name="emailTemplateProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MIA.Extensions.BusinessExtensions">
+            <summary>
+            Business extension methods for startup class configuration
+            </summary>
+        </member>
+        <member name="M:MIA.Extensions.BusinessExtensions.AddProjectMappers(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds mapper profile
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Extensions.BusinessExtensions.AddProjectRepositories(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds data access repositories
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Extensions.BusinessExtensions.AddProjectApplicationServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds application services
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MIA.MappingProfiles.ApiProfile">
+            <summary>
+            Auto mapper profile that contain mapping used in Api project
+            </summary>
+        </member>
+        <member name="M:MIA.MappingProfiles.ApiProfile.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="T:MIA.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MIA.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Program.LogAndRun(Microsoft.AspNetCore.Hosting.IWebHost)">
+            <summary>
+            
+            </summary>
+            <param name="webHost"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Program.GetAssemblyProductName">
+            <summary>
+            Helper function to get assembly product name
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Program.ConfigureKestrelServerLimits(Microsoft.AspNetCore.Hosting.WebHostBuilderContext,Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions)">
+            <summary>
+            Configure Kestrel server limits from appsettings.json is not supported. So we manually copy them from config.
+            See https://github.com/aspnet/KestrelHttpServer/issues/2216
+            </summary>
+        </member>
+        <member name="T:MIA.Startup">
+            <summary>
+            Startup class for asp.net core Api
+            </summary>
+        </member>
+        <member name="M:MIA.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Constructor for startup class, to inject required dependencies
+            </summary>
+            <param name="configuration">Used to read configuration from appsettings.json</param>
+            <param name="hostingEnvironment">Used to configure hosting environment</param>
+        </member>
+        <member name="M:MIA.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Register different services in asp.net core dependency container
+            </summary>
+            <param name="services">service collection to add to</param>
+            <returns></returns>
+        </member>
+        <member name="M:MIA.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Identity.UserManager{MIA.Models.Entities.AppUser},Microsoft.AspNetCore.Identity.RoleManager{MIA.Authorization.Entities.AppRole},MIA.Infrastructure.IS3FileManager,MIA.ORMContext.Uow.IAppUnitOfWork,System.Text.Encodings.Web.HtmlEncoder)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="userManager"></param>
+            <param name="roleManager"></param>
+            <param name="db"></param>
+        </member>
+    </members>
+</doc>

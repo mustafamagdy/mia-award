@@ -1,0 +1,148 @@
+<style>
+    .custom-slider.rzslider .rz-bar {
+        background: #ffe4d1;
+        height: 2px;
+    }
+
+    .custom-slider.rzslider .rz-selection {
+        background: orange;
+    }
+
+    .custom-slider.rzslider .rz-pointer {
+        width: 8px;
+        height: 16px;
+        top: auto;
+        /* to remove the default positioning */
+        bottom: 0;
+        background-color: #333;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+
+    .custom-slider.rzslider .rz-pointer:after {
+        display: none;
+    }
+
+    .custom-slider.rzslider .rz-bubble {
+        bottom: 14px;
+    }
+
+    .custom-slider.rzslider .rz-limit {
+        font-weight: bold;
+        color: orange;
+    }
+
+    .custom-slider.rzslider .rz-tick {
+        width: 1px;
+        height: 10px;
+        margin-left: 4px;
+        border-radius: 0;
+        background: #ffe4d1;
+        top: -1px;
+    }
+
+    .custom-slider.rzslider .rz-tick.rz-selected {
+        background: orange;
+    }
+</style>
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-description-text">{{'ViewJudgeArtWork' | translate}}</h2>
+    </div>
+    <div class="modal-body">
+        <h1 class="text-center">
+            <kbd>
+
+                {{viewJudgeArtWorkCtrl.JudgeArtWork.projectName[selectedLanguage] | limitTo : 20}}
+                {{viewJudgeArtWorkCtrl.JudgeArtWork.projectName[selectedLanguage].length > 20 ? '...' : ''}}
+                :
+                {{viewJudgeArtWorkCtrl.JudgeArtWork.award.projectName[selectedLanguage]}}
+            </kbd>
+        </h1>
+        <form class="form-horizontal" name="viewJudgeArtWorkForm">
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <div ng-repeat="n in [] | range:viewJudgeArtWorkCtrl.totalCount"> <label for="first-name">
+                            {{viewJudgeArtWorkCtrl.votingCriteriaList[n].criteria.name[selectedLanguage]}}</label>
+                        {{viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue}}
+                        <rzslider class="custom-slider"
+                            rz-slider-model="viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue"
+                            ng-mouseup="viewJudgeArtWorkCtrl.changeValue(viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue,n)"
+                            rz-slider-options="viewJudgeArtWorkCtrl.slider.options"></rzslider>
+
+                        <!-- <input type="number" class="mat-input form-control" name="Value" style="display: inline-block;"
+                            ng-pattern="/^[1-9]+[0-9]*$/" ng-minlength="1" ng-maxlength="4"
+                            ng-model="viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue"
+                            ng-change="viewJudgeArtWorkCtrl.changeValue(viewJudgeArtWorkCtrl.votingCriteriaList[n].votingValue,n)"
+                            ng-readonly="viewJudgeArtWorkCtrl.votingCriteriaList[n].judgeComplete" /> -->
+
+                        <!-- required validation  -->
+                        <div ng-messages="viewJudgeArtWorkForm.Value.$error">
+                            <div class="error" ng-if="viewJudgeArtWorkForm.Value.$error.required && 
+                                        !viewJudgeArtWorkForm.Value.$pristine">
+                                {{'requiredErr' | translate}}
+                            </div>
+                            <!-- length validation -->
+                            <div class="error" ng-if="(viewJudgeArtWorkForm.Value.$error.minlength ||
+                                            viewJudgeArtWorkForm.Value.$error.maxlength) 
+                                             && !viewJudgeArtWorkForm.Value.newValue.$error.required">
+                                {{'PhoneLengthError' | translate}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+    <div class="pmd-modal-action text-right">
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-disabled="viewJudgeArtWorkForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
+            ng-click="viewJudgeArtWorkCtrl.UpdateJudgeArtWork(false)">{{'judgeComplete' | translate}}</button>
+        <button style="border: #494b74 solid 1px;background-color: transparent;color: #494b74;border-radius: 6px;"
+            ng-disabled="viewJudgeArtWorkForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
+            ng-click="viewJudgeArtWorkCtrl.UpdateJudgeArtWork(false)">{{'saveChangesBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" type="button"
+            ng-click="viewJudgeArtWorkCtrl.Close()">{{'DiscardBtn' | translate}}</button>
+    </div>
+
+    <div ng-if="viewJudgeArtWorkCtrl.artWorkMedia.length == null">
+        <span>{{'NoMediasAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="viewJudgeArtWorkCtrl.artWorkMedia.length > 0">
+        <div class="table-responsive">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'poster' | translate}}</th>
+                        <th>{{'description' | translate}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="media in viewJudgeArtWorkCtrl.artWorkMedia">
+
+                        <td>
+                            <img style="width: 70px;height: 70px;"
+                                data-ng-src="{{viewJudgeArtWorkCtrl.JudgeArtWork.posterUrl}}" />
+                        </td>
+                        <td>
+                            {{media.description}}
+                        </td>
+                        <td width="30%">
+                            <i class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('displayVideo',{id: media.id});" title="Edit">mode_edit</i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="viewJudgeArtWorkCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+        hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>
